@@ -1,0 +1,11 @@
+# Block direct access to the waitlist CSV
+<Files "waitlist.csv">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Block direct access to PHP includes
+<Files "subscribe.php">
+    Order Allow,Deny
+    Allow from all
+</Files>

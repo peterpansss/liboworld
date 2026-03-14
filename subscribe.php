@@ -2,12 +2,6 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
-
-// ── CONFIG ──────────────────────────────────
-define('BREVO_API_KEY', 'YOUR_BREVO_API_KEY');
-define('BREVO_LIST_ID', 0); // Replace with your Brevo List ID (integer)
-// ────────────────────────────────────────────
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -15,49 +9,71 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$input = json_decode(file_get_contents('php://input'), true);
-$email = isset($input['email']) ? trim($input['email']) : '';
+// ── CONFIG ──────────────────────────────────
+$csvFile   = __DIR__ . '/waitlist.csv';
+$notifyEmail = 'hello@liboworld.com'; // set to '' to disable notification emails
+// ────────────────────────────────────────────
 
+// Parse email from request
+$input = json_decode(file_get_contents('php://input'), true);
+$email = isset($input['email']) ? strtolower(trim($input['email'])) : '';
+
+// Validate
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Please enter a valid email address.']);
     exit;
 }
 
-$payload = json_encode([
-    'email'         => $email,
-    'listIds'       => [BREVO_LIST_ID],
-    'updateEnabled' => true,
-    'attributes'    => [
-        'SOURCE' => 'liboworld.com waitlist',
-        'SIGNUP_DATE' => date('Y-m-d'),
-    ],
-]);
-
-$ch = curl_init('https://api.brevo.com/v3/contacts');
-curl_setopt_array($ch, [
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST           => true,
-    CURLOPT_POSTFIELDS     => $payload,
-    CURLOPT_HTTPHEADER     => [
-        'accept: application/json',
-        'api-key: ' . BREVO_API_KEY,
-        'content-type: application/json',
-    ],
-]);
-
-$response = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
-
-$result = json_decode($response, true);
-
-// 201 = created, 204 = updated (already exists)
-if ($httpCode === 201 || $httpCode === 204) {
-    echo json_encode(['success' => true, 'message' => "You're on the list! We'll be in touch."]);
-} elseif ($httpCode === 400 && isset($result['code']) && $result['code'] === 'duplicate_parameter') {
-    echo json_encode(['success' => true, 'message' => "You're already on the list!"]);
-} else {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Something went wrong. Please try again.']);
+// Basic rate limiting — max 5 signups per IP per hour
+$ipLogFile = sys_get_temp_dir() . '/libo_rate_' . md5($_SERVER['REMOTE_ADDR']) . '.txt';
+$now = time();
+$attempts = [];
+if (file_exists($ipLogFile)) {
+    $attempts = array_filter(explode(',', file_get_contents($ipLogFile)), fn($t) => $now - (int)$t < 3600);
 }
+if (count($attempts) >= 5) {
+    http_response_code(429);
+    echo json_encode(['success' => false, 'message' => 'Too many attempts. Please try again later.']);
+    exit;
+}
+$attempts[] = $now;
+file_put_contents($ipLogFile, implode(',', $attempts));
+
+// Create CSV with headers if it doesn't exist
+if (!file_exists($csvFile)) {
+    file_put_contents($csvFile, "email,date,ip\n");
+}
+
+// Check for duplicate
+$existing = file_get_contents($csvFile);
+if (strpos($existing, $email) !== false) {
+    echo json_encode(['success' => true, 'message' => "You're already on the list — see you at launch!"]);
+    exit;
+}
+
+// Append to CSV
+$line = sprintf(
+    "%s,%s,%s\n",
+    $email,
+    date('Y-m-d H:i:s'),
+    $_SERVER['REMOTE_ADDR']
+);
+
+if (file_put_contents($csvFile, $line, FILE_APPEND | LOCK_EX) === false) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Could not save. Please try again.']);
+    exit;
+}
+
+// Optional: send notification email to yourself
+if (!empty($notifyEmail)) {
+    mail(
+        $notifyEmail,
+        'New Libo Waitlist Signup',
+        "New signup: $email\nDate: " . date('Y-m-d H:i:s') . "\n",
+        "From: noreply@liboworld.com"
+    );
+}
+
+echo json_encode(['success' => true, 'message' => "You're on the list! We'll let you know when Libo launches."]);
