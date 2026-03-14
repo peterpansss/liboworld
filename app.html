@@ -525,21 +525,21 @@ const EXERCISES = (LIBO_EXERCISES || []).map(e => ({
 // Small featured workouts (keep player working — exercises resolve to real lib)
 const WORKOUTS = [
   {id:'full_home',name:'Full Body Burn',cat:'Home',diff:'beginner',dur:20,equip:'none',emoji:'🏠',goal:'general',
-   exercises:[{id:'wide_grip_push_up',sets:3,reps:'12'},{id:'bodyweight_squat',sets:3,reps:'15'},{id:'reverse_lunge',sets:2,reps:'10 each'},{id:'plank_hold',sets:3,reps:'30 sec'},{id:'glute_bridge',sets:3,reps:'15'}]},
+   exercises:[{id:'wide_grip_push_up',sets:3,reps:'12'},{id:'bodyweight_squat',sets:3,reps:'15'},{id:'reverse_lunge_bodyweight',sets:2,reps:'10 each'},{id:'forearm_plank',sets:3,reps:'30 sec'},{id:'glute_bridge',sets:3,reps:'15'}]},
   {id:'upper_gym',name:'Upper Body Strength',cat:'Gym',diff:'intermediate',dur:45,equip:'Dumbbell',emoji:'💪',goal:'muscle',
-   exercises:[{id:'dumbbell_bench_press',sets:4,reps:'10'},{id:'dumbbell_row',sets:4,reps:'10'},{id:'dumbbell_shoulder_press',sets:3,reps:'10'},{id:'dumbbell_bicep_curl',sets:3,reps:'12'},{id:'tricep_dips',sets:3,reps:'12'}]},
+   exercises:[{id:'dumbbell_bench_press',sets:4,reps:'10'},{id:'one_arm_dumbbell_row',sets:4,reps:'10'},{id:'dumbbell_shoulder_press',sets:3,reps:'10'},{id:'ez_bar_curl_standing',sets:3,reps:'12'},{id:'bench_dip_standard',sets:3,reps:'12'}]},
   {id:'lower_gym',name:'Lower Body Power',cat:'Gym',diff:'intermediate',dur:45,equip:'Dumbbell',emoji:'🦵',goal:'muscle',
-   exercises:[{id:'bodyweight_squat',sets:4,reps:'10'},{id:'romanian_deadlift',sets:4,reps:'10'},{id:'reverse_lunge',sets:3,reps:'12 each'},{id:'glute_bridge',sets:4,reps:'15'},{id:'calf_raise',sets:4,reps:'20'}]},
+   exercises:[{id:'bodyweight_squat',sets:4,reps:'10'},{id:'romanian_deadlift_barbell',sets:4,reps:'10'},{id:'reverse_lunge_bodyweight',sets:3,reps:'12 each'},{id:'glute_bridge',sets:4,reps:'15'},{id:'standing_calf_raise_bodyweight',sets:4,reps:'20'}]},
   {id:'hiit_cardio',name:'HIIT Cardio Blast',cat:'Cardio',diff:'advanced',dur:25,equip:'none',emoji:'🔥',goal:'weight',
-   exercises:[{id:'burpee',sets:4,reps:'10'},{id:'mountain_climbers',sets:4,reps:'30 sec'},{id:'bodyweight_squat',sets:3,reps:'15'},{id:'wide_grip_push_up',sets:3,reps:'12'}]},
+   exercises:[{id:'burpee',sets:4,reps:'10'},{id:'mountain_climber_standard',sets:4,reps:'30 sec'},{id:'bodyweight_squat',sets:3,reps:'15'},{id:'wide_grip_push_up',sets:3,reps:'12'}]},
   {id:'morning',name:'Morning Activation',cat:'Morning Routine',diff:'beginner',dur:15,equip:'none',emoji:'🌅',goal:'general',
-   exercises:[{id:'world_greatest_stretch',sets:2,reps:'5 each'},{id:'glute_bridge',sets:2,reps:'12'},{id:'bodyweight_squat',sets:2,reps:'10'},{id:'box_breathing',sets:1,reps:'5 cycles'}]},
+   exercises:[{id:'world_s_greatest_stretch',sets:2,reps:'5 each'},{id:'glute_bridge',sets:2,reps:'12'},{id:'bodyweight_squat',sets:2,reps:'10'},{id:'diaphragmatic_breathing_supine',sets:1,reps:'5 cycles'}]},
   {id:'mobility',name:'Full Body Mobility',cat:'Stretching',diff:'beginner',dur:20,equip:'none',emoji:'🧘',goal:'flexibility',
-   exercises:[{id:'child_s_pose',sets:1,reps:'60 sec'},{id:'world_greatest_stretch',sets:2,reps:'5 each'},{id:'glute_bridge',sets:2,reps:'10'},{id:'box_breathing',sets:2,reps:'5 cycles'}]},
+   exercises:[{id:'child_s_pose',sets:1,reps:'60 sec'},{id:'world_s_greatest_stretch',sets:2,reps:'5 each'},{id:'glute_bridge',sets:2,reps:'10'},{id:'diaphragmatic_breathing_supine',sets:2,reps:'5 cycles'}]},
   {id:'core_blaster',name:'Core Blaster',cat:'Home',diff:'intermediate',dur:20,equip:'none',emoji:'⚡',goal:'general',
-   exercises:[{id:'plank_hold',sets:4,reps:'45 sec'},{id:'mountain_climbers',sets:3,reps:'30 sec'},{id:'hanging_leg_raise',sets:3,reps:'12'},{id:'glute_bridge',sets:3,reps:'15'}]},
+   exercises:[{id:'forearm_plank',sets:4,reps:'45 sec'},{id:'mountain_climber_standard',sets:3,reps:'30 sec'},{id:'hanging_straight_leg_raise',sets:3,reps:'12'},{id:'glute_bridge',sets:3,reps:'15'}]},
   {id:'evening',name:'Evening Wind-Down',cat:'Morning Routine',diff:'beginner',dur:15,equip:'none',emoji:'🌙',goal:'recovery',
-   exercises:[{id:'child_s_pose',sets:2,reps:'60 sec'},{id:'world_greatest_stretch',sets:1,reps:'5 each'},{id:'box_breathing',sets:3,reps:'5 cycles'}]},
+   exercises:[{id:'child_s_pose',sets:2,reps:'60 sec'},{id:'world_s_greatest_stretch',sets:1,reps:'5 each'},{id:'diaphragmatic_breathing_supine',sets:3,reps:'5 cycles'}]},
 ];
 
 
@@ -1048,17 +1048,17 @@ function renderWorkoutDetail() {
         <span class="tag">⏱ ${w.dur} min</span>
         <span class="tag">💪 ${w.diff}</span>
         <span class="tag">📍 ${w.cat}</span>
-        <span class="tag">🎯 ${w.exercises.length} exercises</span>
+        <span class="tag">🎯 ${(w.exercises||[]).length} exercises</span>
       </div>
 
       <div style="padding:16px 20px 8px"><div class="section-label">Exercise Overview</div></div>
       <div class="exercise-overview">
-        ${w.exercises.map((ex,i)=>{
-          const e = EXERCISES.find(e=>e.id===ex.id);
+        ${(w.exercises||[]).map((ex,i)=>{
+          const e = ex._ex || EXERCISES.find(e=>e.id===ex.id) || EXERCISES.find(e=>e.name&&ex.name&&e.name.toLowerCase()===ex.name.toLowerCase()) || {emoji:'💪',name:ex.name||ex.id,diff:'beginner'};
           return `<div class="ov-row">
             <div class="ov-num">${i+1}</div>
-            <div style="font-size:20px">${e.emoji}</div>
-            <div class="ov-name">${e.name}</div>
+            <div style="font-size:20px">${e.emoji||'💪'}</div>
+            <div class="ov-name">${e.name||ex.name}</div>
             <div class="ov-sets">${ex.sets}×${ex.reps}</div>
           </div>`;
         }).join('')}
