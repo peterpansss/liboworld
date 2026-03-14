@@ -19,8 +19,8 @@
       --light-grey: #CCCCCC;
       --dark-grey: #1A1A1A;
       --mid-grey: #333333;
-      --accent: #C8F04A;
-      --accent-dark: #9BBF2E;
+      --accent: #CAFF00;
+      --accent-dark: #9BC800;
       --red: #FF3333;
       --border: rgba(255,255,255,0.08);
       --border-light: rgba(255,255,255,0.15);
@@ -128,7 +128,7 @@
     .nav-right { display: flex; align-items: center; gap: 16px; }
 
     .btn-nav {
-      background: var(--white);
+      background: var(--accent);
       color: var(--black);
       border: none;
       padding: 10px 24px;
@@ -137,11 +137,12 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.15s;
       text-decoration: none;
       display: inline-block;
+      border-radius: 50px;
     }
-    .btn-nav:hover { background: var(--off-white); }
+    .btn-nav:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
     .nav-hamburger {
       display: none;
@@ -169,6 +170,36 @@
       position: relative;
       overflow: hidden;
     }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(202,255,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      padding: 16px 36px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 50px;
+      text-decoration: none;
+      margin-top: 40px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .hero-cta-btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
 
     .hero-content {
       display: flex;
@@ -308,10 +339,24 @@
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       padding: 48px 40px;
-      transition: background 0.3s;
+      transition: background 0.3s, border-color 0.3s;
       cursor: default;
+      position: relative;
+      overflow: hidden;
     }
-    .feature-item:hover { background: var(--dark-grey); }
+    .feature-item::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(202,255,0,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .feature-item:hover { background: var(--dark-grey); border-color: rgba(202,255,0,0.12); }
+    .feature-item:hover::after { opacity: 1; }
     .feature-num {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 13px;
@@ -356,6 +401,7 @@
       background: var(--black);
       border: 1px solid var(--border-light);
       padding: 32px;
+      border-radius: 20px;
     }
     .scanner-selected {
       display: flex;
@@ -432,9 +478,10 @@
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       padding: 40px 32px;
-      transition: background 0.3s;
+      transition: background 0.3s, border-color 0.3s;
     }
-    .cat-item:hover { background: var(--dark-grey); }
+    .cat-item:hover { background: var(--dark-grey); border-color: rgba(202,255,0,0.12); }
+    .cat-item:hover .cat-name { color: var(--accent); }
     .cat-emoji { font-size: 36px; margin-bottom: 20px; display: block; }
     .cat-name {
       font-family: 'Barlow Condensed', sans-serif;
@@ -443,6 +490,7 @@
       text-transform: uppercase;
       letter-spacing: -0.3px;
       margin-bottom: 6px;
+      transition: color 0.2s;
     }
     .cat-desc { font-size: 13px; color: var(--grey); }
 
@@ -450,9 +498,11 @@
        GOALS
     ───────────────────────────── */
     .goals-section {
-      background: var(--white);
-      color: var(--black);
+      background: var(--dark-grey);
+      color: var(--white);
       padding: 120px 40px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
     .goals-inner {
       max-width: 1400px;
@@ -462,25 +512,25 @@
       gap: 100px;
       align-items: center;
     }
-    .goals-section .label { color: #888; }
-    .goals-section .display { color: var(--black); }
+    .goals-section .label { color: var(--accent); letter-spacing: 3px; }
+    .goals-section .display { color: var(--white); }
     .goal-list { margin-top: 48px; }
     .goal-row {
       display: flex;
       align-items: center;
       gap: 20px;
       padding: 20px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       cursor: pointer;
       transition: padding-left 0.3s;
     }
-    .goal-row:first-child { border-top: 1px solid rgba(0,0,0,0.1); }
+    .goal-row:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
     .goal-row:hover { padding-left: 8px; }
     .goal-row-icon { font-size: 24px; }
-    .goal-row-text h4 { font-size: 16px; font-weight: 700; color: var(--black); }
-    .goal-row-text p { font-size: 13px; color: #666; margin-top: 2px; }
-    .goal-row-arrow { margin-left: auto; font-size: 20px; color: #ccc; transition: color 0.2s; }
-    .goal-row:hover .goal-row-arrow { color: var(--black); }
+    .goal-row-text h4 { font-size: 16px; font-weight: 700; color: var(--white); }
+    .goal-row-text p { font-size: 13px; color: var(--grey); margin-top: 2px; }
+    .goal-row-arrow { margin-left: auto; font-size: 20px; color: var(--mid-grey); transition: color 0.2s; }
+    .goal-row:hover .goal-row-arrow { color: var(--accent); }
 
     /* ─────────────────────────────
        SOCIAL PROOF
@@ -493,17 +543,17 @@
     .proof-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
+      gap: 20px;
       margin-top: 64px;
     }
     .proof-card {
-      background: var(--black);
-      padding: 48px 40px;
-      transition: background 0.3s;
+      background: var(--dark-grey);
+      padding: 40px 36px;
+      transition: background 0.3s, border-color 0.3s;
+      border-radius: 20px;
+      border: 1px solid var(--border);
     }
-    .proof-card:hover { background: var(--dark-grey); }
+    .proof-card:hover { background: #222; border-color: rgba(202,255,0,0.15); }
     .proof-stars { color: var(--accent); font-size: 14px; letter-spacing: 3px; margin-bottom: 24px; }
     .proof-quote {
       font-size: 16px;
@@ -531,21 +581,40 @@
       background: var(--accent);
       padding: 120px 40px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .cta-section .display { color: var(--black); }
-    .cta-sub { font-size: 18px; color: rgba(0,0,0,0.6); margin-top: 16px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta-section::before {
+      content: 'LIBO';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(200px, 30vw, 400px);
+      color: rgba(0,0,0,0.05);
+      letter-spacing: -5px;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .cta-section .display { color: var(--black); position: relative; }
+    .cta-sub { font-size: 18px; color: rgba(0,0,0,0.6); margin-top: 16px; max-width: 480px; margin-left: auto; margin-right: auto; position: relative; }
 
     .email-form {
       display: flex;
-      max-width: 480px;
+      max-width: 520px;
       margin: 48px auto 0;
-      background: rgba(0,0,0,0.1);
+      background: rgba(0,0,0,0.15);
+      border-radius: 60px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.15);
     }
     .email-input {
       flex: 1;
       background: transparent;
       border: none;
-      padding: 18px 24px;
+      padding: 18px 28px;
       font-size: 15px;
       color: var(--black);
       font-family: 'Inter', sans-serif;
@@ -564,6 +633,8 @@
       cursor: pointer;
       white-space: nowrap;
       transition: background 0.2s;
+      border-radius: 50px;
+      margin: 4px;
     }
     .btn-cta:hover { background: var(--dark-grey); }
 
@@ -581,9 +652,11 @@
       color: var(--white);
       padding: 14px 24px;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.15s;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
     }
-    .store-btn:hover { background: var(--dark-grey); }
+    .store-btn:hover { background: var(--dark-grey); transform: translateY(-2px); border-color: rgba(202,255,0,0.2); }
     .store-btn-icon { font-size: 24px; }
     .store-btn small { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; display: block; }
     .store-btn strong { font-size: 15px; font-weight: 700; }
@@ -778,14 +851,15 @@
       <span class="line-2">Anywhere.</span>
       <span class="line-3">Anytime.</span>
     </h1>
+    <a href="#cta" class="hero-cta-btn">Join the Waitlist →</a>
   </div>
   <div class="hero-bottom">
     <div class="hero-bottom-cell">
-      <div class="hero-bottom-num">500+</div>
+      <div class="hero-bottom-num">502</div>
       <div class="hero-bottom-lbl">Exercises</div>
     </div>
     <div class="hero-bottom-cell">
-      <div class="hero-bottom-num">50+</div>
+      <div class="hero-bottom-num">102</div>
       <div class="hero-bottom-lbl">Workouts</div>
     </div>
     <div class="hero-bottom-cell">
@@ -841,20 +915,20 @@
       <div class="label" style="margin-bottom: 12px;">What's Inside</div>
       <h2 class="display display-md">Everything<br/>you need.</h2>
     </div>
-    <p class="body-md" style="max-width: 320px;">Built to cover every training format, from heavy lifting to breathing exercises and everything in between.</p>
+    <p class="body-md" style="max-width: 320px;">502 exercises · 102 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.</p>
   </div>
   <div class="features-grid">
     <div class="feature-item reveal">
       <div class="feature-num">01</div>
       <span class="feature-icon">📚</span>
       <div class="feature-name">Exercise Library</div>
-      <p class="feature-desc">Hundreds of exercises with video demos, muscle targeting, step-by-step form cues, and difficulty ratings.</p>
+      <p class="feature-desc">502 exercises — 286 gym, 185 home, 31 mobility. Every one with equipment notes, muscle targeting, and form cues.</p>
     </div>
     <div class="feature-item reveal reveal-delay-1">
       <div class="feature-num">02</div>
       <span class="feature-icon">🏋️</span>
       <div class="feature-name">Workout Library</div>
-      <p class="feature-desc">Pre-built sessions for every goal, location and fitness level — from 10-minute quick hits to full gym sessions.</p>
+      <p class="feature-desc">102 pre-built sessions — gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.</p>
     </div>
     <div class="feature-item reveal reveal-delay-2">
       <div class="feature-num">03</div>
@@ -999,8 +1073,8 @@
   <div class="goals-inner">
     <div class="reveal">
       <div class="label" style="margin-bottom: 16px;">Personalised For You</div>
-      <h2 class="display display-md" style="color: var(--black);">One app.<br/>Every<br/>goal.</h2>
-      <p style="font-size: 16px; color: #555; margin-top: 24px; line-height: 1.7; max-width: 400px;">
+      <h2 class="display display-md" style="color: var(--white);">One app.<br/>Every<br/><span style="color:var(--accent)">goal.</span></h2>
+      <p style="font-size: 16px; color: var(--grey); margin-top: 24px; line-height: 1.7; max-width: 400px;">
         Tell Libo what you want. We build a plan around your goal, your fitness level, and your available equipment. Your journey, your rules.
       </p>
     </div>
@@ -1087,11 +1161,11 @@
     <div class="label" style="color: rgba(0,0,0,0.5); margin-bottom: 16px;">Join the Waitlist</div>
     <h2 class="display display-lg">Be first.<br/>Train better.</h2>
     <p class="cta-sub">Libo is coming soon. Join the waitlist and get early access plus an exclusive launch offer.</p>
-    <form class="email-form" id="waitlistForm">
+    <form class="email-form" id="waitlistForm" style="position:relative;">
       <input class="email-input" type="email" id="emailInput" placeholder="Enter your email address" required />
       <button class="btn-cta" type="submit" id="submitBtn">Join →</button>
     </form>
-    <p id="formMsg" style="font-size: 13px; margin-top: 16px; min-height: 20px; color: rgba(0,0,0,0.5);">No spam. Only when Libo launches.</p>
+    <p id="formMsg" style="font-size: 13px; margin-top: 16px; min-height: 20px; color: rgba(0,0,0,0.5); position:relative;">No spam. Only when Libo launches.</p>
   </div>
   <div class="store-row reveal">
     <a href="#" class="store-btn">

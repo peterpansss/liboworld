@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Libo – Train Anywhere</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="libo-data.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
     :root{
-      --bg:#080B10;--bg2:#0E1219;--bg3:#141820;--bg4:#1A2030;
-      --accent:#C8F04A;--accent2:#A8D638;--accent-dim:rgba(200,240,74,0.12);
+      --bg:#080808;--bg2:#0E0E0E;--bg3:#141414;--bg4:#1A1A1A;
+      --accent:#CAFF00;--accent2:#9BC800;--accent-dim:rgba(202,255,0,0.12);
       --text:#FFFFFF;--muted:#8A9BB0;--dim:#4A5568;
       --border:rgba(255,255,255,0.07);--card:rgba(255,255,255,0.04);
       --radius:18px;--nav-h:72px;
@@ -38,14 +39,20 @@
     }
     .nav-item{
       display:flex;flex-direction:column;align-items:center;
-      gap:4px;padding:8px 16px;border-radius:12px;cursor:pointer;
-      transition:all 0.2s;flex:1;
+      gap:4px;padding:8px 12px;border-radius:14px;cursor:pointer;
+      transition:all 0.2s;flex:1;position:relative;
     }
+    .nav-item.active{background:rgba(202,255,0,0.08);}
     .nav-item.active .nav-icon{color:var(--accent);}
     .nav-item.active .nav-label{color:var(--accent);}
-    .nav-icon{font-size:22px;transition:transform 0.2s;}
+    .nav-icon{font-size:22px;transition:transform 0.2s;color:var(--muted);}
     .nav-label{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;}
     .nav-item:active .nav-icon{transform:scale(0.9);}
+    .nav-item.active::after{
+      content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+      width:24px;height:2px;border-radius:0 0 2px 2px;
+      background:var(--accent);
+    }
 
     /* ── ONBOARDING ── */
     .onboard-wrap{
@@ -129,14 +136,19 @@
 
     /* ── HOME ── */
     .home-hero{
-      background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);
-      margin:12px 16px;border-radius:var(--radius);padding:24px;
-      border:1px solid var(--border);position:relative;overflow:hidden;
+      background:linear-gradient(145deg,#111 0%,#0a0a0a 60%,rgba(202,255,0,0.04) 100%);
+      margin:12px 16px;border-radius:var(--radius);padding:28px 24px;
+      border:1px solid rgba(202,255,0,0.12);position:relative;overflow:hidden;
     }
     .home-hero::before{
-      content:'';position:absolute;top:-40px;right:-40px;
-      width:140px;height:140px;border-radius:50%;
-      background:radial-gradient(circle,rgba(200,240,74,0.15),transparent 70%);
+      content:'';position:absolute;bottom:-20px;right:-20px;
+      width:180px;height:180px;border-radius:50%;
+      background:radial-gradient(circle,rgba(202,255,0,0.12),transparent 70%);
+    }
+    .home-hero::after{
+      content:'';position:absolute;top:0;left:0;right:0;
+      height:2px;border-radius:var(--radius) var(--radius) 0 0;
+      background:linear-gradient(90deg,transparent,rgba(202,255,0,0.5),transparent);
     }
     .greeting{font-size:13px;color:var(--muted);margin-bottom:4px;}
     .greeting-name{font-size:24px;font-weight:900;letter-spacing:-0.5px;}
@@ -368,18 +380,20 @@
     .complete-wrap{
       min-height:100vh;display:flex;flex-direction:column;
       align-items:center;justify-content:center;padding:40px 24px;text-align:center;
+      background:linear-gradient(180deg,#0a0a0a 0%,rgba(202,255,0,0.04) 100%);
     }
-    .complete-emoji{font-size:72px;margin-bottom:24px;animation:pop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55);}
+    .complete-emoji{font-size:72px;margin-bottom:16px;animation:pop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55);}
     @keyframes pop{0%{transform:scale(0);}100%{transform:scale(1);};}
-    .complete-title{font-size:32px;font-weight:900;letter-spacing:-1px;margin-bottom:8px;}
-    .complete-sub{font-size:16px;color:var(--muted);margin-bottom:32px;}
-    .complete-stats{display:flex;gap:16px;margin-bottom:40px;}
+    .complete-label{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:8px;}
+    .complete-title{font-size:40px;font-weight:900;letter-spacing:-1.5px;line-height:1;margin-bottom:8px;text-transform:uppercase;}
+    .complete-sub{font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.6;}
+    .complete-stats{display:flex;gap:12px;margin-bottom:40px;width:100%;}
     .complete-stat{
-      background:var(--card);border:1px solid var(--border);border-radius:16px;
-      padding:20px 24px;text-align:center;flex:1;
+      background:rgba(202,255,0,0.06);border:1px solid rgba(202,255,0,0.15);border-radius:16px;
+      padding:20px 16px;text-align:center;flex:1;
     }
     .complete-stat-val{font-size:28px;font-weight:900;color:var(--accent);}
-    .complete-stat-lbl{font-size:12px;color:var(--muted);margin-top:4px;}
+    .complete-stat-lbl{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
     .confetti{position:absolute;pointer-events:none;}
 
     /* ── SCANNER ── */
@@ -476,29 +490,56 @@
 <div id="app"></div>
 <script>
 // ═══════════════════════════════
-// DATA
+// DATA — from Exercise_Library_v4_Workouts.xlsx
+// 502 exercises · 102 workouts
 // ═══════════════════════════════
-const EXERCISES = [
-  {id:'pushup',name:'Push-Up',cat:'chest',muscle:'Chest, Triceps, Shoulders',equip:'none',diff:'beginner',emoji:'🤸',instructions:['Start in high plank, hands shoulder-width apart','Lower chest toward floor, elbows at 45°','Push up explosively until arms are fully extended'],muscles:['Chest','Triceps','Shoulders']},
-  {id:'squat',name:'Bodyweight Squat',cat:'legs',muscle:'Quads, Glutes, Hamstrings',equip:'none',diff:'beginner',emoji:'🦵',instructions:['Stand feet shoulder-width apart, toes slightly out','Push hips back and down until thighs are parallel','Drive through heels to return to standing'],muscles:['Quads','Glutes','Hamstrings']},
-  {id:'plank',name:'Plank Hold',cat:'core',muscle:'Core, Shoulders',equip:'none',diff:'beginner',emoji:'⚡',instructions:['Get into forearm plank, elbows under shoulders','Keep body in straight line from head to heels','Brace your core and hold the position'],muscles:['Core','Shoulders']},
-  {id:'lunge',name:'Reverse Lunge',cat:'legs',muscle:'Quads, Glutes',equip:'none',diff:'beginner',emoji:'🦵',instructions:['Stand tall, hands on hips','Step one foot back and lower knee to floor','Push through front heel to return'],muscles:['Quads','Glutes','Hamstrings']},
-  {id:'dips',name:'Tricep Dips',cat:'arms',muscle:'Triceps, Chest',equip:'chair',diff:'beginner',emoji:'💪',instructions:['Sit on edge of chair, hands gripping edges','Slide forward off chair, arms supporting you','Lower body by bending elbows to 90°, then push up'],muscles:['Triceps','Chest','Shoulders']},
-  {id:'glute_bridge',name:'Glute Bridge',cat:'legs',muscle:'Glutes, Hamstrings',equip:'none',diff:'beginner',emoji:'🍑',instructions:['Lie on back, knees bent, feet flat on floor','Drive hips upward squeezing glutes at top','Lower slowly and repeat'],muscles:['Glutes','Hamstrings','Core']},
-  {id:'row',name:'Dumbbell Row',cat:'back',muscle:'Lats, Rhomboids, Biceps',equip:'dumbbell',diff:'intermediate',emoji:'🏋️',instructions:['Hinge at hips, back flat, one hand on knee for support','Pull dumbbell toward hip, elbow close to body','Lower slowly with full control'],muscles:['Lats','Rhomboids','Biceps']},
-  {id:'ohp',name:'Overhead Press',cat:'shoulders',muscle:'Deltoids, Triceps',equip:'dumbbell',diff:'intermediate',emoji:'🏋️',instructions:['Hold dumbbells at shoulder height, palms forward','Press straight overhead until arms are extended','Lower with control back to shoulders'],muscles:['Shoulders','Triceps']},
-  {id:'rdl',name:'Romanian Deadlift',cat:'legs',muscle:'Hamstrings, Glutes, Lower Back',equip:'dumbbell',diff:'intermediate',emoji:'🏋️',instructions:['Hold dumbbells at hips, soft bend in knees','Hinge at hips, lower weights down your legs','Drive hips forward to return to standing'],muscles:['Hamstrings','Glutes','Lower Back']},
-  {id:'curl',name:'Bicep Curl',cat:'arms',muscle:'Biceps, Forearms',equip:'dumbbell',diff:'beginner',emoji:'💪',instructions:['Stand holding dumbbells at sides, palms facing forward','Curl weights toward shoulders squeezing biceps','Lower slowly to starting position'],muscles:['Biceps','Forearms']},
-  {id:'mountainclimber',name:'Mountain Climbers',cat:'cardio',muscle:'Core, Hip Flexors',equip:'none',diff:'intermediate',emoji:'🏔️',instructions:['Start in high plank position','Drive one knee toward chest, then switch rapidly','Keep hips level and core braced throughout'],muscles:['Core','Hip Flexors','Shoulders']},
-  {id:'hipthrust',name:'Hip Thrust',cat:'legs',muscle:'Glutes, Hamstrings',equip:'bench',diff:'intermediate',emoji:'🍑',instructions:['Shoulders on bench, feet flat, bar or dumbbell on hips','Drive hips up until body is in straight line','Squeeze glutes hard at top, lower slowly'],muscles:['Glutes','Hamstrings']},
-  {id:'pullup',name:'Pull-Up',cat:'back',muscle:'Lats, Biceps, Core',equip:'bar',diff:'advanced',emoji:'🏋️',instructions:['Hang from bar with overhand grip, slightly wider than shoulders','Pull chest toward bar, squeezing shoulder blades','Lower with control until arms are fully extended'],muscles:['Lats','Biceps','Core']},
-  {id:'burpee',name:'Burpee',cat:'cardio',muscle:'Full Body',equip:'none',diff:'advanced',emoji:'🔥',instructions:['From standing, drop hands to floor and jump feet back to plank','Perform a push-up, then jump feet toward hands','Jump up explosively with arms overhead'],muscles:['Full Body']},
-  {id:'legrise',name:'Hanging Leg Raise',cat:'core',muscle:'Core, Hip Flexors',equip:'bar',diff:'advanced',emoji:'⚡',instructions:['Hang from bar with overhand grip','Keep legs together and raise them to 90° (or higher)','Lower slowly without swinging'],muscles:['Core','Hip Flexors']},
-  {id:'benchpress',name:'Dumbbell Bench Press',cat:'chest',muscle:'Chest, Triceps, Shoulders',equip:'dumbbell',diff:'intermediate',emoji:'🏋️',instructions:['Lie on bench, dumbbells at chest level','Press upward until arms fully extend','Lower with control, elbows at 45°'],muscles:['Chest','Triceps','Shoulders']},
-  {id:'calfrise',name:'Calf Raise',cat:'legs',muscle:'Calves',equip:'none',diff:'beginner',emoji:'🦵',instructions:['Stand with feet hip-width apart','Rise up onto toes as high as possible','Lower slowly and repeat'],muscles:['Calves']},
-  {id:'childspose',name:"Child's Pose",cat:'mobility',muscle:'Back, Hips, Ankles',equip:'none',diff:'beginner',emoji:'🧘',instructions:['Kneel on floor, big toes together','Sit back toward heels, extend arms forward','Breathe deeply and hold 30–60 seconds'],muscles:['Back','Hips']},
-  {id:'worldgreatest',name:'World Greatest Stretch',cat:'mobility',muscle:'Full Body Flexibility',equip:'none',diff:'beginner',emoji:'🧘',instructions:['From lunge, place same-side hand inside foot','Rotate opposite arm up toward ceiling','Hold 2–3 seconds and repeat both sides'],muscles:['Hip Flexors','Thoracic Spine','Ankles']},
-  {id:'boxbreath',name:'Box Breathing',cat:'breathing',muscle:'Diaphragm, Nervous System',equip:'none',diff:'beginner',emoji:'🫁',instructions:['Inhale slowly for 4 counts','Hold breath for 4 counts','Exhale for 4 counts, then hold for 4 counts'],muscles:['Diaphragm']},
+
+// Build fast name→exercise lookup
+const _EX_BY_NAME = {};
+(LIBO_EXERCISES || []).forEach(e => { _EX_BY_NAME[e.name.toLowerCase()] = e; });
+
+function findExByName(name) {
+  if (!name) return null;
+  const lo = name.toLowerCase();
+  if (_EX_BY_NAME[lo]) return _EX_BY_NAME[lo];
+  // partial match
+  return (LIBO_EXERCISES || []).find(e => e.name.toLowerCase().includes(lo)) || null;
+}
+
+// Adapter: LIBO_EXERCISES → legacy EXERCISES format used by player
+const EXERCISES = (LIBO_EXERCISES || []).map(e => ({
+  id: e.id,
+  name: e.name,
+  cat: e.cat,
+  muscle: e.bodyFocus,
+  equip: e.equipment,
+  diff: e.diff,
+  emoji: e.emoji,
+  variation: e.variation || '',
+  instructions: e.setupNotes
+    ? e.setupNotes.split('. ').filter(s => s.length > 5).map(s => s.trim()).slice(0, 4)
+    : ['Perform with proper form and controlled movement.'],
+  muscles: [e.bodyFocus.split('/')[0].trim()],
+}));
+
+// Small featured workouts (keep player working — exercises resolve to real lib)
+const WORKOUTS = [
+  {id:'full_home',name:'Full Body Burn',cat:'Home',diff:'beginner',dur:20,equip:'none',emoji:'🏠',goal:'general',
+   exercises:[{id:'wide_grip_push_up',sets:3,reps:'12'},{id:'bodyweight_squat',sets:3,reps:'15'},{id:'reverse_lunge',sets:2,reps:'10 each'},{id:'plank_hold',sets:3,reps:'30 sec'},{id:'glute_bridge',sets:3,reps:'15'}]},
+  {id:'upper_gym',name:'Upper Body Strength',cat:'Gym',diff:'intermediate',dur:45,equip:'Dumbbell',emoji:'💪',goal:'muscle',
+   exercises:[{id:'dumbbell_bench_press',sets:4,reps:'10'},{id:'dumbbell_row',sets:4,reps:'10'},{id:'dumbbell_shoulder_press',sets:3,reps:'10'},{id:'dumbbell_bicep_curl',sets:3,reps:'12'},{id:'tricep_dips',sets:3,reps:'12'}]},
+  {id:'lower_gym',name:'Lower Body Power',cat:'Gym',diff:'intermediate',dur:45,equip:'Dumbbell',emoji:'🦵',goal:'muscle',
+   exercises:[{id:'bodyweight_squat',sets:4,reps:'10'},{id:'romanian_deadlift',sets:4,reps:'10'},{id:'reverse_lunge',sets:3,reps:'12 each'},{id:'glute_bridge',sets:4,reps:'15'},{id:'calf_raise',sets:4,reps:'20'}]},
+  {id:'hiit_cardio',name:'HIIT Cardio Blast',cat:'Cardio',diff:'advanced',dur:25,equip:'none',emoji:'🔥',goal:'weight',
+   exercises:[{id:'burpee',sets:4,reps:'10'},{id:'mountain_climbers',sets:4,reps:'30 sec'},{id:'bodyweight_squat',sets:3,reps:'15'},{id:'wide_grip_push_up',sets:3,reps:'12'}]},
+  {id:'morning',name:'Morning Activation',cat:'Morning Routine',diff:'beginner',dur:15,equip:'none',emoji:'🌅',goal:'general',
+   exercises:[{id:'world_greatest_stretch',sets:2,reps:'5 each'},{id:'glute_bridge',sets:2,reps:'12'},{id:'bodyweight_squat',sets:2,reps:'10'},{id:'box_breathing',sets:1,reps:'5 cycles'}]},
+  {id:'mobility',name:'Full Body Mobility',cat:'Stretching',diff:'beginner',dur:20,equip:'none',emoji:'🧘',goal:'flexibility',
+   exercises:[{id:'child_s_pose',sets:1,reps:'60 sec'},{id:'world_greatest_stretch',sets:2,reps:'5 each'},{id:'glute_bridge',sets:2,reps:'10'},{id:'box_breathing',sets:2,reps:'5 cycles'}]},
+  {id:'core_blaster',name:'Core Blaster',cat:'Home',diff:'intermediate',dur:20,equip:'none',emoji:'⚡',goal:'general',
+   exercises:[{id:'plank_hold',sets:4,reps:'45 sec'},{id:'mountain_climbers',sets:3,reps:'30 sec'},{id:'hanging_leg_raise',sets:3,reps:'12'},{id:'glute_bridge',sets:3,reps:'15'}]},
+  {id:'evening',name:'Evening Wind-Down',cat:'Morning Routine',diff:'beginner',dur:15,equip:'none',emoji:'🌙',goal:'recovery',
+   exercises:[{id:'child_s_pose',sets:2,reps:'60 sec'},{id:'world_greatest_stretch',sets:1,reps:'5 each'},{id:'box_breathing',sets:3,reps:'5 cycles'}]},
 ];
 
 const WORKOUTS = [
@@ -735,12 +776,12 @@ function renderHome() {
     </div>
 
     <div class="home-hero">
-      <div style="font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Today's Workout</div>
-      <div style="font-size:22px;font-weight:900;letter-spacing:-0.5px;margin-bottom:4px">${rec.name}</div>
-      <div style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px">
+      <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;opacity:0.8">Today's Pick</div>
+      <div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:8px;text-transform:uppercase">${rec.name}</div>
+      <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:20px">
         <span>${rec.emoji} ${rec.dur} min</span><span class="dot"></span><span>${rec.exercises.length} exercises</span><span class="dot"></span><span style="text-transform:capitalize">${rec.diff}</span>
       </div>
-      <button style="margin-top:16px;background:var(--accent);color:#080B10;border:none;padding:12px 28px;border-radius:50px;font-size:14px;font-weight:800;cursor:pointer;" class="start-workout-btn" data-id="${rec.id}">Start Now →</button>
+      <button style="background:var(--accent);color:#080808;border:none;padding:14px 32px;border-radius:50px;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:0.5px;" class="start-workout-btn" data-id="${rec.id}">Start Workout →</button>
     </div>
 
     <div class="stats-row">
@@ -776,15 +817,41 @@ function renderHome() {
 // ── EXPLORE ──
 function renderExplore() {
   const isWorkouts = S.exploreTab === 'workouts';
-  const cats = isWorkouts ? ['all','home','gym','morning','mobility','evening'] : ['all','chest','legs','back','arms','core','cardio','mobility','breathing'];
-  const filter = S.exploreFilter;
   const q = S.searchQ.toLowerCase();
 
-  const filteredWorkouts = WORKOUTS.filter(w=>(filter==='all'||w.cat===filter)&&(!q||w.name.toLowerCase().includes(q)));
-  const filteredEx = EXERCISES.filter(e=>(filter==='all'||e.cat===filter)&&(!q||e.name.toLowerCase().includes(q)));
+  // WORKOUTS tab
+  const wkCats = ['All','Gym','Home','Cardio','Stretching','Challenge','Morning Routine'];
+  const filter = S.exploreFilter;
+
+  // Use LIBO_WORKOUTS for the full workout list
+  const allWk = (typeof LIBO_WORKOUTS !== 'undefined') ? LIBO_WORKOUTS : WORKOUTS;
+  const filteredWorkouts = allWk.filter(w => {
+    const catMatch = filter === 'all' || filter === 'All' || w.cat.toLowerCase() === filter.toLowerCase();
+    const qMatch = !q || w.name.toLowerCase().includes(q);
+    return catMatch && qMatch;
+  }).slice(0, 60);
+
+  // EXERCISES tab — use full LIBO_EXERCISES
+  const exCats = ['All','Gym','Home','Mobility','Chest','Back','Legs','Shoulders','Core','Cardio','Glutes','Arms'];
+  const filteredEx = (typeof LIBO_EXERCISES !== 'undefined' ? LIBO_EXERCISES : EXERCISES).filter(e => {
+    const fl = filter.toLowerCase();
+    const catMatch = fl === 'all' || fl === '' ||
+      e.cat.toLowerCase() === fl ||
+      e.bodyFocus.toLowerCase().includes(fl) ||
+      (fl === 'arms' && (e.bodyFocus.toLowerCase().includes('bicep') || e.bodyFocus.toLowerCase().includes('tricep') || e.bodyFocus.toLowerCase().includes('forearm')));
+    const qMatch = !q || e.name.toLowerCase().includes(q);
+    return catMatch && qMatch;
+  }).slice(0, 80);
+
+  const wkFilterCats = wkCats;
+  const exFilterCats = exCats;
+  const currentCats = isWorkouts ? wkFilterCats : exFilterCats;
 
   return `
-    <div class="page-header"><div class="page-title">Explore</div></div>
+    <div class="page-header">
+      <div class="page-title">Explore</div>
+      <div class="badge">${isWorkouts ? allWk.length + ' workouts' : (typeof LIBO_EXERCISES !== 'undefined' ? LIBO_EXERCISES.length : EXERCISES.length) + ' exercises'}</div>
+    </div>
     <div class="tab-switcher">
       <button class="tab-btn${S.exploreTab==='workouts'?' active':''}" data-et="workouts">Workouts</button>
       <button class="tab-btn${S.exploreTab==='exercises'?' active':''}" data-et="exercises">Exercises</button>
@@ -793,23 +860,32 @@ function renderExplore() {
       <input class="search-input" id="searchInput" placeholder="Search ${isWorkouts?'workouts':'exercises'}..." value="${S.searchQ}"/>
     </div>
     <div class="filter-row">
-      ${cats.map(c=>`<div class="filter-chip${filter===c?' active':''}" data-filter="${c}">${c.charAt(0).toUpperCase()+c.slice(1)}</div>`).join('')}
+      ${currentCats.map(c=>`<div class="filter-chip${(filter===c||filter.toLowerCase()===c.toLowerCase()||(!filter&&c==='All'))?' active':''}" data-filter="${c}">${c}</div>`).join('')}
     </div>
     ${isWorkouts ? `
       <div class="workout-grid">
-        ${filteredWorkouts.map(w=>`
-          <div class="wcard start-workout-btn" data-id="${w.id}" data-detail="1">
-            <span class="wcard-emoji">${w.emoji}</span>
+        ${filteredWorkouts.map(w=>{
+          const emoji = w.emoji || '🏋️';
+          const id = w.id || w.slug || '';
+          const dur = w.dur || w.duration || 30;
+          const diff = w.diff || w.difficulty || 'beginner';
+          const mainCount = w.main ? w.main.length : (w.exercises ? w.exercises.length : 0);
+          return `<div class="wcard start-workout-btn" data-id="${id}" data-detail="1" data-wkname="${w.name.replace(/"/g,'&quot;')}">
+            <span class="wcard-emoji">${emoji}</span>
             <div class="wcard-name">${w.name}</div>
-            <div class="wcard-meta">${w.dur}min · ${w.diff}</div>
-          </div>`).join('')}
+            <div class="wcard-meta">${dur}min · ${diff}${mainCount?' · '+mainCount+' ex':''}</div>
+          </div>`;
+        }).join('')}
       </div>` : `
       <div class="exercise-list">
         ${filteredEx.map(e=>`
-          <div class="exercise-item" data-exid="${e.id}">
-            <div class="exercise-emoji">${e.emoji}</div>
-            <div style="flex:1"><div class="exercise-name">${e.name}</div><div class="exercise-meta">${e.muscle}</div></div>
-            <div class="diff-badge diff-${e.diff}">${e.diff}</div>
+          <div class="exercise-item" data-exid="${e.id||e.slug}">
+            <div class="exercise-emoji" style="background:var(--bg3);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">${e.emoji||'💪'}</div>
+            <div style="flex:1;min-width:0">
+              <div class="exercise-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.name}</div>
+              <div class="exercise-meta">${e.bodyFocus||e.muscle||''} ${e.equipment||e.equip?'· '+(e.equipment||e.equip):''}</div>
+            </div>
+            <div class="diff-badge diff-${e.diff||'beginner'}">${(e.diff||'beginner').charAt(0).toUpperCase()+(e.diff||'beginner').slice(1,3)}</div>
           </div>`).join('')}
       </div>`}`;
 }
@@ -880,6 +956,13 @@ function renderScanner() {
 function renderProgress() {
   const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   const today = new Date().getDay();
+  const totalMins = S.logs.reduce((a,l)=>a+(l.dur||0),0);
+  const totalCal = S.logs.reduce((a,l)=>a+(l.cal||0),0);
+  const goal = 300; // weekly minute goal
+  const pct = Math.min(Math.round((totalMins/goal)*100),100);
+  const circumference = 2 * Math.PI * 54;
+  const dashOffset = circumference - (circumference * pct / 100);
+
   const bars = days.map((d,i)=>{
     const val = S.logs.filter(l=>{const dd=new Date(l.date).getDay();return dd===((i+1)%7);}).length;
     const h = Math.min(val*30+10,80);
@@ -888,18 +971,49 @@ function renderProgress() {
   }).join('');
 
   return `
-    <div class="page-header"><div class="page-title">Progress</div></div>
-    <div class="chart-wrap">
-      <div class="chart-title">This Week's Activity</div>
+    <div class="page-header">
+      <div class="page-title">Progress</div>
+      <div class="badge">${S.logs.length} sessions</div>
+    </div>
+
+    <div style="margin:8px 16px;background:linear-gradient(145deg,#111,#0a0a0a);border:1px solid rgba(202,255,0,0.15);border-radius:var(--radius);padding:24px;display:flex;align-items:center;gap:24px;">
+      <div style="position:relative;flex-shrink:0;width:120px;height:120px;">
+        <svg width="120" height="120" style="transform:rotate(-90deg)">
+          <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+          <circle cx="60" cy="60" r="54" fill="none" stroke="#CAFF00" stroke-width="8"
+            stroke-dasharray="${circumference.toFixed(1)}"
+            stroke-dashoffset="${dashOffset.toFixed(1)}"
+            stroke-linecap="round"
+            style="transition:stroke-dashoffset 1s ease"/>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+          <div style="font-size:22px;font-weight:900;color:#CAFF00;line-height:1">${totalMins}</div>
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px">Minutes</div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:10px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Total Activity</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:12px">${pct}% of weekly goal</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:10px 12px">
+            <div style="font-size:18px;font-weight:900;color:#CAFF00">${totalCal}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:1px">Cal Burned</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:10px 12px">
+            <div style="font-size:18px;font-weight:900;color:#CAFF00">${S.logs.length}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:1px">Workouts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-wrap" style="margin-top:12px">
+      <div class="chart-title">This Week</div>
       <div class="bar-chart">${bars}</div>
     </div>
-    <div class="stats-row">
-      <div class="stat-card"><div class="stat-val">${S.logs.length}</div><div class="stat-lbl">Total</div></div>
-      <div class="stat-card"><div class="stat-val">${S.logs.reduce((a,l)=>a+(l.dur||0),0)}</div><div class="stat-lbl">Minutes</div></div>
-      <div class="stat-card"><div class="stat-val">${S.logs.reduce((a,l)=>a+(l.cal||0),0)}</div><div class="stat-lbl">Cal Burned</div></div>
-    </div>
-    <div style="padding:8px 16px 4px"><div class="section-label">Workout Log</div></div>
-    <div style="margin:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+
+    <div style="padding:12px 16px 4px"><div class="section-label">Workout Log</div></div>
+    <div style="margin:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px">
       ${S.logs.length ? S.logs.map(l=>`
         <div class="log-entry">
           <div class="log-entry-icon">${l.emoji}</div>
@@ -955,7 +1069,7 @@ function renderPlayer() {
   const w = S.selectedWorkout;
   const { exerciseIndex, logModal, completedSets } = S.player;
   const exData = w.exercises[exerciseIndex];
-  const ex = EXERCISES.find(e=>e.id===exData.id);
+  const ex = exData._ex || EXERCISES.find(e=>e.id===exData.id) || EXERCISES.find(e=>e.name&&exData.name&&e.name.toLowerCase()===exData.name.toLowerCase()) || EXERCISES[0];
   const progress = Math.round(((exerciseIndex) / w.exercises.length) * 100);
 
   return `
@@ -1033,13 +1147,14 @@ function renderComplete() {
   const w = S.selectedWorkout;
   return `
     <div class="complete-wrap fade-in">
+      <div class="complete-label">Session Complete</div>
       <div class="complete-emoji">🏆</div>
-      <div class="complete-title">Workout<br/><span style="color:var(--accent)">Complete!</span></div>
-      <div class="complete-sub">You crushed ${w.name}. Keep it up!</div>
+      <div class="complete-title">GREAT<br/><span style="color:var(--accent)">WORK!</span></div>
+      <div class="complete-sub">You crushed ${w.name}.<br/>Every rep counts. Keep going.</div>
       <div class="complete-stats">
         <div class="complete-stat"><div class="complete-stat-val">${w.dur}</div><div class="complete-stat-lbl">Minutes</div></div>
-        <div class="complete-stat"><div class="complete-stat-val">${w.exercises.length}</div><div class="complete-stat-lbl">Exercises</div></div>
-        <div class="complete-stat"><div class="complete-stat-val">🔥${Math.round(w.dur*7.5)}</div><div class="complete-stat-lbl">Calories</div></div>
+        <div class="complete-stat"><div class="complete-stat-val">${(w.exercises||w.main||[]).length}</div><div class="complete-stat-lbl">Exercises</div></div>
+        <div class="complete-stat"><div class="complete-stat-val">${Math.round(w.dur*7.5)}</div><div class="complete-stat-lbl">Calories</div></div>
       </div>
       <button class="btn-full" id="back-home-btn" style="max-width:320px">Back to Home →</button>
       <button class="btn-ghost" id="view-progress-btn">View My Progress</button>
@@ -1144,7 +1259,35 @@ function attachEvents() {
   // Start workout / open detail
   document.querySelectorAll('.start-workout-btn').forEach(el => {
     el.addEventListener('click', () => {
-      const w = WORKOUTS.find(w => w.id === el.dataset.id);
+      // Try WORKOUTS first (featured), then LIBO_WORKOUTS (full library)
+      let w = WORKOUTS.find(w => w.id === el.dataset.id);
+      if (!w && typeof LIBO_WORKOUTS !== 'undefined') {
+        const lw = LIBO_WORKOUTS.find(w => w.id === el.dataset.id || w.slug === el.dataset.id);
+        if (lw) {
+          // Adapt LIBO_WORKOUT to app format
+          const mainExs = (lw.main || []).slice(0, 8);
+          w = {
+            id: lw.id || lw.slug,
+            name: lw.name,
+            cat: lw.cat,
+            diff: lw.diff || lw.difficulty || 'beginner',
+            dur: lw.dur || parseInt(lw.duration) || 30,
+            equip: 'Various',
+            emoji: lw.emoji || '🏋️',
+            goal: 'general',
+            exercises: mainExs.map(ex => {
+              const found = findExByName(ex.exercise);
+              return {
+                id: found ? found.id : ex.exercise.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''),
+                name: ex.exercise,
+                sets: parseInt(ex.sets) || 3,
+                reps: ex.reps || '10',
+                _ex: found,
+              };
+            }),
+          };
+        }
+      }
       if (!w) return;
       S.selectedWorkout = w;
       if (el.dataset.detail) {
