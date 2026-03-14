@@ -1087,11 +1087,11 @@
     <div class="label" style="color: rgba(0,0,0,0.5); margin-bottom: 16px;">Join the Waitlist</div>
     <h2 class="display display-lg">Be first.<br/>Train better.</h2>
     <p class="cta-sub">Libo is coming soon. Join the waitlist and get early access plus an exclusive launch offer.</p>
-    <form class="email-form" onsubmit="handleSubmit(event)">
-      <input class="email-input" type="email" placeholder="Enter your email address" required />
-      <button class="btn-cta" type="submit">Join →</button>
+    <form class="email-form" id="waitlistForm">
+      <input class="email-input" type="email" id="emailInput" placeholder="Enter your email address" required />
+      <button class="btn-cta" type="submit" id="submitBtn">Join →</button>
     </form>
-    <p style="font-size: 12px; color: rgba(0,0,0,0.4); margin-top: 16px;">No spam. Only when Libo launches.</p>
+    <p id="formMsg" style="font-size: 13px; margin-top: 16px; min-height: 20px; color: rgba(0,0,0,0.5);">No spam. Only when Libo launches.</p>
   </div>
   <div class="store-row reveal">
     <a href="#" class="store-btn">
@@ -1140,14 +1140,45 @@
     a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
   });
 
-  // Email form
-  function handleSubmit(e) {
+  // Email form — Brevo integration
+  document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('button');
-    btn.textContent = '✓ You\'re on the list!';
-    btn.style.background = '#000';
-    e.target.querySelector('input').value = '';
-  }
+    const email = document.getElementById('emailInput').value.trim();
+    const btn   = document.getElementById('submitBtn');
+    const msg   = document.getElementById('formMsg');
+
+    btn.textContent = 'Joining...';
+    btn.disabled = true;
+    msg.style.color = 'rgba(0,0,0,0.5)';
+    msg.textContent = '';
+
+    try {
+      const res  = await fetch('subscribe.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        btn.textContent = '✓ You\'re on the list!';
+        btn.style.background = '#1a1a1a';
+        document.getElementById('emailInput').value = '';
+        msg.style.color = 'rgba(0,0,0,0.6)';
+        msg.textContent = data.message;
+      } else {
+        btn.textContent = 'Join →';
+        btn.disabled = false;
+        msg.style.color = '#cc0000';
+        msg.textContent = data.message || 'Something went wrong. Please try again.';
+      }
+    } catch (err) {
+      btn.textContent = 'Join →';
+      btn.disabled = false;
+      msg.style.color = '#cc0000';
+      msg.textContent = 'Connection error. Please try again.';
+    }
+  });
 
   // Nav scroll effect
   window.addEventListener('scroll', () => {
