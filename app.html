@@ -543,17 +543,14 @@ const WORKOUTS = [
 ];
 
 
-const PROGRAMS = [
-  {id:'p1',name:'28-Day Shred',emoji:'🔥',weeks:4,perWeek:5,goal:'weight',level:'intermediate',
-   desc:'High-intensity fat-burning program combining HIIT and strength training for maximum results.',
-   weeksDone:1,totalWeeks:4},
-  {id:'p2',name:'Strength Foundation',emoji:'💪',weeks:8,perWeek:4,goal:'muscle',level:'beginner',
-   desc:'Build real strength from scratch. Progressive overload, clear structure, zero guesswork.',
-   weeksDone:0,totalWeeks:8},
-  {id:'p3',name:'Mobility Reset',emoji:'🧘',weeks:3,perWeek:6,goal:'flexibility',level:'beginner',
-   desc:'30 minutes a day to unlock your hips, spine and shoulders. Feel better in 3 weeks.',
-   weeksDone:2,totalWeeks:3},
-];
+// Programs = real Challenge workouts from LIBO_WORKOUTS
+const PROGRAMS = (typeof LIBO_WORKOUTS !== 'undefined' ? LIBO_WORKOUTS : [])
+  .filter(w => w.cat === 'Challenge')
+  .map(w => ({ ...w, weeksDone: 0, totalWeeks: 4 }));
+
+// Routines = Morning/Evening routines from LIBO_WORKOUTS
+const ROUTINES = (typeof LIBO_WORKOUTS !== 'undefined' ? LIBO_WORKOUTS : [])
+  .filter(w => w.cat === 'Morning Routine');
 
 const ALT_EXERCISES = {
   'Lat Pulldown':[
@@ -593,6 +590,7 @@ let S = {
   exploreTab: 'workouts',
   exploreFilter: 'all',
   searchQ: '',
+  exploreLimit: 60,
   selectedWorkout: null,
   player: { exerciseIndex: 0, phase: 'playing', logModal: false, sets: [], completedSets: [] },
   scannerEx: Object.keys(ALT_EXERCISES)[0],
@@ -811,7 +809,7 @@ function renderExplore() {
     const catMatch = filter === 'all' || filter === 'All' || w.cat.toLowerCase() === filter.toLowerCase();
     const qMatch = !q || w.name.toLowerCase().includes(q);
     return catMatch && qMatch;
-  }).slice(0, 60);
+  });
 
   // EXERCISES tab — use full LIBO_EXERCISES
   const exCats = ['All','Gym','Home','Mobility','Chest','Back','Legs','Shoulders','Core','Cardio','Glutes','Arms'];
@@ -823,7 +821,10 @@ function renderExplore() {
       (fl === 'arms' && (e.bodyFocus.toLowerCase().includes('bicep') || e.bodyFocus.toLowerCase().includes('tricep') || e.bodyFocus.toLowerCase().includes('forearm')));
     const qMatch = !q || e.name.toLowerCase().includes(q);
     return catMatch && qMatch;
-  }).slice(0, 80);
+  });
+  const limit = S.exploreLimit || 60;
+  const pagedEx = filteredEx.slice(0, limit);
+  const pagedWk = filteredWorkouts.slice(0, limit);
 
   const wkFilterCats = wkCats;
   const exFilterCats = exCats;
@@ -846,7 +847,7 @@ function renderExplore() {
     </div>
     ${isWorkouts ? `
       <div class="workout-grid">
-        ${filteredWorkouts.map(w=>{
+        ${pagedWk.map(w=>{
           const emoji = w.emoji || '🏋️';
           const id = w.id || w.slug || '';
           const dur = w.dur || w.duration || 30;
@@ -858,9 +859,11 @@ function renderExplore() {
             <div class="wcard-meta">${dur}min · ${diff}${mainCount?' · '+mainCount+' ex':''}</div>
           </div>`;
         }).join('')}
-      </div>` : `
+      </div>
+      ${pagedWk.length < filteredWorkouts.length ? `<div style="padding:16px;text-align:center"><button id="load-more-btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--accent);border-radius:50px;padding:12px 28px;font-size:13px;font-weight:700;cursor:pointer">Load more (${filteredWorkouts.length - pagedWk.length} left)</button></div>` : ''}
+      ` : `
       <div class="exercise-list">
-        ${filteredEx.map(e=>`
+        ${pagedEx.map(e=>`
           <div class="exercise-item" data-exid="${e.id||e.slug}">
             <div class="exercise-emoji" style="background:var(--bg3);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">${e.emoji||'💪'}</div>
             <div style="flex:1;min-width:0">
@@ -869,33 +872,53 @@ function renderExplore() {
             </div>
             <div class="diff-badge diff-${e.diff||'beginner'}">${(e.diff||'beginner').charAt(0).toUpperCase()+(e.diff||'beginner').slice(1,3)}</div>
           </div>`).join('')}
-      </div>`}`;
+      </div>
+      ${pagedEx.length < filteredEx.length ? `<div style="padding:16px;text-align:center"><button id="load-more-btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--accent);border-radius:50px;padding:12px 28px;font-size:13px;font-weight:700;cursor:pointer">Load more (${filteredEx.length - pagedEx.length} left)</button></div>` : ''}
+      `}`;
 }
 
 // ── PROGRAMS ──
 function renderPrograms() {
   return `
     <div class="page-header"><div class="page-title">Programs</div></div>
-    <div style="padding:4px 16px">
-      <p style="font-size:13px;color:var(--muted)">Multi-week plans designed to get you real, lasting results.</p>
+
+    <div style="padding:4px 16px 0">
+      <div class="section-label" style="margin-bottom:6px">30-Day Challenges</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Structured programs with daily progressions. All you need to do is show up.</p>
     </div>
-    <div style="display:flex;flex-direction:column;gap:14px;padding:12px 16px">
+    <div style="display:flex;flex-direction:column;gap:14px;padding:0 16px">
       ${PROGRAMS.map(p=>{
-        const pct = Math.round((p.weeksDone/p.totalWeeks)*100);
-        const weeks = Array.from({length:p.totalWeeks},(_,i)=>
-          `<div class="week-dot ${i<p.weeksDone?'done':i===p.weeksDone?'current':'locked'}">${i<p.weeksDone?'✓':i===p.weeksDone?'▶':`${i+1}`}</div>`
-        ).join('');
+        const mainCount = p.main ? p.main.length : 0;
         return `
-        <div class="program-card">
+        <div class="program-card start-workout-btn" data-id="${p.id||''}" data-detail="1" data-wkname="${(p.name||'').replace(/"/g,'&quot;')}" style="cursor:pointer">
           <div class="program-card-header">
-            <span class="program-emoji">${p.emoji}</span>
-            <div><div class="program-name">${p.name}</div><div class="program-meta">${p.weeks} weeks · ${p.perWeek}x/week · ${p.level}</div></div>
-            ${p.weeksDone>0?`<div class="badge" style="margin-left:auto">${pct}%</div>`:''}
+            <span class="program-emoji">${p.emoji||'🎯'}</span>
+            <div>
+              <div class="program-name">${p.name}</div>
+              <div class="program-meta">30 days · ${p.diff} · ${p.dur}min/day${mainCount?' · '+mainCount+' exercises':''}</div>
+            </div>
           </div>
-          <p class="program-desc">${p.desc}</p>
-          ${p.weeksDone>0?`<div class="program-progress"><div class="program-progress-fill" style="width:${pct}%"></div></div>`:''}
-          <div class="week-grid">${weeks}</div>
-          <button class="btn-full" style="margin-top:16px;font-size:14px;padding:14px">${p.weeksDone>0?'Continue Program →':'Start Program →'}</button>
+          <button class="btn-full" style="margin-top:16px;font-size:14px;padding:14px">Start Challenge →</button>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div style="padding:24px 16px 0">
+      <div class="section-label" style="margin-bottom:6px">Morning & Evening Routines</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Short daily habits to start or end your day right.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:0 16px 24px">
+      ${ROUTINES.map(r=>{
+        const mainCount = r.main ? r.main.length : 0;
+        const isEvening = r.name.toLowerCase().includes('evening');
+        return `
+        <div class="exercise-item start-workout-btn" data-id="${r.id||''}" data-detail="1" data-wkname="${(r.name||'').replace(/"/g,'&quot;')}" style="cursor:pointer">
+          <div style="background:var(--bg3);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">${isEvening?'🌙':'🌅'}</div>
+          <div style="flex:1;min-width:0">
+            <div class="exercise-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.name}</div>
+            <div class="exercise-meta">${r.dur}min · ${r.diff}${mainCount?' · '+mainCount+' exercises':''}</div>
+          </div>
+          <div style="color:var(--accent);font-size:18px">›</div>
         </div>`;
       }).join('')}
     </div>`;
@@ -1217,6 +1240,7 @@ function attachEvents() {
     el.addEventListener('click', () => {
       S.exploreTab = el.dataset.et;
       S.exploreFilter = 'all';
+      S.exploreLimit = 60;
       render();
     });
   });
@@ -1225,15 +1249,26 @@ function attachEvents() {
   document.querySelectorAll('[data-filter]').forEach(el => {
     el.addEventListener('click', () => {
       S.exploreFilter = el.dataset.filter;
+      S.exploreLimit = 60;
       render();
     });
   });
+
+  // Load more
+  const loadMoreBtn = $('load-more-btn');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      S.exploreLimit = (S.exploreLimit || 60) + 60;
+      render();
+    });
+  }
 
   // Search
   const searchIn = $('searchInput');
   if (searchIn) {
     searchIn.addEventListener('input', e => {
       S.searchQ = e.target.value;
+      S.exploreLimit = 60;
       render();
     });
   }
