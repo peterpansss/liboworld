@@ -481,6 +481,34 @@
     .log-entry-meta{font-size:12px;color:var(--muted);margin-top:2px;}
     .log-entry-cal{margin-left:auto;font-size:13px;font-weight:700;color:var(--accent);}
 
+    /* ── CHALLENGE DAY DOTS ── */
+    .ch-day {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      color: var(--muted);
+    }
+    .ch-day-done {
+      background: rgba(202,255,0,0.15);
+      border-color: rgba(202,255,0,0.4);
+      color: var(--accent);
+    }
+    .ch-day-today {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #080808;
+      font-weight: 900;
+    }
+    .ch-day-locked {
+      opacity: 0.35;
+    }
+
     /* transitions */
     .fade-in{animation:fadeIn 0.25s ease;}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);};}
@@ -596,6 +624,8 @@ let S = {
   scannerEx: Object.keys(ALT_EXERCISES)[0],
   logs: JSON.parse(localStorage.getItem('libo_logs') || '[]'),
   user: JSON.parse(localStorage.getItem('libo_user') || 'null'),
+  challengeProgress: JSON.parse(localStorage.getItem('libo_challenge_progress') || '{}'),
+  // { wk_30_day_total_body_transformation: { startDate: '2024-01-01', completedDays: [1,3,5,...] } }
 };
 
 if (S.user) { S.screen = 'main'; }
@@ -630,6 +660,7 @@ function render() {
   else if (S.screen === 'workout-detail') { app.innerHTML = renderWorkoutDetail(); }
   else if (S.screen === 'player') { app.innerHTML = renderPlayer(); }
   else if (S.screen === 'complete') { app.innerHTML = renderComplete(); }
+  else if (S.screen === 'challenge') { app.innerHTML = renderChallenge(); }
   else { app.innerHTML = renderMain(); }
 
   attachEvents();
@@ -1069,6 +1100,112 @@ function renderWorkoutDetail() {
     </div>`;
 }
 
+// ── CHALLENGE OVERVIEW ──
+function renderChallenge() {
+  const w = S.selectedWorkout;
+  if (!w) return '';
+  const cid = w.id;
+  const prog = S.challengeProgress[cid] || { startDate: null, completedDays: [] };
+  const completedDays = prog.completedDays || [];
+  const currentDay = completedDays.length + 1;
+  const totalDays = 30;
+  const pct = Math.round((completedDays.length / totalDays) * 100);
+  const circumference = 2 * Math.PI * 40;
+  const dashOffset = circumference - (circumference * pct / 100);
+
+  // Parse today's reps for each exercise
+  function todayReps(repsStr) {
+    if (!repsStr) return '—';
+    // "Day 1: 8 reps → Day 30: 25 reps" → extract day 1 value and day 30 value, interpolate
+    const m = repsStr.match(/Day 1[:\s]+([^→\n]+).*Day 30[:\s]+([^\n]+)/i);
+    if (m) {
+      const start = m[1].trim().replace(' reps','').replace(' sec','').replace(' rep','');
+      const end = m[2].trim().replace(' reps','').replace(' sec','').replace(' rep','');
+      const unit = repsStr.includes('sec') ? ' sec' : ' reps';
+      const s = parseInt(start), e = parseInt(end);
+      if (!isNaN(s) && !isNaN(e)) {
+        const today = Math.round(s + ((e - s) * (currentDay - 1) / (totalDays - 1)));
+        return today + unit;
+      }
+      return m[1].trim();
+    }
+    return repsStr;
+  }
+
+  // 30-day grid: 6 cols × 5 rows
+  const dayDots = Array.from({length: totalDays}, (_, i) => {
+    const day = i + 1;
+    const done = completedDays.includes(day);
+    const isToday = day === currentDay && currentDay <= totalDays;
+    const locked = day > currentDay;
+    return `<div class="ch-day ${done ? 'ch-day-done' : isToday ? 'ch-day-today' : locked ? 'ch-day-locked' : 'ch-day-locked'}" title="Day ${day}">
+      ${done ? '✓' : day}
+    </div>`;
+  }).join('');
+
+  const exercises = (w.exercises || []);
+
+  return `
+    <div class="screen fade-in">
+      <div class="detail-header">
+        <div class="detail-back" id="back-btn">←</div>
+        <div style="font-size:13px;font-weight:700;color:var(--muted)">30-Day Challenge</div>
+        <div style="width:32px"></div>
+      </div>
+
+      <div style="padding:20px 20px 0;display:flex;align-items:center;gap:20px">
+        <div style="position:relative;flex-shrink:0">
+          <svg width="96" height="96" viewBox="0 0 96 96">
+            <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/>
+            <circle cx="48" cy="48" r="40" fill="none" stroke="#CAFF00" stroke-width="6"
+              stroke-dasharray="${circumference}" stroke-dashoffset="${dashOffset}"
+              stroke-linecap="round" transform="rotate(-90 48 48)"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
+            <div style="font-size:22px;font-weight:900;color:#CAFF00;line-height:1">${pct}%</div>
+            <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">done</div>
+          </div>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Active Challenge</div>
+          <div style="font-size:22px;font-weight:900;letter-spacing:-0.5px;line-height:1.1">${w.name}</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:6px">Day ${Math.min(currentDay, totalDays)} of ${totalDays} · ${w.diff}</div>
+        </div>
+      </div>
+
+      <div style="padding:20px 20px 0">
+        <div class="section-label" style="margin-bottom:10px">30-Day Progress</div>
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">${dayDots}</div>
+      </div>
+
+      <div style="padding:20px 20px 0">
+        <div class="section-label" style="margin-bottom:10px">
+          ${currentDay <= totalDays ? `Today — Day ${currentDay}` : 'Challenge Complete!'}
+        </div>
+        ${currentDay <= totalDays ? `
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${exercises.map((ex,i) => `
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+              <div style="width:28px;height:28px;background:rgba(202,255,0,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--accent);flex-shrink:0">${i+1}</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ex.name}</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:2px">${ex.sets} sets · ${todayReps(ex.reps)}</div>
+              </div>
+            </div>`).join('')}
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <button class="btn-full" id="start-challenge-day-btn" style="flex:2">Start Day ${currentDay} →</button>
+          ${completedDays.length > 0 ? `<button id="mark-done-btn" style="flex:1;background:rgba(202,255,0,0.08);border:1px solid rgba(202,255,0,0.2);color:var(--accent);border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;padding:14px">✓ Done</button>` : ''}
+        </div>
+        ` : `<div style="text-align:center;padding:40px 20px">
+          <div style="font-size:64px;margin-bottom:16px">🏆</div>
+          <div style="font-size:28px;font-weight:900;color:var(--accent)">CHALLENGE COMPLETE</div>
+          <div style="color:var(--muted);margin-top:8px">You finished all 30 days. That's elite.</div>
+        </div>`}
+      </div>
+    </div>`;
+}
+
 // ── PLAYER ──
 function renderPlayer() {
   const w = S.selectedWorkout;
@@ -1307,14 +1444,38 @@ function attachEvents() {
       }
       if (!w) return;
       S.selectedWorkout = w;
-      if (el.dataset.detail) {
-        S.screen = 'workout-detail';
+      if (w.cat === 'Challenge') {
+        S.screen = 'challenge';
       } else {
         S.screen = 'workout-detail';
       }
       render();
     });
   });
+
+  // Challenge day start
+  const startChallDay = $('start-challenge-day-btn');
+  if (startChallDay) {
+    startChallDay.addEventListener('click', () => {
+      S.screen = 'player';
+      S.player = { exerciseIndex: 0, phase: 'playing', logModal: false, sets: [], completedSets: [] };
+      render();
+    });
+  }
+  // Mark challenge day done (without playing)
+  const markDone = $('mark-done-btn');
+  if (markDone) {
+    markDone.addEventListener('click', () => {
+      const cid = S.selectedWorkout.id;
+      if (!S.challengeProgress[cid]) S.challengeProgress[cid] = { startDate: new Date().toISOString(), completedDays: [] };
+      const day = S.challengeProgress[cid].completedDays.length + 1;
+      if (!S.challengeProgress[cid].completedDays.includes(day)) {
+        S.challengeProgress[cid].completedDays.push(day);
+        localStorage.setItem('libo_challenge_progress', JSON.stringify(S.challengeProgress));
+      }
+      render();
+    });
+  }
 
   // Exercise detail modal
   document.querySelectorAll('[data-exid]').forEach(el => {
@@ -1365,6 +1526,16 @@ function attachEvents() {
       render();
     } else {
       saveLog(w.id);
+      // If it was a challenge workout, mark the day complete
+      if (S.selectedWorkout && S.selectedWorkout.cat === 'Challenge') {
+        const cid = S.selectedWorkout.id;
+        if (!S.challengeProgress[cid]) S.challengeProgress[cid] = { startDate: new Date().toISOString(), completedDays: [] };
+        const day = (S.challengeProgress[cid].completedDays.length || 0) + 1;
+        if (!S.challengeProgress[cid].completedDays.includes(day)) {
+          S.challengeProgress[cid].completedDays.push(day);
+          localStorage.setItem('libo_challenge_progress', JSON.stringify(S.challengeProgress));
+        }
+      }
       S.screen = 'complete';
       render();
     }
@@ -1395,8 +1566,12 @@ function attachEvents() {
   // Complete
   const backHome = $('back-home-btn');
   if (backHome) backHome.addEventListener('click', () => {
-    S.screen = 'main';
-    S.tab = 'home';
+    if (S.selectedWorkout?.cat === 'Challenge') {
+      S.screen = 'challenge';
+    } else {
+      S.screen = 'main';
+      S.tab = 'home';
+    }
     render();
   });
 
