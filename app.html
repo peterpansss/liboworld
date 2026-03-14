@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Libo – Train Anywhere</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <script src="libo-data.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -385,7 +385,7 @@
     .complete-emoji{font-size:72px;margin-bottom:16px;animation:pop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55);}
     @keyframes pop{0%{transform:scale(0);}100%{transform:scale(1);};}
     .complete-label{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:8px;}
-    .complete-title{font-size:40px;font-weight:900;letter-spacing:-1.5px;line-height:1;margin-bottom:8px;text-transform:uppercase;}
+    .complete-title{font-family:'Barlow Condensed',sans-serif;font-size:88px;font-weight:900;letter-spacing:-2px;line-height:0.88;margin-bottom:12px;text-transform:uppercase;}
     .complete-sub{font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.6;}
     .complete-stats{display:flex;gap:12px;margin-bottom:40px;width:100%;}
     .complete-stat{
@@ -787,12 +787,12 @@ function renderHome() {
     </div>
 
     <div class="home-hero">
-      <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;opacity:0.8">Today's Pick</div>
-      <div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:8px;text-transform:uppercase">${rec.name}</div>
-      <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:20px">
+      <div style="font-size:9px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:14px;opacity:0.9">Today's Workout</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;letter-spacing:-1px;line-height:0.9;margin-bottom:12px;text-transform:uppercase">${rec.name}</div>
+      <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:24px">
         <span>${rec.emoji} ${rec.dur} min</span><span class="dot"></span><span>${rec.exercises.length} exercises</span><span class="dot"></span><span style="text-transform:capitalize">${rec.diff}</span>
       </div>
-      <button style="background:var(--accent);color:#080808;border:none;padding:14px 32px;border-radius:50px;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:0.5px;" class="start-workout-btn" data-id="${rec.id}">Start Workout →</button>
+      <button style="background:var(--accent);color:#080808;border:none;padding:14px 32px;border-radius:50px;font-size:13px;font-weight:900;cursor:pointer;letter-spacing:1px;text-transform:uppercase" class="start-workout-btn" data-id="${rec.id}">Start Now →</button>
     </div>
 
     <div class="stats-row">
@@ -802,15 +802,21 @@ function renderHome() {
     </div>
 
     <div style="padding:8px 16px 4px">
-      <div class="section-label">Quick Access</div>
+      <div class="section-label">Featured</div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:10px;padding:8px 16px">
-      ${WORKOUTS.slice(0,3).map(w=>`
-        <div class="card-row start-workout-btn" data-id="${w.id}">
-          <div class="card-row-icon">${w.emoji}</div>
-          <div><div class="card-row-title">${w.name}</div><div class="card-row-sub">${w.dur} min · ${w.exercises.length} exercises · ${w.diff}</div></div>
-          <div class="card-row-arrow">›</div>
-        </div>`).join('')}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 16px">
+      ${WORKOUTS.slice(0,4).map((w,i)=>{
+        const gradients=['linear-gradient(135deg,#1a1a00 0%,#2d3a00 100%)','linear-gradient(135deg,#0a1a1a 0%,#003a2d 100%)','linear-gradient(135deg,#1a0a0a 0%,#3a1000 100%)','linear-gradient(135deg,#0a0a1a 0%,#0a002d 100%)'];
+        return `<div class="start-workout-btn" data-id="${w.id}" data-detail="1" style="background:${gradients[i%4]};border:1px solid rgba(202,255,0,0.1);border-radius:16px;overflow:hidden;cursor:pointer;position:relative;">
+          <div style="padding:16px 14px 12px;min-height:110px;display:flex;flex-direction:column;justify-content:space-between">
+            <div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);opacity:0.8">${w.cat}</div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;line-height:0.95;letter-spacing:-0.5px;margin-bottom:6px">${w.name}</div>
+              <div style="font-size:11px;color:var(--muted)">${w.dur}min · ${w.diff}</div>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
     </div>
 
     ${S.logs.length ? `

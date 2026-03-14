@@ -3,783 +3,371 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Libo – App Case Study</title>
+  <title>Libo — App Case Study</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --black: #000000;
-      --white: #FFFFFF;
-      --accent: #CAFF00;
-      --dark: #111111;
-      --card: #1A1A1A;
-      --muted: #888888;
-      --border: rgba(255,255,255,0.08);
-    }
-
-    html { font-size: 16px; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .display {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.9;
-      letter-spacing: -1px;
-    }
-
-    /* ── PRINT ── */
-    @media print {
-      body { background: #000; }
-      .page { page-break-after: always; }
-      .page:last-child { page-break-after: avoid; }
-    }
-
-    /* ── PAGE WRAPPER ── */
-    .page {
-      width: 100%;
-      min-height: 100vh;
-      padding: 80px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .page-narrow {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* ── COVER ── */
-    .cover {
-      background: var(--black);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 80px;
-    }
-
-    .cover-eyebrow {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 24px;
-    }
-
-    .cover-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(80px, 12vw, 160px);
-      text-transform: uppercase;
-      line-height: 0.88;
-      letter-spacing: -3px;
-    }
-
-    .cover-title .line-accent { color: var(--accent); }
-    .cover-title .line-outline {
-      color: transparent;
-      -webkit-text-stroke: 2px rgba(255,255,255,0.15);
-    }
-
-    .cover-sub {
-      font-size: 20px;
-      color: var(--muted);
-      max-width: 560px;
-      line-height: 1.6;
-      margin-top: 40px;
-    }
-
-    .cover-meta {
-      display: flex;
-      gap: 40px;
-      margin-top: 64px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-
-    .cover-meta-item { }
-    .cover-meta-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-    .cover-meta-value { font-size: 16px; font-weight: 700; }
-
-    .cover-bg-text {
-      position: absolute;
-      bottom: -60px;
-      right: -40px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 320px;
-      color: rgba(202,255,0,0.03);
-      letter-spacing: -10px;
-      text-transform: uppercase;
-      pointer-events: none;
-      line-height: 1;
-    }
-
-    /* ── SECTION HEADERS ── */
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(48px, 6vw, 80px);
-      text-transform: uppercase;
-      line-height: 0.92;
-      letter-spacing: -1px;
-      margin-bottom: 24px;
-    }
-
-    .section-title .acc { color: var(--accent); }
-
-    .section-body {
-      font-size: 16px;
-      line-height: 1.75;
-      color: #aaaaaa;
-      max-width: 640px;
-    }
-
-    /* ── OVERVIEW PAGE ── */
-    .overview-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-
-    .overview-right {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .pill-tag {
-      display: inline-block;
-      background: rgba(202,255,0,0.1);
-      border: 1px solid rgba(202,255,0,0.25);
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 50px;
-      margin-right: 8px;
-      margin-bottom: 8px;
-    }
-
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-top: 48px;
-    }
-
-    .stat-cell {
-      background: var(--black);
-      padding: 32px 28px;
-    }
-
-    .stat-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 56px;
-      font-weight: 900;
-      color: var(--accent);
-      line-height: 1;
-      letter-spacing: -2px;
-    }
-
-    .stat-lbl {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 6px;
-      font-weight: 500;
-    }
-
-    /* ── DESIGN SYSTEM ── */
-    .color-grid {
-      display: flex;
-      gap: 20px;
-      margin-top: 40px;
-    }
-
-    .color-card {
-      flex: 1;
-      border-radius: 16px;
-      padding: 32px 24px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      min-height: 180px;
-    }
-
-    .color-name { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
-    .color-hex { font-size: 13px; opacity: 0.7; font-weight: 500; }
-
-    .type-display {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 96px;
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.9;
-      letter-spacing: -3px;
-      color: var(--white);
-    }
-
-    .type-chars {
-      font-size: 14px;
-      color: var(--muted);
-      letter-spacing: 3px;
-      margin-top: 16px;
-    }
-
-    /* ── USER FLOW ── */
-    .flow-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      margin-top: 48px;
-      position: relative;
-    }
-
-    .flow-grid::before {
-      content: '';
-      position: absolute;
-      top: 36px;
-      left: 12%;
-      right: 12%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), var(--accent), transparent);
-      opacity: 0.3;
-    }
-
-    .flow-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 0 16px;
-    }
-
-    .flow-dot {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: var(--dark);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .flow-dot.accent {
-      background: rgba(202,255,0,0.12);
-      border-color: rgba(202,255,0,0.3);
-    }
-
-    .flow-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .flow-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
-
-    /* ── FEATURES ── */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-top: 48px;
-    }
-
-    .feature-cell {
-      background: var(--black);
-      padding: 40px 32px;
-    }
-
-    .feature-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-    }
-
-    .feature-icon { font-size: 32px; margin-bottom: 16px; display: block; }
-
-    .feature-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 22px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.3px;
-      margin-bottom: 10px;
-    }
-
-    .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
-
-    /* ── SCREENS ── */
-    .screens-row {
-      display: flex;
-      gap: 24px;
-      align-items: flex-end;
-      margin-top: 48px;
-    }
-
-    .phone-mock {
-      background: var(--dark);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 36px;
-      overflow: hidden;
-      flex: 1;
-      min-height: 500px;
-      padding: 0;
-      position: relative;
-    }
-
-    .phone-mock.featured {
-      flex: 1.3;
-      min-height: 580px;
-    }
-
-    .phone-notch {
-      width: 100px;
-      height: 28px;
-      background: var(--black);
-      border-radius: 0 0 20px 20px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 10;
-    }
-
-    .mock-home {
-      background: linear-gradient(145deg,#111,#0a0a0a);
-      padding: 0;
-    }
-
-    .mock-header {
-      padding: 16px 20px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .mock-greeting { font-size: 10px; color: #666; }
-    .mock-name { font-size: 15px; font-weight: 900; letter-spacing: -0.3px; }
-
-    .mock-hero-card {
-      margin: 8px 12px;
-      background: linear-gradient(145deg,#181818,#0f0f0f);
-      border: 1px solid rgba(202,255,0,0.15);
-      border-radius: 16px;
-      padding: 20px 18px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .mock-hero-card::before {
-      content: '';
-      position: absolute;
-      bottom: -15px; right: -15px;
-      width: 100px; height: 100px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(202,255,0,0.15), transparent 70%);
-    }
-
-    .mock-hero-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(202,255,0,0.6), transparent);
-    }
-
-    .mock-today { font-size: 8px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
-    .mock-workout-name { font-size: 17px; font-weight: 900; letter-spacing: -0.5px; text-transform: uppercase; line-height: 1.1; margin-bottom: 6px; }
-    .mock-meta { font-size: 10px; color: #666; margin-bottom: 14px; }
-    .mock-btn { background: var(--accent); color: #080808; border: none; padding: 9px 20px; border-radius: 50px; font-size: 11px; font-weight: 800; }
-
-    .mock-stats { display: flex; gap: 8px; margin: 8px 12px; }
-    .mock-stat { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 10px 8px; text-align: center; }
-    .mock-stat-val { font-size: 16px; font-weight: 900; color: var(--accent); }
-    .mock-stat-lbl { font-size: 8px; color: #666; margin-top: 2px; }
-
-    .mock-section-lbl { font-size: 8px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; padding: 8px 12px 4px; }
-
-    .mock-workout-row {
-      margin: 0 12px 8px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 12px;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .mock-row-icon {
-      width: 32px; height: 32px;
-      background: rgba(202,255,0,0.1);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
-    }
-
-    .mock-row-title { font-size: 11px; font-weight: 700; }
-    .mock-row-sub { font-size: 9px; color: #666; margin-top: 1px; }
-    .mock-row-arrow { margin-left: auto; font-size: 14px; color: #444; }
-
-    .mock-bottom-nav {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 56px;
-      background: rgba(8,8,8,0.95);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      padding: 0 8px 6px;
-    }
-
-    .mock-nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      padding: 6px 10px;
-      border-radius: 10px;
-    }
-
-    .mock-nav-item.active { background: rgba(202,255,0,0.08); }
-    .mock-nav-item.active .mock-nav-icon { color: var(--accent); }
-    .mock-nav-icon { font-size: 16px; color: #444; }
-    .mock-nav-lbl { font-size: 7px; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: 0.5px; }
-    .mock-nav-item.active .mock-nav-lbl { color: var(--accent); }
-
-    /* workouts mock */
-    .mock-workouts { background: #0a0a0a; }
-    .mock-title-bar { padding: 14px 16px 8px; font-size: 16px; font-weight: 900; letter-spacing: -0.3px; }
-    .mock-filter-row { display: flex; gap: 6px; padding: 0 12px 10px; overflow: hidden; }
-    .mock-filter { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 50px; padding: 5px 12px; font-size: 9px; font-weight: 700; color: #666; }
-    .mock-filter.active { background: rgba(202,255,0,0.12); border-color: rgba(202,255,0,0.3); color: var(--accent); }
-    .mock-wgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px; }
-    .mock-wcard { background: #141414; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 14px 12px; }
-    .mock-wcard-emoji { font-size: 22px; margin-bottom: 8px; display: block; }
-    .mock-wcard-name { font-size: 11px; font-weight: 800; letter-spacing: -0.2px; }
-    .mock-wcard-meta { font-size: 9px; color: #666; margin-top: 3px; }
-
-    /* progress mock */
-    .mock-progress { background: #0a0a0a; padding: 0 12px; }
-    .mock-ring-card {
-      background: linear-gradient(145deg,#111,#0a0a0a);
-      border: 1px solid rgba(202,255,0,0.12);
-      border-radius: 14px;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 0 0 10px;
-    }
-
-    /* ── GOALS ── */
-    .goals-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-top: 48px;
-      border-top: 1px solid var(--border);
-    }
-
-    .goal-item {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-      cursor: default;
-    }
-
-    .goal-icon { font-size: 28px; }
-    .goal-text h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-    .goal-text p { font-size: 13px; color: var(--muted); }
-    .goal-arrow { margin-left: auto; color: var(--accent); font-size: 20px; }
-
-    /* ── TESTIMONIALS ── */
-    .testi-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 48px;
-    }
-
-    .testi-card {
-      background: var(--dark);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 32px;
-    }
-
-    .testi-stars { color: var(--accent); font-size: 14px; letter-spacing: 3px; margin-bottom: 20px; }
-    .testi-quote { font-size: 14px; line-height: 1.8; color: #aaa; margin-bottom: 28px; font-style: italic; }
-    .testi-author { display: flex; align-items: center; gap: 12px; }
-    .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 16px; }
-    .testi-name { font-size: 14px; font-weight: 700; }
-    .testi-meta { font-size: 12px; color: var(--muted); margin-top: 1px; }
-
-    /* ── STATEMENT ── */
-    .statement-page {
-      background: var(--black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 80px;
-    }
-
-    .statement-text {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(60px, 8vw, 100px);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 1;
-      letter-spacing: -2px;
-    }
-
-    .statement-text .dim { color: #333; }
-    .statement-text .bright { color: var(--white); }
-    .statement-text .acc { color: var(--accent); }
-
-    /* ── CTA PAGE ── */
-    .cta-page {
-      background: var(--accent);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-page::before {
-      content: 'LIBO';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 400px;
-      color: rgba(0,0,0,0.06);
-      letter-spacing: -15px;
-      pointer-events: none;
-    }
-
-    .cta-inner { text-align: center; position: relative; max-width: 800px; }
-    .cta-label { font-size: 12px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-bottom: 20px; }
-    .cta-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(80px, 12vw, 140px);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.9;
-      letter-spacing: -3px;
-      color: var(--black);
-    }
-    .cta-sub { font-size: 18px; color: rgba(0,0,0,0.55); margin-top: 24px; line-height: 1.6; }
-    .cta-url { font-size: 20px; font-weight: 800; color: var(--black); margin-top: 32px; letter-spacing: 1px; }
-
-    /* ── DIVIDER ── */
-    .divider { border: none; border-top: 1px solid var(--border); margin: 60px 0; }
-
-    /* ── TWO COL ── */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-
-    /* ── ICON ROW ── */
-    .icon-row { display: flex; gap: 0; border: 1px solid var(--border); margin-top: 40px; }
-    .icon-cell { flex: 1; padding: 32px 24px; border-right: 1px solid var(--border); text-align: center; }
-    .icon-cell:last-child { border-right: none; }
-    .icon-big { font-size: 40px; margin-bottom: 12px; display: block; }
-    .icon-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-    .icon-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
-
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--black:#000;--white:#fff;--lime:#CAFF00;--dark:#111;--card:#1A1A1A;--muted:#777;--border:rgba(255,255,255,0.08);}
+    html{font-size:16px;-webkit-font-smoothing:antialiased;}
+    body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);}
+    .bc{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;line-height:0.88;}
+    @media print{.pg{page-break-after:always;}.pg:last-child{page-break-after:avoid;}}
+    .pg{width:100%;min-height:100vh;position:relative;overflow:hidden;padding:80px;}
+    .pg-lime{background:var(--lime);color:var(--black);}
+    .pg-dark{background:#0a0a0a;}
+    .narrow{max-width:1200px;margin:0 auto;}
+    .eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--lime);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+    .sec-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,7vw,96px);text-transform:uppercase;line-height:0.9;letter-spacing:-2px;}
+    .sec-body{font-size:16px;line-height:1.75;color:#aaa;max-width:560px;}
+    .acc{color:var(--lime);}
+    .phone{width:200px;height:400px;background:#090909;border-radius:32px;border:1.5px solid rgba(255,255,255,0.1);overflow:hidden;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.7),inset 0 0 0 1px rgba(255,255,255,0.05);flex-shrink:0;}
+    .phone::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:60px;height:5px;background:rgba(255,255,255,0.12);border-radius:3px;z-index:10;}
+    .phone-lg{width:240px;height:480px;}
+    .phone-sm{width:160px;height:320px;}
+    .phone-tilt{transform:perspective(900px) rotateY(-18deg) rotateX(4deg);}
+    .phone-tilt-r{transform:perspective(900px) rotateY(18deg) rotateX(4deg);}
+    .pc{padding:24px 14px 14px;height:100%;display:flex;flex-direction:column;gap:8px;font-size:11px;}
+    .ph-label{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#CAFF00;}
+    .ph-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;text-transform:uppercase;line-height:0.9;color:#fff;}
+    .ph-card{background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px;}
+    .ph-btn{background:#CAFF00;color:#000;border:none;border-radius:20px;padding:8px 14px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;width:100%;margin-top:auto;display:block;text-align:center;}
+    .ph-nav{margin-top:auto;display:flex;justify-content:space-around;border-top:1px solid rgba(255,255,255,0.07);padding-top:8px;}
+    .ph-nav-i{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:7px;color:#555;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+    .ph-nav-i.a{color:#CAFF00;}
+    .ph-dot-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin:6px 0;}
+    .ph-dot{aspect-ratio:1;border-radius:4px;background:#1a1a1a;border:1px solid rgba(255,255,255,0.06);font-size:7px;display:flex;align-items:center;justify-content:center;color:#333;}
+    .ph-dot.done{background:rgba(202,255,0,0.2);border-color:rgba(202,255,0,0.4);color:#CAFF00;}
+    .ph-dot.today{background:#CAFF00;color:#000;font-weight:900;}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);margin-top:48px;}
+    .stat-cell{padding:28px 24px;border-right:1px solid var(--border);}
+    .stat-cell:last-child{border-right:none;}
+    .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;color:var(--lime);line-height:1;letter-spacing:-2px;}
+    .stat-lbl{font-size:12px;color:var(--muted);margin-top:4px;}
+    .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px;}
+    .tl-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px 24px;}
+    .tl-week{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:12px;}
+    .tl-title{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;line-height:0.9;margin-bottom:12px;}
+    .tl-body{font-size:13px;color:#888;line-height:1.6;}
+    .icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:24px;margin-top:48px;}
+    .icon-box{width:100%;aspect-ratio:1;background:var(--card);border-radius:24px;display:flex;align-items:center;justify-content:center;}
+    .icon-box svg{width:52px;height:52px;stroke:white;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+    .wf-phone{width:180px;height:360px;border:2px solid rgba(255,255,255,0.15);border-radius:28px;overflow:hidden;position:relative;background:#0d0d0d;}
+    .wf-box{height:16px;background:rgba(255,255,255,0.07);border-radius:3px;margin-bottom:6px;}
+    .wf-box-lg{height:80px;background:rgba(255,255,255,0.05);border-radius:8px;margin-bottom:6px;}
+    .wf-c{padding:20px 12px 12px;}
+    .testi-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;border-left:3px solid var(--lime);}
+    .testi-q{font-size:16px;line-height:1.65;color:#ddd;margin-bottom:16px;}
+    .testi-n{font-size:12px;font-weight:700;color:var(--lime);letter-spacing:1px;text-transform:uppercase;}
+    .app-icon{width:80px;height:80px;background:var(--black);border-radius:18px;border:2px solid rgba(202,255,0,0.3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:var(--lime);}
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════
-  PAGE 1 — COVER
-═══════════════════════════════ -->
-<div class="page cover">
-  <div class="cover-eyebrow">UX / UI Design · 2026</div>
-  <h1 class="cover-title">
-    <span class="display">Libo</span><br/>
-    <span class="display line-accent">Fitness</span><br/>
-    <span class="display line-outline">Club App</span>
-  </h1>
-  <p class="cover-sub">Everything you need to reach your fitness goals — bodyweight, gym, mobility, breathing. Train anywhere, anytime.</p>
-  <div class="cover-meta">
-    <div class="cover-meta-item">
-      <div class="cover-meta-label">Platform</div>
-      <div class="cover-meta-value">Mobile App · Web</div>
-    </div>
-    <div class="cover-meta-item">
-      <div class="cover-meta-label">Category</div>
-      <div class="cover-meta-value">Fitness · Health</div>
-    </div>
-    <div class="cover-meta-item">
-      <div class="cover-meta-label">Status</div>
-      <div class="cover-meta-value" style="color:var(--accent)">Coming Soon</div>
-    </div>
-    <div class="cover-meta-item">
-      <div class="cover-meta-label">Website</div>
-      <div class="cover-meta-value">liboworld.com</div>
+<!-- PAGE 1 — COVER -->
+<div class="pg" style="background:#000;display:flex;align-items:center;justify-content:space-between;">
+  <div style="flex:1;max-width:560px;">
+    <div class="eyebrow">UX/UI Design · Fitness · Mobile App</div>
+    <div class="bc" style="font-size:clamp(100px,14vw,200px);line-height:0.85;letter-spacing:-4px;">LI<span style="color:var(--lime)">BO</span></div>
+    <div class="bc" style="font-size:clamp(48px,7vw,96px);color:rgba(255,255,255,0.12);-webkit-text-stroke:1px rgba(255,255,255,0.18);letter-spacing:-2px;margin-top:4px;">TRAIN</div>
+    <div class="bc" style="font-size:clamp(48px,7vw,96px);color:var(--lime);letter-spacing:-2px;">ANYWHERE.</div>
+    <div style="font-size:16px;color:#777;margin-top:28px;line-height:1.6;">502 exercises. 102 workouts. Zero excuses.</div>
+    <div style="display:flex;gap:40px;margin-top:52px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.07);">
+      <div><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:6px;">Role</div><div style="font-size:14px;font-weight:700;">UX/UI Design</div></div>
+      <div><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:6px;">Platform</div><div style="font-size:14px;font-weight:700;">iOS & Android</div></div>
+      <div><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:6px;">Year</div><div style="font-size:14px;font-weight:700;">2025</div></div>
+      <div><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:6px;">Status</div><div style="font-size:14px;font-weight:700;color:var(--lime);">In Development</div></div>
     </div>
   </div>
-  <div class="cover-bg-text">LIBO</div>
+  <div style="position:relative;flex-shrink:0;">
+    <div class="phone phone-lg" style="transform:perspective(1000px) rotateY(-8deg) rotateX(2deg);">
+      <div class="pc">
+        <div class="ph-label">Good Morning</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:#fff;text-transform:uppercase;line-height:0.9;margin-bottom:4px;">ALEX</div>
+        <div style="background:linear-gradient(135deg,#1a2200,#2d3a00,rgba(202,255,0,0.08));border:1px solid rgba(202,255,0,0.15);border-radius:14px;padding:16px;flex:0 0 auto;">
+          <div style="font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#CAFF00;margin-bottom:8px;">TODAY'S WORKOUT</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;text-transform:uppercase;line-height:0.9;margin-bottom:6px;">FULL BODY<br/>BURN</div>
+          <div style="font-size:9px;color:#888;">20 MIN · 5 EXERCISES · BEGINNER</div>
+          <div style="background:#CAFF00;color:#000;border-radius:12px;padding:7px 14px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:inline-block;margin-top:10px;">Start Now →</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;flex:0 0 auto;">
+          <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">0</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Sessions</div></div>
+          <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">502</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Exercises</div></div>
+          <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">102</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Workouts</div></div>
+        </div>
+        <div class="ph-nav">
+          <div class="ph-nav-i a">🏠<span>Home</span></div>
+          <div class="ph-nav-i">🔍<span>Explore</span></div>
+          <div class="ph-nav-i">📅<span>Programs</span></div>
+          <div class="ph-nav-i">📊<span>Progress</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:160px;height:20px;background:radial-gradient(ellipse,rgba(202,255,0,0.25),transparent 70%);filter:blur(10px);"></div>
+  </div>
+  <div style="position:absolute;bottom:-80px;right:-40px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:360px;color:rgba(202,255,0,0.025);letter-spacing:-10px;text-transform:uppercase;line-height:1;pointer-events:none;user-select:none;">LIBO</div>
 </div>
 
-<!-- ═══════════════════════════════
-  PAGE 2 — OVERVIEW
-═══════════════════════════════ -->
-<div class="page">
-  <div class="page-narrow">
-    <div class="section-label">Overview</div>
-    <div class="overview-grid">
-      <div>
-        <div class="section-title">What is<br/><span class="acc">Libo?</span></div>
-        <p class="section-body">
-          Libo is an all-in-one fitness training club designed for real life. Whether you're at home, in the gym, or on the go — Libo delivers expert-built workouts, personalised training plans, and smart tools to keep you moving every single day.
-        </p>
-        <p class="section-body" style="margin-top:20px;">
-          Built for the 18–35 market across Europe with a focus on Germany, Libo combines the best of premium training apps with zero barriers to entry — free to start, no equipment required.
-        </p>
+<!-- PAGE 2 — OVERVIEW -->
+<div class="pg pg-dark">
+  <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
+    <div>
+      <div class="eyebrow">01 Overview</div>
+      <div class="sec-title" style="margin-bottom:28px;">The<br/><span class="acc">Project</span></div>
+      <p class="sec-body">Libo empowers everyday athletes to train smarter — with a library of 502 exercises across gym, home, and mobility environments, 102 structured workouts, and 30-day challenge programs that scale your daily targets from Day 1 to Day 30.</p>
+      <p class="sec-body" style="margin-top:16px;">Every screen was designed to remove friction. You know your goal. Libo knows the path.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;">
+        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--lime);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">Mobile App</span>
+        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--lime);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">Fitness</span>
+        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--lime);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">UX/UI Design</span>
+        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--lime);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">2025</span>
       </div>
-      <div class="overview-right">
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:20px;margin-bottom:40px;">
+        <div class="app-icon">L</div>
         <div>
-          <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Core Features</div>
-          <div>
-            <span class="pill-tag">Exercise Library</span>
-            <span class="pill-tag">Workout Library</span>
-            <span class="pill-tag">Programs</span>
-            <span class="pill-tag">Progress Tracking</span>
-            <span class="pill-tag">Alt Scanner</span>
-            <span class="pill-tag">Custom Builder</span>
-            <span class="pill-tag">Breathing</span>
-            <span class="pill-tag">Mobility</span>
+          <div style="font-size:22px;font-weight:800;margin-bottom:4px;">Libo</div>
+          <div style="font-size:13px;color:#666;">Train Anywhere · Fitness App · 2025</div>
+        </div>
+      </div>
+      <div class="stat-grid" style="margin-top:0;">
+        <div class="stat-cell"><div class="stat-num">502</div><div class="stat-lbl">Exercises</div></div>
+        <div class="stat-cell"><div class="stat-num">102</div><div class="stat-lbl">Workouts</div></div>
+        <div class="stat-cell"><div class="stat-num">30</div><div class="stat-lbl">Day Challenges</div></div>
+        <div class="stat-cell"><div class="stat-num">4</div><div class="stat-lbl">Environments</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3 — DESIGN PROCESS -->
+<div class="pg" style="background:#000;">
+  <div class="narrow">
+    <div class="eyebrow">02 Design Process</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
+      <div>
+        <div class="sec-title" style="margin-bottom:24px;">How We<br/><span class="acc">Built It</span></div>
+        <p class="sec-body">From raw exercise data to a polished, functional app — every phase had a clear purpose. We didn't start designing until the data architecture was solid.</p>
+      </div>
+      <div style="display:flex;justify-content:flex-end;">
+        <div class="phone phone-tilt">
+          <div class="pc">
+            <div class="ph-title" style="font-size:28px;margin-bottom:6px;">WORK<br/>OUTS</div>
+            <div style="display:flex;gap:4px;margin-bottom:6px;">
+              <span style="background:#CAFF00;color:#000;border-radius:6px;padding:3px 7px;font-size:7px;font-weight:900;">All</span>
+              <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Gym</span>
+              <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Home</span>
+            </div>
+            <div class="ph-card" style="background:linear-gradient(135deg,#1a2200,#2a3600);">
+              <div class="ph-label" style="margin-bottom:3px;">New Workouts</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;">CHEST — BARBELL</div>
+              <div style="font-size:8px;color:#666;">45 min · Intermediate</div>
+            </div>
+            <div class="ph-card">
+              <div class="ph-label" style="margin-bottom:3px;">Perfect for Home</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;">FULL BODY BURN</div>
+              <div style="font-size:8px;color:#666;">20 min · Beginner</div>
+            </div>
+            <div class="ph-nav">
+              <div class="ph-nav-i">🏠</div><div class="ph-nav-i a">🔍</div><div class="ph-nav-i">📅</div><div class="ph-nav-i">📊</div>
+            </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="tl">
+      <div class="tl-card"><div class="tl-week">1 Week</div><div class="tl-title">Research &<br/>Discovery</div><div class="tl-body">Study users, goals, movement patterns. Map the full exercise library across environments.</div></div>
+      <div class="tl-card"><div class="tl-week">2 Weeks</div><div class="tl-title">Information<br/>Architecture</div><div class="tl-body">Structure 502 exercises by environment and body focus. Design the content hierarchy.</div></div>
+      <div class="tl-card" style="border-color:rgba(202,255,0,0.2);background:rgba(202,255,0,0.04);"><div class="tl-week">4 Weeks</div><div class="tl-title" style="color:var(--lime);">UI Design &<br/>Prototyping</div><div class="tl-body">Build the full design system. Craft every screen state and interaction.</div></div>
+      <div class="tl-card"><div class="tl-week">7 Weeks</div><div class="tl-title">Development<br/>& Testing</div><div class="tl-body">Code, test, iterate. Get 102 workouts and 4 challenges actually working end-to-end.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4 — PROBLEM & SOLUTION -->
+<div class="pg pg-dark" style="min-height:110vh;">
+  <div class="narrow">
+    <div class="eyebrow">03 Research</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;">
+      <div>
+        <div class="sec-title" style="margin-bottom:32px;">Problem &<br/><span class="acc">Solutions</span></div>
+        <div style="margin-bottom:28px;">
+          <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:10px;">Problem</div>
+          <p style="font-size:15px;line-height:1.7;color:#ccc;">Most fitness apps overwhelm beginners with unfiltered content. There is no way to say "I am at home today" and get a workout that actually fits. Progress tracking is vague. Challenges feel arbitrary.</p>
         </div>
         <div>
-          <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Target Markets</div>
-          <div>
-            <span class="pill-tag">🇩🇪 Germany</span>
-            <span class="pill-tag">🇬🇧 United Kingdom</span>
-            <span class="pill-tag">🇧🇷 Brazil</span>
-          </div>
-        </div>
-        <div>
-          <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Business Model</div>
-          <div>
-            <span class="pill-tag">Free Tier</span>
-            <span class="pill-tag">Pro Subscription</span>
-            <span class="pill-tag">7-Day Free Trial</span>
-          </div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:10px;">Solution</div>
+          <p style="font-size:15px;line-height:1.7;color:#ccc;">Libo structures all 502 exercises by environment and body focus. 30-day challenges scale your reps daily so the app always knows today's target. The Alt Scanner gives 3 equipment-free alternatives to any exercise, instantly.</p>
         </div>
       </div>
-    </div>
-    <div class="stat-row">
-      <div class="stat-cell">
-        <div class="stat-num">500+</div>
-        <div class="stat-lbl">Exercises in Library</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">50+</div>
-        <div class="stat-lbl">Pre-built Workouts</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">0 kg</div>
-        <div class="stat-lbl">Equipment Required</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-content:start;padding-top:60px;">
+        <div style="width:100%;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);border:1px solid rgba(255,255,255,0.06);"></div>
+        <div style="width:100%;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#1a2200,#2d3a00);border:1px solid rgba(202,255,0,0.1);"></div>
+        <div style="width:100%;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#1a0a00,#3a1a00);"></div>
+        <div style="width:100%;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#001a1a,#003a2d);"></div>
+        <div style="width:100%;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#1a1a1a,#333);"></div>
+        <div style="width:100%;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#0a001a,#1a002d);"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-  PAGE 3 — DESIGN SYSTEM
-═══════════════════════════════ -->
-<div class="page">
-  <div class="page-narrow">
-    <div class="section-label">Style</div>
-    <div class="section-title">Typography<br/><span class="acc">&amp; Color</span></div>
-    <p class="section-body">A balance of bold, energetic type and high-contrast dark themes to build trust and drive action. Every design decision serves clarity and motivation.</p>
-
-    <hr class="divider"/>
-
-    <div class="two-col" style="align-items:start;gap:60px">
+<!-- PAGE 5 — TYPOGRAPHY & COLOR -->
+<div class="pg" style="background:#000;">
+  <div class="narrow">
+    <div class="eyebrow">04 Style</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
       <div>
-        <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px">Primary Typeface</div>
-        <div class="type-display">Barlow<br/>Condensed</div>
-        <div class="type-chars" style="margin-top:12px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:2px">
-          ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>0123456789
+        <div style="font-size:13px;color:#555;margin-bottom:16px;">Typography &amp; Color</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(80px,11vw,150px);text-transform:uppercase;line-height:0.85;letter-spacing:-4px;margin-bottom:8px;">Bar<span style="color:var(--lime)">low</span></div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(60px,8vw,110px);text-transform:uppercase;line-height:0.85;letter-spacing:-3px;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,0.2);">Condensed</div>
+        <div style="margin-top:24px;font-size:13px;color:#444;letter-spacing:3px;line-height:1.8;">A B C D E F G H I J K L M<br/>N O P Q R S T U V W X Y Z<br/>0 1 2 3 4 5 6 7 8 9</div>
+        <div style="margin-top:20px;font-size:13px;color:#888;line-height:1.6;">Barlow Condensed 900 for all display headlines. Inter 400–800 for body, UI, and data. The contrast creates energy and clarity simultaneously.</div>
+      </div>
+      <div style="position:relative;height:300px;">
+        <div style="width:200px;height:160px;border-radius:20px;background:var(--lime);position:absolute;top:0;left:0;transform:rotate(-6deg);z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:#000;margin-bottom:4px;">Energy</div><div style="font-size:12px;color:rgba(0,0,0,0.5);font-weight:500;">#CAFF00</div></div>
+        <div style="width:200px;height:160px;border-radius:20px;background:#000;border:1px solid rgba(255,255,255,0.15);position:absolute;top:20px;left:160px;transform:rotate(2deg);z-index:2;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:4px;">Power</div><div style="font-size:12px;color:rgba(255,255,255,0.4);font-weight:500;">#000000</div></div>
+        <div style="width:200px;height:160px;border-radius:20px;background:#fff;position:absolute;top:40px;left:320px;transform:rotate(-3deg);z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:#000;margin-bottom:4px;">Clarity</div><div style="font-size:12px;color:rgba(0,0,0,0.4);font-weight:500;">#FFFFFF</div></div>
+        <div style="width:200px;height:160px;border-radius:20px;background:#1A1A1A;border:1px solid rgba(255,255,255,0.08);position:absolute;top:60px;left:480px;transform:rotate(5deg);z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:4px;">Depth</div><div style="font-size:12px;color:rgba(255,255,255,0.3);font-weight:500;">#1A1A1A</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 6 — USER FLOW -->
+<div class="pg pg-dark">
+  <div class="narrow">
+    <div class="eyebrow">05 User Flow</div>
+    <div class="sec-title" style="margin-bottom:12px;">Seamless<br/><span class="acc">User Flow</span></div>
+    <p class="sec-body" style="margin-bottom:48px;">Three paths in. One coherent system. Every route through the app is direct and purposeful.</p>
+    <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:20px;padding:48px;overflow-x:auto;">
+      <div style="display:flex;align-items:center;gap:0;min-width:800px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;">
+          <div style="background:var(--lime);color:#000;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;">L</div>
+          <div style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:1px;">Libo</div>
         </div>
-        <div style="margin-top:24px">
-          <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Body Typeface</div>
-          <div style="font-size:32px;font-weight:700;font-family:'Inter',sans-serif">Inter</div>
-          <div style="font-size:14px;color:var(--muted);margin-top:8px;font-family:'Inter',sans-serif;line-height:1.6">Used for all body copy, UI labels, and readable text throughout the app and landing page.</div>
+        <div style="flex:0 0 32px;height:1px;background:rgba(255,255,255,0.1);"></div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Sign Up</div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Login</div>
+        </div>
+        <div style="flex:0 0 32px;height:1px;background:rgba(255,255,255,0.1);"></div>
+        <div style="background:rgba(202,255,0,0.08);border:1px solid rgba(202,255,0,0.2);border-radius:20px;padding:10px 18px;font-size:12px;font-weight:700;color:var(--lime);flex-shrink:0;">Main Nav</div>
+        <div style="flex:0 0 32px;height:1px;background:rgba(255,255,255,0.1);"></div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Home</div>
+          <div style="background:var(--card);border:1px solid rgba(202,255,0,0.2);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;color:var(--lime);">Explore</div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Programs</div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Progress</div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Scanner</div>
+        </div>
+        <div style="flex:0 0 32px;height:1px;background:rgba(255,255,255,0.1);"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
+          <div style="font-size:11px;color:#666;">Today's Workout · Featured Grid</div>
+          <div style="font-size:11px;color:var(--lime);">502 Exercises · 102 Workouts</div>
+          <div style="font-size:11px;color:#666;">4 Challenges · 10 Routines</div>
+          <div style="font-size:11px;color:#666;">Ring Chart · Workout Log</div>
+          <div style="font-size:11px;color:#666;">3 Alternatives Instantly</div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 7 — ICON DESIGN -->
+<div class="pg" style="background:#000;">
+  <div class="narrow">
+    <div class="eyebrow">06 Iconography</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
       <div>
-        <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px">Color Palette</div>
-        <div class="color-grid" style="flex-direction:column;gap:12px">
-          <div style="display:flex;gap:12px">
-            <div class="color-card" style="background:#CAFF00;color:#000;">
-              <div class="color-name">Lime</div>
-              <div class="color-hex">#CAFF00</div>
-            </div>
-            <div class="color-card" style="background:#000000;border:1px solid rgba(255,255,255,0.1)">
-              <div class="color-name">Black</div>
-              <div class="color-hex">#000000</div>
-            </div>
+        <div class="sec-title" style="margin-bottom:20px;">Icon<br/><span class="acc">Design</span></div>
+        <p class="sec-body">Clear, minimal icons built for small screens. Every icon communicates function in under a second.</p>
+      </div>
+    </div>
+    <div class="icon-grid">
+      <div class="icon-box"><svg viewBox="0 0 24 24"><rect x="2" y="10" width="3" height="4" rx="1"/><rect x="5" y="8" width="3" height="8" rx="1.5"/><line x1="8" y1="12" x2="16" y2="12"/><rect x="16" y="8" width="3" height="8" rx="1.5"/><rect x="19" y="10" width="3" height="4" rx="1"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><polyline points="12 9 12 13 15 15"/><line x1="9" y1="3" x2="15" y2="3"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="white" stroke="none"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><polyline points="9 15 11 17 15 13"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v6l3 3"/><path d="M6 12h2M16 12h2"/><path d="M8 19l-2 2M16 19l2 2"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 8 — WIREFRAMES -->
+<div class="pg pg-dark">
+  <div class="narrow">
+    <div class="eyebrow">07 Wireframe</div>
+    <div class="sec-title" style="margin-bottom:12px;">Wireframes</div>
+    <p style="font-size:14px;color:#555;margin-bottom:48px;">Crafting User-Centric Wireframes for Seamless Experiences</p>
+    <div style="display:flex;gap:40px;align-items:flex-end;justify-content:center;">
+      <div class="wf-phone"><div class="wf-c"><div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:10px;">HOME</div><div class="wf-box" style="width:60%;"></div><div class="wf-box-lg"></div><div class="wf-box" style="width:80%;"></div><div class="wf-box-lg" style="height:60px;"></div><div class="wf-box-lg" style="height:60px;"></div></div></div>
+      <div class="wf-phone" style="height:400px;"><div class="wf-c"><div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:10px;">WORKOUTS</div><div style="display:flex;gap:4px;margin-bottom:8px;"><div style="height:14px;width:40px;background:rgba(255,255,255,0.12);border-radius:4px;"></div><div style="height:14px;width:40px;background:rgba(255,255,255,0.06);border-radius:4px;"></div><div style="height:14px;width:40px;background:rgba(255,255,255,0.06);border-radius:4px;"></div></div><div class="wf-box"></div><div class="wf-box-lg" style="height:70px;"></div><div class="wf-box-lg" style="height:70px;"></div><div class="wf-box-lg" style="height:70px;"></div></div></div>
+      <div class="wf-phone"><div class="wf-c"><div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:10px;">PROGRESS</div><div style="width:80px;height:80px;border-radius:50%;border:6px solid rgba(255,255,255,0.07);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;"><div style="width:40px;height:40px;border-radius:50%;border:4px solid rgba(255,255,255,0.12);"></div></div><div class="wf-box" style="width:50%;margin:0 auto 8px;"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"><div class="wf-box-lg" style="height:40px;"></div><div class="wf-box-lg" style="height:40px;"></div></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 9 — ONBOARDING EDITORIAL -->
+<div class="pg" style="background:#050505;display:flex;align-items:center;">
+  <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%;">
+    <div>
+      <p style="font-size:clamp(24px,3.5vw,44px);font-weight:300;line-height:1.3;color:#fff;margin-bottom:32px;">"Train your <span style="color:var(--lime);font-weight:700;">own way</span> — the strength within you is just beginning."</p>
+      <div style="font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:16px;">Onboarding</div>
+      <p style="font-size:15px;color:#888;line-height:1.7;">Three questions. Under 60 seconds. Goal, fitness level, equipment. Then you are inside Libo with everything personalised to you.</p>
+    </div>
+    <div style="display:flex;justify-content:center;">
+      <div class="phone phone-lg">
+        <div class="pc">
+          <div style="display:flex;gap:4px;margin-bottom:16px;"><div style="flex:1;height:3px;border-radius:2px;background:var(--lime);"></div><div style="flex:1;height:3px;border-radius:2px;background:#222;"></div><div style="flex:1;height:3px;border-radius:2px;background:#222;"></div></div>
+          <div style="font-size:32px;margin-bottom:12px;">🎯</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;line-height:0.9;margin-bottom:8px;">WHAT'S<br/>YOUR<br/>GOAL?</div>
+          <div style="font-size:11px;color:#555;margin-bottom:16px;">We will personalise everything around it.</div>
+          <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
+            <div style="background:rgba(202,255,0,0.1);border:1.5px solid rgba(202,255,0,0.4);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">💪</span><div><div style="font-size:12px;font-weight:700;">Build Muscle</div><div style="font-size:9px;color:#888;">Strength &amp; size</div></div></div>
+            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">🔥</span><div><div style="font-size:12px;font-weight:700;">Lose Weight</div><div style="font-size:9px;color:#888;">Burn &amp; tone</div></div></div>
+            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">⚡</span><div><div style="font-size:12px;font-weight:700;">Stay Active</div><div style="font-size:9px;color:#888;">Move daily</div></div></div>
           </div>
-          <div style="display:flex;gap:12px">
-            <div class="color-card" style="background:#FFFFFF;color:#000;">
-              <div class="color-name">White</div>
-              <div class="color-hex">#FFFFFF</div>
-            </div>
-            <div class="color-card" style="background:#1A1A1A;border:1px solid rgba(255,255,255,0.08)">
-              <div class="color-name">Dark Grey</div>
-              <div class="color-hex">#1A1A1A</div>
-            </div>
+          <div class="ph-btn" style="margin-top:10px;">Continue →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 10 — HOME SCREEN -->
+<div class="pg" style="background:#000;display:flex;align-items:center;">
+  <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%;">
+    <div>
+      <div class="eyebrow">08 Home Screen</div>
+      <div class="sec-title" style="margin-bottom:24px;">Check Out<br/>The Latest<br/><span class="acc">From Libo.</span></div>
+      <p class="sec-body">Your daily training starts here. A goal-matched hero card surfaces today's recommended workout. One tap to start.</p>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--lime);flex-shrink:0;"></div><div style="font-size:14px;color:#ccc;">Goal-matched daily recommendation</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--lime);flex-shrink:0;"></div><div style="font-size:14px;color:#ccc;">Live workout log and streak tracking</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--lime);flex-shrink:0;"></div><div style="font-size:14px;color:#ccc;">4 featured workouts in editorial grid</div></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;">
+      <div class="phone phone-lg">
+        <div class="pc">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <div><div style="font-size:9px;color:#555;font-weight:600;">Good morning</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;color:#fff;">ALEX</div></div>
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(202,255,0,0.15);border:2px solid rgba(202,255,0,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--lime);">A</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#0f1a00,#1a2d00,rgba(202,255,0,0.06));border:1px solid rgba(202,255,0,0.15);border-radius:16px;padding:16px;flex:0 0 auto;">
+            <div style="font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#CAFF00;margin-bottom:8px;">TODAY'S WORKOUT</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;line-height:0.88;margin-bottom:8px;">FULL BODY<br/>BURN</div>
+            <div style="font-size:9px;color:#888;margin-bottom:12px;">🏠 20 MIN · 5 EXERCISES · BEGINNER</div>
+            <div style="background:#CAFF00;color:#000;border-radius:12px;padding:7px 16px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:inline-block;">Start Now →</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:0 0 auto;">
+            <div style="background:linear-gradient(135deg,#1a2200,#2a3600);border-radius:12px;padding:10px;border:1px solid rgba(202,255,0,0.1);"><div style="font-size:7px;color:#CAFF00;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">GYM</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;line-height:0.9;">UPPER BODY<br/>STRENGTH</div></div>
+            <div style="background:#141414;border-radius:12px;padding:10px;border:1px solid rgba(255,255,255,0.05);"><div style="font-size:7px;color:#CAFF00;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">CARDIO</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;line-height:0.9;">HIIT<br/>BLAST</div></div>
+          </div>
+          <div class="ph-nav">
+            <div class="ph-nav-i a">🏠<span>Home</span></div><div class="ph-nav-i">🔍<span>Explore</span></div><div class="ph-nav-i">📅<span>Programs</span></div><div class="ph-nav-i">📊<span>Progress</span></div>
           </div>
         </div>
       </div>
@@ -787,449 +375,49 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-  PAGE 4 — USER FLOW
-═══════════════════════════════ -->
-<div class="page">
-  <div class="page-narrow">
-    <div class="section-label">User Flow</div>
-    <div class="section-title">Seamless<br/><span class="acc">Onboarding</span></div>
-    <p class="section-body">The app focuses on personalised fitness, intuitive navigation, and low friction — from signup to first workout in under 2 minutes.</p>
-
-    <div class="flow-grid">
-      <div class="flow-step">
-        <div class="flow-dot accent">👋</div>
-        <div class="flow-title">Welcome</div>
-        <div class="flow-desc">User enters their name and is introduced to Libo</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-dot">🎯</div>
-        <div class="flow-title">Set Goal</div>
-        <div class="flow-desc">Choose from weight loss, muscle, mobility, or staying active</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-dot">💪</div>
-        <div class="flow-title">Fitness Level</div>
-        <div class="flow-desc">Beginner, intermediate or advanced — plus available equipment</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-dot accent">🏋️</div>
-        <div class="flow-title">Train</div>
-        <div class="flow-desc">Personalised home feed, workouts &amp; programs ready immediately</div>
-      </div>
-    </div>
-
-    <hr class="divider"/>
-
-    <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:24px">Main Navigation</div>
-    <div class="icon-row">
-      <div class="icon-cell">
-        <span class="icon-big">🏠</span>
-        <div class="icon-title">Home</div>
-        <div class="icon-desc">Today's pick, streaks, quick access, recent activity</div>
-      </div>
-      <div class="icon-cell">
-        <span class="icon-big">🔍</span>
-        <div class="icon-title">Explore</div>
-        <div class="icon-desc">Full workout &amp; exercise library with search and filters</div>
-      </div>
-      <div class="icon-cell">
-        <span class="icon-big">📅</span>
-        <div class="icon-title">Programs</div>
-        <div class="icon-desc">Multi-week structured training plans with progress tracking</div>
-      </div>
-      <div class="icon-cell">
-        <span class="icon-big">🔄</span>
-        <div class="icon-title">Alt Scanner</div>
-        <div class="icon-desc">Replace any exercise instantly with 3 smart alternatives</div>
-      </div>
-      <div class="icon-cell">
-        <span class="icon-big">📊</span>
-        <div class="icon-title">Progress</div>
-        <div class="icon-desc">Ring chart, weekly bar chart, full workout history</div>
-      </div>
-    </div>
+<!-- PAGE 11 — EDITORIAL: 502 -->
+<div class="pg pg-lime" style="display:flex;align-items:center;justify-content:center;text-align:center;">
+  <div style="position:relative;z-index:1;">
+    <div class="bc" style="font-size:clamp(120px,20vw,280px);color:#000;letter-spacing:-8px;line-height:0.8;">502</div>
+    <div class="bc" style="font-size:clamp(60px,10vw,140px);color:#000;letter-spacing:-4px;line-height:0.85;margin-bottom:24px;">EXERCISES.</div>
+    <div style="font-size:18px;font-weight:700;color:rgba(0,0,0,0.4);letter-spacing:4px;text-transform:uppercase;">286 Gym · 185 Home · 31 Mobility</div>
   </div>
+  <div style="position:absolute;bottom:40px;right:80px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;letter-spacing:-1px;text-transform:uppercase;color:rgba(0,0,0,0.25);">LIBO</div>
+  <div style="position:absolute;top:-60px;left:-40px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:400px;color:rgba(0,0,0,0.04);letter-spacing:-15px;text-transform:uppercase;line-height:1;pointer-events:none;user-select:none;">502</div>
 </div>
 
-<!-- ═══════════════════════════════
-  PAGE 4b — KEY FEATURES
-═══════════════════════════════ -->
-<div class="page" style="background:#050505">
-  <div class="page-narrow">
-    <div class="section-label">Key Features</div>
-    <div class="section-title">Built For<br/><span class="acc">Real People.</span></div>
-    <p class="section-body">Six features that make Libo different — not just another workout app, but a complete fitness club in your pocket.</p>
-
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);margin-top:48px">
-      <div style="background:#080808;padding:36px 28px">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:var(--accent);line-height:1;margin-bottom:8px">502</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:-0.2px;margin-bottom:10px">Exercises</div>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7">Gym · Home · Mobility library with full instructions, muscle targets, and difficulty ratings.</p>
-      </div>
-      <div style="background:#080808;padding:36px 28px">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:var(--accent);line-height:1;margin-bottom:8px">102</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:-0.2px;margin-bottom:10px">Workouts</div>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7">Every category, every level — from 10-minute morning hits to full 60-minute gym sessions.</p>
-      </div>
-      <div style="background:rgba(202,255,0,0.03);border:1px solid rgba(202,255,0,0.1);padding:36px 28px">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:var(--accent);line-height:1;margin-bottom:8px">30</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:-0.2px;margin-bottom:10px;color:var(--accent)">Day Challenges</div>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7">Progressive daily targets that scale from Day 1 to Day 30. Track every dot on the grid.</p>
-      </div>
-      <div style="background:#080808;padding:36px 28px">
-        <div style="font-size:40px;margin-bottom:12px">🌅</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:-0.2px;margin-bottom:10px">Morning Routines</div>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7">10 guided sessions to activate your body and sharpen your mind before the day begins.</p>
-      </div>
-      <div style="background:#080808;padding:36px 28px">
-        <div style="font-size:40px;margin-bottom:12px">⭕</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:-0.2px;margin-bottom:10px">Live Progress Ring</div>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7">Visual SVG ring chart tracks your weekly activity goal in real time — satisfaction guaranteed.</p>
-      </div>
-      <div style="background:#080808;padding:36px 28px">
-        <div style="font-size:40px;margin-bottom:12px">🔄</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:-0.2px;margin-bottom:10px">Smart Alternatives</div>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7">Equipment swap scanner — replace any exercise instantly with 3 smart alternatives.</p>
-      </div>
+<!-- PAGE 12 — EXPLORE -->
+<div class="pg pg-dark">
+  <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div>
+      <div class="eyebrow">09 Explore</div>
+      <div class="sec-title" style="margin-bottom:24px;">Zero<br/>Guess<span class="acc">work.</span></div>
+      <p class="sec-body">Filter by environment first. Then by muscle group. Search any of 502 exercises by name. Every result is actionable in one tap.</p>
     </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════
-  PAGE 5 — FEATURES
-═══════════════════════════════ -->
-<div class="page">
-  <div class="page-narrow">
-    <div class="section-label">What's Inside</div>
-    <div class="section-title">Everything<br/><span class="acc">You Need.</span></div>
-
-    <div class="features-grid">
-      <div class="feature-cell">
-        <div class="feature-num">01</div>
-        <span class="feature-icon">📚</span>
-        <div class="feature-name">Exercise Library</div>
-        <p class="feature-desc">Hundreds of exercises with step-by-step form cues, muscle targeting, difficulty ratings, and video demo placeholders.</p>
-      </div>
-      <div class="feature-cell">
-        <div class="feature-num">02</div>
-        <span class="feature-icon">🏋️</span>
-        <div class="feature-name">Workout Library</div>
-        <p class="feature-desc">Pre-built sessions for every goal, location and fitness level — from 10-minute quick hits to full gym sessions.</p>
-      </div>
-      <div class="feature-cell">
-        <div class="feature-num">03</div>
-        <span class="feature-icon">📅</span>
-        <div class="feature-name">Programs</div>
-        <p class="feature-desc">Multi-week structured plans designed to get you real, measurable results. Follow the plan, trust the process.</p>
-      </div>
-      <div class="feature-cell">
-        <div class="feature-num">04</div>
-        <span class="feature-icon">📊</span>
-        <div class="feature-name">Progress Tracking</div>
-        <p class="feature-desc">Ring chart visualisation, weekly activity bars, full workout history with calories burned and duration logs.</p>
-      </div>
-      <div class="feature-cell">
-        <div class="feature-num">05</div>
-        <span class="feature-icon">✏️</span>
-        <div class="feature-name">Custom Builder</div>
-        <p class="feature-desc">Build your own workout from the full exercise library. Set your sequence, sets, rest time — save and reuse anytime.</p>
-      </div>
-      <div class="feature-cell" style="background:rgba(202,255,0,0.03);border-color:rgba(202,255,0,0.15);">
-        <div class="feature-num" style="color:var(--accent);">06</div>
-        <span class="feature-icon">🔄</span>
-        <div class="feature-name" style="color:var(--accent);">Alt Scanner</div>
-        <p class="feature-desc">Machine busy? At home? Select any exercise and instantly get 3 smart alternatives — bodyweight, band, or dumbbell options.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════
-  PAGE 6 — APP SCREENS
-═══════════════════════════════ -->
-<div class="page" style="background:#050505">
-  <div class="page-narrow">
-    <div class="section-label">App Screens</div>
-    <div class="section-title">Key<br/><span class="acc">Screens</span></div>
-
-    <div class="screens-row">
-      <!-- Home Screen -->
-      <div class="phone-mock featured" style="background:#080808">
-        <div class="phone-notch"></div>
-        <div style="padding:0">
-          <div class="mock-header">
-            <div>
-              <div class="mock-greeting">Good morning 👋</div>
-              <div class="mock-name">Alex</div>
-            </div>
-            <div style="width:34px;height:34px;border-radius:50%;background:rgba(202,255,0,0.12);border:2px solid rgba(202,255,0,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--accent)">A</div>
+    <div style="display:flex;gap:20px;justify-content:center;align-items:flex-end;">
+      <div class="phone phone-tilt" style="transform:perspective(900px) rotateY(-22deg) rotateX(6deg) translateY(20px);">
+        <div class="pc">
+          <div class="ph-title" style="font-size:28px;margin-bottom:4px;">WORK<br/>OUTS</div>
+          <div style="display:flex;gap:3px;margin-bottom:6px;">
+            <span style="background:#CAFF00;color:#000;border-radius:6px;padding:3px 7px;font-size:7px;font-weight:900;">All</span>
+            <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Gym</span>
+            <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Home</span>
+            <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Cardio</span>
           </div>
-          <div class="mock-hero-card">
-            <div class="mock-today">Today's Pick</div>
-            <div class="mock-workout-name">Full Body<br/>Burn</div>
-            <div class="mock-meta">🏠 20 min · 5 exercises · Beginner</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
-              <button class="mock-btn">Start Workout →</button>
-              <div style="font-size:9px;color:rgba(202,255,0,0.6);font-weight:700">🔥 7 day streak</div>
-            </div>
-          </div>
-          <div class="mock-stats">
-            <div class="mock-stat"><div class="mock-stat-val">12</div><div class="mock-stat-lbl">Workouts</div></div>
-            <div class="mock-stat"><div class="mock-stat-val">240</div><div class="mock-stat-lbl">Minutes</div></div>
-            <div class="mock-stat"><div class="mock-stat-val">1,800</div><div class="mock-stat-lbl">Calories</div></div>
-          </div>
-          <div class="mock-section-lbl">Quick Access</div>
-          <div class="mock-workout-row">
-            <div class="mock-row-icon">💪</div>
-            <div><div class="mock-row-title">Upper Body Strength</div><div class="mock-row-sub">45 min · Gym · Intermediate</div></div>
-            <div class="mock-row-arrow">›</div>
-          </div>
-          <div class="mock-workout-row">
-            <div class="mock-row-icon">🔥</div>
-            <div><div class="mock-row-title">HIIT Cardio Blast</div><div class="mock-row-sub">25 min · Home · Advanced</div></div>
-            <div class="mock-row-arrow">›</div>
-          </div>
-          <div class="mock-workout-row">
-            <div class="mock-row-icon">🌅</div>
-            <div><div class="mock-row-title">Morning Activation</div><div class="mock-row-sub">15 min · No equipment</div></div>
-            <div class="mock-row-arrow">›</div>
-          </div>
-          <div style="padding:6px 12px 0">
-            <div style="font-size:8px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px">Recent Activity</div>
-            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden">
-              <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.05)">
-                <div style="width:26px;height:26px;background:rgba(202,255,0,0.1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px">⚡</div>
-                <div style="flex:1"><div style="font-size:9px;font-weight:700">Core Blaster</div><div style="font-size:8px;color:#666">Yesterday · 20 min</div></div>
-                <div style="font-size:9px;font-weight:700;color:#CAFF00">🔥 150</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;padding:8px 10px">
-                <div style="width:26px;height:26px;background:rgba(202,255,0,0.1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px">💪</div>
-                <div style="flex:1"><div style="font-size:9px;font-weight:700">Upper Body Strength</div><div style="font-size:8px;color:#666">2 days ago · 45 min</div></div>
-                <div style="font-size:9px;font-weight:700;color:#CAFF00">🔥 338</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mock-bottom-nav">
-          <div class="mock-nav-item active"><div class="mock-nav-icon">🏠</div><div class="mock-nav-lbl">Home</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">🔍</div><div class="mock-nav-lbl">Explore</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">📅</div><div class="mock-nav-lbl">Programs</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">🔄</div><div class="mock-nav-lbl">Scanner</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">📊</div><div class="mock-nav-lbl">Progress</div></div>
+          <div style="background:linear-gradient(135deg,#0d1f00,#1a3300);border-radius:10px;padding:10px;margin-bottom:6px;"><div class="ph-label" style="margin-bottom:3px;">NEW WORKOUTS</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;line-height:0.9;">CHEST —<br/>BARBELL FOUNDATIONS</div><div style="font-size:8px;color:#666;margin-top:3px;">45 min · Intermediate</div></div>
+          <div style="background:#141414;border-radius:10px;padding:10px;margin-bottom:6px;"><div class="ph-label" style="margin-bottom:3px;">PERFECT FOR HOME</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;line-height:0.9;">FULL BODY BURN</div><div style="font-size:8px;color:#666;margin-top:3px;">20 min · Beginner</div></div>
+          <div class="ph-nav"><div class="ph-nav-i">🏠</div><div class="ph-nav-i a">🔍</div><div class="ph-nav-i">📅</div><div class="ph-nav-i">📊</div></div>
         </div>
       </div>
-
-      <!-- Challenge Screen -->
-      <div class="phone-mock" style="background:#080808">
-        <div class="phone-notch"></div>
-        <div style="padding:10px 14px 6px;display:flex;align-items:center;gap:10px">
-          <div style="width:28px;height:28px;background:rgba(255,255,255,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px">←</div>
-          <div style="font-size:9px;font-weight:700;color:#666;flex:1;text-align:center;text-transform:uppercase;letter-spacing:1px">30-Day Challenge</div>
-          <div style="width:28px"></div>
-        </div>
-        <div style="padding:10px 14px 0;display:flex;align-items:center;gap:12px">
-          <div style="position:relative;flex-shrink:0;width:64px;height:64px">
-            <svg width="64" height="64" viewBox="0 0 64 64">
-              <circle cx="32" cy="32" r="27" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/>
-              <circle cx="32" cy="32" r="27" fill="none" stroke="#CAFF00" stroke-width="5"
-                stroke-dasharray="169.6" stroke-dashoffset="118.7"
-                stroke-linecap="round" transform="rotate(-90 32 32)"/>
-            </svg>
-            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
-              <div style="font-size:13px;font-weight:900;color:#CAFF00;line-height:1">30%</div>
-              <div style="font-size:6px;color:#666;text-transform:uppercase;letter-spacing:0.5px">done</div>
-            </div>
-          </div>
-          <div style="flex:1">
-            <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:3px">Active Challenge</div>
-            <div style="font-size:13px;font-weight:900;letter-spacing:-0.3px;line-height:1.1">Total Body<br/>Transformation</div>
-            <div style="font-size:9px;color:#666;margin-top:3px">Day 9 of 30 · Intermediate</div>
-          </div>
-        </div>
-        <div style="padding:10px 14px 0">
-          <div style="font-size:8px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:7px">30-Day Progress</div>
-          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px">
-            ${Array.from({length:30},(_,i)=>{
-              const day=i+1;
-              const done=day<=8;
-              const isToday=day===9;
-              const locked=day>9;
-              if(done) return `<div style="aspect-ratio:1;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:800;background:rgba(202,255,0,0.15);border:1px solid rgba(202,255,0,0.4);color:#CAFF00">✓</div>`;
-              if(isToday) return `<div style="aspect-ratio:1;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;background:#CAFF00;color:#080808">${day}</div>`;
-              return `<div style="aspect-ratio:1;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;background:#141414;border:1px solid rgba(255,255,255,0.07);color:#444;opacity:0.5">${day}</div>`;
-            }).join('')}
-          </div>
-        </div>
-        <div style="padding:10px 14px 0">
-          <div style="font-size:8px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:7px">Today — Day 9</div>
-          <div style="display:flex;flex-direction:column;gap:5px">
-            ${[['Push-Up','3 sets · 14 reps'],['Bodyweight Squat','3 sets · 18 reps'],['Plank','3 sets · 38 sec'],['Glute Bridge','3 sets · 17 reps']].map(([name,meta],i)=>`
-            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:9px;padding:8px 10px;display:flex;align-items:center;gap:8px">
-              <div style="width:18px;height:18px;background:rgba(202,255,0,0.1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#CAFF00;flex-shrink:0">${i+1}</div>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:9px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${name}</div>
-                <div style="font-size:8px;color:#666;margin-top:1px">${meta}</div>
-              </div>
-            </div>`).join('')}
-          </div>
-          <div style="margin-top:8px;background:#CAFF00;border-radius:50px;padding:8px;text-align:center;font-size:9px;font-weight:800;color:#080808">Start Day 9 →</div>
-        </div>
-        <div class="mock-bottom-nav">
-          <div class="mock-nav-item"><div class="mock-nav-icon">🏠</div><div class="mock-nav-lbl">Home</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">🔍</div><div class="mock-nav-lbl">Explore</div></div>
-          <div class="mock-nav-item active"><div class="mock-nav-icon">📅</div><div class="mock-nav-lbl">Programs</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">🔄</div><div class="mock-nav-lbl">Scanner</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">📊</div><div class="mock-nav-lbl">Progress</div></div>
-        </div>
-      </div>
-
-      <!-- Progress Screen -->
-      <div class="phone-mock" style="background:#080808">
-        <div class="phone-notch"></div>
-        <div style="padding:14px 14px 8px;display:flex;align-items:center;justify-content:space-between">
-          <div style="font-size:16px;font-weight:900">Progress</div>
-          <div style="background:rgba(202,255,0,0.12);border:1px solid rgba(202,255,0,0.2);border-radius:50px;padding:3px 10px;font-size:9px;font-weight:700;color:var(--accent)">12 sessions</div>
-        </div>
-        <div class="mock-ring-card" style="margin:0 12px 10px">
-          <div style="position:relative;width:88px;height:88px;flex-shrink:0">
-            <svg width="88" height="88" style="transform:rotate(-90deg)">
-              <circle cx="44" cy="44" r="38" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
-              <circle cx="44" cy="44" r="38" fill="none" stroke="#CAFF00" stroke-width="7" stroke-dasharray="238.8" stroke-dashoffset="47.8" stroke-linecap="round"/>
-            </svg>
-            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
-              <div style="font-size:18px;font-weight:900;color:#CAFF00;line-height:1">80%</div>
-              <div style="font-size:7px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-top:1px">goal</div>
-            </div>
-          </div>
-          <div style="flex:1">
-            <div style="font-size:8px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Total Activity</div>
-            <div style="font-size:10px;color:#666;margin-bottom:10px">240 min of 300 min goal</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-              <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:7px 8px">
-                <div style="font-size:13px;font-weight:900;color:#CAFF00">1,800</div>
-                <div style="font-size:8px;color:#666;margin-top:1px">Cal Burned</div>
-              </div>
-              <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:7px 8px">
-                <div style="font-size:13px;font-weight:900;color:#CAFF00">12</div>
-                <div style="font-size:8px;color:#666;margin-top:1px">Workouts</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="margin:0 12px 10px;background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px">
-          <div style="font-size:9px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">This Week</div>
-          <div style="display:flex;gap:5px;align-items:flex-end;height:48px">
-            ${[['Mon',20],['Tue',40],['Wed',15],['Thu',48],['Fri',30],['Sat',42],['Sun',8]].map(([d,h],i)=>{
-              const isActive = i===3;
-              return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-                <div style="width:100%;border-radius:3px 3px 0 0;height:${h}px;background:${isActive?'#CAFF00':'rgba(202,255,0,0.18)'}"></div>
-                <div style="font-size:7px;color:#666">${d}</div>
-              </div>`;
-            }).join('')}
-          </div>
-        </div>
-        <div style="padding:0 12px">
-          <div style="font-size:9px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:7px">Workout Log</div>
-          <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden">
-            ${[['⚡','Core Blaster','Today · 20 min','150'],['💪','Upper Body Strength','Yesterday · 45 min','338'],['🔥','HIIT Cardio Blast','2d ago · 25 min','188']].map(([icon,name,meta,cal])=>`
-            <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.05)">
-              <div style="width:26px;height:26px;background:rgba(202,255,0,0.1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px">${icon}</div>
-              <div style="flex:1"><div style="font-size:9px;font-weight:700">${name}</div><div style="font-size:8px;color:#666">${meta}</div></div>
-              <div style="font-size:9px;font-weight:700;color:#CAFF00">🔥 ${cal}</div>
-            </div>`).join('')}
-          </div>
-        </div>
-        <div class="mock-bottom-nav">
-          <div class="mock-nav-item"><div class="mock-nav-icon">🏠</div><div class="mock-nav-lbl">Home</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">🔍</div><div class="mock-nav-lbl">Explore</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">📅</div><div class="mock-nav-lbl">Programs</div></div>
-          <div class="mock-nav-item"><div class="mock-nav-icon">🔄</div><div class="mock-nav-lbl">Scanner</div></div>
-          <div class="mock-nav-item active"><div class="mock-nav-icon">📊</div><div class="mock-nav-lbl">Progress</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════
-  PAGE 7 — STATEMENT
-═══════════════════════════════ -->
-<div class="statement-page">
-  <div>
-    <p class="statement-text">
-      <span class="dim">One club.</span><br/>
-      <span class="bright">Every format.</span><br/>
-      <span class="dim">Every location.</span><br/>
-      <span class="acc">Every goal.</span>
-    </p>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════
-  PAGE 8 — GOALS & SOCIAL PROOF
-═══════════════════════════════ -->
-<div class="page">
-  <div class="page-narrow">
-    <div class="section-label">Personalised For You</div>
-    <div class="two-col" style="gap:80px">
-      <div>
-        <div class="section-title">One app.<br/>Every<br/><span class="acc">Goal.</span></div>
-        <p class="section-body">Tell Libo what you want. We build a plan around your goal, fitness level, and available equipment. Your journey, your rules.</p>
-        <div class="goals-list">
-          <div class="goal-item">
-            <span class="goal-icon">🔥</span>
-            <div class="goal-text"><h4>Lose Weight</h4><p>Burn calories, stay consistent, see results</p></div>
-            <span class="goal-arrow">→</span>
-          </div>
-          <div class="goal-item">
-            <span class="goal-icon">💪</span>
-            <div class="goal-text"><h4>Build Muscle</h4><p>Progressive overload, structured volume</p></div>
-            <span class="goal-arrow">→</span>
-          </div>
-          <div class="goal-item">
-            <span class="goal-icon">🧘</span>
-            <div class="goal-text"><h4>Improve Mobility</h4><p>Move better, feel better, prevent injury</p></div>
-            <span class="goal-arrow">→</span>
-          </div>
-          <div class="goal-item">
-            <span class="goal-icon">⚡</span>
-            <div class="goal-text"><h4>Stay Active</h4><p>Build healthy habits that actually stick</p></div>
-            <span class="goal-arrow">→</span>
-          </div>
-          <div class="goal-item">
-            <span class="goal-icon">🫁</span>
-            <div class="goal-text"><h4>Reduce Stress</h4><p>Breathing, movement, mindful routines</p></div>
-            <span class="goal-arrow">→</span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:24px">User Research</div>
-        <div class="testi-grid" style="grid-template-columns:1fr;gap:16px">
-          <div class="testi-card" style="border-left:3px solid var(--accent);border-radius:0 20px 20px 0;padding:28px 28px 28px 32px">
-            <div style="font-size:40px;color:var(--accent);font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:0.8;margin-bottom:16px">"</div>
-            <p class="testi-quote" style="font-size:15px;font-style:normal;color:#ccc;line-height:1.7">"Finally an app that works for my home sessions AND gym days. The alt scanner saved me so many times when machines were taken."</p>
-            <div class="testi-author" style="margin-top:20px">
-              <div class="testi-avatar" style="background:rgba(202,255,0,0.1);border-color:rgba(202,255,0,0.2)">👨</div>
-              <div><div class="testi-name">Marco T.</div><div class="testi-meta">Building muscle · Berlin</div></div>
-            </div>
-          </div>
-          <div class="testi-card" style="border-left:3px solid rgba(202,255,0,0.4);border-radius:0 20px 20px 0;padding:28px 28px 28px 32px">
-            <div style="font-size:40px;color:rgba(202,255,0,0.4);font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:0.8;margin-bottom:16px">"</div>
-            <p class="testi-quote" style="font-size:15px;font-style:normal;color:#ccc;line-height:1.7">"The morning routines are a game changer. 15 minutes before work and I feel completely different for the whole day."</p>
-            <div class="testi-author" style="margin-top:20px">
-              <div class="testi-avatar" style="background:rgba(202,255,0,0.1);border-color:rgba(202,255,0,0.2)">👩</div>
-              <div><div class="testi-name">Sophie K.</div><div class="testi-meta">Morning routines · London</div></div>
-            </div>
-          </div>
-          <div class="testi-card" style="border-left:3px solid rgba(202,255,0,0.4);border-radius:0 20px 20px 0;padding:28px 28px 28px 32px">
-            <div style="font-size:40px;color:rgba(202,255,0,0.4);font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:0.8;margin-bottom:16px">"</div>
-            <p class="testi-quote" style="font-size:15px;font-style:normal;color:#ccc;line-height:1.7">"I've tried every fitness app. Libo is the first one where I actually look at the progress screen and feel proud. The ring chart is oddly addictive."</p>
-            <div class="testi-author" style="margin-top:20px">
-              <div class="testi-avatar" style="background:rgba(202,255,0,0.1);border-color:rgba(202,255,0,0.2)">🧑</div>
-              <div><div class="testi-name">David R.</div><div class="testi-meta">Staying active · São Paulo</div></div>
-            </div>
+      <div class="phone phone-sm phone-tilt-r">
+        <div style="padding:16px 10px 10px;height:100%;display:flex;flex-direction:column;gap:6px;">
+          <div class="ph-label" style="font-size:7px;">Exercises · 502</div>
+          <div style="background:#1a1a1a;border-radius:8px;padding:6px;margin-bottom:4px;font-size:8px;color:#444;">🔍 Search...</div>
+          <div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px;"><span style="background:#CAFF00;color:#000;border-radius:4px;padding:2px 5px;font-size:7px;font-weight:900;">All</span><span style="background:#1a1a1a;color:#555;border-radius:4px;padding:2px 5px;font-size:7px;">Gym</span><span style="background:#1a1a1a;color:#555;border-radius:4px;padding:2px 5px;font-size:7px;">Home</span></div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div class="ph-card" style="padding:6px 8px;display:flex;align-items:center;gap:6px;"><span style="font-size:12px;">💪</span><div><div style="font-size:9px;font-weight:700;">Barbell Bench Press</div><div style="font-size:7px;color:#555;">Chest</div></div></div>
+            <div class="ph-card" style="padding:6px 8px;display:flex;align-items:center;gap:6px;"><span style="font-size:12px;">💪</span><div><div style="font-size:9px;font-weight:700;">One-Arm Row</div><div style="font-size:7px;color:#555;">Back</div></div></div>
+            <div class="ph-card" style="padding:6px 8px;display:flex;align-items:center;gap:6px;"><span style="font-size:12px;">🦵</span><div><div style="font-size:9px;font-weight:700;">Romanian Deadlift</div><div style="font-size:7px;color:#555;">Legs</div></div></div>
           </div>
         </div>
       </div>
@@ -1237,49 +425,297 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-  PAGE 9 — CTA / CLOSING
-═══════════════════════════════ -->
-<div class="cta-page">
-  <div class="cta-inner">
-    <div style="display:inline-block;background:rgba(0,0,0,0.15);border:2px solid rgba(0,0,0,0.25);border-radius:50px;padding:8px 24px;font-size:11px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:rgba(0,0,0,0.6);margin-bottom:32px">
-      ◉ Coming Soon
+<!-- PAGE 13 — 30-DAY CHALLENGES -->
+<div class="pg" style="background:#000;">
+  <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div>
+      <div class="eyebrow">10 Challenges</div>
+      <div class="sec-title" style="margin-bottom:24px;">30 Days.<br/><span class="acc">Real Change.</span></div>
+      <p class="sec-body">Four 30-day programs. Each scales your daily targets — reps go up, sets get harder. The app always knows exactly what today's number is.</p>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;margin-bottom:2px;">30-Day Total Body Transformation</div><div style="font-size:11px;color:#555;">30 min/day · Intermediate · 11 exercises</div></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;margin-bottom:2px;">30-Day Core Challenge</div><div style="font-size:11px;color:#555;">20 min/day · Intermediate · 8 exercises</div></div>
+        <div style="background:var(--card);border:1px solid rgba(202,255,0,0.2);border-radius:12px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;color:var(--lime);margin-bottom:2px;">30-Day Pull-Up Challenge</div><div style="font-size:11px;color:#555;">20 min/day · Advanced · 9 exercises</div></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;margin-bottom:2px;">30-Day Squat &amp; Lunge Challenge</div><div style="font-size:11px;color:#555;">25 min/day · Intermediate · 11 exercises</div></div>
+      </div>
     </div>
-    <div class="cta-title">Be first.<br/>Train<br/>better.</div>
-    <p class="cta-sub" style="font-size:20px">Libo is coming soon. Join the waitlist and get early access plus an exclusive founding member offer.</p>
-    <div style="display:inline-block;background:rgba(0,0,0,0.12);border:2px solid rgba(0,0,0,0.2);border-radius:14px;padding:16px 40px;margin-top:32px">
-      <div style="font-size:12px;text-transform:uppercase;letter-spacing:3px;color:rgba(0,0,0,0.5);margin-bottom:6px;font-weight:700">Waitlist</div>
-      <div class="cta-url" style="margin-top:0">liboworld.com</div>
-    </div>
-    <div style="display:flex;gap:16px;justify-content:center;margin-top:48px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.18);border:2px solid rgba(0,0,0,0.15);padding:14px 28px;border-radius:16px;min-width:180px">
-        <span style="font-size:28px">🍎</span>
-        <div style="text-align:left">
-          <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(0,0,0,0.45);font-weight:700">Coming Soon on</div>
-          <div style="font-size:17px;font-weight:900;color:rgba(0,0,0,0.75);letter-spacing:-0.3px">App Store</div>
+    <div style="display:flex;justify-content:center;">
+      <div class="phone phone-lg">
+        <div class="pc">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="position:relative;flex-shrink:0;"><svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/><circle cx="30" cy="30" r="24" fill="none" stroke="#CAFF00" stroke-width="5" stroke-dasharray="150.8" stroke-dashoffset="105" stroke-linecap="round" transform="rotate(-90 30 30)"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;color:#CAFF00;">30%</div></div></div>
+            <div><div class="ph-label" style="margin-bottom:2px;">Active Challenge</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;line-height:0.9;">30-DAY CORE<br/>CHALLENGE</div><div style="font-size:8px;color:#666;margin-top:2px;">Day 9 of 30</div></div>
+          </div>
+          <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:4px;">30-Day Progress</div>
+          <div class="ph-dot-grid">
+            <div class="ph-dot done">✓</div><div class="ph-dot done">✓</div><div class="ph-dot done">✓</div><div class="ph-dot done">✓</div><div class="ph-dot done">✓</div><div class="ph-dot done">✓</div>
+            <div class="ph-dot done">✓</div><div class="ph-dot done">✓</div><div class="ph-dot today">9</div><div class="ph-dot" style="opacity:.3;">10</div><div class="ph-dot" style="opacity:.3;">11</div><div class="ph-dot" style="opacity:.3;">12</div>
+            <div class="ph-dot" style="opacity:.2;">13</div><div class="ph-dot" style="opacity:.2;">14</div><div class="ph-dot" style="opacity:.2;">15</div><div class="ph-dot" style="opacity:.2;">16</div><div class="ph-dot" style="opacity:.2;">17</div><div class="ph-dot" style="opacity:.2;">18</div>
+            <div class="ph-dot" style="opacity:.15;">19</div><div class="ph-dot" style="opacity:.15;">20</div><div class="ph-dot" style="opacity:.15;">21</div><div class="ph-dot" style="opacity:.15;">22</div><div class="ph-dot" style="opacity:.15;">23</div><div class="ph-dot" style="opacity:.15;">24</div>
+            <div class="ph-dot" style="opacity:.1;">25</div><div class="ph-dot" style="opacity:.1;">26</div><div class="ph-dot" style="opacity:.1;">27</div><div class="ph-dot" style="opacity:.1;">28</div><div class="ph-dot" style="opacity:.1;">29</div><div class="ph-dot" style="opacity:.1;">30</div>
+          </div>
+          <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:4px;">Today — Day 9</div>
+          <div style="display:flex;flex-direction:column;gap:4px;flex:1;">
+            <div style="background:#141414;border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:6px;"><div style="width:18px;height:18px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">1</div><div><div style="font-size:9px;font-weight:700;">Forearm Plank</div><div style="font-size:7px;color:#555;">3 sets · 22 sec</div></div></div>
+            <div style="background:#141414;border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:6px;"><div style="width:18px;height:18px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">2</div><div><div style="font-size:9px;font-weight:700;">Mountain Climber</div><div style="font-size:7px;color:#555;">3 sets · 14 reps</div></div></div>
+          </div>
+          <div class="ph-btn">Start Day 9 →</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.18);border:2px solid rgba(0,0,0,0.15);padding:14px 28px;border-radius:16px;min-width:180px">
-        <span style="font-size:28px">▶</span>
-        <div style="text-align:left">
-          <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(0,0,0,0.45);font-weight:700">Coming Soon on</div>
-          <div style="font-size:17px;font-weight:900;color:rgba(0,0,0,0.75);letter-spacing:-0.3px">Google Play</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 14 — WORKOUT PLAYER -->
+<div class="pg pg-dark">
+  <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div>
+      <div class="eyebrow">11 Player</div>
+      <div class="sec-title" style="margin-bottom:24px;">Intelligence<br/>Meets<br/><span class="acc">Performance</span></div>
+      <p class="sec-body">Walk through every exercise — sets, reps, instructions, target muscle. Progress bar shows how far through the session you are. Finish the last rep and land on the complete screen.</p>
+    </div>
+    <div style="display:flex;gap:20px;align-items:flex-end;justify-content:center;">
+      <div class="phone">
+        <div class="pc">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><div style="font-size:9px;font-weight:700;color:#555;">2 / 5</div><div style="font-size:9px;font-weight:800;color:#CAFF00;">FULL BODY BURN</div><div style="font-size:10px;color:#555;">✕</div></div>
+          <div style="height:3px;background:#1a1a1a;border-radius:2px;margin-bottom:12px;"><div style="width:40%;height:100%;background:#CAFF00;border-radius:2px;"></div></div>
+          <div style="background:linear-gradient(135deg,#0d1f00,#1a3300);border-radius:14px;padding:20px;text-align:center;margin-bottom:10px;flex:0 0 auto;"><div style="font-size:40px;margin-bottom:6px;">💪</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;line-height:0.9;">FOREARM<br/>PLANK</div><div style="font-size:9px;color:#888;margin-top:4px;">Core · Stability</div></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;flex:0 0 auto;">
+            <div style="background:#141414;border-radius:8px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;">3</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Sets</div></div>
+            <div style="background:#141414;border-radius:8px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;">30s</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Hold</div></div>
+            <div style="background:rgba(202,255,0,0.06);border:1px solid rgba(202,255,0,0.15);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:9px;font-weight:800;color:#CAFF00;">Core</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Muscle</div></div>
+          </div>
+          <div class="ph-btn">Next →</div>
+        </div>
+      </div>
+      <div class="phone phone-sm" style="background:#050505;">
+        <div style="padding:20px 14px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+          <div style="font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#CAFF00;margin-bottom:10px;">Session Complete</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;text-transform:uppercase;line-height:0.85;color:#CAFF00;margin-bottom:6px;">GREAT<br/>WORK!</div>
+          <div style="font-size:8px;color:#555;margin-bottom:14px;">Full Body Burn</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:100%;margin-bottom:12px;">
+            <div style="background:#141414;border-radius:8px;padding:6px 4px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">20</div><div style="font-size:7px;color:#555;">Min</div></div>
+            <div style="background:#141414;border-radius:8px;padding:6px 4px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">5</div><div style="font-size:7px;color:#555;">Ex</div></div>
+            <div style="background:#141414;border-radius:8px;padding:6px 4px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">150</div><div style="font-size:7px;color:#555;">Cal</div></div>
+          </div>
+          <div style="background:#CAFF00;color:#000;border-radius:12px;padding:8px;font-size:8px;font-weight:900;text-transform:uppercase;width:100%;letter-spacing:1px;">Back to Home</div>
         </div>
       </div>
     </div>
-    <div style="margin-top:64px;padding-top:40px;border-top:1px solid rgba(0,0,0,0.15);display:flex;gap:40px;justify-content:center;flex-wrap:wrap">
-      <div style="text-align:center">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(0,0,0,0.4);margin-bottom:6px;font-weight:700">Instagram</div>
-        <div style="font-size:15px;font-weight:800;color:rgba(0,0,0,0.7)">@liboworld</div>
+  </div>
+</div>
+
+<!-- PAGE 15 — POST-WORKOUT LOCATION -->
+<div class="pg" style="background:#000;">
+  <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div>
+      <div class="eyebrow">12 Post-Workout</div>
+      <div class="bc" style="font-size:clamp(72px,10vw,140px);color:var(--lime);letter-spacing:-4px;line-height:0.85;margin-bottom:8px;">31:45</div>
+      <div class="sec-title" style="font-size:32px;margin-bottom:24px;color:#666;">LOWER BODY<br/>POWER</div>
+      <p class="sec-body">Log where you trained. Track patterns. See what environments produce your best results over time.</p>
+    </div>
+    <div style="display:flex;justify-content:center;">
+      <div class="phone phone-lg">
+        <div class="pc" style="align-items:center;justify-content:center;text-align:center;">
+          <div class="ph-label" style="margin-bottom:10px;">Session Complete</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:60px;font-weight:900;color:#CAFF00;line-height:0.85;margin-bottom:4px;">31:45</div>
+          <div style="font-size:9px;color:#555;margin-bottom:20px;">LOWER BODY POWER</div>
+          <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:10px;">Where did you train?</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;margin-bottom:16px;">
+            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 6px;text-align:center;"><div style="font-size:18px;margin-bottom:3px;">🏋️</div><div style="font-size:9px;font-weight:700;">Gym</div></div>
+            <div style="background:#CAFF00;border-radius:12px;padding:12px 6px;text-align:center;"><div style="font-size:18px;margin-bottom:3px;">🏠</div><div style="font-size:9px;font-weight:900;color:#000;">Home</div></div>
+            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 6px;text-align:center;"><div style="font-size:18px;margin-bottom:3px;">🌍</div><div style="font-size:9px;font-weight:700;">Outdoor</div></div>
+          </div>
+          <div class="ph-btn">Save &amp; Continue →</div>
+        </div>
       </div>
-      <div style="text-align:center">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(0,0,0,0.4);margin-bottom:6px;font-weight:700">TikTok</div>
-        <div style="font-size:15px;font-weight:800;color:rgba(0,0,0,0.7)">@libo.world</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 16 — ACTIVITY / PROGRESS -->
+<div class="pg pg-dark">
+  <div class="narrow">
+    <div class="eyebrow">13 Progress</div>
+    <div class="sec-title" style="text-align:center;margin-bottom:12px;">Track Your Progress<br/>&amp; Stay <span class="acc">On Target</span></div>
+    <p style="text-align:center;color:#555;font-size:14px;margin-bottom:48px;max-width:500px;margin-left:auto;margin-right:auto;">Every session logged. Every milestone visible.</p>
+    <div style="display:flex;gap:32px;justify-content:center;align-items:flex-end;">
+      <div class="phone phone-lg">
+        <div class="pc">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><div class="ph-title" style="font-size:20px;">ACTIVITY</div><div style="color:#CAFF00;font-size:16px;">+</div></div>
+          <div style="display:flex;justify-content:center;margin:4px 0;">
+            <div style="position:relative;"><svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="36" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/><circle cx="45" cy="45" r="36" fill="none" stroke="#CAFF00" stroke-width="7" stroke-dasharray="226" stroke-dashoffset="56" stroke-linecap="round" transform="rotate(-90 45 45)"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#CAFF00;line-height:1;">12</div><div style="font-size:7px;color:#555;text-transform:uppercase;letter-spacing:1px;">Sessions</div></div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
+            <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#CAFF00;">312</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Minutes</div></div>
+            <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#CAFF00;">2.1k</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Calories</div></div>
+          </div>
+          <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:4px;">This Week</div>
+          <div style="display:flex;gap:3px;align-items:flex-end;height:36px;">
+            <div style="flex:1;background:#1a1a1a;border-radius:2px 2px 0 0;height:60%;"></div>
+            <div style="flex:1;background:#CAFF00;border-radius:2px 2px 0 0;height:80%;"></div>
+            <div style="flex:1;background:#1a1a1a;border-radius:2px 2px 0 0;height:40%;"></div>
+            <div style="flex:1;background:#2a2a2a;border-radius:2px 2px 0 0;height:100%;"></div>
+            <div style="flex:1;background:#1a1a1a;border-radius:2px 2px 0 0;height:20%;"></div>
+            <div style="flex:1;background:#CAFF00;border-radius:2px 2px 0 0;height:70%;"></div>
+            <div style="flex:1;background:#1a1a1a;border-radius:2px 2px 0 0;height:30%;"></div>
+          </div>
+          <div class="ph-nav"><div class="ph-nav-i">🏠</div><div class="ph-nav-i">🔍</div><div class="ph-nav-i">📅</div><div class="ph-nav-i a">📊</div></div>
+        </div>
       </div>
-      <div style="text-align:center">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(0,0,0,0.4);margin-bottom:6px;font-weight:700">Email</div>
-        <div style="font-size:15px;font-weight:800;color:rgba(0,0,0,0.7)">hello@liboworld.com</div>
+      <div class="phone">
+        <div class="pc">
+          <div class="ph-label">Programs</div>
+          <div class="ph-title" style="font-size:18px;margin-bottom:6px;">CHALLENGES</div>
+          <div style="background:linear-gradient(135deg,#0d1f00,#1a3300);border:1px solid rgba(202,255,0,0.15);border-radius:12px;padding:10px;margin-bottom:6px;">
+            <div class="ph-label" style="margin-bottom:3px;">🎯 30-Day Challenge</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:900;text-transform:uppercase;line-height:0.9;margin-bottom:5px;">TOTAL BODY<br/>TRANSFORMATION</div>
+            <div style="height:3px;background:#1a1a1a;border-radius:2px;margin-bottom:3px;"><div style="width:30%;height:100%;background:#CAFF00;border-radius:2px;"></div></div>
+            <div style="font-size:8px;color:#555;">Day 9 / 30 · 30% complete</div>
+          </div>
+          <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:4px;">Routines</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div class="ph-card" style="padding:7px;display:flex;align-items:center;gap:6px;"><span style="font-size:14px;">🌅</span><div><div style="font-size:9px;font-weight:700;">Gentle Wake-Up</div><div style="font-size:7px;color:#555;">5 min</div></div></div>
+            <div class="ph-card" style="padding:7px;display:flex;align-items:center;gap:6px;"><span style="font-size:14px;">🌙</span><div><div style="font-size:9px;font-weight:700;">Evening Wind Down</div><div style="font-size:7px;color:#555;">7 min</div></div></div>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 17 — EDITORIAL: TRAIN ANYWHERE -->
+<div class="pg pg-lime" style="display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;gap:0;">
+  <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-6px;line-height:0.82;">TRAIN</div>
+  <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-6px;line-height:0.82;">ANY</div>
+  <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-6px;line-height:0.82;margin-bottom:32px;">WHERE.</div>
+  <div style="display:flex;gap:12px;">
+    <span style="background:#000;color:var(--lime);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🏋️ Gym</span>
+    <span style="background:#000;color:var(--lime);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🏠 Home</span>
+    <span style="background:#000;color:var(--lime);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🧘 Mobility</span>
+  </div>
+  <div style="position:absolute;top:-40px;right:-40px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:400px;color:rgba(0,0,0,0.04);letter-spacing:-15px;text-transform:uppercase;line-height:1;pointer-events:none;user-select:none;">LIBO</div>
+</div>
+
+<!-- PAGE 18 — BILLBOARD -->
+<div class="pg" style="background:#111;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+  <div style="width:100%;max-width:900px;">
+    <div style="height:8px;background:linear-gradient(90deg,#1a1a1a,#2a2a2a,#1a1a1a);border-radius:4px 4px 0 0;"></div>
+    <div style="background:#1a1a1a;border-radius:0;padding:10px;">
+      <div style="background:var(--lime);border-radius:4px;padding:60px 80px;position:relative;overflow:hidden;">
+        <div style="position:absolute;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:220px;color:rgba(0,0,0,0.05);top:-20px;right:-20px;line-height:1;text-transform:uppercase;letter-spacing:-5px;">LIBO</div>
+        <div style="position:relative;z-index:1;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(14px,2vw,20px);text-transform:uppercase;letter-spacing:3px;color:rgba(0,0,0,0.4);margin-bottom:12px;">LIBO FITNESS APP</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,110px);text-transform:uppercase;line-height:0.85;letter-spacing:-3px;color:#000;margin-bottom:8px;">EVERY<br/>WORKOUT.</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(20px,4vw,48px);text-transform:uppercase;letter-spacing:-1px;color:rgba(0,0,0,0.5);">EVERYWHERE YOU ARE.</div>
+          <div style="margin-top:24px;"><div style="background:#000;color:var(--lime);border-radius:50px;padding:10px 28px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:2px;display:inline-block;">Train Anywhere</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="height:40px;background:#111;border-top:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;gap:8px;"><div style="width:60px;height:8px;background:#1a1a1a;border-radius:2px;"></div><div style="width:80px;height:8px;background:#222;border-radius:2px;"></div></div>
+  </div>
+</div>
+
+<!-- PAGE 19 — TESTIMONIALS -->
+<div class="pg pg-dark">
+  <div class="narrow">
+    <div class="eyebrow">14 Reception</div>
+    <div class="sec-title" style="margin-bottom:48px;">Built for<br/><span class="acc">Real Athletes.</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px;">
+      <div class="testi-card"><div style="font-size:48px;color:rgba(202,255,0,0.12);font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:0.8;margin-bottom:16px;">"</div><p class="testi-q">"The challenge tracker is exactly what I needed. Watching Day 9 become Day 10 — knowing the reps go up — makes you actually show up."</p><div class="testi-n">Marcos T. — São Paulo</div></div>
+      <div class="testi-card"><div style="font-size:48px;color:rgba(202,255,0,0.12);font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:0.8;margin-bottom:16px;">"</div><p class="testi-q">"Having 502 exercises filtered by gym vs home completely changed how I plan travel workouts. I never arrive somewhere without a session ready."</p><div class="testi-n">Sarah K. — London</div></div>
+      <div class="testi-card"><div style="font-size:48px;color:rgba(202,255,0,0.12);font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:0.8;margin-bottom:16px;">"</div><p class="testi-q">"The morning routines are genuinely 5 to 7 minutes. I actually do them before work. That is the first fitness habit that has ever stuck for me."</p><div class="testi-n">David R. — Toronto</div></div>
+    </div>
+    <div style="padding:48px;background:rgba(202,255,0,0.04);border:1px solid rgba(202,255,0,0.12);border-radius:20px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;">
+      <div><p style="font-size:clamp(18px,2.5vw,28px);font-weight:300;line-height:1.45;color:#fff;margin-bottom:20px;">"Motivation, knowledge, and consistency — the three pillars of powerful training for every athlete. <span style="color:var(--lime);font-weight:700;">Libo is built around all three.</span>"</p><div style="font-size:12px;font-weight:700;color:var(--lime);letter-spacing:2px;text-transform:uppercase;">Head Trainer · Libo</div></div>
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#1a2200,#2d3a00);border:2px solid rgba(202,255,0,0.3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:32px;">💪</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 20 — THREE PHONES SPREAD -->
+<div class="pg pg-lime" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+  <div style="text-align:center;margin-bottom:40px;"><div style="font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,0.4);margin-bottom:12px;">Smarter Training</div><div class="bc" style="font-size:clamp(52px,8vw,96px);color:#000;letter-spacing:-3px;">STARTS HERE</div></div>
+  <div style="display:flex;gap:20px;align-items:flex-end;justify-content:center;">
+    <div class="phone" style="transform:rotate(-4deg) translateY(10px);background:#090909;border-color:rgba(0,0,0,0.3);">
+      <div class="pc">
+        <div style="color:#CAFF00;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;text-transform:uppercase;margin-bottom:6px;">WORKOUTS</div>
+        <div style="display:flex;gap:3px;margin-bottom:6px;"><span style="background:#CAFF00;color:#000;border-radius:5px;padding:2px 7px;font-size:7px;font-weight:900;">All</span><span style="background:#1a1a1a;color:#555;border-radius:5px;padding:2px 7px;font-size:7px;">Gym</span><span style="background:#1a1a1a;color:#555;border-radius:5px;padding:2px 7px;font-size:7px;">Home</span></div>
+        <div style="background:#141414;border-radius:8px;padding:8px;margin-bottom:5px;"><div class="ph-label" style="margin-bottom:2px;font-size:7px;">NEW</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;">CHEST BARBELL</div></div>
+        <div style="background:linear-gradient(135deg,#0d1f00,#1a3300);border-radius:8px;padding:8px;margin-bottom:5px;"><div class="ph-label" style="margin-bottom:2px;font-size:7px;">HOME</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;">FULL BODY BURN</div></div>
+        <div style="background:#141414;border-radius:8px;padding:8px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;">HIIT CARDIO</div></div>
+      </div>
+    </div>
+    <div class="phone phone-lg" style="background:#090909;border-color:rgba(0,0,0,0.3);">
+      <div class="pc">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;color:#CAFF00;line-height:0.85;margin-bottom:10px;">GOOD<br/>MORNING.</div>
+        <div style="background:linear-gradient(135deg,#0f1a00,#1a2d00);border:1px solid rgba(202,255,0,0.15);border-radius:14px;padding:14px;flex:0 0 auto;">
+          <div class="ph-label" style="margin-bottom:6px;">TODAY'S WORKOUT</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;text-transform:uppercase;line-height:0.88;margin-bottom:5px;">FULL BODY<br/>BURN</div>
+          <div style="font-size:8px;color:#888;margin-bottom:10px;">20 MIN · BEGINNER</div>
+          <div style="background:#CAFF00;color:#000;border-radius:10px;padding:6px 12px;font-size:8px;font-weight:900;text-transform:uppercase;display:inline-block;">Start Now →</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:0 0 auto;margin-top:6px;">
+          <div style="background:linear-gradient(135deg,#1a2200,#2a3600);border-radius:10px;padding:10px;border:1px solid rgba(202,255,0,0.1);"><div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;text-transform:uppercase;line-height:0.9;">UPPER BODY<br/>STRENGTH</div></div>
+          <div style="background:#141414;border-radius:10px;padding:10px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;text-transform:uppercase;line-height:0.9;">LOWER BODY<br/>POWER</div></div>
+        </div>
+        <div class="ph-nav"><div class="ph-nav-i a">🏠<span>Home</span></div><div class="ph-nav-i">🔍<span>Explore</span></div><div class="ph-nav-i">📅<span>Programs</span></div><div class="ph-nav-i">📊<span>Progress</span></div></div>
+      </div>
+    </div>
+    <div class="phone" style="transform:rotate(4deg) translateY(10px);background:#090909;border-color:rgba(0,0,0,0.3);">
+      <div class="pc">
+        <div style="color:#CAFF00;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;margin-bottom:6px;">ACTIVITY</div>
+        <div style="display:flex;justify-content:center;margin:4px 0 6px;"><div style="position:relative;"><svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/><circle cx="40" cy="40" r="32" fill="none" stroke="#CAFF00" stroke-width="6" stroke-dasharray="201" stroke-dashoffset="50" stroke-linecap="round" transform="rotate(-90 40 40)"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:#CAFF00;line-height:1;">12</div></div></div></div>
+        <div style="text-align:center;font-size:8px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Total Sessions</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+          <div style="background:#141414;border-radius:8px;padding:7px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">312</div><div style="font-size:7px;color:#555;">Min</div></div>
+          <div style="background:#141414;border-radius:8px;padding:7px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">2.1k</div><div style="font-size:7px;color:#555;">Cal</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 21 — SCANNER -->
+<div class="pg" style="background:#000;">
+  <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div>
+      <div class="eyebrow">15 Scanner</div>
+      <div class="sec-title" style="margin-bottom:24px;">No Equipment?<br/><span class="acc">No Problem.</span></div>
+      <p class="sec-body">Tap any exercise and get 3 smart alternatives suited to your available equipment. Works for every machine, cable, and barbell in the library.</p>
+    </div>
+    <div style="display:flex;justify-content:center;">
+      <div class="phone phone-lg">
+        <div class="pc">
+          <div class="ph-title" style="font-size:18px;margin-bottom:4px;">ALT SCANNER</div>
+          <div style="font-size:9px;color:#555;margin-bottom:10px;">Tap any exercise, get 3 alternatives.</div>
+          <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 10px;font-size:10px;color:#888;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;"><span>Lat Pulldown</span><span style="color:#CAFF00;">▾</span></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:8px;font-weight:800;color:#CAFF00;text-transform:uppercase;letter-spacing:1px;">3 Alternatives</div><div style="flex:1;height:1px;background:var(--border);"></div></div>
+          <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+            <div style="background:#141414;border-radius:10px;padding:9px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:16px;height:16px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">1</div><div style="font-size:10px;font-weight:700;">Resistance Band Pull-Down</div></div><div style="display:flex;gap:4px;margin-bottom:3px;"><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">Home-friendly</span><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">No gym</span></div></div>
+            <div style="background:#141414;border-radius:10px;padding:9px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:16px;height:16px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">2</div><div style="font-size:10px;font-weight:700;">Wide-Grip Pull-Up</div></div><div style="display:flex;gap:4px;"><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">Bodyweight</span><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">Any bar</span></div></div>
+            <div style="background:#141414;border-radius:10px;padding:9px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:16px;height:16px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">3</div><div style="font-size:10px;font-weight:700;">Dumbbell Pullover</div></div><div style="display:flex;gap:4px;"><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">Free weights</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 22 — CLOSING CTA -->
+<div class="pg pg-lime" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;min-height:100vh;">
+  <div style="position:absolute;top:-80px;left:-40px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:500px;color:rgba(0,0,0,0.04);letter-spacing:-20px;text-transform:uppercase;line-height:1;pointer-events:none;user-select:none;">LIBO</div>
+  <div style="position:relative;z-index:1;width:100%;">
+    <div style="font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,0.35);margin-bottom:20px;">◉ Coming Soon · 2025</div>
+    <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-8px;line-height:0.82;margin-bottom:4px;">GET</div>
+    <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-8px;line-height:0.82;margin-bottom:32px;">MOVING.</div>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:48px;">
+      <div style="background:#000;border-radius:16px;padding:14px 28px;display:flex;align-items:center;gap:12px;"><div style="font-size:24px;">🍎</div><div><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:2px;">Download on the</div><div style="font-size:16px;font-weight:800;color:var(--lime);">App Store</div></div></div>
+      <div style="background:#000;border-radius:16px;padding:14px 28px;display:flex;align-items:center;gap:12px;"><div style="font-size:24px;">▶</div><div><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:2px;">Get it on</div><div style="font-size:16px;font-weight:800;color:var(--lime);">Google Play</div></div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:32px;border-top:1px solid rgba(0,0,0,0.15);">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;letter-spacing:-1px;text-transform:uppercase;color:#000;">LIBO</div>
+      <div style="font-size:14px;font-weight:700;color:rgba(0,0,0,0.4);letter-spacing:2px;text-transform:uppercase;">liboworld.com</div>
     </div>
   </div>
 </div>
