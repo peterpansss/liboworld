@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Libo – Your all-in-one fitness training club. Bodyweight, gym, mobility, breathing. Train anywhere, anytime." />
   <title>Libo – Just Train.</title>
+  <link rel="icon" type="image/jpeg" href="images/logo.jpeg"/>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -101,14 +102,11 @@
     }
 
     .nav-logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 28px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--white);
+      display: flex;
+      align-items: center;
       text-decoration: none;
     }
+    .nav-logo svg { display: block; }
 
     .nav-links {
       display: flex;
@@ -603,13 +601,7 @@
       align-items: center;
       justify-content: space-between;
     }
-    .footer-logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 24px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+    .footer-logo { display: flex; align-items: center; }
     .footer-links {
       display: flex;
       gap: 28px;
@@ -751,7 +743,16 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Libo</a>
+  <a href="#" class="nav-logo">
+    <svg width="72" height="36" viewBox="0 0 90 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Three ascending dots -->
+      <circle cx="52" cy="11" r="2.5" fill="#5EE87A"/>
+      <circle cx="62" cy="7.5" r="3.5" fill="#5EE87A"/>
+      <circle cx="74" cy="3.5" r="5" fill="#5EE87A"/>
+      <!-- LIBO wordmark -->
+      <text x="0" y="40" font-family="'Barlow Condensed', Arial Black, sans-serif" font-weight="900" font-size="38" fill="white" letter-spacing="1">LIBO</text>
+    </svg>
+  </a>
   <ul class="nav-links">
     <li><a href="#features">Features</a></li>
     <li><a href="#scanner">Alt Scanner</a></li>
@@ -769,6 +770,9 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
+    <div style="margin-bottom: 32px;">
+      <img src="images/logo.jpeg" alt="Libo" style="height: 56px; width: auto; border-radius: 12px;"/>
+    </div>
     <div class="hero-eyebrow">
       <div class="hero-eyebrow-dot"></div>
       <span class="label">Coming Soon — Join the Waitlist</span>
@@ -1108,7 +1112,14 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">Libo</div>
+    <div class="footer-logo">
+      <svg width="64" height="32" viewBox="0 0 90 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="52" cy="11" r="2.5" fill="#5EE87A"/>
+        <circle cx="62" cy="7.5" r="3.5" fill="#5EE87A"/>
+        <circle cx="74" cy="3.5" r="5" fill="#5EE87A"/>
+        <text x="0" y="40" font-family="'Barlow Condensed', Arial Black, sans-serif" font-weight="900" font-size="38" fill="white" letter-spacing="1">LIBO</text>
+      </svg>
+    </div>
     <ul class="footer-links">
       <li><a href="privacy.html">Privacy Policy</a></li>
       <li><a href="terms.html">Terms</a></li>
