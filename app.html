@@ -509,6 +509,51 @@
       opacity: 0.35;
     }
 
+    /* ── BUILDER / AI GEN ── */
+    .builder-ex-item{
+      display:flex;align-items:center;gap:12px;
+      padding:12px 16px;border-bottom:1px solid var(--border);
+      cursor:pointer;transition:background 0.15s;
+    }
+    .builder-ex-item:active{background:rgba(255,255,255,0.03);}
+    .builder-add-btn{
+      width:32px;height:32px;border-radius:50%;
+      border:1.5px solid var(--border);background:transparent;
+      color:var(--accent);font-size:18px;line-height:1;
+      cursor:pointer;flex-shrink:0;transition:all 0.2s;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .builder-add-btn.added{background:var(--accent);border-color:var(--accent);color:#080808;}
+    .builder-ex-row{
+      background:var(--bg3);border:1px solid var(--border);border-radius:14px;
+      padding:14px 16px;display:flex;gap:12px;align-items:center;
+    }
+    .reps-input{
+      width:60px;background:var(--bg4);border:1px solid var(--border);
+      border-radius:8px;padding:6px 8px;color:var(--text);font-size:13px;
+      font-weight:600;text-align:center;outline:none;
+    }
+    .reps-input:focus{border-color:rgba(202,255,0,0.4);}
+    .ai-chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+    .ai-chip{
+      background:var(--card);border:1.5px solid var(--border);
+      border-radius:50px;padding:9px 18px;font-size:13px;font-weight:600;
+      cursor:pointer;transition:all 0.2s;
+    }
+    .ai-chip.sel{background:var(--accent-dim);border-color:rgba(200,240,74,0.4);color:var(--accent);}
+    .ai-dur-chip{
+      flex:1;background:var(--card);border:1.5px solid var(--border);
+      border-radius:12px;padding:12px 8px;font-size:14px;font-weight:700;
+      text-align:center;cursor:pointer;transition:all 0.2s;
+    }
+    .ai-dur-chip.sel{background:var(--accent-dim);border-color:rgba(200,240,74,0.4);color:var(--accent);}
+    .gen-ex-row{
+      display:flex;align-items:center;gap:12px;
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:14px;padding:14px 16px;
+    }
+    .section-subhead{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+
     /* transitions */
     .fade-in{animation:fadeIn 0.25s ease;}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);};}
@@ -625,7 +670,9 @@ let S = {
   logs: JSON.parse(localStorage.getItem('libo_logs') || '[]'),
   user: JSON.parse(localStorage.getItem('libo_user') || 'null'),
   challengeProgress: JSON.parse(localStorage.getItem('libo_challenge_progress') || '{}'),
-  // { wk_30_day_total_body_transformation: { startDate: '2024-01-01', completedDays: [1,3,5,...] } }
+  customWorkouts: JSON.parse(localStorage.getItem('libo_custom_workouts') || '[]'),
+  builder: { step: 'pick', name: 'My Workout', exercises: [], searchQ: '', filter: 'All' },
+  aiGen: { step: 'form', goal: '', equip: 'none', duration: 30, focus: 'Full Body', generated: null },
 };
 
 if (S.user) { S.screen = 'main'; }
@@ -635,8 +682,8 @@ if (S.user) { S.screen = 'main'; }
 // ═══════════════════════════════
 const $ = id => document.getElementById(id);
 function saveLog(workoutId) {
-  const w = WORKOUTS.find(w=>w.id===workoutId);
-  S.logs.unshift({ id: workoutId, name: w.name, emoji: w.emoji, date: new Date().toISOString(), dur: w.dur, cal: Math.round(w.dur * 7.5) });
+  const w = S.selectedWorkout || WORKOUTS.find(w=>w.id===workoutId) || { name:'Workout', emoji:'💪', dur:30 };
+  S.logs.unshift({ id: workoutId, name: w.name, emoji: w.emoji, date: new Date().toISOString(), dur: w.dur||30, cal: Math.round((w.dur||30) * 7.5) });
   localStorage.setItem('libo_logs', JSON.stringify(S.logs.slice(0, 20)));
 }
 function saveUser() { localStorage.setItem('libo_user', JSON.stringify(S.user)); }
@@ -661,6 +708,8 @@ function render() {
   else if (S.screen === 'player') { app.innerHTML = renderPlayer(); }
   else if (S.screen === 'complete') { app.innerHTML = renderComplete(); }
   else if (S.screen === 'challenge') { app.innerHTML = renderChallenge(); }
+  else if (S.screen === 'custom-builder') { app.innerHTML = renderCustomBuilder(); }
+  else if (S.screen === 'ai-gen') { app.innerHTML = renderAiGen(); }
   else { app.innerHTML = renderMain(); }
 
   attachEvents();
@@ -916,10 +965,42 @@ function renderExplore() {
 
 // ── PROGRAMS ──
 function renderPrograms() {
+  const myWorkouts = S.customWorkouts || [];
   return `
     <div class="page-header"><div class="page-title">Programs</div></div>
 
-    <div style="padding:4px 16px 0">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 16px 20px">
+      <div id="open-builder-btn" style="background:linear-gradient(135deg,#0a1a00 0%,#182800 100%);border:1px solid rgba(202,255,0,0.2);border-radius:18px;padding:18px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;min-height:120px">
+        <div style="font-size:28px">✏️</div>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-0.5px">Build<br/>Custom</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Pick your exercises</div>
+        </div>
+      </div>
+      <div id="open-ai-btn" style="background:linear-gradient(135deg,#001018 0%,#001a28 100%);border:1px solid rgba(100,180,255,0.2);border-radius:18px;padding:18px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;min-height:120px">
+        <div style="font-size:28px">🤖</div>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-0.5px">AI<br/>Generate</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Auto-build for your goal</div>
+        </div>
+      </div>
+    </div>
+
+    ${myWorkouts.length ? `
+    <div style="padding:0 16px 4px"><div class="section-label" style="margin-bottom:10px">My Custom Workouts</div></div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px 20px">
+      ${myWorkouts.map(w=>`
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer" class="start-workout-btn" data-custom-id="${w.id}">
+          <div style="width:40px;height:40px;background:var(--accent-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">✏️</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${w.name}</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">${w.exercises.length} exercises · ${w.dur||20}min</div>
+          </div>
+          <div style="color:var(--accent);font-size:18px">›</div>
+        </div>`).join('')}
+    </div>` : ''}
+
+    <div style="padding:0 16px 4px">
       <div class="section-label" style="margin-bottom:6px">30-Day Challenges</div>
       <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Structured programs with daily progressions. All you need to do is show up.</p>
     </div>
@@ -958,6 +1039,238 @@ function renderPrograms() {
           <div style="color:var(--accent);font-size:18px">›</div>
         </div>`;
       }).join('')}
+    </div>`;
+}
+
+// ── CUSTOM BUILDER ──
+function renderCustomBuilder() {
+  const b = S.builder;
+  const addedIds = new Set(b.exercises.map(e => e.id));
+
+  if (b.step === 'configure') {
+    return `
+    <div class="screen fade-in">
+      <div class="detail-header">
+        <div class="detail-back" id="back-btn">←</div>
+        <div style="font-size:13px;font-weight:700">Configure Workout</div>
+        <div style="width:32px"></div>
+      </div>
+      <div style="padding:16px">
+        <label style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:8px">Workout Name</label>
+        <input class="onboard-input" id="builder-name-input" placeholder="e.g. My Push Day" value="${b.name}" style="margin-bottom:20px"/>
+        <div class="section-subhead">Exercises (${b.exercises.length})</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px" id="builder-ex-list">
+          ${b.exercises.map((ex,i)=>`
+            <div class="builder-ex-row">
+              <div style="font-size:20px">${ex.emoji||'💪'}</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ex.name}</div>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+                  <span style="font-size:11px;color:var(--muted)">Sets</span>
+                  <input class="reps-input" data-idx="${i}" data-field="sets" value="${ex.sets||3}" type="number" min="1" max="10"/>
+                  <span style="font-size:11px;color:var(--muted)">Reps</span>
+                  <input class="reps-input" data-idx="${i}" data-field="reps" value="${ex.reps||'10'}" style="width:68px"/>
+                </div>
+              </div>
+              <button data-remove="${i}" style="background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.2);color:#ff6b6b;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer">✕</button>
+            </div>`).join('')}
+        </div>
+        <div style="display:flex;gap:10px">
+          <button id="builder-save-btn" style="flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:50px;padding:14px;font-size:13px;font-weight:700;cursor:pointer">Save</button>
+          <button id="builder-start-btn" class="btn-full" style="flex:2">Save & Start →</button>
+        </div>
+        <button id="builder-add-more-btn" class="btn-ghost" style="margin-top:10px">+ Add More Exercises</button>
+      </div>
+    </div>`;
+  }
+
+  // Step: pick exercises
+  const q = b.searchQ.toLowerCase();
+  const exCats = ['All','Chest','Back','Legs','Shoulders','Core','Arms','Cardio','Glutes','Mobility'];
+  const fl = b.filter.toLowerCase();
+  const pool = EXERCISES.filter(e => {
+    const catOk = fl === 'all' || e.cat?.toLowerCase() === fl || e.muscle?.toLowerCase().includes(fl) ||
+      (fl === 'arms' && (e.muscle?.toLowerCase().includes('bicep') || e.muscle?.toLowerCase().includes('tricep')));
+    const qOk = !q || e.name.toLowerCase().includes(q);
+    return catOk && qOk;
+  });
+
+  return `
+    <div class="screen fade-in">
+      <div class="detail-header">
+        <div class="detail-back" id="back-btn">←</div>
+        <div style="font-size:13px;font-weight:700">Build Custom Workout</div>
+        <div style="font-size:12px;font-weight:700;color:var(--accent)">${b.exercises.length} added</div>
+      </div>
+      <div style="padding:0 16px 8px">
+        <input class="search-input" id="builder-search" placeholder="Search exercises..." value="${b.searchQ}" style="margin-bottom:8px"/>
+        <div class="filter-row">
+          ${exCats.map(c=>`<div class="filter-chip${b.filter===c||b.filter.toLowerCase()===c.toLowerCase()||(!b.filter&&c==='All')?' active':''}" data-bfilter="${c}">${c}</div>`).join('')}
+        </div>
+      </div>
+      <div style="padding:0 0 80px">
+        ${pool.slice(0, 80).map(e => {
+          const added = addedIds.has(e.id);
+          return `<div class="builder-ex-item">
+            <div style="width:40px;height:40px;background:var(--bg3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${e.emoji||'💪'}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.name}</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px">${e.muscle||''} ${e.equip?'· '+e.equip:''}</div>
+            </div>
+            <button class="builder-add-btn${added?' added':''}" data-add-ex="${e.id}">${added?'✓':'+'}</button>
+          </div>`;
+        }).join('')}
+      </div>
+      ${b.exercises.length > 0 ? `
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(to top,var(--bg) 60%,transparent);pointer-events:none"></div>
+      <div style="position:absolute;bottom:16px;left:16px;right:16px;pointer-events:all">
+        <button id="builder-configure-btn" class="btn-full">Configure ${b.exercises.length} Exercise${b.exercises.length!==1?'s':''} →</button>
+      </div>` : ''}
+    </div>`;
+}
+
+// ── AI GENERATOR ──
+function generateWorkout(goal, equip, duration, focus) {
+  const count = duration <= 15 ? 4 : duration <= 30 ? 6 : duration <= 45 ? 8 : 10;
+  const schemes = {
+    'Lose Weight':      { sets:3, reps:'15',   label:'Fat Burn' },
+    'Build Muscle':     { sets:4, reps:'8-10', label:'Strength' },
+    'Improve Mobility': { sets:2, reps:'45 sec',label:'Mobility' },
+    'Stay Active':      { sets:3, reps:'12',   label:'Active' },
+    'Reduce Stress':    { sets:2, reps:'60 sec',label:'Recovery' },
+  };
+  const scheme = schemes[goal] || schemes['Stay Active'];
+
+  const equipOk = e => {
+    const eq = (e.equip || '').toLowerCase();
+    if (equip === 'none') return eq === 'bodyweight' || eq === 'none' || eq === '' || !eq;
+    if (equip === 'dumbbells') return eq === 'bodyweight' || eq.includes('dumbbell') || eq === 'none' || !eq;
+    if (equip === 'bands') return eq === 'bodyweight' || eq.includes('band') || eq === 'none' || !eq;
+    return true; // full gym — all
+  };
+
+  const focusMap = {
+    'Full Body':   null,
+    'Upper Body':  ['chest','back','shoulder','bicep','tricep','arm'],
+    'Lower Body':  ['leg','glute','quad','hamstring','calf'],
+    'Core':        ['core','abs','abdominal'],
+    'Cardio':      ['cardio','full body'],
+  };
+  const focusMuscles = focusMap[focus] || null;
+
+  let pool = EXERCISES.filter(e => {
+    if (!equipOk(e)) return false;
+    if (focusMuscles) {
+      const m = (e.muscle || '').toLowerCase();
+      return focusMuscles.some(f => m.includes(f));
+    }
+    return true;
+  });
+
+  // Deterministic shuffle using goal+equip+focus as seed
+  const seed = (goal + equip + focus).split('').reduce((a,c) => a + c.charCodeAt(0), 0);
+  pool = [...pool].sort((a, b) => {
+    const ha = (a.id.charCodeAt(0) * seed + a.id.charCodeAt(1||0) * 31) % 97;
+    const hb = (b.id.charCodeAt(0) * seed + b.id.charCodeAt(1||0) * 31) % 97;
+    return ha - hb;
+  });
+
+  const selected = pool.slice(0, count);
+  const emoji = { 'Lose Weight':'🔥','Build Muscle':'💪','Improve Mobility':'🧘','Stay Active':'⚡','Reduce Stress':'🫁' }[goal] || '🤖';
+  const catName = equip === 'none' ? 'Home' : 'Gym';
+
+  return {
+    id: 'ai_' + Date.now(),
+    name: `${focus} ${scheme.label}`,
+    cat: catName,
+    diff: 'intermediate',
+    dur: duration,
+    equip: equip,
+    emoji,
+    goal,
+    exercises: selected.map(e => ({ id: e.id, name: e.name, sets: scheme.sets, reps: scheme.reps, _ex: e })),
+  };
+}
+
+function renderAiGen() {
+  const g = S.aiGen;
+  const goals = [['🔥','Lose Weight'],['💪','Build Muscle'],['🧘','Improve Mobility'],['⚡','Stay Active'],['🫁','Reduce Stress']];
+  const equips = [['🏃','None (Bodyweight)','none'],['🏋️','Dumbbells','dumbbells'],['🪢','Resistance Bands','bands'],['🏟️','Full Gym','full gym']];
+  const focuses = ['Full Body','Upper Body','Lower Body','Core','Cardio'];
+  const durations = [15,30,45,60];
+
+  if (g.step === 'result' && g.generated) {
+    const w = g.generated;
+    return `
+    <div class="screen fade-in">
+      <div class="detail-header">
+        <div class="detail-back" id="back-btn">←</div>
+        <div style="font-size:13px;font-weight:700;color:var(--muted)">AI Generated</div>
+        <div style="width:32px"></div>
+      </div>
+      <div style="padding:20px 20px 12px">
+        <div style="font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px">Generated for: ${g.goal}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:900;text-transform:uppercase;letter-spacing:-1px;line-height:0.95;margin-bottom:10px">${w.name}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600">${w.emoji} ${w.dur}min</span>
+          <span style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600">${w.exercises.length} exercises</span>
+          <span style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600">${w.equip === 'none' ? 'No equipment' : w.equip}</span>
+        </div>
+      </div>
+      <div style="padding:0 20px 16px;display:flex;flex-direction:column;gap:8px">
+        ${w.exercises.map((ex,i)=>`
+          <div class="gen-ex-row">
+            <div style="width:28px;height:28px;background:rgba(202,255,0,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--accent);flex-shrink:0">${i+1}</div>
+            <div style="font-size:20px">${(ex._ex||{}).emoji||'💪'}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ex.name}</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px">${ex.sets} sets · ${ex.reps}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div style="padding:0 20px 16px;display:flex;gap:10px">
+        <button id="ai-save-btn" style="flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:50px;padding:14px;font-size:13px;font-weight:700;cursor:pointer">Save</button>
+        <button id="ai-start-btn" class="btn-full" style="flex:2">Start Workout →</button>
+      </div>
+      <div style="padding:0 20px 8px">
+        <button id="ai-regen-btn" class="btn-ghost">↻ Regenerate</button>
+      </div>
+    </div>`;
+  }
+
+  const canGenerate = g.goal && g.equip && g.focus;
+  return `
+    <div class="screen fade-in">
+      <div class="detail-header">
+        <div class="detail-back" id="back-btn">←</div>
+        <div style="font-size:13px;font-weight:700">AI Workout Generator</div>
+        <div style="width:32px"></div>
+      </div>
+      <div style="padding:16px">
+        <div class="section-subhead">Your Goal</div>
+        <div class="ai-chip-row">
+          ${goals.map(([ico,lbl])=>`<div class="ai-chip${g.goal===lbl?' sel':''}" data-ai-goal="${lbl}">${ico} ${lbl}</div>`).join('')}
+        </div>
+
+        <div class="section-subhead">Equipment</div>
+        <div class="ai-chip-row">
+          ${equips.map(([ico,lbl,val])=>`<div class="ai-chip${g.equip===val?' sel':''}" data-ai-equip="${val}">${ico} ${lbl}</div>`).join('')}
+        </div>
+
+        <div class="section-subhead">Duration</div>
+        <div style="display:flex;gap:8px;margin-bottom:20px">
+          ${durations.map(d=>`<div class="ai-dur-chip${g.duration===d?' sel':''}" data-ai-dur="${d}">${d}<div style="font-size:10px;color:var(--muted);font-weight:500">min</div></div>`).join('')}
+        </div>
+
+        <div class="section-subhead">Focus</div>
+        <div class="ai-chip-row">
+          ${focuses.map(f=>`<div class="ai-chip${g.focus===f?' sel':''}" data-ai-focus="${f}">${f}</div>`).join('')}
+        </div>
+
+        <button id="ai-generate-btn" class="btn-full" ${!canGenerate?'disabled':''} style="margin-top:8px">
+          ✨ Generate Workout
+        </button>
+      </div>
     </div>`;
 }
 
@@ -1482,6 +1795,149 @@ function attachEvents() {
       render();
     });
   }
+
+  // Open builder / AI gen
+  const openBuilder = $('open-builder-btn');
+  if (openBuilder) openBuilder.addEventListener('click', () => {
+    S.builder = { step: 'pick', name: 'My Workout', exercises: [], searchQ: '', filter: 'All' };
+    S.screen = 'custom-builder';
+    render();
+  });
+  const openAi = $('open-ai-btn');
+  if (openAi) openAi.addEventListener('click', () => {
+    S.aiGen = { step: 'form', goal: S.user?.goal||'', equip: 'none', duration: 30, focus: 'Full Body', generated: null };
+    S.screen = 'ai-gen';
+    render();
+  });
+
+  // Custom workout cards in Programs list
+  document.querySelectorAll('[data-custom-id]').forEach(el => {
+    el.addEventListener('click', () => {
+      const w = (S.customWorkouts||[]).find(w => w.id === el.dataset.customId);
+      if (!w) return;
+      S.selectedWorkout = w;
+      S.screen = 'workout-detail';
+      render();
+    });
+  });
+
+  // Builder — search
+  const bSearch = $('builder-search');
+  if (bSearch) {
+    bSearch.addEventListener('input', e => { S.builder.searchQ = e.target.value; render(); });
+  }
+  // Builder — filter chips
+  document.querySelectorAll('[data-bfilter]').forEach(el => {
+    el.addEventListener('click', () => { S.builder.filter = el.dataset.bfilter; render(); });
+  });
+  // Builder — add exercise buttons
+  document.querySelectorAll('[data-add-ex]').forEach(el => {
+    el.addEventListener('click', () => {
+      const ex = EXERCISES.find(e => e.id === el.dataset.addEx);
+      if (!ex) return;
+      const idx = S.builder.exercises.findIndex(e => e.id === ex.id);
+      if (idx > -1) { S.builder.exercises.splice(idx, 1); }
+      else { S.builder.exercises.push({ id: ex.id, name: ex.name, emoji: ex.emoji, sets: 3, reps: '10', _ex: ex }); }
+      render();
+    });
+  });
+  // Builder — go to configure
+  const bConfigBtn = $('builder-configure-btn');
+  if (bConfigBtn) bConfigBtn.addEventListener('click', () => { S.builder.step = 'configure'; render(); });
+  // Builder — add more from configure step
+  const bAddMore = $('builder-add-more-btn');
+  if (bAddMore) bAddMore.addEventListener('click', () => { S.builder.step = 'pick'; render(); });
+  // Builder — name input
+  const bNameIn = $('builder-name-input');
+  if (bNameIn) bNameIn.addEventListener('input', e => { S.builder.name = e.target.value; });
+  // Builder — sets/reps inputs
+  document.querySelectorAll('.reps-input').forEach(el => {
+    el.addEventListener('change', e => {
+      const idx = parseInt(el.dataset.idx);
+      const field = el.dataset.field;
+      if (!isNaN(idx) && field) {
+        S.builder.exercises[idx][field] = field === 'sets' ? parseInt(e.target.value)||1 : e.target.value;
+      }
+    });
+  });
+  // Builder — remove exercise
+  document.querySelectorAll('[data-remove]').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.remove);
+      if (!isNaN(idx)) { S.builder.exercises.splice(idx, 1); render(); }
+    });
+  });
+  // Builder — save
+  const bSaveBtn = $('builder-save-btn');
+  if (bSaveBtn) bSaveBtn.addEventListener('click', () => {
+    const name = $('builder-name-input')?.value || S.builder.name;
+    const w = { id: 'custom_' + Date.now(), name: name||'My Workout', cat: 'Home', diff: 'intermediate', dur: Math.max(10, S.builder.exercises.length * 3), equip: 'none', emoji: '✏️', goal: 'general', exercises: [...S.builder.exercises] };
+    S.customWorkouts = [w, ...(S.customWorkouts||[])];
+    localStorage.setItem('libo_custom_workouts', JSON.stringify(S.customWorkouts));
+    S.screen = 'main'; S.tab = 'programs'; render();
+  });
+  // Builder — save & start
+  const bStartBtn = $('builder-start-btn');
+  if (bStartBtn) bStartBtn.addEventListener('click', () => {
+    const name = $('builder-name-input')?.value || S.builder.name;
+    const w = { id: 'custom_' + Date.now(), name: name||'My Workout', cat: 'Home', diff: 'intermediate', dur: Math.max(10, S.builder.exercises.length * 3), equip: 'none', emoji: '✏️', goal: 'general', exercises: [...S.builder.exercises] };
+    S.customWorkouts = [w, ...(S.customWorkouts||[])];
+    localStorage.setItem('libo_custom_workouts', JSON.stringify(S.customWorkouts));
+    S.selectedWorkout = w;
+    S.screen = 'player';
+    S.player = { exerciseIndex: 0, logModal: false, sets: [], completedSets: [] };
+    render();
+  });
+
+  // AI — goal chips
+  document.querySelectorAll('[data-ai-goal]').forEach(el => {
+    el.addEventListener('click', () => { S.aiGen.goal = el.dataset.aiGoal; render(); });
+  });
+  // AI — equip chips
+  document.querySelectorAll('[data-ai-equip]').forEach(el => {
+    el.addEventListener('click', () => { S.aiGen.equip = el.dataset.aiEquip; render(); });
+  });
+  // AI — duration chips
+  document.querySelectorAll('[data-ai-dur]').forEach(el => {
+    el.addEventListener('click', () => { S.aiGen.duration = parseInt(el.dataset.aiDur); render(); });
+  });
+  // AI — focus chips
+  document.querySelectorAll('[data-ai-focus]').forEach(el => {
+    el.addEventListener('click', () => { S.aiGen.focus = el.dataset.aiFocus; render(); });
+  });
+  // AI — generate
+  const aiGenBtn = $('ai-generate-btn');
+  if (aiGenBtn) aiGenBtn.addEventListener('click', () => {
+    S.aiGen.generated = generateWorkout(S.aiGen.goal, S.aiGen.equip, S.aiGen.duration, S.aiGen.focus);
+    S.aiGen.step = 'result';
+    render();
+  });
+  // AI — regenerate
+  const aiRegenBtn = $('ai-regen-btn');
+  if (aiRegenBtn) aiRegenBtn.addEventListener('click', () => {
+    const g = S.aiGen;
+    S.aiGen.generated = generateWorkout(g.goal + (S.aiGen._regenCount = ((S.aiGen._regenCount||0)+1)), g.equip, g.duration, g.focus);
+    render();
+  });
+  // AI — save
+  const aiSaveBtn = $('ai-save-btn');
+  if (aiSaveBtn) aiSaveBtn.addEventListener('click', () => {
+    const w = S.aiGen.generated;
+    if (!w) return;
+    S.customWorkouts = [w, ...(S.customWorkouts||[])];
+    localStorage.setItem('libo_custom_workouts', JSON.stringify(S.customWorkouts));
+    S.screen = 'main'; S.tab = 'programs'; render();
+  });
+  // AI — start
+  const aiStartBtn = $('ai-start-btn');
+  if (aiStartBtn) aiStartBtn.addEventListener('click', () => {
+    const w = S.aiGen.generated;
+    if (!w) return;
+    S.selectedWorkout = w;
+    S.screen = 'player';
+    S.player = { exerciseIndex: 0, logModal: false, sets: [], completedSets: [] };
+    render();
+  });
 
   // Exercise detail modal
   document.querySelectorAll('[data-exid]').forEach(el => {
