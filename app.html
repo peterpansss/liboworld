@@ -555,13 +555,8 @@
     .section-subhead{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
 
     /* ── WATER TRACKER ── */
-    .water-card{margin:12px 16px;background:linear-gradient(145deg,#001828,#000e18);border:1px solid rgba(80,180,255,0.18);border-radius:var(--radius);padding:20px;}
-    .water-glasses{display:flex;gap:6px;margin:14px 0;}
-    .water-glass{font-size:22px;cursor:pointer;transition:transform 0.15s;line-height:1;}
-    .water-glass:active{transform:scale(0.85);}
-    .water-controls{display:flex;align-items:center;gap:12px;margin-top:4px;}
-    .water-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(80,180,255,0.3);background:rgba(80,180,255,0.06);color:#60c0ff;font-size:20px;font-weight:300;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;}
-    .water-btn:active{background:rgba(80,180,255,0.18);transform:scale(0.92);}
+    .water-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg4);color:var(--text);font-size:18px;font-weight:300;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;}
+    .water-btn:active{background:rgba(80,180,255,0.15);transform:scale(0.92);}
 
     /* ── CAMERA SCANNER ── */
     .scanner-mode-toggle{display:flex;gap:0;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:3px;margin:0 16px 16px;}
@@ -1595,30 +1590,32 @@ function renderProgress() {
       </div>
     </div>
 
-    <div class="water-card">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#60c0ff;margin-bottom:4px">💧 Water Intake</div>
-          <div style="font-size:26px;font-weight:900;line-height:1">${S.waterCount} <span style="font-size:13px;font-weight:500;color:var(--muted)">/ 8 glasses</span></div>
-        </div>
-        <div style="font-size:32px;opacity:${S.waterCount>=8?'1':'0.25'}">${S.waterCount>=8?'🏆':'🥤'}</div>
-      </div>
-      <div class="water-glasses">
-        ${Array.from({length:8},(_,i)=>`<div class="water-glass" data-glass="${i+1}">${i < S.waterCount ? '💧' : '🩶'}</div>`).join('')}
-      </div>
-      <div class="water-controls">
-        <button class="water-btn" id="water-minus">−</button>
-        <div style="flex:1;background:rgba(80,180,255,0.08);border-radius:50px;height:6px;overflow:hidden">
-          <div style="height:100%;width:${Math.min(S.waterCount/8*100,100)}%;background:linear-gradient(90deg,#3090cc,#60c0ff);border-radius:50px;transition:width 0.3s ease"></div>
-        </div>
-        <button class="water-btn" id="water-plus">+</button>
-      </div>
-      ${S.waterCount >= 8 ? `<div style="font-size:12px;color:#60c0ff;margin-top:10px;font-weight:600">Daily goal reached! 🎉</div>` : `<div style="font-size:12px;color:var(--muted);margin-top:10px">${8 - S.waterCount} more glass${8-S.waterCount!==1?'es':''} to reach your goal</div>`}
-    </div>
-
     <div class="chart-wrap" style="margin-top:12px">
       <div class="chart-title">This Week</div>
       <div class="bar-chart">${bars}</div>
+    </div>
+
+    <div style="padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between">
+      <div class="section-label" style="margin:0">Water Today</div>
+      <div style="font-size:12px;color:var(--muted)">${S.waterCount * 250} ml <span style="opacity:0.5">/ 2000 ml</span></div>
+    </div>
+    <div style="margin:0 16px;background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:16px">
+      <div style="display:flex;gap:7px;margin-bottom:14px">
+        ${Array.from({length:8},(_,i)=>`
+          <div data-glass="${i+1}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer">
+            <div style="width:100%;height:28px;border-radius:5px;background:${i < S.waterCount ? 'rgba(80,180,255,0.55)' : 'rgba(255,255,255,0.05)'};border:1px solid ${i < S.waterCount ? 'rgba(80,180,255,0.4)' : 'var(--border)'};transition:background 0.15s"></div>
+            ${i===0||i===3||i===7 ? `<div style="font-size:9px;color:var(--dim);font-weight:600">${(i+1)*250}ml</div>` : '<div style="height:13px"></div>'}
+          </div>`).join('')}
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="water-btn" id="water-minus">−</button>
+        <div style="flex:1;text-align:center">
+          <span style="font-size:20px;font-weight:900">${S.waterCount}</span>
+          <span style="font-size:12px;color:var(--muted);margin-left:4px">/ 8 cups · 250 ml each</span>
+        </div>
+        <button class="water-btn" id="water-plus">+</button>
+      </div>
+      ${S.waterCount >= 8 ? `<div style="font-size:11px;color:#60c0ff;margin-top:10px;text-align:center">2 L reached — great work</div>` : ''}
     </div>
 
     <div style="padding:12px 16px 4px"><div class="section-label">Workout Log</div></div>
