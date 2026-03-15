@@ -558,7 +558,7 @@
     .scanner-mode-toggle{display:flex;gap:0;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:3px;margin:0 16px 16px;}
     .scanner-mode-btn{flex:1;padding:9px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:700;border-radius:9px;cursor:pointer;transition:all 0.2s;}
     .scanner-mode-btn.active{background:var(--bg4);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,0.4);}
-    .camera-wrap{position:relative;margin:0 16px;border-radius:20px;overflow:hidden;background:#000;aspect-ratio:3/4;max-height:340px;}
+    .camera-wrap{position:relative;margin:0 auto;width:calc(100% - 32px);border-radius:20px;overflow:hidden;background:#000;aspect-ratio:3/4;max-height:340px;display:block;}
     .camera-wrap video{width:100%;height:100%;object-fit:cover;display:block;}
     .camera-overlay{position:absolute;inset:0;pointer-events:none;}
     .camera-corner{position:absolute;width:28px;height:28px;border-color:var(--accent);border-style:solid;border-width:0;}
@@ -1458,6 +1458,7 @@ function renderScanner() {
     const st = S.scannerState || 'idle';
     const res = S.scannerResult;
     return `
+      <div style="display:flex;flex-direction:column;align-items:center;width:100%">
       <div class="camera-wrap" id="camera-wrap">
         <video id="scanner-video" autoplay playsinline muted style="width:100%;height:100%;object-fit:cover;display:block;background:#000"></video>
         <div class="camera-overlay">
@@ -1469,9 +1470,10 @@ function renderScanner() {
           ${st === 'scanning' ? '<div class="scanning-overlay"><div class="scan-spinner"></div><div style="font-size:13px;font-weight:700;color:var(--accent)">Identifying...</div></div>' : ''}
         </div>
       </div>
-      <div style="text-align:center;margin-top:4px">
+      <div style="text-align:center;margin-top:4px;width:100%">
         <button class="camera-btn" id="scan-btn" ${st==='scanning'?'disabled':''}></button>
         <div style="font-size:11px;color:var(--muted);margin-top:-4px;margin-bottom:8px">TAP TO SCAN</div>
+      </div>
       </div>
 
       ${st === 'error' ? `<div class="camera-no-key">⚠️ ${S.scannerError}</div>` : ''}
