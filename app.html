@@ -2582,56 +2582,129 @@ function attachEvents() {
 }
 
 // Exercise modal
-function showExerciseModal(ex) {
-  const query = encodeURIComponent(ex.name + ' exercise tutorial proper form');
+async function fetchPexelsVideo(name) {
+  const key = localStorage.getItem('libo_pexels_key');
+  if (!key) return null;
+  const q = encodeURIComponent(name + ' exercise workout');
+  try {
+    const r = await fetch(`https://api.pexels.com/videos/search?query=${q}&per_page=5&orientation=landscape`, {
+      headers: { Authorization: key }
+    });
+    if (!r.ok) return null;
+    const d = await r.json();
+    const vid = (d.videos || []).find(v => v.video_files && v.video_files.length >= 2) || d.videos?.[0];
+    if (!vid) return null;
+    const files = vid.video_files
+      .filter(f => f.file_type === 'video/mp4' && f.link && f.width)
+      .sort((a, b) => a.width - b.width);
+    if (files.length === 0) return null;
+    const lo  = files[0];
+    const mid = files[Math.round((files.length - 1) / 2)];
+    const hi  = files[files.length - 1];
+    const uniq = [lo, mid, hi].filter((f, i, arr) => arr.findIndex(x => x.link === f.link) === i);
+    const labels = ['📱 Mobile','💻 Standard','🖥 High Quality'];
+    return {
+      playUrl: (mid || hi).link,
+      preview: vid.image,
+      qualities: uniq.map((f, i) => ({
+        label: labels[i] || labels[2],
+        res: `${f.height}p`,
+        link: f.link,
+      }))
+    };
+  } catch { return null; }
+}
+
+async function showExerciseModal(ex) {
   const modal = document.createElement('div');
   modal.className = 'modal-overlay';
   modal.id = 'ex-modal';
-  modal.innerHTML = `
-    <div class="modal-sheet">
-      <div class="modal-handle"></div>
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
-        <div style="font-size:40px">${ex.emoji}</div>
-        <div>
-          <div class="modal-title" style="text-align:left;margin-bottom:4px">${ex.name}</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-            <span class="diff-badge diff-${ex.diff}" style="display:inline-block">${ex.diff}</span>
-            ${ex.muscles.map(m=>`<span style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600">${m}</span>`).join('')}
-          </div>
+
+  const hasKey = !!localStorage.getItem('libo_pexels_key');
+
+  const header = `
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+      <div style="font-size:40px">${ex.emoji}</div>
+      <div style="flex:1;min-width:0">
+        <div class="modal-title" style="text-align:left;margin-bottom:5px">${ex.name}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+          <span class="diff-badge diff-${ex.diff}" style="display:inline-block">${ex.diff}</span>
+          ${ex.muscles.map(m=>`<span style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600">${m}</span>`).join('')}
         </div>
       </div>
-
-      <div id="video-area" style="position:relative;width:100%;aspect-ratio:16/9;background:#0a0a0a;border-radius:14px;overflow:hidden;margin-bottom:16px;cursor:pointer">
-        <div id="video-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#0e0e0e,#141414);border:1px solid var(--border);border-radius:14px">
-          <div style="width:52px;height:52px;background:rgba(202,255,0,0.12);border:1.5px solid rgba(202,255,0,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center">
-            <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid var(--accent);margin-left:4px"></div>
-          </div>
-          <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:0.5px">Watch Demo</div>
-          <div style="font-size:10px;color:var(--dim);max-width:180px;text-align:center">${ex.name}</div>
-        </div>
-      </div>
-
-      <div class="section-label" style="margin-bottom:10px">How to do it</div>
-      ${ex.instructions.map((step,i)=>`
-        <div class="instruction-item">
-          <div class="inst-num">${i+1}</div>
-          <div class="inst-text">${step}</div>
-        </div>`).join('')}
-      <button class="btn-full" style="margin-top:20px" id="close-ex-modal">Got it ✓</button>
     </div>`;
-  document.getElementById('app').appendChild(modal);
 
-  // Lazy-load YouTube on play click
-  const videoArea = modal.querySelector('#video-area');
-  videoArea.addEventListener('click', () => {
-    videoArea.innerHTML = `<iframe
-      src="https://www.youtube-nocookie.com/embed?listType=search&list=${query}&autoplay=1&rel=0&modestbranding=1"
-      style="width:100%;height:100%;border:none;border-radius:14px"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen></iframe>`;
+  const instructions = `
+    <div class="section-label" style="margin-bottom:10px">How to do it</div>
+    ${ex.instructions.map((step,i)=>`
+      <div class="instruction-item">
+        <div class="inst-num">${i+1}</div>
+        <div class="inst-text">${step}</div>
+      </div>`).join('')}
+    <button class="btn-full" style="margin-top:20px" id="close-ex-modal">Got it ✓</button>`;
+
+  const noKeyHtml = `
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px">Add Pexels API key to enable video demos + downloads</div>
+      <div style="display:flex;gap:8px">
+        <input id="pexels-key-input" class="api-key-input" placeholder="Pexels API key (free at pexels.com/api)" style="flex:1"/>
+        <button id="pexels-key-save" class="api-key-save-btn">Save</button>
+      </div>
+    </div>`;
+
+  const videoLoadingHtml = `
+    <div id="video-section" style="margin-bottom:16px">
+      <div style="width:100%;aspect-ratio:16/9;background:var(--bg3);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center">
+        <div class="scan-spinner"></div>
+      </div>
+    </div>`;
+
+  modal.innerHTML = `<div class="modal-sheet">${header}${hasKey ? videoLoadingHtml : noKeyHtml}${instructions}</div>`;
+  document.getElementById('app').appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal || e.target.id === 'close-ex-modal') modal.remove(); });
+
+  // API key save
+  const keyInput = modal.querySelector('#pexels-key-input');
+  const keySave = modal.querySelector('#pexels-key-save');
+  if (keySave) keySave.addEventListener('click', () => {
+    const v = keyInput?.value?.trim();
+    if (!v) return;
+    localStorage.setItem('libo_pexels_key', v);
+    modal.remove();
+    showExerciseModal(ex); // re-open with key set
   });
 
-  modal.addEventListener('click', e => { if (e.target === modal || e.target.id === 'close-ex-modal') modal.remove(); });
+  if (!hasKey) return;
+
+  // Fetch video
+  const videoData = await fetchPexelsVideo(ex.name);
+  const section = modal.querySelector('#video-section');
+  if (!section) return;
+
+  if (!videoData) {
+    section.innerHTML = `<div style="text-align:center;padding:20px;color:var(--muted);font-size:12px;margin-bottom:16px">No video found for this exercise</div>`;
+    return;
+  }
+
+  const dlButtons = videoData.qualities.map(q => `
+    <a href="${q.link}" target="_blank" rel="noopener" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-decoration:none;cursor:pointer;transition:border-color 0.2s" onmouseover="this.style.borderColor='rgba(202,255,0,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="font-size:14px">${q.label.split(' ')[0]}</div>
+      <div style="font-size:11px;font-weight:700;color:var(--text)">${q.res}</div>
+      <div style="font-size:9px;color:var(--accent);font-weight:700;letter-spacing:0.5px">↓ DOWNLOAD</div>
+    </a>`).join('');
+
+  section.innerHTML = `
+    <div style="margin-bottom:10px">
+      <video controls playsinline preload="metadata" poster="${videoData.preview}"
+        style="width:100%;aspect-ratio:16/9;border-radius:14px;background:#000;display:block;object-fit:cover">
+        <source src="${videoData.playUrl}" type="video/mp4">
+      </video>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Download</div>
+      <div style="display:flex;gap:8px">${dlButtons}</div>
+    </div>`;
 }
 
 // ═══════════════════════════════
