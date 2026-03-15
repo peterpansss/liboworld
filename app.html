@@ -690,7 +690,7 @@ const ALT_EXERCISES = {
 // ═══════════════════════════════
 let S = {
   screen: 'onboarding', // onboarding | main | workout-detail | player | complete
-  onboard: { step: 0, goal: null, level: null, equip: [], name: '' },
+  onboard: { step: 0, name: '', goal: '', goalDetail: '', gender: '', age: '', height: '', weight: '', targetWeight: '', activityLevel: '', level: '', days: '', timeOfDay: '', duration: '', equip: [], location: '', injuries: [], focusAreas: [], diet: '', sleep: '', motivation: '', challenge: '' },
   tab: 'home',
   exploreTab: 'workouts',
   exploreFilter: 'all',
@@ -756,91 +756,292 @@ function render() {
 
 // ── ONBOARDING ──
 function renderOnboarding() {
-  const { step, goal, level, equip, name } = S.onboard;
-  const steps = ['👋','🎯','💪','✅'];
-  const progressDots = steps.map((_,i)=>`<div class="onboard-progress-dot${i<=step?' done':''}"></div>`).join('');
+  const o = S.onboard;
+  const TOTAL = 22;
+  const pct = Math.round((o.step / (TOTAL - 1)) * 100);
 
-  if (step === 0) return `
+  const wrap = (content, canNext = true, nextLabel = 'Continue →') => `
     <div class="onboard-wrap">
-      <div class="onboard-progress">${progressDots}</div>
-      <div class="onboard-emoji">👋</div>
-      <h1 class="onboard-title">Welcome to<br/><span style="color:var(--accent)">Libo</span></h1>
-      <p class="onboard-sub">Your all-in-one fitness club. Train anywhere — home, gym, office. Let's get you started.</p>
-      <div style="margin-bottom:20px">
-        <label style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:10px">What's your name?</label>
-        <input class="onboard-input" id="nameInput" placeholder="Enter your name" value="${name}" />
+      <div style="margin-bottom:32px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:0.5px">${o.step + 1} <span style="opacity:0.4">/ ${TOTAL}</span></div>
+          <div style="font-size:11px;color:var(--accent);font-weight:700">${pct}%</div>
+        </div>
+        <div style="height:3px;background:var(--border);border-radius:2px;overflow:hidden">
+          <div style="height:100%;width:${pct}%;background:var(--accent);border-radius:2px;transition:width 0.4s ease"></div>
+        </div>
       </div>
-      <button class="btn-full" id="ob-next" ${!name.trim()?'disabled':''}>Let's Go →</button>
+      ${content}
+      <div style="flex:1;min-height:16px"></div>
+      <button class="btn-full" id="ob-next" ${!canNext?'disabled':''}>${nextLabel}</button>
+      ${o.step > 0 ? '<button class="btn-ghost" id="ob-back">← Back</button>' : ''}
     </div>`;
 
-  if (step === 1) return `
-    <div class="onboard-wrap">
-      <div class="onboard-progress">${progressDots}</div>
-      <div class="onboard-emoji">🎯</div>
-      <h1 class="onboard-title">What's your<br/>main goal?</h1>
-      <p class="onboard-sub">We'll build your plan around what matters most to you.</p>
-      <div class="choice-grid" id="goals">
-        ${[
-          ['🔥','Lose Weight','Burn calories and get lean'],
-          ['💪','Build Muscle','Get stronger and add size'],
-          ['🧘','Improve Mobility','Move better, feel better'],
-          ['⚡','Stay Active','Build healthy habits'],
-          ['🫁','Reduce Stress','Breathe, move, recover'],
-        ].map(([ico,label,sub],i)=>`
-          <div class="choice-card${goal===label?' selected':''}" data-goal="${label}">
-            <div class="choice-icon">${ico}</div>
-            <div class="choice-text"><h4>${label}</h4><p>${sub}</p></div>
-            <div class="choice-check">${goal===label?'✓':''}</div>
-          </div>`).join('')}
-      </div>
-      <div style="flex:1"></div>
-      <button class="btn-full" id="ob-next" ${!goal?'disabled':''} style="margin-top:20px">Continue →</button>
-      <button class="btn-ghost" id="ob-back">← Back</button>
-    </div>`;
+  const single = (field, options) => options.map(([ico,lbl,sub])=>`
+    <div class="choice-card${o[field]===lbl?' selected':''}" data-ob-single="${field}" data-ob-val="${lbl}">
+      <div class="choice-icon">${ico}</div>
+      <div class="choice-text"><h4>${lbl}</h4>${sub?`<p>${sub}</p>`:''}</div>
+      <div class="choice-check">${o[field]===lbl?'✓':''}</div>
+    </div>`).join('');
 
-  if (step === 2) return `
-    <div class="onboard-wrap">
-      <div class="onboard-progress">${progressDots}</div>
-      <div class="onboard-emoji">💪</div>
-      <h1 class="onboard-title">Your fitness<br/>level?</h1>
-      <p class="onboard-sub">And what equipment do you have access to?</p>
-      <div class="choice-grid" id="levels" style="margin-bottom:24px">
-        ${[['🌱','Beginner','New to working out'],['🔥','Intermediate','Train regularly'],['⚡','Advanced','Experienced athlete']].map(([ico,label,sub])=>`
-          <div class="choice-card${level===label?' selected':''}" data-level="${label}">
-            <div class="choice-icon">${ico}</div>
-            <div class="choice-text"><h4>${label}</h4><p>${sub}</p></div>
-            <div class="choice-check">${level===label?'✓':''}</div>
-          </div>`).join('')}
-      </div>
-      <label style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:12px">Equipment (select all that apply)</label>
-      <div class="chip-grid" id="equips">
-        ${['No equipment','Dumbbells','Resistance bands','Full gym'].map(e=>`
-          <div class="chip${equip.includes(e)?' selected':''}" data-equip="${e}">${e}</div>`).join('')}
-      </div>
-      <div style="flex:1"></div>
-      <button class="btn-full" id="ob-next" ${!level?'disabled':''} style="margin-top:20px">Build My Plan →</button>
-      <button class="btn-ghost" id="ob-back">← Back</button>
-    </div>`;
+  if (o.step === 0) return wrap(`
+    <div class="onboard-emoji">👋</div>
+    <h1 class="onboard-title">Welcome to<br/><span style="color:var(--accent)">Libo</span></h1>
+    <p class="onboard-sub">Your all-in-one training app. Let's build your personalised plan — takes about 2 minutes.</p>
+    <label style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:10px">First, what's your name?</label>
+    <input class="onboard-input" id="nameInput" placeholder="Your name" value="${o.name}"/>
+  `, o.name.trim().length > 0, "Let's Go →");
 
-  if (step === 3) {
-    const goalEmoji = {Lose:['🔥','Fat Burn'],Build:['💪','Strength'],Improve:['🧘','Mobility'],Stay:['⚡','Active'],Reduce:['🫁','Recovery']}[goal.split(' ')[0]] || ['🎯','General'];
+  if (o.step === 1) return wrap(`
+    <div class="onboard-emoji">🎯</div>
+    <h1 class="onboard-title">What's your<br/>main goal?</h1>
+    <p class="onboard-sub">Your whole plan adapts around this.</p>
+    <div class="choice-grid">
+      ${single('goal',[['🔥','Lose Weight','Burn fat and get lean'],['💪','Build Muscle','Get stronger and add size'],['🧘','Improve Mobility','Move better, feel better'],['⚡','Stay Active','Build sustainable habits'],['🫁','Reduce Stress','Breathe, move, recover']])}
+    </div>
+  `, !!o.goal);
+
+  const goalDetails = {
+    'Lose Weight':    [['🎯','Lose 5 kg',''],['🔥','Lose 10 kg',''],['💥','Lose 20 kg+',''],['✨','Tone up','Keep weight, get lean']],
+    'Build Muscle':   [['💪','Lean muscle','Athletic & defined'],['🏋️','Bulk up','Add serious size'],['⚡','Strength gains','Lift heavier'],['🏃','Athletic build','Performance focused']],
+    'Improve Mobility':[['🦵','Reduce joint pain',''],['🤸','Full flexibility',''],['🧘','Better posture',''],['🏅','Sport recovery','']],
+    'Stay Active':    [['📅','Daily movement','Build a habit'],['🌿','General fitness',''],['⚡','More energy',''],['🧠','Mental health','Exercise for the mind']],
+    'Reduce Stress':  [['🫁','Breathing & calm',''],['🧘','Yoga & stretch',''],['🌙','Better sleep',''],['🏃','Active recovery','']],
+  };
+  if (o.step === 2) return wrap(`
+    <div class="onboard-emoji">${{Lose:'🔥',Build:'💪',Improve:'🧘',Stay:'⚡',Reduce:'🫁'}[o.goal?.split(' ')[0]]||'🎯'}</div>
+    <h1 class="onboard-title">Be more<br/>specific</h1>
+    <p class="onboard-sub">What exactly are you going for?</p>
+    <div class="choice-grid">
+      ${single('goalDetail', goalDetails[o.goal] || goalDetails['Stay Active'])}
+    </div>
+  `, !!o.goalDetail);
+
+  if (o.step === 3) return wrap(`
+    <div class="onboard-emoji">🧬</div>
+    <h1 class="onboard-title">Biological<br/>sex?</h1>
+    <p class="onboard-sub">Used to calibrate calorie and strength estimates.</p>
+    <div class="choice-grid">
+      ${single('gender',[['♀️','Female',''],['♂️','Male',''],['⚧','Prefer not to say','']])}
+    </div>
+  `, !!o.gender);
+
+  if (o.step === 4) return wrap(`
+    <div class="onboard-emoji">🎂</div>
+    <h1 class="onboard-title">How old<br/>are you?</h1>
+    <p class="onboard-sub">Workout intensity scales with age.</p>
+    <input class="onboard-input" id="ob-age" type="number" min="13" max="99" placeholder="e.g. 28" value="${o.age}" style="font-size:32px;font-weight:900;text-align:center;letter-spacing:-1px"/>
+    <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:8px">years old</p>
+  `, o.age >= 13 && o.age <= 99);
+
+  if (o.step === 5) return wrap(`
+    <div class="onboard-emoji">📏</div>
+    <h1 class="onboard-title">Your<br/>height?</h1>
+    <p class="onboard-sub"> </p>
+    <div style="display:flex;gap:10px;align-items:flex-end">
+      <div style="flex:1">
+        <input class="onboard-input" id="ob-height" type="number" min="100" max="250" placeholder="175" value="${o.height}" style="font-size:32px;font-weight:900;text-align:center"/>
+      </div>
+      <div style="padding-bottom:14px;font-size:16px;font-weight:700;color:var(--muted)">cm</div>
+    </div>
+  `, o.height >= 100 && o.height <= 250);
+
+  if (o.step === 6) return wrap(`
+    <div class="onboard-emoji">⚖️</div>
+    <h1 class="onboard-title">Current<br/>weight?</h1>
+    <p class="onboard-sub"> </p>
+    <div style="display:flex;gap:10px;align-items:flex-end">
+      <div style="flex:1">
+        <input class="onboard-input" id="ob-weight" type="number" min="30" max="300" placeholder="75" value="${o.weight}" style="font-size:32px;font-weight:900;text-align:center"/>
+      </div>
+      <div style="padding-bottom:14px;font-size:16px;font-weight:700;color:var(--muted)">kg</div>
+    </div>
+  `, o.weight >= 30 && o.weight <= 300);
+
+  if (o.step === 7) return wrap(`
+    <div class="onboard-emoji">🏁</div>
+    <h1 class="onboard-title">Target<br/>weight?</h1>
+    <p class="onboard-sub">Your goal weight so we can track the gap.</p>
+    <div style="display:flex;gap:10px;align-items:flex-end">
+      <div style="flex:1">
+        <input class="onboard-input" id="ob-target-weight" type="number" min="30" max="300" placeholder="${o.weight||70}" value="${o.targetWeight}" style="font-size:32px;font-weight:900;text-align:center"/>
+      </div>
+      <div style="padding-bottom:14px;font-size:16px;font-weight:700;color:var(--muted)">kg</div>
+    </div>
+    ${o.weight && o.targetWeight ? `<div style="text-align:center;margin-top:12px;font-size:13px;font-weight:700;color:var(--accent)">${Math.abs(o.weight - o.targetWeight).toFixed(1)} kg ${o.targetWeight < o.weight ? 'to lose' : 'to gain'}</div>` : ''}
+  `, !!o.targetWeight || true, o.targetWeight ? 'Continue →' : 'Skip →');
+
+  if (o.step === 8) return wrap(`
+    <div class="onboard-emoji">🚶</div>
+    <h1 class="onboard-title">Daily activity<br/>level?</h1>
+    <p class="onboard-sub">Outside of intentional workouts.</p>
+    <div class="choice-grid">
+      ${single('activityLevel',[['🛋️','Sedentary','Desk job, mostly sitting'],['🚶','Lightly active','Some walking, light movement'],['🏃','Moderately active','On feet most of the day'],['💪','Very active','Physical job or sport daily']])}
+    </div>
+  `, !!o.activityLevel);
+
+  if (o.step === 9) return wrap(`
+    <div class="onboard-emoji">💪</div>
+    <h1 class="onboard-title">Training<br/>experience?</h1>
+    <p class="onboard-sub">Be honest — it shapes your program difficulty.</p>
+    <div class="choice-grid">
+      ${single('level',[['🌱','Beginner','Training less than 1 year'],['🔥','Intermediate','1–3 years consistent training'],['⚡','Advanced','3+ years, know the lifts']])}
+    </div>
+  `, !!o.level);
+
+  if (o.step === 10) return wrap(`
+    <div class="onboard-emoji">📅</div>
+    <h1 class="onboard-title">Days per<br/>week?</h1>
+    <p class="onboard-sub">How many days can you realistically commit to?</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px">
+      ${[2,3,4,5,6,7].map(d=>`
+        <div data-ob-single="days" data-ob-val="${d}" style="background:${o.days==d?'var(--accent-dim)':'var(--card)'};border:1.5px solid ${o.days==d?'rgba(202,255,0,0.4)':'var(--border)'};border-radius:14px;padding:16px 8px;text-align:center;cursor:pointer;${d===2||d===7?'grid-column:span 1':''}">
+          <div style="font-size:24px;font-weight:900;color:${o.days==d?'var(--accent)':'var(--text)'}">${d}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px">day${d!==1?'s':''}</div>
+        </div>`).join('')}
+    </div>
+  `, !!o.days);
+
+  if (o.step === 11) return wrap(`
+    <div class="onboard-emoji">🕐</div>
+    <h1 class="onboard-title">Best time<br/>to train?</h1>
+    <p class="onboard-sub">We'll schedule reminders around this.</p>
+    <div class="choice-grid">
+      ${single('timeOfDay',[['🌅','Morning','Before 10 AM'],['☀️','Midday','10 AM – 2 PM'],['🌆','Afternoon','2 PM – 6 PM'],['🌙','Evening','After 6 PM']])}
+    </div>
+  `, !!o.timeOfDay);
+
+  if (o.step === 12) return wrap(`
+    <div class="onboard-emoji">⏱</div>
+    <h1 class="onboard-title">Session<br/>length?</h1>
+    <p class="onboard-sub">How long do you want each workout to be?</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+      ${[['15','Quick burn','Perfect for busy days'],['30','Standard','The sweet spot'],['45','Solid session','Time for full program'],['60+','Full hour','Maximum results']].map(([d,lbl,sub])=>`
+        <div data-ob-single="duration" data-ob-val="${d}" style="background:${o.duration===d?'var(--accent-dim)':'var(--card)'};border:1.5px solid ${o.duration===d?'rgba(202,255,0,0.4)':'var(--border)'};border-radius:14px;padding:16px;cursor:pointer">
+          <div style="font-size:22px;font-weight:900;color:${o.duration===d?'var(--accent)':'var(--text)'};">${d} <span style="font-size:12px;font-weight:500;color:var(--muted)">min</span></div>
+          <div style="font-size:13px;font-weight:700;margin-top:4px">${lbl}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">${sub}</div>
+        </div>`).join('')}
+    </div>
+  `, !!o.duration);
+
+  if (o.step === 13) return wrap(`
+    <div class="onboard-emoji">🏋️</div>
+    <h1 class="onboard-title">Equipment<br/>access?</h1>
+    <p class="onboard-sub">Select everything available to you.</p>
+    <div class="chip-grid" id="equips" style="margin-top:8px">
+      ${[['🏃','No equipment','none'],['🏠','Dumbbells','dumbbells'],['🪢','Resistance bands','bands'],['🏟️','Full gym','gym'],['🧘','Yoga mat','mat'],['🪑','Bench','bench']].map(([ico,lbl,val])=>`
+        <div class="chip${o.equip.includes(val)?' selected':''}" data-equip="${val}">${ico} ${lbl}</div>`).join('')}
+    </div>
+  `, true, o.equip.length ? 'Continue →' : 'Skip →');
+
+  if (o.step === 14) return wrap(`
+    <div class="onboard-emoji">📍</div>
+    <h1 class="onboard-title">Where do<br/>you train?</h1>
+    <p class="onboard-sub"> </p>
+    <div class="choice-grid">
+      ${single('location',[['🏠','At home','Living room or garage'],['🏟️','Gym','Commercial or box gym'],['🌿','Outdoors','Park, trail, anywhere'],['🔀','Mixed','Wherever I can']])}
+    </div>
+  `, !!o.location);
+
+  if (o.step === 15) return wrap(`
+    <div class="onboard-emoji">🩹</div>
+    <h1 class="onboard-title">Any injuries<br/>or limits?</h1>
+    <p class="onboard-sub">We'll avoid aggravating these. Select all that apply.</p>
+    <div class="chip-grid" style="margin-top:8px">
+      ${[['Lower back','back'],['Knees','knees'],['Shoulders','shoulders'],['Wrists','wrists'],['Hips','hips'],['Neck','neck'],['Ankles','ankles'],['None','none']].map(([lbl,val])=>`
+        <div class="chip${o.injuries.includes(val)?' selected':''}" data-ob-multi="injuries" data-ob-val="${val}">${lbl}</div>`).join('')}
+    </div>
+  `, true, o.injuries.length ? 'Continue →' : 'No injuries →');
+
+  if (o.step === 16) return wrap(`
+    <div class="onboard-emoji">🎯</div>
+    <h1 class="onboard-title">Focus<br/>areas?</h1>
+    <p class="onboard-sub">Select the muscles you want to prioritise.</p>
+    <div class="chip-grid" style="margin-top:8px">
+      ${[['Chest','chest'],['Back','back'],['Arms','arms'],['Shoulders','shoulders'],['Core','core'],['Legs','legs'],['Glutes','glutes'],['Full body','full']].map(([lbl,val])=>`
+        <div class="chip${o.focusAreas.includes(val)?' selected':''}" data-ob-multi="focusAreas" data-ob-val="${val}">${lbl}</div>`).join('')}
+    </div>
+  `, true, o.focusAreas.length ? 'Continue →' : 'No preference →');
+
+  if (o.step === 17) return wrap(`
+    <div class="onboard-emoji">🥗</div>
+    <h1 class="onboard-title">Nutrition<br/>approach?</h1>
+    <p class="onboard-sub">Just for context — no meal plans, just smarter tips.</p>
+    <div class="choice-grid">
+      ${single('diet',[['🍽️','No restrictions','I eat everything'],['🥩','High protein','Meat-focused'],['🌱','Plant-based','Vegan or vegetarian'],['🥑','Low carb','Keto or paleo'],['⚡','Intermittent fasting','Time-restricted eating']])}
+    </div>
+  `, !!o.diet);
+
+  if (o.step === 18) return wrap(`
+    <div class="onboard-emoji">😴</div>
+    <h1 class="onboard-title">Sleep<br/>quality?</h1>
+    <p class="onboard-sub">Recovery is half the work.</p>
+    <div class="choice-grid">
+      ${single('sleep',[['😴','Great','7–9 hours, wake refreshed'],['😐','Average','6–7 hours, tired sometimes'],['😩','Poor','Under 6 hours or restless']])}
+    </div>
+  `, !!o.sleep);
+
+  if (o.step === 19) return wrap(`
+    <div class="onboard-emoji">⚡</div>
+    <h1 class="onboard-title">What keeps<br/>you going?</h1>
+    <p class="onboard-sub">Your main motivation to train.</p>
+    <div class="choice-grid">
+      ${single('motivation',[['🏆','Competition','Beating my past self'],['👀','Looks','Feeling confident in my body'],['💡','Energy','More focus and vitality'],['🫀','Health','Long-term wellness'],['🤝','Accountability','Not wanting to break a streak']])}
+    </div>
+  `, !!o.motivation);
+
+  if (o.step === 20) return wrap(`
+    <div class="onboard-emoji">🧱</div>
+    <h1 class="onboard-title">Biggest<br/>obstacle?</h1>
+    <p class="onboard-sub">The #1 thing that gets in the way.</p>
+    <div class="choice-grid">
+      ${single('challenge',[['⏰','No time','Hard to find the slot'],['😓','Low energy','Too tired to start'],['🤷','No plan','Don\'t know what to do'],['🏠','No equipment','Limited access'],['🔁','Consistency','Start and stop cycle']])}
+    </div>
+  `, !!o.challenge);
+
+  if (o.step === 21) {
+    // Auto-advance after 2.8s
+    setTimeout(() => {
+      if (S.screen === 'onboarding' && S.onboard.step === 21) { S.onboard.step = 22; render(); }
+    }, 2800);
+    const items = ['Analysing your goal...','Matching workout library...','Calibrating difficulty...','Scheduling your week...','Building your plan...'];
     return `
-    <div class="onboard-wrap" style="align-items:center;text-align:center;justify-content:center;">
-      <div style="font-size:80px;animation:pop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55)">🎉</div>
-      <h1 class="onboard-title" style="margin-top:16px">Your plan is<br/><span style="color:var(--accent)">ready, ${S.onboard.name.split(' ')[0]}!</span></h1>
-      <p class="onboard-sub" style="max-width:320px">Based on your goal and level, we've personalised your Libo experience. Let's get to work.</p>
-      <div style="display:flex;flex-direction:column;gap:12px;width:100%;margin-bottom:32px">
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:14px">
-          <div style="font-size:24px">${goalEmoji[0]}</div>
-          <div style="text-align:left"><div style="font-size:14px;font-weight:700">Goal: ${goal}</div><div style="font-size:12px;color:var(--muted)">Personalised workouts</div></div>
-        </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:14px">
-          <div style="font-size:24px">📅</div>
-          <div style="text-align:left"><div style="font-size:14px;font-weight:700">4-week starter program</div><div style="font-size:12px;color:var(--muted)">Ready to begin</div></div>
-        </div>
+    <div class="onboard-wrap" style="align-items:center;justify-content:center;text-align:center">
+      <div style="font-size:64px;margin-bottom:28px">⚡</div>
+      <h1 class="onboard-title" style="text-align:center">Building your<br/><span style="color:var(--accent)">personalised plan</span></h1>
+      <div style="width:100%;background:var(--border);border-radius:50px;height:4px;margin:28px 0;overflow:hidden">
+        <div style="height:100%;background:var(--accent);border-radius:50px;animation:loadbar 2.6s ease forwards"></div>
+      </div>
+      <div id="load-msg" style="font-size:13px;color:var(--muted);min-height:20px">${items[0]}</div>
+      <style>@keyframes loadbar{from{width:0}to{width:100%}}</style>
+    </div>`;
+  }
+
+  if (o.step === 22) {
+    const bmi = o.height && o.weight ? (o.weight / Math.pow(o.height/100, 2)).toFixed(1) : null;
+    const plan = { 'Lose Weight':'Fat Burn Program', 'Build Muscle':'Strength & Hypertrophy', 'Improve Mobility':'Flexibility & Flow', 'Stay Active':'Active Lifestyle Plan', 'Reduce Stress':'Recovery & Breathwork' }[o.goal] || 'Personalised Program';
+    return `
+    <div class="onboard-wrap" style="align-items:center;text-align:center;padding-top:40px">
+      <div style="font-size:72px;margin-bottom:16px">🎉</div>
+      <h1 class="onboard-title">Ready,<br/><span style="color:var(--accent)">${o.name.split(' ')[0]}!</span></h1>
+      <p class="onboard-sub">Your plan is set. 502 exercises and 102 workouts — all tailored to you.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;width:100%;margin:20px 0 28px;text-align:left">
+        ${[
+          ['🎯', plan, o.goalDetail || o.goal],
+          ['📅', `${o.days||3} days/week · ${o.duration||30} min`, o.timeOfDay ? `${o.timeOfDay} sessions` : 'Flexible schedule'],
+          ['🏋️', o.equip.length ? o.equip.join(', ') : 'Bodyweight', o.location || 'Any location'],
+          ['💪', o.level || 'Beginner', o.activityLevel || 'Getting started'],
+        ].map(([ico,title,sub])=>`
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px">
+            <div style="font-size:22px">${ico}</div>
+            <div><div style="font-size:13px;font-weight:700;text-transform:capitalize">${title}</div><div style="font-size:12px;color:var(--muted);margin-top:1px;text-transform:capitalize">${sub}</div></div>
+          </div>`).join('')}
+        ${bmi ? `<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px"><div style="font-size:22px">📊</div><div><div style="font-size:13px;font-weight:700">BMI ${bmi}</div><div style="font-size:12px;color:var(--muted);margin-top:1px">${bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Healthy range' : bmi < 30 ? 'Overweight' : 'Obese'} · ${o.height}cm · ${o.weight}kg</div></div></div>` : ''}
       </div>
       <button class="btn-full" id="ob-finish">Enter Libo →</button>
-    </div>`; }
+    </div>`;
+  }
 }
 
 // ── MAIN ──
@@ -1877,56 +2078,85 @@ function renderComplete() {
 // EVENTS
 // ═══════════════════════════════
 function attachEvents() {
-  // Onboarding
+  // Onboarding — loading screen message cycling (step 21)
+  if (S.screen === 'onboarding' && S.onboard.step === 21) {
+    const msgs = ['Analysing your goal...','Matching workout library...','Calibrating difficulty...','Scheduling your week...','Building your plan...'];
+    let mi = 0;
+    const msgEl = $('load-msg');
+    const msgT = setInterval(() => {
+      mi++;
+      if (mi >= msgs.length) { clearInterval(msgT); return; }
+      if (msgEl) msgEl.textContent = msgs[mi];
+    }, 520);
+  }
+  // Onboarding — name input
   const nameIn = $('nameInput');
   if (nameIn) {
     nameIn.addEventListener('input', e => {
       S.onboard.name = e.target.value;
-      const btn = $('ob-next');
-      if (btn) btn.disabled = !e.target.value.trim();
+      const btn = $('ob-next'); if (btn) btn.disabled = !e.target.value.trim();
     });
     nameIn.focus();
   }
-
-  document.querySelectorAll('[data-goal]').forEach(el => {
+  // Onboarding — numeric inputs
+  [['ob-age','age'],['ob-height','height'],['ob-weight','weight'],['ob-target-weight','targetWeight']].forEach(([id,field])=>{
+    const el = $(id);
+    if (el) el.addEventListener('input', e => {
+      S.onboard[field] = parseFloat(e.target.value) || '';
+      const btn = $('ob-next');
+      if (btn) {
+        if (field==='age') btn.disabled = !(S.onboard.age>=13 && S.onboard.age<=99);
+        else if (field==='height') btn.disabled = !(S.onboard.height>=100 && S.onboard.height<=250);
+        else if (field==='weight') btn.disabled = !(S.onboard.weight>=30 && S.onboard.weight<=300);
+        else btn.disabled = false;
+      }
+      if (field==='targetWeight') render(); // update diff display
+    });
+  });
+  // Onboarding — single-select (auto-advance)
+  document.querySelectorAll('[data-ob-single]').forEach(el => {
     el.addEventListener('click', () => {
-      S.onboard.goal = el.dataset.goal;
+      S.onboard[el.dataset.obSingle] = el.dataset.obVal;
+      // day/duration use numeric keys too — convert if needed
+      if (el.dataset.obSingle === 'days') S.onboard.days = parseInt(el.dataset.obVal);
+      setTimeout(() => { S.onboard.step++; render(); }, 180);
+    });
+  });
+  // Onboarding — multi-select
+  document.querySelectorAll('[data-ob-multi]').forEach(el => {
+    el.addEventListener('click', () => {
+      const field = el.dataset.obMulti;
+      const val = el.dataset.obVal;
+      if (val === 'none' || val === 'full') { S.onboard[field] = [val]; }
+      else {
+        const arr = S.onboard[field];
+        arr.includes('none') && arr.splice(arr.indexOf('none'),1);
+        arr.includes('full') && arr.splice(arr.indexOf('full'),1);
+        const idx = arr.indexOf(val);
+        if (idx > -1) arr.splice(idx, 1); else arr.push(val);
+      }
       render();
     });
   });
-
-  document.querySelectorAll('[data-level]').forEach(el => {
-    el.addEventListener('click', () => {
-      S.onboard.level = el.dataset.level;
-      render();
-    });
-  });
-
+  // Onboarding — equipment chips
   document.querySelectorAll('[data-equip]').forEach(el => {
     el.addEventListener('click', () => {
       const v = el.dataset.equip;
       const idx = S.onboard.equip.indexOf(v);
-      if (idx > -1) S.onboard.equip.splice(idx, 1);
-      else S.onboard.equip.push(v);
+      if (idx > -1) S.onboard.equip.splice(idx, 1); else S.onboard.equip.push(v);
       render();
     });
   });
-
+  // Onboarding — next / back
   const obNext = $('ob-next');
-  if (obNext) obNext.addEventListener('click', () => {
-    S.onboard.step++;
-    render();
-  });
-
+  if (obNext) obNext.addEventListener('click', () => { S.onboard.step++; render(); });
   const obBack = $('ob-back');
-  if (obBack) obBack.addEventListener('click', () => {
-    S.onboard.step--;
-    render();
-  });
-
+  if (obBack) obBack.addEventListener('click', () => { S.onboard.step--; render(); });
+  // Onboarding — finish
   const obFinish = $('ob-finish');
   if (obFinish) obFinish.addEventListener('click', () => {
-    S.user = { name: S.onboard.name, goal: S.onboard.goal, level: S.onboard.level, equip: S.onboard.equip };
+    const o = S.onboard;
+    S.user = { name: o.name, goal: o.goal, goalDetail: o.goalDetail, gender: o.gender, age: o.age, height: o.height, weight: o.weight, targetWeight: o.targetWeight, activityLevel: o.activityLevel, level: o.level, days: o.days, timeOfDay: o.timeOfDay, duration: o.duration, equip: o.equip, location: o.location, injuries: o.injuries, focusAreas: o.focusAreas, diet: o.diet, sleep: o.sleep, motivation: o.motivation, challenge: o.challenge };
     saveUser();
     S.screen = 'main';
     render();
