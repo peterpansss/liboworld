@@ -586,6 +586,53 @@
     .identified-badge{background:rgba(202,255,0,0.12);border:1px solid rgba(202,255,0,0.3);border-radius:14px;padding:12px 16px;margin:12px 16px;display:flex;align-items:center;gap:12px;}
     .camera-no-key{margin:12px 16px;background:rgba(255,150,50,0.08);border:1px solid rgba(255,150,50,0.2);border-radius:14px;padding:14px 16px;font-size:12px;color:rgba(255,180,80,0.9);line-height:1.6;}
 
+    /* ── WORKOUT DETAIL v2 ── */
+    .wd-hero{position:relative;height:210px;overflow:hidden;flex-shrink:0;}
+    .wd-hero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:100px;filter:blur(2px);opacity:0.15;}
+    .wd-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.95) 0%,rgba(8,8,8,0.4) 60%,transparent 100%);}
+    .wd-hero-content{position:absolute;bottom:0;left:0;right:0;padding:20px;}
+    .wd-meta-row{display:flex;gap:6px;flex-wrap:wrap;padding:14px 16px 4px;}
+    .wd-meta-chip{display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--muted);}
+    .wd-block{margin:0 16px 8px;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--bg3);}
+    .wd-block-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;}
+    .wd-block-name{font-size:17px;font-weight:900;letter-spacing:-0.3px;}
+    .wd-block-badge{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--muted);}
+    .wd-ex-row{display:flex;align-items:center;gap:12px;padding:11px 16px;border-top:1px solid var(--border);}
+    .wd-ex-reps{font-size:12px;font-weight:800;color:var(--muted);width:48px;flex-shrink:0;text-align:right;}
+    .wd-ex-name{font-size:13px;font-weight:700;line-height:1.3;}
+    .wd-ex-note{font-size:11px;color:var(--dim);margin-top:2px;line-height:1.3;}
+    .wd-ex-thumb{width:48px;height:48px;border-radius:10px;background:var(--bg4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+    .wd-start-sticky{position:sticky;bottom:0;padding:10px 16px 20px;background:linear-gradient(to top,var(--bg) 65%,transparent);}
+
+    /* ── PLAYER v2 ── */
+    .pv2-header{background:#050505;padding:env(safe-area-inset-top,20px) 20px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+    .pv2-timer{font-family:'Barlow Condensed',sans-serif;font-size:76px;font-weight:900;color:#fff;letter-spacing:-3px;line-height:1;}
+    .pv2-pause-btn{width:52px;height:52px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);background:transparent;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .pv2-exit-btn{font-size:13px;font-weight:700;color:rgba(255,255,255,0.4);cursor:pointer;padding:8px;}
+    .pv2-list{flex:1;overflow-y:auto;overflow-x:hidden;}
+    .pv2-list::-webkit-scrollbar{display:none;}
+    .pv2-block-label{padding:12px 20px 6px;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+    .pv2-ex-row{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s;}
+    .pv2-ex-row.pv2-active{background:rgba(202,255,0,0.04);border-left:3px solid var(--accent);}
+    .pv2-ex-thumb{width:52px;height:52px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;overflow:hidden;}
+    .pv2-ex-thumb.done{background:rgba(202,255,0,0.1);border-color:rgba(202,255,0,0.3);}
+    .pv2-ex-meta{font-size:11px;color:var(--muted);margin-top:2px;}
+    .pv2-ex-sets-done{font-size:11px;font-weight:700;color:var(--accent);}
+    .pv2-expanded{background:rgba(202,255,0,0.03);border-bottom:1px solid var(--border);border-left:3px solid var(--accent);}
+    .pv2-expanded-video{width:100%;aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;}
+    .pv2-expanded-controls{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;}
+    .pv2-set-counter{display:flex;gap:6px;align-items:center;}
+    .pv2-set-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--border);background:transparent;transition:all 0.2s;}
+    .pv2-set-dot.done{background:var(--accent);border-color:var(--accent);}
+    .pv2-done-set-btn{background:var(--accent);color:#080808;border:none;border-radius:50px;padding:10px 22px;font-size:13px;font-weight:900;cursor:pointer;letter-spacing:0.5px;}
+    .pv2-pause-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:200;}
+    .pv2-pause-card{background:#1c1c1c;border-radius:24px;padding:36px 44px;text-align:center;}
+    .pv2-pause-title{font-size:18px;font-weight:900;margin-bottom:4px;}
+    .pv2-pause-time{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;color:var(--accent);letter-spacing:-2px;margin-bottom:24px;}
+    .pv2-pause-btns{display:flex;gap:12px;justify-content:center;}
+    .pv2-stop-btn{width:56px;height:56px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);background:transparent;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+    .pv2-play-btn{width:56px;height:56px;border-radius:50%;background:#fff;border:none;color:#080808;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
     /* transitions */
     .fade-in{animation:fadeIn 0.25s ease;}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);};}
@@ -1517,6 +1564,9 @@ function renderAiGen() {
 // ── SCANNER ──
 // ── CAMERA MANAGEMENT ──
 let _cameraStream = null;
+let _playerTimer = null;
+let _playerElapsed = 0;
+let _playerCompletedSets = {}; // { exIndex: setsCompleted }
 
 function stopCamera() {
   if (_cameraStream) {
@@ -1836,37 +1886,75 @@ function renderProgress() {
 }
 
 // ── WORKOUT DETAIL ──
+function getWorkoutBlocks(exercises) {
+  const n = exercises.length;
+  if (n <= 3) return [{ name: 'Workout', sets: 1, exercises }];
+  const wu = Math.max(1, Math.round(n * 0.15));
+  const cd = Math.max(1, Math.round(n * 0.15));
+  const blocks = [];
+  if (wu) blocks.push({ name: 'Warm-Up', sets: 1, exercises: exercises.slice(0, wu) });
+  blocks.push({ name: 'Main Set', sets: 3, exercises: exercises.slice(wu, n - cd) });
+  if (cd) blocks.push({ name: 'Cool-Down', sets: 1, exercises: exercises.slice(n - cd) });
+  return blocks.filter(b => b.exercises.length > 0);
+}
+
 function renderWorkoutDetail() {
   const w = S.selectedWorkout;
   if (!w) return '';
-  return `
-    <div class="screen fade-in">
-      <div class="detail-header">
-        <div class="detail-back" id="back-btn">←</div>
+  const exs = w.exercises || [];
+  const blocks = getWorkoutBlocks(exs);
+
+  const blockHtml = blocks.map(block => {
+    const rows = block.exercises.map(ex => {
+      const e = ex._ex || EXERCISES.find(e => e.id === ex.id) || { emoji: '💪', name: ex.name || ex.id, muscle: '' };
+      const repsLabel = ex.sets && ex.reps ? `${ex.sets}×${ex.reps}` : ex.reps || '—';
+      const note = e.variation || (e.instructions && e.instructions[0]) || '';
+      return `<div class="wd-ex-row">
+        <div class="wd-ex-reps">${repsLabel}</div>
+        <div style="flex:1;min-width:0">
+          <div class="wd-ex-name">${e.name || ex.name}</div>
+          ${note ? `<div class="wd-ex-note">${note.length > 60 ? note.slice(0,60)+'…' : note}</div>` : ''}
+        </div>
+        <div class="wd-ex-thumb">${e.emoji || '💪'}</div>
+      </div>`;
+    }).join('');
+    return `<div class="wd-block">
+      <div class="wd-block-header">
+        <div class="wd-block-name">${block.name}</div>
+        <div class="wd-block-badge">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          ${block.sets}×
+        </div>
       </div>
-      <div class="detail-emoji-big">${w.emoji}</div>
-      <div class="detail-title">${w.name}</div>
-      <div class="detail-tags">
-        <span class="tag">⏱ ${w.dur} min</span>
-        <span class="tag">💪 ${w.diff}</span>
-        <span class="tag">📍 ${w.cat}</span>
-        <span class="tag">🎯 ${(w.exercises||[]).length} exercises</span>
+      ${rows}
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="screen fade-in" style="display:flex;flex-direction:column">
+      <div class="wd-hero">
+        <div class="wd-hero-bg">${w.emoji}</div>
+        <div class="wd-hero-overlay"></div>
+        <div class="detail-back" id="back-btn" style="position:absolute;top:16px;left:16px;z-index:2">←</div>
+        <div class="wd-hero-content">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:6px">${w.cat}</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;text-transform:uppercase;letter-spacing:-1px;line-height:1">${w.name}</div>
+        </div>
       </div>
 
-      <div style="padding:16px 20px 8px"><div class="section-label">Exercise Overview</div></div>
-      <div class="exercise-overview">
-        ${(w.exercises||[]).map((ex,i)=>{
-          const e = ex._ex || EXERCISES.find(e=>e.id===ex.id) || EXERCISES.find(e=>e.name&&ex.name&&e.name.toLowerCase()===ex.name.toLowerCase()) || {emoji:'💪',name:ex.name||ex.id,diff:'beginner'};
-          return `<div class="ov-row">
-            <div class="ov-num">${i+1}</div>
-            <div style="font-size:20px">${e.emoji||'💪'}</div>
-            <div class="ov-name">${e.name||ex.name}</div>
-            <div class="ov-sets">${ex.sets}×${ex.reps}</div>
-          </div>`;
-        }).join('')}
+      <div class="wd-meta-row">
+        <div class="wd-meta-chip">⏱ ${w.dur} min</div>
+        <div class="wd-meta-chip">💪 ${w.diff}</div>
+        <div class="wd-meta-chip">🎯 ${exs.length} exercises</div>
+        ${w.equip && w.equip !== 'none' ? `<div class="wd-meta-chip">🏋️ ${w.equip}</div>` : ''}
       </div>
-      <div class="start-btn-wrap">
-        <button class="btn-full" id="start-player-btn">Start Workout →</button>
+
+      <div style="flex:1;padding-bottom:80px">
+        ${blockHtml}
+      </div>
+
+      <div class="wd-start-sticky">
+        <button class="btn-full" id="start-player-btn" style="font-size:16px;padding:16px">Start Workout →</button>
       </div>
     </div>`;
 }
@@ -1978,81 +2066,93 @@ function renderChallenge() {
 }
 
 // ── PLAYER ──
+function fmtTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${sec.toString().padStart(2,'0')}`;
+}
+
 function renderPlayer() {
   const w = S.selectedWorkout;
-  const { exerciseIndex, logModal, completedSets } = S.player;
-  const exData = w.exercises[exerciseIndex];
-  const ex = exData._ex || EXERCISES.find(e=>e.id===exData.id) || EXERCISES.find(e=>e.name&&exData.name&&e.name.toLowerCase()===exData.name.toLowerCase()) || EXERCISES[0];
-  const progress = Math.round(((exerciseIndex) / w.exercises.length) * 100);
+  const exs = w.exercises || [];
+  const paused = S.player.paused || false;
+  const elapsed = _playerElapsed;
+  const activeIdx = S.player.exerciseIndex;
+
+  const rows = exs.map((ex, i) => {
+    const e = ex._ex || EXERCISES.find(e => e.id === ex.id) || { emoji: '💪', name: ex.name || ex.id, muscle: '' };
+    const setsCompleted = _playerCompletedSets[i] || 0;
+    const isDone = setsCompleted >= (ex.sets || 3);
+    const isActive = i === activeIdx;
+
+    const thumbStyle = isDone ? 'class="pv2-ex-thumb done"' : 'class="pv2-ex-thumb"';
+
+    if (isActive) {
+      const setDots = Array.from({length: ex.sets || 3}, (_, si) =>
+        `<div class="pv2-set-dot${si < setsCompleted ? ' done' : ''}"></div>`
+      ).join('');
+      return `
+        <div class="pv2-expanded" id="pv2-active-ex">
+          <div class="pv2-ex-row pv2-active" style="border-bottom:none;padding-bottom:8px">
+            <div ${thumbStyle}>${e.emoji}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:14px;font-weight:800">${e.name || ex.name}</div>
+              <div class="pv2-ex-meta">${ex.sets}×${ex.reps} · ${e.muscle || ''}</div>
+            </div>
+          </div>
+          <div class="pv2-expanded-video">${e.emoji}
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 60%);border-radius:0;display:flex;align-items:flex-end;padding:12px 16px">
+              <div style="font-size:13px;font-weight:700;color:#fff">${e.name || ex.name}</div>
+            </div>
+          </div>
+          <div class="pv2-expanded-controls">
+            <div class="pv2-set-counter">${setDots}</div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted)">${setsCompleted}/${ex.sets || 3} sets</div>
+            <button class="pv2-done-set-btn" id="done-set-btn">Done Set ✓</button>
+          </div>
+        </div>`;
+    }
+
+    return `<div class="pv2-ex-row${isDone ? '' : ''}" data-pv2-idx="${i}">
+      <div ${thumbStyle}>${isDone ? '✓' : e.emoji}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:700;color:${isDone ? 'var(--muted)' : 'var(--text)'};${isDone ? 'text-decoration:line-through' : ''}">${e.name || ex.name}</div>
+        <div class="pv2-ex-meta">${ex.sets}×${ex.reps}</div>
+      </div>
+      ${isDone ? `<div class="pv2-ex-sets-done">✓</div>` : `<div style="font-size:11px;color:var(--dim)">${i > activeIdx ? '—' : ''}</div>`}
+    </div>`;
+  }).join('');
+
+  const pauseOverlay = paused ? `
+    <div class="pv2-pause-overlay" id="pause-overlay">
+      <div class="pv2-pause-card">
+        <div style="font-size:28px;margin-bottom:8px">⏸</div>
+        <div class="pv2-pause-title">Workout Paused</div>
+        <div class="pv2-pause-time">${fmtTime(elapsed)}</div>
+        <div class="pv2-pause-btns">
+          <button class="pv2-stop-btn" id="exit-player">■</button>
+          <button class="pv2-play-btn" id="resume-btn">▶</button>
+        </div>
+      </div>
+    </div>` : '';
 
   return `
-    <div class="screen fade-in" style="padding-bottom:0">
-      <div class="player-top">
-        <div style="font-size:13px;font-weight:700;color:var(--muted)">${exerciseIndex+1} / ${w.exercises.length}</div>
-        <div style="font-size:14px;font-weight:800;color:var(--accent)">${w.name}</div>
-        <div class="detail-back" id="exit-player" style="font-size:14px">✕</div>
-      </div>
-      <div class="player-progress-bar"><div class="player-progress-fill" style="width:${progress}%"></div></div>
-
-      <div class="video-demo">
-        <div class="video-demo-emoji">${ex.emoji}</div>
-        <div class="video-overlay">
-          <div>
-            <div class="video-overlay-title">${ex.name}</div>
-            <div style="font-size:11px;color:var(--muted)">${ex.muscle}</div>
-          </div>
+    <div style="display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative">
+      <div class="pv2-header">
+        <div>
+          <div class="pv2-timer" id="player-timer">${fmtTime(elapsed)}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);font-weight:600;margin-top:2px">${w.name}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="pv2-pause-btn" id="pause-btn">${paused ? '▶' : '⏸'}</button>
         </div>
       </div>
-
-      <div class="player-exercise-name">${ex.name}</div>
-
-      <div class="player-sets-row">
-        <div class="set-chip"><div class="set-chip-val">${exData.sets}</div><div class="set-chip-lbl">Sets</div></div>
-        <div class="set-chip"><div class="set-chip-val">${exData.reps}</div><div class="set-chip-lbl">Reps</div></div>
-        <div class="set-chip" style="background:var(--accent-dim);border-color:rgba(200,240,74,0.2)"><div class="set-chip-val" style="color:var(--accent);font-size:16px">${ex.muscle.split(',')[0]}</div><div class="set-chip-lbl">Muscle</div></div>
+      <div class="pv2-list">
+        ${rows}
+        <div style="height:32px"></div>
       </div>
-
-      <div class="player-instructions">
-        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Instructions</div>
-        ${ex.instructions.map((step,i)=>`
-          <div class="instruction-item">
-            <div class="inst-num">${i+1}</div>
-            <div class="inst-text">${step}</div>
-          </div>`).join('')}
-      </div>
-
-      <div class="player-actions">
-        ${exerciseIndex > 0 ? `<button class="btn-skip" id="prev-ex">← Prev</button>` : ''}
-        <button class="btn-next" id="log-btn">Log & Continue →</button>
-      </div>
-    </div>
-
-    ${logModal ? `
-    <div class="modal-overlay" id="modal-overlay">
-      <div class="modal-sheet">
-        <div class="modal-handle"></div>
-        <div class="modal-title">Log: ${ex.name}</div>
-        <div class="modal-sub">How did this set go?</div>
-        <div class="log-fields">
-          <div class="log-field">
-            <div class="log-field-lbl">Reps</div>
-            <input type="number" id="logReps" value="${exData.reps.toString().replace(/\D+/g,'') || 10}" min="1"/>
-            <div class="log-field-unit">reps</div>
-          </div>
-          <div class="log-field">
-            <div class="log-field-lbl">Weight</div>
-            <input type="number" id="logWeight" value="0" min="0"/>
-            <div class="log-field-unit">kg</div>
-          </div>
-          <div class="log-field">
-            <div class="log-field-lbl">Sets Done</div>
-            <input type="number" id="logSets" value="${exData.sets}" min="1"/>
-            <div class="log-field-unit">sets</div>
-          </div>
-        </div>
-        <button class="btn-full" id="save-log-btn">${exerciseIndex < w.exercises.length-1 ? 'Save & Next →' : 'Finish Workout 🎉'}</button>
-      </div>
-    </div>` : ''}`;
+      ${pauseOverlay}
+    </div>`;
 }
 
 // ── COMPLETE ──
@@ -2440,58 +2540,84 @@ function attachEvents() {
   // Start player
   const startPlayer = $('start-player-btn');
   if (startPlayer) startPlayer.addEventListener('click', () => {
+    _playerElapsed = 0;
+    _playerCompletedSets = {};
+    if (_playerTimer) { clearInterval(_playerTimer); _playerTimer = null; }
     S.screen = 'player';
-    S.player = { exerciseIndex: 0, logModal: false, sets: [], completedSets: [] };
+    S.player = { exerciseIndex: 0, logModal: false, sets: [], completedSets: [], paused: false };
     render();
   });
 
-  // Player next/log
-  const logBtn = $('log-btn');
-  if (logBtn) logBtn.addEventListener('click', () => {
-    S.player.logModal = true;
-    render();
-  });
-
-  const prevBtn = $('prev-ex');
-  if (prevBtn) prevBtn.addEventListener('click', () => {
-    if (S.player.exerciseIndex > 0) {
-      S.player.exerciseIndex--;
-      S.player.logModal = false;
-      render();
-    }
-  });
-
-  const saveLogBtn = $('save-log-btn');
-  if (saveLogBtn) saveLogBtn.addEventListener('click', () => {
+  // Player v2 — done set button
+  const doneSetBtn = $('done-set-btn');
+  if (doneSetBtn) doneSetBtn.addEventListener('click', () => {
     const w = S.selectedWorkout;
-    S.player.logModal = false;
-    if (S.player.exerciseIndex < w.exercises.length - 1) {
-      S.player.exerciseIndex++;
-      render();
-    } else {
-      saveLog(w.id);
-      // If it was a challenge workout, mark the day complete
-      if (S.selectedWorkout && S.selectedWorkout.cat === 'Challenge') {
-        const cid = S.selectedWorkout.id;
-        if (!S.challengeProgress[cid]) S.challengeProgress[cid] = { startDate: new Date().toISOString(), completedDays: [] };
-        const day = (S.challengeProgress[cid].completedDays.length || 0) + 1;
-        if (!S.challengeProgress[cid].completedDays.includes(day)) {
-          S.challengeProgress[cid].completedDays.push(day);
-          localStorage.setItem('libo_challenge_progress', JSON.stringify(S.challengeProgress));
+    const idx = S.player.exerciseIndex;
+    const ex = (w.exercises || [])[idx];
+    const totalSets = ex ? (parseInt(ex.sets) || 3) : 3;
+    _playerCompletedSets[idx] = (_playerCompletedSets[idx] || 0) + 1;
+    if (_playerCompletedSets[idx] >= totalSets) {
+      // advance to next exercise
+      if (idx < (w.exercises || []).length - 1) {
+        S.player.exerciseIndex++;
+        render();
+        setTimeout(() => {
+          const el = document.getElementById('pv2-active-ex');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 80);
+      } else {
+        // workout complete
+        if (_playerTimer) { clearInterval(_playerTimer); _playerTimer = null; }
+        saveLog(w.id);
+        if (S.selectedWorkout && S.selectedWorkout.cat === 'Challenge') {
+          const cid = S.selectedWorkout.id;
+          if (!S.challengeProgress[cid]) S.challengeProgress[cid] = { startDate: new Date().toISOString(), completedDays: [] };
+          const day = (S.challengeProgress[cid].completedDays.length || 0) + 1;
+          if (!S.challengeProgress[cid].completedDays.includes(day)) {
+            S.challengeProgress[cid].completedDays.push(day);
+            localStorage.setItem('libo_challenge_progress', JSON.stringify(S.challengeProgress));
+          }
         }
+        S.screen = 'complete';
+        render();
       }
-      S.screen = 'complete';
-      render();
+    } else {
+      render(); // re-render to update dots
     }
   });
 
+  // Player v2 — tap inactive exercise to jump to it
+  document.querySelectorAll('[data-pv2-idx]').forEach(el => {
+    el.addEventListener('click', () => {
+      S.player.exerciseIndex = parseInt(el.dataset.pv2Idx);
+      render();
+    });
+  });
+
+  // Player v2 — pause
+  const pauseBtn = $('pause-btn');
+  if (pauseBtn) pauseBtn.addEventListener('click', () => {
+    S.player.paused = !S.player.paused;
+    render();
+  });
+
+  // Player v2 — resume from overlay
+  const resumeBtn = $('resume-btn');
+  if (resumeBtn) resumeBtn.addEventListener('click', () => {
+    S.player.paused = false;
+    render();
+  });
+
+  // Player v2 — exit
   const exitPlayer = $('exit-player');
   if (exitPlayer) exitPlayer.addEventListener('click', () => {
+    if (_playerTimer) { clearInterval(_playerTimer); _playerTimer = null; }
+    _playerElapsed = 0;
     S.screen = 'main';
     render();
   });
 
-  // Modal close on overlay
+  // Modal close on overlay (legacy, keep for challenge flow)
   const overlay = $('modal-overlay');
   if (overlay) overlay.addEventListener('click', e => {
     if (e.target === overlay) {
@@ -2545,6 +2671,22 @@ function attachEvents() {
   // Initialize camera when in camera mode on scanner tab
   if (S.tab === 'scanner' && (S.scannerMode || 'camera') === 'camera' && S.screen === 'main') {
     setTimeout(() => startCamera(), 50);
+  }
+
+  // Player v2 — start/resume live timer
+  if (S.screen === 'player' && !S.player.paused) {
+    if (!_playerTimer) {
+      _playerTimer = setInterval(() => {
+        if (!S.player.paused) {
+          _playerElapsed++;
+          const el = document.getElementById('player-timer');
+          if (el) el.textContent = fmtTime(_playerElapsed);
+        }
+      }, 1000);
+    }
+  } else if (S.screen !== 'player' && _playerTimer) {
+    clearInterval(_playerTimer);
+    _playerTimer = null;
   }
 
   // Water tracker
