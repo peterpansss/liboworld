@@ -850,7 +850,7 @@ function renderMain() {
       ${S.tab==='home'?renderHome():S.tab==='explore'?renderExplore():S.tab==='programs'?renderPrograms():S.tab==='scanner'?renderScanner():renderProgress()}
     </div>
     <nav class="bottom-nav">
-      ${[['home','🏠','Home'],['explore','🔍','Explore'],['programs','📅','Programs'],['scanner','🔄','Scanner'],['progress','📊','Progress']].map(([tab,ico,lbl])=>`
+      ${[['programs','📅','Programs'],['explore','🔍','Explore'],['home','🏠','Home'],['scanner','🔄','Scanner'],['progress','📊','Progress']].map(([tab,ico,lbl])=>`
         <div class="nav-item${S.tab===tab?' active':''}" data-tab="${tab}">
           <span class="nav-icon">${ico}</span>
           <span class="nav-label">${lbl}</span>
