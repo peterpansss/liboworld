@@ -554,6 +554,15 @@
     }
     .section-subhead{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
 
+    /* ── WATER TRACKER ── */
+    .water-card{margin:12px 16px;background:linear-gradient(145deg,#001828,#000e18);border:1px solid rgba(80,180,255,0.18);border-radius:var(--radius);padding:20px;}
+    .water-glasses{display:flex;gap:6px;margin:14px 0;}
+    .water-glass{font-size:22px;cursor:pointer;transition:transform 0.15s;line-height:1;}
+    .water-glass:active{transform:scale(0.85);}
+    .water-controls{display:flex;align-items:center;gap:12px;margin-top:4px;}
+    .water-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(80,180,255,0.3);background:rgba(80,180,255,0.06);color:#60c0ff;font-size:20px;font-weight:300;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;}
+    .water-btn:active{background:rgba(80,180,255,0.18);transform:scale(0.92);}
+
     /* ── CAMERA SCANNER ── */
     .scanner-mode-toggle{display:flex;gap:0;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:3px;margin:0 16px 16px;}
     .scanner-mode-btn{flex:1;padding:9px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:700;border-radius:9px;cursor:pointer;transition:all 0.2s;}
@@ -704,6 +713,8 @@ let S = {
   user: JSON.parse(localStorage.getItem('libo_user') || 'null'),
   challengeProgress: JSON.parse(localStorage.getItem('libo_challenge_progress') || '{}'),
   customWorkouts: JSON.parse(localStorage.getItem('libo_custom_workouts') || '[]'),
+  waterDate: new Date().toDateString(),
+  waterCount: parseInt(localStorage.getItem('libo_water_' + new Date().toDateString()) || '0'),
   builder: { step: 'pick', name: 'My Workout', exercises: [], searchQ: '', filter: 'All' },
   aiGen: { step: 'form', goal: '', equip: 'none', duration: 30, focus: 'Full Body', generated: null },
 };
@@ -1584,6 +1595,27 @@ function renderProgress() {
       </div>
     </div>
 
+    <div class="water-card">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#60c0ff;margin-bottom:4px">💧 Water Intake</div>
+          <div style="font-size:26px;font-weight:900;line-height:1">${S.waterCount} <span style="font-size:13px;font-weight:500;color:var(--muted)">/ 8 glasses</span></div>
+        </div>
+        <div style="font-size:32px;opacity:${S.waterCount>=8?'1':'0.25'}">${S.waterCount>=8?'🏆':'🥤'}</div>
+      </div>
+      <div class="water-glasses">
+        ${Array.from({length:8},(_,i)=>`<div class="water-glass" data-glass="${i+1}">${i < S.waterCount ? '💧' : '🩶'}</div>`).join('')}
+      </div>
+      <div class="water-controls">
+        <button class="water-btn" id="water-minus">−</button>
+        <div style="flex:1;background:rgba(80,180,255,0.08);border-radius:50px;height:6px;overflow:hidden">
+          <div style="height:100%;width:${Math.min(S.waterCount/8*100,100)}%;background:linear-gradient(90deg,#3090cc,#60c0ff);border-radius:50px;transition:width 0.3s ease"></div>
+        </div>
+        <button class="water-btn" id="water-plus">+</button>
+      </div>
+      ${S.waterCount >= 8 ? `<div style="font-size:12px;color:#60c0ff;margin-top:10px;font-weight:600">Daily goal reached! 🎉</div>` : `<div style="font-size:12px;color:var(--muted);margin-top:10px">${8 - S.waterCount} more glass${8-S.waterCount!==1?'es':''} to reach your goal</div>`}
+    </div>
+
     <div class="chart-wrap" style="margin-top:12px">
       <div class="chart-title">This Week</div>
       <div class="bar-chart">${bars}</div>
@@ -2287,6 +2319,20 @@ function attachEvents() {
   if (S.tab === 'scanner' && (S.scannerMode || 'camera') === 'camera' && S.screen === 'main') {
     setTimeout(() => startCamera(), 50);
   }
+
+  // Water tracker
+  function saveWater(n) {
+    S.waterCount = Math.max(0, Math.min(20, n));
+    localStorage.setItem('libo_water_' + new Date().toDateString(), S.waterCount);
+    render();
+  }
+  const wPlus = $('water-plus');
+  if (wPlus) wPlus.addEventListener('click', () => saveWater(S.waterCount + 1));
+  const wMinus = $('water-minus');
+  if (wMinus) wMinus.addEventListener('click', () => saveWater(S.waterCount - 1));
+  document.querySelectorAll('[data-glass]').forEach(el => {
+    el.addEventListener('click', () => saveWater(parseInt(el.dataset.glass)));
+  });
 
   // Complete
   const backHome = $('back-home-btn');
