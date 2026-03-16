@@ -16,12 +16,14 @@
       --radius:18px;--nav-h:72px;
     }
     html,body{height:100%;overflow:hidden;background:var(--bg);}
-    body{font-family:'Inter',sans-serif;color:var(--text);}
+    body{font-family:'Inter',sans-serif;color:var(--text);-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;}
     #app{
-      max-width:420px;margin:0 auto;height:100vh;
+      max-width:420px;margin:0 auto;height:100dvh;height:100vh;
       display:flex;flex-direction:column;overflow:hidden;
       position:relative;background:var(--bg);
     }
+    @supports (height: 100dvh) { #app { height: 100dvh; } }
+    #app.app-scroll{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;}
     /* SCROLLABLE AREA */
     .screen{
       flex:1;overflow-y:auto;overflow-x:hidden;
@@ -32,10 +34,11 @@
     /* BOTTOM NAV */
     .bottom-nav{
       position:absolute;bottom:0;left:0;right:0;
-      height:var(--nav-h);background:rgba(8,11,16,0.95);
-      backdrop-filter:blur(20px);border-top:1px solid var(--border);
+      height:var(--nav-h);background:rgba(8,11,16,0.97);
+      border-top:1px solid var(--border);
       display:flex;align-items:center;justify-content:space-around;
       padding:0 8px 8px;z-index:50;
+      padding-bottom:max(8px, env(safe-area-inset-bottom));
     }
     .nav-item{
       display:flex;flex-direction:column;align-items:center;
@@ -56,9 +59,12 @@
 
     /* ── ONBOARDING ── */
     .onboard-wrap{
-      min-height:100vh;display:flex;flex-direction:column;
+      min-height:100dvh;min-height:100vh;display:flex;flex-direction:column;
       padding:60px 28px 40px;
+      overflow-y:auto;overflow-x:hidden;
+      -webkit-overflow-scrolling:touch;
     }
+    @supports (min-height: 100dvh) { .onboard-wrap { min-height: 100dvh; } }
     .onboard-progress{
       display:flex;gap:6px;margin-bottom:48px;
     }
@@ -120,7 +126,7 @@
     .page-header{
       display:flex;align-items:center;justify-content:space-between;
       padding:20px 20px 8px;position:sticky;top:0;
-      background:rgba(8,11,16,0.95);backdrop-filter:blur(20px);z-index:10;
+      background:rgba(8,11,16,0.97);z-index:10;
     }
     .page-title{font-size:22px;font-weight:900;letter-spacing:-0.5px;}
     .section-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);}
@@ -281,9 +287,10 @@
 
     /* ── WORKOUT PLAYER ── */
     .player-wrap{
-      min-height:100vh;display:flex;flex-direction:column;
+      min-height:100dvh;min-height:100vh;display:flex;flex-direction:column;
       background:var(--bg);
     }
+    @supports (min-height: 100dvh) { .player-wrap { min-height: 100dvh; } }
     .player-top{
       display:flex;align-items:center;justify-content:space-between;
       padding:16px 20px;border-bottom:1px solid var(--border);
@@ -378,7 +385,7 @@
 
     /* ── WORKOUT COMPLETE ── */
     .complete-wrap{
-      min-height:100vh;display:flex;flex-direction:column;
+      min-height:100dvh;min-height:100vh;display:flex;flex-direction:column;
       align-items:center;justify-content:center;padding:40px 24px;text-align:center;
       background:linear-gradient(180deg,#0a0a0a 0%,rgba(202,255,0,0.04) 100%);
     }
@@ -510,12 +517,20 @@
     }
 
     /* ── BUILDER / AI GEN ── */
-    .builder-ex-item{
+    .builder-ex-item{border-bottom:1px solid var(--border);}
+    .builder-ex-header{
       display:flex;align-items:center;gap:12px;
-      padding:12px 16px;border-bottom:1px solid var(--border);
-      cursor:pointer;transition:background 0.15s;
+      padding:12px 16px;cursor:pointer;transition:background 0.15s;
     }
-    .builder-ex-item:active{background:rgba(255,255,255,0.03);}
+    .builder-ex-header:active{background:rgba(255,255,255,0.03);}
+    .builder-ex-chevron{font-size:11px;color:var(--dim);transition:transform 0.25s;flex-shrink:0;}
+    .builder-ex-item.open .builder-ex-chevron{transform:rotate(180deg);}
+    .builder-ex-item.open .builder-ex-header{background:rgba(202,255,0,0.04);}
+    .builder-ex-detail{max-height:0;overflow:hidden;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);}
+    .builder-ex-item.open .builder-ex-detail{max-height:560px;}
+    .builder-ex-detail-inner{padding:0 16px 14px;}
+    .builder-ex-video-slot{width:100%;aspect-ratio:16/9;border-radius:12px;background:var(--bg4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px;overflow:hidden;}
+    .builder-ex-video-slot video{width:100%;height:100%;object-fit:cover;border-radius:12px;}
     .builder-add-btn{
       width:32px;height:32px;border-radius:50%;
       border:1.5px solid var(--border);background:transparent;
@@ -597,11 +612,26 @@
     .wd-block-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;}
     .wd-block-name{font-size:17px;font-weight:900;letter-spacing:-0.3px;}
     .wd-block-badge{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--muted);}
-    .wd-ex-row{display:flex;align-items:center;gap:12px;padding:11px 16px;border-top:1px solid var(--border);}
+    .wd-ex-item{border-top:1px solid var(--border);}
+    .wd-ex-row{display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;transition:background 0.15s;}
+    .wd-ex-row:active{background:rgba(202,255,0,0.04);}
     .wd-ex-reps{font-size:12px;font-weight:800;color:var(--muted);width:48px;flex-shrink:0;text-align:right;}
     .wd-ex-name{font-size:13px;font-weight:700;line-height:1.3;}
     .wd-ex-note{font-size:11px;color:var(--dim);margin-top:2px;line-height:1.3;}
-    .wd-ex-thumb{width:48px;height:48px;border-radius:10px;background:var(--bg4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+    .wd-ex-thumb{width:48px;height:48px;border-radius:10px;background:var(--bg4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;transition:transform 0.2s;}
+    .wd-ex-chevron{font-size:12px;color:var(--dim);transition:transform 0.25s;flex-shrink:0;margin-left:2px;}
+    .wd-ex-item.open .wd-ex-chevron{transform:rotate(180deg);}
+    .wd-ex-item.open .wd-ex-row{background:rgba(202,255,0,0.04);}
+    .wd-ex-detail{max-height:0;overflow:hidden;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);}
+    .wd-ex-item.open .wd-ex-detail{max-height:600px;}
+    .wd-ex-detail-inner{padding:0 16px 16px;}
+    .wd-ex-video-slot{width:100%;aspect-ratio:16/9;border-radius:12px;background:var(--bg4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:14px;overflow:hidden;position:relative;}
+    .wd-ex-video-slot video{width:100%;height:100%;object-fit:cover;border-radius:12px;}
+    .wd-inst-step{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
+    .wd-inst-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#080808;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+    .wd-inst-text{font-size:12px;line-height:1.5;color:var(--text);}
+    .wd-dl-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+    .wd-dl-btn{flex:1;min-width:80px;padding:8px 4px;border-radius:8px;border:1px solid var(--border);background:var(--bg4);color:var(--text);font-size:11px;font-weight:700;cursor:pointer;text-align:center;}
     .wd-start-sticky{position:sticky;bottom:0;padding:10px 16px 20px;background:linear-gradient(to top,var(--bg) 65%,transparent);}
 
     /* ── PLAYER v2 ── */
@@ -674,25 +704,20 @@ const EXERCISES = (LIBO_EXERCISES || []).map(e => ({
   muscles: [e.bodyFocus.split('/')[0].trim()],
 }));
 
-// Small featured workouts (keep player working — exercises resolve to real lib)
-const WORKOUTS = [
-  {id:'full_home',name:'Full Body Burn',cat:'Home',diff:'beginner',dur:20,equip:'none',emoji:'🏠',goal:'general',
-   exercises:[{id:'wide_grip_push_up',sets:3,reps:'12'},{id:'bodyweight_squat',sets:3,reps:'15'},{id:'reverse_lunge_bodyweight',sets:2,reps:'10 each'},{id:'forearm_plank',sets:3,reps:'30 sec'},{id:'glute_bridge',sets:3,reps:'15'}]},
-  {id:'upper_gym',name:'Upper Body Strength',cat:'Gym',diff:'intermediate',dur:45,equip:'Dumbbell',emoji:'💪',goal:'muscle',
-   exercises:[{id:'dumbbell_bench_press',sets:4,reps:'10'},{id:'one_arm_dumbbell_row',sets:4,reps:'10'},{id:'dumbbell_shoulder_press',sets:3,reps:'10'},{id:'ez_bar_curl_standing',sets:3,reps:'12'},{id:'bench_dip_standard',sets:3,reps:'12'}]},
-  {id:'lower_gym',name:'Lower Body Power',cat:'Gym',diff:'intermediate',dur:45,equip:'Dumbbell',emoji:'🦵',goal:'muscle',
-   exercises:[{id:'bodyweight_squat',sets:4,reps:'10'},{id:'romanian_deadlift_barbell',sets:4,reps:'10'},{id:'reverse_lunge_bodyweight',sets:3,reps:'12 each'},{id:'glute_bridge',sets:4,reps:'15'},{id:'standing_calf_raise_bodyweight',sets:4,reps:'20'}]},
-  {id:'hiit_cardio',name:'HIIT Cardio Blast',cat:'Cardio',diff:'advanced',dur:25,equip:'none',emoji:'🔥',goal:'weight',
-   exercises:[{id:'burpee',sets:4,reps:'10'},{id:'mountain_climber_standard',sets:4,reps:'30 sec'},{id:'bodyweight_squat',sets:3,reps:'15'},{id:'wide_grip_push_up',sets:3,reps:'12'}]},
-  {id:'morning',name:'Morning Activation',cat:'Morning Routine',diff:'beginner',dur:15,equip:'none',emoji:'🌅',goal:'general',
-   exercises:[{id:'world_s_greatest_stretch',sets:2,reps:'5 each'},{id:'glute_bridge',sets:2,reps:'12'},{id:'bodyweight_squat',sets:2,reps:'10'},{id:'diaphragmatic_breathing_supine',sets:1,reps:'5 cycles'}]},
-  {id:'mobility',name:'Full Body Mobility',cat:'Stretching',diff:'beginner',dur:20,equip:'none',emoji:'🧘',goal:'flexibility',
-   exercises:[{id:'child_s_pose',sets:1,reps:'60 sec'},{id:'world_s_greatest_stretch',sets:2,reps:'5 each'},{id:'glute_bridge',sets:2,reps:'10'},{id:'diaphragmatic_breathing_supine',sets:2,reps:'5 cycles'}]},
-  {id:'core_blaster',name:'Core Blaster',cat:'Home',diff:'intermediate',dur:20,equip:'none',emoji:'⚡',goal:'general',
-   exercises:[{id:'forearm_plank',sets:4,reps:'45 sec'},{id:'mountain_climber_standard',sets:3,reps:'30 sec'},{id:'hanging_straight_leg_raise',sets:3,reps:'12'},{id:'glute_bridge',sets:3,reps:'15'}]},
-  {id:'evening',name:'Evening Wind-Down',cat:'Morning Routine',diff:'beginner',dur:15,equip:'none',emoji:'🌙',goal:'recovery',
-   exercises:[{id:'child_s_pose',sets:2,reps:'60 sec'},{id:'world_s_greatest_stretch',sets:1,reps:'5 each'},{id:'diaphragmatic_breathing_supine',sets:3,reps:'5 cycles'}]},
-];
+// Featured workouts — real data from LIBO_WORKOUTS (Excel-sourced)
+const WORKOUTS = (typeof LIBO_WORKOUTS !== 'undefined' ? [
+  'wk_home_full_body_bodyweight_a',
+  'wk_push_day_chest_shoulders_triceps',
+  'wk_legs_squat_day',
+  'wk_cardio_20_min_hiit_intervals',
+  'wk_morning_routine_energizing_flow',
+  'wk_stretch_full_body_flexibility_20_min',
+  'wk_home_core_foundations',
+  'wk_evening_routine_wind_down',
+] : []).map(id => {
+  const lw = LIBO_WORKOUTS.find(w => w.id === id);
+  return lw ? { id: lw.id, name: lw.name, cat: lw.cat, diff: lw.diff, dur: lw.dur, emoji: lw.emoji, goal: 'general' } : null;
+}).filter(Boolean);
 
 
 // Programs = real Challenge workouts from LIBO_WORKOUTS
@@ -788,6 +813,10 @@ function render() {
   const app = document.getElementById('app');
   app.innerHTML = '';
   app.className = 'fade-in';
+  // Allow scrolling on onboarding/complete screens, lock on main app screens
+  if (S.screen === 'onboarding' || S.screen === 'complete') {
+    app.classList.add('app-scroll');
+  }
 
   if (S.screen === 'onboarding') { app.innerHTML = renderOnboarding(); }
   else if (S.screen === 'workout-detail') { app.innerHTML = renderWorkoutDetail(); }
@@ -807,7 +836,7 @@ function renderOnboarding() {
   const TOTAL = 22;
   const pct = Math.round((o.step / (TOTAL - 1)) * 100);
 
-  const wrap = (content, canNext = true, nextLabel = 'Continue →') => `
+  const wrap = (content, canNext = true, nextLabel = 'Continue →', showSkip = true) => `
     <div class="onboard-wrap">
       <div style="margin-bottom:32px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -821,6 +850,7 @@ function renderOnboarding() {
       ${content}
       <div style="flex:1;min-height:16px"></div>
       <button class="btn-full" id="ob-next" ${!canNext?'disabled':''}>${nextLabel}</button>
+      ${showSkip && !canNext ? '<button class="btn-ghost" id="ob-skip">Skip →</button>' : ''}
       ${o.step > 0 ? '<button class="btn-ghost" id="ob-back">← Back</button>' : ''}
     </div>`;
 
@@ -837,7 +867,7 @@ function renderOnboarding() {
     <p class="onboard-sub">Your all-in-one training app. Let's build your personalised plan — takes about 2 minutes.</p>
     <label style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:10px">First, what's your name?</label>
     <input class="onboard-input" id="nameInput" placeholder="Your name" value="${o.name}"/>
-  `, o.name.trim().length > 0, "Let's Go →");
+  `, o.name.trim().length > 0, "Let's Go →", false);
 
   if (o.step === 1) return wrap(`
     <div class="onboard-emoji">🎯</div>
@@ -1109,7 +1139,9 @@ function renderMain() {
 // ── HOME ──
 function renderHome() {
   const user = S.user;
-  const rec = WORKOUTS.find(w=>w.goal===(user?.goal==='Lose Weight'?'weight':user?.goal==='Build Muscle'?'muscle':'general')) || WORKOUTS[0];
+  const rec = WORKOUTS[0] || {};
+  const recLW = (typeof LIBO_WORKOUTS !== 'undefined') ? LIBO_WORKOUTS.find(w => w.id === rec.id) : null;
+  const recExCount = recLW ? (recLW.main || []).length : 0;
   const streak = S.logs.length;
   return `
     <div class="page-header">
@@ -1126,7 +1158,7 @@ function renderHome() {
       <div style="font-size:9px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:14px;opacity:0.9">Today's Workout</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;letter-spacing:-1px;line-height:0.9;margin-bottom:12px;text-transform:uppercase">${rec.name}</div>
       <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:24px">
-        <span>${rec.emoji} ${rec.dur} min</span><span class="dot"></span><span>${rec.exercises.length} exercises</span><span class="dot"></span><span style="text-transform:capitalize">${rec.diff}</span>
+        <span>${rec.emoji} ${rec.dur} min</span><span class="dot"></span><span>${recExCount} exercises</span><span class="dot"></span><span style="text-transform:capitalize">${rec.diff}</span>
       </div>
       <button style="background:var(--accent);color:#080808;border:none;padding:14px 32px;border-radius:50px;font-size:13px;font-weight:900;cursor:pointer;letter-spacing:1px;text-transform:uppercase" class="start-workout-btn" data-id="${rec.id}">Start Now →</button>
     </div>
@@ -1142,13 +1174,15 @@ function renderHome() {
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 16px">
       ${WORKOUTS.slice(0,4).map((w,i)=>{
-        const gradients=['linear-gradient(135deg,#1a1a00 0%,#2d3a00 100%)','linear-gradient(135deg,#0a1a1a 0%,#003a2d 100%)','linear-gradient(135deg,#1a0a0a 0%,#3a1000 100%)','linear-gradient(135deg,#0a0a1a 0%,#0a002d 100%)'];
-        return `<div class="start-workout-btn" data-id="${w.id}" data-detail="1" style="background:${gradients[i%4]};border:1px solid rgba(202,255,0,0.1);border-radius:16px;overflow:hidden;cursor:pointer;position:relative;">
-          <div style="padding:16px 14px 12px;min-height:110px;display:flex;flex-direction:column;justify-content:space-between">
-            <div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);opacity:0.8">${w.cat}</div>
+        const imgs=['ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg','ReferenceImagesReal/3888964e334eac66760016434935572e.jpg','ReferenceImagesReal/4d2d6f35aaa3192a75bb1d865a1ec584.jpg','ReferenceImagesReal/e64b6bf3121062bba39727d191b390cc.jpg'];
+        return `<div class="start-workout-btn" data-id="${w.id}" data-detail="1" style="border-radius:16px;overflow:hidden;cursor:pointer;position:relative;min-height:130px;">
+          <img src="${imgs[i%4]}" alt="${w.cat}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;" loading="lazy" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.3) 60%,transparent 100%);"></div>
+          <div style="position:relative;padding:16px 14px 12px;min-height:130px;display:flex;flex-direction:column;justify-content:space-between">
+            <div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent)">${w.cat}</div>
             <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;line-height:0.95;letter-spacing:-0.5px;margin-bottom:6px">${w.name}</div>
-              <div style="font-size:11px;color:var(--muted)">${w.dur}min · ${w.diff}</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;line-height:0.95;letter-spacing:-0.5px;margin-bottom:6px;color:#fff">${w.name}</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.6)">${w.dur}min · ${w.diff}</div>
             </div>
           </div>
         </div>`;
@@ -1219,6 +1253,36 @@ function renderExplore() {
       ${currentCats.map(c=>`<div class="filter-chip${(filter===c||filter.toLowerCase()===c.toLowerCase()||(!filter&&c==='All'))?' active':''}" data-filter="${c}">${c}</div>`).join('')}
     </div>
     ${isWorkouts ? `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 16px 16px">
+        <div id="open-builder-btn" style="background:linear-gradient(135deg,#0a1a00 0%,#182800 100%);border:1px solid rgba(202,255,0,0.2);border-radius:18px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:8px;min-height:110px">
+          <div style="font-size:26px">✏️</div>
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-0.5px">Build<br/>Custom</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">Pick your exercises</div>
+          </div>
+        </div>
+        <div id="open-ai-btn" style="background:linear-gradient(135deg,#001018 0%,#001a28 100%);border:1px solid rgba(100,180,255,0.2);border-radius:18px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:8px;min-height:110px">
+          <div style="font-size:26px">🤖</div>
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-0.5px">AI<br/>Generate</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">Auto-build for your goal</div>
+          </div>
+        </div>
+      </div>
+      ${(S.customWorkouts||[]).length ? `
+      <div style="padding:0 16px 8px"><div class="section-label">My Workouts</div></div>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px 16px">
+        ${(S.customWorkouts||[]).map(w=>`
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer" class="start-workout-btn" data-custom-id="${w.id}">
+            <div style="width:38px;height:38px;background:var(--accent-dim);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">✏️</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${w.name}</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px">${w.exercises.length} exercises · ${w.dur||20}min</div>
+            </div>
+            <div style="color:var(--accent);font-size:18px">›</div>
+          </div>`).join('')}
+      </div>` : ''}
+      <div style="padding:0 16px 8px"><div class="section-label">All Workouts</div></div>
       <div class="workout-grid">
         ${pagedWk.map(w=>{
           const emoji = w.emoji || '🏋️';
@@ -1252,40 +1316,8 @@ function renderExplore() {
 
 // ── PROGRAMS ──
 function renderPrograms() {
-  const myWorkouts = S.customWorkouts || [];
   return `
     <div class="page-header"><div class="page-title">Programs</div></div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 16px 20px">
-      <div id="open-builder-btn" style="background:linear-gradient(135deg,#0a1a00 0%,#182800 100%);border:1px solid rgba(202,255,0,0.2);border-radius:18px;padding:18px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;min-height:120px">
-        <div style="font-size:28px">✏️</div>
-        <div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-0.5px">Build<br/>Custom</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:4px">Pick your exercises</div>
-        </div>
-      </div>
-      <div id="open-ai-btn" style="background:linear-gradient(135deg,#001018 0%,#001a28 100%);border:1px solid rgba(100,180,255,0.2);border-radius:18px;padding:18px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;min-height:120px">
-        <div style="font-size:28px">🤖</div>
-        <div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-0.5px">AI<br/>Generate</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:4px">Auto-build for your goal</div>
-        </div>
-      </div>
-    </div>
-
-    ${myWorkouts.length ? `
-    <div style="padding:0 16px 4px"><div class="section-label" style="margin-bottom:10px">My Custom Workouts</div></div>
-    <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px 20px">
-      ${myWorkouts.map(w=>`
-        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer" class="start-workout-btn" data-custom-id="${w.id}">
-          <div style="width:40px;height:40px;background:var(--accent-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">✏️</div>
-          <div style="flex:1;min-width:0">
-            <div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${w.name}</div>
-            <div style="font-size:12px;color:var(--muted);margin-top:2px">${w.exercises.length} exercises · ${w.dur||20}min</div>
-          </div>
-          <div style="color:var(--accent);font-size:18px">›</div>
-        </div>`).join('')}
-    </div>` : ''}
 
     <div style="padding:0 16px 4px">
       <div class="section-label" style="margin-bottom:6px">30-Day Challenges</div>
@@ -1398,13 +1430,30 @@ function renderCustomBuilder() {
       <div style="padding:0 0 80px">
         ${pool.slice(0, 80).map(e => {
           const added = addedIds.has(e.id);
-          return `<div class="builder-ex-item">
-            <div style="width:40px;height:40px;background:var(--bg3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${e.emoji||'💪'}</div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.name}</div>
-              <div style="font-size:11px;color:var(--muted);margin-top:2px">${e.muscle||''} ${e.equip?'· '+e.equip:''}</div>
+          const instSteps = e.instructions || (e.setupNotes
+            ? e.setupNotes.split('. ').filter(s=>s.length>5).map(s=>s.trim()).slice(0,4)
+            : ['Perform with proper form and controlled movement.']);
+          const instHtml = instSteps.map((s,i)=>`
+            <div class="wd-inst-step">
+              <div class="wd-inst-num">${i+1}</div>
+              <div class="wd-inst-text">${s}</div>
+            </div>`).join('');
+          return `<div class="builder-ex-item" data-bex-id="${e.id}">
+            <div class="builder-ex-header">
+              <div style="width:40px;height:40px;background:var(--bg3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${e.emoji||'💪'}</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.name}</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px">${e.muscle||''} ${e.equip?'· '+e.equip:''}</div>
+              </div>
+              <div class="builder-ex-chevron">▾</div>
+              <button class="builder-add-btn${added?' added':''}" data-add-ex="${e.id}" style="pointer-events:all">${added?'✓':'+'}</button>
             </div>
-            <button class="builder-add-btn${added?' added':''}" data-add-ex="${e.id}">${added?'✓':'+'}</button>
+            <div class="builder-ex-detail">
+              <div class="builder-ex-detail-inner">
+                <div class="builder-ex-video-slot" id="bvid-${e.id}">${e.emoji||'💪'}</div>
+                ${instHtml}
+              </div>
+            </div>
           </div>`;
         }).join('')}
       </div>
@@ -1764,7 +1813,7 @@ function renderScanner() {
   };
 
   return `
-    <div class="page-header"><div class="page-title">Alt Scanner</div></div>
+    <div class="page-header"><div class="page-title">AI Scanner</div></div>
 
     <div class="scanner-mode-toggle">
       <button class="scanner-mode-btn${mode==='camera'?' active':''}" data-smode="camera">📷 Camera Scan</button>
@@ -1886,36 +1935,76 @@ function renderProgress() {
 }
 
 // ── WORKOUT DETAIL ──
-function getWorkoutBlocks(exercises) {
+function getWorkoutBlocks(w) {
+  // Use real phase data if available
+  if (w.phases && (w.phases.warmup?.length || w.phases.main?.length || w.phases.cooldown?.length)) {
+    const blocks = [];
+    if (w.phases.warmup?.length)   blocks.push({ name: 'Warm-Up',   sets: 1, exercises: w.phases.warmup });
+    if (w.phases.main?.length)     blocks.push({ name: 'Main Set',  sets: 3, exercises: w.phases.main });
+    if (w.phases.cooldown?.length) blocks.push({ name: 'Cool-Down', sets: 1, exercises: w.phases.cooldown });
+    return blocks;
+  }
+  // Fallback: split flat list by phase tag, then by position
+  const exercises = w.exercises || [];
+  const byPhase = { warmup: [], main: [], cooldown: [] };
+  exercises.forEach(ex => {
+    const p = ex.phase || 'main';
+    (byPhase[p] || byPhase.main).push(ex);
+  });
+  if (byPhase.warmup.length || byPhase.cooldown.length) {
+    const blocks = [];
+    if (byPhase.warmup.length)    blocks.push({ name: 'Warm-Up',   sets: 1, exercises: byPhase.warmup });
+    if (byPhase.main.length)      blocks.push({ name: 'Main Set',  sets: 3, exercises: byPhase.main });
+    if (byPhase.cooldown.length)  blocks.push({ name: 'Cool-Down', sets: 1, exercises: byPhase.cooldown });
+    return blocks;
+  }
+  // Last resort: split by position
   const n = exercises.length;
   if (n <= 3) return [{ name: 'Workout', sets: 1, exercises }];
   const wu = Math.max(1, Math.round(n * 0.15));
   const cd = Math.max(1, Math.round(n * 0.15));
-  const blocks = [];
-  if (wu) blocks.push({ name: 'Warm-Up', sets: 1, exercises: exercises.slice(0, wu) });
-  blocks.push({ name: 'Main Set', sets: 3, exercises: exercises.slice(wu, n - cd) });
-  if (cd) blocks.push({ name: 'Cool-Down', sets: 1, exercises: exercises.slice(n - cd) });
-  return blocks.filter(b => b.exercises.length > 0);
+  return [
+    { name: 'Warm-Up',   sets: 1, exercises: exercises.slice(0, wu) },
+    { name: 'Main Set',  sets: 3, exercises: exercises.slice(wu, n - cd) },
+    { name: 'Cool-Down', sets: 1, exercises: exercises.slice(n - cd) },
+  ].filter(b => b.exercises.length > 0);
 }
 
 function renderWorkoutDetail() {
   const w = S.selectedWorkout;
   if (!w) return '';
   const exs = w.exercises || [];
-  const blocks = getWorkoutBlocks(exs);
+  const blocks = getWorkoutBlocks(w);
 
   const blockHtml = blocks.map(block => {
     const rows = block.exercises.map(ex => {
       const e = ex._ex || EXERCISES.find(e => e.id === ex.id) || { emoji: '💪', name: ex.name || ex.id, muscle: '' };
       const repsLabel = ex.sets && ex.reps ? `${ex.sets}×${ex.reps}` : ex.reps || '—';
       const note = e.variation || (e.instructions && e.instructions[0]) || '';
-      return `<div class="wd-ex-row">
-        <div class="wd-ex-reps">${repsLabel}</div>
-        <div style="flex:1;min-width:0">
-          <div class="wd-ex-name">${e.name || ex.name}</div>
-          ${note ? `<div class="wd-ex-note">${note.length > 60 ? note.slice(0,60)+'…' : note}</div>` : ''}
+      const instructions = e.instructions || (e.setupNotes
+        ? e.setupNotes.split('. ').filter(s=>s.length>5).map(s=>s.trim()).slice(0,4)
+        : ['Perform with proper form and controlled movement.']);
+      const instHtml = instructions.map((s,i)=>`
+        <div class="wd-inst-step">
+          <div class="wd-inst-num">${i+1}</div>
+          <div class="wd-inst-text">${s}</div>
+        </div>`).join('');
+      return `<div class="wd-ex-item" data-wd-exid="${ex.id}">
+        <div class="wd-ex-row">
+          <div class="wd-ex-reps">${repsLabel}</div>
+          <div style="flex:1;min-width:0">
+            <div class="wd-ex-name">${e.name || ex.name}</div>
+            ${note ? `<div class="wd-ex-note">${note.length > 60 ? note.slice(0,60)+'…' : note}</div>` : ''}
+          </div>
+          <div class="wd-ex-thumb">${e.emoji || '💪'}</div>
+          <div class="wd-ex-chevron">▾</div>
         </div>
-        <div class="wd-ex-thumb">${e.emoji || '💪'}</div>
+        <div class="wd-ex-detail">
+          <div class="wd-ex-detail-inner">
+            <div class="wd-ex-video-slot" id="wd-vid-${ex.id}">${e.emoji || '💪'}</div>
+            ${instHtml}
+          </div>
+        </div>
       </div>`;
     }).join('');
     return `<div class="wd-block">
@@ -2079,6 +2168,9 @@ function renderPlayer() {
   const elapsed = _playerElapsed;
   const activeIdx = S.player.exerciseIndex;
 
+  const phaseLabels = { warmup: 'Warm-Up', main: 'Main Set', cooldown: 'Cool-Down' };
+  let lastPhase = null;
+
   const rows = exs.map((ex, i) => {
     const e = ex._ex || EXERCISES.find(e => e.id === ex.id) || { emoji: '💪', name: ex.name || ex.id, muscle: '' };
     const setsCompleted = _playerCompletedSets[i] || 0;
@@ -2087,11 +2179,17 @@ function renderPlayer() {
 
     const thumbStyle = isDone ? 'class="pv2-ex-thumb done"' : 'class="pv2-ex-thumb"';
 
+    let phaseHeader = '';
+    if (ex.phase && ex.phase !== lastPhase) {
+      lastPhase = ex.phase;
+      phaseHeader = `<div style="padding:10px 16px 4px;font-size:10px;font-weight:800;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase">${phaseLabels[ex.phase] || ex.phase}</div>`;
+    }
+
     if (isActive) {
       const setDots = Array.from({length: ex.sets || 3}, (_, si) =>
         `<div class="pv2-set-dot${si < setsCompleted ? ' done' : ''}"></div>`
       ).join('');
-      return `
+      return phaseHeader + `
         <div class="pv2-expanded" id="pv2-active-ex">
           <div class="pv2-ex-row pv2-active" style="border-bottom:none;padding-bottom:8px">
             <div ${thumbStyle}>${e.emoji}</div>
@@ -2113,7 +2211,7 @@ function renderPlayer() {
         </div>`;
     }
 
-    return `<div class="pv2-ex-row${isDone ? '' : ''}" data-pv2-idx="${i}">
+    return phaseHeader + `<div class="pv2-ex-row" data-pv2-idx="${i}">
       <div ${thumbStyle}>${isDone ? '✓' : e.emoji}</div>
       <div style="flex:1;min-width:0">
         <div style="font-size:13px;font-weight:700;color:${isDone ? 'var(--muted)' : 'var(--text)'};${isDone ? 'text-decoration:line-through' : ''}">${e.name || ex.name}</div>
@@ -2137,7 +2235,7 @@ function renderPlayer() {
     </div>` : '';
 
   return `
-    <div style="display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative">
+    <div style="display:flex;flex-direction:column;height:100dvh;height:100vh;overflow:hidden;position:relative">
       <div class="pv2-header">
         <div>
           <div class="pv2-timer" id="player-timer">${fmtTime(elapsed)}</div>
@@ -2252,6 +2350,8 @@ function attachEvents() {
   if (obNext) obNext.addEventListener('click', () => { S.onboard.step++; render(); });
   const obBack = $('ob-back');
   if (obBack) obBack.addEventListener('click', () => { S.onboard.step--; render(); });
+  const obSkip = $('ob-skip');
+  if (obSkip) obSkip.addEventListener('click', () => { S.onboard.step++; render(); });
   // Onboarding — finish
   const obFinish = $('ob-finish');
   if (obFinish) obFinish.addEventListener('click', () => {
@@ -2316,30 +2416,55 @@ function attachEvents() {
     el.addEventListener('click', () => {
       // Try WORKOUTS first (featured), then LIBO_WORKOUTS (full library)
       let w = WORKOUTS.find(w => w.id === el.dataset.id);
+      // WORKOUTS now contains metadata-only entries from LIBO_WORKOUTS — always route through LIBO adapter
+      if (w && !w.exercises && !w.phases) w = null;
       if (!w && typeof LIBO_WORKOUTS !== 'undefined') {
         const lw = LIBO_WORKOUTS.find(w => w.id === el.dataset.id || w.slug === el.dataset.id);
         if (lw) {
-          // Adapt LIBO_WORKOUT to app format
-          const mainExs = (lw.main || []).slice(0, 8);
+          const adaptEx = (ex, phase) => {
+            const found = findExByName(ex.exercise);
+            return {
+              id: found ? found.id : ex.exercise.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''),
+              name: ex.exercise,
+              sets: parseInt(ex.sets) || 1,
+              reps: ex.reps || '—',
+              phase,
+              _ex: found,
+            };
+          };
+          // Split exercises hiding inside main[] into correct phases:
+          // Warmup prep: sets < 3 at the START (e.g. Arm Swings 1set, Scapular Push-Up 1set, Incline Push-Up 2sets)
+          // Cooldown: sets == 1 + time-based (sec/min) at the END
+          const isTimeBased = r => /\d+\s*(sec|min)/i.test(r || '');
+          const rawMain = lw.main || [];
+          // Peel warmup-type from start: any exercise with < 3 sets before the first real working set
+          let mainStart = 0;
+          while (mainStart < rawMain.length && parseInt(rawMain[mainStart].sets) < 3) mainStart++;
+          // Peel cooldown-type from end: 1-set time-based stretches
+          let mainEnd = rawMain.length;
+          while (mainEnd > mainStart && parseInt(rawMain[mainEnd-1].sets) <= 1 && isTimeBased(rawMain[mainEnd-1].reps)) mainEnd--;
+
+          const warmupExs   = [
+            ...(lw.warmup || []).map(e => adaptEx(e, 'warmup')),
+            ...rawMain.slice(0, mainStart).map(e => adaptEx(e, 'warmup')),
+          ];
+          const mainExs     = rawMain.slice(mainStart, mainEnd).map(e => adaptEx(e, 'main'));
+          const cooldownExs = [
+            ...rawMain.slice(mainEnd).map(e => adaptEx(e, 'cooldown')),
+            ...(lw.cooldown || []).map(e => adaptEx(e, 'cooldown')),
+          ];
           w = {
             id: lw.id || lw.slug,
             name: lw.name,
             cat: lw.cat,
+            subcat: lw.subcat || '',
             diff: lw.diff || lw.difficulty || 'beginner',
             dur: lw.dur || parseInt(lw.duration) || 30,
             equip: 'Various',
             emoji: lw.emoji || '🏋️',
             goal: 'general',
-            exercises: mainExs.map(ex => {
-              const found = findExByName(ex.exercise);
-              return {
-                id: found ? found.id : ex.exercise.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''),
-                name: ex.exercise,
-                sets: parseInt(ex.sets) || 3,
-                reps: ex.reps || '10',
-                _ex: found,
-              };
-            }),
+            exercises: [...warmupExs, ...mainExs, ...cooldownExs],
+            phases: { warmup: warmupExs, main: mainExs, cooldown: cooldownExs },
           };
         }
       }
@@ -2412,9 +2537,26 @@ function attachEvents() {
   document.querySelectorAll('[data-bfilter]').forEach(el => {
     el.addEventListener('click', () => { S.builder.filter = el.dataset.bfilter; render(); });
   });
+  // Builder — inline expand (click row body, not + button)
+  document.querySelectorAll('[data-bex-id]').forEach(item => {
+    item.querySelector('.builder-ex-header').addEventListener('click', e => {
+      if (e.target.closest('[data-add-ex]')) return; // let + button handle itself
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('[data-bex-id].open').forEach(o => o.classList.remove('open'));
+      if (isOpen) return;
+      item.classList.add('open');
+      const slot = item.querySelector('.builder-ex-video-slot');
+      if (slot && !slot.dataset.loaded) {
+        slot.dataset.loaded = '1';
+        const ex = EXERCISES.find(e => e.id === item.dataset.bexId);
+        if (ex) fetchWdVideo(ex, slot);
+      }
+    });
+  });
   // Builder — add exercise buttons
   document.querySelectorAll('[data-add-ex]').forEach(el => {
-    el.addEventListener('click', () => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
       const ex = EXERCISES.find(e => e.id === el.dataset.addEx);
       if (!ex) return;
       const idx = S.builder.exercises.findIndex(e => e.id === ex.id);
@@ -2521,7 +2663,26 @@ function attachEvents() {
     render();
   });
 
-  // Exercise detail modal
+  // Exercise inline expand in workout detail
+  document.querySelectorAll('[data-wd-exid]').forEach(item => {
+    item.querySelector('.wd-ex-row').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      // Close all others
+      document.querySelectorAll('[data-wd-exid].open').forEach(o => o.classList.remove('open'));
+      if (isOpen) return;
+      item.classList.add('open');
+      // Lazy-load video
+      const slot = item.querySelector('.wd-ex-video-slot');
+      if (slot && !slot.dataset.loaded) {
+        slot.dataset.loaded = '1';
+        const exId = item.dataset.wdExid;
+        const ex = EXERCISES.find(e => e.id === exId);
+        if (ex) fetchWdVideo(ex, slot);
+      }
+    });
+  });
+
+  // Exercise detail modal (library)
   document.querySelectorAll('[data-exid]').forEach(el => {
     el.addEventListener('click', () => {
       const ex = EXERCISES.find(e => e.id === el.dataset.exid);
@@ -2724,6 +2885,12 @@ function attachEvents() {
 }
 
 // Exercise modal
+async function fetchWdVideo(ex, slot) {
+  const data = await fetchPexelsVideo(ex.name);
+  if (!data) return;
+  slot.innerHTML = `<video src="${data.playUrl}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:12px"></video>`;
+}
+
 async function fetchPexelsVideo(name) {
   const key = localStorage.getItem('libo_pexels_key');
   if (!key) return null;

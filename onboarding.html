@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Libo — Build Your Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #000;
+  --cream: #EBE1D3;
+  --cream-hover: #d4cabb;
+  --accent: #CAFF00;
+  --card-bg: rgba(255,255,255,0.06);
+  --card-border: rgba(255,255,255,0.06);
+  --text-muted: rgba(255,255,255,0.5);
+  --radio-border: rgba(255,255,255,0.15);
+  --segment-bg: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --transition: 300ms ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--black);
+  color: #fff;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Top Bar ---- */
+.top-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(0,0,0,0.97);
+}
+.top-bar-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px;
+}
+.back-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: none; color: #fff;
+  font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.back-btn:hover { border-color: rgba(255,255,255,0.5); }
+.back-btn.hidden { opacity: 0; pointer-events: none; }
+.logo-center { flex: 1; text-align: center; }
+.logo-center img { height: 24px; filter: brightness(0) invert(1); }
+.hamburger {
+  width: 36px; height: 36px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  cursor: pointer; flex-shrink: 0;
+}
+.hamburger span {
+  display: block; width: 20px; height: 1.5px;
+  background: rgba(255,255,255,0.5);
+}
+
+/* ---- Segmented Progress Bar ---- */
+.progress-bar-wrap {
+  display: flex; gap: 4px;
+  padding: 0 20px 12px;
+}
+.progress-segment {
+  flex: 1; height: 4px; border-radius: 2px;
+  background: var(--segment-bg);
+  transition: background 0.4s ease;
+  position: relative;
+}
+.progress-segment.filled { background: var(--accent); }
+.section-labels {
+  display: flex; padding: 0 20px 8px; gap: 4px;
+}
+.section-label {
+  flex: 1; font-size: 9px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.25);
+  transition: color 0.3s;
+}
+.section-label.active { color: var(--cream); }
+
+/* ---- Quiz Container ---- */
+.quiz-container {
+  position: relative;
+  width: 100%; max-width: 520px;
+  margin: 0 auto;
+  padding: 130px 20px 100px;
+  min-height: 100dvh;
+}
+
+/* ---- Steps ---- */
+.step {
+  display: none;
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity var(--transition), transform var(--transition);
+}
+.step.active { display: block; }
+.step.active.visible { opacity: 1; transform: translateX(0); }
+.step.slide-out-left { opacity: 0; transform: translateX(-60px); }
+.step.slide-out-right { opacity: 0; transform: translateX(60px); }
+
+/* ---- Section Heading (Barlow 900 uppercase) ---- */
+.section-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 3px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+/* ---- Question Heading (Inter italic, BetterMe style) ---- */
+.step-heading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(26px, 7vw, 32px);
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 28px;
+}
+
+/* ---- Option Cards ---- */
+.options { display: flex; flex-direction: column; gap: 10px; }
+.option-card {
+  display: flex; align-items: center;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.12s;
+  user-select: none;
+  position: relative;
+  color: #fff;
+}
+.option-card:hover {
+  background: rgba(255,255,255,0.09);
+}
+.option-card:active { transform: scale(0.985); }
+
+/* Selected state: cream bg, dark text */
+.option-card.selected {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: #1a1a1a;
+}
+.option-card.selected .card-desc { color: rgba(0,0,0,0.5); }
+.option-card.selected .radio-circle {
+  border-color: #1a1a1a;
+  background: #1a1a1a;
+}
+.option-card.selected .radio-circle::after {
+  content: '\2713';
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 700;
+}
+.option-card.selected .check-square {
+  border-color: #1a1a1a;
+  background: #1a1a1a;
+}
+.option-card.selected .check-square::after {
+  content: '\2713';
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.option-card .card-content { flex: 1; display: flex; align-items: center; gap: 14px; }
+.option-card .card-icon { font-size: 22px; flex-shrink: 0; width: 32px; text-align: center; }
+.option-card .card-text { flex: 1; }
+.option-card .card-title { font-weight: 600; font-size: 15px; line-height: 1.3; }
+.option-card .card-desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; transition: color 0.25s; }
+
+/* Radio circle */
+.radio-circle {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--radio-border);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s;
+}
+
+/* Checkbox square */
+.check-square {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--radio-border);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s;
+}
+
+/* ---- CONTINUE / NEXT STEP Button ---- */
+.continue-btn {
+  display: block; width: 100%; margin-top: 28px;
+  padding: 16px;
+  background: var(--cream); color: #000;
+  border: none; border-radius: var(--radius);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 16px;
+  text-transform: uppercase; letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.12s;
+}
+.continue-btn:hover { background: var(--cream-hover); }
+.continue-btn:active { transform: scale(0.985); }
+.continue-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.continue-btn:disabled:hover { background: var(--cream); }
+
+/* ---- Interstitial ---- */
+.interstitial-card {
+  display: flex; flex-direction: column;
+}
+.interstitial-card .interstitial-top {
+  display: flex; gap: 20px; align-items: flex-start; margin-bottom: 20px;
+}
+.interstitial-card .interstitial-heading {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(28px, 8vw, 40px);
+  text-transform: uppercase; letter-spacing: -0.01em;
+  line-height: 1.05; color: var(--cream);
+  flex: 1;
+}
+.interstitial-card .interstitial-img {
+  width: 140px; height: 180px; object-fit: cover;
+  border-radius: 16px; flex-shrink: 0;
+}
+.interstitial-card .interstitial-body {
+  font-size: 15px; color: var(--text-muted);
+  line-height: 1.6; margin-bottom: 32px;
+}
+.interstitial-card .interstitial-body strong { color: var(--cream); font-weight: 600; }
+
+/* ---- Loading Interstitial (Step 19) ---- */
+.loading-screen {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  min-height: 70vh;
+}
+.loading-logo { margin-bottom: 40px; }
+.loading-logo img { height: 28px; filter: brightness(0) invert(1); }
+.progress-ring-wrap {
+  position: relative; width: 160px; height: 160px; margin-bottom: 32px;
+}
+.progress-ring-wrap svg {
+  transform: rotate(-90deg);
+  width: 160px; height: 160px;
+}
+.progress-ring-bg {
+  fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 5;
+}
+.progress-ring-fill {
+  fill: none; stroke: var(--accent); stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 439.82;
+  stroke-dashoffset: 439.82;
+  transition: stroke-dashoffset 2.5s ease;
+}
+.progress-ring-fill.animate { stroke-dashoffset: 0; }
+.progress-percent {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 42px; color: #fff;
+}
+.loading-ready {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500; font-style: italic;
+  font-size: 22px; color: var(--cream);
+  margin-bottom: 12px;
+}
+.loading-social {
+  font-size: 14px; color: var(--text-muted);
+  margin-bottom: 20px;
+}
+.testimonial-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 20px; text-align: left;
+  max-width: 360px;
+}
+.testimonial-stars { color: #00b67a; font-size: 18px; margin-bottom: 8px; letter-spacing: 2px; }
+.testimonial-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; margin-bottom: 8px; }
+.testimonial-author { font-size: 12px; color: var(--text-muted); }
+
+/* ---- Email Step ---- */
+.email-step { }
+.email-step .goal-highlight { color: var(--accent); }
+.email-input {
+  display: block; width: 100%;
+  padding: 18px 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  margin-bottom: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.email-input::placeholder { color: rgba(255,255,255,0.3); }
+.email-input:focus { border-color: var(--accent); }
+.privacy-note {
+  font-size: 11px; color: rgba(255,255,255,0.3);
+  margin-bottom: 20px; line-height: 1.5;
+}
+
+/* ---- Grid for target zones ---- */
+.options.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.options.grid-2 .option-card {
+  flex-direction: column; align-items: center; text-align: center;
+  padding: 20px 12px; gap: 8px;
+}
+.options.grid-2 .option-card .card-content {
+  flex-direction: column; gap: 6px;
+}
+.options.grid-2 .option-card .check-square {
+  position: absolute; top: 10px; right: 10px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 520px) {
+  .quiz-container { padding: 125px 16px 80px; }
+  .top-bar-inner { padding: 12px 16px; }
+  .progress-bar-wrap { padding: 0 16px 10px; }
+  .section-labels { padding: 0 16px 6px; }
+  .interstitial-card .interstitial-img { width: 110px; height: 150px; }
+}
+@media (max-width: 360px) {
+  .options.grid-2 { grid-template-columns: 1fr 1fr; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <button class="back-btn hidden" id="backBtn" aria-label="Go back">&#8592;</button>
+    <div class="logo-center">
+      <img src="brand/logo_options/option_A_wordmark_ascending_dots.png" style="height:24px;filter:brightness(0) invert(1);" alt="Libo">
+    </div>
+    <div class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="section-labels">
+    <span class="section-label active" id="sLabel1">My Profile</span>
+    <span class="section-label" id="sLabel2">Activity</span>
+    <span class="section-label" id="sLabel3">Lifestyle</span>
+    <span class="section-label" id="sLabel4">Your Plan</span>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-segment filled" id="seg1"></div>
+    <div class="progress-segment" id="seg2"></div>
+    <div class="progress-segment" id="seg3"></div>
+    <div class="progress-segment" id="seg4"></div>
+  </div>
+</div>
+
+<div class="quiz-container">
+
+  <!-- SECTION 1: MY PROFILE -->
+
+  <!-- Step 1: Main Goal -->
+  <div class="step" id="step-1" data-step="1">
+    <div class="section-tag">My Profile</div>
+    <h1 class="step-heading">What's your main goal?</h1>
+    <div class="options" data-key="goal" data-mode="single">
+      <div class="option-card" data-value="lose-weight">
+        <div class="card-content"><div class="card-text"><div class="card-title">Lose weight</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="build-muscle">
+        <div class="card-content"><div class="card-text"><div class="card-title">Build muscle</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="improve-mobility">
+        <div class="card-content"><div class="card-text"><div class="card-title">Improve mobility</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="stay-active">
+        <div class="card-content"><div class="card-text"><div class="card-title">Stay active</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="reduce-stress">
+        <div class="card-content"><div class="card-text"><div class="card-title">Reduce stress</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: Motivational Interstitial -->
+  <div class="step" id="step-2" data-step="2">
+    <div class="interstitial-card">
+      <div class="interstitial-top">
+        <div class="interstitial-heading" id="interstitial2Heading">Build muscle fast!</div>
+        <img class="interstitial-img" src="ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg" alt="">
+      </div>
+      <p class="interstitial-body" id="interstitial2Body">
+        Libo will help you <strong>build lean muscle with bodyweight training</strong>. We'll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.
+      </p>
+      <button class="continue-btn" onclick="goTo(currentStep+1,'forward')">CONTINUE</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Secondary Goals (multi-select) -->
+  <div class="step" id="step-3" data-step="3">
+    <div class="section-tag">My Profile</div>
+    <h1 class="step-heading">What else do you hope to achieve?</h1>
+    <div class="options" data-key="secondary_goals" data-mode="multi">
+      <div class="option-card" data-value="lose-fat">
+        <div class="card-content"><div class="card-text"><div class="card-title">Lose stubborn fat</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="increase-stamina">
+        <div class="card-content"><div class="card-text"><div class="card-title">Increase stamina and endurance</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="improve-posture">
+        <div class="card-content"><div class="card-text"><div class="card-title">Improve posture and flexibility</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="build-confidence">
+        <div class="card-content"><div class="card-text"><div class="card-title">Build confidence</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="none">
+        <div class="card-content"><div class="card-text"><div class="card-title">None of the above</div></div></div>
+        <span class="check-square"></span>
+      </div>
+    </div>
+    <button class="continue-btn" disabled data-continue="secondary_goals">NEXT STEP</button>
+  </div>
+
+  <!-- Step 4: Fitness Level -->
+  <div class="step" id="step-4" data-step="4">
+    <div class="section-tag">My Profile</div>
+    <h1 class="step-heading">How would you describe your fitness level?</h1>
+    <div class="options" data-key="level" data-mode="single">
+      <div class="option-card" data-value="beginner">
+        <div class="card-content"><div class="card-text"><div class="card-title">Beginner</div><div class="card-desc">Just getting started</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="intermediate">
+        <div class="card-content"><div class="card-text"><div class="card-title">Intermediate</div><div class="card-desc">I work out sometimes</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="advanced">
+        <div class="card-content"><div class="card-text"><div class="card-title">Advanced</div><div class="card-desc">I train regularly</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5: Best Shape -->
+  <div class="step" id="step-5" data-step="5">
+    <div class="section-tag">My Profile</div>
+    <h1 class="step-heading">How long ago were you in the best shape of your life?</h1>
+    <div class="options" data-key="best_shape" data-mode="single">
+      <div class="option-card" data-value="less-than-year">
+        <div class="card-content"><div class="card-text"><div class="card-title">Less than a year ago</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="1-2-years">
+        <div class="card-content"><div class="card-text"><div class="card-title">1 to 2 years ago</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="more-than-3-years">
+        <div class="card-content"><div class="card-text"><div class="card-title">More than 3 years ago</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="never">
+        <div class="card-content"><div class="card-text"><div class="card-title">Never</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: ACTIVITY -->
+
+  <!-- Step 6: Push-ups -->
+  <div class="step" id="step-6" data-step="6">
+    <div class="section-tag">Activity</div>
+    <h1 class="step-heading">How many push-ups can you do in a row?</h1>
+    <div class="options" data-key="pushups" data-mode="single">
+      <div class="option-card" data-value="0">
+        <div class="card-content"><div class="card-text"><div class="card-title">I can't do push-ups</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="1-10">
+        <div class="card-content"><div class="card-text"><div class="card-title">1-10 push-ups</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="11-20">
+        <div class="card-content"><div class="card-text"><div class="card-title">11-20 push-ups</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="20+">
+        <div class="card-content"><div class="card-text"><div class="card-title">20+ push-ups</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 7: Flexibility -->
+  <div class="step" id="step-7" data-step="7">
+    <div class="section-tag">Activity</div>
+    <h1 class="step-heading">How flexible are you?</h1>
+    <div class="options" data-key="flexibility" data-mode="single">
+      <div class="option-card" data-value="very">
+        <div class="card-content"><div class="card-text"><div class="card-title">Very flexible</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="pretty">
+        <div class="card-content"><div class="card-text"><div class="card-title">Pretty flexible</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="not-good">
+        <div class="card-content"><div class="card-text"><div class="card-title">Not that good</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="not-sure">
+        <div class="card-content"><div class="card-text"><div class="card-title">I'm not sure</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 8: Workout Frequency -->
+  <div class="step" id="step-8" data-step="8">
+    <div class="section-tag">Activity</div>
+    <h1 class="step-heading">How many times have you worked out in the last 3 months?</h1>
+    <div class="options" data-key="recent_activity" data-mode="single">
+      <div class="option-card" data-value="daily">
+        <div class="card-content"><div class="card-text"><div class="card-title">Almost every day</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="weekly">
+        <div class="card-content"><div class="card-text"><div class="card-title">Several times a week</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="monthly">
+        <div class="card-content"><div class="card-text"><div class="card-title">Several times a month</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="none">
+        <div class="card-content"><div class="card-text"><div class="card-title">I don't work out</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 9: Motivational Interstitial -->
+  <div class="step" id="step-9" data-step="9">
+    <div class="interstitial-card">
+      <div class="interstitial-top">
+        <div class="interstitial-heading">Achieve greater results with Libo</div>
+        <img class="interstitial-img" src="ReferenceImagesReal/1933bd503955db5451058dd0bcae5740.jpg" alt="">
+      </div>
+      <p class="interstitial-body">
+        Our workouts are simple, fun, and fit into the busiest schedule. We'll consider your fitness level to help you <strong>reach your goal faster</strong>.
+      </p>
+      <button class="continue-btn" onclick="goTo(currentStep+1,'forward')">CONTINUE</button>
+    </div>
+  </div>
+
+  <!-- Step 10: Target Zones (multi-select grid) -->
+  <div class="step" id="step-10" data-step="10">
+    <div class="section-tag">Activity</div>
+    <h1 class="step-heading">What are your target zones?</h1>
+    <div class="options grid-2" data-key="target_zones" data-mode="multi">
+      <div class="option-card" data-value="chest">
+        <div class="card-content"><span class="card-icon">🫁</span><div class="card-text"><div class="card-title">Chest</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="arms">
+        <div class="card-content"><span class="card-icon">💪</span><div class="card-text"><div class="card-title">Arms</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="core">
+        <div class="card-content"><span class="card-icon">🔥</span><div class="card-text"><div class="card-title">Core</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="legs">
+        <div class="card-content"><span class="card-icon">🦵</span><div class="card-text"><div class="card-title">Legs</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="back">
+        <div class="card-content"><span class="card-icon">🔙</span><div class="card-text"><div class="card-title">Back</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="full-body">
+        <div class="card-content"><span class="card-icon">🏋️</span><div class="card-text"><div class="card-title">Full body</div></div></div>
+        <span class="check-square"></span>
+      </div>
+    </div>
+    <button class="continue-btn" disabled data-continue="target_zones">NEXT STEP</button>
+  </div>
+
+  <!-- SECTION 3: LIFESTYLE -->
+
+  <!-- Step 11: Training Frequency -->
+  <div class="step" id="step-11" data-step="11">
+    <div class="section-tag">Lifestyle</div>
+    <h1 class="step-heading">How many times per week would you like to train?</h1>
+    <div class="options" data-key="train_freq" data-mode="single">
+      <div class="option-card" data-value="1-2">
+        <div class="card-content"><div class="card-text"><div class="card-title">1-2 times</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="3-4">
+        <div class="card-content"><div class="card-text"><div class="card-title">3-4 times</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="5+">
+        <div class="card-content"><div class="card-text"><div class="card-title">5+ times</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 12: Workout Duration -->
+  <div class="step" id="step-12" data-step="12">
+    <div class="section-tag">Lifestyle</div>
+    <h1 class="step-heading">How long do you want your workouts to be?</h1>
+    <div class="options" data-key="duration" data-mode="single">
+      <div class="option-card" data-value="10-15">
+        <div class="card-content"><div class="card-text"><div class="card-title">10-15 min</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="15-20">
+        <div class="card-content"><div class="card-text"><div class="card-title">15-20 min</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="20-30">
+        <div class="card-content"><div class="card-text"><div class="card-title">20-30 min</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="30+">
+        <div class="card-content"><div class="card-text"><div class="card-title">30+ min</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="unsure">
+        <div class="card-content"><div class="card-text"><div class="card-title">I don't know</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 13: Work Schedule -->
+  <div class="step" id="step-13" data-step="13">
+    <div class="section-tag">Lifestyle</div>
+    <h1 class="step-heading">What's your work schedule like?</h1>
+    <div class="options" data-key="schedule" data-mode="single">
+      <div class="option-card" data-value="9-5">
+        <div class="card-content"><span class="card-icon">🖥</span><div class="card-text"><div class="card-title">9 to 5</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="night">
+        <div class="card-content"><span class="card-icon">🌙</span><div class="card-text"><div class="card-title">Night shifts</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="flexible">
+        <div class="card-content"><span class="card-icon">🔄</span><div class="card-text"><div class="card-title">My hours are flexible</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="retired">
+        <div class="card-content"><span class="card-icon">🏠</span><div class="card-text"><div class="card-title">I'm retired / not working</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 14: Energy Levels -->
+  <div class="step" id="step-14" data-step="14">
+    <div class="section-tag">Lifestyle</div>
+    <h1 class="step-heading">How are your energy levels during the day?</h1>
+    <div class="options" data-key="energy" data-mode="single">
+      <div class="option-card" data-value="low">
+        <div class="card-content"><span class="card-icon">🔋</span><div class="card-text"><div class="card-title">Low and inconsistent</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="steady">
+        <div class="card-content"><span class="card-icon">🔲</span><div class="card-text"><div class="card-title">Remain steady</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="fluctuate">
+        <div class="card-content"><span class="card-icon">📊</span><div class="card-text"><div class="card-title">Fluctuate throughout the day</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="high">
+        <div class="card-content"><span class="card-icon">⚡</span><div class="card-text"><div class="card-title">Stay high all day</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 15: Sleep -->
+  <div class="step" id="step-15" data-step="15">
+    <div class="section-tag">Lifestyle</div>
+    <h1 class="step-heading">How much sleep do you usually get?</h1>
+    <div class="options" data-key="sleep" data-mode="single">
+      <div class="option-card" data-value="less-5">
+        <div class="card-content"><div class="card-text"><div class="card-title">Less than 5 hours</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="5-6">
+        <div class="card-content"><div class="card-text"><div class="card-title">5-6 hours</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="7-8">
+        <div class="card-content"><div class="card-text"><div class="card-title">7-8 hours</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+      <div class="option-card" data-value="more-8">
+        <div class="card-content"><div class="card-text"><div class="card-title">More than 8 hours</div></div></div>
+        <span class="radio-circle"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: YOUR PLAN -->
+
+  <!-- Step 16: Motivational Interstitial -->
+  <div class="step" id="step-16" data-step="16">
+    <div class="interstitial-card">
+      <div class="interstitial-heading" style="margin-bottom:16px;">Libo will help you feel more energized</div>
+      <p class="interstitial-body">
+        Our workouts will help you improve your stamina and endurance. You'll have <strong>more energy and strength</strong> to keep up with your daily activities.
+      </p>
+      <button class="continue-btn" onclick="goTo(currentStep+1,'forward')">CONTINUE</button>
+    </div>
+  </div>
+
+  <!-- Step 17: Equipment (multi-select) -->
+  <div class="step" id="step-17" data-step="17">
+    <div class="section-tag">Your Plan</div>
+    <h1 class="step-heading">What equipment do you have access to?</h1>
+    <div class="options" data-key="equipment" data-mode="multi">
+      <div class="option-card" data-value="none">
+        <div class="card-content"><div class="card-text"><div class="card-title">None (Bodyweight only)</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="dumbbells">
+        <div class="card-content"><div class="card-text"><div class="card-title">Dumbbells</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="resistance-bands">
+        <div class="card-content"><div class="card-text"><div class="card-title">Resistance Bands</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="pull-up-bar">
+        <div class="card-content"><div class="card-text"><div class="card-title">Pull-up Bar</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="full-gym">
+        <div class="card-content"><div class="card-text"><div class="card-title">Full Gym</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="kettlebell">
+        <div class="card-content"><div class="card-text"><div class="card-title">Kettlebell</div></div></div>
+        <span class="check-square"></span>
+      </div>
+    </div>
+    <button class="continue-btn" disabled data-continue="equipment">NEXT STEP</button>
+  </div>
+
+  <!-- Step 18: Obstacles (multi-select) -->
+  <div class="step" id="step-18" data-step="18">
+    <div class="section-tag">Your Plan</div>
+    <h1 class="step-heading">What has stopped you from reaching your goals before?</h1>
+    <div class="options" data-key="obstacles" data-mode="multi">
+      <div class="option-card" data-value="motivation">
+        <div class="card-content"><div class="card-text"><div class="card-title">Lack of motivation</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="no-plan">
+        <div class="card-content"><div class="card-text"><div class="card-title">Didn't have a clear plan</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="time">
+        <div class="card-content"><div class="card-text"><div class="card-title">Lack of time</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="injuries">
+        <div class="card-content"><div class="card-text"><div class="card-title">Injuries or pain</div></div></div>
+        <span class="check-square"></span>
+      </div>
+      <div class="option-card" data-value="none">
+        <div class="card-content"><div class="card-text"><div class="card-title">None of the above</div></div></div>
+        <span class="check-square"></span>
+      </div>
+    </div>
+    <button class="continue-btn" disabled data-continue="obstacles">NEXT STEP</button>
+  </div>
+
+  <!-- Step 19: Loading/Results Interstitial -->
+  <div class="step" id="step-19" data-step="19">
+    <div class="loading-screen">
+      <div class="loading-logo">
+        <img src="brand/logo_options/option_A_wordmark_ascending_dots.png" style="height:28px;filter:brightness(0) invert(1);" alt="Libo">
+      </div>
+      <div class="progress-ring-wrap">
+        <svg viewBox="0 0 160 160">
+          <circle class="progress-ring-bg" cx="80" cy="80" r="70"/>
+          <circle class="progress-ring-fill" id="progressRing" cx="80" cy="80" r="70"/>
+        </svg>
+        <div class="progress-percent" id="progressPercent">0%</div>
+      </div>
+      <p class="loading-ready" id="loadingReady">Preparing your plan...</p>
+      <p class="loading-social" id="loadingSocial"></p>
+      <div class="testimonial-card" id="testimonialCard" style="opacity:0;transition:opacity 0.5s;">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Libo changed my routine completely. The workouts are quick, effective, and I actually look forward to them now."</p>
+        <p class="testimonial-author">- Marco T., verified user</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 20: Email Registration -->
+  <div class="step" id="step-20" data-step="20">
+    <div class="email-step">
+      <h1 class="step-heading" id="emailHeading">Enter your email to get your personalised <strong>Training Plan</strong> for <span class="goal-highlight">building muscle</span>!</h1>
+      <form id="emailForm" action="subscribe.php" method="POST">
+        <input type="hidden" name="source" value="onboarding">
+        <input type="hidden" name="answers" id="answersInput">
+        <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
+        <p class="privacy-note">By continuing, you agree to receive emails from Libo. We respect your privacy and will never share your data.</p>
+        <button type="submit" class="continue-btn">CONTINUE</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const TOTAL_STEPS = 20;
+  let currentStep = 1;
+  window.currentStep = currentStep; // expose for inline onclick
+  const answers = {};
+
+  // Section mapping: which steps belong to which section (1-4)
+  const sectionMap = {1:1,2:1,3:1,4:1,5:1, 6:2,7:2,8:2,9:2,10:2, 11:3,12:3,13:3,14:3,15:3, 16:4,17:4,18:4,19:4,20:4};
+
+  // Interstitial steps (no back button)
+  const interstitialSteps = [2, 9, 16, 19];
+
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
+
+  // Goal text mappings
+  const goalHeadings = {
+    'lose-weight': 'Lose weight fast!',
+    'build-muscle': 'Build muscle fast!',
+    'improve-mobility': 'Move better every day!',
+    'stay-active': 'Stay active and strong!',
+    'reduce-stress': 'Feel calmer and stronger!'
+  };
+  const goalBody = {
+    'lose-weight': 'Libo will help you <strong>burn fat and get leaner with bodyweight training</strong>. We\'ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.',
+    'build-muscle': 'Libo will help you <strong>build lean muscle with bodyweight training</strong>. We\'ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.',
+    'improve-mobility': 'Libo will help you <strong>improve flexibility and movement quality</strong>. We\'ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.',
+    'stay-active': 'Libo will help you <strong>maintain an active and healthy lifestyle</strong>. We\'ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.',
+    'reduce-stress': 'Libo will help you <strong>relax, recover, and feel your best</strong>. We\'ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.'
+  };
+  const goalLabels = {
+    'lose-weight': 'losing weight',
+    'build-muscle': 'building muscle',
+    'improve-mobility': 'improving mobility',
+    'stay-active': 'staying active',
+    'reduce-stress': 'reducing stress'
+  };
+
+  // URL param pre-select
+  const params = new URLSearchParams(window.location.search);
+  const goalParam = params.get('goal');
+  if (goalParam) {
+    answers.goal = goalParam;
+  }
+
+  function updateProgressBar() {
+    const section = sectionMap[currentStep] || 1;
+    for (let i = 1; i <= 4; i++) {
+      const seg = $(`#seg${i}`);
+      const label = $(`#sLabel${i}`);
+      if (i <= section) {
+        seg.classList.add('filled');
+        label.classList.add('active');
+      } else {
+        seg.classList.remove('filled');
+        label.classList.remove('active');
+      }
+    }
+  }
+
+  function updateInterstitial2() {
+    const goal = answers.goal || 'build-muscle';
+    const heading = $('#interstitial2Heading');
+    const body = $('#interstitial2Body');
+    if (heading) heading.textContent = goalHeadings[goal] || goalHeadings['build-muscle'];
+    if (body) body.innerHTML = goalBody[goal] || goalBody['build-muscle'];
+  }
+
+  function updateEmailHeading() {
+    const goal = answers.goal || 'build-muscle';
+    const label = goalLabels[goal] || 'building muscle';
+    const heading = $('#emailHeading');
+    if (heading) {
+      heading.innerHTML = `Enter your email to get your personalised <strong>Training Plan</strong> for <span class="goal-highlight">${label}</span>!`;
+    }
+  }
+
+  function goTo(step, dir) {
+    if (step < 1 || step > TOTAL_STEPS) return;
+    const direction = dir || (step > currentStep ? 'forward' : 'back');
+
+    const oldEl = $(`#step-${currentStep}`);
+    const newEl = $(`#step-${step}`);
+    if (!newEl) return;
+
+    // Slide out old
+    if (oldEl) {
+      oldEl.classList.remove('visible');
+      oldEl.classList.add(direction === 'forward' ? 'slide-out-left' : 'slide-out-right');
+      setTimeout(() => {
+        oldEl.classList.remove('active', 'slide-out-left', 'slide-out-right');
+      }, 300);
+    }
+
+    currentStep = step;
+    window.currentStep = currentStep;
+    updateProgressBar();
+
+    // Back button visibility
+    const backBtn = $('#backBtn');
+    if (currentStep <= 1 || interstitialSteps.includes(currentStep)) {
+      backBtn.classList.add('hidden');
+    } else {
+      backBtn.classList.remove('hidden');
+    }
+
+    // Set initial position
+    newEl.style.transform = direction === 'forward' ? 'translateX(60px)' : 'translateX(-60px)';
+    newEl.classList.remove('slide-out-left', 'slide-out-right');
+    newEl.classList.add('active');
+
+    // Pre-select on step 1
+    if (step === 1 && answers.goal) {
+      const card = newEl.querySelector(`.option-card[data-value="${answers.goal}"]`);
+      if (card) {
+        card.classList.add('selected');
+      }
+    }
+
+    // Update dynamic content
+    if (step === 2) updateInterstitial2();
+    if (step === 20) {
+      updateEmailHeading();
+      $('#answersInput').value = JSON.stringify(answers);
+    }
+
+    // Trigger reflow then animate in
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        newEl.style.transform = '';
+        newEl.classList.add('visible');
+      });
+    });
+
+    // Step 19: loading animation
+    if (step === 19) {
+      runLoadingScreen();
+    }
+  }
+  window.goTo = goTo;
+
+  function runLoadingScreen() {
+    const ring = $('#progressRing');
+    const pct = $('#progressPercent');
+    const ready = $('#loadingReady');
+    const social = $('#loadingSocial');
+    const testimonial = $('#testimonialCard');
+
+    ring.classList.remove('animate');
+    pct.textContent = '0%';
+    ready.textContent = 'Preparing your plan...';
+    social.textContent = '';
+    testimonial.style.opacity = '0';
+
+    requestAnimationFrame(() => {
+      ring.classList.add('animate');
+    });
+
+    // Animate percentage with requestAnimationFrame
+    const duration = 2500;
+    const start = performance.now();
+    function animatePercent(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const value = Math.round(progress * 100);
+      pct.textContent = value + '%';
+      if (progress < 1) {
+        requestAnimationFrame(animatePercent);
+      }
+    }
+    requestAnimationFrame(animatePercent);
+
+    setTimeout(() => {
+      ready.textContent = 'Your personalised Libo Training Plan is ready!';
+      const goal = answers.goal || 'build-muscle';
+      const label = goalLabels[goal] || 'building muscle';
+      social.textContent = '10,000+ people have chosen Libo to help with ' + label;
+      testimonial.style.opacity = '1';
+    }, 2600);
+
+    setTimeout(() => {
+      goTo(20, 'forward');
+    }, 3500);
+  }
+
+  // Single-select click
+  function handleSingleSelect(card, optionsEl) {
+    const key = optionsEl.dataset.key;
+    const value = card.dataset.value;
+    optionsEl.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    answers[key] = value;
+    setTimeout(() => {
+      goTo(currentStep + 1, 'forward');
+    }, 400);
+  }
+
+  // Multi-select click
+  function handleMultiSelect(card, optionsEl) {
+    const key = optionsEl.dataset.key;
+    const value = card.dataset.value;
+
+    // "None of the above" logic
+    if (value === 'none') {
+      optionsEl.querySelectorAll('.option-card').forEach(c => {
+        if (c !== card) c.classList.remove('selected');
+      });
+      card.classList.toggle('selected');
+    } else {
+      // Deselect "none" if another option is picked
+      const noneCard = optionsEl.querySelector('.option-card[data-value="none"]');
+      if (noneCard) noneCard.classList.remove('selected');
+      card.classList.toggle('selected');
+    }
+
+    const selected = optionsEl.querySelectorAll('.option-card.selected');
+    answers[key] = Array.from(selected).map(c => c.dataset.value);
+
+    // Enable/disable the associated continue button
+    const continueBtn = optionsEl.parentElement.querySelector('.continue-btn[data-continue]');
+    if (continueBtn) continueBtn.disabled = answers[key].length === 0;
+  }
+
+  // Bind card clicks
+  $$('.option-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const optionsEl = card.closest('.options');
+      if (optionsEl.dataset.mode === 'multi') {
+        handleMultiSelect(card, optionsEl);
+      } else {
+        handleSingleSelect(card, optionsEl);
+      }
+    });
+  });
+
+  // Multi-select continue buttons
+  $$('.continue-btn[data-continue]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.continue;
+      if (answers[key] && answers[key].length > 0) {
+        goTo(currentStep + 1, 'forward');
+      }
+    });
+  });
+
+  // Back button
+  $('#backBtn').addEventListener('click', () => {
+    if (currentStep > 1) {
+      goTo(currentStep - 1, 'back');
+    }
+  });
+
+  // Email form
+  $('#emailForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    formData.set('answers', JSON.stringify(answers));
+    fetch('subscribe.php', {
+      method: 'POST',
+      body: formData
+    }).then(res => res.text()).then(() => {
+      window.location.href = 'index.html';
+    }).catch(() => {
+      window.location.href = 'index.html';
+    });
+  });
+
+  // Keyboard support (1-6)
+  document.addEventListener('keydown', (e) => {
+    if (interstitialSteps.includes(currentStep) || currentStep === 19 || currentStep === 20) return;
+    const stepEl = $(`#step-${currentStep}`);
+    if (!stepEl) return;
+    const cards = stepEl.querySelectorAll('.option-card');
+    const num = parseInt(e.key);
+    if (num >= 1 && num <= Math.min(cards.length, 6)) {
+      cards[num - 1].click();
+    }
+  });
+
+  // Init
+  updateProgressBar();
+  const s1 = $('#step-1');
+  s1.classList.add('active');
+  if (answers.goal) {
+    const preCard = s1.querySelector(`.option-card[data-value="${answers.goal}"]`);
+    if (preCard) preCard.classList.add('selected');
+  }
+  requestAnimationFrame(() => {
+    s1.style.transform = '';
+    s1.classList.add('visible');
+  });
+})();
+</script>
+</body>
+</html>
