@@ -25,3 +25,9 @@ jobs:
             **/.git*/**
             .github/**
             README.md
+            BetterMeCalistenicsFlow/**
+            ReferencesforWebsite:MobileAppStyle/**
+            namecheap/**
+            docs/**
+            marketing/**
+            .DS_Store

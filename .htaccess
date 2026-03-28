@@ -1,11 +1,10 @@
-# Block direct access to the waitlist CSV
-<Files "waitlist.csv">
+# Block direct access to backup files
+<Files "*.bak">
     Order Allow,Deny
     Deny from all
 </Files>
 
-# Block direct access to PHP includes
-<Files "subscribe.php">
+<Files "waitlist.csv">
     Order Allow,Deny
-    Allow from all
+    Deny from all
 </Files>

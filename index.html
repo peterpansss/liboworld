@@ -1625,6 +1625,7 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   // Scanner mode toggle — smooth crossfade
   (function() {
@@ -1730,7 +1731,13 @@
     a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
   });
 
-  // Email form — Brevo integration
+  // Email form — Supabase waitlist
+  const { createClient } = supabase;
+  const sb = createClient(
+    'https://oaftqweofrifoiuwntce.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hZnRxd2VvZnJpZm9pdXdudGNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMTA3MTMsImV4cCI6MjA4OTg4NjcxM30.GOPl-QrAYzekiH3i3DENywHXP-2x7BSLFqObdl6lLJs'
+  );
+
   document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const email = document.getElementById('emailInput').value.trim();
@@ -1743,27 +1750,30 @@
     msg.textContent = '';
 
     try {
-      const res  = await fetch('subscribe.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
+      const { error } = await sb
+        .from('waitlist')
+        .insert({ email, source: 'landing_page' });
 
-      if (data.success) {
-        btn.textContent = '✓ You\'re on the list!';
+      if (!error) {
+        btn.textContent = '\u2713 You\'re on the list!';
         btn.style.background = '#1a1a1a';
         document.getElementById('emailInput').value = '';
         msg.style.color = 'rgba(0,0,0,0.6)';
-        msg.textContent = data.message;
+        msg.textContent = 'Welcome! We\'ll notify you when Libo launches.';
+      } else if (error.code === '23505') {
+        btn.textContent = '\u2713 You\'re on the list!';
+        btn.style.background = '#1a1a1a';
+        document.getElementById('emailInput').value = '';
+        msg.style.color = 'rgba(0,0,0,0.6)';
+        msg.textContent = 'You\'re already on the waitlist! We\'ll be in touch.';
       } else {
-        btn.textContent = 'Join →';
+        btn.textContent = 'Join \u2192';
         btn.disabled = false;
         msg.style.color = '#cc0000';
-        msg.textContent = data.message || 'Something went wrong. Please try again.';
+        msg.textContent = 'Something went wrong. Please try again.';
       }
     } catch (err) {
-      btn.textContent = 'Join →';
+      btn.textContent = 'Join \u2192';
       btn.disabled = false;
       msg.style.color = '#cc0000';
       msg.textContent = 'Connection error. Please try again.';

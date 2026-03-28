@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+._*
+
+# Reference materials (not part of the live site)
+BetterMeCalistenicsFlow/
+ReferencesforWebsite:MobileAppStyle/
+namecheap/
+
+# Server-generated files
+waitlist.csv
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
