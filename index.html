@@ -261,9 +261,7 @@
       width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--accent);
-      animation: blink 2s infinite;
     }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
     .hero-headline {
       margin-bottom: 0;
@@ -393,15 +391,15 @@
     .feature-item::before {
       content: '';
       position: absolute;
-      top: 50%; left: 50%;
-      width: 0; height: 0;
-      background: radial-gradient(circle, rgba(202,255,0,0.06) 0%, transparent 70%);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.6s cubic-bezier(.25,.8,.25,1), height 0.6s cubic-bezier(.25,.8,.25,1);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(202,255,0,0.08) 0%, transparent 60%);
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
       pointer-events: none;
     }
-    .feature-item:hover::before { width: 400px; height: 400px; }
+    .feature-item:hover::before { opacity: 1; }
     .feature-item:hover {
       background: #f7f7f2;
       box-shadow: 0 8px 30px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(202,255,0,0.12);
@@ -441,6 +439,7 @@
     .feature-item:hover .feature-desc { color: #444; }
     .feature-item:last-child .feature-num { color: #999; }
     .feature-item:last-child .feature-name { color: #000; }
+    .features-dots { display: none; }
 
     /* ─────────────────────────────
        SCANNER SECTION
@@ -654,8 +653,7 @@
     .goal-row-icon { font-size: 24px; }
     .goal-row-text h4 { font-size: 16px; font-weight: 700; color: #000; }
     .goal-row-text p { font-size: 13px; color: #888; margin-top: 2px; }
-    .goal-row-arrow { margin-left: auto; font-size: 20px; color: #ccc; transition: color 0.2s; }
-    .goal-row:hover .goal-row-arrow { color: var(--accent); }
+    .goal-row-arrow { margin-left: auto; font-size: 20px; color: #ccc; }
 
     /* ─────────────────────────────
        SOCIAL PROOF
@@ -915,6 +913,7 @@
       .proof-card:hover { background: #f5f5f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transform: none; }
       .store-btn:hover { transform: none; }
       .goal-row:hover { padding-left: 0; background: transparent; }
+      .goal-row:hover .goal-row-arrow { transform: none; }
       /* Simplify reveal animations on mobile */
       .reveal { transition: opacity 0.4s ease; transform: none !important; }
       .reveal.up { opacity: 1; }
@@ -982,17 +981,72 @@
         gap: 12px;
       }
       .features-grid {
-        grid-template-columns: 1fr;
-        padding: 0 20px;
-        gap: 12px;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 20px 20px;
+        gap: 14px;
+        scrollbar-width: none;
       }
+      .features-grid::-webkit-scrollbar { display: none; }
       .feature-item {
-        padding: 24px 20px;
-        border-radius: 12px;
+        flex: 0 0 80%;
+        min-width: 280px;
+        scroll-snap-align: center;
+        padding: 32px 24px;
+        border-radius: 20px;
+        border: none;
+        background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
-      .feature-item:hover { transform: none; } /* Disable hover lift on touch */
-      .feature-name { font-size: 22px; }
-      .feature-desc { font-size: 13px; }
+      .feature-item::before { display: none; }
+      .feature-item::after {
+        content: '';
+        position: absolute;
+        top: -40%;
+        right: -20%;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(202,255,0,0.1) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .feature-item:hover { transform: none; }
+      .feature-item:active { transform: scale(0.97); }
+      .feature-num { color: var(--accent); opacity: 0.5; }
+      .feature-icon { font-size: 40px; margin-bottom: 16px; }
+      .feature-name { font-size: 24px; color: #fff; }
+      .feature-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+      .feature-item:nth-child(1) { background: linear-gradient(135deg, #1a1a1a, #0d1a00); }
+      .feature-item:nth-child(2) { background: linear-gradient(135deg, #1a1a1a, #001a0d); }
+      .feature-item:nth-child(3) { background: linear-gradient(135deg, #1a1a1a, #0d0d1a); }
+      .feature-item:nth-child(4) { background: linear-gradient(135deg, #1a1a1a, #1a0d00); }
+      .feature-item:nth-child(5) { background: linear-gradient(135deg, #1a1a1a, #1a001a); }
+      .feature-item:nth-child(6) { background: linear-gradient(135deg, #1a1a1a, #001a1a); }
+
+      /* Scroll indicator dots for features */
+      .features-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px 0 0;
+      }
+      .features-dots .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.15);
+        transition: background 0.3s, width 0.3s;
+      }
+      .features-dots .dot.active {
+        width: 20px;
+        border-radius: 3px;
+        background: var(--accent-dark);
+      }
 
       /* Full-bleed photo */
       .photo-break { height: 220px !important; }
@@ -1107,8 +1161,8 @@
       .statement-text { font-size: clamp(28px, 8vw, 36px); }
 
       .features-header { padding: 36px 16px 20px; }
-      .features-grid { padding: 0 16px; gap: 10px; }
-      .feature-item { padding: 20px 16px; }
+      .features-grid { padding: 0 16px 16px; gap: 12px; }
+      .feature-item { flex: 0 0 85%; min-width: 260px; padding: 28px 20px; }
 
       .photo-break { height: 180px !important; }
 
@@ -1141,9 +1195,338 @@
       .mobile-menu { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
       nav { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
     }
+
+    /* ─────────────────────────────
+       ANIMATION FOUNDATION
+    ───────────────────────────── */
+
+    /* Scroll progress bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      transform-origin: left;
+      transform: scaleX(0);
+      z-index: 101;
+      pointer-events: none;
+      width: 100%;
+    }
+
+    /* Active nav indicator */
+    .nav-links { position: relative; }
+    .nav-indicator {
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border-radius: 1px;
+      width: 0;
+    }
+
+    /* Page load orchestration — initially hidden */
+    .load-hidden { opacity: 0; }
+    .load-fade { opacity: 0; transition: opacity 0.5s ease; }
+    .load-fade.loaded { opacity: 1; }
+    .load-stagger { opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .load-stagger.loaded { opacity: 1; transform: translateY(0); }
+
+    /* Clip-path headline reveal */
+    .clip-reveal {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    .clip-reveal.revealed { clip-path: inset(0 0% 0 0); }
+
+    /* Enhanced reveal animations */
+    [data-reveal="fade-up"] {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    [data-reveal="fade-up"].revealed { opacity: 1; transform: translateY(0); }
+
+    [data-reveal="slide-left"] {
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    [data-reveal="slide-left"].revealed { opacity: 1; transform: translateX(0); }
+
+    [data-reveal="scale"] {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    [data-reveal="scale"].revealed { opacity: 1; transform: scale(1); }
+
+    [data-reveal="fade"] {
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+    [data-reveal="fade"].revealed { opacity: 1; }
+
+    /* Eyebrow dot glow */
+    .hero-eyebrow-dot {
+      animation: dotGlow 2.5s ease-in-out infinite;
+    }
+    @keyframes dotGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(202,255,0,0.4); opacity: 1; }
+      50% { box-shadow: 0 0 12px 4px rgba(202,255,0,0.25); opacity: 0.7; }
+    }
+
+    /* Counter animation — numbers start invisible */
+    .count-up { font-variant-numeric: tabular-nums; }
+
+    /* Hero image entrance */
+    .hero-image-reveal {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .hero-image-reveal.revealed { opacity: 1; transform: translateX(0); }
+
+    /* CTA button pulse */
+    @keyframes ctaPulse {
+      0% { box-shadow: 0 0 0 0 rgba(202,255,0,0.5); }
+      50% { box-shadow: 0 0 20px 6px rgba(202,255,0,0.25); transform: scale(1.03); }
+      100% { box-shadow: 0 0 0 0 rgba(202,255,0,0); transform: scale(1); }
+    }
+    .cta-pulse { animation: ctaPulse 0.8s ease-out; }
+
+    /* Marquee enhancements */
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    .marquee-track-reverse {
+      display: inline-flex;
+      animation: marqueeReverse 24s linear infinite;
+      opacity: 0.4;
+    }
+    @keyframes marqueeReverse { from{transform:translateX(-50%)} to{transform:translateX(0)} }
+    .marquee-wrap-reverse {
+      background: var(--accent);
+      padding: 10px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      opacity: 0.5;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* Statement accent highlight swipe */
+    .highlight-swipe {
+      background: linear-gradient(to right, var(--accent), var(--accent));
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      transition: background-size 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s, color 0.3s ease 0.5s;
+      padding: 0 8px;
+      margin: 0 -8px;
+    }
+    .highlight-swipe.revealed {
+      background-size: 100% 100%;
+      color: var(--black);
+    }
+
+    /* Feature card 3D tilt */
+    .feature-item {
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+
+    /* Icon bounce on reveal */
+    @keyframes iconBounce {
+      0% { transform: scale(0) rotate(-15deg); }
+      60% { transform: scale(1.2) rotate(5deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+    .icon-bounce { animation: iconBounce 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
+
+    /* Photo break parallax container */
+    .photo-break { overflow: hidden; }
+    .photo-break img { transition: none; }
+
+    /* Scanner scan line */
+    @keyframes scanLine {
+      0% { top: 20%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 75%; opacity: 0; }
+    }
+    .scanner-viewfinder::after {
+      content: '';
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      top: 20%;
+      animation: scanLine 2.5s ease-in-out infinite;
+      pointer-events: none;
+      box-shadow: 0 0 8px rgba(202,255,0,0.4);
+    }
+
+    /* Scanner corner pulse */
+    @keyframes cornerPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    .scanner-corner-frame { animation: cornerPulse 3s ease-in-out infinite; }
+
+    /* Goal row arrow spring */
+    .goal-row-arrow {
+      transition: color 0.2s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .goal-row:hover .goal-row-arrow {
+      transform: translateX(6px);
+      color: var(--accent);
+    }
+
+    /* Star rating bounce */
+    @keyframes starBounce {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.3); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .star-animate {
+      display: inline-block;
+      opacity: 0;
+    }
+    .star-animate.bounced {
+      animation: starBounce 0.35s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    /* CTA background gradient cycle */
+    @keyframes ctaGradient {
+      0%, 100% { background-color: #CAFF00; }
+      33% { background-color: #D4FF33; }
+      66% { background-color: #C2F000; }
+    }
+    .cta-section { animation: ctaGradient 8s ease-in-out infinite; }
+
+    /* Form input focus glow */
+    .email-input:focus {
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,0.2);
+    }
+
+    /* Success checkmark SVG draw */
+    @keyframes checkDraw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Cursor follower */
+    .cursor-follower {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+    }
+    .cursor-follower.visible { opacity: 1; }
+    .cursor-follower.hover {
+      width: 40px;
+      height: 40px;
+      background: rgba(202,255,0,0.3);
+    }
+
+    /* Scroll indicator */
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50% { transform: translateY(8px); opacity: 1; }
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .scroll-indicator.visible { opacity: 1; }
+    .scroll-indicator span {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+    .scroll-indicator .chevron {
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid var(--grey);
+      border-bottom: 2px solid var(--grey);
+      transform: rotate(45deg);
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    /* Content visibility for below-fold sections */
+    .features-section,
+    .scanner-section,
+    .categories-section,
+    .goals-section,
+    .proof-section,
+    .cta-section {
+      contain: layout style paint;
+    }
+
+    /* Proof card entrance rotation */
+    .proof-card[data-reveal] {
+      transform: translateY(32px) rotate(1.5deg);
+    }
+    .proof-card[data-reveal].revealed {
+      transform: translateY(0) rotate(0);
+    }
+
+    /* ─────────────────────────────
+       REDUCED MOTION
+    ───────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal, [data-reveal], .clip-reveal, .hero-image-reveal, .load-hidden, .load-fade, .load-stagger {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+      }
+      .cursor-follower { display: none !important; }
+      .scroll-progress { display: none !important; }
+    }
+
+    /* Mobile: disable desktop-only animations */
+    @media (max-width: 768px) {
+      .cursor-follower { display: none !important; }
+      .scroll-indicator { bottom: 20px; }
+      .scanner-viewfinder::after { display: none; }
+      .marquee-wrap-reverse { display: none; }
+      [data-reveal] { transform: none !important; }
+      [data-reveal] { transition: opacity 0.4s ease !important; }
+      [data-reveal].revealed { opacity: 1; }
+      .proof-card[data-reveal] { transform: none !important; }
+      .highlight-swipe { background-size: 100% 100% !important; transition: none !important; }
+    }
   </style>
 </head>
 <body>
+
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Cursor follower (desktop only) -->
+<div class="cursor-follower" id="cursorFollower"></div>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
@@ -1159,10 +1542,11 @@
 <nav>
   <a href="#" class="nav-logo"><img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" style="height:28px;display:block;" /></a>
   <ul class="nav-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#scanner">AI Scanner</a></li>
-    <li><a href="#workouts">Workouts</a></li>
-    <li><a href="#goals">Goals</a></li>
+    <li><a href="#features" class="load-stagger" style="transition-delay:0.05s">Features</a></li>
+    <li><a href="#scanner" class="load-stagger" style="transition-delay:0.1s">AI Scanner</a></li>
+    <li><a href="#workouts" class="load-stagger" style="transition-delay:0.15s">Workouts</a></li>
+    <li><a href="#goals" class="load-stagger" style="transition-delay:0.2s">Goals</a></li>
+    <div class="nav-indicator" id="navIndicator"></div>
   </ul>
   <div class="nav-right">
     <a href="#cta" class="btn-nav">Get Early Access</a>
@@ -1181,29 +1565,34 @@
         <span class="label">Coming Soon — Join the Waitlist</span>
       </div>
       <h1 class="hero-headline display display-xl">
-        <span class="line-1">Train</span>
-        <span class="line-2">Anywhere.</span>
-        <span class="line-3">Anytime.</span>
+        <span class="line-1 clip-reveal" style="transition-delay:0.2s">Train</span>
+        <span class="line-2 clip-reveal" style="transition-delay:0.35s">Anywhere.</span>
+        <span class="line-3 clip-reveal" style="transition-delay:0.5s">Anytime.</span>
       </h1>
-      <a href="#cta" class="hero-cta-btn">Join the Waitlist →</a>
+      <a href="#cta" class="hero-cta-btn load-hidden" id="heroCta">Join the Waitlist →</a>
     </div>
-    <div class="hero-image-wrap">
+    <div class="hero-image-wrap hero-image-reveal">
       <img src="ReferenceImagesReal/39c1fe9a091b35792a8047293b0f202e.jpg" alt="Athlete training" loading="eager" />
     </div>
   </div>
   <div class="hero-bottom">
     <div class="hero-bottom-cell">
-      <div class="hero-bottom-num">502</div>
+      <div class="hero-bottom-num count-up" data-target="718">0</div>
       <div class="hero-bottom-lbl">Exercises</div>
     </div>
     <div class="hero-bottom-cell">
-      <div class="hero-bottom-num">102</div>
+      <div class="hero-bottom-num count-up" data-target="140">0</div>
       <div class="hero-bottom-lbl">Workouts</div>
     </div>
     <div class="hero-bottom-cell">
       <div class="hero-bottom-num">0 kg</div>
       <div class="hero-bottom-lbl">Equipment Required</div>
     </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator" id="scrollIndicator">
+    <span>Scroll to explore</span>
+    <div class="chevron"></div>
   </div>
 </section>
 
@@ -1230,23 +1619,43 @@
     <span class="marquee-item">Custom Workouts</span><span class="marquee-item marquee-sep">·</span>
   </div>
 </div>
+<div class="marquee-wrap-reverse">
+  <div class="marquee-track-reverse">
+    <span class="marquee-item">AI Scanner</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">No Equipment</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Home & Gym</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Guided Breathing</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Goal Programs</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Evening Routines</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Flexibility</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Strength Training</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">AI Scanner</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">No Equipment</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Home & Gym</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Guided Breathing</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Goal Programs</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Evening Routines</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Flexibility</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Strength Training</span><span class="marquee-item marquee-sep">·</span>
+  </div>
+</div>
 
 <!-- STATS STRIP -->
 <div style="background:#fff;padding:64px 40px;" class="stats-strip">
   <div class="stats-strip-grid" style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;">
-    <div>
-      <div class="stats-strip-num" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-2px;line-height:1;">502</div>
+    <div data-reveal="fade-up" data-delay="0">
+      <div class="stats-strip-num count-up" data-target="718" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-2px;line-height:1;">0</div>
       <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;">Exercises</div>
     </div>
-    <div>
-      <div class="stats-strip-num" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-2px;line-height:1;">102</div>
+    <div data-reveal="fade-up" data-delay="0.1">
+      <div class="stats-strip-num count-up" data-target="140" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-2px;line-height:1;">0</div>
       <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;">Workouts</div>
     </div>
-    <div>
-      <div class="stats-strip-num" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-2px;line-height:1;">6</div>
+    <div data-reveal="fade-up" data-delay="0.2">
+      <div class="stats-strip-num count-up" data-target="6" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-2px;line-height:1;">0</div>
       <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;">Training Formats</div>
     </div>
-    <div>
+    <div data-reveal="fade-up" data-delay="0.3">
       <div class="stats-strip-num" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-2px;line-height:1;">0 kg</div>
       <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;">Equipment Required</div>
     </div>
@@ -1255,14 +1664,14 @@
 
 <!-- STATEMENT -->
 <div style="border-bottom: 1px solid var(--border);">
-  <div class="statement reveal">
+  <div class="statement">
     <p class="statement-text">
-      <span class="dim">One club.</span><br/>
-      <span class="bright">Every format.</span><br/>
-      <span class="dim">Every location.</span><br/>
-      <span class="accent">Every goal.</span>
+      <span class="dim" data-reveal="fade-up" data-delay="0">One club.</span><br/>
+      <span class="bright" data-reveal="fade-up" data-delay="0.15" style="display:inline-block">Every format.</span><br/>
+      <span class="dim" data-reveal="fade-up" data-delay="0.3" style="display:inline-block">Every location.</span><br/>
+      <span class="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style="display:inline-block">Every goal.</span>
     </p>
-    <p class="body-lg" style="max-width: 520px; margin-top: 40px;">
+    <p class="body-lg" data-reveal="fade-up" data-delay="0.6" style="max-width: 520px; margin-top: 40px;">
       Libo is the training club built for real life — home, gym, office, or anywhere in between. No excuses. Just results.
     </p>
   </div>
@@ -1275,20 +1684,20 @@
       <div class="label" style="margin-bottom: 12px;">What's Inside</div>
       <h2 class="display display-md">Everything<br/>you need.</h2>
     </div>
-    <p class="body-md" style="max-width: 320px;">502 exercises · 102 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.</p>
+    <p class="body-md" style="max-width: 320px;">718 exercises · 140 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.</p>
   </div>
   <div class="features-grid">
     <div class="feature-item reveal">
       <div class="feature-num">01</div>
       <span class="feature-icon">📚</span>
       <div class="feature-name">Exercise Library</div>
-      <p class="feature-desc">502 exercises — 286 gym, 185 home, 31 mobility. Every one with equipment notes, muscle targeting, and form cues.</p>
+      <p class="feature-desc">718 exercises — 411 gym, 258 home, 49 mobility. Every one with equipment notes, muscle targeting, and form cues.</p>
     </div>
     <div class="feature-item reveal reveal-delay-1">
       <div class="feature-num">02</div>
       <span class="feature-icon">🏋️</span>
       <div class="feature-name">Workout Library</div>
-      <p class="feature-desc">102 pre-built sessions — gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.</p>
+      <p class="feature-desc">140 pre-built sessions — gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.</p>
     </div>
     <div class="feature-item reveal reveal-delay-2">
       <div class="feature-num">03</div>
@@ -1315,6 +1724,14 @@
       <p class="feature-desc">Point your camera at any gym machine — AI identifies it instantly and serves 3 smart alternatives. No equipment? No problem.</p>
     </div>
   </div>
+  <div class="features-dots" id="featuresDots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
 </section>
 
 <!-- FULL-BLEED PHOTO BREAK -->
@@ -1323,7 +1740,7 @@
     style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;" />
   <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.2) 50%,transparent 100%);display:flex;align-items:center;padding:0 8%;">
     <div>
-      <div class="label" style="color:var(--accent);margin-bottom:16px;">502 Exercises</div>
+      <div class="label" style="color:var(--accent);margin-bottom:16px;">718 Exercises</div>
       <h2 class="display display-md" style="color:#fff;max-width:480px;">Every movement.<br/>Every muscle.<br/><span style="color:var(--accent)">One app.</span></h2>
     </div>
   </div>
@@ -1336,7 +1753,7 @@
       <div class="label" style="margin-bottom: 16px;">AI-Powered Scanner</div>
       <h2 class="display display-md">Point.<br/>Scan.<br/><span style="color:var(--accent)">Train.</span></h2>
       <p class="body-md" style="margin-top: 32px; max-width: 380px;">
-        Point your phone camera at any gym machine — AI identifies it in seconds and gives you 3 smart alternatives instantly. At home or travelling? Switch to manual mode and pick from 502 exercises. Never skip a workout again.
+        Point your phone camera at any gym machine — AI identifies it in seconds and gives you 3 smart alternatives instantly. At home or travelling? Switch to manual mode and pick from 718 exercises. Never skip a workout again.
       </p>
       <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 32px;">
         <span style="font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; border: 1px solid rgba(0,0,0,0.15); border-radius: 16px; color: #555;">📷 AI Camera Scan</span>
@@ -1541,8 +1958,8 @@
     <h2 class="display display-md">People love<br/>training with Libo.</h2>
   </div>
   <div class="proof-grid">
-    <div class="proof-card reveal">
-      <div class="proof-stars">★★★★★</div>
+    <div class="proof-card" data-reveal="fade-up" data-delay="0">
+      <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
       <p class="proof-quote">"Finally an app that works for my home sessions AND gym days. The alt scanner saved me so many times when machines were taken."</p>
       <div class="proof-author">
         <div class="proof-avatar">👨</div>
@@ -1552,8 +1969,8 @@
         </div>
       </div>
     </div>
-    <div class="proof-card reveal reveal-delay-1">
-      <div class="proof-stars">★★★★★</div>
+    <div class="proof-card" data-reveal="fade-up" data-delay="0.15">
+      <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
       <p class="proof-quote">"The morning routines are a game changer. 15 minutes before work and I feel completely different for the whole day."</p>
       <div class="proof-author">
         <div class="proof-avatar">👩</div>
@@ -1563,8 +1980,8 @@
         </div>
       </div>
     </div>
-    <div class="proof-card reveal reveal-delay-2">
-      <div class="proof-stars">★★★★★</div>
+    <div class="proof-card" data-reveal="fade-up" data-delay="0.3">
+      <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
       <p class="proof-quote">"The 8-week program is exactly what I needed. Seeing my logged weights go up every week keeps me going like nothing else."</p>
       <div class="proof-author">
         <div class="proof-avatar">🧑</div>
@@ -1627,7 +2044,291 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  // Scanner mode toggle — smooth crossfade
+(function() {
+  'use strict';
+
+  // ─── Feature detection ───
+  const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ─── Easing functions ───
+  function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+  function easeInOutCubic(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3) / 2; }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  // ─── Single RAF scroll controller ───
+  let scrollY = 0;
+  let ticking = false;
+  const scrollCallbacks = [];
+
+  function onScroll() {
+    scrollY = window.scrollY;
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        scrollCallbacks.forEach(fn => fn(scrollY));
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ─── Scroll progress bar ───
+  const scrollProgress = document.getElementById('scrollProgress');
+  scrollCallbacks.push((sy) => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if (max > 0) scrollProgress.style.transform = 'scaleX(' + (sy / max) + ')';
+  });
+
+  // ─── Nav scroll effect ───
+  const navEl = document.querySelector('nav');
+  scrollCallbacks.push((sy) => {
+    if (sy > 40) navEl.classList.add('scrolled');
+    else navEl.classList.remove('scrolled');
+  });
+
+  // ─── Active section nav indicator ───
+  const navIndicator = document.getElementById('navIndicator');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = ['features', 'scanner', 'workouts', 'goals'];
+  const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
+
+  function updateNavIndicator() {
+    let activeIdx = -1;
+    const midY = window.innerHeight / 2;
+    sectionEls.forEach((sec, i) => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top < midY && rect.bottom > midY) activeIdx = i;
+    });
+    if (activeIdx >= 0 && navLinks[activeIdx]) {
+      const link = navLinks[activeIdx];
+      const rect = link.getBoundingClientRect();
+      const parentRect = link.closest('ul').getBoundingClientRect();
+      navIndicator.style.width = rect.width + 'px';
+      navIndicator.style.transform = 'translateX(' + (rect.left - parentRect.left) + 'px)';
+    } else {
+      navIndicator.style.width = '0';
+    }
+  }
+  scrollCallbacks.push(updateNavIndicator);
+
+  // ─── Parallax (desktop only) ───
+  if (isDesktop && !prefersReducedMotion) {
+    const heroImg = document.querySelector('.hero-image-wrap img');
+    const photoBreaks = document.querySelectorAll('.photo-break img');
+
+    scrollCallbacks.push((sy) => {
+      if (heroImg && sy < window.innerHeight) {
+        heroImg.style.transform = 'translateY(' + (sy * 0.15) + 'px)';
+      }
+      photoBreaks.forEach(img => {
+        const rect = img.parentElement.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+          img.style.transform = 'translateY(' + ((progress - 0.5) * 60) + 'px) scale(1.1)';
+        }
+      });
+    });
+  }
+
+  // ─── Scroll indicator hide on scroll ───
+  const scrollIndicator = document.getElementById('scrollIndicator');
+  scrollCallbacks.push((sy) => {
+    if (sy > 100) scrollIndicator.classList.remove('visible');
+  });
+
+  // ─── Enhanced IntersectionObserver reveal system ───
+  // Legacy .reveal support
+  const legacyObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('up');
+        legacyObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => legacyObserver.observe(el));
+
+  // New data-reveal system
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const delay = parseFloat(el.dataset.delay || 0) * 1000;
+        setTimeout(() => {
+          el.classList.add('revealed');
+          // Trigger counter animation if contains count-up
+          el.querySelectorAll('.count-up[data-target]').forEach(startCountUp);
+          // Also check if the element itself is a count-up
+          if (el.classList.contains('count-up') && el.dataset.target) startCountUp(el);
+          // Star bounce animation
+          el.querySelectorAll('.star-animate').forEach((star, i) => {
+            setTimeout(() => star.classList.add('bounced'), i * 100);
+          });
+          // Highlight swipe
+          if (el.classList.contains('highlight-swipe')) {
+            el.classList.add('revealed');
+          }
+          // Icon bounce for feature items
+          const icon = el.querySelector('.feature-icon');
+          if (icon) setTimeout(() => icon.classList.add('icon-bounce'), 200);
+        }, delay);
+        revealObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
+
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    if (el.dataset.delay) el.style.transitionDelay = el.dataset.delay + 's';
+    revealObserver.observe(el);
+  });
+
+  // ─── Counter animation ───
+  const countedEls = new Set();
+  function startCountUp(el) {
+    if (countedEls.has(el)) return;
+    countedEls.add(el);
+    const target = parseInt(el.dataset.target);
+    if (isNaN(target)) return;
+    const duration = 1500;
+    const start = performance.now();
+    function tick(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const value = Math.round(easeOutExpo(progress) * target);
+      el.textContent = value;
+      if (progress < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Observe hero stats for counter
+  const heroCountObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.count-up[data-target]').forEach(startCountUp);
+        heroCountObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const heroBottom = document.querySelector('.hero-bottom');
+  if (heroBottom) heroCountObserver.observe(heroBottom);
+
+  // ─── Page load orchestration ───
+  function orchestrateLoad() {
+    // Nav logo + links
+    const logo = document.querySelector('.nav-logo');
+    if (logo) { logo.classList.add('load-fade'); requestAnimationFrame(() => logo.classList.add('loaded')); }
+    document.querySelectorAll('.load-stagger').forEach((el, i) => {
+      setTimeout(() => el.classList.add('loaded'), 50 + i * 50);
+    });
+
+    // Hero headline clip reveal
+    setTimeout(() => {
+      document.querySelectorAll('.clip-reveal').forEach(el => el.classList.add('revealed'));
+    }, 200);
+
+    // Hero image
+    setTimeout(() => {
+      document.querySelector('.hero-image-reveal')?.classList.add('revealed');
+    }, 600);
+
+    // CTA button
+    setTimeout(() => {
+      const cta = document.getElementById('heroCta');
+      if (cta) { cta.style.opacity = '1'; cta.style.transition = 'opacity 0.4s ease'; cta.classList.add('cta-pulse'); }
+    }, 1000);
+
+    // Scroll indicator
+    setTimeout(() => {
+      scrollIndicator?.classList.add('visible');
+    }, 1400);
+  }
+
+  if (prefersReducedMotion) {
+    // Show everything immediately
+    document.querySelectorAll('.load-hidden, .load-fade, .load-stagger, .clip-reveal, .hero-image-reveal').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.clipPath = 'none';
+    });
+  } else {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', orchestrateLoad);
+    } else {
+      orchestrateLoad();
+    }
+  }
+
+  // ─── Cursor follower (desktop only) ───
+  if (isDesktop && !prefersReducedMotion) {
+    const cursor = document.getElementById('cursorFollower');
+    let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+    let cursorVisible = false;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!cursorVisible) { cursorVisible = true; cursor.classList.add('visible'); }
+    });
+    document.addEventListener('mouseleave', () => { cursorVisible = false; cursor.classList.remove('visible'); });
+
+    const hoverables = 'a, button, .feature-item, .cat-item, .goal-row, .proof-card, .store-btn, input';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(hoverables)) cursor.classList.add('hover');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(hoverables)) cursor.classList.remove('hover');
+    });
+
+    function updateCursor() {
+      cursorX = lerp(cursorX, mouseX, 0.15);
+      cursorY = lerp(cursorY, mouseY, 0.15);
+      cursor.style.left = cursorX + 'px';
+      cursor.style.top = cursorY + 'px';
+      requestAnimationFrame(updateCursor);
+    }
+    requestAnimationFrame(updateCursor);
+  }
+
+  // ─── Feature card 3D tilt (desktop only) ───
+  if (isDesktop && !prefersReducedMotion) {
+    document.querySelectorAll('.feature-item').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = 'perspective(800px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-3px) scale(1.01)';
+        // Spotlight gradient follows mouse
+        const px = ((e.clientX - rect.left) / rect.width * 100);
+        const py = ((e.clientY - rect.top) / rect.height * 100);
+        card.style.setProperty('--spot-x', px + '%');
+        card.style.setProperty('--spot-y', py + '%');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  // ─── Feature carousel dots (mobile) ───
+  (function() {
+    const grid = document.querySelector('.features-grid');
+    const dots = document.querySelectorAll('#featuresDots .dot');
+    if (!grid || !dots.length) return;
+
+    grid.addEventListener('scroll', () => {
+      const scrollLeft = grid.scrollLeft;
+      const cardWidth = grid.firstElementChild.offsetWidth + 14; // gap
+      const activeIdx = Math.round(scrollLeft / cardWidth);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeIdx);
+      });
+    }, { passive: true });
+  })();
+
+  // ─── Scanner section ───
   (function() {
     const cam = document.getElementById('scanViewCamera');
     const man = document.getElementById('scanViewManual');
@@ -1651,8 +2352,13 @@
     ];
 
     let dropOpen = false;
+    let currentIdx = 0;
+    let autoCycleTimer = null;
+    let userInteracted = false;
 
     function setScanMode(mode) {
+      userInteracted = true;
+      stopAutoCycle();
       if (mode === 'manual') {
         cam.style.opacity = '0'; cam.style.pointerEvents = 'none';
         man.style.opacity = '1'; man.style.pointerEvents = 'auto';
@@ -1669,17 +2375,21 @@
 
     function updateAlt(idx) {
       const ex = exercises[idx];
-      // Fade out result area, swap content, fade back in
-      resultArea.style.transition = 'opacity 0.18s ease';
+      resultArea.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
       resultArea.style.opacity = '0';
+      resultArea.style.transform = 'translateX(-10px)';
       setTimeout(() => {
         altName.textContent = ex.alt;
         altDesc.textContent = ex.desc;
         altTag1.textContent = ex.t1;
         altTag2.textContent = ex.t2;
         dropLabel.textContent = ex.name;
-        resultArea.style.opacity = '1';
-      }, 180);
+        resultArea.style.transform = 'translateX(10px)';
+        requestAnimationFrame(() => {
+          resultArea.style.opacity = '1';
+          resultArea.style.transform = 'translateX(0)';
+        });
+      }, 200);
     }
 
     function toggleDrop(open) {
@@ -1689,18 +2399,41 @@
       dropBtn.style.borderColor = open ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.08)';
     }
 
+    // Auto-cycle demo
+    function startAutoCycle() {
+      if (userInteracted || autoCycleTimer) return;
+      autoCycleTimer = setInterval(() => {
+        currentIdx = (currentIdx + 1) % exercises.length;
+        updateAlt(currentIdx);
+      }, 4000);
+    }
+    function stopAutoCycle() {
+      if (autoCycleTimer) { clearInterval(autoCycleTimer); autoCycleTimer = null; }
+    }
+
+    // Start auto-cycle when scanner is visible
+    const scannerObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !userInteracted) startAutoCycle();
+        else stopAutoCycle();
+      });
+    }, { threshold: 0.3 });
+    const scannerSection = document.getElementById('scanner');
+    if (scannerSection) scannerObserver.observe(scannerSection);
+
     btnCam.addEventListener('click', () => setScanMode('camera'));
     btnMan.addEventListener('click', () => setScanMode('manual'));
+    dropBtn.addEventListener('click', (e) => { e.stopPropagation(); userInteracted = true; stopAutoCycle(); toggleDrop(!dropOpen); });
 
-    dropBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDrop(!dropOpen); });
-
-    // Dropdown items — stopPropagation so document click doesn't fire
     document.querySelectorAll('.scan-dd-item').forEach(item => {
       item.addEventListener('mouseenter', () => { item.style.background = '#f5f5f0'; });
       item.addEventListener('mouseleave', () => { item.style.background = ''; });
       item.addEventListener('click', (e) => {
         e.stopPropagation();
+        userInteracted = true;
+        stopAutoCycle();
         const idx = parseInt(item.dataset.ex);
+        currentIdx = idx;
         updateAlt(idx);
         toggleDrop(false);
         document.querySelectorAll('.scan-dd-item').forEach(i => i.style.fontWeight = '600');
@@ -1708,19 +2441,32 @@
       });
     });
 
-    // Close dropdown when clicking anywhere else
     document.addEventListener('click', () => { if (dropOpen) toggleDrop(false); });
   })();
 
-  // Scroll reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('up');
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // ─── Custom smooth scroll for anchor links ───
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const startY = window.scrollY;
+      const targetY = target.getBoundingClientRect().top + startY - 64;
+      const distance = targetY - startY;
+      const duration = Math.min(1200, Math.max(400, Math.abs(distance) * 0.5));
+      const startTime = performance.now();
 
-  // Mobile menu
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  });
+
+  // ─── Mobile menu ───
   document.getElementById('openMenu').addEventListener('click', () => {
     document.getElementById('mobileMenu').classList.add('open');
   });
@@ -1731,7 +2477,7 @@
     a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
   });
 
-  // Email form — Supabase waitlist
+  // ─── Email form — Supabase waitlist ───
   const { createClient } = supabase;
   const sb = createClient(
     'https://oaftqweofrifoiuwntce.supabase.co',
@@ -1755,13 +2501,13 @@
         .insert({ email, source: 'landing_page' });
 
       if (!error) {
-        btn.textContent = '\u2713 You\'re on the list!';
+        btn.innerHTML = '<svg width="16" height="12" viewBox="0 0 16 12" fill="none" style="vertical-align:middle;margin-right:6px;"><path d="M1 6L6 11L15 1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:22;stroke-dashoffset:22;animation:checkDraw 0.4s ease forwards;"/></svg>You\'re on the list!';
         btn.style.background = '#1a1a1a';
         document.getElementById('emailInput').value = '';
         msg.style.color = 'rgba(0,0,0,0.6)';
         msg.textContent = 'Welcome! We\'ll notify you when Libo launches.';
       } else if (error.code === '23505') {
-        btn.textContent = '\u2713 You\'re on the list!';
+        btn.innerHTML = '<svg width="16" height="12" viewBox="0 0 16 12" fill="none" style="vertical-align:middle;margin-right:6px;"><path d="M1 6L6 11L15 1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:22;stroke-dashoffset:22;animation:checkDraw 0.4s ease forwards;"/></svg>You\'re on the list!';
         btn.style.background = '#1a1a1a';
         document.getElementById('emailInput').value = '';
         msg.style.color = 'rgba(0,0,0,0.6)';
@@ -1780,15 +2526,7 @@
     }
   });
 
-  // Nav scroll effect — transparent at top, frosted glass on scroll
-  const navEl = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      navEl.classList.add('scrolled');
-    } else {
-      navEl.classList.remove('scrolled');
-    }
-  }, { passive: true });
+})();
 </script>
 </body>
 </html>
