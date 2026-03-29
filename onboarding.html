@@ -108,6 +108,14 @@ body {
 }
 .step.active { display: block; }
 .step.active.visible { opacity: 1; transform: translateX(0); }
+.step.exiting {
+  position: absolute;
+  top: 130px;
+  left: 20px;
+  right: 20px;
+  width: calc(100% - 40px);
+  max-width: 480px;
+}
 .step.slide-out-left { opacity: 0; transform: translateX(-60px); }
 .step.slide-out-right { opacity: 0; transform: translateX(60px); }
 
@@ -944,9 +952,9 @@ body {
     // Slide out old
     if (oldEl) {
       oldEl.classList.remove('visible');
-      oldEl.classList.add(direction === 'forward' ? 'slide-out-left' : 'slide-out-right');
+      oldEl.classList.add('exiting', direction === 'forward' ? 'slide-out-left' : 'slide-out-right');
       setTimeout(() => {
-        oldEl.classList.remove('active', 'slide-out-left', 'slide-out-right');
+        oldEl.classList.remove('active', 'exiting', 'slide-out-left', 'slide-out-right');
       }, 300);
     }
 
