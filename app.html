@@ -403,8 +403,8 @@
     .complete-stat-lbl{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
     .confetti{position:absolute;pointer-events:none;}
 
-    /* ── SCANNER ── */
-    .scanner-wrap{padding:0 16px;}
+    /* ── REWARDS ── */
+    .rewards-wrap{padding:0 16px;}
     .select-styled{
       width:100%;background:var(--bg3);border:1px solid var(--border);
       border-radius:14px;padding:16px 20px;font-size:15px;font-weight:600;
@@ -573,20 +573,31 @@
     .water-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg4);color:var(--text);font-size:18px;font-weight:300;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;}
     .water-btn:active{background:rgba(80,180,255,0.15);transform:scale(0.92);}
 
-    /* ── CAMERA SCANNER ── */
-    .scanner-mode-toggle{display:flex;gap:0;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:3px;margin:0 16px 16px;}
-    .scanner-mode-btn{flex:1;padding:9px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:700;border-radius:9px;cursor:pointer;transition:all 0.2s;}
-    .scanner-mode-btn.active{background:var(--bg4);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,0.4);}
-    .camera-wrap{position:relative;margin:0 auto;width:calc(100% - 32px);border-radius:20px;overflow:hidden;background:#000;aspect-ratio:3/4;max-height:340px;display:block;}
-    .camera-wrap video{width:100%;height:100%;object-fit:cover;display:block;}
-    .camera-overlay{position:absolute;inset:0;pointer-events:none;}
-    .camera-corner{position:absolute;width:28px;height:28px;border-color:var(--accent);border-style:solid;border-width:0;}
-    .camera-corner.tl{top:16px;left:16px;border-top-width:3px;border-left-width:3px;border-radius:4px 0 0 0;}
-    .camera-corner.tr{top:16px;right:16px;border-top-width:3px;border-right-width:3px;border-radius:0 4px 0 0;}
-    .camera-corner.bl{bottom:16px;left:16px;border-bottom-width:3px;border-left-width:3px;border-radius:0 0 0 4px;}
-    .camera-corner.br{bottom:16px;right:16px;border-bottom-width:3px;border-right-width:3px;border-radius:0 0 4px 0;}
-    .scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:scanline 2s linear infinite;top:0;}
-    @keyframes scanline{0%{top:10%;}100%{top:90%;}}
+    /* ── REWARDS TAB ── */
+    .rw-hero{background:linear-gradient(145deg,rgba(202,255,0,0.06),rgba(202,255,0,0.02));border:1px solid rgba(202,255,0,0.15);border-radius:20px;padding:32px 24px;margin:0 16px 20px;text-align:center;position:relative;overflow:hidden;}
+    .rw-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(202,255,0,0.08),transparent 70%);pointer-events:none;}
+    .rw-hero-amount{font-family:'Barlow Condensed',sans-serif;font-size:72px;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-2px;}
+    .rw-hero-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+    .rw-hero-title{font-size:20px;font-weight:900;color:var(--text);margin-top:16px;letter-spacing:-0.3px;}
+    .rw-hero-sub{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.5;}
+    .rw-spots{display:inline-flex;align-items:center;gap:8px;background:rgba(202,255,0,0.08);border:1px solid rgba(202,255,0,0.2);border-radius:100px;padding:8px 16px;margin-top:16px;font-size:12px;font-weight:700;color:var(--accent);}
+    .rw-spots-bar{width:60px;height:4px;background:var(--bg4);border-radius:100px;overflow:hidden;}
+    .rw-spots-fill{height:100%;background:var(--accent);border-radius:100px;}
+    .rw-steps{display:flex;gap:10px;margin:0 16px 20px;}
+    .rw-step{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:20px 12px;text-align:center;}
+    .rw-step-num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#080808;font-size:13px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px;}
+    .rw-step-icon{font-size:24px;margin-bottom:8px;}
+    .rw-step-title{font-size:12px;font-weight:800;color:var(--text);line-height:1.3;}
+    .rw-step-desc{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;}
+    .rw-badges{display:flex;gap:12px;margin:0 16px 20px;overflow-x:auto;}
+    .rw-badges::-webkit-scrollbar{display:none;}
+    .rw-badge-item{flex-shrink:0;width:72px;text-align:center;}
+    .rw-badge-icon{width:56px;height:56px;border-radius:50%;background:rgba(202,255,0,0.06);border:1.5px solid rgba(202,255,0,0.2);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 6px;}
+    .rw-badge-icon.locked{background:var(--bg3);border-color:var(--border);opacity:0.4;}
+    .rw-badge-name{font-size:10px;font-weight:700;color:var(--muted);line-height:1.2;}
+    .rw-cta{margin:0 16px 24px;background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center;}
+    .rw-cta-text{font-size:14px;font-weight:700;color:var(--text);line-height:1.5;}
+    .rw-cta-sub{font-size:12px;color:var(--muted);margin-top:4px;}
     .scan-label{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:var(--muted);font-size:11px;font-weight:600;padding:6px 14px;border-radius:20px;white-space:nowrap;letter-spacing:0.5px;}
     .camera-btn{display:block;width:64px;height:64px;border-radius:50%;background:var(--accent);border:4px solid rgba(255,255,255,0.2);margin:16px auto;cursor:pointer;position:relative;transition:transform 0.15s;}
     .camera-btn:active{transform:scale(0.93);}
@@ -664,8 +675,10 @@
     .pv2-play-btn{width:56px;height:56px;border-radius:50%;background:#fff;border:none;color:#080808;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 
     /* transitions */
-    .fade-in{animation:fadeIn 0.25s ease;}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);};}
+    .fade-in{animation:fadeIn 0.1s ease;}
+    .tab-switch{animation:tabFade 0.08s ease;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes tabFade{from{opacity:0.6;}to{opacity:1;}}
   </style>
 </head>
 <body>
@@ -770,12 +783,8 @@ let S = {
   exploreLimit: 60,
   selectedWorkout: null,
   player: { exerciseIndex: 0, phase: 'playing', logModal: false, sets: [], completedSets: [] },
-  scannerEx: Object.keys(ALT_EXERCISES)[0],
-  scannerMode: 'camera',
-  scannerApiKey: localStorage.getItem('libo_api_key') || '',
-  scannerState: 'idle', // idle | scanning | result | error
-  scannerResult: null,  // { machine, alts }
-  scannerError: '',
+  challengeDay: 18,
+  challengeRepsToday: 38,
   logs: JSON.parse(localStorage.getItem('libo_logs') || '[]'),
   user: JSON.parse(localStorage.getItem('libo_user') || 'null'),
   challengeProgress: JSON.parse(localStorage.getItem('libo_challenge_progress') || '{}'),
@@ -811,8 +820,10 @@ function timeAgo(iso) {
 // ═══════════════════════════════
 function render() {
   const app = document.getElementById('app');
+  const isTabSwitch = S.screen === 'main' && !app._lastScreen || (app._lastScreen === 'main' && S.screen === 'main');
   app.innerHTML = '';
-  app.className = 'fade-in';
+  app.className = isTabSwitch ? 'tab-switch' : 'fade-in';
+  app._lastScreen = S.screen;
   // Allow scrolling on onboarding/complete screens, lock on main app screens
   if (S.screen === 'onboarding' || S.screen === 'complete') {
     app.classList.add('app-scroll');
@@ -1125,10 +1136,10 @@ function renderOnboarding() {
 function renderMain() {
   return `
     <div class="screen fade-in" id="main-screen">
-      ${S.tab==='home'?renderHome():S.tab==='explore'?renderExplore():S.tab==='programs'?renderPrograms():S.tab==='scanner'?renderScanner():renderProgress()}
+      ${S.tab==='home'?renderHome():S.tab==='explore'?renderExplore():S.tab==='programs'?renderPrograms():S.tab==='rewards'?renderRewards():renderProgress()}
     </div>
     <nav class="bottom-nav">
-      ${[['programs','📅','Programs'],['explore','🔍','Explore'],['home','🏠','Home'],['scanner','🔄','Scanner'],['progress','📊','Progress']].map(([tab,ico,lbl])=>`
+      ${[['programs','📅','Programs'],['explore','🔍','Explore'],['home','🏠','Home'],['rewards','🏆','Rewards'],['progress','📊','Progress']].map(([tab,ico,lbl])=>`
         <div class="nav-item${S.tab===tab?' active':''}" data-tab="${tab}">
           <span class="nav-icon">${ico}</span>
           <span class="nav-label">${lbl}</span>
@@ -1610,8 +1621,7 @@ function renderAiGen() {
     </div>`;
 }
 
-// ── SCANNER ──
-// ── CAMERA MANAGEMENT ──
+// ── REWARDS ──
 let _cameraStream = null;
 let _playerTimer = null;
 let _playerElapsed = 0;
@@ -1624,215 +1634,61 @@ function stopCamera() {
   }
 }
 
-async function startCamera() {
-  const video = document.getElementById('scanner-video');
-  if (!video) return;
-  try {
-    stopCamera();
-    _cameraStream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 960 } }
-    });
-    video.srcObject = _cameraStream;
-    await video.play();
-  } catch (err) {
-    S.scannerError = 'Camera access denied. Please allow camera permissions and try again.';
-    S.scannerState = 'error';
-    render();
-  }
-}
-
-function captureFrame() {
-  const video = document.getElementById('scanner-video');
-  if (!video || !video.videoWidth) return null;
-  const canvas = document.createElement('canvas');
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  canvas.getContext('2d').drawImage(video, 0, 0);
-  return canvas.toDataURL('image/jpeg', 0.85).split(',')[1]; // base64 only
-}
-
-async function identifyMachine(base64, apiKey) {
-  const resp = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'content-type': 'application/json',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    },
-    body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 80,
-      messages: [{
-        role: 'user',
-        content: [
-          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: base64 } },
-          { type: 'text', text: 'What gym machine or exercise equipment is shown? Reply with ONLY the common gym name (e.g. "Lat Pulldown", "Bench Press", "Cable Row", "Leg Press", "Treadmill", "Squat Rack"). If unclear or no equipment visible, reply "Unknown".' }
-        ]
-      }]
-    })
-  });
-  if (!resp.ok) {
-    const err = await resp.json().catch(() => ({}));
-    throw new Error(err.error?.message || `API error ${resp.status}`);
-  }
-  const data = await resp.json();
-  return (data.content?.[0]?.text || 'Unknown').trim().replace(/['"]/g, '');
-}
-
-// Extended alternatives for camera-identified machines not in ALT_EXERCISES
-function getAlternatives(machineName) {
-  // Exact match first
-  if (ALT_EXERCISES[machineName]) return ALT_EXERCISES[machineName];
-  // Partial match
-  const key = Object.keys(ALT_EXERCISES).find(k =>
-    k.toLowerCase().includes(machineName.toLowerCase()) ||
-    machineName.toLowerCase().includes(k.toLowerCase())
-  );
-  if (key) return ALT_EXERCISES[key];
-  // Generic fallback based on keywords
-  const n = machineName.toLowerCase();
-  if (n.includes('treadmill') || n.includes('cardio') || n.includes('bike') || n.includes('rower')) {
-    return [
-      { name:'Sprint Intervals', tags:['Outdoor','Free'], instruction:'Find any open space: 20 sec all-out sprint, 40 sec walk. 8 rounds.', emoji:'🏃' },
-      { name:'Jump Rope', tags:['Minimal equipment'], instruction:'Skip rope at steady pace for 10 min as cardio warmup.', emoji:'🪢' },
-      { name:'Box Step-Ups', tags:['Bodyweight','Any step'], instruction:'Step up and down on stairs or a bench at continuous pace.', emoji:'📦' },
-    ];
-  }
-  if (n.includes('squat') || n.includes('hack') || n.includes('smith')) {
-    return [
-      { name:'Bodyweight Squat', tags:['Bodyweight','Anywhere'], instruction:'Full depth squat, chest tall, heels planted. 3×15.', emoji:'🦵' },
-      { name:'Bulgarian Split Squat', tags:['Bodyweight'], instruction:'Rear foot elevated on bench, drop front knee toward floor.', emoji:'🪑' },
-      { name:'Goblet Squat', tags:['Dumbbell'], instruction:'Hold dumbbell at chest, squat deep. Great leg developer.', emoji:'🏋️' },
-    ];
-  }
-  if (n.includes('chest') || n.includes('fly') || n.includes('pec')) {
-    return [
-      { name:'Push-Up', tags:['Bodyweight'], instruction:'Standard or wide-grip. Elevate feet for upper chest focus.', emoji:'🤸' },
-      { name:'Dumbbell Floor Press', tags:['Dumbbells'], instruction:'Lie on floor, press dumbbells upward. Great chest activation.', emoji:'🏠' },
-      { name:'Resistance Band Fly', tags:['Band'], instruction:'Anchor bands at chest height, fly arms together in front.', emoji:'🪢' },
-    ];
-  }
-  // Default
-  return [
-    { name:'Bodyweight Circuit', tags:['Anywhere','Free'], instruction:'Push-ups, squats, and planks back to back — no equipment needed.', emoji:'💪' },
-    { name:'Dumbbell Compound Set', tags:['Dumbbells'], instruction:'Press, row, squat — one dumbbell, full body stimulus.', emoji:'🏋️' },
-    { name:'Resistance Band Workout', tags:['Bands'], instruction:'Band pull-aparts, rows, and curls to hit the same muscles at home.', emoji:'🪢' },
-  ];
-}
-
-async function handleScan() {
-  if (!S.scannerApiKey) {
-    S.scannerError = 'Add your Claude API key below to enable AI scanning.';
-    S.scannerState = 'error';
-    render();
-    return;
-  }
-  const base64 = captureFrame();
-  if (!base64) return;
-  S.scannerState = 'scanning';
-  render();
-  try {
-    const machine = await identifyMachine(base64, S.scannerApiKey);
-    const alts = getAlternatives(machine);
-    S.scannerResult = { machine, alts };
-    S.scannerState = 'result';
-  } catch (err) {
-    S.scannerError = err.message || 'Identification failed. Check your API key.';
-    S.scannerState = 'error';
-  }
-  render();
-}
-
-function renderScanner() {
-  const mode = S.scannerMode || 'camera';
-  const alts = ALT_EXERCISES[S.scannerEx] || [];
-  const hasKey = !!S.scannerApiKey;
-
-  const altsHtml = (items) => items.map((a,i)=>`
-    <div class="alt-card">
-      <div class="alt-card-top">
-        <div class="alt-num">${i+1}</div>
-        <div class="alt-name">${a.name}</div>
-      </div>
-      <div class="alt-tags">${a.tags.map(t=>`<span class="alt-tag">${t}</span>`).join('')}</div>
-      <div class="alt-instruction">${a.instruction}</div>
-      <div class="alt-demo">${a.emoji}</div>
-    </div>`).join('');
-
-  const cameraContent = () => {
-    const st = S.scannerState || 'idle';
-    const res = S.scannerResult;
-    return `
-      <div style="display:flex;flex-direction:column;align-items:center;width:100%">
-      <div class="camera-wrap" id="camera-wrap">
-        <video id="scanner-video" autoplay playsinline muted style="width:100%;height:100%;object-fit:cover;display:block;background:#000"></video>
-        <div class="camera-overlay">
-          <div class="camera-corner tl"></div>
-          <div class="camera-corner tr"></div>
-          <div class="camera-corner bl"></div>
-          <div class="camera-corner br"></div>
-          ${st === 'idle' ? '<div class="scan-line"></div><div class="scan-label">Point at a gym machine</div>' : ''}
-          ${st === 'scanning' ? '<div class="scanning-overlay"><div class="scan-spinner"></div><div style="font-size:13px;font-weight:700;color:var(--accent)">Identifying...</div></div>' : ''}
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:4px;width:100%">
-        <button class="camera-btn" id="scan-btn" ${st==='scanning'?'disabled':''}></button>
-        <div style="font-size:11px;color:var(--muted);margin-top:-4px;margin-bottom:8px">TAP TO SCAN</div>
-      </div>
-      </div>
-
-      ${st === 'error' ? `<div class="camera-no-key">⚠️ ${S.scannerError}</div>` : ''}
-
-      ${st === 'result' && res ? `
-        <div class="identified-badge">
-          <div style="font-size:24px">🎯</div>
-          <div>
-            <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent)">Identified</div>
-            <div style="font-size:16px;font-weight:800;margin-top:2px">${res.machine}</div>
-          </div>
-          <button id="scan-again-btn" style="margin-left:auto;background:var(--bg3);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer">↺ Retry</button>
-        </div>
-        <div style="padding:0 16px">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-            <div style="flex:1;height:1px;background:var(--border)"></div>
-            <span style="font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Alternatives</span>
-            <div style="flex:1;height:1px;background:var(--border)"></div>
-          </div>
-          ${altsHtml(res.alts)}
-        </div>` : ''}
-
-      <div style="margin:${st==='result'?'8px':'4px'} 16px 4px;border-top:1px solid var(--border);padding-top:12px">
-        <div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:6px">Claude API Key <span style="font-weight:400;opacity:0.6">(required for scanning)</span></div>
-        <div class="api-key-row" style="margin:0">
-          <input class="api-key-input" id="api-key-input" type="password" placeholder="sk-ant-api03-..." value="${S.scannerApiKey}"/>
-          <button class="api-key-save-btn" id="api-key-save">Save</button>
-        </div>
-        ${hasKey ? '<div style="font-size:11px;color:rgba(202,255,0,0.6);margin-top:6px">✓ Key saved</div>' : ''}
-      </div>`;
-  };
-
+function renderRewards() {
   return `
-    <div class="page-header"><div class="page-title">AI Scanner</div></div>
+    <div class="page-header"><div class="page-title">Rewards</div></div>
 
-    <div class="scanner-mode-toggle">
-      <button class="scanner-mode-btn${mode==='camera'?' active':''}" data-smode="camera">📷 Camera Scan</button>
-      <button class="scanner-mode-btn${mode==='manual'?' active':''}" data-smode="manual">📋 Manual</button>
+    <!-- Hero Prize Card -->
+    <div class="rw-hero">
+      <div class="rw-hero-label">Money Challenge</div>
+      <div class="rw-hero-amount">&euro;15</div>
+      <div class="rw-hero-title">50 Pushups x 30 Days</div>
+      <div class="rw-hero-sub">Complete the challenge. Get paid. No strings.</div>
+      <div class="rw-spots">
+        <div class="rw-spots-bar"><div class="rw-spots-fill" style="width:74%"></div></div>
+        <span>37/50 spots filled</span>
+      </div>
     </div>
 
-    ${mode === 'camera' ? cameraContent() : `
-    <div class="scanner-wrap">
-      <label style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:8px">Select exercise to replace</label>
-      <select class="select-styled" id="scannerSelect">
-        ${Object.keys(ALT_EXERCISES).map(k=>`<option value="${k}"${k===S.scannerEx?' selected':''}>${k}</option>`).join('')}
-      </select>
-      <div style="display:flex;align-items:center;gap:8px;margin:20px 0 12px">
-        <div style="flex:1;height:1px;background:var(--border)"></div>
-        <span style="font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">3 Alternatives</span>
-        <div style="flex:1;height:1px;background:var(--border)"></div>
+    <!-- 3-Step How It Works -->
+    <div style="padding:0 16px 6px;"><div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">How it works</div></div>
+    <div class="rw-steps">
+      <div class="rw-step">
+        <div class="rw-step-icon">💪</div>
+        <div class="rw-step-title">Do your reps</div>
+        <div class="rw-step-desc">50 pushups daily, split however you want</div>
       </div>
-      ${altsHtml(alts)}
-    </div>`}`;
+      <div class="rw-step">
+        <div class="rw-step-icon">📲</div>
+        <div class="rw-step-title">Record & share</div>
+        <div class="rw-step-desc">Log in-app, post to your stories</div>
+      </div>
+      <div class="rw-step">
+        <div class="rw-step-icon">💶</div>
+        <div class="rw-step-title">Get paid</div>
+        <div class="rw-step-desc">30 days straight = cash to your account</div>
+      </div>
+    </div>
+
+    <!-- Achievement Badges -->
+    <div style="padding:0 16px 10px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">Achievements</div>
+      <div style="font-size:11px;font-weight:600;color:var(--accent);">6 of 20</div>
+    </div>
+    <div class="rw-badges">
+      <div class="rw-badge-item"><div class="rw-badge-icon">🎯</div><div class="rw-badge-name">First Rep</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon">🔥</div><div class="rw-badge-name">10 Workouts</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon">📅</div><div class="rw-badge-name">7-Day Streak</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon">⏱️</div><div class="rw-badge-name">First Hour</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon locked">⚡</div><div class="rw-badge-name">25 Workouts</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon locked">💎</div><div class="rw-badge-name">14-Day Streak</div></div>
+    </div>
+
+    <!-- Bottom Motivational CTA -->
+    <div class="rw-cta">
+      <div class="rw-cta-text">Miss a day? Streak resets.<br>No excuses. Real money. Real discipline.</div>
+      <div class="rw-cta-sub">Limited spots per challenge. Join early.</div>
+    </div>`;
 }
 
 // ── PROGRESS ──
@@ -2365,11 +2221,15 @@ function attachEvents() {
   // Nav tabs
   document.querySelectorAll('[data-tab]').forEach(el => {
     el.addEventListener('click', () => {
-      if (el.dataset.tab !== 'scanner') stopCamera();
+      if (S.tab === el.dataset.tab) return;
+      stopCamera();
       S.tab = el.dataset.tab;
       S.exploreFilter = 'all';
       S.searchQ = '';
       render();
+      // Scroll to top instantly on tab switch
+      const screen = document.querySelector('.screen');
+      if (screen) screen.scrollTop = 0;
     });
   });
 
@@ -2787,52 +2647,7 @@ function attachEvents() {
     }
   });
 
-  // Scanner mode toggle
-  document.querySelectorAll('[data-smode]').forEach(el => {
-    el.addEventListener('click', () => {
-      stopCamera();
-      S.scannerMode = el.dataset.smode;
-      S.scannerState = 'idle';
-      S.scannerResult = null;
-      S.scannerError = '';
-      render();
-    });
-  });
-
-  // Camera scan button
-  const scanBtn = $('scan-btn');
-  if (scanBtn) scanBtn.addEventListener('click', () => { handleScan(); });
-
-  // Scan again
-  const scanAgain = $('scan-again-btn');
-  if (scanAgain) scanAgain.addEventListener('click', () => {
-    S.scannerState = 'idle';
-    S.scannerResult = null;
-    render();
-  });
-
-  // API key save
-  const apiKeySave = $('api-key-save');
-  if (apiKeySave) apiKeySave.addEventListener('click', () => {
-    const val = $('api-key-input')?.value?.trim();
-    if (val) {
-      S.scannerApiKey = val;
-      localStorage.setItem('libo_api_key', val);
-      render();
-    }
-  });
-
-  // Manual scanner dropdown
-  const scannerSel = $('scannerSelect');
-  if (scannerSel) scannerSel.addEventListener('change', e => {
-    S.scannerEx = e.target.value;
-    render();
-  });
-
-  // Initialize camera when in camera mode on scanner tab
-  if (S.tab === 'scanner' && (S.scannerMode || 'camera') === 'camera' && S.screen === 'main') {
-    setTimeout(() => startCamera(), 50);
-  }
+  // (Scanner removed — rewards tab is static)
 
   // Player v2 — start/resume live timer
   if (S.screen === 'player' && !S.player.paused) {

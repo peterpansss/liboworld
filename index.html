@@ -442,86 +442,177 @@
     .features-dots { display: none; }
 
     /* ─────────────────────────────
-       SCANNER SECTION
+       REWARDS SECTION
     ───────────────────────────── */
-    .scanner-section {
+    .rewards-section {
       background: #fff;
     }
-    .scanner-inner {
+    .rewards-inner {
       max-width: 1400px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      align-items: end;
+      align-items: center;
     }
-    .scanner-left {
+    .rewards-left {
       padding: 100px 80px 100px 40px;
     }
-    .scanner-left .label { color: #000; }
-    .scanner-left .display { color: #000; }
-    .scanner-left .display .accent,
-    .scanner-left .display span[style] { color: var(--accent) !important; }
-    .scanner-left .body-md { color: #555; }
-    .scanner-right {
+    .rewards-left .label { color: #000; }
+    .rewards-left .display { color: #000; }
+    .rewards-left .display .accent,
+    .rewards-left .display span[style] { color: var(--accent) !important; }
+    .rewards-left .body-md { color: #555; }
+    .rewards-right {
       padding: 100px 40px 100px 80px;
     }
-    .scanner-card {
-      background: var(--black);
-      border: 1px solid var(--border-light);
-      padding: 0;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 4px 12px rgba(0,0,0,0.1);
+    .rewards-chip {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 100px;
+      color: #444;
+      background: transparent;
+      transition: all 0.3s ease;
     }
-    .scanner-views {
+    .rewards-chip:hover {
+      background: rgba(0,0,0,0.04);
+      border-color: rgba(0,0,0,0.2);
+    }
+    .rewards-gradient-card {
       position: relative;
-      height: 200px;
+      background: linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 50%, #111 100%);
+      border-radius: 24px;
+      padding: 48px 40px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25), 0 8px 24px rgba(0,0,0,0.15);
     }
-    .scanner-views > div {
+    .rewards-gradient-card::before {
+      content: '';
       position: absolute;
-      inset: 0;
+      top: -60%;
+      right: -30%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(202,255,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .rewards-gradient-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(202,255,0,0.2), transparent);
+    }
+    .rewards-big-stat {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 96px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+    .rewards-challenge-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 8px;
+    }
+    .rewards-challenge-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+    .rewards-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .rewards-flow-step {
       display: flex;
       flex-direction: column;
-      transition: opacity 0.35s ease;
-    }
-    .scanner-viewfinder {
-      position: relative;
+      align-items: center;
+      gap: 10px;
       flex: 1;
-      background: #0a0a0a;
+    }
+    .rewards-flow-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 20px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
-    .scanner-corner-frame {
-      position: absolute;
-      width: 28px;
-      height: 28px;
+    .rewards-flow-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
-    .scanner-corner-frame.tl { top: 24px; left: 24px; border-top: 2px solid rgba(202,255,0,0.5); border-left: 2px solid rgba(202,255,0,0.5); }
-    .scanner-corner-frame.tr { top: 24px; right: 24px; border-top: 2px solid rgba(202,255,0,0.5); border-right: 2px solid rgba(202,255,0,0.5); }
-    .scanner-corner-frame.bl { bottom: 24px; left: 24px; border-bottom: 2px solid rgba(202,255,0,0.5); border-left: 2px solid rgba(202,255,0,0.5); }
-    .scanner-corner-frame.br { bottom: 24px; right: 24px; border-bottom: 2px solid rgba(202,255,0,0.5); border-right: 2px solid rgba(202,255,0,0.5); }
-    .scanner-identified {
-      display: flex;
+    .rewards-flow-arrow {
+      color: rgba(255,255,255,0.15);
+      font-size: 16px;
+      margin: 0 4px;
+      margin-bottom: 20px;
+    }
+    .rewards-spots {
+      display: inline-flex;
       align-items: center;
-      gap: 14px;
-      padding: 16px 24px;
+      gap: 8px;
+      margin-top: 32px;
+      padding: 10px 18px;
       background: rgba(202,255,0,0.06);
-      border-bottom: 1px solid var(--border);
+      border: 1px solid rgba(202,255,0,0.15);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.5px;
     }
-    .scanner-identified-badge {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
+    .rewards-spots-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
       background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
+      animation: spotsPulse 2s ease-in-out infinite;
     }
-    .scanner-results-wrap {
-      padding: 24px;
+    @keyframes spotsPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .rewards-glass-badge {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
     }
     .alt-result {
       display: flex;
@@ -889,9 +980,9 @@
       .features-grid { grid-template-columns: repeat(2, 1fr); }
       .categories-grid { grid-template-columns: repeat(2, 1fr); }
       .proof-grid { grid-template-columns: 1fr; }
-      .scanner-inner { grid-template-columns: 1fr; }
-      .scanner-left { border-right: none; border-bottom: 1px solid var(--border); padding: 60px 40px; }
-      .scanner-right { padding: 60px 40px; }
+      .rewards-inner { grid-template-columns: 1fr; }
+      .rewards-left { border-right: none; padding: 60px 40px; }
+      .rewards-right { padding: 0 40px 60px; }
       .goals-inner { grid-template-columns: 1fr; gap: 48px; }
     }
 
@@ -1051,11 +1142,14 @@
       /* Full-bleed photo */
       .photo-break { height: 220px !important; }
 
-      /* Scanner */
-      .scanner-section { padding: 0; }
-      .scanner-left { padding: 40px 20px; }
-      .scanner-right { padding: 0 20px 40px; }
-      .scanner-card { border-radius: 12px; }
+      /* Rewards */
+      .rewards-section { padding: 0; }
+      .rewards-left { padding: 40px 20px; }
+      .rewards-right { padding: 0 20px 40px; }
+      .rewards-gradient-card { padding: 36px 28px; border-radius: 20px; }
+      .rewards-big-stat { font-size: 72px; }
+      .rewards-flow-icon { width: 42px; height: 42px; font-size: 18px; }
+      .rewards-flow-label { font-size: 10px; }
 
       /* Categories */
       .categories-section { padding: 48px 0; }
@@ -1166,8 +1260,13 @@
 
       .photo-break { height: 180px !important; }
 
-      .scanner-left { padding: 32px 16px; }
-      .scanner-right { padding: 0 16px 32px; }
+      .rewards-left { padding: 32px 16px; }
+      .rewards-right { padding: 0 16px 32px; }
+      .rewards-gradient-card { padding: 32px 24px; border-radius: 18px; }
+      .rewards-big-stat { font-size: 64px; }
+      .rewards-challenge-name { font-size: 18px; }
+      .rewards-flow-icon { width: 38px; height: 38px; font-size: 16px; border-radius: 10px; }
+      .rewards-flow-arrow { font-size: 14px; }
 
       .categories-section { padding: 36px 0; }
       .categories-header { padding: 0 16px 20px; }
@@ -1346,32 +1445,7 @@
     .photo-break { overflow: hidden; }
     .photo-break img { transition: none; }
 
-    /* Scanner scan line */
-    @keyframes scanLine {
-      0% { top: 20%; opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { top: 75%; opacity: 0; }
-    }
-    .scanner-viewfinder::after {
-      content: '';
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      top: 20%;
-      animation: scanLine 2.5s ease-in-out infinite;
-      pointer-events: none;
-      box-shadow: 0 0 8px rgba(202,255,0,0.4);
-    }
-
-    /* Scanner corner pulse */
-    @keyframes cornerPulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
-    .scanner-corner-frame { animation: cornerPulse 3s ease-in-out infinite; }
+    /* Rewards section animations removed — day grid is static */
 
     /* Goal row arrow spring */
     .goal-row-arrow {
@@ -1471,7 +1545,7 @@
 
     /* Content visibility for below-fold sections */
     .features-section,
-    .scanner-section,
+    .rewards-section,
     .categories-section,
     .goals-section,
     .proof-section,
@@ -1510,7 +1584,7 @@
     @media (max-width: 768px) {
       .cursor-follower { display: none !important; }
       .scroll-indicator { bottom: 20px; }
-      .scanner-viewfinder::after { display: none; }
+      /* rewards mobile handled above */
       .marquee-wrap-reverse { display: none; }
       [data-reveal] { transform: none !important; }
       [data-reveal] { transition: opacity 0.4s ease !important; }
@@ -1532,7 +1606,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <span class="mobile-menu-close" id="closeMenu">✕</span>
   <a href="#features">Features</a>
-  <a href="#scanner">AI Scanner</a>
+  <a href="#rewards">Rewards</a>
   <a href="#workouts">Workouts</a>
   <a href="#goals">Goals</a>
   <a href="#cta">Get Early Access</a>
@@ -1543,7 +1617,7 @@
   <a href="#" class="nav-logo"><img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" style="height:28px;display:block;" /></a>
   <ul class="nav-links">
     <li><a href="#features" class="load-stagger" style="transition-delay:0.05s">Features</a></li>
-    <li><a href="#scanner" class="load-stagger" style="transition-delay:0.1s">AI Scanner</a></li>
+    <li><a href="#rewards" class="load-stagger" style="transition-delay:0.1s">Rewards</a></li>
     <li><a href="#workouts" class="load-stagger" style="transition-delay:0.15s">Workouts</a></li>
     <li><a href="#goals" class="load-stagger" style="transition-delay:0.2s">Goals</a></li>
     <div class="nav-indicator" id="navIndicator"></div>
@@ -1621,7 +1695,7 @@
 </div>
 <div class="marquee-wrap-reverse">
   <div class="marquee-track-reverse">
-    <span class="marquee-item">AI Scanner</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Money Challenges</span><span class="marquee-item marquee-sep">·</span>
     <span class="marquee-item">No Equipment</span><span class="marquee-item marquee-sep">·</span>
     <span class="marquee-item">Home & Gym</span><span class="marquee-item marquee-sep">·</span>
     <span class="marquee-item">Guided Breathing</span><span class="marquee-item marquee-sep">·</span>
@@ -1629,7 +1703,7 @@
     <span class="marquee-item">Evening Routines</span><span class="marquee-item marquee-sep">·</span>
     <span class="marquee-item">Flexibility</span><span class="marquee-item marquee-sep">·</span>
     <span class="marquee-item">Strength Training</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">AI Scanner</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Money Challenges</span><span class="marquee-item marquee-sep">·</span>
     <span class="marquee-item">No Equipment</span><span class="marquee-item marquee-sep">·</span>
     <span class="marquee-item">Home & Gym</span><span class="marquee-item marquee-sep">·</span>
     <span class="marquee-item">Guided Breathing</span><span class="marquee-item marquee-sep">·</span>
@@ -1719,9 +1793,9 @@
     </div>
     <div class="feature-item reveal reveal-delay-2">
       <div class="feature-num">06</div>
-      <span class="feature-icon">📷</span>
-      <div class="feature-name">AI Scanner</div>
-      <p class="feature-desc">Point your camera at any gym machine — AI identifies it instantly and serves 3 smart alternatives. No equipment? No problem.</p>
+      <span class="feature-icon">🏆</span>
+      <div class="feature-name">Money Challenges</div>
+      <p class="feature-desc">Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 50 pushups a day for 30 days? That's €15 in your pocket.</p>
     </div>
   </div>
   <div class="features-dots" id="featuresDots">
@@ -1746,94 +1820,51 @@
   </div>
 </div>
 
-<!-- SCANNER SECTION -->
-<section class="scanner-section" id="scanner">
-  <div class="scanner-inner">
-    <div class="scanner-left reveal">
-      <div class="label" style="margin-bottom: 16px;">AI-Powered Scanner</div>
-      <h2 class="display display-md">Point.<br/>Scan.<br/><span style="color:var(--accent)">Train.</span></h2>
-      <p class="body-md" style="margin-top: 32px; max-width: 380px;">
-        Point your phone camera at any gym machine — AI identifies it in seconds and gives you 3 smart alternatives instantly. At home or travelling? Switch to manual mode and pick from 718 exercises. Never skip a workout again.
+<!-- REWARDS SECTION -->
+<section class="rewards-section" id="rewards">
+  <div class="rewards-inner">
+    <div class="rewards-left reveal">
+      <div class="label" style="margin-bottom: 16px;">Money Challenges</div>
+      <h2 class="display display-md">Your reps<br/>pay <span style="color:var(--accent)">real cash.</span></h2>
+      <p class="body-md" style="margin-top: 28px; max-width: 380px; line-height: 1.7;">
+        30 days. Daily reps. Post the proof. Cash out. No points, no gift cards -- just money in your pocket.
       </p>
       <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 32px;">
-        <span style="font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; border: 1px solid rgba(0,0,0,0.15); border-radius: 16px; color: #555;">📷 AI Camera Scan</span>
-        <span style="font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; border: 1px solid rgba(0,0,0,0.15); border-radius: 16px; color: #555;">🏠 Home-friendly</span>
-        <span style="font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; border: 1px solid rgba(0,0,0,0.15); border-radius: 16px; color: #555;">💪 No Equipment</span>
+        <span class="rewards-chip">Real Cash Payouts</span>
+        <span class="rewards-chip">30-Day Streaks</span>
+        <span class="rewards-chip">Limited Spots</span>
       </div>
     </div>
-    <div class="scanner-right reveal reveal-delay-1">
-      <!-- Mode toggle -->
-      <div style="display:flex;gap:0;background:#f0f0eb;border-radius:10px;padding:3px;margin-bottom:16px;">
-        <button id="scanModeCam" style="flex:1;padding:9px;border:none;background:#000;color:#fff;font-size:12px;font-weight:700;border-radius:8px;cursor:pointer;transition:all 0.2s;">ALTScanner</button>
-        <button id="scanModeMan" style="flex:1;padding:9px;border:none;background:transparent;color:#888;font-size:12px;font-weight:700;border-radius:8px;cursor:pointer;transition:all 0.2s;">📋 Manual</button>
-      </div>
-      <div class="scanner-card">
-        <div class="scanner-views">
-          <!-- Camera view -->
-          <div id="scanViewCamera" style="opacity:1;">
-            <div class="scanner-viewfinder">
-              <div class="scanner-corner-frame tl"></div>
-              <div class="scanner-corner-frame tr"></div>
-              <div class="scanner-corner-frame bl"></div>
-              <div class="scanner-corner-frame br"></div>
-              <svg width="80" height="64" viewBox="0 0 80 64" fill="none" style="opacity:0.12;">
-                <!-- seat -->
-                <rect x="10" y="36" width="28" height="6" rx="2" fill="#fff"/>
-                <!-- backrest -->
-                <rect x="6" y="14" width="6" height="28" rx="2" fill="#fff"/>
-                <!-- footplate -->
-                <rect x="56" y="18" width="6" height="24" rx="2" fill="#fff"/>
-                <!-- sled rail -->
-                <line x1="14" y1="38" x2="58" y2="28" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-                <!-- weight stack -->
-                <rect x="64" y="12" width="10" height="36" rx="2" fill="#fff"/>
-                <line x1="66" y1="20" x2="72" y2="20" stroke="#0a0a0a" stroke-width="1.5"/>
-                <line x1="66" y1="26" x2="72" y2="26" stroke="#0a0a0a" stroke-width="1.5"/>
-                <line x1="66" y1="32" x2="72" y2="32" stroke="#0a0a0a" stroke-width="1.5"/>
-                <line x1="66" y1="38" x2="72" y2="38" stroke="#0a0a0a" stroke-width="1.5"/>
-                <!-- base -->
-                <rect x="4" y="48" width="72" height="4" rx="2" fill="#fff"/>
-              </svg>
-            </div>
-            <div class="scanner-identified">
-              <div class="scanner-identified-badge">🎯</div>
-              <div>
-                <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);">Identified</div>
-                <div style="font-size:16px;font-weight:800;margin-top:2px;">Leg Press</div>
-              </div>
-            </div>
+    <div class="rewards-right reveal reveal-delay-1">
+      <div class="rewards-gradient-card">
+        <div class="rewards-glass-badge">30-Day Challenge</div>
+        <div class="rewards-big-stat">€15</div>
+        <div class="rewards-challenge-name">50 Pushups x 30 Days</div>
+        <div class="rewards-challenge-sub">Complete daily reps, record yourself, share to stories</div>
+        <div class="rewards-flow">
+          <div class="rewards-flow-step">
+            <div class="rewards-flow-icon">💪</div>
+            <div class="rewards-flow-label">Do Reps</div>
           </div>
-          <!-- Manual view -->
-          <div id="scanViewManual" style="opacity:0;pointer-events:none;">
-            <div style="padding:24px 24px 0;">
-              <div class="label" style="margin-bottom:12px;">Replace this exercise</div>
-              <div id="scanDropdown" style="position:relative;margin-bottom:20px;">
-                <div id="scanDropdownBtn" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#f5f5f0;border:1px solid rgba(0,0,0,0.08);border-radius:10px;font-size:15px;font-weight:600;color:#000;cursor:pointer;transition:border-color 0.2s;">
-                  <span id="scanDropdownLabel">Leg Press</span>
-                  <span style="color:var(--accent);font-size:13px;transition:transform 0.2s;" id="scanDropdownArrow">↓</span>
-                </div>
-                <div id="scanDropdownList" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid rgba(0,0,0,0.1);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.12);z-index:10;overflow:hidden;">
-                  <div class="scan-dd-item" data-ex="0" style="padding:12px 18px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.15s;border-bottom:1px solid rgba(0,0,0,0.05);color:#000;">Leg Press</div>
-                  <div class="scan-dd-item" data-ex="1" style="padding:12px 18px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.15s;border-bottom:1px solid rgba(0,0,0,0.05);color:#000;">Bench Press</div>
-                  <div class="scan-dd-item" data-ex="2" style="padding:12px 18px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.15s;border-bottom:1px solid rgba(0,0,0,0.05);color:#000;">Lat Pulldown Machine</div>
-                  <div class="scan-dd-item" data-ex="3" style="padding:12px 18px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.15s;color:#000;">Cable Row</div>
-                </div>
-              </div>
-            </div>
+          <div class="rewards-flow-arrow">→</div>
+          <div class="rewards-flow-step">
+            <div class="rewards-flow-icon">📹</div>
+            <div class="rewards-flow-label">Record</div>
+          </div>
+          <div class="rewards-flow-arrow">→</div>
+          <div class="rewards-flow-step">
+            <div class="rewards-flow-icon">📲</div>
+            <div class="rewards-flow-label">Share</div>
+          </div>
+          <div class="rewards-flow-arrow">→</div>
+          <div class="rewards-flow-step">
+            <div class="rewards-flow-icon" style="background:rgba(202,255,0,0.1);border-color:rgba(202,255,0,0.2);">💰</div>
+            <div class="rewards-flow-label" style="color:var(--accent);">Cash Out</div>
           </div>
         </div>
-        <!-- Shared result area -->
-        <div class="scanner-results-wrap" id="scanResultArea">
-          <div class="label" style="margin-bottom:4px;">Top Alternative</div>
-          <div class="alt-result" style="border-bottom:none;">
-            <div class="alt-result-num" id="scanAltNum">01</div>
-            <div>
-              <div class="alt-result-name" id="scanAltName">Bulgarian Split Squat</div>
-              <div class="alt-result-desc" id="scanAltDesc">Rear foot elevated, deep single-leg squat. Builds quads and balance.</div>
-              <span class="alt-tag" id="scanAltTag1">Home</span><span class="alt-tag" id="scanAltTag2">No machine</span>
-            </div>
-          </div>
-          <div style="font-size:12px;color:#555;font-weight:600;margin-top:4px;">+ 2 more alternatives →</div>
+        <div class="rewards-spots">
+          <span class="rewards-spots-dot"></span>
+          37 of 50 spots taken
         </div>
       </div>
     </div>
@@ -1960,12 +1991,12 @@
   <div class="proof-grid">
     <div class="proof-card" data-reveal="fade-up" data-delay="0">
       <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
-      <p class="proof-quote">"Finally an app that works for my home sessions AND gym days. The alt scanner saved me so many times when machines were taken."</p>
+      <p class="proof-quote">"I did the 50 pushups challenge and actually got paid. The daily recording keeps you honest — no way to cheat it. Best motivation I've ever had."</p>
       <div class="proof-author">
         <div class="proof-avatar">👨</div>
         <div>
           <div class="proof-name">Marco T.</div>
-          <div class="proof-meta">Building muscle · Berlin</div>
+          <div class="proof-meta">Challenge completed · Berlin</div>
         </div>
       </div>
     </div>
@@ -2090,7 +2121,7 @@
   // ─── Active section nav indicator ───
   const navIndicator = document.getElementById('navIndicator');
   const navLinks = document.querySelectorAll('.nav-links a');
-  const sections = ['features', 'scanner', 'workouts', 'goals'];
+  const sections = ['features', 'rewards', 'workouts', 'goals'];
   const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
 
   function updateNavIndicator() {
@@ -2328,120 +2359,31 @@
     }, { passive: true });
   })();
 
-  // ─── Scanner section ───
+  // ─── Rewards stat counter animation ───
   (function() {
-    const cam = document.getElementById('scanViewCamera');
-    const man = document.getElementById('scanViewManual');
-    const btnCam = document.getElementById('scanModeCam');
-    const btnMan = document.getElementById('scanModeMan');
-    const dropBtn = document.getElementById('scanDropdownBtn');
-    const dropList = document.getElementById('scanDropdownList');
-    const dropArrow = document.getElementById('scanDropdownArrow');
-    const dropLabel = document.getElementById('scanDropdownLabel');
-    const altName = document.getElementById('scanAltName');
-    const altDesc = document.getElementById('scanAltDesc');
-    const altTag1 = document.getElementById('scanAltTag1');
-    const altTag2 = document.getElementById('scanAltTag2');
-    const resultArea = document.getElementById('scanResultArea');
-
-    const exercises = [
-      { name: 'Leg Press', alt: 'Bulgarian Split Squat', desc: 'Rear foot elevated, deep single-leg squat. Builds quads and balance.', t1: 'Home', t2: 'No machine' },
-      { name: 'Bench Press', alt: 'Push-Up Variations', desc: 'Diamond, wide, decline — full chest activation with bodyweight only.', t1: 'Bodyweight', t2: 'Anywhere' },
-      { name: 'Lat Pulldown Machine', alt: 'Resistance Band Pull-Down', desc: 'Anchor band overhead, pull to chest. Same lat engagement, zero gym needed.', t1: 'Home', t2: 'No gym' },
-      { name: 'Cable Row', alt: 'Resistance Band Row', desc: 'Loop band at mid-height, pull to torso. Same rowing pattern, portable setup.', t1: 'Home', t2: 'Minimal gear' },
-    ];
-
-    let dropOpen = false;
-    let currentIdx = 0;
-    let autoCycleTimer = null;
-    let userInteracted = false;
-
-    function setScanMode(mode) {
-      userInteracted = true;
-      stopAutoCycle();
-      if (mode === 'manual') {
-        cam.style.opacity = '0'; cam.style.pointerEvents = 'none';
-        man.style.opacity = '1'; man.style.pointerEvents = 'auto';
-        btnCam.style.background = 'transparent'; btnCam.style.color = '#888';
-        btnMan.style.background = '#000'; btnMan.style.color = '#fff';
-      } else {
-        cam.style.opacity = '1'; cam.style.pointerEvents = 'auto';
-        man.style.opacity = '0'; man.style.pointerEvents = 'none';
-        toggleDrop(false);
-        btnCam.style.background = '#000'; btnCam.style.color = '#fff';
-        btnMan.style.background = 'transparent'; btnMan.style.color = '#888';
-      }
-    }
-
-    function updateAlt(idx) {
-      const ex = exercises[idx];
-      resultArea.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
-      resultArea.style.opacity = '0';
-      resultArea.style.transform = 'translateX(-10px)';
-      setTimeout(() => {
-        altName.textContent = ex.alt;
-        altDesc.textContent = ex.desc;
-        altTag1.textContent = ex.t1;
-        altTag2.textContent = ex.t2;
-        dropLabel.textContent = ex.name;
-        resultArea.style.transform = 'translateX(10px)';
-        requestAnimationFrame(() => {
-          resultArea.style.opacity = '1';
-          resultArea.style.transform = 'translateX(0)';
-        });
-      }, 200);
-    }
-
-    function toggleDrop(open) {
-      dropOpen = open;
-      dropList.style.display = open ? 'block' : 'none';
-      dropArrow.style.transform = open ? 'rotate(180deg)' : '';
-      dropBtn.style.borderColor = open ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.08)';
-    }
-
-    // Auto-cycle demo
-    function startAutoCycle() {
-      if (userInteracted || autoCycleTimer) return;
-      autoCycleTimer = setInterval(() => {
-        currentIdx = (currentIdx + 1) % exercises.length;
-        updateAlt(currentIdx);
-      }, 4000);
-    }
-    function stopAutoCycle() {
-      if (autoCycleTimer) { clearInterval(autoCycleTimer); autoCycleTimer = null; }
-    }
-
-    // Start auto-cycle when scanner is visible
-    const scannerObserver = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting && !userInteracted) startAutoCycle();
-        else stopAutoCycle();
+    const stat = document.querySelector('.rewards-big-stat');
+    if (!stat) return;
+    let animated = false;
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !animated) {
+          animated = true;
+          let start = 0;
+          const end = 15;
+          const duration = 1200;
+          const startTime = performance.now();
+          function tick(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            stat.textContent = '\u20AC' + Math.round(eased * end);
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
       });
-    }, { threshold: 0.3 });
-    const scannerSection = document.getElementById('scanner');
-    if (scannerSection) scannerObserver.observe(scannerSection);
-
-    btnCam.addEventListener('click', () => setScanMode('camera'));
-    btnMan.addEventListener('click', () => setScanMode('manual'));
-    dropBtn.addEventListener('click', (e) => { e.stopPropagation(); userInteracted = true; stopAutoCycle(); toggleDrop(!dropOpen); });
-
-    document.querySelectorAll('.scan-dd-item').forEach(item => {
-      item.addEventListener('mouseenter', () => { item.style.background = '#f5f5f0'; });
-      item.addEventListener('mouseleave', () => { item.style.background = ''; });
-      item.addEventListener('click', (e) => {
-        e.stopPropagation();
-        userInteracted = true;
-        stopAutoCycle();
-        const idx = parseInt(item.dataset.ex);
-        currentIdx = idx;
-        updateAlt(idx);
-        toggleDrop(false);
-        document.querySelectorAll('.scan-dd-item').forEach(i => i.style.fontWeight = '600');
-        item.style.fontWeight = '800';
-      });
-    });
-
-    document.addEventListener('click', () => { if (dropOpen) toggleDrop(false); });
+    }, { threshold: 0.5 });
+    observer.observe(stat);
   })();
 
   // ─── Custom smooth scroll for anchor links ───
