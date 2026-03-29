@@ -6,7 +6,7 @@
 <title>Libo — Build Your Plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -24,7 +24,7 @@
   --transition: 300ms ease;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 
 body {
   font-family: 'Inter', sans-serif;
@@ -56,7 +56,7 @@ body {
 .back-btn:hover { border-color: rgba(255,255,255,0.5); }
 .back-btn.hidden { opacity: 0; pointer-events: none; }
 .logo-center { flex: 1; text-align: center; }
-.logo-center img { height: 24px; filter: brightness(0) invert(1); }
+.logo-center img { height: 24px; }
 .hamburger {
   width: 36px; height: 36px;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
@@ -120,14 +120,15 @@ body {
   margin-bottom: 12px;
 }
 
-/* ---- Question Heading (Inter italic, BetterMe style) ---- */
+/* ---- Question Heading (Barlow Condensed, uppercase) ---- */
 .step-heading {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-style: italic;
-  font-size: clamp(26px, 7vw, 32px);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 8vw, 36px);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   color: var(--cream);
-  line-height: 1.2;
+  line-height: 1.05;
   margin-bottom: 28px;
 }
 
@@ -251,7 +252,7 @@ body {
   min-height: 70vh;
 }
 .loading-logo { margin-bottom: 40px; }
-.loading-logo img { height: 28px; filter: brightness(0) invert(1); }
+.loading-logo img { height: 28px; }
 .progress-ring-wrap {
   position: relative; width: 160px; height: 160px; margin-bottom: 32px;
 }
@@ -276,9 +277,11 @@ body {
   font-weight: 900; font-size: 42px; color: #fff;
 }
 .loading-ready {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500; font-style: italic;
-  font-size: 22px; color: var(--cream);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 24px; color: var(--cream);
+  text-transform: uppercase;
+  letter-spacing: 1px;
   margin-bottom: 12px;
 }
 .loading-social {
@@ -356,7 +359,7 @@ body {
   <div class="top-bar-inner">
     <button class="back-btn hidden" id="backBtn" aria-label="Go back">&#8592;</button>
     <div class="logo-center">
-      <img src="brand/logo_options/option_A_wordmark_ascending_dots.png" style="height:24px;filter:brightness(0) invert(1);" alt="Libo">
+      <img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" style="height:24px;" alt="Libo">
     </div>
     <div class="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -817,7 +820,7 @@ body {
   <div class="step" id="step-19" data-step="19">
     <div class="loading-screen">
       <div class="loading-logo">
-        <img src="brand/logo_options/option_A_wordmark_ascending_dots.png" style="height:28px;filter:brightness(0) invert(1);" alt="Libo">
+        <img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" style="height:28px;" alt="Libo">
       </div>
       <div class="progress-ring-wrap">
         <svg viewBox="0 0 160 160">
@@ -839,19 +842,19 @@ body {
   <!-- Step 20: Email Registration -->
   <div class="step" id="step-20" data-step="20">
     <div class="email-step">
-      <h1 class="step-heading" id="emailHeading">Enter your email to get your personalised <strong>Training Plan</strong> for <span class="goal-highlight">building muscle</span>!</h1>
-      <form id="emailForm" action="subscribe.php" method="POST">
-        <input type="hidden" name="source" value="onboarding">
-        <input type="hidden" name="answers" id="answersInput">
+      <h1 class="step-heading" id="emailHeading">Join the Libo waitlist for early access to your personalised <strong>Training Plan</strong> for <span class="goal-highlight">building muscle</span>!</h1>
+      <form id="emailForm">
         <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
         <p class="privacy-note">By continuing, you agree to receive emails from Libo. We respect your privacy and will never share your data.</p>
-        <button type="submit" class="continue-btn">CONTINUE</button>
+        <button type="submit" class="continue-btn">JOIN WAITLIST</button>
       </form>
+      <div id="formMsg" style="font-size:13px;margin-top:16px;min-height:20px;text-align:center;"></div>
     </div>
   </div>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function() {
   const TOTAL_STEPS = 20;
@@ -926,7 +929,7 @@ body {
     const label = goalLabels[goal] || 'building muscle';
     const heading = $('#emailHeading');
     if (heading) {
-      heading.innerHTML = `Enter your email to get your personalised <strong>Training Plan</strong> for <span class="goal-highlight">${label}</span>!`;
+      heading.innerHTML = `Join the Libo waitlist for early access to your personalised <strong>Training Plan</strong> for <span class="goal-highlight">${label}</span>!`;
     }
   }
 
@@ -976,8 +979,10 @@ body {
     if (step === 2) updateInterstitial2();
     if (step === 20) {
       updateEmailHeading();
-      $('#answersInput').value = JSON.stringify(answers);
     }
+
+    // Scroll to top so content doesn't jump
+    window.scrollTo(0, 0);
 
     // Trigger reflow then animate in
     requestAnimationFrame(() => {
@@ -1105,19 +1110,64 @@ body {
     }
   });
 
-  // Email form
-  $('#emailForm').addEventListener('submit', function(e) {
+  // Email form — Supabase waitlist
+  const { createClient } = supabase;
+  const sb = createClient(
+    'https://oaftqweofrifoiuwntce.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hZnRxd2VvZnJpZm9pdXdudGNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMTA3MTMsImV4cCI6MjA4OTg4NjcxM30.GOPl-QrAYzekiH3i3DENywHXP-2x7BSLFqObdl6lLJs'
+  );
+
+  $('#emailForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const formData = new FormData(this);
-    formData.set('answers', JSON.stringify(answers));
-    fetch('subscribe.php', {
-      method: 'POST',
-      body: formData
-    }).then(res => res.text()).then(() => {
-      window.location.href = 'index.html';
-    }).catch(() => {
-      window.location.href = 'index.html';
-    });
+    const email = this.querySelector('input[type="email"]').value.trim();
+    const btn = this.querySelector('button[type="submit"]');
+    const msg = $('#formMsg');
+
+    btn.textContent = 'JOINING...';
+    btn.disabled = true;
+    if (msg) msg.textContent = '';
+
+    try {
+      const { error } = await sb
+        .from('waitlist')
+        .insert({
+          email,
+          source: 'onboarding',
+          onboarding_answers: JSON.stringify(answers)
+        });
+
+      if (!error) {
+        btn.textContent = '\u2713 YOU\u2019RE ON THE LIST!';
+        btn.style.background = 'var(--accent)';
+        btn.style.color = '#000';
+        if (msg) {
+          msg.style.color = 'var(--accent)';
+          msg.textContent = 'Welcome! We\u2019ll notify you when Libo launches.';
+        }
+      } else if (error.code === '23505') {
+        btn.textContent = '\u2713 YOU\u2019RE ON THE LIST!';
+        btn.style.background = 'var(--accent)';
+        btn.style.color = '#000';
+        if (msg) {
+          msg.style.color = 'rgba(255,255,255,0.6)';
+          msg.textContent = 'You\u2019re already on the waitlist! We\u2019ll be in touch.';
+        }
+      } else {
+        btn.textContent = 'JOIN WAITLIST';
+        btn.disabled = false;
+        if (msg) {
+          msg.style.color = '#ff4444';
+          msg.textContent = 'Something went wrong. Please try again.';
+        }
+      }
+    } catch (err) {
+      btn.textContent = 'JOIN WAITLIST';
+      btn.disabled = false;
+      if (msg) {
+        msg.style.color = '#ff4444';
+        msg.textContent = 'Connection error. Please try again.';
+      }
+    }
   });
 
   // Keyboard support (1-6)
