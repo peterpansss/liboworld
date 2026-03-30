@@ -5,21 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Libo — App Case Study</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="tokens.css">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    :root{--black:#000;--white:#fff;--lime:#CAFF00;--dark:#111;--card:#1A1A1A;--muted:#777;--border:rgba(255,255,255,0.08);}
+    :root{--black:#000;--white:#fff;--accent:#CAFF00;--dark:#111;--card:#1A1A1A;--muted:#777;--border:rgba(255,255,255,0.08);}
     html{font-size:16px;-webkit-font-smoothing:antialiased;}
     body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);}
     .bc{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;line-height:0.88;}
     @media print{.pg{page-break-after:always;}.pg:last-child{page-break-after:avoid;}}
     .pg{width:100%;min-height:100vh;position:relative;overflow:hidden;padding:80px;}
-    .pg-lime{background:var(--lime);color:var(--black);}
+    .pg-lime{background:var(--accent);color:var(--black);}
     .pg-dark{background:#0a0a0a;}
     .narrow{max-width:1200px;margin:0 auto;}
-    .eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--lime);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+    .eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
     .sec-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,7vw,96px);text-transform:uppercase;line-height:0.9;letter-spacing:-2px;}
-    .sec-body{font-size:16px;line-height:1.75;color:#aaa;max-width:560px;}
-    .acc{color:var(--lime);}
+    .sec-body{font-size:16px;line-height:1.75;color:var(--grey);max-width:560px;}
+    .acc{color:var(--accent);}
     .phone{width:200px;height:400px;background:#090909;border-radius:32px;border:1.5px solid rgba(255,255,255,0.1);overflow:hidden;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.7),inset 0 0 0 1px rgba(255,255,255,0.05);flex-shrink:0;}
     .phone::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:60px;height:5px;background:rgba(255,255,255,0.12);border-radius:3px;z-index:10;}
     .phone-lg{width:240px;height:480px;}
@@ -27,27 +28,27 @@
     .phone-tilt{transform:perspective(900px) rotateY(-18deg) rotateX(4deg);}
     .phone-tilt-r{transform:perspective(900px) rotateY(18deg) rotateX(4deg);}
     .pc{padding:24px 14px 14px;height:100%;display:flex;flex-direction:column;gap:8px;font-size:11px;}
-    .ph-label{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#CAFF00;}
-    .ph-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;text-transform:uppercase;line-height:0.9;color:#fff;}
+    .ph-label{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);}
+    .ph-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;text-transform:uppercase;line-height:0.9;color:var(--white);}
     .ph-card{background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px;}
-    .ph-btn{background:#CAFF00;color:#000;border:none;border-radius:20px;padding:8px 14px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;width:100%;margin-top:auto;display:block;text-align:center;}
+    .ph-btn{background:var(--accent);color:var(--black);border:none;border-radius:20px;padding:8px 14px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;width:100%;margin-top:auto;display:block;text-align:center;}
     .ph-nav{margin-top:auto;display:flex;justify-content:space-around;border-top:1px solid rgba(255,255,255,0.07);padding-top:8px;}
     .ph-nav-i{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:7px;color:#555;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
-    .ph-nav-i.a{color:#CAFF00;}
+    .ph-nav-i.a{color:var(--accent);}
     .ph-dot-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin:6px 0;}
-    .ph-dot{aspect-ratio:1;border-radius:4px;background:#1a1a1a;border:1px solid rgba(255,255,255,0.06);font-size:7px;display:flex;align-items:center;justify-content:center;color:#333;}
-    .ph-dot.done{background:rgba(202,255,0,0.2);border-color:rgba(202,255,0,0.4);color:#CAFF00;}
-    .ph-dot.today{background:#CAFF00;color:#000;font-weight:900;}
+    .ph-dot{aspect-ratio:1;border-radius:4px;background:var(--dark-grey);border:1px solid rgba(255,255,255,0.06);font-size:7px;display:flex;align-items:center;justify-content:center;color:var(--mid-grey);}
+    .ph-dot.done{background:rgba(202,255,0,0.2);border-color:rgba(202,255,0,0.4);color:var(--accent);}
+    .ph-dot.today{background:var(--accent);color:var(--black);font-weight:900;}
     .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);margin-top:48px;}
     .stat-cell{padding:28px 24px;border-right:1px solid var(--border);}
     .stat-cell:last-child{border-right:none;}
-    .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;color:var(--lime);line-height:1;letter-spacing:-2px;}
+    .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-2px;}
     .stat-lbl{font-size:12px;color:var(--muted);margin-top:4px;}
     .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px;}
     .tl-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px 24px;}
-    .tl-week{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:12px;}
+    .tl-week{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
     .tl-title{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;line-height:0.9;margin-bottom:12px;}
-    .tl-body{font-size:13px;color:#888;line-height:1.6;}
+    .tl-body{font-size:13px;color:var(--grey);line-height:1.6;}
     .icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:24px;margin-top:48px;}
     .icon-box{width:100%;aspect-ratio:1;background:var(--card);border-radius:24px;display:flex;align-items:center;justify-content:center;}
     .icon-box svg{width:52px;height:52px;stroke:white;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
@@ -55,9 +56,9 @@
     .wf-box{height:16px;background:rgba(255,255,255,0.07);border-radius:3px;margin-bottom:6px;}
     .wf-box-lg{height:80px;background:rgba(255,255,255,0.05);border-radius:8px;margin-bottom:6px;}
     .wf-c{padding:20px 12px 12px;}
-    .testi-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;border-left:3px solid var(--lime);}
-    .testi-q{font-size:16px;line-height:1.65;color:#ddd;margin-bottom:16px;}
-    .testi-n{font-size:12px;font-weight:700;color:var(--lime);letter-spacing:1px;text-transform:uppercase;}
+    .testi-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;border-left:3px solid var(--accent);}
+    .testi-q{font-size:16px;line-height:1.65;color:var(--light-grey);margin-bottom:16px;}
+    .testi-n{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase;}
     .app-icon{width:80px;height:80px;border-radius:18px;border:2px solid rgba(202,255,0,0.3);overflow:hidden;}
     .app-icon img{width:100%;height:100%;object-fit:cover;display:block;}
     /* ── MOBILE RESPONSIVE ── */
@@ -172,18 +173,18 @@
 <body>
 
 <!-- PAGE 1 — COVER -->
-<div class="pg" style="background:#000;display:flex;align-items:center;justify-content:space-between;">
+<div class="pg" style="background:var(--black);display:flex;align-items:center;justify-content:space-between;">
   <div style="flex:1;max-width:560px;">
     <div class="eyebrow">UX/UI Design · Fitness · Mobile App</div>
-    <div class="bc" style="font-size:clamp(100px,14vw,200px);line-height:0.85;letter-spacing:-4px;">LI<span style="color:var(--lime)">BO</span></div>
+    <div class="bc" style="font-size:clamp(100px,14vw,200px);line-height:0.85;letter-spacing:-4px;">LI<span style="color:var(--accent)">BO</span></div>
     <div class="bc" style="font-size:clamp(48px,7vw,96px);color:rgba(255,255,255,0.12);-webkit-text-stroke:1px rgba(255,255,255,0.18);letter-spacing:-2px;margin-top:4px;">TRAIN</div>
-    <div class="bc" style="font-size:clamp(48px,7vw,96px);color:var(--lime);letter-spacing:-2px;">ANYWHERE.</div>
-    <div style="font-size:16px;color:#777;margin-top:28px;line-height:1.6;">718 exercises. 140 workouts. Zero excuses.</div>
+    <div class="bc" style="font-size:clamp(48px,7vw,96px);color:var(--accent);letter-spacing:-2px;">ANYWHERE.</div>
+    <div style="font-size:16px;color:var(--muted);margin-top:28px;line-height:1.6;">718 exercises. 140 workouts. Zero excuses.</div>
     <div style="display:flex;gap:40px;margin-top:52px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.07);">
       <div><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:6px;">Role</div><div style="font-size:14px;font-weight:700;">UX/UI Design</div></div>
       <div><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:6px;">Platform</div><div style="font-size:14px;font-weight:700;">iOS & Android</div></div>
       <div><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:6px;">Year</div><div style="font-size:14px;font-weight:700;">2025</div></div>
-      <div><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:6px;">Status</div><div style="font-size:14px;font-weight:700;color:var(--lime);">In Development</div></div>
+      <div><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:6px;">Status</div><div style="font-size:14px;font-weight:700;color:var(--accent);">In Development</div></div>
     </div>
   </div>
   <div style="position:relative;flex-shrink:0;display:flex;gap:16px;align-items:center;">
@@ -200,17 +201,17 @@
     <div class="phone phone-lg" style="transform:perspective(1000px) rotateY(-8deg) rotateX(2deg);">
       <div class="pc">
         <div class="ph-label">Good Morning</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:#fff;text-transform:uppercase;line-height:0.9;margin-bottom:4px;">ALEX</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--white);text-transform:uppercase;line-height:0.9;margin-bottom:4px;">ALEX</div>
         <div style="background:linear-gradient(135deg,#1a2200,#2d3a00,rgba(202,255,0,0.08));border:1px solid rgba(202,255,0,0.15);border-radius:14px;padding:16px;flex:0 0 auto;">
-          <div style="font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#CAFF00;margin-bottom:8px;">TODAY'S WORKOUT</div>
+          <div style="font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">TODAY'S WORKOUT</div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;text-transform:uppercase;line-height:0.9;margin-bottom:6px;">FULL BODY<br/>BODYWEIGHT A</div>
-          <div style="font-size:9px;color:#888;">30 MIN · 11 EXERCISES · BEGINNER</div>
-          <div style="background:#CAFF00;color:#000;border-radius:12px;padding:7px 14px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:inline-block;margin-top:10px;">Start Now →</div>
+          <div style="font-size:9px;color:var(--grey);">30 MIN · 11 EXERCISES · BEGINNER</div>
+          <div style="background:var(--accent);color:var(--black);border-radius:12px;padding:7px 14px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:inline-block;margin-top:10px;">Start Now →</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;flex:0 0 auto;">
-          <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">0</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Sessions</div></div>
-          <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">718</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Exercises</div></div>
-          <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">140</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Workouts</div></div>
+          <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:var(--accent);">0</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Sessions</div></div>
+          <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:var(--accent);">718</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Exercises</div></div>
+          <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:var(--accent);">140</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Workouts</div></div>
         </div>
         <div class="ph-nav">
           <div class="ph-nav-i a">🏠<span>Home</span></div>
@@ -236,10 +237,10 @@
       <p class="sec-body">Libo empowers everyday athletes to train smarter — with a library of 718 exercises across gym, home, and mobility environments, 140 structured workouts, and 30-day challenge programs that scale your daily targets from Day 1 to Day 30.</p>
       <p class="sec-body" style="margin-top:16px;">Every screen was designed to remove friction. You know your goal. Libo knows the path.</p>
       <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;">
-        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--lime);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">Mobile App</span>
-        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--lime);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">Fitness</span>
-        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--lime);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">UX/UI Design</span>
-        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--lime);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">2025</span>
+        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">Mobile App</span>
+        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">Fitness</span>
+        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">UX/UI Design</span>
+        <span style="background:rgba(202,255,0,0.1);border:1px solid rgba(202,255,0,0.25);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:50px;">2025</span>
       </div>
     </div>
     <div>
@@ -261,7 +262,7 @@
 </div>
 
 <!-- PAGE 3 — DESIGN PROCESS -->
-<div class="pg" style="background:#000;">
+<div class="pg" style="background:var(--black);">
   <div class="narrow">
     <div class="eyebrow">02 Design Process</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
@@ -274,9 +275,9 @@
           <div class="pc">
             <div class="ph-title" style="font-size:28px;margin-bottom:6px;">WORK<br/>OUTS</div>
             <div style="display:flex;gap:4px;margin-bottom:6px;">
-              <span style="background:#CAFF00;color:#000;border-radius:6px;padding:3px 7px;font-size:7px;font-weight:900;">All</span>
-              <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Gym</span>
-              <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Home</span>
+              <span style="background:var(--accent);color:var(--black);border-radius:6px;padding:3px 7px;font-size:7px;font-weight:900;">All</span>
+              <span style="background:var(--dark-grey);color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Gym</span>
+              <span style="background:var(--dark-grey);color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Home</span>
             </div>
             <div class="ph-card" style="background:linear-gradient(135deg,#1a2200,#2a3600);">
               <div class="ph-label" style="margin-bottom:3px;">New Workouts</div>
@@ -298,7 +299,7 @@
     <div class="tl">
       <div class="tl-card"><div class="tl-week">1 Week</div><div class="tl-title">Research &<br/>Discovery</div><div class="tl-body">Study users, goals, movement patterns. Map the full exercise library across environments.</div></div>
       <div class="tl-card"><div class="tl-week">2 Weeks</div><div class="tl-title">Information<br/>Architecture</div><div class="tl-body">Structure 718 exercises by environment and body focus. Design the content hierarchy.</div></div>
-      <div class="tl-card" style="border-color:rgba(202,255,0,0.2);background:rgba(202,255,0,0.04);"><div class="tl-week">4 Weeks</div><div class="tl-title" style="color:var(--lime);">UI Design &<br/>Prototyping</div><div class="tl-body">Build the full design system. Craft every screen state and interaction.</div></div>
+      <div class="tl-card" style="border-color:rgba(202,255,0,0.2);background:rgba(202,255,0,0.04);"><div class="tl-week">4 Weeks</div><div class="tl-title" style="color:var(--accent);">UI Design &<br/>Prototyping</div><div class="tl-body">Build the full design system. Craft every screen state and interaction.</div></div>
       <div class="tl-card"><div class="tl-week">7 Weeks</div><div class="tl-title">Development<br/>& Testing</div><div class="tl-body">Code, test, iterate. Get 140 workouts and 4 challenges actually working end-to-end.</div></div>
     </div>
   </div>
@@ -312,11 +313,11 @@
       <div>
         <div class="sec-title" style="margin-bottom:32px;">Problem &<br/><span class="acc">Solutions</span></div>
         <div style="margin-bottom:28px;">
-          <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:10px;">Problem</div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Problem</div>
           <p style="font-size:15px;line-height:1.7;color:#ccc;">Most fitness apps overwhelm beginners with unfiltered content. There is no way to say "I am at home today" and get a workout that actually fits. Progress tracking is vague. Challenges feel arbitrary.</p>
         </div>
         <div>
-          <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:10px;">Solution</div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Solution</div>
           <p style="font-size:15px;line-height:1.7;color:#ccc;">Libo structures all 718 exercises by environment and body focus. 30-day challenges scale your reps daily so the app always knows today's target. The AI Scanner gives 3 equipment-free alternatives to any exercise, instantly.</p>
         </div>
       </div>
@@ -333,22 +334,22 @@
 </div>
 
 <!-- PAGE 5 — TYPOGRAPHY & COLOR -->
-<div class="pg" style="background:#000;">
+<div class="pg" style="background:var(--black);">
   <div class="narrow">
     <div class="eyebrow">04 Style</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
       <div>
         <div style="font-size:13px;color:#555;margin-bottom:16px;">Typography &amp; Color</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(80px,11vw,150px);text-transform:uppercase;line-height:0.85;letter-spacing:-4px;margin-bottom:8px;">Bar<span style="color:var(--lime)">low</span></div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(80px,11vw,150px);text-transform:uppercase;line-height:0.85;letter-spacing:-4px;margin-bottom:8px;">Bar<span style="color:var(--accent)">low</span></div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(60px,8vw,110px);text-transform:uppercase;line-height:0.85;letter-spacing:-3px;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,0.2);">Condensed</div>
         <div style="margin-top:24px;font-size:13px;color:#444;letter-spacing:3px;line-height:1.8;">A B C D E F G H I J K L M<br/>N O P Q R S T U V W X Y Z<br/>0 1 2 3 4 5 6 7 8 9</div>
-        <div style="margin-top:20px;font-size:13px;color:#888;line-height:1.6;">Barlow Condensed 900 for all display headlines. Inter 400–800 for body, UI, and data. The contrast creates energy and clarity simultaneously.</div>
+        <div style="margin-top:20px;font-size:13px;color:var(--grey);line-height:1.6;">Barlow Condensed 900 for all display headlines. Inter 400–800 for body, UI, and data. The contrast creates energy and clarity simultaneously.</div>
       </div>
       <div style="position:relative;height:300px;">
-        <div style="width:200px;height:160px;border-radius:20px;background:var(--lime);position:absolute;top:0;left:0;transform:rotate(-6deg);z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:#000;margin-bottom:4px;">Energy</div><div style="font-size:12px;color:rgba(0,0,0,0.5);font-weight:500;">#CAFF00</div></div>
-        <div style="width:200px;height:160px;border-radius:20px;background:#000;border:1px solid rgba(255,255,255,0.15);position:absolute;top:20px;left:160px;transform:rotate(2deg);z-index:2;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:4px;">Power</div><div style="font-size:12px;color:rgba(255,255,255,0.4);font-weight:500;">#000000</div></div>
-        <div style="width:200px;height:160px;border-radius:20px;background:#fff;position:absolute;top:40px;left:320px;transform:rotate(-3deg);z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:#000;margin-bottom:4px;">Clarity</div><div style="font-size:12px;color:rgba(0,0,0,0.4);font-weight:500;">#FFFFFF</div></div>
-        <div style="width:200px;height:160px;border-radius:20px;background:#1A1A1A;border:1px solid rgba(255,255,255,0.08);position:absolute;top:60px;left:480px;transform:rotate(5deg);z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:4px;">Depth</div><div style="font-size:12px;color:rgba(255,255,255,0.3);font-weight:500;">#1A1A1A</div></div>
+        <div style="width:200px;height:160px;border-radius:20px;background:var(--accent);position:absolute;top:0;left:0;transform:rotate(-6deg);z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:var(--black);margin-bottom:4px;">Energy</div><div style="font-size:12px;color:rgba(0,0,0,0.5);font-weight:500;">#CAFF00</div></div>
+        <div style="width:200px;height:160px;border-radius:20px;background:var(--black);border:1px solid rgba(255,255,255,0.15);position:absolute;top:20px;left:160px;transform:rotate(2deg);z-index:2;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:var(--white);margin-bottom:4px;">Power</div><div style="font-size:12px;color:rgba(255,255,255,0.4);font-weight:500;">#000000</div></div>
+        <div style="width:200px;height:160px;border-radius:20px;background:var(--white);position:absolute;top:40px;left:320px;transform:rotate(-3deg);z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:var(--black);margin-bottom:4px;">Clarity</div><div style="font-size:12px;color:rgba(0,0,0,0.4);font-weight:500;">#FFFFFF</div></div>
+        <div style="width:200px;height:160px;border-radius:20px;background:var(--dark-grey);border:1px solid var(--border);position:absolute;top:60px;left:480px;transform:rotate(5deg);z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 20px 40px rgba(0,0,0,0.5);"><div style="font-size:20px;font-weight:800;color:var(--white);margin-bottom:4px;">Depth</div><div style="font-size:12px;color:rgba(255,255,255,0.3);font-weight:500;">#1A1A1A</div></div>
       </div>
     </div>
   </div>
@@ -363,7 +364,7 @@
     <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:20px;padding:48px;overflow-x:auto;">
       <div style="display:flex;align-items:center;gap:0;min-width:800px;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;">
-          <div style="background:var(--lime);color:#000;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;">L</div>
+          <div style="background:var(--accent);color:var(--black);border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;">L</div>
           <div style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:1px;">Libo</div>
         </div>
         <div style="flex:0 0 32px;height:1px;background:rgba(255,255,255,0.1);"></div>
@@ -372,11 +373,11 @@
           <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Login</div>
         </div>
         <div style="flex:0 0 32px;height:1px;background:rgba(255,255,255,0.1);"></div>
-        <div style="background:rgba(202,255,0,0.08);border:1px solid rgba(202,255,0,0.2);border-radius:20px;padding:10px 18px;font-size:12px;font-weight:700;color:var(--lime);flex-shrink:0;">Main Nav</div>
+        <div style="background:rgba(202,255,0,0.08);border:1px solid rgba(202,255,0,0.2);border-radius:20px;padding:10px 18px;font-size:12px;font-weight:700;color:var(--accent);flex-shrink:0;">Main Nav</div>
         <div style="flex:0 0 32px;height:1px;background:rgba(255,255,255,0.1);"></div>
         <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
           <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Home</div>
-          <div style="background:var(--card);border:1px solid rgba(202,255,0,0.2);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;color:var(--lime);">Explore</div>
+          <div style="background:var(--card);border:1px solid rgba(202,255,0,0.2);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;color:var(--accent);">Explore</div>
           <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Programs</div>
           <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Progress</div>
           <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;">Scanner</div>
@@ -384,7 +385,7 @@
         <div style="flex:0 0 32px;height:1px;background:rgba(255,255,255,0.1);"></div>
         <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
           <div style="font-size:11px;color:#666;">Today's Workout · Featured Grid</div>
-          <div style="font-size:11px;color:var(--lime);">718 Exercises · 140 Workouts</div>
+          <div style="font-size:11px;color:var(--accent);">718 Exercises · 140 Workouts</div>
           <div style="font-size:11px;color:#666;">4 Challenges · 10 Routines</div>
           <div style="font-size:11px;color:#666;">Ring Chart · Workout Log</div>
           <div style="font-size:11px;color:#666;">3 Alternatives Instantly</div>
@@ -395,7 +396,7 @@
 </div>
 
 <!-- PAGE 7 — ICON DESIGN -->
-<div class="pg" style="background:#000;">
+<div class="pg" style="background:var(--black);">
   <div class="narrow">
     <div class="eyebrow">06 Iconography</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
@@ -433,21 +434,21 @@
 <div class="pg" style="background:#050505;display:flex;align-items:center;">
   <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%;">
     <div>
-      <p style="font-size:clamp(24px,3.5vw,44px);font-weight:300;line-height:1.3;color:#fff;margin-bottom:32px;">"Train your <span style="color:var(--lime);font-weight:700;">own way</span> — the strength within you is just beginning."</p>
-      <div style="font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:16px;">Onboarding</div>
-      <p style="font-size:15px;color:#888;line-height:1.7;">Three questions. Under 60 seconds. Goal, fitness level, equipment. Then you are inside Libo with everything personalised to you.</p>
+      <p style="font-size:clamp(24px,3.5vw,44px);font-weight:300;line-height:1.3;color:var(--white);margin-bottom:32px;">"Train your <span style="color:var(--accent);font-weight:700;">own way</span> — the strength within you is just beginning."</p>
+      <div style="font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Onboarding</div>
+      <p style="font-size:15px;color:var(--grey);line-height:1.7;">Three questions. Under 60 seconds. Goal, fitness level, equipment. Then you are inside Libo with everything personalised to you.</p>
     </div>
     <div style="display:flex;justify-content:center;">
       <div class="phone phone-lg">
         <div class="pc">
-          <div style="display:flex;gap:4px;margin-bottom:16px;"><div style="flex:1;height:3px;border-radius:2px;background:var(--lime);"></div><div style="flex:1;height:3px;border-radius:2px;background:#222;"></div><div style="flex:1;height:3px;border-radius:2px;background:#222;"></div></div>
+          <div style="display:flex;gap:4px;margin-bottom:16px;"><div style="flex:1;height:3px;border-radius:2px;background:var(--accent);"></div><div style="flex:1;height:3px;border-radius:2px;background:#222;"></div><div style="flex:1;height:3px;border-radius:2px;background:#222;"></div></div>
           <div style="font-size:32px;margin-bottom:12px;">🎯</div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;line-height:0.9;margin-bottom:8px;">WHAT'S<br/>YOUR<br/>GOAL?</div>
           <div style="font-size:11px;color:#555;margin-bottom:16px;">We will personalise everything around it.</div>
           <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
-            <div style="background:rgba(202,255,0,0.1);border:1.5px solid rgba(202,255,0,0.4);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">💪</span><div><div style="font-size:12px;font-weight:700;">Build Muscle</div><div style="font-size:9px;color:#888;">Strength &amp; size</div></div></div>
-            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">🔥</span><div><div style="font-size:12px;font-weight:700;">Lose Weight</div><div style="font-size:9px;color:#888;">Burn &amp; tone</div></div></div>
-            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">⚡</span><div><div style="font-size:12px;font-weight:700;">Stay Active</div><div style="font-size:9px;color:#888;">Move daily</div></div></div>
+            <div style="background:rgba(202,255,0,0.1);border:1.5px solid rgba(202,255,0,0.4);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">💪</span><div><div style="font-size:12px;font-weight:700;">Build Muscle</div><div style="font-size:9px;color:var(--grey);">Strength &amp; size</div></div></div>
+            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">🔥</span><div><div style="font-size:12px;font-weight:700;">Lose Weight</div><div style="font-size:9px;color:var(--grey);">Burn &amp; tone</div></div></div>
+            <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">⚡</span><div><div style="font-size:12px;font-weight:700;">Stay Active</div><div style="font-size:9px;color:var(--grey);">Move daily</div></div></div>
           </div>
           <div class="ph-btn" style="margin-top:10px;">Continue →</div>
         </div>
@@ -457,34 +458,34 @@
 </div>
 
 <!-- PAGE 10 — HOME SCREEN -->
-<div class="pg" style="background:#000;display:flex;align-items:center;">
+<div class="pg" style="background:var(--black);display:flex;align-items:center;">
   <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%;">
     <div>
       <div class="eyebrow">08 Home Screen</div>
       <div class="sec-title" style="margin-bottom:24px;">Check Out<br/>The Latest<br/><span class="acc">From Libo.</span></div>
       <p class="sec-body">Your daily training starts here. A goal-matched hero card surfaces today's recommended workout. One tap to start.</p>
       <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;align-items:center;gap:12px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--lime);flex-shrink:0;"></div><div style="font-size:14px;color:#ccc;">Goal-matched daily recommendation</div></div>
-        <div style="display:flex;align-items:center;gap:12px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--lime);flex-shrink:0;"></div><div style="font-size:14px;color:#ccc;">Live workout log and streak tracking</div></div>
-        <div style="display:flex;align-items:center;gap:12px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--lime);flex-shrink:0;"></div><div style="font-size:14px;color:#ccc;">4 featured workouts in editorial grid</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;"></div><div style="font-size:14px;color:#ccc;">Goal-matched daily recommendation</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;"></div><div style="font-size:14px;color:#ccc;">Live workout log and streak tracking</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;"></div><div style="font-size:14px;color:#ccc;">4 featured workouts in editorial grid</div></div>
       </div>
     </div>
     <div style="display:flex;justify-content:center;">
       <div class="phone phone-lg">
         <div class="pc">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <div><div style="font-size:9px;color:#555;font-weight:600;">Good morning</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;color:#fff;">ALEX</div></div>
-            <div style="width:32px;height:32px;border-radius:50%;background:rgba(202,255,0,0.15);border:2px solid rgba(202,255,0,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--lime);">A</div>
+            <div><div style="font-size:9px;color:#555;font-weight:600;">Good morning</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;color:var(--white);">ALEX</div></div>
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(202,255,0,0.15);border:2px solid rgba(202,255,0,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--accent);">A</div>
           </div>
           <div style="background:linear-gradient(135deg,#0f1a00,#1a2d00,rgba(202,255,0,0.06));border:1px solid rgba(202,255,0,0.15);border-radius:16px;padding:16px;flex:0 0 auto;">
-            <div style="font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#CAFF00;margin-bottom:8px;">TODAY'S WORKOUT</div>
+            <div style="font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">TODAY'S WORKOUT</div>
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;line-height:0.88;margin-bottom:8px;">FULL BODY<br/>BODYWEIGHT A</div>
-            <div style="font-size:9px;color:#888;margin-bottom:12px;">🏠 30 MIN · 11 EXERCISES · BEGINNER</div>
-            <div style="background:#CAFF00;color:#000;border-radius:12px;padding:7px 16px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:inline-block;">Start Now →</div>
+            <div style="font-size:9px;color:var(--grey);margin-bottom:12px;">🏠 30 MIN · 11 EXERCISES · BEGINNER</div>
+            <div style="background:var(--accent);color:var(--black);border-radius:12px;padding:7px 16px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:inline-block;">Start Now →</div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:0 0 auto;">
-            <div style="background:linear-gradient(135deg,#1a2200,#2a3600);border-radius:12px;padding:10px;border:1px solid rgba(202,255,0,0.1);"><div style="font-size:7px;color:#CAFF00;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">GYM</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;line-height:0.9;">PUSH<br/>DAY</div></div>
-            <div style="background:#141414;border-radius:12px;padding:10px;border:1px solid rgba(255,255,255,0.05);"><div style="font-size:7px;color:#CAFF00;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">CARDIO</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;line-height:0.9;">HIIT<br/>INTERVALS</div></div>
+            <div style="background:linear-gradient(135deg,#1a2200,#2a3600);border-radius:12px;padding:10px;border:1px solid rgba(202,255,0,0.1);"><div style="font-size:7px;color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">GYM</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;line-height:0.9;">PUSH<br/>DAY</div></div>
+            <div style="background:#141414;border-radius:12px;padding:10px;border:1px solid rgba(255,255,255,0.05);"><div style="font-size:7px;color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">CARDIO</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;line-height:0.9;">HIIT<br/>INTERVALS</div></div>
           </div>
           <div class="ph-nav">
             <div class="ph-nav-i a">🏠<span>Home</span></div><div class="ph-nav-i">🔍<span>Explore</span></div><div class="ph-nav-i">📅<span>Programs</span></div><div class="ph-nav-i">📷<span>Scanner</span></div><div class="ph-nav-i">📊<span>Progress</span></div>
@@ -498,8 +499,8 @@
 <!-- PAGE 11 — EDITORIAL: 502 -->
 <div class="pg pg-lime" style="display:flex;align-items:center;justify-content:center;text-align:center;">
   <div style="position:relative;z-index:1;">
-    <div class="bc" style="font-size:clamp(120px,20vw,280px);color:#000;letter-spacing:-8px;line-height:0.8;">718</div>
-    <div class="bc" style="font-size:clamp(60px,10vw,140px);color:#000;letter-spacing:-4px;line-height:0.85;margin-bottom:24px;">EXERCISES.</div>
+    <div class="bc" style="font-size:clamp(120px,20vw,280px);color:var(--black);letter-spacing:-8px;line-height:0.8;">718</div>
+    <div class="bc" style="font-size:clamp(60px,10vw,140px);color:var(--black);letter-spacing:-4px;line-height:0.85;margin-bottom:24px;">EXERCISES.</div>
     <div style="font-size:18px;font-weight:700;color:rgba(0,0,0,0.4);letter-spacing:4px;text-transform:uppercase;">286 Gym · 185 Home · 31 Mobility</div>
   </div>
   <div style="position:absolute;bottom:40px;right:80px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;letter-spacing:-1px;text-transform:uppercase;color:rgba(0,0,0,0.25);">LIBO</div>
@@ -519,10 +520,10 @@
         <div class="pc">
           <div class="ph-title" style="font-size:28px;margin-bottom:4px;">WORK<br/>OUTS</div>
           <div style="display:flex;gap:3px;margin-bottom:6px;">
-            <span style="background:#CAFF00;color:#000;border-radius:6px;padding:3px 7px;font-size:7px;font-weight:900;">All</span>
-            <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Gym</span>
-            <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Home</span>
-            <span style="background:#1a1a1a;color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Cardio</span>
+            <span style="background:var(--accent);color:var(--black);border-radius:6px;padding:3px 7px;font-size:7px;font-weight:900;">All</span>
+            <span style="background:var(--dark-grey);color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Gym</span>
+            <span style="background:var(--dark-grey);color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Home</span>
+            <span style="background:var(--dark-grey);color:#555;border-radius:6px;padding:3px 7px;font-size:7px;">Cardio</span>
           </div>
           <div style="background:linear-gradient(135deg,#0d1f00,#1a3300);border-radius:10px;padding:10px;margin-bottom:6px;"><div class="ph-label" style="margin-bottom:3px;">NEW WORKOUTS</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;line-height:0.9;">CHEST —<br/>BARBELL FOUNDATIONS</div><div style="font-size:8px;color:#666;margin-top:3px;">45 min · Intermediate</div></div>
           <div style="background:#141414;border-radius:10px;padding:10px;margin-bottom:6px;"><div class="ph-label" style="margin-bottom:3px;">PERFECT FOR HOME</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;line-height:0.9;">FULL BODY BODYWEIGHT A</div><div style="font-size:8px;color:#666;margin-top:3px;">30 min · Beginner</div></div>
@@ -532,8 +533,8 @@
       <div class="phone phone-sm phone-tilt-r">
         <div style="padding:16px 10px 10px;height:100%;display:flex;flex-direction:column;gap:6px;">
           <div class="ph-label" style="font-size:7px;">Exercises · 718</div>
-          <div style="background:#1a1a1a;border-radius:8px;padding:6px;margin-bottom:4px;font-size:8px;color:#444;">🔍 Search...</div>
-          <div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px;"><span style="background:#CAFF00;color:#000;border-radius:4px;padding:2px 5px;font-size:7px;font-weight:900;">All</span><span style="background:#1a1a1a;color:#555;border-radius:4px;padding:2px 5px;font-size:7px;">Gym</span><span style="background:#1a1a1a;color:#555;border-radius:4px;padding:2px 5px;font-size:7px;">Home</span></div>
+          <div style="background:var(--dark-grey);border-radius:8px;padding:6px;margin-bottom:4px;font-size:8px;color:#444;">🔍 Search...</div>
+          <div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px;"><span style="background:var(--accent);color:var(--black);border-radius:4px;padding:2px 5px;font-size:7px;font-weight:900;">All</span><span style="background:var(--dark-grey);color:#555;border-radius:4px;padding:2px 5px;font-size:7px;">Gym</span><span style="background:var(--dark-grey);color:#555;border-radius:4px;padding:2px 5px;font-size:7px;">Home</span></div>
           <div style="display:flex;flex-direction:column;gap:4px;">
             <div class="ph-card" style="padding:6px 8px;display:flex;align-items:center;gap:6px;"><span style="font-size:12px;">💪</span><div><div style="font-size:9px;font-weight:700;">Barbell Bench Press</div><div style="font-size:7px;color:#555;">Chest</div></div></div>
             <div class="ph-card" style="padding:6px 8px;display:flex;align-items:center;gap:6px;"><span style="font-size:12px;">💪</span><div><div style="font-size:9px;font-weight:700;">One-Arm Row</div><div style="font-size:7px;color:#555;">Back</div></div></div>
@@ -546,7 +547,7 @@
 </div>
 
 <!-- PAGE 13 — 30-DAY CHALLENGES -->
-<div class="pg" style="background:#000;">
+<div class="pg" style="background:var(--black);">
   <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
     <div>
       <div class="eyebrow">10 Challenges</div>
@@ -555,7 +556,7 @@
       <div style="margin-top:32px;display:flex;flex-direction:column;gap:10px;">
         <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;margin-bottom:2px;">30-Day Total Body Transformation</div><div style="font-size:11px;color:#555;">30 min/day · Intermediate · 11 exercises</div></div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;margin-bottom:2px;">30-Day Core Challenge</div><div style="font-size:11px;color:#555;">20 min/day · Intermediate · 8 exercises</div></div>
-        <div style="background:var(--card);border:1px solid rgba(202,255,0,0.2);border-radius:12px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;color:var(--lime);margin-bottom:2px;">30-Day Pull-Up Challenge</div><div style="font-size:11px;color:#555;">20 min/day · Advanced · 9 exercises</div></div>
+        <div style="background:var(--card);border:1px solid rgba(202,255,0,0.2);border-radius:12px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:2px;">30-Day Pull-Up Challenge</div><div style="font-size:11px;color:#555;">20 min/day · Advanced · 9 exercises</div></div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;margin-bottom:2px;">30-Day Squat &amp; Lunge Challenge</div><div style="font-size:11px;color:#555;">25 min/day · Intermediate · 11 exercises</div></div>
       </div>
     </div>
@@ -563,7 +564,7 @@
       <div class="phone phone-lg">
         <div class="pc">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-            <div style="position:relative;flex-shrink:0;"><svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/><circle cx="30" cy="30" r="24" fill="none" stroke="#CAFF00" stroke-width="5" stroke-dasharray="150.8" stroke-dashoffset="105" stroke-linecap="round" transform="rotate(-90 30 30)"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;color:#CAFF00;">30%</div></div></div>
+            <div style="position:relative;flex-shrink:0;"><svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/><circle cx="30" cy="30" r="24" fill="none" stroke="#CAFF00" stroke-width="5" stroke-dasharray="150.8" stroke-dashoffset="105" stroke-linecap="round" transform="rotate(-90 30 30)"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;color:var(--accent);">30%</div></div></div>
             <div><div class="ph-label" style="margin-bottom:2px;">Active Challenge</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;line-height:0.9;">30-DAY CORE<br/>CHALLENGE</div><div style="font-size:8px;color:#666;margin-top:2px;">Day 9 of 30</div></div>
           </div>
           <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:4px;">30-Day Progress</div>
@@ -576,8 +577,8 @@
           </div>
           <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:4px;">Today — Day 9</div>
           <div style="display:flex;flex-direction:column;gap:4px;flex:1;">
-            <div style="background:#141414;border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:6px;"><div style="width:18px;height:18px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">1</div><div><div style="font-size:9px;font-weight:700;">Forearm Plank</div><div style="font-size:7px;color:#555;">3 sets · 22 sec</div></div></div>
-            <div style="background:#141414;border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:6px;"><div style="width:18px;height:18px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">2</div><div><div style="font-size:9px;font-weight:700;">Mountain Climber</div><div style="font-size:7px;color:#555;">3 sets · 14 reps</div></div></div>
+            <div style="background:#141414;border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:6px;"><div style="width:18px;height:18px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--accent);flex-shrink:0;">1</div><div><div style="font-size:9px;font-weight:700;">Forearm Plank</div><div style="font-size:7px;color:#555;">3 sets · 22 sec</div></div></div>
+            <div style="background:#141414;border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:6px;"><div style="width:18px;height:18px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--accent);flex-shrink:0;">2</div><div><div style="font-size:9px;font-weight:700;">Mountain Climber</div><div style="font-size:7px;color:#555;">3 sets · 14 reps</div></div></div>
           </div>
           <div class="ph-btn">Start Day 9 →</div>
         </div>
@@ -597,28 +598,28 @@
     <div style="display:flex;gap:20px;align-items:flex-end;justify-content:center;">
       <div class="phone">
         <div class="pc">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><div style="font-size:9px;font-weight:700;color:#555;">2 / 11</div><div style="font-size:9px;font-weight:800;color:#CAFF00;">FULL BODY BODYWEIGHT A</div><div style="font-size:10px;color:#555;">✕</div></div>
-          <div style="height:3px;background:#1a1a1a;border-radius:2px;margin-bottom:12px;"><div style="width:40%;height:100%;background:#CAFF00;border-radius:2px;"></div></div>
-          <div style="background:linear-gradient(135deg,#0d1f00,#1a3300);border-radius:14px;padding:20px;text-align:center;margin-bottom:10px;flex:0 0 auto;"><div style="font-size:40px;margin-bottom:6px;">💪</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;line-height:0.9;">FOREARM<br/>PLANK</div><div style="font-size:9px;color:#888;margin-top:4px;">Core · Stability</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><div style="font-size:9px;font-weight:700;color:#555;">2 / 11</div><div style="font-size:9px;font-weight:800;color:var(--accent);">FULL BODY BODYWEIGHT A</div><div style="font-size:10px;color:#555;">✕</div></div>
+          <div style="height:3px;background:var(--dark-grey);border-radius:2px;margin-bottom:12px;"><div style="width:40%;height:100%;background:var(--accent);border-radius:2px;"></div></div>
+          <div style="background:linear-gradient(135deg,#0d1f00,#1a3300);border-radius:14px;padding:20px;text-align:center;margin-bottom:10px;flex:0 0 auto;"><div style="font-size:40px;margin-bottom:6px;">💪</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;line-height:0.9;">FOREARM<br/>PLANK</div><div style="font-size:9px;color:var(--grey);margin-top:4px;">Core · Stability</div></div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;flex:0 0 auto;">
             <div style="background:#141414;border-radius:8px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;">3</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Sets</div></div>
             <div style="background:#141414;border-radius:8px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;">30s</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Hold</div></div>
-            <div style="background:rgba(202,255,0,0.06);border:1px solid rgba(202,255,0,0.15);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:9px;font-weight:800;color:#CAFF00;">Core</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Muscle</div></div>
+            <div style="background:rgba(202,255,0,0.06);border:1px solid rgba(202,255,0,0.15);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:9px;font-weight:800;color:var(--accent);">Core</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Muscle</div></div>
           </div>
           <div class="ph-btn">Next →</div>
         </div>
       </div>
       <div class="phone phone-sm" style="background:#050505;">
         <div style="padding:20px 14px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
-          <div style="font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#CAFF00;margin-bottom:10px;">Session Complete</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;text-transform:uppercase;line-height:0.85;color:#CAFF00;margin-bottom:6px;">GREAT<br/>WORK!</div>
+          <div style="font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Session Complete</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;text-transform:uppercase;line-height:0.85;color:var(--accent);margin-bottom:6px;">GREAT<br/>WORK!</div>
           <div style="font-size:8px;color:#555;margin-bottom:14px;">Full Body Bodyweight A</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:100%;margin-bottom:12px;">
-            <div style="background:#141414;border-radius:8px;padding:6px 4px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">30</div><div style="font-size:7px;color:#555;">Min</div></div>
-            <div style="background:#141414;border-radius:8px;padding:6px 4px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">11</div><div style="font-size:7px;color:#555;">Ex</div></div>
-            <div style="background:#141414;border-radius:8px;padding:6px 4px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">200</div><div style="font-size:7px;color:#555;">Cal</div></div>
+            <div style="background:#141414;border-radius:8px;padding:6px 4px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:var(--accent);">30</div><div style="font-size:7px;color:#555;">Min</div></div>
+            <div style="background:#141414;border-radius:8px;padding:6px 4px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:var(--accent);">11</div><div style="font-size:7px;color:#555;">Ex</div></div>
+            <div style="background:#141414;border-radius:8px;padding:6px 4px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:var(--accent);">200</div><div style="font-size:7px;color:#555;">Cal</div></div>
           </div>
-          <div style="background:#CAFF00;color:#000;border-radius:12px;padding:8px;font-size:8px;font-weight:900;text-transform:uppercase;width:100%;letter-spacing:1px;">Back to Home</div>
+          <div style="background:var(--accent);color:var(--black);border-radius:12px;padding:8px;font-size:8px;font-weight:900;text-transform:uppercase;width:100%;letter-spacing:1px;">Back to Home</div>
         </div>
       </div>
     </div>
@@ -626,11 +627,11 @@
 </div>
 
 <!-- PAGE 15 — POST-WORKOUT LOCATION -->
-<div class="pg" style="background:#000;">
+<div class="pg" style="background:var(--black);">
   <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
     <div>
       <div class="eyebrow">12 Post-Workout</div>
-      <div class="bc" style="font-size:clamp(72px,10vw,140px);color:var(--lime);letter-spacing:-4px;line-height:0.85;margin-bottom:8px;">31:45</div>
+      <div class="bc" style="font-size:clamp(72px,10vw,140px);color:var(--accent);letter-spacing:-4px;line-height:0.85;margin-bottom:8px;">31:45</div>
       <div class="sec-title" style="font-size:32px;margin-bottom:24px;color:#666;">LOWER BODY<br/>POWER</div>
       <p class="sec-body">Log where you trained. Track patterns. See what environments produce your best results over time.</p>
     </div>
@@ -638,12 +639,12 @@
       <div class="phone phone-lg">
         <div class="pc" style="align-items:center;justify-content:center;text-align:center;">
           <div class="ph-label" style="margin-bottom:10px;">Session Complete</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:60px;font-weight:900;color:#CAFF00;line-height:0.85;margin-bottom:4px;">31:45</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:60px;font-weight:900;color:var(--accent);line-height:0.85;margin-bottom:4px;">31:45</div>
           <div style="font-size:9px;color:#555;margin-bottom:20px;">LEGS — SQUAT DAY</div>
           <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:10px;">Where did you train?</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;margin-bottom:16px;">
             <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 6px;text-align:center;"><div style="font-size:18px;margin-bottom:3px;">🏋️</div><div style="font-size:9px;font-weight:700;">Gym</div></div>
-            <div style="background:#CAFF00;border-radius:12px;padding:12px 6px;text-align:center;"><div style="font-size:18px;margin-bottom:3px;">🏠</div><div style="font-size:9px;font-weight:900;color:#000;">Home</div></div>
+            <div style="background:var(--accent);border-radius:12px;padding:12px 6px;text-align:center;"><div style="font-size:18px;margin-bottom:3px;">🏠</div><div style="font-size:9px;font-weight:900;color:var(--black);">Home</div></div>
             <div style="background:#141414;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 6px;text-align:center;"><div style="font-size:18px;margin-bottom:3px;">🌍</div><div style="font-size:9px;font-weight:700;">Outdoor</div></div>
           </div>
           <div class="ph-btn">Save &amp; Continue →</div>
@@ -662,23 +663,23 @@
     <div style="display:flex;gap:32px;justify-content:center;align-items:flex-end;">
       <div class="phone phone-lg">
         <div class="pc">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><div class="ph-title" style="font-size:20px;">ACTIVITY</div><div style="color:#CAFF00;font-size:16px;">+</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><div class="ph-title" style="font-size:20px;">ACTIVITY</div><div style="color:var(--accent);font-size:16px;">+</div></div>
           <div style="display:flex;justify-content:center;margin:4px 0;">
-            <div style="position:relative;"><svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="36" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/><circle cx="45" cy="45" r="36" fill="none" stroke="#CAFF00" stroke-width="7" stroke-dasharray="226" stroke-dashoffset="56" stroke-linecap="round" transform="rotate(-90 45 45)"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#CAFF00;line-height:1;">12</div><div style="font-size:7px;color:#555;text-transform:uppercase;letter-spacing:1px;">Sessions</div></div></div>
+            <div style="position:relative;"><svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="36" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/><circle cx="45" cy="45" r="36" fill="none" stroke="#CAFF00" stroke-width="7" stroke-dasharray="226" stroke-dashoffset="56" stroke-linecap="round" transform="rotate(-90 45 45)"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--accent);line-height:1;">12</div><div style="font-size:7px;color:#555;text-transform:uppercase;letter-spacing:1px;">Sessions</div></div></div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
-            <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#CAFF00;">312</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Minutes</div></div>
-            <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#CAFF00;">2.1k</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Calories</div></div>
+            <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--accent);">312</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Minutes</div></div>
+            <div style="background:#141414;border-radius:10px;padding:8px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--accent);">2.1k</div><div style="font-size:7px;color:#555;text-transform:uppercase;">Calories</div></div>
           </div>
           <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:4px;">This Week</div>
           <div style="display:flex;gap:3px;align-items:flex-end;height:36px;">
-            <div style="flex:1;background:#1a1a1a;border-radius:2px 2px 0 0;height:60%;"></div>
-            <div style="flex:1;background:#CAFF00;border-radius:2px 2px 0 0;height:80%;"></div>
-            <div style="flex:1;background:#1a1a1a;border-radius:2px 2px 0 0;height:40%;"></div>
+            <div style="flex:1;background:var(--dark-grey);border-radius:2px 2px 0 0;height:60%;"></div>
+            <div style="flex:1;background:var(--accent);border-radius:2px 2px 0 0;height:80%;"></div>
+            <div style="flex:1;background:var(--dark-grey);border-radius:2px 2px 0 0;height:40%;"></div>
             <div style="flex:1;background:#2a2a2a;border-radius:2px 2px 0 0;height:100%;"></div>
-            <div style="flex:1;background:#1a1a1a;border-radius:2px 2px 0 0;height:20%;"></div>
-            <div style="flex:1;background:#CAFF00;border-radius:2px 2px 0 0;height:70%;"></div>
-            <div style="flex:1;background:#1a1a1a;border-radius:2px 2px 0 0;height:30%;"></div>
+            <div style="flex:1;background:var(--dark-grey);border-radius:2px 2px 0 0;height:20%;"></div>
+            <div style="flex:1;background:var(--accent);border-radius:2px 2px 0 0;height:70%;"></div>
+            <div style="flex:1;background:var(--dark-grey);border-radius:2px 2px 0 0;height:30%;"></div>
           </div>
           <div class="ph-nav"><div class="ph-nav-i">🏠</div><div class="ph-nav-i">🔍</div><div class="ph-nav-i">📅</div><div class="ph-nav-i">📷</div><div class="ph-nav-i a">📊</div></div>
         </div>
@@ -690,7 +691,7 @@
           <div style="background:linear-gradient(135deg,#0d1f00,#1a3300);border:1px solid rgba(202,255,0,0.15);border-radius:12px;padding:10px;margin-bottom:6px;">
             <div class="ph-label" style="margin-bottom:3px;">🎯 30-Day Challenge</div>
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:900;text-transform:uppercase;line-height:0.9;margin-bottom:5px;">TOTAL BODY<br/>TRANSFORMATION</div>
-            <div style="height:3px;background:#1a1a1a;border-radius:2px;margin-bottom:3px;"><div style="width:30%;height:100%;background:#CAFF00;border-radius:2px;"></div></div>
+            <div style="height:3px;background:var(--dark-grey);border-radius:2px;margin-bottom:3px;"><div style="width:30%;height:100%;background:var(--accent);border-radius:2px;"></div></div>
             <div style="font-size:8px;color:#555;">Day 9 / 30 · 30% complete</div>
           </div>
           <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:4px;">Routines</div>
@@ -706,13 +707,13 @@
 
 <!-- PAGE 17 — EDITORIAL: TRAIN ANYWHERE -->
 <div class="pg pg-lime" style="display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;gap:0;">
-  <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-6px;line-height:0.82;">TRAIN</div>
-  <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-6px;line-height:0.82;">ANY</div>
-  <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-6px;line-height:0.82;margin-bottom:32px;">WHERE.</div>
+  <div class="bc" style="font-size:clamp(80px,16vw,220px);color:var(--black);letter-spacing:-6px;line-height:0.82;">TRAIN</div>
+  <div class="bc" style="font-size:clamp(80px,16vw,220px);color:var(--black);letter-spacing:-6px;line-height:0.82;">ANY</div>
+  <div class="bc" style="font-size:clamp(80px,16vw,220px);color:var(--black);letter-spacing:-6px;line-height:0.82;margin-bottom:32px;">WHERE.</div>
   <div style="display:flex;gap:12px;">
-    <span style="background:#000;color:var(--lime);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🏋️ Gym</span>
-    <span style="background:#000;color:var(--lime);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🏠 Home</span>
-    <span style="background:#000;color:var(--lime);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🧘 Mobility</span>
+    <span style="background:var(--black);color:var(--accent);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🏋️ Gym</span>
+    <span style="background:var(--black);color:var(--accent);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🏠 Home</span>
+    <span style="background:var(--black);color:var(--accent);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🧘 Mobility</span>
   </div>
   <div style="position:absolute;top:-40px;right:-40px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:400px;color:rgba(0,0,0,0.04);letter-spacing:-15px;text-transform:uppercase;line-height:1;pointer-events:none;user-select:none;">LIBO</div>
 </div>
@@ -721,18 +722,18 @@
 <div class="pg" style="background:#111;display:flex;align-items:center;justify-content:center;flex-direction:column;">
   <div style="width:100%;max-width:900px;">
     <div style="height:8px;background:linear-gradient(90deg,#1a1a1a,#2a2a2a,#1a1a1a);border-radius:4px 4px 0 0;"></div>
-    <div style="background:#1a1a1a;border-radius:0;padding:10px;">
-      <div style="background:var(--lime);border-radius:4px;padding:60px 80px;position:relative;overflow:hidden;">
+    <div style="background:var(--dark-grey);border-radius:0;padding:10px;">
+      <div style="background:var(--accent);border-radius:4px;padding:60px 80px;position:relative;overflow:hidden;">
         <div style="position:absolute;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:220px;color:rgba(0,0,0,0.05);top:-20px;right:-20px;line-height:1;text-transform:uppercase;letter-spacing:-5px;">LIBO</div>
         <div style="position:relative;z-index:1;">
           <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(14px,2vw,20px);text-transform:uppercase;letter-spacing:3px;color:rgba(0,0,0,0.4);margin-bottom:12px;">LIBO FITNESS APP</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,110px);text-transform:uppercase;line-height:0.85;letter-spacing:-3px;color:#000;margin-bottom:8px;">EVERY<br/>WORKOUT.</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,110px);text-transform:uppercase;line-height:0.85;letter-spacing:-3px;color:var(--black);margin-bottom:8px;">EVERY<br/>WORKOUT.</div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(20px,4vw,48px);text-transform:uppercase;letter-spacing:-1px;color:rgba(0,0,0,0.5);">EVERYWHERE YOU ARE.</div>
-          <div style="margin-top:24px;"><div style="background:#000;color:var(--lime);border-radius:50px;padding:10px 28px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:2px;display:inline-block;">Train Anywhere</div></div>
+          <div style="margin-top:24px;"><div style="background:var(--black);color:var(--accent);border-radius:50px;padding:10px 28px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:2px;display:inline-block;">Train Anywhere</div></div>
         </div>
       </div>
     </div>
-    <div style="height:40px;background:#111;border-top:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;gap:8px;"><div style="width:60px;height:8px;background:#1a1a1a;border-radius:2px;"></div><div style="width:80px;height:8px;background:#222;border-radius:2px;"></div></div>
+    <div style="height:40px;background:#111;border-top:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;gap:8px;"><div style="width:60px;height:8px;background:var(--dark-grey);border-radius:2px;"></div><div style="width:80px;height:8px;background:#222;border-radius:2px;"></div></div>
   </div>
 </div>
 
@@ -766,7 +767,7 @@
       <div class="testi-card"><div style="font-size:48px;color:rgba(202,255,0,0.12);font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:0.8;margin-bottom:16px;">"</div><p class="testi-q">"The morning routines are genuinely 5 to 7 minutes. I actually do them before work. That is the first fitness habit that has ever stuck for me."</p><div class="testi-n">David R. — Toronto</div></div>
     </div>
     <div style="padding:48px;background:rgba(202,255,0,0.04);border:1px solid rgba(202,255,0,0.12);border-radius:20px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;">
-      <div><p style="font-size:clamp(18px,2.5vw,28px);font-weight:300;line-height:1.45;color:#fff;margin-bottom:20px;">"Motivation, knowledge, and consistency — the three pillars of powerful training for every athlete. <span style="color:var(--lime);font-weight:700;">Libo is built around all three.</span>"</p><div style="font-size:12px;font-weight:700;color:var(--lime);letter-spacing:2px;text-transform:uppercase;">Head Trainer · Libo</div></div>
+      <div><p style="font-size:clamp(18px,2.5vw,28px);font-weight:300;line-height:1.45;color:var(--white);margin-bottom:20px;">"Motivation, knowledge, and consistency — the three pillars of powerful training for every athlete. <span style="color:var(--accent);font-weight:700;">Libo is built around all three.</span>"</p><div style="font-size:12px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Head Trainer · Libo</div></div>
       <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:2px solid rgba(202,255,0,0.3);flex-shrink:0;">
         <img src="ReferenceImagesReal/39c1fe9a091b35792a8047293b0f202e.jpg" alt="Trainer"
           style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
@@ -777,12 +778,12 @@
 
 <!-- PAGE 20 — THREE PHONES SPREAD -->
 <div class="pg pg-lime" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
-  <div style="text-align:center;margin-bottom:40px;"><div style="font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,0.4);margin-bottom:12px;">Smarter Training</div><div class="bc" style="font-size:clamp(52px,8vw,96px);color:#000;letter-spacing:-3px;">STARTS HERE</div></div>
+  <div style="text-align:center;margin-bottom:40px;"><div style="font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,0.4);margin-bottom:12px;">Smarter Training</div><div class="bc" style="font-size:clamp(52px,8vw,96px);color:var(--black);letter-spacing:-3px;">STARTS HERE</div></div>
   <div style="display:flex;gap:20px;align-items:flex-end;justify-content:center;">
     <div class="phone" style="transform:rotate(-4deg) translateY(10px);background:#090909;border-color:rgba(0,0,0,0.3);">
       <div class="pc">
-        <div style="color:#CAFF00;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;text-transform:uppercase;margin-bottom:6px;">WORKOUTS</div>
-        <div style="display:flex;gap:3px;margin-bottom:6px;"><span style="background:#CAFF00;color:#000;border-radius:5px;padding:2px 7px;font-size:7px;font-weight:900;">All</span><span style="background:#1a1a1a;color:#555;border-radius:5px;padding:2px 7px;font-size:7px;">Gym</span><span style="background:#1a1a1a;color:#555;border-radius:5px;padding:2px 7px;font-size:7px;">Home</span></div>
+        <div style="color:var(--accent);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;text-transform:uppercase;margin-bottom:6px;">WORKOUTS</div>
+        <div style="display:flex;gap:3px;margin-bottom:6px;"><span style="background:var(--accent);color:var(--black);border-radius:5px;padding:2px 7px;font-size:7px;font-weight:900;">All</span><span style="background:var(--dark-grey);color:#555;border-radius:5px;padding:2px 7px;font-size:7px;">Gym</span><span style="background:var(--dark-grey);color:#555;border-radius:5px;padding:2px 7px;font-size:7px;">Home</span></div>
         <div style="background:#141414;border-radius:8px;padding:8px;margin-bottom:5px;"><div class="ph-label" style="margin-bottom:2px;font-size:7px;">NEW</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;">CHEST BARBELL</div></div>
         <div style="background:linear-gradient(135deg,#0d1f00,#1a3300);border-radius:8px;padding:8px;margin-bottom:5px;"><div class="ph-label" style="margin-bottom:2px;font-size:7px;">HOME</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;">FULL BODY BODYWEIGHT A</div></div>
         <div style="background:#141414;border-radius:8px;padding:8px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;">HIIT INTERVALS</div></div>
@@ -790,12 +791,12 @@
     </div>
     <div class="phone phone-lg" style="background:#090909;border-color:rgba(0,0,0,0.3);">
       <div class="pc">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;color:#CAFF00;line-height:0.85;margin-bottom:10px;">GOOD<br/>MORNING.</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;color:var(--accent);line-height:0.85;margin-bottom:10px;">GOOD<br/>MORNING.</div>
         <div style="background:linear-gradient(135deg,#0f1a00,#1a2d00);border:1px solid rgba(202,255,0,0.15);border-radius:14px;padding:14px;flex:0 0 auto;">
           <div class="ph-label" style="margin-bottom:6px;">TODAY'S WORKOUT</div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;text-transform:uppercase;line-height:0.88;margin-bottom:5px;">FULL BODY<br/>BODYWEIGHT A</div>
-          <div style="font-size:8px;color:#888;margin-bottom:10px;">30 MIN · BEGINNER</div>
-          <div style="background:#CAFF00;color:#000;border-radius:10px;padding:6px 12px;font-size:8px;font-weight:900;text-transform:uppercase;display:inline-block;">Start Now →</div>
+          <div style="font-size:8px;color:var(--grey);margin-bottom:10px;">30 MIN · BEGINNER</div>
+          <div style="background:var(--accent);color:var(--black);border-radius:10px;padding:6px 12px;font-size:8px;font-weight:900;text-transform:uppercase;display:inline-block;">Start Now →</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:0 0 auto;margin-top:6px;">
           <div style="background:linear-gradient(135deg,#1a2200,#2a3600);border-radius:10px;padding:10px;border:1px solid rgba(202,255,0,0.1);"><div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;text-transform:uppercase;line-height:0.9;">PUSH<br/>DAY</div></div>
@@ -806,12 +807,12 @@
     </div>
     <div class="phone" style="transform:rotate(4deg) translateY(10px);background:#090909;border-color:rgba(0,0,0,0.3);">
       <div class="pc">
-        <div style="color:#CAFF00;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;margin-bottom:6px;">ACTIVITY</div>
-        <div style="display:flex;justify-content:center;margin:4px 0 6px;"><div style="position:relative;"><svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/><circle cx="40" cy="40" r="32" fill="none" stroke="#CAFF00" stroke-width="6" stroke-dasharray="201" stroke-dashoffset="50" stroke-linecap="round" transform="rotate(-90 40 40)"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:#CAFF00;line-height:1;">12</div></div></div></div>
+        <div style="color:var(--accent);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;margin-bottom:6px;">ACTIVITY</div>
+        <div style="display:flex;justify-content:center;margin:4px 0 6px;"><div style="position:relative;"><svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/><circle cx="40" cy="40" r="32" fill="none" stroke="#CAFF00" stroke-width="6" stroke-dasharray="201" stroke-dashoffset="50" stroke-linecap="round" transform="rotate(-90 40 40)"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--accent);line-height:1;">12</div></div></div></div>
         <div style="text-align:center;font-size:8px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Total Sessions</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
-          <div style="background:#141414;border-radius:8px;padding:7px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">312</div><div style="font-size:7px;color:#555;">Min</div></div>
-          <div style="background:#141414;border-radius:8px;padding:7px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#CAFF00;">2.1k</div><div style="font-size:7px;color:#555;">Cal</div></div>
+          <div style="background:#141414;border-radius:8px;padding:7px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:var(--accent);">312</div><div style="font-size:7px;color:#555;">Min</div></div>
+          <div style="background:#141414;border-radius:8px;padding:7px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:var(--accent);">2.1k</div><div style="font-size:7px;color:#555;">Cal</div></div>
         </div>
       </div>
     </div>
@@ -819,7 +820,7 @@
 </div>
 
 <!-- PAGE 21 — SCANNER -->
-<div class="pg" style="background:#000;">
+<div class="pg" style="background:var(--black);">
   <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
     <div>
       <div class="eyebrow">15 AI Scanner</div>
@@ -830,14 +831,14 @@
       <div class="phone phone-lg">
         <div class="pc">
           <div class="ph-title" style="font-size:18px;margin-bottom:4px;">AI SCANNER</div>
-          <div style="display:flex;gap:0;background:#1a1a1a;border-radius:8px;padding:2px;margin-bottom:8px;"><div style="flex:1;padding:5px;text-align:center;font-size:8px;font-weight:800;color:#000;background:#CAFF00;border-radius:6px;">📷 Camera</div><div style="flex:1;padding:5px;text-align:center;font-size:8px;font-weight:700;color:#555;">📋 Manual</div></div>
+          <div style="display:flex;gap:0;background:var(--dark-grey);border-radius:8px;padding:2px;margin-bottom:8px;"><div style="flex:1;padding:5px;text-align:center;font-size:8px;font-weight:800;color:var(--black);background:var(--accent);border-radius:6px;">📷 Camera</div><div style="flex:1;padding:5px;text-align:center;font-size:8px;font-weight:700;color:#555;">📋 Manual</div></div>
           <div style="background:#111;border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;margin-bottom:8px;position:relative;overflow:hidden;"><div style="position:absolute;inset:12px;border:2px solid rgba(202,255,0,0.4);border-radius:8px;"></div><div style="font-size:10px;color:#555;font-weight:700;">📷 Point at machine</div></div>
-          <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 10px;font-size:10px;color:#888;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;"><span>Lat Pulldown</span><span style="color:#CAFF00;">▾</span></div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:8px;font-weight:800;color:#CAFF00;text-transform:uppercase;letter-spacing:1px;">3 Alternatives</div><div style="flex:1;height:1px;background:var(--border);"></div></div>
+          <div style="background:#141414;border:1px solid var(--border);border-radius:10px;padding:8px 10px;font-size:10px;color:var(--grey);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;"><span>Lat Pulldown</span><span style="color:var(--accent);">▾</span></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:8px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1px;">3 Alternatives</div><div style="flex:1;height:1px;background:var(--border);"></div></div>
           <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
-            <div style="background:#141414;border-radius:10px;padding:9px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:16px;height:16px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">1</div><div style="font-size:10px;font-weight:700;">Resistance Band Pull-Down</div></div><div style="display:flex;gap:4px;margin-bottom:3px;"><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">Home-friendly</span><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">No gym</span></div></div>
-            <div style="background:#141414;border-radius:10px;padding:9px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:16px;height:16px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">2</div><div style="font-size:10px;font-weight:700;">Wide-Grip Pull-Up</div></div><div style="display:flex;gap:4px;"><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">Bodyweight</span><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">Any bar</span></div></div>
-            <div style="background:#141414;border-radius:10px;padding:9px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:16px;height:16px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#CAFF00;flex-shrink:0;">3</div><div style="font-size:10px;font-weight:700;">Dumbbell Pullover</div></div><div style="display:flex;gap:4px;"><span style="background:#1a1a1a;border-radius:4px;padding:2px 6px;font-size:7px;color:#777;">Free weights</span></div></div>
+            <div style="background:#141414;border-radius:10px;padding:9px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:16px;height:16px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--accent);flex-shrink:0;">1</div><div style="font-size:10px;font-weight:700;">Resistance Band Pull-Down</div></div><div style="display:flex;gap:4px;margin-bottom:3px;"><span style="background:var(--dark-grey);border-radius:4px;padding:2px 6px;font-size:7px;color:var(--muted);">Home-friendly</span><span style="background:var(--dark-grey);border-radius:4px;padding:2px 6px;font-size:7px;color:var(--muted);">No gym</span></div></div>
+            <div style="background:#141414;border-radius:10px;padding:9px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:16px;height:16px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--accent);flex-shrink:0;">2</div><div style="font-size:10px;font-weight:700;">Wide-Grip Pull-Up</div></div><div style="display:flex;gap:4px;"><span style="background:var(--dark-grey);border-radius:4px;padding:2px 6px;font-size:7px;color:var(--muted);">Bodyweight</span><span style="background:var(--dark-grey);border-radius:4px;padding:2px 6px;font-size:7px;color:var(--muted);">Any bar</span></div></div>
+            <div style="background:#141414;border-radius:10px;padding:9px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:16px;height:16px;background:rgba(202,255,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--accent);flex-shrink:0;">3</div><div style="font-size:10px;font-weight:700;">Dumbbell Pullover</div></div><div style="display:flex;gap:4px;"><span style="background:var(--dark-grey);border-radius:4px;padding:2px 6px;font-size:7px;color:var(--muted);">Free weights</span></div></div>
           </div>
         </div>
       </div>
@@ -850,11 +851,11 @@
   <div style="position:absolute;top:-80px;left:-40px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:500px;color:rgba(0,0,0,0.04);letter-spacing:-20px;text-transform:uppercase;line-height:1;pointer-events:none;user-select:none;">LIBO</div>
   <div style="position:relative;z-index:1;width:100%;">
     <div style="font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,0.35);margin-bottom:20px;">◉ Coming Soon · 2025</div>
-    <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-8px;line-height:0.82;margin-bottom:4px;">GET</div>
-    <div class="bc" style="font-size:clamp(80px,16vw,220px);color:#000;letter-spacing:-8px;line-height:0.82;margin-bottom:32px;">MOVING.</div>
+    <div class="bc" style="font-size:clamp(80px,16vw,220px);color:var(--black);letter-spacing:-8px;line-height:0.82;margin-bottom:4px;">GET</div>
+    <div class="bc" style="font-size:clamp(80px,16vw,220px);color:var(--black);letter-spacing:-8px;line-height:0.82;margin-bottom:32px;">MOVING.</div>
     <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:48px;">
-      <div style="background:#000;border-radius:16px;padding:14px 28px;display:flex;align-items:center;gap:12px;"><div style="font-size:24px;">🍎</div><div><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:2px;">Download on the</div><div style="font-size:16px;font-weight:800;color:var(--lime);">App Store</div></div></div>
-      <div style="background:#000;border-radius:16px;padding:14px 28px;display:flex;align-items:center;gap:12px;"><div style="font-size:24px;">▶</div><div><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:2px;">Get it on</div><div style="font-size:16px;font-weight:800;color:var(--lime);">Google Play</div></div></div>
+      <div style="background:var(--black);border-radius:16px;padding:14px 28px;display:flex;align-items:center;gap:12px;"><div style="font-size:24px;">🍎</div><div><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:2px;">Download on the</div><div style="font-size:16px;font-weight:800;color:var(--accent);">App Store</div></div></div>
+      <div style="background:var(--black);border-radius:16px;padding:14px 28px;display:flex;align-items:center;gap:12px;"><div style="font-size:24px;">▶</div><div><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;margin-bottom:2px;">Get it on</div><div style="font-size:16px;font-weight:800;color:var(--accent);">Google Play</div></div></div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:32px;border-top:1px solid rgba(0,0,0,0.15);">
       <div><img src="brand/logo_options/option_A_wordmark_ascending_dots.png" alt="Libo" style="height:32px;display:block;filter:invert(1);" /></div>

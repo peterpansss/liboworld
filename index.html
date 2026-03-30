@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,7 +27,7 @@
       --accent: #CAFF00;
       --accent-dark: #9BC800;
       --red: #FF3333;
-      --border: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.07);
       --border-light: rgba(255,255,255,0.15);
     }
 
@@ -1604,7 +1605,7 @@
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <span class="mobile-menu-close" id="closeMenu">✕</span>
+  <span class="mobile-menu-close" id="closeMenu" role="button" aria-label="Close menu">✕</span>
   <a href="#features">Features</a>
   <a href="#rewards">Rewards</a>
   <a href="#workouts">Workouts</a>
@@ -1624,7 +1625,7 @@
   </ul>
   <div class="nav-right">
     <a href="#cta" class="btn-nav">Get Early Access</a>
-    <div class="nav-hamburger" id="openMenu">
+    <div class="nav-hamburger" id="openMenu" role="button" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </div>
   </div>
@@ -2033,7 +2034,8 @@
     <h2 class="display display-lg">Be first.<br/>Train better.</h2>
     <p class="cta-sub">Libo is coming soon. Join the waitlist and get early access plus an exclusive launch offer.</p>
     <form class="email-form" id="waitlistForm" style="position:relative;">
-      <input class="email-input" type="email" id="emailInput" placeholder="Enter your email address" required />
+      <label for="emailInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
+      <input class="email-input" type="email" id="emailInput" placeholder="Enter your email address" required aria-label="Email address" />
       <button class="btn-cta" type="submit" id="submitBtn">Join →</button>
     </form>
     <p id="formMsg" style="font-size: 13px; margin-top: 16px; min-height: 20px; color: rgba(0,0,0,0.5); position:relative;">No spam. Only when Libo launches.</p>
@@ -2061,7 +2063,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo"><img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" style="height:22px;display:block;" /></div>
+    <div class="footer-logo"><img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" style="height:22px;display:block;" loading="lazy" /></div>
     <ul class="footer-links">
       <li><a href="privacy.html">Privacy Policy</a></li>
       <li><a href="terms.html">Terms</a></li>

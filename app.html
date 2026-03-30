@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Libo – Train Anywhere</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="tokens.css">
   <script src="libo-data.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -679,6 +680,30 @@
     .tab-switch{animation:tabFade 0.08s ease;}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
     @keyframes tabFade{from{opacity:0.6;}to{opacity:1;}}
+
+    /* ── Responsive: Tablet ── */
+    @media (min-width: 481px) {
+      #app {
+        max-width: 420px;
+        margin: 0 auto;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        position: relative;
+      }
+    }
+
+    /* ── Responsive: Desktop ── */
+    @media (min-width: 769px) {
+      body {
+        background: #050505;
+      }
+      #app {
+        max-width: 420px;
+        margin: 0 auto;
+        box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        min-height: 100dvh;
+      }
+    }
   </style>
 </head>
 <body>
@@ -866,7 +891,7 @@ function renderOnboarding() {
     </div>`;
 
   const single = (field, options) => options.map(([ico,lbl,sub])=>`
-    <div class="choice-card${o[field]===lbl?' selected':''}" data-ob-single="${field}" data-ob-val="${lbl}">
+    <div class="choice-card${o[field]===lbl?' selected':''}" data-ob-single="${field}" data-ob-val="${lbl}" role="button" tabindex="0">
       <div class="choice-icon">${ico}</div>
       <div class="choice-text"><h4>${lbl}</h4>${sub?`<p>${sub}</p>`:''}</div>
       <div class="choice-check">${o[field]===lbl?'✓':''}</div>
@@ -877,7 +902,7 @@ function renderOnboarding() {
     <h1 class="onboard-title">Welcome to<br/><span style="color:var(--accent)">Libo</span></h1>
     <p class="onboard-sub">Your all-in-one training app. Let's build your personalised plan — takes about 2 minutes.</p>
     <label style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:10px">First, what's your name?</label>
-    <input class="onboard-input" id="nameInput" placeholder="Your name" value="${o.name}"/>
+    <input class="onboard-input" id="nameInput" placeholder="Your name" value="${o.name}" aria-label="Your name"/>
   `, o.name.trim().length > 0, "Let's Go →", false);
 
   if (o.step === 1) return wrap(`
@@ -918,7 +943,7 @@ function renderOnboarding() {
     <div class="onboard-emoji">🎂</div>
     <h1 class="onboard-title">How old<br/>are you?</h1>
     <p class="onboard-sub">Workout intensity scales with age.</p>
-    <input class="onboard-input" id="ob-age" type="number" min="13" max="99" placeholder="e.g. 28" value="${o.age}" style="font-size:32px;font-weight:900;text-align:center;letter-spacing:-1px"/>
+    <input class="onboard-input" id="ob-age" type="number" min="13" max="99" placeholder="e.g. 28" value="${o.age}" aria-label="Age" style="font-size:32px;font-weight:900;text-align:center;letter-spacing:-1px"/>
     <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:8px">years old</p>
   `, o.age >= 13 && o.age <= 99);
 
@@ -928,7 +953,7 @@ function renderOnboarding() {
     <p class="onboard-sub"> </p>
     <div style="display:flex;gap:10px;align-items:flex-end">
       <div style="flex:1">
-        <input class="onboard-input" id="ob-height" type="number" min="100" max="250" placeholder="175" value="${o.height}" style="font-size:32px;font-weight:900;text-align:center"/>
+        <input class="onboard-input" id="ob-height" type="number" min="100" max="250" placeholder="175" value="${o.height}" aria-label="Height in cm" style="font-size:32px;font-weight:900;text-align:center"/>
       </div>
       <div style="padding-bottom:14px;font-size:16px;font-weight:700;color:var(--muted)">cm</div>
     </div>
@@ -940,7 +965,7 @@ function renderOnboarding() {
     <p class="onboard-sub"> </p>
     <div style="display:flex;gap:10px;align-items:flex-end">
       <div style="flex:1">
-        <input class="onboard-input" id="ob-weight" type="number" min="30" max="300" placeholder="75" value="${o.weight}" style="font-size:32px;font-weight:900;text-align:center"/>
+        <input class="onboard-input" id="ob-weight" type="number" min="30" max="300" placeholder="75" value="${o.weight}" aria-label="Weight in kg" style="font-size:32px;font-weight:900;text-align:center"/>
       </div>
       <div style="padding-bottom:14px;font-size:16px;font-weight:700;color:var(--muted)">kg</div>
     </div>
@@ -952,7 +977,7 @@ function renderOnboarding() {
     <p class="onboard-sub">Your goal weight so we can track the gap.</p>
     <div style="display:flex;gap:10px;align-items:flex-end">
       <div style="flex:1">
-        <input class="onboard-input" id="ob-target-weight" type="number" min="30" max="300" placeholder="${o.weight||70}" value="${o.targetWeight}" style="font-size:32px;font-weight:900;text-align:center"/>
+        <input class="onboard-input" id="ob-target-weight" type="number" min="30" max="300" placeholder="${o.weight||70}" value="${o.targetWeight}" aria-label="Target weight in kg" style="font-size:32px;font-weight:900;text-align:center"/>
       </div>
       <div style="padding-bottom:14px;font-size:16px;font-weight:700;color:var(--muted)">kg</div>
     </div>
@@ -983,7 +1008,7 @@ function renderOnboarding() {
     <p class="onboard-sub">How many days can you realistically commit to?</p>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px">
       ${[2,3,4,5,6,7].map(d=>`
-        <div data-ob-single="days" data-ob-val="${d}" style="background:${o.days==d?'var(--accent-dim)':'var(--card)'};border:1.5px solid ${o.days==d?'rgba(202,255,0,0.4)':'var(--border)'};border-radius:14px;padding:16px 8px;text-align:center;cursor:pointer;${d===2||d===7?'grid-column:span 1':''}">
+        <div data-ob-single="days" data-ob-val="${d}" role="button" tabindex="0" aria-label="${d} days per week" style="background:${o.days==d?'var(--accent-dim)':'var(--card)'};border:1.5px solid ${o.days==d?'rgba(202,255,0,0.4)':'var(--border)'};border-radius:14px;padding:16px 8px;text-align:center;cursor:pointer;${d===2||d===7?'grid-column:span 1':''}">
           <div style="font-size:24px;font-weight:900;color:${o.days==d?'var(--accent)':'var(--text)'}">${d}</div>
           <div style="font-size:10px;color:var(--muted);margin-top:4px">day${d!==1?'s':''}</div>
         </div>`).join('')}
@@ -1005,7 +1030,7 @@ function renderOnboarding() {
     <p class="onboard-sub">How long do you want each workout to be?</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
       ${[['15','Quick burn','Perfect for busy days'],['30','Standard','The sweet spot'],['45','Solid session','Time for full program'],['60+','Full hour','Maximum results']].map(([d,lbl,sub])=>`
-        <div data-ob-single="duration" data-ob-val="${d}" style="background:${o.duration===d?'var(--accent-dim)':'var(--card)'};border:1.5px solid ${o.duration===d?'rgba(202,255,0,0.4)':'var(--border)'};border-radius:14px;padding:16px;cursor:pointer">
+        <div data-ob-single="duration" data-ob-val="${d}" role="button" tabindex="0" aria-label="${d} minute workout" style="background:${o.duration===d?'var(--accent-dim)':'var(--card)'};border:1.5px solid ${o.duration===d?'rgba(202,255,0,0.4)':'var(--border)'};border-radius:14px;padding:16px;cursor:pointer">
           <div style="font-size:22px;font-weight:900;color:${o.duration===d?'var(--accent)':'var(--text)'};">${d} <span style="font-size:12px;font-weight:500;color:var(--muted)">min</span></div>
           <div style="font-size:13px;font-weight:700;margin-top:4px">${lbl}</div>
           <div style="font-size:11px;color:var(--muted);margin-top:2px">${sub}</div>
@@ -1019,7 +1044,7 @@ function renderOnboarding() {
     <p class="onboard-sub">Select everything available to you.</p>
     <div class="chip-grid" id="equips" style="margin-top:8px">
       ${[['🏃','No equipment','none'],['🏠','Dumbbells','dumbbells'],['🪢','Resistance bands','bands'],['🏟️','Full gym','gym'],['🧘','Yoga mat','mat'],['🪑','Bench','bench']].map(([ico,lbl,val])=>`
-        <div class="chip${o.equip.includes(val)?' selected':''}" data-equip="${val}">${ico} ${lbl}</div>`).join('')}
+        <div class="chip${o.equip.includes(val)?' selected':''}" data-equip="${val}" role="button" tabindex="0" aria-label="${lbl}">${ico} ${lbl}</div>`).join('')}
     </div>
   `, true, o.equip.length ? 'Continue →' : 'Skip →');
 
@@ -1038,7 +1063,7 @@ function renderOnboarding() {
     <p class="onboard-sub">We'll avoid aggravating these. Select all that apply.</p>
     <div class="chip-grid" style="margin-top:8px">
       ${[['Lower back','back'],['Knees','knees'],['Shoulders','shoulders'],['Wrists','wrists'],['Hips','hips'],['Neck','neck'],['Ankles','ankles'],['None','none']].map(([lbl,val])=>`
-        <div class="chip${o.injuries.includes(val)?' selected':''}" data-ob-multi="injuries" data-ob-val="${val}">${lbl}</div>`).join('')}
+        <div class="chip${o.injuries.includes(val)?' selected':''}" data-ob-multi="injuries" data-ob-val="${val}" role="button" tabindex="0" aria-label="${lbl}">${lbl}</div>`).join('')}
     </div>
   `, true, o.injuries.length ? 'Continue →' : 'No injuries →');
 
@@ -1048,7 +1073,7 @@ function renderOnboarding() {
     <p class="onboard-sub">Select the muscles you want to prioritise.</p>
     <div class="chip-grid" style="margin-top:8px">
       ${[['Chest','chest'],['Back','back'],['Arms','arms'],['Shoulders','shoulders'],['Core','core'],['Legs','legs'],['Glutes','glutes'],['Full body','full']].map(([lbl,val])=>`
-        <div class="chip${o.focusAreas.includes(val)?' selected':''}" data-ob-multi="focusAreas" data-ob-val="${val}">${lbl}</div>`).join('')}
+        <div class="chip${o.focusAreas.includes(val)?' selected':''}" data-ob-multi="focusAreas" data-ob-val="${val}" role="button" tabindex="0" aria-label="${lbl}">${lbl}</div>`).join('')}
     </div>
   `, true, o.focusAreas.length ? 'Continue →' : 'No preference →');
 
@@ -1138,9 +1163,9 @@ function renderMain() {
     <div class="screen fade-in" id="main-screen">
       ${S.tab==='home'?renderHome():S.tab==='explore'?renderExplore():S.tab==='programs'?renderPrograms():S.tab==='rewards'?renderRewards():renderProgress()}
     </div>
-    <nav class="bottom-nav">
+    <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
       ${[['programs','📅','Programs'],['explore','🔍','Explore'],['home','🏠','Home'],['rewards','🏆','Rewards'],['progress','📊','Progress']].map(([tab,ico,lbl])=>`
-        <div class="nav-item${S.tab===tab?' active':''}" data-tab="${tab}">
+        <div class="nav-item${S.tab===tab?' active':''}" data-tab="${tab}" role="button" aria-label="${lbl} tab" tabindex="0">
           <span class="nav-icon">${ico}</span>
           <span class="nav-label">${lbl}</span>
         </div>`).join('')}
@@ -1258,10 +1283,10 @@ function renderExplore() {
       <button class="tab-btn${S.exploreTab==='exercises'?' active':''}" data-et="exercises">Exercises</button>
     </div>
     <div class="search-wrap">
-      <input class="search-input" id="searchInput" placeholder="Search ${isWorkouts?'workouts':'exercises'}..." value="${S.searchQ}"/>
+      <input class="search-input" id="searchInput" placeholder="Search ${isWorkouts?'workouts':'exercises'}..." value="${S.searchQ}" aria-label="Search ${isWorkouts?'workouts':'exercises'}"/>
     </div>
     <div class="filter-row">
-      ${currentCats.map(c=>`<div class="filter-chip${(filter===c||filter.toLowerCase()===c.toLowerCase()||(!filter&&c==='All'))?' active':''}" data-filter="${c}">${c}</div>`).join('')}
+      ${currentCats.map(c=>`<div class="filter-chip${(filter===c||filter.toLowerCase()===c.toLowerCase()||(!filter&&c==='All'))?' active':''}" data-filter="${c}" role="button" tabindex="0" aria-label="Filter by ${c}">${c}</div>`).join('')}
     </div>
     ${isWorkouts ? `
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 16px 16px">
@@ -1387,7 +1412,7 @@ function renderCustomBuilder() {
       </div>
       <div style="padding:16px">
         <label style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:8px">Workout Name</label>
-        <input class="onboard-input" id="builder-name-input" placeholder="e.g. My Push Day" value="${b.name}" style="margin-bottom:20px"/>
+        <input class="onboard-input" id="builder-name-input" placeholder="e.g. My Push Day" value="${b.name}" aria-label="Workout name" style="margin-bottom:20px"/>
         <div class="section-subhead">Exercises (${b.exercises.length})</div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px" id="builder-ex-list">
           ${b.exercises.map((ex,i)=>`
@@ -1397,9 +1422,9 @@ function renderCustomBuilder() {
                 <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ex.name}</div>
                 <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
                   <span style="font-size:11px;color:var(--muted)">Sets</span>
-                  <input class="reps-input" data-idx="${i}" data-field="sets" value="${ex.sets||3}" type="number" min="1" max="10"/>
+                  <input class="reps-input" data-idx="${i}" data-field="sets" value="${ex.sets||3}" type="number" min="1" max="10" aria-label="Sets for ${ex.name}"/>
                   <span style="font-size:11px;color:var(--muted)">Reps</span>
-                  <input class="reps-input" data-idx="${i}" data-field="reps" value="${ex.reps||'10'}" style="width:68px"/>
+                  <input class="reps-input" data-idx="${i}" data-field="reps" value="${ex.reps||'10'}" aria-label="Reps for ${ex.name}" style="width:68px"/>
                 </div>
               </div>
               <button data-remove="${i}" style="background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.2);color:#ff6b6b;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer">✕</button>
@@ -1433,7 +1458,7 @@ function renderCustomBuilder() {
         <div style="font-size:12px;font-weight:700;color:var(--accent)">${b.exercises.length} added</div>
       </div>
       <div style="padding:0 16px 8px">
-        <input class="search-input" id="builder-search" placeholder="Search exercises..." value="${b.searchQ}" style="margin-bottom:8px"/>
+        <input class="search-input" id="builder-search" placeholder="Search exercises..." value="${b.searchQ}" aria-label="Search exercises" style="margin-bottom:8px"/>
         <div class="filter-row">
           ${exCats.map(c=>`<div class="filter-chip${b.filter===c||b.filter.toLowerCase()===c.toLowerCase()||(!b.filter&&c==='All')?' active':''}" data-bfilter="${c}">${c}</div>`).join('')}
         </div>
@@ -1596,22 +1621,22 @@ function renderAiGen() {
       <div style="padding:16px">
         <div class="section-subhead">Your Goal</div>
         <div class="ai-chip-row">
-          ${goals.map(([ico,lbl])=>`<div class="ai-chip${g.goal===lbl?' sel':''}" data-ai-goal="${lbl}">${ico} ${lbl}</div>`).join('')}
+          ${goals.map(([ico,lbl])=>`<div class="ai-chip${g.goal===lbl?' sel':''}" data-ai-goal="${lbl}" role="button" tabindex="0" aria-label="${lbl}">${ico} ${lbl}</div>`).join('')}
         </div>
 
         <div class="section-subhead">Equipment</div>
         <div class="ai-chip-row">
-          ${equips.map(([ico,lbl,val])=>`<div class="ai-chip${g.equip===val?' sel':''}" data-ai-equip="${val}">${ico} ${lbl}</div>`).join('')}
+          ${equips.map(([ico,lbl,val])=>`<div class="ai-chip${g.equip===val?' sel':''}" data-ai-equip="${val}" role="button" tabindex="0" aria-label="${lbl}">${ico} ${lbl}</div>`).join('')}
         </div>
 
         <div class="section-subhead">Duration</div>
         <div style="display:flex;gap:8px;margin-bottom:20px">
-          ${durations.map(d=>`<div class="ai-dur-chip${g.duration===d?' sel':''}" data-ai-dur="${d}">${d}<div style="font-size:10px;color:var(--muted);font-weight:500">min</div></div>`).join('')}
+          ${durations.map(d=>`<div class="ai-dur-chip${g.duration===d?' sel':''}" data-ai-dur="${d}" role="button" tabindex="0" aria-label="${d} minutes">${d}<div style="font-size:10px;color:var(--muted);font-weight:500">min</div></div>`).join('')}
         </div>
 
         <div class="section-subhead">Focus</div>
         <div class="ai-chip-row">
-          ${focuses.map(f=>`<div class="ai-chip${g.focus===f?' sel':''}" data-ai-focus="${f}">${f}</div>`).join('')}
+          ${focuses.map(f=>`<div class="ai-chip${g.focus===f?' sel':''}" data-ai-focus="${f}" role="button" tabindex="0" aria-label="${f}">${f}</div>`).join('')}
         </div>
 
         <button id="ai-generate-btn" class="btn-full" ${!canGenerate?'disabled':''} style="margin-top:8px">
@@ -2772,7 +2797,7 @@ async function showExerciseModal(ex) {
     <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px">
       <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px">Add Pexels API key to enable video demos + downloads</div>
       <div style="display:flex;gap:8px">
-        <input id="pexels-key-input" class="api-key-input" placeholder="Pexels API key (free at pexels.com/api)" style="flex:1"/>
+        <input id="pexels-key-input" class="api-key-input" placeholder="Pexels API key (free at pexels.com/api)" aria-label="Pexels API key" style="flex:1"/>
         <button id="pexels-key-save" class="api-key-save-btn">Save</button>
       </div>
     </div>`;

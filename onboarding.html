@@ -6,14 +6,13 @@
 <title>Libo — Build Your Plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --black: #000;
-  --cream: #EBE1D3;
-  --cream-hover: #d4cabb;
   --accent: #CAFF00;
   --card-bg: rgba(255,255,255,0.06);
   --card-border: rgba(255,255,255,0.06);
@@ -88,7 +87,7 @@ body {
   color: rgba(255,255,255,0.25);
   transition: color 0.3s;
 }
-.section-label.active { color: var(--cream); }
+.section-label.active { color: var(--white); }
 
 /* ---- Quiz Container ---- */
 .quiz-container {
@@ -135,7 +134,7 @@ body {
   font-size: clamp(28px, 8vw, 36px);
   text-transform: uppercase;
   letter-spacing: -0.01em;
-  color: var(--cream);
+  color: var(--white);
   line-height: 1.05;
   margin-bottom: 28px;
 }
@@ -159,30 +158,30 @@ body {
 }
 .option-card:active { transform: scale(0.985); }
 
-/* Selected state: cream bg, dark text */
+/* Selected state: accent bg, dark text */
 .option-card.selected {
-  background: var(--cream);
-  border-color: var(--cream);
-  color: #1a1a1a;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #080808;
 }
 .option-card.selected .card-desc { color: rgba(0,0,0,0.5); }
 .option-card.selected .radio-circle {
-  border-color: #1a1a1a;
-  background: #1a1a1a;
+  border-color: #080808;
+  background: #080808;
 }
 .option-card.selected .radio-circle::after {
   content: '\2713';
-  color: var(--cream);
+  color: var(--accent);
   font-size: 13px;
   font-weight: 700;
 }
 .option-card.selected .check-square {
-  border-color: #1a1a1a;
-  background: #1a1a1a;
+  border-color: #080808;
+  background: #080808;
 }
 .option-card.selected .check-square::after {
   content: '\2713';
-  color: var(--cream);
+  color: var(--accent);
   font-size: 12px;
   font-weight: 700;
 }
@@ -215,7 +214,7 @@ body {
 .continue-btn {
   display: block; width: 100%; margin-top: 28px;
   padding: 16px;
-  background: var(--cream); color: #000;
+  background: var(--accent); color: #080808;
   border: none; border-radius: var(--radius);
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 800; font-size: 16px;
@@ -223,10 +222,10 @@ body {
   cursor: pointer;
   transition: background 0.2s, transform 0.12s;
 }
-.continue-btn:hover { background: var(--cream-hover); }
+.continue-btn:hover { background: #b8e600; }
 .continue-btn:active { transform: scale(0.985); }
 .continue-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-.continue-btn:disabled:hover { background: var(--cream); }
+.continue-btn:disabled:hover { background: var(--accent); }
 
 /* ---- Interstitial ---- */
 .interstitial-card {
@@ -239,7 +238,7 @@ body {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900; font-size: clamp(28px, 8vw, 40px);
   text-transform: uppercase; letter-spacing: -0.01em;
-  line-height: 1.05; color: var(--cream);
+  line-height: 1.05; color: var(--white);
   flex: 1;
 }
 .interstitial-card .interstitial-img {
@@ -250,7 +249,7 @@ body {
   font-size: 15px; color: var(--text-muted);
   line-height: 1.6; margin-bottom: 32px;
 }
-.interstitial-card .interstitial-body strong { color: var(--cream); font-weight: 600; }
+.interstitial-card .interstitial-body strong { color: var(--white); font-weight: 600; }
 
 /* ---- Loading Interstitial (Step 19) ---- */
 .loading-screen {
@@ -287,7 +286,7 @@ body {
 .loading-ready {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
-  font-size: 24px; color: var(--cream);
+  font-size: 24px; color: var(--white);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 12px;
@@ -348,6 +347,13 @@ body {
 }
 
 /* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .quiz-container { padding: 128px 24px 90px; max-width: 480px; }
+  .top-bar-inner { padding: 14px 24px; }
+  .progress-bar-wrap { padding: 0 24px 12px; }
+  .section-labels { padding: 0 24px 8px; }
+  .interstitial-card .interstitial-img { width: 130px; height: 170px; }
+}
 @media (max-width: 520px) {
   .quiz-container { padding: 125px 16px 80px; }
   .top-bar-inner { padding: 12px 16px; }
@@ -426,7 +432,7 @@ body {
 <!-- Mobile Menu Drawer -->
 <div class="menu-overlay" id="menuOverlay">
   <div class="menu-drawer">
-    <span class="menu-close" id="menuClose">&times;</span>
+    <span class="menu-close" id="menuClose" role="button" aria-label="Close menu">&times;</span>
     <a href="/">Home</a>
     <a href="/#features">Features</a>
     <a href="/#rewards">Rewards</a>
@@ -478,7 +484,7 @@ body {
       <p class="interstitial-body" id="interstitial2Body">
         Libo will help you <strong>build lean muscle with bodyweight training</strong>. We'll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.
       </p>
-      <button class="continue-btn" onclick="goTo(currentStep+1,'forward')">CONTINUE</button>
+      <button class="continue-btn" aria-label="Continue to next step" onclick="goTo(currentStep+1,'forward')">CONTINUE</button>
     </div>
   </div>
 
@@ -508,7 +514,7 @@ body {
         <span class="check-square"></span>
       </div>
     </div>
-    <button class="continue-btn" disabled data-continue="secondary_goals">NEXT STEP</button>
+    <button class="continue-btn" aria-label="Next step" disabled data-continue="secondary_goals">NEXT STEP</button>
   </div>
 
   <!-- Step 4: Fitness Level -->
@@ -639,7 +645,7 @@ body {
       <p class="interstitial-body">
         Our workouts are simple, fun, and fit into the busiest schedule. We'll consider your fitness level to help you <strong>reach your goal faster</strong>.
       </p>
-      <button class="continue-btn" onclick="goTo(currentStep+1,'forward')">CONTINUE</button>
+      <button class="continue-btn" aria-label="Continue to next step" onclick="goTo(currentStep+1,'forward')">CONTINUE</button>
     </div>
   </div>
 
@@ -673,7 +679,7 @@ body {
         <span class="check-square"></span>
       </div>
     </div>
-    <button class="continue-btn" disabled data-continue="target_zones">NEXT STEP</button>
+    <button class="continue-btn" aria-label="Next step" disabled data-continue="target_zones">NEXT STEP</button>
   </div>
 
   <!-- SECTION 3: LIFESTYLE -->
@@ -807,7 +813,7 @@ body {
       <p class="interstitial-body">
         Our workouts will help you improve your stamina and endurance. You'll have <strong>more energy and strength</strong> to keep up with your daily activities.
       </p>
-      <button class="continue-btn" onclick="goTo(currentStep+1,'forward')">CONTINUE</button>
+      <button class="continue-btn" aria-label="Continue to next step" onclick="goTo(currentStep+1,'forward')">CONTINUE</button>
     </div>
   </div>
 
@@ -841,7 +847,7 @@ body {
         <span class="check-square"></span>
       </div>
     </div>
-    <button class="continue-btn" disabled data-continue="equipment">NEXT STEP</button>
+    <button class="continue-btn" aria-label="Next step" disabled data-continue="equipment">NEXT STEP</button>
   </div>
 
   <!-- Step 18: Obstacles (multi-select) -->
@@ -870,7 +876,7 @@ body {
         <span class="check-square"></span>
       </div>
     </div>
-    <button class="continue-btn" disabled data-continue="obstacles">NEXT STEP</button>
+    <button class="continue-btn" aria-label="Next step" disabled data-continue="obstacles">NEXT STEP</button>
   </div>
 
   <!-- Step 19: Loading/Results Interstitial -->
@@ -901,9 +907,10 @@ body {
     <div class="email-step">
       <h1 class="step-heading" id="emailHeading">Join the Libo waitlist for early access to your personalised <strong>Training Plan</strong> for <span class="goal-highlight">building muscle</span>!</h1>
       <form id="emailForm">
-        <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
+        <label for="emailInput" class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">Email address</label>
+        <input type="email" name="email" id="emailInput" class="email-input" placeholder="Enter your email address" aria-label="Email address" required>
         <p class="privacy-note">By continuing, you agree to receive emails from Libo. We respect your privacy and will never share your data.</p>
-        <button type="submit" class="continue-btn">JOIN WAITLIST</button>
+        <button type="submit" class="continue-btn" aria-label="Join waitlist">JOIN WAITLIST</button>
       </form>
       <div id="formMsg" style="font-size:13px;margin-top:16px;min-height:20px;text-align:center;"></div>
     </div>
