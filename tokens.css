@@ -1,50 +1,17 @@
 /* ==========================================================================
-   Libo Design Tokens
-   Shared CSS custom properties for all libo-landing HTML pages.
+   Libo Design Tokens — Shared utilities
+   Core variables live in app.html :root. This file provides:
+   - Focus states
+   - Accessibility utilities
+   - Status color tokens (supplements app.html :root)
    Import via: <link rel="stylesheet" href="tokens.css">
    ========================================================================== */
 
 :root {
-  /* ---- Backgrounds ---- */
-  --black: #000000;
-  --dark-grey: #1A1A1A;
-  --mid-grey: #333333;
-
-  /* ---- Accent ---- */
-  --accent: #CAFF00;
-  --accent-dark: #9BC800;
-  --accent-dim: rgba(202, 255, 0, 0.12);
-
-  /* ---- Text ---- */
-  --white: #FFFFFF;
-  --off-white: #F5F5F0;
-  --grey: #888888;
-  --light-grey: #CCCCCC;
-  --muted: #8A9BB0;
-
-  /* ---- Borders ---- */
-  --border: rgba(255, 255, 255, 0.08);
-  --border-light: rgba(255, 255, 255, 0.15);
-
-  /* ---- Cards ---- */
-  --card: rgba(255, 255, 255, 0.04);
-  --card-bg: rgba(255, 255, 255, 0.06);
-
-  /* ---- Status ---- */
+  /* ---- Status (not in app.html) ---- */
   --error: #FF3333;
   --success: #22c55e;
   --warning: #eab308;
-
-  /* ---- Layout ---- */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-pill: 50px;
-
-  /* ---- Transitions ---- */
-  --transition-fast: 200ms ease;
-  --transition: 300ms ease;
-  --transition-slow: 500ms ease;
 }
 
 /* ── Focus States ── */
