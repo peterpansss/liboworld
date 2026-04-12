@@ -6,7 +6,7 @@ import SiteFooter from '../components/SiteFooter';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
 
-const CATEGORIES = ['All', 'Gym', 'Home', 'Cardio', 'Stretching', 'Challenge', 'Morning Routine'];
+const CATEGORIES = ['All', 'Gym', 'Home', 'Cardio', 'Stretching', 'Morning Routine'];
 const MAX_VISIBLE = 6;
 
 function diffClass(diff: string): string {
