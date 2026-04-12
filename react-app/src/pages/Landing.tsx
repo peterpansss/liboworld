@@ -21,8 +21,6 @@ const LANGS: Record<string, { flag: string; label: string }> = {
   en: { flag: '🇬🇧', label: 'English' },
   es: { flag: '🇪🇸', label: 'Español' },
   pt: { flag: '🇧🇷', label: 'Português' },
-  de: { flag: '🇩🇪', label: 'Deutsch' },
-  fr: { flag: '🇫🇷', label: 'Français' },
 };
 
 function getInitialLang(): string {
