@@ -1602,8 +1602,39 @@
        GT wraps every text node in <font> tags, breaking flex/grid layouts.
        These rules neutralize that without affecting normal rendering.
     ───────────────────────────── */
-    font { all: inherit; display: contents; }
-    font font { all: inherit; display: contents; }
+    /* Only neutralize <font> inside flex/grid where it breaks layout.
+       Elsewhere let it inherit naturally so font-size/color still apply. */
+    [style*="flex"] > font,
+    [style*="grid"] > font,
+    .hero-content > font,
+    .hero-text > font,
+    .hero-bottom > font,
+    .hero-bottom-cell > font,
+    .hero-eyebrow > font,
+    .nav-links > font,
+    .nav-right > font,
+    nav > font,
+    .features-grid > font,
+    .features-header > font,
+    .feature-item > font,
+    .rewards-inner > font,
+    .rewards-flow > font,
+    .rewards-flow-step > font,
+    .marquee-track > font,
+    .container > font,
+    .container-sm > font { display: contents; }
+
+    /* Let font tags inside text elements inherit styling normally */
+    .rewards-big-stat > font,
+    .rewards-challenge-name > font,
+    .display > font,
+    .hero-headline > font,
+    .statement-text > font,
+    h1 > font, h2 > font, h3 > font,
+    p > font, span > font, a > font,
+    .feature-name > font,
+    .feature-desc > font,
+    .label > font { all: inherit; }
 
     /* Prevent GT banner from pushing layout */
     .skiptranslate { display: none !important; }
