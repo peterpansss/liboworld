@@ -8,14 +8,12 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: react-app
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # ── Build React app ──
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -23,10 +21,27 @@ jobs:
           cache-dependency-path: react-app/package-lock.json
 
       - run: npm ci
+        working-directory: react-app
 
-      - name: Build
+      - name: Build React app
         run: npx vite build
+        working-directory: react-app
 
+      # ── Merge root static files into dist ──
+      # The root index.html is the main landing page.
+      # Copy it + supporting files into the React dist folder
+      # so everything deploys together in one FTP push.
+      - name: Copy root static files into dist
+        run: |
+          cp index.html react-app/dist/index.html
+          cp -r i18n react-app/dist/i18n
+          cp tokens.css react-app/dist/tokens.css
+          cp robots.txt react-app/dist/robots.txt
+          cp sitemap.xml react-app/dist/sitemap.xml
+          cp googlea384516e7c52bfef.html react-app/dist/ 2>/dev/null || true
+          cp libo-data.js react-app/dist/libo-data.js 2>/dev/null || true
+
+      # ── Deploy everything ──
       - name: Deploy via FTP to Netcup
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
