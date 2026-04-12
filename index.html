@@ -1596,6 +1596,58 @@
       .proof-card[data-reveal] { transform: none !important; }
       .highlight-swipe { background-size: 100% 100% !important; transition: none !important; }
     }
+
+    /* ─────────────────────────────
+       GOOGLE TRANSLATE PROTECTION
+       GT wraps every text node in <font> tags, breaking flex/grid layouts.
+       These rules neutralize that without affecting normal rendering.
+    ───────────────────────────── */
+    font { all: inherit; display: contents; }
+    font font { all: inherit; display: contents; }
+
+    /* Prevent GT banner from pushing layout */
+    .skiptranslate { display: none !important; }
+    body { top: 0 !important; position: static !important; }
+
+    /* Lock overflow — GT sometimes removes overflow:hidden */
+    html, body { overflow-x: hidden !important; max-width: 100vw; }
+
+    /* Display headings: prevent long translations from overflowing */
+    .display, .hero-headline, .statement-text,
+    .rewards-big-stat, .rewards-challenge-name {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    /* Chips/pills: allow wrapping for longer translated text */
+    .rewards-chip, .btn-nav, .hero-cta-btn {
+      white-space: normal;
+      text-align: center;
+    }
+
+    /* Flow labels: prevent overflow in icon+label columns */
+    .rewards-flow-label {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      text-align: center;
+      max-width: 100%;
+    }
+
+    /* Marquee: keep on one line despite GT wrapping */
+    .marquee-track, .marquee-track font {
+      display: inline-flex !important;
+      white-space: nowrap;
+    }
+    .marquee-item font, .marquee-sep font {
+      display: inline !important;
+    }
+
+    /* Feature cards: contain long translated text */
+    .feature-name, .feature-desc {
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
   </style>
 </head>
 <body>
@@ -1618,7 +1670,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo"><img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" style="height:28px;display:block;" /></a>
+  <a href="#" class="nav-logo" translate="no"><img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" style="height:28px;display:block;" /></a>
   <ul class="nav-links">
     <li><a href="#features" class="load-stagger" style="transition-delay:0.05s">Features</a></li>
     <li><a href="#rewards" class="load-stagger" style="transition-delay:0.1s">Rewards</a></li>
