@@ -37,8 +37,8 @@ const MARQUEE_ITEMS = [
 ];
 
 const FEATURES = [
-  { num: '01', icon: '\uD83D\uDCDA', name: 'Exercise Library', desc: '718 exercises \u2014 411 gym, 258 home, 49 mobility. Every one with equipment notes, muscle targeting, and form cues.' },
-  { num: '02', icon: '\uD83C\uDFCB\uFE0F', name: 'Workout Library', desc: '140 pre-built sessions \u2014 gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.' },
+  { num: '01', icon: '\uD83D\uDCDA', name: 'Exercise Library', desc: '634 exercises \u2014 366 gym, 235 home, 33 mobility. Every one with equipment notes, muscle targeting, and form cues.' },
+  { num: '02', icon: '\uD83C\uDFCB\uFE0F', name: 'Workout Library', desc: '136 pre-built sessions \u2014 gym, home, cardio, stretching, and morning routines. 5 to 60 minutes.' },
   { num: '03', icon: '\uD83D\uDCC5', name: 'Programs', desc: 'Multi-week structured plans designed to get you real, measurable results. Follow the plan, trust the process.' },
   { num: '04', icon: '\uD83D\uDCCA', name: 'Progress Tracking', desc: 'Log every set, rep, and weight. Libo remembers your history and shows exactly how much you\'ve grown.' },
   { num: '05', icon: '\u270F\uFE0F', name: 'Custom Builder', desc: 'Build your own workout from the full exercise library. Set your sequence, sets, rest time \u2014 save and reuse.' },
@@ -85,9 +85,9 @@ const TESTIMONIALS = [
 
 const FAQ_ITEMS = [
   { q: 'Is Libo free?', a: 'Libo offers a free tier with access to workouts, exercises, and basic tracking. Pro unlocks premium programs, advanced analytics, and money challenges.' },
-  { q: 'What equipment do I need?', a: 'None — or everything. Libo has 258 bodyweight exercises for home, 411 gym exercises, and 49 mobility moves. Filter by what you have available.' },
+  { q: 'What equipment do I need?', a: 'None — or everything. Libo has 235 bodyweight exercises for home, 366 gym exercises, and 33 mobility moves. Filter by what you have available.' },
   { q: 'How do the money challenges work?', a: 'Join a 30-day challenge (e.g., 50 pushups daily), record yourself completing the reps each day, share to your stories, and cash out real money when you finish. Limited spots per challenge.' },
-  { q: 'Can I build my own workouts?', a: 'Yes. The Custom Builder lets you pick from 718 exercises, set your own sets, reps, and rest times, then save and reuse your workouts anytime.' },
+  { q: 'Can I build my own workouts?', a: 'Yes. The Custom Builder lets you pick from 634 exercises, set your own sets, reps, and rest times, then save and reuse your workouts anytime.' },
   { q: 'Is Libo available on Android?', a: 'Libo is launching on iOS first. Android is on the roadmap — join the waitlist and we\'ll notify you when it\'s available.' },
   { q: 'How is Libo different from other fitness apps?', a: 'Libo combines a massive exercise library, structured programs, progress tracking, and real cash challenges in one app — with a premium dark UI that stays out of your way. No ads, no clutter.' },
   { q: 'Can I follow structured programs?', a: 'Yes. Libo includes multi-week programs designed for specific goals — muscle building, fat loss, mobility, and more. Follow the plan, log your progress, and see real results.' },
@@ -95,8 +95,8 @@ const FAQ_ITEMS = [
 ];
 
 const TRUST_STATS = [
-  { num: '718', label: 'Exercises', sub: 'Gym, home & mobility' },
-  { num: '140', label: 'Workouts', sub: 'Ready to follow' },
+  { num: '634', label: 'Exercises', sub: 'Gym, home & mobility' },
+  { num: '136', label: 'Workouts', sub: 'Ready to follow' },
   { num: '4.9', label: 'Beta Rating', sub: 'From early testers' },
   { num: '50+', label: 'Beta Testers', sub: 'And counting' },
 ];
@@ -216,10 +216,10 @@ export default function Landing() {
   const rewardsStatView = useInView(0.5);
 
   // CountUp values
-  const heroExercises = useCountUp(718, heroBottomView.inView);
-  const heroWorkouts = useCountUp(140, heroBottomView.inView);
-  const statExercises = useCountUp(718, statsView.inView);
-  const statWorkouts = useCountUp(140, statsView.inView);
+  const heroExercises = useCountUp(634, heroBottomView.inView);
+  const heroWorkouts = useCountUp(136, heroBottomView.inView);
+  const statExercises = useCountUp(634, statsView.inView);
+  const statWorkouts = useCountUp(136, statsView.inView);
   const statFormats = useCountUp(6, statsView.inView);
   const rewardsStat = useCountUp(15, rewardsStatView.inView, 1200);
 
@@ -679,7 +679,7 @@ export default function Landing() {
             <div className="hero-phone hero-phone--left">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/explore.png" alt="Libo Explore tab showing 140 workouts" loading="eager" />
+                  <img src="/mockups/explore.png" alt="Libo Explore tab showing 136 workouts" loading="eager" />
                 </div>
               </div>
             </div>
@@ -771,7 +771,7 @@ export default function Landing() {
             <h2 className="display display-md font-display">Everything<br />you need.</h2>
           </div>
           <p className="body-md text-narrow">
-            718 exercises &middot; 140 workouts &middot; 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.
+            634 exercises &middot; 136 workouts. Every training format, from barbell strength to breathing and morning routines.
           </p>
         </div>
         <div className="features-grid" ref={featuresGridRef}>
@@ -809,7 +809,7 @@ export default function Landing() {
           }}
         >
           <div>
-            <div className="label label-spaced" style={{ color: 'var(--accent)' }}>718 Exercises</div>
+            <div className="label label-spaced" style={{ color: 'var(--accent)' }}>634 Exercises</div>
             <h2 className="display display-md font-display text-narrow">
               Every movement.<br />Every muscle.<br /><span style={{ color: 'var(--accent)' }}>One app.</span>
             </h2>
