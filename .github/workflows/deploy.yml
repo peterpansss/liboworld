@@ -8,9 +8,24 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-app
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: react-app/package-lock.json
+
+      - run: npm ci
+
+      - name: Build
+        run: npx vite build
 
       - name: Deploy via FTP to Netcup
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -18,16 +33,5 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
+          local-dir: react-app/dist/
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          exclude: |
-            **/.git*
-            **/.git*/**
-            .github/**
-            README.md
-            BetterMeCalistenicsFlow/**
-            ReferencesforWebsite:MobileAppStyle/**
-            namecheap/**
-            docs/**
-            marketing/**
-            .DS_Store
