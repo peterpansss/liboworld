@@ -1072,7 +1072,13 @@ export default function Landing() {
                 data-reveal="fade-up"
                 data-delay={String(i * 0.12)}
               >
-                <div className="blog-preview-emoji" aria-hidden="true">{article.heroEmoji}</div>
+                {article.heroImage ? (
+                  <div className="blog-preview-img">
+                    <img src={article.heroImage} alt={article.title} loading="lazy" />
+                  </div>
+                ) : (
+                  <div className="blog-preview-emoji" aria-hidden="true">{article.heroEmoji}</div>
+                )}
                 <div className="blog-preview-cat">{article.category}</div>
                 <h3 className="blog-preview-title">{article.title}</h3>
                 <p className="blog-preview-excerpt">{article.excerpt}</p>

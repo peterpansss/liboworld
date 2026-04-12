@@ -64,7 +64,13 @@ export default function Blog() {
               to={`/blog/${article.slug}`}
               className="blog-card"
             >
-              <div className="blog-card-emoji" aria-hidden="true">{article.heroEmoji}</div>
+              {article.heroImage ? (
+                <div className="blog-card-img">
+                  <img src={article.heroImage} alt={article.title} loading="lazy" />
+                </div>
+              ) : (
+                <div className="blog-card-emoji" aria-hidden="true">{article.heroEmoji}</div>
+              )}
               <div className="blog-card-body">
                 <span className="blog-card-category">{article.category}</span>
                 <h2 className="blog-card-title">{article.title}</h2>

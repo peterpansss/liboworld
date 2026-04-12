@@ -7,6 +7,7 @@ export interface BlogArticle {
   date: string;
   author: string;
   heroEmoji: string;
+  heroImage?: string;
   content: string;
   relatedExercises?: string[];
   relatedPrograms?: string[];
@@ -22,6 +23,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-28',
     author: 'Libo Team',
     heroEmoji: '🏋️',
+    heroImage: '/ReferenceImagesReal/4d2d6f35aaa3192a75bb1d865a1ec584.jpg',
     relatedExercises: ['barbell-bench-press', 'push-up', 'dumbbell-flye', 'dips'],
     content: `
 <h2>Why Chest Training Matters</h2>
@@ -79,6 +81,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-22',
     author: 'Libo Team',
     heroEmoji: '🏠',
+    heroImage: '/ReferenceImagesReal/3888964e334eac66760016434935572e.jpg',
     relatedExercises: ['push-up', 'bodyweight-squat', 'plank', 'burpees'],
     content: `
 <h2>Why Bodyweight Training Works</h2>
@@ -141,6 +144,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-15',
     author: 'Libo Team',
     heroEmoji: '🔥',
+    heroImage: '/ReferenceImagesReal/39c1fe9a091b35792a8047293b0f202e.jpg',
     relatedPrograms: ['30-day-pushup-challenge', '30-day-squat-challenge'],
     content: `
 <h2>Why 30-Day Challenges Work</h2>
@@ -186,6 +190,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-08',
     author: 'Libo Team',
     heroEmoji: '💪',
+    heroImage: '/ReferenceImagesReal/622da1a74f2ba7e38b80557ea83622bd.jpg',
     relatedExercises: ['barbell-bench-press', 'barbell-row', 'barbell-squat'],
     content: `
 <h2>What Is Push-Pull-Legs?</h2>
@@ -256,6 +261,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-28',
     author: 'Libo Team',
     heroEmoji: '🌅',
+    heroImage: '/ReferenceImagesReal/3f213a5e319ab876855404142800d9bb.jpg',
     relatedPrograms: ['morning-stretch', 'morning-mobility-flow'],
     content: `
 <h2>Why Morning Stretching Changes Everything</h2>
@@ -325,6 +331,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-20',
     author: 'Libo Team',
     heroEmoji: '🎯',
+    heroImage: '/ReferenceImagesReal/7f2a6692e0dccd63b0cc05e0e7197d38.jpg',
     relatedExercises: ['barbell-squat', 'barbell-bench-press', 'deadlift'],
     content: `
 <h2>Why Strength Training?</h2>
@@ -369,6 +376,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-12',
     author: 'Libo Team',
     heroEmoji: '📋',
+    heroImage: '/ReferenceImagesReal/2df174c21bbc8db6cd5ce2d0b96b810e.jpg',
     content: `
 <h2>Why Custom Plans Beat Random Workouts</h2>
 <p>Following a different workout video every day might feel productive, but it's one of the least effective ways to train. <strong>Random training leads to random results.</strong> A structured plan ensures you're progressing, balancing muscle groups, and recovering properly.</p>
@@ -428,6 +436,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-05',
     author: 'Libo Team',
     heroEmoji: '🧘',
+    heroImage: '/ReferenceImagesReal/e64b6bf3121062bba39727d191b390cc.jpg',
     relatedExercises: ['foam-roller-upper-back', 'hip-flexor-stretch', 'hamstring-stretch'],
     relatedPrograms: ['morning-mobility-flow', 'evening-stretch'],
     content: `

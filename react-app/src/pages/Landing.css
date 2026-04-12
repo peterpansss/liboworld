@@ -1458,6 +1458,22 @@ button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+.blog-preview-img {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.blog-preview-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.blog-preview-card:hover .blog-preview-img img {
+  transform: scale(1.05);
+}
 .blog-preview-emoji {
   font-size: 36px;
   margin-bottom: 16px;
