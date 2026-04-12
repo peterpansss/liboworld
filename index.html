@@ -1598,6 +1598,73 @@
     }
 
     /* ─────────────────────────────
+       LANGUAGE SWITCHER
+    ───────────────────────────── */
+    .lang-switcher {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--border-light);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 6px 12px;
+      border-radius: 100px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lang-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .lang-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: rgba(20,20,20,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 6px;
+      min-width: 140px;
+      z-index: 200;
+    }
+    .lang-dropdown.open { display: block; }
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--light-grey);
+      transition: background 0.15s, color 0.15s;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+    .lang-option:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+    .lang-option.active { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .lang-switcher { margin-top: 16px; }
+      .lang-dropdown { right: auto; left: 0; }
+    }
+
+    /* ─────────────────────────────
        GOOGLE TRANSLATE PROTECTION
        GT wraps every text node in <font> tags, breaking flex/grid layouts.
        These rules neutralize that without affecting normal rendering.
@@ -1667,25 +1734,37 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <span class="mobile-menu-close" id="closeMenu" role="button" aria-label="Close menu">✕</span>
-  <a href="#features">Features</a>
-  <a href="#rewards">Rewards</a>
-  <a href="#workouts">Workouts</a>
-  <a href="#goals">Goals</a>
-  <a href="#cta">Get Early Access</a>
+  <a href="#features" data-i18n="nav.features">Features</a>
+  <a href="#rewards" data-i18n="nav.rewards">Rewards</a>
+  <a href="#workouts" data-i18n="nav.workouts">Workouts</a>
+  <a href="#goals" data-i18n="nav.goals">Goals</a>
+  <a href="#cta" data-i18n="nav.cta">Get Early Access</a>
 </div>
 
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo" translate="no"><img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" style="height:28px;display:block;" /></a>
   <ul class="nav-links">
-    <li><a href="#features" class="load-stagger" style="transition-delay:0.05s">Features</a></li>
-    <li><a href="#rewards" class="load-stagger" style="transition-delay:0.1s">Rewards</a></li>
-    <li><a href="#workouts" class="load-stagger" style="transition-delay:0.15s">Workouts</a></li>
-    <li><a href="#goals" class="load-stagger" style="transition-delay:0.2s">Goals</a></li>
+    <li><a href="#features" class="load-stagger" style="transition-delay:0.05s" data-i18n="nav.features">Features</a></li>
+    <li><a href="#rewards" class="load-stagger" style="transition-delay:0.1s" data-i18n="nav.rewards">Rewards</a></li>
+    <li><a href="#workouts" class="load-stagger" style="transition-delay:0.15s" data-i18n="nav.workouts">Workouts</a></li>
+    <li><a href="#goals" class="load-stagger" style="transition-delay:0.2s" data-i18n="nav.goals">Goals</a></li>
     <div class="nav-indicator" id="navIndicator"></div>
   </ul>
   <div class="nav-right">
-    <a href="#cta" class="btn-nav">Get Early Access</a>
+    <div class="lang-switcher">
+      <button class="lang-btn" id="langBtn" aria-label="Change language">
+        <span id="langFlag">🇬🇧</span> <span id="langCode">EN</span> ▾
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <button class="lang-option active" data-lang="en">🇬🇧 English</button>
+        <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+        <button class="lang-option" data-lang="pt">🇧🇷 Português</button>
+        <button class="lang-option" data-lang="de">🇩🇪 Deutsch</button>
+        <button class="lang-option" data-lang="fr">🇫🇷 Français</button>
+      </div>
+    </div>
+    <a href="#cta" class="btn-nav" data-i18n="nav.cta">Get Early Access</a>
     <div class="nav-hamburger" id="openMenu" role="button" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </div>
@@ -1698,14 +1777,14 @@
     <div class="hero-text">
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-dot"></div>
-        <span class="label">Coming Soon — Join the Waitlist</span>
+        <span class="label" data-i18n="hero.eyebrow">Coming Soon — Join the Waitlist</span>
       </div>
       <h1 class="hero-headline display display-xl">
-        <span class="line-1 clip-reveal" style="transition-delay:0.2s">Train</span>
-        <span class="line-2 clip-reveal" style="transition-delay:0.35s">Anywhere.</span>
-        <span class="line-3 clip-reveal" style="transition-delay:0.5s">Anytime.</span>
+        <span class="line-1 clip-reveal" style="transition-delay:0.2s" data-i18n="hero.headline1">Train</span>
+        <span class="line-2 clip-reveal" style="transition-delay:0.35s" data-i18n="hero.headline2">Anywhere.</span>
+        <span class="line-3 clip-reveal" style="transition-delay:0.5s" data-i18n="hero.headline3">Anytime.</span>
       </h1>
-      <a href="#cta" class="hero-cta-btn load-hidden" id="heroCta">Join the Waitlist →</a>
+      <a href="#cta" class="hero-cta-btn load-hidden" id="heroCta" data-i18n="hero.cta">Join the Waitlist →</a>
     </div>
     <div class="hero-image-wrap hero-image-reveal">
       <img src="ReferenceImagesReal/39c1fe9a091b35792a8047293b0f202e.jpg" alt="Athlete training" loading="eager" />
@@ -1714,20 +1793,20 @@
   <div class="hero-bottom">
     <div class="hero-bottom-cell">
       <div class="hero-bottom-num count-up" data-target="718">0</div>
-      <div class="hero-bottom-lbl">Exercises</div>
+      <div class="hero-bottom-lbl" data-i18n="hero.stat1Label">Exercises</div>
     </div>
     <div class="hero-bottom-cell">
       <div class="hero-bottom-num count-up" data-target="140">0</div>
-      <div class="hero-bottom-lbl">Workouts</div>
+      <div class="hero-bottom-lbl" data-i18n="hero.stat2Label">Workouts</div>
     </div>
     <div class="hero-bottom-cell">
-      <div class="hero-bottom-num">0 kg</div>
-      <div class="hero-bottom-lbl">Equipment Required</div>
+      <div class="hero-bottom-num" data-i18n="hero.stat3Value">0 kg</div>
+      <div class="hero-bottom-lbl" data-i18n="hero.stat3Label">Equipment Required</div>
     </div>
   </div>
   <!-- Scroll indicator -->
   <div class="scroll-indicator" id="scrollIndicator">
-    <span>Scroll to explore</span>
+    <span data-i18n="hero.scrollIndicator">Scroll to explore</span>
     <div class="chevron"></div>
   </div>
 </section>
@@ -1737,42 +1816,42 @@
 <!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span class="marquee-item">Bodyweight</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Gym Training</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Mobility</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Breathing</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Morning Routines</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Programs</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Progress Tracking</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Custom Workouts</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Bodyweight</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Gym Training</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Mobility</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Breathing</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Morning Routines</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Programs</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Progress Tracking</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Custom Workouts</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.bodyweight">Bodyweight</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.gymTraining">Gym Training</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.mobility">Mobility</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.breathing">Breathing</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.morningRoutines">Morning Routines</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.programs">Programs</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.progressTracking">Progress Tracking</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.customWorkouts">Custom Workouts</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.bodyweight">Bodyweight</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.gymTraining">Gym Training</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.mobility">Mobility</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.breathing">Breathing</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.morningRoutines">Morning Routines</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.programs">Programs</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.progressTracking">Progress Tracking</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.customWorkouts">Custom Workouts</span><span class="marquee-item marquee-sep">·</span>
   </div>
 </div>
 <div class="marquee-wrap-reverse">
   <div class="marquee-track-reverse">
-    <span class="marquee-item">Money Challenges</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">No Equipment</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Home & Gym</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Guided Breathing</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Goal Programs</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Evening Routines</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Flexibility</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Strength Training</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Money Challenges</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">No Equipment</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Home & Gym</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Guided Breathing</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Goal Programs</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Evening Routines</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Flexibility</span><span class="marquee-item marquee-sep">·</span>
-    <span class="marquee-item">Strength Training</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.moneyChallenges">Money Challenges</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.noEquipment">No Equipment</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.homeGym">Home & Gym</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.guidedBreathing">Guided Breathing</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.goalPrograms">Goal Programs</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.eveningRoutines">Evening Routines</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.flexibility">Flexibility</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.strengthTraining">Strength Training</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.moneyChallenges">Money Challenges</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.noEquipment">No Equipment</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.homeGym">Home & Gym</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.guidedBreathing">Guided Breathing</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.goalPrograms">Goal Programs</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.eveningRoutines">Evening Routines</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.flexibility">Flexibility</span><span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item" data-i18n="marquee.strengthTraining">Strength Training</span><span class="marquee-item marquee-sep">·</span>
   </div>
 </div>
 
@@ -1781,19 +1860,19 @@
   <div class="stats-strip-grid" style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;">
     <div data-reveal="fade-up" data-delay="0">
       <div class="stats-strip-num count-up" data-target="718" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-1px;line-height:1;">0</div>
-      <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;">Exercises</div>
+      <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;" data-i18n="statsStrip.exercises">Exercises</div>
     </div>
     <div data-reveal="fade-up" data-delay="0.1">
       <div class="stats-strip-num count-up" data-target="140" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-1px;line-height:1;">0</div>
-      <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;">Workouts</div>
+      <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;" data-i18n="statsStrip.workouts">Workouts</div>
     </div>
     <div data-reveal="fade-up" data-delay="0.2">
       <div class="stats-strip-num count-up" data-target="6" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-1px;line-height:1;">0</div>
-      <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;">Training Formats</div>
+      <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;" data-i18n="statsStrip.trainingFormats">Training Formats</div>
     </div>
     <div data-reveal="fade-up" data-delay="0.3">
       <div class="stats-strip-num" style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#000;letter-spacing:-1px;line-height:1;">0 kg</div>
-      <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;">Equipment Required</div>
+      <div style="font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:8px;" data-i18n="statsStrip.equipmentRequired">Equipment Required</div>
     </div>
   </div>
 </div>
@@ -1802,12 +1881,12 @@
 <div style="border-bottom: 1px solid var(--border);">
   <div class="statement">
     <p class="statement-text">
-      <span class="dim" data-reveal="fade-up" data-delay="0">One club.</span><br/>
-      <span class="bright" data-reveal="fade-up" data-delay="0.15" style="display:inline-block">Every format.</span><br/>
-      <span class="dim" data-reveal="fade-up" data-delay="0.3" style="display:inline-block">Every location.</span><br/>
-      <span class="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style="display:inline-block">Every goal.</span>
+      <span class="dim" data-reveal="fade-up" data-delay="0" data-i18n="statement.line1">One club.</span><br/>
+      <span class="bright" data-reveal="fade-up" data-delay="0.15" style="display:inline-block" data-i18n="statement.line2">Every format.</span><br/>
+      <span class="dim" data-reveal="fade-up" data-delay="0.3" style="display:inline-block" data-i18n="statement.line3">Every location.</span><br/>
+      <span class="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style="display:inline-block" data-i18n="statement.line4">Every goal.</span>
     </p>
-    <p class="body-lg" data-reveal="fade-up" data-delay="0.6" style="max-width: 520px; margin-top: 40px;">
+    <p class="body-lg" data-reveal="fade-up" data-delay="0.6" style="max-width: 520px; margin-top: 40px;" data-i18n="statement.description">
       Libo is the training club built for real life — home, gym, office, or anywhere in between. No excuses. Just results.
     </p>
   </div>
@@ -1817,47 +1896,47 @@
 <section class="features-section" id="features">
   <div class="features-header reveal">
     <div>
-      <div class="label" style="margin-bottom: 12px;">What's Inside</div>
-      <h2 class="display display-md">Everything<br/>you need.</h2>
+      <div class="label" style="margin-bottom: 12px;" data-i18n="features.eyebrow">What's Inside</div>
+      <h2 class="display display-md" data-i18n="features.headline">Everything<br/>you need.</h2>
     </div>
-    <p class="body-md" style="max-width: 320px;">718 exercises · 140 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.</p>
+    <p class="body-md" style="max-width: 320px;" data-i18n="features.description">718 exercises · 140 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.</p>
   </div>
   <div class="features-grid">
     <div class="feature-item reveal">
       <div class="feature-num">01</div>
       <span class="feature-icon">📚</span>
-      <div class="feature-name">Exercise Library</div>
-      <p class="feature-desc">718 exercises — 411 gym, 258 home, 49 mobility. Every one with equipment notes, muscle targeting, and form cues.</p>
+      <div class="feature-name" data-i18n="features.exerciseLibrary">Exercise Library</div>
+      <p class="feature-desc" data-i18n="features.exerciseLibraryDesc">718 exercises — 411 gym, 258 home, 49 mobility. Every one with equipment notes, muscle targeting, and form cues.</p>
     </div>
     <div class="feature-item reveal reveal-delay-1">
       <div class="feature-num">02</div>
       <span class="feature-icon">🏋️</span>
-      <div class="feature-name">Workout Library</div>
-      <p class="feature-desc">140 pre-built sessions — gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.</p>
+      <div class="feature-name" data-i18n="features.workoutLibrary">Workout Library</div>
+      <p class="feature-desc" data-i18n="features.workoutLibraryDesc">140 pre-built sessions — gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.</p>
     </div>
     <div class="feature-item reveal reveal-delay-2">
       <div class="feature-num">03</div>
       <span class="feature-icon">📅</span>
-      <div class="feature-name">Programs</div>
-      <p class="feature-desc">Multi-week structured plans designed to get you real, measurable results. Follow the plan, trust the process.</p>
+      <div class="feature-name" data-i18n="features.programs">Programs</div>
+      <p class="feature-desc" data-i18n="features.programsDesc">Multi-week structured plans designed to get you real, measurable results. Follow the plan, trust the process.</p>
     </div>
     <div class="feature-item reveal">
       <div class="feature-num">04</div>
       <span class="feature-icon">📊</span>
-      <div class="feature-name">Progress Tracking</div>
-      <p class="feature-desc">Log every set, rep, and weight. Libo remembers your history and shows exactly how much you've grown.</p>
+      <div class="feature-name" data-i18n="features.progressTracking">Progress Tracking</div>
+      <p class="feature-desc" data-i18n="features.progressTrackingDesc">Log every set, rep, and weight. Libo remembers your history and shows exactly how much you've grown.</p>
     </div>
     <div class="feature-item reveal reveal-delay-1">
       <div class="feature-num">05</div>
       <span class="feature-icon">✏️</span>
-      <div class="feature-name">Custom Builder</div>
-      <p class="feature-desc">Build your own workout from the full exercise library. Set your sequence, sets, rest time — save and reuse.</p>
+      <div class="feature-name" data-i18n="features.customBuilder">Custom Builder</div>
+      <p class="feature-desc" data-i18n="features.customBuilderDesc">Build your own workout from the full exercise library. Set your sequence, sets, rest time — save and reuse.</p>
     </div>
     <div class="feature-item reveal reveal-delay-2">
       <div class="feature-num">06</div>
       <span class="feature-icon">🏆</span>
-      <div class="feature-name">Money Challenges</div>
-      <p class="feature-desc">Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 50 pushups a day for 30 days? That's €15 in your pocket.</p>
+      <div class="feature-name" data-i18n="features.moneyChallenges">Money Challenges</div>
+      <p class="feature-desc" data-i18n="features.moneyChallengesDesc">Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 50 pushups a day for 30 days? That's €15 in your pocket.</p>
     </div>
   </div>
   <div class="features-dots" id="featuresDots">
@@ -1872,12 +1951,12 @@
 
 <!-- FULL-BLEED PHOTO BREAK -->
 <div class="photo-break" style="position:relative;height:480px;overflow:hidden;">
-  <img src="ReferenceImagesReal/1933bd503955db5451058dd0bcae5740.jpg" alt="Strength training" loading="lazy"
-    style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;" />
+  <img src="ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg" alt="Strength training" loading="lazy"
+    style="width:100%;height:100%;object-fit:cover;object-position:center 50%;display:block;" />
   <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.2) 50%,transparent 100%);display:flex;align-items:center;padding:0 8%;">
     <div>
-      <div class="label" style="color:var(--accent);margin-bottom:16px;">718 Exercises</div>
-      <h2 class="display display-md" style="color:#fff;max-width:480px;">Every movement.<br/>Every muscle.<br/><span style="color:var(--accent)">One app.</span></h2>
+      <div class="label" style="color:var(--accent);margin-bottom:16px;" data-i18n="photoBreak1.eyebrow">718 Exercises</div>
+      <h2 class="display display-md" style="color:#fff;max-width:480px;" data-i18n="photoBreak1.headline">Every movement.<br/>Every muscle.<br/><span style="color:var(--accent)">One app.</span></h2>
     </div>
   </div>
 </div>
@@ -1886,45 +1965,45 @@
 <section class="rewards-section" id="rewards">
   <div class="rewards-inner">
     <div class="rewards-left reveal">
-      <div class="label" style="margin-bottom: 16px;">Money Challenges</div>
-      <h2 class="display display-md">Your reps<br/>pay <span style="color:var(--accent)">real cash.</span></h2>
-      <p class="body-md" style="margin-top: 28px; max-width: 380px; line-height: 1.7;">
+      <div class="label" style="margin-bottom: 16px;" data-i18n="rewards.eyebrow">Money Challenges</div>
+      <h2 class="display display-md" data-i18n="rewards.headline">Your reps<br/>pay <span style="color:var(--accent)">real cash.</span></h2>
+      <p class="body-md" style="margin-top: 28px; max-width: 380px; line-height: 1.7;" data-i18n="rewards.description">
         30 days. Daily reps. Post the proof. Cash out. No points, no gift cards -- just money in your pocket.
       </p>
       <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 32px;">
-        <span class="rewards-chip">Real Cash Payouts</span>
-        <span class="rewards-chip">30-Day Streaks</span>
-        <span class="rewards-chip">Limited Spots</span>
+        <span class="rewards-chip" data-i18n="rewards.chip1">Real Cash Payouts</span>
+        <span class="rewards-chip" data-i18n="rewards.chip2">30-Day Streaks</span>
+        <span class="rewards-chip" data-i18n="rewards.chip3">Limited Spots</span>
       </div>
     </div>
     <div class="rewards-right reveal reveal-delay-1">
       <div class="rewards-gradient-card">
-        <div class="rewards-glass-badge">30-Day Challenge</div>
+        <div class="rewards-glass-badge" data-i18n="rewards.badge">30-Day Challenge</div>
         <div class="rewards-big-stat">€15</div>
-        <div class="rewards-challenge-name">50 Pushups x 30 Days</div>
-        <div class="rewards-challenge-sub">Complete daily reps, record yourself, share to stories</div>
+        <div class="rewards-challenge-name" data-i18n="rewards.challengeName">50 Pushups x 30 Days</div>
+        <div class="rewards-challenge-sub" data-i18n="rewards.challengeSubtitle">Complete daily reps, record yourself, share to stories</div>
         <div class="rewards-flow">
           <div class="rewards-flow-step">
             <div class="rewards-flow-icon">💪</div>
-            <div class="rewards-flow-label">Do Reps</div>
+            <div class="rewards-flow-label" data-i18n="rewards.flowStep1">Do Reps</div>
           </div>
           <div class="rewards-flow-arrow">→</div>
           <div class="rewards-flow-step">
             <div class="rewards-flow-icon">📹</div>
-            <div class="rewards-flow-label">Record</div>
+            <div class="rewards-flow-label" data-i18n="rewards.flowStep2">Record</div>
           </div>
           <div class="rewards-flow-arrow">→</div>
           <div class="rewards-flow-step">
             <div class="rewards-flow-icon">📲</div>
-            <div class="rewards-flow-label">Share</div>
+            <div class="rewards-flow-label" data-i18n="rewards.flowStep3">Share</div>
           </div>
           <div class="rewards-flow-arrow">→</div>
           <div class="rewards-flow-step">
             <div class="rewards-flow-icon" style="background:rgba(202,255,0,0.1);border-color:rgba(202,255,0,0.2);">💰</div>
-            <div class="rewards-flow-label" style="color:var(--accent);">Cash Out</div>
+            <div class="rewards-flow-label" style="color:var(--accent);" data-i18n="rewards.flowStep4">Cash Out</div>
           </div>
         </div>
-        <div class="rewards-spots">
+        <div class="rewards-spots" data-i18n="rewards.spots">
           <span class="rewards-spots-dot"></span>
           37 of 50 spots taken
         </div>
@@ -1938,51 +2017,51 @@
   <div class="categories-section">
     <div class="categories-header reveal">
       <div>
-        <div class="label" style="margin-bottom: 12px;">Training Formats</div>
-        <h2 class="display display-md">Built for<br/>every moment.</h2>
+        <div class="label" style="margin-bottom: 12px;" data-i18n="categories.eyebrow">Training Formats</div>
+        <h2 class="display display-md" data-i18n="categories.headline">Built for<br/>every moment.</h2>
       </div>
-      <p class="body-md" style="max-width: 280px;">Every format, every location, every time of day — covered.</p>
+      <p class="body-md" style="max-width: 280px;" data-i18n="categories.description">Every format, every location, every time of day — covered.</p>
     </div>
     <div class="categories-grid">
       <a href="onboarding.html?goal=stay-active" class="cat-item reveal" style="text-decoration:none;color:inherit;">
         <div class="cat-img"><img src="ReferenceImagesReal/3888964e334eac66760016434935572e.jpg" alt="Home Workouts" loading="lazy" /></div>
-        <div class="cat-name">Home Workouts</div>
-        <p class="cat-desc">Bodyweight · No equipment needed</p>
+        <div class="cat-name" data-i18n="categories.homeWorkouts">Home Workouts</div>
+        <p class="cat-desc" data-i18n="categories.homeWorkoutsDesc">Bodyweight · No equipment needed</p>
       </a>
       <a href="onboarding.html?goal=build-muscle" class="cat-item reveal reveal-delay-1" style="text-decoration:none;color:inherit;">
         <div class="cat-img"><img src="ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg" alt="Gym Training" loading="lazy" /></div>
-        <div class="cat-name">Gym Training</div>
-        <p class="cat-desc">Machines · Free weights · Full sessions</p>
+        <div class="cat-name" data-i18n="categories.gymTraining">Gym Training</div>
+        <p class="cat-desc" data-i18n="categories.gymTrainingDesc">Machines · Free weights · Full sessions</p>
       </a>
       <a href="onboarding.html?goal=improve-mobility" class="cat-item reveal reveal-delay-2" style="text-decoration:none;color:inherit;">
         <div class="cat-img"><img src="ReferenceImagesReal/e64b6bf3121062bba39727d191b390cc.jpg" alt="Mobility & Stretch" loading="lazy" /></div>
-        <div class="cat-name">Mobility & Stretch</div>
-        <p class="cat-desc">Flexibility · Joint health · Recovery</p>
+        <div class="cat-name" data-i18n="categories.mobilityStretch">Mobility & Stretch</div>
+        <p class="cat-desc" data-i18n="categories.mobilityStretchDesc">Flexibility · Joint health · Recovery</p>
       </a>
       <a href="onboarding.html?goal=stay-active" class="cat-item reveal reveal-delay-3" style="text-decoration:none;color:inherit;">
         <div class="cat-img"><img src="ReferenceImagesReal/4d2d6f35aaa3192a75bb1d865a1ec584.jpg" alt="Functional Fitness" loading="lazy" /></div>
-        <div class="cat-name">Functional Fitness</div>
-        <p class="cat-desc">Real-world movement patterns</p>
+        <div class="cat-name" data-i18n="categories.functional">Functional Fitness</div>
+        <p class="cat-desc" data-i18n="categories.functionalDesc">Real-world movement patterns</p>
       </a>
       <a href="onboarding.html?goal=stay-active" class="cat-item reveal" style="text-decoration:none;color:inherit;">
         <div class="cat-img"><img src="ReferenceImagesReal/7f2a6692e0dccd63b0cc05e0e7197d38.jpg" alt="Morning Routines" loading="lazy" /></div>
-        <div class="cat-name">Morning Routines</div>
-        <p class="cat-desc">Energise · Activate · Set your focus</p>
+        <div class="cat-name" data-i18n="categories.morningRoutines">Morning Routines</div>
+        <p class="cat-desc" data-i18n="categories.morningRoutinesDesc">Energise · Activate · Set your focus</p>
       </a>
       <a href="onboarding.html?goal=reduce-stress" class="cat-item reveal reveal-delay-1" style="text-decoration:none;color:inherit;">
         <div class="cat-img"><img src="ReferenceImagesReal/2df174c21bbc8db6cd5ce2d0b96b810e.jpg" alt="Evening Wind-Down" loading="lazy" /></div>
-        <div class="cat-name">Evening Wind-Down</div>
-        <p class="cat-desc">Relax · Recover · Sleep better</p>
+        <div class="cat-name" data-i18n="categories.eveningWindDown">Evening Wind-Down</div>
+        <p class="cat-desc" data-i18n="categories.eveningWindDownDesc">Relax · Recover · Sleep better</p>
       </a>
       <a href="onboarding.html?goal=reduce-stress" class="cat-item reveal reveal-delay-2" style="text-decoration:none;color:inherit;">
         <div class="cat-img"><img src="ReferenceImagesReal/3f213a5e319ab876855404142800d9bb.jpg" alt="Breathing" loading="lazy" /></div>
-        <div class="cat-name">Breathing</div>
-        <p class="cat-desc">Calm · Focus · Nervous system reset</p>
+        <div class="cat-name" data-i18n="categories.breathing">Breathing</div>
+        <p class="cat-desc" data-i18n="categories.breathingDesc">Calm · Focus · Nervous system reset</p>
       </a>
       <a href="onboarding.html?goal=lose-weight" class="cat-item reveal reveal-delay-3" style="text-decoration:none;color:inherit;">
         <div class="cat-img"><img src="ReferenceImagesReal/99644a477b81d6a5a528a89925bd79d2.jpg" alt="Goal Programs" loading="lazy" /></div>
-        <div class="cat-name">Goal Programs</div>
-        <p class="cat-desc">4–12 week structured transformation plans</p>
+        <div class="cat-name" data-i18n="categories.goalPrograms">Goal Programs</div>
+        <p class="cat-desc" data-i18n="categories.goalProgramsDesc">4–12 week structured transformation plans</p>
       </a>
     </div>
   </div>
@@ -1992,9 +2071,9 @@
 <section class="goals-section" id="goals">
   <div class="goals-inner">
     <div class="reveal">
-      <div class="label" style="margin-bottom: 16px;">Personalised For You</div>
-      <h2 class="display display-md" style="color: var(--white);">One app.<br/>Every<br/><span style="color:var(--accent)">goal.</span></h2>
-      <p style="font-size: 16px; color: #666; margin-top: 24px; line-height: 1.7; max-width: 400px;">
+      <div class="label" style="margin-bottom: 16px;" data-i18n="goals.eyebrow">Personalised For You</div>
+      <h2 class="display display-md" style="color: var(--white);" data-i18n="goals.headline">One app.<br/>Every<br/><span style="color:var(--accent)">goal.</span></h2>
+      <p style="font-size: 16px; color: #666; margin-top: 24px; line-height: 1.7; max-width: 400px;" data-i18n="goals.description">
         Tell Libo what you want. We build a plan around your goal, your fitness level, and your available equipment. Your journey, your rules.
       </p>
       <div class="goals-img" style="margin-top:40px;border-radius:4px;overflow:hidden;height:260px;">
@@ -2006,27 +2085,27 @@
       <div class="goal-list">
         <a href="onboarding.html?goal=lose-weight" class="goal-row" style="text-decoration:none;color:inherit;">
           <span class="goal-row-icon">🔥</span>
-          <div class="goal-row-text"><h4>Lose Weight</h4><p>Burn calories, stay consistent, see results</p></div>
+          <div class="goal-row-text"><h4 data-i18n="goals.loseWeight">Lose Weight</h4><p data-i18n="goals.loseWeightDesc">Burn calories, stay consistent, see results</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
         <a href="onboarding.html?goal=build-muscle" class="goal-row" style="text-decoration:none;color:inherit;">
           <span class="goal-row-icon">💪</span>
-          <div class="goal-row-text"><h4>Build Muscle</h4><p>Progressive overload, structured volume</p></div>
+          <div class="goal-row-text"><h4 data-i18n="goals.buildMuscle">Build Muscle</h4><p data-i18n="goals.buildMuscleDesc">Progressive overload, structured volume</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
         <a href="onboarding.html?goal=improve-mobility" class="goal-row" style="text-decoration:none;color:inherit;">
           <span class="goal-row-icon">🧘</span>
-          <div class="goal-row-text"><h4>Improve Mobility</h4><p>Move better, feel better, prevent injury</p></div>
+          <div class="goal-row-text"><h4 data-i18n="goals.improveMobility">Improve Mobility</h4><p data-i18n="goals.improveMobilityDesc">Move better, feel better, prevent injury</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
         <a href="onboarding.html?goal=stay-active" class="goal-row" style="text-decoration:none;color:inherit;">
           <span class="goal-row-icon">⚡</span>
-          <div class="goal-row-text"><h4>Stay Active</h4><p>Build healthy habits that actually stick</p></div>
+          <div class="goal-row-text"><h4 data-i18n="goals.stayActive">Stay Active</h4><p data-i18n="goals.stayActiveDesc">Build healthy habits that actually stick</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
         <a href="onboarding.html?goal=reduce-stress" class="goal-row" style="text-decoration:none;color:inherit;">
           <span class="goal-row-icon">🫁</span>
-          <div class="goal-row-text"><h4>Reduce Stress</h4><p>Breathing, movement, mindful routines</p></div>
+          <div class="goal-row-text"><h4 data-i18n="goals.reduceStress">Reduce Stress</h4><p data-i18n="goals.reduceStressDesc">Breathing, movement, mindful routines</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
       </div>
@@ -2039,7 +2118,7 @@
   <img src="ReferenceImagesReal/b346e6c8398a7ce928f973f0948c5c17.jpg" alt="Active training" loading="lazy"
     style="width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;" />
   <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.65) 100%);display:flex;align-items:flex-end;padding:48px 8%;">
-    <p class="display display-sm" style="color:#fff;max-width:600px;">No excuses. Just results.</p>
+    <p class="display display-sm" style="color:#fff;max-width:600px;" data-i18n="photoBreak2.tagline">No excuses. Just results.</p>
   </div>
 </div>
 
@@ -2047,40 +2126,40 @@
 <div style="background:#fff;">
 <section class="proof-section" id="proof">
   <div class="reveal">
-    <div class="label" style="margin-bottom: 16px;">Early Feedback</div>
-    <h2 class="display display-md">People love<br/>training with Libo.</h2>
+    <div class="label" style="margin-bottom: 16px;" data-i18n="proof.eyebrow">Early Feedback</div>
+    <h2 class="display display-md" data-i18n="proof.headline">People love<br/>training with Libo.</h2>
   </div>
   <div class="proof-grid">
     <div class="proof-card" data-reveal="fade-up" data-delay="0">
       <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
-      <p class="proof-quote">"I did the 50 pushups challenge and actually got paid. The daily recording keeps you honest — no way to cheat it. Best motivation I've ever had."</p>
+      <p class="proof-quote" data-i18n="proof.card1Quote">"I did the 50 pushups challenge and actually got paid. The daily recording keeps you honest — no way to cheat it. Best motivation I've ever had."</p>
       <div class="proof-author">
         <div class="proof-avatar">👨</div>
         <div>
-          <div class="proof-name">Marco T.</div>
-          <div class="proof-meta">Challenge completed · Berlin</div>
+          <div class="proof-name" data-i18n="proof.card1Author">Marco T.</div>
+          <div class="proof-meta" data-i18n="proof.card1Meta">Challenge completed · Berlin</div>
         </div>
       </div>
     </div>
     <div class="proof-card" data-reveal="fade-up" data-delay="0.15">
       <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
-      <p class="proof-quote">"The morning routines are a game changer. 15 minutes before work and I feel completely different for the whole day."</p>
+      <p class="proof-quote" data-i18n="proof.card2Quote">"The morning routines are a game changer. 15 minutes before work and I feel completely different for the whole day."</p>
       <div class="proof-author">
         <div class="proof-avatar">👩</div>
         <div>
-          <div class="proof-name">Sophie K.</div>
-          <div class="proof-meta">Morning routines · London</div>
+          <div class="proof-name" data-i18n="proof.card2Author">Sophie K.</div>
+          <div class="proof-meta" data-i18n="proof.card2Meta">Morning routines · London</div>
         </div>
       </div>
     </div>
     <div class="proof-card" data-reveal="fade-up" data-delay="0.3">
       <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
-      <p class="proof-quote">"The 8-week program is exactly what I needed. Seeing my logged weights go up every week keeps me going like nothing else."</p>
+      <p class="proof-quote" data-i18n="proof.card3Quote">"The 8-week program is exactly what I needed. Seeing my logged weights go up every week keeps me going like nothing else."</p>
       <div class="proof-author">
         <div class="proof-avatar">🧑</div>
         <div>
-          <div class="proof-name">Lucas R.</div>
-          <div class="proof-meta">Following a program · São Paulo</div>
+          <div class="proof-name" data-i18n="proof.card3Author">Lucas R.</div>
+          <div class="proof-meta" data-i18n="proof.card3Meta">Following a program · São Paulo</div>
         </div>
       </div>
     </div>
@@ -2091,15 +2170,15 @@
 <!-- CTA -->
 <section class="cta-section" id="cta">
   <div class="reveal">
-    <div class="label" style="color: rgba(0,0,0,0.5); margin-bottom: 16px;">Join the Waitlist</div>
-    <h2 class="display display-lg">Be first.<br/>Train better.</h2>
-    <p class="cta-sub">Libo is coming soon. Join the waitlist and get early access plus an exclusive launch offer.</p>
+    <div class="label" style="color: rgba(0,0,0,0.5); margin-bottom: 16px;" data-i18n="cta.eyebrow">Join the Waitlist</div>
+    <h2 class="display display-lg" data-i18n="cta.headline">Be first.<br/>Train better.</h2>
+    <p class="cta-sub" data-i18n="cta.description">Libo is coming soon. Join the waitlist and get early access plus an exclusive launch offer.</p>
     <form class="email-form" id="waitlistForm" style="position:relative;">
       <label for="emailInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
-      <input class="email-input" type="email" id="emailInput" placeholder="Enter your email address" required aria-label="Email address" />
-      <button class="btn-cta" type="submit" id="submitBtn">Join →</button>
+      <input class="email-input" type="email" id="emailInput" placeholder="Enter your email address" data-i18n-placeholder="cta.emailPlaceholder" required aria-label="Email address" />
+      <button class="btn-cta" type="submit" id="submitBtn" data-i18n="cta.submitButton">Join →</button>
     </form>
-    <p id="formMsg" style="font-size: 13px; margin-top: 16px; min-height: 20px; color: rgba(0,0,0,0.5); position:relative;">No spam. Only when Libo launches.</p>
+    <p id="formMsg" style="font-size: 13px; margin-top: 16px; min-height: 20px; color: rgba(0,0,0,0.5); position:relative;" data-i18n="cta.formMessage">No spam. Only when Libo launches.</p>
   </div>
   <div class="store-row reveal">
     <a href="#" class="store-btn">
@@ -2107,7 +2186,7 @@
         <path d="M16.47 12.2c-.03-3.1 2.53-4.59 2.64-4.66-1.44-2.1-3.68-2.39-4.47-2.42-1.9-.19-3.72 1.12-4.69 1.12-.97 0-2.46-1.1-4.05-1.07-2.08.03-4 1.21-5.08 3.08-2.17 3.76-.55 9.33 1.56 12.38 1.03 1.5 2.27 3.17 3.89 3.11 1.56-.06 2.15-1.01 4.03-1.01 1.88 0 2.42 1.01 4.07.98 1.68-.03 2.74-1.52 3.76-3.03 1.19-1.74 1.68-3.42 1.71-3.51-.04-.02-3.28-1.26-3.31-4.97h-.06z" fill="white"/>
         <path d="M13.4 3.27C14.24 2.24 14.82.87 14.67-.5c-1.17.05-2.6.78-3.44 1.77-.75.87-1.42 2.27-1.24 3.61 1.31.1 2.65-.67 3.41-1.61z" fill="white"/>
       </svg>
-      <div><small>Coming Soon on</small><strong>App Store</strong></div>
+      <div><small data-i18n="store.comingSoonOn">Coming Soon on</small><strong data-i18n="store.appStore">App Store</strong></div>
     </a>
     <a href="#" class="store-btn">
       <svg width="20" height="22" viewBox="0 0 20 22" fill="none" style="flex-shrink:0;">
@@ -2116,7 +2195,7 @@
         <path d="M14.85 14.72L11.4 11.14 1.22 21.44c.38.4.99.45 1.7.05l11.93-6.77z" fill="#EA4335"/>
         <path d="M14.85 7.56L2.92.79C2.21.39 1.6.44 1.22.84L11.4 11.14l3.45-3.58z" fill="#34A853"/>
       </svg>
-      <div><small>Coming Soon on</small><strong>Google Play</strong></div>
+      <div><small data-i18n="store.comingSoonOn">Coming Soon on</small><strong data-i18n="store.googlePlay">Google Play</strong></div>
     </a>
   </div>
 </section>
@@ -2126,13 +2205,13 @@
   <div class="footer-inner">
     <div class="footer-logo"><img src="brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" style="height:22px;display:block;" loading="lazy" /></div>
     <ul class="footer-links">
-      <li><a href="privacy.html">Privacy Policy</a></li>
-      <li><a href="terms.html">Terms</a></li>
-      <li><a href="mailto:hello@liboworld.com">Contact</a></li>
-      <li><a href="https://www.instagram.com/liboworld/" target="_blank">Instagram</a></li>
-      <li><a href="https://www.tiktok.com/@libo.world" target="_blank">TikTok</a></li>
+      <li><a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a></li>
+      <li><a href="terms.html" data-i18n="footer.terms">Terms</a></li>
+      <li><a href="mailto:hello@liboworld.com" data-i18n="footer.contact">Contact</a></li>
+      <li><a href="https://www.instagram.com/liboworld/" target="_blank" data-i18n="footer.instagram">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@libo.world" target="_blank" data-i18n="footer.tiktok">TikTok</a></li>
     </ul>
-    <div class="footer-copy">© 2026 Libo World</div>
+    <div class="footer-copy" data-i18n="footer.copyright">© 2026 Libo World</div>
   </div>
 </footer>
 
@@ -2533,5 +2612,6 @@
 
 })();
 </script>
+<script src="i18n/i18n.js"></script>
 </body>
 </html>
