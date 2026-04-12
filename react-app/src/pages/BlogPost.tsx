@@ -72,7 +72,13 @@ export default function BlogPost() {
           <span>{article.readTime} min read</span>
         </div>
 
-        <div className="blogpost-emoji" aria-hidden="true">{article.heroEmoji}</div>
+        {article.heroImage ? (
+          <div className="blogpost-hero-img">
+            <img src={article.heroImage} alt={article.title} />
+          </div>
+        ) : (
+          <div className="blogpost-emoji" aria-hidden="true">{article.heroEmoji}</div>
+        )}
       </header>
 
       {/* ── Article Body ── */}
