@@ -1,0 +1,177 @@
+{
+  "nav": {
+    "features": "Fonctionnalités",
+    "rewards": "Récompenses",
+    "workouts": "Entraînements",
+    "goals": "Objectifs",
+    "cta": "Accès Anticipé"
+  },
+  "hero": {
+    "eyebrow": "Bientôt Disponible — Rejoins la Liste",
+    "headline1": "Entraîne-toi",
+    "headline2": "Partout.",
+    "headline3": "À tout moment.",
+    "cta": "Rejoindre la Liste →",
+    "stat1Label": "Exercices",
+    "stat2Label": "Entraînements",
+    "stat3Value": "0 kg",
+    "stat3Label": "Équipement Requis",
+    "scrollIndicator": "Défile pour explorer"
+  },
+  "marquee": {
+    "bodyweight": "Poids du Corps",
+    "gymTraining": "Entraînement en Salle",
+    "mobility": "Mobilité",
+    "breathing": "Respiration",
+    "morningRoutines": "Routines Matinales",
+    "programs": "Programmes",
+    "progressTracking": "Suivi de Progrès",
+    "customWorkouts": "Entraînements Personnalisés",
+    "moneyChallenges": "Défis Cash",
+    "noEquipment": "Sans Équipement",
+    "homeGym": "Maison et Salle",
+    "guidedBreathing": "Respiration Guidée",
+    "goalPrograms": "Programmes par Objectif",
+    "eveningRoutines": "Routines du Soir",
+    "flexibility": "Souplesse",
+    "strengthTraining": "Musculation"
+  },
+  "statsStrip": {
+    "label": "Ce Qu'il y a Dedans",
+    "exercises": "Exercices",
+    "workouts": "Entraînements",
+    "trainingFormats": "Formats d'Entraînement",
+    "equipmentRequired": "Équipement Requis"
+  },
+  "statement": {
+    "line1": "Un club.",
+    "line2": "Chaque format.",
+    "line3": "Chaque lieu.",
+    "line4": "Chaque objectif.",
+    "description": "Libo est le club d'entraînement conçu pour la vraie vie — maison, salle, bureau ou n'importe où entre les deux. Zéro excuse. Que des résultats."
+  },
+  "features": {
+    "eyebrow": "Ce Qu'il y a Dedans",
+    "headline": "Tout ce dont\ntu as besoin.",
+    "description": "718 exercices · 140 entraînements · 4 programmes de défis. Tous les formats, de la force à la barre jusqu'à la respiration et les routines matinales.",
+    "exerciseLibrary": "Bibliothèque d'Exercices",
+    "exerciseLibraryDesc": "718 exercices — 411 salle, 258 maison, 49 mobilité. Chacun avec notes d'équipement, muscles ciblés et conseils de forme.",
+    "workoutLibrary": "Bibliothèque d'Entraînements",
+    "workoutLibraryDesc": "140 sessions prêtes à l'emploi — salle, maison, cardio, étirements, routines matinales et programmes de défis. De 5 à 60 minutes.",
+    "programs": "Programmes",
+    "programsDesc": "Des plans structurés sur plusieurs semaines conçus pour te donner des résultats réels et mesurables. Suis le plan, fais confiance au processus.",
+    "progressTracking": "Suivi de Progrès",
+    "progressTrackingDesc": "Enregistre chaque série, chaque répétition et chaque poids. Libo retient ton historique et te montre exactement ta progression.",
+    "customBuilder": "Créateur Personnalisé",
+    "customBuilderDesc": "Construis ton propre entraînement à partir de la bibliothèque complète. Définis la séquence, les séries, le repos — sauvegarde et réutilise.",
+    "moneyChallenges": "Défis Cash",
+    "moneyChallengesDesc": "Rejoins des défis de 30 jours, fais tes répétitions quotidiennes, partage en stories — et gagne du vrai argent. 50 pompes par jour pendant 30 jours ? C'est €15 dans ta poche."
+  },
+  "photoBreak1": {
+    "eyebrow": "718 Exercices",
+    "headline": "Chaque mouvement.\nChaque muscle.\nUne app."
+  },
+  "rewards": {
+    "eyebrow": "Défis Cash",
+    "headline": "Tes répétitions\npaient en vrai.",
+    "description": "30 jours. Répétitions quotidiennes. Poste la preuve. Encaisse. Pas de points, pas de cartes cadeaux — juste de l'argent dans ta poche.",
+    "chip1": "Paiements en Cash",
+    "chip2": "Séries de 30 Jours",
+    "chip3": "Places Limitées",
+    "badge": "Défi 30 Jours",
+    "challengeName": "50 Pompes x 30 Jours",
+    "challengeSubtitle": "Fais tes répétitions quotidiennes, filme-toi, partage en stories",
+    "flowStep1": "Fais les Reps",
+    "flowStep2": "Filme",
+    "flowStep3": "Partage",
+    "flowStep4": "Encaisse",
+    "spots": "37 places sur 50 prises"
+  },
+  "categories": {
+    "eyebrow": "Formats d'Entraînement",
+    "headline": "Conçu pour\nchaque moment.",
+    "description": "Chaque format, chaque lieu, chaque moment de la journée — couvert.",
+    "homeWorkouts": "Entraînements Maison",
+    "homeWorkoutsDesc": "Poids du corps · Sans équipement",
+    "gymTraining": "Entraînement en Salle",
+    "gymTrainingDesc": "Machines · Poids libres · Sessions complètes",
+    "mobilityStretch": "Mobilité et Étirements",
+    "mobilityStretchDesc": "Souplesse · Santé articulaire · Récupération",
+    "functional": "Fitness Fonctionnel",
+    "functionalDesc": "Mouvements du quotidien",
+    "morningRoutines": "Routines Matinales",
+    "morningRoutinesDesc": "Énergie · Activation · Mise au point",
+    "eveningWindDown": "Routine du Soir",
+    "eveningWindDownDesc": "Détente · Récupération · Meilleur sommeil",
+    "breathing": "Respiration",
+    "breathingDesc": "Calme · Concentration · Reset du système nerveux",
+    "goalPrograms": "Programmes par Objectif",
+    "goalProgramsDesc": "Plans de transformation structurés de 4 à 12 semaines"
+  },
+  "goals": {
+    "eyebrow": "Personnalisé Pour Toi",
+    "headline": "Une app.\nChaque\nobjectif.",
+    "description": "Dis à Libo ce que tu veux. On construit un plan autour de ton objectif, ton niveau de forme et ton équipement disponible. Ton parcours, tes règles.",
+    "loseWeight": "Perdre du Poids",
+    "loseWeightDesc": "Brûle des calories, reste constant, vois les résultats",
+    "buildMuscle": "Prendre du Muscle",
+    "buildMuscleDesc": "Surcharge progressive, volume structuré",
+    "improveMobility": "Améliorer la Mobilité",
+    "improveMobilityDesc": "Bouge mieux, sens-toi mieux, préviens les blessures",
+    "stayActive": "Rester Actif",
+    "stayActiveDesc": "Crée des habitudes saines qui tiennent vraiment",
+    "reduceStress": "Réduire le Stress",
+    "reduceStressDesc": "Respiration, mouvement, routines conscientes"
+  },
+  "photoBreak2": {
+    "tagline": "Zéro excuse. Que des résultats."
+  },
+  "proof": {
+    "eyebrow": "Premiers Retours",
+    "headline": "Les gens adorent\ns'entraîner avec Libo.",
+    "card1Quote": "\"J'ai fait le défi 50 pompes et j'ai vraiment été payé. Filmer chaque jour te garde honnête — impossible de tricher. La meilleure motivation que j'aie jamais eue.\"",
+    "card1Author": "Marco T.",
+    "card1Meta": "Défi terminé · Berlin",
+    "card2Quote": "\"Les routines matinales changent tout. 15 minutes avant le travail et je me sens complètement différent toute la journée.\"",
+    "card2Author": "Sophie K.",
+    "card2Meta": "Routines matinales · London",
+    "card3Quote": "\"Le programme de 8 semaines est exactement ce qu'il me fallait. Voir mes poids augmenter chaque semaine me motive comme rien d'autre.\"",
+    "card3Author": "Lucas R.",
+    "card3Meta": "Suit un programme · São Paulo"
+  },
+  "cta": {
+    "eyebrow": "Rejoins la Liste",
+    "headline": "Sois le premier.\nEntraîne-toi mieux.",
+    "description": "Libo arrive bientôt. Rejoins la liste d'attente et obtiens un accès anticipé plus une offre exclusive de lancement.",
+    "emailPlaceholder": "Ton adresse e-mail",
+    "submitButton": "Rejoindre →",
+    "formMessage": "Pas de spam. Uniquement quand Libo se lance.",
+    "successMessage": "Tu es sur la liste !",
+    "successNotification": "Bienvenue ! On te prévient dès que Libo se lance.",
+    "duplicateMessage": "Tu es déjà sur la liste !",
+    "duplicateNotification": "Tu es déjà sur la liste d'attente ! On te recontacte bientôt.",
+    "errorMessage": "Un problème est survenu. Réessaie.",
+    "connectionError": "Erreur de connexion. Réessaie.",
+    "joining": "Inscription..."
+  },
+  "store": {
+    "comingSoonOn": "Bientôt sur",
+    "appStore": "App Store",
+    "googlePlay": "Google Play"
+  },
+  "footer": {
+    "copyright": "© 2026 Libo World",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions",
+    "contact": "Contact",
+    "instagram": "Instagram",
+    "tiktok": "TikTok"
+  },
+  "comingSoon": {
+    "eyebrow": "Bientôt Disponible — Rejoins la Liste",
+    "headline1": "Entraîne-toi",
+    "headline2": "Partout.",
+    "headline3": "À tout moment.",
+    "cta": "Rejoindre la Liste →"
+  }
+}

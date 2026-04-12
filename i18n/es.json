@@ -1,0 +1,177 @@
+{
+  "nav": {
+    "features": "Funciones",
+    "rewards": "Recompensas",
+    "workouts": "Entrenamientos",
+    "goals": "Objetivos",
+    "cta": "Acceso Anticipado"
+  },
+  "hero": {
+    "eyebrow": "Próximamente — Únete a la Lista",
+    "headline1": "Entrena",
+    "headline2": "Donde Sea.",
+    "headline3": "Cuando Sea.",
+    "cta": "Únete a la Lista →",
+    "stat1Label": "Ejercicios",
+    "stat2Label": "Entrenamientos",
+    "stat3Value": "0 kg",
+    "stat3Label": "Equipamiento Necesario",
+    "scrollIndicator": "Desliza para explorar"
+  },
+  "marquee": {
+    "bodyweight": "Peso Corporal",
+    "gymTraining": "Entrenamiento en Gym",
+    "mobility": "Movilidad",
+    "breathing": "Respiración",
+    "morningRoutines": "Rutinas Matutinas",
+    "programs": "Programas",
+    "progressTracking": "Seguimiento de Progreso",
+    "customWorkouts": "Entrenamientos Personalizados",
+    "moneyChallenges": "Retos con Dinero",
+    "noEquipment": "Sin Equipamiento",
+    "homeGym": "Casa y Gym",
+    "guidedBreathing": "Respiración Guiada",
+    "goalPrograms": "Programas por Objetivo",
+    "eveningRoutines": "Rutinas Nocturnas",
+    "flexibility": "Flexibilidad",
+    "strengthTraining": "Entrenamiento de Fuerza"
+  },
+  "statsStrip": {
+    "label": "Qué Incluye",
+    "exercises": "Ejercicios",
+    "workouts": "Entrenamientos",
+    "trainingFormats": "Formatos de Entrenamiento",
+    "equipmentRequired": "Equipamiento Necesario"
+  },
+  "statement": {
+    "line1": "Un club.",
+    "line2": "Todos los formatos.",
+    "line3": "Todos los lugares.",
+    "line4": "Todos los objetivos.",
+    "description": "Libo es el club de entrenamiento diseñado para la vida real — casa, gym, oficina o donde sea. Sin excusas. Solo resultados."
+  },
+  "features": {
+    "eyebrow": "Qué Incluye",
+    "headline": "Todo lo\nque necesitas.",
+    "description": "718 ejercicios · 140 entrenamientos · 4 programas de retos. Todos los formatos, desde fuerza con barra hasta respiración y rutinas matutinas.",
+    "exerciseLibrary": "Biblioteca de Ejercicios",
+    "exerciseLibraryDesc": "718 ejercicios — 411 gym, 258 casa, 49 movilidad. Cada uno con notas de equipamiento, músculos trabajados e indicaciones de forma.",
+    "workoutLibrary": "Biblioteca de Entrenamientos",
+    "workoutLibraryDesc": "140 sesiones prediseñadas — gym, casa, cardio, estiramientos, rutinas matutinas y programas de retos. De 5 a 60 minutos.",
+    "programs": "Programas",
+    "programsDesc": "Planes estructurados de varias semanas diseñados para darte resultados reales y medibles. Sigue el plan, confía en el proceso.",
+    "progressTracking": "Seguimiento de Progreso",
+    "progressTrackingDesc": "Registra cada serie, repetición y peso. Libo recuerda tu historial y te muestra exactamente cuánto has mejorado.",
+    "customBuilder": "Creador Personalizado",
+    "customBuilderDesc": "Arma tu propio entrenamiento desde la biblioteca completa. Define la secuencia, series, descanso — guarda y reutiliza.",
+    "moneyChallenges": "Retos con Dinero",
+    "moneyChallengesDesc": "Únete a retos de 30 días, cumple tus repeticiones diarias, comparte en stories — y gana dinero real. ¿50 flexiones al día por 30 días? Son €15 en tu bolsillo."
+  },
+  "photoBreak1": {
+    "eyebrow": "718 Ejercicios",
+    "headline": "Cada movimiento.\nCada músculo.\nUna app."
+  },
+  "rewards": {
+    "eyebrow": "Retos con Dinero",
+    "headline": "Tus repeticiones\npagan dinero real.",
+    "description": "30 días. Repeticiones diarias. Publica la prueba. Cobra. Sin puntos, sin tarjetas de regalo — solo dinero en tu bolsillo.",
+    "chip1": "Pagos en Efectivo",
+    "chip2": "Rachas de 30 Días",
+    "chip3": "Cupos Limitados",
+    "badge": "Reto de 30 Días",
+    "challengeName": "50 Flexiones x 30 Días",
+    "challengeSubtitle": "Completa tus repeticiones diarias, grábate y comparte en stories",
+    "flowStep1": "Haz las Reps",
+    "flowStep2": "Graba",
+    "flowStep3": "Comparte",
+    "flowStep4": "Cobra",
+    "spots": "37 de 50 cupos ocupados"
+  },
+  "categories": {
+    "eyebrow": "Formatos de Entrenamiento",
+    "headline": "Diseñado para\ncada momento.",
+    "description": "Cada formato, cada lugar, cada momento del día — cubierto.",
+    "homeWorkouts": "Entrenamientos en Casa",
+    "homeWorkoutsDesc": "Peso corporal · Sin equipamiento",
+    "gymTraining": "Entrenamiento en Gym",
+    "gymTrainingDesc": "Máquinas · Peso libre · Sesiones completas",
+    "mobilityStretch": "Movilidad y Estiramientos",
+    "mobilityStretchDesc": "Flexibilidad · Salud articular · Recuperación",
+    "functional": "Fitness Funcional",
+    "functionalDesc": "Patrones de movimiento de la vida real",
+    "morningRoutines": "Rutinas Matutinas",
+    "morningRoutinesDesc": "Energízate · Actívate · Enfócate",
+    "eveningWindDown": "Rutina Nocturna",
+    "eveningWindDownDesc": "Relájate · Recupérate · Duerme mejor",
+    "breathing": "Respiración",
+    "breathingDesc": "Calma · Enfoque · Reset del sistema nervioso",
+    "goalPrograms": "Programas por Objetivo",
+    "goalProgramsDesc": "Planes de transformación estructurados de 4 a 12 semanas"
+  },
+  "goals": {
+    "eyebrow": "Personalizado Para Ti",
+    "headline": "Una app.\nCada\nobjetivo.",
+    "description": "Dile a Libo lo que quieres. Creamos un plan basado en tu objetivo, tu nivel de fitness y tu equipamiento disponible. Tu camino, tus reglas.",
+    "loseWeight": "Bajar de Peso",
+    "loseWeightDesc": "Quema calorías, sé constante, ve resultados",
+    "buildMuscle": "Ganar Músculo",
+    "buildMuscleDesc": "Sobrecarga progresiva, volumen estructurado",
+    "improveMobility": "Mejorar la Movilidad",
+    "improveMobilityDesc": "Muévete mejor, siéntete mejor, previene lesiones",
+    "stayActive": "Mantenerte Activo",
+    "stayActiveDesc": "Crea hábitos saludables que realmente se mantengan",
+    "reduceStress": "Reducir el Estrés",
+    "reduceStressDesc": "Respiración, movimiento, rutinas conscientes"
+  },
+  "photoBreak2": {
+    "tagline": "Sin excusas. Solo resultados."
+  },
+  "proof": {
+    "eyebrow": "Primeras Opiniones",
+    "headline": "La gente ama\nentrenar con Libo.",
+    "card1Quote": "\"Hice el reto de 50 flexiones y realmente me pagaron. Grabarte cada día te mantiene honesto — no hay forma de hacer trampa. La mejor motivación que he tenido.\"",
+    "card1Author": "Marco T.",
+    "card1Meta": "Reto completado · Berlin",
+    "card2Quote": "\"Las rutinas matutinas son un cambio total. 15 minutos antes del trabajo y me siento completamente diferente todo el día.\"",
+    "card2Author": "Sophie K.",
+    "card2Meta": "Rutinas matutinas · London",
+    "card3Quote": "\"El programa de 8 semanas es exactamente lo que necesitaba. Ver cómo mis pesos suben cada semana me mantiene motivado como nada.\"",
+    "card3Author": "Lucas R.",
+    "card3Meta": "Siguiendo un programa · São Paulo"
+  },
+  "cta": {
+    "eyebrow": "Únete a la Lista",
+    "headline": "Sé el primero.\nEntrena mejor.",
+    "description": "Libo llega pronto. Únete a la lista de espera y obtén acceso anticipado más una oferta exclusiva de lanzamiento.",
+    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "submitButton": "Unirme →",
+    "formMessage": "Sin spam. Solo cuando Libo se lance.",
+    "successMessage": "¡Estás en la lista!",
+    "successNotification": "¡Bienvenido! Te avisaremos cuando Libo se lance.",
+    "duplicateMessage": "¡Ya estás en la lista!",
+    "duplicateNotification": "¡Ya estás en la lista de espera! Te contactaremos pronto.",
+    "errorMessage": "Algo salió mal. Inténtalo de nuevo.",
+    "connectionError": "Error de conexión. Inténtalo de nuevo.",
+    "joining": "Uniéndote..."
+  },
+  "store": {
+    "comingSoonOn": "Próximamente en",
+    "appStore": "App Store",
+    "googlePlay": "Google Play"
+  },
+  "footer": {
+    "copyright": "© 2026 Libo World",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos",
+    "contact": "Contacto",
+    "instagram": "Instagram",
+    "tiktok": "TikTok"
+  },
+  "comingSoon": {
+    "eyebrow": "Próximamente — Únete a la Lista",
+    "headline1": "Entrena",
+    "headline2": "Donde Sea.",
+    "headline3": "Cuando Sea.",
+    "cta": "Únete a la Lista →"
+  }
+}

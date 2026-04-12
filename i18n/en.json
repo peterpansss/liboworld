@@ -1,0 +1,177 @@
+{
+  "nav": {
+    "features": "Features",
+    "rewards": "Rewards",
+    "workouts": "Workouts",
+    "goals": "Goals",
+    "cta": "Get Early Access"
+  },
+  "hero": {
+    "eyebrow": "Coming Soon — Join the Waitlist",
+    "headline1": "Train",
+    "headline2": "Anywhere.",
+    "headline3": "Anytime.",
+    "cta": "Join the Waitlist →",
+    "stat1Label": "Exercises",
+    "stat2Label": "Workouts",
+    "stat3Value": "0 kg",
+    "stat3Label": "Equipment Required",
+    "scrollIndicator": "Scroll to explore"
+  },
+  "marquee": {
+    "bodyweight": "Bodyweight",
+    "gymTraining": "Gym Training",
+    "mobility": "Mobility",
+    "breathing": "Breathing",
+    "morningRoutines": "Morning Routines",
+    "programs": "Programs",
+    "progressTracking": "Progress Tracking",
+    "customWorkouts": "Custom Workouts",
+    "moneyChallenges": "Money Challenges",
+    "noEquipment": "No Equipment",
+    "homeGym": "Home & Gym",
+    "guidedBreathing": "Guided Breathing",
+    "goalPrograms": "Goal Programs",
+    "eveningRoutines": "Evening Routines",
+    "flexibility": "Flexibility",
+    "strengthTraining": "Strength Training"
+  },
+  "statsStrip": {
+    "label": "What's Inside",
+    "exercises": "Exercises",
+    "workouts": "Workouts",
+    "trainingFormats": "Training Formats",
+    "equipmentRequired": "Equipment Required"
+  },
+  "statement": {
+    "line1": "One club.",
+    "line2": "Every format.",
+    "line3": "Every location.",
+    "line4": "Every goal.",
+    "description": "Libo is the training club built for real life — home, gym, office, or anywhere in between. No excuses. Just results."
+  },
+  "features": {
+    "eyebrow": "What's Inside",
+    "headline": "Everything\nyou need.",
+    "description": "718 exercises · 140 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.",
+    "exerciseLibrary": "Exercise Library",
+    "exerciseLibraryDesc": "718 exercises — 411 gym, 258 home, 49 mobility. Every one with equipment notes, muscle targeting, and form cues.",
+    "workoutLibrary": "Workout Library",
+    "workoutLibraryDesc": "140 pre-built sessions — gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.",
+    "programs": "Programs",
+    "programsDesc": "Multi-week structured plans designed to get you real, measurable results. Follow the plan, trust the process.",
+    "progressTracking": "Progress Tracking",
+    "progressTrackingDesc": "Log every set, rep, and weight. Libo remembers your history and shows exactly how much you've grown.",
+    "customBuilder": "Custom Builder",
+    "customBuilderDesc": "Build your own workout from the full exercise library. Set your sequence, sets, rest time — save and reuse.",
+    "moneyChallenges": "Money Challenges",
+    "moneyChallengesDesc": "Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 50 pushups a day for 30 days? That's €15 in your pocket."
+  },
+  "photoBreak1": {
+    "eyebrow": "718 Exercises",
+    "headline": "Every movement.\nEvery muscle.\nOne app."
+  },
+  "rewards": {
+    "eyebrow": "Money Challenges",
+    "headline": "Your reps\npay real cash.",
+    "description": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards -- just money in your pocket.",
+    "chip1": "Real Cash Payouts",
+    "chip2": "30-Day Streaks",
+    "chip3": "Limited Spots",
+    "badge": "30-Day Challenge",
+    "challengeName": "50 Pushups x 30 Days",
+    "challengeSubtitle": "Complete daily reps, record yourself, share to stories",
+    "flowStep1": "Do Reps",
+    "flowStep2": "Record",
+    "flowStep3": "Share",
+    "flowStep4": "Cash Out",
+    "spots": "37 of 50 spots taken"
+  },
+  "categories": {
+    "eyebrow": "Training Formats",
+    "headline": "Built for\nevery moment.",
+    "description": "Every format, every location, every time of day — covered.",
+    "homeWorkouts": "Home Workouts",
+    "homeWorkoutsDesc": "Bodyweight · No equipment needed",
+    "gymTraining": "Gym Training",
+    "gymTrainingDesc": "Machines · Free weights · Full sessions",
+    "mobilityStretch": "Mobility & Stretch",
+    "mobilityStretchDesc": "Flexibility · Joint health · Recovery",
+    "functional": "Functional Fitness",
+    "functionalDesc": "Real-world movement patterns",
+    "morningRoutines": "Morning Routines",
+    "morningRoutinesDesc": "Energise · Activate · Set your focus",
+    "eveningWindDown": "Evening Wind-Down",
+    "eveningWindDownDesc": "Relax · Recover · Sleep better",
+    "breathing": "Breathing",
+    "breathingDesc": "Calm · Focus · Nervous system reset",
+    "goalPrograms": "Goal Programs",
+    "goalProgramsDesc": "4–12 week structured transformation plans"
+  },
+  "goals": {
+    "eyebrow": "Personalised For You",
+    "headline": "One app.\nEvery\ngoal.",
+    "description": "Tell Libo what you want. We build a plan around your goal, your fitness level, and your available equipment. Your journey, your rules.",
+    "loseWeight": "Lose Weight",
+    "loseWeightDesc": "Burn calories, stay consistent, see results",
+    "buildMuscle": "Build Muscle",
+    "buildMuscleDesc": "Progressive overload, structured volume",
+    "improveMobility": "Improve Mobility",
+    "improveMobilityDesc": "Move better, feel better, prevent injury",
+    "stayActive": "Stay Active",
+    "stayActiveDesc": "Build healthy habits that actually stick",
+    "reduceStress": "Reduce Stress",
+    "reduceStressDesc": "Breathing, movement, mindful routines"
+  },
+  "photoBreak2": {
+    "tagline": "No excuses. Just results."
+  },
+  "proof": {
+    "eyebrow": "Early Feedback",
+    "headline": "People love\ntraining with Libo.",
+    "card1Quote": "\"I did the 50 pushups challenge and actually got paid. The daily recording keeps you honest — no way to cheat it. Best motivation I've ever had.\"",
+    "card1Author": "Marco T.",
+    "card1Meta": "Challenge completed · Berlin",
+    "card2Quote": "\"The morning routines are a game changer. 15 minutes before work and I feel completely different for the whole day.\"",
+    "card2Author": "Sophie K.",
+    "card2Meta": "Morning routines · London",
+    "card3Quote": "\"The 8-week program is exactly what I needed. Seeing my logged weights go up every week keeps me going like nothing else.\"",
+    "card3Author": "Lucas R.",
+    "card3Meta": "Following a program · São Paulo"
+  },
+  "cta": {
+    "eyebrow": "Join the Waitlist",
+    "headline": "Be first.\nTrain better.",
+    "description": "Libo is coming soon. Join the waitlist and get early access plus an exclusive launch offer.",
+    "emailPlaceholder": "Enter your email address",
+    "submitButton": "Join →",
+    "formMessage": "No spam. Only when Libo launches.",
+    "successMessage": "You're on the list!",
+    "successNotification": "Welcome! We'll notify you when Libo launches.",
+    "duplicateMessage": "You're on the list!",
+    "duplicateNotification": "You're already on the waitlist! We'll be in touch.",
+    "errorMessage": "Something went wrong. Please try again.",
+    "connectionError": "Connection error. Please try again.",
+    "joining": "Joining..."
+  },
+  "store": {
+    "comingSoonOn": "Coming Soon on",
+    "appStore": "App Store",
+    "googlePlay": "Google Play"
+  },
+  "footer": {
+    "copyright": "© 2026 Libo World",
+    "privacy": "Privacy Policy",
+    "terms": "Terms",
+    "contact": "Contact",
+    "instagram": "Instagram",
+    "tiktok": "TikTok"
+  },
+  "comingSoon": {
+    "eyebrow": "Coming Soon — Join the Waitlist",
+    "headline1": "Train",
+    "headline2": "Everywhere.",
+    "headline3": "Anytime.",
+    "cta": "Join the Waitlist →"
+  }
+}

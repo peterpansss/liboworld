@@ -1,0 +1,177 @@
+{
+  "nav": {
+    "features": "Features",
+    "rewards": "Belohnungen",
+    "workouts": "Workouts",
+    "goals": "Ziele",
+    "cta": "Frühen Zugang sichern"
+  },
+  "hero": {
+    "eyebrow": "Bald verfügbar — Trag dich ein",
+    "headline1": "Trainiere",
+    "headline2": "Überall.",
+    "headline3": "Jederzeit.",
+    "cta": "Auf die Warteliste →",
+    "stat1Label": "Übungen",
+    "stat2Label": "Workouts",
+    "stat3Value": "0 kg",
+    "stat3Label": "Equipment nötig",
+    "scrollIndicator": "Scroll nach unten"
+  },
+  "marquee": {
+    "bodyweight": "Bodyweight",
+    "gymTraining": "Gym Training",
+    "mobility": "Mobilität",
+    "breathing": "Atemübungen",
+    "morningRoutines": "Morgenroutinen",
+    "programs": "Programme",
+    "progressTracking": "Fortschrittstracking",
+    "customWorkouts": "Eigene Workouts",
+    "moneyChallenges": "Geld-Challenges",
+    "noEquipment": "Ohne Equipment",
+    "homeGym": "Home & Gym",
+    "guidedBreathing": "Geführte Atemübungen",
+    "goalPrograms": "Ziel-Programme",
+    "eveningRoutines": "Abendroutinen",
+    "flexibility": "Flexibilität",
+    "strengthTraining": "Krafttraining"
+  },
+  "statsStrip": {
+    "label": "Was drin steckt",
+    "exercises": "Übungen",
+    "workouts": "Workouts",
+    "trainingFormats": "Trainingsformate",
+    "equipmentRequired": "Equipment nötig"
+  },
+  "statement": {
+    "line1": "Ein Club.",
+    "line2": "Jedes Format.",
+    "line3": "Jeder Ort.",
+    "line4": "Jedes Ziel.",
+    "description": "Libo ist der Trainingsclub für dein echtes Leben — zuhause, im Gym, im Büro oder unterwegs. Keine Ausreden. Nur Ergebnisse."
+  },
+  "features": {
+    "eyebrow": "Was drin steckt",
+    "headline": "Alles, was\ndu brauchst.",
+    "description": "718 Übungen · 140 Workouts · 4 Challenge-Programme. Jedes Trainingsformat, von Langhantel-Kraft bis Atemübungen und Morgenroutinen.",
+    "exerciseLibrary": "Übungsbibliothek",
+    "exerciseLibraryDesc": "718 Übungen — 411 Gym, 258 Home, 49 Mobilität. Jede mit Equipment-Hinweisen, Muskelgruppen und Ausführungstipps.",
+    "workoutLibrary": "Workout-Bibliothek",
+    "workoutLibraryDesc": "140 fertige Sessions — Gym, Home, Cardio, Stretching, Morgenroutinen und Challenge-Programme. 5 bis 60 Minuten.",
+    "programs": "Programme",
+    "programsDesc": "Mehrwöchige strukturierte Pläne, die dir echte, messbare Ergebnisse liefern. Folge dem Plan, vertrau dem Prozess.",
+    "progressTracking": "Fortschrittstracking",
+    "progressTrackingDesc": "Logge jeden Satz, jede Wiederholung und jedes Gewicht. Libo merkt sich deine Historie und zeigt dir genau, wie weit du gekommen bist.",
+    "customBuilder": "Eigene Workouts",
+    "customBuilderDesc": "Bau dir dein eigenes Workout aus der gesamten Übungsbibliothek. Reihenfolge, Sätze, Pausenzeit — speichern und wiederverwenden.",
+    "moneyChallenges": "Geld-Challenges",
+    "moneyChallengesDesc": "Nimm an 30-Tage-Challenges teil, mach deine täglichen Reps, poste in Stories — und verdien echtes Geld. 50 Liegestütze am Tag für 30 Tage? Das sind €15 in deiner Tasche."
+  },
+  "photoBreak1": {
+    "eyebrow": "718 Übungen",
+    "headline": "Jede Bewegung.\nJeder Muskel.\nEine App."
+  },
+  "rewards": {
+    "eyebrow": "Geld-Challenges",
+    "headline": "Deine Reps\nzahlen echtes Geld.",
+    "description": "30 Tage. Tägliche Reps. Poste den Beweis. Cash dir aus. Keine Punkte, keine Gutscheine — nur Geld in deiner Tasche.",
+    "chip1": "Echte Auszahlungen",
+    "chip2": "30-Tage-Streaks",
+    "chip3": "Begrenzte Plätze",
+    "badge": "30-Tage-Challenge",
+    "challengeName": "50 Liegestütze x 30 Tage",
+    "challengeSubtitle": "Mach deine täglichen Reps, nimm dich auf, teile in Stories",
+    "flowStep1": "Mach die Reps",
+    "flowStep2": "Aufnehmen",
+    "flowStep3": "Teilen",
+    "flowStep4": "Auszahlen",
+    "spots": "37 von 50 Plätzen belegt"
+  },
+  "categories": {
+    "eyebrow": "Trainingsformate",
+    "headline": "Gebaut für\njeden Moment.",
+    "description": "Jedes Format, jeder Ort, jede Tageszeit — abgedeckt.",
+    "homeWorkouts": "Home Workouts",
+    "homeWorkoutsDesc": "Bodyweight · Kein Equipment nötig",
+    "gymTraining": "Gym Training",
+    "gymTrainingDesc": "Geräte · Freie Gewichte · Volle Sessions",
+    "mobilityStretch": "Mobilität & Stretching",
+    "mobilityStretchDesc": "Flexibilität · Gelenkgesundheit · Regeneration",
+    "functional": "Functional Fitness",
+    "functionalDesc": "Alltagsnahe Bewegungsmuster",
+    "morningRoutines": "Morgenroutinen",
+    "morningRoutinesDesc": "Energie · Aktivierung · Fokus setzen",
+    "eveningWindDown": "Abendroutine",
+    "eveningWindDownDesc": "Entspannen · Regenerieren · Besser schlafen",
+    "breathing": "Atemübungen",
+    "breathingDesc": "Ruhe · Fokus · Nervensystem-Reset",
+    "goalPrograms": "Ziel-Programme",
+    "goalProgramsDesc": "Strukturierte Transformationspläne über 4 bis 12 Wochen"
+  },
+  "goals": {
+    "eyebrow": "Personalisiert für dich",
+    "headline": "Eine App.\nJedes\nZiel.",
+    "description": "Sag Libo, was du willst. Wir erstellen einen Plan rund um dein Ziel, dein Fitnesslevel und dein verfügbares Equipment. Dein Weg, deine Regeln.",
+    "loseWeight": "Abnehmen",
+    "loseWeightDesc": "Kalorien verbrennen, dranbleiben, Ergebnisse sehen",
+    "buildMuscle": "Muskeln aufbauen",
+    "buildMuscleDesc": "Progressive Überlastung, strukturiertes Volumen",
+    "improveMobility": "Mobilität verbessern",
+    "improveMobilityDesc": "Besser bewegen, besser fühlen, Verletzungen vorbeugen",
+    "stayActive": "Aktiv bleiben",
+    "stayActiveDesc": "Gesunde Gewohnheiten, die wirklich bleiben",
+    "reduceStress": "Stress reduzieren",
+    "reduceStressDesc": "Atemübungen, Bewegung, achtsame Routinen"
+  },
+  "photoBreak2": {
+    "tagline": "Keine Ausreden. Nur Ergebnisse."
+  },
+  "proof": {
+    "eyebrow": "Erstes Feedback",
+    "headline": "Die Leute lieben\ndas Training mit Libo.",
+    "card1Quote": "\"Ich hab die 50-Liegestütze-Challenge gemacht und wurde tatsächlich bezahlt. Das tägliche Aufnehmen hält dich ehrlich — kein Weg zu schummeln. Die beste Motivation, die ich je hatte.\"",
+    "card1Author": "Marco T.",
+    "card1Meta": "Challenge abgeschlossen · Berlin",
+    "card2Quote": "\"Die Morgenroutinen sind ein Gamechanger. 15 Minuten vor der Arbeit und ich fühle mich den ganzen Tag komplett anders.\"",
+    "card2Author": "Sophie K.",
+    "card2Meta": "Morgenroutinen · London",
+    "card3Quote": "\"Das 8-Wochen-Programm ist genau das, was ich gebraucht habe. Zu sehen, wie meine Gewichte jede Woche steigen, hält mich dran wie nichts anderes.\"",
+    "card3Author": "Lucas R.",
+    "card3Meta": "Folgt einem Programm · São Paulo"
+  },
+  "cta": {
+    "eyebrow": "Auf die Warteliste",
+    "headline": "Sei der Erste.\nTrainiere besser.",
+    "description": "Libo kommt bald. Trag dich auf die Warteliste ein und sichere dir frühen Zugang plus ein exklusives Launch-Angebot.",
+    "emailPlaceholder": "Deine E-Mail-Adresse",
+    "submitButton": "Eintragen →",
+    "formMessage": "Kein Spam. Nur wenn Libo startet.",
+    "successMessage": "Du bist auf der Liste!",
+    "successNotification": "Willkommen! Wir benachrichtigen dich, sobald Libo startet.",
+    "duplicateMessage": "Du bist schon auf der Liste!",
+    "duplicateNotification": "Du bist bereits auf der Warteliste! Wir melden uns.",
+    "errorMessage": "Etwas ist schiefgelaufen. Bitte versuch es nochmal.",
+    "connectionError": "Verbindungsfehler. Bitte versuch es nochmal.",
+    "joining": "Wird eingetragen..."
+  },
+  "store": {
+    "comingSoonOn": "Bald verfügbar im",
+    "appStore": "App Store",
+    "googlePlay": "Google Play"
+  },
+  "footer": {
+    "copyright": "© 2026 Libo World",
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "contact": "Kontakt",
+    "instagram": "Instagram",
+    "tiktok": "TikTok"
+  },
+  "comingSoon": {
+    "eyebrow": "Bald verfügbar — Trag dich ein",
+    "headline1": "Trainiere",
+    "headline2": "Überall.",
+    "headline3": "Jederzeit.",
+    "cta": "Auf die Warteliste →"
+  }
+}
