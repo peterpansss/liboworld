@@ -33,7 +33,6 @@ jobs:
       # so everything deploys together in one FTP push.
       - name: Copy root static files into dist
         run: |
-          cp index.html react-app/dist/index.html
           cp -r i18n react-app/dist/i18n
           cp tokens.css react-app/dist/tokens.css
           cp robots.txt react-app/dist/robots.txt
