@@ -16,6 +16,22 @@ function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
 
+// ── Languages ──
+const LANGS: Record<string, { flag: string; label: string }> = {
+  en: { flag: '🇬🇧', label: 'English' },
+  es: { flag: '🇪🇸', label: 'Español' },
+  pt: { flag: '🇧🇷', label: 'Português' },
+  de: { flag: '🇩🇪', label: 'Deutsch' },
+  fr: { flag: '🇫🇷', label: 'Français' },
+};
+
+function getInitialLang(): string {
+  const stored = localStorage.getItem('libo-lang');
+  if (stored && stored in LANGS) return stored;
+  const nav = (navigator.language || '').slice(0, 2).toLowerCase();
+  return nav in LANGS ? nav : 'en';
+}
+
 // ── Data ──
 const MARQUEE_ITEMS = [
   'Bodyweight', 'Gym Training', 'Mobility', 'Breathing',
@@ -182,6 +198,17 @@ export default function Landing() {
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  // Language state
+  const [currentLang, setCurrentLang] = useState(getInitialLang);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+
+  const switchLanguage = useCallback((lang: string) => {
+    setCurrentLang(lang);
+    localStorage.setItem('libo-lang', lang);
+    setLangDropdownOpen(false);
+    document.documentElement.lang = lang;
+  }, []);
+
   // Blog preview — first 3 articles
   const blogPreview = blogArticles.slice(0, 3);
 
@@ -207,6 +234,14 @@ export default function Landing() {
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );
+
+  // ── Close lang dropdown on outside click ──
+  useEffect(() => {
+    if (!langDropdownOpen) return;
+    const close = () => setLangDropdownOpen(false);
+    document.addEventListener('click', close);
+    return () => document.removeEventListener('click', close);
+  }, [langDropdownOpen]);
 
   // ── Scroll handler ──
   useEffect(() => {
@@ -577,6 +612,31 @@ export default function Landing() {
             </li>
           </ul>
           <div className="nav-right">
+            <div className="lang-switcher" style={{ position: 'relative' }}>
+              <button
+                className="lang-btn"
+                onClick={(e) => { e.stopPropagation(); setLangDropdownOpen(!langDropdownOpen); }}
+                aria-label="Switch language"
+              >
+                <span>{LANGS[currentLang]?.flag}</span>
+                <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.5px' }}>{currentLang.toUpperCase()}</span>
+                <span style={{ fontSize: 10, opacity: 0.5 }}>▾</span>
+              </button>
+              {langDropdownOpen && (
+                <div className="lang-dropdown">
+                  {Object.entries(LANGS).map(([code, { flag, label }]) => (
+                    <button
+                      key={code}
+                      className={`lang-option${currentLang === code ? ' active' : ''}`}
+                      onClick={(e) => { e.stopPropagation(); switchLanguage(code); }}
+                    >
+                      <span>{flag}</span>
+                      <span>{label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <Link
               to="/onboarding"
               className="btn-nav"
@@ -739,10 +799,10 @@ export default function Landing() {
       {/* ── FULL-BLEED PHOTO BREAK ── */}
       <div className="photo-break" style={{ height: 480 }}>
         <img
-          src="/ReferenceImagesReal/1933bd503955db5451058dd0bcae5740.jpg"
+          src="/ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg"
           alt="Strength training"
           loading="lazy"
-          style={{ objectPosition: 'center 30%' }}
+          style={{ objectPosition: 'center 62%' }}
         />
         <div
           className="photo-break-overlay"
