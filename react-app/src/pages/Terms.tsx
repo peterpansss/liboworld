@@ -1,0 +1,266 @@
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import SiteNav from '../components/SiteNav';
+import SiteFooter from '../components/SiteFooter';
+import './Legal.css';
+
+export default function Terms() {
+  useEffect(() => {
+    document.title = 'Terms & Conditions | Libo';
+    return () => { document.title = 'Libo'; };
+  }, []);
+
+  return (
+    <>
+      <SiteNav />
+      <main className="legal-page">
+        <div className="legal-container">
+          {/* Breadcrumb */}
+          <div className="legal-breadcrumb">
+            <Link to="/">Home</Link>
+            <span className="legal-breadcrumb-sep">&gt;</span>
+            <span>Terms &amp; Conditions</span>
+          </div>
+
+          {/* Hero */}
+          <div className="legal-hero">
+            <div className="legal-label">Legal</div>
+            <h1 className="font-display">Terms &amp; Conditions</h1>
+            <p className="legal-meta">
+              Last updated: <span>March 2026</span> &middot; Effective date: <span>March 2026</span>
+            </p>
+          </div>
+
+          {/* Table of Contents */}
+          <div className="legal-toc">
+            <div className="legal-toc-title">Table of Contents</div>
+            <ol>
+              <li><a href="#s1">Acceptance of Terms</a></li>
+              <li><a href="#s2">About Libo</a></li>
+              <li><a href="#s3">Eligibility</a></li>
+              <li><a href="#s4">Account Registration</a></li>
+              <li><a href="#s5">Subscription Plans &amp; Free Trial</a></li>
+              <li><a href="#s6">Billing &amp; Payment</a></li>
+              <li><a href="#s7">Cancellation &amp; Refunds</a></li>
+              <li><a href="#s8">Free Tier</a></li>
+              <li><a href="#s9">User Obligations</a></li>
+              <li><a href="#s10">Health &amp; Fitness Disclaimer</a></li>
+              <li><a href="#s11">Intellectual Property</a></li>
+              <li><a href="#s12">User-Generated Content</a></li>
+              <li><a href="#s13">Limitation of Liability</a></li>
+              <li><a href="#s14">Termination</a></li>
+              <li><a href="#s15">Changes to Terms</a></li>
+              <li><a href="#s16">Governing Law</a></li>
+              <li><a href="#s17">Contact</a></li>
+            </ol>
+          </div>
+
+          {/* 1 */}
+          <section className="legal-section" id="s1">
+            <div className="legal-section-num">01</div>
+            <h2>Acceptance of Terms</h2>
+            <p>By downloading, installing, accessing, or using the Libo application or website (collectively, the <strong>"Service"</strong>), you agree to be bound by these Terms and Conditions (<strong>"Terms"</strong>). If you do not agree to these Terms, do not use the Service.</p>
+            <p>These Terms constitute a legally binding agreement between you and <strong>Libo World</strong> (<strong>"Libo"</strong>, <strong>"we"</strong>, <strong>"us"</strong>, or <strong>"our"</strong>). By creating an account, you confirm that you have read, understood, and agreed to these Terms and our <Link to="/privacy">Privacy Policy</Link>.</p>
+          </section>
+
+          {/* 2 */}
+          <section className="legal-section" id="s2">
+            <div className="legal-section-num">02</div>
+            <h2>About Libo</h2>
+            <p>Libo is a digital health and fitness platform that provides users with workout programs, exercise libraries, mobility content, breathing exercises, morning and evening routines, and progress tracking tools — accessible via mobile application and web.</p>
+            <p>Libo is operated by <strong>Libo World</strong>, based in Germany. For any questions, contact us at <a href="mailto:hello@liboworld.com">hello@liboworld.com</a>.</p>
+          </section>
+
+          {/* 3 */}
+          <section className="legal-section" id="s3">
+            <div className="legal-section-num">03</div>
+            <h2>Eligibility</h2>
+            <p>You must be at least <strong>18 years of age</strong> to use the Service. By using Libo, you represent and warrant that you meet this age requirement. If you are under 18, you may only use the Service with the consent and supervision of a parent or legal guardian.</p>
+          </section>
+
+          {/* 4 */}
+          <section className="legal-section" id="s4">
+            <div className="legal-section-num">04</div>
+            <h2>Account Registration</h2>
+            <p>To access the full functionality of Libo, you must create an account by providing accurate and complete information. You are responsible for:</p>
+            <ul>
+              <li>Maintaining the confidentiality of your account credentials</li>
+              <li>All activity that occurs under your account</li>
+              <li>Notifying us immediately of any unauthorised use at <a href="mailto:hello@liboworld.com">hello@liboworld.com</a></li>
+            </ul>
+            <p>You may not share your account with others or create multiple accounts. We reserve the right to suspend or terminate accounts that violate these Terms.</p>
+          </section>
+
+          {/* 5 */}
+          <section className="legal-section" id="s5">
+            <div className="legal-section-num">05</div>
+            <h2>Subscription Plans &amp; Free Trial</h2>
+
+            <h3>Free Tier</h3>
+            <p>Libo offers a free base version with access to a limited selection of features including basic exercises, select workouts, and core app functionality. No payment information is required for the free tier.</p>
+
+            <h3>Pro Subscription</h3>
+            <p>Libo Pro unlocks the full feature set including the complete exercise library, all workout programs, multi-week challenges, advanced progress tracking, custom workout builder, the exercise alternative scanner, and priority support.</p>
+            <p>Pro subscriptions are available on the following billing cycles:</p>
+            <ul>
+              <li><strong>Monthly</strong> — billed every 30 days</li>
+              <li><strong>Annual</strong> — billed once per year (best value)</li>
+            </ul>
+
+            <h3>7-Day Free Trial</h3>
+            <div className="legal-highlight">
+              <p>New users who have not previously held a Pro subscription are eligible for a <strong>7-day free trial</strong> of Libo Pro. You will not be charged during the trial period. If you do not cancel before the trial ends, your selected subscription will automatically activate and your payment method will be charged.</p>
+            </div>
+            <p>The free trial is limited to one per user and one per payment method. We reserve the right to modify or withdraw free trial eligibility at any time.</p>
+
+            <h3>Auto-Renewal</h3>
+            <p>All paid subscriptions automatically renew at the end of each billing period unless cancelled at least <strong>24 hours before</strong> the renewal date.</p>
+          </section>
+
+          {/* 6 */}
+          <section className="legal-section" id="s6">
+            <div className="legal-section-num">06</div>
+            <h2>Billing &amp; Payment</h2>
+            <p>All prices are listed in EUR and include applicable taxes where required by law. Payments are processed by our third-party payment providers.</p>
+            <p>We reserve the right to change subscription prices. Any price changes will be communicated at least <strong>30 days in advance</strong> via email or in-app notification.</p>
+          </section>
+
+          {/* 7 */}
+          <section className="legal-section" id="s7">
+            <div className="legal-section-num">07</div>
+            <h2>Cancellation &amp; Refunds</h2>
+
+            <h3>Cancellation</h3>
+            <p>You may cancel your subscription at any time through your account settings or by contacting <a href="mailto:hello@liboworld.com">hello@liboworld.com</a>. Cancellation takes effect at the end of your current billing period.</p>
+
+            <h3>Refund Policy</h3>
+            <p>We offer a <strong>14-day money-back guarantee</strong> for new Pro subscribers. Contact us within 14 days of your first charge for a full refund — no questions asked.</p>
+            <p>Refunds are not available for:</p>
+            <ul>
+              <li>Subscriptions older than 14 days from the first charge</li>
+              <li>Partial billing periods following cancellation</li>
+              <li>Free trial periods</li>
+              <li>Users who have previously received a refund for Libo</li>
+            </ul>
+            <p>If you purchased through Apple App Store or Google Play, refunds are handled by Apple or Google under their respective policies.</p>
+
+            <h3>EU Consumer Rights</h3>
+            <p>EU residents have the right to withdraw from a digital service contract within <strong>14 days</strong> of purchase without providing a reason, in accordance with EU Directive 2011/83/EU — unless you have already begun using the service and explicitly waived your right of withdrawal.</p>
+          </section>
+
+          {/* 8 */}
+          <section className="legal-section" id="s8">
+            <div className="legal-section-num">08</div>
+            <h2>Free Tier</h2>
+            <p>The free tier of Libo is provided "as is" with no guarantees of continued availability. We reserve the right to modify, limit, or discontinue free tier features at any time without notice.</p>
+          </section>
+
+          {/* 9 */}
+          <section className="legal-section" id="s9">
+            <div className="legal-section-num">09</div>
+            <h2>User Obligations</h2>
+            <p>By using Libo, you agree not to:</p>
+            <ul>
+              <li>Use the Service for any unlawful purpose or in violation of these Terms</li>
+              <li>Reproduce, duplicate, copy, sell, resell, or exploit any part of the Service</li>
+              <li>Attempt to gain unauthorised access to any part of the Service or its infrastructure</li>
+              <li>Upload or transmit viruses, malware, or any other harmful code</li>
+              <li>Use automated tools to scrape, crawl, or extract content from the Service</li>
+              <li>Impersonate any person or entity or misrepresent your affiliation</li>
+              <li>Share, distribute, or commercially exploit content from Libo without prior written permission</li>
+            </ul>
+          </section>
+
+          {/* 10 */}
+          <section className="legal-section" id="s10">
+            <div className="legal-section-num">10</div>
+            <h2>Health &amp; Fitness Disclaimer</h2>
+            <div className="legal-highlight">
+              <p><strong>Important:</strong> Libo is a fitness and wellness platform intended for informational and motivational purposes only. The content provided does not constitute medical advice, diagnosis, or treatment.</p>
+            </div>
+            <p>Before beginning any new exercise program, consult with a qualified healthcare professional, particularly if you:</p>
+            <ul>
+              <li>Have a pre-existing medical condition, injury, or chronic illness</li>
+              <li>Are pregnant or postpartum</li>
+              <li>Have not exercised regularly in the past 12 months</li>
+              <li>Experience pain, dizziness, or discomfort during exercise</li>
+            </ul>
+            <p>You acknowledge that physical exercise carries inherent risks, including injury. By using Libo, you assume full responsibility for any risk, injury, or damage arising from your participation in any fitness activity facilitated through the Service.</p>
+          </section>
+
+          {/* 11 */}
+          <section className="legal-section" id="s11">
+            <div className="legal-section-num">11</div>
+            <h2>Intellectual Property</h2>
+            <p>All content within the Libo Service is the exclusive property of Libo World or its licensors and is protected by applicable intellectual property laws.</p>
+            <p>You are granted a limited, non-exclusive, non-transferable, revocable licence to access and use the Service for personal, non-commercial purposes. This licence does not permit you to:</p>
+            <ul>
+              <li>Reproduce or distribute any content from the Service</li>
+              <li>Create derivative works based on Service content</li>
+              <li>Use Libo's branding, trademarks, or logos without prior written consent</li>
+            </ul>
+          </section>
+
+          {/* 12 */}
+          <section className="legal-section" id="s12">
+            <div className="legal-section-num">12</div>
+            <h2>User-Generated Content</h2>
+            <p>If the Service allows you to submit content (e.g. profile information, workout logs, feedback), you retain ownership but grant Libo a worldwide, royalty-free, non-exclusive licence to use, reproduce, and display it solely for providing and improving the Service.</p>
+          </section>
+
+          {/* 13 */}
+          <section className="legal-section" id="s13">
+            <div className="legal-section-num">13</div>
+            <h2>Limitation of Liability</h2>
+            <p>To the maximum extent permitted by applicable law, Libo World shall not be liable for:</p>
+            <ul>
+              <li>Any indirect, incidental, special, consequential, or punitive damages</li>
+              <li>Loss of profits, data, goodwill, or other intangible losses</li>
+              <li>Damages arising from your use of or inability to use the Service</li>
+              <li>Any injury or health damage resulting from exercise activities</li>
+            </ul>
+            <p>Our total liability shall not exceed the amount you paid us in the <strong>12 months preceding the claim</strong>, or &euro;50, whichever is greater.</p>
+            <p>Nothing in these Terms excludes or limits liability for death or personal injury caused by our negligence, fraud, or any other liability that cannot be excluded under German or EU law.</p>
+          </section>
+
+          {/* 14 */}
+          <section className="legal-section" id="s14">
+            <div className="legal-section-num">14</div>
+            <h2>Termination</h2>
+            <p>We reserve the right to suspend or terminate your account at any time if we reasonably believe you have violated these Terms or engaged in harmful conduct.</p>
+            <p>Upon termination, your right to use the Service ceases immediately. Provisions that by their nature should survive termination will continue to apply.</p>
+          </section>
+
+          {/* 15 */}
+          <section className="legal-section" id="s15">
+            <div className="legal-section-num">15</div>
+            <h2>Changes to Terms</h2>
+            <p>We may update these Terms from time to time. Material changes will be notified at least <strong>14 days before</strong> taking effect.</p>
+            <p>The current version is always available at <a href="https://www.liboworld.com/terms">www.liboworld.com/terms</a>.</p>
+          </section>
+
+          {/* 16 */}
+          <section className="legal-section" id="s16">
+            <div className="legal-section-num">16</div>
+            <h2>Governing Law</h2>
+            <p>These Terms are governed by the laws of the <strong>Federal Republic of Germany</strong>. Disputes shall be subject to the exclusive jurisdiction of the courts of Germany. EU consumers may also bring claims in the courts of their country of residence.</p>
+            <p>You may also use the EU Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
+          </section>
+
+          {/* 17 */}
+          <section className="legal-section" id="s17">
+            <div className="legal-section-num">17</div>
+            <h2>Contact</h2>
+            <p>If you have any questions about these Terms:</p>
+            <ul>
+              <li><strong>Email:</strong> <a href="mailto:hello@liboworld.com">hello@liboworld.com</a></li>
+              <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
+              <li><strong>Company:</strong> Libo World, Germany</li>
+            </ul>
+          </section>
+        </div>
+      </main>
+      <SiteFooter />
+    </>
+  );
+}

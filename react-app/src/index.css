@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/*
+ * Color tokens — keep in sync with shared/tokens/colors.ts
+ * (the monorepo design-token source of truth).
+ */
+:root {
+  --bg: #080808;
+  --bg2: #0E0E0E;
+  --bg3: #141414;
+  --bg4: #1A1A1A;
+  --bg-deep: #050505;
+  --bg-elevated: #1c1c1c;
+  --accent: #CAFF00;
+  --accent2: #9BC800;
+  --accent-dim: rgba(202, 255, 0, 0.12);
+  --accent-text: #080B10;
+  --text: #FFFFFF;
+  --muted: #8A9BB0;
+  --dim: #4A5568;
+  --border: rgba(255, 255, 255, 0.07);
+  --card: rgba(255, 255, 255, 0.04);
+  --diff-beginner: #4AC878;
+  --diff-beginner-bg: rgba(74, 200, 120, 0.15);
+  --diff-intermediate: #C8AE4A;
+  --diff-intermediate-bg: rgba(200, 174, 74, 0.15);
+  --diff-advanced: #C84A4A;
+  --diff-advanced-bg: rgba(200, 74, 74, 0.15);
+  --error: #FF3333;
+  --success: #22c55e;
+  --warning: #eab308;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--bg);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.font-display {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -1px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

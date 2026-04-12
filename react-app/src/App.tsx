@@ -1,0 +1,59 @@
+import { lazy, Suspense, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+
+// Scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
+// Marketing pages
+import Landing from './pages/Landing';
+import Onboarding from './pages/Onboarding';
+
+// Web app — lazy loaded (heavy)
+const WebApp = lazy(() => import('./pages/WebApp'));
+
+// Content pages — lazy loaded
+const ExerciseLibrary = lazy(() => import('./pages/ExerciseLibrary'));
+const ExerciseDetail = lazy(() => import('./pages/ExerciseDetail'));
+const ProgramLibrary = lazy(() => import('./pages/ProgramLibrary'));
+const ProgramDetail = lazy(() => import('./pages/ProgramDetail'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
+
+const darkFallback = <div style={{ background: '#080808', height: '100vh' }} />;
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/onboarding" element={<Onboarding />} />
+        <Route
+          path="/app"
+          element={
+            <Suspense fallback={darkFallback}>
+              <WebApp />
+            </Suspense>
+          }
+        />
+        <Route path="/exercises" element={<Suspense fallback={darkFallback}><ExerciseLibrary /></Suspense>} />
+        <Route path="/exercises/:id" element={<Suspense fallback={darkFallback}><ExerciseDetail /></Suspense>} />
+        <Route path="/workouts" element={<Suspense fallback={darkFallback}><ProgramLibrary /></Suspense>} />
+        <Route path="/workouts/:id" element={<Suspense fallback={darkFallback}><ProgramDetail /></Suspense>} />
+        <Route path="/blog" element={<Suspense fallback={darkFallback}><Blog /></Suspense>} />
+        <Route path="/blog/:slug" element={<Suspense fallback={darkFallback}><BlogPost /></Suspense>} />
+        <Route path="/privacy" element={<Suspense fallback={darkFallback}><Privacy /></Suspense>} />
+        <Route path="/terms" element={<Suspense fallback={darkFallback}><Terms /></Suspense>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}

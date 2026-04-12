@@ -1,0 +1,418 @@
+/* ── Program Detail Page ── */
+
+/* ── Container ── */
+.pd-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+
+/* ── Breadcrumb ── */
+.pd-breadcrumb {
+  padding-top: 24px;
+  font-size: 12px;
+  color: var(--dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pd-breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.pd-breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.pd-breadcrumb-sep {
+  color: var(--dim);
+}
+
+/* ── Hero ── */
+.pd-hero {
+  position: relative;
+  padding: 48px 0 32px;
+  overflow: hidden;
+}
+
+.pd-hero-bg {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 160px;
+  opacity: 0.06;
+  filter: blur(20px);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+.pd-hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.pd-hero-cat {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.pd-hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 0.95;
+  font-size: clamp(32px, 5vw, 48px);
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.pd-hero-emoji {
+  font-size: 56px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* ── Meta chips ── */
+.pd-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.pd-meta-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--bg3);
+  color: var(--muted);
+}
+
+.pd-meta-chip-icon {
+  font-size: 14px;
+}
+
+.pd-meta-diff {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  border-radius: 12px;
+}
+
+.pd-meta-diff.beginner {
+  color: var(--diff-beginner);
+  background: var(--diff-beginner-bg);
+}
+
+.pd-meta-diff.intermediate {
+  color: var(--diff-intermediate);
+  background: var(--diff-intermediate-bg);
+}
+
+.pd-meta-diff.advanced {
+  color: var(--diff-advanced);
+  background: var(--diff-advanced-bg);
+}
+
+/* ── Phase sections ── */
+.pd-phase {
+  margin-bottom: 32px;
+}
+
+.pd-phase-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pd-phase-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.pd-phase-count {
+  font-size: 11px;
+  color: var(--dim);
+  font-weight: 500;
+}
+
+/* ── Exercise rows ── */
+.pd-exercises {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pd-ex-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.pd-ex-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.pd-ex-num {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pd-ex-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pd-ex-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.pd-ex-name-link {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.pd-ex-name-link:hover {
+  color: var(--accent);
+}
+
+.pd-ex-equip {
+  font-size: 11px;
+  color: var(--dim);
+  margin-top: 2px;
+}
+
+.pd-ex-sets {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── CTA Banner ── */
+.pd-cta {
+  margin-top: 48px;
+  padding: 32px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(202, 255, 0, 0.12) 0%, rgba(202, 255, 0, 0.04) 100%);
+  border: 1px solid rgba(202, 255, 0, 0.2);
+  text-align: center;
+}
+
+.pd-cta h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  font-size: 24px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.pd-cta p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.pd-cta-btn {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 14px 32px;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.pd-cta-btn:hover {
+  opacity: 0.85;
+}
+
+/* ── Related Workouts ── */
+.pd-related {
+  margin-top: 56px;
+}
+
+.pd-related h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  font-size: 22px;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.pd-related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .pd-container {
+    padding: 0 16px 48px;
+  }
+
+  .pd-related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .pd-related-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pd-related-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.pd-related-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.pd-related-emoji {
+  font-size: 24px;
+}
+
+.pd-related-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.pd-related-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ── 404 state ── */
+.pd-not-found {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.pd-not-found-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.pd-not-found h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 28px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.pd-not-found p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.pd-not-found-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.pd-not-found-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .pd-cta {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 960px) {
+  .pd-related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.pd-cta-btn:focus-visible,
+.pd-not-found-link:focus-visible,
+.pd-related-card:focus-visible,
+.pd-ex-name-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
