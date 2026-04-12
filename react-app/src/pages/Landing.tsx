@@ -929,18 +929,21 @@ export default function Landing() {
       </section>
 
       {/* ── PHOTO BREAK 2 ── */}
-      <div className="photo-break" style={{ height: 500 }}>
-        <img
-          src="/ReferenceImagesReal/b346e6c8398a7ce928f973f0948c5c17.jpg"
-          alt="Active training"
-          loading="lazy"
-          style={{ objectPosition: 'center 40%' }}
-        />
-        <div className="photo-break-overlay-bottom">
-          <p className="display display-sm font-display text-narrow">
-            No excuses. Just results.
-          </p>
-        </div>
+      <div
+        className="photo-break-minimal"
+        style={{
+          height: 360,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%)',
+          borderTop: '1px solid rgba(255,255,255,0.05)',
+          borderBottom: '1px solid rgba(255,255,255,0.05)',
+        }}
+      >
+        <p className="display display-lg font-display" style={{ textAlign: 'center', letterSpacing: '-1px' }}>
+          No excuses.<br /><span style={{ color: 'var(--accent)' }}>Just results.</span>
+        </p>
       </div>
 
       {/* ── SOCIAL PROOF ── */}
