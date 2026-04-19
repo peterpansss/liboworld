@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useAppStore } from '../store/useAppStore';
-import { getWorkouts } from '../data/exercises';
+import { getWorkouts, getExercises, type Exercise } from '../data/exercises';
+import { exerciseSupportsAnimation } from '../utils/thumbnails';
 import { EmojiIcon } from './EmojiIcon';
-import { Trophy, X, Pause, Play, Square, CheckCircle2 } from '../utils/icons';
+import { Trophy, X, Pause, Play, Square, CheckCircle2, User, Box } from '../utils/icons';
 import './WorkoutPlayer.css';
+
+type VideoMode = 'human' | 'animation';
 
 function getExerciseEmoji(name: string): string {
   const n = name.toLowerCase();
@@ -67,6 +70,8 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
   const [paused, setPaused] = useState(false);
   const [done, setDone] = useState(false);
   const [elapsed, setElapsed] = useState(0);
+  const [exerciseCatalog, setExerciseCatalog] = useState<Exercise[]>([]);
+  const [videoMode, setVideoMode] = useState<VideoMode>('human');
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const loggedRef = useRef(false);
@@ -79,6 +84,16 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
       if (found) setWorkout(found);
     });
   }, [workoutId, initialWorkout]);
+
+  // Load exercise catalog once so we can look up animation support by name
+  useEffect(() => {
+    getExercises().then(setExerciseCatalog);
+  }, []);
+
+  // Reset mode to human whenever the active exercise changes
+  useEffect(() => {
+    setVideoMode('human');
+  }, [currentIndex]);
 
   // Timer
   useEffect(() => {
@@ -194,6 +209,16 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
   const minutes = Math.max(1, Math.round(elapsed / 60));
   const calories = Math.round(minutes * 7.5);
 
+  // Look up the active exercise in the catalog to determine animation support
+  const currentExerciseName = exercises[currentIndex]?.name;
+  const currentExerciseFull = useMemo(
+    () => exerciseCatalog.find((e) => e.name === currentExerciseName),
+    [exerciseCatalog, currentExerciseName],
+  );
+  const supportsAnimation = currentExerciseFull
+    ? exerciseSupportsAnimation(currentExerciseFull)
+    : false;
+
   // Phase labels memoized
   const phaseLabels = useMemo(() => {
     const labels: Record<number, string> = {};
@@ -262,6 +287,16 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
         </button>
         <div className="pv-timer">{formatTime(elapsed)}</div>
         <div className="pv-workout-name">{workout.name}</div>
+        {supportsAnimation && (
+          <button
+            className="pv-mode-btn"
+            onClick={() => setVideoMode((m) => (m === 'human' ? 'animation' : 'human'))}
+            title={videoMode === 'animation' ? 'Switch to real human video' : 'Switch to animation'}
+            aria-label={videoMode === 'animation' ? 'Switch to real human video' : 'Switch to animation'}
+          >
+            <EmojiIcon icon={videoMode === 'animation' ? Box : User} size={16} />
+          </button>
+        )}
         <button
           className="pv-pause-btn"
           onClick={() => setPaused(true)}

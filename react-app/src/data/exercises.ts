@@ -13,6 +13,7 @@ export interface Exercise {
   emoji: string;
   setupNotes: string;
   videoUrl?: string;  // R2-hosted demo clip, present for ~264 exercises
+  animationUrl?: string;  // Optional 3D/2D animation alternative (gym/equipment only)
 }
 
 export interface WorkoutExercise {

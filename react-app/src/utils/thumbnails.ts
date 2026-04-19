@@ -13,6 +13,16 @@ export function publicVideoUrl(ex: Exercise): string | undefined {
   return isMediaHidden(ex.cat) ? undefined : ex.videoUrl;
 }
 
+export function publicAnimationUrl(ex: Exercise): string | undefined {
+  return ex.animationUrl || undefined;
+}
+
+export function exerciseSupportsAnimation(ex: Exercise): boolean {
+  if (!ex.animationUrl) return false;
+  if (ex.equipment === 'Bodyweight') return false;
+  return true;
+}
+
 export function exerciseThumb(id: string, cat?: string): string | null {
   if (isMediaHidden(cat)) return null;
   return `/images/thumbnails/exercises/${id}.jpg`;

@@ -11,6 +11,7 @@ import {
   Bike,
   Blocks,
   Bot,
+  Box,
   Brain,
   Building2,
   Cable,
@@ -104,7 +105,7 @@ export type { LucideIcon };
 
 export {
   Activity, Apple, ArrowLeft, ArrowUp, Award, Bandage, BarChart3, Battery, Beef, Bike, Blocks,
-  Bot, Brain, Building2, Cable, Cake, Calendar, Camera, CheckCircle2, Circle, ClipboardList,
+  Bot, Box, Brain, Building2, Cable, Cake, Calendar, Camera, CheckCircle2, Circle, ClipboardList,
   Check, Clock, Coins, Crown, DoorOpen, Droplets, Dumbbell, Euro, Eye, Flag, Flame, Footprints,
   Frown, Gem, Gift, Globe, HandMetal, Handshake, Hash, Heart, HeartPulse, HelpCircle, Home,
   Hourglass, Languages, Laptop, Leaf, Library, Lightbulb, Lock, Mail, MapPin, Meh, Monitor, Moon,
