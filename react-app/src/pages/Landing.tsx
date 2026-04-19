@@ -48,11 +48,11 @@ const FEATURES = [
 ];
 
 const CATEGORIES = [
-  { name: 'Home Workouts', desc: 'Bodyweight \u00B7 No equipment needed', img: 'ReferenceImagesReal/3888964e334eac66760016434935572e.jpg' },
+  { name: 'Home Workouts', desc: 'Bodyweight \u00B7 No equipment needed', img: 'images/categories/home-workouts.jpg' },
   { name: 'Gym Training', desc: 'Machines \u00B7 Free weights \u00B7 Full sessions', img: 'ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg' },
-  { name: 'Mobility & Stretch', desc: 'Flexibility \u00B7 Joint health \u00B7 Recovery', img: 'ReferenceImagesReal/e64b6bf3121062bba39727d191b390cc.jpg' },
+  { name: 'Mobility & Stretch', desc: 'Flexibility \u00B7 Joint health \u00B7 Recovery', img: 'images/categories/mobility-and-stretch.jpg' },
   { name: 'Functional Fitness', desc: 'Real-world movement patterns', img: 'ReferenceImagesReal/4d2d6f35aaa3192a75bb1d865a1ec584.jpg' },
-  { name: 'Morning Routines', desc: 'Energise \u00B7 Activate \u00B7 Set your focus', img: 'ReferenceImagesReal/7f2a6692e0dccd63b0cc05e0e7197d38.jpg' },
+  { name: 'Morning Routines', desc: 'Energise \u00B7 Activate \u00B7 Set your focus', img: 'images/categories/morning-routines.jpg' },
   { name: 'Evening Wind-Down', desc: 'Relax \u00B7 Recover \u00B7 Sleep better', img: 'ReferenceImagesReal/2df174c21bbc8db6cd5ce2d0b96b810e.jpg' },
 ];
 
