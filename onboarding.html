@@ -12,6 +12,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="js/emoji-to-icon.js"></script>
+<script>document.addEventListener('DOMContentLoaded', () => window.LiboIcons && LiboIcons.refresh());</script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -659,27 +662,27 @@ body {
     <h1 class="step-heading">What are your target zones?</h1>
     <div class="options grid-2" data-key="target_zones" data-mode="multi">
       <div class="option-card" data-value="chest">
-        <div class="card-content"><span class="card-icon">🫁</span><div class="card-text"><div class="card-title">Chest</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="wind" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Chest</div></div></div>
         <span class="check-square"></span>
       </div>
       <div class="option-card" data-value="arms">
-        <div class="card-content"><span class="card-icon">💪</span><div class="card-text"><div class="card-title">Arms</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="dumbbell" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Arms</div></div></div>
         <span class="check-square"></span>
       </div>
       <div class="option-card" data-value="core">
-        <div class="card-content"><span class="card-icon">🔥</span><div class="card-text"><div class="card-title">Core</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="flame" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Core</div></div></div>
         <span class="check-square"></span>
       </div>
       <div class="option-card" data-value="legs">
-        <div class="card-content"><span class="card-icon">🦵</span><div class="card-text"><div class="card-title">Legs</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="dumbbell" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Legs</div></div></div>
         <span class="check-square"></span>
       </div>
       <div class="option-card" data-value="back">
-        <div class="card-content"><span class="card-icon">🔙</span><div class="card-text"><div class="card-title">Back</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="arrow-left" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Back</div></div></div>
         <span class="check-square"></span>
       </div>
       <div class="option-card" data-value="full-body">
-        <div class="card-content"><span class="card-icon">🏋️</span><div class="card-text"><div class="card-title">Full body</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="dumbbell" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Full body</div></div></div>
         <span class="check-square"></span>
       </div>
     </div>
@@ -742,19 +745,19 @@ body {
     <h1 class="step-heading">What's your work schedule like?</h1>
     <div class="options" data-key="schedule" data-mode="single">
       <div class="option-card" data-value="9-5">
-        <div class="card-content"><span class="card-icon">🖥</span><div class="card-text"><div class="card-title">9 to 5</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="monitor" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">9 to 5</div></div></div>
         <span class="radio-circle"></span>
       </div>
       <div class="option-card" data-value="night">
-        <div class="card-content"><span class="card-icon">🌙</span><div class="card-text"><div class="card-title">Night shifts</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="moon" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Night shifts</div></div></div>
         <span class="radio-circle"></span>
       </div>
       <div class="option-card" data-value="flexible">
-        <div class="card-content"><span class="card-icon">🔄</span><div class="card-text"><div class="card-title">My hours are flexible</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="refresh-cw" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">My hours are flexible</div></div></div>
         <span class="radio-circle"></span>
       </div>
       <div class="option-card" data-value="retired">
-        <div class="card-content"><span class="card-icon">🏠</span><div class="card-text"><div class="card-title">I'm retired / not working</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="home" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">I'm retired / not working</div></div></div>
         <span class="radio-circle"></span>
       </div>
     </div>
@@ -766,19 +769,19 @@ body {
     <h1 class="step-heading">How are your energy levels during the day?</h1>
     <div class="options" data-key="energy" data-mode="single">
       <div class="option-card" data-value="low">
-        <div class="card-content"><span class="card-icon">🔋</span><div class="card-text"><div class="card-title">Low and inconsistent</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="battery" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Low and inconsistent</div></div></div>
         <span class="radio-circle"></span>
       </div>
       <div class="option-card" data-value="steady">
-        <div class="card-content"><span class="card-icon">🔲</span><div class="card-text"><div class="card-title">Remain steady</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="square" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Remain steady</div></div></div>
         <span class="radio-circle"></span>
       </div>
       <div class="option-card" data-value="fluctuate">
-        <div class="card-content"><span class="card-icon">📊</span><div class="card-text"><div class="card-title">Fluctuate throughout the day</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="bar-chart-3" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Fluctuate throughout the day</div></div></div>
         <span class="radio-circle"></span>
       </div>
       <div class="option-card" data-value="high">
-        <div class="card-content"><span class="card-icon">⚡</span><div class="card-text"><div class="card-title">Stay high all day</div></div></div>
+        <div class="card-content"><span class="card-icon"><i data-lucide="zap" width="22" height="22" stroke-width="1.75"></i></span><div class="card-text"><div class="card-title">Stay high all day</div></div></div>
         <span class="radio-circle"></span>
       </div>
     </div>

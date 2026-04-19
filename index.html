@@ -16,6 +16,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="tokens.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/emoji-to-icon.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', () => window.LiboIcons && LiboIcons.refresh());</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1733,7 +1736,7 @@
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <span class="mobile-menu-close" id="closeMenu" role="button" aria-label="Close menu">✕</span>
+  <span class="mobile-menu-close" id="closeMenu" role="button" aria-label="Close menu"><i data-lucide="x" width="28" height="28" stroke-width="1.75"></i></span>
   <a href="#features" data-i18n="nav.features">Features</a>
   <a href="#rewards" data-i18n="nav.rewards">Rewards</a>
   <a href="#workouts" data-i18n="nav.workouts">Workouts</a>
@@ -1904,37 +1907,37 @@
   <div class="features-grid">
     <div class="feature-item reveal">
       <div class="feature-num">01</div>
-      <span class="feature-icon">📚</span>
+      <span class="feature-icon"><i data-lucide="library" width="32" height="32" stroke-width="1.75"></i></span>
       <div class="feature-name" data-i18n="features.exerciseLibrary">Exercise Library</div>
       <p class="feature-desc" data-i18n="features.exerciseLibraryDesc">718 exercises — 411 gym, 258 home, 49 mobility. Every one with equipment notes, muscle targeting, and form cues.</p>
     </div>
     <div class="feature-item reveal reveal-delay-1">
       <div class="feature-num">02</div>
-      <span class="feature-icon">🏋️</span>
+      <span class="feature-icon"><i data-lucide="dumbbell" width="32" height="32" stroke-width="1.75"></i></span>
       <div class="feature-name" data-i18n="features.workoutLibrary">Workout Library</div>
       <p class="feature-desc" data-i18n="features.workoutLibraryDesc">140 pre-built sessions — gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.</p>
     </div>
     <div class="feature-item reveal reveal-delay-2">
       <div class="feature-num">03</div>
-      <span class="feature-icon">📅</span>
+      <span class="feature-icon"><i data-lucide="calendar" width="32" height="32" stroke-width="1.75"></i></span>
       <div class="feature-name" data-i18n="features.programs">Programs</div>
       <p class="feature-desc" data-i18n="features.programsDesc">Multi-week structured plans designed to get you real, measurable results. Follow the plan, trust the process.</p>
     </div>
     <div class="feature-item reveal">
       <div class="feature-num">04</div>
-      <span class="feature-icon">📊</span>
+      <span class="feature-icon"><i data-lucide="bar-chart-3" width="32" height="32" stroke-width="1.75"></i></span>
       <div class="feature-name" data-i18n="features.progressTracking">Progress Tracking</div>
       <p class="feature-desc" data-i18n="features.progressTrackingDesc">Log every set, rep, and weight. Libo remembers your history and shows exactly how much you've grown.</p>
     </div>
     <div class="feature-item reveal reveal-delay-1">
       <div class="feature-num">05</div>
-      <span class="feature-icon">✏️</span>
+      <span class="feature-icon"><i data-lucide="pencil" width="32" height="32" stroke-width="1.75"></i></span>
       <div class="feature-name" data-i18n="features.customBuilder">Custom Builder</div>
       <p class="feature-desc" data-i18n="features.customBuilderDesc">Build your own workout from the full exercise library. Set your sequence, sets, rest time — save and reuse.</p>
     </div>
     <div class="feature-item reveal reveal-delay-2">
       <div class="feature-num">06</div>
-      <span class="feature-icon">🏆</span>
+      <span class="feature-icon"><i data-lucide="trophy" width="32" height="32" stroke-width="1.75"></i></span>
       <div class="feature-name" data-i18n="features.moneyChallenges">Money Challenges</div>
       <p class="feature-desc" data-i18n="features.moneyChallengesDesc">Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 50 pushups a day for 30 days? That's €15 in your pocket.</p>
     </div>
@@ -1984,22 +1987,22 @@
         <div class="rewards-challenge-sub" data-i18n="rewards.challengeSubtitle">Complete daily reps, record yourself, share to stories</div>
         <div class="rewards-flow">
           <div class="rewards-flow-step">
-            <div class="rewards-flow-icon">💪</div>
+            <div class="rewards-flow-icon"><i data-lucide="dumbbell" width="22" height="22" stroke-width="1.75"></i></div>
             <div class="rewards-flow-label" data-i18n="rewards.flowStep1">Do Reps</div>
           </div>
           <div class="rewards-flow-arrow">→</div>
           <div class="rewards-flow-step">
-            <div class="rewards-flow-icon">📹</div>
+            <div class="rewards-flow-icon"><i data-lucide="video" width="22" height="22" stroke-width="1.75"></i></div>
             <div class="rewards-flow-label" data-i18n="rewards.flowStep2">Record</div>
           </div>
           <div class="rewards-flow-arrow">→</div>
           <div class="rewards-flow-step">
-            <div class="rewards-flow-icon">📲</div>
+            <div class="rewards-flow-icon"><i data-lucide="share-2" width="22" height="22" stroke-width="1.75"></i></div>
             <div class="rewards-flow-label" data-i18n="rewards.flowStep3">Share</div>
           </div>
           <div class="rewards-flow-arrow">→</div>
           <div class="rewards-flow-step">
-            <div class="rewards-flow-icon" style="background:rgba(202,255,0,0.1);border-color:rgba(202,255,0,0.2);">💰</div>
+            <div class="rewards-flow-icon" style="background:rgba(202,255,0,0.1);border-color:rgba(202,255,0,0.2);color:var(--accent);"><i data-lucide="coins" width="22" height="22" stroke-width="1.75"></i></div>
             <div class="rewards-flow-label" style="color:var(--accent);" data-i18n="rewards.flowStep4">Cash Out</div>
           </div>
         </div>
@@ -2084,27 +2087,27 @@
     <div class="reveal reveal-delay-1">
       <div class="goal-list">
         <a href="onboarding.html?goal=lose-weight" class="goal-row" style="text-decoration:none;color:inherit;">
-          <span class="goal-row-icon">🔥</span>
+          <span class="goal-row-icon"><i data-lucide="flame" width="24" height="24" stroke-width="1.75"></i></span>
           <div class="goal-row-text"><h4 data-i18n="goals.loseWeight">Lose Weight</h4><p data-i18n="goals.loseWeightDesc">Burn calories, stay consistent, see results</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
         <a href="onboarding.html?goal=build-muscle" class="goal-row" style="text-decoration:none;color:inherit;">
-          <span class="goal-row-icon">💪</span>
+          <span class="goal-row-icon"><i data-lucide="dumbbell" width="24" height="24" stroke-width="1.75"></i></span>
           <div class="goal-row-text"><h4 data-i18n="goals.buildMuscle">Build Muscle</h4><p data-i18n="goals.buildMuscleDesc">Progressive overload, structured volume</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
         <a href="onboarding.html?goal=improve-mobility" class="goal-row" style="text-decoration:none;color:inherit;">
-          <span class="goal-row-icon">🧘</span>
+          <span class="goal-row-icon"><i data-lucide="leaf" width="24" height="24" stroke-width="1.75"></i></span>
           <div class="goal-row-text"><h4 data-i18n="goals.improveMobility">Improve Mobility</h4><p data-i18n="goals.improveMobilityDesc">Move better, feel better, prevent injury</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
         <a href="onboarding.html?goal=stay-active" class="goal-row" style="text-decoration:none;color:inherit;">
-          <span class="goal-row-icon">⚡</span>
+          <span class="goal-row-icon"><i data-lucide="zap" width="24" height="24" stroke-width="1.75"></i></span>
           <div class="goal-row-text"><h4 data-i18n="goals.stayActive">Stay Active</h4><p data-i18n="goals.stayActiveDesc">Build healthy habits that actually stick</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
         <a href="onboarding.html?goal=reduce-stress" class="goal-row" style="text-decoration:none;color:inherit;">
-          <span class="goal-row-icon">🫁</span>
+          <span class="goal-row-icon"><i data-lucide="wind" width="24" height="24" stroke-width="1.75"></i></span>
           <div class="goal-row-text"><h4 data-i18n="goals.reduceStress">Reduce Stress</h4><p data-i18n="goals.reduceStressDesc">Breathing, movement, mindful routines</p></div>
           <span class="goal-row-arrow">→</span>
         </a>
@@ -2131,10 +2134,10 @@
   </div>
   <div class="proof-grid">
     <div class="proof-card" data-reveal="fade-up" data-delay="0">
-      <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
+      <div class="proof-stars"><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span></div>
       <p class="proof-quote" data-i18n="proof.card1Quote">"I did the 50 pushups challenge and actually got paid. The daily recording keeps you honest — no way to cheat it. Best motivation I've ever had."</p>
       <div class="proof-author">
-        <div class="proof-avatar">👨</div>
+        <div class="proof-avatar"><i data-lucide="user" width="22" height="22" stroke-width="1.75"></i></div>
         <div>
           <div class="proof-name" data-i18n="proof.card1Author">Marco T.</div>
           <div class="proof-meta" data-i18n="proof.card1Meta">Challenge completed · Berlin</div>
@@ -2142,10 +2145,10 @@
       </div>
     </div>
     <div class="proof-card" data-reveal="fade-up" data-delay="0.15">
-      <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
+      <div class="proof-stars"><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span></div>
       <p class="proof-quote" data-i18n="proof.card2Quote">"The morning routines are a game changer. 15 minutes before work and I feel completely different for the whole day."</p>
       <div class="proof-author">
-        <div class="proof-avatar">👩</div>
+        <div class="proof-avatar"><i data-lucide="user" width="22" height="22" stroke-width="1.75"></i></div>
         <div>
           <div class="proof-name" data-i18n="proof.card2Author">Sophie K.</div>
           <div class="proof-meta" data-i18n="proof.card2Meta">Morning routines · London</div>
@@ -2153,10 +2156,10 @@
       </div>
     </div>
     <div class="proof-card" data-reveal="fade-up" data-delay="0.3">
-      <div class="proof-stars"><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span><span class="star-animate">★</span></div>
+      <div class="proof-stars"><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span><span class="star-animate"><i data-lucide="star" width="14" height="14" stroke-width="1.75" style="fill:currentColor"></i></span></div>
       <p class="proof-quote" data-i18n="proof.card3Quote">"The 8-week program is exactly what I needed. Seeing my logged weights go up every week keeps me going like nothing else."</p>
       <div class="proof-author">
-        <div class="proof-avatar">🧑</div>
+        <div class="proof-avatar"><i data-lucide="user" width="22" height="22" stroke-width="1.75"></i></div>
         <div>
           <div class="proof-name" data-i18n="proof.card3Author">Lucas R.</div>
           <div class="proof-meta" data-i18n="proof.card3Meta">Following a program · São Paulo</div>

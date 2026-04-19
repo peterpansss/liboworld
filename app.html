@@ -905,13 +905,13 @@ function renderOnboarding() {
 
   const single = (field, options) => options.map(([ico,lbl,sub])=>`
     <div class="choice-card${o[field]===lbl?' selected':''}" data-ob-single="${field}" data-ob-val="${lbl}" role="button" tabindex="0">
-      <div class="choice-icon">${ico}</div>
+      <div class="choice-icon">${LiboIcons.iconHTML(ico, { size: 22, color: 'var(--accent)' })}</div>
       <div class="choice-text"><h4>${lbl}</h4>${sub?`<p>${sub}</p>`:''}</div>
-      <div class="choice-check">${o[field]===lbl?'✓':''}</div>
+      <div class="choice-check">${o[field]===lbl?LiboIcons.iconHTML('✓', { size: 14 }):''}</div>
     </div>`).join('');
 
   if (o.step === 0) return wrap(`
-    <div class="onboard-emoji">👋</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('👋', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Welcome to<br/><span style="color:var(--accent)">Libo</span></h1>
     <p class="onboard-sub">Your all-in-one training app. Let's build your personalised plan — takes about 2 minutes.</p>
     <label style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:10px">First, what's your name?</label>
@@ -919,7 +919,7 @@ function renderOnboarding() {
   `, o.name.trim().length > 0, "Let's Go →", false);
 
   if (o.step === 1) return wrap(`
-    <div class="onboard-emoji">🎯</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🎯', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">What's your<br/>main goal?</h1>
     <p class="onboard-sub">Your whole plan adapts around this.</p>
     <div class="choice-grid">
@@ -935,7 +935,7 @@ function renderOnboarding() {
     'Reduce Stress':  [['🫁','Breathing & calm',''],['🧘','Yoga & stretch',''],['🌙','Better sleep',''],['🏃','Active recovery','']],
   };
   if (o.step === 2) return wrap(`
-    <div class="onboard-emoji">${{Lose:'🔥',Build:'💪',Improve:'🧘',Stay:'⚡',Reduce:'🫁'}[o.goal?.split(' ')[0]]||'🎯'}</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML({Lose:'🔥',Build:'💪',Improve:'🧘',Stay:'⚡',Reduce:'🫁'}[o.goal?.split(' ')[0]]||'🎯', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Be more<br/>specific</h1>
     <p class="onboard-sub">What exactly are you going for?</p>
     <div class="choice-grid">
@@ -944,7 +944,7 @@ function renderOnboarding() {
   `, !!o.goalDetail);
 
   if (o.step === 3) return wrap(`
-    <div class="onboard-emoji">🧬</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🧬', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Biological<br/>sex?</h1>
     <p class="onboard-sub">Used to calibrate calorie and strength estimates.</p>
     <div class="choice-grid">
@@ -953,7 +953,7 @@ function renderOnboarding() {
   `, !!o.gender);
 
   if (o.step === 4) return wrap(`
-    <div class="onboard-emoji">🎂</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🎂', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">How old<br/>are you?</h1>
     <p class="onboard-sub">Workout intensity scales with age.</p>
     <input class="onboard-input" id="ob-age" type="number" min="13" max="99" placeholder="e.g. 28" value="${o.age}" aria-label="Age" style="font-size:32px;font-weight:900;text-align:center;letter-spacing:-1px"/>
@@ -961,7 +961,7 @@ function renderOnboarding() {
   `, o.age >= 13 && o.age <= 99);
 
   if (o.step === 5) return wrap(`
-    <div class="onboard-emoji">📏</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('📏', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Your<br/>height?</h1>
     <p class="onboard-sub"> </p>
     <div style="display:flex;gap:10px;align-items:flex-end">
@@ -973,7 +973,7 @@ function renderOnboarding() {
   `, o.height >= 100 && o.height <= 250);
 
   if (o.step === 6) return wrap(`
-    <div class="onboard-emoji">⚖️</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('⚖️', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Current<br/>weight?</h1>
     <p class="onboard-sub"> </p>
     <div style="display:flex;gap:10px;align-items:flex-end">
@@ -985,7 +985,7 @@ function renderOnboarding() {
   `, o.weight >= 30 && o.weight <= 300);
 
   if (o.step === 7) return wrap(`
-    <div class="onboard-emoji">🏁</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🏁', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Target<br/>weight?</h1>
     <p class="onboard-sub">Your goal weight so we can track the gap.</p>
     <div style="display:flex;gap:10px;align-items:flex-end">
@@ -998,7 +998,7 @@ function renderOnboarding() {
   `, !!o.targetWeight || true, o.targetWeight ? 'Continue →' : 'Skip →');
 
   if (o.step === 8) return wrap(`
-    <div class="onboard-emoji">🚶</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🚶', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Daily activity<br/>level?</h1>
     <p class="onboard-sub">Outside of intentional workouts.</p>
     <div class="choice-grid">
@@ -1007,7 +1007,7 @@ function renderOnboarding() {
   `, !!o.activityLevel);
 
   if (o.step === 9) return wrap(`
-    <div class="onboard-emoji">💪</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('💪', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Training<br/>experience?</h1>
     <p class="onboard-sub">Be honest — it shapes your program difficulty.</p>
     <div class="choice-grid">
@@ -1016,7 +1016,7 @@ function renderOnboarding() {
   `, !!o.level);
 
   if (o.step === 10) return wrap(`
-    <div class="onboard-emoji">📅</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('📅', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Days per<br/>week?</h1>
     <p class="onboard-sub">How many days can you realistically commit to?</p>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px">
@@ -1029,7 +1029,7 @@ function renderOnboarding() {
   `, !!o.days);
 
   if (o.step === 11) return wrap(`
-    <div class="onboard-emoji">🕐</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🕐', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Best time<br/>to train?</h1>
     <p class="onboard-sub">We'll schedule reminders around this.</p>
     <div class="choice-grid">
@@ -1038,7 +1038,7 @@ function renderOnboarding() {
   `, !!o.timeOfDay);
 
   if (o.step === 12) return wrap(`
-    <div class="onboard-emoji">⏱</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('⏱', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Session<br/>length?</h1>
     <p class="onboard-sub">How long do you want each workout to be?</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
@@ -1052,17 +1052,17 @@ function renderOnboarding() {
   `, !!o.duration);
 
   if (o.step === 13) return wrap(`
-    <div class="onboard-emoji">🏋️</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🏋️', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Equipment<br/>access?</h1>
     <p class="onboard-sub">Select everything available to you.</p>
     <div class="chip-grid" id="equips" style="margin-top:8px">
       ${[['🏃','No equipment','none'],['🏠','Dumbbells','dumbbells'],['🪢','Resistance bands','bands'],['🏟️','Full gym','gym'],['🧘','Yoga mat','mat'],['🪑','Bench','bench']].map(([ico,lbl,val])=>`
-        <div class="chip${o.equip.includes(val)?' selected':''}" data-equip="${val}" role="button" tabindex="0" aria-label="${lbl}">${ico} ${lbl}</div>`).join('')}
+        <div class="chip${o.equip.includes(val)?' selected':''}" data-equip="${val}" role="button" tabindex="0" aria-label="${lbl}">${LiboIcons.iconHTML(ico, { size: 16 })} ${lbl}</div>`).join('')}
     </div>
   `, true, o.equip.length ? 'Continue →' : 'Skip →');
 
   if (o.step === 14) return wrap(`
-    <div class="onboard-emoji">📍</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('📍', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Where do<br/>you train?</h1>
     <p class="onboard-sub"> </p>
     <div class="choice-grid">
@@ -1071,7 +1071,7 @@ function renderOnboarding() {
   `, !!o.location);
 
   if (o.step === 15) return wrap(`
-    <div class="onboard-emoji">🩹</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🩹', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Any injuries<br/>or limits?</h1>
     <p class="onboard-sub">We'll avoid aggravating these. Select all that apply.</p>
     <div class="chip-grid" style="margin-top:8px">
@@ -1081,7 +1081,7 @@ function renderOnboarding() {
   `, true, o.injuries.length ? 'Continue →' : 'No injuries →');
 
   if (o.step === 16) return wrap(`
-    <div class="onboard-emoji">🎯</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🎯', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Focus<br/>areas?</h1>
     <p class="onboard-sub">Select the muscles you want to prioritise.</p>
     <div class="chip-grid" style="margin-top:8px">
@@ -1091,7 +1091,7 @@ function renderOnboarding() {
   `, true, o.focusAreas.length ? 'Continue →' : 'No preference →');
 
   if (o.step === 17) return wrap(`
-    <div class="onboard-emoji">🥗</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🥗', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Nutrition<br/>approach?</h1>
     <p class="onboard-sub">Just for context — no meal plans, just smarter tips.</p>
     <div class="choice-grid">
@@ -1100,7 +1100,7 @@ function renderOnboarding() {
   `, !!o.diet);
 
   if (o.step === 18) return wrap(`
-    <div class="onboard-emoji">😴</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('😴', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Sleep<br/>quality?</h1>
     <p class="onboard-sub">Recovery is half the work.</p>
     <div class="choice-grid">
@@ -1109,7 +1109,7 @@ function renderOnboarding() {
   `, !!o.sleep);
 
   if (o.step === 19) return wrap(`
-    <div class="onboard-emoji">⚡</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('⚡', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">What keeps<br/>you going?</h1>
     <p class="onboard-sub">Your main motivation to train.</p>
     <div class="choice-grid">
@@ -1118,7 +1118,7 @@ function renderOnboarding() {
   `, !!o.motivation);
 
   if (o.step === 20) return wrap(`
-    <div class="onboard-emoji">🧱</div>
+    <div class="onboard-emoji">${LiboIcons.iconHTML('🧱', { size: 52, color: 'var(--accent)' })}</div>
     <h1 class="onboard-title">Biggest<br/>obstacle?</h1>
     <p class="onboard-sub">The #1 thing that gets in the way.</p>
     <div class="choice-grid">
@@ -1134,7 +1134,7 @@ function renderOnboarding() {
     const items = ['Analysing your goal...','Matching workout library...','Calibrating difficulty...','Scheduling your week...','Building your plan...'];
     return `
     <div class="onboard-wrap" style="align-items:center;justify-content:center;text-align:center">
-      <div style="font-size:64px;margin-bottom:28px">⚡</div>
+      <div style="margin-bottom:28px">${LiboIcons.iconHTML('⚡', { size: 64, color: 'var(--accent)' })}</div>
       <h1 class="onboard-title" style="text-align:center">Building your<br/><span style="color:var(--accent)">personalised plan</span></h1>
       <div style="width:100%;background:var(--border);border-radius:50px;height:4px;margin:28px 0;overflow:hidden">
         <div style="height:100%;background:var(--accent);border-radius:50px;animation:loadbar 2.6s ease forwards"></div>
@@ -1149,7 +1149,7 @@ function renderOnboarding() {
     const plan = { 'Lose Weight':'Fat Burn Program', 'Build Muscle':'Strength & Hypertrophy', 'Improve Mobility':'Flexibility & Flow', 'Stay Active':'Active Lifestyle Plan', 'Reduce Stress':'Recovery & Breathwork' }[o.goal] || 'Personalised Program';
     return `
     <div class="onboard-wrap" style="align-items:center;text-align:center;padding-top:40px">
-      <div style="font-size:72px;margin-bottom:16px">🎉</div>
+      <div style="margin-bottom:16px">${LiboIcons.iconHTML('🎉', { size: 72, color: 'var(--accent)' })}</div>
       <h1 class="onboard-title">Ready,<br/><span style="color:var(--accent)">${o.name.split(' ')[0]}!</span></h1>
       <p class="onboard-sub">Your plan is set. 718 exercises and 140 workouts — all tailored to you.</p>
       <div style="display:flex;flex-direction:column;gap:10px;width:100%;margin:20px 0 28px;text-align:left">
@@ -1160,10 +1160,10 @@ function renderOnboarding() {
           ['💪', o.level || 'Beginner', o.activityLevel || 'Getting started'],
         ].map(([ico,title,sub])=>`
           <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px">
-            <div style="font-size:22px">${ico}</div>
+            <div>${LiboIcons.iconHTML(ico, { size: 22, color: 'var(--accent)' })}</div>
             <div><div style="font-size:13px;font-weight:700;text-transform:capitalize">${title}</div><div style="font-size:12px;color:var(--muted);margin-top:1px;text-transform:capitalize">${sub}</div></div>
           </div>`).join('')}
-        ${bmi ? `<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px"><div style="font-size:22px">📊</div><div><div style="font-size:13px;font-weight:700">BMI ${bmi}</div><div style="font-size:12px;color:var(--muted);margin-top:1px">${bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Healthy range' : bmi < 30 ? 'Overweight' : 'Obese'} · ${o.height}cm · ${o.weight}kg</div></div></div>` : ''}
+        ${bmi ? `<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px"><div>${LiboIcons.iconHTML('📊', { size: 22, color: 'var(--accent)' })}</div><div><div style="font-size:13px;font-weight:700">BMI ${bmi}</div><div style="font-size:12px;color:var(--muted);margin-top:1px">${bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Healthy range' : bmi < 30 ? 'Overweight' : 'Obese'} · ${o.height}cm · ${o.weight}kg</div></div></div>` : ''}
       </div>
       <button class="btn-full" id="ob-finish">Enter Libo →</button>
     </div>`;
@@ -1179,7 +1179,7 @@ function renderMain() {
     <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
       ${[['programs','📅','Programs'],['explore','🔍','Explore'],['home','🏠','Home'],['rewards','🏆','Rewards'],['progress','📊','Progress']].map(([tab,ico,lbl])=>`
         <div class="nav-item${S.tab===tab?' active':''}" data-tab="${tab}" role="button" aria-label="${lbl} tab" tabindex="0">
-          <span class="nav-icon">${ico}</span>
+          <span class="nav-icon">${LiboIcons.iconHTML(ico, { size: 22 })}</span>
           <span class="nav-label">${lbl}</span>
         </div>`).join('')}
     </nav>`;
@@ -1195,7 +1195,7 @@ function renderHome() {
   return `
     <div class="page-header">
       <div>
-        <div class="greeting">Good ${new Date().getHours()<12?'morning':new Date().getHours()<17?'afternoon':'evening'} 👋</div>
+        <div class="greeting">Good ${new Date().getHours()<12?'morning':new Date().getHours()<17?'afternoon':'evening'} ${LiboIcons.iconHTML('👋', { size: 16 })}</div>
         <div style="font-size:20px;font-weight:900;letter-spacing:-0.5px">${user?.name||'Athlete'}</div>
       </div>
       <div style="width:40px;height:40px;border-radius:50%;background:var(--accent-dim);border:2px solid var(--focus-accent);display:flex;align-items:center;justify-content:center;font-size:18px">
@@ -1207,7 +1207,7 @@ function renderHome() {
       <div style="font-size:9px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:14px;opacity:0.9">Today's Workout</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;letter-spacing:-1px;line-height:0.9;margin-bottom:12px;text-transform:uppercase">${rec.name}</div>
       <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:24px">
-        <span>${rec.emoji} ${rec.dur} min</span><span class="dot"></span><span>${recExCount} exercises</span><span class="dot"></span><span style="text-transform:capitalize">${rec.diff}</span>
+        <span>${LiboIcons.iconHTML(rec.emoji, { size: 14 })} ${rec.dur} min</span><span class="dot"></span><span>${recExCount} exercises</span><span class="dot"></span><span style="text-transform:capitalize">${rec.diff}</span>
       </div>
       <button style="background:var(--accent);color:var(--accent-text);border:none;padding:14px 32px;border-radius:50px;font-size:13px;font-weight:900;cursor:pointer;letter-spacing:1px;text-transform:uppercase" class="start-workout-btn" data-id="${rec.id}">Start Now →</button>
     </div>
@@ -1243,9 +1243,9 @@ function renderHome() {
     <div style="margin:0 16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px">
       ${S.logs.slice(0,3).map(l=>`
         <div class="log-entry">
-          <div class="log-entry-icon">${l.emoji}</div>
+          <div class="log-entry-icon">${LiboIcons.iconHTML(l.emoji, { size: 20, color: 'var(--accent)' })}</div>
           <div><div class="log-entry-name">${l.name}</div><div class="log-entry-meta">${timeAgo(l.date)} · ${l.dur} min</div></div>
-          <div class="log-entry-cal">🔥 ${l.cal}</div>
+          <div class="log-entry-cal">${LiboIcons.iconHTML('🔥', { size: 14 })} ${l.cal}</div>
         </div>`).join('')}
     </div>` : ''}`;
 }
@@ -1304,14 +1304,14 @@ function renderExplore() {
     ${isWorkouts ? `
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 16px 16px">
         <div id="open-builder-btn" style="background:linear-gradient(135deg,#0a1a00 0%,#182800 100%);border:1px solid rgba(202,255,0,0.2);border-radius:18px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:8px;min-height:110px">
-          <div style="font-size:26px">✏️</div>
+          <div>${LiboIcons.iconHTML('✏️', { size: 26, color: 'var(--accent)' })}</div>
           <div>
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-0.5px">Build<br/>Custom</div>
             <div style="font-size:11px;color:var(--muted);margin-top:3px">Pick your exercises</div>
           </div>
         </div>
         <div id="open-ai-btn" style="background:linear-gradient(135deg,#001018 0%,#001a28 100%);border:1px solid rgba(100,180,255,0.2);border-radius:18px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:8px;min-height:110px">
-          <div style="font-size:26px">🤖</div>
+          <div>${LiboIcons.iconHTML('🤖', { size: 26, color: 'rgba(100,180,255,1)' })}</div>
           <div>
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-0.5px">AI<br/>Generate</div>
             <div style="font-size:11px;color:var(--muted);margin-top:3px">Auto-build for your goal</div>
@@ -1323,7 +1323,7 @@ function renderExplore() {
       <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px 16px">
         ${(S.customWorkouts||[]).map(w=>`
           <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer" class="start-workout-btn" data-custom-id="${w.id}">
-            <div style="width:38px;height:38px;background:var(--accent-dim);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">✏️</div>
+            <div style="width:38px;height:38px;background:var(--accent-dim);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${LiboIcons.iconHTML('✏️', { size: 18, color: 'var(--accent)' })}</div>
             <div style="flex:1;min-width:0">
               <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${w.name}</div>
               <div style="font-size:11px;color:var(--muted);margin-top:2px">${w.exercises.length} exercises · ${w.dur||20}min</div>
@@ -1338,7 +1338,7 @@ function renderExplore() {
           const _nameToSlug = {};
           for (const ex of _exList) { if (ex && ex.name) _nameToSlug[ex.name] = ex.id || ex.slug || ''; }
           return pagedWk.map(w=>{
-            const emoji = w.emoji || '🏋️';
+            const emoji = LiboIcons.iconHTML(w.emoji || '🏋️', { size: 26 });
             const id = w.id || w.slug || '';
             const dur = w.dur || w.duration || 30;
             const diff = w.diff || w.difficulty || 'beginner';
@@ -1361,8 +1361,8 @@ function renderExplore() {
           const exSlug = e.id||e.slug||'';
           return `
           <div class="exercise-item" data-exid="${exSlug}">
-            <div class="exercise-emoji" style="background:var(--bg3);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative;overflow:hidden;">
-              <span>${e.emoji||'💪'}</span>
+            <div class="exercise-emoji" style="background:var(--bg3);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;">
+              <span>${LiboIcons.iconHTML(e.emoji||'💪', { size: 20 })}</span>
               ${exSlug ? `<img src="images/thumbnails/exercises/${exSlug}.jpg" alt="" loading="lazy" onload="this.previousElementSibling.style.display='none'" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />` : ''}
             </div>
             <div style="flex:1;min-width:0">
@@ -1392,7 +1392,7 @@ function renderPrograms() {
         return `
         <div class="program-card start-workout-btn" data-id="${p.id||''}" data-detail="1" data-wkname="${(p.name||'').replace(/"/g,'&quot;')}" style="cursor:pointer">
           <div class="program-card-header">
-            <span class="program-emoji">${p.emoji||'🎯'}</span>
+            <span class="program-emoji">${LiboIcons.iconHTML(p.emoji||'🎯', { size: 30, color: 'var(--accent)' })}</span>
             <div>
               <div class="program-name">${p.name}</div>
               <div class="program-meta">30 days · ${p.diff} · ${p.dur}min/day${mainCount?' · '+mainCount+' exercises':''}</div>
@@ -1413,7 +1413,7 @@ function renderPrograms() {
         const isEvening = r.name.toLowerCase().includes('evening');
         return `
         <div class="exercise-item start-workout-btn" data-id="${r.id||''}" data-detail="1" data-wkname="${(r.name||'').replace(/"/g,'&quot;')}" style="cursor:pointer">
-          <div style="background:var(--bg3);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">${isEvening?'🌙':'🌅'}</div>
+          <div style="background:var(--bg3);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${LiboIcons.iconHTML(isEvening?'🌙':'🌅', { size: 20, color: 'var(--accent)' })}</div>
           <div style="flex:1;min-width:0">
             <div class="exercise-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.name}</div>
             <div class="exercise-meta">${r.dur}min · ${r.diff}${mainCount?' · '+mainCount+' exercises':''}</div>
@@ -1444,7 +1444,7 @@ function renderCustomBuilder() {
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px" id="builder-ex-list">
           ${b.exercises.map((ex,i)=>`
             <div class="builder-ex-row">
-              <div style="font-size:20px">${ex.emoji||'💪'}</div>
+              <div>${LiboIcons.iconHTML(ex.emoji||'💪', { size: 20 })}</div>
               <div style="flex:1;min-width:0">
                 <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ex.name}</div>
                 <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
@@ -1454,7 +1454,7 @@ function renderCustomBuilder() {
                   <input class="reps-input" data-idx="${i}" data-field="reps" value="${ex.reps||'10'}" aria-label="Reps for ${ex.name}" style="width:68px"/>
                 </div>
               </div>
-              <button data-remove="${i}" style="background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.2);color:#ff6b6b;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer">✕</button>
+              <button data-remove="${i}" style="background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.2);color:#ff6b6b;border-radius:8px;padding:6px 10px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center">${LiboIcons.iconHTML('✕', { size: 14 })}</button>
             </div>`).join('')}
         </div>
         <div style="display:flex;gap:10px">
@@ -1503,17 +1503,17 @@ function renderCustomBuilder() {
             </div>`).join('');
           return `<div class="builder-ex-item" data-bex-id="${e.id}">
             <div class="builder-ex-header">
-              <div style="width:40px;height:40px;background:var(--bg3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${e.emoji||'💪'}</div>
+              <div style="width:40px;height:40px;background:var(--bg3);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${LiboIcons.iconHTML(e.emoji||'💪', { size: 18 })}</div>
               <div style="flex:1;min-width:0">
                 <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.name}</div>
                 <div style="font-size:11px;color:var(--muted);margin-top:2px">${e.muscle||''} ${e.equip?'· '+e.equip:''}</div>
               </div>
               <div class="builder-ex-chevron">▾</div>
-              <button class="builder-add-btn${added?' added':''}" data-add-ex="${e.id}" style="pointer-events:all">${added?'✓':'+'}</button>
+              <button class="builder-add-btn${added?' added':''}" data-add-ex="${e.id}" style="pointer-events:all">${added?LiboIcons.iconHTML('✓', { size: 14 }):'+'}</button>
             </div>
             <div class="builder-ex-detail">
               <div class="builder-ex-detail-inner">
-                <div class="builder-ex-video-slot" id="bvid-${e.id}">${e.emoji||'💪'}</div>
+                <div class="builder-ex-video-slot" id="bvid-${e.id}">${LiboIcons.iconHTML(e.emoji||'💪', { size: 32 })}</div>
                 ${instHtml}
               </div>
             </div>
@@ -1611,7 +1611,7 @@ function renderAiGen() {
         <div style="font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px">Generated for: ${g.goal}</div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:900;text-transform:uppercase;letter-spacing:-1px;line-height:0.95;margin-bottom:10px">${w.name}</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600">${w.emoji} ${w.dur}min</span>
+          <span style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:4px">${LiboIcons.iconHTML(w.emoji, { size: 12, color: 'var(--accent)' })} ${w.dur}min</span>
           <span style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600">${w.exercises.length} exercises</span>
           <span style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600">${w.equip === 'none' ? 'No equipment' : w.equip}</span>
         </div>
@@ -1620,7 +1620,7 @@ function renderAiGen() {
         ${w.exercises.map((ex,i)=>`
           <div class="gen-ex-row">
             <div style="width:28px;height:28px;background:rgba(202,255,0,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--accent);flex-shrink:0">${i+1}</div>
-            <div style="font-size:20px">${(ex._ex||{}).emoji||'💪'}</div>
+            <div>${LiboIcons.iconHTML((ex._ex||{}).emoji||'💪', { size: 20 })}</div>
             <div style="flex:1;min-width:0">
               <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ex.name}</div>
               <div style="font-size:11px;color:var(--muted);margin-top:2px">${ex.sets} sets · ${ex.reps}</div>
@@ -1648,12 +1648,12 @@ function renderAiGen() {
       <div style="padding:16px">
         <div class="section-subhead">Your Goal</div>
         <div class="ai-chip-row">
-          ${goals.map(([ico,lbl])=>`<div class="ai-chip${g.goal===lbl?' sel':''}" data-ai-goal="${lbl}" role="button" tabindex="0" aria-label="${lbl}">${ico} ${lbl}</div>`).join('')}
+          ${goals.map(([ico,lbl])=>`<div class="ai-chip${g.goal===lbl?' sel':''}" data-ai-goal="${lbl}" role="button" tabindex="0" aria-label="${lbl}">${LiboIcons.iconHTML(ico, { size: 16 })} ${lbl}</div>`).join('')}
         </div>
 
         <div class="section-subhead">Equipment</div>
         <div class="ai-chip-row">
-          ${equips.map(([ico,lbl,val])=>`<div class="ai-chip${g.equip===val?' sel':''}" data-ai-equip="${val}" role="button" tabindex="0" aria-label="${lbl}">${ico} ${lbl}</div>`).join('')}
+          ${equips.map(([ico,lbl,val])=>`<div class="ai-chip${g.equip===val?' sel':''}" data-ai-equip="${val}" role="button" tabindex="0" aria-label="${lbl}">${LiboIcons.iconHTML(ico, { size: 16 })} ${lbl}</div>`).join('')}
         </div>
 
         <div class="section-subhead">Duration</div>
@@ -1666,8 +1666,8 @@ function renderAiGen() {
           ${focuses.map(f=>`<div class="ai-chip${g.focus===f?' sel':''}" data-ai-focus="${f}" role="button" tabindex="0" aria-label="${f}">${f}</div>`).join('')}
         </div>
 
-        <button id="ai-generate-btn" class="btn-full" ${!canGenerate?'disabled':''} style="margin-top:8px">
-          ✨ Generate Workout
+        <button id="ai-generate-btn" class="btn-full" ${!canGenerate?'disabled':''} style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px">
+          ${LiboIcons.iconHTML('✨', { size: 18 })} Generate Workout
         </button>
       </div>
     </div>`;
@@ -1706,17 +1706,17 @@ function renderRewards() {
     <div style="padding:0 16px 6px;"><div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">How it works</div></div>
     <div class="rw-steps">
       <div class="rw-step">
-        <div class="rw-step-icon">💪</div>
+        <div class="rw-step-icon">${LiboIcons.iconHTML('💪', { size: 24, color: 'var(--accent)' })}</div>
         <div class="rw-step-title">Do your reps</div>
         <div class="rw-step-desc">50 pushups daily, split however you want</div>
       </div>
       <div class="rw-step">
-        <div class="rw-step-icon">📲</div>
+        <div class="rw-step-icon">${LiboIcons.iconHTML('📲', { size: 24, color: 'var(--accent)' })}</div>
         <div class="rw-step-title">Record & share</div>
         <div class="rw-step-desc">Log in-app, post to your stories</div>
       </div>
       <div class="rw-step">
-        <div class="rw-step-icon">💶</div>
+        <div class="rw-step-icon">${LiboIcons.iconHTML('💶', { size: 24, color: 'var(--accent)' })}</div>
         <div class="rw-step-title">Get paid</div>
         <div class="rw-step-desc">30 days straight = cash to your account</div>
       </div>
@@ -1728,12 +1728,12 @@ function renderRewards() {
       <div style="font-size:11px;font-weight:600;color:var(--accent);">6 of 20</div>
     </div>
     <div class="rw-badges">
-      <div class="rw-badge-item"><div class="rw-badge-icon">🎯</div><div class="rw-badge-name">First Rep</div></div>
-      <div class="rw-badge-item"><div class="rw-badge-icon">🔥</div><div class="rw-badge-name">10 Workouts</div></div>
-      <div class="rw-badge-item"><div class="rw-badge-icon">📅</div><div class="rw-badge-name">7-Day Streak</div></div>
-      <div class="rw-badge-item"><div class="rw-badge-icon">⏱️</div><div class="rw-badge-name">First Hour</div></div>
-      <div class="rw-badge-item"><div class="rw-badge-icon locked">⚡</div><div class="rw-badge-name">25 Workouts</div></div>
-      <div class="rw-badge-item"><div class="rw-badge-icon locked">💎</div><div class="rw-badge-name">14-Day Streak</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon">${LiboIcons.iconHTML('🎯', { size: 24, color: 'var(--accent)' })}</div><div class="rw-badge-name">First Rep</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon">${LiboIcons.iconHTML('🔥', { size: 24, color: 'var(--accent)' })}</div><div class="rw-badge-name">10 Workouts</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon">${LiboIcons.iconHTML('📅', { size: 24, color: 'var(--accent)' })}</div><div class="rw-badge-name">7-Day Streak</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon">${LiboIcons.iconHTML('⏱️', { size: 24, color: 'var(--accent)' })}</div><div class="rw-badge-name">First Hour</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon locked">${LiboIcons.iconHTML('⚡', { size: 24 })}</div><div class="rw-badge-name">25 Workouts</div></div>
+      <div class="rw-badge-item"><div class="rw-badge-icon locked">${LiboIcons.iconHTML('💎', { size: 24 })}</div><div class="rw-badge-name">14-Day Streak</div></div>
     </div>
 
     <!-- Bottom Motivational CTA -->
@@ -1830,12 +1830,12 @@ function renderProgress() {
     <div style="margin:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px">
       ${S.logs.length ? S.logs.map(l=>`
         <div class="log-entry">
-          <div class="log-entry-icon">${l.emoji}</div>
+          <div class="log-entry-icon">${LiboIcons.iconHTML(l.emoji, { size: 20, color: 'var(--accent)' })}</div>
           <div><div class="log-entry-name">${l.name}</div><div class="log-entry-meta">${timeAgo(l.date)} · ${l.dur} min</div></div>
-          <div class="log-entry-cal">🔥 ${l.cal}</div>
+          <div class="log-entry-cal">${LiboIcons.iconHTML('🔥', { size: 14 })} ${l.cal}</div>
         </div>`).join('') :
         `<div style="padding:40px;text-align:center;color:var(--muted)">
-          <div style="font-size:36px;margin-bottom:10px">📊</div>
+          <div style="margin-bottom:10px">${LiboIcons.iconHTML('📊', { size: 36 })}</div>
           <div style="font-weight:700">No workouts yet</div>
           <div style="font-size:13px;margin-top:4px">Complete your first workout to see progress</div>
         </div>`}
@@ -1904,12 +1904,12 @@ function renderWorkoutDetail() {
             <div class="wd-ex-name">${e.name || ex.name}</div>
             ${note ? `<div class="wd-ex-note">${note.length > 60 ? note.slice(0,60)+'…' : note}</div>` : ''}
           </div>
-          <div class="wd-ex-thumb">${e.emoji || '💪'}</div>
+          <div class="wd-ex-thumb">${LiboIcons.iconHTML(e.emoji || '💪', { size: 22 })}</div>
           <div class="wd-ex-chevron">▾</div>
         </div>
         <div class="wd-ex-detail">
           <div class="wd-ex-detail-inner">
-            <div class="wd-ex-video-slot" id="wd-vid-${ex.id}">${e.emoji || '💪'}</div>
+            <div class="wd-ex-video-slot" id="wd-vid-${ex.id}">${LiboIcons.iconHTML(e.emoji || '💪', { size: 36 })}</div>
             ${instHtml}
           </div>
         </div>
@@ -1930,7 +1930,7 @@ function renderWorkoutDetail() {
   return `
     <div class="screen fade-in" style="display:flex;flex-direction:column">
       <div class="wd-hero">
-        <div class="wd-hero-bg">${w.emoji}</div>
+        <div class="wd-hero-bg">${LiboIcons.iconHTML(w.emoji, { size: 120, color: 'var(--accent)' })}</div>
         <div class="wd-hero-overlay"></div>
         <div class="detail-back" id="back-btn" style="position:absolute;top:16px;left:16px;z-index:2">←</div>
         <div class="wd-hero-content">
@@ -1940,10 +1940,10 @@ function renderWorkoutDetail() {
       </div>
 
       <div class="wd-meta-row">
-        <div class="wd-meta-chip">⏱ ${w.dur} min</div>
-        <div class="wd-meta-chip">💪 ${w.diff}</div>
-        <div class="wd-meta-chip">🎯 ${exs.length} exercises</div>
-        ${w.equip && w.equip !== 'none' ? `<div class="wd-meta-chip">🏋️ ${w.equip}</div>` : ''}
+        <div class="wd-meta-chip">${LiboIcons.iconHTML('⏱', { size: 12 })} ${w.dur} min</div>
+        <div class="wd-meta-chip">${LiboIcons.iconHTML('💪', { size: 12 })} ${w.diff}</div>
+        <div class="wd-meta-chip">${LiboIcons.iconHTML('🎯', { size: 12 })} ${exs.length} exercises</div>
+        ${w.equip && w.equip !== 'none' ? `<div class="wd-meta-chip">${LiboIcons.iconHTML('🏋️', { size: 12 })} ${w.equip}</div>` : ''}
       </div>
 
       <div style="flex:1;padding-bottom:80px">
@@ -1995,7 +1995,7 @@ function renderChallenge() {
     const isToday = day === currentDay && currentDay <= totalDays;
     const locked = day > currentDay;
     return `<div class="ch-day ${done ? 'ch-day-done' : isToday ? 'ch-day-today' : locked ? 'ch-day-locked' : 'ch-day-locked'}" title="Day ${day}">
-      ${done ? '✓' : day}
+      ${done ? LiboIcons.iconHTML('✓', { size: 12 }) : day}
     </div>`;
   }).join('');
 
@@ -2051,10 +2051,10 @@ function renderChallenge() {
         </div>
         <div style="display:flex;gap:10px;margin-top:16px">
           <button class="btn-full" id="start-challenge-day-btn" style="flex:2">Start Day ${currentDay} →</button>
-          ${completedDays.length > 0 ? `<button id="mark-done-btn" style="flex:1;background:rgba(202,255,0,0.08);border:1px solid rgba(202,255,0,0.2);color:var(--accent);border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;padding:14px">✓ Done</button>` : ''}
+          ${completedDays.length > 0 ? `<button id="mark-done-btn" style="flex:1;background:rgba(202,255,0,0.08);border:1px solid rgba(202,255,0,0.2);color:var(--accent);border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;padding:14px;display:inline-flex;align-items:center;justify-content:center;gap:6px">${LiboIcons.iconHTML('✓', { size: 14 })} Done</button>` : ''}
         </div>
         ` : `<div style="text-align:center;padding:40px 20px">
-          <div style="font-size:64px;margin-bottom:16px">🏆</div>
+          <div style="margin-bottom:16px">${LiboIcons.iconHTML('🏆', { size: 64, color: 'var(--accent)' })}</div>
           <div style="font-size:28px;font-weight:900;color:var(--accent)">CHALLENGE COMPLETE</div>
           <div style="color:var(--muted);margin-top:8px">You finished all 30 days. That's elite.</div>
         </div>`}
@@ -2100,13 +2100,13 @@ function renderPlayer() {
       return phaseHeader + `
         <div class="pv2-expanded" id="pv2-active-ex">
           <div class="pv2-ex-row pv2-active" style="border-bottom:none;padding-bottom:8px">
-            <div ${thumbStyle}>${e.emoji}</div>
+            <div ${thumbStyle}>${LiboIcons.iconHTML(e.emoji, { size: 22 })}</div>
             <div style="flex:1;min-width:0">
               <div style="font-size:14px;font-weight:800">${e.name || ex.name}</div>
               <div class="pv2-ex-meta">${ex.sets}×${ex.reps} · ${e.muscle || ''}</div>
             </div>
           </div>
-          <div class="pv2-expanded-video">${e.emoji}
+          <div class="pv2-expanded-video">${LiboIcons.iconHTML(e.emoji, { size: 48 })}
             <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 60%);border-radius:0;display:flex;align-items:flex-end;padding:12px 16px">
               <div style="font-size:13px;font-weight:700;color:#fff">${e.name || ex.name}</div>
             </div>
@@ -2114,18 +2114,18 @@ function renderPlayer() {
           <div class="pv2-expanded-controls">
             <div class="pv2-set-counter">${setDots}</div>
             <div style="font-size:12px;font-weight:700;color:var(--muted)">${setsCompleted}/${ex.sets || 3} sets</div>
-            <button class="pv2-done-set-btn" id="done-set-btn">Done Set ✓</button>
+            <button class="pv2-done-set-btn" id="done-set-btn" style="display:inline-flex;align-items:center;gap:6px">Done Set ${LiboIcons.iconHTML('✓', { size: 14 })}</button>
           </div>
         </div>`;
     }
 
     return phaseHeader + `<div class="pv2-ex-row" data-pv2-idx="${i}">
-      <div ${thumbStyle}>${isDone ? '✓' : e.emoji}</div>
+      <div ${thumbStyle}>${isDone ? LiboIcons.iconHTML('✓', { size: 18, color: 'var(--accent)' }) : LiboIcons.iconHTML(e.emoji, { size: 20 })}</div>
       <div style="flex:1;min-width:0">
         <div style="font-size:13px;font-weight:700;color:${isDone ? 'var(--muted)' : 'var(--text)'};${isDone ? 'text-decoration:line-through' : ''}">${e.name || ex.name}</div>
         <div class="pv2-ex-meta">${ex.sets}×${ex.reps}</div>
       </div>
-      ${isDone ? `<div class="pv2-ex-sets-done">✓</div>` : `<div style="font-size:11px;color:var(--dim)">${i > activeIdx ? '—' : ''}</div>`}
+      ${isDone ? `<div class="pv2-ex-sets-done">${LiboIcons.iconHTML('✓', { size: 14, color: 'var(--accent)' })}</div>` : `<div style="font-size:11px;color:var(--dim)">${i > activeIdx ? '—' : ''}</div>`}
     </div>`;
   }).join('');
 
@@ -2167,7 +2167,7 @@ function renderComplete() {
   return `
     <div class="complete-wrap fade-in">
       <div class="complete-label">Session Complete</div>
-      <div class="complete-emoji">🏆</div>
+      <div class="complete-emoji">${LiboIcons.iconHTML('🏆', { size: 72, color: 'var(--accent)' })}</div>
       <div class="complete-title">GREAT<br/><span style="color:var(--accent)">WORK!</span></div>
       <div class="complete-sub">You crushed ${w.name}.<br/>Every rep counts. Keep going.</div>
       <div class="complete-stats">
@@ -2801,7 +2801,7 @@ async function showExerciseModal(ex) {
   const header = `
     <div class="modal-handle"></div>
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
-      <div style="font-size:40px">${ex.emoji}</div>
+      <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px">${LiboIcons.iconHTML(ex.emoji, { size: 40, color: 'var(--accent)' })}</div>
       <div style="flex:1;min-width:0">
         <div class="modal-title" style="text-align:left;margin-bottom:5px">${ex.name}</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
@@ -2818,7 +2818,7 @@ async function showExerciseModal(ex) {
         <div class="inst-num">${i+1}</div>
         <div class="inst-text">${step}</div>
       </div>`).join('')}
-    <button class="btn-full" style="margin-top:20px" id="close-ex-modal">Got it ✓</button>`;
+    <button class="btn-full" style="margin-top:20px;display:inline-flex;align-items:center;justify-content:center;gap:8px" id="close-ex-modal">Got it ${LiboIcons.iconHTML('✓', { size: 16 })}</button>`;
 
   const noKeyHtml = `
     <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px">
@@ -2838,6 +2838,7 @@ async function showExerciseModal(ex) {
 
   modal.innerHTML = `<div class="modal-sheet">${header}${hasKey ? videoLoadingHtml : noKeyHtml}${instructions}</div>`;
   document.getElementById('app').appendChild(modal);
+  if (window.LiboIcons) LiboIcons.refresh();
   modal.addEventListener('click', e => { if (e.target === modal || e.target.id === 'close-ex-modal') modal.remove(); });
 
   // API key save
@@ -2860,12 +2861,13 @@ async function showExerciseModal(ex) {
 
   if (!videoData) {
     section.innerHTML = `<div style="text-align:center;padding:20px;color:var(--muted);font-size:12px;margin-bottom:16px">No video found for this exercise</div>`;
+    if (window.LiboIcons) LiboIcons.refresh();
     return;
   }
 
   const dlButtons = videoData.qualities.map(q => `
     <a href="${q.link}" target="_blank" rel="noopener" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-decoration:none;cursor:pointer;transition:border-color 0.2s" onmouseover="this.style.borderColor='rgba(202,255,0,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
-      <div style="font-size:14px">${q.label.split(' ')[0]}</div>
+      <div style="display:flex;align-items:center;justify-content:center;height:20px">${LiboIcons.iconHTML(q.label.split(' ')[0], { size: 16, color: 'var(--muted)' })}</div>
       <div style="font-size:11px;font-weight:700;color:var(--text)">${q.res}</div>
       <div style="font-size:9px;color:var(--accent);font-weight:700;letter-spacing:0.5px">↓ DOWNLOAD</div>
     </a>`).join('');
@@ -2881,6 +2883,7 @@ async function showExerciseModal(ex) {
       <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Download</div>
       <div style="display:flex;gap:8px">${dlButtons}</div>
     </div>`;
+  if (window.LiboIcons) LiboIcons.refresh();
 }
 
 // ═══════════════════════════════
