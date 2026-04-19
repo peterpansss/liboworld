@@ -144,7 +144,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-15',
     author: 'Libo Team',
     heroEmoji: '🔥',
-    heroImage: '/ReferenceImagesReal/39c1fe9a091b35792a8047293b0f202e.jpg',
+    heroImage: '/images/blog/how-to-start-a-30-day-fitness-challenge.jpg',
     relatedPrograms: ['30-day-pushup-challenge', '30-day-squat-challenge'],
     content: `
 <h2>Why 30-Day Challenges Work</h2>
@@ -436,7 +436,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-05',
     author: 'Libo Team',
     heroEmoji: '🧘',
-    heroImage: '/ReferenceImagesReal/e64b6bf3121062bba39727d191b390cc.jpg',
+    heroImage: '/images/blog/recovery-and-mobility-why-stretching-matters.jpg',
     relatedExercises: ['foam-roller-upper-back', 'hip-flexor-stretch', 'hamstring-stretch'],
     relatedPrograms: ['morning-mobility-flow', 'evening-stretch'],
     content: `
