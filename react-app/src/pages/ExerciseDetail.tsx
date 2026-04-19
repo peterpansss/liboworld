@@ -119,7 +119,7 @@ export default function ExerciseDetail() {
             {publicVideoUrl(exercise) ? (
               <video
                 src={publicVideoUrl(exercise)}
-                poster={exerciseThumb(exercise.id, exercise.cat) ?? undefined}
+                poster={exerciseThumb(exercise.id, exercise.cat, exercise.equipment, exercise.parentId) ?? undefined}
                 muted
                 loop
                 playsInline
@@ -217,7 +217,7 @@ export default function ExerciseDetail() {
               <h2 className="ed-section-title">Related {exercise.bodyFocus} Exercises</h2>
               <div className="ed-related-grid">
                 {related.map(rel => {
-                  const relThumb = exerciseThumb(rel.id, rel.cat);
+                  const relThumb = exerciseThumb(rel.id, rel.cat, rel.equipment, rel.parentId);
                   return (
                   <Link key={rel.id} to={`/exercises/${rel.id}`} className="ed-related-card">
                     <div className="ed-related-media">

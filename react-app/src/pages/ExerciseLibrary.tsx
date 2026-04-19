@@ -103,8 +103,8 @@ export default function ExerciseLibrary() {
     }
 
     result = [...result].sort((a, b) => {
-      const aHas = isMediaHidden(a.cat) ? 0 : 1;
-      const bHas = isMediaHidden(b.cat) ? 0 : 1;
+      const aHas = isMediaHidden(a.cat, a.equipment) ? 0 : 1;
+      const bHas = isMediaHidden(b.cat, b.equipment) ? 0 : 1;
       return bHas - aHas;
     });
 
@@ -236,7 +236,7 @@ export default function ExerciseLibrary() {
           ) : (
             <div className="el-grid">
               {pageExercises.map(ex => {
-                const thumb = exerciseThumb(ex.id, ex.cat);
+                const thumb = exerciseThumb(ex.id, ex.cat, ex.equipment, ex.parentId);
                 return (
                 <Link key={ex.id} to={`/exercises/${ex.id}`} className="el-card">
                   <div className="el-card-media">

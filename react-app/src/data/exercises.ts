@@ -14,6 +14,8 @@ export interface Exercise {
   setupNotes: string;
   videoUrl?: string;  // R2-hosted demo clip, present for ~264 exercises
   animationUrl?: string;  // Optional 3D/2D animation alternative (gym/equipment only)
+  parentId?: string;    // L/R variants inherit parent's media (thumb + video)
+  parentName?: string;
 }
 
 export interface WorkoutExercise {

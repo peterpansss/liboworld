@@ -59,6 +59,12 @@ def slugify(name: str) -> str:
     return "wk_" + s
 
 
+def slugify_name(name: str) -> str:
+    s = (name or "").lower()
+    s = re.sub(r"[^a-z0-9]+", "_", s)
+    return re.sub(r"_+", "_", s).strip("_")
+
+
 def build_exercises():
     """Load exercises from the app's exercises.json and convert to libo-data.js format."""
     with open(APP_EXERCISES_PATH) as f:
@@ -80,6 +86,13 @@ def build_exercises():
         }
         if ex.get("videoUrl"):
             out["videoUrl"] = ex["videoUrl"]
+        # Carry parentId/parentName so the landing site can resolve variant → parent
+        # (for thumbnail fallback — L/R variants share parent's thumb).
+        # parentId is re-slugged to match landing's id scheme (slug-based, not gym_*/home_*).
+        parent_name = ex.get("parentName") or ""
+        if parent_name and ex["name"].startswith(parent_name):
+            out["parentId"] = slugify_name(parent_name)
+            out["parentName"] = parent_name
         exercises.append(out)
 
     return exercises

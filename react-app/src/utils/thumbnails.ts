@@ -1,16 +1,20 @@
 import type { Exercise, Workout, WorkoutExercise } from '../data/exercises';
 
-// Categories whose media is hidden from the public site (videos/thumbnails
-// pulled until re-recorded). Keep this in one place so every render path
-// respects it uniformly.
+// Media (video + thumbnail) is hidden from the public site for content that
+// still needs re-recording: gym-category exercises and anything using
+// dumbbell / barbell / kettlebell. Keep this in one place so every render
+// path respects it uniformly.
 const HIDDEN_MEDIA_CATS = new Set(['gym']);
+const HIDDEN_MEDIA_EQUIPMENT = new Set(['Dumbbell', 'Barbell', 'Kettlebell']);
 
-export function isMediaHidden(cat: string | undefined): boolean {
-  return !!cat && HIDDEN_MEDIA_CATS.has(cat);
+export function isMediaHidden(cat?: string, equipment?: string): boolean {
+  if (cat && HIDDEN_MEDIA_CATS.has(cat)) return true;
+  if (equipment && HIDDEN_MEDIA_EQUIPMENT.has(equipment)) return true;
+  return false;
 }
 
 export function publicVideoUrl(ex: Exercise): string | undefined {
-  return isMediaHidden(ex.cat) ? undefined : ex.videoUrl;
+  return isMediaHidden(ex.cat, ex.equipment) ? undefined : ex.videoUrl;
 }
 
 export function publicAnimationUrl(ex: Exercise): string | undefined {
@@ -23,9 +27,16 @@ export function exerciseSupportsAnimation(ex: Exercise): boolean {
   return true;
 }
 
-export function exerciseThumb(id: string, cat?: string): string | null {
-  if (isMediaHidden(cat)) return null;
-  return `/images/thumbnails/exercises/${id}.jpg`;
+// L/R variants share the parent's thumbnail file (same video, same still).
+export function exerciseThumb(
+  id: string,
+  cat?: string,
+  equipment?: string,
+  parentId?: string
+): string | null {
+  if (isMediaHidden(cat, equipment)) return null;
+  const thumbId = parentId || id;
+  return `/images/thumbnails/exercises/${thumbId}.jpg`;
 }
 
 export function buildNameToSlug(exercises: Exercise[]): Record<string, string> {
@@ -44,6 +55,6 @@ export function workoutHeroThumb(
   if (!hero) return null;
   const slug = nameToSlug[hero.name];
   if (!slug) return null;
-  const cat = exercises?.find(e => e.id === slug)?.cat;
-  return exerciseThumb(slug, cat);
+  const ex = exercises?.find(e => e.id === slug);
+  return exerciseThumb(slug, ex?.cat, ex?.equipment, ex?.parentId);
 }
