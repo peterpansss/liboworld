@@ -23,7 +23,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-28',
     author: 'Libo Team',
     heroEmoji: '🏋️',
-    heroImage: '/ReferenceImagesReal/4d2d6f35aaa3192a75bb1d865a1ec584.jpg',
+    heroImage: '/images/blog/best-chest-exercises-for-building-muscle.jpg',
     relatedExercises: ['barbell-bench-press', 'push-up', 'dumbbell-flye', 'dips'],
     content: `
 <h2>Why Chest Training Matters</h2>
@@ -81,7 +81,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-22',
     author: 'Libo Team',
     heroEmoji: '🏠',
-    heroImage: '/ReferenceImagesReal/3888964e334eac66760016434935572e.jpg',
+    heroImage: '/images/blog/complete-guide-to-home-workouts-without-equipment.jpg',
     relatedExercises: ['push-up', 'bodyweight-squat', 'plank', 'burpees'],
     content: `
 <h2>Why Bodyweight Training Works</h2>
@@ -190,7 +190,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-08',
     author: 'Libo Team',
     heroEmoji: '💪',
-    heroImage: '/ReferenceImagesReal/622da1a74f2ba7e38b80557ea83622bd.jpg',
+    heroImage: '/images/blog/the-ultimate-push-pull-legs-split-explained.jpg',
     relatedExercises: ['barbell-bench-press', 'barbell-row', 'barbell-squat'],
     content: `
 <h2>What Is Push-Pull-Legs?</h2>
@@ -261,7 +261,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-28',
     author: 'Libo Team',
     heroEmoji: '🌅',
-    heroImage: '/ReferenceImagesReal/3f213a5e319ab876855404142800d9bb.jpg',
+    heroImage: '/images/blog/5-morning-stretching-routines-to-start-your-day.jpg',
     relatedPrograms: ['morning-stretch', 'morning-mobility-flow'],
     content: `
 <h2>Why Morning Stretching Changes Everything</h2>
@@ -331,7 +331,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-20',
     author: 'Libo Team',
     heroEmoji: '🎯',
-    heroImage: '/ReferenceImagesReal/7f2a6692e0dccd63b0cc05e0e7197d38.jpg',
+    heroImage: '/images/blog/beginners-guide-to-strength-training.jpg',
     relatedExercises: ['barbell-squat', 'barbell-bench-press', 'deadlift'],
     content: `
 <h2>Why Strength Training?</h2>
@@ -376,7 +376,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-12',
     author: 'Libo Team',
     heroEmoji: '📋',
-    heroImage: '/ReferenceImagesReal/2df174c21bbc8db6cd5ce2d0b96b810e.jpg',
+    heroImage: '/images/blog/how-to-build-a-custom-workout-plan.jpg',
     content: `
 <h2>Why Custom Plans Beat Random Workouts</h2>
 <p>Following a different workout video every day might feel productive, but it's one of the least effective ways to train. <strong>Random training leads to random results.</strong> A structured plan ensures you're progressing, balancing muscle groups, and recovering properly.</p>
