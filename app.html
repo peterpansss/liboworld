@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="tokens.css">
   <script src="libo-data.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/emoji-to-icon.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
     :root{
@@ -873,6 +875,7 @@ function render() {
   else if (S.screen === 'ai-gen') { app.innerHTML = renderAiGen(); }
   else { app.innerHTML = renderMain(); }
 
+  if (window.LiboIcons) LiboIcons.refresh();
   attachEvents();
 }
 
@@ -1330,31 +1333,45 @@ function renderExplore() {
       </div>` : ''}
       <div style="padding:0 16px 8px"><div class="section-label">All Workouts</div></div>
       <div class="workout-grid">
-        ${pagedWk.map(w=>{
-          const emoji = w.emoji || '🏋️';
-          const id = w.id || w.slug || '';
-          const dur = w.dur || w.duration || 30;
-          const diff = w.diff || w.difficulty || 'beginner';
-          const mainCount = w.main ? w.main.length : (w.exercises ? w.exercises.length : 0);
-          return `<div class="wcard start-workout-btn" data-id="${id}" data-detail="1" data-wkname="${w.name.replace(/"/g,'&quot;')}">
-            <span class="wcard-emoji">${emoji}</span>
-            <div class="wcard-name">${w.name}</div>
-            <div class="wcard-meta">${dur}min · ${diff}${mainCount?' · '+mainCount+' ex':''}</div>
-          </div>`;
-        }).join('')}
+        ${(() => {
+          const _exList = (typeof LIBO_EXERCISES !== 'undefined') ? LIBO_EXERCISES : EXERCISES;
+          const _nameToSlug = {};
+          for (const ex of _exList) { if (ex && ex.name) _nameToSlug[ex.name] = ex.id || ex.slug || ''; }
+          return pagedWk.map(w=>{
+            const emoji = w.emoji || '🏋️';
+            const id = w.id || w.slug || '';
+            const dur = w.dur || w.duration || 30;
+            const diff = w.diff || w.difficulty || 'beginner';
+            const mainCount = w.main ? w.main.length : (w.exercises ? w.exercises.length : 0);
+            const heroName = (w.main && w.main[0] && w.main[0].exercise) || (w.warmup && w.warmup[0] && w.warmup[0].exercise) || '';
+            const heroSlug = _nameToSlug[heroName] || '';
+            return `<div class="wcard start-workout-btn" data-id="${id}" data-detail="1" data-wkname="${w.name.replace(/"/g,'&quot;')}" style="position:relative;overflow:hidden;min-height:${heroSlug?'140px':'auto'};display:flex;flex-direction:column;justify-content:flex-end">
+              ${heroSlug ? `<img src="images/thumbnails/exercises/${heroSlug}.jpg" alt="" loading="lazy" onerror="this.nextElementSibling.remove();this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0" /><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,0.7) 75%,rgba(0,0,0,0.92) 100%);z-index:1"></div>` : ''}
+              <span class="wcard-emoji" style="position:relative;z-index:2">${emoji}</span>
+              <div class="wcard-name" style="position:relative;z-index:2;${heroSlug?'color:#fff':''}">${w.name}</div>
+              <div class="wcard-meta" style="position:relative;z-index:2;${heroSlug?'color:rgba(255,255,255,0.75)':''}">${dur}min · ${diff}${mainCount?' · '+mainCount+' ex':''}</div>
+            </div>`;
+          }).join('');
+        })()}
       </div>
       ${pagedWk.length < filteredWorkouts.length ? `<div style="padding:16px;text-align:center"><button id="load-more-btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--accent);border-radius:50px;padding:12px 28px;font-size:13px;font-weight:700;cursor:pointer">Load more (${filteredWorkouts.length - pagedWk.length} left)</button></div>` : ''}
       ` : `
       <div class="exercise-list">
-        ${pagedEx.map(e=>`
-          <div class="exercise-item" data-exid="${e.id||e.slug}">
-            <div class="exercise-emoji" style="background:var(--bg3);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">${e.emoji||'💪'}</div>
+        ${pagedEx.map(e=>{
+          const exSlug = e.id||e.slug||'';
+          return `
+          <div class="exercise-item" data-exid="${exSlug}">
+            <div class="exercise-emoji" style="background:var(--bg3);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative;overflow:hidden;">
+              <span>${e.emoji||'💪'}</span>
+              ${exSlug ? `<img src="images/thumbnails/exercises/${exSlug}.jpg" alt="" loading="lazy" onload="this.previousElementSibling.style.display='none'" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />` : ''}
+            </div>
             <div style="flex:1;min-width:0">
               <div class="exercise-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.name}</div>
               <div class="exercise-meta">${e.bodyFocus||e.muscle||''} ${e.equipment||e.equip?'· '+(e.equipment||e.equip):''}</div>
             </div>
             <div class="diff-badge diff-${e.diff||'beginner'}">${(e.diff||'beginner').charAt(0).toUpperCase()+(e.diff||'beginner').slice(1,3)}</div>
-          </div>`).join('')}
+          </div>`;
+        }).join('')}
       </div>
       ${pagedEx.length < filteredEx.length ? `<div style="padding:16px;text-align:center"><button id="load-more-btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--accent);border-radius:50px;padding:12px 28px;font-size:13px;font-weight:700;cursor:pointer">Load more (${filteredEx.length - pagedEx.length} left)</button></div>` : ''}
       `}`;
