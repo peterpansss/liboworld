@@ -14,9 +14,6 @@ function ScrollToTop() {
 import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
 
-// Web app — lazy loaded (heavy)
-const WebApp = lazy(() => import('./pages/WebApp'));
-
 // Content pages — lazy loaded
 const ExerciseLibrary = lazy(() => import('./pages/ExerciseLibrary'));
 const ExerciseDetail = lazy(() => import('./pages/ExerciseDetail'));
@@ -36,14 +33,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/onboarding" element={<Onboarding />} />
-        <Route
-          path="/app"
-          element={
-            <Suspense fallback={darkFallback}>
-              <WebApp />
-            </Suspense>
-          }
-        />
         <Route path="/exercises" element={<Suspense fallback={darkFallback}><ExerciseLibrary /></Suspense>} />
         <Route path="/exercises/:id" element={<Suspense fallback={darkFallback}><ExerciseDetail /></Suspense>} />
         <Route path="/workouts" element={<Suspense fallback={darkFallback}><ProgramLibrary /></Suspense>} />
