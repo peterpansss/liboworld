@@ -1,0 +1,17 @@
+{
+  "name": "libo-landing-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ops scripts for libo-landing (R2 upload, data sync)",
+  "scripts": {
+    "upload-videos": "node upload-videos.mjs",
+    "upload-videos:dry": "node upload-videos.mjs --dry-run",
+    "sync-video-urls": "node sync-video-urls.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.658.0",
+    "@aws-sdk/lib-storage": "^3.658.0",
+    "dotenv": "^16.4.5"
+  }
+}

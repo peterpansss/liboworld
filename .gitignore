@@ -23,3 +23,6 @@ waitlist.csv
 
 # Generated artifacts
 scripts/video-manifest.json
+scripts/node_modules/
+scripts/package-lock.json
+scripts/upload.log
