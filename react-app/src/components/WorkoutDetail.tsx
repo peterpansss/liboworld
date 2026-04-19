@@ -185,9 +185,9 @@ export default function WorkoutDetail() {
                     <span style={{ position: 'relative', zIndex: 0 }}>
                       <EmojiIcon emoji={emoji} size={22} />
                     </span>
-                    {nameToSlug[ex.name] && (
+                    {nameToSlug[ex.name] && exerciseThumb(nameToSlug[ex.name], matched?.cat) && (
                       <img
-                        src={exerciseThumb(nameToSlug[ex.name])}
+                        src={exerciseThumb(nameToSlug[ex.name], matched?.cat)!}
                         alt=""
                         loading="lazy"
                         onError={(e) => (e.currentTarget.style.display = 'none')}

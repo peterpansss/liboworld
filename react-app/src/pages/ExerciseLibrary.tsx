@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getExercises, type Exercise } from '../data/exercises';
 import { exerciseThumb } from '../utils/thumbnails';
+import { MuscleTile } from '../components/MuscleTile';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseLibrary.css';
@@ -228,17 +229,21 @@ export default function ExerciseLibrary() {
             </div>
           ) : (
             <div className="el-grid">
-              {pageExercises.map(ex => (
+              {pageExercises.map(ex => {
+                const thumb = exerciseThumb(ex.id, ex.cat);
+                return (
                 <Link key={ex.id} to={`/exercises/${ex.id}`} className="el-card">
-                  <div className="el-card-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
-                    <span role="img" aria-hidden="true" style={{ position: 'relative', zIndex: 0 }}>{ex.emoji}</span>
-                    <img
-                      src={exerciseThumb(ex.id)}
-                      alt=""
-                      loading="lazy"
-                      onError={(e) => (e.currentTarget.style.display = 'none')}
-                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
-                    />
+                  <div className="el-card-media">
+                    <MuscleTile muscle={ex.bodyFocus} />
+                    {thumb && (
+                      <img
+                        src={thumb}
+                        alt=""
+                        loading="lazy"
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                        className="el-card-thumb"
+                      />
+                    )}
                   </div>
                   <div className="el-card-name">{ex.name}</div>
                   <div className="el-card-meta">
@@ -247,7 +252,8 @@ export default function ExerciseLibrary() {
                     <span className={`el-card-diff ${ex.diff}`}>{ex.diff}</span>
                   </div>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           )}
 

@@ -184,7 +184,7 @@ export default function ExploreTab({ onOpenBuilder, onOpenAiGen }: ExploreTabPro
           <div className="workout-grid">
             {pagedWorkouts.map((w) => {
               const mainCount = w.exercises?.length ?? 0;
-              const heroThumb = workoutHeroThumb(w, nameToSlug);
+              const heroThumb = workoutHeroThumb(w, nameToSlug, exercises);
               return (
                 <div
                   className="wcard"
@@ -245,13 +245,15 @@ export default function ExploreTab({ onOpenBuilder, onOpenAiGen }: ExploreTabPro
                   <span style={{ position: 'relative', zIndex: 0 }}>
                     <EmojiIcon emoji={e.emoji || '💪'} size={22} />
                   </span>
-                  <img
-                    src={exerciseThumb(e.id)}
-                    alt=""
-                    loading="lazy"
-                    onError={(ev) => (ev.currentTarget.style.display = 'none')}
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
-                  />
+                  {exerciseThumb(e.id, e.cat) && (
+                    <img
+                      src={exerciseThumb(e.id, e.cat)!}
+                      alt=""
+                      loading="lazy"
+                      onError={(ev) => (ev.currentTarget.style.display = 'none')}
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                    />
+                  )}
                 </div>
                 <div className="exercise-info">
                   <div className="exercise-name">{e.name}</div>

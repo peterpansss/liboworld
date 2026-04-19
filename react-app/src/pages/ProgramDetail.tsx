@@ -237,7 +237,7 @@ export default function ProgramDetail() {
             <h2>More {workout.cat} Workouts</h2>
             <div className="pd-related-grid">
               {related.map((w) => {
-                const heroThumb = workoutHeroThumb(w, nameToSlug);
+                const heroThumb = workoutHeroThumb(w, nameToSlug, exerciseDb);
                 return (
                 <Link key={w.id} to={`/workouts/${w.id}`} className="pd-related-card">
                   <span

@@ -196,13 +196,15 @@ export default function CustomBuilder({ onClose, onStartWorkout }: CustomBuilder
                       <span style={{ position: 'relative', zIndex: 0 }}>
                         <EmojiIcon emoji={emoji} size={22} />
                       </span>
-                      <img
-                        src={exerciseThumb(ex.id)}
-                        alt=""
-                        loading="lazy"
-                        onError={(e) => (e.currentTarget.style.display = 'none')}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
-                      />
+                      {exerciseThumb(ex.id, ex.cat) && (
+                        <img
+                          src={exerciseThumb(ex.id, ex.cat)!}
+                          alt=""
+                          loading="lazy"
+                          onError={(e) => (e.currentTarget.style.display = 'none')}
+                          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                        />
+                      )}
                     </div>
                     <div className="cb-ex-info">
                       <div className="cb-ex-name">{ex.name}</div>

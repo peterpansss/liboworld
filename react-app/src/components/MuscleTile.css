@@ -1,0 +1,34 @@
+.muscle-tile {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.muscle-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(202, 255, 0, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.muscle-tile__label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  text-align: center;
+  padding: 0 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.muscle-tile--sm .muscle-tile__label { font-size: 12px; letter-spacing: 0.5px; }
+.muscle-tile--md .muscle-tile__label { font-size: 22px; letter-spacing: 0.6px; }
+.muscle-tile--lg .muscle-tile__label { font-size: 34px; letter-spacing: -0.5px; }

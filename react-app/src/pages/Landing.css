@@ -85,15 +85,11 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.35s ease;
 }
 .landing-nav.scrolled {
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid var(--border);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 

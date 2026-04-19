@@ -164,7 +164,7 @@ export default function ProgramLibrary() {
           ) : (
             <div className="el-grid">
               {visible.map((w) => {
-                const heroThumb = workoutHeroThumb(w, nameToSlug);
+                const heroThumb = workoutHeroThumb(w, nameToSlug, exercises);
                 return (
                 <Link key={w.id} to={`/workouts/${w.id}`} className="el-card">
                   <div className="el-card-emoji" style={{ position: 'relative', overflow: 'hidden' }}>

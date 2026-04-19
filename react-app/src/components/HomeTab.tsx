@@ -104,7 +104,7 @@ export default function HomeTab() {
       </div>
       <div className="featured-grid">
         {workouts.slice(0, 4).map((w, i) => {
-          const heroThumb = workoutHeroThumb(w, nameToSlug);
+          const heroThumb = workoutHeroThumb(w, nameToSlug, exercises);
           const imgSrc = heroThumb ?? FEATURED_IMAGES[i % 4];
           return (
           <div className="featured-card" key={w.id} onClick={() => selectWorkout(w.id)}>

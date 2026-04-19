@@ -1,7 +1,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getExercises, type Exercise } from '../data/exercises';
-import { exerciseThumb } from '../utils/thumbnails';
+import { exerciseThumb, publicVideoUrl } from '../utils/thumbnails';
+import { MuscleTile } from '../components/MuscleTile';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseDetail.css';
@@ -113,12 +114,12 @@ export default function ExerciseDetail() {
             </div>
           </div>
 
-          {/* Demo video (falls back to emoji when no videoUrl) */}
+          {/* Demo video (falls back to gradient tile when no videoUrl / hidden category) */}
           <div className="ed-demo">
-            {exercise.videoUrl ? (
+            {publicVideoUrl(exercise) ? (
               <video
-                src={exercise.videoUrl}
-                poster={exerciseThumb(exercise.id)}
+                src={publicVideoUrl(exercise)}
+                poster={exerciseThumb(exercise.id, exercise.cat) ?? undefined}
                 muted
                 loop
                 playsInline
@@ -126,7 +127,7 @@ export default function ExerciseDetail() {
                 preload="metadata"
               />
             ) : (
-              <span role="img" aria-hidden="true">{exercise.emoji}</span>
+              <MuscleTile muscle={exercise.bodyFocus} size="lg" />
             )}
           </div>
 
@@ -215,22 +216,27 @@ export default function ExerciseDetail() {
             <div className="ed-related">
               <h2 className="ed-section-title">Related {exercise.bodyFocus} Exercises</h2>
               <div className="ed-related-grid">
-                {related.map(rel => (
+                {related.map(rel => {
+                  const relThumb = exerciseThumb(rel.id, rel.cat);
+                  return (
                   <Link key={rel.id} to={`/exercises/${rel.id}`} className="ed-related-card">
-                    <div className="ed-related-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
-                      <span style={{ position: 'relative', zIndex: 0 }}>{rel.emoji}</span>
-                      <img
-                        src={exerciseThumb(rel.id)}
-                        alt=""
-                        loading="lazy"
-                        onError={(e) => (e.currentTarget.style.display = 'none')}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
-                      />
+                    <div className="ed-related-media">
+                      <MuscleTile muscle={rel.bodyFocus} size="sm" />
+                      {relThumb && (
+                        <img
+                          src={relThumb}
+                          alt=""
+                          loading="lazy"
+                          onError={(e) => (e.currentTarget.style.display = 'none')}
+                          className="ed-related-thumb"
+                        />
+                      )}
                     </div>
                     <div className="ed-related-name">{rel.name}</div>
                     <div className="ed-related-meta">{rel.equipment} &middot; {capitalize(rel.diff)}</div>
                   </Link>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
