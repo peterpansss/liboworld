@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getExercises, type Exercise } from '../data/exercises';
-import { exerciseThumb } from '../utils/thumbnails';
+import { exerciseThumb, isMediaHidden } from '../utils/thumbnails';
 import { MuscleTile } from '../components/MuscleTile';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -101,6 +101,12 @@ export default function ExerciseLibrary() {
         return eqVal.includes(eq);
       });
     }
+
+    result = [...result].sort((a, b) => {
+      const aHas = isMediaHidden(a.cat) ? 0 : 1;
+      const bHas = isMediaHidden(b.cat) ? 0 : 1;
+      return bHas - aHas;
+    });
 
     return result;
   }, [exercises, search, muscle, equip]);

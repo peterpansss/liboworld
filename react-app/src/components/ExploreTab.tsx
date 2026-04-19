@@ -3,7 +3,7 @@ import { useAppStore } from '../store/useAppStore';
 import { getExercises, getWorkouts, type Exercise, type Workout } from '../data/exercises';
 import { EmojiIcon } from './EmojiIcon';
 import { Pencil, Bot } from '../utils/icons';
-import { buildNameToSlug, exerciseThumb, workoutHeroThumb } from '../utils/thumbnails';
+import { buildNameToSlug, exerciseThumb, workoutHeroThumb, isMediaHidden } from '../utils/thumbnails';
 import './ExploreTab.css';
 
 const WORKOUT_CATS = ['All', 'Gym', 'Home', 'Cardio', 'Stretching', 'Challenge', 'Morning Routine'];
@@ -60,18 +60,24 @@ export default function ExploreTab({ onOpenBuilder, onOpenAiGen }: ExploreTabPro
   }, [workouts, filter, q]);
 
   const filteredExercises = useMemo(() => {
-    return exercises.filter((e) => {
-      const fl = filter.toLowerCase();
-      const bodyFocus = (e.bodyFocus || '').toLowerCase();
-      const cat = (e.cat || '').toLowerCase();
-      const catMatch =
-        fl === 'all' || fl === '' ||
-        cat === fl ||
-        bodyFocus.includes(fl) ||
-        (fl === 'arms' && (bodyFocus.includes('bicep') || bodyFocus.includes('tricep') || bodyFocus.includes('forearm')));
-      const qMatch = !q || e.name.toLowerCase().includes(q);
-      return catMatch && qMatch;
-    });
+    return exercises
+      .filter((e) => {
+        const fl = filter.toLowerCase();
+        const bodyFocus = (e.bodyFocus || '').toLowerCase();
+        const cat = (e.cat || '').toLowerCase();
+        const catMatch =
+          fl === 'all' || fl === '' ||
+          cat === fl ||
+          bodyFocus.includes(fl) ||
+          (fl === 'arms' && (bodyFocus.includes('bicep') || bodyFocus.includes('tricep') || bodyFocus.includes('forearm')));
+        const qMatch = !q || e.name.toLowerCase().includes(q);
+        return catMatch && qMatch;
+      })
+      .sort((a, b) => {
+        const aHas = isMediaHidden(a.cat) ? 0 : 1;
+        const bHas = isMediaHidden(b.cat) ? 0 : 1;
+        return bHas - aHas;
+      });
   }, [exercises, filter, q]);
 
   const pagedWorkouts = useMemo(() => filteredWorkouts.slice(0, exploreLimit), [filteredWorkouts, exploreLimit]);
