@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { blogArticles } from '../data/blog';
 import SiteFooter from '../components/SiteFooter';
+import { EmojiIcon } from '../components/EmojiIcon';
+import { Languages, Star } from '../utils/icons';
 import './Landing.css';
 
 // ── Helpers ──
@@ -616,7 +618,9 @@ export default function Landing() {
                 onClick={(e) => { e.stopPropagation(); setLangDropdownOpen(!langDropdownOpen); }}
                 aria-label="Switch language"
               >
-                <span>{LANGS[currentLang]?.flag}</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                  <EmojiIcon icon={Languages} size={16} />
+                </span>
                 <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.5px' }}>{currentLang.toUpperCase()}</span>
                 <span style={{ fontSize: 10, opacity: 0.5 }}>▾</span>
               </button>
@@ -628,7 +632,9 @@ export default function Landing() {
                       className={`lang-option${currentLang === code ? ' active' : ''}`}
                       onClick={(e) => { e.stopPropagation(); switchLanguage(code); }}
                     >
-                      <span>{flag}</span>
+                      <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                        <EmojiIcon emoji={flag} size={16} fallback={Languages} />
+                      </span>
                       <span>{label}</span>
                     </button>
                   ))}
@@ -781,7 +787,9 @@ export default function Landing() {
               className={`feature-item reveal${i % 3 === 1 ? ' reveal-delay-1' : i % 3 === 2 ? ' reveal-delay-2' : ''}`}
             >
               <div className="feature-num">{f.num}</div>
-              <span className="feature-icon">{f.icon}</span>
+              <span className="feature-icon">
+                <EmojiIcon emoji={f.icon} size={32} />
+              </span>
               <div className="feature-name font-display">{f.name}</div>
               <p className="feature-desc">{f.desc}</p>
             </div>
@@ -844,22 +852,22 @@ export default function Landing() {
               <div className="rewards-challenge-sub">Complete daily reps, record yourself, share to stories</div>
               <div className="rewards-flow">
                 <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon">{'\uD83D\uDCAA'}</div>
+                  <div className="rewards-flow-icon"><EmojiIcon emoji={'\uD83D\uDCAA'} size={24} /></div>
                   <div className="rewards-flow-label">Do Reps</div>
                 </div>
                 <div className="rewards-flow-arrow">&rarr;</div>
                 <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon">{'\uD83D\uDCF9'}</div>
+                  <div className="rewards-flow-icon"><EmojiIcon emoji={'\uD83D\uDCF9'} size={24} /></div>
                   <div className="rewards-flow-label">Record</div>
                 </div>
                 <div className="rewards-flow-arrow">&rarr;</div>
                 <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon">{'\uD83D\uDCF2'}</div>
+                  <div className="rewards-flow-icon"><EmojiIcon emoji={'\uD83D\uDCF2'} size={24} /></div>
                   <div className="rewards-flow-label">Share</div>
                 </div>
                 <div className="rewards-flow-arrow">&rarr;</div>
                 <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon accent-glow">{'\uD83D\uDCB0'}</div>
+                  <div className="rewards-flow-icon accent-glow"><EmojiIcon emoji={'\uD83D\uDCB0'} size={24} color="#CAFF00" /></div>
                   <div className="rewards-flow-label accent-label">Cash Out</div>
                 </div>
               </div>
@@ -917,7 +925,9 @@ export default function Landing() {
           <div className="goal-list reveal reveal-delay-1">
             {GOALS.map((goal) => (
               <Link key={goal.title} to={`/onboarding?goal=${goal.goalParam}`} className="goal-row">
-                <span className="goal-row-icon">{goal.icon}</span>
+                <span className="goal-row-icon">
+                  <EmojiIcon emoji={goal.icon} size={28} />
+                </span>
                 <div className="goal-row-text">
                   <h4>{goal.title}</h4>
                   <p>{goal.desc}</p>
@@ -963,12 +973,16 @@ export default function Landing() {
               >
                 <div className="proof-stars">
                   {[...Array(5)].map((_, j) => (
-                    <span key={j} className="star-animate">{'\u2605'}</span>
+                    <span key={j} className="star-animate">
+                      <EmojiIcon icon={Star} size={14} color="#CAFF00" />
+                    </span>
                   ))}
                 </div>
                 <p className="proof-quote">{t.quote}</p>
                 <div className="proof-author">
-                  <div className="proof-avatar">{t.avatar}</div>
+                  <div className="proof-avatar">
+                    <EmojiIcon emoji={t.avatar} size={28} />
+                  </div>
                   <div>
                     <div className="proof-name">{t.name}</div>
                     <div className="proof-meta">{t.meta}</div>
@@ -1009,7 +1023,11 @@ export default function Landing() {
               <span>Available on iOS</span>
             </div>
             <div className="trust-badge">
-              <span className="trust-badge-stars">{'★★★★★'}</span>
+              <span className="trust-badge-stars" style={{ display: 'inline-flex', gap: 2 }}>
+                {[...Array(5)].map((_, k) => (
+                  <EmojiIcon key={k} icon={Star} size={14} color="#CAFF00" />
+                ))}
+              </span>
               <span>4.9 from beta testers</span>
             </div>
           </div>
@@ -1077,7 +1095,9 @@ export default function Landing() {
                     <img src={article.heroImage} alt={article.title} loading="lazy" />
                   </div>
                 ) : (
-                  <div className="blog-preview-emoji" aria-hidden="true">{article.heroEmoji}</div>
+                  <div className="blog-preview-emoji" aria-hidden="true">
+                    <EmojiIcon emoji={article.heroEmoji} size={40} />
+                  </div>
                 )}
                 <div className="blog-preview-cat">{article.category}</div>
                 <h3 className="blog-preview-title">{article.title}</h3>

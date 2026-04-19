@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getExercises, type Exercise } from '../data/exercises';
+import { EmojiIcon } from './EmojiIcon';
+import { Sparkles, Clock, Hash, Dumbbell, RefreshCw } from '../utils/icons';
 import './AiGenerator.css';
 
 // ── Types ──
@@ -249,7 +251,10 @@ export default function AiGenerator({ onClose, onStartWorkout }: AiGeneratorProp
                   className={`ai-chip${goal === g.id ? ' selected' : ''}`}
                   onClick={() => setGoal(goal === g.id ? null : g.id)}
                 >
-                  {g.emoji} {g.label}
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                    <EmojiIcon emoji={g.emoji} size={16} />
+                    {g.label}
+                  </span>
                 </button>
               ))}
             </div>
@@ -265,7 +270,10 @@ export default function AiGenerator({ onClose, onStartWorkout }: AiGeneratorProp
                   className={`ai-chip${equip === e.id ? ' selected' : ''}`}
                   onClick={() => setEquip(equip === e.id ? null : e.id)}
                 >
-                  {e.emoji} {e.label}
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                    <EmojiIcon emoji={e.emoji} size={16} />
+                    {e.label}
+                  </span>
                 </button>
               ))}
             </div>
@@ -310,7 +318,10 @@ export default function AiGenerator({ onClose, onStartWorkout }: AiGeneratorProp
             disabled={!canGenerate}
             onClick={generateWorkout}
           >
-            ✨ Generate Workout
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <EmojiIcon icon={Sparkles} size={18} />
+              Generate Workout
+            </span>
           </button>
         </div>
       </div>
@@ -337,9 +348,18 @@ export default function AiGenerator({ onClose, onStartWorkout }: AiGeneratorProp
           <div className="ai-goal-tag">Generated for: {goalObj?.label || goal}</div>
           <div className="ai-workout-name">{workout.name}</div>
           <div className="ai-meta-row">
-            <span className="ai-meta-chip">⏱ {duration} min</span>
-            <span className="ai-meta-chip">🔢 {workout.exercises.length} exercises</span>
-            <span className="ai-meta-chip">🏋️ {equipLabel}</span>
+            <span className="ai-meta-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <EmojiIcon icon={Clock} size={14} />
+              {duration} min
+            </span>
+            <span className="ai-meta-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <EmojiIcon icon={Hash} size={14} />
+              {workout.exercises.length} exercises
+            </span>
+            <span className="ai-meta-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <EmojiIcon icon={Dumbbell} size={14} />
+              {equipLabel}
+            </span>
           </div>
         </div>
 
@@ -348,7 +368,9 @@ export default function AiGenerator({ onClose, onStartWorkout }: AiGeneratorProp
           {workout.exercises.map((ex, i) => (
             <div className="ai-exercise-row" key={i}>
               <div className="ai-exercise-num">{i + 1}</div>
-              <span className="ai-exercise-emoji">{ex.emoji}</span>
+              <span className="ai-exercise-emoji">
+                <EmojiIcon emoji={ex.emoji} size={20} />
+              </span>
               <div className="ai-exercise-info">
                 <div className="ai-exercise-name">{ex.name}</div>
                 <div className="ai-exercise-detail">{ex.sets} sets · {ex.reps} reps</div>
@@ -365,7 +387,10 @@ export default function AiGenerator({ onClose, onStartWorkout }: AiGeneratorProp
           </button>
         </div>
         <button className="ai-regen-btn" onClick={handleRegenerate}>
-          ↻ Regenerate
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <EmojiIcon icon={RefreshCw} size={14} />
+            Regenerate
+          </span>
         </button>
       </div>
     </div>

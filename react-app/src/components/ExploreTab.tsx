@@ -1,6 +1,9 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { getExercises, getWorkouts, type Exercise, type Workout } from '../data/exercises';
+import { EmojiIcon } from './EmojiIcon';
+import { Pencil, Bot } from '../utils/icons';
+import { buildNameToSlug, exerciseThumb, workoutHeroThumb } from '../utils/thumbnails';
 import './ExploreTab.css';
 
 const WORKOUT_CATS = ['All', 'Gym', 'Home', 'Cardio', 'Stretching', 'Challenge', 'Morning Routine'];
@@ -73,6 +76,8 @@ export default function ExploreTab({ onOpenBuilder, onOpenAiGen }: ExploreTabPro
 
   const pagedWorkouts = useMemo(() => filteredWorkouts.slice(0, exploreLimit), [filteredWorkouts, exploreLimit]);
   const pagedExercises = useMemo(() => filteredExercises.slice(0, exploreLimit), [filteredExercises, exploreLimit]);
+
+  const nameToSlug = useMemo(() => buildNameToSlug(exercises), [exercises]);
 
   const currentCats = isWorkouts ? WORKOUT_CATS : EXERCISE_CATS;
   const totalCount = isWorkouts ? workouts.length : exercises.length;
@@ -153,14 +158,18 @@ export default function ExploreTab({ onOpenBuilder, onOpenAiGen }: ExploreTabPro
           {/* Builder Cards */}
           <div className="builder-row">
             <div className="builder-card builder-custom" onClick={onOpenBuilder}>
-              <div className="builder-emoji">✏️</div>
+              <div className="builder-emoji">
+                <EmojiIcon icon={Pencil} size={28} />
+              </div>
               <div>
                 <div className="builder-title font-display">Build<br />Custom</div>
                 <div className="builder-sub">Pick your exercises</div>
               </div>
             </div>
             <div className="builder-card builder-ai" onClick={onOpenAiGen}>
-              <div className="builder-emoji">🤖</div>
+              <div className="builder-emoji">
+                <EmojiIcon icon={Bot} size={28} />
+              </div>
               <div>
                 <div className="builder-title font-display">AI<br />Generate</div>
                 <div className="builder-sub">Auto-build for your goal</div>
@@ -175,13 +184,43 @@ export default function ExploreTab({ onOpenBuilder, onOpenAiGen }: ExploreTabPro
           <div className="workout-grid">
             {pagedWorkouts.map((w) => {
               const mainCount = w.exercises?.length ?? 0;
+              const heroThumb = workoutHeroThumb(w, nameToSlug);
               return (
-                <div className="wcard" key={w.id} onClick={() => selectWorkout(w.id)}>
-                  <span className="wcard-emoji">{w.emoji || '🏋️'}</span>
-                  <div className="wcard-name">{w.name}</div>
-                  <div className="wcard-meta">
-                    {w.dur}min · {w.diff}
-                    {mainCount > 0 && ` · ${mainCount} ex`}
+                <div
+                  className="wcard"
+                  key={w.id}
+                  onClick={() => selectWorkout(w.id)}
+                  style={heroThumb ? { position: 'relative', overflow: 'hidden', minHeight: 140, color: '#fff' } : undefined}
+                >
+                  {heroThumb && (
+                    <>
+                      <img
+                        src={heroThumb}
+                        alt=""
+                        loading="lazy"
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
+                      />
+                      <div
+                        aria-hidden="true"
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.9) 100%)',
+                          zIndex: 1,
+                        }}
+                      />
+                    </>
+                  )}
+                  <div style={heroThumb ? { position: 'relative', zIndex: 2 } : undefined}>
+                    <span className="wcard-emoji">
+                      <EmojiIcon emoji={w.emoji || '🏋️'} size={24} />
+                    </span>
+                    <div className="wcard-name" style={heroThumb ? { color: '#fff' } : undefined}>{w.name}</div>
+                    <div className="wcard-meta" style={heroThumb ? { color: 'rgba(255,255,255,0.8)' } : undefined}>
+                      {w.dur}min · {w.diff}
+                      {mainCount > 0 && ` · ${mainCount} ex`}
+                    </div>
                   </div>
                 </div>
               );
@@ -202,7 +241,18 @@ export default function ExploreTab({ onOpenBuilder, onOpenAiGen }: ExploreTabPro
           <div className="exercise-list">
             {pagedExercises.map((e) => (
               <div className="exercise-item" key={e.id}>
-                <div className="exercise-emoji">{e.emoji || '💪'}</div>
+                <div className="exercise-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
+                  <span style={{ position: 'relative', zIndex: 0 }}>
+                    <EmojiIcon emoji={e.emoji || '💪'} size={22} />
+                  </span>
+                  <img
+                    src={exerciseThumb(e.id)}
+                    alt=""
+                    loading="lazy"
+                    onError={(ev) => (ev.currentTarget.style.display = 'none')}
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                  />
+                </div>
                 <div className="exercise-info">
                   <div className="exercise-name">{e.name}</div>
                   <div className="exercise-meta">

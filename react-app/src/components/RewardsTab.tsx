@@ -1,3 +1,5 @@
+import { EmojiIcon } from './EmojiIcon';
+import { Zap } from '../utils/icons';
 import './RewardsTab.css';
 
 interface Badge {
@@ -57,7 +59,9 @@ export default function RewardsTab() {
         <div className="rw-points-value font-display">1,250</div>
         <div className="rw-points-unit">Points</div>
         <div className="rw-points-rank">
-          <span className="rw-points-rank-icon">⚡</span>
+          <span className="rw-points-rank-icon">
+            <EmojiIcon icon={Zap} size={18} color="#CAFF00" />
+          </span>
           <span>Silver Tier</span>
           <span className="rw-points-rank-next">750 pts to Gold</span>
         </div>
@@ -84,7 +88,9 @@ export default function RewardsTab() {
       <div className="rw-earn-list">
         {EARN_WAYS.map((way) => (
           <div className="rw-earn-row" key={way.action}>
-            <div className="rw-earn-icon">{way.icon}</div>
+            <div className="rw-earn-icon">
+              <EmojiIcon emoji={way.icon} size={20} />
+            </div>
             <div className="rw-earn-action">{way.action}</div>
             <div className="rw-earn-points">{way.points}</div>
           </div>
@@ -96,7 +102,9 @@ export default function RewardsTab() {
       <div className="rw-steps">
         {STEPS.map((step) => (
           <div className="rw-step" key={step.title}>
-            <div className="rw-step-icon">{step.icon}</div>
+            <div className="rw-step-icon">
+              <EmojiIcon emoji={step.icon} size={28} />
+            </div>
             <div className="rw-step-title">{step.title}</div>
             <div className="rw-step-desc">{step.desc}</div>
           </div>
@@ -112,7 +120,7 @@ export default function RewardsTab() {
         {BADGES.map((badge) => (
           <div className="rw-badge-item" key={badge.name}>
             <div className={`rw-badge-icon${badge.locked ? ' locked' : ''}`}>
-              {badge.emoji}
+              <EmojiIcon emoji={badge.emoji} size={28} />
             </div>
             <div className="rw-badge-name">{badge.name}</div>
           </div>

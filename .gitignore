@@ -15,3 +15,11 @@ waitlist.csv
 .idea/
 *.swp
 *.swo
+
+# Env / secrets (never commit)
+.env
+.env.local
+.env.*.local
+
+# Generated artifacts
+scripts/video-manifest.json

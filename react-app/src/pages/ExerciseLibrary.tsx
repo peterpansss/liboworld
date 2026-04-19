@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getExercises, type Exercise } from '../data/exercises';
+import { exerciseThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseLibrary.css';
@@ -229,7 +230,16 @@ export default function ExerciseLibrary() {
             <div className="el-grid">
               {pageExercises.map(ex => (
                 <Link key={ex.id} to={`/exercises/${ex.id}`} className="el-card">
-                  <div className="el-card-emoji"><span role="img" aria-hidden="true">{ex.emoji}</span></div>
+                  <div className="el-card-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
+                    <span role="img" aria-hidden="true" style={{ position: 'relative', zIndex: 0 }}>{ex.emoji}</span>
+                    <img
+                      src={exerciseThumb(ex.id)}
+                      alt=""
+                      loading="lazy"
+                      onError={(e) => (e.currentTarget.style.display = 'none')}
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                    />
+                  </div>
                   <div className="el-card-name">{ex.name}</div>
                   <div className="el-card-meta">
                     <span className="el-card-badge">{ex.bodyFocus}</span>

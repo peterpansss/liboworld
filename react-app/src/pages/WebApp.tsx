@@ -10,14 +10,16 @@ import WorkoutPlayer from '../components/WorkoutPlayer';
 import type { PlayerWorkout } from '../components/WorkoutPlayer';
 import CustomBuilder from '../components/CustomBuilder';
 import AiGenerator from '../components/AiGenerator';
+import { EmojiIcon } from '../components/EmojiIcon';
+import { Calendar, Search, Home, Trophy, BarChart3, type LucideIcon } from '../utils/icons';
 import './WebApp.css';
 
-const TABS: Array<{ id: Tab; icon: string; label: string }> = [
-  { id: 'programs', icon: '📅', label: 'Programs' },
-  { id: 'explore', icon: '🔍', label: 'Explore' },
-  { id: 'home', icon: '🏠', label: 'Home' },
-  { id: 'rewards', icon: '🏆', label: 'Rewards' },
-  { id: 'progress', icon: '📊', label: 'Progress' },
+const TABS: Array<{ id: Tab; icon: LucideIcon; label: string }> = [
+  { id: 'programs', icon: Calendar, label: 'Programs' },
+  { id: 'explore', icon: Search, label: 'Explore' },
+  { id: 'home', icon: Home, label: 'Home' },
+  { id: 'rewards', icon: Trophy, label: 'Rewards' },
+  { id: 'progress', icon: BarChart3, label: 'Progress' },
 ];
 
 type Screen = 'tabs' | 'detail' | 'player' | 'builder' | 'ai-gen';
@@ -138,7 +140,7 @@ export default function WebApp() {
             onClick={() => handleTabClick(id)}
             aria-label={`${label} tab`}
           >
-            <span className="nav-icon">{icon}</span>
+            <span className="nav-icon"><EmojiIcon icon={icon} size={22} /></span>
             <span className="nav-label">{label}</span>
           </button>
         ))}

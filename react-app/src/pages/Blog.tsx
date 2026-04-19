@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
+import { EmojiIcon } from '../components/EmojiIcon';
 import { blogArticles } from '../data/blog';
 import './Blog.css';
 
@@ -69,7 +70,9 @@ export default function Blog() {
                   <img src={article.heroImage} alt={article.title} loading="lazy" />
                 </div>
               ) : (
-                <div className="blog-card-emoji" aria-hidden="true">{article.heroEmoji}</div>
+                <div className="blog-card-emoji" aria-hidden="true">
+                  <EmojiIcon emoji={article.heroEmoji} size={40} />
+                </div>
               )}
               <div className="blog-card-body">
                 <span className="blog-card-category">{article.category}</span>

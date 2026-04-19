@@ -66,7 +66,7 @@ def build_exercises():
 
     exercises = []
     for ex in app_exercises:
-        exercises.append({
+        out = {
             "id": ex["slug"],
             "name": ex["name"],
             "cat": ex["cat"],
@@ -77,7 +77,10 @@ def build_exercises():
             "variation": ex.get("variation", ""),
             "emoji": ex["emoji"],
             "setupNotes": ex.get("setupNotes", ""),
-        })
+        }
+        if ex.get("videoUrl"):
+            out["videoUrl"] = ex["videoUrl"]
+        exercises.append(out)
 
     return exercises
 

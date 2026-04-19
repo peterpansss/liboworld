@@ -1,6 +1,9 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { getExercises, getWorkouts, type Exercise, type Workout } from '../data/exercises';
+import { EmojiIcon } from './EmojiIcon';
+import { Clock, BarChart3, Hash, Dumbbell } from '../utils/icons';
+import { buildNameToSlug, exerciseThumb } from '../utils/thumbnails';
 import './WorkoutDetail.css';
 
 function getEmojiForExercise(name: string): string {
@@ -73,6 +76,8 @@ export default function WorkoutDetail() {
     return map;
   }, [exerciseDb]);
 
+  const nameToSlug = useMemo(() => buildNameToSlug(exerciseDb), [exerciseDb]);
+
   const toggleExpand = useCallback((idx: number) => {
     setExpanded((prev) => {
       const next = new Set(prev);
@@ -111,7 +116,9 @@ export default function WorkoutDetail() {
     <div className="wd-container">
       {/* Hero */}
       <div className="wd-hero">
-        <div className="wd-hero-emoji-bg">{workout.emoji}</div>
+        <div className="wd-hero-emoji-bg">
+          <EmojiIcon emoji={workout.emoji} size={140} />
+        </div>
         <div className="wd-hero-gradient" />
         <button className="wd-back-btn" onClick={handleBack} aria-label="Go back">
           ←
@@ -125,19 +132,19 @@ export default function WorkoutDetail() {
       {/* Meta chips */}
       <div className="wd-meta-row">
         <span className="wd-meta-chip">
-          <span className="wd-chip-icon">⏱</span>
+          <span className="wd-chip-icon"><EmojiIcon icon={Clock} size={14} /></span>
           {workout.dur} min
         </span>
         <span className="wd-meta-chip">
-          <span className="wd-chip-icon">📊</span>
+          <span className="wd-chip-icon"><EmojiIcon icon={BarChart3} size={14} /></span>
           {diffLabel(workout.diff)}
         </span>
         <span className="wd-meta-chip">
-          <span className="wd-chip-icon">🔢</span>
+          <span className="wd-chip-icon"><EmojiIcon icon={Hash} size={14} /></span>
           {exercises.length} exercises
         </span>
         <span className="wd-meta-chip">
-          <span className="wd-chip-icon">🏋️</span>
+          <span className="wd-chip-icon"><EmojiIcon icon={Dumbbell} size={14} /></span>
           {equipmentSummary(exercises.map((ex) => exerciseMap.get(ex.name.toLowerCase().trim())).filter(Boolean) as Exercise[])}
         </span>
       </div>
@@ -174,13 +181,26 @@ export default function WorkoutDetail() {
                 >
                   <span className="wd-reps-label">{formatReps(ex.reps, ex.dur)}</span>
                   <span className="wd-exercise-name">{ex.name}</span>
-                  <div className="wd-exercise-thumb">{emoji}</div>
+                  <div className="wd-exercise-thumb" style={{ position: 'relative', overflow: 'hidden' }}>
+                    <span style={{ position: 'relative', zIndex: 0 }}>
+                      <EmojiIcon emoji={emoji} size={22} />
+                    </span>
+                    {nameToSlug[ex.name] && (
+                      <img
+                        src={exerciseThumb(nameToSlug[ex.name])}
+                        alt=""
+                        loading="lazy"
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                      />
+                    )}
+                  </div>
                   <span className={`wd-chevron${isOpen ? ' wd-expanded' : ''}`}>▾</span>
                 </div>
                 <div className={`wd-exercise-detail${isOpen ? ' wd-open' : ''}`}>
                   <div className="wd-detail-inner">
                     <div className="wd-video-slot">
-                      {matched?.emoji || emoji}
+                      <EmojiIcon emoji={matched?.emoji || emoji} size={48} />
                     </div>
                     {instructions.length > 0 && (
                       <div className="wd-instructions">

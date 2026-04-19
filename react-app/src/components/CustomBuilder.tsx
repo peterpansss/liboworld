@@ -1,5 +1,8 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { getExercises, type Exercise } from '../data/exercises';
+import { EmojiIcon } from './EmojiIcon';
+import { Search, ClipboardList, Check, Plus, X as XIcon } from '../utils/icons';
+import { exerciseThumb } from '../utils/thumbnails';
 import './CustomBuilder.css';
 
 const MUSCLE_FILTERS = [
@@ -169,7 +172,9 @@ export default function CustomBuilder({ onClose, onStartWorkout }: CustomBuilder
         <div className="cb-exercise-list">
           {displayed.length === 0 ? (
             <div className="cb-empty">
-              <div className="cb-empty-emoji">🔍</div>
+              <div className="cb-empty-emoji">
+                <EmojiIcon icon={Search} size={36} />
+              </div>
               <div>No exercises found</div>
             </div>
           ) : (
@@ -187,7 +192,18 @@ export default function CustomBuilder({ onClose, onStartWorkout }: CustomBuilder
                     className="cb-ex-row"
                     onClick={() => setExpandedId(isExpanded ? null : ex.id)}
                   >
-                    <div className="cb-ex-thumb">{emoji}</div>
+                    <div className="cb-ex-thumb" style={{ position: 'relative', overflow: 'hidden' }}>
+                      <span style={{ position: 'relative', zIndex: 0 }}>
+                        <EmojiIcon emoji={emoji} size={22} />
+                      </span>
+                      <img
+                        src={exerciseThumb(ex.id)}
+                        alt=""
+                        loading="lazy"
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                      />
+                    </div>
                     <div className="cb-ex-info">
                       <div className="cb-ex-name">{ex.name}</div>
                       <div className="cb-ex-meta">
@@ -206,13 +222,16 @@ export default function CustomBuilder({ onClose, onStartWorkout }: CustomBuilder
                       }}
                       aria-label={isAdded ? 'Remove exercise' : 'Add exercise'}
                     >
-                      {isAdded ? '✓' : '+'}
+                      <EmojiIcon icon={isAdded ? Check : Plus} size={16} />
+
                     </button>
                   </div>
 
                   {/* Expandable detail */}
                   <div className={`cb-ex-detail${isExpanded ? ' open' : ''}`}>
-                    <div className="cb-video-slot">{emoji}</div>
+                    <div className="cb-video-slot">
+                      <EmojiIcon emoji={emoji} size={40} />
+                    </div>
                     {ex.setupNotes && (
                       <div className="cb-instructions">
                         {ex.setupNotes.split('. ').filter(Boolean).map((inst, i) => (
@@ -278,7 +297,9 @@ export default function CustomBuilder({ onClose, onStartWorkout }: CustomBuilder
             const emoji = s.emoji || '💪';
             return (
               <div className="cb-config-item" key={s.id}>
-                <div className="cb-config-thumb">{emoji}</div>
+                <div className="cb-config-thumb">
+                  <EmojiIcon emoji={emoji} size={22} />
+                </div>
                 <div className="cb-config-info">
                   <div className="cb-config-name">{s.name}</div>
                   <div className="cb-config-inputs">
@@ -313,7 +334,7 @@ export default function CustomBuilder({ onClose, onStartWorkout }: CustomBuilder
                   onClick={() => removeExercise(s.id)}
                   aria-label={`Remove ${s.name}`}
                 >
-                  ✕
+                  <EmojiIcon icon={XIcon} size={16} />
                 </button>
               </div>
             );
@@ -322,7 +343,9 @@ export default function CustomBuilder({ onClose, onStartWorkout }: CustomBuilder
 
         {selected.length === 0 && (
           <div className="cb-empty">
-            <div className="cb-empty-emoji">📋</div>
+            <div className="cb-empty-emoji">
+              <EmojiIcon icon={ClipboardList} size={36} />
+            </div>
             <div>No exercises added yet</div>
           </div>
         )}

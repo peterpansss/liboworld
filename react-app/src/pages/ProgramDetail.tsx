@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getWorkouts, getExercises, type Workout, type WorkoutExercise, type Exercise } from '../data/exercises';
+import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ProgramDetail.css';
@@ -101,6 +102,8 @@ export default function ProgramDetail() {
       .filter((w) => w.id !== workout.id && w.cat === workout.cat)
       .slice(0, 4);
   }, [workout, allWorkouts]);
+
+  const nameToSlug = useMemo(() => buildNameToSlug(exerciseDb), [exerciseDb]);
 
   let exerciseCounter = 0;
 
@@ -233,15 +236,35 @@ export default function ProgramDetail() {
           <div className="pd-related">
             <h2>More {workout.cat} Workouts</h2>
             <div className="pd-related-grid">
-              {related.map((w) => (
+              {related.map((w) => {
+                const heroThumb = workoutHeroThumb(w, nameToSlug);
+                return (
                 <Link key={w.id} to={`/workouts/${w.id}`} className="pd-related-card">
-                  <span className="pd-related-emoji" aria-hidden="true">{w.emoji}</span>
+                  <span
+                    className="pd-related-emoji"
+                    aria-hidden="true"
+                    style={{ position: 'relative', overflow: 'hidden', display: 'block', width: '100%', height: 120, borderRadius: 12, background: 'var(--bg3)' }}
+                  >
+                    <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, zIndex: 0 }}>
+                      {w.emoji}
+                    </span>
+                    {heroThumb && (
+                      <img
+                        src={heroThumb}
+                        alt=""
+                        loading="lazy"
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                      />
+                    )}
+                  </span>
                   <span className="pd-related-name">{w.name}</span>
                   <span className="pd-related-meta">
                     {w.dur} min &middot; {diffLabel(w.diff)} &middot; {w.exercises.length} ex
                   </span>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

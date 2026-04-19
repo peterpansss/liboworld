@@ -1,8 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { getWorkouts, type Workout } from '../data/exercises';
+import { getWorkouts, getExercises, type Workout, type Exercise } from '../data/exercises';
+import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
+import { EmojiIcon } from '../components/EmojiIcon';
+import { Search, Hourglass, Frown } from '../utils/icons';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
 
@@ -25,6 +28,7 @@ function diffLabel(diff: string): string {
 
 export default function ProgramLibrary() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
+  const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -32,11 +36,14 @@ export default function ProgramLibrary() {
   const cat = searchParams.get('cat') || 'All';
 
   useEffect(() => {
-    getWorkouts().then((wks) => {
+    Promise.all([getWorkouts(), getExercises()]).then(([wks, exs]) => {
       setWorkouts(wks);
+      setExercises(exs);
       setLoading(false);
     });
   }, []);
+
+  const nameToSlug = useMemo(() => buildNameToSlug(exercises), [exercises]);
 
   useEffect(() => {
     document.title = cat !== 'All' ? `${cat} Workouts | Libo` : 'Workouts | Libo';
@@ -99,7 +106,9 @@ export default function ProgramLibrary() {
 
           {/* Search */}
           <div className="el-search-wrap">
-            <span className="el-search-icon" aria-hidden="true">&#128269;</span>
+            <span className="el-search-icon" aria-hidden="true">
+              <EmojiIcon icon={Search} size={16} />
+            </span>
             <input
               type="text"
               className="el-search"
@@ -139,20 +148,39 @@ export default function ProgramLibrary() {
           {/* Grid */}
           {loading ? (
             <div className="el-empty">
-              <div className="el-empty-icon" aria-hidden="true">&#9203;</div>
+              <div className="el-empty-icon" aria-hidden="true">
+                <EmojiIcon icon={Hourglass} size={40} />
+              </div>
               <p className="el-empty-text">Loading workouts...</p>
             </div>
           ) : visible.length === 0 ? (
             <div className="el-empty">
-              <div className="el-empty-icon" aria-hidden="true">&#128556;</div>
+              <div className="el-empty-icon" aria-hidden="true">
+                <EmojiIcon icon={Frown} size={40} />
+              </div>
               <p className="el-empty-text">No workouts match your filters</p>
               <p className="el-empty-sub">Try adjusting your search or clearing filters</p>
             </div>
           ) : (
             <div className="el-grid">
-              {visible.map((w) => (
+              {visible.map((w) => {
+                const heroThumb = workoutHeroThumb(w, nameToSlug);
+                return (
                 <Link key={w.id} to={`/workouts/${w.id}`} className="el-card">
-                  <div className="el-card-emoji"><span aria-hidden="true">{w.emoji || '🏋️'}</span></div>
+                  <div className="el-card-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
+                    <span aria-hidden="true" style={{ position: 'relative', zIndex: 0 }}>
+                      <EmojiIcon emoji={w.emoji || '🏋️'} size={28} />
+                    </span>
+                    {heroThumb && (
+                      <img
+                        src={heroThumb}
+                        alt=""
+                        loading="lazy"
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                      />
+                    )}
+                  </div>
                   <div className="el-card-name">{w.name}</div>
                   <div className="el-card-meta">
                     <span className="el-card-badge">{w.cat}</span>
@@ -162,7 +190,8 @@ export default function ProgramLibrary() {
                     </span>
                   </div>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           )}
 

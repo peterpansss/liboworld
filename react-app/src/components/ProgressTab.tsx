@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 import { useAppStore } from '../store/useAppStore';
+import { EmojiIcon } from './EmojiIcon';
+import { BarChart3, Flame } from '../utils/icons';
 import './ProgressTab.css';
 
 function timeAgo(dateStr: string): string {
@@ -167,19 +169,26 @@ export default function ProgressTab() {
         {logs.length > 0 ? (
           logs.map((l) => (
             <div className="log-entry" key={l.id}>
-              <div className="log-entry-icon">{l.emoji}</div>
+              <div className="log-entry-icon">
+                <EmojiIcon emoji={l.emoji} size={20} />
+              </div>
               <div>
                 <div className="log-entry-name">{l.name}</div>
                 <div className="log-entry-meta">
                   {timeAgo(l.date)} · {l.dur} min
                 </div>
               </div>
-              <div className="log-entry-cal">🔥 {l.cal}</div>
+              <div className="log-entry-cal" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                <EmojiIcon icon={Flame} size={14} color="#CAFF00" />
+                {l.cal}
+              </div>
             </div>
           ))
         ) : (
           <div className="log-empty">
-            <div className="log-empty-icon">📊</div>
+            <div className="log-empty-icon">
+              <EmojiIcon icon={BarChart3} size={40} />
+            </div>
             <div className="log-empty-title">No workouts yet</div>
             <div className="log-empty-desc">
               Complete your first workout to see progress

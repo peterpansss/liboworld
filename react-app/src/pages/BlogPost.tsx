@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
+import { EmojiIcon } from '../components/EmojiIcon';
 import { blogArticles } from '../data/blog';
 import './BlogPost.css';
 
@@ -77,7 +78,9 @@ export default function BlogPost() {
             <img src={article.heroImage} alt={article.title} />
           </div>
         ) : (
-          <div className="blogpost-emoji" aria-hidden="true">{article.heroEmoji}</div>
+          <div className="blogpost-emoji" aria-hidden="true">
+            <EmojiIcon emoji={article.heroEmoji} size={56} />
+          </div>
         )}
       </header>
 

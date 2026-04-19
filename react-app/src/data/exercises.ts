@@ -12,6 +12,7 @@ export interface Exercise {
   variation: string;
   emoji: string;
   setupNotes: string;
+  videoUrl?: string;  // R2-hosted demo clip, present for ~264 exercises
 }
 
 export interface WorkoutExercise {

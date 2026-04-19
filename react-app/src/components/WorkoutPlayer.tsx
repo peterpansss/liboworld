@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { getWorkouts } from '../data/exercises';
+import { EmojiIcon } from './EmojiIcon';
+import { Trophy, X, Pause, Play, Square, CheckCircle2 } from '../utils/icons';
 import './WorkoutPlayer.css';
 
 function getExerciseEmoji(name: string): string {
@@ -215,7 +217,9 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
     return (
       <div className="pv-complete">
         <div className="pv-complete-label">Session Complete</div>
-        <div className="pv-trophy">🏆</div>
+        <div className="pv-trophy">
+          <EmojiIcon icon={Trophy} size={56} color="#CAFF00" />
+        </div>
         <div className="pv-complete-title">
           GREAT <span>WORK!</span>
         </div>
@@ -254,7 +258,7 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
       {/* Header */}
       <div className="pv-header">
         <button className="pv-close-btn" onClick={handleStop} title="End workout">
-          ✕
+          <EmojiIcon icon={X} size={18} />
         </button>
         <div className="pv-timer">{formatTime(elapsed)}</div>
         <div className="pv-workout-name">{workout.name}</div>
@@ -263,7 +267,7 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
           onClick={() => setPaused(true)}
           title="Pause"
         >
-          ⏸
+          <EmojiIcon icon={Pause} size={18} />
         </button>
       </div>
 
@@ -285,7 +289,7 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
                 /* ── Expanded active exercise ── */
                 <div className="pv-active" id={`pv-ex-${i}`}>
                   <div className="pv-active-header">
-                    <div className="pv-thumb">{emoji}</div>
+                    <div className="pv-thumb"><EmojiIcon emoji={emoji} size={24} /></div>
                     <div>
                       <div className="pv-active-name">{ex.name}</div>
                       <div className="pv-active-meta">
@@ -295,7 +299,7 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
                     </div>
                   </div>
 
-                  <div className="pv-video">{emoji}</div>
+                  <div className="pv-video"><EmojiIcon emoji={emoji} size={48} /></div>
 
                   <div className="pv-sets-row">
                     {Array.from({ length: setsNeeded }).map((_, si) => (
@@ -310,7 +314,10 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
                   </div>
 
                   <button className="pv-done-set-btn" onClick={handleDoneSet}>
-                    Done Set ✓
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                      Done Set
+                      <EmojiIcon icon={CheckCircle2} size={16} />
+                    </span>
                   </button>
                 </div>
               ) : (
@@ -322,7 +329,7 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
                     if (!exDone) setCurrentIndex(i);
                   }}
                 >
-                  <div className="pv-thumb">{emoji}</div>
+                  <div className="pv-thumb"><EmojiIcon emoji={emoji} size={22} /></div>
                   <div className="pv-row-info">
                     <div className="pv-row-name">{ex.name}</div>
                     <div className="pv-row-meta">
@@ -330,8 +337,8 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
                     </div>
                   </div>
                   {exDone && (
-                    <span style={{ color: 'var(--accent)', fontSize: 14, fontWeight: 700 }}>
-                      ✓
+                    <span style={{ color: 'var(--accent)', display: 'inline-flex', alignItems: 'center' }}>
+                      <EmojiIcon icon={CheckCircle2} size={16} color="#CAFF00" />
                     </span>
                   )}
                 </div>
@@ -345,19 +352,21 @@ export default function WorkoutPlayer({ workoutId, initialWorkout, onClose }: Wo
       {paused && (
         <div className="pv-overlay">
           <div className="pv-overlay-card">
-            <div className="pv-overlay-icon">⏸</div>
+            <div className="pv-overlay-icon">
+              <EmojiIcon icon={Pause} size={40} />
+            </div>
             <div className="pv-overlay-title">Workout Paused</div>
             <div className="pv-overlay-timer">{formatTime(elapsed)}</div>
             <div className="pv-overlay-buttons">
               <button className="pv-btn-stop" onClick={handleStop} title="Stop workout">
-                ■
+                <EmojiIcon icon={Square} size={18} />
               </button>
               <button
                 className="pv-btn-play"
                 onClick={() => setPaused(false)}
                 title="Resume"
               >
-                ▶
+                <EmojiIcon icon={Play} size={18} />
               </button>
             </div>
           </div>

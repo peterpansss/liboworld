@@ -1,6 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useAppStore } from '../store/useAppStore';
-import { getWorkouts, type Workout } from '../data/exercises';
+import { getWorkouts, getExercises, type Workout, type Exercise } from '../data/exercises';
+import { EmojiIcon } from './EmojiIcon';
+import { Flame, HandMetal } from '../utils/icons';
+import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import './HomeTab.css';
 
 function getGreeting(): string {
@@ -33,10 +36,14 @@ export default function HomeTab() {
   const selectWorkout = useAppStore((s) => s.selectWorkout);
   const setTab = useAppStore((s) => s.setTab);
   const [workouts, setWorkouts] = useState<Workout[]>([]);
+  const [exercises, setExercises] = useState<Exercise[]>([]);
 
   useEffect(() => {
     getWorkouts().then(setWorkouts);
+    getExercises().then(setExercises);
   }, []);
+
+  const nameToSlug = useMemo(() => buildNameToSlug(exercises), [exercises]);
 
   const rec = workouts[0];
   const recExCount = rec?.exercises?.length ?? 0;
@@ -47,7 +54,10 @@ export default function HomeTab() {
       {/* Header */}
       <div className="page-header">
         <div>
-          <div className="greeting">{getGreeting()} 👋</div>
+          <div className="greeting" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+            {getGreeting()}
+            <EmojiIcon icon={HandMetal} size={18} />
+          </div>
           <div className="greeting-name">{user?.name || 'Athlete'}</div>
         </div>
         <div className="avatar">{user?.name?.charAt(0) || 'A'}</div>
@@ -59,7 +69,10 @@ export default function HomeTab() {
           <div className="hero-label">Today's Workout</div>
           <div className="hero-title font-display">{rec.name}</div>
           <div className="hero-meta">
-            <span>{rec.emoji} {rec.dur} min</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <EmojiIcon emoji={rec.emoji} size={16} />
+              {rec.dur} min
+            </span>
             <span className="dot" />
             <span>{recExCount} exercises</span>
             <span className="dot" />
@@ -90,13 +103,22 @@ export default function HomeTab() {
         <div className="section-label">Featured</div>
       </div>
       <div className="featured-grid">
-        {workouts.slice(0, 4).map((w, i) => (
+        {workouts.slice(0, 4).map((w, i) => {
+          const heroThumb = workoutHeroThumb(w, nameToSlug);
+          const imgSrc = heroThumb ?? FEATURED_IMAGES[i % 4];
+          return (
           <div className="featured-card" key={w.id} onClick={() => selectWorkout(w.id)}>
             <img
-              src={FEATURED_IMAGES[i % 4]}
+              src={imgSrc}
               alt={w.cat}
               className="featured-img"
               loading="lazy"
+              onError={(e) => {
+                // Fall back to stock image if the thumbnail 404s
+                if (e.currentTarget.src.indexOf(FEATURED_IMAGES[i % 4]) === -1) {
+                  e.currentTarget.src = FEATURED_IMAGES[i % 4];
+                }
+              }}
             />
             <div className="featured-overlay" />
             <div className="featured-content">
@@ -107,7 +129,8 @@ export default function HomeTab() {
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Recent Activity */}
@@ -119,12 +142,17 @@ export default function HomeTab() {
           <div className="activity-list">
             {logs.slice(0, 3).map((l, i) => (
               <div className="log-entry" key={`${l.id}-${i}`}>
-                <div className="log-entry-icon">{l.emoji}</div>
+                <div className="log-entry-icon">
+                  <EmojiIcon emoji={l.emoji} size={20} />
+                </div>
                 <div>
                   <div className="log-entry-name">{l.name}</div>
                   <div className="log-entry-meta">{timeAgo(l.date)} · {l.dur} min</div>
                 </div>
-                <div className="log-entry-cal">🔥 {l.cal}</div>
+                <div className="log-entry-cal" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <EmojiIcon icon={Flame} size={14} color="#CAFF00" />
+                  {l.cal}
+                </div>
               </div>
             ))}
           </div>

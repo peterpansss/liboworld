@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getWorkouts, type Workout } from '../data/exercises';
+import { EmojiIcon } from './EmojiIcon';
+import { Calendar, Moon, Sunrise } from '../utils/icons';
 import './ProgramsTab.css';
 
 interface FeaturedProgram {
@@ -82,7 +84,9 @@ export default function ProgramsTab() {
           <div className="program-card" key={fp.id}>
             <div className="program-card-top">
               <div className="program-card-header">
-                <span className="program-emoji">{fp.emoji}</span>
+                <span className="program-emoji">
+                  <EmojiIcon emoji={fp.emoji} size={28} />
+                </span>
                 <div className="program-card-info">
                   <div className="program-name font-display">{fp.name}</div>
                   <div className="program-meta">
@@ -113,7 +117,9 @@ export default function ProgramsTab() {
             <div className="program-card" key={p.id}>
               <div className="program-card-top">
                 <div className="program-card-header">
-                  <span className="program-emoji">{p.emoji || '🎯'}</span>
+                  <span className="program-emoji">
+                    <EmojiIcon emoji={p.emoji || '🎯'} size={28} />
+                  </span>
                   <div className="program-card-info">
                     <div className="program-name font-display">{p.name}</div>
                     <div className="program-meta">
@@ -130,7 +136,9 @@ export default function ProgramsTab() {
 
         {programs.length === 0 && (
           <div className="programs-empty">
-            <div className="programs-empty-icon">📅</div>
+            <div className="programs-empty-icon">
+              <EmojiIcon icon={Calendar} size={40} />
+            </div>
             <div className="programs-empty-title">No challenges yet</div>
             <div className="programs-empty-desc">Challenge programs will appear here</div>
           </div>
@@ -151,7 +159,9 @@ export default function ProgramsTab() {
           const isEvening = r.name.toLowerCase().includes('evening');
           return (
             <div className="routine-item" key={r.id}>
-              <div className="routine-icon">{isEvening ? '🌙' : '🌅'}</div>
+              <div className="routine-icon">
+                <EmojiIcon icon={isEvening ? Moon : Sunrise} size={24} />
+              </div>
               <div className="routine-info">
                 <div className="routine-name">{r.name}</div>
                 <div className="routine-meta">
