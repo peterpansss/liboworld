@@ -685,21 +685,21 @@ export default function Landing() {
             <div className="hero-phone hero-phone--left">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/explore.png" alt="Libo Explore tab showing 136 workouts" loading="eager" />
+                  <img src="/mockups/hero-left.png" alt="Libo Explore tab showing 140 exercises across workouts, exercises, and programs" loading="eager" />
                 </div>
               </div>
             </div>
             <div className="hero-phone hero-phone--center">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/home.png" alt="Libo Home tab with today's workout" loading="eager" />
+                  <img src="/mockups/hero-center.png" alt="Libo Home tab with today's Upper/Lower Superset workout and progress stats" loading="eager" />
                 </div>
               </div>
             </div>
             <div className="hero-phone hero-phone--right">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/player.png" alt="Libo workout player mid-session" loading="eager" />
+                  <img src="/mockups/hero-right.png" alt="Libo workout player mid-session showing a bodyweight squat" loading="eager" />
                 </div>
               </div>
             </div>
