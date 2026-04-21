@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Workout, type WorkoutExercise, type Exercise } from '../data/exercises';
 import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
@@ -11,19 +12,6 @@ function diffClass(diff: string): string {
   if (d.startsWith('adv')) return 'advanced';
   if (d.startsWith('int')) return 'intermediate';
   return 'beginner';
-}
-
-function diffLabel(diff: string): string {
-  const d = (diff || 'beginner').toLowerCase();
-  if (d.startsWith('adv')) return 'Advanced';
-  if (d.startsWith('int')) return 'Intermediate';
-  return 'Beginner';
-}
-
-function phaseLabel(phase?: string): string {
-  if (phase === 'warmup') return 'Warm-Up';
-  if (phase === 'cooldown') return 'Cool-Down';
-  return 'Main Workout';
 }
 
 function formatSetsReps(ex: WorkoutExercise): string {
@@ -60,7 +48,10 @@ interface PhaseGroup {
   exercises: WorkoutExercise[];
 }
 
-function groupByPhase(exercises: WorkoutExercise[]): PhaseGroup[] {
+function groupByPhase(
+  exercises: WorkoutExercise[],
+  phaseLabel: (phase?: string) => string,
+): PhaseGroup[] {
   const groups: PhaseGroup[] = [];
   const phaseOrder = ['warmup', 'main', 'cooldown'];
 
@@ -75,11 +66,25 @@ function groupByPhase(exercises: WorkoutExercise[]): PhaseGroup[] {
 }
 
 export default function ProgramDetail() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const [workout, setWorkout] = useState<Workout | null>(null);
   const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
   const [exerciseDb, setExerciseDb] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const diffLabel = (diff: string): string => {
+    const d = (diff || 'beginner').toLowerCase();
+    if (d.startsWith('adv')) return t('programDetail.difficulty.advanced');
+    if (d.startsWith('int')) return t('programDetail.difficulty.intermediate');
+    return t('programDetail.difficulty.beginner');
+  };
+
+  const phaseLabel = (phase?: string): string => {
+    if (phase === 'warmup') return t('programDetail.phases.warmup');
+    if (phase === 'cooldown') return t('programDetail.phases.cooldown');
+    return t('programDetail.phases.main');
+  };
 
   useEffect(() => {
     Promise.all([getWorkouts(), getExercises()]).then(([wks, exs]) => {
@@ -93,8 +98,9 @@ export default function ProgramDetail() {
 
   const phases = useMemo(() => {
     if (!workout) return [];
-    return groupByPhase(workout.exercises);
-  }, [workout]);
+    return groupByPhase(workout.exercises, phaseLabel);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [workout, t]);
 
   const related = useMemo(() => {
     if (!workout) return [];
@@ -112,7 +118,7 @@ export default function ProgramDetail() {
       <>
         <SiteNav />
         <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ color: 'var(--muted)', fontSize: 14 }}>Loading workout...</div>
+          <div style={{ color: 'var(--muted)', fontSize: 14 }}>{t('programDetail.loading')}</div>
         </div>
         <SiteFooter />
       </>
@@ -126,10 +132,10 @@ export default function ProgramDetail() {
         <div className="pd-container">
           <div className="pd-not-found">
             <div className="pd-not-found-icon" aria-hidden="true">&#x1F3CB;&#xFE0F;</div>
-            <h2>Workout Not Found</h2>
-            <p>This workout program doesn't exist or may have been removed.</p>
+            <h2>{t('programDetail.notFound.title')}</h2>
+            <p>{t('programDetail.notFound.description')}</p>
             <Link to="/workouts" className="pd-not-found-link">
-              &larr; Back to all workouts
+              {t('programDetail.notFound.backLink')}
             </Link>
           </div>
         </div>
@@ -144,10 +150,10 @@ export default function ProgramDetail() {
 
       <main className="pd-container">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pd-breadcrumb">
-          <Link to="/">Home</Link>
+        <nav aria-label={t('programDetail.breadcrumbAria')} className="pd-breadcrumb">
+          <Link to="/">{t('programDetail.breadcrumb.home')}</Link>
           <span className="pd-breadcrumb-sep">&gt;</span>
-          <Link to="/workouts">Workouts</Link>
+          <Link to="/workouts">{t('programDetail.breadcrumb.workouts')}</Link>
           <span className="pd-breadcrumb-sep">&gt;</span>
           <Link to={`/workouts?cat=${encodeURIComponent(workout.cat)}`}>{workout.cat}</Link>
           <span className="pd-breadcrumb-sep">&gt;</span>
@@ -170,14 +176,14 @@ export default function ProgramDetail() {
         <div className="pd-meta">
           <span className="pd-meta-chip">
             <span className="pd-meta-chip-icon" aria-hidden="true">&#x23F1;</span>
-            {workout.dur} min
+            {t('programDetail.meta.minutes', { count: workout.dur })}
           </span>
           <span className={`pd-meta-diff ${diffClass(workout.diff)}`}>
             {diffLabel(workout.diff)}
           </span>
           <span className="pd-meta-chip">
             <span className="pd-meta-chip-icon" aria-hidden="true">&#x1F4CB;</span>
-            {workout.exercises.length} exercises
+            {t('programDetail.meta.exercisesCount', { count: workout.exercises.length })}
           </span>
           <span className="pd-meta-chip">
             <span className="pd-meta-chip-icon" aria-hidden="true">&#x1F3F7;</span>
@@ -190,7 +196,9 @@ export default function ProgramDetail() {
           <div key={group.phase} className="pd-phase">
             <div className="pd-phase-header">
               <h2 className="pd-phase-label">{group.label}</h2>
-              <span className="pd-phase-count">{group.exercises.length} exercises</span>
+              <span className="pd-phase-count">
+                {t('programDetail.meta.exercisesCount', { count: group.exercises.length })}
+              </span>
             </div>
             <div className="pd-exercises">
               {group.exercises.map((ex, i) => {
@@ -223,18 +231,15 @@ export default function ProgramDetail() {
 
         {/* CTA Banner */}
         <div className="pd-cta">
-          <h3>Try this workout in the Libo app</h3>
-          <p>
-            Follow along with guided timers, rest periods, and exercise demonstrations.
-            Track your progress and build consistency.
-          </p>
-          <Link to="/onboarding" className="pd-cta-btn">Get the App</Link>
+          <h3>{t('programDetail.cta.title')}</h3>
+          <p>{t('programDetail.cta.description')}</p>
+          <Link to="/onboarding" className="pd-cta-btn">{t('programDetail.cta.button')}</Link>
         </div>
 
         {/* Related Workouts */}
         {related.length > 0 && (
           <div className="pd-related">
-            <h2>More {workout.cat} Workouts</h2>
+            <h2>{t('programDetail.related.title', { category: workout.cat })}</h2>
             <div className="pd-related-grid">
               {related.map((w) => {
                 const heroThumb = workoutHeroThumb(w, nameToSlug, exerciseDb);
@@ -260,7 +265,11 @@ export default function ProgramDetail() {
                   </span>
                   <span className="pd-related-name">{w.name}</span>
                   <span className="pd-related-meta">
-                    {w.dur} min &middot; {diffLabel(w.diff)} &middot; {w.exercises.length} ex
+                    {t('programDetail.related.cardMeta', {
+                      duration: w.dur,
+                      difficulty: diffLabel(w.diff),
+                      count: w.exercises.length,
+                    })}
                   </span>
                 </Link>
                 );

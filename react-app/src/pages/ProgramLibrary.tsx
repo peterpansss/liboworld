@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Workout, type Exercise } from '../data/exercises';
 import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
@@ -9,7 +10,7 @@ import { Search, Hourglass, Frown } from '../utils/icons';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
 
-const CATEGORIES = ['All', 'Gym', 'Home', 'Cardio', 'Stretching', 'Morning Routine'];
+const CATEGORY_KEYS = ['All', 'Gym', 'Home', 'Cardio', 'Stretching', 'Morning Routine'];
 const MAX_VISIBLE = 6;
 
 function diffClass(diff: string): string {
@@ -19,14 +20,28 @@ function diffClass(diff: string): string {
   return 'beginner';
 }
 
-function diffLabel(diff: string): string {
-  const d = (diff || 'beginner').toLowerCase();
-  if (d.startsWith('adv')) return 'Advanced';
-  if (d.startsWith('int')) return 'Intermediate';
-  return 'Beginner';
-}
-
 export default function ProgramLibrary() {
+  const { t } = useTranslation();
+
+  const diffLabel = (diff: string): string => {
+    const d = (diff || 'beginner').toLowerCase();
+    if (d.startsWith('adv')) return t('programLibrary.difficulty.advanced');
+    if (d.startsWith('int')) return t('programLibrary.difficulty.intermediate');
+    return t('programLibrary.difficulty.beginner');
+  };
+
+  const categoryLabel = (c: string): string => {
+    const map: Record<string, string> = {
+      'All': t('programLibrary.categories.all'),
+      'Gym': t('programLibrary.categories.gym'),
+      'Home': t('programLibrary.categories.home'),
+      'Cardio': t('programLibrary.categories.cardio'),
+      'Stretching': t('programLibrary.categories.stretching'),
+      'Morning Routine': t('programLibrary.categories.morningRoutine'),
+    };
+    return map[c] ?? c;
+  };
+
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
@@ -46,9 +61,10 @@ export default function ProgramLibrary() {
   const nameToSlug = useMemo(() => buildNameToSlug(exercises), [exercises]);
 
   useEffect(() => {
-    document.title = cat !== 'All' ? `${cat} Workouts | Libo` : 'Workouts | Libo';
+    const base = t('programLibrary.documentTitle');
+    document.title = cat !== 'All' ? `${cat} ${base} | Libo` : `${base} | Libo`;
     return () => { document.title = 'Libo'; };
-  }, [cat]);
+  }, [cat, t]);
 
   const filtered = useMemo(() => {
     let result = workouts;
@@ -90,18 +106,18 @@ export default function ProgramLibrary() {
       <main className="el-page">
         <div className="el-container">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="el-breadcrumb">
-            <Link to="/">Home</Link>
+          <nav aria-label={t('programLibrary.breadcrumbAria')} className="el-breadcrumb">
+            <Link to="/">{t('programLibrary.breadcrumb.home')}</Link>
             <span className="el-breadcrumb-sep">&gt;</span>
-            <span>Resources</span>
+            <span>{t('programLibrary.breadcrumb.resources')}</span>
             <span className="el-breadcrumb-sep">&gt;</span>
-            <span>Workouts</span>
+            <span>{t('programLibrary.breadcrumb.workouts')}</span>
           </nav>
 
           {/* Hero */}
           <div className="el-hero">
-            <h1 className="font-display">Workouts</h1>
-            <p>{workouts.length} guided workouts. Preview a selection — unlock the full library in the app.</p>
+            <h1 className="font-display">{t('programLibrary.title')}</h1>
+            <p>{t('programLibrary.subtitle', { count: workouts.length })}</p>
           </div>
 
           {/* Search */}
@@ -112,8 +128,8 @@ export default function ProgramLibrary() {
             <input
               type="text"
               className="el-search"
-              placeholder="Search workouts..."
-              aria-label="Search workouts"
+              placeholder={t('programLibrary.searchPlaceholder')}
+              aria-label={t('programLibrary.searchAria')}
               value={search}
               onChange={(e) => updateParam('q', e.target.value)}
             />
@@ -122,16 +138,16 @@ export default function ProgramLibrary() {
           {/* Filters */}
           <div className="el-filters">
             <div className="el-filter-row">
-              <span className="el-filter-label">Category</span>
+              <span className="el-filter-label">{t('programLibrary.filters.category')}</span>
               <div className="el-chips">
-                {CATEGORIES.map((c) => (
+                {CATEGORY_KEYS.map((c) => (
                   <button
                     key={c}
                     className={`el-chip ${cat === c ? 'active' : ''}`}
                     aria-pressed={cat === c}
                     onClick={() => updateParam('cat', c)}
                   >
-                    {c}
+                    {categoryLabel(c)}
                   </button>
                 ))}
               </div>
@@ -141,7 +157,7 @@ export default function ProgramLibrary() {
           {/* Results count */}
           {!loading && (
             <div className="el-results-count" aria-live="polite" role="status">
-              Showing <strong>{visible.length}</strong> of <strong>{filtered.length}</strong> workouts
+              {t('programLibrary.resultsCountPrefix')} <strong>{visible.length}</strong> {t('programLibrary.resultsCountOf')} <strong>{filtered.length}</strong> {t('programLibrary.resultsCountSuffix')}
             </div>
           )}
 
@@ -151,15 +167,15 @@ export default function ProgramLibrary() {
               <div className="el-empty-icon" aria-hidden="true">
                 <EmojiIcon icon={Hourglass} size={40} />
               </div>
-              <p className="el-empty-text">Loading workouts...</p>
+              <p className="el-empty-text">{t('programLibrary.loading')}</p>
             </div>
           ) : visible.length === 0 ? (
             <div className="el-empty">
               <div className="el-empty-icon" aria-hidden="true">
                 <EmojiIcon icon={Frown} size={40} />
               </div>
-              <p className="el-empty-text">No workouts match your filters</p>
-              <p className="el-empty-sub">Try adjusting your search or clearing filters</p>
+              <p className="el-empty-text">{t('programLibrary.empty.title')}</p>
+              <p className="el-empty-sub">{t('programLibrary.empty.subtitle')}</p>
             </div>
           ) : (
             <div className="el-grid">
@@ -183,8 +199,8 @@ export default function ProgramLibrary() {
                   </div>
                   <div className="el-card-name">{w.name}</div>
                   <div className="el-card-meta">
-                    <span className="el-card-badge">{w.cat}</span>
-                    <span className="el-card-equip">{w.dur} min</span>
+                    <span className="el-card-badge">{categoryLabel(w.cat)}</span>
+                    <span className="el-card-equip">{t('programLibrary.card.minutes', { count: w.dur })}</span>
                     <span className={`el-card-diff ${diffClass(w.diff)}`}>
                       {diffLabel(w.diff)}
                     </span>
@@ -199,10 +215,10 @@ export default function ProgramLibrary() {
           {moreCount > 0 && (
             <div className="wk-more-cta">
               <p className="wk-more-text">
-                +{moreCount} more workouts available in the app
+                {t('programLibrary.moreCta.text', { count: moreCount })}
               </p>
               <Link to="/onboarding" className="wk-more-btn">
-                Get the App
+                {t('programLibrary.moreCta.button')}
               </Link>
             </div>
           )}

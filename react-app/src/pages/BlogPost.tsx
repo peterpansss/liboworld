@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
@@ -19,6 +20,7 @@ function formatId(id: string) {
 }
 
 export default function BlogPost() {
+  const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
 
   const { article, prevArticle, nextArticle } = useMemo(() => {
@@ -35,9 +37,9 @@ export default function BlogPost() {
       <div className="blogpost-page">
         <SiteNav />
         <div className="blogpost-404">
-          <h1 className="font-display">Article Not Found</h1>
-          <p>The article you are looking for does not exist.</p>
-          <Link to="/blog">Back to Blog</Link>
+          <h1 className="font-display">{t('blogPost.notFoundTitle')}</h1>
+          <p>{t('blogPost.notFoundBody')}</p>
+          <Link to="/blog">{t('blogPost.backToBlog')}</Link>
         </div>
         <SiteFooter />
       </div>
@@ -54,10 +56,10 @@ export default function BlogPost() {
 
       {/* ── Header ── */}
       <header className="blogpost-header">
-        <nav aria-label="Breadcrumb" className="blogpost-breadcrumb">
-          <Link to="/">Home</Link>
+        <nav aria-label={t('blogPost.breadcrumbAria')} className="blogpost-breadcrumb">
+          <Link to="/">{t('blogPost.breadcrumbHome')}</Link>
           <span>&rsaquo;</span>
-          <Link to="/blog">Blog</Link>
+          <Link to="/blog">{t('blogPost.breadcrumbBlog')}</Link>
           <span>&rsaquo;</span>
           <Link to={`/blog?cat=${article.category}`}>{article.category}</Link>
           <span>&rsaquo;</span>
@@ -70,7 +72,7 @@ export default function BlogPost() {
         <div className="blogpost-meta">
           <span>{article.author}</span>
           <time dateTime={article.date || ''}>{formatDate(article.date)}</time>
-          <span>{article.readTime} min read</span>
+          <span>{t('blogPost.minRead', { count: article.readTime })}</span>
         </div>
 
         {article.heroImage ? (
@@ -95,17 +97,17 @@ export default function BlogPost() {
       {/* ── Related Links ── */}
       {hasRelated && (
         <section className="blogpost-related">
-          <h2 className="blogpost-related-title">Explore Related</h2>
+          <h2 className="blogpost-related-title">{t('blogPost.relatedTitle')}</h2>
           <div className="blogpost-related-grid">
             {article.relatedExercises?.map((id) => (
               <Link key={id} to={`/exercises/${id}`} className="blogpost-related-card">
-                <span className="blogpost-related-card-type">Exercise</span>
+                <span className="blogpost-related-card-type">{t('blogPost.relatedExerciseLabel')}</span>
                 {formatId(id)}
               </Link>
             ))}
             {article.relatedPrograms?.map((id) => (
               <Link key={id} to={`/programs/${id}`} className="blogpost-related-card">
-                <span className="blogpost-related-card-type">Program</span>
+                <span className="blogpost-related-card-type">{t('blogPost.relatedProgramLabel')}</span>
                 {formatId(id)}
               </Link>
             ))}
@@ -116,19 +118,19 @@ export default function BlogPost() {
       {/* ── CTA Banner ── */}
       <div className="blogpost-cta">
         <div className="blogpost-cta-inner">
-          <h2 className="font-display">Start Training with Libo</h2>
-          <p>718 exercises. 140 guided workouts. Structured programs. All free to start.</p>
+          <h2 className="font-display">{t('blogPost.ctaTitle')}</h2>
+          <p>{t('blogPost.ctaBody')}</p>
           <Link to="/onboarding" className="blogpost-cta-btn">
-            Get Started
+            {t('blogPost.ctaButton')}
           </Link>
         </div>
       </div>
 
       {/* ── Prev / Next ── */}
-      <nav aria-label="Article navigation" className="blogpost-nav">
+      <nav aria-label={t('blogPost.navAria')} className="blogpost-nav">
         {prevArticle ? (
           <Link to={`/blog/${prevArticle.slug}`} className="blogpost-nav-link">
-            <span className="blogpost-nav-label">&larr; Previous</span>
+            <span className="blogpost-nav-label">&larr; {t('blogPost.previous')}</span>
             <span className="blogpost-nav-title">{prevArticle.title}</span>
           </Link>
         ) : (
@@ -139,7 +141,7 @@ export default function BlogPost() {
             to={`/blog/${nextArticle.slug}`}
             className="blogpost-nav-link blogpost-nav-link--next"
           >
-            <span className="blogpost-nav-label">Next &rarr;</span>
+            <span className="blogpost-nav-label">{t('blogPost.next')} &rarr;</span>
             <span className="blogpost-nav-title">{nextArticle.title}</span>
           </Link>
         ) : (

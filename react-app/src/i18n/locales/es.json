@@ -173,5 +173,169 @@
     "headline2": "Donde Sea.",
     "headline3": "Cuando Sea.",
     "cta": "Únete a la Lista →"
+  },
+  "exerciseLibrary": {
+    "title": "Biblioteca de Ejercicios",
+    "breadcrumbLabel": "Ruta de navegación",
+    "breadcrumbHome": "Inicio",
+    "breadcrumbResources": "Recursos",
+    "exercisesWord": "Ejercicios",
+    "exerciseCount": "{{count}} ejercicios",
+    "heroSubtitle": "Filtra por grupo muscular, equipamiento o busca por nombre.",
+    "searchPlaceholder": "Buscar ejercicios...",
+    "searchAriaLabel": "Buscar ejercicios",
+    "muscleGroupLabel": "Grupo Muscular",
+    "equipmentLabel": "Equipamiento",
+    "showingPrefix": "Mostrando",
+    "showingOf": "de",
+    "showingSuffix": "ejercicios",
+    "loading": "Cargando ejercicios...",
+    "emptyState": {
+      "title": "Ningún ejercicio coincide con esta combinación",
+      "description": "Ajusta tu búsqueda o quita los filtros",
+      "descriptionCombo": "Ningún ejercicio con {{equipment}} trabaja {{muscle}}. Prueba con otro equipamiento o grupo muscular."
+    },
+    "previousPage": "Página anterior",
+    "nextPage": "Página siguiente"
+  },
+  "exerciseDetail": {
+    "loading": "Cargando...",
+    "howToPerformTitle": "Cómo Realizarlo",
+    "notFoundTitle": "Ejercicio No Encontrado",
+    "notFoundDescription": "El ejercicio que buscas no existe o ha sido eliminado.",
+    "browseAll": "Ver todos los ejercicios",
+    "breadcrumbLabel": "Ruta de navegación",
+    "breadcrumbHome": "Inicio",
+    "breadcrumbExercises": "Ejercicios",
+    "muscleGroup": "Grupo Muscular",
+    "equipment": "Equipamiento",
+    "difficulty": "Dificultad",
+    "howToPerform": "Cómo Realizarlo",
+    "quickFacts": "Datos Rápidos",
+    "machineRequired": "Máquina Requerida",
+    "yes": "Sí",
+    "no": "No",
+    "category": "Categoría",
+    "variation": "Variación",
+    "ctaTitle": "Registra este ejercicio en la app Libo",
+    "ctaDescription": "Registra series, reps y peso. Ve tu progreso a lo largo del tiempo.",
+    "ctaButton": "Unirme a la Lista",
+    "relatedTitle": "Ejercicios Relacionados de {{muscle}}"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Guías de entrenamiento, consejos y trucos para subir tu fitness.",
+    "breadcrumbAria": "Ruta de navegación",
+    "breadcrumbHome": "Inicio",
+    "breadcrumbResources": "Recursos",
+    "breadcrumbBlog": "Blog",
+    "filterAria": "Filtrar por categoría",
+    "categories": {
+      "all": "Todas",
+      "training": "Entrenamiento",
+      "nutrition": "Nutrición",
+      "lifestyle": "Estilo de Vida",
+      "guides": "Guías"
+    },
+    "empty": "Aún no hay artículos en esta categoría.",
+    "minRead": "{{count}} min de lectura"
+  },
+  "blogPost": {
+    "breadcrumbAria": "Ruta de navegación",
+    "breadcrumbHome": "Inicio",
+    "breadcrumbBlog": "Blog",
+    "notFoundTitle": "Artículo No Encontrado",
+    "notFoundBody": "El artículo que buscas no existe.",
+    "backToBlog": "Volver al Blog",
+    "minRead": "{{count}} min de lectura",
+    "relatedTitle": "Explora Relacionados",
+    "relatedExerciseLabel": "Ejercicio",
+    "relatedProgramLabel": "Programa",
+    "ctaTitle": "Empieza a Entrenar con Libo",
+    "ctaBody": "718 ejercicios. 140 entrenamientos guiados. Programas estructurados. Gratis para empezar.",
+    "ctaButton": "Empezar",
+    "navAria": "Navegación del artículo",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "programLibrary": {
+    "documentTitle": "Entrenamientos",
+    "breadcrumbAria": "Ruta de navegación",
+    "breadcrumb": {
+      "home": "Inicio",
+      "resources": "Recursos",
+      "workouts": "Entrenamientos"
+    },
+    "title": "Entrenamientos",
+    "subtitle": "{{count}} entrenamientos guiados. Prueba una selección — desbloquea toda la biblioteca en la app.",
+    "searchPlaceholder": "Buscar entrenamientos...",
+    "searchAria": "Buscar entrenamientos",
+    "filters": {
+      "category": "Categoría"
+    },
+    "categories": {
+      "all": "Todas",
+      "gym": "Gym",
+      "home": "Casa",
+      "cardio": "Cardio",
+      "stretching": "Estiramientos",
+      "morningRoutine": "Rutina Matutina"
+    },
+    "resultsCountPrefix": "Mostrando",
+    "resultsCountOf": "de",
+    "resultsCountSuffix": "entrenamientos",
+    "loading": "Cargando entrenamientos...",
+    "empty": {
+      "title": "Ningún entrenamiento coincide con tus filtros",
+      "subtitle": "Ajusta tu búsqueda o quita los filtros"
+    },
+    "card": {
+      "minutes": "{{count}} min"
+    },
+    "difficulty": {
+      "beginner": "Principiante",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado"
+    },
+    "moreCta": {
+      "text": "+{{count}} entrenamientos más en la app",
+      "button": "Obtén la App"
+    }
+  },
+  "programDetail": {
+    "loading": "Cargando entrenamiento...",
+    "breadcrumbAria": "Ruta de navegación",
+    "breadcrumb": {
+      "home": "Inicio",
+      "workouts": "Entrenamientos"
+    },
+    "notFound": {
+      "title": "Entrenamiento No Encontrado",
+      "description": "Este programa de entrenamiento no existe o ha sido eliminado.",
+      "backLink": "← Volver a todos los entrenamientos"
+    },
+    "meta": {
+      "minutes": "{{count}} min",
+      "exercisesCount": "{{count}} ejercicios"
+    },
+    "phases": {
+      "warmup": "Calentamiento",
+      "main": "Entrenamiento Principal",
+      "cooldown": "Vuelta a la Calma"
+    },
+    "difficulty": {
+      "beginner": "Principiante",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado"
+    },
+    "cta": {
+      "title": "Prueba este entrenamiento en la app Libo",
+      "description": "Sigue los temporizadores guiados, los descansos y las demostraciones de ejercicios. Registra tu progreso y crea constancia.",
+      "button": "Obtén la App"
+    },
+    "related": {
+      "title": "Más Entrenamientos de {{category}}",
+      "cardMeta": "{{duration}} min · {{difficulty}} · {{count}} ej"
+    }
   }
 }

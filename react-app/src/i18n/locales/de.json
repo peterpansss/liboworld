@@ -481,5 +481,169 @@
       "errorMessage": "Etwas ist schiefgelaufen. Bitte versuch es nochmal.",
       "connectionError": "Verbindungsfehler. Bitte versuch es nochmal."
     }
+  },
+  "exerciseLibrary": {
+    "title": "Übungsbibliothek",
+    "breadcrumbLabel": "Brotkrumen",
+    "breadcrumbHome": "Start",
+    "breadcrumbResources": "Ressourcen",
+    "exercisesWord": "Übungen",
+    "exerciseCount": "{{count}} Übungen",
+    "heroSubtitle": "Filter nach Muskelgruppe, Equipment oder such nach Namen.",
+    "searchPlaceholder": "Übungen suchen...",
+    "searchAriaLabel": "Übungen suchen",
+    "muscleGroupLabel": "Muskelgruppe",
+    "equipmentLabel": "Equipment",
+    "showingPrefix": "Zeige",
+    "showingOf": "von",
+    "showingSuffix": "Übungen",
+    "loading": "Übungen werden geladen...",
+    "emptyState": {
+      "title": "Keine Übungen passen zu dieser Kombination",
+      "description": "Passe deine Suche an oder setz die Filter zurück",
+      "descriptionCombo": "Keine {{equipment}}-Übungen trainieren {{muscle}}. Probier ein anderes Equipment oder eine andere Muskelgruppe."
+    },
+    "previousPage": "Vorherige Seite",
+    "nextPage": "Nächste Seite"
+  },
+  "exerciseDetail": {
+    "loading": "Wird geladen...",
+    "howToPerformTitle": "Ausführung",
+    "notFoundTitle": "Übung nicht gefunden",
+    "notFoundDescription": "Die Übung, die du suchst, existiert nicht oder wurde entfernt.",
+    "browseAll": "Alle Übungen ansehen",
+    "breadcrumbLabel": "Brotkrumen",
+    "breadcrumbHome": "Start",
+    "breadcrumbExercises": "Übungen",
+    "muscleGroup": "Muskelgruppe",
+    "equipment": "Equipment",
+    "difficulty": "Schwierigkeit",
+    "howToPerform": "Ausführung",
+    "quickFacts": "Kurz & knapp",
+    "machineRequired": "Maschine nötig",
+    "yes": "Ja",
+    "no": "Nein",
+    "category": "Kategorie",
+    "variation": "Variation",
+    "ctaTitle": "Tracke diese Übung in der Libo-App",
+    "ctaDescription": "Logge Sätze, Wiederholungen und Gewicht. Sieh deinen Fortschritt über die Zeit.",
+    "ctaButton": "Auf die Warteliste",
+    "relatedTitle": "Weitere {{muscle}}-Übungen"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Trainingsguides, Tipps und Einblicke für dein Fitness-Level-Up.",
+    "breadcrumbAria": "Brotkrumen",
+    "breadcrumbHome": "Start",
+    "breadcrumbResources": "Ressourcen",
+    "breadcrumbBlog": "Blog",
+    "filterAria": "Nach Kategorie filtern",
+    "categories": {
+      "all": "Alle",
+      "training": "Training",
+      "nutrition": "Ernährung",
+      "lifestyle": "Lifestyle",
+      "guides": "Guides"
+    },
+    "empty": "Noch keine Artikel in dieser Kategorie.",
+    "minRead": "{{count}} Min. Lesezeit"
+  },
+  "blogPost": {
+    "breadcrumbAria": "Brotkrumen",
+    "breadcrumbHome": "Start",
+    "breadcrumbBlog": "Blog",
+    "notFoundTitle": "Artikel nicht gefunden",
+    "notFoundBody": "Der Artikel, den du suchst, existiert nicht.",
+    "backToBlog": "Zurück zum Blog",
+    "minRead": "{{count}} Min. Lesezeit",
+    "relatedTitle": "Verwandtes entdecken",
+    "relatedExerciseLabel": "Übung",
+    "relatedProgramLabel": "Programm",
+    "ctaTitle": "Mit Libo trainieren",
+    "ctaBody": "718 Übungen. 140 geführte Workouts. Strukturierte Programme. Kostenlos starten.",
+    "ctaButton": "Jetzt starten",
+    "navAria": "Artikelnavigation",
+    "previous": "Vorherige",
+    "next": "Nächste"
+  },
+  "programLibrary": {
+    "documentTitle": "Workouts",
+    "breadcrumbAria": "Brotkrumen",
+    "breadcrumb": {
+      "home": "Start",
+      "resources": "Ressourcen",
+      "workouts": "Workouts"
+    },
+    "title": "Workouts",
+    "subtitle": "{{count}} geführte Workouts. Sieh dir eine Auswahl an — die ganze Bibliothek gibt es in der App.",
+    "searchPlaceholder": "Workouts suchen...",
+    "searchAria": "Workouts suchen",
+    "filters": {
+      "category": "Kategorie"
+    },
+    "categories": {
+      "all": "Alle",
+      "gym": "Gym",
+      "home": "Zu Hause",
+      "cardio": "Cardio",
+      "stretching": "Stretching",
+      "morningRoutine": "Morgenroutine"
+    },
+    "resultsCountPrefix": "Zeige",
+    "resultsCountOf": "von",
+    "resultsCountSuffix": "Workouts",
+    "loading": "Workouts werden geladen...",
+    "empty": {
+      "title": "Keine Workouts passen zu deinen Filtern",
+      "subtitle": "Passe deine Suche an oder setz die Filter zurück"
+    },
+    "card": {
+      "minutes": "{{count}} Min"
+    },
+    "difficulty": {
+      "beginner": "Anfänger",
+      "intermediate": "Fortgeschritten",
+      "advanced": "Profi"
+    },
+    "moreCta": {
+      "text": "+{{count}} weitere Workouts in der App",
+      "button": "App holen"
+    }
+  },
+  "programDetail": {
+    "loading": "Workout wird geladen...",
+    "breadcrumbAria": "Brotkrumen",
+    "breadcrumb": {
+      "home": "Start",
+      "workouts": "Workouts"
+    },
+    "notFound": {
+      "title": "Workout nicht gefunden",
+      "description": "Dieses Workout-Programm existiert nicht oder wurde entfernt.",
+      "backLink": "← Zurück zu allen Workouts"
+    },
+    "meta": {
+      "minutes": "{{count}} Min",
+      "exercisesCount": "{{count}} Übungen"
+    },
+    "phases": {
+      "warmup": "Aufwärmen",
+      "main": "Hauptworkout",
+      "cooldown": "Abkühlen"
+    },
+    "difficulty": {
+      "beginner": "Anfänger",
+      "intermediate": "Fortgeschritten",
+      "advanced": "Profi"
+    },
+    "cta": {
+      "title": "Probier dieses Workout in der Libo-App",
+      "description": "Folge geführten Timern, Pausen und Übungsvorführungen. Tracke deinen Fortschritt und bau Konsistenz auf.",
+      "button": "App holen"
+    },
+    "related": {
+      "title": "Mehr {{category}}-Workouts",
+      "cardMeta": "{{duration}} Min · {{difficulty}} · {{count}} Übungen"
+    }
   }
 }

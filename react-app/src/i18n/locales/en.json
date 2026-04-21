@@ -481,5 +481,169 @@
       "errorMessage": "Something went wrong. Please try again.",
       "connectionError": "Connection error. Please try again."
     }
+  },
+  "exerciseLibrary": {
+    "title": "Exercise Library",
+    "breadcrumbLabel": "Breadcrumb",
+    "breadcrumbHome": "Home",
+    "breadcrumbResources": "Resources",
+    "exercisesWord": "Exercises",
+    "exerciseCount": "{{count}} exercises",
+    "heroSubtitle": "Filter by muscle group, equipment, or search by name.",
+    "searchPlaceholder": "Search exercises...",
+    "searchAriaLabel": "Search exercises",
+    "muscleGroupLabel": "Muscle Group",
+    "equipmentLabel": "Equipment",
+    "showingPrefix": "Showing",
+    "showingOf": "of",
+    "showingSuffix": "exercises",
+    "loading": "Loading exercises...",
+    "emptyState": {
+      "title": "No exercises match this combination",
+      "description": "Try adjusting your search or clearing filters",
+      "descriptionCombo": "No {{equipment}} exercises target {{muscle}}. Try a different equipment type or muscle group."
+    },
+    "previousPage": "Previous page",
+    "nextPage": "Next page"
+  },
+  "exerciseDetail": {
+    "loading": "Loading...",
+    "howToPerformTitle": "How to Perform",
+    "notFoundTitle": "Exercise Not Found",
+    "notFoundDescription": "The exercise you're looking for doesn't exist or has been removed.",
+    "browseAll": "Browse all exercises",
+    "breadcrumbLabel": "Breadcrumb",
+    "breadcrumbHome": "Home",
+    "breadcrumbExercises": "Exercises",
+    "muscleGroup": "Muscle Group",
+    "equipment": "Equipment",
+    "difficulty": "Difficulty",
+    "howToPerform": "How to Perform",
+    "quickFacts": "Quick Facts",
+    "machineRequired": "Machine Required",
+    "yes": "Yes",
+    "no": "No",
+    "category": "Category",
+    "variation": "Variation",
+    "ctaTitle": "Track this exercise in the Libo app",
+    "ctaDescription": "Log sets, reps, and weight. See your progress over time.",
+    "ctaButton": "Join Waitlist",
+    "relatedTitle": "Related {{muscle}} Exercises"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Training guides, tips, and insights to level up your fitness.",
+    "breadcrumbAria": "Breadcrumb",
+    "breadcrumbHome": "Home",
+    "breadcrumbResources": "Resources",
+    "breadcrumbBlog": "Blog",
+    "filterAria": "Filter by category",
+    "categories": {
+      "all": "All",
+      "training": "Training",
+      "nutrition": "Nutrition",
+      "lifestyle": "Lifestyle",
+      "guides": "Guides"
+    },
+    "empty": "No articles in this category yet.",
+    "minRead": "{{count}} min read"
+  },
+  "blogPost": {
+    "breadcrumbAria": "Breadcrumb",
+    "breadcrumbHome": "Home",
+    "breadcrumbBlog": "Blog",
+    "notFoundTitle": "Article Not Found",
+    "notFoundBody": "The article you are looking for does not exist.",
+    "backToBlog": "Back to Blog",
+    "minRead": "{{count}} min read",
+    "relatedTitle": "Explore Related",
+    "relatedExerciseLabel": "Exercise",
+    "relatedProgramLabel": "Program",
+    "ctaTitle": "Start Training with Libo",
+    "ctaBody": "718 exercises. 140 guided workouts. Structured programs. All free to start.",
+    "ctaButton": "Get Started",
+    "navAria": "Article navigation",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "programLibrary": {
+    "documentTitle": "Workouts",
+    "breadcrumbAria": "Breadcrumb",
+    "breadcrumb": {
+      "home": "Home",
+      "resources": "Resources",
+      "workouts": "Workouts"
+    },
+    "title": "Workouts",
+    "subtitle": "{{count}} guided workouts. Preview a selection — unlock the full library in the app.",
+    "searchPlaceholder": "Search workouts...",
+    "searchAria": "Search workouts",
+    "filters": {
+      "category": "Category"
+    },
+    "categories": {
+      "all": "All",
+      "gym": "Gym",
+      "home": "Home",
+      "cardio": "Cardio",
+      "stretching": "Stretching",
+      "morningRoutine": "Morning Routine"
+    },
+    "resultsCountPrefix": "Showing",
+    "resultsCountOf": "of",
+    "resultsCountSuffix": "workouts",
+    "loading": "Loading workouts...",
+    "empty": {
+      "title": "No workouts match your filters",
+      "subtitle": "Try adjusting your search or clearing filters"
+    },
+    "card": {
+      "minutes": "{{count}} min"
+    },
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "moreCta": {
+      "text": "+{{count}} more workouts available in the app",
+      "button": "Get the App"
+    }
+  },
+  "programDetail": {
+    "loading": "Loading workout...",
+    "breadcrumbAria": "Breadcrumb",
+    "breadcrumb": {
+      "home": "Home",
+      "workouts": "Workouts"
+    },
+    "notFound": {
+      "title": "Workout Not Found",
+      "description": "This workout program doesn't exist or may have been removed.",
+      "backLink": "← Back to all workouts"
+    },
+    "meta": {
+      "minutes": "{{count}} min",
+      "exercisesCount": "{{count}} exercises"
+    },
+    "phases": {
+      "warmup": "Warm-Up",
+      "main": "Main Workout",
+      "cooldown": "Cool-Down"
+    },
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "cta": {
+      "title": "Try this workout in the Libo app",
+      "description": "Follow along with guided timers, rest periods, and exercise demonstrations. Track your progress and build consistency.",
+      "button": "Get the App"
+    },
+    "related": {
+      "title": "More {{category}} Workouts",
+      "cardMeta": "{{duration}} min · {{difficulty}} · {{count}} ex"
+    }
   }
 }
