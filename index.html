@@ -1601,6 +1601,73 @@
     }
 
     /* ─────────────────────────────
+       LANGUAGE SWITCHER
+    ───────────────────────────── */
+    .lang-switcher {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--border-light);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 6px 12px;
+      border-radius: 100px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lang-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .lang-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: rgba(20,20,20,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 6px;
+      min-width: 140px;
+      z-index: 200;
+    }
+    .lang-dropdown.open { display: block; }
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--light-grey);
+      transition: background 0.15s, color 0.15s;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+    .lang-option:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+    .lang-option.active { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .lang-switcher { margin-top: 16px; }
+      .lang-dropdown { right: auto; left: 0; }
+    }
+
+    /* ─────────────────────────────
        GOOGLE TRANSLATE PROTECTION
        GT wraps every text node in <font> tags, breaking flex/grid layouts.
        These rules neutralize that without affecting normal rendering.
@@ -1688,6 +1755,18 @@
     <div class="nav-indicator" id="navIndicator"></div>
   </ul>
   <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn" id="langBtn" aria-label="Change language">
+        <span id="langFlag">🇬🇧</span> <span id="langCode">EN</span> ▾
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <button class="lang-option active" data-lang="en">🇬🇧 English</button>
+        <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+        <button class="lang-option" data-lang="pt">🇧🇷 Português</button>
+        <button class="lang-option" data-lang="de">🇩🇪 Deutsch</button>
+        <button class="lang-option" data-lang="fr">🇫🇷 Français</button>
+      </div>
+    </div>
     <a href="#cta" class="btn-nav" data-i18n="nav.cta">Get Early Access</a>
     <div class="nav-hamburger" id="openMenu" role="button" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -2536,5 +2615,6 @@
 
 })();
 </script>
+<script src="i18n/i18n.js"></script>
 </body>
 </html>

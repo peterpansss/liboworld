@@ -1,32 +1,44 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from './locales/en.json';
 import de from './locales/de.json';
+import fr from './locales/fr.json';
+import es from './locales/es.json';
+import pt from './locales/pt.json';
 
 export const SUPPORTED_LANGUAGES = {
   en: { label: 'English', flag: '🇬🇧', code: 'EN' },
   de: { label: 'Deutsch', flag: '🇩🇪', code: 'DE' },
+  fr: { label: 'Français', flag: '🇫🇷', code: 'FR' },
+  es: { label: 'Español', flag: '🇪🇸', code: 'ES' },
+  pt: { label: 'Português', flag: '🇧🇷', code: 'PT' },
 } as const;
 
 export type LanguageCode = keyof typeof SUPPORTED_LANGUAGES;
 
 const STORAGE_KEY = 'libo-lang';
 
-try {
-  localStorage.removeItem(STORAGE_KEY);
-} catch {}
-
 i18n
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
       en: { translation: en },
       de: { translation: de },
+      fr: { translation: fr },
+      es: { translation: es },
+      pt: { translation: pt },
     },
-    lng: 'en',
     fallbackLng: 'en',
-    supportedLngs: ['en', 'de'],
+    supportedLngs: ['en', 'de', 'fr', 'es', 'pt'],
+    nonExplicitSupportedLngs: true,
+    detection: {
+      order: ['localStorage', 'navigator'],
+      lookupLocalStorage: STORAGE_KEY,
+      caches: ['localStorage'],
+    },
     interpolation: { escapeValue: false },
     react: { useSuspense: false },
   });
