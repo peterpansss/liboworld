@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 import { blogArticles } from '../data/blog';
 import SiteFooter from '../components/SiteFooter';
-import LanguageSwitcher from '../components/LanguageSwitcher';
 import { EmojiIcon } from '../components/EmojiIcon';
 import { Star } from '../utils/icons';
 import './Landing.css';
@@ -553,9 +552,6 @@ export default function Landing() {
         <Link to="/workouts" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.workouts')}</Link>
         <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.blog')}</Link>
         <Link to="/onboarding" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.getEarlyAccess')}</Link>
-        <div style={{ marginTop: 24 }}>
-          <LanguageSwitcher variant="drawer" />
-        </div>
       </div>
 
       {/* ── NAV ── */}
@@ -586,7 +582,6 @@ export default function Landing() {
             </li>
           </ul>
           <div className="nav-right">
-            <LanguageSwitcher />
             <Link
               to="/onboarding"
               className="btn-nav"
