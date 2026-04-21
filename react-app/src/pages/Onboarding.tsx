@@ -1,5 +1,6 @@
-import { useState, useRef, useCallback, useEffect, type FormEvent } from 'react';
+import { useState, useRef, useCallback, useEffect, useMemo, type FormEvent } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 import './Onboarding.css';
 
@@ -13,30 +14,14 @@ const SECTION_MAP: Record<number, number> = {
   11: 3, 12: 3, 13: 3, 14: 3, 15: 3,
   16: 4, 17: 4, 18: 4, 19: 4, 20: 4,
 };
-const SECTION_LABELS = ['My Profile', 'Activity', 'Lifestyle', 'Your Plan'];
 
-const GOAL_HEADINGS: Record<string, string> = {
-  'lose-weight': 'Lose weight fast!',
-  'build-muscle': 'Build muscle fast!',
-  'improve-mobility': 'Move better every day!',
-  'stay-active': 'Stay active and strong!',
-  'reduce-stress': 'Feel calmer and stronger!',
-};
-
-const GOAL_BODY: Record<string, string> = {
-  'lose-weight': 'Libo will help you <strong>burn fat and get leaner with bodyweight training</strong>. We\u2019ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.',
-  'build-muscle': 'Libo will help you <strong>build lean muscle with bodyweight training</strong>. We\u2019ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.',
-  'improve-mobility': 'Libo will help you <strong>improve flexibility and movement quality</strong>. We\u2019ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.',
-  'stay-active': 'Libo will help you <strong>maintain an active and healthy lifestyle</strong>. We\u2019ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.',
-  'reduce-stress': 'Libo will help you <strong>relax, recover, and feel your best</strong>. We\u2019ll <strong>tailor the plan to your body and goal</strong> to ensure constant progress.',
-};
-
-const GOAL_LABELS: Record<string, string> = {
-  'lose-weight': 'losing weight',
-  'build-muscle': 'building muscle',
-  'improve-mobility': 'improving mobility',
-  'stay-active': 'staying active',
-  'reduce-stress': 'reducing stress',
+// Map between stored answer values ("lose-weight") and i18n keys ("loseWeight")
+const GOAL_KEY_MAP: Record<string, string> = {
+  'lose-weight': 'loseWeight',
+  'build-muscle': 'buildMuscle',
+  'improve-mobility': 'improveMobility',
+  'stay-active': 'stayActive',
+  'reduce-stress': 'reduceStress',
 };
 
 // ── Types ──
@@ -45,15 +30,15 @@ type StepMode = 'single' | 'multi';
 
 interface Option {
   value: string;
-  title: string;
-  desc?: string;
+  titleKey: string;
+  descKey?: string;
   icon?: string;
 }
 
 interface QuizStep {
   type: 'question';
-  section: string;
-  heading: string;
+  sectionKey: string;
+  headingKey: string;
   key: string;
   mode: StepMode;
   options: Option[];
@@ -62,8 +47,8 @@ interface QuizStep {
 
 interface InterstitialStep {
   type: 'interstitial';
-  heading: string;
-  body: string;
+  headingKey?: string;
+  bodyKey?: string;
   image?: string;
   dynamic?: 'goal'; // heading/body change based on goal answer
 }
@@ -79,182 +64,181 @@ interface EmailStep {
 type Step = QuizStep | InterstitialStep | LoadingStep | EmailStep;
 
 // ── Step Definitions ──
+// Translation keys — resolved at render time via t()
 
 const STEPS: Step[] = [
   // Step 1: Main Goal
   {
-    type: 'question', section: 'My Profile', heading: "What's your main goal?",
+    type: 'question', sectionKey: 'onboarding.sections.myProfile', headingKey: 'onboarding.step1.heading',
     key: 'goal', mode: 'single', options: [
-      { value: 'lose-weight', title: 'Lose weight' },
-      { value: 'build-muscle', title: 'Build muscle' },
-      { value: 'improve-mobility', title: 'Improve mobility' },
-      { value: 'stay-active', title: 'Stay active' },
-      { value: 'reduce-stress', title: 'Reduce stress' },
+      { value: 'lose-weight', titleKey: 'onboarding.step1.options.loseWeight' },
+      { value: 'build-muscle', titleKey: 'onboarding.step1.options.buildMuscle' },
+      { value: 'improve-mobility', titleKey: 'onboarding.step1.options.improveMobility' },
+      { value: 'stay-active', titleKey: 'onboarding.step1.options.stayActive' },
+      { value: 'reduce-stress', titleKey: 'onboarding.step1.options.reduceStress' },
     ],
   },
   // Step 2: Motivational interstitial (dynamic based on goal)
   {
     type: 'interstitial', dynamic: 'goal',
-    heading: 'Build muscle fast!',
-    body: '',
     image: '/ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg',
   },
   // Step 3: Secondary Goals
   {
-    type: 'question', section: 'My Profile', heading: 'What else do you hope to achieve?',
+    type: 'question', sectionKey: 'onboarding.sections.myProfile', headingKey: 'onboarding.step3.heading',
     key: 'secondary_goals', mode: 'multi', options: [
-      { value: 'lose-fat', title: 'Lose stubborn fat' },
-      { value: 'increase-stamina', title: 'Increase stamina and endurance' },
-      { value: 'improve-posture', title: 'Improve posture and flexibility' },
-      { value: 'build-confidence', title: 'Build confidence' },
-      { value: 'none', title: 'None of the above' },
+      { value: 'lose-fat', titleKey: 'onboarding.step3.options.loseFat' },
+      { value: 'increase-stamina', titleKey: 'onboarding.step3.options.increaseStamina' },
+      { value: 'improve-posture', titleKey: 'onboarding.step3.options.improvePosture' },
+      { value: 'build-confidence', titleKey: 'onboarding.step3.options.buildConfidence' },
+      { value: 'none', titleKey: 'onboarding.step3.options.none' },
     ],
   },
   // Step 4: Fitness Level
   {
-    type: 'question', section: 'My Profile', heading: 'How would you describe your fitness level?',
+    type: 'question', sectionKey: 'onboarding.sections.myProfile', headingKey: 'onboarding.step4.heading',
     key: 'level', mode: 'single', options: [
-      { value: 'beginner', title: 'Beginner', desc: 'Just getting started' },
-      { value: 'intermediate', title: 'Intermediate', desc: 'I work out sometimes' },
-      { value: 'advanced', title: 'Advanced', desc: 'I train regularly' },
+      { value: 'beginner', titleKey: 'onboarding.step4.options.beginnerTitle', descKey: 'onboarding.step4.options.beginnerDesc' },
+      { value: 'intermediate', titleKey: 'onboarding.step4.options.intermediateTitle', descKey: 'onboarding.step4.options.intermediateDesc' },
+      { value: 'advanced', titleKey: 'onboarding.step4.options.advancedTitle', descKey: 'onboarding.step4.options.advancedDesc' },
     ],
   },
   // Step 5: Best Shape
   {
-    type: 'question', section: 'My Profile', heading: 'How long ago were you in the best shape of your life?',
+    type: 'question', sectionKey: 'onboarding.sections.myProfile', headingKey: 'onboarding.step5.heading',
     key: 'best_shape', mode: 'single', options: [
-      { value: 'less-than-year', title: 'Less than a year ago' },
-      { value: '1-2-years', title: '1 to 2 years ago' },
-      { value: 'more-than-3-years', title: 'More than 3 years ago' },
-      { value: 'never', title: 'Never' },
+      { value: 'less-than-year', titleKey: 'onboarding.step5.options.lessThanYear' },
+      { value: '1-2-years', titleKey: 'onboarding.step5.options.oneToTwoYears' },
+      { value: 'more-than-3-years', titleKey: 'onboarding.step5.options.moreThanThreeYears' },
+      { value: 'never', titleKey: 'onboarding.step5.options.never' },
     ],
   },
   // Step 6: Push-ups
   {
-    type: 'question', section: 'Activity', heading: 'How many push-ups can you do in a row?',
+    type: 'question', sectionKey: 'onboarding.sections.activity', headingKey: 'onboarding.step6.heading',
     key: 'pushups', mode: 'single', options: [
-      { value: '0', title: "I can't do push-ups" },
-      { value: '1-10', title: '1-10 push-ups' },
-      { value: '11-20', title: '11-20 push-ups' },
-      { value: '20+', title: '20+ push-ups' },
+      { value: '0', titleKey: 'onboarding.step6.options.none' },
+      { value: '1-10', titleKey: 'onboarding.step6.options.oneToTen' },
+      { value: '11-20', titleKey: 'onboarding.step6.options.elevenToTwenty' },
+      { value: '20+', titleKey: 'onboarding.step6.options.twentyPlus' },
     ],
   },
   // Step 7: Flexibility
   {
-    type: 'question', section: 'Activity', heading: 'How flexible are you?',
+    type: 'question', sectionKey: 'onboarding.sections.activity', headingKey: 'onboarding.step7.heading',
     key: 'flexibility', mode: 'single', options: [
-      { value: 'very', title: 'Very flexible' },
-      { value: 'pretty', title: 'Pretty flexible' },
-      { value: 'not-good', title: 'Not that good' },
-      { value: 'not-sure', title: "I'm not sure" },
+      { value: 'very', titleKey: 'onboarding.step7.options.very' },
+      { value: 'pretty', titleKey: 'onboarding.step7.options.pretty' },
+      { value: 'not-good', titleKey: 'onboarding.step7.options.notGood' },
+      { value: 'not-sure', titleKey: 'onboarding.step7.options.notSure' },
     ],
   },
   // Step 8: Workout Frequency
   {
-    type: 'question', section: 'Activity', heading: 'How many times have you worked out in the last 3 months?',
+    type: 'question', sectionKey: 'onboarding.sections.activity', headingKey: 'onboarding.step8.heading',
     key: 'recent_activity', mode: 'single', options: [
-      { value: 'daily', title: 'Almost every day' },
-      { value: 'weekly', title: 'Several times a week' },
-      { value: 'monthly', title: 'Several times a month' },
-      { value: 'none', title: "I don't work out" },
+      { value: 'daily', titleKey: 'onboarding.step8.options.daily' },
+      { value: 'weekly', titleKey: 'onboarding.step8.options.weekly' },
+      { value: 'monthly', titleKey: 'onboarding.step8.options.monthly' },
+      { value: 'none', titleKey: 'onboarding.step8.options.none' },
     ],
   },
   // Step 9: Motivational Interstitial
   {
     type: 'interstitial',
-    heading: 'Achieve greater results with Libo',
-    body: 'Our workouts are simple, fun, and fit into the busiest schedule. We\u2019ll consider your fitness level to help you <strong>reach your goal faster</strong>.',
+    headingKey: 'onboarding.step9.heading',
+    bodyKey: 'onboarding.step9.body',
     image: '/ReferenceImagesReal/1933bd503955db5451058dd0bcae5740.jpg',
   },
   // Step 10: Target Zones (grid)
   {
-    type: 'question', section: 'Activity', heading: 'What are your target zones?',
+    type: 'question', sectionKey: 'onboarding.sections.activity', headingKey: 'onboarding.step10.heading',
     key: 'target_zones', mode: 'multi', grid: true, options: [
-      { value: 'chest', title: 'Chest', icon: '\uD83E\uDEC1' },
-      { value: 'arms', title: 'Arms', icon: '\uD83D\uDCAA' },
-      { value: 'core', title: 'Core', icon: '\uD83D\uDD25' },
-      { value: 'legs', title: 'Legs', icon: '\uD83E\uDDB5' },
-      { value: 'back', title: 'Back', icon: '\uD83D\uDD19' },
-      { value: 'full-body', title: 'Full body', icon: '\uD83C\uDFCB\uFE0F' },
+      { value: 'chest', titleKey: 'onboarding.step10.options.chest', icon: '\uD83E\uDEC1' },
+      { value: 'arms', titleKey: 'onboarding.step10.options.arms', icon: '\uD83D\uDCAA' },
+      { value: 'core', titleKey: 'onboarding.step10.options.core', icon: '\uD83D\uDD25' },
+      { value: 'legs', titleKey: 'onboarding.step10.options.legs', icon: '\uD83E\uDDB5' },
+      { value: 'back', titleKey: 'onboarding.step10.options.back', icon: '\uD83D\uDD19' },
+      { value: 'full-body', titleKey: 'onboarding.step10.options.fullBody', icon: '\uD83C\uDFCB\uFE0F' },
     ],
   },
   // Step 11: Training Frequency
   {
-    type: 'question', section: 'Lifestyle', heading: 'How many times per week would you like to train?',
+    type: 'question', sectionKey: 'onboarding.sections.lifestyle', headingKey: 'onboarding.step11.heading',
     key: 'train_freq', mode: 'single', options: [
-      { value: '1-2', title: '1-2 times' },
-      { value: '3-4', title: '3-4 times' },
-      { value: '5+', title: '5+ times' },
+      { value: '1-2', titleKey: 'onboarding.step11.options.oneToTwo' },
+      { value: '3-4', titleKey: 'onboarding.step11.options.threeToFour' },
+      { value: '5+', titleKey: 'onboarding.step11.options.fivePlus' },
     ],
   },
   // Step 12: Workout Duration
   {
-    type: 'question', section: 'Lifestyle', heading: 'How long do you want your workouts to be?',
+    type: 'question', sectionKey: 'onboarding.sections.lifestyle', headingKey: 'onboarding.step12.heading',
     key: 'duration', mode: 'single', options: [
-      { value: '10-15', title: '10-15 min' },
-      { value: '15-20', title: '15-20 min' },
-      { value: '20-30', title: '20-30 min' },
-      { value: '30+', title: '30+ min' },
-      { value: 'unsure', title: "I don't know" },
+      { value: '10-15', titleKey: 'onboarding.step12.options.tenToFifteen' },
+      { value: '15-20', titleKey: 'onboarding.step12.options.fifteenToTwenty' },
+      { value: '20-30', titleKey: 'onboarding.step12.options.twentyToThirty' },
+      { value: '30+', titleKey: 'onboarding.step12.options.thirtyPlus' },
+      { value: 'unsure', titleKey: 'onboarding.step12.options.unsure' },
     ],
   },
   // Step 13: Work Schedule
   {
-    type: 'question', section: 'Lifestyle', heading: "What's your work schedule like?",
+    type: 'question', sectionKey: 'onboarding.sections.lifestyle', headingKey: 'onboarding.step13.heading',
     key: 'schedule', mode: 'single', options: [
-      { value: '9-5', title: '9 to 5', icon: '\uD83D\uDDA5' },
-      { value: 'night', title: 'Night shifts', icon: '\uD83C\uDF19' },
-      { value: 'flexible', title: 'My hours are flexible', icon: '\uD83D\uDD04' },
-      { value: 'retired', title: "I'm retired / not working", icon: '\uD83C\uDFE0' },
+      { value: '9-5', titleKey: 'onboarding.step13.options.nineToFive', icon: '\uD83D\uDDA5' },
+      { value: 'night', titleKey: 'onboarding.step13.options.night', icon: '\uD83C\uDF19' },
+      { value: 'flexible', titleKey: 'onboarding.step13.options.flexible', icon: '\uD83D\uDD04' },
+      { value: 'retired', titleKey: 'onboarding.step13.options.retired', icon: '\uD83C\uDFE0' },
     ],
   },
   // Step 14: Energy Levels
   {
-    type: 'question', section: 'Lifestyle', heading: 'How are your energy levels during the day?',
+    type: 'question', sectionKey: 'onboarding.sections.lifestyle', headingKey: 'onboarding.step14.heading',
     key: 'energy', mode: 'single', options: [
-      { value: 'low', title: 'Low and inconsistent', icon: '\uD83D\uDD0B' },
-      { value: 'steady', title: 'Remain steady', icon: '\uD83D\uDD32' },
-      { value: 'fluctuate', title: 'Fluctuate throughout the day', icon: '\uD83D\uDCCA' },
-      { value: 'high', title: 'Stay high all day', icon: '\u26A1' },
+      { value: 'low', titleKey: 'onboarding.step14.options.low', icon: '\uD83D\uDD0B' },
+      { value: 'steady', titleKey: 'onboarding.step14.options.steady', icon: '\uD83D\uDD32' },
+      { value: 'fluctuate', titleKey: 'onboarding.step14.options.fluctuate', icon: '\uD83D\uDCCA' },
+      { value: 'high', titleKey: 'onboarding.step14.options.high', icon: '\u26A1' },
     ],
   },
   // Step 15: Sleep
   {
-    type: 'question', section: 'Lifestyle', heading: 'How much sleep do you usually get?',
+    type: 'question', sectionKey: 'onboarding.sections.lifestyle', headingKey: 'onboarding.step15.heading',
     key: 'sleep', mode: 'single', options: [
-      { value: 'less-5', title: 'Less than 5 hours' },
-      { value: '5-6', title: '5-6 hours' },
-      { value: '7-8', title: '7-8 hours' },
-      { value: 'more-8', title: 'More than 8 hours' },
+      { value: 'less-5', titleKey: 'onboarding.step15.options.lessThanFive' },
+      { value: '5-6', titleKey: 'onboarding.step15.options.fiveToSix' },
+      { value: '7-8', titleKey: 'onboarding.step15.options.sevenToEight' },
+      { value: 'more-8', titleKey: 'onboarding.step15.options.moreThanEight' },
     ],
   },
   // Step 16: Motivational Interstitial
   {
     type: 'interstitial',
-    heading: 'Libo will help you feel more energized',
-    body: 'Our workouts will help you improve your stamina and endurance. You\u2019ll have <strong>more energy and strength</strong> to keep up with your daily activities.',
+    headingKey: 'onboarding.step16.heading',
+    bodyKey: 'onboarding.step16.body',
   },
   // Step 17: Equipment
   {
-    type: 'question', section: 'Your Plan', heading: 'What equipment do you have access to?',
+    type: 'question', sectionKey: 'onboarding.sections.yourPlan', headingKey: 'onboarding.step17.heading',
     key: 'equipment', mode: 'multi', options: [
-      { value: 'none', title: 'None (Bodyweight only)' },
-      { value: 'dumbbells', title: 'Dumbbells' },
-      { value: 'resistance-bands', title: 'Resistance Bands' },
-      { value: 'pull-up-bar', title: 'Pull-up Bar' },
-      { value: 'full-gym', title: 'Full Gym' },
-      { value: 'kettlebell', title: 'Kettlebell' },
+      { value: 'none', titleKey: 'onboarding.step17.options.none' },
+      { value: 'dumbbells', titleKey: 'onboarding.step17.options.dumbbells' },
+      { value: 'resistance-bands', titleKey: 'onboarding.step17.options.resistanceBands' },
+      { value: 'pull-up-bar', titleKey: 'onboarding.step17.options.pullUpBar' },
+      { value: 'full-gym', titleKey: 'onboarding.step17.options.fullGym' },
+      { value: 'kettlebell', titleKey: 'onboarding.step17.options.kettlebell' },
     ],
   },
   // Step 18: Obstacles
   {
-    type: 'question', section: 'Your Plan', heading: 'What has stopped you from reaching your goals before?',
+    type: 'question', sectionKey: 'onboarding.sections.yourPlan', headingKey: 'onboarding.step18.heading',
     key: 'obstacles', mode: 'multi', options: [
-      { value: 'motivation', title: 'Lack of motivation' },
-      { value: 'no-plan', title: "Didn't have a clear plan" },
-      { value: 'time', title: 'Lack of time' },
-      { value: 'injuries', title: 'Injuries or pain' },
-      { value: 'none', title: 'None of the above' },
+      { value: 'motivation', titleKey: 'onboarding.step18.options.motivation' },
+      { value: 'no-plan', titleKey: 'onboarding.step18.options.noPlan' },
+      { value: 'time', titleKey: 'onboarding.step18.options.time' },
+      { value: 'injuries', titleKey: 'onboarding.step18.options.injuries' },
+      { value: 'none', titleKey: 'onboarding.step18.options.none' },
     ],
   },
   // Step 19: Loading
@@ -269,11 +253,12 @@ const LOGO_SRC = '/brand/logo_options/option_A_wordmark_ascending_dots_transpare
 // ── Component ──
 
 export default function Onboarding() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>(() => {
     const goalParam = searchParams.get('goal');
-    return goalParam ? { goal: goalParam } : {};
+    return goalParam ? { goal: goalParam } : ({} as Record<string, string | string[]>);
   });
   const [menuOpen, setMenuOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -285,7 +270,7 @@ export default function Onboarding() {
   const [loadingReady, setLoadingReady] = useState(false);
   const [testimonialVisible, setTestimonialVisible] = useState(false);
   const ringRef = useRef<SVGCircleElement>(null);
-  const loadingTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const loadingTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Step transition refs
   const stepRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -297,6 +282,14 @@ export default function Onboarding() {
 
   // Get goal for dynamic content
   const goalKey = (answers.goal as string) || 'build-muscle';
+  const goalI18nKey = GOAL_KEY_MAP[goalKey] || GOAL_KEY_MAP['build-muscle'];
+
+  const SECTION_LABELS = useMemo(() => [
+    t('onboarding.sections.myProfile'),
+    t('onboarding.sections.activity'),
+    t('onboarding.sections.lifestyle'),
+    t('onboarding.sections.yourPlan'),
+  ], [t]);
 
   const goTo = useCallback((step: number, dir: 'forward' | 'back') => {
     if (step < 1 || step > TOTAL_STEPS) return;
@@ -343,7 +336,7 @@ export default function Onboarding() {
     }
   }, [currentStep]);
 
-  const runLoadingScreen = useCallback((step: number) => {
+  const runLoadingScreen = useCallback((_step: number) => {
     setLoadingPercent(0);
     setLoadingReady(false);
     setTestimonialVisible(false);
@@ -473,23 +466,23 @@ export default function Onboarding() {
 
       if (!error) {
         setFormState('success');
-        setFormMsg('Welcome! We\u2019ll notify you when Libo launches.');
+        setFormMsg(t('onboarding.email.successMessage'));
       } else if (error.code === '23505') {
         setFormState('duplicate');
-        setFormMsg('You\u2019re already on the waitlist! We\u2019ll be in touch.');
+        setFormMsg(t('onboarding.email.duplicateMessage'));
       } else {
         setFormState('error');
-        setFormMsg('Something went wrong. Please try again.');
+        setFormMsg(t('onboarding.email.errorMessage'));
       }
     } catch {
       setFormState('error');
-      setFormMsg('Connection error. Please try again.');
+      setFormMsg(t('onboarding.email.connectionError'));
     }
-  }, [email, answers]);
+  }, [email, answers, t]);
 
   // ── Render helpers ──
 
-  const renderQuestionStep = (step: QuizStep, stepIdx: number) => {
+  const renderQuestionStep = (step: QuizStep, _stepIdx: number) => {
     const selected = answers[step.key];
     const isSelected = (val: string) =>
       step.mode === 'single'
@@ -498,8 +491,8 @@ export default function Onboarding() {
 
     return (
       <>
-        <div className="ob-section-tag">{step.section}</div>
-        <h1 className="ob-step-heading">{step.heading}</h1>
+        <div className="ob-section-tag">{t(step.sectionKey)}</div>
+        <h1 className="ob-step-heading">{t(step.headingKey)}</h1>
         <div className={`ob-options${step.grid ? ' grid-2' : ''}`}>
           {step.options.map(opt => (
             <div
@@ -510,8 +503,8 @@ export default function Onboarding() {
               <div className="ob-card-content">
                 {opt.icon && <span className="ob-card-icon">{opt.icon}</span>}
                 <div className="ob-card-text">
-                  <div className="ob-card-title">{opt.title}</div>
-                  {opt.desc && <div className="ob-card-desc">{opt.desc}</div>}
+                  <div className="ob-card-title">{t(opt.titleKey)}</div>
+                  {opt.descKey && <div className="ob-card-desc">{t(opt.descKey)}</div>}
                 </div>
               </div>
               {step.mode === 'single' ? (
@@ -528,7 +521,7 @@ export default function Onboarding() {
             disabled={!Array.isArray(answers[step.key]) || (answers[step.key] as string[]).length === 0}
             onClick={() => handleMultiContinue(step.key)}
           >
-            NEXT STEP
+            {t('onboarding.buttons.nextStep')}
           </button>
         )}
       </>
@@ -537,11 +530,11 @@ export default function Onboarding() {
 
   const renderInterstitialStep = (step: InterstitialStep) => {
     const heading = step.dynamic === 'goal'
-      ? GOAL_HEADINGS[goalKey] || GOAL_HEADINGS['build-muscle']
-      : step.heading;
+      ? t(`onboarding.goalHeadings.${goalI18nKey}`)
+      : step.headingKey ? t(step.headingKey) : '';
     const body = step.dynamic === 'goal'
-      ? GOAL_BODY[goalKey] || GOAL_BODY['build-muscle']
-      : step.body;
+      ? t(`onboarding.goalBody.${goalI18nKey}`)
+      : step.bodyKey ? t(step.bodyKey) : '';
 
     return (
       <div className="ob-interstitial-card">
@@ -558,7 +551,7 @@ export default function Onboarding() {
           className="ob-continue-btn"
           onClick={() => goTo(currentStep + 1, 'forward')}
         >
-          CONTINUE
+          {t('onboarding.buttons.continue')}
         </button>
       </div>
     );
@@ -583,46 +576,47 @@ export default function Onboarding() {
         <div className="ob-progress-percent">{loadingPercent}%</div>
       </div>
       <p className="ob-loading-ready">
-        {loadingReady ? 'Your personalised Libo Training Plan is ready!' : 'Preparing your plan...'}
+        {loadingReady ? t('onboarding.loading.ready') : t('onboarding.loading.preparing')}
       </p>
       {loadingReady && (
         <p className="ob-loading-social">
-          10,000+ people have chosen Libo to help with {GOAL_LABELS[goalKey] || 'building muscle'}
+          {t('onboarding.loading.social', { goal: t(`onboarding.goalLabels.${goalI18nKey}`) })}
         </p>
       )}
       <div className="ob-testimonial-card" style={{ opacity: testimonialVisible ? 1 : 0 }}>
         <div className="ob-testimonial-stars">{'\u2605\u2605\u2605\u2605\u2605'}</div>
         <p className="ob-testimonial-text">
-          &ldquo;Libo changed my routine completely. The workouts are quick, effective, and I actually look forward to them now.&rdquo;
+          {t('onboarding.loading.testimonialQuote')}
         </p>
-        <p className="ob-testimonial-author">- Marco T., verified user</p>
+        <p className="ob-testimonial-author">{t('onboarding.loading.testimonialAuthor')}</p>
       </div>
     </div>
   );
 
   const renderEmailStep = () => {
-    const label = GOAL_LABELS[goalKey] || 'building muscle';
+    const label = t(`onboarding.goalLabels.${goalI18nKey}`);
     const isDone = formState === 'success' || formState === 'duplicate';
 
     return (
       <div>
         <h1 className="ob-step-heading">
-          Join the Libo waitlist for early access to your personalised{' '}
-          <strong>Training Plan</strong> for{' '}
-          <span className="ob-goal-highlight">{label}</span>!
+          {t('onboarding.email.headingPrefix')}{' '}
+          <strong>{t('onboarding.email.trainingPlan')}</strong>{' '}
+          {t('onboarding.email.headingMiddle')}{' '}
+          <span className="ob-goal-highlight">{label}</span>{t('onboarding.email.headingSuffix')}
         </h1>
         <form onSubmit={handleEmailSubmit}>
           <input
             type="email"
             className="ob-email-input"
-            placeholder="Enter your email address"
+            placeholder={t('onboarding.email.placeholder')}
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
             disabled={isDone}
           />
           <p className="ob-privacy-note">
-            By continuing, you agree to receive emails from Libo. We respect your privacy and will never share your data.
+            {t('onboarding.email.privacyNote')}
           </p>
           <button
             type="submit"
@@ -630,9 +624,9 @@ export default function Onboarding() {
             disabled={formState === 'submitting' || isDone}
             style={isDone ? { background: 'var(--accent)', color: '#000' } : undefined}
           >
-            {formState === 'submitting' ? 'JOINING...'
-              : isDone ? '\u2713 YOU\u2019RE ON THE LIST!'
-              : 'JOIN WAITLIST'}
+            {formState === 'submitting' ? t('onboarding.buttons.joining')
+              : isDone ? t('onboarding.buttons.onTheList')
+              : t('onboarding.buttons.joinWaitlist')}
           </button>
         </form>
         {formMsg && (
@@ -669,7 +663,7 @@ export default function Onboarding() {
           <button
             className={`ob-back-btn${showBack ? '' : ' hidden'}`}
             onClick={() => goTo(currentStep - 1, 'back')}
-            aria-label="Go back"
+            aria-label={t('onboarding.topBar.goBack')}
           >
             &larr;
           </button>
@@ -679,7 +673,7 @@ export default function Onboarding() {
           <button
             className="ob-hamburger"
             onClick={() => setMenuOpen(true)}
-            aria-label="Menu"
+            aria-label={t('onboarding.topBar.menu')}
           >
             <span /><span /><span />
           </button>
@@ -713,16 +707,16 @@ export default function Onboarding() {
           <button
             className="ob-menu-close"
             onClick={() => setMenuOpen(false)}
-            aria-label="Close menu"
+            aria-label={t('onboarding.topBar.closeMenu')}
           >
             &times;
           </button>
-          <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
-          <a href="/#features" onClick={() => setMenuOpen(false)}>Features</a>
-          <a href="/#rewards" onClick={() => setMenuOpen(false)}>Rewards</a>
-          <a href="/#workouts" onClick={() => setMenuOpen(false)}>Workouts</a>
-          <a href="/#goals" onClick={() => setMenuOpen(false)}>Goals</a>
-          <a href="/#cta" onClick={() => setMenuOpen(false)}>Get Early Access</a>
+          <a href="/" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.home')}</a>
+          <a href="/#features" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.features')}</a>
+          <a href="/#rewards" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.rewards')}</a>
+          <a href="/#workouts" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.workouts')}</a>
+          <a href="/#goals" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.goals')}</a>
+          <a href="/#cta" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.getEarlyAccess')}</a>
         </div>
       </div>
 

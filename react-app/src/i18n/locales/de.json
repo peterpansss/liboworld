@@ -1,0 +1,485 @@
+{
+  "nav": {
+    "features": "Features",
+    "rewards": "Belohnungen",
+    "workouts": "Workouts",
+    "goals": "Ziele",
+    "cta": "Frühen Zugang sichern",
+    "home": "Start",
+    "exercises": "Übungen",
+    "blog": "Blog",
+    "getStarted": "Jetzt starten",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "skipToMain": "Zum Hauptinhalt springen",
+    "mainNavigation": "Hauptnavigation",
+    "navigationMenu": "Navigationsmenü",
+    "changeLanguage": "Sprache ändern"
+  },
+  "hero": {
+    "eyebrow": "Bald verfügbar — Trag dich ein",
+    "headline1": "Trainiere",
+    "headline2": "Überall.",
+    "headline3": "Jederzeit.",
+    "cta": "Auf die Warteliste →",
+    "stat1Label": "Übungen",
+    "stat2Label": "Workouts",
+    "stat3Value": "0 kg",
+    "stat3Label": "Equipment nötig",
+    "scrollIndicator": "Scroll nach unten"
+  },
+  "marquee": {
+    "bodyweight": "Bodyweight",
+    "gymTraining": "Gym Training",
+    "mobility": "Mobilität",
+    "breathing": "Atemübungen",
+    "morningRoutines": "Morgenroutinen",
+    "programs": "Programme",
+    "progressTracking": "Fortschrittstracking",
+    "customWorkouts": "Eigene Workouts",
+    "moneyChallenges": "Geld-Challenges",
+    "noEquipment": "Ohne Equipment",
+    "homeGym": "Home & Gym",
+    "guidedBreathing": "Geführte Atemübungen",
+    "goalPrograms": "Ziel-Programme",
+    "eveningRoutines": "Abendroutinen",
+    "flexibility": "Flexibilität",
+    "strengthTraining": "Krafttraining"
+  },
+  "statsStrip": {
+    "label": "Was drin steckt",
+    "exercises": "Übungen",
+    "workouts": "Workouts",
+    "trainingFormats": "Trainingsformate",
+    "equipmentRequired": "Equipment nötig"
+  },
+  "statement": {
+    "line1": "Ein Club.",
+    "line2": "Jedes Format.",
+    "line3": "Jeder Ort.",
+    "line4": "Jedes Ziel.",
+    "description": "Libo ist der Trainingsclub für dein echtes Leben — zuhause, im Gym, im Büro oder unterwegs. Keine Ausreden. Nur Ergebnisse."
+  },
+  "features": {
+    "eyebrow": "Was drin steckt",
+    "headline": "Alles, was\ndu brauchst.",
+    "description": "718 Übungen · 140 Workouts · 4 Challenge-Programme. Jedes Trainingsformat, von Langhantel-Kraft bis Atemübungen und Morgenroutinen.",
+    "exerciseLibrary": "Übungsbibliothek",
+    "exerciseLibraryDesc": "718 Übungen — 411 Gym, 258 Home, 49 Mobilität. Jede mit Equipment-Hinweisen, Muskelgruppen und Ausführungstipps.",
+    "workoutLibrary": "Workout-Bibliothek",
+    "workoutLibraryDesc": "140 fertige Sessions — Gym, Home, Cardio, Stretching, Morgenroutinen und Challenge-Programme. 5 bis 60 Minuten.",
+    "programs": "Programme",
+    "programsDesc": "Mehrwöchige strukturierte Pläne, die dir echte, messbare Ergebnisse liefern. Folge dem Plan, vertrau dem Prozess.",
+    "progressTracking": "Fortschrittstracking",
+    "progressTrackingDesc": "Logge jeden Satz, jede Wiederholung und jedes Gewicht. Libo merkt sich deine Historie und zeigt dir genau, wie weit du gekommen bist.",
+    "customBuilder": "Eigene Workouts",
+    "customBuilderDesc": "Bau dir dein eigenes Workout aus der gesamten Übungsbibliothek. Reihenfolge, Sätze, Pausenzeit — speichern und wiederverwenden.",
+    "moneyChallenges": "Geld-Challenges",
+    "moneyChallengesDesc": "Nimm an 30-Tage-Challenges teil, mach deine täglichen Reps, poste in Stories — und verdien echtes Geld. 50 Liegestütze am Tag für 30 Tage? Das sind €15 in deiner Tasche."
+  },
+  "photoBreak1": {
+    "eyebrow": "718 Übungen",
+    "headline": "Jede Bewegung.\nJeder Muskel.\nEine App."
+  },
+  "rewards": {
+    "eyebrow": "Geld-Challenges",
+    "headline": "Deine Reps\nzahlen echtes Geld.",
+    "description": "30 Tage. Tägliche Reps. Poste den Beweis. Cash dir aus. Keine Punkte, keine Gutscheine — nur Geld in deiner Tasche.",
+    "chip1": "Echte Auszahlungen",
+    "chip2": "30-Tage-Streaks",
+    "chip3": "Begrenzte Plätze",
+    "badge": "30-Tage-Challenge",
+    "challengeName": "50 Liegestütze x 30 Tage",
+    "challengeSubtitle": "Mach deine täglichen Reps, nimm dich auf, teile in Stories",
+    "flowStep1": "Mach die Reps",
+    "flowStep2": "Aufnehmen",
+    "flowStep3": "Teilen",
+    "flowStep4": "Auszahlen",
+    "spots": "37 von 50 Plätzen belegt"
+  },
+  "categories": {
+    "eyebrow": "Trainingsformate",
+    "headline": "Gebaut für\njeden Moment.",
+    "description": "Jedes Format, jeder Ort, jede Tageszeit — abgedeckt.",
+    "homeWorkouts": "Home Workouts",
+    "homeWorkoutsDesc": "Bodyweight · Kein Equipment nötig",
+    "gymTraining": "Gym Training",
+    "gymTrainingDesc": "Geräte · Freie Gewichte · Volle Sessions",
+    "mobilityStretch": "Mobilität & Stretching",
+    "mobilityStretchDesc": "Flexibilität · Gelenkgesundheit · Regeneration",
+    "functional": "Functional Fitness",
+    "functionalDesc": "Alltagsnahe Bewegungsmuster",
+    "morningRoutines": "Morgenroutinen",
+    "morningRoutinesDesc": "Energie · Aktivierung · Fokus setzen",
+    "eveningWindDown": "Abendroutine",
+    "eveningWindDownDesc": "Entspannen · Regenerieren · Besser schlafen",
+    "breathing": "Atemübungen",
+    "breathingDesc": "Ruhe · Fokus · Nervensystem-Reset",
+    "goalPrograms": "Ziel-Programme",
+    "goalProgramsDesc": "Strukturierte Transformationspläne über 4 bis 12 Wochen"
+  },
+  "goals": {
+    "eyebrow": "Personalisiert für dich",
+    "headline": "Eine App.\nJedes\nZiel.",
+    "description": "Sag Libo, was du willst. Wir erstellen einen Plan rund um dein Ziel, dein Fitnesslevel und dein verfügbares Equipment. Dein Weg, deine Regeln.",
+    "loseWeight": "Abnehmen",
+    "loseWeightDesc": "Kalorien verbrennen, dranbleiben, Ergebnisse sehen",
+    "buildMuscle": "Muskeln aufbauen",
+    "buildMuscleDesc": "Progressive Überlastung, strukturiertes Volumen",
+    "improveMobility": "Mobilität verbessern",
+    "improveMobilityDesc": "Besser bewegen, besser fühlen, Verletzungen vorbeugen",
+    "stayActive": "Aktiv bleiben",
+    "stayActiveDesc": "Gesunde Gewohnheiten, die wirklich bleiben",
+    "reduceStress": "Stress reduzieren",
+    "reduceStressDesc": "Atemübungen, Bewegung, achtsame Routinen"
+  },
+  "photoBreak2": {
+    "tagline": "Keine Ausreden. Nur Ergebnisse."
+  },
+  "proof": {
+    "eyebrow": "Erstes Feedback",
+    "headline": "Die Leute lieben\ndas Training mit Libo.",
+    "card1Quote": "\"Ich hab die 50-Liegestütze-Challenge gemacht und wurde tatsächlich bezahlt. Das tägliche Aufnehmen hält dich ehrlich — kein Weg zu schummeln. Die beste Motivation, die ich je hatte.\"",
+    "card1Author": "Marco T.",
+    "card1Meta": "Challenge abgeschlossen · Berlin",
+    "card2Quote": "\"Die Morgenroutinen sind ein Gamechanger. 15 Minuten vor der Arbeit und ich fühle mich den ganzen Tag komplett anders.\"",
+    "card2Author": "Sophie K.",
+    "card2Meta": "Morgenroutinen · London",
+    "card3Quote": "\"Das 8-Wochen-Programm ist genau das, was ich gebraucht habe. Zu sehen, wie meine Gewichte jede Woche steigen, hält mich dran wie nichts anderes.\"",
+    "card3Author": "Lucas R.",
+    "card3Meta": "Folgt einem Programm · São Paulo"
+  },
+  "cta": {
+    "eyebrow": "Auf die Warteliste",
+    "headline": "Sei der Erste.\nTrainiere besser.",
+    "description": "Libo kommt bald. Trag dich auf die Warteliste ein und sichere dir frühen Zugang plus ein exklusives Launch-Angebot.",
+    "emailPlaceholder": "Deine E-Mail-Adresse",
+    "submitButton": "Eintragen →",
+    "formMessage": "Kein Spam. Nur wenn Libo startet.",
+    "successMessage": "Du bist auf der Liste!",
+    "successNotification": "Willkommen! Wir benachrichtigen dich, sobald Libo startet.",
+    "duplicateMessage": "Du bist schon auf der Liste!",
+    "duplicateNotification": "Du bist bereits auf der Warteliste! Wir melden uns.",
+    "errorMessage": "Etwas ist schiefgelaufen. Bitte versuch es nochmal.",
+    "connectionError": "Verbindungsfehler. Bitte versuch es nochmal.",
+    "joining": "Wird eingetragen...",
+    "emailLabel": "E-Mail-Adresse"
+  },
+  "store": {
+    "comingSoonOn": "Bald verfügbar im",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "downloadAppStore": "Im App Store laden"
+  },
+  "trust": {
+    "eyebrow": "Von Athleten vertraut",
+    "headline": "Die Zahlen sprechen.",
+    "stat1Num": "634",
+    "stat1Label": "Übungen",
+    "stat1Sub": "Gym, Home & Mobilität",
+    "stat2Num": "136",
+    "stat2Label": "Workouts",
+    "stat2Sub": "Direkt startbereit",
+    "stat3Num": "4.9",
+    "stat3Label": "Beta-Bewertung",
+    "stat3Sub": "Von ersten Testern",
+    "stat4Num": "50+",
+    "stat4Label": "Beta-Tester",
+    "stat4Sub": "Und es werden mehr",
+    "availableIos": "Verfügbar für iOS",
+    "betaRating": "4.9 von Beta-Testern"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "headline": "Häufige\nFragen.",
+    "description": "Alles, was du über Libo wissen musst, bevor du dich einträgst.",
+    "q1": "Ist Libo kostenlos?",
+    "a1": "Libo hat eine kostenlose Version mit Zugriff auf Workouts, Übungen und grundlegendes Tracking. Pro schaltet Premium-Programme, detaillierte Auswertungen und Geld-Challenges frei.",
+    "q2": "Welches Equipment brauche ich?",
+    "a2": "Keins — oder alles. Libo hat 235 Bodyweight-Übungen für zuhause, 366 Gym-Übungen und 33 Mobility-Moves. Filtere nach dem, was du hast.",
+    "q3": "Wie funktionieren die Geld-Challenges?",
+    "a3": "Tritt einer 30-Tage-Challenge bei (z.B. 50 Liegestütze pro Tag), nimm dich täglich beim Machen auf, teile das in deinen Stories und lass dir am Ende echtes Geld auszahlen. Die Plätze pro Challenge sind begrenzt.",
+    "q4": "Kann ich meine eigenen Workouts bauen?",
+    "a4": "Ja. Mit dem Custom Builder wählst du aus 634 Übungen, legst Sätze, Wiederholungen und Pausenzeiten selbst fest und speicherst deine Workouts zur Wiederverwendung.",
+    "q5": "Gibt es Libo für Android?",
+    "a5": "Libo startet zuerst auf iOS. Android ist in Planung — trag dich auf die Warteliste ein, wir sagen Bescheid, sobald es verfügbar ist.",
+    "q6": "Was macht Libo anders als andere Fitness-Apps?",
+    "a6": "Libo bringt eine riesige Übungsbibliothek, strukturierte Programme, Fortschrittstracking und echte Geld-Challenges in einer App zusammen — mit einem cleanen, premium Dark-UI, das nicht im Weg steht. Keine Werbung, kein Gewusel.",
+    "q7": "Kann ich strukturierten Programmen folgen?",
+    "a7": "Ja. Libo hat mehrwöchige Programme für spezifische Ziele — Muskelaufbau, Fettabbau, Mobilität und mehr. Folge dem Plan, logge deinen Fortschritt, sieh echte Ergebnisse.",
+    "q8": "Trackt Libo meinen Fortschritt?",
+    "a8": "Jeder Satz, jede Wiederholung und jedes Gewicht wird gespeichert. Libo trackt deine Workout-Historie, persönliche Bestleistungen, Streaks und zeigt dir deine Entwicklung in klaren Charts."
+  },
+  "blogPreview": {
+    "eyebrow": "Aus dem Blog",
+    "headline": "Guides & Insights.",
+    "seeAll": "Alle Beiträge ansehen →",
+    "minRead": "Min. Lesezeit"
+  },
+  "mobileMenu": {
+    "exerciseLibrary": "Übungsbibliothek",
+    "workouts": "Workouts",
+    "blog": "Blog",
+    "getEarlyAccess": "Frühen Zugang sichern"
+  },
+  "photoBreak2Full": {
+    "line1": "Keine Ausreden.",
+    "line2": "Nur Ergebnisse."
+  },
+  "footer": {
+    "copyright": "© 2026 Libo World",
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "contact": "Kontakt",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "siteFooterLabel": "Footer",
+    "footerNavigation": "Footer-Navigation",
+    "productTitle": "Produkt",
+    "companyTitle": "Unternehmen",
+    "resourcesTitle": "Ressourcen",
+    "workoutsTitle": "Workouts",
+    "features": "Features",
+    "rewardsLink": "Belohnungen",
+    "workoutsLink": "Workouts",
+    "getStarted": "Jetzt starten",
+    "about": "Über uns",
+    "contactUs": "Kontakt",
+    "blogLink": "Blog",
+    "exerciseLibrary": "Übungsbibliothek",
+    "gymWorkouts": "Gym Workouts",
+    "homeWorkouts": "Home Workouts",
+    "stretching": "Stretching",
+    "cardio": "Cardio",
+    "challenges": "Challenges",
+    "allRightsReserved": "Alle Rechte vorbehalten.",
+    "termsAndConditions": "AGB"
+  },
+  "comingSoon": {
+    "eyebrow": "Bald verfügbar — Trag dich ein",
+    "headline1": "Trainiere",
+    "headline2": "Überall.",
+    "headline3": "Jederzeit.",
+    "cta": "Auf die Warteliste →"
+  },
+  "onboarding": {
+    "topBar": {
+      "goBack": "Zurück",
+      "menu": "Menü",
+      "closeMenu": "Menü schließen"
+    },
+    "menu": {
+      "home": "Start",
+      "features": "Features",
+      "rewards": "Belohnungen",
+      "workouts": "Workouts",
+      "goals": "Ziele",
+      "getEarlyAccess": "Frühen Zugang sichern"
+    },
+    "sections": {
+      "myProfile": "Mein Profil",
+      "activity": "Aktivität",
+      "lifestyle": "Lifestyle",
+      "yourPlan": "Dein Plan"
+    },
+    "buttons": {
+      "continue": "WEITER",
+      "nextStep": "WEITER",
+      "joinWaitlist": "EINTRAGEN",
+      "joining": "WIRD EINGETRAGEN...",
+      "onTheList": "✓ DU BIST DABEI!"
+    },
+    "goalHeadings": {
+      "loseWeight": "Nimm schnell ab!",
+      "buildMuscle": "Bau schnell Muskeln auf!",
+      "improveMobility": "Beweg dich jeden Tag besser!",
+      "stayActive": "Bleib aktiv und stark!",
+      "reduceStress": "Fühl dich ruhiger und stärker!"
+    },
+    "goalBody": {
+      "loseWeight": "Libo hilft dir, <strong>mit Bodyweight-Training Fett zu verbrennen und schlanker zu werden</strong>. Wir <strong>passen den Plan an deinen Körper und dein Ziel an</strong>, damit du konstant vorankommst.",
+      "buildMuscle": "Libo hilft dir, <strong>mit Bodyweight-Training straffe Muskeln aufzubauen</strong>. Wir <strong>passen den Plan an deinen Körper und dein Ziel an</strong>, damit du konstant vorankommst.",
+      "improveMobility": "Libo hilft dir, <strong>deine Beweglichkeit und Bewegungsqualität zu verbessern</strong>. Wir <strong>passen den Plan an deinen Körper und dein Ziel an</strong>, damit du konstant vorankommst.",
+      "stayActive": "Libo hilft dir, <strong>einen aktiven und gesunden Lifestyle zu halten</strong>. Wir <strong>passen den Plan an deinen Körper und dein Ziel an</strong>, damit du konstant vorankommst.",
+      "reduceStress": "Libo hilft dir, <strong>zu entspannen, zu regenerieren und dich top zu fühlen</strong>. Wir <strong>passen den Plan an deinen Körper und dein Ziel an</strong>, damit du konstant vorankommst."
+    },
+    "goalLabels": {
+      "loseWeight": "Abnehmen",
+      "buildMuscle": "Muskelaufbau",
+      "improveMobility": "Mobilität",
+      "stayActive": "aktiv bleiben",
+      "reduceStress": "Stressabbau"
+    },
+    "step1": {
+      "heading": "Was ist dein Hauptziel?",
+      "options": {
+        "loseWeight": "Abnehmen",
+        "buildMuscle": "Muskeln aufbauen",
+        "improveMobility": "Mobilität verbessern",
+        "stayActive": "Aktiv bleiben",
+        "reduceStress": "Stress reduzieren"
+      }
+    },
+    "step3": {
+      "heading": "Was möchtest du sonst noch erreichen?",
+      "options": {
+        "loseFat": "Hartnäckiges Fett loswerden",
+        "increaseStamina": "Ausdauer und Kondition steigern",
+        "improvePosture": "Haltung und Flexibilität verbessern",
+        "buildConfidence": "Selbstbewusstsein aufbauen",
+        "none": "Nichts davon"
+      }
+    },
+    "step4": {
+      "heading": "Wie würdest du dein Fitnesslevel beschreiben?",
+      "options": {
+        "beginnerTitle": "Anfänger",
+        "beginnerDesc": "Ich fange gerade erst an",
+        "intermediateTitle": "Fortgeschritten",
+        "intermediateDesc": "Ich trainiere manchmal",
+        "advancedTitle": "Profi",
+        "advancedDesc": "Ich trainiere regelmäßig"
+      }
+    },
+    "step5": {
+      "heading": "Wann warst du zuletzt in Topform?",
+      "options": {
+        "lessThanYear": "Vor weniger als einem Jahr",
+        "oneToTwoYears": "Vor 1 bis 2 Jahren",
+        "moreThanThreeYears": "Vor mehr als 3 Jahren",
+        "never": "Noch nie"
+      }
+    },
+    "step6": {
+      "heading": "Wie viele Liegestütze schaffst du am Stück?",
+      "options": {
+        "none": "Ich kann keine Liegestütze",
+        "oneToTen": "1-10 Liegestütze",
+        "elevenToTwenty": "11-20 Liegestütze",
+        "twentyPlus": "20+ Liegestütze"
+      }
+    },
+    "step7": {
+      "heading": "Wie beweglich bist du?",
+      "options": {
+        "very": "Sehr beweglich",
+        "pretty": "Ziemlich beweglich",
+        "notGood": "Nicht besonders",
+        "notSure": "Ich bin mir nicht sicher"
+      }
+    },
+    "step8": {
+      "heading": "Wie oft hast du in den letzten 3 Monaten trainiert?",
+      "options": {
+        "daily": "Fast jeden Tag",
+        "weekly": "Mehrmals die Woche",
+        "monthly": "Mehrmals im Monat",
+        "none": "Ich trainiere nicht"
+      }
+    },
+    "step9": {
+      "heading": "Erreiche mit Libo bessere Ergebnisse",
+      "body": "Unsere Workouts sind einfach, machen Spaß und passen in jeden Terminkalender. Wir berücksichtigen dein Fitnesslevel, damit du <strong>dein Ziel schneller erreichst</strong>."
+    },
+    "step10": {
+      "heading": "Was sind deine Zielzonen?",
+      "options": {
+        "chest": "Brust",
+        "arms": "Arme",
+        "core": "Core",
+        "legs": "Beine",
+        "back": "Rücken",
+        "fullBody": "Ganzkörper"
+      }
+    },
+    "step11": {
+      "heading": "Wie oft pro Woche möchtest du trainieren?",
+      "options": {
+        "oneToTwo": "1-2 Mal",
+        "threeToFour": "3-4 Mal",
+        "fivePlus": "5+ Mal"
+      }
+    },
+    "step12": {
+      "heading": "Wie lang sollen deine Workouts sein?",
+      "options": {
+        "tenToFifteen": "10-15 Min.",
+        "fifteenToTwenty": "15-20 Min.",
+        "twentyToThirty": "20-30 Min.",
+        "thirtyPlus": "30+ Min.",
+        "unsure": "Ich weiß nicht"
+      }
+    },
+    "step13": {
+      "heading": "Wie sieht dein Arbeitsalltag aus?",
+      "options": {
+        "nineToFive": "9 bis 17 Uhr",
+        "night": "Nachtschichten",
+        "flexible": "Meine Zeiten sind flexibel",
+        "retired": "Ich bin Rentner / arbeite nicht"
+      }
+    },
+    "step14": {
+      "heading": "Wie ist dein Energielevel über den Tag?",
+      "options": {
+        "low": "Niedrig und unbeständig",
+        "steady": "Bleibt konstant",
+        "fluctuate": "Schwankt im Laufe des Tages",
+        "high": "Bleibt den ganzen Tag hoch"
+      }
+    },
+    "step15": {
+      "heading": "Wie viel schläfst du normalerweise?",
+      "options": {
+        "lessThanFive": "Weniger als 5 Stunden",
+        "fiveToSix": "5-6 Stunden",
+        "sevenToEight": "7-8 Stunden",
+        "moreThanEight": "Mehr als 8 Stunden"
+      }
+    },
+    "step16": {
+      "heading": "Libo hilft dir, dich energiegeladener zu fühlen",
+      "body": "Unsere Workouts helfen dir, Ausdauer und Kondition zu verbessern. Du hast <strong>mehr Energie und Kraft</strong>, um mit deinem Alltag mitzuhalten."
+    },
+    "step17": {
+      "heading": "Welches Equipment hast du zur Verfügung?",
+      "options": {
+        "none": "Keins (nur Bodyweight)",
+        "dumbbells": "Kurzhanteln",
+        "resistanceBands": "Widerstandsbänder",
+        "pullUpBar": "Klimmzugstange",
+        "fullGym": "Komplettes Gym",
+        "kettlebell": "Kettlebell"
+      }
+    },
+    "step18": {
+      "heading": "Was hat dich bisher davon abgehalten, deine Ziele zu erreichen?",
+      "options": {
+        "motivation": "Fehlende Motivation",
+        "noPlan": "Kein klarer Plan",
+        "time": "Zeitmangel",
+        "injuries": "Verletzungen oder Schmerzen",
+        "none": "Nichts davon"
+      }
+    },
+    "loading": {
+      "preparing": "Dein Plan wird vorbereitet...",
+      "ready": "Dein personalisierter Libo-Trainingsplan ist fertig!",
+      "social": "10.000+ Menschen haben sich für Libo entschieden — für {{goal}}",
+      "testimonialQuote": "\"Libo hat meine Routine komplett verändert. Die Workouts sind schnell, effektiv, und ich freue mich jetzt wirklich drauf.\"",
+      "testimonialAuthor": "- Marco T., verifizierter Nutzer"
+    },
+    "email": {
+      "headingPrefix": "Trag dich auf die Libo-Warteliste ein und sichere dir frühen Zugang zu deinem personalisierten",
+      "trainingPlan": "Trainingsplan",
+      "headingMiddle": "für",
+      "headingSuffix": "!",
+      "placeholder": "Deine E-Mail-Adresse",
+      "privacyNote": "Mit dem Eintragen stimmst du zu, E-Mails von Libo zu bekommen. Wir respektieren deine Privatsphäre und geben deine Daten niemals weiter.",
+      "successMessage": "Willkommen! Wir benachrichtigen dich, sobald Libo startet.",
+      "duplicateMessage": "Du bist bereits auf der Warteliste! Wir melden uns.",
+      "errorMessage": "Etwas ist schiefgelaufen. Bitte versuch es nochmal.",
+      "connectionError": "Verbindungsfehler. Bitte versuch es nochmal."
+    }
+  }
+}

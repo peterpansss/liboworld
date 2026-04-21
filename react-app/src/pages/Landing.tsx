@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, useCallback, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 import { blogArticles } from '../data/blog';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
-import { Languages, Star } from '../utils/icons';
+import { Star } from '../utils/icons';
 import './Landing.css';
 
 // ── Helpers ──
@@ -18,90 +19,26 @@ function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
 
-// ── Languages ──
-const LANGS: Record<string, { flag: string; label: string }> = {
-  en: { flag: '🇬🇧', label: 'English' },
-  es: { flag: '🇪🇸', label: 'Español' },
-  pt: { flag: '🇧🇷', label: 'Português' },
-};
-
-function getInitialLang(): string {
-  const stored = localStorage.getItem('libo-lang');
-  if (stored && stored in LANGS) return stored;
-  const nav = (navigator.language || '').slice(0, 2).toLowerCase();
-  return nav in LANGS ? nav : 'en';
-}
-
-// ── Data ──
-const MARQUEE_ITEMS = [
-  'Bodyweight', 'Gym Training', 'Mobility', 'Breathing',
-  'Morning Routines', 'Programs', 'Progress Tracking', 'Custom Workouts',
+// ── Static config ──
+const CATEGORY_IMAGES = [
+  'ReferenceImagesReal/3888964e334eac66760016434935572e.jpg',
+  'ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg',
+  'ReferenceImagesReal/e64b6bf3121062bba39727d191b390cc.jpg',
+  'ReferenceImagesReal/4d2d6f35aaa3192a75bb1d865a1ec584.jpg',
+  'ReferenceImagesReal/7f2a6692e0dccd63b0cc05e0e7197d38.jpg',
+  'ReferenceImagesReal/2df174c21bbc8db6cd5ce2d0b96b810e.jpg',
 ];
 
-const FEATURES = [
-  { num: '01', icon: '\uD83D\uDCDA', name: 'Exercise Library', desc: '634 exercises \u2014 366 gym, 235 home, 33 mobility. Every one with equipment notes, muscle targeting, and form cues.' },
-  { num: '02', icon: '\uD83C\uDFCB\uFE0F', name: 'Workout Library', desc: '136 pre-built sessions \u2014 gym, home, cardio, stretching, and morning routines. 5 to 60 minutes.' },
-  { num: '03', icon: '\uD83D\uDCC5', name: 'Programs', desc: 'Multi-week structured plans designed to get you real, measurable results. Follow the plan, trust the process.' },
-  { num: '04', icon: '\uD83D\uDCCA', name: 'Progress Tracking', desc: 'Log every set, rep, and weight. Libo remembers your history and shows exactly how much you\'ve grown.' },
-  { num: '05', icon: '\u270F\uFE0F', name: 'Custom Builder', desc: 'Build your own workout from the full exercise library. Set your sequence, sets, rest time \u2014 save and reuse.' },
-  { num: '06', icon: '\uD83C\uDFC6', name: 'Money Challenges', desc: 'Join 30-day challenges, hit your daily reps, share to stories \u2014 and win real cash. 50 pushups a day for 30 days? That\u2019s \u20AC15 in your pocket.' },
-];
+const GOAL_PARAMS = ['lose-weight', 'build-muscle', 'improve-mobility', 'stay-active', 'reduce-stress'];
+const GOAL_ICONS = ['\uD83D\uDD25', '\uD83D\uDCAA', '\uD83E\uDDD8', '\u26A1', '\uD83E\uDEC1'];
+const GOAL_KEYS = ['loseWeight', 'buildMuscle', 'improveMobility', 'stayActive', 'reduceStress'] as const;
 
-const CATEGORIES = [
-  { name: 'Home Workouts', desc: 'Bodyweight \u00B7 No equipment needed', img: 'ReferenceImagesReal/3888964e334eac66760016434935572e.jpg' },
-  { name: 'Gym Training', desc: 'Machines \u00B7 Free weights \u00B7 Full sessions', img: 'ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg' },
-  { name: 'Mobility & Stretch', desc: 'Flexibility \u00B7 Joint health \u00B7 Recovery', img: 'ReferenceImagesReal/e64b6bf3121062bba39727d191b390cc.jpg' },
-  { name: 'Functional Fitness', desc: 'Real-world movement patterns', img: 'ReferenceImagesReal/4d2d6f35aaa3192a75bb1d865a1ec584.jpg' },
-  { name: 'Morning Routines', desc: 'Energise \u00B7 Activate \u00B7 Set your focus', img: 'ReferenceImagesReal/7f2a6692e0dccd63b0cc05e0e7197d38.jpg' },
-  { name: 'Evening Wind-Down', desc: 'Relax \u00B7 Recover \u00B7 Sleep better', img: 'ReferenceImagesReal/2df174c21bbc8db6cd5ce2d0b96b810e.jpg' },
-];
+const FEATURE_ICONS = ['\uD83D\uDCDA', '\uD83C\uDFCB\uFE0F', '\uD83D\uDCC5', '\uD83D\uDCCA', '\u270F\uFE0F', '\uD83C\uDFC6'];
+const FEATURE_KEYS = ['exerciseLibrary', 'workoutLibrary', 'programs', 'progressTracking', 'customBuilder', 'moneyChallenges'] as const;
 
-const GOALS = [
-  { icon: '\uD83D\uDD25', title: 'Lose Weight', desc: 'Burn calories, stay consistent, see results', goalParam: 'lose-weight' },
-  { icon: '\uD83D\uDCAA', title: 'Build Muscle', desc: 'Progressive overload, structured volume', goalParam: 'build-muscle' },
-  { icon: '\uD83E\uDDD8', title: 'Improve Mobility', desc: 'Move better, feel better, prevent injury', goalParam: 'improve-mobility' },
-  { icon: '\u26A1', title: 'Stay Active', desc: 'Build healthy habits that actually stick', goalParam: 'stay-active' },
-  { icon: '\uD83E\uDEC1', title: 'Reduce Stress', desc: 'Breathing, movement, mindful routines', goalParam: 'reduce-stress' },
-];
+const CATEGORY_KEYS = ['homeWorkouts', 'gymTraining', 'mobilityStretch', 'functional', 'morningRoutines', 'eveningWindDown'] as const;
 
-const TESTIMONIALS = [
-  {
-    quote: '"I did the 50 pushups challenge and actually got paid. The daily recording keeps you honest \u2014 no way to cheat it. Best motivation I\'ve ever had."',
-    name: 'Marco T.',
-    meta: 'Challenge completed \u00B7 Berlin',
-    avatar: '\uD83D\uDC68',
-  },
-  {
-    quote: '"The morning routines are a game changer. 15 minutes before work and I feel completely different for the whole day."',
-    name: 'Sophie K.',
-    meta: 'Morning routines \u00B7 London',
-    avatar: '\uD83D\uDC69',
-  },
-  {
-    quote: '"The 8-week program is exactly what I needed. Seeing my logged weights go up every week keeps me going like nothing else."',
-    name: 'Lucas R.',
-    meta: 'Following a program \u00B7 S\u00E3o Paulo',
-    avatar: '\uD83E\uDDD1',
-  },
-];
-
-const FAQ_ITEMS = [
-  { q: 'Is Libo free?', a: 'Libo offers a free tier with access to workouts, exercises, and basic tracking. Pro unlocks premium programs, advanced analytics, and money challenges.' },
-  { q: 'What equipment do I need?', a: 'None — or everything. Libo has 235 bodyweight exercises for home, 366 gym exercises, and 33 mobility moves. Filter by what you have available.' },
-  { q: 'How do the money challenges work?', a: 'Join a 30-day challenge (e.g., 50 pushups daily), record yourself completing the reps each day, share to your stories, and cash out real money when you finish. Limited spots per challenge.' },
-  { q: 'Can I build my own workouts?', a: 'Yes. The Custom Builder lets you pick from 634 exercises, set your own sets, reps, and rest times, then save and reuse your workouts anytime.' },
-  { q: 'Is Libo available on Android?', a: 'Libo is launching on iOS first. Android is on the roadmap — join the waitlist and we\'ll notify you when it\'s available.' },
-  { q: 'How is Libo different from other fitness apps?', a: 'Libo combines a massive exercise library, structured programs, progress tracking, and real cash challenges in one app — with a premium dark UI that stays out of your way. No ads, no clutter.' },
-  { q: 'Can I follow structured programs?', a: 'Yes. Libo includes multi-week programs designed for specific goals — muscle building, fat loss, mobility, and more. Follow the plan, log your progress, and see real results.' },
-  { q: 'Does Libo track my progress?', a: 'Every set, rep, and weight is logged. Libo tracks your workout history, personal records, streaks, and shows your progress over time with clear charts.' },
-];
-
-const TRUST_STATS = [
-  { num: '634', label: 'Exercises', sub: 'Gym, home & mobility' },
-  { num: '136', label: 'Workouts', sub: 'Ready to follow' },
-  { num: '4.9', label: 'Beta Rating', sub: 'From early testers' },
-  { num: '50+', label: 'Beta Testers', sub: 'And counting' },
-];
+const TESTIMONIAL_AVATARS = ['\uD83D\uDC68', '\uD83D\uDC69', '\uD83E\uDDD1'];
 
 const NAV_SECTIONS = ['features', 'rewards', 'workouts', 'goals'] as const;
 
@@ -170,6 +107,58 @@ function useInView(threshold = 0.1) {
 // COMPONENT
 // ═══════════════════════════════════════
 export default function Landing() {
+  const { t } = useTranslation();
+
+  // ── Derive data from translations ──
+  const MARQUEE_ITEMS = [
+    t('marquee.bodyweight'),
+    t('marquee.gymTraining'),
+    t('marquee.mobility'),
+    t('marquee.breathing'),
+    t('marquee.morningRoutines'),
+    t('marquee.programs'),
+    t('marquee.progressTracking'),
+    t('marquee.customWorkouts'),
+  ];
+
+  const FEATURES = FEATURE_KEYS.map((key, i) => ({
+    num: String(i + 1).padStart(2, '0'),
+    icon: FEATURE_ICONS[i],
+    name: t(`features.${key}`),
+    desc: t(`features.${key}Desc`),
+  }));
+
+  const CATEGORIES = CATEGORY_KEYS.map((key, i) => ({
+    name: t(`categories.${key}`),
+    desc: t(`categories.${key}Desc`),
+    img: CATEGORY_IMAGES[i],
+  }));
+
+  const GOALS = GOAL_KEYS.map((key, i) => ({
+    icon: GOAL_ICONS[i],
+    title: t(`goals.${key}`),
+    desc: t(`goals.${key}Desc`),
+    goalParam: GOAL_PARAMS[i],
+  }));
+
+  const TESTIMONIALS = [1, 2, 3].map((n, i) => ({
+    quote: t(`proof.card${n}Quote`),
+    name: t(`proof.card${n}Author`),
+    meta: t(`proof.card${n}Meta`),
+    avatar: TESTIMONIAL_AVATARS[i],
+  }));
+
+  const FAQ_ITEMS = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
+    q: t(`faq.q${n}`),
+    a: t(`faq.a${n}`),
+  }));
+
+  const TRUST_STATS = [1, 2, 3, 4].map((n) => ({
+    num: t(`trust.stat${n}Num`),
+    label: t(`trust.stat${n}Label`),
+    sub: t(`trust.stat${n}Sub`),
+  }));
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(false);
@@ -183,7 +172,7 @@ export default function Landing() {
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
-  const [formMsg, setFormMsg] = useState('No spam. Only when Libo launches.');
+  const [formMsg, setFormMsg] = useState(t('cta.formMessage'));
   const [formError, setFormError] = useState(false);
 
   // Refs
@@ -197,17 +186,6 @@ export default function Landing() {
 
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  // Language state
-  const [currentLang, setCurrentLang] = useState(getInitialLang);
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-
-  const switchLanguage = useCallback((lang: string) => {
-    setCurrentLang(lang);
-    localStorage.setItem('libo-lang', lang);
-    setLangDropdownOpen(false);
-    document.documentElement.lang = lang;
-  }, []);
 
   // Blog preview — first 3 articles
   const blogPreview = blogArticles.slice(0, 3);
@@ -234,14 +212,6 @@ export default function Landing() {
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );
-
-  // ── Close lang dropdown on outside click ──
-  useEffect(() => {
-    if (!langDropdownOpen) return;
-    const close = () => setLangDropdownOpen(false);
-    document.addEventListener('click', close);
-    return () => document.removeEventListener('click', close);
-  }, [langDropdownOpen]);
 
   // ── Scroll handler ──
   useEffect(() => {
@@ -520,22 +490,22 @@ export default function Landing() {
       if (!error) {
         setFormSuccess(true);
         setEmail('');
-        setFormMsg("Welcome! We'll notify you when Libo launches.");
+        setFormMsg(t('cta.successNotification'));
       } else if (error.code === '23505') {
         setFormSuccess(true);
         setEmail('');
-        setFormMsg("You're already on the waitlist! We'll be in touch.");
+        setFormMsg(t('cta.duplicateNotification'));
       } else {
         setFormError(true);
-        setFormMsg('Something went wrong. Please try again.');
+        setFormMsg(t('cta.errorMessage'));
       }
     } catch {
       setFormError(true);
-      setFormMsg('Connection error. Please try again.');
+      setFormMsg(t('cta.connectionError'));
     } finally {
       setSubmitting(false);
     }
-  }, [email]);
+  }, [email, t]);
 
   // ── Render helpers ──
   function renderMarqueeItems(items: string[]) {
@@ -565,27 +535,27 @@ export default function Landing() {
         className={`mobile-menu${mobileMenuOpen ? ' open' : ''}`}
         role="dialog"
         aria-modal={mobileMenuOpen}
-        aria-label="Navigation menu"
+        aria-label={t('nav.navigationMenu')}
       >
         <button
           className="mobile-menu-close"
           onClick={() => setMobileMenuOpen(false)}
-          aria-label="Close menu"
+          aria-label={t('nav.closeMenu')}
         >
           &#10005;
         </button>
-        <a href="#features" onClick={(e) => handleNavClick(e, 'features')}>Features</a>
-        <a href="#rewards" onClick={(e) => handleNavClick(e, 'rewards')}>Rewards</a>
-        <a href="#workouts" onClick={(e) => handleNavClick(e, 'workouts')}>Workouts</a>
-        <a href="#goals" onClick={(e) => handleNavClick(e, 'goals')}>Goals</a>
-        <Link to="/exercises" onClick={() => setMobileMenuOpen(false)}>Exercise Library</Link>
-        <Link to="/workouts" onClick={() => setMobileMenuOpen(false)}>Workouts</Link>
-        <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
-        <Link to="/onboarding" onClick={() => setMobileMenuOpen(false)}>Get Early Access</Link>
+        <a href="#features" onClick={(e) => handleNavClick(e, 'features')}>{t('nav.features')}</a>
+        <a href="#rewards" onClick={(e) => handleNavClick(e, 'rewards')}>{t('nav.rewards')}</a>
+        <a href="#workouts" onClick={(e) => handleNavClick(e, 'workouts')}>{t('nav.workouts')}</a>
+        <a href="#goals" onClick={(e) => handleNavClick(e, 'goals')}>{t('nav.goals')}</a>
+        <Link to="/exercises" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.exerciseLibrary')}</Link>
+        <Link to="/workouts" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.workouts')}</Link>
+        <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.blog')}</Link>
+        <Link to="/onboarding" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.getEarlyAccess')}</Link>
       </div>
 
       {/* ── NAV ── */}
-      <nav className={`landing-nav${navScrolled ? ' scrolled' : ''}`} aria-label="Main navigation">
+      <nav className={`landing-nav${navScrolled ? ' scrolled' : ''}`} aria-label={t('nav.mainNavigation')}>
         <div className="landing-nav-inner">
           <a href="#" className={`nav-logo${loaded ? ' load-fade loaded' : ' load-fade'}`} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <img src="/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" />
@@ -599,58 +569,29 @@ export default function Landing() {
                   style={{ transitionDelay: `${0.05 + i * 0.05}s` }}
                   onClick={(e) => handleNavClick(e, id)}
                 >
-                  {id.charAt(0).toUpperCase() + id.slice(1)}
+                  {t(`nav.${id}`)}
                 </a>
               </li>
             ))}
             <li className="nav-sep" aria-hidden="true" role="separator" />
-            <li><Link to="/exercises" className={`load-stagger${loaded ? ' loaded' : ''}`} style={{ transitionDelay: '0.3s' }}>Exercises</Link></li>
-            <li><Link to="/workouts" className={`load-stagger${loaded ? ' loaded' : ''}`} style={{ transitionDelay: '0.35s' }}>Workouts</Link></li>
-            <li><Link to="/blog" className={`load-stagger${loaded ? ' loaded' : ''}`} style={{ transitionDelay: '0.4s' }}>Blog</Link></li>
+            <li><Link to="/exercises" className={`load-stagger${loaded ? ' loaded' : ''}`} style={{ transitionDelay: '0.3s' }}>{t('nav.exercises')}</Link></li>
+            <li><Link to="/workouts" className={`load-stagger${loaded ? ' loaded' : ''}`} style={{ transitionDelay: '0.35s' }}>{t('nav.workouts')}</Link></li>
+            <li><Link to="/blog" className={`load-stagger${loaded ? ' loaded' : ''}`} style={{ transitionDelay: '0.4s' }}>{t('nav.blog')}</Link></li>
             <li aria-hidden="true" style={{ position: 'absolute' }}>
               <div className="nav-indicator" ref={navIndicatorRef} />
             </li>
           </ul>
           <div className="nav-right">
-            <div className="lang-switcher" style={{ position: 'relative' }}>
-              <button
-                className="lang-btn"
-                onClick={(e) => { e.stopPropagation(); setLangDropdownOpen(!langDropdownOpen); }}
-                aria-label="Switch language"
-              >
-                <span style={{ display: 'inline-flex', alignItems: 'center' }}>
-                  <EmojiIcon icon={Languages} size={16} />
-                </span>
-                <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.5px' }}>{currentLang.toUpperCase()}</span>
-                <span style={{ fontSize: 10, opacity: 0.5 }}>▾</span>
-              </button>
-              {langDropdownOpen && (
-                <div className="lang-dropdown">
-                  {Object.entries(LANGS).map(([code, { flag, label }]) => (
-                    <button
-                      key={code}
-                      className={`lang-option${currentLang === code ? ' active' : ''}`}
-                      onClick={(e) => { e.stopPropagation(); switchLanguage(code); }}
-                    >
-                      <span style={{ display: 'inline-flex', alignItems: 'center' }}>
-                        <EmojiIcon emoji={flag} size={16} fallback={Languages} />
-                      </span>
-                      <span>{label}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
             <Link
               to="/onboarding"
               className="btn-nav"
             >
-              Get Started
+              {t('nav.getStarted')}
             </Link>
             <button
               className="nav-hamburger"
               onClick={() => setMobileMenuOpen(true)}
-              aria-label="Toggle menu"
+              aria-label={t('nav.openMenu')}
               aria-expanded={mobileMenuOpen}
             >
               <span /><span /><span />
@@ -665,12 +606,12 @@ export default function Landing() {
           <div className="hero-text">
             <div className="hero-eyebrow">
               <div className="hero-eyebrow-dot" />
-              <span className="label">Coming Soon &mdash; Join the Waitlist</span>
+              <span className="label">{t('hero.eyebrow')}</span>
             </div>
             <h1 className="hero-headline display display-xl">
-              <span className={`line-1 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.2s' }}>Train</span>
-              <span className={`line-2 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.35s' }}>Anywhere.</span>
-              <span className={`line-3 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.5s' }}>Anytime.</span>
+              <span className={`line-1 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.2s' }}>{t('hero.headline1')}</span>
+              <span className={`line-2 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.35s' }}>{t('hero.headline2')}</span>
+              <span className={`line-3 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.5s' }}>{t('hero.headline3')}</span>
             </h1>
             <a
               href="#cta"
@@ -678,7 +619,7 @@ export default function Landing() {
               style={{ opacity: ctaVisible ? 1 : 0, transition: 'opacity 0.4s ease' }}
               onClick={(e) => handleNavClick(e, 'cta')}
             >
-              Join the Waitlist &rarr;
+              {t('hero.cta')}
             </a>
           </div>
           <div className={`hero-phones hero-image-reveal${heroRevealed ? ' revealed' : ''}`}>
@@ -709,16 +650,16 @@ export default function Landing() {
         <div className="hero-bottom" ref={heroBottomView.ref} style={{ gridTemplateColumns: '1fr 1fr' }}>
           <div className="hero-bottom-cell">
             <div className="hero-bottom-num">{heroExercises}</div>
-            <div className="hero-bottom-lbl">Exercises</div>
+            <div className="hero-bottom-lbl">{t('hero.stat1Label')}</div>
           </div>
           <div className="hero-bottom-cell">
             <div className="hero-bottom-num">{heroWorkouts}</div>
-            <div className="hero-bottom-lbl">Workouts</div>
+            <div className="hero-bottom-lbl">{t('hero.stat2Label')}</div>
           </div>
         </div>
 
         <div className={`scroll-indicator${scrollIndicatorVisible ? ' visible' : ''}`}>
-          <span>Scroll to explore</span>
+          <span>{t('hero.scrollIndicator')}</span>
           <div className="chevron" />
         </div>
       </section>
@@ -737,19 +678,19 @@ export default function Landing() {
         <div className="stats-strip-grid">
           <div data-reveal="fade-up" data-delay="0">
             <div className="stats-strip-num">{statExercises}</div>
-            <div className="stats-strip-label">Exercises</div>
+            <div className="stats-strip-label">{t('statsStrip.exercises')}</div>
           </div>
           <div data-reveal="fade-up" data-delay="0.1">
             <div className="stats-strip-num">{statWorkouts}</div>
-            <div className="stats-strip-label">Workouts</div>
+            <div className="stats-strip-label">{t('statsStrip.workouts')}</div>
           </div>
           <div data-reveal="fade-up" data-delay="0.2">
             <div className="stats-strip-num">{statFormats}</div>
-            <div className="stats-strip-label">Training Formats</div>
+            <div className="stats-strip-label">{t('statsStrip.trainingFormats')}</div>
           </div>
           <div data-reveal="fade-up" data-delay="0.3" className="stats-hide-mobile">
-            <div className="stats-strip-num">0 kg</div>
-            <div className="stats-strip-label">Equipment Required</div>
+            <div className="stats-strip-num">{t('hero.stat3Value')}</div>
+            <div className="stats-strip-label">{t('statsStrip.equipmentRequired')}</div>
           </div>
         </div>
       </div>
@@ -758,13 +699,13 @@ export default function Landing() {
       <div className="statement-wrapper">
         <div className="statement">
           <p className="statement-text">
-            <span className="dim" data-reveal="fade-up" data-delay="0">One club.</span><br />
-            <span className="bright" data-reveal="fade-up" data-delay="0.15" style={{ display: 'inline-block' }}>Every format.</span><br />
-            <span className="dim" data-reveal="fade-up" data-delay="0.3" style={{ display: 'inline-block' }}>Every location.</span><br />
-            <span className="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style={{ display: 'inline-block' }}>Every goal.</span>
+            <span className="dim" data-reveal="fade-up" data-delay="0">{t('statement.line1')}</span><br />
+            <span className="bright" data-reveal="fade-up" data-delay="0.15" style={{ display: 'inline-block' }}>{t('statement.line2')}</span><br />
+            <span className="dim" data-reveal="fade-up" data-delay="0.3" style={{ display: 'inline-block' }}>{t('statement.line3')}</span><br />
+            <span className="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style={{ display: 'inline-block' }}>{t('statement.line4')}</span>
           </p>
           <p className="body-lg statement-body" data-reveal="fade-up" data-delay="0.6">
-            Libo is the training club built for real life &mdash; home, gym, office, or anywhere in between. No excuses. Just results.
+            {t('statement.description')}
           </p>
         </div>
       </div>
@@ -773,11 +714,11 @@ export default function Landing() {
       <section className="features-section" id="features">
         <div className="features-header reveal">
           <div>
-            <div className="label label-spaced">What&#39;s Inside</div>
-            <h2 className="display display-md font-display">Everything<br />you need.</h2>
+            <div className="label label-spaced">{t('features.eyebrow')}</div>
+            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('features.headline')}</h2>
           </div>
           <p className="body-md text-narrow">
-            634 exercises &middot; 136 workouts. Every training format, from barbell strength to breathing and morning routines.
+            {t('features.description')}
           </p>
         </div>
         <div className="features-grid" ref={featuresGridRef}>
@@ -817,9 +758,17 @@ export default function Landing() {
           }}
         >
           <div>
-            <div className="label label-spaced" style={{ color: 'var(--accent)' }}>634 Exercises</div>
+            <div className="label label-spaced" style={{ color: 'var(--accent)' }}>{t('photoBreak1.eyebrow')}</div>
             <h2 className="display display-md font-display text-narrow">
-              Every movement.<br />Every muscle.<br /><span style={{ color: 'var(--accent)' }}>One app.</span>
+              {(() => {
+                const lines = t('photoBreak1.headline').split('\n');
+                return lines.map((line, idx) => (
+                  <span key={idx}>
+                    {idx === lines.length - 1 ? <span style={{ color: 'var(--accent)' }}>{line}</span> : line}
+                    {idx < lines.length - 1 && <br />}
+                  </span>
+                ));
+              })()}
             </h2>
           </div>
         </div>
@@ -829,51 +778,51 @@ export default function Landing() {
       <section className="rewards-section" id="rewards">
         <div className="rewards-inner">
           <div className="rewards-left reveal">
-            <div className="label label-spaced">Money Challenges</div>
-            <h2 className="display display-md font-display">
-              Your reps<br />pay <span className="accent-text">real cash.</span>
+            <div className="label label-spaced">{t('rewards.eyebrow')}</div>
+            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>
+              {t('rewards.headline')}
             </h2>
             <p className="body-md text-narrow" style={{ marginTop: 28, lineHeight: 1.7 }}>
-              30 days. Daily reps. Post the proof. Cash out. No points, no gift cards -- just money in your pocket.
+              {t('rewards.description')}
             </p>
             <div className="rewards-chips">
-              <span className="rewards-chip">Real Cash Payouts</span>
-              <span className="rewards-chip">30-Day Streaks</span>
-              <span className="rewards-chip">Limited Spots</span>
+              <span className="rewards-chip">{t('rewards.chip1')}</span>
+              <span className="rewards-chip">{t('rewards.chip2')}</span>
+              <span className="rewards-chip">{t('rewards.chip3')}</span>
             </div>
           </div>
           <div className="rewards-right reveal reveal-delay-1">
             <div className="rewards-gradient-card">
-              <div className="rewards-glass-badge">30-Day Challenge</div>
+              <div className="rewards-glass-badge">{t('rewards.badge')}</div>
               <div className="rewards-big-stat" ref={rewardsStatView.ref}>
                 &euro;{rewardsStat}
               </div>
-              <div className="rewards-challenge-name font-display">50 Pushups x 30 Days</div>
-              <div className="rewards-challenge-sub">Complete daily reps, record yourself, share to stories</div>
+              <div className="rewards-challenge-name font-display">{t('rewards.challengeName')}</div>
+              <div className="rewards-challenge-sub">{t('rewards.challengeSubtitle')}</div>
               <div className="rewards-flow">
                 <div className="rewards-flow-step">
                   <div className="rewards-flow-icon"><EmojiIcon emoji={'\uD83D\uDCAA'} size={24} /></div>
-                  <div className="rewards-flow-label">Do Reps</div>
+                  <div className="rewards-flow-label">{t('rewards.flowStep1')}</div>
                 </div>
                 <div className="rewards-flow-arrow">&rarr;</div>
                 <div className="rewards-flow-step">
                   <div className="rewards-flow-icon"><EmojiIcon emoji={'\uD83D\uDCF9'} size={24} /></div>
-                  <div className="rewards-flow-label">Record</div>
+                  <div className="rewards-flow-label">{t('rewards.flowStep2')}</div>
                 </div>
                 <div className="rewards-flow-arrow">&rarr;</div>
                 <div className="rewards-flow-step">
                   <div className="rewards-flow-icon"><EmojiIcon emoji={'\uD83D\uDCF2'} size={24} /></div>
-                  <div className="rewards-flow-label">Share</div>
+                  <div className="rewards-flow-label">{t('rewards.flowStep3')}</div>
                 </div>
                 <div className="rewards-flow-arrow">&rarr;</div>
                 <div className="rewards-flow-step">
                   <div className="rewards-flow-icon accent-glow"><EmojiIcon emoji={'\uD83D\uDCB0'} size={24} color="#CAFF00" /></div>
-                  <div className="rewards-flow-label accent-label">Cash Out</div>
+                  <div className="rewards-flow-label accent-label">{t('rewards.flowStep4')}</div>
                 </div>
               </div>
               <div className="rewards-spots">
                 <span className="rewards-spots-dot" />
-                37 of 50 spots taken
+                {t('rewards.spots')}
               </div>
             </div>
           </div>
@@ -885,11 +834,11 @@ export default function Landing() {
         <div className="categories-section">
           <div className="categories-header reveal">
             <div>
-              <div className="label label-spaced">Training Formats</div>
-              <h2 className="display display-md font-display">Built for<br />every moment.</h2>
+              <div className="label label-spaced">{t('categories.eyebrow')}</div>
+              <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('categories.headline')}</h2>
             </div>
             <p className="body-md text-narrow">
-              Every format, every location, every time of day &mdash; covered.
+              {t('categories.description')}
             </p>
           </div>
           <div className="categories-grid">
@@ -914,12 +863,12 @@ export default function Landing() {
       <section className="goals-section" id="goals">
         <div className="goals-inner">
           <div className="goals-header reveal">
-            <div className="label">Personalised For You</div>
-            <h2 className="display display-md font-display">
-              One app. Every <span className="accent-text">goal.</span>
+            <div className="label">{t('goals.eyebrow')}</div>
+            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>
+              {t('goals.headline')}
             </h2>
             <p className="goals-body">
-              Tell Libo what you want. We build a plan around your goal, your fitness level, and your available equipment.
+              {t('goals.description')}
             </p>
           </div>
           <div className="goal-list reveal reveal-delay-1">
@@ -952,7 +901,7 @@ export default function Landing() {
         }}
       >
         <p className="display display-lg font-display" style={{ textAlign: 'center', letterSpacing: '-1px' }}>
-          No excuses.<br /><span style={{ color: 'var(--accent)' }}>Just results.</span>
+          {t('photoBreak2Full.line1')}<br /><span style={{ color: 'var(--accent)' }}>{t('photoBreak2Full.line2')}</span>
         </p>
       </div>
 
@@ -960,13 +909,13 @@ export default function Landing() {
       <div className="proof-wrapper">
         <section className="proof-section" id="proof">
           <div className="reveal">
-            <div className="label label-spaced">Early Feedback</div>
-            <h2 className="display display-md font-display">People love<br />training with Libo.</h2>
+            <div className="label label-spaced">{t('proof.eyebrow')}</div>
+            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('proof.headline')}</h2>
           </div>
           <div className="proof-grid">
-            {TESTIMONIALS.map((t, i) => (
+            {TESTIMONIALS.map((testimonial, i) => (
               <div
-                key={t.name}
+                key={testimonial.name}
                 className="proof-card reveal-card"
                 data-reveal="fade-up"
                 data-delay={String(i * 0.15)}
@@ -978,14 +927,14 @@ export default function Landing() {
                     </span>
                   ))}
                 </div>
-                <p className="proof-quote">{t.quote}</p>
+                <p className="proof-quote">{testimonial.quote}</p>
                 <div className="proof-author">
                   <div className="proof-avatar">
-                    <EmojiIcon emoji={t.avatar} size={28} />
+                    <EmojiIcon emoji={testimonial.avatar} size={28} />
                   </div>
                   <div>
-                    <div className="proof-name">{t.name}</div>
-                    <div className="proof-meta">{t.meta}</div>
+                    <div className="proof-name">{testimonial.name}</div>
+                    <div className="proof-meta">{testimonial.meta}</div>
                   </div>
                 </div>
               </div>
@@ -998,8 +947,8 @@ export default function Landing() {
       <section className="trust-section">
         <div className="trust-inner">
           <div className="trust-header reveal">
-            <div className="label label-spaced">Trusted by Athletes</div>
-            <h2 className="display display-sm font-display">The numbers speak.</h2>
+            <div className="label label-spaced">{t('trust.eyebrow')}</div>
+            <h2 className="display display-sm font-display">{t('trust.headline')}</h2>
           </div>
           <div className="trust-grid">
             {TRUST_STATS.map((s, i) => (
@@ -1020,7 +969,7 @@ export default function Landing() {
               <svg width="18" height="22" viewBox="0 0 20 24" fill="none" aria-hidden="true">
                 <path d="M16.47 12.2c-.03-3.1 2.53-4.59 2.64-4.66-1.44-2.1-3.68-2.39-4.47-2.42-1.9-.19-3.72 1.12-4.69 1.12-.97 0-2.46-1.1-4.05-1.07-2.08.03-4 1.21-5.08 3.08-2.17 3.76-.55 9.33 1.56 12.38 1.03 1.5 2.27 3.17 3.89 3.11 1.56-.06 2.15-1.01 4.03-1.01 1.88 0 2.42 1.01 4.07.98 1.68-.03 2.74-1.52 3.76-3.03 1.19-1.74 1.68-3.42 1.71-3.51-.04-.02-3.28-1.26-3.31-4.97h-.06z" fill="currentColor"/><path d="M13.4 3.27C14.24 2.24 14.82.87 14.67-.5c-1.17.05-2.6.78-3.44 1.77-.75.87-1.42 2.27-1.24 3.61 1.31.1 2.65-.67 3.41-1.61z" fill="currentColor"/>
               </svg>
-              <span>Available on iOS</span>
+              <span>{t('trust.availableIos')}</span>
             </div>
             <div className="trust-badge">
               <span className="trust-badge-stars" style={{ display: 'inline-flex', gap: 2 }}>
@@ -1028,7 +977,7 @@ export default function Landing() {
                   <EmojiIcon key={k} icon={Star} size={14} color="#CAFF00" />
                 ))}
               </span>
-              <span>4.9 from beta testers</span>
+              <span>{t('trust.betaRating')}</span>
             </div>
           </div>
         </div>
@@ -1039,11 +988,11 @@ export default function Landing() {
         <div className="faq-inner">
           <div className="faq-header reveal">
             <div>
-              <div className="label label-spaced">FAQ</div>
-              <h2 className="display display-md font-display">Frequently<br />asked.</h2>
+              <div className="label label-spaced">{t('faq.eyebrow')}</div>
+              <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('faq.headline')}</h2>
             </div>
             <p className="body-md text-narrow">
-              Everything you need to know about Libo before you join.
+              {t('faq.description')}
             </p>
           </div>
           <div className="faq-list">
@@ -1074,11 +1023,11 @@ export default function Landing() {
         <div className="blog-preview-inner">
           <div className="blog-preview-header reveal">
             <div>
-              <div className="label label-spaced">From the Blog</div>
-              <h2 className="display display-sm font-display">Guides &amp; insights.</h2>
+              <div className="label label-spaced">{t('blogPreview.eyebrow')}</div>
+              <h2 className="display display-sm font-display">{t('blogPreview.headline')}</h2>
             </div>
             <Link to="/blog" className="blog-preview-link">
-              See all posts &rarr;
+              {t('blogPreview.seeAll')}
             </Link>
           </div>
           <div className="blog-preview-grid">
@@ -1102,7 +1051,7 @@ export default function Landing() {
                 <div className="blog-preview-cat">{article.category}</div>
                 <h3 className="blog-preview-title">{article.title}</h3>
                 <p className="blog-preview-excerpt">{article.excerpt}</p>
-                <div className="blog-preview-meta">{article.readTime} min read</div>
+                <div className="blog-preview-meta">{article.readTime} {t('blogPreview.minRead')}</div>
               </Link>
             ))}
           </div>
@@ -1112,22 +1061,22 @@ export default function Landing() {
       {/* ── CTA ── */}
       <section className="cta-section" id="cta">
         <div className="reveal">
-          <div className="label cta-label">Join the Waitlist</div>
-          <h2 className="display display-lg font-display">Be first.<br />Train better.</h2>
+          <div className="label cta-label">{t('cta.eyebrow')}</div>
+          <h2 className="display display-lg font-display" style={{ whiteSpace: 'pre-line' }}>{t('cta.headline')}</h2>
           <p className="cta-sub">
-            Libo is coming soon. Join the waitlist and get early access plus an exclusive launch offer.
+            {t('cta.description')}
           </p>
           <form className="email-form" onSubmit={handleSubmit}>
             <label htmlFor="emailInput" className="sr-only" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>
-              Email address
+              {t('cta.emailLabel')}
             </label>
             <input
               className="email-input"
               type="email"
               id="emailInput"
-              placeholder="Enter your email address"
+              placeholder={t('cta.emailPlaceholder')}
               required
-              aria-label="Email address"
+              aria-label={t('cta.emailLabel')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -1137,25 +1086,25 @@ export default function Landing() {
               disabled={submitting || formSuccess}
               style={formSuccess ? { background: '#1a1a1a' } : undefined}
             >
-              {submitting ? 'Joining...' : formSuccess ? (
+              {submitting ? t('cta.joining') : formSuccess ? (
                 <>
                   <svg width="16" height="12" viewBox="0 0 16 12" fill="none" style={{ verticalAlign: 'middle', marginRight: 6 }}>
                     <path d="M1 6L6 11L15 1" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ strokeDasharray: 22, strokeDashoffset: 0, animation: 'checkDraw 0.4s ease forwards' }} />
                   </svg>
-                  You&#39;re on the list!
+                  {t('cta.successMessage')}
                 </>
-              ) : 'Join \u2192'}
+              ) : t('cta.submitButton')}
             </button>
           </form>
           <p className={`form-msg${formError ? ' error' : ''}`}>{formMsg}</p>
         </div>
         <div className="store-row reveal">
-          <a href="https://apps.apple.com" className="store-btn" aria-label="Download on App Store">
+          <a href="https://apps.apple.com" className="store-btn" aria-label={t('store.downloadAppStore')}>
             <svg width="20" height="24" viewBox="0 0 20 24" fill="none" style={{ flexShrink: 0 }}>
               <path d="M16.47 12.2c-.03-3.1 2.53-4.59 2.64-4.66-1.44-2.1-3.68-2.39-4.47-2.42-1.9-.19-3.72 1.12-4.69 1.12-.97 0-2.46-1.1-4.05-1.07-2.08.03-4 1.21-5.08 3.08-2.17 3.76-.55 9.33 1.56 12.38 1.03 1.5 2.27 3.17 3.89 3.11 1.56-.06 2.15-1.01 4.03-1.01 1.88 0 2.42 1.01 4.07.98 1.68-.03 2.74-1.52 3.76-3.03 1.19-1.74 1.68-3.42 1.71-3.51-.04-.02-3.28-1.26-3.31-4.97h-.06z" fill="white" />
               <path d="M13.4 3.27C14.24 2.24 14.82.87 14.67-.5c-1.17.05-2.6.78-3.44 1.77-.75.87-1.42 2.27-1.24 3.61 1.31.1 2.65-.67 3.41-1.61z" fill="white" />
             </svg>
-            <div><small>Coming Soon on</small><strong>App Store</strong></div>
+            <div><small>{t('store.comingSoonOn')}</small><strong>{t('store.appStore')}</strong></div>
           </a>
         </div>
       </section>

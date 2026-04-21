@@ -1,15 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 import './SiteNav.css';
 
 const NAV_LINKS = [
-  { label: 'Home', to: '/' },
-  { label: 'Exercises', to: '/exercises' },
-  { label: 'Workouts', to: '/workouts' },
-  { label: 'Blog', to: '/blog' },
+  { labelKey: 'nav.home', to: '/' },
+  { labelKey: 'nav.exercises', to: '/exercises' },
+  { labelKey: 'nav.workouts', to: '/workouts' },
+  { labelKey: 'nav.blog', to: '/blog' },
 ] as const;
 
 export default function SiteNav() {
+  const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const location = useLocation();
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -36,8 +39,8 @@ export default function SiteNav() {
 
   return (
     <>
-      <a href="#main-content" className="skip-link">Skip to main content</a>
-      <nav className="site-nav" aria-label="Main navigation">
+      <a href="#main-content" className="skip-link">{t('nav.skipToMain')}</a>
+      <nav className="site-nav" aria-label={t('nav.mainNavigation')}>
         <div className="site-nav__inner">
           {/* Logo */}
           <Link to="/" className="site-nav__logo">
@@ -49,14 +52,14 @@ export default function SiteNav() {
 
           {/* Center links */}
           <ul className="site-nav__links">
-            {NAV_LINKS.map(({ label, to }) => (
+            {NAV_LINKS.map(({ labelKey, to }) => (
               <li key={to}>
                 <Link
                   to={to}
                   className={`site-nav__link${isActive(to) ? ' site-nav__link--active' : ''}`}
                   aria-current={isActive(to) ? 'page' : undefined}
                 >
-                  {label}
+                  {t(labelKey)}
                 </Link>
               </li>
             ))}
@@ -64,13 +67,14 @@ export default function SiteNav() {
 
           {/* Right section */}
           <div className="site-nav__right">
+            <LanguageSwitcher />
             <Link to="/onboarding" className="site-nav__cta">
-              Get Started
+              {t('nav.getStarted')}
             </Link>
             <button
               className="site-nav__hamburger"
               onClick={() => setDrawerOpen(true)}
-              aria-label="Open menu"
+              aria-label={t('nav.openMenu')}
               aria-expanded={drawerOpen}
               aria-controls="mobile-drawer"
             >
@@ -89,7 +93,7 @@ export default function SiteNav() {
         role="dialog"
         aria-modal={drawerOpen}
         aria-hidden={!drawerOpen}
-        aria-label="Navigation menu"
+        aria-label={t('nav.navigationMenu')}
         className={`site-nav__drawer${drawerOpen ? ' site-nav__drawer--open' : ''}`}
       >
         <div className="site-nav__drawer-header">
@@ -103,25 +107,26 @@ export default function SiteNav() {
             ref={closeRef}
             className="site-nav__drawer-close"
             onClick={() => setDrawerOpen(false)}
-            aria-label="Close menu"
+            aria-label={t('nav.closeMenu')}
           >
             &#10005;
           </button>
         </div>
         <div className="site-nav__drawer-links">
-          {NAV_LINKS.map(({ label, to }) => (
+          {NAV_LINKS.map(({ labelKey, to }) => (
             <Link key={to} to={to} className={isActive(to) ? 'site-nav__drawer-link--active' : ''} aria-current={isActive(to) ? 'page' : undefined} onClick={() => setDrawerOpen(false)}>
-              {label}
+              {t(labelKey)}
             </Link>
           ))}
         </div>
         <div className="site-nav__drawer-bottom">
+          <LanguageSwitcher variant="drawer" />
           <Link
             to="/onboarding"
             className="site-nav__drawer-cta"
             onClick={() => setDrawerOpen(false)}
           >
-            Get Started
+            {t('nav.getStarted')}
           </Link>
         </div>
       </div>

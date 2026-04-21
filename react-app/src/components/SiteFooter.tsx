@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './SiteFooter.css';
 
 export default function SiteFooter() {
+  const { t } = useTranslation();
   return (
-    <footer className="site-footer" aria-label="Site footer">
+    <footer className="site-footer" aria-label={t('footer.siteFooterLabel')}>
       <div className="site-footer__inner">
         {/* Top section: logo + social */}
         <div className="site-footer__top">
@@ -27,48 +29,48 @@ export default function SiteFooter() {
         </div>
 
         {/* Columns */}
-        <nav aria-label="Footer navigation" className="site-footer__columns">
+        <nav aria-label={t('footer.footerNavigation')} className="site-footer__columns">
           {/* Product */}
           <div className="site-footer__col">
-            <h2 className="site-footer__col-title">Product</h2>
+            <h2 className="site-footer__col-title">{t('footer.productTitle')}</h2>
             <div className="site-footer__col-links">
-              <Link to="/#features">Features</Link>
-              <Link to="/#rewards">Rewards</Link>
-              <Link to="/#workouts">Workouts</Link>
-              <Link to="/onboarding">Get Started</Link>
+              <Link to="/#features">{t('footer.features')}</Link>
+              <Link to="/#rewards">{t('footer.rewardsLink')}</Link>
+              <Link to="/#workouts">{t('footer.workoutsLink')}</Link>
+              <Link to="/onboarding">{t('footer.getStarted')}</Link>
             </div>
           </div>
 
           {/* Company */}
           <div className="site-footer__col">
-            <h2 className="site-footer__col-title">Company</h2>
+            <h2 className="site-footer__col-title">{t('footer.companyTitle')}</h2>
             <div className="site-footer__col-links">
-              <Link to="/">About</Link>
-              <a href="mailto:hello@liboworld.com">Contact Us</a>
-              <Link to="/privacy">Privacy Policy</Link>
-              <Link to="/terms">Terms</Link>
+              <Link to="/">{t('footer.about')}</Link>
+              <a href="mailto:hello@liboworld.com">{t('footer.contactUs')}</a>
+              <Link to="/privacy">{t('footer.privacy')}</Link>
+              <Link to="/terms">{t('footer.terms')}</Link>
             </div>
           </div>
 
           {/* Resources */}
           <div className="site-footer__col">
-            <h2 className="site-footer__col-title">Resources</h2>
+            <h2 className="site-footer__col-title">{t('footer.resourcesTitle')}</h2>
             <div className="site-footer__col-links">
-              <Link to="/blog">Blog</Link>
-              <Link to="/exercises">Exercise Library</Link>
-              <Link to="/workouts">Workouts</Link>
+              <Link to="/blog">{t('footer.blogLink')}</Link>
+              <Link to="/exercises">{t('footer.exerciseLibrary')}</Link>
+              <Link to="/workouts">{t('footer.workoutsLink')}</Link>
             </div>
           </div>
 
           {/* Workouts */}
           <div className="site-footer__col">
-            <h2 className="site-footer__col-title">Workouts</h2>
+            <h2 className="site-footer__col-title">{t('footer.workoutsTitle')}</h2>
             <div className="site-footer__col-links">
-              <Link to="/workouts?cat=Gym">Gym Workouts</Link>
-              <Link to="/workouts?cat=Home">Home Workouts</Link>
-              <Link to="/workouts?cat=Stretching">Stretching</Link>
-              <Link to="/workouts?cat=Cardio">Cardio</Link>
-              <Link to="/workouts?cat=Challenge">Challenges</Link>
+              <Link to="/workouts?cat=Gym">{t('footer.gymWorkouts')}</Link>
+              <Link to="/workouts?cat=Home">{t('footer.homeWorkouts')}</Link>
+              <Link to="/workouts?cat=Stretching">{t('footer.stretching')}</Link>
+              <Link to="/workouts?cat=Cardio">{t('footer.cardio')}</Link>
+              <Link to="/workouts?cat=Challenge">{t('footer.challenges')}</Link>
             </div>
           </div>
         </nav>
@@ -76,11 +78,11 @@ export default function SiteFooter() {
         {/* Bottom bar */}
         <div className="site-footer__bottom">
           <span className="site-footer__copy">
-            &copy; {new Date().getFullYear()} Libo World. All rights reserved.
+            &copy; {new Date().getFullYear()} Libo World. {t('footer.allRightsReserved')}
           </span>
           <div className="site-footer__legal">
-            <Link to="/terms">Terms &amp; Conditions</Link>
-            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/terms">{t('footer.termsAndConditions')}</Link>
+            <Link to="/privacy">{t('footer.privacy')}</Link>
           </div>
         </div>
       </div>
