@@ -131,6 +131,8 @@ export default function ExerciseLibrary() {
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const safePage = Math.min(page, totalPages);
+  const rangeStart = filtered.length === 0 ? 0 : (safePage - 1) * PER_PAGE + 1;
+  const rangeEnd = Math.min(safePage * PER_PAGE, filtered.length);
   const pageExercises = filtered.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
 
   // ── Param setters ──
@@ -231,7 +233,7 @@ export default function ExerciseLibrary() {
           {/* Results count */}
           {!loading && (
             <div className="el-results-count" aria-live="polite">
-              {t('exerciseLibrary.showingPrefix')} <strong>{pageExercises.length}</strong> {t('exerciseLibrary.showingOf')} <strong>{filtered.length}</strong> {t('exerciseLibrary.showingSuffix')}
+              {t('exerciseLibrary.showingPrefix')} <strong>{rangeStart}–{rangeEnd}</strong> {t('exerciseLibrary.showingOf')} <strong>{filtered.length}</strong> {t('exerciseLibrary.showingSuffix')}
             </div>
           )}
 

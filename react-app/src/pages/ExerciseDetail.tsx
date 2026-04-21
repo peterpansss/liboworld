@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
 import { exerciseThumb, publicVideoUrl } from '../utils/thumbnails';
 import { MuscleTile } from '../components/MuscleTile';
-import { EmojiIcon } from '../components/EmojiIcon';
-import { Target, Dumbbell, BarChart3 } from '../utils/icons';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseDetail.css';
@@ -158,38 +156,20 @@ export default function ExerciseDetail() {
             )}
           </div>
 
-          {/* Chrome gradient def (referenced by .ed-info-icon svg) */}
-          <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
-            <defs>
-              <linearGradient id="chrome-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#f8fafc" />
-                <stop offset="45%" stopColor="#cbd5e1" />
-                <stop offset="55%" stopColor="#64748b" />
-                <stop offset="100%" stopColor="#e2e8f0" />
-              </linearGradient>
-            </defs>
-          </svg>
-
           {/* Info cards */}
           <div className="ed-info-row">
             <div className="ed-info-card">
-              <span className="ed-info-icon" aria-hidden="true">
-                <EmojiIcon icon={Target} size={24} strokeWidth={2} />
-              </span>
+              <span className="ed-info-icon" aria-hidden="true">&#128170;</span>
               <span className="ed-info-label">{t('exerciseDetail.muscleGroup')}</span>
               <span className="ed-info-value">{muscleLabel(exercise.bodyFocus)}</span>
             </div>
             <div className="ed-info-card">
-              <span className="ed-info-icon" aria-hidden="true">
-                <EmojiIcon icon={Dumbbell} size={24} strokeWidth={2} />
-              </span>
+              <span className="ed-info-icon" aria-hidden="true">&#127947;</span>
               <span className="ed-info-label">{t('exerciseDetail.equipment')}</span>
               <span className="ed-info-value">{equipmentLabel(exercise.equipment)}</span>
             </div>
             <div className="ed-info-card">
-              <span className="ed-info-icon" aria-hidden="true">
-                <EmojiIcon icon={BarChart3} size={24} strokeWidth={2} />
-              </span>
+              <span className="ed-info-icon" aria-hidden="true">&#9889;</span>
               <span className="ed-info-label">{t('exerciseDetail.difficulty')}</span>
               <span className={`ed-info-value ed-diff-tag ${exercise.diff}`}>
                 {difficultyLabel(exercise.diff)}
