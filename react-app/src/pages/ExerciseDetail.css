@@ -140,7 +140,13 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
-  color: var(--dim);
+  filter:
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.12))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.55));
+}
+
+.ed-info-icon svg {
+  stroke: url(#chrome-gradient);
 }
 
 .ed-info-label {
