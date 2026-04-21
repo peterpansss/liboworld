@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
 import { exerciseThumb, isMediaHidden } from '../utils/thumbnails';
 import { MuscleTile } from '../components/MuscleTile';
@@ -41,6 +42,7 @@ function getPaginationRange(current: number, total: number): (number | 'ellipsis
 
 // ── Main Component ──
 export default function ExerciseLibrary() {
+  const { t } = useTranslation();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -60,12 +62,12 @@ export default function ExerciseLibrary() {
 
   // ── SEO: document title ──
   useEffect(() => {
-    const parts = ['Exercise Library'];
+    const parts = [t('exerciseLibrary.title')];
     if (muscle !== 'All') parts.push(muscle);
     if (equip !== 'All') parts.push(equip);
     document.title = `${parts.join(' - ')} | Libo`;
     return () => { document.title = 'Libo'; };
-  }, [muscle, equip]);
+  }, [muscle, equip, t]);
 
   // ── Filter logic ──
   const filtered = useMemo(() => {
@@ -149,18 +151,18 @@ export default function ExerciseLibrary() {
       <main className="el-page">
         <div className="el-container">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="el-breadcrumb">
-            <Link to="/">Home</Link>
+          <nav aria-label={t('exerciseLibrary.breadcrumbLabel')} className="el-breadcrumb">
+            <Link to="/">{t('exerciseLibrary.breadcrumbHome')}</Link>
             <span className="el-breadcrumb-sep">&gt;</span>
-            <span>Resources</span>
+            <span>{t('exerciseLibrary.breadcrumbResources')}</span>
             <span className="el-breadcrumb-sep">&gt;</span>
-            <span>Exercise Library</span>
+            <span>{t('exerciseLibrary.title')}</span>
           </nav>
 
           {/* Hero */}
           <div className="el-hero">
-            <h1 className="font-display">Exercise Library</h1>
-            <p>{loading ? 'Exercises' : `${exercises.length} exercises`}. Filter by muscle group, equipment, or search by name.</p>
+            <h1 className="font-display">{t('exerciseLibrary.title')}</h1>
+            <p>{loading ? t('exerciseLibrary.exercisesWord') : t('exerciseLibrary.exerciseCount', { count: exercises.length })}. {t('exerciseLibrary.heroSubtitle')}</p>
           </div>
 
           {/* Search */}
@@ -169,8 +171,8 @@ export default function ExerciseLibrary() {
             <input
               type="text"
               className="el-search"
-              placeholder="Search exercises..."
-              aria-label="Search exercises"
+              placeholder={t('exerciseLibrary.searchPlaceholder')}
+              aria-label={t('exerciseLibrary.searchAriaLabel')}
               value={search}
               onChange={e => updateParam('q', e.target.value)}
             />
@@ -179,7 +181,7 @@ export default function ExerciseLibrary() {
           {/* Filters */}
           <div className="el-filters">
             <div className="el-filter-row">
-              <span className="el-filter-label">Muscle Group</span>
+              <span className="el-filter-label">{t('exerciseLibrary.muscleGroupLabel')}</span>
               <div className="el-chips">
                 {MUSCLE_GROUPS.map(m => (
                   <button
@@ -194,7 +196,7 @@ export default function ExerciseLibrary() {
               </div>
             </div>
             <div className="el-filter-row">
-              <span className="el-filter-label">Equipment</span>
+              <span className="el-filter-label">{t('exerciseLibrary.equipmentLabel')}</span>
               <div className="el-chips">
                 {EQUIPMENT_TYPES.map(e => (
                   <button
@@ -213,7 +215,7 @@ export default function ExerciseLibrary() {
           {/* Results count */}
           {!loading && (
             <div className="el-results-count" aria-live="polite">
-              Showing <strong>{pageExercises.length}</strong> of <strong>{filtered.length}</strong> exercises
+              {t('exerciseLibrary.showingPrefix')} <strong>{pageExercises.length}</strong> {t('exerciseLibrary.showingOf')} <strong>{filtered.length}</strong> {t('exerciseLibrary.showingSuffix')}
             </div>
           )}
 
@@ -221,22 +223,22 @@ export default function ExerciseLibrary() {
           {loading ? (
             <div className="el-empty">
               <div className="el-empty-icon">&#9203;</div>
-              <p className="el-empty-text">Loading exercises...</p>
+              <p className="el-empty-text">{t('exerciseLibrary.loading')}</p>
             </div>
           ) : pageExercises.length === 0 ? (
             <div className="el-empty">
               <div className="el-empty-icon">&#128556;</div>
-              <p className="el-empty-text">No exercises match this combination</p>
+              <p className="el-empty-text">{t('exerciseLibrary.emptyState.title')}</p>
               <p className="el-empty-sub">
                 {muscle !== 'All' && equip !== 'All'
-                  ? `No ${equip.toLowerCase()} exercises target ${muscle.toLowerCase()}. Try a different equipment type or muscle group.`
-                  : 'Try adjusting your search or clearing filters'}
+                  ? t('exerciseLibrary.emptyState.descriptionCombo', { equipment: equip.toLowerCase(), muscle: muscle.toLowerCase() })
+                  : t('exerciseLibrary.emptyState.description')}
               </p>
             </div>
           ) : (
             <div className="el-grid">
               {pageExercises.map(ex => {
-                const thumb = exerciseThumb(ex.id, ex.cat, ex.equipment, ex.parentId);
+                const thumb = exerciseThumb(ex);
                 return (
                 <Link key={ex.id} to={`/exercises/${ex.id}`} className="el-card">
                   <div className="el-card-media">
@@ -269,7 +271,7 @@ export default function ExerciseLibrary() {
               <button
                 className="el-page-btn"
                 disabled={safePage <= 1}
-                aria-label="Previous page"
+                aria-label={t('exerciseLibrary.previousPage')}
                 onClick={() => setPage(safePage - 1)}
               >
                 &#8249;
@@ -293,7 +295,7 @@ export default function ExerciseLibrary() {
               <button
                 className="el-page-btn"
                 disabled={safePage >= totalPages}
-                aria-label="Next page"
+                aria-label={t('exerciseLibrary.nextPage')}
                 onClick={() => setPage(safePage + 1)}
               >
                 &#8250;

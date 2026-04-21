@@ -27,16 +27,16 @@ export function exerciseSupportsAnimation(ex: Exercise): boolean {
   return true;
 }
 
-// L/R variants share the parent's thumbnail file (same video, same still).
-export function exerciseThumb(
-  id: string,
-  cat?: string,
-  equipment?: string,
-  parentId?: string
-): string | null {
-  if (isMediaHidden(cat, equipment)) return null;
-  const thumbId = parentId || id;
-  return `/images/thumbnails/exercises/${thumbId}.jpg`;
+// Thumbnails are extracted from the processed video, so the file basename
+// always matches the videoUrl basename (not necessarily the exercise id —
+// e.g. id=child_s_pose vs file=childs_pose.jpg).
+export function exerciseThumb(ex: Exercise | undefined | null): string | null {
+  if (!ex) return null;
+  if (isMediaHidden(ex.cat, ex.equipment)) return null;
+  if (!ex.videoUrl) return null;
+  const basename = ex.videoUrl.split('/').pop()?.replace(/\.mp4$/i, '');
+  if (!basename) return null;
+  return `/images/thumbnails/exercises/${basename}.jpg`;
 }
 
 export function buildNameToSlug(exercises: Exercise[]): Record<string, string> {
@@ -56,5 +56,5 @@ export function workoutHeroThumb(
   const slug = nameToSlug[hero.name];
   if (!slug) return null;
   const ex = exercises?.find(e => e.id === slug);
-  return exerciseThumb(slug, ex?.cat, ex?.equipment, ex?.parentId);
+  return exerciseThumb(ex);
 }
