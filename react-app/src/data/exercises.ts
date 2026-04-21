@@ -97,7 +97,8 @@ function normalizeWorkout(raw: RawWorkout): Workout {
 
 let _exercises: Exercise[] | null = null;
 let _workouts: Workout[] | null = null;
-let _loading: Promise<void> | null = null;
+let _exercisesPromise: Promise<Exercise[]> | null = null;
+let _workoutsPromise: Promise<Workout[]> | null = null;
 
 type LocaleOverlay = Record<string, { setupNotes?: string }>;
 const _overlays: Partial<Record<string, LocaleOverlay>> = {};
@@ -121,26 +122,31 @@ async function loadOverlay(lang: string): Promise<LocaleOverlay> {
   return _overlayPromises[lang]!;
 }
 
-async function loadData() {
-  if (_exercises && _workouts) return;
-  if (_loading) return _loading;
-
-  _loading = (async () => {
-    const [exRes, wkRes] = await Promise.all([
-      fetch('/exercises.json'),
-      fetch('/workouts.json'),
-    ]);
-    _exercises = (await exRes.json()) as Exercise[];
-    const rawWorkouts = (await wkRes.json()) as RawWorkout[];
-    _workouts = rawWorkouts.map(normalizeWorkout);
+function loadExercises(): Promise<Exercise[]> {
+  if (_exercises) return Promise.resolve(_exercises);
+  if (_exercisesPromise) return _exercisesPromise;
+  _exercisesPromise = (async () => {
+    const res = await fetch('/exercises.json');
+    _exercises = (await res.json()) as Exercise[];
+    return _exercises;
   })();
+  return _exercisesPromise;
+}
 
-  return _loading;
+function loadWorkouts(): Promise<Workout[]> {
+  if (_workouts) return Promise.resolve(_workouts);
+  if (_workoutsPromise) return _workoutsPromise;
+  _workoutsPromise = (async () => {
+    const res = await fetch('/workouts.json');
+    const raw = (await res.json()) as RawWorkout[];
+    _workouts = raw.map(normalizeWorkout);
+    return _workouts;
+  })();
+  return _workoutsPromise;
 }
 
 export async function getExercises(lang: string = 'en'): Promise<Exercise[]> {
-  await loadData();
-  const base = _exercises!;
+  const base = await loadExercises();
   const code = (lang || 'en').split('-')[0];
   if (code === 'en') return base;
   const overlay = await loadOverlay(code);
@@ -152,6 +158,5 @@ export async function getExercises(lang: string = 'en'): Promise<Exercise[]> {
 }
 
 export async function getWorkouts(): Promise<Workout[]> {
-  await loadData();
-  return _workouts!;
+  return loadWorkouts();
 }
