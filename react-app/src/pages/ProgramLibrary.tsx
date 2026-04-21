@@ -21,7 +21,7 @@ function diffClass(diff: string): string {
 }
 
 export default function ProgramLibrary() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const diffLabel = (diff: string): string => {
     const d = (diff || 'beginner').toLowerCase();
@@ -51,12 +51,12 @@ export default function ProgramLibrary() {
   const cat = searchParams.get('cat') || 'All';
 
   useEffect(() => {
-    Promise.all([getWorkouts(), getExercises()]).then(([wks, exs]) => {
+    Promise.all([getWorkouts(), getExercises(i18n.language)]).then(([wks, exs]) => {
       setWorkouts(wks);
       setExercises(exs);
       setLoading(false);
     });
-  }, []);
+  }, [i18n.language]);
 
   const nameToSlug = useMemo(() => buildNameToSlug(exercises), [exercises]);
 

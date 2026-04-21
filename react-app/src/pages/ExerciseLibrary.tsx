@@ -56,7 +56,7 @@ function getPaginationRange(current: number, total: number): (number | 'ellipsis
 
 // ── Main Component ──
 export default function ExerciseLibrary() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const muscleLabel = (m: string) => t(`exerciseLibrary.muscles.${MUSCLE_I18N_KEYS[m] ?? 'all'}`);
   const equipmentLabel = (e: string) => t(`exerciseLibrary.equipment.${EQUIPMENT_I18N_KEYS[e] ?? 'all'}`);
   const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -70,11 +70,11 @@ export default function ExerciseLibrary() {
   const page = isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
 
   useEffect(() => {
-    getExercises().then(data => {
+    getExercises(i18n.language).then(data => {
       setExercises(data);
       setLoading(false);
     });
-  }, []);
+  }, [i18n.language]);
 
   // ── SEO: document title ──
   useEffect(() => {

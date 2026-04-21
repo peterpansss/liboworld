@@ -1,0 +1,1925 @@
+{
+  "gym_1a": {
+    "setupNotes": "Flachbank im Power Rack oder an der Bankdrück-Station. Stange auf Brusthöhe, Helfer empfohlen. Füße aufgesetzt, Schulterblätter zusammengezogen. Stange aus der Ablage nehmen, bis zur Brustmitte absenken — nach oben drücken bis zur vollen Streckung."
+  },
+  "gym_1b": {
+    "setupNotes": "Schrägbank (30-45 Grad) im Power Rack. Stange auf Brusthöhe, Helfer empfohlen. Füße aufgesetzt, Schulterblätter zusammengezogen. Stange aus der Ablage nehmen, bis zur oberen Brust absenken — nach oben drücken bis zur vollen Streckung."
+  },
+  "gym_1c": {
+    "setupNotes": "Negativbank im Power Rack, Füße fixiert. Stange auf Brusthöhe, Helfer empfohlen. Schulterblätter zusammengezogen. Stange aus der Ablage nehmen, bis zur unteren Brust absenken — nach oben drücken bis zur vollen Streckung."
+  },
+  "gym_2a": {
+    "setupNotes": "Flachbank mit Kurzhantelständer in der Nähe. Mit den Kurzhanteln auf den Oberschenkeln beginnen, in die Drückposition hochkicken. Schulterblätter zusammenziehen."
+  },
+  "gym_2b": {
+    "setupNotes": "Schrägbank mit Kurzhantelständer in der Nähe. Mit den Kurzhanteln auf den Oberschenkeln beginnen, in die Drückposition hochkicken. Schulterblätter zusammenziehen."
+  },
+  "gym_2c": {
+    "setupNotes": "Negativbank mit Kurzhantelständer in der Nähe. Mit den Kurzhanteln auf den Oberschenkeln beginnen, in die Drückposition hochkicken. Schulterblätter zusammenziehen."
+  },
+  "gym_3a": {
+    "setupNotes": "Flache Brustpresse-Maschine — Sitz so einstellen, dass die Griffe auf Brustmitte ausgerichtet sind. Obergriff mit den Handflächen nach unten, Rücken am Polster, Füße aufgesetzt. Griffe bis zur vollen Streckung nach vorn drücken — Fokus auf die Brust mit Unterstützung der Trizeps."
+  },
+  "gym_3b": {
+    "setupNotes": "Flache Brustpresse-Maschine — Sitz so einstellen, dass die Griffe auf Brustmitte ausgerichtet sind. Neutraler Griff mit den Handflächen einander zugewandt, Rücken am Polster, Füße aufgesetzt. Griffe bis zur vollen Streckung nach vorn drücken — Fokus auf die Brust mit weniger Belastung der Schultern."
+  },
+  "gym_3c": {
+    "setupNotes": "Schräge Brustpresse-Maschine — Sitz so einstellen, dass die Griffe auf die obere Brust ausgerichtet sind. Obergriff mit den Handflächen nach unten, Rücken am Polster, Füße aufgesetzt. Griffe nach vorn und leicht nach oben drücken — Fokus auf die obere Brust und vordere Deltas."
+  },
+  "gym_3d": {
+    "setupNotes": "Schräge Brustpresse-Maschine — Sitz so einstellen, dass die Griffe auf die obere Brust ausgerichtet sind. Neutraler Griff mit den Handflächen einander zugewandt, Rücken am Polster, Füße aufgesetzt. Griffe nach vorn und leicht nach oben drücken — Fokus auf die obere Brust mit weniger Belastung der Schultern."
+  },
+  "gym_3e": {
+    "setupNotes": "Negativ-Brustpresse-Maschine — Sitz so einstellen, dass die Griffe auf die untere Brust ausgerichtet sind. Obergriff mit den Handflächen nach unten, Rücken am Polster, Füße aufgesetzt. Griffe nach vorn und leicht nach unten drücken — Fokus auf die unteren Brustfasern."
+  },
+  "gym_3f": {
+    "setupNotes": "Negativ-Brustpresse-Maschine — Sitz so einstellen, dass die Griffe auf die untere Brust ausgerichtet sind. Neutraler Griff mit den Handflächen einander zugewandt, Rücken am Polster, Füße aufgesetzt. Griffe nach vorn und leicht nach unten drücken — Fokus auf die untere Brust mit weniger Belastung der Schultern."
+  },
+  "gym_4a": {
+    "setupNotes": "Doppel-Kabelzug, Rolle auf niedriger Position. D-Griffe eingehängt. Einen Schritt nach vorn machen, um Spannung aufzubauen, Ellbogen während der gesamten Bewegung leicht gebeugt."
+  },
+  "gym_4b": {
+    "setupNotes": "Doppel-Kabelzug, Rolle auf mittlerer Position. D-Griffe eingehängt. Einen Schritt nach vorn machen, um Spannung aufzubauen, Ellbogen während der gesamten Bewegung leicht gebeugt."
+  },
+  "gym_4c": {
+    "setupNotes": "Doppel-Kabelzug, Rolle auf hoher Position. D-Griffe eingehängt. Einen Schritt nach vorn machen, um Spannung aufzubauen, Ellbogen während der gesamten Bewegung leicht gebeugt."
+  },
+  "gym_5": {
+    "setupNotes": "Sitzhöhe so einstellen, dass die Arme auf Brusthöhe sind. Polster oder Griffe auf Schulterbreite. Rücken fest am Polster, Ellbogen leicht gebeugt."
+  },
+  "gym_6a": {
+    "setupNotes": "Flachbank mit moderaten Kurzhanteln. Arme über der Brust gestreckt, Ellbogen leicht gebeugt. In einem Bogen absenken, bis die Dehnung spürbar ist."
+  },
+  "gym_6b": {
+    "setupNotes": "Schrägbank mit moderaten Kurzhanteln. Arme über der Brust gestreckt, Ellbogen leicht gebeugt. In einem Bogen absenken, bis die Dehnung spürbar ist."
+  },
+  "gym_6c": {
+    "setupNotes": "Negativbank mit moderaten Kurzhanteln. Arme über der Brust gestreckt, Ellbogen leicht gebeugt. In einem Bogen absenken, bis die Dehnung spürbar ist."
+  },
+  "gym_7a": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. Mit dem Rücken zur Halterung stehen für Brustfokus, das Ende der Stange auf Brusthöhe greifen. Schrittstellung."
+  },
+  "gym_7b": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. Im halben Kniestand zur Stange, das Ende der Stange mit beiden Händen auf Brusthöhe greifen. Nach oben und vorn in einem Bogen bis zur vollen Streckung drücken — Fokus auf die obere Brust und vordere Deltas, ohne Impuls aus dem Unterkörper."
+  },
+  "gym_7cL": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. In Schrittstellung stehen, das Ende der Stange mit einer Hand auf Schulterhöhe greifen. Nach oben und vorn in einem Bogen bis zur vollen Streckung drücken — Fokus auf Brust und Schulter mit unilateraler Anforderung an den Rumpf."
+  },
+  "gym_7cR": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. In Schrittstellung stehen, das Ende der Stange mit einer Hand auf Schulterhöhe greifen. Nach oben und vorn in einem Bogen bis zur vollen Streckung drücken — Fokus auf Brust und Schulter mit unilateraler Anforderung an den Rumpf."
+  },
+  "gym_8a": {
+    "setupNotes": "Auf dem Boden liegen mit Kurzhantel. Knie gebeugt, Füße aufgesetzt. Die Oberarme berühren am unteren Punkt jeder Wiederholung den Boden."
+  },
+  "gym_8b": {
+    "setupNotes": "Auf dem Boden liegen mit Langhantel. Knie gebeugt, Füße aufgesetzt. Die Oberarme berühren am unteren Punkt jeder Wiederholung den Boden."
+  },
+  "gym_9": {
+    "setupNotes": "Dip-Station mit parallelen Barren. Oberkörper ~30 Grad nach vorn lehnen, Ellbogen leicht nach außen. Breiterer Griff betont die Brust gegenüber den Trizeps."
+  },
+  "gym_12": {
+    "setupNotes": "Hände schulterbreit auf dem Boden, Körper in einer geraden Linie vom Kopf bis zu den Fersen. Volle Amplitude — Brust bis zum Boden, Arme oben vollständig gestreckt."
+  },
+  "gym_14": {
+    "setupNotes": "Brustpresse-Maschine oder Kabelzug-Crossover. Bis zur Mitte des Bewegungsbereichs drücken und die vorgegebene Zeit halten. Durchgehende Spannung auf der Brust."
+  },
+  "gym_15a": {
+    "setupNotes": "Standard-Liegestütz-Position — Hände schulterbreit auf dem Boden, Körper in einer geraden Linie. 3–4 Sekunden absenken, 1 Sekunde unten pausieren, kontrolliert nach oben drücken. Tempoarbeit erhöht die Zeit unter Spannung für die Brust."
+  },
+  "gym_15b": {
+    "setupNotes": "Hände auf einer Bank oder Box erhöht, Füße am Boden, Körper in einer geraden Linie. Brust für 3–4 Sekunden in Richtung Bank absenken, 1 Sekunde unten pausieren, kontrolliert nach oben drücken. Tempoarbeit baut Ausdauer der unteren Brust bei leichterem Winkel auf."
+  },
+  "gym_15c": {
+    "setupNotes": "Füße auf einer Bank oder Box erhöht, Hände schulterbreit auf dem Boden, Körper in einer geraden Linie. Brust für 3–4 Sekunden in Richtung Boden absenken, 1 Sekunde unten pausieren, kontrolliert nach oben drücken. Tempoarbeit betont obere Brust und Schultern."
+  },
+  "gym_16": {
+    "setupNotes": "Standard-Liegestütz-Position auf festem Boden. Explosiv nach oben drücken, sodass die Hände den Boden verlassen. Weich landen mit leicht gebeugten Ellbogen. Fortgeschrittene Bewegung."
+  },
+  "gym_17": {
+    "setupNotes": "Einzelner Kabelzug auf Brusthöhe. Einen Schritt nach vorn machen, Arm in langsamer, kontrollierter Bewegung vor dem Körper kreuzen. Volle Dehnung in der hinteren Position."
+  },
+  "gym_18": {
+    "setupNotes": "Stehend zwei kleine Hantelscheiben auf Brusthöhe zusammendrücken. Nach vorn drücken und dabei den Druck halten. Durchgehende Kontraktion der Brust."
+  },
+  "gym_19a": {
+    "setupNotes": "Sitzend auf einer Bank mit Rückenlehne, Füße aufgesetzt. Kurzhanteln auf Schulterhöhe halten, Handflächen zu dir (Untergriff). Über den Kopf drücken bis zur vollen Streckung — kontrolliert absenken."
+  },
+  "gym_19b": {
+    "setupNotes": "Sitzend auf einer Bank mit Rückenlehne, Füße aufgesetzt. Kurzhanteln auf Schulterhöhe halten, Handflächen einander zugewandt (neutral). Über den Kopf drücken bis zur vollen Streckung — kontrolliert absenken."
+  },
+  "gym_19c": {
+    "setupNotes": "Sitzend auf einer Bank mit Rückenlehne, Füße aufgesetzt. Kurzhanteln auf Schulterhöhe halten, Handflächen nach vorn (Obergriff). Über den Kopf drücken bis zur vollen Streckung — kontrolliert absenken."
+  },
+  "gym_19d": {
+    "setupNotes": "Stehend, Füße schulterbreit, Rumpf stabilisiert. Kurzhanteln auf Schulterhöhe halten, Handflächen zu dir (Untergriff). Über den Kopf drücken bis zur vollen Streckung — kontrolliert absenken."
+  },
+  "gym_19e": {
+    "setupNotes": "Stehend, Füße schulterbreit, Rumpf stabilisiert. Kurzhanteln auf Schulterhöhe halten, Handflächen einander zugewandt (neutral). Über den Kopf drücken bis zur vollen Streckung — kontrolliert absenken."
+  },
+  "gym_19f": {
+    "setupNotes": "Stehend, Füße schulterbreit, Rumpf stabilisiert. Kurzhanteln auf Schulterhöhe halten, Handflächen nach vorn (Obergriff). Über den Kopf drücken bis zur vollen Streckung — kontrolliert absenken."
+  },
+  "gym_20a": {
+    "setupNotes": "Sitzend, Langhantel in der Front-Rack-Position am Schlüsselbein. Füße hüftbreit. Gerade nach oben drücken, Arme strecken, Stange über der Mittelfußlinie."
+  },
+  "gym_20b": {
+    "setupNotes": "Stehend, Langhantel in der Front-Rack-Position am Schlüsselbein. Füße hüftbreit. Gerade nach oben drücken, Arme strecken, Stange über der Mittelfußlinie."
+  },
+  "gym_21a": {
+    "setupNotes": "Sitz so einstellen, dass die Griffe auf Ohrhöhe beginnen. Rücken am Polster, Füße aufgesetzt. Bis zur vollen Streckung drücken. Untergriff verwenden."
+  },
+  "gym_21b": {
+    "setupNotes": "Sitz so einstellen, dass die Griffe auf Ohrhöhe beginnen. Rücken am Polster, Füße aufgesetzt. Bis zur vollen Streckung drücken. Neutralen Griff verwenden."
+  },
+  "gym_21c": {
+    "setupNotes": "Sitz so einstellen, dass die Griffe auf Ohrhöhe beginnen. Rücken am Polster, Füße aufgesetzt. Bis zur vollen Streckung drücken. Obergriff verwenden."
+  },
+  "gym_22": {
+    "setupNotes": "Stehend, leichte Kurzhanteln seitlich am Körper. Arme seitlich nach oben führen, bis sie parallel zum Boden sind, Ellbogen leicht gebeugt. Kontrolliert absenken."
+  },
+  "gym_23": {
+    "setupNotes": "Einzelner niedriger Kabelzug, D-Griff. Seitlich zur Maschine stehen. Arm seitlich bis auf Schulterhöhe heben. Durchgehende Kabelspannung."
+  },
+  "gym_24": {
+    "setupNotes": "Niedriger Kabelzug, D-Griff hinter dem Rücken durchgeführt. Seitlich stehen. Arm zur Seite heben — das Kabel hinter dem Körper hält die Spannung über den gesamten Bewegungsbereich."
+  },
+  "gym_25": {
+    "setupNotes": "Stehend, Kurzhanteln vor den Oberschenkeln. Einen oder beide Arme nach vorn auf Schulterhöhe heben, Handflächen nach unten. Kontrolliert absenken."
+  },
+  "gym_26": {
+    "setupNotes": "Stehend, eine Hantelscheibe auf 3 und 9 Uhr greifen. Mit gestreckten Armen auf Schulterhöhe heben. Kontrolliertes Tempo."
+  },
+  "gym_27": {
+    "setupNotes": "Sitzend mit dem Gesicht zum Polster der Pec-Deck-/Rear-Delt-Maschine. Griffe mit gestreckten Armen greifen. Griffe in einem Bogen nach hinten ziehen und die hinteren Deltas anspannen."
+  },
+  "gym_28": {
+    "setupNotes": "Aus der Hüfte ~45 Grad nach vorn gebeugt, Kurzhanteln unter der Brust hängend. Arme seitlich heben, die Ellbogen führen. Leichtes Gewicht, kontrolliert."
+  },
+  "gym_29": {
+    "setupNotes": "Sitzend auf einer aufrechten Bank mit Rückenlehne. Mit den Kurzhanteln am Kinn beginnen, Handflächen zu dir. Während du über den Kopf drückst, die Handflächen nach außen rotieren."
+  },
+  "gym_30a": {
+    "setupNotes": "Stehend, EZ-Stange hüftbreit greifen. Gerade am Körper entlang bis auf Kinnhöhe ziehen, Ellbogen hoch. "
+  },
+  "gym_30b": {
+    "setupNotes": "Stehend, Kabel hüftbreit greifen. Gerade am Körper entlang bis auf Kinnhöhe ziehen, Ellbogen hoch. "
+  },
+  "gym_30c": {
+    "setupNotes": "Stehend, Langhantel hüftbreit greifen. Gerade am Körper entlang bis auf Kinnhöhe ziehen, Ellbogen hoch. "
+  },
+  "gym_31a": {
+    "setupNotes": "Kabel auf Höhe der oberen Brust, Seil-Aufsatz. Zum Gesicht ziehen, Hände enden neben den Ohren. Ellbogen hoch, hintere Deltas anspannen. Stehend."
+  },
+  "gym_31b": {
+    "setupNotes": "Kabel auf Höhe der oberen Brust, Seil-Aufsatz. Zum Gesicht ziehen, Hände enden neben den Ohren. Ellbogen hoch, hintere Deltas anspannen. Kniend."
+  },
+  "gym_32": {
+    "setupNotes": "An der Klimmzugstange mit vollständig gestreckten Armen hängen. Ohne die Ellbogen zu beugen, die Schulterblätter absenken und zusammenziehen, um den Körper leicht zu heben."
+  },
+  "gym_33": {
+    "setupNotes": "Stehend, leichte Kurzhanteln seitlich auf Schulterhöhe heben. Die Position für die vorgegebene Zeit halten. Ellbogen leicht gebeugt halten."
+  },
+  "gym_34": {
+    "setupNotes": "Bauchlage auf der Schrägbank (Gesicht nach unten) oder stehend nach vorn gebeugt. Kurzhanteln in Y-Form über den Kopf heben. Leichtes Gewicht, kontrolliert."
+  },
+  "gym_35": {
+    "setupNotes": "Stehend, Ellbogen auf Schulterhöhe im 90-Grad-Winkel. Unterarme von nach unten zeigend zu nach oben zeigend rotieren. Prehab / Arbeit an der Rotatorenmanschette."
+  },
+  "gym_36": {
+    "setupNotes": "Stehend mit leichten Kurzhanteln. Frontheben auf Schulterhöhe, dann ohne abzusenken in die Position des Seitheben übergehen. Gleichmäßige Bogenbewegung."
+  },
+  "gym_37aL": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz, Schrittstellung. Das Ende der Stange mit einer Hand auf Schulterhöhe greifen. In einem Bogen nach oben drücken, bis der Arm gestreckt ist — langsam absenken."
+  },
+  "gym_37aR": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz, Schrittstellung. Das Ende der Stange mit einer Hand auf Schulterhöhe greifen. In einem Bogen nach oben drücken, bis der Arm gestreckt ist — langsam absenken."
+  },
+  "gym_37b": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz, Schrittstellung. Das Ende der Stange mit beiden Händen auf Brusthöhe greifen. In einem Bogen nach oben drücken, bis die Arme gestreckt sind — langsam absenken."
+  },
+  "gym_38": {
+    "setupNotes": "Stehend, Langhantel auf Hüfthöhe im Obergriff, schulterbreit. Schultern gerade nach oben Richtung Ohren zucken. Kurz oben halten, kontrolliert absenken."
+  },
+  "gym_39": {
+    "setupNotes": "Stehend, schwere Kurzhanteln seitlich am Körper. Schultern Richtung Ohren zucken, 1 Sekunde oben halten. Arme während der gesamten Bewegung gestreckt halten."
+  },
+  "gym_40": {
+    "setupNotes": "Stehend in der beladenen Trap Bar. Griffe fassen, Arme gestreckt. Schultern Richtung Ohren zucken. Der neutrale Griff reduziert die Belastung der Handgelenke."
+  },
+  "gym_41": {
+    "setupNotes": "Zentriert in der Smith-Maschine stehen, Stange auf Hüfthöhe. Obergriff, schulterbreit. Gerade nach oben zucken — die Maschine führt die Bewegung."
+  },
+  "gym_42": {
+    "setupNotes": "Niedriger Kabelzug, Aufsatz mit gerader Stange oder Seil. Aufrecht stehen, Arme gestreckt. Schultern gegen den Widerstand des Kabels nach oben zucken."
+  },
+  "gym_43a": {
+    "setupNotes": "Langhantel auf den Sicherheitsstützen des Power Racks oberhalb der Kniehöhe. Konventioneller Kreuzheben-Griff. Zur vollen Streckung aufstehen, Trapezius und oberen Rücken oben anspannen."
+  },
+  "gym_43b": {
+    "setupNotes": "Langhantel auf den Sicherheitsstützen des Power Racks unterhalb der Kniehöhe. Konventioneller Kreuzheben-Griff. Zur vollen Streckung aufstehen, Trapezius und oberen Rücken oben anspannen."
+  },
+  "gym_44": {
+    "setupNotes": "Latzug-Maschine, breite Stange eingehängt. Hinsetzen, Oberschenkel unter das Polster, Stange breiter als schulterbreit greifen. Zur oberen Brust ziehen, Latissimus anspannen."
+  },
+  "gym_45": {
+    "setupNotes": "V-Griff oder enger Griff am Latzug. Aufrecht sitzen, zur Brust ziehen, Ellbogen nah am Körper. Unten anspannen."
+  },
+  "gym_46a": {
+    "setupNotes": "Gerade Stange am Latzug, Untergriff (supiniert), Hände eng beieinander. Stange zur oberen Brust ziehen — leicht nach hinten lehnen, Latissimus unten anspannen."
+  },
+  "gym_46b": {
+    "setupNotes": "Gerade Stange am Latzug, Untergriff (supiniert), Hände schulterbreit. Stange zur oberen Brust ziehen — leicht nach hinten lehnen, Latissimus unten anspannen."
+  },
+  "gym_47": {
+    "setupNotes": "Plattengeladene oder selektorbasierte Latzug-Maschine. Oberschenkelpolster einstellen. Griffe greifen, mit kontrollierter Form zur oberen Brust ziehen."
+  },
+  "gym_48L": {
+    "setupNotes": "Latzug am Kabel, D-Griff. Ein Arm nach dem anderen, leicht zur arbeitenden Seite lehnen. Volle Dehnung oben, Kontraktion unten."
+  },
+  "gym_48R": {
+    "setupNotes": "Latzug am Kabel, D-Griff. Ein Arm nach dem anderen, leicht zur arbeitenden Seite lehnen. Volle Dehnung oben, Kontraktion unten."
+  },
+  "gym_49": {
+    "setupNotes": "Widerstandsband über die Klimmzugstange legen, einen oder beide Füße ins Band stellen. Klimmzug mit Bandunterstützung ausführen, die das Körpergewicht reduziert."
+  },
+  "gym_50": {
+    "setupNotes": "Assistierte Klimmzug-/Dip-Maschine. Auf das Polster knien oder stehen, Gegengewicht wählen. Stange über dem Kopf greifen, bis das Kinn über die Stange kommt."
+  },
+  "gym_51": {
+    "setupNotes": "Klimmzugstange in einer Höhe, die freies Hängen erlaubt. Obergriff knapp außerhalb der Schulterbreite. Kinn über die Stange ziehen, unten voll ausstrecken."
+  },
+  "gym_52": {
+    "setupNotes": "Klimmzugstange, Untergriff (supiniert) schulterbreit. Kinn über die Stange ziehen, Bizeps und Latissimus anspannen. Unten voll aushängen."
+  },
+  "gym_53": {
+    "setupNotes": "Klimmzugstange, Obergriff deutlich breiter als schulterbreit. Brust zur Stange ziehen. Mehr Fokus auf den Latissimus, weniger Bizeps."
+  },
+  "gym_54": {
+    "setupNotes": "Klimmzugstange, Obergriff mit sich berührenden Händen oder 15 cm Abstand. Kinn über die Stange ziehen. Mehr Bizeps und unterer Latissimus beteiligt."
+  },
+  "gym_55": {
+    "setupNotes": "Klimmzugstange. Springen oder hochsteigen in die obere Position (Kinn über der Stange). Körper so langsam wie möglich absenken (5-10 Sekunden). Wiederholen."
+  },
+  "gym_56": {
+    "setupNotes": "Klimmzugstange mit Dip-Gürtel und Hantelscheiben oder Gewichtsweste. Standard-Klimmzug mit zusätzlicher Last ausführen."
+  },
+  "gym_58": {
+    "setupNotes": "Klimmzugstange mit freiem Raum darüber. Explosiver Klimmzug mit Übergang über die Stange in einen Dip-Drück. Fortgeschrittene Calisthenics-Bewegung."
+  },
+  "gym_59": {
+    "setupNotes": "Klimmzugstange, Hände versetzt hintereinander (senkrechter Griff). Kopf zu einer Seite der Stange ziehen, Seiten wechseln."
+  },
+  "gym_60": {
+    "setupNotes": "Breiter Griff an der Klimmzugstange. Zu einer Hand ziehen, während der andere Arm gerade gestreckt bleibt. Seiten wechseln. Fortgeschrittene unilaterale Progression."
+  },
+  "gym_61": {
+    "setupNotes": "Sitzende Ruderstation am Kabel, V-Griff eingehängt. Füße auf der Fußplatte, Knie leicht gebeugt. Griff zur unteren Brust ziehen, Schulterblätter zusammenziehen."
+  },
+  "gym_62": {
+    "setupNotes": "Sitzende Ruderstation am Kabel, breite Lat-Stange oder gerade Stange. Obergriff. Zur unteren Brust ziehen, Ellbogen seitlich nach außen."
+  },
+  "gym_63": {
+    "setupNotes": "Sitzende Ruderstation am Kabel, gerade Stange mit Untergriff schulterbreit. Zur unteren Brust ziehen, Ellbogen nah am Körper."
+  },
+  "gym_64L": {
+    "setupNotes": "Sitzende Ruderstation am Kabel, D-Griff. Ein Arm nach dem anderen. Leichte Rotation zur arbeitenden Seite. Volle Dehnung und Kontraktion."
+  },
+  "gym_64R": {
+    "setupNotes": "Sitzende Ruderstation am Kabel, D-Griff. Ein Arm nach dem anderen. Leichte Rotation zur arbeitenden Seite. Volle Dehnung und Kontraktion."
+  },
+  "gym_65L": {
+    "setupNotes": "Rechte Hand und rechtes Knie auf der Flachbank, linker Fuß am Boden, gerader Rücken. Kurzhantel in der linken Hand unter der Schulter hängend — zur linken Hüfte rudern, Ellbogen nah am Körper. Oben den Latissimus anspannen."
+  },
+  "gym_65R": {
+    "setupNotes": "Linke Hand und linkes Knie auf der Flachbank, rechter Fuß am Boden, gerader Rücken. Kurzhantel in der rechten Hand unter der Schulter hängend — zur rechten Hüfte rudern, Ellbogen nah am Körper. Oben den Latissimus anspannen."
+  },
+  "gym_66L": {
+    "setupNotes": "Schrägbank auf ~30 Grad, Brust am Polster. Kurzhantel in der linken Hand — zur linken Hüfte rudern, Ellbogen nah am Körper. Die Bank verhindert Schwung für strikte Latissimus-Arbeit."
+  },
+  "gym_66R": {
+    "setupNotes": "Schrägbank auf ~30 Grad, Brust am Polster. Kurzhantel in der rechten Hand — zur rechten Hüfte rudern, Ellbogen nah am Körper. Die Bank verhindert Schwung für strikte Latissimus-Arbeit."
+  },
+  "gym_67": {
+    "setupNotes": "Liegestütz-Position mit Händen auf Kurzhanteln (Hex-Kurzhanteln bevorzugt). Eine Kurzhantel zur Hüfte rudern, während du dich auf der anderen stabilisierst. Seiten wechseln."
+  },
+  "gym_68L": {
+    "setupNotes": "Eine Hand zur Unterstützung auf Bank oder Rack. Schwere Kurzhantel, leichte Oberkörperrotation erlaubt. Hochrepetitives, explosives Rudern für Rückendicke."
+  },
+  "gym_68R": {
+    "setupNotes": "Eine Hand zur Unterstützung auf Bank oder Rack. Schwere Kurzhantel, leichte Oberkörperrotation erlaubt. Hochrepetitives, explosives Rudern für Rückendicke."
+  },
+  "gym_69": {
+    "setupNotes": "Stehend, Hüftscharnier ~45 Grad. Langhantel mit gestreckten Armen hängend, Obergriff. Stange zur unteren Brust rudern, Schulterblätter zusammenziehen."
+  },
+  "gym_70": {
+    "setupNotes": "Gleiche Hüftscharnier-Position wie beim Obergriff-Rudern. Untergriff (supiniert) schulterbreit. Zum Unterbauch rudern, Ellbogen nah am Körper."
+  },
+  "gym_71": {
+    "setupNotes": "Langhantel auf dem Boden. Hüftscharnier bis der Oberkörper parallel zum Boden ist. Explosives Rudern aus dem Stillstand bei jeder Wiederholung. Die Stange kehrt zwischen den Wiederholungen auf den Boden zurück."
+  },
+  "gym_72": {
+    "setupNotes": "Stehend, leichte Vorwärtsneigung (~20-30 Grad). Untergriff an der Langhantel. Mit kontrollierter Form zum Unterbauch rudern. Weniger Belastung des unteren Rückens."
+  },
+  "gym_73": {
+    "setupNotes": "Mit dem Gesicht nach unten auf einer erhöhten Flachbank liegen (Bank auf Blöcken/Scheiben). Kurzhanteln oder Langhantel hängen darunter. Rudern ohne Beinimpuls oder Schwung — reine Rückenarbeit."
+  },
+  "gym_74": {
+    "setupNotes": "Schrägbank auf ~30-45 Grad, Brust am Polster. Eine Kurzhantel in jeder Hand. Beide Kurzhanteln gleichzeitig rudern. Kein Schwung."
+  },
+  "gym_75": {
+    "setupNotes": "T-Bar-Rudermaschine oder Landmine-Aufbau mit V-Griff. Über der Stange stehen, neutraler Griff. Hüftscharnier, zur Brust rudern."
+  },
+  "gym_76": {
+    "setupNotes": "Brustgestützte T-Bar-Maschine. Mit dem Gesicht nach unten auf dem Polster liegen. Griffe greifen, zur Brust rudern. Die Maschine verhindert Schummeln."
+  },
+  "gym_77L": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz. Über der Stange stehen, das Ende mit einer Hand greifen. Mit leichter Rotation zur Hüfte rudern. Stabiler Stand."
+  },
+  "gym_77R": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz. Über der Stange stehen, das Ende mit einer Hand greifen. Mit leichter Rotation zur Hüfte rudern. Stabiler Stand."
+  },
+  "gym_78a": {
+    "setupNotes": "Smith-Maschine, Stange auf Kniehöhe. Hüftscharnier, Stange im Obergriff greifen. Zur unteren Brust rudern. Geführte Stangenbahn."
+  },
+  "gym_78b": {
+    "setupNotes": "Smith-Maschine, Stange auf Kniehöhe. Hüftscharnier, Stange im Untergriff greifen. Zur unteren Brust rudern. Geführte Stangenbahn."
+  },
+  "gym_79": {
+    "setupNotes": "Hoher Kabelzug, Aufsatz mit gerader Stange oder Seil. Mit dem Gesicht zur Maschine stehen, Arme über dem Kopf gestreckt. Stange in einem Bogen nach unten zu den Oberschenkeln ziehen, Latissimus aktiv."
+  },
+  "gym_80L": {
+    "setupNotes": "Hoher Kabelzug, D-Griff. Mit dem Gesicht zur Maschine stehen. Ein Arm nach dem anderen, Griff im Bogen zur Hüfte ziehen. Volle Latissimus-Dehnung oben."
+  },
+  "gym_80R": {
+    "setupNotes": "Hoher Kabelzug, D-Griff. Mit dem Gesicht zur Maschine stehen. Ein Arm nach dem anderen, Griff im Bogen zur Hüfte ziehen. Volle Latissimus-Dehnung oben."
+  },
+  "gym_81a": {
+    "setupNotes": "Langhantel im Rack auf Hüfthöhe oder Smith-Maschinen-Stange. Darunter hängen, Körper gerade. Brust zur Stange ziehen. Obergriff verwenden."
+  },
+  "gym_81b": {
+    "setupNotes": "Langhantel im Rack auf Hüfthöhe oder Smith-Maschinen-Stange. Darunter hängen, Körper gerade. Brust zur Stange ziehen. Untergriff verwenden."
+  },
+  "gym_81c": {
+    "setupNotes": "Langhantel im Rack auf Hüfthöhe oder Smith-Maschinen-Stange. Darunter hängen, Körper gerade. Brust zur Stange ziehen. Neutralen Griff verwenden."
+  },
+  "gym_82": {
+    "setupNotes": "Wie beim Standard-Inverted-Row, aber Füße auf Bank oder Box. Erhöht die Schwierigkeit, indem der Körperwinkel näher an die Horizontale gebracht wird."
+  },
+  "gym_83": {
+    "setupNotes": "Standard-Inverted-Row-Aufbau. Hantelscheibe auf die Brust legen oder Gewichtsweste tragen für zusätzlichen Widerstand."
+  },
+  "gym_84L": {
+    "setupNotes": "Langhantel im Rack. Stange mit einer Hand greifen, der andere Arm an der Seite oder hinter dem Rücken. Körper mit einem Arm nach oben ziehen. Fortgeschritten unilateral."
+  },
+  "gym_84R": {
+    "setupNotes": "Langhantel im Rack. Stange mit einer Hand greifen, der andere Arm an der Seite oder hinter dem Rücken. Körper mit einem Arm nach oben ziehen. Fortgeschritten unilateral."
+  },
+  "gym_85": {
+    "setupNotes": "Klimmzugstange in einer Höhe, die volles Hängen ohne Bodenkontakt der Füße erlaubt. Obergriff, Schultern entspannen, Wirbelsäule entlasten. Gehaltene Zeit."
+  },
+  "gym_86": {
+    "setupNotes": "Klimmzugstange, volles Hängen. Latissimus anspannen und Schulterblätter absenken, ohne die Ellbogen zu beugen. Übung zur Skapula-Aktivierung."
+  },
+  "gym_87": {
+    "setupNotes": "Klimmzugstange mit Dip-Gürtel und Scheiben oder Gewichtsweste. Volles Hängen, Griffausdauer und Wirbelsäulendekompression unter Last."
+  },
+  "gym_88": {
+    "setupNotes": "Klimmzugstange, Obergriff. Aus dem vollen Hang die Schulterblätter zusammenziehen und absenken, um den Körper leicht zu heben, ohne die Ellbogen zu beugen. Latissimus-Aktivierung."
+  },
+  "gym_89": {
+    "setupNotes": "Hyperextensions-/Rückenstrecker-Bank. Polster an der Hüftfalte, Füße fixiert. Hüftscharnier nach unten und oben. Hände hinter dem Kopf oder vor der Brust verschränkt."
+  },
+  "gym_90": {
+    "setupNotes": "Gleicher Aufbau wie die Standardvariante. Hantelscheibe oder Kurzhantel an die Brust halten für zusätzlichen Widerstand. Kontrolliertes Tempo."
+  },
+  "gym_91": {
+    "setupNotes": "Rückenstrecker-Bank. Oberen Rücken leicht runden, Fokus darauf, oben das Gesäß anzuspannen. Füße leicht nach außen gedreht. Langsameres Tempo."
+  },
+  "gym_92": {
+    "setupNotes": "Bauchlage auf der Matte, Arme über dem Kopf gestreckt. Arme in einem Bogen von über dem Kopf zur Hüfte und zurück führen, dabei die Arme vom Boden abhalten."
+  },
+  "gym_93": {
+    "setupNotes": "Gleiche Bauchlage. Sehr leichte Kurzhanteln (1-2 kg) in jeder Hand halten. Langsamer Bogen von über dem Kopf zur Hüfte und zurück."
+  },
+  "gym_94a": {
+    "setupNotes": "Langhantel auf dem Boden, Füße hüftbreit (konventioneller Stand). Wechsel- oder Doppel-Obergriff knapp außerhalb der Knie. Gerader Rücken, Brust raus — über die Fersen nach oben bis zur vollen Streckung."
+  },
+  "gym_94b": {
+    "setupNotes": "Langhantel auf dem Boden, breiter Stand mit nach außen gedrehten Zehen (Sumo). Stange zwischen den Knien greifen, Arme gestreckt. Gerader Rücken, Brust raus — über die Fersen nach oben bis zur vollen Streckung."
+  },
+  "gym_95": {
+    "setupNotes": "Trap Bar beladen, Hüftscharnier. Beide Griffe im neutralen Griff fassen. Zum Oberkörper rudern, oberen Rücken anspannen. Der neutrale Griff reduziert die Belastung der Bizeps."
+  },
+  "gym_96a": {
+    "setupNotes": "Langhantel auf dem oberen Rücken (wie bei der Kniebeuge). Füße hüftbreit. Hüftscharnier, Hüfte nach hinten schieben, Oberkörper bis etwa parallel absenken — durch Vorschieben der Hüfte aufrichten."
+  },
+  "gym_96b": {
+    "setupNotes": "Kurzhanteln auf den Schultern oder hinter dem Kopf halten. Füße hüftbreit. Hüftscharnier, Hüfte nach hinten schieben, Oberkörper bis etwa parallel absenken — durch Vorschieben der Hüfte aufrichten."
+  },
+  "gym_97L": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz. Senkrecht zur Stange in Schrittstellung mit rechtem Fuß vorn stehen. Obergriff am Ende der Stange mit der linken Hand — mit leichter Oberkörperrotation zur linken Hüfte rudern. Fokus auf Latissimus und oberen Rücken."
+  },
+  "gym_97R": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz. Senkrecht zur Stange in Schrittstellung mit linkem Fuß vorn stehen. Obergriff am Ende der Stange mit der rechten Hand — mit leichter Oberkörperrotation zur rechten Hüfte rudern. Fokus auf Latissimus und oberen Rücken."
+  },
+  "gym_98": {
+    "setupNotes": "Glute-Ham-Developer-Maschine. Polster an der Hüftfalte, Füße auf der Plattform fixiert. Hüftscharnier, Oberkörper absenken, zurück bis zur Horizontalen oder leichten Hyperextension strecken."
+  },
+  "gym_99": {
+    "setupNotes": "Reverse-Hyper-Maschine. Mit dem Gesicht nach unten liegen, Hüfte am Rand des Polsters, Griffe greifen. Beine hinter und nach oben strecken, Gesäß/Hamstrings einsetzen. Kontrolliertes Schwingen."
+  },
+  "gym_100": {
+    "setupNotes": "Stehend, Langhantel schulterbreit greifen. Ellbogen am Körper fixiert. Bis auf Schulterhöhe curlen, kontrolliert absenken. Kein Schwung aus dem Oberkörper."
+  },
+  "gym_101a": {
+    "setupNotes": "Stehend, EZ-Stange mit angenehmem Handgelenkswinkel. Breiter Griff. Bis zu den Schultern curlen, oben anspannen, kontrollierte Exzentrik."
+  },
+  "gym_101b": {
+    "setupNotes": "Stehend, EZ-Stange mit angenehmem Handgelenkswinkel. Enger Griff. Bis zu den Schultern curlen, oben anspannen, kontrollierte Exzentrik."
+  },
+  "gym_102": {
+    "setupNotes": "Stehend, Obergriff (proniert) an der Langhantel schulterbreit. Mit nach unten zeigenden Handflächen nach oben curlen. Fokus auf Brachioradialis und Unterarm-Extensoren."
+  },
+  "gym_103": {
+    "setupNotes": "Stehend, Langhantel auf Hüfthöhe. Statt im Bogen zu curlen, die Stange am Körper entlang hochziehen, indem du die Ellbogen gerade nach hinten führst. Die Stange bleibt in Kontakt mit dem Oberkörper."
+  },
+  "gym_104": {
+    "setupNotes": "Bauchlage auf der Schrägbank (Brust oben). Arme hängen gerade nach unten, Langhantel in den Händen. Ohne Schwung nach oben curlen. Durchgehende Spannung."
+  },
+  "gym_105a": {
+    "setupNotes": "Stehend, eine Kurzhantel in jeder Hand seitlich am Körper. Wechselseitiges Curl. Volle Supination oben, kontrolliert absenken. Ellbogen bleiben fixiert."
+  },
+  "gym_105b": {
+    "setupNotes": "Stehend, eine Kurzhantel in jeder Hand seitlich am Körper. Gleichzeitiges Curl. Volle Supination oben, kontrolliert absenken. Ellbogen bleiben fixiert."
+  },
+  "gym_106": {
+    "setupNotes": "Sitzend auf einer Schrägbank bei ~45-60 Grad. Kurzhanteln hängen seitlich hinter dem Oberkörper. Nach oben curlen, der lange Kopf des Bizeps bekommt zusätzliche Dehnung."
+  },
+  "gym_107L": {
+    "setupNotes": "Sitzend auf der Bank, linker Ellbogen gegen die Innenseite des linken Oberschenkels gestützt. Kurzhantel in der linken Hand hängend zum Boden — strikt isoliert nach oben curlen, oben den Bizeps anspannen. Keine Oberkörperbewegung."
+  },
+  "gym_107R": {
+    "setupNotes": "Sitzend auf der Bank, rechter Ellbogen gegen die Innenseite des rechten Oberschenkels gestützt. Kurzhantel in der rechten Hand hängend zum Boden — strikt isoliert nach oben curlen, oben den Bizeps anspannen. Keine Oberkörperbewegung."
+  },
+  "gym_108a": {
+    "setupNotes": "Stehend, Kurzhanteln seitlich mit neutralem Griff (Handflächen nach innen) während der gesamten Bewegung. Mit nach oben zeigenden Daumen curlen. Standard."
+  },
+  "gym_108b": {
+    "setupNotes": "Aufrecht stehend, eine Kurzhantel in jeder Hand seitlich mit neutralem Griff (Handflächen nach innen). Ein Arm nach dem anderen curlen, Daumen zeigen nach oben, kontrolliert absenken, bevor die andere Seite curlt. Fokus auf Brachialis und Brachioradialis."
+  },
+  "gym_109": {
+    "setupNotes": "Sitzend auf einer Schrägbank bei ~45 Grad. Kurzhanteln seitlich mit neutralem Griff. Nach oben curlen — die Neigung erhöht die Dehnung auf den Brachialis."
+  },
+  "gym_110": {
+    "setupNotes": "Stehend, Kurzhantel mit neutralem Griff quer zum Körper in Richtung gegenüberliegender Schulter curlen. Fokus auf Brachialis und Brachioradialis. Arme abwechseln."
+  },
+  "gym_111": {
+    "setupNotes": "Stehend, Kurzhanteln seitlich mit neutralem Griff. Beim Curlen das Handgelenk von neutral in supiniert (Handflächen nach oben) rotieren. Oben anspannen."
+  },
+  "gym_112": {
+    "setupNotes": "Niedriger Kabelzug, Aufsatz mit gerader Stange oder EZ-Stange. Mit dem Gesicht zur Maschine stehen, Stange bis zu den Schultern curlen. Durchgehende Kabelspannung."
+  },
+  "gym_113": {
+    "setupNotes": "Niedriger Kabelzug, Seil-Aufsatz. Mit dem Gesicht zur Maschine stehen, Seilenden greifen. Nach oben curlen und oben das Seil nach außen drehen für maximale Kontraktion."
+  },
+  "gym_114": {
+    "setupNotes": "Niedriger Kabelzug, D-Griff. Mit dem Rücken zur Maschine stehen, Arm nach hinten gestreckt. Gegen das Kabel nach vorn curlen für einen einzigartigen, dehnungsbetonten Winkel."
+  },
+  "gym_115": {
+    "setupNotes": "Doppel-Kabelzug, Rollen hoch eingestellt mit D-Griffen. Zentriert stehen, Arme seitlich gestreckt. Griffe zu den Ohren curlen — Front-Double-Biceps-Position."
+  },
+  "gym_116L": {
+    "setupNotes": "Niedriger Kabelzug, D-Griff. Mit dem Gesicht zur Maschine stehen. Ein Arm nach dem anderen curlen. Die freie Hand kann sich zur Stabilität an der Maschine abstützen."
+  },
+  "gym_116R": {
+    "setupNotes": "Niedriger Kabelzug, D-Griff. Mit dem Gesicht zur Maschine stehen. Ein Arm nach dem anderen curlen. Die freie Hand kann sich zur Stabilität an der Maschine abstützen."
+  },
+  "gym_117": {
+    "setupNotes": "Niedriger Kabelzug, gerade Stange. Obergriff (proniert). Mit nach unten zeigenden Handflächen nach oben curlen. Das Kabel liefert durchgehende Spannung auf die Unterarm-Extensoren."
+  },
+  "gym_118": {
+    "setupNotes": "Scott-Bank, EZ-Stange. Oberarme flach am Polster, Achseln am oberen Rand des Polsters. Nach oben curlen, kontrolliert absenken — kein Schwung oder Abfedern unten."
+  },
+  "gym_119": {
+    "setupNotes": "Scott-Bank, Kurzhantel in einer Hand. Oberarm flach am Polster. Nach oben curlen, oben anspannen, langsame Exzentrik. Volle Dehnung unten."
+  },
+  "gym_120": {
+    "setupNotes": "Scott-Bank vor dem niedrigen Kabelzug aufgestellt. EZ-Stangen- oder Gerade-Stangen-Aufsatz. Durchgehende Spannung über den vollen Bewegungsbereich."
+  },
+  "gym_121": {
+    "setupNotes": "Stehend, Kurzhanteln seitlich. Nach oben curlen mit supiniertem Griff (Handflächen nach oben), oben in pronierten Griff (Handflächen nach unten) rotieren, langsam mit pronierten Griff absenken."
+  },
+  "gym_122": {
+    "setupNotes": "Stehend, eine Kurzhantel vertikal mit beiden Händen unter der oberen Scheibe halten. Mit eng am Körper gehaltenen Ellbogen nach oben curlen. Fokus auf den langen Kopf in der Spitzenkontraktion."
+  },
+  "gym_123": {
+    "setupNotes": "Stehend, EZ-Stange. 7 Wiederholungen im unteren Bewegungsbereich, 7 im oberen, 7 im vollen Bewegungsbereich — insgesamt 21. Keine Pause zwischen den Abschnitten."
+  },
+  "gym_124": {
+    "setupNotes": "Hoher Kabelzug, Aufsatz mit gerader Stange. Mit dem Gesicht zur Maschine stehen, Ellbogen am Körper fixiert. Stange bis zur vollen Streckung nach unten drücken, kontrolliert zurückführen."
+  },
+  "gym_125": {
+    "setupNotes": "Oberes Kabelzug-Rollensystem, Seil-Aufsatz. Vor der Maschine stehen. Nach unten drücken und das Seil unten auseinanderziehen für eine stärkere Kontraktion. Ellbogen bleiben fixiert."
+  },
+  "gym_126": {
+    "setupNotes": "Hoher Kabelzug, V-Griff-Aufsatz. Neutraler Griff. Bis zur vollen Streckung nach unten drücken. Handgelenksschonend, gute Trizeps-Isolation."
+  },
+  "gym_127": {
+    "setupNotes": "Hoher Kabelzug, gerade Stange mit Untergriff (supiniert). Bis zur vollen Streckung nach unten drücken. Betont den medialen Kopf des Trizeps."
+  },
+  "gym_128a": {
+    "setupNotes": "Stehend, eine schwere Kurzhantel mit beiden Händen hinter dem Kopf halten, Ellbogen zeigen nach oben. Arme über den Kopf bis zur vollen Streckung ausstrecken."
+  },
+  "gym_128b": {
+    "setupNotes": "Sitzend, eine schwere Kurzhantel mit beiden Händen hinter dem Kopf halten, Ellbogen zeigen nach oben. Arme über den Kopf bis zur vollen Streckung ausstrecken."
+  },
+  "gym_129L": {
+    "setupNotes": "Stehend oder sitzend, eine Kurzhantel hinter dem Kopf in einer Hand. Ellbogen zeigt nach oben. Bis zur vollen Streckung ausstrecken, kontrolliert hinter dem Kopf absenken."
+  },
+  "gym_129R": {
+    "setupNotes": "Stehend oder sitzend, eine Kurzhantel hinter dem Kopf in einer Hand. Ellbogen zeigt nach oben. Bis zur vollen Streckung ausstrecken, kontrolliert hinter dem Kopf absenken."
+  },
+  "gym_130": {
+    "setupNotes": "Niedriger Kabelzug, Seil-Aufsatz. Mit dem Rücken zur Maschine, Arme über dem Kopf. Von hinter dem Kopf bis zur vollen Streckung nach vorn strecken."
+  },
+  "gym_131L": {
+    "setupNotes": "Niedriger Kabelzug, D-Griff. Mit dem Rücken zur Maschine, ein Arm über dem Kopf. Bis zur vollen Streckung nach vorn ausstrecken. Die freie Hand kann sich zur Stabilität am Oberschenkel abstützen."
+  },
+  "gym_131R": {
+    "setupNotes": "Niedriger Kabelzug, D-Griff. Mit dem Rücken zur Maschine, ein Arm über dem Kopf. Bis zur vollen Streckung nach vorn ausstrecken. Die freie Hand kann sich zur Stabilität am Oberschenkel abstützen."
+  },
+  "gym_132": {
+    "setupNotes": "Flachbank, Langhantel oder EZ-Stange. Arme über Gesicht/Stirn gestreckt. Stange durch Beugen der Ellbogen bis auf Stirnhöhe absenken, wieder nach oben ausstrecken. Helfer empfohlen."
+  },
+  "gym_133": {
+    "setupNotes": "Flach- oder leicht geneigte Bank, EZ-Stange. Enger Griffwinkel. Bis zur Stirn absenken, bis zur vollen Streckung ausstrecken. Die EZ-Stange reduziert die Belastung der Handgelenke."
+  },
+  "gym_134": {
+    "setupNotes": "Flachbank, Kurzhanteln mit neutralem Griff über dem Gesicht. Kurzhanteln durch Beugen der Ellbogen neben die Ohren absenken, wieder nach oben ausstrecken."
+  },
+  "gym_135": {
+    "setupNotes": "Flachbank vor dem niedrigen Kabelzug aufgestellt, Aufsatz mit gerader Stange. Arme über der Brust gestreckt, durch Beugen der Ellbogen absenken, wieder ausstrecken."
+  },
+  "gym_136": {
+    "setupNotes": "Hände auf der Kante der Bank hinter dem Körper, Finger nach vorn. Füße am Boden, Beine gestreckt oder gebeugt. Körper durch Beugen der Ellbogen absenken, wieder nach oben drücken."
+  },
+  "gym_137": {
+    "setupNotes": "Gleicher Aufbau wie der Standard-Bankdip. Hantelscheibe auf den Schoß legen für zusätzlichen Widerstand. Ein Helfer kann beim Auflegen unterstützen."
+  },
+  "gym_138": {
+    "setupNotes": "Parallele Dip-Barren. Aufrechter Oberkörper (nicht nach vorn gelehnt), Ellbogen nah am Körper und nach hinten zeigend. Absenken bis die Ellbogen 90 Grad erreichen, nach oben drücken."
+  },
+  "gym_139": {
+    "setupNotes": "Assistierte Dip-/Klimmzug-Maschine. Auf das Polster knien oder stehen, Gegengewicht wählen. Aufrechter Oberkörper für Trizeps-Fokus. Voller Bewegungsbereich."
+  },
+  "gym_140": {
+    "setupNotes": "Flachbank, Langhantel mit Händen 30-35 cm auseinander (innerhalb der Schulterbreite). Stange zur unteren Brust absenken, Ellbogen nah am Körper. Bis zur vollen Streckung drücken."
+  },
+  "gym_141": {
+    "setupNotes": "Flachbank in der Smith-Maschine. Enger Griff. Mit eng anliegenden Ellbogen zur unteren Brust absenken, bis zur vollen Streckung drücken. Die Maschine führt die Bewegung."
+  },
+  "gym_142": {
+    "setupNotes": "Flachbank, Kurzhanteln mit neutralem Griff über der Brust zusammengedrückt. Nach oben drücken und die Kurzhanteln dabei in Kontakt halten. Ellbogen nah am Körper."
+  },
+  "gym_143": {
+    "setupNotes": "Hände auf dem Boden mit sich berührenden Zeigefingern und Daumen (Diamant-Form). Körper in einer geraden Linie. Brust bis zu den Händen absenken, nach oben drücken. Trizepsdominant."
+  },
+  "gym_144": {
+    "setupNotes": "Flachbank, Langhantel oder EZ-Stange. Hybrid zwischen Skull Crusher und engem Bankdrücken. Stange in einem Winkel von ~45 Grad Richtung Kinn/obere Brust absenken, wieder nach oben drücken."
+  },
+  "gym_146L": {
+    "setupNotes": "Rechte Hand und rechtes Knie auf der Flachbank, linker Fuß am Boden, gerader Rücken. Kurzhantel in der linken Hand, Oberarm parallel zum Boden, Ellbogen am Körper fixiert. Linken Unterarm bis zur vollen Streckung nach hinten ausstrecken, Trizeps anspannen. Kontrolliert zurückführen."
+  },
+  "gym_146R": {
+    "setupNotes": "Linke Hand und linkes Knie auf der Flachbank, rechter Fuß am Boden, gerader Rücken. Kurzhantel in der rechten Hand, Oberarm parallel zum Boden, Ellbogen am Körper fixiert. Rechten Unterarm bis zur vollen Streckung nach hinten ausstrecken, Trizeps anspannen. Kontrolliert zurückführen."
+  },
+  "gym_147": {
+    "setupNotes": "Flachbank, Kurzhanteln über der Brust gestreckt mit Handflächen zu den Füßen. Kurzhanteln nach innen absenken, bis sich die Enden über der Brust berühren, wieder nach oben drücken."
+  },
+  "gym_148": {
+    "setupNotes": "Sitzend, Unterarme auf den Oberschenkeln oder einer Scott-Bank aufgelegt, Handflächen nach oben. Langhantel in den Händen. Handgelenke nach oben curlen, kontrolliert absenken. Stange bis zu den Fingern rollen lassen für zusätzlichen Bewegungsbereich."
+  },
+  "gym_149": {
+    "setupNotes": "Sitzend, Unterarme auf den Oberschenkeln oder einer Scott-Bank, Handflächen nach unten. Langhantel in den Händen. Handgelenke nach oben strecken, kontrolliert absenken. Leichtes Gewicht, viele Wiederholungen."
+  },
+  "gym_150": {
+    "setupNotes": "Stehend, schwere Kurzhantel oder Farmer's-Walk-Griffe in jeder Hand seitlich. In gerader Linie für Distanz oder Zeit laufen. Aufrechte Haltung, Schultern stabilisiert."
+  },
+  "gym_151": {
+    "setupNotes": "Stehend, zwei glatte Hantelscheiben mit den Fingern auf einer Seite und dem Daumen auf der anderen zusammendrücken. Auf Zeit halten. Baut Pinch-Griff-Kraft auf."
+  },
+  "gym_152": {
+    "setupNotes": "Stehend oder mit Armen nach vorn gestreckt. Wrist-Roller-Gerät mit an einem Seil hängendem Gewicht. Seil durch Drehen der Handgelenke aufrollen, dann abrollen. In beide Richtungen."
+  },
+  "gym_153": {
+    "setupNotes": "Stehend, Langhantel hinter dem Körper mit gestreckten Armen, Handflächen nach hinten. Handgelenke nach oben curlen, kontrolliert absenken. Stehend erlaubt schwerere Lasten."
+  },
+  "gym_154": {
+    "setupNotes": "Ein dickes Handtuch über die Klimmzugstange legen. Handtuch mit beiden Händen greifen (je eine Hand pro Seite). Auf Zeit hängen. Extreme Unterarm- und Griffkraft-Herausforderung."
+  },
+  "gym_156a": {
+    "setupNotes": "Power Rack, Stange auf dem oberen Trapezius (High Bar) oder auf den hinteren Deltas (Low Bar). Füße schulterbreit. Absenken bis die Oberschenkel parallel oder tiefer sind — über die Fersen nach oben drücken."
+  },
+  "gym_156b": {
+    "setupNotes": "Power Rack, Stange auf dem oberen Trapezius (High Bar) oder auf den hinteren Deltas (Low Bar). Breiter Stand, Zehen nach außen gedreht. Absenken bis die Oberschenkel parallel oder tiefer sind — über die Fersen nach oben drücken."
+  },
+  "gym_157": {
+    "setupNotes": "Power Rack, Stange über den vorderen Deltas in der Front-Rack-Position (Clean-Griff) oder in Kreuzarmposition. Ellbogen hoch. Bis parallel oder tiefer absenken, aufrechter Oberkörper."
+  },
+  "gym_158": {
+    "setupNotes": "Power Rack mit Box oder Bank hinter dir auf Paralleltiefe. Stange auf dem Rücken. Auf die Box setzen, kurz pausieren, explosiv nach oben drücken. Kontrolliertes Absenken."
+  },
+  "gym_159a": {
+    "setupNotes": "Power Rack, Front-Squat-Aufbau. In die untere Position absenken, 2-3 Sekunden halten ohne Spannung zu lösen, dann nach oben drücken. Baut Kraft aus der Tiefe auf."
+  },
+  "gym_159b": {
+    "setupNotes": "Power Rack, Back-Squat-Aufbau. In die untere Position absenken, 2-3 Sekunden halten ohne Spannung zu lösen, dann nach oben drücken. Baut Kraft aus der Tiefe auf."
+  },
+  "gym_160": {
+    "setupNotes": "Safety-Squat-Bar auf den Schultern im Power Rack. Griffe vorn zum Ausbalancieren. Bis parallel absenken, nach oben drücken. Schonender für die Schultern als eine gerade Stange."
+  },
+  "gym_161": {
+    "setupNotes": "Stange auf dem Rücken, breiter Stand mit Zehen ~45 Grad nach außen. Zwischen den Beinen absenken, Knie folgen den Zehen. Fokus auf Adduktoren und Gesäß."
+  },
+  "gym_162": {
+    "setupNotes": "Stange in der Ellbogenbeuge auf Brusthöhe halten. Füße schulterbreit. Zwischen den Armen in die Kniebeuge, Stange bleibt in der Ellbogenbeuge. Stange mit einem Handtuch polstern."
+  },
+  "gym_163": {
+    "setupNotes": "Smith-Maschine, Stange auf dem oberen Rücken. Füße leicht vor der Stange. Bis parallel absenken, nach oben drücken. Die Maschine führt die Stangenbahn vertikal."
+  },
+  "gym_164a": {
+    "setupNotes": "Stehend, eine Kurzhantel oder Kettlebell auf Brusthöhe mit beiden Händen halten. Füße schulterbreit. In die Kniebeuge gehen, Ellbogen innen an den Knien unten. Standard-Stand."
+  },
+  "gym_164b": {
+    "setupNotes": "Auf einer kleinen Hantelscheibe oder einem Keil mit erhöhten Fersen stehend, eine Kurzhantel oder Kettlebell auf Brusthöhe mit beiden Händen halten. In die Kniebeuge gehen, Ellbogen innen an den Knien unten. Erhöhte Fersen verlagern die Last auf die Oberschenkel."
+  },
+  "gym_164c": {
+    "setupNotes": "Stehend mit einem Fuß einen halben Schritt zurück (Ferse hoch, Zehe leicht aufgesetzt), eine Kurzhantel oder Kettlebell auf Brusthöhe mit beiden Händen halten. In die Kniebeuge gehen, hauptsächlich über das vordere Bein drücken. Unilateraler Fokus mit bilateraler Stabilität."
+  },
+  "gym_165": {
+    "setupNotes": "Hack-Squat-Maschine, Schultern unter den Polstern, Rücken am Polster. Füße schulterbreit auf der Plattform. Bis parallel oder tiefer absenken, nach oben drücken."
+  },
+  "gym_166": {
+    "setupNotes": "Belt-Squat-Maschine. Gürtel um die Hüfte am Gewicht befestigen, auf den erhöhten Plattformen stehen. In die Kniebeuge runter und wieder hoch — keine Belastung der Wirbelsäule. Fokus auf Quads und Gesäß."
+  },
+  "gym_167": {
+    "setupNotes": "Stehend, etwas zum Festhalten fürs Gleichgewicht. Nach hinten lehnen, Knie nach vorn über die Zehen schieben, Körper absenken. Extreme Dehnung der Oberschenkel. Kann eine Sissy-Squat-Bank genutzt werden."
+  },
+  "gym_168": {
+    "setupNotes": "Pendulum-Squat-Maschine. Schultern unter den Polstern, Füße auf der Plattform. Die Maschine schwingt in einem Bogen. Tiefe Kniebeuge mit durchgehender Spannung. Sehr Quad-dominant."
+  },
+  "gym_169a": {
+    "setupNotes": "Beinpressen-Maschine. Mit dem Rücken am Polster sitzen, Füße hüftbreit auf der Plattform. Sicherheitsstützen lösen, Gewicht absenken bis die Knie bei ~90 Grad sind, nach oben drücken."
+  },
+  "gym_169aL": {
+    "setupNotes": "Beinpressen-Maschine, Rücken am Polster, linker Fuß mittig auf der Plattform (rechter Fuß runter). Gewicht absenken bis das Knie ~90 Grad erreicht, über die Ferse nach oben drücken. Leichtere Last als bilateral — zeigt Ungleichgewichte auf der linken Seite."
+  },
+  "gym_169aR": {
+    "setupNotes": "Beinpressen-Maschine, Rücken am Polster, rechter Fuß mittig auf der Plattform (linker Fuß runter). Gewicht absenken bis das Knie ~90 Grad erreicht, über die Ferse nach oben drücken. Leichtere Last als bilateral — zeigt Ungleichgewichte auf der rechten Seite."
+  },
+  "gym_169b": {
+    "setupNotes": "Beinpressen-Maschine. Mit dem Rücken am Polster sitzen, Füße breit auf der Plattform. Sicherheitsstützen lösen, Gewicht absenken bis die Knie bei ~90 Grad sind, nach oben drücken."
+  },
+  "gym_169c": {
+    "setupNotes": "Beinpressen-Maschine. Mit dem Rücken am Polster sitzen, Füße eng auf der Plattform. Sicherheitsstützen lösen, Gewicht absenken bis die Knie bei ~90 Grad sind, nach oben drücken."
+  },
+  "gym_170": {
+    "setupNotes": "Beinpressen-Maschine, Füße hoch auf der Plattform platziert. Größerer Fokus auf Hamstrings und Gesäß. Absenken bis die Knie bei ~90 Grad sind, nach oben drücken."
+  },
+  "gym_171": {
+    "setupNotes": "Beinpressen-Maschine, Füße tief auf der Plattform platziert. Größerer Fokus auf die Quads — tiefere Knieflexion. Darauf achten, dass die Knie den Zehen folgen."
+  },
+  "gym_172L": {
+    "setupNotes": "Beinpressen-Maschine, Rücken am Polster, linker Fuß mittig auf der Plattform, rechter Fuß runter. Gewicht mit dem linken Bein nach oben drücken, kontrolliert bis ~90 Grad absenken. Leichtere Last als bilateral. Zeigt Kraftungleichgewichte auf der linken Seite."
+  },
+  "gym_172R": {
+    "setupNotes": "Beinpressen-Maschine, Rücken am Polster, rechter Fuß mittig auf der Plattform, linker Fuß runter. Gewicht mit dem rechten Bein nach oben drücken, kontrolliert bis ~90 Grad absenken. Leichtere Last als bilateral. Zeigt Kraftungleichgewichte auf der rechten Seite."
+  },
+  "gym_173": {
+    "setupNotes": "Beinpressen-Maschine, nur Zehen auf der unteren Kante der Plattform. Sprunggelenke strecken (Plantarflexion), um das Gewicht zu drücken, kontrolliert zurückführen. Voller Bewegungsbereich."
+  },
+  "gym_174": {
+    "setupNotes": "Freie Fläche (10+ Meter). Nach vorn in den Ausfallschritt treten, hinteres Knie Richtung Boden, über den vorderen Fuß in den nächsten Schritt abdrücken. Kontinuierliche Vorwärtsbewegung."
+  },
+  "gym_175a": {
+    "setupNotes": "Freie Fläche, Kurzhanteln seitlich. Nach vorn in einen tiefen Ausfallschritt treten — vorderes Knie folgt den Zehen. Über den vorderen Fuß abdrücken, hinteren Fuß in den nächsten Ausfallschritt nach vorn bringen."
+  },
+  "gym_175b": {
+    "setupNotes": "Freie Fläche, Langhantel auf dem oberen Rücken. Nach vorn in einen tiefen Ausfallschritt treten — vorderes Knie folgt den Zehen. Über den vorderen Fuß abdrücken, hinteren Fuß in den nächsten Ausfallschritt nach vorn bringen."
+  },
+  "gym_175c": {
+    "setupNotes": "Freie Fläche, Langhantel in der Front-Rack-Position. Nach vorn in einen tiefen Ausfallschritt treten — vorderes Knie folgt den Zehen. Über den vorderen Fuß abdrücken, hinteren Fuß in den nächsten Ausfallschritt nach vorn bringen."
+  },
+  "gym_177": {
+    "setupNotes": "Stehend mit Kurzhanteln seitlich oder Langhantel auf dem Rücken. Nach hinten in den Ausfallschritt treten, absenken bis der vordere Oberschenkel parallel ist. Zurück in die Ausgangsposition."
+  },
+  "gym_178a": {
+    "setupNotes": "Stehend, einen breiten Schritt zur Seite machen, das tretende Bein beugen, das andere gestreckt halten. Zurück abdrücken. Mit Körpergewicht."
+  },
+  "gym_178b": {
+    "setupNotes": "Stehend, einen breiten Schritt zur Seite machen, das tretende Bein beugen, das andere gestreckt halten. Zurück abdrücken. Mit Kurzhantel."
+  },
+  "gym_180": {
+    "setupNotes": "In Ausfallschritt-Position beginnen. Explosiv springen, Beine in der Luft wechseln, im entgegengesetzten Ausfallschritt landen. Durchgehend abwechselnd. Cardio und Power."
+  },
+  "gym_181": {
+    "setupNotes": "Kurzhanteln oder Langhantel über dem Kopf mit vollständig gestreckten Armen. In Ausfallschritten nach vorn gehen. Extreme Anforderung an Rumpf- und Schulterstabilität."
+  },
+  "gym_183L": {
+    "setupNotes": "Rechter Fuß mit dem Schuhbändsel nach unten auf einer Bank hinter dir, linker Fuß 60-90 cm nach vorn, eine Kurzhantel in jeder Hand seitlich. Absenken bis der linke Oberschenkel parallel ist. Über die vordere Ferse nach oben drücken — Fokus auf Quads und Gesäß des linken Beins."
+  },
+  "gym_183R": {
+    "setupNotes": "Linker Fuß mit dem Schuhbändsel nach unten auf einer Bank hinter dir, rechter Fuß 60-90 cm nach vorn, eine Kurzhantel in jeder Hand seitlich. Absenken bis der rechte Oberschenkel parallel ist. Über die vordere Ferse nach oben drücken — Fokus auf Quads und Gesäß des rechten Beins."
+  },
+  "gym_184aL": {
+    "setupNotes": "Rechter Fuß hinten erhöht auf einer Bank, Langhantel quer auf dem oberen Rücken. In den Bulgarian Split Squat absenken bis der linke vordere Oberschenkel parallel ist, dann über die linke Ferse aufstehen. Trainiert die linken Quads und das Gesäß unter axialer Last."
+  },
+  "gym_184aR": {
+    "setupNotes": "Linker Fuß hinten erhöht auf einer Bank, Langhantel quer auf dem oberen Rücken. In den Bulgarian Split Squat absenken bis der rechte vordere Oberschenkel parallel ist, dann über die rechte Ferse aufstehen. Trainiert die rechten Quads und das Gesäß unter axialer Last."
+  },
+  "gym_184bL": {
+    "setupNotes": "Rechter Fuß hinten erhöht auf einer Bank, Langhantel in der Front-Rack-Position auf den Schultern, Ellbogen hoch. Absenken bis der linke vordere Oberschenkel parallel ist, über die linke Ferse aufstehen. Der Front Rack erzwingt einen aufrechten Oberkörper — stärkerer Fokus auf die linken Quads."
+  },
+  "gym_184bR": {
+    "setupNotes": "Linker Fuß hinten erhöht auf einer Bank, Langhantel in der Front-Rack-Position auf den Schultern, Ellbogen hoch. Absenken bis der rechte vordere Oberschenkel parallel ist, über die rechte Ferse aufstehen. Der Front Rack erzwingt einen aufrechten Oberkörper — stärkerer Fokus auf die rechten Quads."
+  },
+  "gym_185L": {
+    "setupNotes": "Rechter Fuß auf einer Bank hinter dir, linker Fuß vorn, Kurzhanteln seitlich oder Langhantel auf dem Rücken. Absenken bis der linke Oberschenkel parallel ist und 2-3 Sekunden halten, bevor du nach oben drückst. Eliminiert den Dehnungsreflex — baut Kraft aus der unteren Position auf."
+  },
+  "gym_185R": {
+    "setupNotes": "Linker Fuß auf einer Bank hinter dir, rechter Fuß vorn, Kurzhanteln seitlich oder Langhantel auf dem Rücken. Absenken bis der rechte Oberschenkel parallel ist und 2-3 Sekunden halten, bevor du nach oben drückst. Eliminiert den Dehnungsreflex — baut Kraft aus der unteren Position auf."
+  },
+  "gym_186L": {
+    "setupNotes": "Rechter Fuß hinten erhöht auf einer Bank, nur Körpergewicht. In den Split Squat absenken, dann explosiv mit dem linken Fuß nach oben springen und weich zurück in die Split-Position landen. Vor der nächsten Wiederholung restabilisieren. Plyometrische Power durch das linke Bein."
+  },
+  "gym_186R": {
+    "setupNotes": "Linker Fuß hinten erhöht auf einer Bank, nur Körpergewicht. In den Split Squat absenken, dann explosiv mit dem rechten Fuß nach oben springen und weich zurück in die Split-Position landen. Vor der nächsten Wiederholung restabilisieren. Plyometrische Power durch das rechte Bein."
+  },
+  "gym_187L": {
+    "setupNotes": "Rechter Fuß hinten erhöht auf einer Bank UND linker vorderer Fuß auf einer kleinen Hantelscheibe oder einem Step. In den Defizit-Split-Squat absenken — linker vorderer Oberschenkel deutlich unter parallel — dann über die linke Ferse nach oben drücken. Der erhöhte Bewegungsbereich belastet das linke Gesäß tief."
+  },
+  "gym_187R": {
+    "setupNotes": "Linker Fuß hinten erhöht auf einer Bank UND rechter vorderer Fuß auf einer kleinen Hantelscheibe oder einem Step. In den Defizit-Split-Squat absenken — rechter vorderer Oberschenkel deutlich unter parallel — dann über die rechte Ferse nach oben drücken. Der erhöhte Bewegungsbereich belastet das rechte Gesäß tief."
+  },
+  "gym_188L": {
+    "setupNotes": "Stabile Bank oder Plyo-Box auf Kniehöhe. Kurzhanteln seitlich. Den linken Fuß vollständig auf die Box stellen und über die linke Ferse aufrichten — der rechte Fuß folgt oder bleibt für Balance am Boden. Kontrolliert mit dem linken Bein absteigen. Belastet die linken Quads und das Gesäß."
+  },
+  "gym_188R": {
+    "setupNotes": "Stabile Bank oder Plyo-Box auf Kniehöhe. Kurzhanteln seitlich. Den rechten Fuß vollständig auf die Box stellen und über die rechte Ferse aufrichten — der linke Fuß folgt oder bleibt für Balance am Boden. Kontrolliert mit dem rechten Bein absteigen. Belastet die rechten Quads und das Gesäß."
+  },
+  "gym_189L": {
+    "setupNotes": "Bank oder Box auf Kniehöhe, Langhantel auf dem oberen Rücken. Den linken Fuß vollständig auf die Box stellen, über die linke Ferse aufrichten, oben stehen. Kontrolliertes Absteigen. Alle Wiederholungen auf dem linken Bein."
+  },
+  "gym_189R": {
+    "setupNotes": "Bank oder Box auf Kniehöhe, Langhantel auf dem oberen Rücken. Den rechten Fuß vollständig auf die Box stellen, über die rechte Ferse aufrichten, oben stehen. Kontrolliertes Absteigen. Alle Wiederholungen auf dem rechten Bein."
+  },
+  "gym_190L": {
+    "setupNotes": "Stell dich so, dass die Bank/Box auf deiner linken Seite steht. Seitlich mit dem linken Fuß auf die Box aufsteigen, über das linke Gesäß vollständig aufrichten, kontrolliert absteigen. Alle Wiederholungen auf der linken Seite."
+  },
+  "gym_190R": {
+    "setupNotes": "Stell dich so, dass die Bank/Box auf deiner rechten Seite steht. Seitlich mit dem rechten Fuß auf die Box aufsteigen, über das rechte Gesäß vollständig aufrichten, kontrolliert absteigen. Alle Wiederholungen auf der rechten Seite."
+  },
+  "gym_191": {
+    "setupNotes": "Oberer Rücken auf der Bank, Langhantel über der Hüftfalte (Stange polstern). Füße flach am Boden, hüftbreit. Hüfte nach oben drücken bis zur vollen Streckung, Gesäß anspannen. Kontrolliert absenken."
+  },
+  "gym_192": {
+    "setupNotes": "Oberer Rücken auf der Bank in der Smith-Maschine. Stange über der Hüftfalte mit Polster. Füße aufsetzen, Hüfte bis zur vollen Streckung nach oben drücken. Die Maschine führt die Stangenbahn."
+  },
+  "gym_193": {
+    "setupNotes": "Dedizierte Hip-Thrust-/Glute-Drive-Maschine. In der Maschine sitzen, Rücken am Polster, Füße auf der Plattform. Hüfte nach vorn bis zur vollen Streckung drücken. Gesäß anspannen."
+  },
+  "gym_194L": {
+    "setupNotes": "Oberer Rücken auf einer Bank, linker Fuß hüftbreit aufgesetzt, rechtes Knie angehoben oder Bein gestreckt. Hüfte über die linke Ferse bis zur vollen Streckung nach oben drücken, oben das linke Gesäß kräftig anspannen, kontrolliert absenken. Pro Bein schwerer als die bilaterale Variante."
+  },
+  "gym_194R": {
+    "setupNotes": "Oberer Rücken auf einer Bank, rechter Fuß hüftbreit aufgesetzt, linkes Knie angehoben oder Bein gestreckt. Hüfte über die rechte Ferse bis zur vollen Streckung nach oben drücken, oben das rechte Gesäß kräftig anspannen, kontrolliert absenken. Pro Bein schwerer als die bilaterale Variante."
+  },
+  "gym_195": {
+    "setupNotes": "Oberer Rücken auf der Bank, Widerstandsband über der Hüfte, verankert durch die Füße oder schwere Kurzhanteln. Hüfte nach oben bis zur vollen Streckung drücken. Das Band fügt oben Spannung hinzu."
+  },
+  "gym_197": {
+    "setupNotes": "Stehend, Langhantel auf Hüfthöhe. Leicht gebeugte Knie, Hüfte nach hinten schieben (Hip Hinge), Stange entlang der Oberschenkel bis zur Schienbeinmitte absenken. Gerader Rücken, Gesäß anspannen zum Aufrichten."
+  },
+  "gym_198": {
+    "setupNotes": "Stehend, eine Kurzhantel in jeder Hand vor den Oberschenkeln. Gleiches Hüftscharnier wie bei der Langhantel-Variante. Erlaubt eine natürlichere Armbahn."
+  },
+  "gym_199aL": {
+    "setupNotes": "Stehend auf dem linken Bein, Kurzhantel in der rechten Hand. Aus dem linken Hüftscharnier das rechte Bein als Gegengewicht nach hinten strecken — gerader Rücken, die Kurzhantel nah am Schienbein entlang. Über die linke Ferse aufrichten. Belastet Hamstring und Gesäß der linken Seite."
+  },
+  "gym_199aR": {
+    "setupNotes": "Stehend auf dem rechten Bein, Kurzhantel in der linken Hand. Aus dem rechten Hüftscharnier das linke Bein als Gegengewicht nach hinten strecken — gerader Rücken, die Kurzhantel nah am Schienbein entlang. Über die rechte Ferse aufrichten. Belastet Hamstring und Gesäß der rechten Seite."
+  },
+  "gym_199bL": {
+    "setupNotes": "Stehend auf dem linken Bein, Kettlebell in der rechten Hand. Aus dem linken Hüftscharnier das rechte Bein als Gegengewicht nach hinten strecken, die Kettlebell nah am Schienbein entlang. Über die linke Ferse aufrichten. Belastet Hamstring und Gesäß der linken Seite."
+  },
+  "gym_199bR": {
+    "setupNotes": "Stehend auf dem rechten Bein, Kettlebell in der linken Hand. Aus dem rechten Hüftscharnier das linke Bein als Gegengewicht nach hinten strecken, die Kettlebell nah am Schienbein entlang. Über die rechte Ferse aufrichten. Belastet Hamstring und Gesäß der rechten Seite."
+  },
+  "gym_200": {
+    "setupNotes": "Stehend in der Trap Bar. Leicht gebeugte Knie, Hüftscharnier, Stange seitlich entlang absenken. Der neutrale Griff ist schonender für den unteren Rücken."
+  },
+  "gym_201": {
+    "setupNotes": "Stehend mit einem Fuß einen halben Schritt zurück (Ferse hoch). Hauptteil des Gewichts auf dem vorderen Bein. Hüftscharnier mit Kurzhanteln. Unilateraler Fokus mit bilateraler Stabilität."
+  },
+  "gym_202": {
+    "setupNotes": "Stehend, eine Kettlebell in jeder Hand oder eine einzelne Kettlebell mit beiden. Gleiches Hüftscharnier-Muster. Die Kettlebell-Form erlaubt eine natürliche Handposition."
+  },
+  "gym_203": {
+    "setupNotes": "Sitzende Beinbeuger-Maschine. Rückenpolster und Schienbeinpolster einstellen. Fersen Richtung Gesäß curlen, kontrolliert in die Ausgangsposition zurückführen. Voller Bewegungsbereich."
+  },
+  "gym_204": {
+    "setupNotes": "Bauchlage auf der Beinbeuger-Maschine. Polster an den unteren Waden/Sprunggelenken. Fersen Richtung Gesäß curlen, Hamstrings oben anspannen, kontrolliert absenken."
+  },
+  "gym_205": {
+    "setupNotes": "Niedriger Kabelzug, Fußschlaufen-Aufsatz. Mit dem Gesicht zur Maschine stehen, Schlaufe an einem Knöchel. Ferse Richtung Gesäß curlen, kontrolliert zurückführen. Etwas zum Festhalten für die Balance."
+  },
+  "gym_206": {
+    "setupNotes": "Sitzende Beinstrecker-Maschine. Schienbeinpolster an den unteren Schienbeinen. Beine bis zur vollen Streckung ausstrecken, oben die Quads anspannen, kontrolliert absenken."
+  },
+  "gym_207L": {
+    "setupNotes": "Sitzende Beinstrecker-Maschine, Schienbeinpolster am linken unteren Schienbein, rechtes Bein entspannt zur Seite. Linkes Bein bis zur vollen Streckung ausstrecken, Quads anspannen, kontrolliert absenken. Leichtere Last — zeigt und korrigiert Ungleichgewichte auf der linken Seite."
+  },
+  "gym_207R": {
+    "setupNotes": "Sitzende Beinstrecker-Maschine, Schienbeinpolster am rechten unteren Schienbein, linkes Bein entspannt zur Seite. Rechtes Bein bis zur vollen Streckung ausstrecken, Quads anspannen, kontrolliert absenken. Leichtere Last — zeigt und korrigiert Ungleichgewichte auf der rechten Seite."
+  },
+  "gym_208": {
+    "setupNotes": "Kniend auf der Matte, Sprunggelenke fixiert (Partner hält, GHD-Polster oder beladene Langhantel). Den Körper kontrolliert nach vorn absenken, abfangen und wieder nach oben drücken. Exzentrische Hamstring-Arbeit."
+  },
+  "gym_209": {
+    "setupNotes": "Aufrecht kniend auf der Matte (Polsterung unter den Knien). Langsam nach hinten lehnen und die Hüfte gestreckt halten. Dehnung in den Quads spüren, aufrichten. Exzentrische Quad-Arbeit."
+  },
+  "gym_210": {
+    "setupNotes": "Stehende Wadenheber-Maschine. Schultern unter den Polstern, Fußballen an der Kante der Plattform. Auf die Zehen heben, volle Streckung, kontrolliert absenken für Dehnung unten."
+  },
+  "gym_211": {
+    "setupNotes": "Sitzende Wadenheber-Maschine. Kniepolster auf den unteren Oberschenkeln, Fußballen auf der Plattform. Auf die Zehen heben, oben anspannen, kontrolliert absenken. Fokus auf den Soleus."
+  },
+  "gym_213": {
+    "setupNotes": "An der Kante einer Stufe oder Scheibe stehend, Kurzhantel in einer Hand, andere Hand zum Ausbalancieren. Auf die Zehen heben, kontrolliert absenken. Hände wechseln."
+  },
+  "gym_214a": {
+    "setupNotes": "Smith-Maschine, Stange auf dem oberen Trapezius. Fußballen an der Kante der Plattform/Scheiben. Stehende Variante. Mit vollem Bewegungsbereich heben und absenken."
+  },
+  "gym_214b": {
+    "setupNotes": "Smith-Maschine, Stange auf dem oberen Trapezius. Fußballen an der Kante der Plattform/Scheiben. Sitzende Variante. Mit vollem Bewegungsbereich heben und absenken."
+  },
+  "gym_215": {
+    "setupNotes": "An der Kante einer Stufe oder Plattform stehend (ohne zusätzliches Gewicht). Auf die Zehen heben, kontrolliert unter das Plattformniveau absenken für volle Dehnung. Beide Füße."
+  },
+  "gym_216": {
+    "setupNotes": "Rücken flach an der Wand, nach unten gleiten, bis die Oberschenkel parallel zum Boden sind. Knie 90 Grad, direkt über den Sprunggelenken. Die vorgegebene Zeit halten."
+  },
+  "gym_217L": {
+    "setupNotes": "Rücken flach an der Wand, Knie auf ~90 Grad gebeugt wie in einem Standard-Wall-Sit. Das rechte Bein gerade nach vorn strecken, gesamtes Gewicht auf dem linken Bein. Auf Zeit halten. Deutlich schwerer — isometrische Last auf den linken Quads."
+  },
+  "gym_217R": {
+    "setupNotes": "Rücken flach an der Wand, Knie auf ~90 Grad gebeugt wie in einem Standard-Wall-Sit. Das linke Bein gerade nach vorn strecken, gesamtes Gewicht auf dem rechten Bein. Auf Zeit halten. Deutlich schwerer — isometrische Last auf den rechten Quads."
+  },
+  "gym_218": {
+    "setupNotes": "Standard-Wall-Sit-Position mit Kurzhantel oder Hantelscheibe auf den Oberschenkeln. Erhöht die Belastung der Quads. Rücken flach an der Wand halten."
+  },
+  "gym_219": {
+    "setupNotes": "Sitzende Hüftabduktions-Maschine. Mit den äußeren Oberschenkeln an den Polstern sitzen. Beine gegen den Widerstand nach außen drücken, kontrolliert zurückführen. Fokus auf den Gluteus medius."
+  },
+  "gym_220": {
+    "setupNotes": "Sitzende Hüftadduktions-Maschine. Mit den inneren Oberschenkeln an den Polstern sitzen. Beine gegen den Widerstand zusammenpressen, kontrolliert öffnen. Fokus auf die Innenseite der Oberschenkel."
+  },
+  "gym_221L": {
+    "setupNotes": "Stehend oder kniend an der Glute-Kickback-Maschine. Polster hinter dem linken Sprunggelenk oder Knie. Das linke Bein nach hinten und oben drücken, oben das linke Gesäß anspannen. Kontrolliert zurückführen."
+  },
+  "gym_221R": {
+    "setupNotes": "Stehend oder kniend an der Glute-Kickback-Maschine. Polster hinter dem rechten Sprunggelenk oder Knie. Das rechte Bein nach hinten und oben drücken, oben das rechte Gesäß anspannen. Kontrolliert zurückführen."
+  },
+  "gym_222L": {
+    "setupNotes": "Niedriger Kabelzug, Fußschlaufe am linken Sprunggelenk. Mit dem Gesicht zur Maschine stehen, leicht nach vorn lehnen und den Rahmen festhalten. Das linke Bein nach hinten und oben kicken, das linke Gesäß anspannen. Kontrolliert zurückführen."
+  },
+  "gym_222R": {
+    "setupNotes": "Niedriger Kabelzug, Fußschlaufe am rechten Sprunggelenk. Mit dem Gesicht zur Maschine stehen, leicht nach vorn lehnen und den Rahmen festhalten. Das rechte Bein nach hinten und oben kicken, das rechte Gesäß anspannen. Kontrolliert zurückführen."
+  },
+  "gym_223": {
+    "setupNotes": "Niedriger Kabelzug, Seil-Aufsatz. Mit dem Rücken zur Maschine, Kabel zwischen den Beinen. Hüftscharnier, das Seil durch die Beine ziehen lassen, dann Hüfte nach vorn schieben bis zum Stand."
+  },
+  "gym_224L": {
+    "setupNotes": "An der Kabelmaschine kniend mit Fußschlaufe am linken Sprunggelenk oder an einer Glute-Kickback-Maschine mit dem linken Fuß auf der Plattform stehend. Die linke Ferse nach hinten und oben drücken, oben das linke Gesäß anspannen, kontrolliert absenken. Rumpf durchgehend stabilisiert."
+  },
+  "gym_224R": {
+    "setupNotes": "An der Kabelmaschine kniend mit Fußschlaufe am rechten Sprunggelenk oder an einer Glute-Kickback-Maschine mit dem rechten Fuß auf der Plattform stehend. Die rechte Ferse nach hinten und oben drücken, oben das rechte Gesäß anspannen, kontrolliert absenken. Rumpf durchgehend stabilisiert."
+  },
+  "gym_226L": {
+    "setupNotes": "Kabel auf Brusthöhe mit D-Griff. Mit der rechten Seite zum Gewichtsstapel stehen, Griff mit beiden Händen an der Brust halten. Die Arme gerade nach vorn drücken und dem Zug widerstehen, der dich nach rechts rotieren will. Zurück zur Brust. Anti-Rotations-Arbeit für den Rumpf."
+  },
+  "gym_226R": {
+    "setupNotes": "Kabel auf Brusthöhe mit D-Griff. Mit der linken Seite zum Gewichtsstapel stehen, Griff mit beiden Händen an der Brust halten. Die Arme gerade nach vorn drücken und dem Zug widerstehen, der dich nach links rotieren will. Zurück zur Brust. Anti-Rotations-Arbeit für den Rumpf."
+  },
+  "gym_227L": {
+    "setupNotes": "Kabel auf Brusthöhe. Halber Kniestand mit rechtem Knie unten (näher am Stapel), linker Fuß vorn. Griff von der Brust wegdrücken und der Rotation nach rechts widerstehen. Die niedrigere Basis erhöht die Rumpfanforderung im Vergleich zum Stehen."
+  },
+  "gym_227R": {
+    "setupNotes": "Kabel auf Brusthöhe. Halber Kniestand mit linkem Knie unten (näher am Stapel), rechter Fuß vorn. Griff von der Brust wegdrücken und der Rotation nach links widerstehen. Die niedrigere Basis erhöht die Rumpfanforderung im Vergleich zum Stehen."
+  },
+  "gym_228L": {
+    "setupNotes": "Kabel auf Brusthöhe. Mit der rechten Seite zum Gewichtsstapel stehen, Griff von der Brust wegdrücken. Aus der gestreckten Position den Oberkörper langsam nach links weg vom Stapel drehen, dann kontrolliert zurückführen. Kombiniert Anti-Rotation mit kontrollierter Rotation."
+  },
+  "gym_228R": {
+    "setupNotes": "Kabel auf Brusthöhe. Mit der linken Seite zum Gewichtsstapel stehen, Griff von der Brust wegdrücken. Aus der gestreckten Position den Oberkörper langsam nach rechts weg vom Stapel drehen, dann kontrolliert zurückführen. Kombiniert Anti-Rotation mit kontrollierter Rotation."
+  },
+  "gym_229": {
+    "setupNotes": "An der Klimmzugstange mit gestreckten Armen hängen. Knie bis auf Brusthöhe heben. Kontrolliert absenken, Schwingen vermeiden. Bauchmuskeln anspannen, nicht nur die Beine schwingen lassen."
+  },
+  "gym_230": {
+    "setupNotes": "An der Klimmzugstange hängen. Knie nach oben und zu einer Seite drehen, absenken, zur anderen Seite wiederholen. Fokus auf die schrägen Bauchmuskeln beim hängenden Knieheben."
+  },
+  "gym_231": {
+    "setupNotes": "An der Klimmzugstange hängen, Beine vollständig gestreckt. Beine bis zur Horizontalen oder höher heben. Kontrolliert absenken. Schwung vermeiden."
+  },
+  "gym_232": {
+    "setupNotes": "An der Klimmzugstange hängen, Beine gestreckt. Zehen ganz bis zur Stange heben. Erfordert Hamstring-Flexibilität und einen starken Rumpf. Kontrolliert absenken."
+  },
+  "gym_233": {
+    "setupNotes": "An der Klimmzugstange hängen. Gestreckte Beine bis zur Horizontalen heben (L-Position) und halten. Isometrisch auf Zeit. Ausdauer von Rumpf und Hüftbeugern."
+  },
+  "gym_234": {
+    "setupNotes": "An der Klimmzugstange hängen, Beine bis zur Horizontalen heben. Beine wie Scheibenwischer von Seite zu Seite führen. Fortgeschrittene rotatorische Rumpfübung."
+  },
+  "gym_235": {
+    "setupNotes": "An der Klimmzugstange hängen mit leichter Kurzhantel zwischen den Füßen oder Sprunggelenksgewichten. Gestrecktes Beinheben bis zur Horizontalen. Kontrollierte Exzentrik."
+  },
+  "gym_236": {
+    "setupNotes": "Captain's Chair / vertikale Knieheber-Station. Unterarme auf den Polstern, Rücken an der Stütze. Knie zur Brust heben, kontrolliert absenken."
+  },
+  "gym_237": {
+    "setupNotes": "Negativbank, Füße unter den Polstern fixiert. Nach hinten legen, Hände hinter dem Kopf oder vor der Brust verschränkt. Crunch nach oben, Schulterblätter von der Bank abheben. Kontrolliert absenken."
+  },
+  "gym_238": {
+    "setupNotes": "Gleicher Aufbau der Negativbank. Mit Rotation aufkrümmen — rechter Ellbogen Richtung linkes Knie, abwechseln. Spricht die schrägen Bauchmuskeln zusammen mit dem geraden Bauchmuskel an."
+  },
+  "gym_239": {
+    "setupNotes": "Negativbank, Hantelscheibe oder Kurzhantel auf der Brust halten. Gegen den zusätzlichen Widerstand aufkrümmen. Kontrollierte Exzentrik beim Absenken."
+  },
+  "gym_240": {
+    "setupNotes": "Negativbank, Bank über dem Kopf greifen. Knie zur Brust bringen, indem du die Hüfte von der Bank abhebst. Kontrolliert absenken. Fokus auf den unteren Bauch."
+  },
+  "gym_241L": {
+    "setupNotes": "Kabel an der höchsten Rolle mit Seil oder D-Griff. Mit der linken Seite zum Gewichtsstapel stehen, beide Hände am Griff über Kopf rechts. Diagonal quer durch den Körper nach unten links ziehen, dabei den Oberkörper drehen und den rechten Fuß mitdrehen. Trainiert Rotationspower und Kontrolle der schrägen Bauchmuskeln."
+  },
+  "gym_241R": {
+    "setupNotes": "Kabel an der höchsten Rolle mit Seil oder D-Griff. Mit der rechten Seite zum Gewichtsstapel stehen, beide Hände am Griff über Kopf links. Diagonal quer durch den Körper nach unten rechts ziehen, dabei den Oberkörper drehen und den linken Fuß mitdrehen. Trainiert Rotationspower und Kontrolle der schrägen Bauchmuskeln."
+  },
+  "gym_242L": {
+    "setupNotes": "Kabel an der niedrigsten Rolle mit Seil oder D-Griff. Mit der linken Seite zum Gewichtsstapel stehen, beide Hände am Griff an der unteren rechten Hüfte. Diagonal nach oben und quer bis über Kopf links drücken, Hüfte strecken und Oberkörper drehen. Power aus Beinen und Rumpf."
+  },
+  "gym_242R": {
+    "setupNotes": "Kabel an der niedrigsten Rolle mit Seil oder D-Griff. Mit der rechten Seite zum Gewichtsstapel stehen, beide Hände am Griff an der unteren linken Hüfte. Diagonal nach oben und quer bis über Kopf rechts drücken, Hüfte strecken und Oberkörper drehen. Power aus Beinen und Rumpf."
+  },
+  "gym_243": {
+    "setupNotes": "Kabel auf Brusthöhe. Seitlich stehen, Oberkörper horizontal drehen und das Kabel quer durch den Körper ziehen. Füße bleiben fixiert, Rotation nur aus dem Rumpf."
+  },
+  "gym_244": {
+    "setupNotes": "Kabel in hoher oder niedriger Position. Seitlich knien, diagonal quer durch den Körper chopppen. Das Knien eliminiert den Beinimpuls und isoliert die schrägen Bauchmuskeln und Rumpfrotation."
+  },
+  "gym_249": {
+    "setupNotes": "Unterarmstütz-Position. Hüfte rotieren und eine Seite Richtung Boden absenken, dann die andere Seite. Abwechselnd. Kontrollierte Rotation, Fokus auf die schrägen Bauchmuskeln."
+  },
+  "gym_251": {
+    "setupNotes": "Hochplanke- oder Unterarmstütz-Position. Füße auseinander und zusammen springen (wie horizontale Hampelmänner). Den Rumpf steif halten. Cardio + Core."
+  },
+  "gym_252": {
+    "setupNotes": "Hochplanke-Position. Ein Knie zum gleichseitigen Ellbogen bringen, zurückführen, abwechseln. Aktiviert bei jeder Wiederholung die schrägen Bauchmuskeln und Hüftbeuger."
+  },
+  "gym_254": {
+    "setupNotes": "Unterarme auf einem Gymnastikball, Füße am Boden. Planke-Position halten. Der Ball erzeugt Instabilität und erfordert mehr Rumpfstabilisierung."
+  },
+  "gym_255": {
+    "setupNotes": "Sitzende Bauchcrunch-Maschine. Polster an Brust oder hinter dem Kopf einstellen. Gewicht wählen. Gegen den Widerstand nach vorn crunchen, kontrolliert zurückführen."
+  },
+  "gym_256": {
+    "setupNotes": "Hoher Kabelzug, Seil-Aufsatz. Mit dem Gesicht zur Maschine knien, Seil hinter dem Kopf. Nach vorn crunchen, Oberkörper einrollen, Ellbogen Richtung Knie. Exzentrik kontrollieren."
+  },
+  "gym_257": {
+    "setupNotes": "Hoher Kabelzug, Seil hinter dem Kopf. Stehend, Füße hüftbreit. Gegen den Kabelwiderstand nach vorn crunchen. Der Rumpf bleibt durchgehend angespannt."
+  },
+  "gym_258": {
+    "setupNotes": "Hoher Kabelzug, D-Griff oder Seil. Seitlich zur Maschine stehen. Seitlich crunchen und zur Hüfte der Kabelseite ziehen. Seitbeuge-Bewegung."
+  },
+  "gym_259": {
+    "setupNotes": "Hochplanke-Position mit Schienbeinen auf einem Gymnastikball. Knie zur Brust ziehen und den Ball nach vorn rollen. Wieder strecken. Kontrolliertes Tempo."
+  },
+  "gym_260": {
+    "setupNotes": "Hinter einem Gymnastikball knien, Unterarme auf dem Ball. Den Ball nach vorn rollen und den Körper strecken, dann zurück in die Ausgangsposition ziehen. Ähnlich wie mit einem Ab Wheel."
+  },
+  "gym_261": {
+    "setupNotes": "Hochplanke mit Füßen/Schienbeinen auf einem Gymnastikball. Hüfte nach oben piken und den Ball Richtung Hände ziehen. Beine bleiben gestreckt. Fortgeschritten."
+  },
+  "gym_262": {
+    "setupNotes": "Rückenlage, Arme über dem Kopf gestreckt, Beine gerade. Schultern und Beine vom Boden abheben, unterer Rücken in den Boden gedrückt. Bananenform. Halten."
+  },
+  "gym_263": {
+    "setupNotes": "Rückenlage, Knie zur Brust gezogen, Schultern angehoben. Arme seitlich oder gestreckt. Leichtere Regression des vollen Hollow Holds."
+  },
+  "gym_264": {
+    "setupNotes": "Volle Hollow-Body-Position — Arme über dem Kopf, Beine gestreckt, beide vom Boden abgehoben. Vor- und zurückschaukeln, dabei die steife Körperform halten."
+  },
+  "gym_265": {
+    "setupNotes": "Volle Hollow-Body-Position mit leichter Kurzhantel in den Händen und/oder zwischen den Füßen. Die Position für die vorgegebene Zeit halten. Fortgeschritten."
+  },
+  "gym_266": {
+    "setupNotes": "Auf dem Boden sitzen, ~45 Grad nach hinten lehnen, Füße vom Boden oder fixiert. Hände verschränken, Oberkörper von Seite zu Seite drehen. V-Sit-Position."
+  },
+  "gym_267": {
+    "setupNotes": "Gleiche Sitzposition wie mit Körpergewicht. Einen Medizinball mit beiden Händen halten. Von Seite zu Seite drehen und den Ball seitlich neben den Hüften auf den Boden tippen."
+  },
+  "gym_268": {
+    "setupNotes": "Gleiche V-Sit-Position. Eine Kurzhantel mit beiden Händen an der Brust halten. Von Seite zu Seite drehen. Kontrolliertes Tempo."
+  },
+  "gym_269": {
+    "setupNotes": "Sitzend oder stehend, Kabel auf Brusthöhe mit D-Griff oder Seil. An der Brust halten, Oberkörper gegen den Kabelwiderstand von Seite zu Seite drehen."
+  },
+  "gym_270a": {
+    "setupNotes": "Kniend, Ab Wheel greifen. Nach vorn rollen, Körper Richtung Boden strecken, mit dem Rumpf wieder zurückziehen. Durchhängen des unteren Rückens vermeiden."
+  },
+  "gym_270b": {
+    "setupNotes": "Stehend, Ab Wheel greifen. Nach vorn rollen, Körper Richtung Boden strecken, mit dem Rumpf wieder zurückziehen. Durchhängen des unteren Rückens vermeiden."
+  },
+  "gym_271": {
+    "setupNotes": "Auf einer Flachbank liegen, die Bank hinter dem Kopf greifen. Den gesamten Körper in gerader Linie von der Bank abheben, kontrolliert absenken, ohne die Bank zu berühren. Fortgeschrittene Rumpfarbeit."
+  },
+  "gym_272L": {
+    "setupNotes": "Auf dem Boden liegen und eine Kettlebell in der linken Hand gerade nach oben drücken, Blick auf die Kettlebell. Durch die Get-up-Sequenz bewegen — zum rechten Ellbogen rollen, zur rechten Hand, Hüfte nach oben, rechtes Bein durchziehen, Ausfallschritt, aufstehen — dabei den linken Arm senkrecht durchgestreckt halten. Umgekehrt zurück auf den Boden. Unilaterale Ganzkörperkontrolle."
+  },
+  "gym_272R": {
+    "setupNotes": "Auf dem Boden liegen und eine Kettlebell in der rechten Hand gerade nach oben drücken, Blick auf die Kettlebell. Durch die Get-up-Sequenz bewegen — zum linken Ellbogen rollen, zur linken Hand, Hüfte nach oben, linkes Bein durchziehen, Ausfallschritt, aufstehen — dabei den rechten Arm senkrecht durchgestreckt halten. Umgekehrt zurück auf den Boden. Unilaterale Ganzkörperkontrolle."
+  },
+  "gym_273L": {
+    "setupNotes": "Eine schwere Kurzhantel oder Kettlebell in der linken Hand seitlich halten. In gerader Linie gehen, Oberkörper aufrecht und Schultern gerade halten — der Last widerstehen, die dich nach links kippen lassen will. Anti-Lateralflexion durch die rechten schrägen Bauchmuskeln und den Quadratus Lumborum."
+  },
+  "gym_273R": {
+    "setupNotes": "Eine schwere Kurzhantel oder Kettlebell in der rechten Hand seitlich halten. In gerader Linie gehen, Oberkörper aufrecht und Schultern gerade halten — der Last widerstehen, die dich nach rechts kippen lassen will. Anti-Lateralflexion durch die linken schrägen Bauchmuskeln und den Quadratus Lumborum."
+  },
+  "gym_274": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz. Das Ende der Stange mit beiden Händen auf Brusthöhe halten. Oberkörper drehen und die Stange in einem Bogen von Seite zu Seite bewegen. Kontrolliert."
+  },
+  "gym_275": {
+    "setupNotes": "Langhantel auf dem Boden, Griff knapp außerhalb der Knie. Erster Zug bis zu den Knien, explosiver zweiter Zug (Hüfte), Stange auf den vorderen Deltas in der Front-Rack-Position auffangen. Auf den Boden zurücksetzen."
+  },
+  "gym_276": {
+    "setupNotes": "Langhantel auf Hüfthöhe im Stehen. Dip-Drive mit der Hüfte, Stange explosiv nach oben ziehen, auf den vorderen Deltas in der Front-Rack-Position auffangen. Start aus dem Hang, nicht vom Boden."
+  },
+  "gym_277": {
+    "setupNotes": "Einen Power Clean vom Boden in den Front Rack ausführen, dann über Kopf drücken (oder Push Press) bis zur vollen Streckung. Stange absenken und wiederholen. Ganzkörper-Verbundübung."
+  },
+  "gym_278": {
+    "setupNotes": "Stange in der Front-Rack-Position auf den Schultern. Knie leicht beugen, explosiv aus den Beinen drücken, um die Stange über den Kopf bis zur vollen Streckung zu pressen. Mehr Gewicht als beim strikten Drücken möglich."
+  },
+  "gym_279": {
+    "setupNotes": "Langhantel auf dem Boden, sehr breiter Griff. Explosiver Zug vom Boden, Körper unter die Stange ziehen, über Kopf mit gestreckten Armen in der Kniebeuge auffangen. Aufstehen. Technischer Lift."
+  },
+  "gym_280a": {
+    "setupNotes": "Langhantel in der Front-Rack-Position auf den Schultern, Füße schulterbreit. In die volle Kniebeugentiefe absenken, dann explosiv nach oben drücken und die Stange in einer fließenden Bewegung bis zur vollen Streckung über Kopf pressen. Ganzkörperpower — Beine, Schultern und Rumpf."
+  },
+  "gym_280b": {
+    "setupNotes": "Kurzhanteln mit neutralem Griff auf den Schultern abgelegt, Füße schulterbreit. In die volle Kniebeugentiefe absenken, dann explosiv nach oben drücken und die Kurzhanteln in einer fließenden Bewegung bis zur vollen Streckung über Kopf pressen. Ganzkörperpower."
+  },
+  "gym_281": {
+    "setupNotes": "Stehend, Kettlebell auf dem Boden zwischen den Füßen. Kettlebell zwischen den Beinen nach hinten schwingen, Hüfte explosiv nach vorn drücken, um die Kettlebell auf Brust-/Augenhöhe zu schwingen. Hüftscharnier, keine Kniebeuge."
+  },
+  "gym_282L": {
+    "setupNotes": "Eine einzelne Kettlebell auf dem Boden zwischen den Füßen. Hüftscharnier und mit der linken Hand greifen, die Kettlebell zwischen den Beinen nach hinten schwingen, dann Hüfte nach vorn drücken und die Kettlebell nach oben ziehen — das Handgelenk drehen, sodass sie weich in der Rack-Position auf dem linken Unterarm und der linken Schulter landet. Kontrolliert absenken. Trainiert explosiven Hüftantrieb und unilaterale Griffkraft."
+  },
+  "gym_282R": {
+    "setupNotes": "Eine einzelne Kettlebell auf dem Boden zwischen den Füßen. Hüftscharnier und mit der rechten Hand greifen, die Kettlebell zwischen den Beinen nach hinten schwingen, dann Hüfte nach vorn drücken und die Kettlebell nach oben ziehen — das Handgelenk drehen, sodass sie weich in der Rack-Position auf dem rechten Unterarm und der rechten Schulter landet. Kontrolliert absenken. Trainiert explosiven Hüftantrieb und unilaterale Griffkraft."
+  },
+  "gym_283": {
+    "setupNotes": "Einzelne Kettlebell auf dem Boden. Explosiv in einer Bewegung direkt über den Kopf schwingen. Oben ausstrecken, kontrolliert durch den Schwung absenken. Ein Arm nach dem anderen."
+  },
+  "gym_284": {
+    "setupNotes": "Stehend, Medizinball (Slam Ball) über dem Kopf. Ball mit maximaler Kraft aus dem ganzen Körper auf den Boden schlagen. Aufheben und wiederholen. Einen nicht springenden Slam Ball verwenden."
+  },
+  "gym_285a": {
+    "setupNotes": "Plyo-Box auf geeigneter Höhe. Mit dem Gesicht zur Box stehen, Viertel-Kniebeuge und Arme schwingen, auf die Box springen und weich in der Kniebeuge landen. Absteigen. Standard-Start."
+  },
+  "gym_285b": {
+    "setupNotes": "Auf einer Bank oder niedrigen Box sitzen, Gesicht zur Plyo-Box, Füße aufgesetzt und Oberkörper aufrecht. Aus dem Stillstand aus den Füßen drücken und auf die Box springen, weich in einer Viertel-Kniebeuge landen. Absteigen und zurücksetzen. Entwickelt Startkraft-Power."
+  },
+  "gym_286": {
+    "setupNotes": "Langhantel auf Hüfthöhe, breiter Snatch-Griff. Dip-Drive aus der Hüfte, Stange über Kopf ziehen, mit gestreckten Armen auffangen. Start aus der Hang-Position, nicht vom Boden."
+  },
+  "home_1": {
+    "setupNotes": "Hände 15-20 cm breiter als die Schultern auf dem Boden platzieren. Körper in einer geraden Linie, Rumpf stabilisiert. Brust bis zum Boden absenken, nach oben drücken."
+  },
+  "home_2": {
+    "setupNotes": "Eine Hand nach vorn, die andere ~15 cm nach hinten versetzt. Körper gerade. Nach oben drücken, Handpositionen zwischen den Sätzen wechseln."
+  },
+  "home_4L": {
+    "setupNotes": "Sehr breite Handpositionierung, Körper in einer geraden Linie. Den Körper zur linken Hand absenken, während der rechte Arm gerade nach außen gestreckt wird. Über die linke Seite wieder nach oben drücken — unilateraler Fokus auf Brust und Trizeps."
+  },
+  "home_4R": {
+    "setupNotes": "Sehr breite Handpositionierung, Körper in einer geraden Linie. Den Körper zur rechten Hand absenken, während der linke Arm gerade nach außen gestreckt wird. Über die rechte Seite wieder nach oben drücken — unilateraler Fokus auf Brust und Trizeps."
+  },
+  "home_5": {
+    "setupNotes": "Standard-Liegestütz-Position auf festem Boden. Explosiv nach oben drücken, sodass die Hände den Boden verlassen, klatschen, weich mit gebeugten Ellbogen landen. Plyometrische Power."
+  },
+  "home_6L": {
+    "setupNotes": "Hochplanke-Position, Hände unter den Schultern, Körper in einer geraden Linie. Beim Absenken in den Liegestütz das linke Knie seitlich zum linken Ellbogen ziehen. Das Bein zurückführen, während du wieder nach oben drückst. Fügt dem Brust-Drücken Arbeit für die schrägen Bauchmuskeln und Hüftbeuger hinzu."
+  },
+  "home_6R": {
+    "setupNotes": "Hochplanke-Position, Hände unter den Schultern, Körper in einer geraden Linie. Beim Absenken in den Liegestütz das rechte Knie seitlich zum rechten Ellbogen ziehen. Das Bein zurückführen, während du wieder nach oben drückst. Fügt dem Brust-Drücken Arbeit für die schrägen Bauchmuskeln und Hüftbeuger hinzu."
+  },
+  "home_7": {
+    "setupNotes": "Hände am Boden, Hüfte hoch in eine umgekehrte V-Form gepikt. Füße können am Boden stehen oder für zusätzliche Schwierigkeit auf einer Bank erhöht sein. Kopf Richtung Boden absenken, nach oben drücken. Fokus auf die Schultern."
+  },
+  "home_8": {
+    "setupNotes": "Füße erhöht auf Bank, Box oder Stuhl. Hände schulterbreit auf dem Boden. Körper in einer geraden Linie von den Füßen bis zum Kopf. Brust bis zum Boden absenken, nach oben drücken."
+  },
+  "home_9": {
+    "setupNotes": "Hände auf einer Bank, Box oder stabilen erhöhten Fläche. Füße am Boden. Körper in einer geraden Linie. Leichtere Regression — je niedriger die Fläche, desto schwerer. Voller Bewegungsbereich."
+  },
+  "home_10": {
+    "setupNotes": "Stehend eine Armlänge von der Wand entfernt, Hände an der Wand auf Schulterhöhe. Nach vorn lehnen, zurück drücken. Regression für Anfänger, Tempo kontrollieren."
+  },
+  "home_11": {
+    "setupNotes": "Hände schulterbreit auf dem Boden, Knie auf der Matte. Gerade Linie vom Kopf bis zu den Knien. Brust bis zum Boden absenken, nach oben drücken. Einstiegs-Progression für Anfänger."
+  },
+  "home_12": {
+    "setupNotes": "Standard-Liegestütz-Position. Den Körper so langsam wie möglich (5-8 Sekunden) auf den Boden absenken. Zurück in die obere Position und wiederholen. Exzentrische Kraft."
+  },
+  "home_13": {
+    "setupNotes": "Liegestütz-Position mit Händen auf Hex-Kurzhanteln. Einen Liegestütz ausführen, dann eine Kurzhantel zur Hüfte rudern, abwechseln. Breiter Fußstand für Stabilität."
+  },
+  "home_14L": {
+    "setupNotes": "Hochplanke-Position, Körper in einer geraden Linie. Einen Liegestütz ausführen, dann oben den Körper nach links in einen Seitstütz öffnen — linker Arm zur Decke gestreckt, Gewicht auf der rechten Hand. Zurück in die Planke und zurücksetzen. Baut rotatorische Rumpf- und Schulterstabilität auf."
+  },
+  "home_14R": {
+    "setupNotes": "Hochplanke-Position, Körper in einer geraden Linie. Einen Liegestütz ausführen, dann oben den Körper nach rechts in einen Seitstütz öffnen — rechter Arm zur Decke gestreckt, Gewicht auf der linken Hand. Zurück in die Planke und zurücksetzen. Baut rotatorische Rumpf- und Schulterstabilität auf."
+  },
+  "home_15": {
+    "setupNotes": "Im Unterarmstütz beginnen. Arm für Arm in die Hochplanke hochdrücken, dann zurück auf die Unterarme absenken. Den führenden Arm bei jeder Wiederholung wechseln."
+  },
+  "home_16": {
+    "setupNotes": "Hochplanke-Position, Füße etwas breiter als hüftbreit. Rechte Hand zur linken Schulter tippen, linke Hand zur rechten Schulter. Das Schwanken der Hüfte minimieren."
+  },
+  "home_17": {
+    "setupNotes": "Hochplanke. Gleichzeitig eine Hand zur gegenüberliegenden Schulter heben und den gegenüberliegenden Fuß vom Boden heben. Doppelte Anti-Rotations-Anforderung."
+  },
+  "home_18": {
+    "setupNotes": "Stehend, Arme gerade seitlich auf Schulterhöhe gestreckt. Arme nach vorn kreisen, die Kreise allmählich vergrößern. Dynamisches Schulter-Aufwärmen."
+  },
+  "home_18_2": {
+    "setupNotes": "Stehend, Arme gerade seitlich auf Schulterhöhe gestreckt. Arme nach hinten kreisen, die Kreise allmählich vergrößern. Dynamisches Schulter-Aufwärmen."
+  },
+  "home_19": {
+    "setupNotes": "Stehend, leichte Kurzhanteln (1-3 kg) in jeder Hand, Arme gestreckt. Kleine, kontrollierte Kreise. Vorwärts und rückwärts. Schulterausdauer."
+  },
+  "home_20": {
+    "setupNotes": "Bauchlage auf der Matte, Arme über dem Kopf gestreckt. Gleichzeitig Arme, Brust und Beine vom Boden abheben. Halten, Gesäß und Rücken anspannen."
+  },
+  "home_21": {
+    "setupNotes": "Bauchlage, Arme über dem Kopf. Gleichzeitig den gegenüberliegenden Arm und das gegenüberliegende Bein anheben (rechter Arm + linkes Bein). Seiten wechseln. Kontrolliertes Tempo."
+  },
+  "home_22": {
+    "setupNotes": "Bauchlage, Arme über dem Kopf. Brust anheben und Ellbogen in eine W-Position nach hinten ziehen, Schulterblätter zusammenziehen. Arme wieder strecken, wiederholen."
+  },
+  "home_23": {
+    "setupNotes": "Gleiche Bauchlage wie die Standardvariante. Leichte Kurzhanteln in den Händen und/oder leichte Sprunggelenksgewichte. Anheben und halten. Kontrollierte Atmung."
+  },
+  "home_24": {
+    "setupNotes": "Auf dem Boden sitzen, Hände hinter der Hüfte, Finger nach vorn. Hüfte heben, bis der Körper von Schultern bis Fersen gerade ist. Gesäß anspannen, halten. Trizeps und Rumpf."
+  },
+  "home_25": {
+    "setupNotes": "Standard-Position der umgekehrten Planke. Abwechselnd ein Bein nach dem anderen heben und dabei gestreckt halten. Erhöht die Anforderung an Gesäß und Rumpf beim Halten."
+  },
+  "home_26": {
+    "setupNotes": "Umgekehrte Planke. Ellbogen beugen, um den Körper abzusenken, wieder nach oben drücken. Wie ein Bankdip, aber vom Boden mit gerade gestreckten Beinen."
+  },
+  "home_27": {
+    "setupNotes": "Hände auf der Kante eines stabilen Stuhls hinter dem Körper, Finger nach vorn. Füße am Boden. Durch Beugen der Ellbogen absenken, wieder nach oben drücken. Fokus auf den Trizeps."
+  },
+  "home_29": {
+    "setupNotes": "Stehend beide Arme gerade über den Kopf strecken. Die vorgegebene Zeit halten. Fordert Schulterausdauer und Brustwirbelsäulenmobilität."
+  },
+  "home_31": {
+    "setupNotes": "Stehend, Füße schulterbreit, Zehen leicht nach außen. Arme vorn zum Ausbalancieren. Bis parallel oder tiefer in die Kniebeuge gehen. Über die Fersen nach oben drücken."
+  },
+  "home_32": {
+    "setupNotes": "Breiter Stand, Zehen 45 Grad nach außen. Gerade zwischen den Beinen absenken, Knie folgen den Zehen. Fokus auf Adduktoren und Gesäß."
+  },
+  "home_33": {
+    "setupNotes": "Stehend, Hände hinter dem Kopf, Ellbogen weit. Kniebeuge mit Körpergewicht ausführen. Hände hinter dem Kopf erzwingen aufrechten Oberkörper und fordern die Mobilität."
+  },
+  "home_34L": {
+    "setupNotes": "Auf dem linken Bein stehend, rechtes Bein nach vorne gestreckt und vom Boden abgehoben. Auf dem linken Bein bis zur vollen Tiefe absenken — Hüfte unter das Knie — rechtes Bein bleibt oben, dann zurück nach oben drücken. Bei Bedarf Türrahmen oder TRX zur Unterstützung nutzen. Fortgeschrittene Kraft im linken Bein."
+  },
+  "home_34R": {
+    "setupNotes": "Auf dem rechten Bein stehend, linkes Bein nach vorne gestreckt und vom Boden abgehoben. Auf dem rechten Bein bis zur vollen Tiefe absenken — Hüfte unter das Knie — linkes Bein bleibt oben, dann zurück nach oben drücken. Bei Bedarf Türrahmen oder TRX zur Unterstützung nutzen. Fortgeschrittene Kraft im rechten Bein."
+  },
+  "home_35L": {
+    "setupNotes": "Auf dem linken Bein stehend, rechten Fuß mit der rechten Hand am Gesäß halten. Auf dem linken Bein absenken, bis das rechte Knie den Boden berührt, dann zurück nach oben drücken. Fortgeschrittene einseitige Kniebeuge — hohe Last auf linkem Quadrizeps und Gesäß."
+  },
+  "home_35R": {
+    "setupNotes": "Auf dem rechten Bein stehend, linken Fuß mit der linken Hand am Gesäß halten. Auf dem rechten Bein absenken, bis das linke Knie den Boden berührt, dann zurück nach oben drücken. Fortgeschrittene einseitige Kniebeuge — hohe Last auf rechtem Quadrizeps und Gesäß."
+  },
+  "home_36L": {
+    "setupNotes": "Rechter Fuß hinten erhöht auf einem Stuhl oder einer niedrigen Bank, linker Fuß 60–90 cm vorne. Absenken, bis der linke vordere Oberschenkel parallel zum Boden ist, über die linke Ferse zurückdrücken. Nur Körpergewicht — sauberer Trainer für linken Quadrizeps und Gesäß."
+  },
+  "home_36R": {
+    "setupNotes": "Linker Fuß hinten erhöht auf einem Stuhl oder einer niedrigen Bank, rechter Fuß 60–90 cm vorne. Absenken, bis der rechte vordere Oberschenkel parallel zum Boden ist, über die rechte Ferse zurückdrücken. Nur Körpergewicht — sauberer Trainer für rechten Quadrizeps und Gesäß."
+  },
+  "home_37": {
+    "setupNotes": "Füße schulterbreit, Kniebeuge absenken, explosiv nach oben springen und vom Boden abheben. Weich in der Kniebeugeposition landen. Wiederholen. Kraft in Quadrizeps und Gesäß."
+  },
+  "home_38L": {
+    "setupNotes": "Stand breiter als schulterbreit, Zehen nach vorne. Gewicht nach links verlagern, linkes Knie in eine tiefe seitliche Kniebeuge beugen, während das rechte Bein gestreckt bleibt. Über die linke Ferse zurück in die Mitte drücken. Belastet linken Adduktor und linkes Gesäß."
+  },
+  "home_38R": {
+    "setupNotes": "Stand breiter als schulterbreit, Zehen nach vorne. Gewicht nach rechts verlagern, rechtes Knie in eine tiefe seitliche Kniebeuge beugen, während das linke Bein gestreckt bleibt. Über die rechte Ferse zurück in die Mitte drücken. Belastet rechten Adduktor und rechtes Gesäß."
+  },
+  "home_39": {
+    "setupNotes": "Auf einem stabilen Stuhl oder einer Bank sitzen. Ohne Zuhilfenahme der Hände aufstehen. Kontrolliert zurücksetzen. Funktionelle Beinkraft für alle Levels."
+  },
+  "home_40L": {
+    "setupNotes": "Auf einem Stuhl sitzen, linker Fuß aufgesetzt, rechtes Bein vom Boden abgehoben. Nur mit dem linken Bein aufstehen — über die Ferse drücken, ohne zu wippen. Kontrolliert zurück ins Sitzen absenken. Baut linke Beinkraft ohne Ausrüstung auf."
+  },
+  "home_40R": {
+    "setupNotes": "Auf einem Stuhl sitzen, rechter Fuß aufgesetzt, linkes Bein vom Boden abgehoben. Nur mit dem rechten Bein aufstehen — über die Ferse drücken, ohne zu wippen. Kontrolliert zurück ins Sitzen absenken. Baut rechte Beinkraft ohne Ausrüstung auf."
+  },
+  "home_41L": {
+    "setupNotes": "Aufrecht stehen, Hände in die Hüften. Linken Fuß in einen langen Ausfallschritt nach hinten setzen, absenken, bis beide Knie ~90 Grad erreichen und das linke hintere Knie knapp über dem Boden schwebt. Über die rechte vordere Ferse zurück nach oben drücken. Belastet rechten vorderen Quadrizeps und rechtes Gesäß."
+  },
+  "home_41R": {
+    "setupNotes": "Aufrecht stehen, Hände in die Hüften. Rechten Fuß in einen langen Ausfallschritt nach hinten setzen, absenken, bis beide Knie ~90 Grad erreichen und das rechte hintere Knie knapp über dem Boden schwebt. Über die linke vordere Ferse zurück nach oben drücken. Belastet linken vorderen Quadrizeps und linkes Gesäß."
+  },
+  "home_42L": {
+    "setupNotes": "Aufrecht stehen, Hände in die Hüften oder seitlich. Linken Fuß in einen langen Schritt nach vorne setzen und absenken, bis beide Knie ~90 Grad erreichen — vorderes Knie folgt den Zehen. Über die linke Ferse zurück nach oben drücken. Belastet linken Quadrizeps und linkes Gesäß."
+  },
+  "home_42R": {
+    "setupNotes": "Aufrecht stehen, Hände in die Hüften oder seitlich. Rechten Fuß in einen langen Schritt nach vorne setzen und absenken, bis beide Knie ~90 Grad erreichen — vorderes Knie folgt den Zehen. Über die rechte Ferse zurück nach oben drücken. Belastet rechten Quadrizeps und rechtes Gesäß."
+  },
+  "home_43": {
+    "setupNotes": "In Ausfallschrittposition starten. Explosiv springen, Beine in der Luft wechseln, im entgegengesetzten Ausfallschritt landen. Durchgehend. Plyometrisches Cardio und Beinkraft."
+  },
+  "home_44L": {
+    "setupNotes": "Schrittstellung mit linkem Fuß vorne und rechtem Fuß hinten, beide Knie ~90 Grad gebeugt. Position halten, hinteres Knie schwebt knapp über dem Boden, Oberkörper aufrecht. Isometrische Ausdauer für Quadrizeps und Gesäß durch das linke vordere Bein."
+  },
+  "home_44R": {
+    "setupNotes": "Schrittstellung mit rechtem Fuß vorne und linkem Fuß hinten, beide Knie ~90 Grad gebeugt. Position halten, hinteres Knie schwebt knapp über dem Boden, Oberkörper aufrecht. Isometrische Ausdauer für Quadrizeps und Gesäß durch das rechte vordere Bein."
+  },
+  "home_45L": {
+    "setupNotes": "Aufrecht stehen. Linken Fuß hinter und über das rechte Bein kreuzen, absenken, bis der rechte Oberschenkel parallel zum Boden ist. Über die rechte Ferse zurück nach oben drücken. Zielt auf den Gluteus medius."
+  },
+  "home_45R": {
+    "setupNotes": "Aufrecht stehen. Rechten Fuß hinter und über das linke Bein kreuzen, absenken, bis der linke Oberschenkel parallel zum Boden ist. Über die linke Ferse zurück nach oben drücken. Zielt auf den Gluteus medius."
+  },
+  "home_46": {
+    "setupNotes": "Rücklings liegen, Knie gebeugt, Füße flach hüftbreit am Boden. Hüfte nach oben drücken und oben das Gesäß anspannen. Kontrolliert absenken. Bodenübung."
+  },
+  "home_47L": {
+    "setupNotes": "Rücklings liegen, linker Fuß hüftbreit aufgesetzt, rechtes Knie angehoben oder rechtes Bein zur Decke gestreckt. Hüfte über die linke Ferse nach oben drücken, bis der Körper eine gerade Linie bildet, oben das linke Gesäß fest anspannen. Kontrolliert absenken."
+  },
+  "home_47R": {
+    "setupNotes": "Rücklings liegen, rechter Fuß hüftbreit aufgesetzt, linkes Knie angehoben oder linkes Bein zur Decke gestreckt. Hüfte über die rechte Ferse nach oben drücken, bis der Körper eine gerade Linie bildet, oben das rechte Gesäß fest anspannen. Kontrolliert absenken."
+  },
+  "home_48": {
+    "setupNotes": "Wie die Standard-Brücke, aber Füße auf stabilem Stuhl, Bank oder Stufe. Erhöht den Bewegungsumfang und den Schwierigkeitsgrad."
+  },
+  "home_49": {
+    "setupNotes": "Rücklings liegen, Fußsohlen zusammen, Knie seitlich nach außen (Froschposition). Hüfte nach oben drücken und Gesäß anspannen. Minimiert die Beteiligung der Hamstrings."
+  },
+  "home_50L": {
+    "setupNotes": "Auf Händen und Knien im Vierfüßlerstand, Matte unter den Knien. Linke Ferse zur Decke drücken, Knie 90 Grad gebeugt, oben das Gesäß anspannen. Kontrolliert zurückführen — isoliert das linke Gesäß."
+  },
+  "home_50R": {
+    "setupNotes": "Auf Händen und Knien im Vierfüßlerstand, Matte unter den Knien. Rechte Ferse zur Decke drücken, Knie 90 Grad gebeugt, oben das Gesäß anspannen. Kontrolliert zurückführen — isoliert das rechte Gesäß."
+  },
+  "home_51L": {
+    "setupNotes": "Hand-Knie-Position, Wirbelsäule neutral. Linkes Knie seitlich nach außen heben, die 90-Grad-Beugung beibehalten, oben das Gesäß anspannen. Kontrolliert absenken — zielt auf den linken Gluteus medius."
+  },
+  "home_51R": {
+    "setupNotes": "Hand-Knie-Position, Wirbelsäule neutral. Rechtes Knie seitlich nach außen heben, die 90-Grad-Beugung beibehalten, oben das Gesäß anspannen. Kontrolliert absenken — zielt auf den rechten Gluteus medius."
+  },
+  "home_52": {
+    "setupNotes": "Mini-Widerstandsband um die Knöchel oder knapp über den Knien. Athletische Stellung in Viertelkniebeuge. Seitlich schreiten und die Bandspannung halten. Durchgehende Seitschritte."
+  },
+  "home_53": {
+    "setupNotes": "Auf der Kante einer Stufe oder auf flachem Boden stehen. Auf die Zehen hochkommen, oben die Waden anspannen. Kontrolliert absenken. Bei Bedarf Wand zum Balancieren nutzen."
+  },
+  "home_54L": {
+    "setupNotes": "Auf dem linken Fuß an der Kante einer Stufe stehen, Fußballen auf der Kante, Ferse hängt über. Hand an der Wand zum Balancieren. So hoch wie möglich auf die Zehen kommen, dann die Ferse unter die Stufe absenken für eine volle Dehnung. Trainiert die linke Wade durch den vollen Bewegungsumfang."
+  },
+  "home_54R": {
+    "setupNotes": "Auf dem rechten Fuß an der Kante einer Stufe stehen, Fußballen auf der Kante, Ferse hängt über. Hand an der Wand zum Balancieren. So hoch wie möglich auf die Zehen kommen, dann die Ferse unter die Stufe absenken für eine volle Dehnung. Trainiert die rechte Wade durch den vollen Bewegungsumfang."
+  },
+  "home_55L": {
+    "setupNotes": "Stabiler Stuhl, Bank oder Treppenstufe. Linken Fuß vollständig auf die Fläche setzen. Über die linke Ferse drücken und aufrecht nach oben steigen. Kontrolliert heruntersteigen. Alle Wiederholungen mit dem linken Bein."
+  },
+  "home_55R": {
+    "setupNotes": "Stabiler Stuhl, Bank oder Treppenstufe. Rechten Fuß vollständig auf die Fläche setzen. Über die rechte Ferse drücken und aufrecht nach oben steigen. Kontrolliert heruntersteigen. Alle Wiederholungen mit dem rechten Bein."
+  },
+  "home_56": {
+    "setupNotes": "Stehend, abwechselnd Knie auf Hüfthöhe heben. Arme gegenläufig zu den Beinen mitschwingen. Kontrolliertes Tempo für Aufwärmen oder leichtes Cardio."
+  },
+  "home_58": {
+    "setupNotes": "Ellbogen am Boden unter den Schultern, Unterarme flach. Körper gerade von Kopf bis Fersen. Gesamten Rumpf anspannen, ruhig atmen. Gehaltene Zeit."
+  },
+  "home_59": {
+    "setupNotes": "Hände unter den Schultern, Arme gestreckt. Körper gerade, Boden wegdrücken. Rumpf anspannen, Hüfte nicht durchhängen lassen. Grundposition für viele Übungen."
+  },
+  "home_60L": {
+    "setupNotes": "Auf die linke Seite legen, linker Unterarm am Boden unter der Schulter, Füße gestapelt oder versetzt. Hüfte anheben, sodass der Körper eine gerade Linie von Kopf bis Fersen bildet, rechter Arm zur Decke gestreckt oder an der Hüfte. Zeit halten. Belastet die linken schrägen Bauchmuskeln und den QL."
+  },
+  "home_60R": {
+    "setupNotes": "Auf die rechte Seite legen, rechter Unterarm am Boden unter der Schulter, Füße gestapelt oder versetzt. Hüfte anheben, sodass der Körper eine gerade Linie von Kopf bis Fersen bildet, linker Arm zur Decke gestreckt oder an der Hüfte. Zeit halten. Belastet die rechten schrägen Bauchmuskeln und den QL."
+  },
+  "home_61L": {
+    "setupNotes": "Seitstütz auf dem linken Unterarm, Hüfte in gerader Linie angehoben. Linke Hüfte langsam Richtung Boden absenken, ohne ihn zu berühren, dann zurück zum Start drücken. Kontrollierte Wiederholungen durch den vollen Bewegungsumfang. Dynamische Belastung der linken schrägen Bauchmuskeln."
+  },
+  "home_61R": {
+    "setupNotes": "Seitstütz auf dem rechten Unterarm, Hüfte in gerader Linie angehoben. Rechte Hüfte langsam Richtung Boden absenken, ohne ihn zu berühren, dann zurück zum Start drücken. Kontrollierte Wiederholungen durch den vollen Bewegungsumfang. Dynamische Belastung der rechten schrägen Bauchmuskeln."
+  },
+  "home_62L": {
+    "setupNotes": "Seitstütz auf dem linken Unterarm, Hüfte angehoben. Rechtes (oberes) Bein nach oben heben und oben halten oder pulsieren, Hüfte bleibt gerade. Fügt dem linken schrägen Halt Arbeit für Gluteus medius und äußere Hüfte hinzu."
+  },
+  "home_62R": {
+    "setupNotes": "Seitstütz auf dem rechten Unterarm, Hüfte angehoben. Linkes (oberes) Bein nach oben heben und oben halten oder pulsieren, Hüfte bleibt gerade. Fügt dem rechten schrägen Halt Arbeit für Gluteus medius und äußere Hüfte hinzu."
+  },
+  "home_64": {
+    "setupNotes": "Hohe Liegestützposition. Ein Knie schnell Richtung Brust ziehen, zurück, mit dem anderen Knie wiederholen. Mountain-Climber-Stil aus dem Plank. Kontrolliert."
+  },
+  "home_65": {
+    "setupNotes": "Hände auf einer Bank, Box oder einem Stuhl in Plank-Position. Einfachere Variante des Boden-Planks. Gut für Anfänger zum Aufbau der Rumpfkraft."
+  },
+  "home_66": {
+    "setupNotes": "Rücklings liegen, Arme gestreckt zur Decke, Knie 90 Grad gebeugt (Tischplatte). Entgegengesetzten Arm und Bein Richtung Boden strecken, zurück, abwechseln. Unteren Rücken in den Boden drücken."
+  },
+  "home_67": {
+    "setupNotes": "Gleiche Position wie beim Standard-Dead-Bug. Sehr langsame kontrollierte Streckung (4–5 Sekunden hinaus, 4–5 Sekunden zurück). Fokus darauf, den Kontakt des unteren Rückens zum Boden zu halten."
+  },
+  "home_68": {
+    "setupNotes": "Standard-Dead-Bug-Position. Leichtes Widerstandsband um Hände und/oder Füße geschlungen. Bandspannung erhöht die Anforderung an den Rumpf durch den vollen Bewegungsumfang."
+  },
+  "home_69": {
+    "setupNotes": "Standard-Dead-Bug-Position, leichte Kurzhantel in den Händen über dem Kopf. Gliedmaßen kontrolliert strecken. Zusätzliche Belastung für die Rumpfstabilisatoren."
+  },
+  "home_70L": {
+    "setupNotes": "Auf Händen und Knien, Wirbelsäule neutral. Linken Arm nach vorne und rechtes Bein nach hinten gleichzeitig strecken, bis beide parallel zum Boden sind. Rumpf anspannen, kurz halten, zurückführen. Trainiert Anti-Extension und Gleichgewicht."
+  },
+  "home_70R": {
+    "setupNotes": "Auf Händen und Knien, Wirbelsäule neutral. Rechten Arm nach vorne und linkes Bein nach hinten gleichzeitig strecken, bis beide parallel zum Boden sind. Rumpf anspannen, kurz halten, zurückführen. Trainiert Anti-Extension und Gleichgewicht."
+  },
+  "home_71L": {
+    "setupNotes": "Hohe Liegestützposition, Hände unter den Schultern, Körper in gerader Linie. Linken Arm nach vorne und rechtes Bein nach hinten gleichzeitig strecken, kurz halten, ohne dass die Hüfte rotiert. Zurückführen. Deutlich schwerer als die kniende Variante."
+  },
+  "home_71R": {
+    "setupNotes": "Hohe Liegestützposition, Hände unter den Schultern, Körper in gerader Linie. Rechten Arm nach vorne und linkes Bein nach hinten gleichzeitig strecken, kurz halten, ohne dass die Hüfte rotiert. Zurückführen. Deutlich schwerer als die kniende Variante."
+  },
+  "home_72L": {
+    "setupNotes": "Knieender Bird-Dog-Stand mit einem leichten Widerstandsband von der linken Hand zum rechten Fuß. Linken Arm und rechtes Bein strecken, bis das Band straff ist, halten, zurückführen. Band fügt dem diagonalen Muster Widerstand und Instabilität hinzu."
+  },
+  "home_72R": {
+    "setupNotes": "Knieender Bird-Dog-Stand mit einem leichten Widerstandsband von der rechten Hand zum linken Fuß. Rechten Arm und linkes Bein strecken, bis das Band straff ist, halten, zurückführen. Band fügt dem diagonalen Muster Widerstand und Instabilität hinzu."
+  },
+  "home_73L": {
+    "setupNotes": "Knieender Bird-Dog-Stand mit einer Kurzhantel in der linken Hand. Rechtes Bein nach hinten strecken, dann die linke Kurzhantel zur Hüfte rudern — Hüfte bleibt gerade und Rumpf angespannt. Kurzhantel absenken, zurückführen. Kombiniert Anti-Rotation mit einseitigem Rudern."
+  },
+  "home_73R": {
+    "setupNotes": "Knieender Bird-Dog-Stand mit einer Kurzhantel in der rechten Hand. Linkes Bein nach hinten strecken, dann die rechte Kurzhantel zur Hüfte rudern — Hüfte bleibt gerade und Rumpf angespannt. Kurzhantel absenken, zurückführen. Kombiniert Anti-Rotation mit einseitigem Rudern."
+  },
+  "home_74": {
+    "setupNotes": "Rücklings liegen, Hände hinter dem Kopf (nicht am Nacken ziehen). Schultern anheben, rechten Ellbogen zum linken Knie drehen und rechtes Bein strecken. Durchgehend abwechseln."
+  },
+  "home_75": {
+    "setupNotes": "Rücklings liegen, Hände hinter dem Kopf, Schultern angehoben. Einen Ellbogen langsam zum gegenüberliegenden Knie drehen und das andere Bein strecken — 3–4 Sekunden pro Seite. Volle Rotation durch den Rumpf — maximiert die Time under Tension der schrägen Bauchmuskeln."
+  },
+  "home_76": {
+    "setupNotes": "Stehend, Hände hinter dem Kopf. Ein Knie nach oben treiben und gleichzeitig den gegenüberliegenden Ellbogen dorthin drehen. Seiten abwechseln. Gelenkschonende Rumpfarbeit."
+  },
+  "home_77": {
+    "setupNotes": "Rücklings liegen, Hände unter dem unteren Rücken oder seitlich. Beine gestreckt, vom Boden bis zur Senkrechten heben. Kontrolliert absenken, ohne den Rücken zu überstrecken."
+  },
+  "home_78": {
+    "setupNotes": "Gleiche Position wie beim Standard. Ein Bein nach dem anderen abwechselnd heben. Einfachere Progression. Unteren Rücken in den Boden gedrückt halten."
+  },
+  "home_79": {
+    "setupNotes": "Beide Beine ~15 cm über dem Boden anheben. Für die vorgegebene Zeit halten. Unteren Rücken in den Boden gedrückt halten. Isometrischer Halt für den unteren Bauch."
+  },
+  "home_80": {
+    "setupNotes": "Rücklings liegen, Beine gestreckt ~15 cm über dem Boden. Abwechselnd schnelle kleine Auf-und-ab-Kicks. Unteren Rücken in den Boden gedrückt halten. Rumpfausdauer."
+  },
+  "home_81L": {
+    "setupNotes": "Rücklings liegen, Knie gebeugt, Füße flach und Becken in neutraler Position. Linke Ferse langsam am Boden entlang schieben, bis das Bein gestreckt ist, dann kontrolliert zurückziehen. Becken durchgehend stabil halten — trainiert tiefen Rumpf und lumbopelvine Kontrolle."
+  },
+  "home_81R": {
+    "setupNotes": "Rücklings liegen, Knie gebeugt, Füße flach und Becken in neutraler Position. Rechte Ferse langsam am Boden entlang schieben, bis das Bein gestreckt ist, dann kontrolliert zurückziehen. Becken durchgehend stabil halten — trainiert tiefen Rumpf und lumbopelvine Kontrolle."
+  },
+  "home_82": {
+    "setupNotes": "Wie beim Standard-Heel-Slide. Vor jedem Schieben aktiv den Rumpf anspannen (Bauchnabel einziehen). Fokus darauf, jede Beckenbewegung zu verhindern."
+  },
+  "home_83": {
+    "setupNotes": "Stehend, Füße hüftbreit. Bauchnabel einziehen, gesamten Rumpf anspannen, als würde man sich auf einen Schlag vorbereiten. Für die vorgegebene Zeit halten und dabei atmen. Grundlegende Übung."
+  },
+  "home_84L": {
+    "setupNotes": "Leichtes Widerstandsband auf Brusthöhe an der rechten Seite verankern. Mit der rechten Seite zum Anker stehen, beide Hände halten das Band an der Brust. Arme gerade nach vorne strecken und halten — dem Band widerstehen, das dich in eine Rotation nach rechts zieht. Anti-Rotations-Halt für den Rumpf."
+  },
+  "home_84R": {
+    "setupNotes": "Leichtes Widerstandsband auf Brusthöhe an der linken Seite verankern. Mit der linken Seite zum Anker stehen, beide Hände halten das Band an der Brust. Arme gerade nach vorne strecken und halten — dem Band widerstehen, das dich in eine Rotation nach links zieht. Anti-Rotations-Halt für den Rumpf."
+  },
+  "home_85": {
+    "setupNotes": "Rücklings liegen, Arme über dem Kopf, Beine gestreckt. Arme und Beine gleichzeitig heben, sodass sich Hände und Füße oben berühren. V-Form am höchsten Punkt. Kontrolliert absenken."
+  },
+  "home_86": {
+    "setupNotes": "Hohe Liegestützposition. Ein Knie schnell Richtung Brust ziehen, wechseln, wiederholen. Schnelles Abwechseln wie horizontales Laufen auf der Stelle."
+  },
+  "home_87": {
+    "setupNotes": "Hohe Liegestützposition. Knie zum gegenüberliegenden Ellbogen ziehen. Seiten abwechseln. Das rotatorische Element fügt dem Standard-Climber Arbeit für die schrägen Bauchmuskeln hinzu."
+  },
+  "home_88": {
+    "setupNotes": "Stehend, Knie schnell abwechselnd über Hüfthöhe treiben. Arme mitschwingen. Schnelles Tempo. Auf der Stelle oder leicht vorwärts."
+  },
+  "home_89": {
+    "setupNotes": "Stehend, auf der Stelle joggen und dabei die Fersen zum Gesäß ziehen. Arme natürlich mitschwingen. Leichtes Federn auf den Fußballen. Aufwärmung für Hamstrings und Cardio."
+  },
+  "home_90": {
+    "setupNotes": "High Knees mit seitlichen Shuffle-Schritten kombinieren. 4 Schritte High Knees, 4 Schritte seitlich shufflen, wiederholen. Agilität und Cardio."
+  },
+  "home_91": {
+    "setupNotes": "Stehend, explosiv springen und oben beide Knie zur Brust ziehen. Weich mit gebeugten Knien landen. Fortgeschrittene Plyometrie."
+  },
+  "home_92": {
+    "setupNotes": "Stehend, Viertelkniebeuge, dann explosiv nach oben springen und Arme und Beine in der Luft zu einer X-/Sternform spreizen. Weich in der Kniebeugeposition landen. Plyometrisches Ganzkörpertraining."
+  },
+  "home_93": {
+    "setupNotes": "Stehend, Füße geschlossen, Arme seitlich. Füße auseinanderspringen und gleichzeitig die Arme über den Kopf heben, zurückspringen. Klassisches Cardio-Warm-up. Durchgehender Rhythmus."
+  },
+  "home_94": {
+    "setupNotes": "Wie Jumping Jacks, aber tiefer — Füße breit in eine Kniebeuge springen, dann Füße zusammenspringen und aufrichten. Arme oben nach vorne oder über den Kopf stoßen."
+  },
+  "home_96": {
+    "setupNotes": "Einer stabilen Plyo-Box oder Plattform zugewandt stehen. Kniebeuge, Arme schwingen, auf die Box springen und weich in der Kniebeuge landen. Heruntersteigen. Boxhöhe dem Level anpassen."
+  },
+  "home_97": {
+    "setupNotes": "Hohe Liegestützposition. Knie abwechselnd so schnell wie möglich zur Brust sprinten. Plank-Integrität halten. HIIT-Cardio aus dem Plank."
+  },
+  "home_98": {
+    "setupNotes": "Hoher Plank. Knie zur Außenseite des gleichseitigen Ellbogens bringen (breiter als der Standard-Climber). Abwechseln. Hüftmobilität plus Rumpfarbeit."
+  },
+  "home_99": {
+    "setupNotes": "Stehend, nach vorne beugen und Zehen berühren (Knie bei Bedarf beugen). Zehen greifen, Hüfte in die Kniebeuge senken, Brust in tiefer Kniebeuge heben. Aufstehen. Wiederholen. Mobilität und Beine."
+  },
+  "home_100": {
+    "setupNotes": "Stehend, in die Kniebeuge gehen und Hände auf den Boden setzen. Füße nach hinten in den Plank springen, Liegestütz (optional) ausführen, Füße zu den Händen springen, mit den Armen über dem Kopf nach oben springen. Ganzkörper."
+  },
+  "home_101": {
+    "setupNotes": "Athletische Stellung, Knie leicht gebeugt. Schnelle kleine Schritte auf der Stelle, Füße verlassen den Boden kaum. So schnell wie möglich für die vorgegebene Zeit. Agilitätsübung."
+  },
+  "home_104": {
+    "setupNotes": "Stehen mit leicht gebeugten Knien, ein Seilende in jeder Hand. Arme abwechselnd bewegen und durchgehende Wellen im Seil erzeugen. Ganzkörper-Cardio."
+  },
+  "home_105": {
+    "setupNotes": "Stehen mit leicht gebeugten Knien, beide Seilenden. Beide Arme über den Kopf heben, dann die Seile gemeinsam nach unten schlagen. Kniebeuge mit dem Schlag. Ganzkörperkraft."
+  },
+  "home_106": {
+    "setupNotes": "Beide Seile halten, sie gemeinsam von einer Seite zur anderen schwingen und seitliche Wellen erzeugen. Rumpfrotation mit Oberkörperkraft. Fokus auf schrägen Bauchmuskeln."
+  },
+  "home_107": {
+    "setupNotes": "Auf der Matte knien, ein Seilende in jeder Hand. Abwechselnde Wellen aus der knieenden Position. Schaltet die Beine aus und isoliert Oberkörper und Rumpf."
+  },
+  "home_108": {
+    "setupNotes": "Sled mit moderatem Gewicht beladen. Hohen oder niedrigen Griff fassen. Mit den Beinen nach vorne treiben, gleichmäßiges Tempo über die Distanz. In den Sled lehnen."
+  },
+  "home_109": {
+    "setupNotes": "Sled schwer beladen. Niedrigen Griff fassen, ~45 Grad nach vorne lehnen. Kurze kraftvolle Schritte, über die Zehen drücken. Fokus auf Kraft und Beinkraft."
+  },
+  "home_110": {
+    "setupNotes": "Leicht bis moderat beladener Sled. Hohe oder niedrige Griffe. Kurze Distanz sprinten (20–40 Meter). Maximale Geschwindigkeit."
+  },
+  "home_111": {
+    "setupNotes": "Dem Sled zugewandt, Griffe fassen, rückwärts gehen oder treiben und den Sled mit jedem Schritt zu dir ziehen. Quadrizeps-dominante Bewegung. Kniefreundlich."
+  },
+  "home_112": {
+    "setupNotes": "Langes Seil am Sled befestigen. Am Ende des Seils sitzen oder stehen. Sled Hand über Hand zu dir ziehen. Fokus auf oberen Rücken und Bizeps."
+  },
+  "home_113": {
+    "setupNotes": "Gurt am Sled befestigen, Gurt um die Taille. Rückwärts gehen und den Sled ziehen. Oberkörper aufrecht. Fokus auf Quadrizeps und Gesäß."
+  },
+  "home_114": {
+    "setupNotes": "Springseil auf fester flacher Unterlage. Leichtes Federn auf den Fußballen, Handgelenke steuern die Rotation des Seils. Verschiedene Geschwindigkeiten und Fußarbeitsmuster."
+  },
+  "home_115": {
+    "setupNotes": "Auf Händen und Füßen (nicht Knien), Knie schweben knapp über dem Boden. Nach vorne krabbeln, gegenüberliegende Hand und Fuß bewegen sich gemeinsam. Rumpf und Ganzkörper."
+  },
+  "home_116": {
+    "setupNotes": "Laufband auf angenehmes Gehtempo (4–6 km/h). Aufrechte Haltung, Arme schwingen natürlich mit. Steigung optional für zusätzliche Anstrengung."
+  },
+  "home_117": {
+    "setupNotes": "Laufband auf Jogging-Tempo (7–9 km/h). Leichtes Tempo, bei dem man sich noch unterhalten kann. Mittelfußlandung, entspannte Schultern und Arme."
+  },
+  "home_118": {
+    "setupNotes": "Laufband auf Lauftempo (10–14 km/h). Mittlere bis hohe Anstrengung. Gute Lauftechnik — aufrechte Haltung, Mittelfußlandung, entspannte Hände."
+  },
+  "home_119": {
+    "setupNotes": "Laufband auf Sprinttempo (15+ km/h) oder maximale Anstrengung für kurze Intervalle (15–30 Sekunden). Seitliche Griffe nutzen, um sicher auf- und abzusteigen."
+  },
+  "home_120": {
+    "setupNotes": "Laufband auf Gehtempo mit erhöhter Steigung (8–15%). Bergauf gehen. Für den vollen Nutzen nicht an den Griffen festhalten. Fokus auf Gesäß und Cardio."
+  },
+  "home_121": {
+    "setupNotes": "Sitzhöhe so einstellen, dass am unteren Punkt des Pedaltritts ein leichtes Beugen bleibt. Gleichmäßiger moderater Widerstand. Aufrechte oder liegende Position. Gleichmäßiges Tempo."
+  },
+  "home_122": {
+    "setupNotes": "Spin-Bike mit hohem Widerstand. Im Stehen auf den Pedalen treten und dabei einen Anstieg simulieren. Lenker fest greifen."
+  },
+  "home_123": {
+    "setupNotes": "Rudergerät. Füße einschnallen, Griff fassen. Zuerst mit den Beinen drücken, dann zurücklehnen, dann mit den Armen ziehen. Rückweg in umgekehrter Reihenfolge. Gleichmäßiges Tempo."
+  },
+  "home_124": {
+    "setupNotes": "Rudergerät. Zwischen maximalen Sprints (20–30 Sekunden) und lockerem Erholungsrudern (60–90 Sekunden) abwechseln. Dämpfereinstellung bei 4–6."
+  },
+  "home_125": {
+    "setupNotes": "Crosstrainer. Füße auf die Pedale, bewegliche oder feste Griffe fassen. Flüssige Tretbewegung. Moderater Widerstand, gleichmäßiges Tempo."
+  },
+  "home_126": {
+    "setupNotes": "Crosstrainer. Zwischen Phasen mit hohem Widerstand/Tempo und leichter Erholung abwechseln. Beide Griffe für Ober- und Unterkörper nutzen."
+  },
+  "home_127": {
+    "setupNotes": "Crosstrainer, rückwärts treten. Fokus auf den Quadrizeps verschiebt sich gegenüber der Vorwärtsbewegung. Griffe zur Stabilität fassen."
+  },
+  "home_128": {
+    "setupNotes": "StairMaster oder Stepmill. Gleichmäßiges Steptempo, Hände locker an den Griffen (nicht abstützen). Aufrechte Haltung. Fokus auf Gesäß und Cardio."
+  },
+  "home_129": {
+    "setupNotes": "StairMaster. Zwischen schnellem und langsamem Steptempo abwechseln oder die Stufe ändern. Hände für die beste Wirkung von den Griffen nehmen. Kurze intensive Phasen, längere Erholung."
+  },
+  "home_130": {
+    "setupNotes": "Air Bike / Assault Bike. Arme und Beine treiben gemeinsam an. Sprintintervalle (20–30 Sek. an, 60–90 Sek. aus). Ganzkörper-Cardio."
+  },
+  "home_131": {
+    "setupNotes": "Ski-Erg. Stehend, Griffe über dem Kopf fassen. Über Latissimus und Rumpf nach unten ziehen, leicht in der Hüfte beugen. Arme wieder über den Kopf führen. Gleichmäßiges Tempo oder Intervalle."
+  },
+  "home_133": {
+    "setupNotes": "Stehend, Knie abwechselnd über Hüfthöhe treiben. Arme gegenläufig zu den Beinen mitschwingen. Moderates Tempo. Aktiviert die Hüftbeuger und wärmt auf."
+  },
+  "home_134": {
+    "setupNotes": "Stehend, beide Arme in großen Bögen nach vorne und über den Kopf schwingen — dann zurück nach unten. Mit jeder Wiederholung Schwung aufbauen. Dynamisches Schulter-Warm-up."
+  },
+  "home_134_2": {
+    "setupNotes": "Stehend, beide Arme in großen umgekehrten Bögen nach hinten schwingen — Schultern zurück und Brust öffnen. Mit jeder Wiederholung Schwung aufbauen. Dynamisches Schulter-Warm-up."
+  },
+  "home_135": {
+    "setupNotes": "Stehend, beide Arme horizontal abwechselnd vor dem Körper kreuzen. Öffnet die Brust und wärmt Schultern und Pectoralis auf."
+  },
+  "home_137": {
+    "setupNotes": "Stehen mit hüftbreiten Füßen, Hände in den Hüften. Hüfte in großen gleichmäßigen Kreisen rotieren — im und gegen den Uhrzeigersinn. Oberkörper stabil halten. Wärmt Hüftgelenke und unteren Rücken auf."
+  },
+  "home_138": {
+    "setupNotes": "Auf einem Bein stehend (Halt nutzen), Fuß in Kreisen rotieren. Im und gegen den Uhrzeigersinn. Je 10 pro Richtung. Fuß wechseln."
+  },
+  "home_139": {
+    "setupNotes": "Arme nach vorne strecken, Handgelenke in beide Richtungen kreisen. Zwischen den Kreisen Fäuste öffnen und schließen. Wärmt die Handgelenke für Drücken und Greifen auf."
+  },
+  "home_140L": {
+    "setupNotes": "Mit der rechten Seite zu einer Wand stehen, rechte Hand an der Wand zum Balancieren. Linkes Bein in kontrolliertem Pendel nach vorne und hinten schwingen, Bewegungsumfang schrittweise steigern. Wärmt linke Hüftbeuger und Hamstrings auf."
+  },
+  "home_140R": {
+    "setupNotes": "Mit der linken Seite zu einer Wand stehen, linke Hand an der Wand zum Balancieren. Rechtes Bein in kontrolliertem Pendel nach vorne und hinten schwingen, Bewegungsumfang schrittweise steigern. Wärmt rechte Hüftbeuger und Hamstrings auf."
+  },
+  "home_141L": {
+    "setupNotes": "Einer Wand zugewandt, beide Hände zum Halt daran, Gewicht auf dem rechten Bein. Linkes Bein in kontrolliertem Pendel vor dem Körper kreuzen und seitlich nach außen schwingen. Wärmt linke Adduktoren und Abduktoren auf."
+  },
+  "home_141R": {
+    "setupNotes": "Einer Wand zugewandt, beide Hände zum Halt daran, Gewicht auf dem linken Bein. Rechtes Bein in kontrolliertem Pendel vor dem Körper kreuzen und seitlich nach außen schwingen. Wärmt rechte Adduktoren und Abduktoren auf."
+  },
+  "home_142": {
+    "setupNotes": "Auf Händen und Knien. Zwischen hohlem Rücken (Kuh — Bauch sinkt) und rundem Rücken (Katze — Bauch hebt sich) abwechseln. Mit der Atmung koordinieren."
+  },
+  "home_143": {
+    "setupNotes": "Stehend, nach vorne beugen und Boden berühren. Hände nach vorne in die Plank-Position laufen. Optional ein Liegestütz. Füße zu den Händen laufen, aufstehen. Ganzkörper-Warm-up."
+  },
+  "home_144": {
+    "setupNotes": "In einen Ausfallschritt nach vorne treten, Oberkörper zum vorderen Bein drehen. Arme gestreckt oder Hände zusammen. Zurück zum Stand, anderes Bein. Dynamische Dehnung."
+  },
+  "home_145": {
+    "setupNotes": "Hohe Liegestützposition, Arme gestreckt. Ohne die Ellbogen zu beugen, Schulterblätter auseinanderdrücken (Protraktion), dann zusammenziehen (Retraktion). Mobilität der Schulterblätter."
+  },
+  "home_146": {
+    "setupNotes": "Stehend, Schultern in Kreisen nach vorne rollen, dann nach hinten. Große kontrollierte Kreise. Löst obere Trapezmuskeln und Schultergelenke."
+  },
+  "home_147": {
+    "setupNotes": "Auf der Matte knien, auf die Fersen zurücksetzen, Arme nach vorne auf den Boden strecken. Stirn ruht auf dem Boden. Tiefe Atmung. Dehnt Rücken, Latissimus und Hüften."
+  },
+  "home_148": {
+    "setupNotes": "Auf dem Boden sitzen, Beine gestreckt. In der Hüfte nach vorne beugen und zu den Füßen greifen. Halten. Dehnt Hamstrings und unteren Rücken."
+  },
+  "home_149L": {
+    "setupNotes": "Aufrecht stehen, freie Hand an einer Wand zum Balancieren. Linken Fuß mit der linken Hand Richtung linkes Gesäß ziehen, Knie zusammen, Hüfte leicht nach vorne drücken. Halten und atmen. Dehnt den linken Quadrizeps und Hüftbeuger."
+  },
+  "home_149R": {
+    "setupNotes": "Aufrecht stehen, freie Hand an einer Wand zum Balancieren. Rechten Fuß mit der rechten Hand Richtung rechtes Gesäß ziehen, Knie zusammen, Hüfte leicht nach vorne drücken. Halten und atmen. Dehnt den rechten Quadrizeps und Hüftbeuger."
+  },
+  "home_150L": {
+    "setupNotes": "Auf dem Boden sitzen, linkes Bein gestreckt und rechten Fuß an die innere linke Oberschenkelseite setzen. In der Hüfte beugen und über das linke Bein greifen, Rücken flach. Halten und atmen. Zielt auf die linken Hamstrings."
+  },
+  "home_150R": {
+    "setupNotes": "Auf dem Boden sitzen, rechtes Bein gestreckt und linken Fuß an die innere rechte Oberschenkelseite setzen. In der Hüfte beugen und über das rechte Bein greifen, Rücken flach. Halten und atmen. Zielt auf die rechten Hamstrings."
+  },
+  "home_151L": {
+    "setupNotes": "Stehend, linke Ferse auf eine niedrige Bank oder Stufe setzen, Bein gestreckt. In der Hüfte beugen und über das linke Bein nach vorne lehnen, Rücken flach halten. Halten. Zielt auf die linken Hamstrings."
+  },
+  "home_151R": {
+    "setupNotes": "Stehend, rechte Ferse auf eine niedrige Bank oder Stufe setzen, Bein gestreckt. In der Hüfte beugen und über das rechte Bein nach vorne lehnen, Rücken flach halten. Halten. Zielt auf die rechten Hamstrings."
+  },
+  "home_152L": {
+    "setupNotes": "Einer Wand in Schrittstellung zugewandt — linker Fuß hinten mit Ferse fest am Boden, rechter Fuß vorne mit gebeugtem Knie. Hüfte Richtung Wand lehnen, bis sich die linke Wade dehnt. Halten. Zielt auf den linken Gastrocnemius."
+  },
+  "home_152R": {
+    "setupNotes": "Einer Wand in Schrittstellung zugewandt — rechter Fuß hinten mit Ferse fest am Boden, linker Fuß vorne mit gebeugtem Knie. Hüfte Richtung Wand lehnen, bis sich die rechte Wade dehnt. Halten. Zielt auf den rechten Gastrocnemius."
+  },
+  "home_153L": {
+    "setupNotes": "In einem Türrahmen stehen, linker Unterarm am Rahmen, Ellbogen 90 Grad und auf Schulterhöhe. Linken Fuß durch den Türrahmen nach vorne setzen und die Brust vom Arm weg drehen, bis eine Dehnung im linken Pectoralis und in der vorderen Schulter spürbar ist. Halten."
+  },
+  "home_153R": {
+    "setupNotes": "In einem Türrahmen stehen, rechter Unterarm am Rahmen, Ellbogen 90 Grad und auf Schulterhöhe. Rechten Fuß durch den Türrahmen nach vorne setzen und die Brust vom Arm weg drehen, bis eine Dehnung im rechten Pectoralis und in der vorderen Schulter spürbar ist. Halten."
+  },
+  "home_154L": {
+    "setupNotes": "Aufrecht stehen, linken Arm gestreckt vor der Brust zur anderen Seite führen. Rechten Unterarm unter dem linken Ellbogen einhaken und den linken Arm näher zum Körper ziehen. Halten. Dehnt hintere linke Deltas und oberen Rücken."
+  },
+  "home_154R": {
+    "setupNotes": "Aufrecht stehen, rechten Arm gestreckt vor der Brust zur anderen Seite führen. Linken Unterarm unter dem rechten Ellbogen einhaken und den rechten Arm näher zum Körper ziehen. Halten. Dehnt hintere rechte Deltas und oberen Rücken."
+  },
+  "home_155L": {
+    "setupNotes": "Linken Arm über den Kopf heben und den Ellbogen beugen, sodass die linke Hand hinter den Kopf fällt. Mit der rechten Hand den linken Ellbogen sanft nach hinten und unten drücken. Halten. Dehnt linken Trizeps und Latissimus."
+  },
+  "home_155R": {
+    "setupNotes": "Rechten Arm über den Kopf heben und den Ellbogen beugen, sodass die rechte Hand hinter den Kopf fällt. Mit der linken Hand den rechten Ellbogen sanft nach hinten und unten drücken. Halten. Dehnt rechten Trizeps und Latissimus."
+  },
+  "home_157L": {
+    "setupNotes": "Halb kniend auf der Matte — linkes Knie unten, rechter Fuß vorne. Becken einrollen und Hüfte sanft nach vorne schieben, bis eine Dehnung vorne in der linken Hüfte spürbar ist. Oberkörper aufrecht halten. Halten. Dehnt den linken Hüftbeuger."
+  },
+  "home_157R": {
+    "setupNotes": "Halb kniend auf der Matte — rechtes Knie unten, linker Fuß vorne. Becken einrollen und Hüfte sanft nach vorne schieben, bis eine Dehnung vorne in der rechten Hüfte spürbar ist. Oberkörper aufrecht halten. Halten. Dehnt den rechten Hüftbeuger."
+  },
+  "home_158L": {
+    "setupNotes": "Rücklings liegen mit gebeugten Knien. Linken Knöchel in einer Vier-Figur über das rechte Knie legen. Durchgreifen und den rechten Oberschenkel zur Brust ziehen, bis tief im linken Gesäß eine Dehnung spürbar ist. Halten. Zielt auf den linken Piriformis."
+  },
+  "home_158R": {
+    "setupNotes": "Rücklings liegen mit gebeugten Knien. Rechten Knöchel in einer Vier-Figur über das linke Knie legen. Durchgreifen und den linken Oberschenkel zur Brust ziehen, bis tief im rechten Gesäß eine Dehnung spürbar ist. Halten. Zielt auf den rechten Piriformis."
+  },
+  "home_159L": {
+    "setupNotes": "Aufrecht stehen oder sitzen, rechtes Ohr sanft zur rechten Schulter neigen, linke Schulter entspannt und nach unten gedrückt. Optional mit der rechten Hand leichten zusätzlichen Druck geben. Halten. Dehnt die linke Nackenseite."
+  },
+  "home_159R": {
+    "setupNotes": "Aufrecht stehen oder sitzen, linkes Ohr sanft zur linken Schulter neigen, rechte Schulter entspannt und nach unten gedrückt. Optional mit der linken Hand leichten zusätzlichen Druck geben. Halten. Dehnt die rechte Nackenseite."
+  },
+  "home_160L": {
+    "setupNotes": "Aufrecht sitzen, linke Hand hinter den Rücken legen. Kopf von der linken Schulter weg neigen und mit der rechten Hand am Kopf leichten zusätzlichen Druck geben. Halten. Löst Spannung im linken oberen Trapezius."
+  },
+  "home_160R": {
+    "setupNotes": "Aufrecht sitzen, rechte Hand hinter den Rücken legen. Kopf von der rechten Schulter weg neigen und mit der linken Hand am Kopf leichten zusätzlichen Druck geben. Halten. Löst Spannung im rechten oberen Trapezius."
+  },
+  "home_161": {
+    "setupNotes": "Rücklings liegen, Knie gebeugt, Füße flach. Eine Hand auf die Brust, eine auf den Bauch. Tief in den Bauch atmen (Bauch hebt sich), Brust bleibt still. Langsam ausatmen."
+  },
+  "home_162": {
+    "setupNotes": "Aufrecht auf einem Stuhl sitzen, Füße flach. Hände auf den Bauch. Durch die Nase einatmen und dabei den Bauch ausdehnen. Langsam durch den Mund ausatmen. Schultern entspannt."
+  },
+  "home_163": {
+    "setupNotes": "Rücklings liegen, Knie gebeugt. Beckenboden als Ballon visualisieren, der sich beim Einatmen füllt (entspannt nach unten) und beim Ausatmen leert (zieht nach oben). Mit der Atmung koordinieren."
+  },
+  "home_164": {
+    "setupNotes": "Sitzend oder rücklings. Beckenbodenmuskulatur anspannen (als würde man den Harnfluss stoppen). 5–10 Sekunden halten, genauso lange vollständig entspannen. Wiederholen."
+  },
+  "home_165": {
+    "setupNotes": "Gleiche Position. Beckenbodenmuskulatur schnell anspannen und wieder loslassen. 1 Sekunde halten, 1 Sekunde loslassen. Baut schnelle Beckenbodenreaktion auf."
+  },
+  "home_166": {
+    "setupNotes": "Sitzend oder rücklings. Beckenboden anspannen und für zunehmend längere Zeiten halten (10, 15, 20 Sekunden). Zwischen den Halten vollständig entspannen."
+  },
+  "home_167": {
+    "setupNotes": "Rücklings liegen, Knie gebeugt, Füße flach. Becken sanft kippen — unteren Rücken flach gegen den Boden drücken (posteriore Kippung), dann zurück in die neutrale Position. Sanfte wippende Bewegung."
+  },
+  "home_169L": {
+    "setupNotes": "Auf die rechte Seite legen, Knie 90 Grad gebeugt, Füße übereinander. Füße zusammenlassen und das linke (obere) Knie wie eine Muschel nach oben öffnen, dabei den linken Gluteus medius anspannen. Kontrolliert absenken."
+  },
+  "home_169R": {
+    "setupNotes": "Auf die linke Seite legen, Knie 90 Grad gebeugt, Füße übereinander. Füße zusammenlassen und das rechte (obere) Knie wie eine Muschel nach oben öffnen, dabei den rechten Gluteus medius anspannen. Kontrolliert absenken."
+  },
+  "home_170L": {
+    "setupNotes": "Auf die rechte Seite legen, Mini-Band knapp über den Knien, Knie 90 Grad gebeugt und Füße übereinander. Linkes (oberes) Knie gegen den Bandwiderstand öffnen, dabei den linken Gluteus medius anspannen. Kontrolliert absenken."
+  },
+  "home_170R": {
+    "setupNotes": "Auf die linke Seite legen, Mini-Band knapp über den Knien, Knie 90 Grad gebeugt und Füße übereinander. Rechtes (oberes) Knie gegen den Bandwiderstand öffnen, dabei den rechten Gluteus medius anspannen. Kontrolliert absenken."
+  },
+  "home_171L": {
+    "setupNotes": "Auf die rechte Seite legen, Knie gebeugt und übereinander. Knie zusammenlassen und den linken (oberen) Fuß nach oben heben, aus der linken Hüfte rotieren. Kontrolliert absenken. Trainiert die Innenrotation der linken Hüfte."
+  },
+  "home_171R": {
+    "setupNotes": "Auf die linke Seite legen, Knie gebeugt und übereinander. Knie zusammenlassen und den rechten (oberen) Fuß nach oben heben, aus der rechten Hüfte rotieren. Kontrolliert absenken. Trainiert die Innenrotation der rechten Hüfte."
+  },
+  "home_172L": {
+    "setupNotes": "Auf dem Boden sitzen, linkes Bein vorne 90 Grad gebeugt (Schienbein quer vor dem Körper) und rechtes Bein 90 Grad zur Seite nach hinten gebeugt. Hüfte gerade halten und Oberkörper über das linke Schienbein nach vorne lehnen. Halten. Öffnet die linken Außenrotatoren."
+  },
+  "home_172R": {
+    "setupNotes": "Auf dem Boden sitzen, rechtes Bein vorne 90 Grad gebeugt (Schienbein quer vor dem Körper) und linkes Bein 90 Grad zur Seite nach hinten gebeugt. Hüfte gerade halten und Oberkörper über das rechte Schienbein nach vorne lehnen. Halten. Öffnet die rechten Außenrotatoren."
+  },
+  "home_173": {
+    "setupNotes": "Stehend, Arme seitlich oder leicht angehoben. Schulterblätter zusammen und nach unten ziehen. 5 Sekunden halten, loslassen. Haltung und Aktivierung des oberen Rückens."
+  },
+  "home_174": {
+    "setupNotes": "Widerstandsband auf Brusthöhe verankern. Mit gestreckten Armen halten. Schulterblätter zusammenziehen, ohne die Ellbogen zu beugen. Kontrolliert loslassen."
+  },
+  "home_175": {
+    "setupNotes": "Widerstandsband mit gestreckten Armen auf Brusthöhe halten, schulterbreiter Griff. Band auseinanderziehen, indem die Schulterblätter zusammengepresst werden. Kontrolliert zurückführen."
+  },
+  "home_176": {
+    "setupNotes": "Band-Pull-Aparts in drei Höhen ausführen: über dem Kopf, auf Augenhöhe und auf Brusthöhe. Trifft hintere Deltas und Rhomboiden aus verschiedenen Winkeln."
+  },
+  "home_177": {
+    "setupNotes": "Auf ein Band steigen oder niedrig verankern. Arme gestreckt, in eine Y-Form über dem Kopf heben (Arme ~45 Grad vom Körper). Kontrolliert absenken. Aktivierung des unteren Trapezius."
+  },
+  "home_178": {
+    "setupNotes": "Auf ein Band steigen oder niedrig verankern. Arme gestreckt, seitlich in eine T-Form heben (Arme horizontal). Kontrolliert absenken. Mittlerer Trapezius und hintere Deltas."
+  },
+  "home_179": {
+    "setupNotes": "Auf ein Band steigen oder niedrig verankern. In eine W-Form ziehen — Ellbogen gebeugt, Oberarme 45 Grad, Hände auf Ohrhöhe. Schulterblätter zusammenziehen. Rotatorenmanschette."
+  },
+  "home_180L": {
+    "setupNotes": "Band auf Ellbogenhöhe rechts verankern. Mit der rechten Seite zum Anker stehen, Band in der linken Hand, Ellbogen an die Seite geklemmt und 90 Grad gebeugt. Unterarm gegen das Band vom Körper weg nach außen rotieren. Trainiert die linke Rotatorenmanschette (Infraspinatus/Teres minor)."
+  },
+  "home_180R": {
+    "setupNotes": "Band auf Ellbogenhöhe links verankern. Mit der linken Seite zum Anker stehen, Band in der rechten Hand, Ellbogen an die Seite geklemmt und 90 Grad gebeugt. Unterarm gegen das Band vom Körper weg nach außen rotieren. Trainiert die rechte Rotatorenmanschette (Infraspinatus/Teres minor)."
+  },
+  "home_181": {
+    "setupNotes": "Band auf Schulterhöhe verankern. Ellbogen 90 Grad auf Schulterhöhe. Unterarm gegen das Band aus der nach unten zeigenden in die nach oben zeigende Position rotieren. Reha für die Manschette."
+  },
+  "home_182L": {
+    "setupNotes": "Band auf Ellbogenhöhe links verankern. Mit der linken Seite zum Anker stehen, Band in der linken Hand, Ellbogen an die Seite geklemmt und 90 Grad gebeugt. Unterarm gegen das Band nach innen vor den Körper rotieren. Trainiert den linken Subscapularis."
+  },
+  "home_182R": {
+    "setupNotes": "Band auf Ellbogenhöhe rechts verankern. Mit der rechten Seite zum Anker stehen, Band in der rechten Hand, Ellbogen an die Seite geklemmt und 90 Grad gebeugt. Unterarm gegen das Band nach innen vor den Körper rotieren. Trainiert den rechten Subscapularis."
+  },
+  "home_183": {
+    "setupNotes": "Stehend, leichte Kurzhanteln oder ohne Gewicht mit gestreckten Armen über dem Kopf halten. Zeit halten. Schulterausdauer und Brustwirbelsäulenmobilität."
+  },
+  "home_184": {
+    "setupNotes": "Stehend, Arme seitlich auf Schulterhöhe gestreckt. Für die vorgegebene Zeit halten. Schulterausdauer, isometrisch für den mittleren Deltoideus."
+  },
+  "home_185L": {
+    "setupNotes": "Auf dem linken Fuß stehen, rechter Fuß knapp vom Boden abgehoben. 30–60 Sekunden halten, Blick nach vorne. Für eine zusätzliche Herausforderung die Augen schließen. Trainiert Stabilität und Propriozeption des linken Knöchels."
+  },
+  "home_185R": {
+    "setupNotes": "Auf dem rechten Fuß stehen, linker Fuß knapp vom Boden abgehoben. 30–60 Sekunden halten, Blick nach vorne. Für eine zusätzliche Herausforderung die Augen schließen. Trainiert Stabilität und Propriozeption des rechten Knöchels."
+  },
+  "home_186": {
+    "setupNotes": "Rücklings liegen, Gymnastikball zwischen Händen und Knien einklemmen. Entgegengesetzten Arm und Bein strecken, Balldruck mit den anderen Gliedmaßen halten."
+  },
+  "home_187": {
+    "setupNotes": "Rücklings liegen, Swissball in den Händen über dem Kopf. Nach oben crunchen und den Ball von den Händen an die Füße übergeben, absenken. Nächste Wiederholung zurück an die Hände übergeben."
+  },
+  "home_188": {
+    "setupNotes": "Rücklings liegen, Waden auf dem Stabilitätsball. Dead-Bug-Armbewegungen ausführen, während die Beine den Ballkontakt halten. Fokus auf Rumpfstabilität."
+  },
+  "home_189": {
+    "setupNotes": "Rücklings auf dem BOSU-Ball liegen (Kuppel nach oben) für zusätzliche Instabilität. Dead-Bug-Arm-/Beinstreckungen ausführen. BOSU fordert Gleichgewicht und Rumpfkontrolle."
+  },
+  "home_190": {
+    "setupNotes": "Bäuchlings liegen, Gymnastikball mit beiden Händen halten. Brust und Ball heben, dann den Ball durch den vollen Schulter-Bewegungsumfang über den Kopf bewegen."
+  },
+  "home_191": {
+    "setupNotes": "Rücklings liegen, Swissball über dem Kopf gehalten. Ball zwischen Händen und Füßen übergeben und dabei das Dead-Bug-Muster der Rumpfspannung beibehalten."
+  },
+  "home_192": {
+    "setupNotes": "Hohe Liegestützposition mit Schienbeinen auf dem Stabilitätsball. Knie Richtung Brust ziehen und den Ball nach vorne rollen (Jackknife). Zurück in den Plank strecken."
+  },
+  "home_193L": {
+    "setupNotes": "Linker Unterarm am Boden, Füße auf dem Swissball gestapelt (linke Seite unten). Oberes (rechtes) Bein heben und einen hohen Seitstütz halten. Ball fügt Instabilität hinzu — Rumpf stark anspannen. Zeit halten."
+  },
+  "home_193R": {
+    "setupNotes": "Rechter Unterarm am Boden, Füße auf dem Swissball gestapelt (rechte Seite unten). Oberes (linkes) Bein heben und einen hohen Seitstütz halten. Ball fügt Instabilität hinzu — Rumpf stark anspannen. Zeit halten."
+  },
+  "home_196": {
+    "setupNotes": "Rücklings liegen, Fersen oben auf dem Swissball, Hüfte angehoben. Ball durch Kniebeugung zum Gesäß rollen, zurückstrecken. Hüfte bleibt oben."
+  },
+  "home_197L": {
+    "setupNotes": "Knieender Ausfallschritt, linkes Schienbein ruht hinten auf einem Swissball, rechter Fuß vorne. Becken einrollen und Hüfte nach vorne schieben, bis eine Dehnung vorne in der linken Hüfte spürbar ist. Ball polstert das Schienbein und fügt leichte Instabilität hinzu."
+  },
+  "home_197R": {
+    "setupNotes": "Knieender Ausfallschritt, rechtes Schienbein ruht hinten auf einem Swissball, linker Fuß vorne. Becken einrollen und Hüfte nach vorne schieben, bis eine Dehnung vorne in der rechten Hüfte spürbar ist. Ball polstert das Schienbein und fügt leichte Instabilität hinzu."
+  },
+  "mob_13": {
+    "setupNotes": "Foam Roller am Boden. Auf den Roller legen, sodass er unter dem oberen Rücken liegt. Arme vor der Brust verschränkt. Vom mittleren Rücken bis zum oberen Trapezius rollen. An verspannten Stellen pausieren."
+  },
+  "mob_14L": {
+    "setupNotes": "Auf die linke Seite legen, Foam Roller unter der linken Achsel-/Latissimus-Region, linker Arm über dem Kopf gestreckt. Langsam von der Achsel bis zur mittleren Rippenbogenhöhe rollen, an empfindlichen Stellen pausieren. Löst den linken Latissimus."
+  },
+  "mob_14R": {
+    "setupNotes": "Auf die rechte Seite legen, Foam Roller unter der rechten Achsel-/Latissimus-Region, rechter Arm über dem Kopf gestreckt. Langsam von der Achsel bis zur mittleren Rippenbogenhöhe rollen, an empfindlichen Stellen pausieren. Löst den rechten Latissimus."
+  },
+  "mob_15": {
+    "setupNotes": "Bäuchlings liegen, Foam Roller unter der Vorderseite der Oberschenkel. Von knapp oberhalb des Knies bis zum Hüftbeuger rollen. Gewicht auf den Unterarmen abstützen. An verspannten Stellen pausieren."
+  },
+  "mob_16L": {
+    "setupNotes": "Auf die linke Seite legen, Foam Roller unter dem linken äußeren Oberschenkel, rechtes Bein zur Unterstützung darüber gekreuzt. Langsam von knapp oberhalb des Knies bis zur Hüfte rollen. Löst den linken IT-Band-Bereich — langsam und tolerierbar."
+  },
+  "mob_16R": {
+    "setupNotes": "Auf die rechte Seite legen, Foam Roller unter dem rechten äußeren Oberschenkel, linkes Bein zur Unterstützung darüber gekreuzt. Langsam von knapp oberhalb des Knies bis zur Hüfte rollen. Löst den rechten IT-Band-Bereich — langsam und tolerierbar."
+  },
+  "mob_17": {
+    "setupNotes": "Auf dem Boden sitzen, Foam Roller unter der Rückseite der Oberschenkel. Von knapp oberhalb des Knies bis zu den Sitzbeinhöckern rollen. Hände hinten zur Abstützung. Beine überkreuzen für mehr Druck."
+  },
+  "mob_18L": {
+    "setupNotes": "Auf dem Boden sitzen, Foam Roller unter der linken Wade, rechtes Bein über das linke gekreuzt für zusätzlichen Druck. Hände hinten zur Abstützung, Hüfte heben und von der Achillessehne bis knapp unter das Knie rollen. Bein rotieren, um mediale und laterale Fasern zu treffen."
+  },
+  "mob_18R": {
+    "setupNotes": "Auf dem Boden sitzen, Foam Roller unter der rechten Wade, linkes Bein über das rechte gekreuzt für zusätzlichen Druck. Hände hinten zur Abstützung, Hüfte heben und von der Achillessehne bis knapp unter das Knie rollen. Bein rotieren, um mediale und laterale Fasern zu treffen."
+  },
+  "mob_19L": {
+    "setupNotes": "Auf einen Foam Roller setzen, linken Knöchel in einer Vier-Figur über das rechte Knie legen. Gewicht zur linken Seite verlagern und langsam über das linke Gesäß rollen, an empfindlichen Stellen pausieren. Gezieltes Lösen von linkem Gesäß und Piriformis."
+  },
+  "mob_19R": {
+    "setupNotes": "Auf einen Foam Roller setzen, rechten Knöchel in einer Vier-Figur über das linke Knie legen. Gewicht zur rechten Seite verlagern und langsam über das rechte Gesäß rollen, an empfindlichen Stellen pausieren. Gezieltes Lösen von rechtem Gesäß und Piriformis."
+  },
+  "mob_20L": {
+    "setupNotes": "Auf einen Lacrosse-Ball unter dem linken Gesäß/Piriformis setzen, linken Knöchel in einer Vier-Figur über das rechte Knie. Sanft rollen oder Druck auf der empfindlichen Stelle halten. Löst den linken Piriformis."
+  },
+  "mob_20R": {
+    "setupNotes": "Auf einen Lacrosse-Ball unter dem rechten Gesäß/Piriformis setzen, rechten Knöchel in einer Vier-Figur über das linke Knie. Sanft rollen oder Druck auf der empfindlichen Stelle halten. Löst den rechten Piriformis."
+  },
+  "mob_21L": {
+    "setupNotes": "Stehend, einen Lacrosse-Ball zwischen linkem oberem Rücken/hinterem Deltamuskel und einer Wand einklemmen. In den Ball lehnen, um Druck auszuüben, und in kleinen Kreisen rollen, um verspannte Stellen zu finden. Löst linken hinteren Deltamuskel und oberen Trapezius."
+  },
+  "mob_21R": {
+    "setupNotes": "Stehend, einen Lacrosse-Ball zwischen rechtem oberem Rücken/hinterem Deltamuskel und einer Wand einklemmen. In den Ball lehnen, um Druck auszuüben, und in kleinen Kreisen rollen, um verspannte Stellen zu finden. Löst rechten hinteren Deltamuskel und oberen Trapezius."
+  },
+  "mob_22": {
+    "setupNotes": "Auf dem Boden sitzen, vorderes Bein 90 Grad gebeugt vor dem Körper, hinteres Bein 90 Grad zur Seite gebeugt. Über das vordere Schienbein nach vorne lehnen, um die Dehnung durch die vordere Hüfte zu vertiefen. Hüftöffner — Seiten wechseln, um beide Hüften zu bearbeiten."
+  },
+  "mob_23L": {
+    "setupNotes": "Aus dem Stand linken Fuß in einen tiefen Ausfallschritt nach vorne setzen und beide Hände auf den Boden innerhalb des linken Fußes legen. Oberkörper zum linken Knie drehen und den linken Arm zur Decke strecken. Halten, dann zurückführen. Mobilisiert linke Hüfte, Brustwirbelsäule und Hamstrings."
+  },
+  "mob_23R": {
+    "setupNotes": "Aus dem Stand rechten Fuß in einen tiefen Ausfallschritt nach vorne setzen und beide Hände auf den Boden innerhalb des rechten Fußes legen. Oberkörper zum rechten Knie drehen und den rechten Arm zur Decke strecken. Halten, dann zurückführen. Mobilisiert rechte Hüfte, Brustwirbelsäule und Hamstrings."
+  },
+  "mob_24L": {
+    "setupNotes": "Aus der Hand-Knie-Position das linke Knie hinter das linke Handgelenk nach vorne schieben, Schienbein quer vor dem Körper. Rechtes Bein gerade nach hinten strecken. Oberkörper über das linke Schienbein absenken. Halten und atmen. Tiefe Dehnung der linken Außenrotatoren und des linken Gesäßes."
+  },
+  "mob_24R": {
+    "setupNotes": "Aus der Hand-Knie-Position das rechte Knie hinter das rechte Handgelenk nach vorne schieben, Schienbein quer vor dem Körper. Linkes Bein gerade nach hinten strecken. Oberkörper über das rechte Schienbein absenken. Halten und atmen. Tiefe Dehnung der rechten Außenrotatoren und des rechten Gesäßes."
+  },
+  "mob_25L": {
+    "setupNotes": "Auf Händen und Knien, linken Arm unter dem Körper durch den Raum zwischen rechter Hand und rechtem Knie führen, linke Schulter und linkes Ohr zum Boden absenken. Halten und atmen. Rotiert die linke Brustwirbelsäule."
+  },
+  "mob_25R": {
+    "setupNotes": "Auf Händen und Knien, rechten Arm unter dem Körper durch den Raum zwischen linker Hand und linkem Knie führen, rechte Schulter und rechtes Ohr zum Boden absenken. Halten und atmen. Rotiert die rechte Brustwirbelsäule."
+  },
+  "mob_26L": {
+    "setupNotes": "Mit dem Rücken zu einer Wand knien, linkes Schienbein an die Wand gedrückt (Zehen nach oben), rechter Fuß vorne im Ausfallschritt. Becken einrollen und Hüfte nach vorne schieben, Oberkörper aufrecht. Intensive Dehnung des linken Quadrizeps und Hüftbeugers."
+  },
+  "mob_26R": {
+    "setupNotes": "Mit dem Rücken zu einer Wand knien, rechtes Schienbein an die Wand gedrückt (Zehen nach oben), linker Fuß vorne im Ausfallschritt. Becken einrollen und Hüfte nach vorne schieben, Oberkörper aufrecht. Intensive Dehnung des rechten Quadrizeps und Hüftbeugers."
+  },
+  "mob_27L": {
+    "setupNotes": "Schweres Band auf Schulterhöhe am Rack verankern. Band um das linke Handgelenk schlingen und einen Schritt weggehen, um Spannung zu erzeugen, dann in einen Ausfallschritt oder ein Hüftscharnier absenken, sodass das Band die linke Schulter sanft distrahiert. Halten und atmen. Mobilisiert die linke Schulterkapsel."
+  },
+  "mob_27R": {
+    "setupNotes": "Schweres Band auf Schulterhöhe am Rack verankern. Band um das rechte Handgelenk schlingen und einen Schritt weggehen, um Spannung zu erzeugen, dann in einen Ausfallschritt oder ein Hüftscharnier absenken, sodass das Band die rechte Schulter sanft distrahiert. Halten und atmen. Mobilisiert die rechte Schulterkapsel."
+  },
+  "mob_28": {
+    "setupNotes": "Einer Wand zugewandt stehen, Arme über dem Kopf an der Wand. Brust langsam Richtung Wand drücken, oberen Rücken strecken. Dehnung halten. Mobilität der Brustwirbelsäulenextension."
+  },
+  "mob_29L": {
+    "setupNotes": "Halb kniend einer Wand zugewandt — rechtes Knie unten, linker Fuß 10–15 cm von der Wand entfernt vorne. Linkes Knie nach vorne Richtung Wand treiben, ohne die linke Ferse vom Boden zu heben. Mobilisiert das linke Sprunggelenk in die Dorsalextension."
+  },
+  "mob_29R": {
+    "setupNotes": "Halb kniend einer Wand zugewandt — linkes Knie unten, rechter Fuß 10–15 cm von der Wand entfernt vorne. Rechtes Knie nach vorne Richtung Wand treiben, ohne die rechte Ferse vom Boden zu heben. Mobilisiert das rechte Sprunggelenk in die Dorsalextension."
+  },
+  "mob_30L": {
+    "setupNotes": "Rücklings liegen, Arme in einer T-Form. Linkes Knie nach oben und über den Körper zur rechten Seite ziehen, beide Schultern fest am Boden. Die Schwerkraft das linke Knie nach unten tragen lassen. Halten und atmen. Sanfte Rotation der Lendenwirbelsäule."
+  },
+  "mob_30R": {
+    "setupNotes": "Rücklings liegen, Arme in einer T-Form. Rechtes Knie nach oben und über den Körper zur linken Seite ziehen, beide Schultern fest am Boden. Die Schwerkraft das rechte Knie nach unten tragen lassen. Halten und atmen. Sanfte Rotation der Lendenwirbelsäule."
+  },
+  "mob_31L": {
+    "setupNotes": "Rücklings liegen, Gurt oder Band um den linken Fuß geschlungen. Linkes Bein zur Decke strecken, Knie weich, und sanft am Band ziehen für eine tiefere Dehnung. Rechtes Bein bleibt flach am Boden. Zielt auf die linken Hamstrings."
+  },
+  "mob_31R": {
+    "setupNotes": "Rücklings liegen, Gurt oder Band um den rechten Fuß geschlungen. Rechtes Bein zur Decke strecken, Knie weich, und sanft am Band ziehen für eine tiefere Dehnung. Linkes Bein bleibt flach am Boden. Zielt auf die rechten Hamstrings."
+  },
+  "gym_287": {
+    "setupNotes": "An der Klimmzugstange mit schulterbreitem Obergriff hängen. Beine in einen 90-Grad-L-Sit heben und die Position durchgehend halten. Brust zur Stange ziehen und dabei die Beine gestreckt halten — kontrolliert absenken. Fortgeschritten — kombiniert isometrischen Rumpfhalt mit vertikalem Zug."
+  },
+  "gym_247bL": {
+    "setupNotes": "Auf die Seite legen, untere Hand am Boden direkt unter der Schulter, Arm voll gestreckt. Füße gestapelt oder versetzt. Boden wegdrücken und Hüfte in eine gerade Linie heben — oberer Arm über dem Kopf gestreckt oder an der Hüfte. Zielt auf schräge Bauchmuskeln und Schulterstabilität."
+  },
+  "gym_247bR": {
+    "setupNotes": "Auf die Seite legen, untere Hand am Boden direkt unter der Schulter, Arm voll gestreckt. Füße gestapelt oder versetzt. Boden wegdrücken und Hüfte in eine gerade Linie heben — oberer Arm über dem Kopf gestreckt oder an der Hüfte. Zielt auf schräge Bauchmuskeln und Schulterstabilität."
+  },
+  "home_134_3": {
+    "setupNotes": "Stehend, beide Arme in großen Bögen nach vorne und über den Kopf schwingen — dann zurück nach unten. Mit jeder Wiederholung Schwung aufbauen. Dynamisches Schulter-Warm-up."
+  },
+  "home_134_4": {
+    "setupNotes": "Stehend, beide Arme in großen Bögen nach vorne und über den Kopf schwingen — dann zurück nach unten. Mit jeder Wiederholung Schwung aufbauen. Dynamisches Schulter-Warm-up."
+  },
+  "home_197": {
+    "setupNotes": "Auf Händen und Knien, Wirbelsäule neutral. Linken Arm nach vorne und rechtes Bein nach hinten gleichzeitig strecken, bis beide parallel zum Boden sind. Rumpf anspannen, kurz halten, zurückführen. Trainiert Anti-Extension und Gleichgewicht."
+  },
+  "home_198": {
+    "setupNotes": "In der Unterarm-Plank-Position starten. Einen Arm nach dem anderen in den hohen Plank hochdrücken, dann zurück auf die Unterarme absenken. Den führenden Arm bei jeder Wiederholung wechseln."
+  }
+}

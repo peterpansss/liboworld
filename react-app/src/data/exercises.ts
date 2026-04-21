@@ -99,6 +99,28 @@ let _exercises: Exercise[] | null = null;
 let _workouts: Workout[] | null = null;
 let _loading: Promise<void> | null = null;
 
+type LocaleOverlay = Record<string, { setupNotes?: string }>;
+const _overlays: Partial<Record<string, LocaleOverlay>> = {};
+const _overlayPromises: Partial<Record<string, Promise<LocaleOverlay>>> = {};
+
+async function loadOverlay(lang: string): Promise<LocaleOverlay> {
+  if (lang === 'en') return {};
+  if (_overlays[lang]) return _overlays[lang]!;
+  if (_overlayPromises[lang]) return _overlayPromises[lang]!;
+
+  _overlayPromises[lang] = (async () => {
+    try {
+      const res = await fetch(`/exercises.${lang}.json`);
+      if (!res.ok) return (_overlays[lang] = {});
+      return (_overlays[lang] = (await res.json()) as LocaleOverlay);
+    } catch {
+      return (_overlays[lang] = {});
+    }
+  })();
+
+  return _overlayPromises[lang]!;
+}
+
 async function loadData() {
   if (_exercises && _workouts) return;
   if (_loading) return _loading;
@@ -116,9 +138,17 @@ async function loadData() {
   return _loading;
 }
 
-export async function getExercises(): Promise<Exercise[]> {
+export async function getExercises(lang: string = 'en'): Promise<Exercise[]> {
   await loadData();
-  return _exercises!;
+  const base = _exercises!;
+  const code = (lang || 'en').split('-')[0];
+  if (code === 'en') return base;
+  const overlay = await loadOverlay(code);
+  if (!Object.keys(overlay).length) return base;
+  return base.map(ex => {
+    const o = overlay[ex.id];
+    return o?.setupNotes ? { ...ex, setupNotes: o.setupNotes } : ex;
+  });
 }
 
 export async function getWorkouts(): Promise<Workout[]> {

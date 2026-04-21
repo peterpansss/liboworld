@@ -66,7 +66,7 @@ function groupByPhase(
 }
 
 export default function ProgramDetail() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const [workout, setWorkout] = useState<Workout | null>(null);
   const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
@@ -87,14 +87,14 @@ export default function ProgramDetail() {
   };
 
   useEffect(() => {
-    Promise.all([getWorkouts(), getExercises()]).then(([wks, exs]) => {
+    Promise.all([getWorkouts(), getExercises(i18n.language)]).then(([wks, exs]) => {
       setAllWorkouts(wks);
       setExerciseDb(exs);
       const found = wks.find((w) => w.id === id) || null;
       setWorkout(found);
       setLoading(false);
     });
-  }, [id]);
+  }, [id, i18n.language]);
 
   const phases = useMemo(() => {
     if (!workout) return [];
