@@ -13,11 +13,11 @@
   };
 
   const cache = {};
-  let currentLang = localStorage.getItem('libo-lang') || detectLanguage();
+  try { localStorage.removeItem('libo-lang'); } catch (e) {}
+  let currentLang = 'en';
 
   function detectLanguage() {
-    const nav = (navigator.language || '').slice(0, 2).toLowerCase();
-    return nav in LANGS ? nav : 'en';
+    return 'en';
   }
 
   /** Resolve a dot-path key like "hero.headline1" from a nested object */
