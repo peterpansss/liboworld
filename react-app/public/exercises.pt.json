@@ -1,1925 +1,1925 @@
 {
-  "gym_1a": {
+  "flat_barbell_bench_press": {
     "setupNotes": "Banco reto dentro do power rack ou na estação de supino. Barra na altura do peito, com ajudante recomendado. Pés apoiados, escápulas retraídas. Tire a barra do suporte, desça até o meio do peito — empurre até o travamento."
   },
-  "gym_1b": {
+  "incline_barbell_bench_press": {
     "setupNotes": "Banco inclinado (30-45 graus) dentro do power rack. Barra na altura do peito, com ajudante recomendado. Pés apoiados, escápulas retraídas. Tire a barra do suporte, desça até a parte superior do peito — empurre até o travamento."
   },
-  "gym_1c": {
+  "decline_barbell_bench_press": {
     "setupNotes": "Banco declinado dentro do power rack, pés fixados. Barra na altura do peito, com ajudante recomendado. Escápulas retraídas. Tire a barra do suporte, desça até a parte inferior do peito — empurre até o travamento."
   },
-  "gym_2a": {
+  "flat_dumbbell_bench_press": {
     "setupNotes": "Banco reto com suporte de halteres por perto. Comece com os halteres nas coxas, impulsione para a posição de empurrar. Retraia as escápulas."
   },
-  "gym_2b": {
+  "incline_dumbbell_bench_press": {
     "setupNotes": "Banco inclinado com suporte de halteres por perto. Comece com os halteres nas coxas, impulsione para a posição de empurrar. Retraia as escápulas."
   },
-  "gym_2c": {
+  "decline_dumbbell_bench_press": {
     "setupNotes": "Banco declinado com suporte de halteres por perto. Comece com os halteres nas coxas, impulsione para a posição de empurrar. Retraia as escápulas."
   },
-  "gym_3a": {
+  "flat_machine_chest_press_overhand_grip": {
     "setupNotes": "Máquina de supino reto — ajuste o assento para que os manípulos fiquem alinhados com o meio do peito. Pegada pronada com as palmas para baixo, costas contra o encosto, pés apoiados. Empurre os manípulos à frente até a extensão total — foco no peito com auxílio do tríceps."
   },
-  "gym_3b": {
+  "flat_machine_chest_press_neutral_grip": {
     "setupNotes": "Máquina de supino reto — ajuste o assento para que os manípulos fiquem alinhados com o meio do peito. Pegada neutra com as palmas uma de frente para a outra, costas contra o encosto, pés apoiados. Empurre os manípulos à frente até a extensão total — foco no peito com menos estresse no ombro."
   },
-  "gym_3c": {
+  "incline_machine_chest_press_overhand_grip": {
     "setupNotes": "Máquina de supino inclinado — ajuste o assento para que os manípulos fiquem alinhados com a parte superior do peito. Pegada pronada com as palmas para baixo, costas contra o encosto, pés apoiados. Empurre os manípulos para frente e levemente para cima — foco na parte superior do peito e deltoides anteriores."
   },
-  "gym_3d": {
+  "incline_machine_chest_press_neutral_grip": {
     "setupNotes": "Máquina de supino inclinado — ajuste o assento para que os manípulos fiquem alinhados com a parte superior do peito. Pegada neutra com as palmas uma de frente para a outra, costas contra o encosto, pés apoiados. Empurre os manípulos para frente e levemente para cima — foco na parte superior do peito com menos estresse no ombro."
   },
-  "gym_3e": {
+  "decline_machine_chest_press_overhand_grip": {
     "setupNotes": "Máquina de supino declinado — ajuste o assento para que os manípulos fiquem alinhados com a parte inferior do peito. Pegada pronada com as palmas para baixo, costas contra o encosto, pés apoiados. Empurre os manípulos para frente e levemente para baixo — foco nas fibras inferiores do peito."
   },
-  "gym_3f": {
+  "decline_machine_chest_press_neutral_grip": {
     "setupNotes": "Máquina de supino declinado — ajuste o assento para que os manípulos fiquem alinhados com a parte inferior do peito. Pegada neutra com as palmas uma de frente para a outra, costas contra o encosto, pés apoiados. Empurre os manípulos para frente e levemente para baixo — foco na parte inferior do peito com menos estresse no ombro."
   },
-  "gym_4a": {
+  "cable_chest_fly_low": {
     "setupNotes": "Estação de polia dupla, polia na posição baixa. Empunhaduras D conectadas. Dê um passo à frente para criar tensão, leve flexão nos cotovelos durante todo o movimento."
   },
-  "gym_4b": {
+  "cable_chest_fly_mid": {
     "setupNotes": "Estação de polia dupla, polia na posição média. Empunhaduras D conectadas. Dê um passo à frente para criar tensão, leve flexão nos cotovelos durante todo o movimento."
   },
-  "gym_4c": {
+  "cable_chest_fly_high": {
     "setupNotes": "Estação de polia dupla, polia na posição alta. Empunhaduras D conectadas. Dê um passo à frente para criar tensão, leve flexão nos cotovelos durante todo o movimento."
   },
-  "gym_5": {
+  "pec_deck_machine": {
     "setupNotes": "Ajuste a altura do assento para que os braços fiquem na altura do peito. Coxins ou manípulos na largura dos ombros. Costas firmes contra o encosto, leve flexão no cotovelo."
   },
-  "gym_6a": {
+  "flat_dumbbell_chest_fly": {
     "setupNotes": "Banco reto com halteres moderados. Braços estendidos acima do peito, leve flexão no cotovelo. Desça em arco até sentir o alongamento."
   },
-  "gym_6b": {
+  "incline_dumbbell_chest_fly": {
     "setupNotes": "Banco inclinado com halteres moderados. Braços estendidos acima do peito, leve flexão no cotovelo. Desça em arco até sentir o alongamento."
   },
-  "gym_6c": {
+  "decline_dumbbell_chest_fly": {
     "setupNotes": "Banco declinado com halteres moderados. Braços estendidos acima do peito, leve flexão no cotovelo. Desça em arco até sentir o alongamento."
   },
-  "gym_7a": {
+  "standing_landmine_press": {
     "setupNotes": "Barra no suporte landmine ou encaixada no canto. Fique de costas para o apoio para foco no peito, segure a ponta da barra na altura do peito. Base em passada."
   },
-  "gym_7b": {
+  "kneeling_landmine_press": {
     "setupNotes": "Barra no suporte landmine ou encaixada no canto. Meio ajoelhado de frente para a barra, segure a ponta da barra no peito com as duas mãos. Empurre para cima e para frente em um arco até a extensão total — foco na parte superior do peito e deltoides anteriores, eliminando o impulso dos membros inferiores."
   },
-  "gym_7cL": {
+  "single_arm_landmine_press_left_arm": {
     "setupNotes": "Barra no suporte landmine ou encaixada no canto. Em pé com base em passada, segure a ponta da barra com uma mão no ombro. Empurre para cima e para frente em um arco até a extensão total — foco no peito e ombro com demanda unilateral do core."
   },
-  "gym_7cR": {
+  "single_arm_landmine_press_right_arm": {
     "setupNotes": "Barra no suporte landmine ou encaixada no canto. Em pé com base em passada, segure a ponta da barra com uma mão no ombro. Empurre para cima e para frente em um arco até a extensão total — foco no peito e ombro com demanda unilateral do core."
   },
-  "gym_8a": {
+  "dumbbell_floor_press": {
     "setupNotes": "Deitado no chão com halter. Joelhos flexionados, pés apoiados. Parte superior do braço toca o chão no ponto mais baixo de cada repetição."
   },
-  "gym_8b": {
+  "barbell_floor_press": {
     "setupNotes": "Deitado no chão com barra. Joelhos flexionados, pés apoiados. Parte superior do braço toca o chão no ponto mais baixo de cada repetição."
   },
-  "gym_9": {
+  "chest_dip": {
     "setupNotes": "Estação de paralelas para mergulho. Incline o tronco para frente uns 30 graus, cotovelos abertos levemente. Pegada mais aberta enfatiza o peito em vez do tríceps."
   },
-  "gym_12": {
+  "push_up_standard": {
     "setupNotes": "Mãos na largura dos ombros no chão, corpo em linha reta da cabeça aos calcanhares. Amplitude completa — peito ao chão, braços totalmente estendidos no topo."
   },
-  "gym_14": {
+  "isometric_chest_hold": {
     "setupNotes": "Máquina de supino ou cross-over na polia. Empurre até a metade do movimento e segure pelo tempo prescrito. Tensão constante no peito durante todo o exercício."
   },
-  "gym_15a": {
+  "flat_slow_tempo_push_up": {
     "setupNotes": "Posição padrão de flexão — mãos na largura dos ombros no chão, corpo em linha reta. Desça por 3–4 segundos, pause 1 segundo embaixo, empurre com controle. O trabalho de tempo constrói tempo sob tensão no peito."
   },
-  "gym_15b": {
+  "incline_slow_tempo_push_up": {
     "setupNotes": "Mãos elevadas em um banco ou caixa, pés no chão, corpo em linha reta. Desça o peito em direção ao banco por 3–4 segundos, pause 1 segundo embaixo, empurre com controle. O trabalho de tempo constrói resistência na parte inferior do peito em um ângulo mais fácil."
   },
-  "gym_15c": {
+  "decline_slow_tempo_push_up": {
     "setupNotes": "Pés elevados em um banco ou caixa, mãos no chão na largura dos ombros, corpo em linha reta. Desça o peito em direção ao chão por 3–4 segundos, pause 1 segundo embaixo, empurre com controle. O trabalho de tempo enfatiza a parte superior do peito e os ombros."
   },
-  "gym_16": {
+  "explosive_push_up": {
     "setupNotes": "Posição padrão de flexão em chão firme. Exploda para cima para que as mãos saiam do chão. Aterrisse suavemente com leve flexão nos cotovelos. Movimento avançado."
   },
-  "gym_17": {
+  "chest_stretch_cable_press": {
     "setupNotes": "Polia única na altura do peito. Dê um passo à frente, empurre o braço pela frente do corpo com movimento lento e controlado. Alongamento completo na posição traseira."
   },
-  "gym_18": {
+  "svend_press": {
     "setupNotes": "Em pé, segure duas anilhas pequenas pressionadas uma contra a outra na altura do peito. Empurre para fora mantendo a pressão. Contração constante do peito."
   },
-  "gym_19a": {
+  "seated_dumbbell_shoulder_press_underhand_grip": {
     "setupNotes": "Sentado em banco com encosto, pés apoiados. Segure os halteres na altura dos ombros, palmas voltadas para você (pegada supinada). Empurre acima da cabeça até o travamento total — desça com controle."
   },
-  "gym_19b": {
+  "seated_dumbbell_shoulder_press_neutral_grip": {
     "setupNotes": "Sentado em banco com encosto, pés apoiados. Segure os halteres na altura dos ombros, palmas uma de frente para a outra (neutra). Empurre acima da cabeça até o travamento total — desça com controle."
   },
-  "gym_19c": {
+  "seated_dumbbell_shoulder_press_overhand_grip": {
     "setupNotes": "Sentado em banco com encosto, pés apoiados. Segure os halteres na altura dos ombros, palmas voltadas para frente (pegada pronada). Empurre acima da cabeça até o travamento total — desça com controle."
   },
-  "gym_19d": {
+  "standing_dumbbell_shoulder_press_underhand_grip": {
     "setupNotes": "Em pé, pés na largura dos ombros, core contraído. Segure os halteres na altura dos ombros, palmas voltadas para você (pegada supinada). Empurre acima da cabeça até o travamento total — desça com controle."
   },
-  "gym_19e": {
+  "standing_dumbbell_shoulder_press_neutral_grip": {
     "setupNotes": "Em pé, pés na largura dos ombros, core contraído. Segure os halteres na altura dos ombros, palmas uma de frente para a outra (neutra). Empurre acima da cabeça até o travamento total — desça com controle."
   },
-  "gym_19f": {
+  "standing_dumbbell_shoulder_press_overhand_grip": {
     "setupNotes": "Em pé, pés na largura dos ombros, core contraído. Segure os halteres na altura dos ombros, palmas voltadas para frente (pegada pronada). Empurre acima da cabeça até o travamento total — desça com controle."
   },
-  "gym_20a": {
+  "seated_barbell_overhead_press": {
     "setupNotes": "Sentado, barra na posição de front rack na clavícula. Pés na largura do quadril. Empurre diretamente acima da cabeça, trave, barra sobre o meio do pé."
   },
-  "gym_20b": {
+  "standing_barbell_overhead_press": {
     "setupNotes": "Em pé, barra na posição de front rack na clavícula. Pés na largura do quadril. Empurre diretamente acima da cabeça, trave, barra sobre o meio do pé."
   },
-  "gym_21a": {
+  "machine_shoulder_press_underhand_grip": {
     "setupNotes": "Ajuste o assento para que os manípulos comecem na altura da orelha. Costas contra o encosto, pés apoiados. Empurre até a extensão total. Use pegada supinada."
   },
-  "gym_21b": {
+  "machine_shoulder_press_neutral_grip": {
     "setupNotes": "Ajuste o assento para que os manípulos comecem na altura da orelha. Costas contra o encosto, pés apoiados. Empurre até a extensão total. Use pegada neutra."
   },
-  "gym_21c": {
+  "machine_shoulder_press_overhand_grip": {
     "setupNotes": "Ajuste o assento para que os manípulos comecem na altura da orelha. Costas contra o encosto, pés apoiados. Empurre até a extensão total. Use pegada pronada."
   },
-  "gym_22": {
+  "lateral_raise_dumbbell": {
     "setupNotes": "Em pé, halteres leves ao lado do corpo. Eleve os braços para os lados até ficarem paralelos ao chão, leve flexão nos cotovelos. Retorne com controle."
   },
-  "gym_23": {
+  "lateral_raise_cable": {
     "setupNotes": "Polia baixa única, empunhadura D. Fique de lado para a máquina. Eleve o braço para o lado até a altura do ombro. Tensão constante do cabo."
   },
-  "gym_24": {
+  "behind_the_back_cable_lateral_raise": {
     "setupNotes": "Polia baixa, empunhadura D passada por trás das costas. Fique de lado. Eleve o braço para o lado — o cabo atrás do corpo mantém tensão durante toda a amplitude."
   },
-  "gym_25": {
+  "front_raise_dumbbell": {
     "setupNotes": "Em pé, halteres à frente das coxas. Eleve um ou os dois braços à frente até a altura do ombro, palmas para baixo. Retorne com controle."
   },
-  "gym_26": {
+  "front_raise_plate": {
     "setupNotes": "Em pé, segure uma anilha pelas posições de 3 e 9 horas. Eleve até a altura do ombro com os braços estendidos. Tempo controlado."
   },
-  "gym_27": {
+  "rear_delt_fly_machine": {
     "setupNotes": "Sentado de frente para o coxim no peck deck / máquina de deltoides posteriores. Segure os manípulos com os braços estendidos. Puxe os manípulos para trás em arco, contraindo os deltoides posteriores."
   },
-  "gym_28": {
+  "rear_delt_fly_dumbbell": {
     "setupNotes": "Inclinado para frente a partir do quadril uns 45 graus, halteres pendurados abaixo do peito. Eleve os braços para os lados, conduzindo com os cotovelos. Peso leve, controlado."
   },
-  "gym_29": {
+  "arnold_press": {
     "setupNotes": "Sentado em banco vertical com encosto. Comece com os halteres no queixo, palmas voltadas para você. Gire as palmas para fora enquanto empurra acima da cabeça."
   },
-  "gym_30a": {
+  "ez_bar_upright_row": {
     "setupNotes": "Em pé, segure a barra EZ na largura do quadril. Puxe reto ao longo do corpo até a altura do queixo, cotovelos altos. "
   },
-  "gym_30b": {
+  "cable_upright_row": {
     "setupNotes": "Em pé, segure o cabo na largura do quadril. Puxe reto ao longo do corpo até a altura do queixo, cotovelos altos. "
   },
-  "gym_30c": {
+  "barbell_upright_row": {
     "setupNotes": "Em pé, segure a barra na largura do quadril. Puxe reto ao longo do corpo até a altura do queixo, cotovelos altos. "
   },
-  "gym_31a": {
+  "standing_cable_face_pull": {
     "setupNotes": "Polia na altura da parte superior do peito, acessório corda. Puxe em direção ao rosto, mãos terminando ao lado das orelhas. Cotovelos altos, contraia os deltoides posteriores. Em pé."
   },
-  "gym_31b": {
+  "kneeling_cable_face_pull": {
     "setupNotes": "Polia na altura da parte superior do peito, acessório corda. Puxe em direção ao rosto, mãos terminando ao lado das orelhas. Cotovelos altos, contraia os deltoides posteriores. Ajoelhado."
   },
-  "gym_32": {
+  "scapular_retraction_pull": {
     "setupNotes": "Pendure-se na barra fixa com os braços totalmente estendidos. Sem flexionar os cotovelos, deprima e retraia as escápulas para erguer o corpo ligeiramente."
   },
-  "gym_33": {
+  "isometric_lateral_hold_dumbbell": {
     "setupNotes": "Em pé, eleve halteres leves até a altura do ombro lateralmente. Mantenha a posição pelo tempo prescrito. Mantenha leve flexão nos cotovelos."
   },
-  "gym_34": {
+  "y_raise_dumbbell": {
     "setupNotes": "Em decúbito ventral em banco inclinado (de bruços) ou em pé inclinado para frente. Eleve os halteres em formato de Y acima da cabeça. Peso leve, controlado."
   },
-  "gym_35": {
+  "cuban_rotation_dumbbell": {
     "setupNotes": "Em pé, cotovelos a 90 graus na altura do ombro. Gire os antebraços de apontar para baixo para apontar para cima. Trabalho de prevenção / manguito rotador."
   },
-  "gym_36": {
+  "lu_raise": {
     "setupNotes": "Em pé com halteres leves. Elevação frontal até a altura do ombro, depois continue para posição de elevação lateral sem descer. Movimento em arco suave."
   },
-  "gym_37aL": {
+  "single_arm_landmine_shoulder_press_left_arm": {
     "setupNotes": "Barra no suporte landmine, base em passada. Segure a ponta da barra no ombro com uma mão. Empurre para cima em arco até o braço ficar estendido — desça lentamente."
   },
-  "gym_37aR": {
+  "single_arm_landmine_shoulder_press_right_arm": {
     "setupNotes": "Barra no suporte landmine, base em passada. Segure a ponta da barra no ombro com uma mão. Empurre para cima em arco até o braço ficar estendido — desça lentamente."
   },
-  "gym_37b": {
+  "double_arm_landmine_shoulder_press": {
     "setupNotes": "Barra no suporte landmine, base em passada. Segure a ponta da barra no peito com as duas mãos. Empurre para cima em arco até os braços ficarem estendidos — desça lentamente."
   },
-  "gym_38": {
+  "barbell_shrug": {
     "setupNotes": "Em pé, barra na altura do quadril com pegada pronada, largura dos ombros. Encolha os ombros em direção às orelhas. Breve pausa no topo, desça com controle."
   },
-  "gym_39": {
+  "dumbbell_shrug": {
     "setupNotes": "Em pé, halteres pesados ao lado do corpo. Encolha os ombros em direção às orelhas, segure 1 segundo no topo. Mantenha os braços retos durante todo o movimento."
   },
-  "gym_40": {
+  "trap_bar_shrug": {
     "setupNotes": "Em pé dentro da barra trap carregada com peso. Segure os manípulos, braços retos. Encolha os ombros em direção às orelhas. A pegada neutra reduz o estresse nos pulsos."
   },
-  "gym_41": {
+  "smith_machine_shrug": {
     "setupNotes": "Fique centrado no Smith machine, barra na altura do quadril. Pegada pronada, largura dos ombros. Encolha reto para cima — a máquina guia o caminho."
   },
-  "gym_42": {
+  "cable_shrug": {
     "setupNotes": "Polia baixa, acessório barra reta ou corda. Em pé ereto, braços retos. Encolha os ombros para cima contra a resistência do cabo."
   },
-  "gym_43a": {
+  "rack_pull_above_knee": {
     "setupNotes": "Barra nos pinos do power rack ajustados acima da altura do joelho. Pegada convencional de levantamento terra. Fique em pé até o travamento, contraia os trapézios e parte superior das costas no topo."
   },
-  "gym_43b": {
+  "rack_pull_below_knee": {
     "setupNotes": "Barra nos pinos do power rack ajustados abaixo da altura do joelho. Pegada convencional de levantamento terra. Fique em pé até o travamento, contraia os trapézios e parte superior das costas no topo."
   },
-  "gym_44": {
+  "lat_pulldown_wide_grip": {
     "setupNotes": "Máquina de puxada alta no cabo, barra larga acoplada. Sente-se com as coxas sob o coxim, segure a barra mais aberto que a largura dos ombros. Puxe até a parte superior do peito, contraia os dorsais."
   },
-  "gym_45": {
+  "lat_pulldown_neutral_close_grip": {
     "setupNotes": "Acessório triângulo ou pegada fechada na puxada alta. Sentado ereto, puxe até o peito, cotovelos próximos ao corpo. Contraia embaixo."
   },
-  "gym_46a": {
+  "lat_pulldown_reverse_grip_close_grip": {
     "setupNotes": "Barra reta na puxada alta, pegada supinada, mãos próximas uma da outra. Puxe a barra até a parte superior do peito — incline levemente para trás, contraia os dorsais embaixo."
   },
-  "gym_46b": {
+  "lat_pulldown_reverse_grip_standard_grip": {
     "setupNotes": "Barra reta na puxada alta, pegada supinada, mãos na largura dos ombros. Puxe a barra até a parte superior do peito — incline levemente para trás, contraia os dorsais embaixo."
   },
-  "gym_47": {
+  "standard_lat_pulldown_machine": {
     "setupNotes": "Máquina de puxada alta articulada ou seletorizada. Ajuste o coxim da coxa. Segure os manípulos, puxe até a parte superior do peito com forma controlada."
   },
-  "gym_48L": {
+  "single_arm_lat_pulldown_left_arm": {
     "setupNotes": "Puxada alta no cabo, acessório empunhadura D. Um braço de cada vez, leve inclinação em direção ao lado trabalhado. Alongamento completo no topo, contração embaixo."
   },
-  "gym_48R": {
+  "single_arm_lat_pulldown_right_arm": {
     "setupNotes": "Puxada alta no cabo, acessório empunhadura D. Um braço de cada vez, leve inclinação em direção ao lado trabalhado. Alongamento completo no topo, contração embaixo."
   },
-  "gym_49": {
+  "band_assisted_pull_up": {
     "setupNotes": "Passe um elástico de resistência sobre a barra fixa, coloque um ou os dois pés dentro do elástico. Faça a barra com o auxílio do elástico reduzindo a carga do peso corporal."
   },
-  "gym_50": {
+  "machine_assisted_pull_up": {
     "setupNotes": "Máquina assistida de barra fixa / mergulho. Ajoelhe ou fique em pé no coxim, selecione o contrapeso. Segure a barra acima da cabeça, puxe o queixo acima da barra."
   },
-  "gym_51": {
+  "standard_pull_up": {
     "setupNotes": "Barra fixa em altura que permita suspensão completa. Pegada pronada logo fora da largura dos ombros. Puxe o queixo acima da barra, extensão completa embaixo."
   },
-  "gym_52": {
+  "chin_up": {
     "setupNotes": "Barra fixa, pegada supinada na largura dos ombros. Puxe o queixo acima da barra, contraindo bíceps e dorsais. Suspensão completa embaixo."
   },
-  "gym_53": {
+  "wide_grip_pull_up": {
     "setupNotes": "Barra fixa, pegada pronada significativamente mais aberta que os ombros. Puxe o peito em direção à barra. Mais ênfase nos dorsais, menos nos bíceps."
   },
-  "gym_54": {
+  "close_grip_pull_up": {
     "setupNotes": "Barra fixa, pegada pronada com mãos se tocando ou a 15 cm uma da outra. Puxe o queixo acima da barra. Maior envolvimento de bíceps e parte inferior dos dorsais."
   },
-  "gym_55": {
+  "negative_eccentric_pull_up": {
     "setupNotes": "Barra fixa. Pule ou suba até a posição superior (queixo acima da barra). Desça o corpo o mais lentamente possível (5-10 segundos). Repita."
   },
-  "gym_56": {
+  "weighted_pull_up": {
     "setupNotes": "Barra fixa com cinto de mergulho e anilhas ou colete de peso. Faça a barra fixa padrão com carga adicional."
   },
-  "gym_58": {
+  "muscle_up": {
     "setupNotes": "Barra fixa com espaço acima. Barra fixa explosiva transicionando acima da barra para um mergulho. Movimento avançado de calistenia."
   },
-  "gym_59": {
+  "commando_pull_up": {
     "setupNotes": "Barra fixa, mãos posicionadas uma à frente da outra (pegada perpendicular). Puxe a cabeça para um lado da barra, alterne os lados."
   },
-  "gym_60": {
+  "archer_pull_up": {
     "setupNotes": "Pegada aberta na barra fixa. Puxe em direção a uma mão enquanto estende o outro braço reto. Alterne os lados. Progressão unilateral avançada."
   },
-  "gym_61": {
+  "seated_cable_row_neutral_grip_v_handle": {
     "setupNotes": "Estação de remada baixa no cabo sentado, acessório triângulo. Pés na plataforma, joelhos levemente flexionados. Puxe o manípulo até a parte inferior do peito, contraia as escápulas."
   },
-  "gym_62": {
+  "seated_cable_row_wide_grip": {
     "setupNotes": "Estação de remada baixa no cabo sentado, barra ampla para dorsais ou barra reta. Pegada pronada. Puxe até a parte inferior do peito, cotovelos abertos para os lados."
   },
-  "gym_63": {
+  "seated_cable_row_underhand_grip": {
     "setupNotes": "Estação de remada baixa no cabo sentado, barra reta com pegada supinada na largura dos ombros. Puxe até a parte inferior do peito, cotovelos próximos ao corpo."
   },
-  "gym_64L": {
+  "seated_cable_row_single_arm_left_arm": {
     "setupNotes": "Estação de remada baixa no cabo sentado, empunhadura D. Um braço de cada vez. Leve rotação em direção ao lado trabalhado. Alongamento completo e contração."
   },
-  "gym_64R": {
+  "seated_cable_row_single_arm_right_arm": {
     "setupNotes": "Estação de remada baixa no cabo sentado, empunhadura D. Um braço de cada vez. Leve rotação em direção ao lado trabalhado. Alongamento completo e contração."
   },
-  "gym_65L": {
+  "one_arm_dumbbell_row_left_arm": {
     "setupNotes": "Mão direita e joelho direito no banco reto, pé esquerdo no chão, coluna reta. Halter na mão esquerda pendurado abaixo do ombro — puxe em direção ao quadril esquerdo, cotovelo próximo ao corpo. Contraia o dorsal no topo."
   },
-  "gym_65R": {
+  "one_arm_dumbbell_row_right_arm": {
     "setupNotes": "Mão esquerda e joelho esquerdo no banco reto, pé direito no chão, coluna reta. Halter na mão direita pendurado abaixo do ombro — puxe em direção ao quadril direito, cotovelo próximo ao corpo. Contraia o dorsal no topo."
   },
-  "gym_66L": {
+  "bench_supported_one_arm_row_left_arm": {
     "setupNotes": "Banco inclinado a ~30 graus, peito contra o encosto. Halter na mão esquerda — puxe em direção ao quadril esquerdo, cotovelo deslizando próximo ao corpo. O banco impede o impulso para trabalho estrito dos dorsais."
   },
-  "gym_66R": {
+  "bench_supported_one_arm_row_right_arm": {
     "setupNotes": "Banco inclinado a ~30 graus, peito contra o encosto. Halter na mão direita — puxe em direção ao quadril direito, cotovelo deslizando próximo ao corpo. O banco impede o impulso para trabalho estrito dos dorsais."
   },
-  "gym_67": {
+  "renegade_row": {
     "setupNotes": "Posição de flexão com as mãos em halteres (preferencialmente hex). Puxe um halter em direção ao quadril enquanto se estabiliza no outro. Alterne os lados."
   },
-  "gym_68L": {
+  "kroc_row_left_arm": {
     "setupNotes": "Uma mão no banco ou suporte para apoio. Halter pesado, leve rotação do tronco permitida. Remada explosiva com muitas repetições para espessura das costas."
   },
-  "gym_68R": {
+  "kroc_row_right_arm": {
     "setupNotes": "Uma mão no banco ou suporte para apoio. Halter pesado, leve rotação do tronco permitida. Remada explosiva com muitas repetições para espessura das costas."
   },
-  "gym_69": {
+  "barbell_bent_over_row_overhand": {
     "setupNotes": "Em pé, articulação do quadril a ~45 graus. Barra pendurada com os braços estendidos, pegada pronada. Puxe a barra até a parte inferior do peito, contraia as escápulas."
   },
-  "gym_70": {
+  "barbell_bent_over_row_underhand": {
     "setupNotes": "Mesma posição de articulação da remada pronada. Pegada supinada na largura dos ombros. Puxe até a parte inferior do abdômen, cotovelos próximos ao corpo."
   },
-  "gym_71": {
+  "pendlay_row": {
     "setupNotes": "Barra no chão. Articule o quadril até o tronco ficar paralelo ao chão. Remada explosiva a partir da parada total em cada repetição. A barra retorna ao chão entre as repetições."
   },
-  "gym_72": {
+  "yates_row": {
     "setupNotes": "Em pé, leve inclinação para frente (~20-30 graus). Pegada supinada na barra. Puxe até a parte inferior do abdômen com forma controlada. Menos estresse na lombar."
   },
-  "gym_73": {
+  "seal_row": {
     "setupNotes": "Deite de bruços em um banco reto elevado (banco em blocos/anilhas). Halteres ou barra pendurados embaixo. Puxe sem impulso das pernas ou momentum — costas puras."
   },
-  "gym_74": {
+  "chest_supported_dumbbell_row": {
     "setupNotes": "Banco inclinado a ~30-45 graus, peito contra o encosto. Um halter em cada mão. Puxe os dois halteres simultaneamente. Sem impulso."
   },
-  "gym_75": {
+  "t_bar_row_neutral_grip": {
     "setupNotes": "Máquina de remada T-bar ou configuração landmine com acessório triângulo. Fique sobre a barra, pegada neutra. Articule o quadril, puxe até o peito."
   },
-  "gym_76": {
+  "chest_supported_t_bar_row": {
     "setupNotes": "Máquina T-bar com apoio para o peito. Deite de bruços no coxim. Segure os manípulos, puxe até o peito. A máquina evita trapaça."
   },
-  "gym_77L": {
+  "single_arm_landmine_row_left_arm": {
     "setupNotes": "Barra no suporte landmine. Fique sobre a barra, segure a ponta com uma mão. Puxe até o quadril com leve rotação. Base estável."
   },
-  "gym_77R": {
+  "single_arm_landmine_row_right_arm": {
     "setupNotes": "Barra no suporte landmine. Fique sobre a barra, segure a ponta com uma mão. Puxe até o quadril com leve rotação. Base estável."
   },
-  "gym_78a": {
+  "smith_machine_bent_over_row_overhand_grip": {
     "setupNotes": "Smith machine, barra na altura do joelho. Articule o quadril, segure a barra com pegada pronada. Puxe até a parte inferior do peito. Trajeto guiado da barra."
   },
-  "gym_78b": {
+  "smith_machine_bent_over_row_underhand_grip": {
     "setupNotes": "Smith machine, barra na altura do joelho. Articule o quadril, segure a barra com pegada supinada. Puxe até a parte inferior do peito. Trajeto guiado da barra."
   },
-  "gym_79": {
+  "straight_arm_cable_pulldown": {
     "setupNotes": "Polia alta, acessório barra reta ou corda. Em pé de frente para a máquina, braços estendidos acima da cabeça. Puxe a barra para baixo até as coxas em arco, dorsais engajados."
   },
-  "gym_80L": {
+  "single_arm_straight_arm_pulldown_left_arm": {
     "setupNotes": "Polia alta, empunhadura D. Em pé de frente para a máquina. Um braço de cada vez, puxe o manípulo até o quadril em arco. Alongamento completo dos dorsais no topo."
   },
-  "gym_80R": {
+  "single_arm_straight_arm_pulldown_right_arm": {
     "setupNotes": "Polia alta, empunhadura D. Em pé de frente para a máquina. Um braço de cada vez, puxe o manípulo até o quadril em arco. Alongamento completo dos dorsais no topo."
   },
-  "gym_81a": {
+  "inverted_row_standard_overhand_grip": {
     "setupNotes": "Barra no suporte na altura da cintura, ou barra do Smith machine. Fique pendurado embaixo, corpo reto. Puxe o peito em direção à barra. Use pegada pronada."
   },
-  "gym_81b": {
+  "inverted_row_standard_underhand_grip": {
     "setupNotes": "Barra no suporte na altura da cintura, ou barra do Smith machine. Fique pendurado embaixo, corpo reto. Puxe o peito em direção à barra. Use pegada supinada."
   },
-  "gym_81c": {
+  "inverted_row_standard_neutral_grip": {
     "setupNotes": "Barra no suporte na altura da cintura, ou barra do Smith machine. Fique pendurado embaixo, corpo reto. Puxe o peito em direção à barra. Use pegada neutra."
   },
-  "gym_82": {
+  "inverted_row_feet_elevated": {
     "setupNotes": "Mesma configuração da remada invertida padrão, mas com os pés em banco ou caixa. Aumenta a dificuldade elevando o ângulo do corpo mais próximo da horizontal."
   },
-  "gym_83": {
+  "inverted_row_weighted": {
     "setupNotes": "Configuração padrão da remada invertida. Coloque uma anilha no peito ou use colete de peso para resistência adicional."
   },
-  "gym_84L": {
+  "inverted_row_single_arm_left_arm": {
     "setupNotes": "Barra no suporte. Segure a barra com uma mão, o outro braço ao lado ou atrás das costas. Puxe o corpo para cima com um braço. Unilateral avançado."
   },
-  "gym_84R": {
+  "inverted_row_single_arm_right_arm": {
     "setupNotes": "Barra no suporte. Segure a barra com uma mão, o outro braço ao lado ou atrás das costas. Puxe o corpo para cima com um braço. Unilateral avançado."
   },
-  "gym_85": {
+  "dead_hang": {
     "setupNotes": "Barra fixa em altura que permita suspensão completa sem os pés tocarem o chão. Pegada pronada, relaxe os ombros, descomprima a coluna. Sustentação cronometrada."
   },
-  "gym_86": {
+  "active_dead_hang": {
     "setupNotes": "Barra fixa, suspensão completa. Engaje os dorsais e deprima as escápulas sem flexionar os cotovelos. Exercício de ativação escapular."
   },
-  "gym_87": {
+  "weighted_dead_hang": {
     "setupNotes": "Barra fixa com cinto de mergulho e anilhas ou colete de peso. Suspensão completa, resistência de pegada e descompressão da coluna sob carga."
   },
-  "gym_88": {
+  "scapular_pull_up": {
     "setupNotes": "Barra fixa, pegada pronada. A partir da suspensão total, retraia e deprima as escápulas para erguer o corpo ligeiramente sem flexionar os cotovelos. Ativação dos dorsais."
   },
-  "gym_89": {
+  "back_extension_standard_machine": {
     "setupNotes": "Banco de hiperextensão. Coxim no vinco do quadril, pés fixados. Articule o quadril para baixo e para cima. Mãos atrás da cabeça ou cruzadas no peito."
   },
-  "gym_90": {
+  "back_extension_weighted": {
     "setupNotes": "Mesma configuração do padrão. Segure uma anilha ou halter contra o peito para resistência adicional. Tempo controlado."
   },
-  "gym_91": {
+  "back_extension_glute_bias": {
     "setupNotes": "Banco de extensão. Arredonde levemente a parte superior das costas, foque em contrair os glúteos no topo. Pés virados levemente para fora. Tempo mais lento."
   },
-  "gym_92": {
+  "reverse_snow_angels_standard": {
     "setupNotes": "Deite de bruços no colchonete, braços estendidos acima da cabeça. Varra os braços em arco da posição acima da cabeça até os quadris e de volta, mantendo os braços fora do chão durante todo o movimento."
   },
-  "gym_93": {
+  "reverse_snow_angels_weighted": {
     "setupNotes": "Mesma posição em decúbito ventral. Segure halteres muito leves (1-2 kg) em cada mão. Arco lento da posição acima da cabeça até os quadris e de volta."
   },
-  "gym_94a": {
+  "conventional_barbell_deadlift": {
     "setupNotes": "Barra no chão, pés na largura do quadril (base convencional). Pegada mista ou dupla pronada logo fora dos joelhos. Coluna reta, peito para cima — empurre pelos calcanhares até o travamento."
   },
-  "gym_94b": {
+  "sumo_barbell_deadlift": {
     "setupNotes": "Barra no chão, base ampla com pontas dos pés apontadas para fora (sumô). Segure a barra entre os joelhos, braços retos. Coluna reta, peito para cima — empurre pelos calcanhares até o travamento."
   },
-  "gym_95": {
+  "trap_bar_row": {
     "setupNotes": "Barra trap carregada, articule o quadril. Segure os dois manípulos com pegada neutra. Puxe até o tronco, contraia a parte superior das costas. A pegada neutra reduz o estresse no bíceps."
   },
-  "gym_96a": {
+  "barbell_good_morning": {
     "setupNotes": "Barra na parte superior das costas (como em um agachamento). Pés na largura do quadril. Articule o quadril, empurre os quadris para trás, desça o tronco até aproximadamente paralelo — fique em pé empurrando os quadris para frente."
   },
-  "gym_96b": {
+  "dumbbell_good_morning": {
     "setupNotes": "Segure halteres nos ombros ou atrás da cabeça. Pés na largura do quadril. Articule o quadril, empurre os quadris para trás, desça o tronco até aproximadamente paralelo — fique em pé empurrando os quadris para frente."
   },
-  "gym_97L": {
+  "meadows_row_left_arm": {
     "setupNotes": "Barra no suporte landmine. Fique perpendicular à barra em base em passada com o pé direito à frente. Pegada pronada na ponta da barra com a mão esquerda — puxe até o quadril esquerdo com leve rotação do tronco. Foco em dorsais e parte superior das costas."
   },
-  "gym_97R": {
+  "meadows_row_right_arm": {
     "setupNotes": "Barra no suporte landmine. Fique perpendicular à barra em base em passada com o pé esquerdo à frente. Pegada pronada na ponta da barra com a mão direita — puxe até o quadril direito com leve rotação do tronco. Foco em dorsais e parte superior das costas."
   },
-  "gym_98": {
+  "ghd_back_extension": {
     "setupNotes": "Máquina Glute-Ham Developer. Coxim no vinco do quadril, pés fixados na plataforma. Articule o quadril, desça o tronco, estenda de volta até a horizontal ou leve hiperextensão."
   },
-  "gym_99": {
+  "reverse_hyper": {
     "setupNotes": "Máquina de reverse hyper. Deite de bruços, quadris na beirada do coxim, segure os manípulos. Estenda as pernas atrás e para cima usando glúteos/posteriores de coxa. Balanço controlado."
   },
-  "gym_100": {
+  "barbell_curl_standing": {
     "setupNotes": "Em pé, barra com pegada na largura dos ombros. Cotovelos fixos ao lado do corpo. Curvar até a altura dos ombros, descer com controle. Evite balançar o tronco."
   },
-  "gym_101a": {
+  "ez_bar_curl_standing_wide_grip": {
     "setupNotes": "Em pé, barra EZ com ângulo confortável para o pulso. Posição de pegada aberta. Curvar até os ombros, contrair no topo, excêntrica controlada."
   },
-  "gym_101b": {
+  "ez_bar_curl_standing_narrow_grip": {
     "setupNotes": "Em pé, barra EZ com ângulo confortável para o pulso. Posição de pegada fechada. Curvar até os ombros, contrair no topo, excêntrica controlada."
   },
-  "gym_102": {
+  "reverse_barbell_curl": {
     "setupNotes": "Em pé, pegada pronada na barra na largura dos ombros. Curvar mantendo as palmas para baixo. Foco no braquiorradial e extensores do antebraço."
   },
-  "gym_103": {
+  "drag_curl_barbell": {
     "setupNotes": "Em pé, barra na altura do quadril. Em vez de curvar em arco, arraste a barra pelo corpo puxando os cotovelos diretamente para trás. A barra permanece em contato com o tronco."
   },
-  "gym_104": {
+  "spider_curl_barbell": {
     "setupNotes": "Em decúbito ventral em banco inclinado (peito no topo). Braços pendurados para baixo, barra nas mãos. Curvar com zero momentum. Tensão constante."
   },
-  "gym_105a": {
+  "alternating_dumbbell_biceps_curl_standing": {
     "setupNotes": "Em pé, um halter em cada mão ao lado do corpo. Rosca alternada. Supinação completa no topo, desça com controle. Cotovelos estacionários."
   },
-  "gym_105b": {
+  "simultaneous_dumbbell_biceps_curl_standing": {
     "setupNotes": "Em pé, um halter em cada mão ao lado do corpo. Rosca simultânea. Supinação completa no topo, desça com controle. Cotovelos estacionários."
   },
-  "gym_106": {
+  "incline_dumbbell_curl_seated": {
     "setupNotes": "Sentado em banco inclinado a ~45-60 graus. Halteres pendurados ao lado do corpo atrás do tronco. Curvar para cima, a cabeça longa do bíceps ganha alongamento extra."
   },
-  "gym_107L": {
+  "concentration_curl_seated_left_arm": {
     "setupNotes": "Sentado no banco, cotovelo esquerdo apoiado contra a parte interna da coxa esquerda. Halter na mão esquerda pendurado em direção ao chão — curvar em isolamento estrito, contraindo o bíceps no topo. Sem movimento do tronco."
   },
-  "gym_107R": {
+  "concentration_curl_seated_right_arm": {
     "setupNotes": "Sentado no banco, cotovelo direito apoiado contra a parte interna da coxa direita. Halter na mão direita pendurado em direção ao chão — curvar em isolamento estrito, contraindo o bíceps no topo. Sem movimento do tronco."
   },
-  "gym_108a": {
+  "standard_hammer_curl_standing": {
     "setupNotes": "Em pé, halteres ao lado do corpo com pegada neutra (palmas para dentro) durante todo o movimento. Curvar mantendo os polegares apontando para cima. Padrão."
   },
-  "gym_108b": {
+  "alternating_hammer_curl_standing": {
     "setupNotes": "Em pé ereto, um halter em cada mão ao lado do corpo com pegada neutra (palmas para dentro). Curvar um braço de cada vez, polegares apontando para cima, descendo sob controle antes do outro lado curvar. Foco no braquial e braquiorradial."
   },
-  "gym_109": {
+  "incline_hammer_curl": {
     "setupNotes": "Sentado em banco inclinado a ~45 graus. Halteres ao lado do corpo com pegada neutra. Curvar — a inclinação aumenta o alongamento no braquial."
   },
-  "gym_110": {
+  "cross_body_hammer_curl": {
     "setupNotes": "Em pé, curve o halter cruzando o corpo em direção ao ombro oposto com pegada neutra. Foco no braquial e braquiorradial. Alterne os braços."
   },
-  "gym_111": {
+  "twisting_supinating_curl": {
     "setupNotes": "Em pé, halteres ao lado do corpo com pegada neutra. Ao curvar, gire o pulso de neutro para supinado (palmas para cima). Contraia no topo."
   },
-  "gym_112": {
+  "cable_biceps_curl_straight_bar": {
     "setupNotes": "Polia baixa, acessório barra reta ou barra EZ. Em pé de frente para a máquina, curve a barra até os ombros. Tensão constante do cabo durante todo o movimento."
   },
-  "gym_113": {
+  "cable_rope_curl": {
     "setupNotes": "Polia baixa, acessório corda. Em pé de frente para a máquina, segure as pontas da corda. Curve para cima e torça a corda para fora no topo para contração máxima."
   },
-  "gym_114": {
+  "behind_the_back_cable_curl": {
     "setupNotes": "Polia baixa, empunhadura D. Em pé de costas para a máquina, braço estendido atrás. Curvar à frente contra o cabo para um ângulo único focado em alongamento."
   },
-  "gym_115": {
+  "high_cable_curl": {
     "setupNotes": "Estação de polia dupla, polias ajustadas altas com empunhaduras D. Fique centrado, braços estendidos para os lados. Curve os manípulos em direção às orelhas — posição de duplo bíceps frontal."
   },
-  "gym_116L": {
+  "single_arm_cable_curl_left_arm": {
     "setupNotes": "Polia baixa, empunhadura D. Em pé de frente para a máquina. Curvar um braço de cada vez. A mão livre pode apoiar na máquina para estabilidade."
   },
-  "gym_116R": {
+  "single_arm_cable_curl_right_arm": {
     "setupNotes": "Polia baixa, empunhadura D. Em pé de frente para a máquina. Curvar um braço de cada vez. A mão livre pode apoiar na máquina para estabilidade."
   },
-  "gym_117": {
+  "reverse_cable_curl": {
     "setupNotes": "Polia baixa, barra reta. Pegada pronada. Curvar mantendo as palmas para baixo. O cabo fornece tensão constante nos extensores do antebraço."
   },
-  "gym_118": {
+  "ez_bar_preacher_curl": {
     "setupNotes": "Banco scott, barra EZ. Parte superior dos braços apoiada no coxim, axilas no topo do coxim. Curvar para cima, desça com controle — sem momentum ou rebote embaixo."
   },
-  "gym_119": {
+  "dumbbell_preacher_curl": {
     "setupNotes": "Banco scott, halter em uma mão. Parte superior do braço apoiada no coxim. Curvar para cima, contraia no topo, excêntrica lenta. Alongamento completo embaixo."
   },
-  "gym_120": {
+  "cable_preacher_curl": {
     "setupNotes": "Banco scott posicionado em frente à polia baixa. Acessório barra EZ ou barra reta. Tensão constante em toda a amplitude de movimento."
   },
-  "gym_121": {
+  "zottman_curl": {
     "setupNotes": "Em pé, halteres ao lado do corpo. Curvar com pegada supinada (palmas para cima), gire para pegada pronada (palmas para baixo) no topo, desça lentamente com pegada pronada."
   },
-  "gym_122": {
+  "waiter_curl": {
     "setupNotes": "Em pé, segure um halter verticalmente com as duas palmas sob a anilha superior. Curvar mantendo os cotovelos próximos. Ênfase na cabeça longa no pico de contração."
   },
-  "gym_123": {
+  "21s_ez_bar": {
     "setupNotes": "Em pé, barra EZ. Faça 7 repetições na metade inferior da amplitude, 7 repetições na metade superior, 7 repetições de amplitude total — 21 no total. Sem descanso entre os segmentos."
   },
-  "gym_124": {
+  "triceps_pushdown_straight_bar": {
     "setupNotes": "Polia alta, acessório barra reta. Em pé de frente para a máquina, cotovelos fixos ao lado do corpo. Empurre a barra para baixo até a extensão total, retorne com controle."
   },
-  "gym_125": {
+  "triceps_pushdown_rope": {
     "setupNotes": "Polia alta, acessório corda. Em pé de frente para a máquina. Empurre para baixo e separe a corda embaixo para contração extra. Cotovelos estacionários."
   },
-  "gym_126": {
+  "triceps_pushdown_v_bar": {
     "setupNotes": "Polia alta, acessório barra V. Pegada neutra. Empurre para baixo até a extensão total. Confortável para os pulsos, bom isolamento do tríceps."
   },
-  "gym_127": {
+  "triceps_pushdown_reverse_grip": {
     "setupNotes": "Polia alta, barra reta com pegada supinada. Empurre para baixo até a extensão total. Enfatiza a cabeça medial do tríceps."
   },
-  "gym_128a": {
+  "standing_dumbbell_overhead_triceps_extension": {
     "setupNotes": "Em pé, segure um halter pesado com as duas mãos atrás da cabeça, cotovelos apontando para cima. Estenda os braços acima da cabeça até o travamento."
   },
-  "gym_128b": {
+  "seated_dumbbell_overhead_triceps_extension": {
     "setupNotes": "Sentado, segure um halter pesado com as duas mãos atrás da cabeça, cotovelos apontando para cima. Estenda os braços acima da cabeça até o travamento."
   },
-  "gym_129L": {
+  "single_arm_dumbbell_overhead_extension_left_arm": {
     "setupNotes": "Em pé ou sentado, um halter atrás da cabeça em uma mão. Cotovelo aponta para cima. Estenda até o travamento, desça com controle atrás da cabeça."
   },
-  "gym_129R": {
+  "single_arm_dumbbell_overhead_extension_right_arm": {
     "setupNotes": "Em pé ou sentado, um halter atrás da cabeça em uma mão. Cotovelo aponta para cima. Estenda até o travamento, desça com controle atrás da cabeça."
   },
-  "gym_130": {
+  "cable_overhead_triceps_extension_rope": {
     "setupNotes": "Polia baixa, acessório corda. De costas para a máquina, braços acima da cabeça. Estenda para frente a partir de atrás da cabeça até o travamento total."
   },
-  "gym_131L": {
+  "single_arm_cable_overhead_extension_left_arm": {
     "setupNotes": "Polia baixa, empunhadura D. De costas para a máquina, um braço acima da cabeça. Estenda para frente até o travamento. A mão livre pode apoiar na coxa para estabilidade."
   },
-  "gym_131R": {
+  "single_arm_cable_overhead_extension_right_arm": {
     "setupNotes": "Polia baixa, empunhadura D. De costas para a máquina, um braço acima da cabeça. Estenda para frente até o travamento. A mão livre pode apoiar na coxa para estabilidade."
   },
-  "gym_132": {
+  "barbell_skull_crusher": {
     "setupNotes": "Banco reto, barra ou barra EZ. Braços estendidos sobre o rosto/testa. Desça a barra flexionando os cotovelos até a altura da testa, estenda de volta. Ajudante recomendado."
   },
-  "gym_133": {
+  "ez_bar_skull_crusher": {
     "setupNotes": "Banco reto ou levemente inclinado, barra EZ. Segure em ângulo fechado. Desça até a testa, estenda até o travamento. A barra EZ reduz o estresse no pulso."
   },
-  "gym_134": {
+  "dumbbell_skull_crusher": {
     "setupNotes": "Banco reto, halteres com pegada neutra acima do rosto. Desça os halteres flexionando os cotovelos até a lateral das orelhas, estenda de volta."
   },
-  "gym_135": {
+  "cable_skull_crusher": {
     "setupNotes": "Banco reto posicionado na polia baixa, acessório barra reta. Braços estendidos sobre o peito, desça flexionando os cotovelos, estenda de volta."
   },
-  "gym_136": {
+  "bench_dip_standard": {
     "setupNotes": "Mãos na beirada do banco atrás do corpo, dedos para frente. Pés no chão, pernas estendidas ou flexionadas. Desça o corpo flexionando os cotovelos, empurre de volta."
   },
-  "gym_137": {
+  "bench_dip_weighted": {
     "setupNotes": "Mesma configuração do mergulho padrão no banco. Coloque uma anilha no colo para resistência adicional. Um ajudante pode ajudar com o posicionamento da anilha."
   },
-  "gym_138": {
+  "parallel_bar_dip_triceps_focus": {
     "setupNotes": "Barras paralelas de mergulho. Tronco ereto (sem inclinar para frente), cotovelos próximos ao corpo e apontando para trás. Desça até os cotovelos a 90 graus, empurre para cima."
   },
-  "gym_139": {
+  "assisted_parallel_dip": {
     "setupNotes": "Máquina assistida de mergulho/barra fixa. Ajoelhe ou fique em pé no coxim, selecione o contrapeso. Tronco ereto para foco no tríceps. Amplitude completa de movimento."
   },
-  "gym_140": {
+  "close_grip_bench_press_barbell": {
     "setupNotes": "Banco reto, barra com mãos a 30-35 cm de distância (dentro da largura dos ombros). Desça a barra até a parte inferior do peito, cotovelos próximos ao corpo. Empurre até o travamento."
   },
-  "gym_141": {
+  "close_grip_bench_press_smith_machine": {
     "setupNotes": "Banco reto no Smith machine. Pegada fechada. Desça até a parte inferior do peito com cotovelos encaixados, empurre até o travamento. A máquina guia o trajeto."
   },
-  "gym_142": {
+  "close_grip_bench_press_dumbbell_neutral": {
     "setupNotes": "Banco reto, halteres pressionados juntos com pegada neutra acima do peito. Empurre para cima mantendo os halteres se tocando. Cotovelos próximos ao corpo."
   },
-  "gym_143": {
+  "diamond_push_up": {
     "setupNotes": "Mãos no chão com dedos indicadores e polegares se tocando (formato de diamante). Corpo em linha reta. Desça o peito até as mãos, empurre para cima. Dominante no tríceps."
   },
-  "gym_144": {
+  "jm_press": {
     "setupNotes": "Banco reto, barra ou barra EZ. Híbrido entre testa e supino fechado. Desça a barra em direção ao queixo/parte superior do peito em um ângulo de ~45 graus, empurre de volta."
   },
-  "gym_146L": {
+  "dumbbell_triceps_kickback_left_arm": {
     "setupNotes": "Mão direita e joelho direito no banco reto, pé esquerdo no chão, coluna reta. Halter na mão esquerda, braço paralelo ao chão, cotovelo fixo ao lado. Estenda o antebraço esquerdo para trás até o travamento, contraia o tríceps. Retorno controlado."
   },
-  "gym_146R": {
+  "dumbbell_triceps_kickback_right_arm": {
     "setupNotes": "Mão esquerda e joelho esquerdo no banco reto, pé direito no chão, coluna reta. Halter na mão direita, braço paralelo ao chão, cotovelo fixo ao lado. Estenda o antebraço direito para trás até o travamento, contraia o tríceps. Retorno controlado."
   },
-  "gym_147": {
+  "tate_press": {
     "setupNotes": "Banco reto, halteres estendidos acima do peito com palmas voltadas para os pés. Desça os halteres para dentro de modo que as pontas se toquem no peito, empurre de volta."
   },
-  "gym_148": {
+  "barbell_wrist_curl": {
     "setupNotes": "Sentado, antebraços apoiados nas coxas ou banco scott, palmas para cima. Barra nas mãos. Flexione os pulsos para cima, desça com controle. Deixe a barra rolar até os dedos para amplitude extra."
   },
-  "gym_149": {
+  "reverse_wrist_curl": {
     "setupNotes": "Sentado, antebraços nas coxas ou banco scott, palmas para baixo. Barra nas mãos. Estenda os pulsos para cima, desça com controle. Peso leve, muitas repetições."
   },
-  "gym_150": {
+  "farmer_s_walk": {
     "setupNotes": "Em pé, halter pesado ou manípulos de caminhada do fazendeiro em cada mão ao lado do corpo. Caminhe em linha reta por distância ou tempo. Postura alta, ombros fixos."
   },
-  "gym_151": {
+  "plate_pinch_hold": {
     "setupNotes": "Em pé, comprima duas anilhas lisas juntas com os dedos de um lado e o polegar do outro. Segure por tempo. Constrói força de pegada por pinça."
   },
-  "gym_152": {
+  "wrist_roller": {
     "setupNotes": "Em pé ou com os braços estendidos à frente. Dispositivo rolo de pulso com peso pendurado por corda. Enrole a corda girando os pulsos, depois desenrole. Ambas as direções."
   },
-  "gym_153": {
+  "behind_the_back_barbell_wrist_curl": {
     "setupNotes": "Em pé, barra segurada atrás do corpo com os braços estendidos, palmas voltadas para trás. Flexione os pulsos para cima, desça com controle. Em pé permite cargas mais pesadas."
   },
-  "gym_154": {
+  "towel_grip_hang": {
     "setupNotes": "Passe uma toalha grossa sobre a barra fixa. Segure a toalha com as duas mãos (uma de cada lado). Fique pendurado por tempo. Desafio extremo para antebraço e pegada."
   },
-  "gym_156a": {
+  "barbell_back_squat_standard": {
     "setupNotes": "Power rack, barra sobre os trapézios superiores (high bar) ou os deltoides posteriores (low bar). Pés na largura dos ombros. Desça até que as coxas fiquem paralelas ao chão ou abaixo — empurre para cima através dos calcanhares."
   },
-  "gym_156b": {
+  "barbell_back_squat_wide_stance": {
     "setupNotes": "Power rack, barra sobre os trapézios superiores (high bar) ou os deltoides posteriores (low bar). Base ampla, pontas dos pés apontadas para fora. Desça até que as coxas fiquem paralelas ao chão ou abaixo — empurre para cima através dos calcanhares."
   },
-  "gym_157": {
+  "barbell_front_squat": {
     "setupNotes": "Power rack, barra na frente dos deltoides em posição de front rack (pegada de clean) ou posição de braços cruzados. Cotovelos altos. Desça até paralelo ou abaixo, tronco ereto."
   },
-  "gym_158": {
+  "box_squat_barbell": {
     "setupNotes": "Power rack com caixa ou banco atrás de você na altura do paralelo. Barra nas costas. Sente na caixa, breve pausa, empurre explosivamente. Descida controlada."
   },
-  "gym_159a": {
+  "front_pause_squat_barbell": {
     "setupNotes": "Power rack, configuração de agachamento frontal. Desça até a posição inferior, segure por 2-3 segundos sem relaxar a tensão, depois empurre para cima. Constrói força na posição inferior."
   },
-  "gym_159b": {
+  "back_pause_squat_barbell": {
     "setupNotes": "Power rack, configuração de agachamento nas costas. Desça até a posição inferior, segure por 2-3 segundos sem relaxar a tensão, depois empurre para cima. Constrói força na posição inferior."
   },
-  "gym_160": {
+  "safety_bar_squat": {
     "setupNotes": "Barra safety squat nos ombros no power rack. Manípulos à frente para equilíbrio. Desça até paralelo, empurre para cima. Mais fácil para os ombros que a barra reta."
   },
-  "gym_161": {
+  "sumo_squat_barbell": {
     "setupNotes": "Barra nas costas, base ampla com pontas dos pés apontadas para fora a ~45 graus. Desça entre as pernas, joelhos acompanhando os pés. Foco em adutores e glúteos."
   },
-  "gym_162": {
+  "zercher_squat": {
     "setupNotes": "Barra segurada no vinco dos cotovelos na altura do peito. Pés na largura dos ombros. Agache entre os braços, a barra permanece no vinco do cotovelo. Proteja a barra com uma toalha."
   },
-  "gym_163": {
+  "smith_machine_squat": {
     "setupNotes": "Smith machine, barra na parte superior das costas. Pés ligeiramente à frente da barra. Desça até paralelo, empurre para cima. A máquina guia o trajeto da barra verticalmente."
   },
-  "gym_164a": {
+  "goblet_squat_standard": {
     "setupNotes": "Em pé, segure um halter ou kettlebell na altura do peito com as duas mãos. Pés na largura dos ombros. Agache, cotovelos dentro dos joelhos embaixo. Base padrão."
   },
-  "gym_164b": {
+  "goblet_squat_elevated_heels": {
     "setupNotes": "Em pé sobre uma anilha pequena ou cunha com os calcanhares elevados, segure um halter ou kettlebell na altura do peito com as duas mãos. Agache, cotovelos dentro dos joelhos embaixo. Calcanhares elevados direcionam a carga para os quadríceps."
   },
-  "gym_164c": {
+  "goblet_squat_b_stance": {
     "setupNotes": "Em pé com um pé meio passo atrás (calcanhar elevado, ponta do pé levemente apoiada), segure um halter ou kettlebell na altura do peito com as duas mãos. Agache empurrando principalmente pela perna da frente. Ênfase unilateral com estabilidade bilateral."
   },
-  "gym_165": {
+  "hack_squat_machine": {
     "setupNotes": "Máquina hack squat, ombros sob os coxins, costas contra o encosto. Pés na largura dos ombros na plataforma. Desça até paralelo ou abaixo, empurre para cima."
   },
-  "gym_166": {
+  "belt_squat": {
     "setupNotes": "Máquina belt squat. Prenda o cinto ao redor do quadril ao peso, fique em pé nas plataformas elevadas. Agache para baixo e para cima — zero carga na coluna. Foco em quadríceps e glúteos."
   },
-  "gym_167": {
+  "sissy_squat": {
     "setupNotes": "Em pé, segure algo para equilíbrio. Incline-se para trás, empurre os joelhos à frente sobre os dedos dos pés, desça o corpo. Alongamento extremo do quadríceps. Pode usar banco de sissy squat."
   },
-  "gym_168": {
+  "pendulum_squat": {
     "setupNotes": "Máquina pendulum squat. Ombros sob os coxins, pés na plataforma. A máquina pivota em arco. Agache profundamente com tensão constante. Muito dominante no quadríceps."
   },
-  "gym_169a": {
+  "leg_press_standard_hip_width": {
     "setupNotes": "Máquina leg press. Sente-se com as costas contra o encosto, pés na largura do quadril na plataforma. Libere as travas de segurança, desça o peso até os joelhos a ~90 graus, empurre para cima."
   },
-  "gym_169aL": {
+  "leg_press_standard_hip_width_left_leg": {
     "setupNotes": "Máquina leg press, costas contra o encosto, pé esquerdo centrado na plataforma (pé direito fora). Desça o peso até o joelho atingir ~90 graus, empurre para cima pelo calcanhar. Carga mais leve que o bilateral — expõe desequilíbrios do lado esquerdo."
   },
-  "gym_169aR": {
+  "leg_press_standard_hip_width_right_leg": {
     "setupNotes": "Máquina leg press, costas contra o encosto, pé direito centrado na plataforma (pé esquerdo fora). Desça o peso até o joelho atingir ~90 graus, empurre para cima pelo calcanhar. Carga mais leve que o bilateral — expõe desequilíbrios do lado direito."
   },
-  "gym_169b": {
+  "leg_press_standard_wide": {
     "setupNotes": "Máquina leg press. Sente-se com as costas contra o encosto, pés abertos na plataforma. Libere as travas de segurança, desça o peso até os joelhos a ~90 graus, empurre para cima."
   },
-  "gym_169c": {
+  "leg_press_standard_narrow": {
     "setupNotes": "Máquina leg press. Sente-se com as costas contra o encosto, pés juntos na plataforma. Libere as travas de segurança, desça o peso até os joelhos a ~90 graus, empurre para cima."
   },
-  "gym_170": {
+  "leg_press_high_foot_placement": {
     "setupNotes": "Máquina leg press, pés colocados no alto da plataforma. Maior ênfase em posteriores de coxa e glúteos. Desça até os joelhos a ~90 graus, empurre para cima."
   },
-  "gym_171": {
+  "leg_press_low_foot_placement": {
     "setupNotes": "Máquina leg press, pés colocados na parte baixa da plataforma. Maior ênfase no quadríceps — flexão de joelho mais profunda. Observe o alinhamento dos joelhos com os pés."
   },
-  "gym_172L": {
+  "single_leg_press_left_leg": {
     "setupNotes": "Máquina leg press, costas contra o encosto, pé esquerdo centrado na plataforma, pé direito fora. Empurre o peso para cima com a perna esquerda, desça com controle até ~90 graus. Carga mais leve que o bilateral. Expõe desequilíbrios de força do lado esquerdo."
   },
-  "gym_172R": {
+  "single_leg_press_right_leg": {
     "setupNotes": "Máquina leg press, costas contra o encosto, pé direito centrado na plataforma, pé esquerdo fora. Empurre o peso para cima com a perna direita, desça com controle até ~90 graus. Carga mais leve que o bilateral. Expõe desequilíbrios de força do lado direito."
   },
-  "gym_173": {
+  "calf_press_on_leg_press": {
     "setupNotes": "Máquina leg press, apenas as pontas dos pés na beirada inferior da plataforma. Estenda os tornozelos (flexão plantar) para empurrar o peso, retorne com controle. Amplitude completa de movimento."
   },
-  "gym_174": {
+  "walking_lunge_bodyweight": {
     "setupNotes": "Espaço livre no chão (10+ metros). Passo à frente em avanço, joelho de trás em direção ao chão, impulsione-se com o pé da frente para o próximo passo. Movimento contínuo para frente."
   },
-  "gym_175a": {
+  "walking_lunge_dumbbell": {
     "setupNotes": "Espaço livre no chão, halteres ao lado do corpo. Passo à frente em um avanço profundo — joelho da frente acompanhando os dedos dos pés. Impulsione-se com o pé da frente, traga o pé de trás para o próximo avanço."
   },
-  "gym_175b": {
+  "walking_lunge_barbell": {
     "setupNotes": "Espaço livre no chão, barra na parte superior das costas. Passo à frente em um avanço profundo — joelho da frente acompanhando os dedos dos pés. Impulsione-se com o pé da frente, traga o pé de trás para o próximo avanço."
   },
-  "gym_175c": {
+  "walking_lunge_front_rack": {
     "setupNotes": "Espaço livre no chão, barra na posição de front rack. Passo à frente em um avanço profundo — joelho da frente acompanhando os dedos dos pés. Impulsione-se com o pé da frente, traga o pé de trás para o próximo avanço."
   },
-  "gym_177": {
+  "reverse_lunge_dumbbell_barbell": {
     "setupNotes": "Em pé com halteres ao lado do corpo ou barra nas costas. Passo para trás em avanço, desça até a coxa da frente ficar paralela. Retorne à posição inicial."
   },
-  "gym_178a": {
+  "bodyweight_lateral_lunge": {
     "setupNotes": "Em pé, passo amplo para um lado, flexione a perna do passo, mantenha a outra perna reta. Impulsione-se para retornar. Usando peso corporal."
   },
-  "gym_178b": {
+  "dumbbell_lateral_lunge": {
     "setupNotes": "Em pé, passo amplo para um lado, flexione a perna do passo, mantenha a outra perna reta. Impulsione-se para retornar. Usando halter."
   },
-  "gym_180": {
+  "jumping_plyo_lunge": {
     "setupNotes": "Comece na posição de avanço. Pule explosivamente, troque as pernas no ar, aterrisse no avanço oposto. Alternância contínua. Cardio e potência."
   },
-  "gym_181": {
+  "overhead_walking_lunge": {
     "setupNotes": "Halteres ou barra segurados acima da cabeça com os braços travados. Ande para frente em avanços. Demanda extrema de estabilidade do core e dos ombros."
   },
-  "gym_183L": {
+  "bulgarian_split_squat_dumbbell_left_leg": {
     "setupNotes": "Pé direito com cadarço virado para baixo em um banco atrás de você, pé esquerdo 60-90 cm à frente, um halter em cada mão ao lado do corpo. Desça até a coxa esquerda ficar paralela. Empurre pelo calcanhar da frente — ênfase em quadríceps e glúteo da perna esquerda."
   },
-  "gym_183R": {
+  "bulgarian_split_squat_dumbbell_right_leg": {
     "setupNotes": "Pé esquerdo com cadarço virado para baixo em um banco atrás de você, pé direito 60-90 cm à frente, um halter em cada mão ao lado do corpo. Desça até a coxa direita ficar paralela. Empurre pelo calcanhar da frente — ênfase em quadríceps e glúteo da perna direita."
   },
-  "gym_184aL": {
+  "bulgarian_split_squat_barbell_back_rack_left_leg": {
     "setupNotes": "Pé direito elevado atrás em um banco, barra apoiada na parte superior das costas. Desça em agachamento búlgaro até a coxa esquerda da frente ficar paralela, depois empurre pelo calcanhar esquerdo para ficar em pé. Treina o quadríceps e glúteo esquerdos sob carga espinhal."
   },
-  "gym_184aR": {
+  "bulgarian_split_squat_barbell_back_rack_right_leg": {
     "setupNotes": "Pé esquerdo elevado atrás em um banco, barra apoiada na parte superior das costas. Desça em agachamento búlgaro até a coxa direita da frente ficar paralela, depois empurre pelo calcanhar direito para ficar em pé. Treina o quadríceps e glúteo direitos sob carga espinhal."
   },
-  "gym_184bL": {
+  "bulgarian_split_squat_barbell_front_rack_left_leg": {
     "setupNotes": "Pé direito elevado atrás em um banco, barra no front rack sobre os ombros, cotovelos altos. Desça até a coxa esquerda da frente ficar paralela, empurre pelo calcanhar esquerdo para ficar em pé. A posição de front rack força o tronco ereto — ênfase mais pesada no quadríceps esquerdo."
   },
-  "gym_184bR": {
+  "bulgarian_split_squat_barbell_front_rack_right_leg": {
     "setupNotes": "Pé esquerdo elevado atrás em um banco, barra no front rack sobre os ombros, cotovelos altos. Desça até a coxa direita da frente ficar paralela, empurre pelo calcanhar direito para ficar em pé. A posição de front rack força o tronco ereto — ênfase mais pesada no quadríceps direito."
   },
-  "gym_185L": {
+  "bulgarian_split_squat_paused_left_leg": {
     "setupNotes": "Pé direito em um banco atrás de você, pé esquerdo à frente, halteres ao lado do corpo ou barra nas costas. Desça até a coxa esquerda ficar paralela e segure por 2–3 segundos antes de empurrar para cima. Remove o reflexo de estiramento — constrói força na posição inferior."
   },
-  "gym_185R": {
+  "bulgarian_split_squat_paused_right_leg": {
     "setupNotes": "Pé esquerdo em um banco atrás de você, pé direito à frente, halteres ao lado do corpo ou barra nas costas. Desça até a coxa direita ficar paralela e segure por 2–3 segundos antes de empurrar para cima. Remove o reflexo de estiramento — constrói força na posição inferior."
   },
-  "gym_186L": {
+  "bulgarian_split_squat_jump_plyo_left_leg": {
     "setupNotes": "Pé direito elevado atrás em um banco, apenas peso corporal. Desça em agachamento búlgaro depois exploda para cima com o pé esquerdo, aterrissando suavemente de volta na posição dividida. Reestabilize antes da próxima repetição. Potência pliométrica pela perna esquerda."
   },
-  "gym_186R": {
+  "bulgarian_split_squat_jump_plyo_right_leg": {
     "setupNotes": "Pé esquerdo elevado atrás em um banco, apenas peso corporal. Desça em agachamento búlgaro depois exploda para cima com o pé direito, aterrissando suavemente de volta na posição dividida. Reestabilize antes da próxima repetição. Potência pliométrica pela perna direita."
   },
-  "gym_187L": {
+  "bulgarian_split_squat_front_foot_elevated_left_leg": {
     "setupNotes": "Pé direito elevado atrás em um banco E pé esquerdo da frente em uma anilha pequena ou step. Desça no agachamento búlgaro com déficit — coxa esquerda da frente bem abaixo do paralelo — depois empurre pelo calcanhar esquerdo. A amplitude aumentada carrega profundamente o glúteo esquerdo."
   },
-  "gym_187R": {
+  "bulgarian_split_squat_front_foot_elevated_right_leg": {
     "setupNotes": "Pé esquerdo elevado atrás em um banco E pé direito da frente em uma anilha pequena ou step. Desça no agachamento búlgaro com déficit — coxa direita da frente bem abaixo do paralelo — depois empurre pelo calcanhar direito. A amplitude aumentada carrega profundamente o glúteo direito."
   },
-  "gym_188L": {
+  "step_up_dumbbell_left_leg": {
     "setupNotes": "Banco firme ou caixa pliométrica na altura do joelho. Halteres ao lado do corpo. Plante o pé esquerdo totalmente na caixa e empurre pelo calcanhar esquerdo para ficar em pé — o pé direito segue ou fica no chão para equilíbrio. Desça com controle pela perna esquerda. Carrega o quadríceps e glúteo esquerdos."
   },
-  "gym_188R": {
+  "step_up_dumbbell_right_leg": {
     "setupNotes": "Banco firme ou caixa pliométrica na altura do joelho. Halteres ao lado do corpo. Plante o pé direito totalmente na caixa e empurre pelo calcanhar direito para ficar em pé — o pé esquerdo segue ou fica no chão para equilíbrio. Desça com controle pela perna direita. Carrega o quadríceps e glúteo direitos."
   },
-  "gym_189L": {
+  "step_up_barbell_left_leg": {
     "setupNotes": "Banco ou caixa na altura do joelho, barra na parte superior das costas. Coloque o pé esquerdo totalmente na caixa, empurre pelo calcanhar esquerdo para ficar em pé no topo. Descida controlada. Todas as repetições na perna esquerda."
   },
-  "gym_189R": {
+  "step_up_barbell_right_leg": {
     "setupNotes": "Banco ou caixa na altura do joelho, barra na parte superior das costas. Coloque o pé direito totalmente na caixa, empurre pelo calcanhar direito para ficar em pé no topo. Descida controlada. Todas as repetições na perna direita."
   },
-  "gym_190L": {
+  "lateral_step_up_left_leg": {
     "setupNotes": "Fique com o banco/caixa no seu lado esquerdo. Suba lateralmente com o pé esquerdo na caixa, empurre pelo glúteo esquerdo para ficar totalmente em pé, desça com controle. Todas as repetições do lado esquerdo."
   },
-  "gym_190R": {
+  "lateral_step_up_right_leg": {
     "setupNotes": "Fique com o banco/caixa no seu lado direito. Suba lateralmente com o pé direito na caixa, empurre pelo glúteo direito para ficar totalmente em pé, desça com controle. Todas as repetições do lado direito."
   },
-  "gym_191": {
+  "barbell_hip_thrust": {
     "setupNotes": "Parte superior das costas no banco, barra no vinco do quadril (proteja a barra). Pés apoiados no chão, largura do quadril. Empurre os quadris para cima até a extensão total, contraia os glúteos. Desça com controle."
   },
-  "gym_192": {
+  "smith_machine_hip_thrust": {
     "setupNotes": "Parte superior das costas no banco dentro do Smith machine. Barra no vinco do quadril com proteção. Plante os pés, empurre os quadris para cima até o travamento. A máquina guia o trajeto da barra."
   },
-  "gym_193": {
+  "machine_hip_thrust": {
     "setupNotes": "Máquina dedicada de hip thrust / glute drive. Sente-se na máquina, costas contra o encosto, pés na plataforma. Empurre os quadris à frente até a extensão total. Contraia os glúteos."
   },
-  "gym_194L": {
+  "single_leg_hip_thrust_left_leg": {
     "setupNotes": "Parte superior das costas em um banco, pé esquerdo plantado na largura do quadril, joelho direito levantado ou perna estendida. Empurre os quadris para cima até o travamento pelo calcanhar esquerdo, contraia o glúteo esquerdo forte no topo, desça sob controle. Mais pesado que o bilateral por perna."
   },
-  "gym_194R": {
+  "single_leg_hip_thrust_right_leg": {
     "setupNotes": "Parte superior das costas em um banco, pé direito plantado na largura do quadril, joelho esquerdo levantado ou perna estendida. Empurre os quadris para cima até o travamento pelo calcanhar direito, contraia o glúteo direito forte no topo, desça sob controle. Mais pesado que o bilateral por perna."
   },
-  "gym_195": {
+  "banded_hip_thrust": {
     "setupNotes": "Parte superior das costas no banco, elástico de resistência cruzando os quadris ancorado pelos pés ou halteres pesados. Empurre os quadris para cima até a extensão total. O elástico adiciona tensão no topo."
   },
-  "gym_197": {
+  "romanian_deadlift_barbell": {
     "setupNotes": "Em pé, barra na altura do quadril. Leve flexão no joelho, articule o quadril empurrando-o para trás, desça a barra pelas coxas até o meio da canela. Coluna reta, contraia os glúteos para retornar."
   },
-  "gym_198": {
+  "romanian_deadlift_dumbbell": {
     "setupNotes": "Em pé, um halter em cada mão à frente das coxas. Mesma articulação do quadril da versão com barra. Permite trajeto mais natural para os braços."
   },
-  "gym_199aL": {
+  "single_leg_romanian_deadlift_dumbbell_left_leg": {
     "setupNotes": "Em pé na perna esquerda, halter na mão direita. Articule o quadril esquerdo e estenda a perna direita atrás como contrapeso — coluna reta, halter deslizando próximo à canela. Empurre pelo calcanhar esquerdo para voltar à posição ereta. Carrega o posterior de coxa e glúteo esquerdos."
   },
-  "gym_199aR": {
+  "single_leg_romanian_deadlift_dumbbell_right_leg": {
     "setupNotes": "Em pé na perna direita, halter na mão esquerda. Articule o quadril direito e estenda a perna esquerda atrás como contrapeso — coluna reta, halter deslizando próximo à canela. Empurre pelo calcanhar direito para voltar à posição ereta. Carrega o posterior de coxa e glúteo direitos."
   },
-  "gym_199bL": {
+  "single_leg_romanian_deadlift_kettlebell_left_leg": {
     "setupNotes": "Em pé na perna esquerda, kettlebell na mão direita. Articule o quadril esquerdo e estenda a perna direita atrás como contrapeso, kettlebell deslizando próximo à canela. Empurre pelo calcanhar esquerdo para voltar à posição ereta. Carrega o posterior de coxa e glúteo esquerdos."
   },
-  "gym_199bR": {
+  "single_leg_romanian_deadlift_kettlebell_right_leg": {
     "setupNotes": "Em pé na perna direita, kettlebell na mão esquerda. Articule o quadril direito e estenda a perna esquerda atrás como contrapeso, kettlebell deslizando próximo à canela. Empurre pelo calcanhar direito para voltar à posição ereta. Carrega o posterior de coxa e glúteo direitos."
   },
-  "gym_200": {
+  "romanian_deadlift_trap_bar": {
     "setupNotes": "Em pé dentro da barra trap. Leve flexão do joelho, articule o quadril, desça a barra pelos lados. A pegada neutra é mais fácil para a lombar."
   },
-  "gym_201": {
+  "b_stance_romanian_deadlift": {
     "setupNotes": "Em pé com um pé meio passo atrás (calcanhar elevado). Maior parte do peso na perna da frente. Articule o quadril com halteres. Ênfase unilateral com estabilidade bilateral."
   },
-  "gym_202": {
+  "kettlebell_romanian_deadlift": {
     "setupNotes": "Em pé, um kettlebell em cada mão ou um único kettlebell nas duas. Mesmo padrão de articulação do quadril. O formato do kettlebell permite posição natural da mão."
   },
-  "gym_203": {
+  "seated_leg_curl": {
     "setupNotes": "Máquina de mesa flexora sentada. Ajuste o encosto e o coxim das canelas. Flexione os calcanhares em direção aos glúteos, retorne com controle. Amplitude completa de movimento."
   },
-  "gym_204": {
+  "lying_prone_leg_curl": {
     "setupNotes": "Deitado de bruços na máquina de mesa flexora. Coxim na parte inferior das panturrilhas/tornozelos. Flexione os calcanhares em direção aos glúteos, contraia os posteriores de coxa no topo, desça com controle."
   },
-  "gym_205": {
+  "standing_leg_curl_cable": {
     "setupNotes": "Polia baixa, acessório caneleira. Em pé de frente para a máquina, caneleira em um tornozelo. Flexione o calcanhar em direção ao glúteo, retorne com controle. Segure algo para equilíbrio."
   },
-  "gym_206": {
+  "leg_extension_seated_double_leg": {
     "setupNotes": "Máquina de cadeira extensora sentada. Coxim na parte inferior das canelas. Estenda as pernas até o travamento total, contraia o quadríceps no topo, desça com controle."
   },
-  "gym_207L": {
+  "leg_extension_single_leg_left_leg": {
     "setupNotes": "Máquina de cadeira extensora sentada, coxim na parte inferior da canela esquerda, perna direita relaxada ao lado. Estenda a perna esquerda até o travamento total, contraia o quadríceps, controle a descida. Carga mais leve — expõe e corrige desequilíbrios do lado esquerdo."
   },
-  "gym_207R": {
+  "leg_extension_single_leg_right_leg": {
     "setupNotes": "Máquina de cadeira extensora sentada, coxim na parte inferior da canela direita, perna esquerda relaxada ao lado. Estenda a perna direita até o travamento total, contraia o quadríceps, controle a descida. Carga mais leve — expõe e corrige desequilíbrios do lado direito."
   },
-  "gym_208": {
+  "nordic_hamstring_curl": {
     "setupNotes": "Ajoelhado no colchonete, tornozelos fixados (parceiro segura, coxim do GHD ou barra carregada). Desça o corpo à frente sob controle, pegue-se e empurre de volta para cima. Excêntrica de posteriores de coxa."
   },
-  "gym_209": {
+  "reverse_nordic_curl": {
     "setupNotes": "Ajoelhado ereto no colchonete (proteção sob os joelhos). Incline-se para trás lentamente mantendo os quadris estendidos. Sinta o alongamento do quadríceps, retorne à posição ereta. Excêntrica de quadríceps."
   },
-  "gym_210": {
+  "standing_calf_raise_machine": {
     "setupNotes": "Máquina de panturrilha em pé. Ombros sob os coxins, parte da frente dos pés na beirada da plataforma. Suba nas pontas, extensão total, desça com controle para alongamento embaixo."
   },
-  "gym_211": {
+  "seated_calf_raise_machine": {
     "setupNotes": "Máquina de panturrilha sentada. Coxim do joelho na parte inferior das coxas, parte da frente dos pés na plataforma. Suba nas pontas, contraia no topo, desça com controle. Foco no sóleo."
   },
-  "gym_213": {
+  "dumbbell_standing_calf_raise": {
     "setupNotes": "Em pé na beirada de um step ou anilha, halter em uma mão, a outra mão para equilíbrio. Suba nas pontas, desça com controle. Alterne as mãos."
   },
-  "gym_214a": {
+  "standing_smith_machine_calf_raise": {
     "setupNotes": "Smith machine, barra nos trapézios superiores. Parte da frente dos pés na beirada da plataforma/anilhas. Variação em pé. Suba e desça com amplitude total."
   },
-  "gym_214b": {
+  "seated_smith_machine_calf_raise": {
     "setupNotes": "Smith machine, barra nos trapézios superiores. Parte da frente dos pés na beirada da plataforma/anilhas. Variação sentada. Suba e desça com amplitude total."
   },
-  "gym_215": {
+  "bodyweight_calf_raise_on_step": {
     "setupNotes": "Em pé na beirada de um step ou plataforma (sem peso adicional). Suba nas pontas, desça com controle abaixo do nível da plataforma para alongamento completo. Ambos os pés."
   },
-  "gym_216": {
+  "wall_sit_standard": {
     "setupNotes": "Costas totalmente apoiadas na parede, desça até as coxas ficarem paralelas ao chão. Joelhos a 90 graus, diretamente acima dos tornozelos. Segure pelo tempo prescrito."
   },
-  "gym_217L": {
+  "wall_sit_single_leg_left_leg": {
     "setupNotes": "Costas apoiadas na parede, joelhos flexionados a ~90 graus como em uma cadeira na parede padrão. Estenda a perna direita reta para frente, todo o peso na perna esquerda. Segure por tempo. Significativamente mais difícil — carga isométrica no quadríceps esquerdo."
   },
-  "gym_217R": {
+  "wall_sit_single_leg_right_leg": {
     "setupNotes": "Costas apoiadas na parede, joelhos flexionados a ~90 graus como em uma cadeira na parede padrão. Estenda a perna esquerda reta para frente, todo o peso na perna direita. Segure por tempo. Significativamente mais difícil — carga isométrica no quadríceps direito."
   },
-  "gym_218": {
+  "wall_sit_weighted": {
     "setupNotes": "Posição padrão de cadeira na parede com halter ou anilha nas coxas. Aumenta a demanda do quadríceps. Mantenha a coluna reta contra a parede."
   },
-  "gym_219": {
+  "hip_abductor_machine": {
     "setupNotes": "Máquina de abdução de quadril sentada. Sente-se com a parte externa das coxas contra os coxins. Empurre as pernas para fora contra a resistência, retorne com controle. Foco no glúteo médio."
   },
-  "gym_220": {
+  "hip_adductor_machine": {
     "setupNotes": "Máquina de adução de quadril sentada. Sente-se com a parte interna das coxas contra os coxins. Comprima as pernas juntas contra a resistência, libere com controle. Foco na parte interna da coxa."
   },
-  "gym_221L": {
+  "glute_kickback_machine_left_leg": {
     "setupNotes": "Em pé ou ajoelhado na máquina de kickback de glúteo. Coxim atrás do tornozelo ou joelho esquerdo. Empurre a perna esquerda para trás e para cima, contraindo o glúteo esquerdo no topo. Retorno controlado."
   },
-  "gym_221R": {
+  "glute_kickback_machine_right_leg": {
     "setupNotes": "Em pé ou ajoelhado na máquina de kickback de glúteo. Coxim atrás do tornozelo ou joelho direito. Empurre a perna direita para trás e para cima, contraindo o glúteo direito no topo. Retorno controlado."
   },
-  "gym_222L": {
+  "cable_glute_kickback_left_leg": {
     "setupNotes": "Polia baixa, caneleira no tornozelo esquerdo. De frente para a máquina, leve inclinação à frente segurando a estrutura. Chute a perna esquerda para trás e para cima, contraia o glúteo esquerdo. Retorno controlado."
   },
-  "gym_222R": {
+  "cable_glute_kickback_right_leg": {
     "setupNotes": "Polia baixa, caneleira no tornozelo direito. De frente para a máquina, leve inclinação à frente segurando a estrutura. Chute a perna direita para trás e para cima, contraia o glúteo direito. Retorno controlado."
   },
-  "gym_223": {
+  "cable_pull_through": {
     "setupNotes": "Polia baixa, acessório corda. De costas para a máquina, com a corda entre as pernas. Articule o quadril, deixe a corda puxar pelas pernas, depois empurre os quadris à frente para ficar em pé."
   },
-  "gym_224L": {
+  "donkey_kick_cable_machine_left": {
     "setupNotes": "Ajoelhado na máquina de cabo com caneleira no tornozelo esquerdo, ou em pé na máquina de kickback de glúteo com o pé esquerdo na plataforma. Empurre o calcanhar esquerdo para trás e para cima, contraia o glúteo esquerdo no topo, desça sob controle. Core contraído durante todo o exercício."
   },
-  "gym_224R": {
+  "donkey_kick_cable_machine_right": {
     "setupNotes": "Ajoelhado na máquina de cabo com caneleira no tornozelo direito, ou em pé na máquina de kickback de glúteo com o pé direito na plataforma. Empurre o calcanhar direito para trás e para cima, contraia o glúteo direito no topo, desça sob controle. Core contraído durante todo o exercício."
   },
-  "gym_226L": {
+  "pallof_press_standard_left_arm": {
     "setupNotes": "Cabo na altura do peito com empunhadura D. Fique com o lado direito em direção à pilha, segure o manípulo com as duas mãos no peito. Empurre os braços reto à frente e resista ao cabo puxando você em direção à rotação para a direita. Retorne ao peito. Trabalho antirrotação do core."
   },
-  "gym_226R": {
+  "pallof_press_standard_right_arm": {
     "setupNotes": "Cabo na altura do peito com empunhadura D. Fique com o lado esquerdo em direção à pilha, segure o manípulo com as duas mãos no peito. Empurre os braços reto à frente e resista ao cabo puxando você em direção à rotação para a esquerda. Retorne ao peito. Trabalho antirrotação do core."
   },
-  "gym_227L": {
+  "pallof_press_half_kneeling_left_arm": {
     "setupNotes": "Cabo na altura do peito. Meio ajoelhado com o joelho direito no chão (mais próximo da pilha), pé esquerdo à frente. Empurre o manípulo para fora do peito e resista à rotação para a direita. A base mais baixa aumenta a demanda do core em comparação com em pé."
   },
-  "gym_227R": {
+  "pallof_press_half_kneeling_right_arm": {
     "setupNotes": "Cabo na altura do peito. Meio ajoelhado com o joelho esquerdo no chão (mais próximo da pilha), pé direito à frente. Empurre o manípulo para fora do peito e resista à rotação para a esquerda. A base mais baixa aumenta a demanda do core em comparação com em pé."
   },
-  "gym_228L": {
+  "pallof_press_with_rotation_left_arm": {
     "setupNotes": "Cabo na altura do peito. Fique com o lado direito em direção à pilha, empurre o manípulo para fora do peito. A partir da posição empurrada, gire lentamente o tronco para longe da pilha para a esquerda, depois retorne sob controle. Combina antirrotação com rotação controlada."
   },
-  "gym_228R": {
+  "pallof_press_with_rotation_right_arm": {
     "setupNotes": "Cabo na altura do peito. Fique com o lado esquerdo em direção à pilha, empurre o manípulo para fora do peito. A partir da posição empurrada, gire lentamente o tronco para longe da pilha para a direita, depois retorne sob controle. Combina antirrotação com rotação controlada."
   },
-  "gym_229": {
+  "hanging_knee_raise": {
     "setupNotes": "Pendure-se na barra fixa com os braços retos. Traga os joelhos até a altura do peito. Desça com controle, evite balançar. Flexione o abdômen, não balance apenas as pernas."
   },
-  "gym_230": {
+  "hanging_knee_raise_side_to_side": {
     "setupNotes": "Pendure-se na barra fixa. Traga os joelhos para cima e torça para um lado, desça, repita para o outro lado. Ênfase nos oblíquos na elevação de joelhos suspensa."
   },
-  "gym_231": {
+  "hanging_straight_leg_raise": {
     "setupNotes": "Pendure-se na barra fixa, pernas totalmente retas. Eleve as pernas até a horizontal ou mais alto. Desça com controle. Evite usar momentum."
   },
-  "gym_232": {
+  "toes_to_bar": {
     "setupNotes": "Pendure-se na barra fixa, pernas retas. Eleve os dedos dos pés até tocarem a barra. Requer flexibilidade dos posteriores de coxa e core forte. Desça com controle."
   },
-  "gym_233": {
+  "l_sit_hang": {
     "setupNotes": "Pendure-se na barra fixa, eleve as pernas retas até a horizontal (posição de L) e segure. Isométrico cronometrado. Resistência do core e dos flexores do quadril."
   },
-  "gym_234": {
+  "hanging_windshield_wipers": {
     "setupNotes": "Pendure-se na barra fixa, eleve as pernas até a horizontal. Balance as pernas de lado a lado como limpadores de para-brisa. Exercício rotacional avançado do core."
   },
-  "gym_235": {
+  "weighted_hanging_leg_raise": {
     "setupNotes": "Pendure-se na barra fixa com um halter leve entre os pés ou caneleiras. Elevação de pernas retas até a horizontal. Excêntrica controlada."
   },
-  "gym_236": {
+  "captain_s_chair_knee_raise": {
     "setupNotes": "Cadeira do capitão / estação de elevação vertical de joelhos. Antebraços nos coxins, costas contra o encosto. Eleve os joelhos até o peito, desça com controle."
   },
-  "gym_237": {
+  "decline_crunch": {
     "setupNotes": "Banco declinado, pés presos sob os coxins. Deite-se, mãos atrás da cabeça ou cruzadas no peito. Abdominal para cima, levantando as escápulas do banco. Desça com controle."
   },
-  "gym_238": {
+  "decline_twisting_crunch": {
     "setupNotes": "Mesma configuração de banco declinado. Abdominal com rotação — cotovelo direito em direção ao joelho esquerdo, alterne. Engaja os oblíquos com o reto abdominal."
   },
-  "gym_239": {
+  "weighted_decline_crunch": {
     "setupNotes": "Banco declinado, segure uma anilha ou halter no peito. Abdominal contra a resistência adicional. Excêntrica controlada na descida."
   },
-  "gym_240": {
+  "decline_reverse_crunch": {
     "setupNotes": "Banco declinado, segure o banco acima da cabeça. Traga os joelhos em direção ao peito levantando os quadris do banco. Desça com controle. Ênfase na parte inferior do abdômen."
   },
-  "gym_241L": {
+  "cable_woodchop_high_to_low_left": {
     "setupNotes": "Cabo na polia mais alta com corda ou empunhadura D. Fique com o lado esquerdo em direção à pilha, ambas as mãos no manípulo acima-à-direita. Puxe diagonalmente pelo corpo até baixo-à-esquerda, girando pelo tronco e pivotando o pé direito. Treina potência rotacional e controle dos oblíquos."
   },
-  "gym_241R": {
+  "cable_woodchop_high_to_low_right": {
     "setupNotes": "Cabo na polia mais alta com corda ou empunhadura D. Fique com o lado direito em direção à pilha, ambas as mãos no manípulo acima-à-esquerda. Puxe diagonalmente pelo corpo até baixo-à-direita, girando pelo tronco e pivotando o pé esquerdo. Treina potência rotacional e controle dos oblíquos."
   },
-  "gym_242L": {
+  "cable_woodchop_low_to_high_left": {
     "setupNotes": "Cabo na polia mais baixa com corda ou empunhadura D. Fique com o lado esquerdo em direção à pilha, ambas as mãos no manípulo no quadril baixo-à-direita. Empurre diagonalmente para cima e através até acima-à-esquerda, estendendo os quadris e girando pelo tronco. Potência das pernas e core."
   },
-  "gym_242R": {
+  "cable_woodchop_low_to_high_right": {
     "setupNotes": "Cabo na polia mais baixa com corda ou empunhadura D. Fique com o lado direito em direção à pilha, ambas as mãos no manípulo no quadril baixo-à-esquerda. Empurre diagonalmente para cima e através até acima-à-direita, estendendo os quadris e girando pelo tronco. Potência das pernas e core."
   },
-  "gym_243": {
+  "cable_woodchop_horizontal": {
     "setupNotes": "Cabo na altura do peito. Fique de lado, gire o tronco horizontalmente, puxando o cabo através do corpo. Os pés ficam plantados, rotação apenas no tronco."
   },
-  "gym_244": {
+  "kneeling_cable_woodchop": {
     "setupNotes": "Cabo na posição alta ou baixa. Ajoelhe-se de lado, corte diagonalmente pelo corpo. Ajoelhar remove o impulso das pernas, isola os oblíquos e a rotação do tronco."
   },
-  "gym_249": {
+  "plank_hip_dips": {
     "setupNotes": "Posição de prancha no antebraço. Gire os quadris para descer um lado em direção ao chão, depois o outro lado. Alternando. Rotação controlada, ênfase nos oblíquos."
   },
-  "gym_251": {
+  "plank_jacks": {
     "setupNotes": "Posição de prancha alta ou no antebraço. Salte os pés abrindo e fechando (como polichinelos horizontais). Mantenha o core rígido. Cardio + core."
   },
-  "gym_252": {
+  "spiderman_plank": {
     "setupNotes": "Posição de prancha alta. Traga um joelho até o cotovelo do mesmo lado, retorne, alterne o outro joelho. Engaja os oblíquos e flexores do quadril a cada repetição."
   },
-  "gym_254": {
+  "stability_ball_plank": {
     "setupNotes": "Antebraços em uma bola de estabilidade, pés no chão. Mantenha a posição de prancha. A bola cria instabilidade, exigindo mais estabilização do core."
   },
-  "gym_255": {
+  "ab_machine_crunch": {
     "setupNotes": "Máquina de abdominal sentado. Ajuste o coxim no peito ou atrás da cabeça. Selecione o peso. Abdominal para frente contra a resistência, retorne com controle."
   },
-  "gym_256": {
+  "kneeling_cable_crunch": {
     "setupNotes": "Polia alta, acessório corda. Ajoelhe-se de frente para a máquina, corda atrás da cabeça. Abdominal para frente, enrolando o tronco, cotovelos em direção aos joelhos. Controle a excêntrica."
   },
-  "gym_257": {
+  "standing_cable_crunch": {
     "setupNotes": "Polia alta, corda atrás da cabeça. Em pé, pés na largura do quadril. Abdominal para frente contra a resistência do cabo. O core permanece contraído durante todo o movimento."
   },
-  "gym_258": {
+  "oblique_cable_crunch": {
     "setupNotes": "Polia alta, empunhadura D ou corda. Fique de lado para a máquina. Abdominal lateralmente, puxando em direção ao quadril do lado do cabo. Movimento de flexão lateral."
   },
-  "gym_259": {
+  "stability_ball_roll_in_knee_tuck": {
     "setupNotes": "Posição de prancha alta com canelas em uma bola de estabilidade. Puxe os joelhos em direção ao peito, rolando a bola para frente. Estenda de volta. Tempo controlado."
   },
-  "gym_260": {
+  "stability_ball_rollout": {
     "setupNotes": "Ajoelhe-se atrás da bola de estabilidade, antebraços na bola. Role a bola para frente estendendo o corpo, depois puxe de volta para o início. Similar ao ab wheel."
   },
-  "gym_261": {
+  "stability_ball_pike": {
     "setupNotes": "Prancha alta com pés/canelas em uma bola de estabilidade. Faça pique com o quadril para cima, puxando a bola em direção às mãos. As pernas permanecem retas. Avançado."
   },
-  "gym_262": {
+  "hollow_body_hold": {
     "setupNotes": "Deitado de barriga para cima, braços estendidos acima da cabeça, pernas retas. Eleve os ombros e as pernas do chão, lombar pressionada contra o chão. Formato de banana. Segure."
   },
-  "gym_263": {
+  "tucked_hollow_hold": {
     "setupNotes": "Deitado de barriga para cima, joelhos puxados em direção ao peito, ombros elevados. Braços ao lado do corpo ou estendidos. Regressão mais fácil do hollow hold completo."
   },
-  "gym_264": {
+  "hollow_rock": {
     "setupNotes": "Posição completa de hollow body — braços acima da cabeça, pernas estendidas, ambos fora do chão. Balance para frente e para trás mantendo o formato do corpo rígido."
   },
-  "gym_265": {
+  "weighted_hollow_hold": {
     "setupNotes": "Posição completa de hollow body com halter leve nas mãos e/ou entre os pés. Segure a posição pelo tempo prescrito. Avançado."
   },
-  "gym_266": {
+  "russian_twist_bodyweight": {
     "setupNotes": "Sentado no chão, incline-se para trás ~45 graus, pés fora do chão ou fixados. Entrelace as mãos, gire o tronco de lado a lado. Posição de V-sit."
   },
-  "gym_267": {
+  "russian_twist_medicine_ball": {
     "setupNotes": "Mesma posição sentada do peso corporal. Segure uma bola de medicina com as duas mãos. Gire de lado a lado, tocando a bola no chão ao lado dos quadris."
   },
-  "gym_268": {
+  "russian_twist_dumbbell": {
     "setupNotes": "Mesma posição sentada de V-sit. Segure um halter com as duas mãos no peito. Gire de lado a lado. Tempo controlado."
   },
-  "gym_269": {
+  "cable_russian_twist": {
     "setupNotes": "Sentado ou em pé, cabo na altura do peito com empunhadura D ou corda. Segure no peito, gire o tronco de lado a lado contra a resistência do cabo."
   },
-  "gym_270a": {
+  "kneeling_ab_wheel_rollout": {
     "setupNotes": "Ajoelhado, segure a roda abdominal. Role para frente estendendo o corpo em direção ao chão, puxe de volta usando o core. Evite afundar a lombar."
   },
-  "gym_270b": {
+  "standing_ab_wheel_rollout": {
     "setupNotes": "Em pé, segure a roda abdominal. Role para frente estendendo o corpo em direção ao chão, puxe de volta usando o core. Evite afundar a lombar."
   },
-  "gym_271": {
+  "dragon_flag": {
     "setupNotes": "Deite-se no banco reto, segure o banco atrás da cabeça. Eleve o corpo inteiro do banco em linha reta, desça sob controle sem tocar o banco. Core avançado."
   },
-  "gym_272L": {
+  "turkish_get_up_left": {
     "setupNotes": "Deite-se no chão segurando um kettlebell na mão esquerda empurrado diretamente para cima, olhos no kettlebell. Passe pela sequência de get-up — role para o cotovelo direito, para a mão direita, quadril para cima, passe a perna direita por baixo, avanço, em pé — mantendo o braço esquerdo travado verticalmente. Inverta até o chão. Controle unilateral de corpo inteiro."
   },
-  "gym_272R": {
+  "turkish_get_up_right": {
     "setupNotes": "Deite-se no chão segurando um kettlebell na mão direita empurrado diretamente para cima, olhos no kettlebell. Passe pela sequência de get-up — role para o cotovelo esquerdo, para a mão esquerda, quadril para cima, passe a perna esquerda por baixo, avanço, em pé — mantendo o braço direito travado verticalmente. Inverta até o chão. Controle unilateral de corpo inteiro."
   },
-  "gym_273L": {
+  "suitcase_carry_left": {
     "setupNotes": "Segure um halter ou kettlebell pesado na mão esquerda ao lado do corpo. Caminhe em linha reta mantendo o tronco ereto e os ombros nivelados — resista à carga puxando você para uma inclinação para o lado esquerdo. Antiflexão lateral pelos oblíquos direitos e QL."
   },
-  "gym_273R": {
+  "suitcase_carry_right": {
     "setupNotes": "Segure um halter ou kettlebell pesado na mão direita ao lado do corpo. Caminhe em linha reta mantendo o tronco ereto e os ombros nivelados — resista à carga puxando você para uma inclinação para o lado direito. Antiflexão lateral pelos oblíquos esquerdos e QL."
   },
-  "gym_274": {
+  "landmine_rotation": {
     "setupNotes": "Barra no suporte landmine. Segure a ponta da barra com as duas mãos na altura do peito. Gire o tronco, movendo a barra em arco de lado a lado. Controlado."
   },
-  "gym_275": {
+  "power_clean": {
     "setupNotes": "Barra no chão, pegada logo fora dos joelhos. Primeira puxada até os joelhos, segunda puxada explosiva (quadris), receba a barra nos deltoides anteriores em front rack. Retorne ao chão."
   },
-  "gym_276": {
+  "hang_clean": {
     "setupNotes": "Barra na altura do quadril em posição em pé. Dip-drive dos quadris, puxe a barra explosivamente para cima, receba nos deltoides anteriores em front rack. Comece na pendurada, não no chão."
   },
-  "gym_277": {
+  "clean_and_press": {
     "setupNotes": "Execute um power clean do chão até o front rack, depois pressione (ou push press) acima da cabeça até o travamento. Desça a barra e repita. Composto de corpo inteiro."
   },
-  "gym_278": {
+  "push_press": {
     "setupNotes": "Barra em front rack nos ombros. Flexione levemente os joelhos, empurre explosivamente pelas pernas para empurrar a barra acima da cabeça até o travamento. Mais peso que o desenvolvimento militar estrito."
   },
-  "gym_279": {
+  "barbell_snatch": {
     "setupNotes": "Barra no chão, pegada muito aberta. Puxada explosiva do chão, passe o corpo por baixo da barra, receba acima da cabeça com braços retos em agachamento. Fique em pé. Levantamento técnico."
   },
-  "gym_280a": {
+  "barbell_thruster": {
     "setupNotes": "Barra em posição de front rack nos ombros, pés na largura dos ombros. Agache até a profundidade total, depois empurre explosivamente para cima e empurre a barra até o travamento acima da cabeça em um movimento fluido. Potência de corpo inteiro — pernas, ombros e core."
   },
-  "gym_280b": {
+  "dumbbell_thruster": {
     "setupNotes": "Halteres apoiados nos ombros com pegada neutra, pés na largura dos ombros. Agache até a profundidade total, depois empurre explosivamente para cima e empurre os halteres até o travamento acima da cabeça em um movimento fluido. Potência de corpo inteiro."
   },
-  "gym_281": {
+  "kettlebell_swing": {
     "setupNotes": "Em pé, kettlebell no chão entre os pés. Balance o kettlebell para trás entre as pernas, empurre os quadris à frente explosivamente para balançar o kettlebell até a altura do peito/olhos. Articulação do quadril, não agachamento."
   },
-  "gym_282L": {
+  "kettlebell_clean_left": {
     "setupNotes": "Um único kettlebell no chão entre os pés. Articule e segure com a mão esquerda, balance o kettlebell para trás entre as pernas, depois empurre os quadris e puxe o kettlebell para cima — gire o pulso para que ele aterrisse suavemente no rack no antebraço e ombro esquerdos. Desça sob controle. Treina o empurrão explosivo do quadril e pegada unilateral."
   },
-  "gym_282R": {
+  "kettlebell_clean_right": {
     "setupNotes": "Um único kettlebell no chão entre os pés. Articule e segure com a mão direita, balance o kettlebell para trás entre as pernas, depois empurre os quadris e puxe o kettlebell para cima — gire o pulso para que ele aterrisse suavemente no rack no antebraço e ombro direitos. Desça sob controle. Treina o empurrão explosivo do quadril e pegada unilateral."
   },
-  "gym_283": {
+  "kettlebell_snatch": {
     "setupNotes": "Um único kettlebell no chão. Balanço explosivo diretamente acima da cabeça em um movimento. Trave no topo, desça com controle pelo balanço. Um braço de cada vez."
   },
-  "gym_284": {
+  "medicine_ball_slam": {
     "setupNotes": "Em pé, bola de medicina (slam ball) acima da cabeça. Arremesse a bola no chão com força máxima usando o corpo inteiro. Pegue e repita. Use slam ball sem quicar."
   },
-  "gym_285a": {
+  "standard_box_jump": {
     "setupNotes": "Caixa pliométrica em altura apropriada. De frente para a caixa, agachamento de um quarto e balance os braços, pule sobre a caixa aterrissando suavemente em agachamento. Desça. Início padrão."
   },
-  "gym_285b": {
+  "seated_box_jump": {
     "setupNotes": "Sente em um banco ou caixa baixa de frente para uma caixa pliométrica, pés apoiados e tronco ereto. Da parada total, empurre pelos pés e pule sobre a caixa, aterrissando suavemente em um agachamento de um quarto. Desça e reinicie. Desenvolve potência de força inicial."
   },
-  "gym_286": {
+  "barbell_hang_snatch": {
     "setupNotes": "Barra na altura do quadril, pegada ampla de arranco. Dip-drive dos quadris, puxe a barra acima da cabeça, receba com braços retos. Comece na posição pendurada, não no chão."
   },
-  "home_1": {
+  "wide_grip_push_up": {
     "setupNotes": "Mãos colocadas 15-20 cm mais abertas que os ombros no chão. Corpo em linha reta, core contraído. Desça o peito até o chão, empurre para cima."
   },
-  "home_2": {
+  "staggered_offset_push_up": {
     "setupNotes": "Uma mão colocada à frente, a outra cerca de 15 cm atrás. Corpo reto. Empurre para cima, alterne as posições das mãos entre as séries."
   },
-  "home_4L": {
+  "archer_push_up_left": {
     "setupNotes": "Posição das mãos muito aberta, corpo em linha reta. Desça o corpo em direção à mão esquerda enquanto o braço direito estende reto para fora. Empurre de volta pelo lado esquerdo — ênfase unilateral em peito e tríceps."
   },
-  "home_4R": {
+  "archer_push_up_right": {
     "setupNotes": "Posição das mãos muito aberta, corpo em linha reta. Desça o corpo em direção à mão direita enquanto o braço esquerdo estende reto para fora. Empurre de volta pelo lado direito — ênfase unilateral em peito e tríceps."
   },
-  "home_5": {
+  "clap_push_up": {
     "setupNotes": "Posição padrão de flexão em chão firme. Empurre explosivamente para que as mãos saiam do chão, bata palmas, aterrisse suavemente com cotovelos flexionados. Potência pliométrica."
   },
-  "home_6L": {
+  "spiderman_push_up_left": {
     "setupNotes": "Posição de prancha alta, mãos sob os ombros, corpo em linha reta. Ao descer na flexão, traga o joelho esquerdo para fora em direção ao cotovelo esquerdo. Retorne a perna ao empurrar para cima. Adiciona trabalho de oblíquos e flexores do quadril ao empurrão de peito."
   },
-  "home_6R": {
+  "spiderman_push_up_right": {
     "setupNotes": "Posição de prancha alta, mãos sob os ombros, corpo em linha reta. Ao descer na flexão, traga o joelho direito para fora em direção ao cotovelo direito. Retorne a perna ao empurrar para cima. Adiciona trabalho de oblíquos e flexores do quadril ao empurrão de peito."
   },
-  "home_7": {
+  "pike_push_up": {
     "setupNotes": "Mãos no chão, quadris elevados (formato de V invertido). Pés podem estar no chão ou elevados em um banco para dificuldade extra. Desça a cabeça em direção ao chão, empurre para cima. Ênfase no ombro."
   },
-  "home_8": {
+  "decline_push_up": {
     "setupNotes": "Pés elevados em banco, caixa ou cadeira. Mãos no chão na largura dos ombros. Corpo em linha reta dos pés à cabeça. Desça o peito até o chão, empurre para cima."
   },
-  "home_9": {
+  "incline_push_up": {
     "setupNotes": "Mãos em um banco, caixa ou superfície elevada firme. Pés no chão. Linha reta do corpo. Regressão mais fácil — superfície mais baixa = mais difícil. Amplitude completa de movimento."
   },
-  "home_10": {
+  "wall_push_up": {
     "setupNotes": "Em pé à distância de um braço da parede, mãos na parede na altura dos ombros. Incline-se para frente, empurre para trás. Regressão para iniciantes, controle o tempo."
   },
-  "home_11": {
+  "knee_push_up": {
     "setupNotes": "Mãos no chão na largura dos ombros, joelhos no colchonete. Linha reta da cabeça aos joelhos. Desça o peito até o chão, empurre para cima. Progressão para iniciantes."
   },
-  "home_12": {
+  "negative_only_push_up": {
     "setupNotes": "Posição padrão de flexão. Desça o corpo o mais lentamente possível (5-8 segundos) até o chão. Reinicie para a posição superior e repita. Força excêntrica."
   },
-  "home_13": {
+  "push_up_to_renegade_row": {
     "setupNotes": "Posição de flexão com as mãos em halteres hex. Faça a flexão, depois puxe um halter em direção ao quadril, alterne. Base ampla dos pés para estabilidade."
   },
-  "home_14L": {
+  "rotational_push_up_left": {
     "setupNotes": "Posição de prancha alta, corpo em linha reta. Faça uma flexão, depois no topo gire o corpo abrindo para a esquerda em uma prancha lateral — braço esquerdo estendido em direção ao teto, peso na mão direita. Volte para a prancha e reinicie. Constrói estabilidade rotacional do core e do ombro."
   },
-  "home_14R": {
+  "rotational_push_up_right": {
     "setupNotes": "Posição de prancha alta, corpo em linha reta. Faça uma flexão, depois no topo gire o corpo abrindo para a direita em uma prancha lateral — braço direito estendido em direção ao teto, peso na mão esquerda. Volte para a prancha e reinicie. Constrói estabilidade rotacional do core e do ombro."
   },
-  "home_15": {
+  "plank_up_down_standard": {
     "setupNotes": "Comece em prancha no antebraço. Empurre para prancha alta um braço de cada vez, depois desça de volta para os antebraços. Alterne o braço guia a cada repetição."
   },
-  "home_16": {
+  "plank_shoulder_taps": {
     "setupNotes": "Posição de prancha alta, pés ligeiramente mais abertos que a largura do quadril. Toque a mão direita no ombro esquerdo, a mão esquerda no ombro direito. Minimize o balanço do quadril."
   },
-  "home_17": {
+  "shoulder_taps_with_leg_lift": {
     "setupNotes": "Prancha alta. Simultaneamente levante uma mão para o ombro oposto e o pé oposto do chão. Demanda dupla de antirrotação."
   },
-  "home_18": {
+  "arm_circles_forward": {
     "setupNotes": "Em pé, braços estendidos para os lados na altura do ombro. Circule os braços para frente, aumentando gradualmente o tamanho dos círculos. Aquecimento dinâmico de ombros."
   },
-  "home_18_2": {
+  "arm_circles_backward": {
     "setupNotes": "Em pé, braços estendidos para os lados na altura do ombro. Circule os braços para trás, aumentando gradualmente o tamanho dos círculos. Aquecimento dinâmico de ombros."
   },
-  "home_19": {
+  "weighted_arm_circles": {
     "setupNotes": "Em pé, halteres leves (1-3 kg) em cada mão, braços estendidos. Círculos pequenos e controlados. Para frente e para trás. Resistência dos ombros."
   },
-  "home_20": {
+  "superman_hold": {
     "setupNotes": "Deite de bruços no colchonete, braços estendidos acima da cabeça. Levante simultaneamente os braços, peito e pernas do chão. Segure, contraindo os glúteos e as costas."
   },
-  "home_21": {
+  "alternating_superman": {
     "setupNotes": "Deite de bruços, braços acima da cabeça. Levante o braço e a perna opostos simultaneamente (braço direito + perna esquerda). Alterne os lados. Tempo controlado."
   },
-  "home_22": {
+  "superman_pull_w_pull": {
     "setupNotes": "Deite de bruços, braços acima da cabeça. Levante o peito e puxe os cotovelos para trás em posição de W, contraindo as escápulas. Estenda os braços, repita."
   },
-  "home_23": {
+  "weighted_superman_hold": {
     "setupNotes": "Mesma posição em decúbito ventral do padrão. Segure halteres leves nas mãos e/ou caneleiras leves. Levante e segure. Respiração controlada."
   },
-  "home_24": {
+  "reverse_plank": {
     "setupNotes": "Sente-se no chão, mãos atrás dos quadris, dedos para frente. Eleve os quadris até o corpo ficar reto dos ombros aos calcanhares. Contraia os glúteos, segure. Tríceps e core."
   },
-  "home_25": {
+  "reverse_plank_with_leg_lifts": {
     "setupNotes": "Posição padrão de prancha reversa. Alterne elevando uma perna de cada vez, mantendo-a reta. Adiciona demanda de glúteo e core à sustentação."
   },
-  "home_26": {
+  "reverse_plank_push_up_dip_style": {
     "setupNotes": "Posição de prancha reversa. Flexione os cotovelos para descer o corpo, empurre de volta para cima. Como um mergulho no banco, mas do chão com as pernas estendidas retas."
   },
-  "home_27": {
+  "chair_dip": {
     "setupNotes": "Mãos na beirada de uma cadeira firme atrás do corpo, dedos para frente. Pés no chão. Desça flexionando os cotovelos, empurre de volta para cima. Foco no tríceps."
   },
-  "home_29": {
+  "overhead_arm_reach_hold": {
     "setupNotes": "Em pé, estenda os dois braços diretamente acima da cabeça. Segure pelo tempo prescrito. Desafia a resistência do ombro e mobilidade torácica."
   },
-  "home_31": {
+  "bodyweight_squat": {
     "setupNotes": "Em pé, pés na largura dos ombros, pontas dos pés levemente para fora. Braços à frente para equilíbrio. Agache até paralelo ou abaixo. Empurre pelos calcanhares."
   },
-  "home_32": {
+  "sumo_squat_wide_stance": {
     "setupNotes": "Base ampla, pontas dos pés apontadas para fora 45 graus. Agache reto para baixo entre as pernas, joelhos acompanhando os pés. Foco em adutores e glúteos."
   },
-  "home_33": {
+  "prisoner_squat": {
     "setupNotes": "Em pé, mãos atrás da cabeça, cotovelos abertos. Faça agachamento com peso corporal. Mãos atrás da cabeça força o tronco ereto e desafia a mobilidade."
   },
-  "home_34L": {
+  "pistol_squat_single_leg_left_leg": {
     "setupNotes": "Em pé na perna esquerda, perna direita estendida à frente fora do chão. Agache na perna esquerda até a profundidade total — quadril abaixo do joelho — mantendo a perna direita levantada, depois empurre de volta para ficar em pé. Use um batente de porta ou TRX para assistência se necessário. Força avançada da perna esquerda."
   },
-  "home_34R": {
+  "pistol_squat_single_leg_right_leg": {
     "setupNotes": "Em pé na perna direita, perna esquerda estendida à frente fora do chão. Agache na perna direita até a profundidade total — quadril abaixo do joelho — mantendo a perna esquerda levantada, depois empurre de volta para ficar em pé. Use um batente de porta ou TRX para assistência se necessário. Força avançada da perna direita."
   },
-  "home_35L": {
+  "shrimp_squat_left_leg": {
     "setupNotes": "Em pé na perna esquerda, segure o pé direito atrás de você no glúteo com a mão direita. Agache na perna esquerda até o joelho direito tocar o chão, depois empurre de volta para ficar em pé. Agachamento unilateral avançado — carga pesada no quadríceps e glúteo esquerdos."
   },
-  "home_35R": {
+  "shrimp_squat_right_leg": {
     "setupNotes": "Em pé na perna direita, segure o pé esquerdo atrás de você no glúteo com a mão esquerda. Agache na perna direita até o joelho esquerdo tocar o chão, depois empurre de volta para ficar em pé. Agachamento unilateral avançado — carga pesada no quadríceps e glúteo direitos."
   },
-  "home_36L": {
+  "bulgarian_split_squat_bodyweight_left_leg": {
     "setupNotes": "Pé direito elevado atrás em uma cadeira ou banco baixo, pé esquerdo 60-90 cm à frente. Desça até a coxa esquerda da frente ficar paralela ao chão, empurre pelo calcanhar esquerdo para retornar. Apenas peso corporal — treino limpo para o quadríceps e glúteo esquerdos."
   },
-  "home_36R": {
+  "bulgarian_split_squat_bodyweight_right_leg": {
     "setupNotes": "Pé esquerdo elevado atrás em uma cadeira ou banco baixo, pé direito 60-90 cm à frente. Desça até a coxa direita da frente ficar paralela ao chão, empurre pelo calcanhar direito para retornar. Apenas peso corporal — treino limpo para o quadríceps e glúteo direitos."
   },
-  "home_37": {
+  "jump_squat": {
     "setupNotes": "Pés na largura dos ombros, agache, exploda para cima saindo do chão. Aterrisse suavemente em posição de agachamento. Repita. Potência de quadríceps e glúteos."
   },
-  "home_38L": {
+  "lateral_squat_left_leg": {
     "setupNotes": "Fique com os pés mais abertos que os ombros, pontas dos pés para frente. Desloque o peso para a esquerda, flexionando o joelho esquerdo em um agachamento lateral profundo enquanto a perna direita permanece reta. Empurre pelo calcanhar esquerdo para retornar ao centro. Carrega o adutor e glúteo esquerdos."
   },
-  "home_38R": {
+  "lateral_squat_right_leg": {
     "setupNotes": "Fique com os pés mais abertos que os ombros, pontas dos pés para frente. Desloque o peso para a direita, flexionando o joelho direito em um agachamento lateral profundo enquanto a perna esquerda permanece reta. Empurre pelo calcanhar direito para retornar ao centro. Carrega o adutor e glúteo direitos."
   },
-  "home_39": {
+  "sit_to_stand": {
     "setupNotes": "Sente-se em uma cadeira firme ou banco. Fique em pé sem usar as mãos. Sente-se de volta com controle. Força funcional das pernas para todos os níveis."
   },
-  "home_40L": {
+  "single_leg_sit_to_stand_left_leg": {
     "setupNotes": "Sente-se em uma cadeira, pé esquerdo apoiado, perna direita estendida fora do chão. Fique em pé usando apenas a perna esquerda — empurre pelo calcanhar sem balançar. Desça sob controle de volta para sentar. Constrói força da perna esquerda sem equipamento."
   },
-  "home_40R": {
+  "single_leg_sit_to_stand_right_leg": {
     "setupNotes": "Sente-se em uma cadeira, pé direito apoiado, perna esquerda estendida fora do chão. Fique em pé usando apenas a perna direita — empurre pelo calcanhar sem balançar. Desça sob controle de volta para sentar. Constrói força da perna direita sem equipamento."
   },
-  "home_41L": {
+  "reverse_lunge_bodyweight_left": {
     "setupNotes": "Em pé ereto, mãos no quadril. Passo do pé esquerdo para trás em um avanço longo, descendo até os dois joelhos chegarem a ~90 graus e o joelho esquerdo de trás pairar acima do chão. Empurre pelo calcanhar direito da frente para voltar a ficar em pé. Carrega o quadríceps e glúteo direitos da frente."
   },
-  "home_41R": {
+  "reverse_lunge_bodyweight_right": {
     "setupNotes": "Em pé ereto, mãos no quadril. Passo do pé direito para trás em um avanço longo, descendo até os dois joelhos chegarem a ~90 graus e o joelho direito de trás pairar acima do chão. Empurre pelo calcanhar esquerdo da frente para voltar a ficar em pé. Carrega o quadríceps e glúteo esquerdos da frente."
   },
-  "home_42L": {
+  "forward_lunge_bodyweight_left_leg": {
     "setupNotes": "Em pé ereto, mãos no quadril ou ao lado do corpo. Passo do pé esquerdo à frente em uma passada longa e desça até os dois joelhos chegarem a ~90 graus — joelho da frente acompanhando os dedos dos pés. Empurre pelo calcanhar esquerdo para voltar a ficar em pé. Carrega o quadríceps e glúteo esquerdos."
   },
-  "home_42R": {
+  "forward_lunge_bodyweight_right_leg": {
     "setupNotes": "Em pé ereto, mãos no quadril ou ao lado do corpo. Passo do pé direito à frente em uma passada longa e desça até os dois joelhos chegarem a ~90 graus — joelho da frente acompanhando os dedos dos pés. Empurre pelo calcanhar direito para voltar a ficar em pé. Carrega o quadríceps e glúteo direitos."
   },
-  "home_43": {
+  "jumping_lunge": {
     "setupNotes": "Comece na posição de avanço. Pule explosivamente, troque as pernas no ar, aterrisse no avanço oposto. Contínuo. Cardio pliométrico e potência das pernas."
   },
-  "home_44L": {
+  "static_lunge_hold_left_leg": {
     "setupNotes": "Base em passada com o pé esquerdo à frente e o pé direito atrás, ambos os joelhos flexionados a ~90 graus. Mantenha a posição com o joelho de trás pairando acima do chão e tronco ereto. Resistência isométrica de quadríceps e glúteo pela perna esquerda da frente."
   },
-  "home_44R": {
+  "static_lunge_hold_right_leg": {
     "setupNotes": "Base em passada com o pé direito à frente e o pé esquerdo atrás, ambos os joelhos flexionados a ~90 graus. Mantenha a posição com o joelho de trás pairando acima do chão e tronco ereto. Resistência isométrica de quadríceps e glúteo pela perna direita da frente."
   },
-  "home_45L": {
+  "curtsy_lunge_bodyweight_left_leg": {
     "setupNotes": "Em pé ereto. Passo do pé esquerdo atrás e cruzando a perna direita, descendo até a coxa direita ficar paralela ao chão. Empurre pelo calcanhar direito para voltar a ficar em pé. Foco no glúteo médio."
   },
-  "home_45R": {
+  "curtsy_lunge_bodyweight_right_leg": {
     "setupNotes": "Em pé ereto. Passo do pé direito atrás e cruzando a perna esquerda, descendo até a coxa esquerda ficar paralela ao chão. Empurre pelo calcanhar esquerdo para voltar a ficar em pé. Foco no glúteo médio."
   },
-  "home_46": {
+  "glute_bridge": {
     "setupNotes": "Deite de barriga para cima, joelhos flexionados, pés apoiados no chão na largura do quadril. Empurre os quadris para cima contraindo os glúteos no topo. Desça com controle. Exercício de chão."
   },
-  "home_47L": {
+  "glute_bridge_single_leg_left_leg": {
     "setupNotes": "Deite de barriga para cima, pé esquerdo apoiado na largura do quadril, joelho direito elevado ou perna direita estendida em direção ao teto. Empurre os quadris para cima pelo calcanhar esquerdo até o corpo ficar em linha reta, contraia o glúteo esquerdo forte no topo. Desça sob controle."
   },
-  "home_47R": {
+  "glute_bridge_single_leg_right_leg": {
     "setupNotes": "Deite de barriga para cima, pé direito apoiado na largura do quadril, joelho esquerdo elevado ou perna esquerda estendida em direção ao teto. Empurre os quadris para cima pelo calcanhar direito até o corpo ficar em linha reta, contraia o glúteo direito forte no topo. Desça sob controle."
   },
-  "home_48": {
+  "glute_bridge_elevated": {
     "setupNotes": "Igual à ponte padrão, mas com os pés colocados em uma cadeira firme, banco ou step. Aumenta a amplitude de movimento e dificuldade."
   },
-  "home_49": {
+  "frog_pump": {
     "setupNotes": "Deite de barriga para cima, solas dos pés juntas, joelhos para os lados (posição de sapo). Empurre os quadris para cima contraindo os glúteos. Minimiza o envolvimento dos posteriores de coxa."
   },
-  "home_50L": {
+  "donkey_kick_left": {
     "setupNotes": "Nas mãos e joelhos em quadrupedia, colchonete sob os joelhos. Empurre o calcanhar esquerdo em direção ao teto com o joelho flexionado a 90 graus, contraindo o glúteo no topo. Retorno controlado — isola o glúteo esquerdo."
   },
-  "home_50R": {
+  "donkey_kick_right": {
     "setupNotes": "Nas mãos e joelhos em quadrupedia, colchonete sob os joelhos. Empurre o calcanhar direito em direção ao teto com o joelho flexionado a 90 graus, contraindo o glúteo no topo. Retorno controlado — isola o glúteo direito."
   },
-  "home_51L": {
+  "fire_hydrant_left": {
     "setupNotes": "Posição de mãos e joelhos, coluna neutra. Eleve o joelho esquerdo para o lado mantendo a flexão de 90 graus, contraindo o glúteo no topo. Desça com controle — foco no glúteo médio esquerdo."
   },
-  "home_51R": {
+  "fire_hydrant_right": {
     "setupNotes": "Posição de mãos e joelhos, coluna neutra. Eleve o joelho direito para o lado mantendo a flexão de 90 graus, contraindo o glúteo no topo. Desça com controle — foco no glúteo médio direito."
   },
-  "home_52": {
+  "lateral_band_walk": {
     "setupNotes": "Mini elástico de resistência ao redor dos tornozelos ou logo acima dos joelhos. Posição atlética de agachamento de um quarto. Passo lateral mantendo a tensão do elástico. Passos laterais contínuos."
   },
-  "home_53": {
+  "standing_calf_raise_bodyweight": {
     "setupNotes": "Em pé na beirada de um step ou chão plano. Suba nas pontas, contraindo as panturrilhas no topo. Desça com controle. Use a parede para equilíbrio se necessário."
   },
-  "home_54L": {
+  "single_leg_calf_raise_left_leg": {
     "setupNotes": "Em pé no pé esquerdo na beirada de um step, parte da frente do pé na beirada e calcanhar pendurado. Mão na parede para equilíbrio. Suba nas pontas o mais alto possível, depois desça o calcanhar abaixo do step para um alongamento completo. Treina a panturrilha esquerda em amplitude completa."
   },
-  "home_54R": {
+  "single_leg_calf_raise_right_leg": {
     "setupNotes": "Em pé no pé direito na beirada de um step, parte da frente do pé na beirada e calcanhar pendurado. Mão na parede para equilíbrio. Suba nas pontas o mais alto possível, depois desça o calcanhar abaixo do step para um alongamento completo. Treina a panturrilha direita em amplitude completa."
   },
-  "home_55L": {
+  "bodyweight_step_up_left_leg": {
     "setupNotes": "Cadeira firme, banco ou degrau de escada. Coloque o pé esquerdo totalmente na superfície. Empurre pelo calcanhar esquerdo para ficar em pé no topo. Desça com controle. Todas as repetições na perna esquerda."
   },
-  "home_55R": {
+  "bodyweight_step_up_right_leg": {
     "setupNotes": "Cadeira firme, banco ou degrau de escada. Coloque o pé direito totalmente na superfície. Empurre pelo calcanhar direito para ficar em pé no topo. Desça com controle. Todas as repetições na perna direita."
   },
-  "home_56": {
+  "march_in_place_standard": {
     "setupNotes": "Em pé, alterne elevando os joelhos até a altura do quadril. Mova os braços naturalmente em oposição às pernas. Ritmo controlado para aquecimento ou cardio leve."
   },
-  "home_58": {
+  "forearm_plank": {
     "setupNotes": "Cotovelos no chão sob os ombros, antebraços apoiados. Corpo reto da cabeça aos calcanhares. Contraia todo o core, respire com calma. Sustentação cronometrada."
   },
-  "home_59": {
+  "high_plank": {
     "setupNotes": "Mãos sob os ombros, braços retos. Corpo reto, empurre o chão para longe. Contraia o core, evite afundar os quadris. Posição de fundação para muitos exercícios."
   },
-  "home_60L": {
+  "side_plank_left_side": {
     "setupNotes": "Deite-se no lado esquerdo, antebraço esquerdo no chão sob o ombro, pés empilhados ou escalonados. Eleve os quadris para que o corpo forme uma linha reta da cabeça aos calcanhares, braço direito estendido em direção ao teto ou no quadril. Segure por tempo. Carrega os oblíquos esquerdos e QL."
   },
-  "home_60R": {
+  "side_plank_right_side": {
     "setupNotes": "Deite-se no lado direito, antebraço direito no chão sob o ombro, pés empilhados ou escalonados. Eleve os quadris para que o corpo forme uma linha reta da cabeça aos calcanhares, braço esquerdo estendido em direção ao teto ou no quadril. Segure por tempo. Carrega os oblíquos direitos e QL."
   },
-  "home_61L": {
+  "side_plank_with_hip_dips_left_side": {
     "setupNotes": "Prancha lateral no antebraço esquerdo, quadris elevados em linha reta. Desça lentamente o quadril esquerdo em direção ao chão sem tocar, depois empurre de volta para o início. Repetições controladas em amplitude completa. Carga dinâmica nos oblíquos esquerdos."
   },
-  "home_61R": {
+  "side_plank_with_hip_dips_right_side": {
     "setupNotes": "Prancha lateral no antebraço direito, quadris elevados em linha reta. Desça lentamente o quadril direito em direção ao chão sem tocar, depois empurre de volta para o início. Repetições controladas em amplitude completa. Carga dinâmica nos oblíquos direitos."
   },
-  "home_62L": {
+  "side_plank_with_leg_lift_left_side": {
     "setupNotes": "Prancha lateral no antebraço esquerdo com quadris elevados. Eleve a perna direita (de cima) para cima e segure ou faça pulsos no topo mantendo os quadris alinhados. Adiciona trabalho de glúteo médio e quadril externo à sustentação dos oblíquos esquerdos."
   },
-  "home_62R": {
+  "side_plank_with_leg_lift_right_side": {
     "setupNotes": "Prancha lateral no antebraço direito com quadris elevados. Eleve a perna esquerda (de cima) para cima e segure ou faça pulsos no topo mantendo os quadris alinhados. Adiciona trabalho de glúteo médio e quadril externo à sustentação dos oblíquos direitos."
   },
-  "home_64": {
+  "high_plank_knee_drives": {
     "setupNotes": "Posição de prancha alta. Empurre um joelho em direção ao peito rapidamente, retorne, repita o outro joelho. Estilo escalador a partir da prancha. Controlado."
   },
-  "home_65": {
+  "incline_plank_hands_elevated": {
     "setupNotes": "Mãos em banco, caixa ou cadeira em posição de prancha. Regressão mais fácil da prancha no chão. Bom para iniciantes construindo força do core."
   },
-  "home_66": {
+  "dead_bug_standard": {
     "setupNotes": "Deite de barriga para cima, braços retos em direção ao teto, joelhos flexionados a 90 graus (posição de mesa). Estenda o braço/perna opostos em direção ao chão, retorne, alterne. Pressione a lombar contra o chão."
   },
-  "home_67": {
+  "dead_bug_slow_tempo": {
     "setupNotes": "Mesma posição do dead bug padrão. Extensão muito lenta e controlada (4-5 segundos para fora, 4-5 segundos de volta). Foque em manter o contato da lombar com o chão."
   },
-  "home_68": {
+  "dead_bug_banded": {
     "setupNotes": "Posição padrão de dead bug. Elástico de resistência leve em volta das mãos e/ou pés. A tensão do elástico adiciona demanda ao core em amplitude completa."
   },
-  "home_69": {
+  "dead_bug_weighted": {
     "setupNotes": "Posição padrão de dead bug segurando um halter leve nas mãos acima da cabeça. Estenda os membros com controle. Carga adicional nos estabilizadores do core."
   },
-  "home_70L": {
+  "bird_dog_standard_left": {
     "setupNotes": "Nas mãos e joelhos, coluna neutra. Estenda o braço esquerdo à frente e a perna direita para trás simultaneamente até que ambos fiquem paralelos ao chão. Contraia o core, segure brevemente, retorne. Treina antiextensão e equilíbrio."
   },
-  "home_70R": {
+  "bird_dog_standard_right": {
     "setupNotes": "Nas mãos e joelhos, coluna neutra. Estenda o braço direito à frente e a perna esquerda para trás simultaneamente até que ambos fiquem paralelos ao chão. Contraia o core, segure brevemente, retorne. Treina antiextensão e equilíbrio."
   },
-  "home_71L": {
+  "bird_dog_from_push_up_position_left": {
     "setupNotes": "Posição de prancha alta, mãos sob os ombros, corpo em linha reta. Estenda o braço esquerdo à frente e a perna direita para trás simultaneamente, segure brevemente sem deixar os quadris girarem. Retorne. Muito mais difícil que a versão ajoelhada."
   },
-  "home_71R": {
+  "bird_dog_from_push_up_position_right": {
     "setupNotes": "Posição de prancha alta, mãos sob os ombros, corpo em linha reta. Estenda o braço direito à frente e a perna esquerda para trás simultaneamente, segure brevemente sem deixar os quadris girarem. Retorne. Muito mais difícil que a versão ajoelhada."
   },
-  "home_72L": {
+  "bird_dog_band_resisted_left": {
     "setupNotes": "Posição ajoelhada de bird-dog com um elástico de resistência leve indo da mão esquerda ao pé direito. Estenda o braço esquerdo e a perna direita até o elástico ficar tenso, segure, retorne. O elástico adiciona resistência e instabilidade ao padrão diagonal."
   },
-  "home_72R": {
+  "bird_dog_band_resisted_right": {
     "setupNotes": "Posição ajoelhada de bird-dog com um elástico de resistência leve indo da mão direita ao pé esquerdo. Estenda o braço direito e a perna esquerda até o elástico ficar tenso, segure, retorne. O elástico adiciona resistência e instabilidade ao padrão diagonal."
   },
-  "home_73L": {
+  "bird_dog_row_weighted_left_arm": {
     "setupNotes": "Posição ajoelhada de bird-dog com um halter na mão esquerda. Estenda a perna direita para trás, depois puxe o halter esquerdo para o quadril — mantendo os quadris alinhados e o core contraído. Desça o halter, retorne. Combina antirrotação com remada unilateral."
   },
-  "home_73R": {
+  "bird_dog_row_weighted_right_arm": {
     "setupNotes": "Posição ajoelhada de bird-dog com um halter na mão direita. Estenda a perna esquerda para trás, depois puxe o halter direito para o quadril — mantendo os quadris alinhados e o core contraído. Desça o halter, retorne. Combina antirrotação com remada unilateral."
   },
-  "home_74": {
+  "bicycle_crunch_standard": {
     "setupNotes": "Deite de barriga para cima, mãos atrás da cabeça (não puxe o pescoço). Eleve os ombros, gire o cotovelo direito em direção ao joelho esquerdo enquanto estende a perna direita. Alterne continuamente."
   },
-  "home_75": {
+  "bicycle_crunch_slow_tempo": {
     "setupNotes": "Deite de barriga para cima, mãos atrás da cabeça, ombros elevados. Gire lentamente um cotovelo em direção ao joelho oposto enquanto estende a outra perna — 3–4 segundos por lado. Rotação completa pelo tronco — maximiza o tempo sob tensão dos oblíquos."
   },
-  "home_76": {
+  "standing_bicycle_crunch": {
     "setupNotes": "Em pé, mãos atrás da cabeça. Empurre um joelho para cima enquanto gira o cotovelo oposto para encontrá-lo. Alterne os lados. Trabalho de core de baixo impacto."
   },
-  "home_77": {
+  "lying_leg_raise_standard": {
     "setupNotes": "Deite de barriga para cima, mãos sob a lombar ou ao lado do corpo. Pernas retas, eleve do chão até a vertical. Desça com controle sem arquear as costas."
   },
-  "home_78": {
+  "lying_leg_raise_alternating": {
     "setupNotes": "Mesma posição do padrão. Eleve uma perna de cada vez, alternando. Progressão mais fácil. Mantenha a lombar pressionada contra o chão."
   },
-  "home_79": {
+  "lying_leg_raise_with_hold": {
     "setupNotes": "Eleve as duas pernas a ~15 cm do chão. Segure pelo tempo prescrito. Lombar pressionada contra o chão. Sustentação isométrica da parte inferior do abdômen."
   },
-  "home_80": {
+  "flutter_kicks": {
     "setupNotes": "Deite de barriga para cima, pernas estendidas a ~15 cm do chão. Alterne pequenos chutes para cima/baixo rapidamente. Lombar pressionada contra o chão. Resistência do core."
   },
-  "home_81L": {
+  "supine_heel_slide_left": {
     "setupNotes": "Deite de barriga para cima, joelhos flexionados, pés apoiados e pelve em neutro. Deslize lentamente o calcanhar esquerdo pelo chão até a perna ficar reta, depois puxe-o de volta sob controle. Mantenha a pelve estável durante todo o movimento — treina o core profundo e controle lombopélvico."
   },
-  "home_81R": {
+  "supine_heel_slide_right": {
     "setupNotes": "Deite de barriga para cima, joelhos flexionados, pés apoiados e pelve em neutro. Deslize lentamente o calcanhar direito pelo chão até a perna ficar reta, depois puxe-o de volta sob controle. Mantenha a pelve estável durante todo o movimento — treina o core profundo e controle lombopélvico."
   },
-  "home_82": {
+  "heel_slide_with_core_bracing": {
     "setupNotes": "Igual ao deslizamento de calcanhar padrão. Contraia ativamente o core (puxe o umbigo para dentro) antes de cada deslizamento. Foque em prevenir qualquer movimento pélvico."
   },
-  "home_83": {
+  "standing_core_brace": {
     "setupNotes": "Em pé, pés na largura do quadril. Puxe o umbigo para dentro, engaje todo o core como se preparando para um soco. Segure pelo tempo prescrito enquanto respira. Exercício fundamental."
   },
-  "home_84L": {
+  "anti_rotation_brace_band_left": {
     "setupNotes": "Ancore um elástico de resistência leve na altura do peito no lado direito. Fique com o lado direito em direção à âncora, com as duas mãos segurando o elástico no peito. Empurre os braços retos para fora e segure — resista ao elástico puxando você em direção à rotação para a direita. Sustentação antirrotação do core."
   },
-  "home_84R": {
+  "anti_rotation_brace_band_right": {
     "setupNotes": "Ancore um elástico de resistência leve na altura do peito no lado esquerdo. Fique com o lado esquerdo em direção à âncora, com as duas mãos segurando o elástico no peito. Empurre os braços retos para fora e segure — resista ao elástico puxando você em direção à rotação para a esquerda. Sustentação antirrotação do core."
   },
-  "home_85": {
+  "v_up": {
     "setupNotes": "Deite de barriga para cima, braços acima da cabeça, pernas retas. Eleve simultaneamente os braços e as pernas para tocar as mãos nos pés no topo. Formato de V no pico. Desça com controle."
   },
-  "home_86": {
+  "mountain_climber_standard": {
     "setupNotes": "Posição de prancha alta. Empurre um joelho em direção ao peito rapidamente, troque, repita. Alternância rápida como corrida no lugar horizontal."
   },
-  "home_87": {
+  "mountain_climber_cross_body": {
     "setupNotes": "Posição de prancha alta. Empurre o joelho em direção ao cotovelo oposto. Alterne os lados. O elemento rotacional adiciona engajamento dos oblíquos ao escalador padrão."
   },
-  "home_88": {
+  "high_knees": {
     "setupNotes": "Em pé, empurre os joelhos acima da altura do quadril rapidamente alternando as pernas. Mova os braços. Ritmo rápido. No lugar ou movendo-se levemente para frente."
   },
-  "home_89": {
+  "butt_kicks": {
     "setupNotes": "Em pé, corra no lugar chutando os calcanhares até tocar os glúteos. Mova os braços naturalmente. Leve salto nas pontas dos pés. Aquecimento dos posteriores de coxa e cardio."
   },
-  "home_90": {
+  "high_knees_lateral_shuffle": {
     "setupNotes": "Combine elevação de joelhos altos com passos laterais. Joelhos altos por 4 passos, passos laterais por 4 passos, repita. Agilidade e cardio."
   },
-  "home_91": {
+  "high_knee_tuck_jumps": {
     "setupNotes": "Em pé, pule explosivamente puxando os dois joelhos em direção ao peito no pico. Aterrisse suavemente com os joelhos flexionados. Pliométrico avançado."
   },
-  "home_92": {
+  "star_jumps": {
     "setupNotes": "Em pé, agachamento de um quarto depois exploda para cima espalhando os braços e pernas em formato de X/estrela no ar. Aterrisse suavemente em agachamento. Pliométrico de corpo inteiro."
   },
-  "home_93": {
+  "jumping_jacks": {
     "setupNotes": "Em pé, pés juntos, braços ao lado do corpo. Pule abrindo os pés enquanto levanta os braços acima da cabeça, pule de volta. Aquecimento cardio clássico. Ritmo contínuo."
   },
-  "home_94": {
+  "squat_jacks": {
     "setupNotes": "Como polichinelos, mas mais baixo — pule os pés abertos em agachamento, depois pule os pés juntos para em pé. Braços se estendem para fora ou acima da cabeça no topo."
   },
-  "home_96": {
+  "box_jump_squat": {
     "setupNotes": "Fique de frente para uma caixa pliométrica firme ou plataforma. Agache, balance os braços, pule na caixa aterrissando suavemente em agachamento. Desça. Ajuste a altura da caixa ao seu nível."
   },
-  "home_97": {
+  "mountain_climbers_fast": {
     "setupNotes": "Posição de prancha alta. Corra com os joelhos em direção ao peito alternadamente o mais rápido possível. Mantenha a integridade da prancha. Cardio HIIT a partir da prancha."
   },
-  "home_98": {
+  "spider_mountain_climbers": {
     "setupNotes": "Prancha alta. Traga o joelho para a parte externa do cotovelo do mesmo lado (mais aberto que o escalador padrão). Alterne. Mobilidade do quadril mais trabalho de core."
   },
-  "home_99": {
+  "squat_to_stand": {
     "setupNotes": "Em pé, dobre à frente tocando os dedos dos pés (flexione os joelhos se necessário). Segure os dedos dos pés, desça o quadril, eleve o peito em agachamento profundo. Fique em pé. Repita. Mobilidade e pernas."
   },
-  "home_100": {
+  "burpee": {
     "setupNotes": "Em pé, agache colocando as mãos no chão. Salte os pés para trás na posição de prancha, faça uma flexão (opcional), salte os pés de volta até as mãos, salte para cima com os braços acima da cabeça. Corpo inteiro."
   },
-  "home_101": {
+  "fast_feet": {
     "setupNotes": "Postura atlética, joelhos levemente flexionados. Passos pequenos e rápidos no lugar, pés mal saem do chão. O mais rápido possível pelo tempo prescrito. Exercício de agilidade."
   },
-  "home_104": {
+  "battle_ropes_alternating_waves": {
     "setupNotes": "Em pé com os joelhos levemente flexionados, uma extremidade da corda em cada mão. Alterne os braços criando ondas contínuas na corda. Cardio de corpo inteiro."
   },
-  "home_105": {
+  "battle_ropes_power_slam": {
     "setupNotes": "Em pé com os joelhos levemente flexionados, as duas extremidades da corda. Levante ambos os braços acima da cabeça depois bata as cordas para baixo juntas. Agachamento com o slam. Potência de corpo inteiro."
   },
-  "home_106": {
+  "battle_ropes_side_to_side_slam": {
     "setupNotes": "Segure as duas cordas, balance-as de um lado para o outro juntas criando ondas laterais. Rotação do core com potência da parte superior do corpo. Ênfase nos oblíquos."
   },
-  "home_107": {
+  "battle_ropes_kneeling_waves": {
     "setupNotes": "Ajoelhe-se no colchonete, uma extremidade da corda em cada mão. Ondas alternadas em posição ajoelhada. Remove as pernas, isola a parte superior do corpo e core."
   },
-  "home_108": {
+  "sled_push_standard": {
     "setupNotes": "Carregue o trenó com peso moderado. Segure os manípulos altos ou baixos. Empurre para frente com as pernas, ritmo constante por distância. Incline-se no trenó."
   },
-  "home_109": {
+  "sled_push_heavy_strength": {
     "setupNotes": "Carregue o trenó pesado. Pegada no manípulo baixo, incline-se à frente em ~45 graus. Passos curtos e poderosos, empurre pelas pontas dos pés. Foco em força e potência das pernas."
   },
-  "home_110": {
+  "sled_push_sprint": {
     "setupNotes": "Carga leve-moderada no trenó. Manípulos altos ou baixos. Sprint por distância curta (20-40 metros). Esforço máximo de velocidade."
   },
-  "home_111": {
+  "sled_push_reverse_backward": {
     "setupNotes": "De frente para o trenó, segure os manípulos, caminhe ou empurre para trás puxando o trenó em direção a você a cada passo. Movimento dominante no quadríceps. Amigável para os joelhos."
   },
-  "home_112": {
+  "sled_pull_hand_over_hand": {
     "setupNotes": "Conecte uma corda longa ao trenó. Sente-se ou fique em pé na ponta da corda. Puxe o trenó em direção a você mão sobre mão. Ênfase na parte superior das costas e bíceps."
   },
-  "home_113": {
+  "sled_pull_backward_walk": {
     "setupNotes": "Conecte a alça ao trenó, cinto ao redor da cintura. Caminhe para trás puxando o trenó. Tronco ereto. Ênfase em quadríceps e glúteos."
   },
-  "home_114": {
+  "skipping_rope": {
     "setupNotes": "Pule corda em superfície firme e plana. Leve salto nas pontas dos pés, os pulsos controlam a rotação da corda. Várias velocidades e padrões de pés."
   },
-  "home_115": {
+  "bear_crawl": {
     "setupNotes": "Nas mãos e pés (não joelhos), joelhos pairando logo acima do chão. Engatinhe para frente movendo a mão e o pé opostos juntos. Core e corpo inteiro."
   },
-  "home_116": {
+  "treadmill_walk": {
     "setupNotes": "Esteira ajustada em velocidade confortável de caminhada (4-6 km/h). Postura ereta, braços balançando naturalmente. Inclinação opcional para esforço adicional."
   },
-  "home_117": {
+  "treadmill_jog": {
     "setupNotes": "Esteira ajustada em ritmo de trote (7-9 km/h). Ritmo fácil e conversacional. Aterrisse no meio do pé, ombros e braços relaxados."
   },
-  "home_118": {
+  "treadmill_run": {
     "setupNotes": "Esteira ajustada em ritmo de corrida (10-14 km/h). Esforço moderado a difícil. Boa forma de corrida — postura ereta, aterrissagem no meio do pé, mãos relaxadas."
   },
-  "home_119": {
+  "treadmill_sprint": {
     "setupNotes": "Esteira ajustada em velocidade de sprint (15+ km/h) ou esforço máximo por intervalos curtos (15-30 segundos). Segure as barras laterais para subir/descer com segurança."
   },
-  "home_120": {
+  "incline_treadmill_walk": {
     "setupNotes": "Esteira em velocidade de caminhada com inclinação elevada (8-15%). Caminhe em subida. Não segure os corrimãos para benefício completo. Ênfase em glúteos e cardio."
   },
-  "home_121": {
+  "stationary_bike_steady": {
     "setupNotes": "Ajuste a altura do assento para leve flexão na parte inferior da pedalada. Resistência moderada constante. Posição ereta ou reclinada. Ritmo sustentado."
   },
-  "home_122": {
+  "spin_bike_standing_climb": {
     "setupNotes": "Bike de spinning com resistência pesada. Fique em pé nos pedais e pedale em pé, simulando subida. Segure firme no guidão."
   },
-  "home_123": {
+  "rower_steady": {
     "setupNotes": "Máquina de remo. Prenda os pés, segure o manípulo. Empurre primeiro com as pernas, depois incline para trás, depois puxe os braços. Inverta a sequência no retorno. Ritmo constante."
   },
-  "home_124": {
+  "rower_sprint_intervals": {
     "setupNotes": "Máquina de remo. Alterne entre sprints de esforço máximo (20-30 segundos) e recuperação fácil (60-90 segundos). Ajuste o damper em 4-6."
   },
-  "home_125": {
+  "elliptical_steady": {
     "setupNotes": "Máquina elíptica. Pés nos pedais, segure os manípulos móveis ou fixos. Movimento suave de pedalada. Resistência moderada, ritmo constante."
   },
-  "home_126": {
+  "elliptical_intervals": {
     "setupNotes": "Máquina elíptica. Alterne entre picos de alta resistência/velocidade e recuperação fácil. Use ambos os manípulos para parte superior e inferior do corpo."
   },
-  "home_127": {
+  "elliptical_reverse_pedal": {
     "setupNotes": "Máquina elíptica, pedale na direção reversa. Ênfase no quadríceps muda em comparação com o movimento para frente. Segure os manípulos para estabilidade."
   },
-  "home_128": {
+  "stairmaster_steady_climb": {
     "setupNotes": "StairMaster ou stepmill. Ritmo de passos constante, mãos leves nos corrimãos (não se apoie neles). Postura ereta. Foco em glúteos e cardio."
   },
-  "home_129": {
+  "stairmaster_intervals": {
     "setupNotes": "StairMaster. Alterne passos rápidos e lentos, ou mude de nível. Mãos fora dos corrimãos para melhor efeito. Esforço alto em picos curtos, recuperação mais longa."
   },
-  "home_130": {
+  "assault_air_bike_intervals": {
     "setupNotes": "Bike air / assault bike. Braços e pernas empurram juntos. Intervalos de sprint (20-30 seg ligado, 60-90 seg desligado). Cardio de corpo inteiro."
   },
-  "home_131": {
+  "ski_erg": {
     "setupNotes": "Máquina ski erg. Em pé, segure os manípulos acima da cabeça. Puxe para baixo usando os dorsais e core, articule levemente o quadril. Retorne os braços acima da cabeça. Ritmo constante ou por intervalos."
   },
-  "home_133": {
+  "high_knee_march": {
     "setupNotes": "Em pé, empurre os joelhos acima do nível do quadril alternadamente. Mova os braços em oposição às pernas. Ritmo moderado. Ativação dos flexores do quadril e aquecimento."
   },
-  "home_134": {
+  "arm_swings_forward": {
     "setupNotes": "Em pé, balance os dois braços para frente e para cima acima da cabeça em grandes arcos — depois de volta para baixo. Construa momentum a cada repetição. Aquecimento dinâmico de ombros."
   },
-  "home_134_2": {
+  "arm_swings_backward": {
     "setupNotes": "Em pé, balance os dois braços para trás em grandes arcos reversos — puxando os ombros para trás e abrindo o peito. Construa momentum a cada repetição. Aquecimento dinâmico de ombros."
   },
-  "home_135": {
+  "cross_body_arm_swings": {
     "setupNotes": "Em pé, balance os dois braços horizontalmente pela frente do corpo em padrão cruzado alternado. Abre o peito e aquece os ombros e peitorais."
   },
-  "home_137": {
+  "hip_circles": {
     "setupNotes": "Fique em pé com os pés na largura do quadril, mãos no quadril. Gire os quadris em grandes círculos suaves — sentido horário depois anti-horário. Mantenha a parte superior do corpo estável. Aquece as articulações do quadril e a lombar."
   },
-  "home_138": {
+  "ankle_circles": {
     "setupNotes": "Em pé em uma perna (segure algum apoio), gire o pé em círculos. Sentido horário depois anti-horário. 10 em cada direção. Troque os pés."
   },
-  "home_139": {
+  "wrist_rolls": {
     "setupNotes": "Estenda os braços à frente, gire os pulsos em ambas as direções. Abra e feche os punhos entre os círculos. Aquece as articulações dos pulsos para empurrar e pegar."
   },
-  "home_140L": {
+  "leg_swings_front_to_back_left_leg": {
     "setupNotes": "Fique com o lado direito próximo à parede, mão direita na parede para equilíbrio. Balance a perna esquerda para frente e para trás em um pêndulo controlado, aumentando gradualmente a amplitude. Aquece os flexores do quadril e posteriores de coxa esquerdos."
   },
-  "home_140R": {
+  "leg_swings_front_to_back_right_leg": {
     "setupNotes": "Fique com o lado esquerdo próximo à parede, mão esquerda na parede para equilíbrio. Balance a perna direita para frente e para trás em um pêndulo controlado, aumentando gradualmente a amplitude. Aquece os flexores do quadril e posteriores de coxa direitos."
   },
-  "home_141L": {
+  "leg_swings_side_to_side_left_leg": {
     "setupNotes": "De frente para a parede, ambas as mãos nela para apoio, peso na perna direita. Balance a perna esquerda cruzando o corpo e para o lado em um pêndulo controlado. Aquece os adutores e abdutores esquerdos."
   },
-  "home_141R": {
+  "leg_swings_side_to_side_right_leg": {
     "setupNotes": "De frente para a parede, ambas as mãos nela para apoio, peso na perna esquerda. Balance a perna direita cruzando o corpo e para o lado em um pêndulo controlado. Aquece os adutores e abdutores direitos."
   },
-  "home_142": {
+  "cat_cow": {
     "setupNotes": "Nas mãos e joelhos. Alterne entre arquear as costas (vaca — barriga cai) e arredondar as costas (gato — barriga sobe). Coordene com a respiração."
   },
-  "home_143": {
+  "inchworm": {
     "setupNotes": "Em pé, dobre à frente tocando o chão. Caminhe as mãos para fora até a posição de prancha. Flexão opcional. Caminhe os pés até as mãos, fique em pé. Aquecimento de corpo inteiro."
   },
-  "home_144": {
+  "walking_lunge_with_twist": {
     "setupNotes": "Passe em avanço à frente, gire o tronco em direção à perna da frente. Braços estendidos ou mãos juntas. Retorne para em pé, passe a outra perna. Alongamento dinâmico."
   },
-  "home_145": {
+  "scapular_push_up": {
     "setupNotes": "Posição de prancha alta, braços retos. Sem flexionar os cotovelos, empurre as escápulas para fora (protração) depois contraia juntas (retração). Mobilidade escapular."
   },
-  "home_146": {
+  "shoulder_rolls": {
     "setupNotes": "Em pé, gire os ombros para frente em círculos, depois para trás. Círculos grandes e controlados. Solta os trapézios superiores e articulações dos ombros."
   },
-  "home_147": {
+  "child_s_pose": {
     "setupNotes": "Ajoelhe-se no colchonete, sente sobre os calcanhares, estenda os braços à frente no chão. Testa apoiada no chão. Respiração profunda. Alonga as costas, dorsais e quadris."
   },
-  "home_148": {
+  "seated_forward_fold": {
     "setupNotes": "Sente-se no chão, pernas estendidas retas. Articule o quadril à frente alcançando os pés. Segure. Alonga os posteriores de coxa e a lombar."
   },
-  "home_149L": {
+  "standing_quad_stretch_left": {
     "setupNotes": "Em pé ereto, mão livre na parede para equilíbrio. Puxe o pé esquerdo em direção ao glúteo esquerdo com a mão esquerda, joelhos juntos e quadris levemente empurrados à frente. Segure e respire. Alonga o quadríceps e flexor do quadril esquerdos."
   },
-  "home_149R": {
+  "standing_quad_stretch_right": {
     "setupNotes": "Em pé ereto, mão livre na parede para equilíbrio. Puxe o pé direito em direção ao glúteo direito com a mão direita, joelhos juntos e quadris levemente empurrados à frente. Segure e respire. Alonga o quadríceps e flexor do quadril direitos."
   },
-  "home_150L": {
+  "hamstring_stretch_seated_left": {
     "setupNotes": "Sente-se no chão com a perna esquerda estendida e o pé direito encaixado contra a parte interna da coxa esquerda. Articule o quadril e alcance sobre a perna esquerda, coluna reta. Segure e respire. Foco no posterior de coxa esquerdo."
   },
-  "home_150R": {
+  "hamstring_stretch_seated_right": {
     "setupNotes": "Sente-se no chão com a perna direita estendida e o pé esquerdo encaixado contra a parte interna da coxa direita. Articule o quadril e alcance sobre a perna direita, coluna reta. Segure e respire. Foco no posterior de coxa direito."
   },
-  "home_151L": {
+  "hamstring_stretch_standing_left": {
     "setupNotes": "Em pé, coloque o calcanhar esquerdo em um banco ou step baixo com a perna reta. Articule o quadril e incline-se à frente sobre a perna esquerda, mantendo a coluna reta. Segure. Foco no posterior de coxa esquerdo."
   },
-  "home_151R": {
+  "hamstring_stretch_standing_right": {
     "setupNotes": "Em pé, coloque o calcanhar direito em um banco ou step baixo com a perna reta. Articule o quadril e incline-se à frente sobre a perna direita, mantendo a coluna reta. Segure. Foco no posterior de coxa direito."
   },
-  "home_152L": {
+  "calf_stretch_wall_left_leg": {
     "setupNotes": "De frente para a parede em base em passada — pé esquerdo atrás com o calcanhar pressionado no chão, pé direito à frente com o joelho flexionado. Incline os quadris em direção à parede até a panturrilha esquerda alongar. Segure. Foco no gastrocnêmio esquerdo."
   },
-  "home_152R": {
+  "calf_stretch_wall_right_leg": {
     "setupNotes": "De frente para a parede em base em passada — pé direito atrás com o calcanhar pressionado no chão, pé esquerdo à frente com o joelho flexionado. Incline os quadris em direção à parede até a panturrilha direita alongar. Segure. Foco no gastrocnêmio direito."
   },
-  "home_153L": {
+  "chest_stretch_doorway_left": {
     "setupNotes": "Fique em uma porta, antebraço esquerdo contra o batente com o cotovelo a 90 graus e na altura do ombro. Passe o pé esquerdo pela porta e gire o peito para longe do braço até sentir um alongamento pelo peitoral esquerdo e ombro anterior. Segure."
   },
-  "home_153R": {
+  "chest_stretch_doorway_right": {
     "setupNotes": "Fique em uma porta, antebraço direito contra o batente com o cotovelo a 90 graus e na altura do ombro. Passe o pé direito pela porta e gire o peito para longe do braço até sentir um alongamento pelo peitoral direito e ombro anterior. Segure."
   },
-  "home_154L": {
+  "cross_body_shoulder_stretch_left": {
     "setupNotes": "Em pé ereto, traga o braço esquerdo reto pela frente do peito. Enganche o antebraço direito sob o cotovelo esquerdo e puxe o braço esquerdo em direção ao corpo. Segure. Alonga o deltoide posterior esquerdo e parte superior das costas."
   },
-  "home_154R": {
+  "cross_body_shoulder_stretch_right": {
     "setupNotes": "Em pé ereto, traga o braço direito reto pela frente do peito. Enganche o antebraço esquerdo sob o cotovelo direito e puxe o braço direito em direção ao corpo. Segure. Alonga o deltoide posterior direito e parte superior das costas."
   },
-  "home_155L": {
+  "overhead_triceps_stretch_left": {
     "setupNotes": "Eleve o braço esquerdo acima da cabeça e flexione o cotovelo para que a mão esquerda caia atrás da cabeça. Use a mão direita para pressionar suavemente o cotovelo esquerdo para trás e para baixo. Segure. Alonga o tríceps e dorsal esquerdos."
   },
-  "home_155R": {
+  "overhead_triceps_stretch_right": {
     "setupNotes": "Eleve o braço direito acima da cabeça e flexione o cotovelo para que a mão direita caia atrás da cabeça. Use a mão esquerda para pressionar suavemente o cotovelo direito para trás e para baixo. Segure. Alonga o tríceps e dorsal direitos."
   },
-  "home_157L": {
+  "hip_flexor_stretch_left_hip": {
     "setupNotes": "Meio ajoelhado no colchonete — joelho esquerdo no chão, pé direito à frente. Encaixe a pelve sob e empurre os quadris à frente suavemente até sentir um alongamento na parte frontal do quadril esquerdo. Fique ereto pelo tronco. Segure. Alonga o flexor do quadril esquerdo."
   },
-  "home_157R": {
+  "hip_flexor_stretch_right_hip": {
     "setupNotes": "Meio ajoelhado no colchonete — joelho direito no chão, pé esquerdo à frente. Encaixe a pelve sob e empurre os quadris à frente suavemente até sentir um alongamento na parte frontal do quadril direito. Fique ereto pelo tronco. Segure. Alonga o flexor do quadril direito."
   },
-  "home_158L": {
+  "glute_stretch_figure_4_left": {
     "setupNotes": "Deite de barriga para cima com os joelhos flexionados. Cruze o tornozelo esquerdo sobre o joelho direito em formato de 4. Alcance e puxe a coxa direita em direção ao peito até sentir um alongamento profundo no glúteo esquerdo. Segure. Foco no piriforme esquerdo."
   },
-  "home_158R": {
+  "glute_stretch_figure_4_right": {
     "setupNotes": "Deite de barriga para cima com os joelhos flexionados. Cruze o tornozelo direito sobre o joelho esquerdo em formato de 4. Alcance e puxe a coxa esquerda em direção ao peito até sentir um alongamento profundo no glúteo direito. Segure. Foco no piriforme direito."
   },
-  "home_159L": {
+  "neck_side_stretch_left": {
     "setupNotes": "Em pé ou sentado ereto, incline suavemente a orelha direita em direção ao ombro direito, mantendo o ombro esquerdo relaxado e pressionado para baixo. Opcionalmente use a mão direita para pressão adicional leve. Segure. Alonga o lado esquerdo do pescoço."
   },
-  "home_159R": {
+  "neck_side_stretch_right": {
     "setupNotes": "Em pé ou sentado ereto, incline suavemente a orelha esquerda em direção ao ombro esquerdo, mantendo o ombro direito relaxado e pressionado para baixo. Opcionalmente use a mão esquerda para pressão adicional leve. Segure. Alonga o lado direito do pescoço."
   },
-  "home_160L": {
+  "upper_trap_stretch_left": {
     "setupNotes": "Sentado ereto, coloque a mão esquerda atrás das costas. Incline a cabeça para longe do ombro esquerdo e use a mão direita na cabeça para pressão adicional suave. Segure. Alivia tensão no trapézio superior esquerdo."
   },
-  "home_160R": {
+  "upper_trap_stretch_right": {
     "setupNotes": "Sentado ereto, coloque a mão direita atrás das costas. Incline a cabeça para longe do ombro direito e use a mão esquerda na cabeça para pressão adicional suave. Segure. Alivia tensão no trapézio superior direito."
   },
-  "home_161": {
+  "diaphragmatic_breathing_supine": {
     "setupNotes": "Deite de barriga para cima, joelhos flexionados, pés apoiados. Uma mão no peito, outra na barriga. Respire profundamente para a barriga (barriga sobe), peito fica parado. Expiração lenta."
   },
-  "home_162": {
+  "diaphragmatic_breathing_seated": {
     "setupNotes": "Sente-se ereto na cadeira, pés apoiados. Mãos na barriga. Inspire pelo nariz expandindo a barriga. Expire lentamente pela boca. Ombros relaxados."
   },
-  "home_163": {
+  "pelvic_balloon_breathing": {
     "setupNotes": "Deite de barriga para cima, joelhos flexionados. Visualize o assoalho pélvico como um balão enchendo na inspiração (relaxa para baixo) e esvaziando na expiração (puxa para cima). Coordene a respiração."
   },
-  "home_164": {
+  "kegel_slow_hold": {
     "setupNotes": "Sentado ou deitado de costas. Contraia os músculos do assoalho pélvico (como se parando o fluxo de urina). Segure por 5-10 segundos, relaxe completamente pelo mesmo tempo. Repita."
   },
-  "home_165": {
+  "kegel_quick_flicks": {
     "setupNotes": "Mesma posição. Contraia e libere rapidamente os músculos do assoalho pélvico. Segure por 1 segundo, libere por 1 segundo. Constrói resposta de contração rápida do assoalho pélvico."
   },
-  "home_166": {
+  "kegel_endurance_set": {
     "setupNotes": "Sentado ou deitado de costas. Contraia o assoalho pélvico e segure por durações crescentes (10, 15, 20 segundos). Relaxamento completo entre as sustentações."
   },
-  "home_167": {
+  "pelvic_tilts": {
     "setupNotes": "Deite de barriga para cima, joelhos flexionados, pés apoiados. Incline suavemente a pelve — achate a lombar contra o chão (inclinação posterior), depois libere para neutro. Movimento suave de balanço."
   },
-  "home_169L": {
+  "clamshell_standard_left": {
     "setupNotes": "Deite no lado direito, joelhos flexionados a 90 graus, pés empilhados juntos. Mantenha os pés se tocando e abra o joelho esquerdo (de cima) para cima como uma concha, contraindo o glúteo médio esquerdo. Desça sob controle."
   },
-  "home_169R": {
+  "clamshell_standard_right": {
     "setupNotes": "Deite no lado esquerdo, joelhos flexionados a 90 graus, pés empilhados juntos. Mantenha os pés se tocando e abra o joelho direito (de cima) para cima como uma concha, contraindo o glúteo médio direito. Desça sob controle."
   },
-  "home_170L": {
+  "clamshell_banded_left": {
     "setupNotes": "Deite no lado direito com um mini elástico em volta logo acima dos joelhos, joelhos flexionados a 90 graus e pés empilhados. Abra o joelho esquerdo (de cima) contra a resistência do elástico, contraindo o glúteo médio esquerdo. Desça sob controle."
   },
-  "home_170R": {
+  "clamshell_banded_right": {
     "setupNotes": "Deite no lado esquerdo com um mini elástico em volta logo acima dos joelhos, joelhos flexionados a 90 graus e pés empilhados. Abra o joelho direito (de cima) contra a resistência do elástico, contraindo o glúteo médio direito. Desça sob controle."
   },
-  "home_171L": {
+  "reverse_clamshell_left": {
     "setupNotes": "Deite no lado direito, joelhos flexionados e empilhados. Mantenha os joelhos pressionados juntos e eleve o pé esquerdo (de cima) para cima, girando a partir do quadril esquerdo. Desça sob controle. Treina rotação interna do quadril esquerdo."
   },
-  "home_171R": {
+  "reverse_clamshell_right": {
     "setupNotes": "Deite no lado esquerdo, joelhos flexionados e empilhados. Mantenha os joelhos pressionados juntos e eleve o pé direito (de cima) para cima, girando a partir do quadril direito. Desça sob controle. Treina rotação interna do quadril direito."
   },
-  "home_172L": {
+  "90_90_hip_stretch_left_hip": {
     "setupNotes": "Sente-se no chão com a perna esquerda à frente flexionada a 90 graus (canela cruzando o corpo) e a perna direita flexionada a 90 graus para o lado atrás. Alinhe os quadris e incline o tronco à frente sobre a canela esquerda. Segure. Abre os rotadores externos esquerdos."
   },
-  "home_172R": {
+  "90_90_hip_stretch_right_hip": {
     "setupNotes": "Sente-se no chão com a perna direita à frente flexionada a 90 graus (canela cruzando o corpo) e a perna esquerda flexionada a 90 graus para o lado atrás. Alinhe os quadris e incline o tronco à frente sobre a canela direita. Segure. Abre os rotadores externos direitos."
   },
-  "home_173": {
+  "scapular_squeeze_standing": {
     "setupNotes": "Em pé, braços ao lado do corpo ou ligeiramente elevados. Contraia as escápulas juntas e para baixo. Segure 5 segundos, libere. Postura e ativação da parte superior das costas."
   },
-  "home_174": {
+  "resistance_band_scapular_retraction": {
     "setupNotes": "Ancore o elástico na altura do peito. Segure com braços retos. Contraia as escápulas juntas sem flexionar os cotovelos. Libere com controle."
   },
-  "home_175": {
+  "band_pull_apart": {
     "setupNotes": "Segure o elástico de resistência na altura do peito com braços retos, pegada na largura dos ombros. Puxe o elástico separando contraindo as escápulas juntas. Retorne com controle."
   },
-  "home_176": {
+  "band_pull_apart_3_position": {
     "setupNotes": "Faça band pull-aparts em três alturas: acima da cabeça, altura dos olhos e altura do peito. Atinge os deltoides posteriores e rombóides de ângulos diferentes."
   },
-  "home_177": {
+  "band_y_raise": {
     "setupNotes": "Fique em pé ou ancore o elástico baixo. Braços retos, eleve em formato de Y acima da cabeça (braços a ~45 graus do corpo). Desça com controle. Ativação do trapézio inferior."
   },
-  "home_178": {
+  "band_t_raise": {
     "setupNotes": "Fique em pé ou ancore o elástico baixo. Braços retos, eleve para os lados formando um T (braços horizontais). Desça com controle. Trapézio médio e deltoide posterior."
   },
-  "home_179": {
+  "band_w_raise": {
     "setupNotes": "Fique em pé ou ancore o elástico baixo. Puxe em formato de W — cotovelos flexionados, braços superiores a 45 graus, mãos na altura das orelhas. Contraia as escápulas. Manguito rotador."
   },
-  "home_180L": {
+  "external_rotation_band_left_arm": {
     "setupNotes": "Ancore um elástico na altura do cotovelo à direita. Fique com o lado direito em direção à âncora, segure o elástico na mão esquerda com o cotovelo fixo ao lado e flexionado a 90 graus. Gire o antebraço para fora, longe do corpo, contra o elástico. Treina o manguito rotador esquerdo (infraespinhal/redondo menor)."
   },
-  "home_180R": {
+  "external_rotation_band_right_arm": {
     "setupNotes": "Ancore um elástico na altura do cotovelo à esquerda. Fique com o lado esquerdo em direção à âncora, segure o elástico na mão direita com o cotovelo fixo ao lado e flexionado a 90 graus. Gire o antebraço para fora, longe do corpo, contra o elástico. Treina o manguito rotador direito (infraespinhal/redondo menor)."
   },
-  "home_181": {
+  "external_rotation_90_degree": {
     "setupNotes": "Ancore o elástico na altura do ombro. Cotovelo a 90 graus na altura do ombro. Gire o antebraço de apontar para baixo para apontar para cima contra o elástico. Reabilitação do manguito."
   },
-  "home_182L": {
+  "internal_rotation_band_left_arm": {
     "setupNotes": "Ancore um elástico na altura do cotovelo à esquerda. Fique com o lado esquerdo em direção à âncora, segure o elástico na mão esquerda com o cotovelo fixo ao lado e flexionado a 90 graus. Gire o antebraço para dentro, cruzando o corpo, contra o elástico. Treina o subescapular esquerdo."
   },
-  "home_182R": {
+  "internal_rotation_band_right_arm": {
     "setupNotes": "Ancore um elástico na altura do cotovelo à direita. Fique com o lado direito em direção à âncora, segure o elástico na mão direita com o cotovelo fixo ao lado e flexionado a 90 graus. Gire o antebraço para dentro, cruzando o corpo, contra o elástico. Treina o subescapular direito."
   },
-  "home_183": {
+  "overhead_arm_hold": {
     "setupNotes": "Em pé, segure halteres leves ou sem peso com os braços retos acima da cabeça. Segure por tempo. Resistência do ombro e mobilidade torácica."
   },
-  "home_184": {
+  "t_hold_lateral_arm_hold": {
     "setupNotes": "Em pé, braços estendidos retos para os lados na altura do ombro. Segure pelo tempo prescrito. Resistência do ombro, isométrico do deltoide medial."
   },
-  "home_185L": {
+  "single_leg_balance_hold_left_leg": {
     "setupNotes": "Fique em pé no pé esquerdo, pé direito levantado logo acima do chão. Segure por 30–60 segundos, olhos à frente. Feche os olhos para desafio adicional. Treina estabilidade do tornozelo esquerdo e propriocepção."
   },
-  "home_185R": {
+  "single_leg_balance_hold_right_leg": {
     "setupNotes": "Fique em pé no pé direito, pé esquerdo levantado logo acima do chão. Segure por 30–60 segundos, olhos à frente. Feche os olhos para desafio adicional. Treina estabilidade do tornozelo direito e propriocepção."
   },
-  "home_186": {
+  "dead_bug_with_physio_ball": {
     "setupNotes": "Deite de barriga para cima, comprima uma bola de fisioterapia entre as mãos e os joelhos. Estenda o braço e a perna opostos enquanto mantém a pressão da bola com os outros membros."
   },
-  "home_187": {
+  "swiss_ball_v_pass": {
     "setupNotes": "Deite de barriga para cima, bola suíça nas mãos acima da cabeça. Abdominal para cima passando a bola das mãos para os pés, desça. Na próxima repetição, passe de volta para as mãos."
   },
-  "home_188": {
+  "stability_ball_leg_extension_dead_bug": {
     "setupNotes": "Deite de barriga para cima, panturrilhas na bola de estabilidade. Movimentos de braço de dead bug enquanto as pernas mantêm contato com a bola. Foco em estabilidade do core."
   },
-  "home_189": {
+  "bosu_ball_dead_bug": {
     "setupNotes": "Deite de barriga para cima na bola BOSU (cúpula para cima) para instabilidade adicional. Faça extensões de braço/perna de dead bug. BOSU desafia o equilíbrio e controle do core."
   },
-  "home_190": {
+  "superman_with_physio_ball_shoulder_rom": {
     "setupNotes": "Deite de bruços, segure a bola de fisioterapia com as duas mãos. Eleve o peito e a bola, depois mova a bola em amplitude completa de movimento do ombro acima da cabeça."
   },
-  "home_191": {
+  "swiss_ball_v_pass_dead_bug": {
     "setupNotes": "Deite de barriga para cima, bola suíça segurada acima da cabeça. Passe a bola entre as mãos e os pés mantendo o padrão de engajamento do core de dead bug."
   },
-  "home_192": {
+  "stability_ball_jackknife": {
     "setupNotes": "Posição de prancha alta com canelas em uma bola de estabilidade. Puxe os joelhos em direção ao peito rolando a bola para frente (jackknife). Estenda de volta para prancha."
   },
-  "home_193L": {
+  "swiss_ball_side_plank_with_leg_lift_left": {
     "setupNotes": "Antebraço esquerdo no chão, pés empilhados na bola suíça (lado esquerdo para baixo). Eleve a perna de cima (direita) enquanto segura uma prancha lateral alta. A bola adiciona instabilidade — contraia o core com força. Segure por tempo."
   },
-  "home_193R": {
+  "swiss_ball_side_plank_with_leg_lift_right": {
     "setupNotes": "Antebraço direito no chão, pés empilhados na bola suíça (lado direito para baixo). Eleve a perna de cima (esquerda) enquanto segura uma prancha lateral alta. A bola adiciona instabilidade — contraia o core com força. Segure por tempo."
   },
-  "home_196": {
+  "swiss_ball_hamstring_curl": {
     "setupNotes": "Deite de barriga para cima, calcanhares em cima da bola suíça, quadris elevados. Flexione a bola em direção aos glúteos flexionando os joelhos, estenda de volta. Quadris permanecem elevados."
   },
-  "home_197L": {
+  "swiss_ball_hip_flexor_stretch_left": {
     "setupNotes": "Avanço ajoelhado com a canela esquerda apoiada em uma bola suíça atrás, pé direito à frente. Encaixe a pelve sob e empurre os quadris à frente até sentir um alongamento na parte frontal do quadril esquerdo. A bola amortece a canela e adiciona leve instabilidade."
   },
-  "home_197R": {
+  "swiss_ball_hip_flexor_stretch_right": {
     "setupNotes": "Avanço ajoelhado com a canela direita apoiada em uma bola suíça atrás, pé esquerdo à frente. Encaixe a pelve sob e empurre os quadris à frente até sentir um alongamento na parte frontal do quadril direito. A bola amortece a canela e adiciona leve instabilidade."
   },
-  "mob_13": {
+  "foam_roll_upper_back": {
     "setupNotes": "Rolo de espuma no chão. Deite no rolo posicionado sob a parte superior das costas. Braços cruzados no peito. Role do meio das costas até os trapézios superiores. Pause em pontos tensos."
   },
-  "mob_14L": {
+  "foam_roll_lats_left": {
     "setupNotes": "Deite no lado esquerdo com um rolo de espuma sob a área da axila/dorsal esquerda, braço esquerdo estendido acima da cabeça. Role lentamente da axila até o meio da caixa torácica, pausando em pontos sensíveis. Libera o dorsal esquerdo."
   },
-  "mob_14R": {
+  "foam_roll_lats_right": {
     "setupNotes": "Deite no lado direito com um rolo de espuma sob a área da axila/dorsal direita, braço direito estendido acima da cabeça. Role lentamente da axila até o meio da caixa torácica, pausando em pontos sensíveis. Libera o dorsal direito."
   },
-  "mob_15": {
+  "foam_roll_quads": {
     "setupNotes": "Deite de bruços, rolo de espuma sob a frente das coxas. Role de logo acima do joelho até o flexor do quadril. Apoie o peso com os antebraços. Pause em pontos tensos."
   },
-  "mob_16L": {
+  "foam_roll_it_band_left": {
     "setupNotes": "Deite no lado esquerdo com um rolo de espuma sob a parte externa da coxa esquerda, perna direita cruzada sobre para apoio. Role lentamente de logo acima do joelho até o quadril. Libera a banda iliotibial esquerda — devagar e tolerável."
   },
-  "mob_16R": {
+  "foam_roll_it_band_right": {
     "setupNotes": "Deite no lado direito com um rolo de espuma sob a parte externa da coxa direita, perna esquerda cruzada sobre para apoio. Role lentamente de logo acima do joelho até o quadril. Libera a banda iliotibial direita — devagar e tolerável."
   },
-  "mob_17": {
+  "foam_roll_hamstrings": {
     "setupNotes": "Sente-se no chão, rolo de espuma sob a parte de trás das coxas. Role de logo acima do joelho até os ísquios. Mãos atrás para apoio. Cruze as pernas para mais pressão."
   },
-  "mob_18L": {
+  "foam_roll_calves_left": {
     "setupNotes": "Sente-se no chão com um rolo de espuma sob a panturrilha esquerda, perna direita cruzada sobre a esquerda para pressão adicional. Mãos atrás para apoio, eleve os quadris e role do Aquiles até logo abaixo do joelho. Gire a perna para atingir as fibras mediais e laterais."
   },
-  "mob_18R": {
+  "foam_roll_calves_right": {
     "setupNotes": "Sente-se no chão com um rolo de espuma sob a panturrilha direita, perna esquerda cruzada sobre a direita para pressão adicional. Mãos atrás para apoio, eleve os quadris e role do Aquiles até logo abaixo do joelho. Gire a perna para atingir as fibras mediais e laterais."
   },
-  "mob_19L": {
+  "foam_roll_glutes_left": {
     "setupNotes": "Sente-se em um rolo de espuma, cruze o tornozelo esquerdo sobre o joelho direito em formato de 4. Incline o peso para o lado esquerdo e role lentamente sobre o glúteo esquerdo, pausando em pontos sensíveis. Liberação direcionada do glúteo e piriforme esquerdos."
   },
-  "mob_19R": {
+  "foam_roll_glutes_right": {
     "setupNotes": "Sente-se em um rolo de espuma, cruze o tornozelo direito sobre o joelho esquerdo em formato de 4. Incline o peso para o lado direito e role lentamente sobre o glúteo direito, pausando em pontos sensíveis. Liberação direcionada do glúteo e piriforme direitos."
   },
-  "mob_20L": {
+  "lacrosse_ball_piriformis_left": {
     "setupNotes": "Sente-se em uma bola de lacrosse posicionada sob o glúteo/piriforme esquerdo, tornozelo esquerdo cruzado sobre o joelho direito em formato de 4. Role suavemente ou mantenha pressão no ponto sensível. Libera o piriforme esquerdo."
   },
-  "mob_20R": {
+  "lacrosse_ball_piriformis_right": {
     "setupNotes": "Sente-se em uma bola de lacrosse posicionada sob o glúteo/piriforme direito, tornozelo direito cruzado sobre o joelho esquerdo em formato de 4. Role suavemente ou mantenha pressão no ponto sensível. Libera o piriforme direito."
   },
-  "mob_21L": {
+  "lacrosse_ball_shoulder_rear_delt_left": {
     "setupNotes": "Em pé com uma bola de lacrosse presa entre a parte superior das costas/deltoide posterior esquerdo e uma parede. Incline-se na bola para aplicar pressão e role em pequenos círculos para encontrar pontos tensos. Libera o deltoide posterior e trapézio superior esquerdos."
   },
-  "mob_21R": {
+  "lacrosse_ball_shoulder_rear_delt_right": {
     "setupNotes": "Em pé com uma bola de lacrosse presa entre a parte superior das costas/deltoide posterior direito e uma parede. Incline-se na bola para aplicar pressão e role em pequenos círculos para encontrar pontos tensos. Libera o deltoide posterior e trapézio superior direitos."
   },
-  "mob_22": {
+  "90_90_hip_stretch": {
     "setupNotes": "Sente-se no chão com a perna da frente flexionada a 90 graus à frente e a perna de trás flexionada a 90 graus para o lado atrás. Incline-se à frente sobre a canela da frente para aprofundar o alongamento pelo quadril da frente. Abertor de quadril — troque os lados para trabalhar os dois quadris."
   },
-  "mob_23L": {
+  "world_s_greatest_stretch_left": {
     "setupNotes": "Da posição em pé, passe o pé esquerdo à frente em um avanço profundo e coloque ambas as mãos no chão dentro do pé esquerdo. Gire o tronco em direção ao joelho esquerdo e alcance o braço esquerdo em direção ao teto. Segure, depois retorne. Mobiliza o quadril, coluna torácica e posterior de coxa esquerdos."
   },
-  "mob_23R": {
+  "world_s_greatest_stretch_right": {
     "setupNotes": "Da posição em pé, passe o pé direito à frente em um avanço profundo e coloque ambas as mãos no chão dentro do pé direito. Gire o tronco em direção ao joelho direito e alcance o braço direito em direção ao teto. Segure, depois retorne. Mobiliza o quadril, coluna torácica e posterior de coxa direitos."
   },
-  "mob_24L": {
+  "pigeon_stretch_left": {
     "setupNotes": "De mãos e joelhos, deslize o joelho esquerdo à frente atrás do pulso esquerdo com a canela angulada cruzando o corpo. Estenda a perna direita reta para trás. Desça o tronco sobre a canela esquerda. Segure e respire. Alongamento profundo dos rotadores externos e glúteo esquerdos."
   },
-  "mob_24R": {
+  "pigeon_stretch_right": {
     "setupNotes": "De mãos e joelhos, deslize o joelho direito à frente atrás do pulso direito com a canela angulada cruzando o corpo. Estenda a perna esquerda reta para trás. Desça o tronco sobre a canela direita. Segure e respire. Alongamento profundo dos rotadores externos e glúteo direitos."
   },
-  "mob_25L": {
+  "thread_the_needle_left": {
     "setupNotes": "Nas mãos e joelhos, alcance o braço esquerdo sob o corpo através do espaço entre a mão direita e o joelho direito, descendo o ombro e orelha esquerdos até o chão. Segure e respire. Gira a coluna torácica esquerda."
   },
-  "mob_25R": {
+  "thread_the_needle_right": {
     "setupNotes": "Nas mãos e joelhos, alcance o braço direito sob o corpo através do espaço entre a mão esquerda e o joelho esquerdo, descendo o ombro e orelha direitos até o chão. Segure e respire. Gira a coluna torácica direita."
   },
-  "mob_26L": {
+  "couch_stretch_left": {
     "setupNotes": "Ajoelhe-se de costas para uma parede com a canela esquerda pressionada contra ela (dedos apontando para cima), pé direito à frente em avanço. Encaixe a pelve e empurre os quadris à frente, ficando ereto. Alongamento intenso do quadríceps e flexor do quadril esquerdos."
   },
-  "mob_26R": {
+  "couch_stretch_right": {
     "setupNotes": "Ajoelhe-se de costas para uma parede com a canela direita pressionada contra ela (dedos apontando para cima), pé esquerdo à frente em avanço. Encaixe a pelve e empurre os quadris à frente, ficando ereto. Alongamento intenso do quadríceps e flexor do quadril direitos."
   },
-  "mob_27L": {
+  "banded_shoulder_distraction_left": {
     "setupNotes": "Ancore um elástico pesado em um rack na altura do ombro. Passe o elástico ao redor do pulso esquerdo e afaste-se para criar tensão, depois desça em avanço ou articulação do quadril para que o elástico distraia suavemente o ombro esquerdo. Segure e respire. Mobiliza a cápsula do ombro esquerdo."
   },
-  "mob_27R": {
+  "banded_shoulder_distraction_right": {
     "setupNotes": "Ancore um elástico pesado em um rack na altura do ombro. Passe o elástico ao redor do pulso direito e afaste-se para criar tensão, depois desça em avanço ou articulação do quadril para que o elástico distraia suavemente o ombro direito. Segure e respire. Mobiliza a cápsula do ombro direito."
   },
-  "mob_28": {
+  "wall_thoracic_extension": {
     "setupNotes": "Em pé de frente para a parede, braços acima da cabeça na parede. Empurre lentamente o peito em direção à parede, arqueando a parte superior das costas. Segure o alongamento. Mobilidade de extensão torácica."
   },
-  "mob_29L": {
+  "ankle_dorsiflexion_stretch_left": {
     "setupNotes": "Meio ajoelhado de frente para uma parede — joelho direito no chão, pé esquerdo à frente 10-15 cm da parede. Empurre o joelho esquerdo à frente em direção à parede sem levantar o calcanhar esquerdo do chão. Mobiliza o tornozelo esquerdo em dorsiflexão."
   },
-  "mob_29R": {
+  "ankle_dorsiflexion_stretch_right": {
     "setupNotes": "Meio ajoelhado de frente para uma parede — joelho esquerdo no chão, pé direito à frente 10-15 cm da parede. Empurre o joelho direito à frente em direção à parede sem levantar o calcanhar direito do chão. Mobiliza o tornozelo direito em dorsiflexão."
   },
-  "mob_30L": {
+  "supine_spinal_twist_left": {
     "setupNotes": "Deite de barriga para cima, braços abertos em T. Puxe o joelho esquerdo para cima e cruzando o corpo até o lado direito, mantendo ambos os ombros pressionados no chão. Deixe a gravidade carregar o joelho esquerdo para baixo. Segure e respire. Rotação suave da coluna lombar."
   },
-  "mob_30R": {
+  "supine_spinal_twist_right": {
     "setupNotes": "Deite de barriga para cima, braços abertos em T. Puxe o joelho direito para cima e cruzando o corpo até o lado esquerdo, mantendo ambos os ombros pressionados no chão. Deixe a gravidade carregar o joelho direito para baixo. Segure e respire. Rotação suave da coluna lombar."
   },
-  "mob_31L": {
+  "supine_hamstring_stretch_with_band_left": {
     "setupNotes": "Deite de barriga para cima com uma alça ou elástico em volta do pé esquerdo. Estenda a perna esquerda em direção ao teto, mantendo o joelho macio, e puxe suavemente o elástico para um alongamento mais profundo. A perna direita permanece plana no chão. Foco no posterior de coxa esquerdo."
   },
-  "mob_31R": {
+  "supine_hamstring_stretch_with_band_right": {
     "setupNotes": "Deite de barriga para cima com uma alça ou elástico em volta do pé direito. Estenda a perna direita em direção ao teto, mantendo o joelho macio, e puxe suavemente o elástico para um alongamento mais profundo. A perna esquerda permanece plana no chão. Foco no posterior de coxa direito."
   },
-  "gym_287": {
+  "l_sit_pull_up": {
     "setupNotes": "Pendure-se em uma barra fixa com pegada pronada na largura dos ombros. Eleve as pernas para um L-sit de 90 graus e mantenha a posição durante todo o exercício. Puxe o peito até a barra mantendo as pernas travadas — desça com controle. Avançado — combina sustentação isométrica do core com puxada vertical."
   },
-  "gym_247bL": {
+  "high_side_plank_left_side": {
     "setupNotes": "Deite de lado com a mão de baixo no chão diretamente sob o ombro, braço totalmente reto. Pés empilhados ou escalonados. Empurre o chão para longe e eleve os quadris em linha reta — braço de cima estendido acima da cabeça ou no quadril. Foco em oblíquos e estabilidade do ombro."
   },
-  "gym_247bR": {
+  "high_side_plank_right_side": {
     "setupNotes": "Deite de lado com a mão de baixo no chão diretamente sob o ombro, braço totalmente reto. Pés empilhados ou escalonados. Empurre o chão para longe e eleve os quadris em linha reta — braço de cima estendido acima da cabeça ou no quadril. Foco em oblíquos e estabilidade do ombro."
   },
-  "home_134_3": {
+  "arm_swings_lateral": {
     "setupNotes": "Em pé, balance os dois braços para frente e para cima acima da cabeça em grandes arcos — depois de volta para baixo. Construa momentum a cada repetição. Aquecimento dinâmico de ombros."
   },
-  "home_134_4": {
+  "arm_swings_forward_backward_continuous": {
     "setupNotes": "Em pé, balance os dois braços para frente e para cima acima da cabeça em grandes arcos — depois de volta para baixo. Construa momentum a cada repetição. Aquecimento dinâmico de ombros."
   },
-  "home_197": {
+  "bird_dog_hold": {
     "setupNotes": "Nas mãos e joelhos, coluna neutra. Estenda o braço esquerdo à frente e a perna direita para trás simultaneamente até que ambos fiquem paralelos ao chão. Contraia o core, segure brevemente, retorne. Treina antiextensão e equilíbrio."
   },
-  "home_198": {
+  "plank_to_push_up": {
     "setupNotes": "Comece em prancha no antebraço. Empurre para prancha alta um braço de cada vez, depois desça de volta para os antebraços. Alterne o braço guia a cada repetição."
   }
 }

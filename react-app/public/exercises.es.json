@@ -1,1925 +1,1925 @@
 {
-  "gym_1a": {
+  "flat_barbell_bench_press": {
     "setupNotes": "Banco plano dentro del power rack o en la estación de press. Barra a la altura del pecho, se recomienda un asistente. Pies apoyados, escápulas retraídas. Saca la barra, bájala hasta la mitad del pecho — empuja hasta el bloqueo."
   },
-  "gym_1b": {
+  "incline_barbell_bench_press": {
     "setupNotes": "Banco inclinado (30-45 grados) dentro del power rack. Barra a la altura del pecho, se recomienda un asistente. Pies apoyados, escápulas retraídas. Saca la barra, bájala hasta la parte alta del pecho — empuja hasta el bloqueo."
   },
-  "gym_1c": {
+  "decline_barbell_bench_press": {
     "setupNotes": "Banco declinado dentro del power rack, pies sujetos. Barra a la altura del pecho, se recomienda un asistente. Escápulas retraídas. Saca la barra, bájala hasta la parte baja del pecho — empuja hasta el bloqueo."
   },
-  "gym_2a": {
+  "flat_dumbbell_bench_press": {
     "setupNotes": "Banco plano con el rack de mancuernas cerca. Empieza con las mancuernas sobre los muslos, impúlsalas hasta la posición de press. Retrae las escápulas."
   },
-  "gym_2b": {
+  "incline_dumbbell_bench_press": {
     "setupNotes": "Banco inclinado con el rack de mancuernas cerca. Empieza con las mancuernas sobre los muslos, impúlsalas hasta la posición de press. Retrae las escápulas."
   },
-  "gym_2c": {
+  "decline_dumbbell_bench_press": {
     "setupNotes": "Banco declinado con el rack de mancuernas cerca. Empieza con las mancuernas sobre los muslos, impúlsalas hasta la posición de press. Retrae las escápulas."
   },
-  "gym_3a": {
+  "flat_machine_chest_press_overhand_grip": {
     "setupNotes": "Máquina de press de pecho plano — ajusta el asiento para que las agarraderas queden a la altura del pecho. Agarre prono con las palmas hacia abajo, espalda contra la almohadilla, pies apoyados. Empuja las agarraderas hacia delante hasta la extensión completa — trabaja el pecho con ayuda de los tríceps."
   },
-  "gym_3b": {
+  "flat_machine_chest_press_neutral_grip": {
     "setupNotes": "Máquina de press de pecho plano — ajusta el asiento para que las agarraderas queden a la altura del pecho. Agarre neutro con las palmas enfrentadas, espalda contra la almohadilla, pies apoyados. Empuja las agarraderas hacia delante hasta la extensión completa — trabaja el pecho con menos tensión en los hombros."
   },
-  "gym_3c": {
+  "incline_machine_chest_press_overhand_grip": {
     "setupNotes": "Máquina de press de pecho inclinado — ajusta el asiento para que las agarraderas queden a la altura de la parte alta del pecho. Agarre prono con las palmas hacia abajo, espalda contra la almohadilla, pies apoyados. Empuja las agarraderas hacia delante y ligeramente hacia arriba — trabaja la parte alta del pecho y los deltoides anteriores."
   },
-  "gym_3d": {
+  "incline_machine_chest_press_neutral_grip": {
     "setupNotes": "Máquina de press de pecho inclinado — ajusta el asiento para que las agarraderas queden a la altura de la parte alta del pecho. Agarre neutro con las palmas enfrentadas, espalda contra la almohadilla, pies apoyados. Empuja las agarraderas hacia delante y ligeramente hacia arriba — trabaja la parte alta del pecho con menos tensión en los hombros."
   },
-  "gym_3e": {
+  "decline_machine_chest_press_overhand_grip": {
     "setupNotes": "Máquina de press de pecho declinado — ajusta el asiento para que las agarraderas queden a la altura de la parte baja del pecho. Agarre prono con las palmas hacia abajo, espalda contra la almohadilla, pies apoyados. Empuja las agarraderas hacia delante y ligeramente hacia abajo — trabaja las fibras bajas del pecho."
   },
-  "gym_3f": {
+  "decline_machine_chest_press_neutral_grip": {
     "setupNotes": "Máquina de press de pecho declinado — ajusta el asiento para que las agarraderas queden a la altura de la parte baja del pecho. Agarre neutro con las palmas enfrentadas, espalda contra la almohadilla, pies apoyados. Empuja las agarraderas hacia delante y ligeramente hacia abajo — trabaja la parte baja del pecho con menos tensión en los hombros."
   },
-  "gym_4a": {
+  "cable_chest_fly_low": {
     "setupNotes": "Estación de poleas doble, polea en posición baja. Agarraderas en D enganchadas. Da un paso adelante para crear tensión, mantén una ligera flexión en los codos durante todo el movimiento."
   },
-  "gym_4b": {
+  "cable_chest_fly_mid": {
     "setupNotes": "Estación de poleas doble, polea en posición media. Agarraderas en D enganchadas. Da un paso adelante para crear tensión, mantén una ligera flexión en los codos durante todo el movimiento."
   },
-  "gym_4c": {
+  "cable_chest_fly_high": {
     "setupNotes": "Estación de poleas doble, polea en posición alta. Agarraderas en D enganchadas. Da un paso adelante para crear tensión, mantén una ligera flexión en los codos durante todo el movimiento."
   },
-  "gym_5": {
+  "pec_deck_machine": {
     "setupNotes": "Ajusta la altura del asiento para que los brazos queden a la altura del pecho. Almohadillas o agarraderas a la anchura de los hombros. Espalda firme contra la almohadilla, ligera flexión de codo."
   },
-  "gym_6a": {
+  "flat_dumbbell_chest_fly": {
     "setupNotes": "Banco plano con mancuernas moderadas. Brazos extendidos por encima del pecho, ligera flexión de codo. Baja en arco hasta notar el estiramiento."
   },
-  "gym_6b": {
+  "incline_dumbbell_chest_fly": {
     "setupNotes": "Banco inclinado con mancuernas moderadas. Brazos extendidos por encima del pecho, ligera flexión de codo. Baja en arco hasta notar el estiramiento."
   },
-  "gym_6c": {
+  "decline_dumbbell_chest_fly": {
     "setupNotes": "Banco declinado con mancuernas moderadas. Brazos extendidos por encima del pecho, ligera flexión de codo. Baja en arco hasta notar el estiramiento."
   },
-  "gym_7a": {
+  "standing_landmine_press": {
     "setupNotes": "Barra en el landmine o encajada en una esquina. Colócate de espaldas para enfocar el pecho, agarra el extremo de la barra a la altura del pecho. Postura escalonada."
   },
-  "gym_7b": {
+  "kneeling_landmine_press": {
     "setupNotes": "Barra en el landmine o encajada en una esquina. De rodillas (media rodilla) mirando a la barra, agarra el extremo con ambas manos al pecho. Empuja hacia arriba y hacia delante en arco hasta la extensión completa — trabaja la parte alta del pecho y los deltoides anteriores sin impulso del tren inferior."
   },
-  "gym_7cL": {
+  "single_arm_landmine_press_left_arm": {
     "setupNotes": "Barra en el landmine o encajada en una esquina. De pie en postura escalonada, agarra el extremo de la barra con una mano al hombro. Empuja hacia arriba y hacia delante en arco hasta la extensión completa — trabaja pecho y hombro con exigencia unilateral del core."
   },
-  "gym_7cR": {
+  "single_arm_landmine_press_right_arm": {
     "setupNotes": "Barra en el landmine o encajada en una esquina. De pie en postura escalonada, agarra el extremo de la barra con una mano al hombro. Empuja hacia arriba y hacia delante en arco hasta la extensión completa — trabaja pecho y hombro con exigencia unilateral del core."
   },
-  "gym_8a": {
+  "dumbbell_floor_press": {
     "setupNotes": "Túmbate en el suelo con una mancuerna. Rodillas flexionadas, pies apoyados. Los brazos tocan el suelo al final de cada repetición."
   },
-  "gym_8b": {
+  "barbell_floor_press": {
     "setupNotes": "Túmbate en el suelo con una barra. Rodillas flexionadas, pies apoyados. Los brazos tocan el suelo al final de cada repetición."
   },
-  "gym_9": {
+  "chest_dip": {
     "setupNotes": "Estación de fondos en barras paralelas. Inclina el torso hacia delante unos 30 grados, codos abiertos ligeramente. Agarre más ancho enfatiza el pecho sobre los tríceps."
   },
-  "gym_12": {
+  "push_up_standard": {
     "setupNotes": "Manos a la anchura de los hombros en el suelo, cuerpo en línea recta de la cabeza a los talones. Rango completo — pecho al suelo, brazos totalmente extendidos arriba."
   },
-  "gym_14": {
+  "isometric_chest_hold": {
     "setupNotes": "Máquina de press de pecho o crossover de poleas. Empuja hasta el punto medio y mantén el tiempo indicado. Tensión constante en el pecho durante todo el ejercicio."
   },
-  "gym_15a": {
+  "flat_slow_tempo_push_up": {
     "setupNotes": "Posición estándar de flexión — manos a la anchura de los hombros en el suelo, cuerpo en línea recta. Baja durante 3–4 segundos, pausa 1 segundo abajo, empuja con control. El trabajo de tempo aumenta el tiempo bajo tensión en el pecho."
   },
-  "gym_15b": {
+  "incline_slow_tempo_push_up": {
     "setupNotes": "Manos elevadas sobre un banco o caja, pies en el suelo, cuerpo en línea recta. Baja el pecho hacia el banco durante 3–4 segundos, pausa 1 segundo abajo, empuja con control. El trabajo de tempo desarrolla resistencia en la parte baja del pecho con un ángulo más fácil."
   },
-  "gym_15c": {
+  "decline_slow_tempo_push_up": {
     "setupNotes": "Pies elevados sobre un banco o caja, manos en el suelo a la anchura de los hombros, cuerpo en línea recta. Baja el pecho hacia el suelo durante 3–4 segundos, pausa 1 segundo abajo, empuja con control. El trabajo de tempo enfatiza la parte alta del pecho y los hombros."
   },
-  "gym_16": {
+  "explosive_push_up": {
     "setupNotes": "Posición estándar de flexión sobre suelo firme. Explota hacia arriba para que las manos despeguen del suelo. Aterriza suave con ligera flexión de codo. Movimiento avanzado."
   },
-  "gym_17": {
+  "chest_stretch_cable_press": {
     "setupNotes": "Polea simple a la altura del pecho. Da un paso adelante, empuja el brazo cruzando el cuerpo con movimiento lento y controlado. Estiramiento completo en la posición final."
   },
-  "gym_18": {
+  "svend_press": {
     "setupNotes": "De pie, sujeta dos discos pequeños apretados entre sí a la altura del pecho. Empuja hacia delante manteniendo la presión. Contracción constante del pecho."
   },
-  "gym_19a": {
+  "seated_dumbbell_shoulder_press_underhand_grip": {
     "setupNotes": "Sentado en un banco con respaldo, pies apoyados. Sostén las mancuernas a la altura de los hombros, palmas hacia ti (supino). Empuja por encima de la cabeza hasta el bloqueo completo — baja con control."
   },
-  "gym_19b": {
+  "seated_dumbbell_shoulder_press_neutral_grip": {
     "setupNotes": "Sentado en un banco con respaldo, pies apoyados. Sostén las mancuernas a la altura de los hombros, palmas enfrentadas (neutro). Empuja por encima de la cabeza hasta el bloqueo completo — baja con control."
   },
-  "gym_19c": {
+  "seated_dumbbell_shoulder_press_overhand_grip": {
     "setupNotes": "Sentado en un banco con respaldo, pies apoyados. Sostén las mancuernas a la altura de los hombros, palmas hacia delante (prono). Empuja por encima de la cabeza hasta el bloqueo completo — baja con control."
   },
-  "gym_19d": {
+  "standing_dumbbell_shoulder_press_underhand_grip": {
     "setupNotes": "De pie, pies a la anchura de los hombros, core activado. Sostén las mancuernas a la altura de los hombros, palmas hacia ti (supino). Empuja por encima de la cabeza hasta el bloqueo completo — baja con control."
   },
-  "gym_19e": {
+  "standing_dumbbell_shoulder_press_neutral_grip": {
     "setupNotes": "De pie, pies a la anchura de los hombros, core activado. Sostén las mancuernas a la altura de los hombros, palmas enfrentadas (neutro). Empuja por encima de la cabeza hasta el bloqueo completo — baja con control."
   },
-  "gym_19f": {
+  "standing_dumbbell_shoulder_press_overhand_grip": {
     "setupNotes": "De pie, pies a la anchura de los hombros, core activado. Sostén las mancuernas a la altura de los hombros, palmas hacia delante (prono). Empuja por encima de la cabeza hasta el bloqueo completo — baja con control."
   },
-  "gym_20a": {
+  "seated_barbell_overhead_press": {
     "setupNotes": "Sentado, barra en posición de front rack sobre las clavículas. Pies a la anchura de las caderas. Empuja recto por encima de la cabeza, bloquea arriba, barra sobre el medio del pie."
   },
-  "gym_20b": {
+  "standing_barbell_overhead_press": {
     "setupNotes": "De pie, barra en posición de front rack sobre las clavículas. Pies a la anchura de las caderas. Empuja recto por encima de la cabeza, bloquea arriba, barra sobre el medio del pie."
   },
-  "gym_21a": {
+  "machine_shoulder_press_underhand_grip": {
     "setupNotes": "Ajusta el asiento para que las agarraderas empiecen a la altura de las orejas. Espalda contra la almohadilla, pies apoyados. Empuja hasta la extensión completa. Usa agarre supino."
   },
-  "gym_21b": {
+  "machine_shoulder_press_neutral_grip": {
     "setupNotes": "Ajusta el asiento para que las agarraderas empiecen a la altura de las orejas. Espalda contra la almohadilla, pies apoyados. Empuja hasta la extensión completa. Usa agarre neutro."
   },
-  "gym_21c": {
+  "machine_shoulder_press_overhand_grip": {
     "setupNotes": "Ajusta el asiento para que las agarraderas empiecen a la altura de las orejas. Espalda contra la almohadilla, pies apoyados. Empuja hasta la extensión completa. Usa agarre prono."
   },
-  "gym_22": {
+  "lateral_raise_dumbbell": {
     "setupNotes": "De pie, mancuernas ligeras a los lados. Eleva los brazos a los lados hasta quedar paralelos al suelo, ligera flexión de codo. Baja con control."
   },
-  "gym_23": {
+  "lateral_raise_cable": {
     "setupNotes": "Polea baja simple, agarradera en D. Colócate de lado a la máquina. Eleva el brazo hacia el lado hasta la altura del hombro. Tensión constante del cable."
   },
-  "gym_24": {
+  "behind_the_back_cable_lateral_raise": {
     "setupNotes": "Polea baja, agarradera en D pasada por detrás de la espalda. Colócate de lado. Eleva el brazo hacia el lado — el cable por detrás del cuerpo mantiene la tensión en todo el rango."
   },
-  "gym_25": {
+  "front_raise_dumbbell": {
     "setupNotes": "De pie, mancuernas delante de los muslos. Eleva uno o ambos brazos hacia delante hasta la altura del hombro, palmas hacia abajo. Baja con control."
   },
-  "gym_26": {
+  "front_raise_plate": {
     "setupNotes": "De pie, sujeta un disco a las 3 y las 9. Eleva hasta la altura del hombro con los brazos extendidos. Tempo controlado."
   },
-  "gym_27": {
+  "rear_delt_fly_machine": {
     "setupNotes": "Siéntate mirando la almohadilla de la máquina de pec deck / deltoides posterior. Agarra las agarraderas con los brazos extendidos. Tira hacia atrás en arco, apretando los deltoides posteriores."
   },
-  "gym_28": {
+  "rear_delt_fly_dumbbell": {
     "setupNotes": "Inclinado hacia delante desde las caderas unos 45 grados, mancuernas colgando bajo el pecho. Eleva los brazos a los lados, guiando con los codos. Poco peso, controlado."
   },
-  "gym_29": {
+  "arnold_press": {
     "setupNotes": "Sentado en banco vertical con respaldo. Empieza con las mancuernas a la altura de la barbilla, palmas hacia ti. Rota las palmas hacia fuera mientras empujas por encima de la cabeza."
   },
-  "gym_30a": {
+  "ez_bar_upright_row": {
     "setupNotes": "De pie, agarra la barra Z a la anchura de las caderas. Tira recto hacia arriba pegado al cuerpo hasta la altura de la barbilla, codos altos."
   },
-  "gym_30b": {
+  "cable_upright_row": {
     "setupNotes": "De pie, agarra el cable a la anchura de las caderas. Tira recto hacia arriba pegado al cuerpo hasta la altura de la barbilla, codos altos."
   },
-  "gym_30c": {
+  "barbell_upright_row": {
     "setupNotes": "De pie, agarra la barra a la anchura de las caderas. Tira recto hacia arriba pegado al cuerpo hasta la altura de la barbilla, codos altos."
   },
-  "gym_31a": {
+  "standing_cable_face_pull": {
     "setupNotes": "Polea a la altura de la parte alta del pecho, accesorio de cuerda. Tira hacia la cara, las manos terminan junto a las orejas. Codos altos, aprieta los deltoides posteriores. De pie."
   },
-  "gym_31b": {
+  "kneeling_cable_face_pull": {
     "setupNotes": "Polea a la altura de la parte alta del pecho, accesorio de cuerda. Tira hacia la cara, las manos terminan junto a las orejas. Codos altos, aprieta los deltoides posteriores. De rodillas."
   },
-  "gym_32": {
+  "scapular_retraction_pull": {
     "setupNotes": "Cuélgate de la barra de dominadas con los brazos totalmente extendidos. Sin flexionar los codos, deprime y retrae las escápulas para elevar el cuerpo ligeramente."
   },
-  "gym_33": {
+  "isometric_lateral_hold_dumbbell": {
     "setupNotes": "De pie, eleva mancuernas ligeras a la altura del hombro en posición lateral. Mantén la posición el tiempo indicado. Conserva una ligera flexión de codo."
   },
-  "gym_34": {
+  "y_raise_dumbbell": {
     "setupNotes": "Tumbado boca abajo en un banco inclinado o de pie inclinado hacia delante. Eleva las mancuernas en forma de Y por encima de la cabeza. Poco peso, controlado."
   },
-  "gym_35": {
+  "cuban_rotation_dumbbell": {
     "setupNotes": "De pie, codos a 90 grados a la altura del hombro. Rota los antebrazos desde apuntar hacia abajo hasta apuntar hacia arriba. Trabajo de prehab / manguito rotador."
   },
-  "gym_36": {
+  "lu_raise": {
     "setupNotes": "De pie con mancuernas ligeras. Elevación frontal hasta la altura del hombro, luego continúa hacia elevación lateral sin bajar. Movimiento en arco suave."
   },
-  "gym_37aL": {
+  "single_arm_landmine_shoulder_press_left_arm": {
     "setupNotes": "Barra en el landmine, postura escalonada. Agarra el extremo de la barra a la altura del hombro con una mano. Empuja hacia arriba en arco hasta extender el brazo — baja despacio."
   },
-  "gym_37aR": {
+  "single_arm_landmine_shoulder_press_right_arm": {
     "setupNotes": "Barra en el landmine, postura escalonada. Agarra el extremo de la barra a la altura del hombro con una mano. Empuja hacia arriba en arco hasta extender el brazo — baja despacio."
   },
-  "gym_37b": {
+  "double_arm_landmine_shoulder_press": {
     "setupNotes": "Barra en el landmine, postura escalonada. Agarra el extremo de la barra al pecho con ambas manos. Empuja hacia arriba en arco hasta extender los brazos — baja despacio."
   },
-  "gym_38": {
+  "barbell_shrug": {
     "setupNotes": "De pie, barra a la altura de las caderas con agarre prono, a la anchura de los hombros. Encoge los hombros recto hacia las orejas. Mantén brevemente arriba, baja con control."
   },
-  "gym_39": {
+  "dumbbell_shrug": {
     "setupNotes": "De pie, mancuernas pesadas a los lados. Encoge los hombros hacia las orejas, mantén 1 segundo arriba. Mantén los brazos rectos durante todo el movimiento."
   },
-  "gym_40": {
+  "trap_bar_shrug": {
     "setupNotes": "De pie dentro de la trap bar cargada. Agarra las asas, brazos rectos. Encoge los hombros hacia las orejas. El agarre neutro reduce la tensión en las muñecas."
   },
-  "gym_41": {
+  "smith_machine_shrug": {
     "setupNotes": "De pie centrado en la máquina Smith, barra a la altura de las caderas. Agarre prono, a la anchura de los hombros. Encoge recto hacia arriba — la máquina guía la trayectoria."
   },
-  "gym_42": {
+  "cable_shrug": {
     "setupNotes": "Polea baja, accesorio de barra recta o cuerda. De pie erguido, brazos rectos. Encoge los hombros hacia arriba contra la resistencia del cable."
   },
-  "gym_43a": {
+  "rack_pull_above_knee": {
     "setupNotes": "Barra sobre los topes del power rack colocados por encima de la altura de la rodilla. Agarre convencional de peso muerto. Ponte de pie hasta el bloqueo, aprieta los trapecios y la espalda alta arriba."
   },
-  "gym_43b": {
+  "rack_pull_below_knee": {
     "setupNotes": "Barra sobre los topes del power rack colocados por debajo de la altura de la rodilla. Agarre convencional de peso muerto. Ponte de pie hasta el bloqueo, aprieta los trapecios y la espalda alta arriba."
   },
-  "gym_44": {
+  "lat_pulldown_wide_grip": {
     "setupNotes": "Máquina de jalón al pecho, barra ancha enganchada. Siéntate con los muslos bajo la almohadilla, agarra la barra más ancha que la anchura de los hombros. Tira hacia la parte alta del pecho, aprieta los dorsales."
   },
-  "gym_45": {
+  "lat_pulldown_neutral_close_grip": {
     "setupNotes": "Accesorio en V o agarre cerrado en el jalón al pecho. Siéntate erguido, tira hacia el pecho, codos pegados al cuerpo. Aprieta abajo."
   },
-  "gym_46a": {
+  "lat_pulldown_reverse_grip_close_grip": {
     "setupNotes": "Barra recta en el jalón al pecho, agarre supino, manos juntas. Tira de la barra hacia la parte alta del pecho — inclínate ligeramente hacia atrás, aprieta los dorsales abajo."
   },
-  "gym_46b": {
+  "lat_pulldown_reverse_grip_standard_grip": {
     "setupNotes": "Barra recta en el jalón al pecho, agarre supino, manos a la anchura de los hombros. Tira de la barra hacia la parte alta del pecho — inclínate ligeramente hacia atrás, aprieta los dorsales abajo."
   },
-  "gym_47": {
+  "standard_lat_pulldown_machine": {
     "setupNotes": "Máquina de jalón al pecho de discos o selector. Ajusta la almohadilla del muslo. Agarra las asas, tira hacia la parte alta del pecho con técnica controlada."
   },
-  "gym_48L": {
+  "single_arm_lat_pulldown_left_arm": {
     "setupNotes": "Jalón al pecho con polea, agarradera en D. Un brazo cada vez, ligera inclinación hacia el lado de trabajo. Estiramiento completo arriba, aprieta abajo."
   },
-  "gym_48R": {
+  "single_arm_lat_pulldown_right_arm": {
     "setupNotes": "Jalón al pecho con polea, agarradera en D. Un brazo cada vez, ligera inclinación hacia el lado de trabajo. Estiramiento completo arriba, aprieta abajo."
   },
-  "gym_49": {
+  "band_assisted_pull_up": {
     "setupNotes": "Pasa una banda de resistencia por la barra de dominadas, mete uno o ambos pies en la banda. Haz la dominada con la banda ayudando a reducir la carga del peso corporal."
   },
-  "gym_50": {
+  "machine_assisted_pull_up": {
     "setupNotes": "Máquina asistida de dominadas / fondos. Arrodíllate o ponte de pie sobre la plataforma, selecciona el contrapeso. Agarra la barra por encima, tira hasta pasar la barbilla por encima."
   },
-  "gym_51": {
+  "standard_pull_up": {
     "setupNotes": "Barra de dominadas a una altura que permita colgarse por completo. Agarre prono justo por fuera de la anchura de los hombros. Tira hasta pasar la barbilla por encima, extensión completa abajo."
   },
-  "gym_52": {
+  "chin_up": {
     "setupNotes": "Barra de dominadas, agarre supino a la anchura de los hombros. Tira hasta pasar la barbilla por encima, apretando bíceps y dorsales. Colgado completo abajo."
   },
-  "gym_53": {
+  "wide_grip_pull_up": {
     "setupNotes": "Barra de dominadas, agarre prono significativamente más ancho que los hombros. Tira del pecho hacia la barra. Más énfasis en dorsales, menos en bíceps."
   },
-  "gym_54": {
+  "close_grip_pull_up": {
     "setupNotes": "Barra de dominadas, agarre prono con las manos tocándose o a 15 cm. Tira hasta pasar la barbilla por encima. Más implicación de bíceps y dorsales bajos."
   },
-  "gym_55": {
+  "negative_eccentric_pull_up": {
     "setupNotes": "Barra de dominadas. Salta o escala hasta la posición alta (barbilla por encima). Baja el cuerpo lo más despacio posible (5-10 segundos). Repite."
   },
-  "gym_56": {
+  "weighted_pull_up": {
     "setupNotes": "Barra de dominadas con cinturón de lastre y discos o chaleco lastrado. Haz la dominada estándar con carga adicional."
   },
-  "gym_58": {
+  "muscle_up": {
     "setupNotes": "Barra de dominadas con espacio libre arriba. Dominada explosiva pasando por encima de la barra hasta una posición de press de fondo. Calistenia avanzada."
   },
-  "gym_59": {
+  "commando_pull_up": {
     "setupNotes": "Barra de dominadas, manos alternadas una delante de la otra (agarre perpendicular). Tira la cabeza a un lado de la barra, alterna lados."
   },
-  "gym_60": {
+  "archer_pull_up": {
     "setupNotes": "Agarre ancho en la barra de dominadas. Tira hacia una mano mientras extiendes el otro brazo recto. Alterna lados. Progresión unilateral avanzada."
   },
-  "gym_61": {
+  "seated_cable_row_neutral_grip_v_handle": {
     "setupNotes": "Estación de remo sentado en polea, agarradera en V enganchada. Pies en la plataforma, rodillas ligeramente flexionadas. Tira de la agarradera hacia la parte baja del pecho, aprieta las escápulas."
   },
-  "gym_62": {
+  "seated_cable_row_wide_grip": {
     "setupNotes": "Estación de remo sentado en polea, barra ancha de dorsales o barra recta. Agarre prono. Tira hacia la parte baja del pecho, codos abiertos hacia los lados."
   },
-  "gym_63": {
+  "seated_cable_row_underhand_grip": {
     "setupNotes": "Estación de remo sentado en polea, barra recta con agarre supino a la anchura de los hombros. Tira hacia la parte baja del abdomen, codos pegados al cuerpo."
   },
-  "gym_64L": {
+  "seated_cable_row_single_arm_left_arm": {
     "setupNotes": "Estación de remo sentado en polea, agarradera en D. Un brazo cada vez. Ligera rotación hacia el lado de trabajo. Estiramiento completo y apretar."
   },
-  "gym_64R": {
+  "seated_cable_row_single_arm_right_arm": {
     "setupNotes": "Estación de remo sentado en polea, agarradera en D. Un brazo cada vez. Ligera rotación hacia el lado de trabajo. Estiramiento completo y apretar."
   },
-  "gym_65L": {
+  "one_arm_dumbbell_row_left_arm": {
     "setupNotes": "Mano derecha y rodilla derecha sobre el banco plano, pie izquierdo en el suelo, espalda recta. Mancuerna en la mano izquierda colgando por debajo del hombro — rema hacia la cadera izquierda, codo pegado al cuerpo. Aprieta el dorsal arriba."
   },
-  "gym_65R": {
+  "one_arm_dumbbell_row_right_arm": {
     "setupNotes": "Mano izquierda y rodilla izquierda sobre el banco plano, pie derecho en el suelo, espalda recta. Mancuerna en la mano derecha colgando por debajo del hombro — rema hacia la cadera derecha, codo pegado al cuerpo. Aprieta el dorsal arriba."
   },
-  "gym_66L": {
+  "bench_supported_one_arm_row_left_arm": {
     "setupNotes": "Banco inclinado a ~30 grados, pecho contra la almohadilla. Mancuerna en la mano izquierda — rema hacia la cadera izquierda, codo cerca del cuerpo. El banco evita el impulso para trabajar el dorsal de forma estricta."
   },
-  "gym_66R": {
+  "bench_supported_one_arm_row_right_arm": {
     "setupNotes": "Banco inclinado a ~30 grados, pecho contra la almohadilla. Mancuerna en la mano derecha — rema hacia la cadera derecha, codo cerca del cuerpo. El banco evita el impulso para trabajar el dorsal de forma estricta."
   },
-  "gym_67": {
+  "renegade_row": {
     "setupNotes": "Posición de flexión con las manos sobre mancuernas (hexagonales preferibles). Rema una mancuerna hacia la cadera mientras te estabilizas sobre la otra. Alterna lados."
   },
-  "gym_68L": {
+  "kroc_row_left_arm": {
     "setupNotes": "Una mano sobre el banco o rack como apoyo. Mancuerna pesada, se permite ligera rotación del torso. Remo explosivo de altas repeticiones para grosor de la espalda."
   },
-  "gym_68R": {
+  "kroc_row_right_arm": {
     "setupNotes": "Una mano sobre el banco o rack como apoyo. Mancuerna pesada, se permite ligera rotación del torso. Remo explosivo de altas repeticiones para grosor de la espalda."
   },
-  "gym_69": {
+  "barbell_bent_over_row_overhand": {
     "setupNotes": "De pie, flexión de cadera a ~45 grados. Barra colgando con los brazos extendidos, agarre prono. Rema la barra hacia la parte baja del pecho, aprieta las escápulas."
   },
-  "gym_70": {
+  "barbell_bent_over_row_underhand": {
     "setupNotes": "Misma posición de flexión que en el remo prono. Agarre supino a la anchura de los hombros. Rema hacia la parte baja del abdomen, codos pegados al cuerpo."
   },
-  "gym_71": {
+  "pendlay_row": {
     "setupNotes": "Barra en el suelo. Flexión de cadera hasta que el torso quede paralelo al suelo. Remo explosivo desde parado en cada repetición. La barra vuelve al suelo entre repeticiones."
   },
-  "gym_72": {
+  "yates_row": {
     "setupNotes": "De pie, ligera inclinación hacia delante (~20-30 grados). Agarre supino en la barra. Rema hacia la parte baja del abdomen con técnica controlada. Menos estrés en la zona lumbar."
   },
-  "gym_73": {
+  "seal_row": {
     "setupNotes": "Túmbate boca abajo sobre un banco plano elevado (banco sobre bloques/discos). Mancuernas o barra colgando debajo. Rema sin impulso de piernas ni inercia — espalda pura."
   },
-  "gym_74": {
+  "chest_supported_dumbbell_row": {
     "setupNotes": "Banco inclinado a ~30-45 grados, pecho contra la almohadilla. Una mancuerna en cada mano. Rema ambas mancuernas a la vez. Sin impulso."
   },
-  "gym_75": {
+  "t_bar_row_neutral_grip": {
     "setupNotes": "Máquina de remo T o landmine con agarradera en V. A horcajadas sobre la barra, agarre neutro. Flexión de cadera, rema hacia el pecho."
   },
-  "gym_76": {
+  "chest_supported_t_bar_row": {
     "setupNotes": "Máquina de remo T con apoyo en el pecho. Túmbate boca abajo sobre la almohadilla. Agarra las asas, rema hacia el pecho. La máquina evita hacer trampa."
   },
-  "gym_77L": {
+  "single_arm_landmine_row_left_arm": {
     "setupNotes": "Barra en el landmine. A horcajadas sobre la barra, agarra el extremo con una mano. Rema hacia la cadera con ligera rotación. Postura estable."
   },
-  "gym_77R": {
+  "single_arm_landmine_row_right_arm": {
     "setupNotes": "Barra en el landmine. A horcajadas sobre la barra, agarra el extremo con una mano. Rema hacia la cadera con ligera rotación. Postura estable."
   },
-  "gym_78a": {
+  "smith_machine_bent_over_row_overhand_grip": {
     "setupNotes": "Máquina Smith, barra a la altura de la rodilla. Flexión de cadera, agarre prono en la barra. Rema hacia la parte baja del pecho. Trayectoria guiada."
   },
-  "gym_78b": {
+  "smith_machine_bent_over_row_underhand_grip": {
     "setupNotes": "Máquina Smith, barra a la altura de la rodilla. Flexión de cadera, agarre supino en la barra. Rema hacia la parte baja del pecho. Trayectoria guiada."
   },
-  "gym_79": {
+  "straight_arm_cable_pulldown": {
     "setupNotes": "Polea alta, barra recta o accesorio de cuerda. De pie mirando la máquina, brazos extendidos por encima de la cabeza. Tira de la barra hacia abajo hasta los muslos en arco, dorsales activados."
   },
-  "gym_80L": {
+  "single_arm_straight_arm_pulldown_left_arm": {
     "setupNotes": "Polea alta, agarradera en D. De pie mirando la máquina. Un brazo cada vez, tira de la agarradera hacia la cadera en arco. Estiramiento completo del dorsal arriba."
   },
-  "gym_80R": {
+  "single_arm_straight_arm_pulldown_right_arm": {
     "setupNotes": "Polea alta, agarradera en D. De pie mirando la máquina. Un brazo cada vez, tira de la agarradera hacia la cadera en arco. Estiramiento completo del dorsal arriba."
   },
-  "gym_81a": {
+  "inverted_row_standard_overhand_grip": {
     "setupNotes": "Barra en el rack a la altura de la cintura, o barra de máquina Smith. Cuélgate por debajo, cuerpo recto. Tira del pecho a la barra. Usa agarre prono."
   },
-  "gym_81b": {
+  "inverted_row_standard_underhand_grip": {
     "setupNotes": "Barra en el rack a la altura de la cintura, o barra de máquina Smith. Cuélgate por debajo, cuerpo recto. Tira del pecho a la barra. Usa agarre supino."
   },
-  "gym_81c": {
+  "inverted_row_standard_neutral_grip": {
     "setupNotes": "Barra en el rack a la altura de la cintura, o barra de máquina Smith. Cuélgate por debajo, cuerpo recto. Tira del pecho a la barra. Usa agarre neutro."
   },
-  "gym_82": {
+  "inverted_row_feet_elevated": {
     "setupNotes": "Igual que el remo invertido estándar pero con los pies sobre un banco o caja. Aumenta la dificultad elevando el ángulo del cuerpo hacia la horizontal."
   },
-  "gym_83": {
+  "inverted_row_weighted": {
     "setupNotes": "Montaje estándar de remo invertido. Coloca un disco sobre el pecho o usa chaleco lastrado para resistencia adicional."
   },
-  "gym_84L": {
+  "inverted_row_single_arm_left_arm": {
     "setupNotes": "Barra en el rack. Agarra la barra con una mano, el otro brazo al costado o detrás de la espalda. Rema el cuerpo hacia arriba con un brazo. Unilateral avanzado."
   },
-  "gym_84R": {
+  "inverted_row_single_arm_right_arm": {
     "setupNotes": "Barra en el rack. Agarra la barra con una mano, el otro brazo al costado o detrás de la espalda. Rema el cuerpo hacia arriba con un brazo. Unilateral avanzado."
   },
-  "gym_85": {
+  "dead_hang": {
     "setupNotes": "Barra de dominadas a una altura que permita colgarse por completo sin tocar el suelo con los pies. Agarre prono, relaja los hombros, descomprime la columna. Sostén por tiempo."
   },
-  "gym_86": {
+  "active_dead_hang": {
     "setupNotes": "Barra de dominadas, colgado completo. Activa los dorsales y deprime las escápulas sin flexionar los codos. Ejercicio de activación escapular."
   },
-  "gym_87": {
+  "weighted_dead_hang": {
     "setupNotes": "Barra de dominadas con cinturón de lastre y discos o chaleco lastrado. Colgado completo, resistencia del agarre y descompresión espinal con carga."
   },
-  "gym_88": {
+  "scapular_pull_up": {
     "setupNotes": "Barra de dominadas, agarre prono. Desde el colgado, retrae y deprime las escápulas para elevar el cuerpo ligeramente sin flexionar los codos. Activación del dorsal."
   },
-  "gym_89": {
+  "back_extension_standard_machine": {
     "setupNotes": "Banco de hiperextensiones / extensiones de espalda. Almohadilla sobre el pliegue de la cadera, pies sujetos. Flexión de cadera hacia abajo y arriba. Manos detrás de la cabeza o cruzadas sobre el pecho."
   },
-  "gym_90": {
+  "back_extension_weighted": {
     "setupNotes": "Mismo montaje que la estándar. Sostén un disco o mancuerna contra el pecho para añadir resistencia. Tempo controlado."
   },
-  "gym_91": {
+  "back_extension_glute_bias": {
     "setupNotes": "Banco de extensiones de espalda. Redondea ligeramente la espalda alta, enfócate en apretar los glúteos arriba. Pies ligeramente hacia fuera. Tempo más lento."
   },
-  "gym_92": {
+  "reverse_snow_angels_standard": {
     "setupNotes": "Túmbate boca abajo en la colchoneta, brazos extendidos por encima de la cabeza. Barre los brazos en arco desde arriba hasta las caderas y vuelta, manteniéndolos despegados del suelo."
   },
-  "gym_93": {
+  "reverse_snow_angels_weighted": {
     "setupNotes": "Misma posición boca abajo. Sostén mancuernas muy ligeras (1-2 kg) en cada mano. Arco lento desde arriba hasta las caderas y vuelta."
   },
-  "gym_94a": {
+  "conventional_barbell_deadlift": {
     "setupNotes": "Barra en el suelo, pies a la anchura de las caderas (postura convencional). Agarre mixto o doble prono justo por fuera de las rodillas. Espalda recta, pecho arriba — empuja desde los talones hasta el bloqueo."
   },
-  "gym_94b": {
+  "sumo_barbell_deadlift": {
     "setupNotes": "Barra en el suelo, postura amplia con las puntas hacia fuera (sumo). Agarra la barra entre las rodillas, brazos rectos. Espalda recta, pecho arriba — empuja desde los talones hasta el bloqueo."
   },
-  "gym_95": {
+  "trap_bar_row": {
     "setupNotes": "Trap bar cargada, flexión de cadera. Agarra ambas asas con agarre neutro. Rema hacia el torso, aprieta la espalda alta. El agarre neutro reduce la tensión en el bíceps."
   },
-  "gym_96a": {
+  "barbell_good_morning": {
     "setupNotes": "Barra sobre la espalda alta (como en sentadilla). Pies a la anchura de las caderas. Flexión de cadera, empuja las caderas hacia atrás, baja el torso hasta casi paralelo — ponte de pie empujando las caderas hacia delante."
   },
-  "gym_96b": {
+  "dumbbell_good_morning": {
     "setupNotes": "Sostén mancuernas en los hombros o detrás de la cabeza. Pies a la anchura de las caderas. Flexión de cadera, empuja las caderas hacia atrás, baja el torso hasta casi paralelo — ponte de pie empujando las caderas hacia delante."
   },
-  "gym_97L": {
+  "meadows_row_left_arm": {
     "setupNotes": "Barra en el landmine. Colócate perpendicular a la barra en postura escalonada con el pie derecho adelantado. Agarre prono en el extremo de la barra con la mano izquierda — rema hacia la cadera izquierda con ligera rotación del torso. Trabaja los dorsales y la espalda alta."
   },
-  "gym_97R": {
+  "meadows_row_right_arm": {
     "setupNotes": "Barra en el landmine. Colócate perpendicular a la barra en postura escalonada con el pie izquierdo adelantado. Agarre prono en el extremo de la barra con la mano derecha — rema hacia la cadera derecha con ligera rotación del torso. Trabaja los dorsales y la espalda alta."
   },
-  "gym_98": {
+  "ghd_back_extension": {
     "setupNotes": "Máquina Glute-Ham Developer. Almohadilla sobre el pliegue de la cadera, pies sujetos en la plataforma. Flexión de cadera, baja el torso, extiende la espalda hasta la horizontal o ligera hiperextensión."
   },
-  "gym_99": {
+  "reverse_hyper": {
     "setupNotes": "Máquina de reverse hyper. Túmbate boca abajo, caderas en el borde de la almohadilla, agarra las asas. Extiende las piernas atrás y arriba usando glúteos e isquiotibiales. Balanceo controlado."
   },
-  "gym_100": {
+  "barbell_curl_standing": {
     "setupNotes": "De pie, barra con agarre a la anchura de los hombros. Codos pegados al cuerpo. Curl hasta la altura del hombro, baja con control. Evita balancear el torso."
   },
-  "gym_101a": {
+  "ez_bar_curl_standing_wide_grip": {
     "setupNotes": "De pie, barra Z con un ángulo cómodo para las muñecas. Agarre ancho. Curl hasta los hombros, aprieta arriba, excéntrica controlada."
   },
-  "gym_101b": {
+  "ez_bar_curl_standing_narrow_grip": {
     "setupNotes": "De pie, barra Z con un ángulo cómodo para las muñecas. Agarre cerrado. Curl hasta los hombros, aprieta arriba, excéntrica controlada."
   },
-  "gym_102": {
+  "reverse_barbell_curl": {
     "setupNotes": "De pie, agarre prono en la barra a la anchura de los hombros. Sube el curl manteniendo las palmas hacia abajo. Trabaja el braquiorradial y los extensores del antebrazo."
   },
-  "gym_103": {
+  "drag_curl_barbell": {
     "setupNotes": "De pie, barra a la altura de la cadera. En lugar de subir en arco, arrastra la barra por el cuerpo tirando de los codos hacia atrás. La barra permanece en contacto con el torso."
   },
-  "gym_104": {
+  "spider_curl_barbell": {
     "setupNotes": "Tumbado boca abajo en banco inclinado (pecho en la parte alta). Brazos colgando rectos, barra en las manos. Sube el curl sin impulso. Tensión constante."
   },
-  "gym_105a": {
+  "alternating_dumbbell_biceps_curl_standing": {
     "setupNotes": "De pie, una mancuerna en cada mano a los lados. Curl alternado. Supinación completa arriba, bajada controlada. Codos fijos."
   },
-  "gym_105b": {
+  "simultaneous_dumbbell_biceps_curl_standing": {
     "setupNotes": "De pie, una mancuerna en cada mano a los lados. Curl simultáneo. Supinación completa arriba, bajada controlada. Codos fijos."
   },
-  "gym_106": {
+  "incline_dumbbell_curl_seated": {
     "setupNotes": "Sentado en banco inclinado a ~45-60 grados. Mancuernas colgando a los lados por detrás del torso. Sube el curl, la cabeza larga del bíceps recibe un estiramiento extra."
   },
-  "gym_107L": {
+  "concentration_curl_seated_left_arm": {
     "setupNotes": "Sentado en el banco, codo izquierdo apoyado contra la cara interna del muslo izquierdo. Mancuerna en la mano izquierda colgando hacia el suelo — sube el curl en aislamiento estricto, apretando el bíceps arriba. Sin movimiento del torso."
   },
-  "gym_107R": {
+  "concentration_curl_seated_right_arm": {
     "setupNotes": "Sentado en el banco, codo derecho apoyado contra la cara interna del muslo derecho. Mancuerna en la mano derecha colgando hacia el suelo — sube el curl en aislamiento estricto, apretando el bíceps arriba. Sin movimiento del torso."
   },
-  "gym_108a": {
+  "standard_hammer_curl_standing": {
     "setupNotes": "De pie, mancuernas a los lados con agarre neutro (palmas hacia dentro) durante todo el movimiento. Sube el curl manteniendo los pulgares hacia arriba. Estándar."
   },
-  "gym_108b": {
+  "alternating_hammer_curl_standing": {
     "setupNotes": "De pie erguido, una mancuerna en cada mano a los lados con agarre neutro (palmas hacia dentro). Curl de un brazo cada vez, pulgares hacia arriba, bajando con control antes de curlar el otro lado. Trabaja el braquial y el braquiorradial."
   },
-  "gym_109": {
+  "incline_hammer_curl": {
     "setupNotes": "Sentado en banco inclinado a ~45 grados. Mancuernas a los lados con agarre neutro. Sube el curl — la inclinación aumenta el estiramiento del braquial."
   },
-  "gym_110": {
+  "cross_body_hammer_curl": {
     "setupNotes": "De pie, curl de la mancuerna cruzando el cuerpo hacia el hombro opuesto con agarre neutro. Trabaja el braquial y el braquiorradial. Alterna brazos."
   },
-  "gym_111": {
+  "twisting_supinating_curl": {
     "setupNotes": "De pie, mancuernas a los lados con agarre neutro. Mientras subes el curl, rota la muñeca de neutro a supinado (palmas arriba). Aprieta arriba."
   },
-  "gym_112": {
+  "cable_biceps_curl_straight_bar": {
     "setupNotes": "Polea baja, barra recta o accesorio de barra Z. De pie mirando la máquina, curl de la barra hacia los hombros. Tensión constante del cable durante todo el movimiento."
   },
-  "gym_113": {
+  "cable_rope_curl": {
     "setupNotes": "Polea baja, accesorio de cuerda. De pie mirando la máquina, agarra los extremos de la cuerda. Sube el curl y abre la cuerda hacia fuera arriba para una contracción máxima."
   },
-  "gym_114": {
+  "behind_the_back_cable_curl": {
     "setupNotes": "Polea baja, agarradera en D. De pie de espaldas a la máquina, brazo extendido atrás. Sube el curl contra el cable para un ángulo único de estiramiento."
   },
-  "gym_115": {
+  "high_cable_curl": {
     "setupNotes": "Estación de poleas doble, poleas altas con agarraderas en D. De pie centrado, brazos extendidos a los lados. Curl de las agarraderas hacia las orejas — posición de doble bíceps frontal."
   },
-  "gym_116L": {
+  "single_arm_cable_curl_left_arm": {
     "setupNotes": "Polea baja, agarradera en D. De pie mirando la máquina. Curl de un brazo cada vez. La mano libre puede apoyarse en la máquina para estabilidad."
   },
-  "gym_116R": {
+  "single_arm_cable_curl_right_arm": {
     "setupNotes": "Polea baja, agarradera en D. De pie mirando la máquina. Curl de un brazo cada vez. La mano libre puede apoyarse en la máquina para estabilidad."
   },
-  "gym_117": {
+  "reverse_cable_curl": {
     "setupNotes": "Polea baja, barra recta. Agarre prono. Sube el curl manteniendo las palmas hacia abajo. El cable da tensión constante a los extensores del antebrazo."
   },
-  "gym_118": {
+  "ez_bar_preacher_curl": {
     "setupNotes": "Banco predicador, barra Z. Brazos pegados a la almohadilla, axilas en la parte alta. Sube el curl, baja con control — sin impulso ni rebote abajo."
   },
-  "gym_119": {
+  "dumbbell_preacher_curl": {
     "setupNotes": "Banco predicador, mancuerna en una mano. Brazo pegado a la almohadilla. Sube el curl, aprieta arriba, excéntrica lenta. Estiramiento completo abajo."
   },
-  "gym_120": {
+  "cable_preacher_curl": {
     "setupNotes": "Banco predicador colocado frente a la polea baja. Accesorio de barra Z o barra recta. Tensión constante en todo el rango de movimiento."
   },
-  "gym_121": {
+  "zottman_curl": {
     "setupNotes": "De pie, mancuernas a los lados. Sube el curl con agarre supino (palmas arriba), rota a agarre prono (palmas abajo) arriba, baja despacio con agarre prono."
   },
-  "gym_122": {
+  "waiter_curl": {
     "setupNotes": "De pie, sostén una mancuerna verticalmente con ambas palmas bajo el disco superior. Sube el curl con los codos pegados. Énfasis en la cabeza larga en el pico de contracción."
   },
-  "gym_123": {
+  "21s_ez_bar": {
     "setupNotes": "De pie, barra Z. Haz 7 repeticiones en el rango inferior, 7 en el superior y 7 en rango completo — 21 en total. Sin descanso entre segmentos."
   },
-  "gym_124": {
+  "triceps_pushdown_straight_bar": {
     "setupNotes": "Polea alta, accesorio de barra recta. De pie mirando la máquina, codos pegados al cuerpo. Empuja la barra hacia abajo hasta la extensión completa, retorno controlado."
   },
-  "gym_125": {
+  "triceps_pushdown_rope": {
     "setupNotes": "Polea alta, accesorio de cuerda. De pie mirando la máquina. Empuja hacia abajo y abre la cuerda abajo para una contracción extra. Codos fijos."
   },
-  "gym_126": {
+  "triceps_pushdown_v_bar": {
     "setupNotes": "Polea alta, accesorio de barra en V. Agarre neutro. Empuja hacia abajo hasta la extensión completa. Cómodo en las muñecas, buena aislación del tríceps."
   },
-  "gym_127": {
+  "triceps_pushdown_reverse_grip": {
     "setupNotes": "Polea alta, barra recta con agarre supino. Empuja hacia abajo hasta la extensión completa. Enfatiza la cabeza medial del tríceps."
   },
-  "gym_128a": {
+  "standing_dumbbell_overhead_triceps_extension": {
     "setupNotes": "De pie, sostén una mancuerna pesada con ambas manos detrás de la cabeza, codos apuntando hacia arriba. Extiende los brazos por encima de la cabeza hasta el bloqueo."
   },
-  "gym_128b": {
+  "seated_dumbbell_overhead_triceps_extension": {
     "setupNotes": "Sentado, sostén una mancuerna pesada con ambas manos detrás de la cabeza, codos apuntando hacia arriba. Extiende los brazos por encima de la cabeza hasta el bloqueo."
   },
-  "gym_129L": {
+  "single_arm_dumbbell_overhead_extension_left_arm": {
     "setupNotes": "De pie o sentado, una mancuerna detrás de la cabeza con una mano. El codo apunta hacia arriba. Extiende hasta el bloqueo, baja con control detrás de la cabeza."
   },
-  "gym_129R": {
+  "single_arm_dumbbell_overhead_extension_right_arm": {
     "setupNotes": "De pie o sentado, una mancuerna detrás de la cabeza con una mano. El codo apunta hacia arriba. Extiende hasta el bloqueo, baja con control detrás de la cabeza."
   },
-  "gym_130": {
+  "cable_overhead_triceps_extension_rope": {
     "setupNotes": "Polea baja, accesorio de cuerda. De espaldas a la máquina, brazos por encima de la cabeza. Extiende hacia delante desde detrás de la cabeza hasta el bloqueo completo."
   },
-  "gym_131L": {
+  "single_arm_cable_overhead_extension_left_arm": {
     "setupNotes": "Polea baja, agarradera en D. De espaldas, un brazo por encima de la cabeza. Extiende hacia delante hasta el bloqueo. La mano libre puede apoyarse en el muslo para estabilidad."
   },
-  "gym_131R": {
+  "single_arm_cable_overhead_extension_right_arm": {
     "setupNotes": "Polea baja, agarradera en D. De espaldas, un brazo por encima de la cabeza. Extiende hacia delante hasta el bloqueo. La mano libre puede apoyarse en el muslo para estabilidad."
   },
-  "gym_132": {
+  "barbell_skull_crusher": {
     "setupNotes": "Banco plano, barra o barra Z. Brazos extendidos sobre la cara/frente. Baja la barra flexionando los codos hasta la frente, extiende arriba. Se recomienda asistente."
   },
-  "gym_133": {
+  "ez_bar_skull_crusher": {
     "setupNotes": "Banco plano o ligeramente inclinado, barra Z. Agarre en ángulo cerrado. Baja hasta la frente, extiende hasta el bloqueo. La barra Z reduce la tensión en las muñecas."
   },
-  "gym_134": {
+  "dumbbell_skull_crusher": {
     "setupNotes": "Banco plano, mancuernas con agarre neutro sobre la cara. Baja las mancuernas flexionando los codos hasta junto a las orejas, extiende arriba."
   },
-  "gym_135": {
+  "cable_skull_crusher": {
     "setupNotes": "Banco plano colocado frente a la polea baja, accesorio de barra recta. Brazos extendidos sobre el pecho, baja flexionando los codos, extiende arriba."
   },
-  "gym_136": {
+  "bench_dip_standard": {
     "setupNotes": "Manos en el borde del banco detrás del cuerpo, dedos hacia delante. Pies en el suelo, piernas extendidas o flexionadas. Baja el cuerpo flexionando los codos, empuja arriba."
   },
-  "gym_137": {
+  "bench_dip_weighted": {
     "setupNotes": "Igual que el fondo estándar en banco. Coloca un disco sobre el regazo para resistencia adicional. Un asistente puede ayudarte a colocarlo."
   },
-  "gym_138": {
+  "parallel_bar_dip_triceps_focus": {
     "setupNotes": "Barras paralelas de fondos. Torso vertical (no inclinado hacia delante), codos pegados al cuerpo apuntando atrás. Baja hasta que los codos estén a 90 grados, empuja arriba."
   },
-  "gym_139": {
+  "assisted_parallel_dip": {
     "setupNotes": "Máquina asistida de dominadas/fondos. Arrodíllate o ponte de pie sobre la plataforma, selecciona el contrapeso. Torso vertical para enfocar el tríceps. Rango completo de movimiento."
   },
-  "gym_140": {
+  "close_grip_bench_press_barbell": {
     "setupNotes": "Banco plano, barra con las manos a 30-35 cm (más cerradas que la anchura de los hombros). Baja la barra hasta la parte baja del pecho, codos pegados. Empuja hasta el bloqueo."
   },
-  "gym_141": {
+  "close_grip_bench_press_smith_machine": {
     "setupNotes": "Banco plano en la máquina Smith. Agarre cerrado. Baja hasta la parte baja del pecho con codos pegados, empuja hasta el bloqueo. La máquina guía la trayectoria."
   },
-  "gym_142": {
+  "close_grip_bench_press_dumbbell_neutral": {
     "setupNotes": "Banco plano, mancuernas apretadas entre sí con agarre neutro sobre el pecho. Empuja arriba manteniéndolas en contacto. Codos pegados al cuerpo."
   },
-  "gym_143": {
+  "diamond_push_up": {
     "setupNotes": "Manos en el suelo con los índices y pulgares tocándose (forma de diamante). Cuerpo en línea recta. Baja el pecho a las manos, empuja arriba. Dominante en tríceps."
   },
-  "gym_144": {
+  "jm_press": {
     "setupNotes": "Banco plano, barra o barra Z. Híbrido entre skull crusher y press cerrado. Baja la barra hacia la barbilla/parte alta del pecho a ~45 grados, empuja arriba."
   },
-  "gym_146L": {
+  "dumbbell_triceps_kickback_left_arm": {
     "setupNotes": "Mano derecha y rodilla derecha sobre el banco plano, pie izquierdo en el suelo, espalda recta. Mancuerna en la mano izquierda, brazo paralelo al suelo, codo pegado al cuerpo. Extiende el antebrazo izquierdo hacia atrás hasta el bloqueo, aprieta el tríceps. Retorno controlado."
   },
-  "gym_146R": {
+  "dumbbell_triceps_kickback_right_arm": {
     "setupNotes": "Mano izquierda y rodilla izquierda sobre el banco plano, pie derecho en el suelo, espalda recta. Mancuerna en la mano derecha, brazo paralelo al suelo, codo pegado al cuerpo. Extiende el antebrazo derecho hacia atrás hasta el bloqueo, aprieta el tríceps. Retorno controlado."
   },
-  "gym_147": {
+  "tate_press": {
     "setupNotes": "Banco plano, mancuernas extendidas sobre el pecho con las palmas hacia los pies. Baja las mancuernas hacia dentro hasta que los extremos se toquen sobre el pecho, empuja arriba."
   },
-  "gym_148": {
+  "barbell_wrist_curl": {
     "setupNotes": "Sentado, antebrazos apoyados en los muslos o banco predicador, palmas arriba. Barra en las manos. Sube las muñecas, baja con control. Deja que la barra ruede hasta los dedos para más rango."
   },
-  "gym_149": {
+  "reverse_wrist_curl": {
     "setupNotes": "Sentado, antebrazos sobre los muslos o banco predicador, palmas abajo. Barra en las manos. Extiende las muñecas hacia arriba, baja con control. Poco peso, muchas repeticiones."
   },
-  "gym_150": {
+  "farmer_s_walk": {
     "setupNotes": "De pie, una mancuerna pesada o asas de farmer's walk en cada mano a los lados. Camina en línea recta por distancia o tiempo. Postura alta, hombros estables."
   },
-  "gym_151": {
+  "plate_pinch_hold": {
     "setupNotes": "De pie, pellizca dos discos lisos con los dedos de un lado y el pulgar del otro. Mantén por tiempo. Desarrolla fuerza de pinza."
   },
-  "gym_152": {
+  "wrist_roller": {
     "setupNotes": "De pie o con los brazos extendidos delante. Dispositivo wrist roller con peso colgando de una cuerda. Enrolla la cuerda rotando las muñecas, luego desenrolla. En ambas direcciones."
   },
-  "gym_153": {
+  "behind_the_back_barbell_wrist_curl": {
     "setupNotes": "De pie, barra sujeta detrás del cuerpo con los brazos extendidos, palmas hacia atrás. Sube las muñecas, baja con control. De pie permite más carga."
   },
-  "gym_154": {
+  "towel_grip_hang": {
     "setupNotes": "Pasa una toalla gruesa sobre la barra de dominadas. Agarra la toalla con ambas manos (una a cada lado). Cuélgate por tiempo. Reto extremo para antebrazos y agarre."
   },
-  "gym_156a": {
+  "barbell_back_squat_standard": {
     "setupNotes": "Power rack, barra sobre los trapecios superiores (high bar) o los deltoides posteriores (low bar). Pies a la anchura de los hombros. Desciende hasta que los muslos estén paralelos al suelo o por debajo — empuja hacia arriba desde los talones."
   },
-  "gym_156b": {
+  "barbell_back_squat_wide_stance": {
     "setupNotes": "Power rack, barra sobre los trapecios superiores (high bar) o los deltoides posteriores (low bar). Postura amplia, puntas hacia fuera. Desciende hasta que los muslos estén paralelos al suelo o por debajo — empuja hacia arriba desde los talones."
   },
-  "gym_157": {
+  "barbell_front_squat": {
     "setupNotes": "Power rack, barra cruzada sobre los deltoides anteriores en front rack (agarre de clean) o con los brazos cruzados. Codos altos. Desciende hasta paralelo o más, torso erguido."
   },
-  "gym_158": {
+  "box_squat_barbell": {
     "setupNotes": "Power rack con caja o banco detrás a la altura del paralelo. Barra sobre la espalda. Siéntate en la caja, pausa breve, empuja hacia arriba explosivamente. Descenso controlado."
   },
-  "gym_159a": {
+  "front_pause_squat_barbell": {
     "setupNotes": "Power rack, montaje de front squat. Desciende hasta la posición baja, mantén 2-3 segundos sin relajar la tensión, luego empuja hacia arriba. Desarrolla fuerza desde la posición baja."
   },
-  "gym_159b": {
+  "back_pause_squat_barbell": {
     "setupNotes": "Power rack, montaje de back squat. Desciende hasta la posición baja, mantén 2-3 segundos sin relajar la tensión, luego empuja hacia arriba. Desarrolla fuerza desde la posición baja."
   },
-  "gym_160": {
+  "safety_bar_squat": {
     "setupNotes": "Barra safety squat sobre los hombros en el power rack. Asas delante para equilibrio. Desciende hasta paralelo, empuja arriba. Más cómoda para los hombros que la barra recta."
   },
-  "gym_161": {
+  "sumo_squat_barbell": {
     "setupNotes": "Barra sobre la espalda, postura amplia con las puntas hacia fuera ~45 grados. Desciende entre las piernas, rodillas siguen las puntas. Énfasis en aductores y glúteos."
   },
-  "gym_162": {
+  "zercher_squat": {
     "setupNotes": "Barra sujeta en el pliegue de los codos a la altura del pecho. Pies a la anchura de los hombros. Sentadilla entre los brazos, la barra queda en el pliegue del codo. Acolcha la barra con una toalla."
   },
-  "gym_163": {
+  "smith_machine_squat": {
     "setupNotes": "Máquina Smith, barra sobre la espalda alta. Pies ligeramente adelantados respecto a la barra. Desciende hasta paralelo, empuja arriba. La máquina guía la trayectoria vertical."
   },
-  "gym_164a": {
+  "goblet_squat_standard": {
     "setupNotes": "De pie, sostén una mancuerna o pesa rusa a la altura del pecho con ambas manos. Pies a la anchura de los hombros. Sentadilla profunda, codos por dentro de las rodillas abajo. Postura estándar."
   },
-  "gym_164b": {
+  "goblet_squat_elevated_heels": {
     "setupNotes": "De pie sobre un disco pequeño o cuña con los talones elevados, sostén una mancuerna o pesa rusa a la altura del pecho con ambas manos. Sentadilla profunda, codos por dentro de las rodillas abajo. Los talones elevados dirigen la carga a los cuádriceps."
   },
-  "gym_164c": {
+  "goblet_squat_b_stance": {
     "setupNotes": "De pie con un pie medio paso atrás (talón levantado, punta ligeramente apoyada), sostén una mancuerna o pesa rusa a la altura del pecho con ambas manos. Sentadilla empujando sobre todo con la pierna delantera. Énfasis unilateral con estabilidad bilateral."
   },
-  "gym_165": {
+  "hack_squat_machine": {
     "setupNotes": "Máquina hack squat, hombros bajo las almohadillas, espalda contra el respaldo. Pies a la anchura de los hombros en la plataforma. Desciende hasta paralelo o más, empuja arriba."
   },
-  "gym_166": {
+  "belt_squat": {
     "setupNotes": "Máquina belt squat. Engancha el cinturón a las caderas y al peso, ponte de pie sobre las plataformas elevadas. Sentadilla abajo y arriba — cero carga espinal. Enfoque en cuádriceps y glúteos."
   },
-  "gym_167": {
+  "sissy_squat": {
     "setupNotes": "De pie, sujétate a algo para equilibrio. Inclínate hacia atrás, empuja las rodillas hacia delante pasando las puntas, baja el cuerpo. Estiramiento extremo de cuádriceps. Puedes usar un banco sissy squat."
   },
-  "gym_168": {
+  "pendulum_squat": {
     "setupNotes": "Máquina pendulum squat. Hombros bajo las almohadillas, pies en la plataforma. La máquina pivota en arco. Sentadilla profunda con tensión constante. Muy dominante en cuádriceps."
   },
-  "gym_169a": {
+  "leg_press_standard_hip_width": {
     "setupNotes": "Máquina de prensa de piernas. Siéntate con la espalda contra el respaldo, pies a la anchura de las caderas en la plataforma. Suelta los seguros, baja el peso hasta que las rodillas estén a ~90 grados, empuja arriba."
   },
-  "gym_169aL": {
+  "leg_press_standard_hip_width_left_leg": {
     "setupNotes": "Máquina de prensa de piernas, espalda contra el respaldo, pie izquierdo centrado en la plataforma (pie derecho fuera). Baja el peso hasta que la rodilla llegue a ~90 grados, empuja desde el talón. Carga menor que la bilateral — expone desequilibrios del lado izquierdo."
   },
-  "gym_169aR": {
+  "leg_press_standard_hip_width_right_leg": {
     "setupNotes": "Máquina de prensa de piernas, espalda contra el respaldo, pie derecho centrado en la plataforma (pie izquierdo fuera). Baja el peso hasta que la rodilla llegue a ~90 grados, empuja desde el talón. Carga menor que la bilateral — expone desequilibrios del lado derecho."
   },
-  "gym_169b": {
+  "leg_press_standard_wide": {
     "setupNotes": "Máquina de prensa de piernas. Siéntate con la espalda contra el respaldo, pies anchos en la plataforma. Suelta los seguros, baja el peso hasta que las rodillas estén a ~90 grados, empuja arriba."
   },
-  "gym_169c": {
+  "leg_press_standard_narrow": {
     "setupNotes": "Máquina de prensa de piernas. Siéntate con la espalda contra el respaldo, pies estrechos en la plataforma. Suelta los seguros, baja el peso hasta que las rodillas estén a ~90 grados, empuja arriba."
   },
-  "gym_170": {
+  "leg_press_high_foot_placement": {
     "setupNotes": "Máquina de prensa de piernas, pies colocados alto en la plataforma. Mayor énfasis en isquiotibiales y glúteos. Baja hasta que las rodillas estén a ~90 grados, empuja arriba."
   },
-  "gym_171": {
+  "leg_press_low_foot_placement": {
     "setupNotes": "Máquina de prensa de piernas, pies colocados bajo en la plataforma. Mayor énfasis en cuádriceps — mayor flexión de rodilla. Vigila que las rodillas sigan las puntas."
   },
-  "gym_172L": {
+  "single_leg_press_left_leg": {
     "setupNotes": "Máquina de prensa de piernas, espalda contra el respaldo, pie izquierdo centrado en la plataforma, pie derecho fuera. Empuja el peso con la pierna izquierda, baja con control hasta ~90 grados. Carga menor que la bilateral. Expone desequilibrios de fuerza del lado izquierdo."
   },
-  "gym_172R": {
+  "single_leg_press_right_leg": {
     "setupNotes": "Máquina de prensa de piernas, espalda contra el respaldo, pie derecho centrado en la plataforma, pie izquierdo fuera. Empuja el peso con la pierna derecha, baja con control hasta ~90 grados. Carga menor que la bilateral. Expone desequilibrios de fuerza del lado derecho."
   },
-  "gym_173": {
+  "calf_press_on_leg_press": {
     "setupNotes": "Máquina de prensa de piernas, solo las puntas en el borde inferior de la plataforma. Extiende los tobillos (flexión plantar) para empujar el peso, retorno controlado. Rango completo de movimiento."
   },
-  "gym_174": {
+  "walking_lunge_bodyweight": {
     "setupNotes": "Espacio libre (10+ metros). Da un paso adelante en zancada, rodilla trasera hacia el suelo, empuja desde el pie delantero al siguiente paso. Movimiento continuo hacia delante."
   },
-  "gym_175a": {
+  "walking_lunge_dumbbell": {
     "setupNotes": "Espacio libre, mancuernas a los lados. Da un paso adelante en zancada profunda — rodilla delantera siguiendo las puntas. Empuja desde el pie delantero, trae el pie trasero a la siguiente zancada."
   },
-  "gym_175b": {
+  "walking_lunge_barbell": {
     "setupNotes": "Espacio libre, barra sobre la espalda alta. Da un paso adelante en zancada profunda — rodilla delantera siguiendo las puntas. Empuja desde el pie delantero, trae el pie trasero a la siguiente zancada."
   },
-  "gym_175c": {
+  "walking_lunge_front_rack": {
     "setupNotes": "Espacio libre, barra en posición de front rack. Da un paso adelante en zancada profunda — rodilla delantera siguiendo las puntas. Empuja desde el pie delantero, trae el pie trasero a la siguiente zancada."
   },
-  "gym_177": {
+  "reverse_lunge_dumbbell_barbell": {
     "setupNotes": "De pie con mancuernas a los lados o barra sobre la espalda. Da un paso atrás en zancada, baja hasta que el muslo delantero esté paralelo. Vuelve al inicio."
   },
-  "gym_178a": {
+  "bodyweight_lateral_lunge": {
     "setupNotes": "De pie, da un paso amplio a un lado, flexiona la pierna que pisa, mantén la otra recta. Empuja para volver. Con peso corporal."
   },
-  "gym_178b": {
+  "dumbbell_lateral_lunge": {
     "setupNotes": "De pie, da un paso amplio a un lado, flexiona la pierna que pisa, mantén la otra recta. Empuja para volver. Con mancuerna."
   },
-  "gym_180": {
+  "jumping_plyo_lunge": {
     "setupNotes": "Empieza en posición de zancada. Salta explosivamente, cambia de piernas en el aire, aterriza en la zancada opuesta. Alterna de forma continua. Cardio y potencia."
   },
-  "gym_181": {
+  "overhead_walking_lunge": {
     "setupNotes": "Mancuernas o barra por encima de la cabeza con los brazos bloqueados. Camina hacia delante en zancadas. Exigencia extrema del core y estabilidad del hombro."
   },
-  "gym_183L": {
+  "bulgarian_split_squat_dumbbell_left_leg": {
     "setupNotes": "Pie derecho con los cordones hacia abajo sobre un banco detrás, pie izquierdo 60-90 cm por delante, una mancuerna en cada mano a los lados. Baja hasta que el muslo izquierdo esté paralelo. Empuja desde el talón delantero — énfasis en cuádriceps y glúteo de la pierna izquierda."
   },
-  "gym_183R": {
+  "bulgarian_split_squat_dumbbell_right_leg": {
     "setupNotes": "Pie izquierdo con los cordones hacia abajo sobre un banco detrás, pie derecho 60-90 cm por delante, una mancuerna en cada mano a los lados. Baja hasta que el muslo derecho esté paralelo. Empuja desde el talón delantero — énfasis en cuádriceps y glúteo de la pierna derecha."
   },
-  "gym_184aL": {
+  "bulgarian_split_squat_barbell_back_rack_left_leg": {
     "setupNotes": "Pie derecho elevado atrás sobre un banco, barra colocada sobre la espalda alta. Baja en zancada partida hasta que el muslo delantero izquierdo esté paralelo, luego empuja desde el talón izquierdo para subir. Entrena el cuádriceps y glúteo izquierdo con carga espinal."
   },
-  "gym_184aR": {
+  "bulgarian_split_squat_barbell_back_rack_right_leg": {
     "setupNotes": "Pie izquierdo elevado atrás sobre un banco, barra colocada sobre la espalda alta. Baja en zancada partida hasta que el muslo delantero derecho esté paralelo, luego empuja desde el talón derecho para subir. Entrena el cuádriceps y glúteo derecho con carga espinal."
   },
-  "gym_184bL": {
+  "bulgarian_split_squat_barbell_front_rack_left_leg": {
     "setupNotes": "Pie derecho elevado atrás sobre un banco, barra en front rack sobre los hombros, codos arriba. Baja hasta que el muslo delantero izquierdo esté paralelo, empuja desde el talón izquierdo para subir. El front rack obliga a mantener el torso erguido — mayor énfasis en el cuádriceps izquierdo."
   },
-  "gym_184bR": {
+  "bulgarian_split_squat_barbell_front_rack_right_leg": {
     "setupNotes": "Pie izquierdo elevado atrás sobre un banco, barra en front rack sobre los hombros, codos arriba. Baja hasta que el muslo delantero derecho esté paralelo, empuja desde el talón derecho para subir. El front rack obliga a mantener el torso erguido — mayor énfasis en el cuádriceps derecho."
   },
-  "gym_185L": {
+  "bulgarian_split_squat_paused_left_leg": {
     "setupNotes": "Pie derecho sobre un banco detrás, pie izquierdo delante, mancuernas a los lados o barra sobre la espalda. Baja hasta que el muslo izquierdo esté paralelo y mantén 2-3 segundos antes de empujar. Elimina el reflejo de estiramiento — desarrolla fuerza en la posición baja."
   },
-  "gym_185R": {
+  "bulgarian_split_squat_paused_right_leg": {
     "setupNotes": "Pie izquierdo sobre un banco detrás, pie derecho delante, mancuernas a los lados o barra sobre la espalda. Baja hasta que el muslo derecho esté paralelo y mantén 2-3 segundos antes de empujar. Elimina el reflejo de estiramiento — desarrolla fuerza en la posición baja."
   },
-  "gym_186L": {
+  "bulgarian_split_squat_jump_plyo_left_leg": {
     "setupNotes": "Pie derecho elevado atrás sobre un banco, solo peso corporal. Baja en zancada partida, luego explota hacia arriba desde el pie izquierdo, aterrizando suave en la posición partida. Re-estabiliza antes de la siguiente repetición. Potencia pliométrica por la pierna izquierda."
   },
-  "gym_186R": {
+  "bulgarian_split_squat_jump_plyo_right_leg": {
     "setupNotes": "Pie izquierdo elevado atrás sobre un banco, solo peso corporal. Baja en zancada partida, luego explota hacia arriba desde el pie derecho, aterrizando suave en la posición partida. Re-estabiliza antes de la siguiente repetición. Potencia pliométrica por la pierna derecha."
   },
-  "gym_187L": {
+  "bulgarian_split_squat_front_foot_elevated_left_leg": {
     "setupNotes": "Pie derecho elevado atrás sobre un banco Y pie izquierdo delantero sobre un disco o step. Baja en zancada partida con déficit — muslo izquierdo bien por debajo del paralelo — luego empuja desde el talón izquierdo. El rango aumentado carga el glúteo izquierdo en profundidad."
   },
-  "gym_187R": {
+  "bulgarian_split_squat_front_foot_elevated_right_leg": {
     "setupNotes": "Pie izquierdo elevado atrás sobre un banco Y pie derecho delantero sobre un disco o step. Baja en zancada partida con déficit — muslo derecho bien por debajo del paralelo — luego empuja desde el talón derecho. El rango aumentado carga el glúteo derecho en profundidad."
   },
-  "gym_188L": {
+  "step_up_dumbbell_left_leg": {
     "setupNotes": "Banco sólido o caja pliométrica a la altura de la rodilla. Mancuernas a los lados. Planta el pie izquierdo completo sobre la caja y empuja desde el talón izquierdo hasta quedar de pie — el pie derecho sigue o se queda apoyado para equilibrio. Baja con control por la pierna izquierda. Carga el cuádriceps y glúteo izquierdo."
   },
-  "gym_188R": {
+  "step_up_dumbbell_right_leg": {
     "setupNotes": "Banco sólido o caja pliométrica a la altura de la rodilla. Mancuernas a los lados. Planta el pie derecho completo sobre la caja y empuja desde el talón derecho hasta quedar de pie — el pie izquierdo sigue o se queda apoyado para equilibrio. Baja con control por la pierna derecha. Carga el cuádriceps y glúteo derecho."
   },
-  "gym_189L": {
+  "step_up_barbell_left_leg": {
     "setupNotes": "Banco o caja a la altura de la rodilla, barra sobre la espalda alta. Coloca el pie izquierdo completo sobre la caja, empuja desde el talón izquierdo hasta quedar de pie arriba. Baja con control. Todas las repeticiones con la pierna izquierda."
   },
-  "gym_189R": {
+  "step_up_barbell_right_leg": {
     "setupNotes": "Banco o caja a la altura de la rodilla, barra sobre la espalda alta. Coloca el pie derecho completo sobre la caja, empuja desde el talón derecho hasta quedar de pie arriba. Baja con control. Todas las repeticiones con la pierna derecha."
   },
-  "gym_190L": {
+  "lateral_step_up_left_leg": {
     "setupNotes": "Colócate con el banco/caja a tu lado izquierdo. Sube lateralmente con el pie izquierdo sobre la caja, empuja desde el glúteo izquierdo hasta quedar de pie, baja con control. Todas las repeticiones por el lado izquierdo."
   },
-  "gym_190R": {
+  "lateral_step_up_right_leg": {
     "setupNotes": "Colócate con el banco/caja a tu lado derecho. Sube lateralmente con el pie derecho sobre la caja, empuja desde el glúteo derecho hasta quedar de pie, baja con control. Todas las repeticiones por el lado derecho."
   },
-  "gym_191": {
+  "barbell_hip_thrust": {
     "setupNotes": "Espalda alta sobre el banco, barra cruzada sobre el pliegue de la cadera (acolcha la barra). Pies apoyados en el suelo, a la anchura de las caderas. Empuja las caderas arriba hasta la extensión completa, aprieta los glúteos. Baja con control."
   },
-  "gym_192": {
+  "smith_machine_hip_thrust": {
     "setupNotes": "Espalda alta sobre el banco dentro de la máquina Smith. Barra sobre el pliegue de la cadera con acolchado. Planta los pies, empuja las caderas hasta el bloqueo. La máquina guía la trayectoria."
   },
-  "gym_193": {
+  "machine_hip_thrust": {
     "setupNotes": "Máquina dedicada de hip thrust / glute drive. Siéntate en la máquina, espalda contra el respaldo, pies en la plataforma. Empuja las caderas hacia delante hasta la extensión completa. Aprieta los glúteos."
   },
-  "gym_194L": {
+  "single_leg_hip_thrust_left_leg": {
     "setupNotes": "Espalda alta sobre un banco, pie izquierdo apoyado a la anchura de las caderas, rodilla derecha levantada o pierna extendida. Empuja las caderas hasta el bloqueo desde el talón izquierdo, aprieta el glúteo izquierdo con fuerza arriba, baja con control. Más pesado que la bilateral por pierna."
   },
-  "gym_194R": {
+  "single_leg_hip_thrust_right_leg": {
     "setupNotes": "Espalda alta sobre un banco, pie derecho apoyado a la anchura de las caderas, rodilla izquierda levantada o pierna extendida. Empuja las caderas hasta el bloqueo desde el talón derecho, aprieta el glúteo derecho con fuerza arriba, baja con control. Más pesado que la bilateral por pierna."
   },
-  "gym_195": {
+  "banded_hip_thrust": {
     "setupNotes": "Espalda alta sobre el banco, banda de resistencia cruzada sobre las caderas sujeta por los pies o mancuernas pesadas. Empuja las caderas arriba hasta la extensión completa. La banda añade tensión arriba."
   },
-  "gym_197": {
+  "romanian_deadlift_barbell": {
     "setupNotes": "De pie, barra a la altura de la cadera. Ligera flexión de rodilla, flexión de cadera empujando las caderas atrás, baja la barra por los muslos hasta media espinilla. Espalda recta, aprieta los glúteos para volver."
   },
-  "gym_198": {
+  "romanian_deadlift_dumbbell": {
     "setupNotes": "De pie, una mancuerna en cada mano delante de los muslos. Misma flexión de cadera que la versión con barra. Permite una trayectoria de brazos más natural."
   },
-  "gym_199aL": {
+  "single_leg_romanian_deadlift_dumbbell_left_leg": {
     "setupNotes": "De pie sobre la pierna izquierda, mancuerna en la mano derecha. Flexión de cadera izquierda extendiendo la pierna derecha atrás como contrapeso — espalda recta, la mancuerna sigue la espinilla de cerca. Empuja desde el talón izquierdo para volver erguido. Carga el isquiotibial y glúteo izquierdo."
   },
-  "gym_199aR": {
+  "single_leg_romanian_deadlift_dumbbell_right_leg": {
     "setupNotes": "De pie sobre la pierna derecha, mancuerna en la mano izquierda. Flexión de cadera derecha extendiendo la pierna izquierda atrás como contrapeso — espalda recta, la mancuerna sigue la espinilla de cerca. Empuja desde el talón derecho para volver erguido. Carga el isquiotibial y glúteo derecho."
   },
-  "gym_199bL": {
+  "single_leg_romanian_deadlift_kettlebell_left_leg": {
     "setupNotes": "De pie sobre la pierna izquierda, pesa rusa en la mano derecha. Flexión de cadera izquierda extendiendo la pierna derecha atrás como contrapeso, la pesa sigue la espinilla de cerca. Empuja desde el talón izquierdo para volver erguido. Carga el isquiotibial y glúteo izquierdo."
   },
-  "gym_199bR": {
+  "single_leg_romanian_deadlift_kettlebell_right_leg": {
     "setupNotes": "De pie sobre la pierna derecha, pesa rusa en la mano izquierda. Flexión de cadera derecha extendiendo la pierna izquierda atrás como contrapeso, la pesa sigue la espinilla de cerca. Empuja desde el talón derecho para volver erguido. Carga el isquiotibial y glúteo derecho."
   },
-  "gym_200": {
+  "romanian_deadlift_trap_bar": {
     "setupNotes": "De pie dentro de la trap bar. Ligera flexión de rodilla, flexión de cadera, baja la barra por los laterales. El agarre neutro es más cómodo para la zona lumbar."
   },
-  "gym_201": {
+  "b_stance_romanian_deadlift": {
     "setupNotes": "De pie con un pie medio paso atrás (talón levantado). La mayor parte del peso en la pierna delantera. Flexión de cadera con mancuernas. Énfasis unilateral con estabilidad bilateral."
   },
-  "gym_202": {
+  "kettlebell_romanian_deadlift": {
     "setupNotes": "De pie, una pesa rusa en cada mano o una sola pesa rusa con ambas. Mismo patrón de flexión de cadera. La forma de la pesa rusa permite una posición natural de las manos."
   },
-  "gym_203": {
+  "seated_leg_curl": {
     "setupNotes": "Máquina de curl femoral sentado. Ajusta el respaldo y la almohadilla de la espinilla. Lleva los talones hacia los glúteos, retorno controlado al inicio. Rango completo de movimiento."
   },
-  "gym_204": {
+  "lying_prone_leg_curl": {
     "setupNotes": "Tumbado boca abajo en la máquina de curl femoral. Almohadilla en la parte baja de la pantorrilla/tobillo. Lleva los talones hacia los glúteos, aprieta los isquiotibiales arriba, baja con control."
   },
-  "gym_205": {
+  "standing_leg_curl_cable": {
     "setupNotes": "Polea baja, tobillera. De pie mirando la máquina, tobillera en un tobillo. Lleva el talón hacia el glúteo, retorno controlado. Sujétate a algo para equilibrio."
   },
-  "gym_206": {
+  "leg_extension_seated_double_leg": {
     "setupNotes": "Máquina de extensión de piernas sentado. Almohadilla sobre la parte baja de la espinilla. Extiende las piernas hasta el bloqueo completo, aprieta los cuádriceps arriba, baja con control."
   },
-  "gym_207L": {
+  "leg_extension_single_leg_left_leg": {
     "setupNotes": "Máquina de extensión de piernas sentado, almohadilla sobre la parte baja de la espinilla izquierda, pierna derecha relajada al lado. Extiende la pierna izquierda hasta el bloqueo completo, aprieta el cuádriceps, controla la bajada. Carga menor — expone y corrige desequilibrios del lado izquierdo."
   },
-  "gym_207R": {
+  "leg_extension_single_leg_right_leg": {
     "setupNotes": "Máquina de extensión de piernas sentado, almohadilla sobre la parte baja de la espinilla derecha, pierna izquierda relajada al lado. Extiende la pierna derecha hasta el bloqueo completo, aprieta el cuádriceps, controla la bajada. Carga menor — expone y corrige desequilibrios del lado derecho."
   },
-  "gym_208": {
+  "nordic_hamstring_curl": {
     "setupNotes": "Arrodillado sobre una colchoneta, tobillos sujetos (un compañero los sostiene, almohadilla de GHD o una barra cargada). Baja el cuerpo hacia delante con control, recupérate y vuelve. Trabajo excéntrico de isquiotibiales."
   },
-  "gym_209": {
+  "reverse_nordic_curl": {
     "setupNotes": "Arrodillado erguido sobre una colchoneta (acolchado bajo las rodillas). Inclínate hacia atrás despacio manteniendo las caderas extendidas. Siente el estiramiento del cuádriceps, vuelve a erguido. Excéntrica de cuádriceps."
   },
-  "gym_210": {
+  "standing_calf_raise_machine": {
     "setupNotes": "Máquina de elevación de gemelos de pie. Hombros bajo las almohadillas, metatarsos en el borde de la plataforma. Sube sobre las puntas, extensión completa, baja con control buscando el estiramiento abajo."
   },
-  "gym_211": {
+  "seated_calf_raise_machine": {
     "setupNotes": "Máquina de elevación de gemelos sentado. Almohadilla sobre la parte baja de los muslos, metatarsos en la plataforma. Sube sobre las puntas, aprieta arriba, baja con control. Trabaja el sóleo."
   },
-  "gym_213": {
+  "dumbbell_standing_calf_raise": {
     "setupNotes": "De pie en el borde de un step o disco, una mancuerna en una mano, la otra para equilibrio. Sube sobre las puntas, baja con control. Alterna manos."
   },
-  "gym_214a": {
+  "standing_smith_machine_calf_raise": {
     "setupNotes": "Máquina Smith, barra sobre los trapecios superiores. Metatarsos en el borde de la plataforma/discos. Variante de pie. Sube y baja con rango completo."
   },
-  "gym_214b": {
+  "seated_smith_machine_calf_raise": {
     "setupNotes": "Máquina Smith, barra sobre los trapecios superiores. Metatarsos en el borde de la plataforma/discos. Variante sentado. Sube y baja con rango completo."
   },
-  "gym_215": {
+  "bodyweight_calf_raise_on_step": {
     "setupNotes": "De pie en el borde de un step o plataforma (sin peso adicional). Sube sobre las puntas, baja con control por debajo del nivel de la plataforma para un estiramiento completo. Ambos pies."
   },
-  "gym_216": {
+  "wall_sit_standard": {
     "setupNotes": "Espalda plana contra la pared, desliza hacia abajo hasta que los muslos estén paralelos al suelo. Rodillas a 90 grados, directamente sobre los tobillos. Mantén el tiempo indicado."
   },
-  "gym_217L": {
+  "wall_sit_single_leg_left_leg": {
     "setupNotes": "Espalda plana contra la pared, rodillas a ~90 grados como en la wall sit estándar. Extiende la pierna derecha recta hacia delante, todo el peso sobre la pierna izquierda. Mantén por tiempo. Mucho más duro — carga isométrica sobre el cuádriceps izquierdo."
   },
-  "gym_217R": {
+  "wall_sit_single_leg_right_leg": {
     "setupNotes": "Espalda plana contra la pared, rodillas a ~90 grados como en la wall sit estándar. Extiende la pierna izquierda recta hacia delante, todo el peso sobre la pierna derecha. Mantén por tiempo. Mucho más duro — carga isométrica sobre el cuádriceps derecho."
   },
-  "gym_218": {
+  "wall_sit_weighted": {
     "setupNotes": "Posición estándar de wall sit con mancuerna o disco sobre los muslos. Aumenta la exigencia del cuádriceps. Mantén la espalda plana contra la pared."
   },
-  "gym_219": {
+  "hip_abductor_machine": {
     "setupNotes": "Máquina de abducción de cadera sentado. Siéntate con los muslos externos contra las almohadillas. Empuja las piernas hacia fuera contra la resistencia, retorno controlado. Trabaja el glúteo medio."
   },
-  "gym_220": {
+  "hip_adductor_machine": {
     "setupNotes": "Máquina de aducción de cadera sentado. Siéntate con los muslos internos contra las almohadillas. Aprieta las piernas juntas contra la resistencia, suelta con control. Enfoque en la parte interna del muslo."
   },
-  "gym_221L": {
+  "glute_kickback_machine_left_leg": {
     "setupNotes": "De pie o arrodillado en la máquina de patada de glúteo. Almohadilla detrás del tobillo o la rodilla izquierda. Empuja la pierna izquierda atrás y arriba, apretando el glúteo izquierdo arriba. Retorno controlado."
   },
-  "gym_221R": {
+  "glute_kickback_machine_right_leg": {
     "setupNotes": "De pie o arrodillado en la máquina de patada de glúteo. Almohadilla detrás del tobillo o la rodilla derecha. Empuja la pierna derecha atrás y arriba, apretando el glúteo derecho arriba. Retorno controlado."
   },
-  "gym_222L": {
+  "cable_glute_kickback_left_leg": {
     "setupNotes": "Polea baja, tobillera en el tobillo izquierdo. Mira hacia la máquina, ligera inclinación hacia delante agarrando el marco. Patea la pierna izquierda atrás y arriba, aprieta el glúteo izquierdo. Retorno controlado."
   },
-  "gym_222R": {
+  "cable_glute_kickback_right_leg": {
     "setupNotes": "Polea baja, tobillera en el tobillo derecho. Mira hacia la máquina, ligera inclinación hacia delante agarrando el marco. Patea la pierna derecha atrás y arriba, aprieta el glúteo derecho. Retorno controlado."
   },
-  "gym_223": {
+  "cable_pull_through": {
     "setupNotes": "Polea baja, accesorio de cuerda. De espaldas a la máquina, cable entre las piernas. Flexión de cadera, deja que la cuerda pase entre las piernas, luego empuja las caderas hacia delante hasta quedar de pie."
   },
-  "gym_224L": {
+  "donkey_kick_cable_machine_left": {
     "setupNotes": "Arrodillado en la máquina de poleas con tobillera en el tobillo izquierdo, o de pie en una máquina de patada de glúteo con el pie izquierdo en la plataforma. Empuja el talón izquierdo atrás y arriba, aprieta el glúteo izquierdo arriba, baja con control. Core activado durante todo el movimiento."
   },
-  "gym_224R": {
+  "donkey_kick_cable_machine_right": {
     "setupNotes": "Arrodillado en la máquina de poleas con tobillera en el tobillo derecho, o de pie en una máquina de patada de glúteo con el pie derecho en la plataforma. Empuja el talón derecho atrás y arriba, aprieta el glúteo derecho arriba, baja con control. Core activado durante todo el movimiento."
   },
-  "gym_226L": {
+  "pallof_press_standard_left_arm": {
     "setupNotes": "Polea a la altura del pecho con agarradera en D. Colócate con el lado derecho hacia la torre, sujeta la agarradera con ambas manos al pecho. Empuja los brazos rectos hacia delante y resiste que el cable te rote hacia la derecha. Vuelve al pecho. Trabajo anti-rotación del core."
   },
-  "gym_226R": {
+  "pallof_press_standard_right_arm": {
     "setupNotes": "Polea a la altura del pecho con agarradera en D. Colócate con el lado izquierdo hacia la torre, sujeta la agarradera con ambas manos al pecho. Empuja los brazos rectos hacia delante y resiste que el cable te rote hacia la izquierda. Vuelve al pecho. Trabajo anti-rotación del core."
   },
-  "gym_227L": {
+  "pallof_press_half_kneeling_left_arm": {
     "setupNotes": "Polea a la altura del pecho. Media rodilla con la derecha abajo (la más cercana a la torre), pie izquierdo delante. Empuja la agarradera desde el pecho y resiste la rotación hacia la derecha. La base más baja aumenta la exigencia del core frente a la versión de pie."
   },
-  "gym_227R": {
+  "pallof_press_half_kneeling_right_arm": {
     "setupNotes": "Polea a la altura del pecho. Media rodilla con la izquierda abajo (la más cercana a la torre), pie derecho delante. Empuja la agarradera desde el pecho y resiste la rotación hacia la izquierda. La base más baja aumenta la exigencia del core frente a la versión de pie."
   },
-  "gym_228L": {
+  "pallof_press_with_rotation_left_arm": {
     "setupNotes": "Polea a la altura del pecho. Colócate con el lado derecho hacia la torre, empuja la agarradera desde el pecho. Desde la posición extendida, rota el torso despacio hacia la izquierda alejándote de la torre, luego vuelve con control. Combina anti-rotación con rotación controlada."
   },
-  "gym_228R": {
+  "pallof_press_with_rotation_right_arm": {
     "setupNotes": "Polea a la altura del pecho. Colócate con el lado izquierdo hacia la torre, empuja la agarradera desde el pecho. Desde la posición extendida, rota el torso despacio hacia la derecha alejándote de la torre, luego vuelve con control. Combina anti-rotación con rotación controlada."
   },
-  "gym_229": {
+  "hanging_knee_raise": {
     "setupNotes": "Cuélgate de la barra de dominadas con los brazos rectos. Lleva las rodillas a la altura del pecho. Baja con control, evita balancearte. Activa los abdominales, no solo balancees las piernas."
   },
-  "gym_230": {
+  "hanging_knee_raise_side_to_side": {
     "setupNotes": "Cuélgate de la barra de dominadas. Lleva las rodillas arriba y gira a un lado, baja, repite al otro lado. Énfasis en los oblicuos en la elevación de rodillas colgado."
   },
-  "gym_231": {
+  "hanging_straight_leg_raise": {
     "setupNotes": "Cuélgate de la barra de dominadas, piernas totalmente rectas. Eleva las piernas hasta la horizontal o más. Baja con control. Evita usar impulso."
   },
-  "gym_232": {
+  "toes_to_bar": {
     "setupNotes": "Cuélgate de la barra de dominadas, piernas rectas. Eleva las puntas hasta tocar la barra. Requiere flexibilidad de isquiotibiales y un core fuerte. Baja con control."
   },
-  "gym_233": {
+  "l_sit_hang": {
     "setupNotes": "Cuélgate de la barra de dominadas. Eleva las piernas rectas hasta la horizontal (posición en L) y mantén. Isométrico cronometrado. Resistencia del core y flexores de cadera."
   },
-  "gym_234": {
+  "hanging_windshield_wipers": {
     "setupNotes": "Cuélgate de la barra de dominadas, eleva las piernas hasta la horizontal. Barre las piernas de lado a lado como limpiaparabrisas. Ejercicio rotacional de core avanzado."
   },
-  "gym_235": {
+  "weighted_hanging_leg_raise": {
     "setupNotes": "Cuélgate de la barra de dominadas con una mancuerna ligera entre los pies o tobilleras lastradas. Elevación de piernas rectas hasta la horizontal. Excéntrica controlada."
   },
-  "gym_236": {
+  "captain_s_chair_knee_raise": {
     "setupNotes": "Silla del capitán / estación vertical de elevación de rodillas. Antebrazos sobre las almohadillas, espalda contra el respaldo. Eleva las rodillas al pecho, baja con control."
   },
-  "gym_237": {
+  "decline_crunch": {
     "setupNotes": "Banco declinado, pies sujetos bajo las almohadillas. Túmbate atrás, manos detrás de la cabeza o cruzadas sobre el pecho. Sube el crunch despegando las escápulas del banco. Baja con control."
   },
-  "gym_238": {
+  "decline_twisting_crunch": {
     "setupNotes": "Mismo montaje de banco declinado. Sube con rotación — codo derecho hacia rodilla izquierda, alterna. Trabaja los oblicuos junto con el recto abdominal."
   },
-  "gym_239": {
+  "weighted_decline_crunch": {
     "setupNotes": "Banco declinado, sostén un disco o mancuerna sobre el pecho. Sube el crunch contra la resistencia añadida. Excéntrica controlada hacia atrás."
   },
-  "gym_240": {
+  "decline_reverse_crunch": {
     "setupNotes": "Banco declinado, agarra el banco por encima de la cabeza. Lleva las rodillas al pecho levantando las caderas del banco. Baja con control. Énfasis en la parte baja abdominal."
   },
-  "gym_241L": {
+  "cable_woodchop_high_to_low_left": {
     "setupNotes": "Polea en la posición más alta con cuerda o agarradera en D. Colócate con el lado izquierdo hacia la torre, ambas manos en la agarradera arriba a la derecha. Tira diagonalmente cruzando el cuerpo hasta abajo a la izquierda, rotando el torso y pivotando el pie derecho. Entrena potencia rotacional y control de oblicuos."
   },
-  "gym_241R": {
+  "cable_woodchop_high_to_low_right": {
     "setupNotes": "Polea en la posición más alta con cuerda o agarradera en D. Colócate con el lado derecho hacia la torre, ambas manos en la agarradera arriba a la izquierda. Tira diagonalmente cruzando el cuerpo hasta abajo a la derecha, rotando el torso y pivotando el pie izquierdo. Entrena potencia rotacional y control de oblicuos."
   },
-  "gym_242L": {
+  "cable_woodchop_low_to_high_left": {
     "setupNotes": "Polea en la posición más baja con cuerda o agarradera en D. Colócate con el lado izquierdo hacia la torre, ambas manos en la agarradera a la altura de la cadera derecha baja. Empuja diagonalmente arriba y cruzando hasta arriba a la izquierda, extendiendo las caderas y rotando el torso. Potencia desde las piernas y el core."
   },
-  "gym_242R": {
+  "cable_woodchop_low_to_high_right": {
     "setupNotes": "Polea en la posición más baja con cuerda o agarradera en D. Colócate con el lado derecho hacia la torre, ambas manos en la agarradera a la altura de la cadera izquierda baja. Empuja diagonalmente arriba y cruzando hasta arriba a la derecha, extendiendo las caderas y rotando el torso. Potencia desde las piernas y el core."
   },
-  "gym_243": {
+  "cable_woodchop_horizontal": {
     "setupNotes": "Polea a la altura del pecho. Colócate de lado, rota el torso horizontalmente tirando del cable cruzando el cuerpo. Los pies permanecen fijos, la rotación solo desde el tronco."
   },
-  "gym_244": {
+  "kneeling_cable_woodchop": {
     "setupNotes": "Polea en posición alta o baja. Arrodillado de lado, chop diagonalmente cruzando el cuerpo. De rodillas eliminas el impulso de piernas, aíslas oblicuos y rotación del tronco."
   },
-  "gym_249": {
+  "plank_hip_dips": {
     "setupNotes": "Posición de plancha con antebrazos. Rota las caderas para bajar un lado hacia el suelo, luego el otro. Alternando. Rotación controlada, énfasis en oblicuos."
   },
-  "gym_251": {
+  "plank_jacks": {
     "setupNotes": "Posición de plancha alta o con antebrazos. Salta con los pies abriendo y cerrando (como jumping jacks horizontales). Mantén el core rígido. Cardio + core."
   },
-  "gym_252": {
+  "spiderman_plank": {
     "setupNotes": "Posición de plancha alta. Lleva una rodilla al codo del mismo lado, vuelve, alterna. Activa oblicuos y flexores de cadera en cada repetición."
   },
-  "gym_254": {
+  "stability_ball_plank": {
     "setupNotes": "Antebrazos sobre un balón de estabilidad, pies en el suelo. Mantén la posición de plancha. El balón genera inestabilidad y exige más estabilización del core."
   },
-  "gym_255": {
+  "ab_machine_crunch": {
     "setupNotes": "Máquina de crunch abdominal sentado. Ajusta la almohadilla al pecho o detrás de la cabeza. Selecciona el peso. Sube el crunch hacia delante contra la resistencia, retorno controlado."
   },
-  "gym_256": {
+  "kneeling_cable_crunch": {
     "setupNotes": "Polea alta, accesorio de cuerda. Arrodíllate mirando la máquina, cuerda detrás de la cabeza. Sube el crunch hacia delante, enrollando el torso, codos hacia las rodillas. Controla la excéntrica."
   },
-  "gym_257": {
+  "standing_cable_crunch": {
     "setupNotes": "Polea alta, cuerda detrás de la cabeza. De pie, pies a la anchura de las caderas. Sube el crunch hacia delante contra la resistencia del cable. El core se mantiene activado durante todo el movimiento."
   },
-  "gym_258": {
+  "oblique_cable_crunch": {
     "setupNotes": "Polea alta, agarradera en D o cuerda. De pie, de lado a la máquina. Sube el crunch lateralmente tirando hacia la cadera del lado del cable. Movimiento de inclinación lateral."
   },
-  "gym_259": {
+  "stability_ball_roll_in_knee_tuck": {
     "setupNotes": "Posición de plancha alta con las espinillas sobre un balón de estabilidad. Lleva las rodillas hacia el pecho rodando el balón hacia delante. Extiende atrás. Tempo controlado."
   },
-  "gym_260": {
+  "stability_ball_rollout": {
     "setupNotes": "Arrodíllate detrás del balón de estabilidad, antebrazos sobre el balón. Rueda el balón hacia delante extendiendo el cuerpo, luego vuelve al inicio. Similar a la rueda abdominal."
   },
-  "gym_261": {
+  "stability_ball_pike": {
     "setupNotes": "Plancha alta con los pies/espinillas sobre un balón de estabilidad. Pica las caderas hacia arriba, tirando del balón hacia las manos. Piernas rectas. Avanzado."
   },
-  "gym_262": {
+  "hollow_body_hold": {
     "setupNotes": "Túmbate boca arriba, brazos extendidos por encima de la cabeza, piernas rectas. Levanta los hombros y las piernas del suelo, la zona lumbar pegada al suelo. Forma de plátano. Mantén."
   },
-  "gym_263": {
+  "tucked_hollow_hold": {
     "setupNotes": "Túmbate boca arriba, rodillas hacia el pecho, hombros levantados. Brazos a los lados o extendidos. Regresión más fácil del hollow completo."
   },
-  "gym_264": {
+  "hollow_rock": {
     "setupNotes": "Posición completa de hollow — brazos por encima de la cabeza, piernas extendidas, ambos despegados del suelo. Mécete adelante y atrás manteniendo la forma rígida del cuerpo."
   },
-  "gym_265": {
+  "weighted_hollow_hold": {
     "setupNotes": "Posición completa de hollow con una mancuerna ligera en las manos y/o entre los pies. Mantén la posición el tiempo indicado. Avanzado."
   },
-  "gym_266": {
+  "russian_twist_bodyweight": {
     "setupNotes": "Sentado en el suelo, inclínate hacia atrás ~45 grados, pies despegados o sujetos. Junta las manos, rota el torso de lado a lado. Posición de V-sit."
   },
-  "gym_267": {
+  "russian_twist_medicine_ball": {
     "setupNotes": "Misma posición sentada que con peso corporal. Sostén un balón medicinal con ambas manos. Rota de lado a lado, tocando el balón en el suelo junto a las caderas."
   },
-  "gym_268": {
+  "russian_twist_dumbbell": {
     "setupNotes": "Misma posición sentada de V-sit. Sostén una mancuerna con ambas manos al pecho. Rota de lado a lado. Tempo controlado."
   },
-  "gym_269": {
+  "cable_russian_twist": {
     "setupNotes": "Sentado o de pie, polea a la altura del pecho con agarradera en D o cuerda. Sostén al pecho, rota el torso de lado a lado contra la resistencia del cable."
   },
-  "gym_270a": {
+  "kneeling_ab_wheel_rollout": {
     "setupNotes": "Arrodillado, agarra la rueda abdominal. Rueda hacia delante extendiendo el cuerpo hacia el suelo, vuelve usando el core. Evita que la zona lumbar se hunda."
   },
-  "gym_270b": {
+  "standing_ab_wheel_rollout": {
     "setupNotes": "De pie, agarra la rueda abdominal. Rueda hacia delante extendiendo el cuerpo hacia el suelo, vuelve usando el core. Evita que la zona lumbar se hunda."
   },
-  "gym_271": {
+  "dragon_flag": {
     "setupNotes": "Túmbate en un banco plano, agarra el banco detrás de la cabeza. Levanta todo el cuerpo del banco en línea recta, baja con control sin tocar el banco. Core avanzado."
   },
-  "gym_272L": {
+  "turkish_get_up_left": {
     "setupNotes": "Túmbate en el suelo sosteniendo una pesa rusa en la mano izquierda extendida hacia arriba, mirada en la pesa. Avanza por la secuencia del get-up — rueda al codo derecho, a la mano derecha, sube la cadera, pasa la pierna derecha por debajo, zancada, de pie — manteniendo el brazo izquierdo bloqueado vertical. Invierte el movimiento hasta el suelo. Control unilateral de cuerpo completo."
   },
-  "gym_272R": {
+  "turkish_get_up_right": {
     "setupNotes": "Túmbate en el suelo sosteniendo una pesa rusa en la mano derecha extendida hacia arriba, mirada en la pesa. Avanza por la secuencia del get-up — rueda al codo izquierdo, a la mano izquierda, sube la cadera, pasa la pierna izquierda por debajo, zancada, de pie — manteniendo el brazo derecho bloqueado vertical. Invierte el movimiento hasta el suelo. Control unilateral de cuerpo completo."
   },
-  "gym_273L": {
+  "suitcase_carry_left": {
     "setupNotes": "Sostén una mancuerna o pesa rusa pesada en la mano izquierda al costado. Camina en línea recta manteniendo el torso alto y los hombros nivelados — resiste que la carga te incline hacia la izquierda. Anti-flexión lateral a través de los oblicuos derechos y el cuadrado lumbar."
   },
-  "gym_273R": {
+  "suitcase_carry_right": {
     "setupNotes": "Sostén una mancuerna o pesa rusa pesada en la mano derecha al costado. Camina en línea recta manteniendo el torso alto y los hombros nivelados — resiste que la carga te incline hacia la derecha. Anti-flexión lateral a través de los oblicuos izquierdos y el cuadrado lumbar."
   },
-  "gym_274": {
+  "landmine_rotation": {
     "setupNotes": "Barra en el landmine. Sostén el extremo de la barra con ambas manos a la altura del pecho. Rota el torso, moviendo la barra en arco de lado a lado. Controlado."
   },
-  "gym_275": {
+  "power_clean": {
     "setupNotes": "Barra en el suelo, agarre justo por fuera de las rodillas. Primera tracción hasta las rodillas, segunda tracción explosiva (caderas), atrapa la barra sobre los deltoides anteriores en front rack. Resetea al suelo."
   },
-  "gym_276": {
+  "hang_clean": {
     "setupNotes": "Barra a la altura de la cadera de pie. Dip-drive con las caderas, tira explosivamente de la barra hacia arriba, atrápala sobre los deltoides anteriores en front rack. Empieza desde el hang, no desde el suelo."
   },
-  "gym_277": {
+  "clean_and_press": {
     "setupNotes": "Haz un power clean desde el suelo hasta el front rack, luego empuja (o push press) por encima de la cabeza hasta el bloqueo. Baja la barra y repite. Compuesto de cuerpo completo."
   },
-  "gym_278": {
+  "push_press": {
     "setupNotes": "Barra en front rack sobre los hombros. Flexiona ligeramente las rodillas, empuja explosivamente desde las piernas para presionar la barra por encima de la cabeza hasta el bloqueo. Permite más peso que el press estricto."
   },
-  "gym_279": {
+  "barbell_snatch": {
     "setupNotes": "Barra en el suelo, agarre muy ancho. Tracción explosiva desde el suelo, mete el cuerpo bajo la barra, atrápala por encima de la cabeza con los brazos rectos en sentadilla. Ponte de pie. Levantamiento técnico."
   },
-  "gym_280a": {
+  "barbell_thruster": {
     "setupNotes": "Barra en posición de front rack sobre los hombros, pies a la anchura de los hombros. Sentadilla hasta la profundidad máxima, luego empuja explosivamente hacia arriba y presiona la barra hasta el bloqueo por encima de la cabeza en un movimiento fluido. Potencia de cuerpo completo — piernas, hombros y core."
   },
-  "gym_280b": {
+  "dumbbell_thruster": {
     "setupNotes": "Mancuernas encajadas en los hombros con agarre neutro, pies a la anchura de los hombros. Sentadilla hasta la profundidad máxima, luego empuja explosivamente hacia arriba y presiona las mancuernas hasta el bloqueo por encima de la cabeza en un movimiento fluido. Potencia de cuerpo completo."
   },
-  "gym_281": {
+  "kettlebell_swing": {
     "setupNotes": "De pie, pesa rusa en el suelo entre los pies. Balancea la pesa atrás entre las piernas, empuja las caderas hacia delante explosivamente para balancearla a la altura del pecho/ojos. Bisagra, no sentadilla."
   },
-  "gym_282L": {
+  "kettlebell_clean_left": {
     "setupNotes": "Una pesa rusa en el suelo entre los pies. Bisagra y agarra con la mano izquierda, balancea la pesa atrás entre las piernas, luego empuja las caderas y tira de la pesa hacia arriba — rota la muñeca para que aterrice suave en el rack sobre el antebrazo y hombro izquierdos. Baja con control. Entrena empuje explosivo de cadera y agarre unilateral."
   },
-  "gym_282R": {
+  "kettlebell_clean_right": {
     "setupNotes": "Una pesa rusa en el suelo entre los pies. Bisagra y agarra con la mano derecha, balancea la pesa atrás entre las piernas, luego empuja las caderas y tira de la pesa hacia arriba — rota la muñeca para que aterrice suave en el rack sobre el antebrazo y hombro derechos. Baja con control. Entrena empuje explosivo de cadera y agarre unilateral."
   },
-  "gym_283": {
+  "kettlebell_snatch": {
     "setupNotes": "Una pesa rusa en el suelo. Balanceo explosivo directamente por encima de la cabeza en un solo movimiento. Bloquea arriba, baja con control a través del swing. Un brazo cada vez."
   },
-  "gym_284": {
+  "medicine_ball_slam": {
     "setupNotes": "De pie, balón medicinal (slam ball) por encima de la cabeza. Lanza el balón contra el suelo con fuerza máxima usando todo el cuerpo. Recógelo y repite. Usa un slam ball sin rebote."
   },
-  "gym_285a": {
+  "standard_box_jump": {
     "setupNotes": "Caja pliométrica a la altura adecuada. De pie mirando la caja, cuarto de sentadilla y balanceo de brazos, salta sobre la caja aterrizando suave en sentadilla. Baja pisando. Inicio estándar."
   },
-  "gym_285b": {
+  "seated_box_jump": {
     "setupNotes": "Siéntate en un banco o caja baja mirando una caja pliométrica, pies apoyados y torso erguido. Desde parado, empuja con los pies y salta sobre la caja, aterrizando suave en cuarto de sentadilla. Baja pisando y resetea. Desarrolla potencia de partida."
   },
-  "gym_286": {
+  "barbell_hang_snatch": {
     "setupNotes": "Barra a la altura de la cadera, agarre de snatch ancho. Dip-drive con las caderas, tira de la barra por encima de la cabeza, atrápala con los brazos rectos. Empieza desde el hang, no desde el suelo."
   },
-  "home_1": {
+  "wide_grip_push_up": {
     "setupNotes": "Manos colocadas 15-20 cm más anchas que los hombros en el suelo. Cuerpo en línea recta, core activado. Baja el pecho al suelo, empuja arriba."
   },
-  "home_2": {
+  "staggered_offset_push_up": {
     "setupNotes": "Una mano colocada adelante, la otra atrás ~15 cm. Cuerpo recto. Empuja, cambia las manos entre series."
   },
-  "home_4L": {
+  "archer_push_up_left": {
     "setupNotes": "Manos muy abiertas, cuerpo en línea recta. Baja el cuerpo hacia la mano izquierda mientras el brazo derecho se extiende recto hacia fuera. Empuja de nuevo por el lado izquierdo — énfasis unilateral en pecho y tríceps."
   },
-  "home_4R": {
+  "archer_push_up_right": {
     "setupNotes": "Manos muy abiertas, cuerpo en línea recta. Baja el cuerpo hacia la mano derecha mientras el brazo izquierdo se extiende recto hacia fuera. Empuja de nuevo por el lado derecho — énfasis unilateral en pecho y tríceps."
   },
-  "home_5": {
+  "clap_push_up": {
     "setupNotes": "Posición estándar de flexión sobre suelo firme. Empuja explosivamente para que las manos despeguen del suelo, aplaude, aterriza suave con los codos flexionados. Potencia pliométrica."
   },
-  "home_6L": {
+  "spiderman_push_up_left": {
     "setupNotes": "Posición de plancha alta, manos bajo los hombros, cuerpo en línea recta. Al bajar en la flexión, lleva la rodilla izquierda hacia el codo izquierdo. Devuelve la pierna al empujar arriba. Añade trabajo de oblicuos y flexores de cadera al press de pecho."
   },
-  "home_6R": {
+  "spiderman_push_up_right": {
     "setupNotes": "Posición de plancha alta, manos bajo los hombros, cuerpo en línea recta. Al bajar en la flexión, lleva la rodilla derecha hacia el codo derecho. Devuelve la pierna al empujar arriba. Añade trabajo de oblicuos y flexores de cadera al press de pecho."
   },
-  "home_7": {
+  "pike_push_up": {
     "setupNotes": "Manos en el suelo, caderas elevadas en forma de V invertida. Los pies pueden estar en el suelo o elevados sobre un banco para mayor dificultad. Baja la cabeza hacia el suelo, empuja arriba. Énfasis en el hombro."
   },
-  "home_8": {
+  "decline_push_up": {
     "setupNotes": "Pies elevados sobre un banco, caja o silla. Manos en el suelo a la anchura de los hombros. Cuerpo en línea recta de los pies a la cabeza. Baja el pecho al suelo, empuja arriba."
   },
-  "home_9": {
+  "incline_push_up": {
     "setupNotes": "Manos sobre un banco, caja o superficie elevada estable. Pies en el suelo. Cuerpo en línea recta. Regresión más fácil — cuanto más baja la superficie, más difícil. Rango completo de movimiento."
   },
-  "home_10": {
+  "wall_push_up": {
     "setupNotes": "De pie a la distancia de un brazo de la pared, manos sobre la pared a la altura de los hombros. Inclínate hacia la pared, empuja hacia atrás. Regresión para principiantes, controla el tempo."
   },
-  "home_11": {
+  "knee_push_up": {
     "setupNotes": "Manos en el suelo a la anchura de los hombros, rodillas sobre la colchoneta. Línea recta de la cabeza a las rodillas. Baja el pecho al suelo, empuja arriba. Progresión para principiantes."
   },
-  "home_12": {
+  "negative_only_push_up": {
     "setupNotes": "Posición estándar de flexión. Baja el cuerpo lo más despacio posible (5-8 segundos) hasta el suelo. Vuelve a la posición alta y repite. Fuerza excéntrica."
   },
-  "home_13": {
+  "push_up_to_renegade_row": {
     "setupNotes": "Posición de flexión con las manos sobre mancuernas hexagonales. Haz una flexión, luego rema una mancuerna hacia la cadera, alterna. Postura amplia para estabilidad."
   },
-  "home_14L": {
+  "rotational_push_up_left": {
     "setupNotes": "Posición de plancha alta, cuerpo en línea recta. Haz una flexión, luego arriba rota el cuerpo abriéndote hacia la izquierda a una plancha lateral — brazo izquierdo extendido hacia el techo, peso sobre la mano derecha. Vuelve a la plancha y resetea. Desarrolla core rotacional y estabilidad de hombro."
   },
-  "home_14R": {
+  "rotational_push_up_right": {
     "setupNotes": "Posición de plancha alta, cuerpo en línea recta. Haz una flexión, luego arriba rota el cuerpo abriéndote hacia la derecha a una plancha lateral — brazo derecho extendido hacia el techo, peso sobre la mano izquierda. Vuelve a la plancha y resetea. Desarrolla core rotacional y estabilidad de hombro."
   },
-  "home_15": {
+  "plank_up_down_standard": {
     "setupNotes": "Empieza en plancha con antebrazos. Sube a plancha alta un brazo a la vez, luego baja de nuevo a antebrazos. Alterna el brazo que inicia en cada repetición."
   },
-  "home_16": {
+  "plank_shoulder_taps": {
     "setupNotes": "Posición de plancha alta, pies ligeramente más anchos que las caderas. Toca la mano derecha con el hombro izquierdo, la mano izquierda con el hombro derecho. Minimiza el balanceo de caderas."
   },
-  "home_17": {
+  "shoulder_taps_with_leg_lift": {
     "setupNotes": "Plancha alta. Simultáneamente levanta una mano al hombro opuesto y el pie opuesto del suelo. Doble exigencia anti-rotación."
   },
-  "home_18": {
+  "arm_circles_forward": {
     "setupNotes": "De pie, brazos extendidos rectos hacia los lados a la altura de los hombros. Círculos de brazos hacia delante, aumentando gradualmente el tamaño. Calentamiento dinámico de hombros."
   },
-  "home_18_2": {
+  "arm_circles_backward": {
     "setupNotes": "De pie, brazos extendidos rectos hacia los lados a la altura de los hombros. Círculos de brazos hacia atrás, aumentando gradualmente el tamaño. Calentamiento dinámico de hombros."
   },
-  "home_19": {
+  "weighted_arm_circles": {
     "setupNotes": "De pie, mancuernas ligeras (1-3 kg) en cada mano, brazos extendidos. Círculos pequeños y controlados. Hacia delante y atrás. Resistencia de hombros."
   },
-  "home_20": {
+  "superman_hold": {
     "setupNotes": "Túmbate boca abajo sobre la colchoneta, brazos extendidos por encima de la cabeza. Levanta simultáneamente brazos, pecho y piernas del suelo. Mantén, apretando glúteos y espalda."
   },
-  "home_21": {
+  "alternating_superman": {
     "setupNotes": "Túmbate boca abajo, brazos por encima de la cabeza. Levanta simultáneamente el brazo y la pierna opuestos (brazo derecho + pierna izquierda). Alterna lados. Tempo controlado."
   },
-  "home_22": {
+  "superman_pull_w_pull": {
     "setupNotes": "Túmbate boca abajo, brazos por encima de la cabeza. Levanta el pecho y lleva los codos hacia atrás en forma de W, apretando las escápulas. Extiende los brazos, repite."
   },
-  "home_23": {
+  "weighted_superman_hold": {
     "setupNotes": "Misma posición boca abajo que la estándar. Sostén mancuernas ligeras en las manos y/o tobilleras ligeras. Levanta y mantén. Respiración controlada."
   },
-  "home_24": {
+  "reverse_plank": {
     "setupNotes": "Siéntate en el suelo, manos detrás de las caderas, dedos hacia delante. Levanta las caderas hasta que el cuerpo quede recto de los hombros a los talones. Aprieta los glúteos, mantén. Tríceps y core."
   },
-  "home_25": {
+  "reverse_plank_with_leg_lifts": {
     "setupNotes": "Posición estándar de plancha inversa. Alterna levantando una pierna a la vez, manteniéndola recta. Añade exigencia de glúteos y core al mantenimiento."
   },
-  "home_26": {
+  "reverse_plank_push_up_dip_style": {
     "setupNotes": "Posición de plancha inversa. Flexiona los codos para bajar el cuerpo, empuja arriba. Como un fondo en banco pero desde el suelo con las piernas extendidas rectas."
   },
-  "home_27": {
+  "chair_dip": {
     "setupNotes": "Manos en el borde de una silla sólida detrás del cuerpo, dedos hacia delante. Pies en el suelo. Baja flexionando los codos, empuja arriba. Enfoque en tríceps."
   },
-  "home_29": {
+  "overhead_arm_reach_hold": {
     "setupNotes": "De pie, extiende ambos brazos rectos por encima de la cabeza. Mantén el tiempo indicado. Reta la resistencia del hombro y la movilidad torácica."
   },
-  "home_31": {
+  "bodyweight_squat": {
     "setupNotes": "De pie, pies a la anchura de los hombros, puntas ligeramente hacia fuera. Brazos delante para equilibrio. Sentadilla hasta paralelo o más. Empuja desde los talones."
   },
-  "home_32": {
+  "sumo_squat_wide_stance": {
     "setupNotes": "Postura amplia, puntas hacia fuera 45 grados. Sentadilla recta entre las piernas, rodillas siguen las puntas. Enfoque en aductores y glúteos."
   },
-  "home_33": {
+  "prisoner_squat": {
     "setupNotes": "De pie, manos detrás de la cabeza, codos abiertos. Haz una sentadilla con peso corporal. Las manos detrás de la cabeza obligan a mantener el torso erguido y retan la movilidad."
   },
-  "home_34L": {
+  "pistol_squat_single_leg_left_leg": {
     "setupNotes": "De pie sobre la pierna izquierda, pierna derecha extendida hacia delante sin tocar el suelo. Sentadilla sobre la pierna izquierda hasta la profundidad máxima — cadera por debajo de la rodilla — manteniendo la pierna derecha levantada, luego empuja para volver. Usa un marco de puerta o TRX como asistencia si hace falta. Fuerza avanzada de la pierna izquierda."
   },
-  "home_34R": {
+  "pistol_squat_single_leg_right_leg": {
     "setupNotes": "De pie sobre la pierna derecha, pierna izquierda extendida hacia delante sin tocar el suelo. Sentadilla sobre la pierna derecha hasta la profundidad máxima — cadera por debajo de la rodilla — manteniendo la pierna izquierda levantada, luego empuja para volver. Usa un marco de puerta o TRX como asistencia si hace falta. Fuerza avanzada de la pierna derecha."
   },
-  "home_35L": {
+  "shrimp_squat_left_leg": {
     "setupNotes": "De pie sobre la pierna izquierda, sostén el pie derecho detrás a la altura del glúteo con la mano derecha. Sentadilla sobre la pierna izquierda hasta que la rodilla derecha toque el suelo, luego empuja para volver. Sentadilla unilateral avanzada — carga intensa del cuádriceps y glúteo izquierdos."
   },
-  "home_35R": {
+  "shrimp_squat_right_leg": {
     "setupNotes": "De pie sobre la pierna derecha, sostén el pie izquierdo detrás a la altura del glúteo con la mano izquierda. Sentadilla sobre la pierna derecha hasta que la rodilla izquierda toque el suelo, luego empuja para volver. Sentadilla unilateral avanzada — carga intensa del cuádriceps y glúteo derechos."
   },
-  "home_36L": {
+  "bulgarian_split_squat_bodyweight_left_leg": {
     "setupNotes": "Pie derecho elevado atrás sobre una silla o banco bajo, pie izquierdo 60-90 cm por delante. Baja hasta que el muslo delantero izquierdo esté paralelo al suelo, empuja desde el talón izquierdo para volver. Solo peso corporal — entrenamiento limpio del cuádriceps y glúteo izquierdos."
   },
-  "home_36R": {
+  "bulgarian_split_squat_bodyweight_right_leg": {
     "setupNotes": "Pie izquierdo elevado atrás sobre una silla o banco bajo, pie derecho 60-90 cm por delante. Baja hasta que el muslo delantero derecho esté paralelo al suelo, empuja desde el talón derecho para volver. Solo peso corporal — entrenamiento limpio del cuádriceps y glúteo derechos."
   },
-  "home_37": {
+  "jump_squat": {
     "setupNotes": "Pies a la anchura de los hombros, sentadilla, explota hacia arriba despegando del suelo. Aterriza suave en posición de sentadilla. Repite. Potencia de cuádriceps y glúteos."
   },
-  "home_38L": {
+  "lateral_squat_left_leg": {
     "setupNotes": "De pie con los pies más anchos que los hombros, puntas hacia delante. Desplaza el peso a la izquierda, flexionando la rodilla izquierda en una sentadilla lateral profunda mientras la pierna derecha se mantiene recta. Empuja desde el talón izquierdo para volver al centro. Carga el aductor y glúteo izquierdos."
   },
-  "home_38R": {
+  "lateral_squat_right_leg": {
     "setupNotes": "De pie con los pies más anchos que los hombros, puntas hacia delante. Desplaza el peso a la derecha, flexionando la rodilla derecha en una sentadilla lateral profunda mientras la pierna izquierda se mantiene recta. Empuja desde el talón derecho para volver al centro. Carga el aductor y glúteo derechos."
   },
-  "home_39": {
+  "sit_to_stand": {
     "setupNotes": "Siéntate en una silla o banco estable. Ponte de pie sin usar las manos. Vuelve a sentarte con control. Fuerza funcional de piernas para todos los niveles."
   },
-  "home_40L": {
+  "single_leg_sit_to_stand_left_leg": {
     "setupNotes": "Siéntate en una silla, pie izquierdo apoyado, pierna derecha extendida sin tocar el suelo. Ponte de pie usando solo la pierna izquierda — empuja desde el talón sin balancearte. Baja con control hasta volver a sentarte. Desarrolla fuerza de la pierna izquierda sin material."
   },
-  "home_40R": {
+  "single_leg_sit_to_stand_right_leg": {
     "setupNotes": "Siéntate en una silla, pie derecho apoyado, pierna izquierda extendida sin tocar el suelo. Ponte de pie usando solo la pierna derecha — empuja desde el talón sin balancearte. Baja con control hasta volver a sentarte. Desarrolla fuerza de la pierna derecha sin material."
   },
-  "home_41L": {
+  "reverse_lunge_bodyweight_left": {
     "setupNotes": "De pie erguido, manos en las caderas. Da un paso atrás con el pie izquierdo en una zancada larga, bajando hasta que ambas rodillas lleguen a ~90 grados y la rodilla trasera izquierda quede suspendida sobre el suelo. Empuja desde el talón delantero derecho para volver a la posición de pie. Carga el cuádriceps y glúteo derechos."
   },
-  "home_41R": {
+  "reverse_lunge_bodyweight_right": {
     "setupNotes": "De pie erguido, manos en las caderas. Da un paso atrás con el pie derecho en una zancada larga, bajando hasta que ambas rodillas lleguen a ~90 grados y la rodilla trasera derecha quede suspendida sobre el suelo. Empuja desde el talón delantero izquierdo para volver a la posición de pie. Carga el cuádriceps y glúteo izquierdos."
   },
-  "home_42L": {
+  "forward_lunge_bodyweight_left_leg": {
     "setupNotes": "De pie erguido, manos en las caderas o a los lados. Da un paso adelante con el pie izquierdo en una zancada larga y baja hasta que ambas rodillas lleguen a ~90 grados — rodilla delantera siguiendo las puntas. Empuja desde el talón izquierdo para volver a la posición de pie. Carga el cuádriceps y glúteo izquierdos."
   },
-  "home_42R": {
+  "forward_lunge_bodyweight_right_leg": {
     "setupNotes": "De pie erguido, manos en las caderas o a los lados. Da un paso adelante con el pie derecho en una zancada larga y baja hasta que ambas rodillas lleguen a ~90 grados — rodilla delantera siguiendo las puntas. Empuja desde el talón derecho para volver a la posición de pie. Carga el cuádriceps y glúteo derechos."
   },
-  "home_43": {
+  "jumping_lunge": {
     "setupNotes": "Empieza en posición de zancada. Salta explosivamente, cambia de piernas en el aire, aterriza en la zancada opuesta. Continuo. Cardio pliométrico y potencia de piernas."
   },
-  "home_44L": {
+  "static_lunge_hold_left_leg": {
     "setupNotes": "Postura partida con el pie izquierdo delante y el derecho atrás, ambas rodillas flexionadas a ~90 grados. Mantén la posición con la rodilla trasera suspendida sobre el suelo y el torso erguido. Resistencia isométrica del cuádriceps y glúteo izquierdos."
   },
-  "home_44R": {
+  "static_lunge_hold_right_leg": {
     "setupNotes": "Postura partida con el pie derecho delante y el izquierdo atrás, ambas rodillas flexionadas a ~90 grados. Mantén la posición con la rodilla trasera suspendida sobre el suelo y el torso erguido. Resistencia isométrica del cuádriceps y glúteo derechos."
   },
-  "home_45L": {
+  "curtsy_lunge_bodyweight_left_leg": {
     "setupNotes": "De pie erguido. Da un paso con el pie izquierdo detrás y cruzando la pierna derecha, bajando hasta que el muslo derecho esté paralelo al suelo. Empuja desde el talón derecho para volver a la posición de pie. Trabaja el glúteo medio."
   },
-  "home_45R": {
+  "curtsy_lunge_bodyweight_right_leg": {
     "setupNotes": "De pie erguido. Da un paso con el pie derecho detrás y cruzando la pierna izquierda, bajando hasta que el muslo izquierdo esté paralelo al suelo. Empuja desde el talón izquierdo para volver a la posición de pie. Trabaja el glúteo medio."
   },
-  "home_46": {
+  "glute_bridge": {
     "setupNotes": "Túmbate boca arriba, rodillas flexionadas, pies apoyados en el suelo a la anchura de las caderas. Empuja las caderas arriba apretando los glúteos. Baja con control. Ejercicio de suelo."
   },
-  "home_47L": {
+  "glute_bridge_single_leg_left_leg": {
     "setupNotes": "Túmbate boca arriba, pie izquierdo apoyado a la anchura de las caderas, rodilla derecha levantada o pierna derecha extendida hacia el techo. Empuja las caderas arriba desde el talón izquierdo hasta que el cuerpo quede en línea recta, aprieta el glúteo izquierdo con fuerza arriba. Baja con control."
   },
-  "home_47R": {
+  "glute_bridge_single_leg_right_leg": {
     "setupNotes": "Túmbate boca arriba, pie derecho apoyado a la anchura de las caderas, rodilla izquierda levantada o pierna izquierda extendida hacia el techo. Empuja las caderas arriba desde el talón derecho hasta que el cuerpo quede en línea recta, aprieta el glúteo derecho con fuerza arriba. Baja con control."
   },
-  "home_48": {
+  "glute_bridge_elevated": {
     "setupNotes": "Igual que el puente estándar pero con los pies apoyados sobre una silla, banco o step estable. Aumenta el rango de movimiento y la dificultad."
   },
-  "home_49": {
+  "frog_pump": {
     "setupNotes": "Túmbate boca arriba, plantas de los pies juntas, rodillas abiertas a los lados (posición de rana). Empuja las caderas arriba apretando los glúteos. Minimiza la implicación de isquiotibiales."
   },
-  "home_50L": {
+  "donkey_kick_left": {
     "setupNotes": "A cuatro patas en cuadrupedia, colchoneta bajo las rodillas. Empuja el talón izquierdo hacia el techo con la rodilla flexionada a 90 grados, apretando el glúteo arriba. Retorno controlado — aísla el glúteo izquierdo."
   },
-  "home_50R": {
+  "donkey_kick_right": {
     "setupNotes": "A cuatro patas en cuadrupedia, colchoneta bajo las rodillas. Empuja el talón derecho hacia el techo con la rodilla flexionada a 90 grados, apretando el glúteo arriba. Retorno controlado — aísla el glúteo derecho."
   },
-  "home_51L": {
+  "fire_hydrant_left": {
     "setupNotes": "Posición de cuatro patas, columna neutra. Levanta la rodilla izquierda hacia el lado manteniendo el ángulo de 90 grados, apretando el glúteo arriba. Baja con control — trabaja el glúteo medio izquierdo."
   },
-  "home_51R": {
+  "fire_hydrant_right": {
     "setupNotes": "Posición de cuatro patas, columna neutra. Levanta la rodilla derecha hacia el lado manteniendo el ángulo de 90 grados, apretando el glúteo arriba. Baja con control — trabaja el glúteo medio derecho."
   },
-  "home_52": {
+  "lateral_band_walk": {
     "setupNotes": "Mini banda de resistencia alrededor de los tobillos o justo por encima de las rodillas. Cuarto de sentadilla en postura atlética. Da pasos laterales manteniendo la tensión de la banda. Pasos laterales continuos."
   },
-  "home_53": {
+  "standing_calf_raise_bodyweight": {
     "setupNotes": "De pie en el borde de un step o en suelo plano. Sube sobre las puntas, apretando los gemelos arriba. Baja con control. Usa la pared para equilibrio si hace falta."
   },
-  "home_54L": {
+  "single_leg_calf_raise_left_leg": {
     "setupNotes": "De pie sobre el pie izquierdo en el borde de un step, metatarso en el borde y talón colgando. Mano en la pared para equilibrio. Sube sobre las puntas lo más alto posible, luego baja el talón por debajo del step para un estiramiento completo. Entrena el gemelo izquierdo en todo el rango."
   },
-  "home_54R": {
+  "single_leg_calf_raise_right_leg": {
     "setupNotes": "De pie sobre el pie derecho en el borde de un step, metatarso en el borde y talón colgando. Mano en la pared para equilibrio. Sube sobre las puntas lo más alto posible, luego baja el talón por debajo del step para un estiramiento completo. Entrena el gemelo derecho en todo el rango."
   },
-  "home_55L": {
+  "bodyweight_step_up_left_leg": {
     "setupNotes": "Silla, banco o escalón estable. Coloca el pie izquierdo completo sobre la superficie. Empuja desde el talón izquierdo hasta quedar de pie arriba. Baja pisando con control. Todas las repeticiones con la pierna izquierda."
   },
-  "home_55R": {
+  "bodyweight_step_up_right_leg": {
     "setupNotes": "Silla, banco o escalón estable. Coloca el pie derecho completo sobre la superficie. Empuja desde el talón derecho hasta quedar de pie arriba. Baja pisando con control. Todas las repeticiones con la pierna derecha."
   },
-  "home_56": {
+  "march_in_place_standard": {
     "setupNotes": "De pie, alterna elevando las rodillas hasta la altura de la cadera. Bombea los brazos de forma natural opuesta a las piernas. Ritmo controlado para calentamiento o cardio ligero."
   },
-  "home_58": {
+  "forearm_plank": {
     "setupNotes": "Codos en el suelo bajo los hombros, antebrazos apoyados. Cuerpo recto de la cabeza a los talones. Activa todo el core, respira con calma. Sostén por tiempo."
   },
-  "home_59": {
+  "high_plank": {
     "setupNotes": "Manos bajo los hombros, brazos rectos. Cuerpo recto, empuja el suelo hacia abajo. Activa el core, evita que las caderas se hundan. Posición base para muchos ejercicios."
   },
-  "home_60L": {
+  "side_plank_left_side": {
     "setupNotes": "Túmbate sobre el lado izquierdo, antebrazo izquierdo en el suelo bajo el hombro, pies apilados o escalonados. Eleva las caderas para que el cuerpo forme una línea recta de la cabeza a los talones, brazo derecho extendido hacia el techo o en la cadera. Mantén por tiempo. Carga los oblicuos izquierdos y el cuadrado lumbar."
   },
-  "home_60R": {
+  "side_plank_right_side": {
     "setupNotes": "Túmbate sobre el lado derecho, antebrazo derecho en el suelo bajo el hombro, pies apilados o escalonados. Eleva las caderas para que el cuerpo forme una línea recta de la cabeza a los talones, brazo izquierdo extendido hacia el techo o en la cadera. Mantén por tiempo. Carga los oblicuos derechos y el cuadrado lumbar."
   },
-  "home_61L": {
+  "side_plank_with_hip_dips_left_side": {
     "setupNotes": "Plancha lateral sobre el antebrazo izquierdo, caderas elevadas en línea recta. Baja despacio la cadera izquierda hacia el suelo sin tocarlo, luego empuja de nuevo al inicio. Repeticiones controladas en rango completo. Carga dinámica de los oblicuos izquierdos."
   },
-  "home_61R": {
+  "side_plank_with_hip_dips_right_side": {
     "setupNotes": "Plancha lateral sobre el antebrazo derecho, caderas elevadas en línea recta. Baja despacio la cadera derecha hacia el suelo sin tocarlo, luego empuja de nuevo al inicio. Repeticiones controladas en rango completo. Carga dinámica de los oblicuos derechos."
   },
-  "home_62L": {
+  "side_plank_with_leg_lift_left_side": {
     "setupNotes": "Plancha lateral sobre el antebrazo izquierdo con las caderas elevadas. Eleva la pierna derecha (la de arriba) y mantén o pulsa arriba manteniendo las caderas cuadradas. Añade trabajo de glúteo medio y cadera externa a la retención lateral izquierda."
   },
-  "home_62R": {
+  "side_plank_with_leg_lift_right_side": {
     "setupNotes": "Plancha lateral sobre el antebrazo derecho con las caderas elevadas. Eleva la pierna izquierda (la de arriba) y mantén o pulsa arriba manteniendo las caderas cuadradas. Añade trabajo de glúteo medio y cadera externa a la retención lateral derecha."
   },
-  "home_64": {
+  "high_plank_knee_drives": {
     "setupNotes": "Posición de plancha alta. Empuja una rodilla rápido hacia el pecho, vuelve, repite con la otra rodilla. Estilo mountain climber desde plancha. Controlado."
   },
-  "home_65": {
+  "incline_plank_hands_elevated": {
     "setupNotes": "Manos sobre banco, caja o silla en posición de plancha. Regresión más fácil de la plancha en suelo. Buena para principiantes que desarrollan fuerza del core."
   },
-  "home_66": {
+  "dead_bug_standard": {
     "setupNotes": "Túmbate boca arriba, brazos rectos hacia el techo, rodillas flexionadas 90 grados (tabletop). Extiende el brazo y pierna opuestos hacia el suelo, vuelve, alterna. Presiona la zona lumbar contra el suelo."
   },
-  "home_67": {
+  "dead_bug_slow_tempo": {
     "setupNotes": "Misma posición que el dead bug estándar. Extensión muy lenta y controlada (4-5 segundos fuera, 4-5 segundos vuelta). Enfócate en mantener el contacto de la zona lumbar con el suelo."
   },
-  "home_68": {
+  "dead_bug_banded": {
     "setupNotes": "Posición estándar de dead bug. Banda de resistencia ligera alrededor de las manos y/o los pies. La tensión de la banda añade exigencia al core en todo el rango."
   },
-  "home_69": {
+  "dead_bug_weighted": {
     "setupNotes": "Posición estándar de dead bug sosteniendo una mancuerna ligera por encima de la cabeza. Extiende las extremidades con control. Carga añadida sobre los estabilizadores del core."
   },
-  "home_70L": {
+  "bird_dog_standard_left": {
     "setupNotes": "A cuatro patas, columna neutra. Extiende simultáneamente el brazo izquierdo hacia delante y la pierna derecha atrás hasta que ambos estén paralelos al suelo. Activa el core, mantén brevemente, vuelve. Entrena anti-extensión y equilibrio."
   },
-  "home_70R": {
+  "bird_dog_standard_right": {
     "setupNotes": "A cuatro patas, columna neutra. Extiende simultáneamente el brazo derecho hacia delante y la pierna izquierda atrás hasta que ambos estén paralelos al suelo. Activa el core, mantén brevemente, vuelve. Entrena anti-extensión y equilibrio."
   },
-  "home_71L": {
+  "bird_dog_from_push_up_position_left": {
     "setupNotes": "Posición de plancha alta, manos bajo los hombros, cuerpo en línea recta. Extiende simultáneamente el brazo izquierdo hacia delante y la pierna derecha atrás, mantén brevemente sin dejar que las caderas roten. Vuelve. Mucho más duro que la versión arrodillada."
   },
-  "home_71R": {
+  "bird_dog_from_push_up_position_right": {
     "setupNotes": "Posición de plancha alta, manos bajo los hombros, cuerpo en línea recta. Extiende simultáneamente el brazo derecho hacia delante y la pierna izquierda atrás, mantén brevemente sin dejar que las caderas roten. Vuelve. Mucho más duro que la versión arrodillada."
   },
-  "home_72L": {
+  "bird_dog_band_resisted_left": {
     "setupNotes": "Posición de bird dog arrodillado con una banda de resistencia ligera de la mano izquierda al pie derecho. Extiende el brazo izquierdo y la pierna derecha hasta que la banda esté tensa, mantén, vuelve. La banda añade resistencia e inestabilidad al patrón diagonal."
   },
-  "home_72R": {
+  "bird_dog_band_resisted_right": {
     "setupNotes": "Posición de bird dog arrodillado con una banda de resistencia ligera de la mano derecha al pie izquierdo. Extiende el brazo derecho y la pierna izquierda hasta que la banda esté tensa, mantén, vuelve. La banda añade resistencia e inestabilidad al patrón diagonal."
   },
-  "home_73L": {
+  "bird_dog_row_weighted_left_arm": {
     "setupNotes": "Posición de bird dog arrodillado con una mancuerna en la mano izquierda. Extiende la pierna derecha atrás, luego rema la mancuerna izquierda hacia la cadera — manteniendo las caderas cuadradas y el core activado. Baja la mancuerna, vuelve. Combina anti-rotación con un remo unilateral."
   },
-  "home_73R": {
+  "bird_dog_row_weighted_right_arm": {
     "setupNotes": "Posición de bird dog arrodillado con una mancuerna en la mano derecha. Extiende la pierna izquierda atrás, luego rema la mancuerna derecha hacia la cadera — manteniendo las caderas cuadradas y el core activado. Baja la mancuerna, vuelve. Combina anti-rotación con un remo unilateral."
   },
-  "home_74": {
+  "bicycle_crunch_standard": {
     "setupNotes": "Túmbate boca arriba, manos detrás de la cabeza (no tires del cuello). Levanta los hombros, gira el codo derecho hacia la rodilla izquierda mientras extiendes la pierna derecha. Alterna de forma continua."
   },
-  "home_75": {
+  "bicycle_crunch_slow_tempo": {
     "setupNotes": "Túmbate boca arriba, manos detrás de la cabeza, hombros levantados. Gira despacio un codo hacia la rodilla opuesta mientras extiendes la otra pierna — 3–4 segundos por lado. Rotación completa a través del torso — maximiza el tiempo bajo tensión de los oblicuos."
   },
-  "home_76": {
+  "standing_bicycle_crunch": {
     "setupNotes": "De pie, manos detrás de la cabeza. Eleva una rodilla rotando el codo opuesto hacia ella. Alterna lados. Trabajo de core de bajo impacto."
   },
-  "home_77": {
+  "lying_leg_raise_standard": {
     "setupNotes": "Túmbate boca arriba, manos bajo la zona lumbar o a los lados. Piernas rectas, elévalas desde el suelo hasta la vertical. Baja con control sin arquear la espalda."
   },
-  "home_78": {
+  "lying_leg_raise_alternating": {
     "setupNotes": "Misma posición que la estándar. Eleva una pierna a la vez, alternando. Progresión más fácil. Mantén la zona lumbar pegada al suelo."
   },
-  "home_79": {
+  "lying_leg_raise_with_hold": {
     "setupNotes": "Eleva ambas piernas a ~15 cm del suelo. Mantén el tiempo indicado. Zona lumbar pegada al suelo. Isométrico de la parte baja abdominal."
   },
-  "home_80": {
+  "flutter_kicks": {
     "setupNotes": "Túmbate boca arriba, piernas extendidas a ~15 cm del suelo. Alterna pequeñas patadas arriba/abajo rápidamente. Zona lumbar pegada al suelo. Resistencia de core."
   },
-  "home_81L": {
+  "supine_heel_slide_left": {
     "setupNotes": "Túmbate boca arriba, rodillas flexionadas, pies apoyados y pelvis en neutro. Desliza despacio el talón izquierdo por el suelo hasta que la pierna esté recta, luego vuelve con control. Mantén la pelvis estable — entrena core profundo y control lumbopélvico."
   },
-  "home_81R": {
+  "supine_heel_slide_right": {
     "setupNotes": "Túmbate boca arriba, rodillas flexionadas, pies apoyados y pelvis en neutro. Desliza despacio el talón derecho por el suelo hasta que la pierna esté recta, luego vuelve con control. Mantén la pelvis estable — entrena core profundo y control lumbopélvico."
   },
-  "home_82": {
+  "heel_slide_with_core_bracing": {
     "setupNotes": "Igual que el deslizamiento de talón estándar. Activa el core (mete el ombligo) antes de cada deslizamiento. Enfócate en evitar cualquier movimiento pélvico."
   },
-  "home_83": {
+  "standing_core_brace": {
     "setupNotes": "De pie, pies a la anchura de las caderas. Mete el ombligo, activa todo el core como si te prepararas para un puñetazo. Mantén el tiempo indicado mientras respiras. Ejercicio fundamental."
   },
-  "home_84L": {
+  "anti_rotation_brace_band_left": {
     "setupNotes": "Ancla una banda de resistencia ligera a la altura del pecho al lado derecho. Colócate con el lado derecho hacia el anclaje, ambas manos sujetando la banda al pecho. Empuja los brazos rectos hacia delante y mantén — resiste que la banda te rote hacia la derecha. Retención anti-rotación del core."
   },
-  "home_84R": {
+  "anti_rotation_brace_band_right": {
     "setupNotes": "Ancla una banda de resistencia ligera a la altura del pecho al lado izquierdo. Colócate con el lado izquierdo hacia el anclaje, ambas manos sujetando la banda al pecho. Empuja los brazos rectos hacia delante y mantén — resiste que la banda te rote hacia la izquierda. Retención anti-rotación del core."
   },
-  "home_85": {
+  "v_up": {
     "setupNotes": "Túmbate boca arriba, brazos por encima de la cabeza, piernas rectas. Eleva simultáneamente brazos y piernas para tocar los pies con las manos arriba. Forma de V en el pico. Baja con control."
   },
-  "home_86": {
+  "mountain_climber_standard": {
     "setupNotes": "Posición de plancha alta. Empuja una rodilla rápido hacia el pecho, cambia, repite. Alternancia rápida como correr en el sitio en horizontal."
   },
-  "home_87": {
+  "mountain_climber_cross_body": {
     "setupNotes": "Posición de plancha alta. Empuja la rodilla hacia el codo opuesto. Alterna lados. El elemento rotacional añade trabajo de oblicuos al mountain climber estándar."
   },
-  "home_88": {
+  "high_knees": {
     "setupNotes": "De pie, empuja las rodillas por encima de la altura de la cadera alternando piernas rápidamente. Bombea los brazos. Ritmo rápido. En el sitio o avanzando ligeramente."
   },
-  "home_89": {
+  "butt_kicks": {
     "setupNotes": "De pie, trota en el sitio pateando los talones hacia los glúteos. Bombea los brazos de forma natural. Ligero rebote sobre los metatarsos. Calentamiento de isquiotibiales y cardio."
   },
-  "home_90": {
+  "high_knees_lateral_shuffle": {
     "setupNotes": "Combina rodillas altas con pasos laterales de desplazamiento. Rodillas altas durante 4 pasos, shuffle 4 pasos laterales, repite. Agilidad y cardio."
   },
-  "home_91": {
+  "high_knee_tuck_jumps": {
     "setupNotes": "De pie, salta explosivamente llevando ambas rodillas al pecho en el pico. Aterriza suave con las rodillas flexionadas. Pliométrico avanzado."
   },
-  "home_92": {
+  "star_jumps": {
     "setupNotes": "De pie, cuarto de sentadilla y explota hacia arriba abriendo brazos y piernas en forma de X/estrella en el aire. Aterriza suave en sentadilla. Pliométrico de cuerpo completo."
   },
-  "home_93": {
+  "jumping_jacks": {
     "setupNotes": "De pie, pies juntos, brazos a los lados. Salta abriendo los pies mientras elevas los brazos por encima de la cabeza, salta para volver. Calentamiento cardio clásico. Ritmo continuo."
   },
-  "home_94": {
+  "squat_jacks": {
     "setupNotes": "Como los jumping jacks pero más bajo — salta abriendo los pies en sentadilla, luego salta para juntar los pies y quedar de pie. Brazos empujan hacia los lados o por encima arriba."
   },
-  "home_96": {
+  "box_jump_squat": {
     "setupNotes": "De pie mirando una caja pliométrica o plataforma estable. Sentadilla, balanceo de brazos, salta sobre la caja aterrizando suave en sentadilla. Baja pisando. Ajusta la altura a tu nivel."
   },
-  "home_97": {
+  "mountain_climbers_fast": {
     "setupNotes": "Posición de plancha alta. Sprinta las rodillas hacia el pecho alternando lo más rápido posible. Mantén la integridad de la plancha. Cardio HIIT desde plancha."
   },
-  "home_98": {
+  "spider_mountain_climbers": {
     "setupNotes": "Plancha alta. Lleva la rodilla al exterior del codo del mismo lado (más abierta que el climber estándar). Alterna. Movilidad de cadera más trabajo de core."
   },
-  "home_99": {
+  "squat_to_stand": {
     "setupNotes": "De pie, dóblate hacia delante tocando las puntas (flexiona rodillas si hace falta). Agarra las puntas, baja las caderas a sentadilla, eleva el pecho a sentadilla profunda. Ponte de pie. Repite. Movilidad y piernas."
   },
-  "home_100": {
+  "burpee": {
     "setupNotes": "De pie, sentadilla colocando las manos en el suelo. Salta con los pies hacia atrás a plancha, haz una flexión (opcional), salta con los pies a las manos, salta hacia arriba con los brazos por encima de la cabeza. Cuerpo completo."
   },
-  "home_101": {
+  "fast_feet": {
     "setupNotes": "Postura atlética, rodillas ligeramente flexionadas. Pasos pequeños rápidos en el sitio, los pies apenas despegan del suelo. Lo más rápido posible durante el tiempo indicado. Ejercicio de agilidad."
   },
-  "home_104": {
+  "battle_ropes_alternating_waves": {
     "setupNotes": "De pie con las rodillas ligeramente flexionadas, un extremo de la cuerda en cada mano. Alterna los brazos creando ondas continuas en la cuerda. Cardio de cuerpo completo."
   },
-  "home_105": {
+  "battle_ropes_power_slam": {
     "setupNotes": "De pie con las rodillas ligeramente flexionadas, ambos extremos de la cuerda. Eleva ambos brazos por encima de la cabeza y lanza las cuerdas hacia abajo juntas. Sentadilla con el slam. Potencia de cuerpo completo."
   },
-  "home_106": {
+  "battle_ropes_side_to_side_slam": {
     "setupNotes": "Sostén ambas cuerdas, barrelas de lado a lado juntas creando ondas laterales. Rotación del core con potencia del tren superior. Énfasis en oblicuos."
   },
-  "home_107": {
+  "battle_ropes_kneeling_waves": {
     "setupNotes": "Arrodíllate sobre la colchoneta, un extremo de la cuerda en cada mano. Ondas alternas desde posición arrodillada. Elimina las piernas, aísla el tren superior y el core."
   },
-  "home_108": {
+  "sled_push_standard": {
     "setupNotes": "Carga el trineo con peso moderado. Agarra las asas altas o bajas. Empuja hacia delante con las piernas, ritmo constante por distancia. Inclínate sobre el trineo."
   },
-  "home_109": {
+  "sled_push_heavy_strength": {
     "setupNotes": "Carga el trineo pesado. Agarre en asa baja, inclínate hacia delante a ~45 grados. Pasos cortos y potentes, empuja desde las puntas. Enfoque en fuerza y potencia de piernas."
   },
-  "home_110": {
+  "sled_push_sprint": {
     "setupNotes": "Carga ligera-moderada sobre el trineo. Asas altas o bajas. Sprint a corta distancia (20-40 metros). Esfuerzo máximo de velocidad."
   },
-  "home_111": {
+  "sled_push_reverse_backward": {
     "setupNotes": "Mira hacia el trineo, agarra las asas, camina o empuja hacia atrás tirando del trineo hacia ti con cada paso. Movimiento dominante en cuádriceps. Amigable para las rodillas."
   },
-  "home_112": {
+  "sled_pull_hand_over_hand": {
     "setupNotes": "Engancha una cuerda larga al trineo. Siéntate o ponte de pie al final de la cuerda. Tira del trineo hacia ti mano sobre mano. Énfasis en espalda alta y bíceps."
   },
-  "home_113": {
+  "sled_pull_backward_walk": {
     "setupNotes": "Engancha una correa al trineo, arnés alrededor de la cintura. Camina hacia atrás tirando del trineo. Torso erguido. Énfasis en cuádriceps y glúteos."
   },
-  "home_114": {
+  "skipping_rope": {
     "setupNotes": "Salta a la comba en superficie firme y plana. Rebote ligero sobre los metatarsos, las muñecas controlan la rotación de la cuerda. Varias velocidades y patrones de pies."
   },
-  "home_115": {
+  "bear_crawl": {
     "setupNotes": "Sobre manos y pies (no rodillas), rodillas suspendidas justo sobre el suelo. Gatea hacia delante moviendo mano y pie opuestos juntos. Core y cuerpo completo."
   },
-  "home_116": {
+  "treadmill_walk": {
     "setupNotes": "Cinta a velocidad de caminar cómoda (4-6 km/h). Postura erguida, brazos balanceándose naturalmente. Inclinación opcional para mayor esfuerzo."
   },
-  "home_117": {
+  "treadmill_jog": {
     "setupNotes": "Cinta a ritmo de trote (7-9 km/h). Ritmo fácil de conversar. Aterriza con el medio del pie, hombros y brazos relajados."
   },
-  "home_118": {
+  "treadmill_run": {
     "setupNotes": "Cinta a ritmo de carrera (10-14 km/h). Esfuerzo moderado a duro. Buena técnica — postura erguida, aterrizaje con el medio del pie, manos relajadas."
   },
-  "home_119": {
+  "treadmill_sprint": {
     "setupNotes": "Cinta a velocidad de sprint (15+ km/h) o esfuerzo máximo por intervalos cortos (15-30 segundos). Sujeta los pasamanos laterales para subir/bajar con seguridad."
   },
-  "home_120": {
+  "incline_treadmill_walk": {
     "setupNotes": "Cinta a ritmo de caminar con inclinación elevada (8-15%). Camina cuesta arriba. No te sujetes a los pasamanos para obtener todo el beneficio. Énfasis en glúteos y cardio."
   },
-  "home_121": {
+  "stationary_bike_steady": {
     "setupNotes": "Ajusta la altura del sillín con ligera flexión al final del pedaleo. Resistencia moderada constante. Posición vertical o reclinada. Ritmo sostenido."
   },
-  "home_122": {
+  "spin_bike_standing_climb": {
     "setupNotes": "Bici spinning con resistencia alta. Ponte de pie sobre los pedales y pedalea de pie, simulando subida. Agarra el manillar con firmeza."
   },
-  "home_123": {
+  "rower_steady": {
     "setupNotes": "Máquina de remo. Pies sujetos, agarra la manilla. Empuja con las piernas primero, luego inclínate atrás, luego tira con los brazos. Invierte la secuencia al volver. Ritmo constante."
   },
-  "home_124": {
+  "rower_sprint_intervals": {
     "setupNotes": "Máquina de remo. Alterna entre sprints a máximo esfuerzo (20-30 segundos) y remo fácil de recuperación (60-90 segundos). Damper a 4-6."
   },
-  "home_125": {
+  "elliptical_steady": {
     "setupNotes": "Máquina elíptica. Pies en los pedales, agarra las asas móviles o fijas. Movimiento suave de pedaleo. Resistencia moderada, ritmo constante."
   },
-  "home_126": {
+  "elliptical_intervals": {
     "setupNotes": "Máquina elíptica. Alterna ráfagas de alta resistencia/velocidad con recuperación fácil. Usa ambas asas para trabajar tren superior y tren inferior."
   },
-  "home_127": {
+  "elliptical_reverse_pedal": {
     "setupNotes": "Máquina elíptica, pedalea en dirección inversa. El énfasis en los cuádriceps cambia respecto al movimiento hacia delante. Agarra las asas para estabilidad."
   },
-  "home_128": {
+  "stairmaster_steady_climb": {
     "setupNotes": "StairMaster o escalera sin fin. Ritmo constante de subida, manos ligeras en los pasamanos (no te apoyes). Postura erguida. Enfoque en glúteos y cardio."
   },
-  "home_129": {
+  "stairmaster_intervals": {
     "setupNotes": "StairMaster. Alterna entre pasos rápidos y lentos, o cambia niveles. Manos fuera de los pasamanos para mejor efecto. Ráfaga corta de alto esfuerzo, recuperación más larga."
   },
-  "home_130": {
+  "assault_air_bike_intervals": {
     "setupNotes": "Bici assault / air bike. Brazos y piernas trabajan juntos. Intervalos de sprint (20-30 seg on, 60-90 seg off). Cardio de cuerpo completo."
   },
-  "home_131": {
+  "ski_erg": {
     "setupNotes": "Máquina de ski erg. De pie, agarra las asas por encima de la cabeza. Tira hacia abajo usando dorsales y core, ligera flexión de cadera. Devuelve los brazos arriba. Ritmo constante o por intervalos."
   },
-  "home_133": {
+  "high_knee_march": {
     "setupNotes": "De pie, empuja las rodillas por encima del nivel de la cadera alternando. Bombea los brazos opuestos a las piernas. Ritmo moderado. Activación de flexores de cadera y calentamiento."
   },
-  "home_134": {
+  "arm_swings_forward": {
     "setupNotes": "De pie, balancea ambos brazos hacia delante y arriba por encima de la cabeza en grandes arcos — luego abajo. Gana impulso con cada repetición. Calentamiento dinámico de hombros."
   },
-  "home_134_2": {
+  "arm_swings_backward": {
     "setupNotes": "De pie, balancea ambos brazos hacia atrás en grandes arcos inversos — llevando los hombros atrás y abriendo el pecho. Gana impulso con cada repetición. Calentamiento dinámico de hombros."
   },
-  "home_135": {
+  "cross_body_arm_swings": {
     "setupNotes": "De pie, balancea ambos brazos horizontalmente cruzando el cuerpo en patrón alterno. Abre el pecho y calienta hombros y pectorales."
   },
-  "home_137": {
+  "hip_circles": {
     "setupNotes": "De pie con los pies a la anchura de las caderas, manos en las caderas. Rota las caderas en grandes círculos suaves — sentido horario y antihorario. Mantén el tren superior estable. Calienta las articulaciones de la cadera y la zona lumbar."
   },
-  "home_138": {
+  "ankle_circles": {
     "setupNotes": "De pie sobre una pierna (sujétate), rota el pie en círculos. Horario y antihorario. 10 en cada dirección. Cambia de pie."
   },
-  "home_139": {
+  "wrist_rolls": {
     "setupNotes": "Extiende los brazos hacia delante, haz círculos con las muñecas en ambas direcciones. Abre y cierra los puños entre círculos. Calienta las articulaciones de las muñecas para empujar y agarrar."
   },
-  "home_140L": {
+  "leg_swings_front_to_back_left_leg": {
     "setupNotes": "Colócate con el lado derecho cerca de una pared, mano derecha sobre la pared para equilibrio. Balancea la pierna izquierda hacia delante y atrás en péndulo controlado, aumentando el rango gradualmente. Calienta los flexores de cadera e isquiotibiales izquierdos."
   },
-  "home_140R": {
+  "leg_swings_front_to_back_right_leg": {
     "setupNotes": "Colócate con el lado izquierdo cerca de una pared, mano izquierda sobre la pared para equilibrio. Balancea la pierna derecha hacia delante y atrás en péndulo controlado, aumentando el rango gradualmente. Calienta los flexores de cadera e isquiotibiales derechos."
   },
-  "home_141L": {
+  "leg_swings_side_to_side_left_leg": {
     "setupNotes": "Mirando la pared, ambas manos apoyadas, peso sobre la pierna derecha. Balancea la pierna izquierda cruzando el cuerpo y hacia fuera al lado en péndulo controlado. Calienta aductores y abductores izquierdos."
   },
-  "home_141R": {
+  "leg_swings_side_to_side_right_leg": {
     "setupNotes": "Mirando la pared, ambas manos apoyadas, peso sobre la pierna izquierda. Balancea la pierna derecha cruzando el cuerpo y hacia fuera al lado en péndulo controlado. Calienta aductores y abductores derechos."
   },
-  "home_142": {
+  "cat_cow": {
     "setupNotes": "A cuatro patas. Alterna entre arquear la espalda (vaca — barriga baja) y redondear la espalda (gato — barriga sube). Coordina con la respiración."
   },
-  "home_143": {
+  "inchworm": {
     "setupNotes": "De pie, dóblate hacia delante tocando el suelo. Camina con las manos hasta la posición de plancha. Flexión opcional. Camina con los pies hasta las manos, ponte de pie. Calentamiento de cuerpo completo."
   },
-  "home_144": {
+  "walking_lunge_with_twist": {
     "setupNotes": "Da un paso a zancada delantera, rota el torso hacia la pierna delantera. Brazos extendidos o manos juntas. Vuelve a la posición de pie, cambia de pierna. Estiramiento dinámico."
   },
-  "home_145": {
+  "scapular_push_up": {
     "setupNotes": "Posición de plancha alta, brazos rectos. Sin flexionar los codos, empuja las escápulas separándolas (protracción) luego aprieta juntándolas (retracción). Movilidad escapular."
   },
-  "home_146": {
+  "shoulder_rolls": {
     "setupNotes": "De pie, rota los hombros hacia delante en círculos, luego hacia atrás. Círculos grandes y controlados. Suelta los trapecios superiores y las articulaciones del hombro."
   },
-  "home_147": {
+  "child_s_pose": {
     "setupNotes": "Arrodíllate sobre la colchoneta, siéntate sobre los talones, extiende los brazos hacia delante en el suelo. La frente descansa en el suelo. Respiración profunda. Estira la espalda, dorsales y caderas."
   },
-  "home_148": {
+  "seated_forward_fold": {
     "setupNotes": "Siéntate en el suelo, piernas extendidas rectas. Flexión de cadera hacia delante alcanzando los pies. Mantén. Estira los isquiotibiales y la zona lumbar."
   },
-  "home_149L": {
+  "standing_quad_stretch_left": {
     "setupNotes": "De pie erguido, mano libre sobre la pared para equilibrio. Tira del pie izquierdo hacia el glúteo izquierdo con la mano izquierda, rodillas juntas y caderas ligeramente hacia delante. Mantén y respira. Estira el cuádriceps y flexor de cadera izquierdos."
   },
-  "home_149R": {
+  "standing_quad_stretch_right": {
     "setupNotes": "De pie erguido, mano libre sobre la pared para equilibrio. Tira del pie derecho hacia el glúteo derecho con la mano derecha, rodillas juntas y caderas ligeramente hacia delante. Mantén y respira. Estira el cuádriceps y flexor de cadera derechos."
   },
-  "home_150L": {
+  "hamstring_stretch_seated_left": {
     "setupNotes": "Siéntate en el suelo con la pierna izquierda extendida y el pie derecho pegado a la cara interna del muslo izquierdo. Flexión de cadera y alcanza sobre la pierna izquierda, espalda recta. Mantén y respira. Trabaja el isquiotibial izquierdo."
   },
-  "home_150R": {
+  "hamstring_stretch_seated_right": {
     "setupNotes": "Siéntate en el suelo con la pierna derecha extendida y el pie izquierdo pegado a la cara interna del muslo derecho. Flexión de cadera y alcanza sobre la pierna derecha, espalda recta. Mantén y respira. Trabaja el isquiotibial derecho."
   },
-  "home_151L": {
+  "hamstring_stretch_standing_left": {
     "setupNotes": "De pie, coloca el talón izquierdo sobre un banco bajo o step con la pierna recta. Flexión de cadera e inclínate hacia delante sobre la pierna izquierda, manteniendo la espalda recta. Mantén. Trabaja el isquiotibial izquierdo."
   },
-  "home_151R": {
+  "hamstring_stretch_standing_right": {
     "setupNotes": "De pie, coloca el talón derecho sobre un banco bajo o step con la pierna recta. Flexión de cadera e inclínate hacia delante sobre la pierna derecha, manteniendo la espalda recta. Mantén. Trabaja el isquiotibial derecho."
   },
-  "home_152L": {
+  "calf_stretch_wall_left_leg": {
     "setupNotes": "Mirando la pared en postura partida — pie izquierdo atrás con el talón apoyado en el suelo, pie derecho delante con la rodilla flexionada. Inclina las caderas hacia la pared hasta notar el estiramiento en el gemelo izquierdo. Mantén. Trabaja el gastrocnemio izquierdo."
   },
-  "home_152R": {
+  "calf_stretch_wall_right_leg": {
     "setupNotes": "Mirando la pared en postura partida — pie derecho atrás con el talón apoyado en el suelo, pie izquierdo delante con la rodilla flexionada. Inclina las caderas hacia la pared hasta notar el estiramiento en el gemelo derecho. Mantén. Trabaja el gastrocnemio derecho."
   },
-  "home_153L": {
+  "chest_stretch_doorway_left": {
     "setupNotes": "Colócate en el marco de una puerta, antebrazo izquierdo contra el marco con el codo a 90 grados y a la altura del hombro. Pasa el pie izquierdo a través de la puerta y rota el pecho alejándote del brazo hasta notar el estiramiento en el pectoral y hombro anterior izquierdos. Mantén."
   },
-  "home_153R": {
+  "chest_stretch_doorway_right": {
     "setupNotes": "Colócate en el marco de una puerta, antebrazo derecho contra el marco con el codo a 90 grados y a la altura del hombro. Pasa el pie derecho a través de la puerta y rota el pecho alejándote del brazo hasta notar el estiramiento en el pectoral y hombro anterior derechos. Mantén."
   },
-  "home_154L": {
+  "cross_body_shoulder_stretch_left": {
     "setupNotes": "De pie erguido, lleva el brazo izquierdo recto cruzando el pecho. Engancha el antebrazo derecho bajo el codo izquierdo y acerca el brazo izquierdo al cuerpo. Mantén. Estira el deltoides posterior y la espalda alta izquierdos."
   },
-  "home_154R": {
+  "cross_body_shoulder_stretch_right": {
     "setupNotes": "De pie erguido, lleva el brazo derecho recto cruzando el pecho. Engancha el antebrazo izquierdo bajo el codo derecho y acerca el brazo derecho al cuerpo. Mantén. Estira el deltoides posterior y la espalda alta derechos."
   },
-  "home_155L": {
+  "overhead_triceps_stretch_left": {
     "setupNotes": "Eleva el brazo izquierdo por encima de la cabeza y flexiona el codo para que la mano izquierda caiga detrás de la cabeza. Usa la mano derecha para empujar con suavidad el codo izquierdo hacia atrás y abajo. Mantén. Estira el tríceps y dorsal izquierdos."
   },
-  "home_155R": {
+  "overhead_triceps_stretch_right": {
     "setupNotes": "Eleva el brazo derecho por encima de la cabeza y flexiona el codo para que la mano derecha caiga detrás de la cabeza. Usa la mano izquierda para empujar con suavidad el codo derecho hacia atrás y abajo. Mantén. Estira el tríceps y dorsal derechos."
   },
-  "home_157L": {
+  "hip_flexor_stretch_left_hip": {
     "setupNotes": "Media rodilla sobre la colchoneta — rodilla izquierda abajo, pie derecho delante. Mete la pelvis y empuja con suavidad las caderas hacia delante hasta notar el estiramiento en la parte frontal de la cadera izquierda. Mantén el torso erguido. Mantén. Estira el flexor de cadera izquierdo."
   },
-  "home_157R": {
+  "hip_flexor_stretch_right_hip": {
     "setupNotes": "Media rodilla sobre la colchoneta — rodilla derecha abajo, pie izquierdo delante. Mete la pelvis y empuja con suavidad las caderas hacia delante hasta notar el estiramiento en la parte frontal de la cadera derecha. Mantén el torso erguido. Mantén. Estira el flexor de cadera derecho."
   },
-  "home_158L": {
+  "glute_stretch_figure_4_left": {
     "setupNotes": "Túmbate boca arriba con las rodillas flexionadas. Cruza el tobillo izquierdo sobre la rodilla derecha en figura 4. Alcanza a través y tira del muslo derecho hacia el pecho hasta notar el estiramiento profundo en el glúteo izquierdo. Mantén. Trabaja el piriforme izquierdo."
   },
-  "home_158R": {
+  "glute_stretch_figure_4_right": {
     "setupNotes": "Túmbate boca arriba con las rodillas flexionadas. Cruza el tobillo derecho sobre la rodilla izquierda en figura 4. Alcanza a través y tira del muslo izquierdo hacia el pecho hasta notar el estiramiento profundo en el glúteo derecho. Mantén. Trabaja el piriforme derecho."
   },
-  "home_159L": {
+  "neck_side_stretch_left": {
     "setupNotes": "De pie o sentado erguido, inclina con suavidad la oreja derecha hacia el hombro derecho, manteniendo el hombro izquierdo relajado y bajo. Opcionalmente usa la mano derecha para una presión ligera adicional. Mantén. Estira el lado izquierdo del cuello."
   },
-  "home_159R": {
+  "neck_side_stretch_right": {
     "setupNotes": "De pie o sentado erguido, inclina con suavidad la oreja izquierda hacia el hombro izquierdo, manteniendo el hombro derecho relajado y bajo. Opcionalmente usa la mano izquierda para una presión ligera adicional. Mantén. Estira el lado derecho del cuello."
   },
-  "home_160L": {
+  "upper_trap_stretch_left": {
     "setupNotes": "Sentado erguido, coloca la mano izquierda detrás de la espalda. Inclina la cabeza alejándola del hombro izquierdo y usa la mano derecha sobre la cabeza para presión ligera adicional. Mantén. Libera tensión del trapecio superior izquierdo."
   },
-  "home_160R": {
+  "upper_trap_stretch_right": {
     "setupNotes": "Sentado erguido, coloca la mano derecha detrás de la espalda. Inclina la cabeza alejándola del hombro derecho y usa la mano izquierda sobre la cabeza para presión ligera adicional. Mantén. Libera tensión del trapecio superior derecho."
   },
-  "home_161": {
+  "diaphragmatic_breathing_supine": {
     "setupNotes": "Túmbate boca arriba, rodillas flexionadas, pies apoyados. Una mano sobre el pecho, otra sobre la barriga. Respira profundamente hacia la barriga (la barriga sube), el pecho no se mueve. Exhala despacio."
   },
-  "home_162": {
+  "diaphragmatic_breathing_seated": {
     "setupNotes": "Siéntate erguido en una silla, pies apoyados. Manos sobre la barriga. Inhala por la nariz expandiendo la barriga. Exhala despacio por la boca. Hombros relajados."
   },
-  "home_163": {
+  "pelvic_balloon_breathing": {
     "setupNotes": "Túmbate boca arriba, rodillas flexionadas. Visualiza el suelo pélvico como un globo que se infla al inhalar (se relaja hacia abajo) y se desinfla al exhalar (sube). Coordina con la respiración."
   },
-  "home_164": {
+  "kegel_slow_hold": {
     "setupNotes": "Sentado o boca arriba. Contrae los músculos del suelo pélvico (como si pararas el flujo de orina). Mantén 5-10 segundos, relaja completamente el mismo tiempo. Repite."
   },
-  "home_165": {
+  "kegel_quick_flicks": {
     "setupNotes": "Misma posición. Contrae y libera rápidamente los músculos del suelo pélvico. 1 segundo de contracción, 1 segundo de liberación. Desarrolla respuesta rápida del suelo pélvico."
   },
-  "home_166": {
+  "kegel_endurance_set": {
     "setupNotes": "Sentado o boca arriba. Contrae el suelo pélvico y mantén durante duraciones crecientes (10, 15, 20 segundos). Relajación completa entre retenciones."
   },
-  "home_167": {
+  "pelvic_tilts": {
     "setupNotes": "Túmbate boca arriba, rodillas flexionadas, pies apoyados. Inclina suavemente la pelvis — aplana la zona lumbar contra el suelo (inclinación posterior), luego libera a neutro. Balanceo suave."
   },
-  "home_169L": {
+  "clamshell_standard_left": {
     "setupNotes": "Túmbate sobre el lado derecho, rodillas flexionadas a 90 grados, pies juntos. Mantén los pies en contacto y abre la rodilla izquierda (la de arriba) como una concha, apretando el glúteo medio izquierdo. Baja con control."
   },
-  "home_169R": {
+  "clamshell_standard_right": {
     "setupNotes": "Túmbate sobre el lado izquierdo, rodillas flexionadas a 90 grados, pies juntos. Mantén los pies en contacto y abre la rodilla derecha (la de arriba) como una concha, apretando el glúteo medio derecho. Baja con control."
   },
-  "home_170L": {
+  "clamshell_banded_left": {
     "setupNotes": "Túmbate sobre el lado derecho con una mini banda justo por encima de las rodillas, rodillas flexionadas a 90 grados y pies juntos. Abre la rodilla izquierda (la de arriba) contra la resistencia de la banda, apretando el glúteo medio izquierdo. Baja con control."
   },
-  "home_170R": {
+  "clamshell_banded_right": {
     "setupNotes": "Túmbate sobre el lado izquierdo con una mini banda justo por encima de las rodillas, rodillas flexionadas a 90 grados y pies juntos. Abre la rodilla derecha (la de arriba) contra la resistencia de la banda, apretando el glúteo medio derecho. Baja con control."
   },
-  "home_171L": {
+  "reverse_clamshell_left": {
     "setupNotes": "Túmbate sobre el lado derecho, rodillas flexionadas y apiladas. Mantén las rodillas pegadas y eleva el pie izquierdo (el de arriba) hacia arriba, rotando desde la cadera izquierda. Baja con control. Entrena la rotación interna de la cadera izquierda."
   },
-  "home_171R": {
+  "reverse_clamshell_right": {
     "setupNotes": "Túmbate sobre el lado izquierdo, rodillas flexionadas y apiladas. Mantén las rodillas pegadas y eleva el pie derecho (el de arriba) hacia arriba, rotando desde la cadera derecha. Baja con control. Entrena la rotación interna de la cadera derecha."
   },
-  "home_172L": {
+  "90_90_hip_stretch_left_hip": {
     "setupNotes": "Siéntate en el suelo con la pierna izquierda delante flexionada a 90 grados (espinilla cruzando el cuerpo) y la pierna derecha flexionada a 90 grados al lado detrás. Cuadra las caderas e inclínate hacia delante sobre la espinilla izquierda. Mantén. Abre los rotadores externos izquierdos."
   },
-  "home_172R": {
+  "90_90_hip_stretch_right_hip": {
     "setupNotes": "Siéntate en el suelo con la pierna derecha delante flexionada a 90 grados (espinilla cruzando el cuerpo) y la pierna izquierda flexionada a 90 grados al lado detrás. Cuadra las caderas e inclínate hacia delante sobre la espinilla derecha. Mantén. Abre los rotadores externos derechos."
   },
-  "home_173": {
+  "scapular_squeeze_standing": {
     "setupNotes": "De pie, brazos a los lados o ligeramente elevados. Aprieta las escápulas juntas y abajo. Mantén 5 segundos, libera. Postura y activación de espalda alta."
   },
-  "home_174": {
+  "resistance_band_scapular_retraction": {
     "setupNotes": "Ancla la banda a la altura del pecho. Sostén con los brazos rectos. Aprieta las escápulas juntas sin flexionar los codos. Libera con control."
   },
-  "home_175": {
+  "band_pull_apart": {
     "setupNotes": "Sostén la banda de resistencia a la altura del pecho con los brazos rectos, agarre a la anchura de los hombros. Abre la banda apretando las escápulas juntas. Retorno controlado."
   },
-  "home_176": {
+  "band_pull_apart_3_position": {
     "setupNotes": "Haz band pull-aparts en tres alturas: por encima de la cabeza, a la altura de los ojos y a la altura del pecho. Trabaja los deltoides posteriores y romboides desde diferentes ángulos."
   },
-  "home_177": {
+  "band_y_raise": {
     "setupNotes": "Pisa o ancla la banda baja. Brazos rectos, eleva en forma de Y por encima de la cabeza (brazos a ~45 grados del cuerpo). Baja con control. Activación del trapecio inferior."
   },
-  "home_178": {
+  "band_t_raise": {
     "setupNotes": "Pisa o ancla la banda baja. Brazos rectos, eleva hacia los lados formando una T (brazos horizontales). Baja con control. Trapecio medio y deltoides posterior."
   },
-  "home_179": {
+  "band_w_raise": {
     "setupNotes": "Pisa o ancla la banda baja. Tira hacia la forma de W — codos flexionados, brazos a 45 grados, manos a la altura de las orejas. Aprieta las escápulas. Manguito rotador."
   },
-  "home_180L": {
+  "external_rotation_band_left_arm": {
     "setupNotes": "Ancla una banda a la altura del codo a la derecha. Colócate con el lado derecho hacia el anclaje, sostén la banda con la mano izquierda con el codo pegado al costado y flexionado a 90 grados. Rota el antebrazo hacia fuera alejándolo del cuerpo contra la banda. Entrena el manguito rotador izquierdo (infraespinoso/redondo menor)."
   },
-  "home_180R": {
+  "external_rotation_band_right_arm": {
     "setupNotes": "Ancla una banda a la altura del codo a la izquierda. Colócate con el lado izquierdo hacia el anclaje, sostén la banda con la mano derecha con el codo pegado al costado y flexionado a 90 grados. Rota el antebrazo hacia fuera alejándolo del cuerpo contra la banda. Entrena el manguito rotador derecho (infraespinoso/redondo menor)."
   },
-  "home_181": {
+  "external_rotation_90_degree": {
     "setupNotes": "Ancla la banda a la altura del hombro. Codo a 90 grados a la altura del hombro. Rota el antebrazo desde apuntar abajo hasta apuntar arriba contra la banda. Rehabilitación del manguito."
   },
-  "home_182L": {
+  "internal_rotation_band_left_arm": {
     "setupNotes": "Ancla una banda a la altura del codo a la izquierda. Colócate con el lado izquierdo hacia el anclaje, sostén la banda con la mano izquierda con el codo pegado al costado y flexionado a 90 grados. Rota el antebrazo hacia dentro cruzando el cuerpo contra la banda. Entrena el subescapular izquierdo."
   },
-  "home_182R": {
+  "internal_rotation_band_right_arm": {
     "setupNotes": "Ancla una banda a la altura del codo a la derecha. Colócate con el lado derecho hacia el anclaje, sostén la banda con la mano derecha con el codo pegado al costado y flexionado a 90 grados. Rota el antebrazo hacia dentro cruzando el cuerpo contra la banda. Entrena el subescapular derecho."
   },
-  "home_183": {
+  "overhead_arm_hold": {
     "setupNotes": "De pie, sostén mancuernas ligeras o sin peso con los brazos rectos por encima de la cabeza. Mantén por tiempo. Resistencia de hombro y movilidad torácica."
   },
-  "home_184": {
+  "t_hold_lateral_arm_hold": {
     "setupNotes": "De pie, brazos extendidos rectos hacia los lados a la altura de los hombros. Mantén el tiempo indicado. Resistencia de hombro, isométrico del deltoides medio."
   },
-  "home_185L": {
+  "single_leg_balance_hold_left_leg": {
     "setupNotes": "De pie sobre el pie izquierdo, pie derecho levantado justo del suelo. Mantén 30–60 segundos, mirada al frente. Cierra los ojos para reto adicional. Entrena la estabilidad y propiocepción del tobillo izquierdo."
   },
-  "home_185R": {
+  "single_leg_balance_hold_right_leg": {
     "setupNotes": "De pie sobre el pie derecho, pie izquierdo levantado justo del suelo. Mantén 30–60 segundos, mirada al frente. Cierra los ojos para reto adicional. Entrena la estabilidad y propiocepción del tobillo derecho."
   },
-  "home_186": {
+  "dead_bug_with_physio_ball": {
     "setupNotes": "Túmbate boca arriba, aprieta un balón entre manos y rodillas. Extiende el brazo y pierna opuestos manteniendo la presión del balón con las otras extremidades."
   },
-  "home_187": {
+  "swiss_ball_v_pass": {
     "setupNotes": "Túmbate boca arriba, balón suizo en las manos por encima de la cabeza. Sube el crunch pasando el balón de las manos a los pies, baja. La siguiente repetición pásalo de vuelta a las manos."
   },
-  "home_188": {
+  "stability_ball_leg_extension_dead_bug": {
     "setupNotes": "Túmbate boca arriba, gemelos sobre un balón de estabilidad. Movimientos de brazo de dead bug mientras las piernas mantienen contacto con el balón. Enfoque en estabilidad del core."
   },
-  "home_189": {
+  "bosu_ball_dead_bug": {
     "setupNotes": "Túmbate boca arriba sobre un balón BOSU (cúpula hacia arriba) para inestabilidad añadida. Haz extensiones de brazo/pierna de dead bug. El BOSU reta el equilibrio y el control del core."
   },
-  "home_190": {
+  "superman_with_physio_ball_shoulder_rom": {
     "setupNotes": "Túmbate boca abajo, sostén un balón con ambas manos. Eleva el pecho y el balón, luego mueve el balón en rango completo de movimiento de hombro por encima de la cabeza."
   },
-  "home_191": {
+  "swiss_ball_v_pass_dead_bug": {
     "setupNotes": "Túmbate boca arriba, balón suizo sujetado por encima de la cabeza. Pasa el balón entre las manos y los pies manteniendo el patrón de activación del core del dead bug."
   },
-  "home_192": {
+  "stability_ball_jackknife": {
     "setupNotes": "Posición de plancha alta con las espinillas sobre un balón de estabilidad. Lleva las rodillas hacia el pecho rodando el balón hacia delante (jackknife). Extiende de vuelta a plancha."
   },
-  "home_193L": {
+  "swiss_ball_side_plank_with_leg_lift_left": {
     "setupNotes": "Antebrazo izquierdo en el suelo, pies apilados sobre el balón suizo (lado izquierdo abajo). Eleva la pierna de arriba (derecha) mientras mantienes una plancha lateral alta. El balón añade inestabilidad — activa el core con fuerza. Mantén por tiempo."
   },
-  "home_193R": {
+  "swiss_ball_side_plank_with_leg_lift_right": {
     "setupNotes": "Antebrazo derecho en el suelo, pies apilados sobre el balón suizo (lado derecho abajo). Eleva la pierna de arriba (izquierda) mientras mantienes una plancha lateral alta. El balón añade inestabilidad — activa el core con fuerza. Mantén por tiempo."
   },
-  "home_196": {
+  "swiss_ball_hamstring_curl": {
     "setupNotes": "Túmbate boca arriba, talones sobre un balón suizo, caderas elevadas. Lleva el balón hacia los glúteos flexionando las rodillas, extiende de vuelta. Las caderas permanecen elevadas."
   },
-  "home_197L": {
+  "swiss_ball_hip_flexor_stretch_left": {
     "setupNotes": "Zancada arrodillada con la espinilla izquierda apoyada sobre un balón suizo detrás, pie derecho delante. Mete la pelvis y empuja las caderas hacia delante hasta notar el estiramiento en la parte frontal de la cadera izquierda. El balón amortigua la espinilla y añade ligera inestabilidad."
   },
-  "home_197R": {
+  "swiss_ball_hip_flexor_stretch_right": {
     "setupNotes": "Zancada arrodillada con la espinilla derecha apoyada sobre un balón suizo detrás, pie izquierdo delante. Mete la pelvis y empuja las caderas hacia delante hasta notar el estiramiento en la parte frontal de la cadera derecha. El balón amortigua la espinilla y añade ligera inestabilidad."
   },
-  "mob_13": {
+  "foam_roll_upper_back": {
     "setupNotes": "Foam roller en el suelo. Túmbate sobre el roller colocado bajo la espalda alta. Brazos cruzados sobre el pecho. Rueda desde la zona media hasta los trapecios superiores. Pausa en los puntos tensos."
   },
-  "mob_14L": {
+  "foam_roll_lats_left": {
     "setupNotes": "Túmbate sobre el lado izquierdo con un foam roller bajo la zona de la axila/dorsal izquierdo, brazo izquierdo extendido por encima de la cabeza. Rueda despacio desde la axila hasta la zona media de las costillas, pausando en puntos sensibles. Libera el dorsal izquierdo."
   },
-  "mob_14R": {
+  "foam_roll_lats_right": {
     "setupNotes": "Túmbate sobre el lado derecho con un foam roller bajo la zona de la axila/dorsal derecho, brazo derecho extendido por encima de la cabeza. Rueda despacio desde la axila hasta la zona media de las costillas, pausando en puntos sensibles. Libera el dorsal derecho."
   },
-  "mob_15": {
+  "foam_roll_quads": {
     "setupNotes": "Túmbate boca abajo, foam roller bajo la parte frontal de los muslos. Rueda desde justo encima de la rodilla hasta el flexor de cadera. Apoya el peso sobre los antebrazos. Pausa en los puntos tensos."
   },
-  "mob_16L": {
+  "foam_roll_it_band_left": {
     "setupNotes": "Túmbate sobre el lado izquierdo con un foam roller bajo la parte externa del muslo izquierdo, pierna derecha cruzada sobre la izquierda para apoyo. Rueda despacio desde justo encima de la rodilla hasta la cadera. Libera la banda IT izquierda — despacio y tolerable."
   },
-  "mob_16R": {
+  "foam_roll_it_band_right": {
     "setupNotes": "Túmbate sobre el lado derecho con un foam roller bajo la parte externa del muslo derecho, pierna izquierda cruzada sobre la derecha para apoyo. Rueda despacio desde justo encima de la rodilla hasta la cadera. Libera la banda IT derecha — despacio y tolerable."
   },
-  "mob_17": {
+  "foam_roll_hamstrings": {
     "setupNotes": "Siéntate en el suelo, foam roller bajo la parte posterior de los muslos. Rueda desde justo encima de la rodilla hasta los isquiones. Manos detrás para apoyo. Cruza las piernas para más presión."
   },
-  "mob_18L": {
+  "foam_roll_calves_left": {
     "setupNotes": "Siéntate en el suelo con un foam roller bajo el gemelo izquierdo, pierna derecha cruzada sobre la izquierda para más presión. Manos detrás para apoyo, eleva las caderas y rueda desde el Aquiles hasta justo debajo de la rodilla. Rota la pierna para alcanzar las fibras mediales y laterales."
   },
-  "mob_18R": {
+  "foam_roll_calves_right": {
     "setupNotes": "Siéntate en el suelo con un foam roller bajo el gemelo derecho, pierna izquierda cruzada sobre la derecha para más presión. Manos detrás para apoyo, eleva las caderas y rueda desde el Aquiles hasta justo debajo de la rodilla. Rota la pierna para alcanzar las fibras mediales y laterales."
   },
-  "mob_19L": {
+  "foam_roll_glutes_left": {
     "setupNotes": "Siéntate sobre un foam roller, cruza el tobillo izquierdo sobre la rodilla derecha en figura 4. Inclina el peso hacia el lado izquierdo y rueda despacio sobre el glúteo izquierdo, pausando en puntos sensibles. Liberación dirigida del glúteo y piriforme izquierdos."
   },
-  "mob_19R": {
+  "foam_roll_glutes_right": {
     "setupNotes": "Siéntate sobre un foam roller, cruza el tobillo derecho sobre la rodilla izquierda en figura 4. Inclina el peso hacia el lado derecho y rueda despacio sobre el glúteo derecho, pausando en puntos sensibles. Liberación dirigida del glúteo y piriforme derechos."
   },
-  "mob_20L": {
+  "lacrosse_ball_piriformis_left": {
     "setupNotes": "Siéntate sobre una pelota de lacrosse bajo el glúteo/piriforme izquierdo, tobillo izquierdo cruzado sobre la rodilla derecha en figura 4. Rueda suavemente o mantén presión sobre el punto sensible. Libera el piriforme izquierdo."
   },
-  "mob_20R": {
+  "lacrosse_ball_piriformis_right": {
     "setupNotes": "Siéntate sobre una pelota de lacrosse bajo el glúteo/piriforme derecho, tobillo derecho cruzado sobre la rodilla izquierda en figura 4. Rueda suavemente o mantén presión sobre el punto sensible. Libera el piriforme derecho."
   },
-  "mob_21L": {
+  "lacrosse_ball_shoulder_rear_delt_left": {
     "setupNotes": "De pie con una pelota de lacrosse atrapada entre la espalda alta/deltoides posterior izquierdo y una pared. Inclínate sobre la pelota para aplicar presión y haz pequeños círculos para encontrar puntos tensos. Libera el deltoides posterior y trapecio superior izquierdos."
   },
-  "mob_21R": {
+  "lacrosse_ball_shoulder_rear_delt_right": {
     "setupNotes": "De pie con una pelota de lacrosse atrapada entre la espalda alta/deltoides posterior derecho y una pared. Inclínate sobre la pelota para aplicar presión y haz pequeños círculos para encontrar puntos tensos. Libera el deltoides posterior y trapecio superior derechos."
   },
-  "mob_22": {
+  "90_90_hip_stretch": {
     "setupNotes": "Siéntate en el suelo con la pierna delantera flexionada 90 grados delante y la pierna trasera flexionada 90 grados al lado. Inclínate hacia delante sobre la espinilla delantera para profundizar el estiramiento a través de la cadera frontal. Apertura de cadera — cambia de lado para trabajar ambas."
   },
-  "mob_23L": {
+  "world_s_greatest_stretch_left": {
     "setupNotes": "Desde de pie, da un paso adelante con el pie izquierdo en una zancada profunda y coloca ambas manos en el suelo por dentro del pie izquierdo. Rota el torso hacia la rodilla izquierda y extiende el brazo izquierdo hacia el techo. Mantén, luego vuelve. Moviliza la cadera izquierda, la columna torácica y el isquiotibial."
   },
-  "mob_23R": {
+  "world_s_greatest_stretch_right": {
     "setupNotes": "Desde de pie, da un paso adelante con el pie derecho en una zancada profunda y coloca ambas manos en el suelo por dentro del pie derecho. Rota el torso hacia la rodilla derecha y extiende el brazo derecho hacia el techo. Mantén, luego vuelve. Moviliza la cadera derecha, la columna torácica y el isquiotibial."
   },
-  "mob_24L": {
+  "pigeon_stretch_left": {
     "setupNotes": "Desde cuatro patas, desliza la rodilla izquierda hacia delante detrás de la muñeca izquierda con la espinilla inclinada cruzando el cuerpo. Extiende la pierna derecha recta atrás. Baja el torso sobre la espinilla izquierda. Mantén y respira. Estiramiento profundo de los rotadores externos y glúteo izquierdos."
   },
-  "mob_24R": {
+  "pigeon_stretch_right": {
     "setupNotes": "Desde cuatro patas, desliza la rodilla derecha hacia delante detrás de la muñeca derecha con la espinilla inclinada cruzando el cuerpo. Extiende la pierna izquierda recta atrás. Baja el torso sobre la espinilla derecha. Mantén y respira. Estiramiento profundo de los rotadores externos y glúteo derechos."
   },
-  "mob_25L": {
+  "thread_the_needle_left": {
     "setupNotes": "A cuatro patas, pasa el brazo izquierdo por debajo del cuerpo a través del espacio entre la mano derecha y la rodilla derecha, bajando el hombro y la oreja izquierdos al suelo. Mantén y respira. Rota la columna torácica izquierda."
   },
-  "mob_25R": {
+  "thread_the_needle_right": {
     "setupNotes": "A cuatro patas, pasa el brazo derecho por debajo del cuerpo a través del espacio entre la mano izquierda y la rodilla izquierda, bajando el hombro y la oreja derechos al suelo. Mantén y respira. Rota la columna torácica derecha."
   },
-  "mob_26L": {
+  "couch_stretch_left": {
     "setupNotes": "Arrodíllate de espaldas a una pared con la espinilla izquierda apoyada contra ella (puntas hacia arriba), pie derecho delante en zancada. Mete la pelvis y empuja las caderas hacia delante, manteniéndote erguido. Estiramiento intenso del cuádriceps y flexor de cadera izquierdos."
   },
-  "mob_26R": {
+  "couch_stretch_right": {
     "setupNotes": "Arrodíllate de espaldas a una pared con la espinilla derecha apoyada contra ella (puntas hacia arriba), pie izquierdo delante en zancada. Mete la pelvis y empuja las caderas hacia delante, manteniéndote erguido. Estiramiento intenso del cuádriceps y flexor de cadera derechos."
   },
-  "mob_27L": {
+  "banded_shoulder_distraction_left": {
     "setupNotes": "Ancla una banda pesada a un rack a la altura del hombro. Pasa la banda por la muñeca izquierda y da un paso alejándote para crear tensión, luego baja a una zancada o flexión para que la banda distraiga suavemente el hombro izquierdo. Mantén y respira. Moviliza la cápsula del hombro izquierdo."
   },
-  "mob_27R": {
+  "banded_shoulder_distraction_right": {
     "setupNotes": "Ancla una banda pesada a un rack a la altura del hombro. Pasa la banda por la muñeca derecha y da un paso alejándote para crear tensión, luego baja a una zancada o flexión para que la banda distraiga suavemente el hombro derecho. Mantén y respira. Moviliza la cápsula del hombro derecho."
   },
-  "mob_28": {
+  "wall_thoracic_extension": {
     "setupNotes": "De pie mirando la pared, brazos por encima de la cabeza sobre la pared. Empuja despacio el pecho hacia la pared, arqueando la espalda alta. Mantén el estiramiento. Movilidad de extensión torácica."
   },
-  "mob_29L": {
+  "ankle_dorsiflexion_stretch_left": {
     "setupNotes": "Media rodilla mirando una pared — rodilla derecha abajo, pie izquierdo delante a 10-15 cm de la pared. Empuja la rodilla izquierda hacia delante hacia la pared sin levantar el talón izquierdo del suelo. Moviliza el tobillo izquierdo en dorsiflexión."
   },
-  "mob_29R": {
+  "ankle_dorsiflexion_stretch_right": {
     "setupNotes": "Media rodilla mirando una pared — rodilla izquierda abajo, pie derecho delante a 10-15 cm de la pared. Empuja la rodilla derecha hacia delante hacia la pared sin levantar el talón derecho del suelo. Moviliza el tobillo derecho en dorsiflexión."
   },
-  "mob_30L": {
+  "supine_spinal_twist_left": {
     "setupNotes": "Túmbate boca arriba, brazos extendidos en T. Lleva la rodilla izquierda arriba y cruzándola hacia el lado derecho, manteniendo ambos hombros pegados al suelo. Deja que la gravedad lleve la rodilla izquierda hacia abajo. Mantén y respira. Rotación suave de la columna lumbar."
   },
-  "mob_30R": {
+  "supine_spinal_twist_right": {
     "setupNotes": "Túmbate boca arriba, brazos extendidos en T. Lleva la rodilla derecha arriba y cruzándola hacia el lado izquierdo, manteniendo ambos hombros pegados al suelo. Deja que la gravedad lleve la rodilla derecha hacia abajo. Mantén y respira. Rotación suave de la columna lumbar."
   },
-  "mob_31L": {
+  "supine_hamstring_stretch_with_band_left": {
     "setupNotes": "Túmbate boca arriba con una correa o banda alrededor del pie izquierdo. Extiende la pierna izquierda hacia el techo, manteniendo la rodilla suave, y tira suavemente de la banda para un estiramiento más profundo. La pierna derecha permanece plana en el suelo. Trabaja el isquiotibial izquierdo."
   },
-  "mob_31R": {
+  "supine_hamstring_stretch_with_band_right": {
     "setupNotes": "Túmbate boca arriba con una correa o banda alrededor del pie derecho. Extiende la pierna derecha hacia el techo, manteniendo la rodilla suave, y tira suavemente de la banda para un estiramiento más profundo. La pierna izquierda permanece plana en el suelo. Trabaja el isquiotibial derecho."
   },
-  "gym_287": {
+  "l_sit_pull_up": {
     "setupNotes": "Cuélgate de la barra de dominadas con agarre prono a la anchura de los hombros. Eleva las piernas hasta una posición de L-sit a 90 grados y mantenla durante todo el movimiento. Tira del pecho a la barra manteniendo las piernas bloqueadas — baja con control. Avanzado — combina retención isométrica del core con tracción vertical."
   },
-  "gym_247bL": {
+  "high_side_plank_left_side": {
     "setupNotes": "Túmbate de lado con la mano de abajo en el suelo directamente bajo el hombro, brazo totalmente recto. Apila o escalona los pies. Empuja el suelo y eleva las caderas en línea recta — brazo de arriba extendido por encima de la cabeza o sobre la cadera. Trabaja los oblicuos y la estabilidad del hombro."
   },
-  "gym_247bR": {
+  "high_side_plank_right_side": {
     "setupNotes": "Túmbate de lado con la mano de abajo en el suelo directamente bajo el hombro, brazo totalmente recto. Apila o escalona los pies. Empuja el suelo y eleva las caderas en línea recta — brazo de arriba extendido por encima de la cabeza o sobre la cadera. Trabaja los oblicuos y la estabilidad del hombro."
   },
-  "home_134_3": {
+  "arm_swings_lateral": {
     "setupNotes": "De pie, balancea ambos brazos hacia delante y arriba por encima de la cabeza en grandes arcos — luego abajo. Gana impulso con cada repetición. Calentamiento dinámico de hombros."
   },
-  "home_134_4": {
+  "arm_swings_forward_backward_continuous": {
     "setupNotes": "De pie, balancea ambos brazos hacia delante y arriba por encima de la cabeza en grandes arcos — luego abajo. Gana impulso con cada repetición. Calentamiento dinámico de hombros."
   },
-  "home_197": {
+  "bird_dog_hold": {
     "setupNotes": "A cuatro patas, columna neutra. Extiende simultáneamente el brazo izquierdo hacia delante y la pierna derecha atrás hasta que ambos estén paralelos al suelo. Activa el core, mantén brevemente, vuelve. Entrena anti-extensión y equilibrio."
   },
-  "home_198": {
+  "plank_to_push_up": {
     "setupNotes": "Empieza en plancha con antebrazos. Sube a plancha alta un brazo a la vez, luego baja de nuevo a antebrazos. Alterna el brazo que inicia en cada repetición."
   }
 }
