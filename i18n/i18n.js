@@ -13,7 +13,8 @@
   };
 
   const cache = {};
-  let currentLang = localStorage.getItem('libo-lang') || detectLanguage();
+  try { localStorage.removeItem('libo-lang'); } catch (e) { /* ignore */ }
+  let currentLang = 'en';
 
   function detectLanguage() {
     const nav = (navigator.language || '').slice(0, 2).toLowerCase();
