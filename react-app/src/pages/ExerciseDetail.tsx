@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
@@ -37,7 +37,18 @@ const EQUIPMENT_I18N_KEYS: Record<string, string> = {
 // ── Main Component ──
 export default function ExerciseDetail() {
   const { t, i18n } = useTranslation();
-  const [theatre, setTheatre] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const enterFullscreen = () => {
+    const el = videoRef.current as HTMLVideoElement & {
+      webkitEnterFullscreen?: () => void;
+      webkitRequestFullscreen?: () => void;
+    } | null;
+    if (!el) return;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.webkitEnterFullscreen) el.webkitEnterFullscreen();
+  };
   const muscleLabel = (m: string) => {
     const key = MUSCLE_I18N_KEYS[m];
     return key ? t(`exerciseLibrary.muscles.${key}`) : m;
@@ -141,27 +152,26 @@ export default function ExerciseDetail() {
           </div>
 
           {/* Demo video (falls back to gradient tile when no videoUrl / hidden category) */}
-          <div className={`ed-demo${theatre ? ' theatre' : ''}`}>
+          <div className="ed-demo">
             {publicVideoUrl(exercise) ? (
               <>
                 <video
+                  ref={videoRef}
                   src={publicVideoUrl(exercise)}
                   poster={exerciseThumb(exercise) ?? undefined}
                   muted
                   loop
                   playsInline
                   autoPlay
-                  controls
                   preload="metadata"
                 />
                 <button
                   type="button"
-                  className="ed-theatre-btn"
-                  aria-pressed={theatre}
-                  aria-label={theatre ? t('exerciseDetail.exitTheatreMode') : t('exerciseDetail.theatreMode')}
-                  onClick={() => setTheatre((v) => !v)}
+                  className="ed-fs-btn"
+                  aria-label={t('exerciseDetail.fullscreen')}
+                  onClick={enterFullscreen}
                 >
-                  {theatre ? '⇲' : '⇱'}
+                  ⛶
                 </button>
               </>
             ) : (
@@ -191,7 +201,7 @@ export default function ExerciseDetail() {
           </div>
 
           {/* Main + Sidebar layout */}
-          <div className={`ed-layout${theatre ? ' theatre' : ''}`}>
+          <div className="ed-layout">
             {/* Main content */}
             <div>
               {/* Setup Notes */}
