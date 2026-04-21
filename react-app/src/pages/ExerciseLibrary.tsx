@@ -21,6 +21,20 @@ const EQUIPMENT_TYPES = [
   'Machine', 'Kettlebell', 'Resistance Bands', 'Bar', 'Swiss Ball',
 ];
 
+const MUSCLE_I18N_KEYS: Record<string, string> = {
+  'All': 'all', 'Chest': 'chest', 'Back': 'back', 'Shoulders': 'shoulders',
+  'Biceps': 'biceps', 'Triceps': 'triceps', 'Core': 'core', 'Legs': 'legs',
+  'Glutes': 'glutes', 'Cardio': 'cardio', 'Full Body': 'fullBody',
+  'Forearms': 'forearms', 'Traps': 'traps',
+};
+
+const EQUIPMENT_I18N_KEYS: Record<string, string> = {
+  'All': 'all', 'Bodyweight': 'bodyweight', 'Barbell': 'barbell',
+  'Dumbbell': 'dumbbell', 'Cable': 'cable', 'Machine': 'machine',
+  'Kettlebell': 'kettlebell', 'Resistance Bands': 'resistanceBands',
+  'Bar': 'bar', 'Swiss Ball': 'swissBall',
+};
+
 // ── Pagination helpers ──
 function getPaginationRange(current: number, total: number): (number | 'ellipsis')[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
@@ -43,6 +57,8 @@ function getPaginationRange(current: number, total: number): (number | 'ellipsis
 // ── Main Component ──
 export default function ExerciseLibrary() {
   const { t } = useTranslation();
+  const muscleLabel = (m: string) => t(`exerciseLibrary.muscles.${MUSCLE_I18N_KEYS[m] ?? 'all'}`);
+  const equipmentLabel = (e: string) => t(`exerciseLibrary.equipment.${EQUIPMENT_I18N_KEYS[e] ?? 'all'}`);
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -190,7 +206,7 @@ export default function ExerciseLibrary() {
                     aria-pressed={muscle === m}
                     onClick={() => updateParam('muscle', m)}
                   >
-                    {m}
+                    {muscleLabel(m)}
                   </button>
                 ))}
               </div>
@@ -205,7 +221,7 @@ export default function ExerciseLibrary() {
                     aria-pressed={equip === e}
                     onClick={() => updateParam('equip', e)}
                   >
-                    {e}
+                    {equipmentLabel(e)}
                   </button>
                 ))}
               </div>
@@ -231,7 +247,7 @@ export default function ExerciseLibrary() {
               <p className="el-empty-text">{t('exerciseLibrary.emptyState.title')}</p>
               <p className="el-empty-sub">
                 {muscle !== 'All' && equip !== 'All'
-                  ? t('exerciseLibrary.emptyState.descriptionCombo', { equipment: equip.toLowerCase(), muscle: muscle.toLowerCase() })
+                  ? t('exerciseLibrary.emptyState.descriptionCombo', { equipment: equipmentLabel(equip).toLowerCase(), muscle: muscleLabel(muscle).toLowerCase() })
                   : t('exerciseLibrary.emptyState.description')}
               </p>
             </div>

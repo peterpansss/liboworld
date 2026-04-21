@@ -504,7 +504,34 @@
       "descriptionCombo": "No {{equipment}} exercises target {{muscle}}. Try a different equipment type or muscle group."
     },
     "previousPage": "Previous page",
-    "nextPage": "Next page"
+    "nextPage": "Next page",
+    "muscles": {
+      "all": "All",
+      "chest": "Chest",
+      "back": "Back",
+      "shoulders": "Shoulders",
+      "biceps": "Biceps",
+      "triceps": "Triceps",
+      "core": "Core",
+      "legs": "Legs",
+      "glutes": "Glutes",
+      "cardio": "Cardio",
+      "fullBody": "Full Body",
+      "forearms": "Forearms",
+      "traps": "Traps"
+    },
+    "equipment": {
+      "all": "All",
+      "bodyweight": "Bodyweight",
+      "barbell": "Barbell",
+      "dumbbell": "Dumbbell",
+      "cable": "Cable",
+      "machine": "Machine",
+      "kettlebell": "Kettlebell",
+      "resistanceBands": "Resistance Bands",
+      "bar": "Bar",
+      "swissBall": "Swiss Ball"
+    }
   },
   "exerciseDetail": {
     "loading": "Loading...",
@@ -528,7 +555,12 @@
     "ctaTitle": "Track this exercise in the Libo app",
     "ctaDescription": "Log sets, reps, and weight. See your progress over time.",
     "ctaButton": "Join Waitlist",
-    "relatedTitle": "Related {{muscle}} Exercises"
+    "relatedTitle": "Related {{muscle}} Exercises",
+    "difficultyLevels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    }
   },
   "blog": {
     "title": "Blog",

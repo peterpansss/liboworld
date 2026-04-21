@@ -504,7 +504,34 @@
       "descriptionCombo": "Keine {{equipment}}-Übungen trainieren {{muscle}}. Probier ein anderes Equipment oder eine andere Muskelgruppe."
     },
     "previousPage": "Vorherige Seite",
-    "nextPage": "Nächste Seite"
+    "nextPage": "Nächste Seite",
+    "muscles": {
+      "all": "Alle",
+      "chest": "Brust",
+      "back": "Rücken",
+      "shoulders": "Schultern",
+      "biceps": "Bizeps",
+      "triceps": "Trizeps",
+      "core": "Rumpf",
+      "legs": "Beine",
+      "glutes": "Gesäß",
+      "cardio": "Cardio",
+      "fullBody": "Ganzkörper",
+      "forearms": "Unterarme",
+      "traps": "Trapezius"
+    },
+    "equipment": {
+      "all": "Alle",
+      "bodyweight": "Körpergewicht",
+      "barbell": "Langhantel",
+      "dumbbell": "Kurzhantel",
+      "cable": "Kabelzug",
+      "machine": "Maschine",
+      "kettlebell": "Kettlebell",
+      "resistanceBands": "Widerstandsbänder",
+      "bar": "Stange",
+      "swissBall": "Gymnastikball"
+    }
   },
   "exerciseDetail": {
     "loading": "Wird geladen...",
@@ -528,7 +555,12 @@
     "ctaTitle": "Tracke diese Übung in der Libo-App",
     "ctaDescription": "Logge Sätze, Wiederholungen und Gewicht. Sieh deinen Fortschritt über die Zeit.",
     "ctaButton": "Auf die Warteliste",
-    "relatedTitle": "Weitere {{muscle}}-Übungen"
+    "relatedTitle": "Weitere {{muscle}}-Übungen",
+    "difficultyLevels": {
+      "beginner": "Anfänger",
+      "intermediate": "Mittel",
+      "advanced": "Fortgeschritten"
+    }
   },
   "blog": {
     "title": "Blog",

@@ -20,9 +20,32 @@ function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+const MUSCLE_I18N_KEYS: Record<string, string> = {
+  'All': 'all', 'Chest': 'chest', 'Back': 'back', 'Shoulders': 'shoulders',
+  'Biceps': 'biceps', 'Triceps': 'triceps', 'Core': 'core', 'Legs': 'legs',
+  'Glutes': 'glutes', 'Cardio': 'cardio', 'Full Body': 'fullBody',
+  'Forearms': 'forearms', 'Traps': 'traps',
+};
+
+const EQUIPMENT_I18N_KEYS: Record<string, string> = {
+  'All': 'all', 'Bodyweight': 'bodyweight', 'Barbell': 'barbell',
+  'Dumbbell': 'dumbbell', 'Cable': 'cable', 'Machine': 'machine',
+  'Kettlebell': 'kettlebell', 'Resistance Bands': 'resistanceBands',
+  'Bar': 'bar', 'Swiss Ball': 'swissBall',
+};
+
 // ── Main Component ──
 export default function ExerciseDetail() {
   const { t } = useTranslation();
+  const muscleLabel = (m: string) => {
+    const key = MUSCLE_I18N_KEYS[m];
+    return key ? t(`exerciseLibrary.muscles.${key}`) : m;
+  };
+  const equipmentLabel = (e: string) => {
+    const key = EQUIPMENT_I18N_KEYS[e];
+    return key ? t(`exerciseLibrary.equipment.${key}`) : e;
+  };
+  const difficultyLabel = (d: string) => t(`exerciseDetail.difficultyLevels.${d}`, { defaultValue: capitalize(d) });
   const { id } = useParams<{ id: string }>();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
@@ -99,7 +122,7 @@ export default function ExerciseDetail() {
             <span className="ed-breadcrumb-sep">&gt;</span>
             <Link to="/exercises">{t('exerciseDetail.breadcrumbExercises')}</Link>
             <span className="ed-breadcrumb-sep">&gt;</span>
-            <Link to={`/exercises?muscle=${exercise.bodyFocus}`}>{exercise.bodyFocus}</Link>
+            <Link to={`/exercises?muscle=${exercise.bodyFocus}`}>{muscleLabel(exercise.bodyFocus)}</Link>
             <span className="ed-breadcrumb-sep">&gt;</span>
             <span>{exercise.name}</span>
           </nav>
@@ -108,11 +131,11 @@ export default function ExerciseDetail() {
           <div className="ed-hero">
             <h1 className="font-display">{exercise.name}</h1>
             <div className="ed-hero-sub">
-              <span>{exercise.bodyFocus}</span>
+              <span>{muscleLabel(exercise.bodyFocus)}</span>
               <span className="ed-hero-dot">&middot;</span>
-              <span>{exercise.equipment}</span>
+              <span>{equipmentLabel(exercise.equipment)}</span>
               <span className="ed-hero-dot">&middot;</span>
-              <span className={`ed-diff-tag ${exercise.diff}`}>{capitalize(exercise.diff)}</span>
+              <span className={`ed-diff-tag ${exercise.diff}`}>{difficultyLabel(exercise.diff)}</span>
             </div>
           </div>
 
@@ -138,18 +161,18 @@ export default function ExerciseDetail() {
             <div className="ed-info-card">
               <span className="ed-info-icon">&#128170;</span>
               <span className="ed-info-label">{t('exerciseDetail.muscleGroup')}</span>
-              <span className="ed-info-value">{exercise.bodyFocus}</span>
+              <span className="ed-info-value">{muscleLabel(exercise.bodyFocus)}</span>
             </div>
             <div className="ed-info-card">
               <span className="ed-info-icon">&#127947;</span>
               <span className="ed-info-label">{t('exerciseDetail.equipment')}</span>
-              <span className="ed-info-value">{exercise.equipment}</span>
+              <span className="ed-info-value">{equipmentLabel(exercise.equipment)}</span>
             </div>
             <div className="ed-info-card">
               <span className="ed-info-icon">&#9889;</span>
               <span className="ed-info-label">{t('exerciseDetail.difficulty')}</span>
               <span className={`ed-info-value ed-diff-tag ${exercise.diff}`}>
-                {capitalize(exercise.diff)}
+                {difficultyLabel(exercise.diff)}
               </span>
             </div>
           </div>
@@ -180,7 +203,7 @@ export default function ExerciseDetail() {
                 <div className="ed-facts-title">{t('exerciseDetail.quickFacts')}</div>
                 <div className="ed-fact">
                   <span className="ed-fact-label">{t('exerciseDetail.equipment')}</span>
-                  <span className="ed-fact-value">{exercise.equipment}</span>
+                  <span className="ed-fact-value">{equipmentLabel(exercise.equipment)}</span>
                 </div>
                 <div className="ed-fact">
                   <span className="ed-fact-label">{t('exerciseDetail.machineRequired')}</span>
@@ -199,7 +222,7 @@ export default function ExerciseDetail() {
                 <div className="ed-fact">
                   <span className="ed-fact-label">{t('exerciseDetail.difficulty')}</span>
                   <span className={`ed-fact-value ed-diff-tag ${exercise.diff}`}>
-                    {capitalize(exercise.diff)}
+                    {difficultyLabel(exercise.diff)}
                   </span>
                 </div>
               </div>
@@ -216,7 +239,7 @@ export default function ExerciseDetail() {
           {/* Related exercises */}
           {related.length > 0 && (
             <div className="ed-related">
-              <h2 className="ed-section-title">{t('exerciseDetail.relatedTitle', { muscle: exercise.bodyFocus })}</h2>
+              <h2 className="ed-section-title">{t('exerciseDetail.relatedTitle', { muscle: muscleLabel(exercise.bodyFocus) })}</h2>
               <div className="ed-related-grid">
                 {related.map(rel => {
                   const relThumb = exerciseThumb(rel);
@@ -235,7 +258,7 @@ export default function ExerciseDetail() {
                       )}
                     </div>
                     <div className="ed-related-name">{rel.name}</div>
-                    <div className="ed-related-meta">{rel.equipment} &middot; {capitalize(rel.diff)}</div>
+                    <div className="ed-related-meta">{equipmentLabel(rel.equipment)} &middot; {difficultyLabel(rel.diff)}</div>
                   </Link>
                   );
                 })}
