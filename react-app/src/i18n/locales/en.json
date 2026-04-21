@@ -560,8 +560,7 @@
       "beginner": "Beginner",
       "intermediate": "Intermediate",
       "advanced": "Advanced"
-    },
-    "fullscreen": "Fullscreen"
+    }
   },
   "blog": {
     "title": "Blog",
