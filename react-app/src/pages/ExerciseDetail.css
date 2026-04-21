@@ -136,8 +136,11 @@
 }
 
 .ed-info-icon {
-  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 4px;
+  color: var(--dim);
 }
 
 .ed-info-label {

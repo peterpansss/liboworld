@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
 import { exerciseThumb, publicVideoUrl } from '../utils/thumbnails';
 import { MuscleTile } from '../components/MuscleTile';
+import { EmojiIcon } from '../components/EmojiIcon';
+import { Target, Dumbbell, BarChart3 } from '../utils/icons';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseDetail.css';
@@ -159,17 +161,23 @@ export default function ExerciseDetail() {
           {/* Info cards */}
           <div className="ed-info-row">
             <div className="ed-info-card">
-              <span className="ed-info-icon">&#128170;</span>
+              <span className="ed-info-icon" aria-hidden="true">
+                <EmojiIcon icon={Target} size={20} />
+              </span>
               <span className="ed-info-label">{t('exerciseDetail.muscleGroup')}</span>
               <span className="ed-info-value">{muscleLabel(exercise.bodyFocus)}</span>
             </div>
             <div className="ed-info-card">
-              <span className="ed-info-icon">&#127947;</span>
+              <span className="ed-info-icon" aria-hidden="true">
+                <EmojiIcon icon={Dumbbell} size={20} />
+              </span>
               <span className="ed-info-label">{t('exerciseDetail.equipment')}</span>
               <span className="ed-info-value">{equipmentLabel(exercise.equipment)}</span>
             </div>
             <div className="ed-info-card">
-              <span className="ed-info-icon">&#9889;</span>
+              <span className="ed-info-icon" aria-hidden="true">
+                <EmojiIcon icon={BarChart3} size={20} />
+              </span>
               <span className="ed-info-label">{t('exerciseDetail.difficulty')}</span>
               <span className={`ed-info-value ed-diff-tag ${exercise.diff}`}>
                 {difficultyLabel(exercise.diff)}
