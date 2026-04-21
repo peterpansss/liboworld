@@ -560,7 +560,9 @@
       "beginner": "Beginner",
       "intermediate": "Intermediate",
       "advanced": "Advanced"
-    }
+    },
+    "theatreMode": "Theatre mode",
+    "exitTheatreMode": "Exit theatre mode"
   },
   "blog": {
     "title": "Blog",

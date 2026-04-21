@@ -37,6 +37,7 @@ const EQUIPMENT_I18N_KEYS: Record<string, string> = {
 // ── Main Component ──
 export default function ExerciseDetail() {
   const { t, i18n } = useTranslation();
+  const [theatre, setTheatre] = useState(false);
   const muscleLabel = (m: string) => {
     const key = MUSCLE_I18N_KEYS[m];
     return key ? t(`exerciseLibrary.muscles.${key}`) : m;
@@ -140,17 +141,29 @@ export default function ExerciseDetail() {
           </div>
 
           {/* Demo video (falls back to gradient tile when no videoUrl / hidden category) */}
-          <div className="ed-demo">
+          <div className={`ed-demo${theatre ? ' theatre' : ''}`}>
             {publicVideoUrl(exercise) ? (
-              <video
-                src={publicVideoUrl(exercise)}
-                poster={exerciseThumb(exercise) ?? undefined}
-                muted
-                loop
-                playsInline
-                autoPlay
-                preload="metadata"
-              />
+              <>
+                <video
+                  src={publicVideoUrl(exercise)}
+                  poster={exerciseThumb(exercise) ?? undefined}
+                  muted
+                  loop
+                  playsInline
+                  autoPlay
+                  controls
+                  preload="metadata"
+                />
+                <button
+                  type="button"
+                  className="ed-theatre-btn"
+                  aria-pressed={theatre}
+                  aria-label={theatre ? t('exerciseDetail.exitTheatreMode') : t('exerciseDetail.theatreMode')}
+                  onClick={() => setTheatre((v) => !v)}
+                >
+                  {theatre ? '⇲' : '⇱'}
+                </button>
+              </>
             ) : (
               <MuscleTile muscle={exercise.bodyFocus} size="lg" />
             )}
@@ -178,7 +191,7 @@ export default function ExerciseDetail() {
           </div>
 
           {/* Main + Sidebar layout */}
-          <div className="ed-layout">
+          <div className={`ed-layout${theatre ? ' theatre' : ''}`}>
             {/* Main content */}
             <div>
               {/* Setup Notes */}
