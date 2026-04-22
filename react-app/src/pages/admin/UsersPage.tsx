@@ -282,6 +282,22 @@ export function UsersPage() {
         align: 'right',
         render: (r) => <span style={bigNum}>{r.workout_count.toLocaleString()}</span>,
       },
+      {
+        key: 'total_minutes',
+        header: 'Minutes',
+        align: 'right',
+        render: (r) => <span style={bigNum}>{r.total_minutes.toLocaleString()}</span>,
+      },
+      {
+        key: 'total_volume_kg',
+        header: 'Volume (kg)',
+        align: 'right',
+        render: (r) => (
+          <span style={bigNum}>
+            {Math.round(Number(r.total_volume_kg) || 0).toLocaleString()}
+          </span>
+        ),
+      },
     ],
     []
   );

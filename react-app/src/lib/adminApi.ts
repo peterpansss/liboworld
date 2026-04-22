@@ -76,6 +76,8 @@ export type LeaderboardRow = {
   points: number;
   tickets: number;
   workout_count: number;
+  total_minutes: number;
+  total_volume_kg: number;
 };
 
 export type PointsLedgerRow = {
