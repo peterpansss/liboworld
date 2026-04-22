@@ -1,6 +1,8 @@
 // Lazy-loaded exercise and workout data
 // Source: libo-data.js (302 KB) — loaded on demand, not at startup
 
+import { supabase } from '../lib/supabase';
+
 export interface Exercise {
   id: string;
   name: string;
@@ -96,9 +98,9 @@ function normalizeWorkout(raw: RawWorkout): Workout {
 }
 
 let _exercises: Exercise[] | null = null;
-let _workouts: Workout[] | null = null;
+let _workoutsRaw: RawWorkout[] | null = null;
 let _exercisesPromise: Promise<Exercise[]> | null = null;
-let _workoutsPromise: Promise<Workout[]> | null = null;
+let _workoutsRawPromise: Promise<RawWorkout[]> | null = null;
 
 type LocaleOverlay = Record<string, { setupNotes?: string }>;
 const _overlays: Partial<Record<string, LocaleOverlay>> = {};
@@ -133,30 +135,123 @@ function loadExercises(): Promise<Exercise[]> {
   return _exercisesPromise;
 }
 
-function loadWorkouts(): Promise<Workout[]> {
-  if (_workouts) return Promise.resolve(_workouts);
-  if (_workoutsPromise) return _workoutsPromise;
-  _workoutsPromise = (async () => {
+function loadRawWorkouts(): Promise<RawWorkout[]> {
+  if (_workoutsRaw) return Promise.resolve(_workoutsRaw);
+  if (_workoutsRawPromise) return _workoutsRawPromise;
+  _workoutsRawPromise = (async () => {
     const res = await fetch('/workouts.json');
-    const raw = (await res.json()) as RawWorkout[];
-    _workouts = raw.map(normalizeWorkout);
-    return _workouts;
+    _workoutsRaw = (await res.json()) as RawWorkout[];
+    return _workoutsRaw;
   })();
-  return _workoutsPromise;
+  return _workoutsRawPromise;
+}
+
+// --- Supabase content overrides ---------------------------------------------
+// `exercise_overrides` / `workout_overrides`: { id TEXT PK, patch JSONB, updated_at }.
+// Admin panel writes; RLS allows anon SELECT. Fetched in parallel with JSON,
+// cached at module level, and merged before normalization / locale overlay.
+
+type OverrideRow = { id: string; patch: Record<string, unknown>; updated_at?: string };
+
+let _exerciseOverrides: Record<string, Partial<Exercise>> | null = null;
+let _workoutOverrides: Record<string, Partial<RawWorkout>> | null = null;
+let _exerciseOverridesPromise: Promise<Record<string, Partial<Exercise>>> | null = null;
+let _workoutOverridesPromise: Promise<Record<string, Partial<RawWorkout>>> | null = null;
+
+function loadExerciseOverrides(): Promise<Record<string, Partial<Exercise>>> {
+  if (_exerciseOverrides) return Promise.resolve(_exerciseOverrides);
+  if (_exerciseOverridesPromise) return _exerciseOverridesPromise;
+  _exerciseOverridesPromise = (async () => {
+    try {
+      const { data, error } = await supabase
+        .from('exercise_overrides')
+        .select('id, patch');
+      if (error) {
+        _exerciseOverrides = {};
+        return _exerciseOverrides;
+      }
+      const map: Record<string, Partial<Exercise>> = {};
+      for (const r of (data ?? []) as OverrideRow[]) {
+        if (r && r.id && r.patch && typeof r.patch === 'object') {
+          map[r.id] = r.patch as Partial<Exercise>;
+        }
+      }
+      _exerciseOverrides = map;
+      return map;
+    } catch {
+      _exerciseOverrides = {};
+      return _exerciseOverrides;
+    }
+  })();
+  return _exerciseOverridesPromise;
+}
+
+function loadWorkoutOverrides(): Promise<Record<string, Partial<RawWorkout>>> {
+  if (_workoutOverrides) return Promise.resolve(_workoutOverrides);
+  if (_workoutOverridesPromise) return _workoutOverridesPromise;
+  _workoutOverridesPromise = (async () => {
+    try {
+      const { data, error } = await supabase
+        .from('workout_overrides')
+        .select('id, patch');
+      if (error) {
+        _workoutOverrides = {};
+        return _workoutOverrides;
+      }
+      const map: Record<string, Partial<RawWorkout>> = {};
+      for (const r of (data ?? []) as OverrideRow[]) {
+        if (r && r.id && r.patch && typeof r.patch === 'object') {
+          map[r.id] = r.patch as Partial<RawWorkout>;
+        }
+      }
+      _workoutOverrides = map;
+      return map;
+    } catch {
+      _workoutOverrides = {};
+      return _workoutOverrides;
+    }
+  })();
+  return _workoutOverridesPromise;
 }
 
 export async function getExercises(lang: string = 'en'): Promise<Exercise[]> {
-  const base = await loadExercises();
   const code = (lang || 'en').split('-')[0];
-  if (code === 'en') return base;
-  const overlay = await loadOverlay(code);
-  if (!Object.keys(overlay).length) return base;
-  return base.map(ex => {
-    const o = overlay[ex.id];
-    return o?.setupNotes ? { ...ex, setupNotes: o.setupNotes } : ex;
+  // Fetch base data, admin overrides, and (if needed) locale overlay in parallel.
+  const [base, overrides, overlay] = await Promise.all([
+    loadExercises(),
+    loadExerciseOverrides(),
+    code === 'en' ? Promise.resolve<LocaleOverlay>({}) : loadOverlay(code),
+  ]);
+
+  const hasOverrides = Object.keys(overrides).length > 0;
+  const hasOverlay = Object.keys(overlay).length > 0;
+  if (!hasOverrides && !hasOverlay) return base;
+
+  // Precedence (low -> high so the latter wins):
+  //   base  <  admin override  <  locale overlay (non-en setupNotes)
+  // Rationale: a translated setupNotes should win over an English admin edit.
+  return base.map((ex) => {
+    const override = overrides[ex.id];
+    const loc = overlay[ex.id];
+    let out: Exercise = ex;
+    if (override) out = { ...out, ...override };
+    if (loc?.setupNotes) out = { ...out, setupNotes: loc.setupNotes };
+    return out;
   });
 }
 
 export async function getWorkouts(): Promise<Workout[]> {
-  return loadWorkouts();
+  // Overrides apply to the RawWorkout shape (warmup/main/cooldown) BEFORE
+  // normalization, so admin edits to those arrays flow through normalizeWorkout.
+  const [raw, overrides] = await Promise.all([
+    loadRawWorkouts(),
+    loadWorkoutOverrides(),
+  ]);
+  const hasOverrides = Object.keys(overrides).length > 0;
+  if (!hasOverrides) return raw.map(normalizeWorkout);
+  return raw.map((w) => {
+    const o = overrides[w.id];
+    const merged: RawWorkout = o ? { ...w, ...o } : w;
+    return normalizeWorkout(merged);
+  });
 }
