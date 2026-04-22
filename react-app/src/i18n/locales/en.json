@@ -63,9 +63,9 @@
   "features": {
     "eyebrow": "What's Inside",
     "headline": "Everything\nyou need.",
-    "description": "718 exercises · 140 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.",
+    "description": "641 exercises · 140 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.",
     "exerciseLibrary": "Exercise Library",
-    "exerciseLibraryDesc": "718 exercises — 411 gym, 258 home, 49 mobility. Every one with equipment notes, muscle targeting, and form cues.",
+    "exerciseLibraryDesc": "641 exercises — 313 gym, 295 home, 33 mobility. Every one with equipment notes, muscle targeting, and form cues.",
     "workoutLibrary": "Workout Library",
     "workoutLibraryDesc": "140 pre-built sessions — gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.",
     "programs": "Programs",
@@ -78,7 +78,7 @@
     "moneyChallengesDesc": "Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 50 pushups a day for 30 days? That's €15 in your pocket."
   },
   "photoBreak1": {
-    "eyebrow": "718 Exercises",
+    "eyebrow": "641 Exercises",
     "headline": "Every movement.\nEvery muscle.\nOne app."
   },
   "rewards": {
@@ -196,7 +196,7 @@
     "q1": "Is Libo free?",
     "a1": "Libo offers a free tier with access to workouts, exercises, and basic tracking. Pro unlocks premium programs, advanced analytics, and money challenges.",
     "q2": "What equipment do I need?",
-    "a2": "None — or everything. Libo has 235 bodyweight exercises for home, 366 gym exercises, and 33 mobility moves. Filter by what you have available.",
+    "a2": "None — or everything. Libo has 295 home exercises (most need no equipment), 313 gym exercises, and 33 mobility moves. Filter by what you have available.",
     "q3": "How do the money challenges work?",
     "a3": "Join a 30-day challenge (e.g., 50 pushups daily), record yourself completing the reps each day, share to your stories, and cash out real money when you finish. Limited spots per challenge.",
     "q4": "Can I build my own workouts?",
@@ -592,7 +592,7 @@
     "relatedExerciseLabel": "Exercise",
     "relatedProgramLabel": "Program",
     "ctaTitle": "Start Training with Libo",
-    "ctaBody": "718 exercises. 140 guided workouts. Structured programs. All free to start.",
+    "ctaBody": "641 exercises. 140 guided workouts. Structured programs. All free to start.",
     "ctaButton": "Get Started",
     "navAria": "Article navigation",
     "previous": "Previous",

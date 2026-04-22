@@ -63,9 +63,9 @@
   "features": {
     "eyebrow": "O Que Tem Dentro",
     "headline": "Tudo o que\nvocê precisa.",
-    "description": "718 exercícios · 140 treinos · 4 programas de desafio. Todo formato de treino, de força com barra até respiração e rotinas matinais.",
+    "description": "641 exercícios · 140 treinos · 4 programas de desafio. Todo formato de treino, de força com barra até respiração e rotinas matinais.",
     "exerciseLibrary": "Biblioteca de Exercícios",
-    "exerciseLibraryDesc": "718 exercícios — 411 academia, 258 casa, 49 mobilidade. Todos com notas de equipamento, músculos trabalhados e dicas de execução.",
+    "exerciseLibraryDesc": "641 exercícios — 313 academia, 295 casa, 33 mobilidade. Todos com notas de equipamento, músculos trabalhados e dicas de execução.",
     "workoutLibrary": "Biblioteca de Treinos",
     "workoutLibraryDesc": "140 sessões prontas — academia, casa, cardio, alongamento, rotinas matinais e programas de desafio. De 5 a 60 minutos.",
     "programs": "Programas",
@@ -78,7 +78,7 @@
     "moneyChallengesDesc": "Entre em desafios de 30 dias, faça suas repetições diárias, compartilhe nos stories — e ganhe dinheiro de verdade. 50 flexões por dia durante 30 dias? São €15 no seu bolso."
   },
   "photoBreak1": {
-    "eyebrow": "718 Exercícios",
+    "eyebrow": "641 Exercícios",
     "headline": "Cada movimento.\nCada músculo.\nUm app."
   },
   "rewards": {
@@ -317,7 +317,7 @@
     "relatedExerciseLabel": "Exercício",
     "relatedProgramLabel": "Programa",
     "ctaTitle": "Comece a Treinar com Libo",
-    "ctaBody": "718 exercícios. 140 treinos guiados. Programas estruturados. Grátis para começar.",
+    "ctaBody": "641 exercícios. 140 treinos guiados. Programas estruturados. Grátis para começar.",
     "ctaButton": "Começar",
     "navAria": "Navegação do artigo",
     "previous": "Anterior",
@@ -428,7 +428,7 @@
     "q1": "O Libo é gratuito?",
     "a1": "O Libo oferece um plano gratuito com acesso a treinos, exercícios e acompanhamento básico. O Pro libera programas premium, análises avançadas e desafios em dinheiro.",
     "q2": "Que equipamento eu preciso?",
-    "a2": "Nenhum — ou tudo. O Libo tem 235 exercícios com peso corporal para casa, 366 exercícios de academia e 33 movimentos de mobilidade. Filtre pelo que você tem disponível.",
+    "a2": "Nenhum — ou tudo. O Libo tem 295 exercícios em casa (a maioria sem equipamento), 313 exercícios de academia e 33 movimentos de mobilidade. Filtre pelo que você tem disponível.",
     "q3": "Como funcionam os desafios em dinheiro?",
     "a3": "Entre em um desafio de 30 dias (ex.: 50 flexões por dia), grave você completando as repetições todo dia, compartilhe nos stories e saque dinheiro de verdade quando terminar. Vagas limitadas por desafio.",
     "q4": "Posso montar meus próprios treinos?",

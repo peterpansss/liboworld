@@ -63,9 +63,9 @@
   "features": {
     "eyebrow": "Was drin steckt",
     "headline": "Alles, was\ndu brauchst.",
-    "description": "718 Übungen · 140 Workouts · 4 Challenge-Programme. Jedes Trainingsformat, von Langhantel-Kraft bis Atemübungen und Morgenroutinen.",
+    "description": "641 Übungen · 140 Workouts · 4 Challenge-Programme. Jedes Trainingsformat, von Langhantel-Kraft bis Atemübungen und Morgenroutinen.",
     "exerciseLibrary": "Übungsbibliothek",
-    "exerciseLibraryDesc": "718 Übungen — 411 Gym, 258 Home, 49 Mobilität. Jede mit Equipment-Hinweisen, Muskelgruppen und Ausführungstipps.",
+    "exerciseLibraryDesc": "641 Übungen — 313 Gym, 295 Home, 33 Mobilität. Jede mit Equipment-Hinweisen, Muskelgruppen und Ausführungstipps.",
     "workoutLibrary": "Workout-Bibliothek",
     "workoutLibraryDesc": "140 fertige Sessions — Gym, Home, Cardio, Stretching, Morgenroutinen und Challenge-Programme. 5 bis 60 Minuten.",
     "programs": "Programme",
@@ -78,7 +78,7 @@
     "moneyChallengesDesc": "Nimm an 30-Tage-Challenges teil, mach deine täglichen Reps, poste in Stories — und verdien echtes Geld. 50 Liegestütze am Tag für 30 Tage? Das sind €15 in deiner Tasche."
   },
   "photoBreak1": {
-    "eyebrow": "718 Übungen",
+    "eyebrow": "641 Übungen",
     "headline": "Jede Bewegung.\nJeder Muskel.\nEine App."
   },
   "rewards": {
@@ -196,7 +196,7 @@
     "q1": "Ist Libo kostenlos?",
     "a1": "Libo hat eine kostenlose Version mit Zugriff auf Workouts, Übungen und grundlegendes Tracking. Pro schaltet Premium-Programme, detaillierte Auswertungen und Geld-Challenges frei.",
     "q2": "Welches Equipment brauche ich?",
-    "a2": "Keins — oder alles. Libo hat 235 Bodyweight-Übungen für zuhause, 366 Gym-Übungen und 33 Mobility-Moves. Filtere nach dem, was du hast.",
+    "a2": "Keins — oder alles. Libo hat 295 Home-Übungen (meist ohne Equipment), 313 Gym-Übungen und 33 Mobility-Moves. Filtere nach dem, was du hast.",
     "q3": "Wie funktionieren die Geld-Challenges?",
     "a3": "Tritt einer 30-Tage-Challenge bei (z.B. 50 Liegestütze pro Tag), nimm dich täglich beim Machen auf, teile das in deinen Stories und lass dir am Ende echtes Geld auszahlen. Die Plätze pro Challenge sind begrenzt.",
     "q4": "Kann ich meine eigenen Workouts bauen?",
@@ -592,7 +592,7 @@
     "relatedExerciseLabel": "Übung",
     "relatedProgramLabel": "Programm",
     "ctaTitle": "Mit Libo trainieren",
-    "ctaBody": "718 Übungen. 140 geführte Workouts. Strukturierte Programme. Kostenlos starten.",
+    "ctaBody": "641 Übungen. 140 geführte Workouts. Strukturierte Programme. Kostenlos starten.",
     "ctaButton": "Jetzt starten",
     "navAria": "Artikelnavigation",
     "previous": "Vorherige",
