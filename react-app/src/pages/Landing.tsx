@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabase';
 import { blogArticles } from '../data/blog';
 import SiteFooter from '../components/SiteFooter';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import PricingSection from '../components/PricingSection';
 import { EmojiIcon } from '../components/EmojiIcon';
 import { Star } from '../utils/icons';
 import './Landing.css';
@@ -987,6 +988,9 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      {/* ── PRICING ── */}
+      <PricingSection />
 
       {/* ── FAQ ── */}
       <section className="faq-section" id="faq">
