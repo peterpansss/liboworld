@@ -438,3 +438,88 @@ export async function uploadExerciseThumbnail(file: File): Promise<string> {
   const { data } = supabase.storage.from('exercise-thumbnails').getPublicUrl(path);
   return data.publicUrl;
 }
+
+// ── Money challenges ──────────────────────────────────────────────────────
+
+export type MoneyChallengeTier = 'free' | 'pro' | 'elite';
+
+export type ExerciseOptionId =
+  | 'pushups'
+  | 'squats'
+  | 'mountain_climbers'
+  | 'pull_ups'
+  | 'russian_twists';
+
+export const EXERCISE_OPTION_CATALOG: { id: ExerciseOptionId; name: string; emoji: string }[] = [
+  { id: 'pushups', name: 'Pushups', emoji: '💪' },
+  { id: 'squats', name: 'Squats', emoji: '🦵' },
+  { id: 'mountain_climbers', name: 'Mountain Climbers', emoji: '⛰️' },
+  { id: 'pull_ups', name: 'Pull-ups', emoji: '🆙' },
+  { id: 'russian_twists', name: 'Russian Twists', emoji: '🌀' },
+];
+
+export type MoneyChallenge = {
+  id: string;
+  title: string;
+  description: string;
+  emoji: string;
+  exercise_option_ids: ExerciseOptionId[];
+  reps_per_day: number;
+  total_days: number;
+  reward_amount: number;
+  reward_currency: string;
+  max_participants: number | null;
+  required_tier: MoneyChallengeTier;
+  is_active: boolean;
+  sort_order: number;
+  starts_at: string | null;
+  ends_at: string | null;
+  current_active: number;
+  total_ever: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type MoneyChallengeInput = {
+  id: string;
+  title: string;
+  description: string;
+  emoji: string;
+  exercise_option_ids: ExerciseOptionId[];
+  reps_per_day: number;
+  total_days: number;
+  reward_amount: number;
+  reward_currency: string;
+  max_participants: number | null;
+  required_tier: MoneyChallengeTier;
+  is_active: boolean;
+  sort_order: number;
+  starts_at?: string | null;
+  ends_at?: string | null;
+};
+
+export async function listMoneyChallenges(): Promise<MoneyChallenge[]> {
+  const { data, error } = await supabase.rpc('admin_list_money_challenges');
+  if (error) throw error;
+  return (data ?? []) as MoneyChallenge[];
+}
+
+export async function createMoneyChallenge(input: MoneyChallengeInput) {
+  const { error } = await supabase.from('money_challenges').insert(input);
+  if (error) throw error;
+}
+
+export async function updateMoneyChallenge(id: string, input: Partial<MoneyChallengeInput>) {
+  const { error } = await supabase.from('money_challenges').update(input).eq('id', id);
+  if (error) throw error;
+}
+
+export async function deleteMoneyChallenge(id: string) {
+  const { error } = await supabase.from('money_challenges').delete().eq('id', id);
+  if (error) throw error;
+}
+
+export async function setMoneyChallengeActive(id: string, isActive: boolean) {
+  const { error } = await supabase.from('money_challenges').update({ is_active: isActive }).eq('id', id);
+  if (error) throw error;
+}
