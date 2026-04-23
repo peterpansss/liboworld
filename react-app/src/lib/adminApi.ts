@@ -447,15 +447,13 @@ export type ExerciseOptionId =
   | 'pushups'
   | 'squats'
   | 'mountain_climbers'
-  | 'pull_ups'
-  | 'russian_twists';
+  | 'pull_ups';
 
 export const EXERCISE_OPTION_CATALOG: { id: ExerciseOptionId; name: string; emoji: string }[] = [
   { id: 'pushups', name: 'Pushups', emoji: '💪' },
   { id: 'squats', name: 'Squats', emoji: '🦵' },
   { id: 'mountain_climbers', name: 'Mountain Climbers', emoji: '⛰️' },
   { id: 'pull_ups', name: 'Pull-ups', emoji: '🆙' },
-  { id: 'russian_twists', name: 'Russian Twists', emoji: '🌀' },
 ];
 
 export type MoneyChallenge = {
