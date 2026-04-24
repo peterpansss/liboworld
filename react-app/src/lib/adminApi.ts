@@ -521,3 +521,168 @@ export async function setMoneyChallengeActive(id: string, isActive: boolean) {
   const { error } = await supabase.from('money_challenges').update({ is_active: isActive }).eq('id', id);
   if (error) throw error;
 }
+
+// ── Giveaway templates ────────────────────────────────────────────────────
+
+export type GiveawayTemplateType = 'common' | 'premium' | 'elite';
+
+export type GiveawayTemplate = {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  prize_description: string;
+  prize_image_url: string | null;
+  image_url: string | null;
+  type: GiveawayTemplateType;
+  day_of_week: number; // 0=Sun ... 6=Sat
+  draw_time_utc: string; // HH:MM or HH:MM:SS
+  duration_days: number;
+  tickets_per_entry: number;
+  max_entries_per_user: number | null;
+  winner_count: number;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type GiveawayTemplateInput = Omit<GiveawayTemplate, 'id' | 'created_at' | 'updated_at'>;
+
+export async function listGiveawayTemplates(): Promise<GiveawayTemplate[]> {
+  const { data, error } = await supabase
+    .from('giveaway_templates')
+    .select('*')
+    .order('day_of_week', { ascending: true })
+    .order('draw_time_utc', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as GiveawayTemplate[];
+}
+
+export async function createGiveawayTemplate(input: GiveawayTemplateInput): Promise<GiveawayTemplate> {
+  const { data, error } = await supabase.from('giveaway_templates').insert(input).select().single();
+  if (error) throw error;
+  return data as GiveawayTemplate;
+}
+
+export async function updateGiveawayTemplate(
+  id: string,
+  input: Partial<GiveawayTemplateInput>
+): Promise<GiveawayTemplate> {
+  const { data, error } = await supabase
+    .from('giveaway_templates')
+    .update(input)
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data as GiveawayTemplate;
+}
+
+export async function deleteGiveawayTemplate(id: string) {
+  const { error } = await supabase.from('giveaway_templates').delete().eq('id', id);
+  if (error) throw error;
+}
+
+// ── Referral codes ────────────────────────────────────────────────────────
+
+export type ReferralCodeType = 'user' | 'creator' | 'partner';
+
+export type ReferralCode = {
+  id: string;
+  code: string;
+  owner_user_id: string | null;
+  code_type: ReferralCodeType;
+  bonus_points_referee: number;
+  bonus_points_referrer: number;
+  boost_multiplier: number;
+  boost_days: number;
+  max_uses: number | null;
+  uses_count: number;
+  expires_at: string | null;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ReferralCodeInput = {
+  code: string;
+  owner_user_id: string | null;
+  code_type: ReferralCodeType;
+  bonus_points_referee: number;
+  bonus_points_referrer: number;
+  boost_multiplier: number;
+  boost_days: number;
+  max_uses: number | null;
+  expires_at: string | null;
+  active: boolean;
+};
+
+export type ReferralConversion = {
+  id: string;
+  code: string;
+  referrer_user_id: string | null;
+  referee_user_id: string;
+  bonus_points_referrer: number;
+  bonus_points_referee: number;
+  boost_multiplier_applied: number;
+  boost_days_applied: number;
+  converted_at: string;
+};
+
+export type ReferralCodeFilters = {
+  search?: string | null;
+  codeType?: ReferralCodeType | null;
+  active?: boolean | null;
+};
+
+export async function listReferralCodes(filters: ReferralCodeFilters = {}): Promise<ReferralCode[]> {
+  let query = supabase.from('referral_codes').select('*').order('created_at', { ascending: false });
+
+  if (filters.search && filters.search.trim().length > 0) {
+    query = query.ilike('code', `%${filters.search.trim()}%`);
+  }
+  if (filters.codeType) {
+    query = query.eq('code_type', filters.codeType);
+  }
+  if (filters.active !== null && filters.active !== undefined) {
+    query = query.eq('active', filters.active);
+  }
+
+  const { data, error } = await query;
+  if (error) throw error;
+  return (data ?? []) as ReferralCode[];
+}
+
+export async function createReferralCode(input: ReferralCodeInput): Promise<ReferralCode> {
+  const { data, error } = await supabase.from('referral_codes').insert(input).select().single();
+  if (error) throw error;
+  return data as ReferralCode;
+}
+
+export async function updateReferralCode(
+  id: string,
+  input: Partial<ReferralCodeInput>
+): Promise<ReferralCode> {
+  const { data, error } = await supabase
+    .from('referral_codes')
+    .update(input)
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data as ReferralCode;
+}
+
+export async function deleteReferralCode(id: string) {
+  const { error } = await supabase.from('referral_codes').delete().eq('id', id);
+  if (error) throw error;
+}
+
+export async function listConversionsForCode(code: string): Promise<ReferralConversion[]> {
+  const { data, error } = await supabase
+    .from('referral_conversions')
+    .select('*')
+    .eq('code', code)
+    .order('converted_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as ReferralConversion[];
+}

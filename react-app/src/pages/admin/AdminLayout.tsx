@@ -6,6 +6,8 @@ import { colors } from '../../theme';
 
 const DashboardPage = lazy(() => import('./DashboardPage').then((m) => ({ default: m.DashboardPage })));
 const GiveawaysPage = lazy(() => import('./GiveawaysPage').then((m) => ({ default: m.GiveawaysPage })));
+const GiveawayTemplatesPage = lazy(() => import('./GiveawayTemplatesPage').then((m) => ({ default: m.GiveawayTemplatesPage })));
+const ReferralCodesPage = lazy(() => import('./ReferralCodesPage').then((m) => ({ default: m.ReferralCodesPage })));
 const UsersPage = lazy(() => import('./UsersPage').then((m) => ({ default: m.UsersPage })));
 const ActivityPage = lazy(() => import('./ActivityPage').then((m) => ({ default: m.ActivityPage })));
 const SubscriptionsPage = lazy(() => import('./SubscriptionsPage').then((m) => ({ default: m.SubscriptionsPage })));
@@ -19,9 +21,11 @@ const NAV = [
   { to: '/admin/workouts', label: 'Workouts' },
   { to: '/admin/challenges', label: 'Challenges' },
   { to: '/admin/giveaways', label: 'Giveaways' },
+  { to: '/admin/giveaway-templates', label: 'Giveaway Templates' },
   { to: '/admin/users', label: 'Users' },
   { to: '/admin/activity', label: 'Activity' },
   { to: '/admin/subscriptions', label: 'Subscriptions' },
+  { to: '/admin/referral-codes', label: 'Referral Codes' },
 ];
 
 function Shell() {
@@ -136,9 +140,11 @@ function Shell() {
             <Route path="workouts" element={<WorkoutsPage />} />
             <Route path="challenges" element={<ChallengesPage />} />
             <Route path="giveaways" element={<GiveawaysPage />} />
+            <Route path="giveaway-templates" element={<GiveawayTemplatesPage />} />
             <Route path="users" element={<UsersPage />} />
             <Route path="activity" element={<ActivityPage />} />
             <Route path="subscriptions" element={<SubscriptionsPage />} />
+            <Route path="referral-codes" element={<ReferralCodesPage />} />
             <Route path="*" element={<Navigate to="" replace />} />
           </Routes>
         </Suspense>
