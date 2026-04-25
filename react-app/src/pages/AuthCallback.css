@@ -1,0 +1,170 @@
+/* ─────────────────────────────
+   AUTH CALLBACK — AuthCallback.css
+   Friendly handoff page for Supabase email confirmation links.
+   Matches the dark, premium look of the rest of liboworld.com.
+   ───────────────────────────── */
+
+.auth-callback-page {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.auth-callback-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.auth-callback-logo {
+  display: inline-flex;
+  margin-bottom: 28px;
+}
+
+.auth-callback-logo img {
+  height: 28px;
+  width: auto;
+}
+
+.auth-callback-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.auth-callback-icon--success {
+  background: rgba(202, 255, 0, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(202, 255, 0, 0.3);
+}
+
+.auth-callback-icon--error {
+  background: rgba(255, 51, 51, 0.12);
+  color: var(--error);
+  border: 1px solid rgba(255, 51, 51, 0.3);
+}
+
+.auth-callback-icon--neutral {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.auth-callback-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.auth-callback-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(36px, 6vw, 48px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  line-height: 0.95;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.auth-callback-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.auth-callback-body strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.auth-callback-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--accent);
+  color: var(--accent-text);
+  border: none;
+  border-radius: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.auth-callback-cta:hover {
+  opacity: 0.92;
+}
+
+.auth-callback-cta:active {
+  transform: scale(0.97);
+}
+
+.auth-callback-secondary {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.auth-callback-secondary:hover {
+  color: var(--text);
+}
+
+.auth-callback-spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: auth-callback-spin 0.8s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes auth-callback-spin {
+  to { transform: rotate(360deg); }
+}
+
+.auth-callback-error-detail {
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: rgba(255, 51, 51, 0.06);
+  border: 1px solid rgba(255, 51, 51, 0.2);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: left;
+  word-break: break-word;
+  font-family: 'SFMono-Regular', Menlo, monospace;
+}
+
+@media (max-width: 480px) {
+  .auth-callback-card {
+    padding: 32px 24px;
+  }
+}

@@ -23,6 +23,7 @@ const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
+const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 
 // Admin area — lazy, never loads for public visitors, not linked from public pages.
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/blog/:slug" element={<Suspense fallback={darkFallback}><BlogPost /></Suspense>} />
         <Route path="/privacy" element={<Suspense fallback={darkFallback}><Privacy /></Suspense>} />
         <Route path="/terms" element={<Suspense fallback={darkFallback}><Terms /></Suspense>} />
+        <Route path="/auth/callback" element={<Suspense fallback={darkFallback}><AuthCallback /></Suspense>} />
         <Route path="/admin/*" element={<Suspense fallback={darkFallback}><AdminLayout /></Suspense>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
