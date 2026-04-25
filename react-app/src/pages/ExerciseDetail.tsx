@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
 import { exerciseThumb, publicVideoUrl } from '../utils/thumbnails';
+import { Target, Dumbbell, Zap, ICON_STROKE } from '../utils/icons';
 import { MuscleTile } from '../components/MuscleTile';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -159,17 +160,17 @@ export default function ExerciseDetail() {
           {/* Info cards */}
           <div className="ed-info-row">
             <div className="ed-info-card">
-              <span className="ed-info-icon" aria-hidden="true">&#128170;</span>
+              <Target className="ed-info-icon" strokeWidth={ICON_STROKE} aria-hidden />
               <span className="ed-info-label">{t('exerciseDetail.muscleGroup')}</span>
               <span className="ed-info-value">{muscleLabel(exercise.bodyFocus)}</span>
             </div>
             <div className="ed-info-card">
-              <span className="ed-info-icon" aria-hidden="true">&#127947;</span>
+              <Dumbbell className="ed-info-icon" strokeWidth={ICON_STROKE} aria-hidden />
               <span className="ed-info-label">{t('exerciseDetail.equipment')}</span>
               <span className="ed-info-value">{equipmentLabel(exercise.equipment)}</span>
             </div>
             <div className="ed-info-card">
-              <span className="ed-info-icon" aria-hidden="true">&#9889;</span>
+              <Zap className="ed-info-icon" strokeWidth={ICON_STROKE} aria-hidden />
               <span className="ed-info-label">{t('exerciseDetail.difficulty')}</span>
               <span className={`ed-info-value ed-diff-tag ${exercise.diff}`}>
                 {difficultyLabel(exercise.diff)}
