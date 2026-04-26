@@ -1,9 +1,9 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
 import { exerciseThumb, publicVideoUrl } from '../utils/thumbnails';
-import { Target, Dumbbell, Zap, ICON_STROKE } from '../utils/icons';
+import { Target, Dumbbell, Zap, Volume2, VolumeX, ICON_STROKE } from '../utils/icons';
 import { MuscleTile } from '../components/MuscleTile';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -50,6 +50,20 @@ export default function ExerciseDetail() {
   const { id } = useParams<{ id: string }>();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+
+  const toggleMuted = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    const next = !muted;
+    v.muted = next;
+    if (!next) {
+      v.currentTime = 0;
+      v.play().catch(() => {});
+    }
+    setMuted(next);
+  };
 
   useEffect(() => {
     getExercises(i18n.language).then(data => {
@@ -143,15 +157,26 @@ export default function ExerciseDetail() {
           {/* Demo video (falls back to gradient tile when no videoUrl / hidden category) */}
           <div className="ed-demo">
             {publicVideoUrl(exercise) ? (
-              <video
-                src={publicVideoUrl(exercise)}
-                poster={exerciseThumb(exercise) ?? undefined}
-                muted
-                loop
-                playsInline
-                autoPlay
-                preload="metadata"
-              />
+              <>
+                <video
+                  ref={videoRef}
+                  src={publicVideoUrl(exercise)}
+                  poster={exerciseThumb(exercise) ?? undefined}
+                  muted={muted}
+                  loop
+                  playsInline
+                  autoPlay
+                  preload="metadata"
+                />
+                <button
+                  type="button"
+                  className="ed-demo-mute"
+                  onClick={toggleMuted}
+                  aria-label={muted ? t('exerciseDetail.unmute', { defaultValue: 'Unmute' }) : t('exerciseDetail.mute', { defaultValue: 'Mute' })}
+                >
+                  {muted ? <VolumeX strokeWidth={ICON_STROKE} /> : <Volume2 strokeWidth={ICON_STROKE} />}
+                </button>
+              </>
             ) : (
               <MuscleTile muscle={exercise.bodyFocus} size="lg" />
             )}

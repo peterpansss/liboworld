@@ -95,6 +95,8 @@ import {
   Users,
   Utensils,
   Video,
+  Volume2,
+  VolumeX,
   Wind,
   X,
   Zap,
@@ -113,7 +115,7 @@ export {
   Ruler, Salad,
   Scale, Search, Settings, Share2, Shuffle, Smartphone, Smile, Snowflake, Sofa, Sparkles, Sprout,
   Square, Star, Sun, Sunrise, Sunset, Target, Thermometer, Ticket, Timer, TreePine, TrendingUp,
-  Trophy, User, Users, Utensils, Video, Wind, X, Zap,
+  Trophy, User, Users, Utensils, Video, Volume2, VolumeX, Wind, X, Zap,
 };
 
 export const ICON_STROKE = 1.75;
