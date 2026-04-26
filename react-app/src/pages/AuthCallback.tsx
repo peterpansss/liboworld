@@ -128,11 +128,11 @@ export default function AuthCallback() {
       access_token: state.accessToken,
       refresh_token: state.refreshToken,
     });
-    // Custom URL scheme — must match the iOS/Android app's registered scheme.
-    // If the scheme isn't registered yet (or the user is on desktop), the
-    // browser will simply do nothing on click. That's an acceptable polish
-    // fallback for now; the primary handoff is "open the app on your phone".
-    return `liboapp://auth?${params.toString()}`;
+    // Custom URL scheme — must match the mobile app's registered scheme
+    // (libo-app-v2/app.json → "scheme": "libo"). If the user is on desktop
+    // or the app isn't installed, the browser does nothing on click and
+    // the user falls back to the "Back to liboworld.com" link.
+    return `libo://auth/callback?${params.toString()}`;
   }, [state]);
 
   return (
