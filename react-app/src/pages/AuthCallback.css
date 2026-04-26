@@ -163,6 +163,97 @@
   font-family: 'SFMono-Regular', Menlo, monospace;
 }
 
+/* ───── Recovery form ─────────────────────────────────────────── */
+
+.auth-callback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.auth-callback-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-callback-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.auth-callback-input {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  appearance: none;
+}
+
+.auth-callback-input::placeholder {
+  color: var(--dim);
+}
+
+.auth-callback-input:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.auth-callback-input:focus,
+.auth-callback-input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(202, 255, 0, 0.04);
+}
+
+.auth-callback-input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.auth-callback-input[aria-invalid='true'] {
+  border-color: rgba(255, 51, 51, 0.6);
+}
+
+.auth-callback-hint {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: left;
+  margin: -2px 0 4px;
+  line-height: 1.5;
+}
+
+.auth-callback-form-error {
+  padding: 10px 14px;
+  background: rgba(255, 51, 51, 0.08);
+  border: 1px solid rgba(255, 51, 51, 0.25);
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--error);
+  text-align: left;
+  line-height: 1.45;
+}
+
+.auth-callback-cta:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-callback-cta[type='submit'] {
+  margin-top: 6px;
+}
+
 @media (max-width: 480px) {
   .auth-callback-card {
     padding: 32px 24px;
