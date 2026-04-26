@@ -76,7 +76,10 @@ async function uploadOne(file) {
     Body: createReadStream(localPath),
     ContentType: 'video/mp4',
     ContentLength: size,
-    CacheControl: 'public, max-age=31536000, immutable',
+    // No `immutable` directive — videos at the same URL CAN be replaced
+    // (e.g. when voiceover audio is regenerated). Browsers still cache for
+    // a year via max-age but will revalidate via ETag on hard-refresh.
+    CacheControl: 'public, max-age=31536000',
   }));
 
   return { slug, file, key, publicUrl, size, status: 'uploaded' };
