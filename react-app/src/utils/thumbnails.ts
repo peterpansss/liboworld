@@ -1,10 +1,10 @@
 import type { Exercise, Workout, WorkoutExercise } from '../data/exercises';
 
-// Media (video + thumbnail) is hidden from the public site for content that
-// still needs re-recording: gym-category exercises and anything using
-// dumbbell / barbell / kettlebell. Keep this in one place so every render
-// path respects it uniformly.
-const HIDDEN_MEDIA_CATS = new Set(['gym']);
+// Media (video + thumbnail) is hidden from the public site for equipment
+// that still needs re-recording: dumbbell / barbell / kettlebell. Recorded
+// exercises (any category, any other equipment) show their video; missing
+// videoUrl already short-circuits below.
+const HIDDEN_MEDIA_CATS = new Set<string>();
 const HIDDEN_MEDIA_EQUIPMENT = new Set(['Dumbbell', 'Barbell', 'Kettlebell']);
 
 export function isMediaHidden(cat?: string, equipment?: string): boolean {
