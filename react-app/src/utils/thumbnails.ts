@@ -34,7 +34,7 @@ export function exerciseThumb(ex: Exercise | undefined | null): string | null {
   if (!ex) return null;
   if (isMediaHidden(ex.cat, ex.equipment)) return null;
   if (!ex.videoUrl) return null;
-  const basename = ex.videoUrl.split('/').pop()?.replace(/\.mp4$/i, '');
+  const basename = ex.videoUrl.split('?')[0].split('/').pop()?.replace(/\.mp4$/i, '');
   if (!basename) return null;
   return `/images/thumbnails/exercises/${basename}.jpg`;
 }
