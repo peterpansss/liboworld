@@ -46,7 +46,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Flat bench with dumbbell rack nearby. Start with dumbbells on thighs, kick up to pressing position. Retract shoulder blades.",
-    "videoUrl": "https://videos.liboworld.com/exercises/flat_dumbbell_bench_press.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/flat_dumbbell_bench_press.mp4?v=2"
   },
   {
     "id": "incline_dumbbell_bench_press",
@@ -59,7 +59,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Incline bench with dumbbell rack nearby. Start with dumbbells on thighs, kick up to pressing position. Retract shoulder blades.",
-    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_bench_press.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_bench_press.mp4?v=2"
   },
   {
     "id": "decline_dumbbell_bench_press",
@@ -72,7 +72,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Decline bench with dumbbell rack nearby. Start with dumbbells on thighs, kick up to pressing position. Retract shoulder blades.",
-    "videoUrl": "https://videos.liboworld.com/exercises/decline_dumbbell_bench_press.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/decline_dumbbell_bench_press.mp4?v=2"
   },
   {
     "id": "flat_machine_chest_press_overhand_grip",
@@ -85,7 +85,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Flat chest press machine \u2014 adjust seat so handles align with mid-chest. Grip overhand with palms down, back against pad, feet flat. Press handles forward to full extension \u2014 targets chest with triceps assistance.",
-    "videoUrl": "https://videos.liboworld.com/exercises/flat_machine_chest_press_overhand_grip.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/flat_machine_chest_press_overhand_grip.mp4?v=2"
   },
   {
     "id": "flat_machine_chest_press_neutral_grip",
@@ -206,7 +206,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Flat bench with moderate dumbbells. Arms extended above chest, slight elbow bend. Lower in arc until stretch is felt.",
-    "videoUrl": "https://videos.liboworld.com/exercises/flat_dumbbell_chest_fly.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/flat_dumbbell_chest_fly.mp4?v=2"
   },
   {
     "id": "incline_dumbbell_chest_fly",
@@ -219,7 +219,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Incline bench with moderate dumbbells. Arms extended above chest, slight elbow bend. Lower in arc until stretch is felt.",
-    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_chest_fly.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_chest_fly.mp4?v=2"
   },
   {
     "id": "decline_dumbbell_chest_fly",
@@ -232,7 +232,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Decline bench with moderate dumbbells. Arms extended above chest, slight elbow bend. Lower in arc until stretch is felt.",
-    "videoUrl": "https://videos.liboworld.com/exercises/decline_dumbbell_chest_fly.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/decline_dumbbell_chest_fly.mp4?v=2"
   },
   {
     "id": "standing_landmine_press",
@@ -297,7 +297,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Lie on floor with dumbbell. Knees bent, feet flat. Upper arms touch floor at bottom of each rep.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_floor_press.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_floor_press.mp4?v=2"
   },
   {
     "id": "barbell_floor_press",
@@ -334,7 +334,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Hands shoulder-width on floor, body in straight line from head to heels. Full range \u2014 chest to floor, arms fully extended at top.",
-    "videoUrl": "https://videos.liboworld.com/exercises/push_up_standard.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/push_up_standard.mp4?v=2"
   },
   {
     "id": "isometric_chest_hold",
@@ -359,7 +359,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standard push-up position \u2014 hands shoulder-width on floor, body in straight line. Lower for 3\u20134 seconds, pause 1 second at bottom, press up with control. Tempo work builds chest time-under-tension.",
-    "videoUrl": "https://videos.liboworld.com/exercises/flat_slow_tempo_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/flat_slow_tempo_push_up.mp4?v=2"
   },
   {
     "id": "incline_slow_tempo_push_up",
@@ -372,7 +372,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Hands elevated on bench or box, feet on floor, body in straight line. Lower chest toward bench for 3\u20134 seconds, pause 1 second at bottom, press up with control. Tempo work builds lower-chest endurance at an easier angle.",
-    "videoUrl": "https://videos.liboworld.com/exercises/incline_slow_tempo_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_slow_tempo_push_up.mp4?v=2"
   },
   {
     "id": "decline_slow_tempo_push_up",
@@ -385,7 +385,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Feet elevated on bench or box, hands on floor shoulder-width, body in straight line. Lower chest toward floor for 3\u20134 seconds, pause 1 second at bottom, press up with control. Tempo work emphasises upper chest and shoulders.",
-    "videoUrl": "https://videos.liboworld.com/exercises/decline_slow_tempo_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/decline_slow_tempo_push_up.mp4?v=2"
   },
   {
     "id": "explosive_push_up",
@@ -398,7 +398,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standard push-up position on firm floor. Explode upward so hands leave the ground. Land softly with slight elbow bend. Advanced movement.",
-    "videoUrl": "https://videos.liboworld.com/exercises/explosive_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/explosive_push_up.mp4?v=2"
   },
   {
     "id": "chest_stretch_cable_press",
@@ -435,7 +435,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated on bench with back support, feet flat. Hold dumbbells at shoulder height, palms facing you (underhand). Press overhead to full lockout \u2014 lower with control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/seated_dumbbell_shoulder_press_underhand_grip.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_dumbbell_shoulder_press_underhand_grip.mp4?v=2"
   },
   {
     "id": "seated_dumbbell_shoulder_press_neutral_grip",
@@ -448,7 +448,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated on bench with back support, feet flat. Hold dumbbells at shoulder height, palms facing each other (neutral). Press overhead to full lockout \u2014 lower with control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/seated_dumbbell_shoulder_press_neutral_grip.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_dumbbell_shoulder_press_neutral_grip.mp4?v=2"
   },
   {
     "id": "seated_dumbbell_shoulder_press_overhand_grip",
@@ -461,7 +461,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated on bench with back support, feet flat. Hold dumbbells at shoulder height, palms facing forward (overhand). Press overhead to full lockout \u2014 lower with control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/seated_dumbbell_shoulder_press_overhand_grip.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_dumbbell_shoulder_press_overhand_grip.mp4?v=2"
   },
   {
     "id": "standing_dumbbell_shoulder_press_underhand_grip",
@@ -570,7 +570,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, light dumbbells at sides. Raise arms out to sides until parallel with floor, slight bend in elbows. Controlled lowering.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lateral_raise_dumbbell.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/lateral_raise_dumbbell.mp4?v=2"
   },
   {
     "id": "lateral_raise_cable",
@@ -607,7 +607,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, dumbbells in front of thighs. Raise one or both arms forward to shoulder height, palms down. Controlled lowering.",
-    "videoUrl": "https://videos.liboworld.com/exercises/front_raise_dumbbell.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/front_raise_dumbbell.mp4?v=2"
   },
   {
     "id": "front_raise_plate",
@@ -656,7 +656,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated on upright bench with back support. Start with dumbbells at chin, palms facing you. Rotate palms outward as you press overhead.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arnold_press.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/arnold_press.mp4?v=2"
   },
   {
     "id": "ez_bar_upright_row",
@@ -841,7 +841,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, heavy dumbbells at sides. Shrug shoulders up toward ears, hold 1 second at top. Keep arms straight throughout.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_shrug.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_shrug.mp4?v=2"
   },
   {
     "id": "trap_bar_shrug",
@@ -1226,7 +1226,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Incline bench at ~30 degrees, chest against pad. Dumbbell in left hand \u2014 row to left hip, elbow tracking close to body. Bench prevents momentum for strict lat work.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bench_supported_one_arm_row_left_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bench_supported_one_arm_row_left_arm.mp4?v=2",
     "parentId": "bench_supported_one_arm_row",
     "parentName": "Bench-Supported One-Arm Row"
   },
@@ -1241,7 +1241,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Incline bench at ~30 degrees, chest against pad. Dumbbell in right hand \u2014 row to right hip, elbow tracking close to body. Bench prevents momentum for strict lat work.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bench_supported_one_arm_row_right_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bench_supported_one_arm_row_right_arm.mp4?v=2",
     "parentId": "bench_supported_one_arm_row",
     "parentName": "Bench-Supported One-Arm Row"
   },
@@ -1268,7 +1268,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "One hand on bench or rack for support. Heavy dumbbell, slight torso rotation allowed. High-rep, explosive rowing for back thickness.",
-    "videoUrl": "https://videos.liboworld.com/exercises/kroc_row_left_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/kroc_row_left_arm.mp4?v=2",
     "parentId": "kroc_row",
     "parentName": "Kroc Row"
   },
@@ -1283,7 +1283,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "One hand on bench or rack for support. Heavy dumbbell, slight torso rotation allowed. High-rep, explosive rowing for back thickness.",
-    "videoUrl": "https://videos.liboworld.com/exercises/kroc_row_right_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/kroc_row_right_arm.mp4?v=2",
     "parentId": "kroc_row",
     "parentName": "Kroc Row"
   },
@@ -1358,7 +1358,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Incline bench at ~30-45 degrees, chest against pad. Dumbbell in each hand. Row both dumbbells simultaneously. No momentum.",
-    "videoUrl": "https://videos.liboworld.com/exercises/chest_supported_dumbbell_row.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/chest_supported_dumbbell_row.mp4?v=2"
   },
   {
     "id": "t_bar_row_neutral_grip",
@@ -1659,7 +1659,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Lie prone on mat, arms extended overhead. Sweep arms in arc from overhead to hips and back, keeping arms off the ground throughout.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_snow_angels_standard.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_snow_angels_standard.mp4?v=2"
   },
   {
     "id": "reverse_snow_angels_weighted",
@@ -1672,7 +1672,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Same prone position. Hold very light dumbbells (1-2 kg) in each hand. Slow arc from overhead to hips and back.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_snow_angels_weighted.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_snow_angels_weighted.mp4?v=2"
   },
   {
     "id": "conventional_barbell_deadlift",
@@ -1869,7 +1869,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, dumbbell in each hand at sides. Alternating curl. Full supination at top, controlled lower. Elbows stationary.",
-    "videoUrl": "https://videos.liboworld.com/exercises/alternating_dumbbell_biceps_curl_standing.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/alternating_dumbbell_biceps_curl_standing.mp4?v=2"
   },
   {
     "id": "simultaneous_dumbbell_biceps_curl_standing",
@@ -1882,7 +1882,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, dumbbell in each hand at sides. Simultaneous curl. Full supination at top, controlled lower. Elbows stationary.",
-    "videoUrl": "https://videos.liboworld.com/exercises/simultaneous_dumbbell_biceps_curl_standing.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/simultaneous_dumbbell_biceps_curl_standing.mp4?v=2"
   },
   {
     "id": "incline_dumbbell_curl_seated",
@@ -1895,7 +1895,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated on incline bench at ~45-60 degrees. Dumbbells hang at sides behind torso. Curl up, long head of biceps gets extra stretch.",
-    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_curl_seated.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_curl_seated.mp4?v=2"
   },
   {
     "id": "concentration_curl_seated_left_arm",
@@ -1908,7 +1908,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated on bench, left elbow braced against inner left thigh. Dumbbell in left hand hanging toward the floor \u2014 curl up in strict isolation, squeezing the biceps at the top. No torso movement.",
-    "videoUrl": "https://videos.liboworld.com/exercises/concentration_curl_seated_left_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/concentration_curl_seated_left_arm.mp4?v=2",
     "parentId": "concentration_curl_seated",
     "parentName": "Concentration Curl \u2014 Seated"
   },
@@ -1923,7 +1923,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated on bench, right elbow braced against inner right thigh. Dumbbell in right hand hanging toward the floor \u2014 curl up in strict isolation, squeezing the biceps at the top. No torso movement.",
-    "videoUrl": "https://videos.liboworld.com/exercises/concentration_curl_seated_right_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/concentration_curl_seated_right_arm.mp4?v=2",
     "parentId": "concentration_curl_seated",
     "parentName": "Concentration Curl \u2014 Seated"
   },
@@ -1938,7 +1938,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, dumbbells at sides with neutral (palms-in) grip throughout. Curl up keeping thumbs pointing up. Standard.",
-    "videoUrl": "https://videos.liboworld.com/exercises/standard_hammer_curl_standing.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/standard_hammer_curl_standing.mp4?v=2"
   },
   {
     "id": "alternating_hammer_curl_standing",
@@ -1951,7 +1951,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing tall, dumbbell in each hand at sides with neutral (palms-in) grip. Curl one arm at a time, thumbs pointing up, lowering under control before the other side curls. Targets the brachialis and brachioradialis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/alternating_hammer_curl_standing.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/alternating_hammer_curl_standing.mp4?v=2"
   },
   {
     "id": "incline_hammer_curl",
@@ -1964,7 +1964,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated on incline bench at ~45 degrees. Dumbbells at sides with neutral grip. Curl up \u2014 incline increases stretch on brachialis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/incline_hammer_curl.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_hammer_curl.mp4?v=2"
   },
   {
     "id": "cross_body_hammer_curl",
@@ -1977,7 +1977,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, curl dumbbell across body toward opposite shoulder with neutral grip. Targets brachialis and brachioradialis. Alternate arms.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_hammer_curl.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_hammer_curl.mp4?v=2"
   },
   {
     "id": "twisting_supinating_curl",
@@ -1990,7 +1990,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, dumbbells at sides with neutral grip. As you curl up, rotate wrist from neutral to supinated (palms up). Squeeze at top.",
-    "videoUrl": "https://videos.liboworld.com/exercises/twisting_supinating_curl.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/twisting_supinating_curl.mp4?v=2"
   },
   {
     "id": "cable_biceps_curl_straight_bar",
@@ -2103,7 +2103,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Preacher curl bench, dumbbell in one hand. Upper arm flat on pad. Curl up, squeeze at top, slow eccentric. Full stretch at bottom.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_preacher_curl.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_preacher_curl.mp4?v=2"
   },
   {
     "id": "cable_preacher_curl",
@@ -2128,7 +2128,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, dumbbells at sides. Curl up with supinated grip (palms up), rotate to pronated grip (palms down) at top, lower slowly with pronated grip.",
-    "videoUrl": "https://videos.liboworld.com/exercises/zottman_curl.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/zottman_curl.mp4?v=2"
   },
   {
     "id": "waiter_curl",
@@ -2141,7 +2141,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, hold one dumbbell vertically with both palms under the top plate. Curl up keeping elbows close. Long head emphasis at peak contraction.",
-    "videoUrl": "https://videos.liboworld.com/exercises/waiter_curl.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/waiter_curl.mp4?v=2"
   },
   {
     "id": "21s_ez_bar",
@@ -2226,7 +2226,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated, hold one heavy dumbbell with both hands behind head, elbows pointing up. Extend arms overhead to lockout.",
-    "videoUrl": "https://videos.liboworld.com/exercises/seated_dumbbell_overhead_triceps_extension.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_dumbbell_overhead_triceps_extension.mp4?v=2"
   },
   {
     "id": "single_arm_dumbbell_overhead_extension_left_arm",
@@ -2331,7 +2331,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Flat bench, dumbbells with neutral grip above face. Lower dumbbells by bending elbows to beside ears, extend back up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_skull_crusher.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_skull_crusher.mp4?v=2"
   },
   {
     "id": "cable_skull_crusher",
@@ -2428,7 +2428,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Flat bench, dumbbells pressed together with neutral grip above chest. Press up keeping dumbbells touching. Elbows close to body.",
-    "videoUrl": "https://videos.liboworld.com/exercises/close_grip_bench_press_dumbbell_neutral.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/close_grip_bench_press_dumbbell_neutral.mp4?v=2"
   },
   {
     "id": "diamond_push_up",
@@ -2441,7 +2441,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Hands on floor with index fingers and thumbs touching (diamond shape). Body in straight line. Lower chest to hands, press up. Triceps-dominant.",
-    "videoUrl": "https://videos.liboworld.com/exercises/diamond_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/diamond_push_up.mp4?v=2"
   },
   {
     "id": "jm_press",
@@ -2466,7 +2466,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Right hand and right knee on flat bench, left foot on floor, flat back. Dumbbell in left hand, upper arm parallel to floor, elbow pinned to side. Extend left forearm back to lockout, squeeze triceps. Controlled return.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_triceps_kickback.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_triceps_kickback.mp4?v=2",
     "parentId": "dumbbell_triceps_kickback",
     "parentName": "Dumbbell Triceps Kickback"
   },
@@ -2481,7 +2481,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Left hand and left knee on flat bench, right foot on floor, flat back. Dumbbell in right hand, upper arm parallel to floor, elbow pinned to side. Extend right forearm back to lockout, squeeze triceps. Controlled return.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_triceps_kickback.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_triceps_kickback.mp4?v=2",
     "parentId": "dumbbell_triceps_kickback",
     "parentName": "Dumbbell Triceps Kickback"
   },
@@ -2496,7 +2496,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Flat bench, dumbbells extended above chest with palms facing feet. Lower dumbbells inward so ends touch on chest, press back up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/tate_press.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/tate_press.mp4?v=2"
   },
   {
     "id": "barbell_wrist_curl",
@@ -2533,7 +2533,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, heavy dumbbell or farmer's walk handles in each hand at sides. Walk in straight line for distance or time. Tall posture, shoulders packed.",
-    "videoUrl": "https://videos.liboworld.com/exercises/farmers_walk.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/farmers_walk.mp4?v=2"
   },
   {
     "id": "plate_pinch_hold",
@@ -2926,7 +2926,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Open floor space (10+ metres). Step forward into lunge, back knee toward floor, push off front foot into next step. Continuous forward motion.",
-    "videoUrl": "https://videos.liboworld.com/exercises/walking_lunge_bodyweight.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/walking_lunge_bodyweight.mp4?v=2"
   },
   {
     "id": "walking_lunge_dumbbell",
@@ -2987,7 +2987,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing, step wide to one side, bend stepping leg, keep other leg straight. Push off to return. Using bodyweight.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bodyweight_lateral_lunge.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/bodyweight_lateral_lunge.mp4?v=2"
   },
   {
     "id": "dumbbell_lateral_lunge",
@@ -3012,7 +3012,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Start in lunge position. Jump explosively, switch legs mid-air, land in opposite lunge. Continuous alternating. Cardio and power.",
-    "videoUrl": "https://videos.liboworld.com/exercises/jumping_lunge.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/jumping_lunge.mp4?v=2"
   },
   {
     "id": "overhead_walking_lunge",
@@ -3149,7 +3149,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Right foot rear-elevated on a bench, bodyweight only. Lower into a split squat then explode upward off the left foot, landing softly back into the split position. Re-stabilise before the next rep. Plyometric power through the left leg.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_jump_plyo.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_jump_plyo.mp4?v=2",
     "parentId": "bulgarian_split_squat_jump_plyo",
     "parentName": "Bulgarian Split Squat \u2014 Jump (Plyo)"
   },
@@ -3164,7 +3164,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Left foot rear-elevated on a bench, bodyweight only. Lower into a split squat then explode upward off the right foot, landing softly back into the split position. Re-stabilise before the next rep. Plyometric power through the right leg.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_jump_plyo.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_jump_plyo.mp4?v=2",
     "parentId": "bulgarian_split_squat_jump_plyo",
     "parentName": "Bulgarian Split Squat \u2014 Jump (Plyo)"
   },
@@ -3571,7 +3571,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Kneeling upright on mat (padding under knees). Lean backward slowly keeping hips extended. Feel quad stretch, return to upright. Quad eccentric.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_nordic_curl.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_nordic_curl.mp4?v=2"
   },
   {
     "id": "standing_calf_raise_machine",
@@ -3656,7 +3656,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Back flat against wall, slide down until thighs parallel to floor. Knees at 90 degrees, directly over ankles. Hold for prescribed time.",
-    "videoUrl": "https://videos.liboworld.com/exercises/wall_sit_standard.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/wall_sit_standard.mp4?v=2"
   },
   {
     "id": "wall_sit_single_leg_left_leg",
@@ -3669,7 +3669,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Back flat against the wall, knees bent to ~90 degrees as in a standard wall sit. Extend the right leg straight forward, all weight on the left leg. Hold for time. Significantly harder \u2014 isometric load on the left quad.",
-    "videoUrl": "https://videos.liboworld.com/exercises/wall_sit_single_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/wall_sit_single_leg.mp4?v=2",
     "parentId": "wall_sit_single_leg",
     "parentName": "Wall Sit \u2014 Single-Leg"
   },
@@ -3684,7 +3684,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Back flat against the wall, knees bent to ~90 degrees as in a standard wall sit. Extend the left leg straight forward, all weight on the right leg. Hold for time. Significantly harder \u2014 isometric load on the right quad.",
-    "videoUrl": "https://videos.liboworld.com/exercises/wall_sit_single_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/wall_sit_single_leg.mp4?v=2",
     "parentId": "wall_sit_single_leg",
     "parentName": "Wall Sit \u2014 Single-Leg"
   },
@@ -3699,7 +3699,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standard wall sit position with dumbbell or weight plate on thighs. Increases quad demand. Maintain flat back against wall.",
-    "videoUrl": "https://videos.liboworld.com/exercises/wall_sit_weighted.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/wall_sit_weighted.mp4?v=2"
   },
   {
     "id": "hip_abductor_machine",
@@ -4140,7 +4140,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Forearm plank position. Rotate hips to lower one side toward floor, then other side. Alternating. Controlled rotation, oblique emphasis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/plank_hip_dips.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/plank_hip_dips.mp4?v=2"
   },
   {
     "id": "plank_jacks",
@@ -4153,7 +4153,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High or forearm plank position. Jump feet apart and together (like horizontal jumping jacks). Maintain rigid core. Cardio + core.",
-    "videoUrl": "https://videos.liboworld.com/exercises/plank_jacks.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/plank_jacks.mp4?v=2"
   },
   {
     "id": "spiderman_plank",
@@ -4166,7 +4166,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High plank position. Bring one knee to same-side elbow, return, alternate. Engages obliques and hip flexors with each rep.",
-    "videoUrl": "https://videos.liboworld.com/exercises/spiderman_plank.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/spiderman_plank.mp4?v=2"
   },
   {
     "id": "stability_ball_plank",
@@ -4275,7 +4275,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, arms extended overhead, legs straight. Lift shoulders and legs off floor, lower back pressed into ground. Banana shape. Hold.",
-    "videoUrl": "https://videos.liboworld.com/exercises/hollow_body_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/hollow_body_hold.mp4?v=2"
   },
   {
     "id": "tucked_hollow_hold",
@@ -4288,7 +4288,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, knees pulled toward chest, shoulders lifted. Arms at sides or extended. Easier regression of full hollow hold.",
-    "videoUrl": "https://videos.liboworld.com/exercises/tucked_hollow_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/tucked_hollow_hold.mp4?v=2"
   },
   {
     "id": "hollow_rock",
@@ -4301,7 +4301,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Full hollow body position \u2014 arms overhead, legs extended, both off floor. Rock forward and back maintaining rigid body shape.",
-    "videoUrl": "https://videos.liboworld.com/exercises/hollow_rock.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/hollow_rock.mp4?v=2"
   },
   {
     "id": "weighted_hollow_hold",
@@ -4314,7 +4314,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Full hollow body position with light dumbbell in hands and/or between feet. Hold position for prescribed time. Advanced.",
-    "videoUrl": "https://videos.liboworld.com/exercises/weighted_hollow_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/weighted_hollow_hold.mp4?v=2"
   },
   {
     "id": "russian_twist_bodyweight",
@@ -4327,7 +4327,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Sit on floor, lean back ~45 degrees, feet off ground or anchored. Clasp hands, rotate torso side to side. V-sit position.",
-    "videoUrl": "https://videos.liboworld.com/exercises/russian_twist_bodyweight.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/russian_twist_bodyweight.mp4?v=2"
   },
   {
     "id": "russian_twist_medicine_ball",
@@ -4440,7 +4440,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Hold one heavy dumbbell or kettlebell in the left hand at the side. Walk in a straight line keeping the torso tall and shoulders level \u2014 resist the load pulling you into a left-side lean. Anti-lateral-flexion through the right obliques and QL.",
-    "videoUrl": "https://videos.liboworld.com/exercises/suitcase_carry_left.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/suitcase_carry_left.mp4?v=2",
     "parentId": "suitcase_carry",
     "parentName": "Suitcase Carry"
   },
@@ -4455,7 +4455,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Hold one heavy dumbbell or kettlebell in the right hand at the side. Walk in a straight line keeping the torso tall and shoulders level \u2014 resist the load pulling you into a right-side lean. Anti-lateral-flexion through the left obliques and QL.",
-    "videoUrl": "https://videos.liboworld.com/exercises/suitcase_carry_right.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/suitcase_carry_right.mp4?v=2",
     "parentId": "suitcase_carry",
     "parentName": "Suitcase Carry"
   },
@@ -4666,7 +4666,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Hands placed 6-8 inches wider than shoulders on floor. Body in straight line, core braced. Lower chest to floor, press up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/wide_grip_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/wide_grip_push_up.mp4?v=2"
   },
   {
     "id": "staggered_offset_push_up",
@@ -4679,7 +4679,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "One hand placed forward, the other back by ~6 inches. Body straight. Push up, switch hand positions between sets.",
-    "videoUrl": "https://videos.liboworld.com/exercises/staggered_offset_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/staggered_offset_push_up.mp4?v=2"
   },
   {
     "id": "archer_push_up_left",
@@ -4692,7 +4692,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Very wide hand placement, body in straight line. Lower body toward the left hand while the right arm extends straight out. Press back up through the left side \u2014 unilateral chest and tricep emphasis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/archer_push_up.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/archer_push_up.mp4?v=2",
     "parentId": "archer_push_up",
     "parentName": "Archer Push-Up"
   },
@@ -4707,7 +4707,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Very wide hand placement, body in straight line. Lower body toward the right hand while the left arm extends straight out. Press back up through the right side \u2014 unilateral chest and tricep emphasis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/archer_push_up.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/archer_push_up.mp4?v=2",
     "parentId": "archer_push_up",
     "parentName": "Archer Push-Up"
   },
@@ -4722,7 +4722,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standard push-up position on firm floor. Push explosively so hands leave ground, clap, land softly with bent elbows. Plyometric power.",
-    "videoUrl": "https://videos.liboworld.com/exercises/clap_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/clap_push_up.mp4?v=2"
   },
   {
     "id": "spiderman_push_up_left",
@@ -4735,7 +4735,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "High plank position, hands under shoulders, body in a straight line. As you lower into the push-up, draw the left knee out to meet the left elbow. Return the leg as you press back up. Adds oblique and hip-flexor work to the chest press.",
-    "videoUrl": "https://videos.liboworld.com/exercises/spiderman_push_up.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/spiderman_push_up.mp4?v=2",
     "parentId": "spiderman_push_up",
     "parentName": "Spiderman Push-Up"
   },
@@ -4750,7 +4750,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "High plank position, hands under shoulders, body in a straight line. As you lower into the push-up, draw the right knee out to meet the right elbow. Return the leg as you press back up. Adds oblique and hip-flexor work to the chest press.",
-    "videoUrl": "https://videos.liboworld.com/exercises/spiderman_push_up.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/spiderman_push_up.mp4?v=2",
     "parentId": "spiderman_push_up",
     "parentName": "Spiderman Push-Up"
   },
@@ -4765,7 +4765,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Hands on floor, hips piked high (inverted V shape). Feet can be on floor or elevated on bench for extra difficulty. Lower head toward floor, press up. Shoulder emphasis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/pike_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/pike_push_up.mp4?v=2"
   },
   {
     "id": "decline_push_up",
@@ -4778,7 +4778,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Feet elevated on bench, box, or chair. Hands on floor shoulder-width. Body in straight line from feet to head. Lower chest to floor, press up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/decline_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/decline_push_up.mp4?v=2"
   },
   {
     "id": "incline_push_up",
@@ -4791,7 +4791,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Hands on bench, box, or sturdy elevated surface. Feet on floor. Straight body line. Easier regression \u2014 lower surface = harder. Full range of motion.",
-    "videoUrl": "https://videos.liboworld.com/exercises/incline_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_push_up.mp4?v=2"
   },
   {
     "id": "wall_push_up",
@@ -4804,7 +4804,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing arm's-length from wall, hands on wall at shoulder height. Lean in, press back. Beginner regression, control tempo.",
-    "videoUrl": "https://videos.liboworld.com/exercises/wall_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/wall_push_up.mp4?v=2"
   },
   {
     "id": "knee_push_up",
@@ -4817,7 +4817,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Hands on floor shoulder-width, knees on mat. Straight line from head to knees. Lower chest to floor, press up. Beginner progression.",
-    "videoUrl": "https://videos.liboworld.com/exercises/knee_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/knee_push_up.mp4?v=2"
   },
   {
     "id": "negative_only_push_up",
@@ -4830,7 +4830,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standard push-up position. Lower body as slowly as possible (5-8 seconds) to floor. Reset to top position and repeat. Eccentric strength.",
-    "videoUrl": "https://videos.liboworld.com/exercises/negative_only_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/negative_only_push_up.mp4?v=2"
   },
   {
     "id": "push_up_to_renegade_row",
@@ -4855,7 +4855,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "High plank position, body in a straight line. Perform a push-up, then at the top rotate the body open to the left into a side plank \u2014 left arm extended toward the ceiling, weight on the right hand. Return to plank and reset. Builds rotational core and shoulder stability.",
-    "videoUrl": "https://videos.liboworld.com/exercises/rotational_push_up.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/rotational_push_up.mp4?v=2",
     "parentId": "rotational_push_up",
     "parentName": "Rotational Push-Up"
   },
@@ -4870,7 +4870,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "High plank position, body in a straight line. Perform a push-up, then at the top rotate the body open to the right into a side plank \u2014 right arm extended toward the ceiling, weight on the left hand. Return to plank and reset. Builds rotational core and shoulder stability.",
-    "videoUrl": "https://videos.liboworld.com/exercises/rotational_push_up.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/rotational_push_up.mp4?v=2",
     "parentId": "rotational_push_up",
     "parentName": "Rotational Push-Up"
   },
@@ -4885,7 +4885,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Start in forearm plank. Push up to high plank one arm at a time, then lower back to forearms. Alternate lead arm each rep.",
-    "videoUrl": "https://videos.liboworld.com/exercises/plank_up_down_standard.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/plank_up_down_standard.mp4?v=2"
   },
   {
     "id": "plank_shoulder_taps",
@@ -4898,7 +4898,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High plank position, feet slightly wider than hip-width. Tap right hand to left shoulder, left hand to right shoulder. Minimise hip sway.",
-    "videoUrl": "https://videos.liboworld.com/exercises/plank_shoulder_taps.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/plank_shoulder_taps.mp4?v=2"
   },
   {
     "id": "shoulder_taps_with_leg_lift",
@@ -4911,7 +4911,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High plank. Simultaneously lift one hand to opposite shoulder and opposite foot off ground. Double anti-rotation demand.",
-    "videoUrl": "https://videos.liboworld.com/exercises/shoulder_taps_with_leg_lift.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/shoulder_taps_with_leg_lift.mp4?v=2"
   },
   {
     "id": "arm_circles_forward",
@@ -4924,7 +4924,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, arms extended straight out to sides at shoulder height. Circle arms forward, gradually increasing the size of the circles. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_forward.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_forward.mp4?v=2"
   },
   {
     "id": "arm_circles_backward",
@@ -4937,7 +4937,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, arms extended straight out to sides at shoulder height. Circle arms backward, gradually increasing the size of the circles. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_backward.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_backward.mp4?v=2"
   },
   {
     "id": "weighted_arm_circles",
@@ -4962,7 +4962,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Lie face down on mat, arms extended overhead. Simultaneously lift arms, chest, and legs off floor. Hold, squeezing glutes and back.",
-    "videoUrl": "https://videos.liboworld.com/exercises/superman_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/superman_hold.mp4?v=2"
   },
   {
     "id": "alternating_superman",
@@ -4975,7 +4975,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Lie face down, arms overhead. Lift opposite arm and leg simultaneously (right arm + left leg). Alternate sides. Controlled tempo.",
-    "videoUrl": "https://videos.liboworld.com/exercises/alternating_superman.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/alternating_superman.mp4?v=2"
   },
   {
     "id": "superman_pull_w_pull",
@@ -4988,7 +4988,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Lie face down, arms overhead. Lift chest and pull elbows back into W position, squeezing shoulder blades together. Extend arms, repeat.",
-    "videoUrl": "https://videos.liboworld.com/exercises/superman_pull_w_pull.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/superman_pull_w_pull.mp4?v=2"
   },
   {
     "id": "weighted_superman_hold",
@@ -5001,7 +5001,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Same prone position as standard. Hold light dumbbells in hands and/or light ankle weights. Lift and hold. Controlled breathing.",
-    "videoUrl": "https://videos.liboworld.com/exercises/weighted_superman_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/weighted_superman_hold.mp4?v=2"
   },
   {
     "id": "reverse_plank",
@@ -5014,7 +5014,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Sit on floor, hands behind hips, fingers forward. Lift hips until body is straight from shoulders to heels. Squeeze glutes, hold. Triceps and core.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_plank.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_plank.mp4?v=2"
   },
   {
     "id": "reverse_plank_with_leg_lifts",
@@ -5027,7 +5027,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standard reverse plank position. Alternate lifting one leg at a time, keeping it straight. Adds glute and core demand to hold.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_plank_with_leg_lifts.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_plank_with_leg_lifts.mp4?v=2"
   },
   {
     "id": "reverse_plank_push_up_dip_style",
@@ -5040,7 +5040,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Reverse plank position. Bend elbows to lower body, press back up. Like a bench dip but from floor with legs extended straight.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_plank_push_up_dip_style.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_plank_push_up_dip_style.mp4?v=2"
   },
   {
     "id": "chair_dip",
@@ -5053,7 +5053,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Hands on edge of sturdy chair behind body, fingers forward. Feet on floor. Lower by bending elbows, press back up. Triceps focus.",
-    "videoUrl": "https://videos.liboworld.com/exercises/chair_dip.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/chair_dip.mp4?v=2"
   },
   {
     "id": "overhead_arm_reach_hold",
@@ -5066,7 +5066,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, extend both arms straight overhead. Hold for prescribed time. Challenges shoulder endurance and thoracic mobility.",
-    "videoUrl": "https://videos.liboworld.com/exercises/overhead_arm_reach_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/overhead_arm_reach_hold.mp4?v=2"
   },
   {
     "id": "bodyweight_squat",
@@ -5079,7 +5079,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing, feet shoulder-width, toes slightly out. Arms forward for balance. Squat down to parallel or below. Drive up through heels.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bodyweight_squat.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/bodyweight_squat.mp4?v=2"
   },
   {
     "id": "sumo_squat_wide_stance",
@@ -5092,7 +5092,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Wide stance, toes pointed out 45 degrees. Squat straight down between legs, knees track over toes. Adductor and glute focus.",
-    "videoUrl": "https://videos.liboworld.com/exercises/sumo_squat_wide_stance.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/sumo_squat_wide_stance.mp4?v=2"
   },
   {
     "id": "prisoner_squat",
@@ -5105,7 +5105,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing, hands behind head, elbows wide. Perform bodyweight squat. Hands behind head forces upright torso and challenges mobility.",
-    "videoUrl": "https://videos.liboworld.com/exercises/prisoner_squat.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/prisoner_squat.mp4?v=2"
   },
   {
     "id": "pistol_squat_single_leg_left_leg",
@@ -5146,7 +5146,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing on the left leg, hold the right foot behind you at the glute with the right hand. Squat down on the left leg until the right knee taps the floor, then drive back to standing. Advanced unilateral squat \u2014 heavy left quad and glute load.",
-    "videoUrl": "https://videos.liboworld.com/exercises/shrimp_squat.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/shrimp_squat.mp4?v=2",
     "parentId": "shrimp_squat",
     "parentName": "Shrimp Squat"
   },
@@ -5161,7 +5161,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing on the right leg, hold the left foot behind you at the glute with the left hand. Squat down on the right leg until the left knee taps the floor, then drive back to standing. Advanced unilateral squat \u2014 heavy right quad and glute load.",
-    "videoUrl": "https://videos.liboworld.com/exercises/shrimp_squat.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/shrimp_squat.mp4?v=2",
     "parentId": "shrimp_squat",
     "parentName": "Shrimp Squat"
   },
@@ -5176,7 +5176,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Right foot rear-elevated on a chair or low bench, left foot 2\u20133 feet forward. Lower until the left front thigh is parallel to the floor, drive through the left heel to return. Bodyweight only \u2014 clean trainer for the left quad and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_bodyweight.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_bodyweight.mp4?v=2",
     "parentId": "bulgarian_split_squat_bodyweight",
     "parentName": "Bulgarian Split Squat \u2014 Bodyweight"
   },
@@ -5191,7 +5191,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Left foot rear-elevated on a chair or low bench, right foot 2\u20133 feet forward. Lower until the right front thigh is parallel to the floor, drive through the right heel to return. Bodyweight only \u2014 clean trainer for the right quad and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_bodyweight.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_bodyweight.mp4?v=2",
     "parentId": "bulgarian_split_squat_bodyweight",
     "parentName": "Bulgarian Split Squat \u2014 Bodyweight"
   },
@@ -5206,7 +5206,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Feet shoulder-width, squat down, explode upward leaving the ground. Land softly in squat position. Repeat. Quad and glute power.",
-    "videoUrl": "https://videos.liboworld.com/exercises/jump_squat.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/jump_squat.mp4?v=2"
   },
   {
     "id": "lateral_squat_left_leg",
@@ -5219,7 +5219,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Stand with feet wider than shoulder-width, toes forward. Shift the weight to the left, bending the left knee into a deep side squat while the right leg stays straight. Push through the left heel to return to centre. Loads the left adductor and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lateral_squat.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/lateral_squat.mp4?v=2",
     "parentId": "lateral_squat",
     "parentName": "Lateral Squat"
   },
@@ -5234,7 +5234,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Stand with feet wider than shoulder-width, toes forward. Shift the weight to the right, bending the right knee into a deep side squat while the left leg stays straight. Push through the right heel to return to centre. Loads the right adductor and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lateral_squat.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/lateral_squat.mp4?v=2",
     "parentId": "lateral_squat",
     "parentName": "Lateral Squat"
   },
@@ -5249,7 +5249,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on sturdy chair or bench. Stand up without using hands. Sit back down controlled. Functional leg strength for all levels.",
-    "videoUrl": "https://videos.liboworld.com/exercises/sit_to_stand.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/sit_to_stand.mp4?v=2"
   },
   {
     "id": "single_leg_sit_to_stand_left_leg",
@@ -5262,7 +5262,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on a chair, left foot planted, right leg extended off the floor. Stand up using only the left leg \u2014 drive through the heel without rocking. Lower under control back to sitting. Builds left-leg strength with no equipment.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_sit_to_stand.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_sit_to_stand.mp4?v=2",
     "parentId": "single_leg_sit_to_stand",
     "parentName": "Single-Leg Sit-to-Stand"
   },
@@ -5277,7 +5277,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on a chair, right foot planted, left leg extended off the floor. Stand up using only the right leg \u2014 drive through the heel without rocking. Lower under control back to sitting. Builds right-leg strength with no equipment.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_sit_to_stand.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_sit_to_stand.mp4?v=2",
     "parentId": "single_leg_sit_to_stand",
     "parentName": "Single-Leg Sit-to-Stand"
   },
@@ -5292,7 +5292,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing tall, hands on hips. Step the left foot back into a long lunge, lowering until both knees reach ~90 degrees and the left back knee hovers above the floor. Drive through the right front heel to return to standing. Loads the right front quad and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_lunge_bodyweight.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_lunge_bodyweight.mp4?v=2",
     "parentId": "reverse_lunge_bodyweight",
     "parentName": "Reverse Lunge \u2014 Bodyweight"
   },
@@ -5307,7 +5307,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing tall, hands on hips. Step the right foot back into a long lunge, lowering until both knees reach ~90 degrees and the right back knee hovers above the floor. Drive through the left front heel to return to standing. Loads the left front quad and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_lunge_bodyweight.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_lunge_bodyweight.mp4?v=2",
     "parentId": "reverse_lunge_bodyweight",
     "parentName": "Reverse Lunge \u2014 Bodyweight"
   },
@@ -5322,7 +5322,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing tall, hands on hips or at sides. Step the left foot forward into a long stride and lower until both knees reach ~90 degrees \u2014 front knee tracking over the toes. Push through the left heel to return to standing. Loads the left quad and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/forward_lunge_bodyweight.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/forward_lunge_bodyweight.mp4?v=2",
     "parentId": "forward_lunge_bodyweight",
     "parentName": "Forward Lunge \u2014 Bodyweight"
   },
@@ -5337,7 +5337,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing tall, hands on hips or at sides. Step the right foot forward into a long stride and lower until both knees reach ~90 degrees \u2014 front knee tracking over the toes. Push through the right heel to return to standing. Loads the right quad and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/forward_lunge_bodyweight.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/forward_lunge_bodyweight.mp4?v=2",
     "parentId": "forward_lunge_bodyweight",
     "parentName": "Forward Lunge \u2014 Bodyweight"
   },
@@ -5352,7 +5352,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Start in lunge position. Jump explosively, switch legs mid-air, land in opposite lunge. Continuous. Plyometric cardio and leg power.",
-    "videoUrl": "https://videos.liboworld.com/exercises/jumping_lunge.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/jumping_lunge.mp4?v=2"
   },
   {
     "id": "static_lunge_hold_left_leg",
@@ -5365,7 +5365,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Split stance with the left foot forward and right foot back, both knees bent to ~90 degrees. Hold the position with the back knee hovering above the floor and torso upright. Isometric quad and glute endurance through the left front leg.",
-    "videoUrl": "https://videos.liboworld.com/exercises/static_lunge_hold.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/static_lunge_hold.mp4?v=2",
     "parentId": "static_lunge_hold",
     "parentName": "Static Lunge Hold"
   },
@@ -5380,7 +5380,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Split stance with the right foot forward and left foot back, both knees bent to ~90 degrees. Hold the position with the back knee hovering above the floor and torso upright. Isometric quad and glute endurance through the right front leg.",
-    "videoUrl": "https://videos.liboworld.com/exercises/static_lunge_hold.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/static_lunge_hold.mp4?v=2",
     "parentId": "static_lunge_hold",
     "parentName": "Static Lunge Hold"
   },
@@ -5395,7 +5395,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing tall. Step the left foot behind and across the right leg, lowering until the right thigh is parallel to the floor. Drive through the right heel to return to standing. Targets the glute medius.",
-    "videoUrl": "https://videos.liboworld.com/exercises/curtsy_lunge_bodyweight.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/curtsy_lunge_bodyweight.mp4?v=2",
     "parentId": "curtsy_lunge_bodyweight",
     "parentName": "Curtsy Lunge \u2014 Bodyweight"
   },
@@ -5410,7 +5410,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing tall. Step the right foot behind and across the left leg, lowering until the left thigh is parallel to the floor. Drive through the left heel to return to standing. Targets the glute medius.",
-    "videoUrl": "https://videos.liboworld.com/exercises/curtsy_lunge_bodyweight.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/curtsy_lunge_bodyweight.mp4?v=2",
     "parentId": "curtsy_lunge_bodyweight",
     "parentName": "Curtsy Lunge \u2014 Bodyweight"
   },
@@ -5425,7 +5425,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie face up, knees bent, feet flat on floor hip-width. Drive hips up squeezing glutes at top. Lower controlled. Floor exercise.",
-    "videoUrl": "https://videos.liboworld.com/exercises/glute_bridge.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/glute_bridge.mp4?v=2"
   },
   {
     "id": "glute_bridge_single_leg_left_leg",
@@ -5438,7 +5438,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie face up, left foot planted hip-width, right knee raised or right leg extended toward the ceiling. Drive the hips up through the left heel until the body is in a straight line, squeeze the left glute hard at the top. Lower under control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/glute_bridge_single_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/glute_bridge_single_leg.mp4?v=2",
     "parentId": "glute_bridge_single_leg",
     "parentName": "Glute Bridge \u2014 Single-Leg"
   },
@@ -5453,7 +5453,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie face up, right foot planted hip-width, left knee raised or left leg extended toward the ceiling. Drive the hips up through the right heel until the body is in a straight line, squeeze the right glute hard at the top. Lower under control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/glute_bridge_single_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/glute_bridge_single_leg.mp4?v=2",
     "parentId": "glute_bridge_single_leg",
     "parentName": "Glute Bridge \u2014 Single-Leg"
   },
@@ -5468,7 +5468,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Same as standard bridge but feet placed on sturdy chair, bench, or step. Increases range of motion and difficulty.",
-    "videoUrl": "https://videos.liboworld.com/exercises/glute_bridge_elevated.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/glute_bridge_elevated.mp4?v=2"
   },
   {
     "id": "frog_pump",
@@ -5481,7 +5481,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie face up, soles of feet together, knees out to sides (frog position). Drive hips up squeezing glutes. Minimises hamstring involvement.",
-    "videoUrl": "https://videos.liboworld.com/exercises/frog_pump.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/frog_pump.mp4?v=2"
   },
   {
     "id": "donkey_kick_left",
@@ -5494,7 +5494,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "On hands and knees in quadruped, mat under knees. Drive left heel toward the ceiling with knee bent 90 degrees, squeezing the glute at top. Controlled return \u2014 isolates the left glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/donkey_kick.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/donkey_kick.mp4?v=2",
     "parentId": "donkey_kick",
     "parentName": "Donkey Kick"
   },
@@ -5509,7 +5509,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "On hands and knees in quadruped, mat under knees. Drive right heel toward the ceiling with knee bent 90 degrees, squeezing the glute at top. Controlled return \u2014 isolates the right glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/donkey_kick.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/donkey_kick.mp4?v=2",
     "parentId": "donkey_kick",
     "parentName": "Donkey Kick"
   },
@@ -5524,7 +5524,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Hands and knees position, spine neutral. Lift the left knee out to the side keeping the 90-degree bend, squeezing the glute at top. Controlled lower \u2014 targets the left glute medius.",
-    "videoUrl": "https://videos.liboworld.com/exercises/fire_hydrant.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/fire_hydrant.mp4?v=2",
     "parentId": "fire_hydrant",
     "parentName": "Fire Hydrant"
   },
@@ -5539,7 +5539,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Hands and knees position, spine neutral. Lift the right knee out to the side keeping the 90-degree bend, squeezing the glute at top. Controlled lower \u2014 targets the right glute medius.",
-    "videoUrl": "https://videos.liboworld.com/exercises/fire_hydrant.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/fire_hydrant.mp4?v=2",
     "parentId": "fire_hydrant",
     "parentName": "Fire Hydrant"
   },
@@ -5554,7 +5554,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Mini resistance band around ankles or just above knees. Quarter squat athletic stance. Step sideways maintaining band tension. Continuous side steps.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lateral_band_walk.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/lateral_band_walk.mp4?v=2"
   },
   {
     "id": "standing_calf_raise_bodyweight",
@@ -5567,7 +5567,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing on edge of step or flat floor. Rise up onto toes, squeezing calves at top. Controlled lower. Use wall for balance if needed.",
-    "videoUrl": "https://videos.liboworld.com/exercises/standing_calf_raise_bodyweight.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/standing_calf_raise_bodyweight.mp4?v=2"
   },
   {
     "id": "single_leg_calf_raise_left_leg",
@@ -5580,7 +5580,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing on the left foot at the edge of a step, ball of the foot on the edge and heel hanging off. Hand on a wall for balance. Rise onto the toes as high as possible, then lower the heel below the step for a full stretch. Trains the left calf through full range.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_calf_raise.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_calf_raise.mp4?v=2",
     "parentId": "single_leg_calf_raise",
     "parentName": "Single-Leg Calf Raise"
   },
@@ -5595,7 +5595,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing on the right foot at the edge of a step, ball of the foot on the edge and heel hanging off. Hand on a wall for balance. Rise onto the toes as high as possible, then lower the heel below the step for a full stretch. Trains the right calf through full range.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_calf_raise.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_calf_raise.mp4?v=2",
     "parentId": "single_leg_calf_raise",
     "parentName": "Single-Leg Calf Raise"
   },
@@ -5610,7 +5610,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sturdy chair, bench, or staircase step. Place left foot fully on surface. Drive through left heel to stand tall on top. Step down controlled. All reps on left leg.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bodyweight_step_up.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bodyweight_step_up.mp4?v=2",
     "parentId": "bodyweight_step_up",
     "parentName": "Bodyweight Step-Up"
   },
@@ -5625,7 +5625,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sturdy chair, bench, or staircase step. Place right foot fully on surface. Drive through right heel to stand tall on top. Step down controlled. All reps on right leg.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bodyweight_step_up.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bodyweight_step_up.mp4?v=2",
     "parentId": "bodyweight_step_up",
     "parentName": "Bodyweight Step-Up"
   },
@@ -5640,7 +5640,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing, alternate lifting knees to hip height. Pump arms naturally opposite to legs. Controlled pace for warm-up or light cardio.",
-    "videoUrl": "https://videos.liboworld.com/exercises/march_in_place_standard.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/march_in_place_standard.mp4?v=2"
   },
   {
     "id": "forearm_plank",
@@ -5653,7 +5653,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Elbows on floor under shoulders, forearms flat. Body straight from head to heels. Engage entire core, breathe steadily. Timed hold.",
-    "videoUrl": "https://videos.liboworld.com/exercises/forearm_plank.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/forearm_plank.mp4?v=2"
   },
   {
     "id": "high_plank",
@@ -5666,7 +5666,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Hands under shoulders, arms straight. Body straight, push floor away. Engage core, avoid sagging hips. Foundation position for many exercises.",
-    "videoUrl": "https://videos.liboworld.com/exercises/high_plank.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/high_plank.mp4?v=2"
   },
   {
     "id": "side_plank_left_side",
@@ -5679,7 +5679,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie on the left side, left forearm on the floor under the shoulder, feet stacked or staggered. Lift the hips so the body forms a straight line from head to heels, right arm extended toward the ceiling or on the hip. Hold for time. Loads the left obliques and QL.",
-    "videoUrl": "https://videos.liboworld.com/exercises/side_plank.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/side_plank.mp4?v=2",
     "parentId": "side_plank",
     "parentName": "Side Plank"
   },
@@ -5694,7 +5694,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie on the right side, right forearm on the floor under the shoulder, feet stacked or staggered. Lift the hips so the body forms a straight line from head to heels, left arm extended toward the ceiling or on the hip. Hold for time. Loads the right obliques and QL.",
-    "videoUrl": "https://videos.liboworld.com/exercises/side_plank.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/side_plank.mp4?v=2",
     "parentId": "side_plank",
     "parentName": "Side Plank"
   },
@@ -5709,7 +5709,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Side plank on the left forearm, hips lifted in a straight line. Slowly lower the left hip toward the floor without touching, then drive back up to the start. Controlled reps through full range. Dynamic loading of the left obliques.",
-    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_hip_dips.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_hip_dips.mp4?v=2",
     "parentId": "side_plank_with_hip_dips",
     "parentName": "Side Plank with Hip Dips"
   },
@@ -5724,7 +5724,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Side plank on the right forearm, hips lifted in a straight line. Slowly lower the right hip toward the floor without touching, then drive back up to the start. Controlled reps through full range. Dynamic loading of the right obliques.",
-    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_hip_dips.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_hip_dips.mp4?v=2",
     "parentId": "side_plank_with_hip_dips",
     "parentName": "Side Plank with Hip Dips"
   },
@@ -5739,7 +5739,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Side plank on the left forearm with hips lifted. Raise the right (top) leg upward and hold or pulse at the top while keeping the hips square. Adds glute medius and outer-hip work to the left-side oblique hold.",
-    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_leg_lift.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_leg_lift.mp4?v=2",
     "parentId": "side_plank_with_leg_lift",
     "parentName": "Side Plank with Leg Lift"
   },
@@ -5754,7 +5754,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Side plank on the right forearm with hips lifted. Raise the left (top) leg upward and hold or pulse at the top while keeping the hips square. Adds glute medius and outer-hip work to the right-side oblique hold.",
-    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_leg_lift.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_leg_lift.mp4?v=2",
     "parentId": "side_plank_with_leg_lift",
     "parentName": "Side Plank with Leg Lift"
   },
@@ -5769,7 +5769,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High plank position. Drive one knee toward chest quickly, return, repeat other knee. Mountain-climber style from plank. Controlled.",
-    "videoUrl": "https://videos.liboworld.com/exercises/high_plank_knee_drives.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/high_plank_knee_drives.mp4?v=2"
   },
   {
     "id": "incline_plank_hands_elevated",
@@ -5782,7 +5782,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Hands on bench, box, or chair in plank position. Easier regression of floor plank. Good for beginners building core strength.",
-    "videoUrl": "https://videos.liboworld.com/exercises/incline_plank_hands_elevated.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_plank_hands_elevated.mp4?v=2"
   },
   {
     "id": "dead_bug_standard",
@@ -5795,7 +5795,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, arms straight toward ceiling, knees bent 90 degrees (tabletop). Extend opposite arm/leg toward floor, return, alternate. Press lower back into floor.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dead_bug_standard.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/dead_bug_standard.mp4?v=2"
   },
   {
     "id": "dead_bug_slow_tempo",
@@ -5808,7 +5808,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Same position as standard dead bug. Very slow controlled extension (4-5 seconds out, 4-5 seconds back). Focus on maintaining lower back contact with floor.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dead_bug_slow_tempo.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/dead_bug_slow_tempo.mp4?v=2"
   },
   {
     "id": "dead_bug_banded",
@@ -5821,7 +5821,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Standard dead bug position. Light resistance band looped around hands and/or feet. Band tension adds core demand through full range.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dead_bug_banded.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/dead_bug_banded.mp4?v=2"
   },
   {
     "id": "dead_bug_weighted",
@@ -5834,7 +5834,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Standard dead bug position holding light dumbbell in hands overhead. Extend limbs with control. Added load on core stabilisers.",
-    "videoUrl": "https://videos.liboworld.com/exercises/dead_bug_weighted.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/dead_bug_weighted.mp4?v=2"
   },
   {
     "id": "bird_dog_standard_left",
@@ -5847,7 +5847,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "On hands and knees, spine neutral. Extend the left arm forward and the right leg back simultaneously until both are parallel to the floor. Brace the core, hold briefly, return. Trains anti-extension and balance.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_standard.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_standard.mp4?v=2",
     "parentId": "bird_dog_standard",
     "parentName": "Bird Dog \u2014 Standard"
   },
@@ -5862,7 +5862,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "On hands and knees, spine neutral. Extend the right arm forward and the left leg back simultaneously until both are parallel to the floor. Brace the core, hold briefly, return. Trains anti-extension and balance.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_standard.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_standard.mp4?v=2",
     "parentId": "bird_dog_standard",
     "parentName": "Bird Dog \u2014 Standard"
   },
@@ -5877,7 +5877,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High plank position, hands under shoulders, body in a straight line. Extend the left arm forward and the right leg back simultaneously, hold briefly without letting the hips rotate. Return. Much harder than the kneeling version.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_from_push_up_position.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_from_push_up_position.mp4?v=2",
     "parentId": "bird_dog_from_push_up_position",
     "parentName": "Bird Dog \u2014 From Push-Up Position"
   },
@@ -5892,7 +5892,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High plank position, hands under shoulders, body in a straight line. Extend the right arm forward and the left leg back simultaneously, hold briefly without letting the hips rotate. Return. Much harder than the kneeling version.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_from_push_up_position.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_from_push_up_position.mp4?v=2",
     "parentId": "bird_dog_from_push_up_position",
     "parentName": "Bird Dog \u2014 From Push-Up Position"
   },
@@ -5935,7 +5935,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Kneeling bird-dog stance with a dumbbell in the left hand. Extend the right leg back, then row the left dumbbell to the hip \u2014 keeping the hips square and core braced. Lower the dumbbell, return. Combines anti-rotation with a unilateral row.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_row_weighted_left_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_row_weighted_left_arm.mp4?v=2",
     "parentId": "bird_dog_row_weighted",
     "parentName": "Bird Dog Row (Weighted)"
   },
@@ -5950,7 +5950,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Kneeling bird-dog stance with a dumbbell in the right hand. Extend the left leg back, then row the right dumbbell to the hip \u2014 keeping the hips square and core braced. Lower the dumbbell, return. Combines anti-rotation with a unilateral row.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_row_weighted_right_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_row_weighted_right_arm.mp4?v=2",
     "parentId": "bird_dog_row_weighted",
     "parentName": "Bird Dog Row (Weighted)"
   },
@@ -5965,7 +5965,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, hands behind head (don't pull neck). Lift shoulders, twist right elbow to left knee while extending right leg. Alternate continuously.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bicycle_crunch_standard.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/bicycle_crunch_standard.mp4?v=2"
   },
   {
     "id": "bicycle_crunch_slow_tempo",
@@ -5990,7 +5990,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Standing, hands behind head. Drive one knee up while rotating opposite elbow to meet it. Alternate sides. Low-impact core work.",
-    "videoUrl": "https://videos.liboworld.com/exercises/standing_bicycle_crunch.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/standing_bicycle_crunch.mp4?v=2"
   },
   {
     "id": "lying_leg_raise_standard",
@@ -6003,7 +6003,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, hands under lower back or at sides. Legs straight, lift from floor to vertical. Lower controlled without arching back.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lying_leg_raise_standard.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/lying_leg_raise_standard.mp4?v=2"
   },
   {
     "id": "lying_leg_raise_alternating",
@@ -6016,7 +6016,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Same position as standard. Lift one leg at a time, alternating. Easier progression. Keep lower back pressed into floor.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lying_leg_raise_alternating.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/lying_leg_raise_alternating.mp4?v=2"
   },
   {
     "id": "lying_leg_raise_with_hold",
@@ -6029,7 +6029,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Raise both legs to ~6 inches off floor. Hold for prescribed time. Lower back pressed into floor. Isometric lower ab hold.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lying_leg_raise_with_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/lying_leg_raise_with_hold.mp4?v=2"
   },
   {
     "id": "flutter_kicks",
@@ -6042,7 +6042,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, legs extended ~6 inches off floor. Alternate small up/down kicks rapidly. Lower back pressed into floor. Core endurance.",
-    "videoUrl": "https://videos.liboworld.com/exercises/flutter_kicks.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/flutter_kicks.mp4?v=2"
   },
   {
     "id": "supine_heel_slide_left",
@@ -6055,7 +6055,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, knees bent, feet flat and pelvis in neutral. Slowly slide the left heel along the floor until the leg is straight, then draw it back under control. Maintain a stable pelvis throughout \u2014 trains deep core and lumbopelvic control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/supine_heel_slide.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/supine_heel_slide.mp4?v=2",
     "parentId": "supine_heel_slide",
     "parentName": "Supine Heel Slide"
   },
@@ -6070,7 +6070,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, knees bent, feet flat and pelvis in neutral. Slowly slide the right heel along the floor until the leg is straight, then draw it back under control. Maintain a stable pelvis throughout \u2014 trains deep core and lumbopelvic control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/supine_heel_slide.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/supine_heel_slide.mp4?v=2",
     "parentId": "supine_heel_slide",
     "parentName": "Supine Heel Slide"
   },
@@ -6085,7 +6085,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Same as standard heel slide. Actively brace core (draw navel in) before each slide. Focus on preventing any pelvic movement.",
-    "videoUrl": "https://videos.liboworld.com/exercises/heel_slide_with_core_bracing.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/heel_slide_with_core_bracing.mp4?v=2"
   },
   {
     "id": "standing_core_brace",
@@ -6150,7 +6150,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High plank position. Drive one knee toward chest quickly, switch, repeat. Fast alternating like running in place horizontally.",
-    "videoUrl": "https://videos.liboworld.com/exercises/mountain_climber_standard.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/mountain_climber_standard.mp4?v=2"
   },
   {
     "id": "mountain_climber_cross_body",
@@ -6163,7 +6163,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High plank position. Drive knee toward opposite elbow. Alternate sides. Rotational element adds oblique engagement to standard climber.",
-    "videoUrl": "https://videos.liboworld.com/exercises/mountain_climber_cross_body.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/mountain_climber_cross_body.mp4?v=2"
   },
   {
     "id": "high_knees",
@@ -6176,7 +6176,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "Standing, drive knees above hip height rapidly alternating legs. Pump arms. Fast pace. On the spot or moving slightly forward.",
-    "videoUrl": "https://videos.liboworld.com/exercises/high_knees.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/high_knees.mp4?v=2"
   },
   {
     "id": "butt_kicks",
@@ -6189,7 +6189,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "Standing, jog in place kicking heels up to touch glutes. Pump arms naturally. Light bounce on balls of feet. Hamstring warm-up and cardio.",
-    "videoUrl": "https://videos.liboworld.com/exercises/butt_kicks.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/butt_kicks.mp4?v=2"
   },
   {
     "id": "high_knees_lateral_shuffle",
@@ -6202,7 +6202,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "Combine high knees with lateral shuffling steps. High knees for 4 steps, shuffle 4 steps sideways, repeat. Agility and cardio.",
-    "videoUrl": "https://videos.liboworld.com/exercises/high_knees_lateral_shuffle.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/high_knees_lateral_shuffle.mp4?v=2"
   },
   {
     "id": "high_knee_tuck_jumps",
@@ -6215,7 +6215,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "Standing, jump explosively pulling both knees to chest at peak. Land softly with bent knees. Advanced plyometric.",
-    "videoUrl": "https://videos.liboworld.com/exercises/high_knee_tuck_jumps.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/high_knee_tuck_jumps.mp4?v=2"
   },
   {
     "id": "star_jumps",
@@ -6228,7 +6228,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "Standing, quarter squat then explode upward spreading arms and legs into X/star shape in air. Land softly in squat. Plyometric full body.",
-    "videoUrl": "https://videos.liboworld.com/exercises/star_jumps.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/star_jumps.mp4?v=2"
   },
   {
     "id": "jumping_jacks",
@@ -6241,7 +6241,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "Standing, feet together, arms at sides. Jump feet apart while raising arms overhead, jump back. Classic cardio warm-up. Continuous rhythm.",
-    "videoUrl": "https://videos.liboworld.com/exercises/jumping_jacks.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/jumping_jacks.mp4?v=2"
   },
   {
     "id": "squat_jacks",
@@ -6254,7 +6254,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "Like jumping jacks but lower \u2014 jump feet wide into squat, then jump feet together to standing. Arms punch out or overhead at top.",
-    "videoUrl": "https://videos.liboworld.com/exercises/squat_jacks.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/squat_jacks.mp4?v=2"
   },
   {
     "id": "box_jump_squat",
@@ -6279,7 +6279,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "High plank position. Sprint knees toward chest alternately as fast as possible. Maintain plank integrity. HIIT cardio from plank.",
-    "videoUrl": "https://videos.liboworld.com/exercises/mountain_climbers_fast.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/mountain_climbers_fast.mp4?v=2"
   },
   {
     "id": "spider_mountain_climbers",
@@ -6292,7 +6292,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "High plank. Bring knee to outside of same-side elbow (wider than standard climber). Alternate. Hip mobility plus core work.",
-    "videoUrl": "https://videos.liboworld.com/exercises/spider_mountain_climbers.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/spider_mountain_climbers.mp4?v=2"
   },
   {
     "id": "squat_to_stand",
@@ -6305,7 +6305,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing, fold forward touching toes (bend knees if needed). Grab toes, squat hips down, lift chest to deep squat. Stand up. Repeat. Mobility and legs.",
-    "videoUrl": "https://videos.liboworld.com/exercises/squat_to_stand.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/squat_to_stand.mp4?v=2"
   },
   {
     "id": "burpee",
@@ -6318,7 +6318,7 @@
     "variation": "",
     "emoji": "\ud83c\udf1f",
     "setupNotes": "Standing, squat down placing hands on floor. Jump feet back to plank, perform push-up (optional), jump feet to hands, jump up with arms overhead. Full body.",
-    "videoUrl": "https://videos.liboworld.com/exercises/burpee.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/burpee.mp4?v=2"
   },
   {
     "id": "fast_feet",
@@ -6331,7 +6331,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Athletic stance, slightly bent knees. Rapid small steps in place, feet barely leaving ground. Fast as possible for prescribed time. Agility drill.",
-    "videoUrl": "https://videos.liboworld.com/exercises/fast_feet.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/fast_feet.mp4?v=2"
   },
   {
     "id": "battle_ropes_alternating_waves",
@@ -6464,7 +6464,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "Jump rope on firm flat surface. Light bounce on balls of feet, wrists control rope rotation. Various speeds and footwork patterns.",
-    "videoUrl": "https://videos.liboworld.com/exercises/skipping_rope.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/skipping_rope.mp4?v=2"
   },
   {
     "id": "bear_crawl",
@@ -6477,7 +6477,7 @@
     "variation": "",
     "emoji": "\ud83c\udf1f",
     "setupNotes": "On hands and feet (not knees), knees hovering just off ground. Crawl forward moving opposite hand and foot together. Core and full body.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bear_crawl.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/bear_crawl.mp4?v=2"
   },
   {
     "id": "treadmill_walk",
@@ -6682,7 +6682,7 @@
     "variation": "",
     "emoji": "\ud83c\udfc3",
     "setupNotes": "Standing, drive knees above hip level alternately. Pump arms opposite to legs. Moderate pace. Hip flexor activation and warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/high_knee_march.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/high_knee_march.mp4?v=2"
   },
   {
     "id": "arm_swings_forward",
@@ -6695,7 +6695,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, swing both arms forward and up overhead in large arcs \u2014 then back down. Build momentum with each rep. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_swings_forward.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_swings_forward.mp4?v=2"
   },
   {
     "id": "arm_swings_backward",
@@ -6708,7 +6708,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, swing both arms backward in large reverse arcs \u2014 pulling shoulders back and opening chest. Build momentum with each rep. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_swings_backward.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_swings_backward.mp4?v=2"
   },
   {
     "id": "cross_body_arm_swings",
@@ -6721,7 +6721,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing, swing both arms horizontally across body in alternating cross pattern. Opens chest and warms up shoulders and pecs.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_arm_swings.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_arm_swings.mp4?v=2"
   },
   {
     "id": "hip_circles",
@@ -6734,7 +6734,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Stand with feet hip-width apart, hands on hips. Rotate hips in large smooth circles \u2014 clockwise then counterclockwise. Keep upper body stable. Warms up hip joints and lower back.",
-    "videoUrl": "https://videos.liboworld.com/exercises/hip_circles.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/hip_circles.mp4?v=2"
   },
   {
     "id": "ankle_circles",
@@ -6747,7 +6747,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing on one leg (hold support), rotate foot in circles. Clockwise then counterclockwise. 10 each direction. Switch feet.",
-    "videoUrl": "https://videos.liboworld.com/exercises/ankle_circles.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/ankle_circles.mp4?v=2"
   },
   {
     "id": "wrist_rolls",
@@ -6760,7 +6760,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Extend arms forward, circle wrists in both directions. Open and close fists between circles. Warms up wrist joints for pressing and gripping.",
-    "videoUrl": "https://videos.liboworld.com/exercises/wrist_rolls.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/wrist_rolls.mp4?v=2"
   },
   {
     "id": "leg_swings_front_to_back_left_leg",
@@ -6773,7 +6773,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Stand with the right side near a wall, right hand on the wall for balance. Swing the left leg forward and backward in a controlled pendulum, gradually increasing range. Warms up the left hip flexors and hamstrings.",
-    "videoUrl": "https://videos.liboworld.com/exercises/leg_swings_front_to_back_left_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/leg_swings_front_to_back_left_leg.mp4?v=2",
     "parentId": "leg_swings_front_to_back_left_leg",
     "parentName": "Leg Swings \u2014 Front to Back (Left Leg)"
   },
@@ -6788,7 +6788,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Stand with the left side near a wall, left hand on the wall for balance. Swing the right leg forward and backward in a controlled pendulum, gradually increasing range. Warms up the right hip flexors and hamstrings.",
-    "videoUrl": "https://videos.liboworld.com/exercises/leg_swings_front_to_back_left_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/leg_swings_front_to_back_left_leg.mp4?v=2",
     "parentId": "leg_swings_front_to_back_right_leg",
     "parentName": "Leg Swings \u2014 Front to Back (Right Leg)"
   },
@@ -6803,7 +6803,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Face a wall, both hands on it for support, weight on the right leg. Swing the left leg across the body and out to the side in a controlled pendulum. Warms up the left adductors and abductors.",
-    "videoUrl": "https://videos.liboworld.com/exercises/leg_swings_side_to_side_left_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/leg_swings_side_to_side_left_leg.mp4?v=2",
     "parentId": "leg_swings_side_to_side_left_leg",
     "parentName": "Leg Swings \u2014 Side to Side (Left Leg)"
   },
@@ -6818,7 +6818,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Face a wall, both hands on it for support, weight on the left leg. Swing the right leg across the body and out to the side in a controlled pendulum. Warms up the right adductors and abductors.",
-    "videoUrl": "https://videos.liboworld.com/exercises/leg_swings_side_to_side_left_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/leg_swings_side_to_side_left_leg.mp4?v=2",
     "parentId": "leg_swings_side_to_side_right_leg",
     "parentName": "Leg Swings \u2014 Side to Side (Right Leg)"
   },
@@ -6833,7 +6833,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "On hands and knees. Alternate between arching back (cow \u2014 belly drops) and rounding back (cat \u2014 belly lifts). Coordinate with breathing.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cat_cow.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/cat_cow.mp4?v=2"
   },
   {
     "id": "inchworm",
@@ -6846,7 +6846,7 @@
     "variation": "",
     "emoji": "\ud83c\udf1f",
     "setupNotes": "Standing, fold forward touching floor. Walk hands out to plank position. Optional push-up. Walk feet to hands, stand up. Full body warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/inchworm.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/inchworm.mp4?v=2"
   },
   {
     "id": "walking_lunge_with_twist",
@@ -6859,7 +6859,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Step into forward lunge, rotate torso toward front leg. Arms extended or hands together. Return to standing, step other leg. Dynamic stretch.",
-    "videoUrl": "https://videos.liboworld.com/exercises/walking_lunge_with_twist.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/walking_lunge_with_twist.mp4?v=2"
   },
   {
     "id": "scapular_push_up",
@@ -6872,7 +6872,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "High plank position, arms straight. Without bending elbows, push shoulder blades apart (protract) then squeeze together (retract). Scapular mobility.",
-    "videoUrl": "https://videos.liboworld.com/exercises/scapular_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/scapular_push_up.mp4?v=2"
   },
   {
     "id": "shoulder_rolls",
@@ -6885,7 +6885,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, roll shoulders forward in circles, then backward. Big controlled circles. Loosens upper traps and shoulder joints.",
-    "videoUrl": "https://videos.liboworld.com/exercises/shoulder_rolls.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/shoulder_rolls.mp4?v=2"
   },
   {
     "id": "child_s_pose",
@@ -6898,7 +6898,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Kneel on mat, sit back on heels, extend arms forward on floor. Forehead rests on ground. Deep breathing. Stretches back, lats, and hips.",
-    "videoUrl": "https://videos.liboworld.com/exercises/childs_pose.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/childs_pose.mp4?v=2"
   },
   {
     "id": "seated_forward_fold",
@@ -6911,7 +6911,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on floor, legs extended straight. Hinge forward at hips reaching toward feet. Hold. Stretches hamstrings and lower back.",
-    "videoUrl": "https://videos.liboworld.com/exercises/seated_forward_fold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_forward_fold.mp4?v=2"
   },
   {
     "id": "standing_quad_stretch_left",
@@ -6924,7 +6924,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing tall, free hand on a wall for balance. Pull the left foot up toward the left glute with the left hand, knees together and hips pressed forward slightly. Hold and breathe. Stretches the left quad and hip flexor.",
-    "videoUrl": "https://videos.liboworld.com/exercises/standing_quad_stretch_left.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/standing_quad_stretch_left.mp4?v=2",
     "parentId": "standing_quad_stretch",
     "parentName": "Standing Quad Stretch"
   },
@@ -6939,7 +6939,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing tall, free hand on a wall for balance. Pull the right foot up toward the right glute with the right hand, knees together and hips pressed forward slightly. Hold and breathe. Stretches the right quad and hip flexor.",
-    "videoUrl": "https://videos.liboworld.com/exercises/standing_quad_stretch_right.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/standing_quad_stretch_right.mp4?v=2",
     "parentId": "standing_quad_stretch",
     "parentName": "Standing Quad Stretch"
   },
@@ -6954,7 +6954,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on the floor with the left leg extended and the right foot tucked against the inner left thigh. Hinge at the hips and reach over the left leg, back flat. Hold and breathe. Targets the left hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/hamstring_stretch_seated.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/hamstring_stretch_seated.mp4?v=2",
     "parentId": "hamstring_stretch_seated",
     "parentName": "Hamstring Stretch \u2014 Seated"
   },
@@ -6969,7 +6969,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on the floor with the right leg extended and the left foot tucked against the inner right thigh. Hinge at the hips and reach over the right leg, back flat. Hold and breathe. Targets the right hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/hamstring_stretch_seated.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/hamstring_stretch_seated.mp4?v=2",
     "parentId": "hamstring_stretch_seated",
     "parentName": "Hamstring Stretch \u2014 Seated"
   },
@@ -6984,7 +6984,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing, place the left heel on a low bench or step with the leg straight. Hinge from the hips and lean forward over the left leg, keeping the back flat. Hold. Targets the left hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/hamstring_stretch_standing.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/hamstring_stretch_standing.mp4?v=2",
     "parentId": "hamstring_stretch_standing",
     "parentName": "Hamstring Stretch \u2014 Standing"
   },
@@ -6999,7 +6999,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Standing, place the right heel on a low bench or step with the leg straight. Hinge from the hips and lean forward over the right leg, keeping the back flat. Hold. Targets the right hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/hamstring_stretch_standing.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/hamstring_stretch_standing.mp4?v=2",
     "parentId": "hamstring_stretch_standing",
     "parentName": "Hamstring Stretch \u2014 Standing"
   },
@@ -7014,7 +7014,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Face a wall in a split stance \u2014 left foot back with the heel pressed to the floor, right foot forward with the knee bent. Lean the hips toward the wall until the left calf stretches. Hold. Targets the left gastrocnemius.",
-    "videoUrl": "https://videos.liboworld.com/exercises/calf_stretch_wall_left_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/calf_stretch_wall_left_leg.mp4?v=2",
     "parentId": "calf_stretch_wall_left_leg",
     "parentName": "Calf Stretch \u2014 Wall (Left Leg)"
   },
@@ -7029,7 +7029,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Face a wall in a split stance \u2014 right foot back with the heel pressed to the floor, left foot forward with the knee bent. Lean the hips toward the wall until the right calf stretches. Hold. Targets the right gastrocnemius.",
-    "videoUrl": "https://videos.liboworld.com/exercises/calf_stretch_wall_left_leg.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/calf_stretch_wall_left_leg.mp4?v=2",
     "parentId": "calf_stretch_wall_right_leg",
     "parentName": "Calf Stretch \u2014 Wall (Right Leg)"
   },
@@ -7072,7 +7072,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing tall, bring the left arm straight across the chest. Hook the right forearm under the left elbow and pull the left arm closer to the body. Hold. Stretches the left rear delt and upper back.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch.mp4?v=2",
     "parentId": "cross_body_shoulder_stretch",
     "parentName": "Cross-Body Shoulder Stretch"
   },
@@ -7087,7 +7087,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing tall, bring the right arm straight across the chest. Hook the left forearm under the right elbow and pull the right arm closer to the body. Hold. Stretches the right rear delt and upper back.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch.mp4?v=2",
     "parentId": "cross_body_shoulder_stretch",
     "parentName": "Cross-Body Shoulder Stretch"
   },
@@ -7102,7 +7102,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Raise the left arm overhead and bend the elbow so the left hand drops behind the head. Use the right hand to gently press the left elbow back and down. Hold. Stretches the left triceps and lat.",
-    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left.mp4?v=2",
     "parentId": "overhead_triceps_stretch",
     "parentName": "Overhead Triceps Stretch"
   },
@@ -7117,7 +7117,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Raise the right arm overhead and bend the elbow so the right hand drops behind the head. Use the left hand to gently press the right elbow back and down. Hold. Stretches the right triceps and lat.",
-    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right.mp4?v=2",
     "parentId": "overhead_triceps_stretch",
     "parentName": "Overhead Triceps Stretch"
   },
@@ -7132,7 +7132,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Half-kneeling on the mat \u2014 left knee down, right foot forward. Tuck the pelvis under and gently push the hips forward until a stretch is felt at the front of the left hip. Stay tall through the torso. Hold. Stretches the left hip flexor.",
-    "videoUrl": "https://videos.liboworld.com/exercises/hip_flexor_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/hip_flexor_stretch.mp4?v=2",
     "parentId": "hip_flexor_stretch",
     "parentName": "Hip Flexor Stretch"
   },
@@ -7147,7 +7147,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Half-kneeling on the mat \u2014 right knee down, left foot forward. Tuck the pelvis under and gently push the hips forward until a stretch is felt at the front of the right hip. Stay tall through the torso. Hold. Stretches the right hip flexor.",
-    "videoUrl": "https://videos.liboworld.com/exercises/hip_flexor_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/hip_flexor_stretch.mp4?v=2",
     "parentId": "hip_flexor_stretch",
     "parentName": "Hip Flexor Stretch"
   },
@@ -7162,7 +7162,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie face up with knees bent. Cross the left ankle over the right knee in a figure-4. Reach through and pull the right thigh toward the chest until a stretch is felt deep in the left glute. Hold. Targets the left piriformis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/glute_stretch_figure_4.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/glute_stretch_figure_4.mp4?v=2",
     "parentId": "glute_stretch_figure_4",
     "parentName": "Glute Stretch \u2014 Figure 4"
   },
@@ -7177,7 +7177,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie face up with knees bent. Cross the right ankle over the left knee in a figure-4. Reach through and pull the left thigh toward the chest until a stretch is felt deep in the right glute. Hold. Targets the right piriformis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/glute_stretch_figure_4.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/glute_stretch_figure_4.mp4?v=2",
     "parentId": "glute_stretch_figure_4",
     "parentName": "Glute Stretch \u2014 Figure 4"
   },
@@ -7192,7 +7192,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing or seated tall, gently tilt the right ear toward the right shoulder, keeping the left shoulder relaxed and pressed down. Optionally use the right hand for light additional pressure. Hold. Stretches the left side of the neck.",
-    "videoUrl": "https://videos.liboworld.com/exercises/neck_side_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/neck_side_stretch.mp4?v=2",
     "parentId": "neck_side_stretch",
     "parentName": "Neck Side Stretch"
   },
@@ -7207,7 +7207,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Standing or seated tall, gently tilt the left ear toward the left shoulder, keeping the right shoulder relaxed and pressed down. Optionally use the left hand for light additional pressure. Hold. Stretches the right side of the neck.",
-    "videoUrl": "https://videos.liboworld.com/exercises/neck_side_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/neck_side_stretch.mp4?v=2",
     "parentId": "neck_side_stretch",
     "parentName": "Neck Side Stretch"
   },
@@ -7222,7 +7222,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated tall, place the left hand behind the back. Tilt the head away from the left shoulder and use the right hand on the head for gentle additional pressure. Hold. Releases tension in the left upper trap.",
-    "videoUrl": "https://videos.liboworld.com/exercises/upper_trap_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/upper_trap_stretch.mp4?v=2",
     "parentId": "upper_trap_stretch",
     "parentName": "Upper Trap Stretch"
   },
@@ -7237,7 +7237,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Seated tall, place the right hand behind the back. Tilt the head away from the right shoulder and use the left hand on the head for gentle additional pressure. Hold. Releases tension in the right upper trap.",
-    "videoUrl": "https://videos.liboworld.com/exercises/upper_trap_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/upper_trap_stretch.mp4?v=2",
     "parentId": "upper_trap_stretch",
     "parentName": "Upper Trap Stretch"
   },
@@ -7252,7 +7252,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, knees bent, feet flat. One hand on chest, one on belly. Breathe deeply into belly (belly rises), chest stays still. Slow exhale.",
-    "videoUrl": "https://videos.liboworld.com/exercises/diaphragmatic_breathing_supine.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/diaphragmatic_breathing_supine.mp4?v=2"
   },
   {
     "id": "diaphragmatic_breathing_seated",
@@ -7325,7 +7325,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, knees bent, feet flat. Gently tilt pelvis \u2014 flatten lower back against floor (posterior tilt), then release to neutral. Gentle rocking motion.",
-    "videoUrl": "https://videos.liboworld.com/exercises/pelvic_tilts.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/pelvic_tilts.mp4?v=2"
   },
   {
     "id": "clamshell_standard_left",
@@ -7338,7 +7338,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie on the right side, knees bent to 90 degrees, feet stacked together. Keep the feet touching and open the left (top) knee upward like a clamshell, squeezing the left glute medius. Lower under control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/clamshell_standard.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/clamshell_standard.mp4?v=2",
     "parentId": "clamshell_standard",
     "parentName": "Clamshell \u2014 Standard"
   },
@@ -7353,7 +7353,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie on the left side, knees bent to 90 degrees, feet stacked together. Keep the feet touching and open the right (top) knee upward like a clamshell, squeezing the right glute medius. Lower under control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/clamshell_standard.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/clamshell_standard.mp4?v=2",
     "parentId": "clamshell_standard",
     "parentName": "Clamshell \u2014 Standard"
   },
@@ -7368,7 +7368,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie on the right side with a mini band looped just above the knees, knees bent to 90 degrees and feet stacked. Open the left (top) knee against the band's resistance, squeezing the left glute medius. Lower under control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/clamshell_banded.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/clamshell_banded.mp4?v=2",
     "parentId": "clamshell_banded",
     "parentName": "Clamshell \u2014 Banded"
   },
@@ -7383,7 +7383,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie on the left side with a mini band looped just above the knees, knees bent to 90 degrees and feet stacked. Open the right (top) knee against the band's resistance, squeezing the right glute medius. Lower under control.",
-    "videoUrl": "https://videos.liboworld.com/exercises/clamshell_banded.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/clamshell_banded.mp4?v=2",
     "parentId": "clamshell_banded",
     "parentName": "Clamshell \u2014 Banded"
   },
@@ -7398,7 +7398,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie on the right side, knees bent and stacked. Keep the knees pressed together and lift the left (top) foot upward, rotating from the left hip. Lower under control. Trains internal rotation of the left hip.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_clamshell.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_clamshell.mp4?v=2",
     "parentId": "reverse_clamshell",
     "parentName": "Reverse Clamshell"
   },
@@ -7413,7 +7413,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Lie on the left side, knees bent and stacked. Keep the knees pressed together and lift the right (top) foot upward, rotating from the right hip. Lower under control. Trains internal rotation of the right hip.",
-    "videoUrl": "https://videos.liboworld.com/exercises/reverse_clamshell.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_clamshell.mp4?v=2",
     "parentId": "reverse_clamshell",
     "parentName": "Reverse Clamshell"
   },
@@ -7428,7 +7428,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on the floor with the left leg in front bent to 90 degrees (shin across the body) and the right leg bent 90 degrees out to the side behind. Square the hips and lean the torso forward over the left shin. Hold. Opens the left external rotators.",
-    "videoUrl": "https://videos.liboworld.com/exercises/90_90_hip_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/90_90_hip_stretch.mp4?v=2",
     "parentId": "90_90_hip_stretch",
     "parentName": "90/90 Hip Stretch"
   },
@@ -7443,7 +7443,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on the floor with the right leg in front bent to 90 degrees (shin across the body) and the left leg bent 90 degrees out to the side behind. Square the hips and lean the torso forward over the right shin. Hold. Opens the right external rotators.",
-    "videoUrl": "https://videos.liboworld.com/exercises/90_90_hip_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/90_90_hip_stretch.mp4?v=2",
     "parentId": "90_90_hip_stretch",
     "parentName": "90/90 Hip Stretch"
   },
@@ -7458,7 +7458,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Standing, arms at sides or slightly raised. Squeeze shoulder blades together and down. Hold 5 seconds, release. Posture and upper back activation.",
-    "videoUrl": "https://videos.liboworld.com/exercises/scapular_squeeze_standing.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/scapular_squeeze_standing.mp4?v=2"
   },
   {
     "id": "resistance_band_scapular_retraction",
@@ -7471,7 +7471,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Anchor band at chest height. Hold with straight arms. Pull shoulder blades together without bending elbows. Release controlled.",
-    "videoUrl": "https://videos.liboworld.com/exercises/resistance_band_scapular_retraction.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/resistance_band_scapular_retraction.mp4?v=2"
   },
   {
     "id": "band_pull_apart",
@@ -7484,7 +7484,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Hold resistance band at chest height with straight arms, shoulder-width grip. Pull band apart by squeezing shoulder blades together. Controlled return.",
-    "videoUrl": "https://videos.liboworld.com/exercises/band_pull_apart.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/band_pull_apart.mp4?v=2"
   },
   {
     "id": "band_pull_apart_3_position",
@@ -7497,7 +7497,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Perform band pull-aparts at three heights: overhead, eye level, and chest level. Hits rear delts and rhomboids from different angles.",
-    "videoUrl": "https://videos.liboworld.com/exercises/band_pull_apart_3_position.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/band_pull_apart_3_position.mp4?v=2"
   },
   {
     "id": "band_y_raise",
@@ -7614,7 +7614,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, hold light dumbbells or no weight with arms straight overhead. Hold for time. Shoulder endurance and thoracic mobility.",
-    "videoUrl": "https://videos.liboworld.com/exercises/overhead_arm_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/overhead_arm_hold.mp4?v=2"
   },
   {
     "id": "t_hold_lateral_arm_hold",
@@ -7627,7 +7627,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, arms extended straight to sides at shoulder height. Hold for prescribed time. Shoulder endurance, medial deltoid isometric.",
-    "videoUrl": "https://videos.liboworld.com/exercises/t_hold_lateral_arm_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/t_hold_lateral_arm_hold.mp4?v=2"
   },
   {
     "id": "single_leg_balance_hold_left_leg",
@@ -7640,7 +7640,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Stand on the left foot, right foot lifted just off the floor. Hold for 30\u201360 seconds, eyes forward. Close the eyes for additional challenge. Trains left ankle stability and proprioception.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_balance_hold.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_balance_hold.mp4?v=2",
     "parentId": "single_leg_balance_hold",
     "parentName": "Single-Leg Balance Hold"
   },
@@ -7655,7 +7655,7 @@
     "variation": "",
     "emoji": "\ud83d\udcaa",
     "setupNotes": "Stand on the right foot, left foot lifted just off the floor. Hold for 30\u201360 seconds, eyes forward. Close the eyes for additional challenge. Trains right ankle stability and proprioception.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_balance_hold.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_balance_hold.mp4?v=2",
     "parentId": "single_leg_balance_hold",
     "parentName": "Single-Leg Balance Hold"
   },
@@ -7818,7 +7818,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Foam roller on floor. Lie on roller positioned under upper back. Arms crossed on chest. Roll from mid-back to upper traps. Pause on tight spots.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_upper_back.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_upper_back.mp4?v=2"
   },
   {
     "id": "foam_roll_lats_left",
@@ -7831,7 +7831,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Lie on the left side with a foam roller under the left armpit/lat area, left arm extended overhead. Roll slowly from the armpit down to the mid-ribcage, pausing on tender spots. Releases the left lat.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_lats_left.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_lats_left.mp4?v=2",
     "parentId": "foam_roll_lats",
     "parentName": "Foam Roll \u2014 Lats"
   },
@@ -7846,7 +7846,7 @@
     "variation": "",
     "emoji": "\ud83c\udfcb\ufe0f",
     "setupNotes": "Lie on the right side with a foam roller under the right armpit/lat area, right arm extended overhead. Roll slowly from the armpit down to the mid-ribcage, pausing on tender spots. Releases the right lat.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_lats_right.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_lats_right.mp4?v=2",
     "parentId": "foam_roll_lats",
     "parentName": "Foam Roll \u2014 Lats"
   },
@@ -7861,7 +7861,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Lie face down, foam roller under front of thighs. Roll from just above knee to hip flexor. Support weight with forearms. Pause on tight spots.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_quads.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_quads.mp4?v=2"
   },
   {
     "id": "foam_roll_it_band_left",
@@ -7874,7 +7874,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Lie on the left side with a foam roller under the left outer thigh, right leg crossed over for support. Roll slowly from just above the knee up to the hip. Releases the left IT band \u2014 slow and tolerable.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_it_band.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_it_band.mp4?v=2",
     "parentId": "foam_roll_it_band",
     "parentName": "Foam Roll \u2014 IT Band"
   },
@@ -7889,7 +7889,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Lie on the right side with a foam roller under the right outer thigh, left leg crossed over for support. Roll slowly from just above the knee up to the hip. Releases the right IT band \u2014 slow and tolerable.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_it_band.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_it_band.mp4?v=2",
     "parentId": "foam_roll_it_band",
     "parentName": "Foam Roll \u2014 IT Band"
   },
@@ -7904,7 +7904,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on floor, foam roller under back of thighs. Roll from just above knee to sit bones. Hands behind for support. Cross legs for more pressure.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_hamstrings.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_hamstrings.mp4?v=2"
   },
   {
     "id": "foam_roll_calves_left",
@@ -7917,7 +7917,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on the floor with a foam roller under the left calf, right leg crossed over the left for added pressure. Hands behind for support, lift the hips and roll from the Achilles up to just below the knee. Rotate the leg to hit medial and lateral fibres.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_calves.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_calves.mp4?v=2",
     "parentId": "foam_roll_calves",
     "parentName": "Foam Roll \u2014 Calves"
   },
@@ -7932,7 +7932,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on the floor with a foam roller under the right calf, left leg crossed over the right for added pressure. Hands behind for support, lift the hips and roll from the Achilles up to just below the knee. Rotate the leg to hit medial and lateral fibres.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_calves.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_calves.mp4?v=2",
     "parentId": "foam_roll_calves",
     "parentName": "Foam Roll \u2014 Calves"
   },
@@ -7947,7 +7947,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Sit on a foam roller, cross the left ankle over the right knee in a figure-4. Lean the weight toward the left side and roll slowly over the left glute, pausing on tender spots. Targeted release of the left glute and piriformis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_glutes.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_glutes.mp4?v=2",
     "parentId": "foam_roll_glutes",
     "parentName": "Foam Roll \u2014 Glutes"
   },
@@ -7962,7 +7962,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Sit on a foam roller, cross the right ankle over the left knee in a figure-4. Lean the weight toward the right side and roll slowly over the right glute, pausing on tender spots. Targeted release of the right glute and piriformis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_glutes.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_glutes.mp4?v=2",
     "parentId": "foam_roll_glutes",
     "parentName": "Foam Roll \u2014 Glutes"
   },
@@ -7977,7 +7977,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Sit on a lacrosse ball positioned under the left glute/piriformis, left ankle crossed over the right knee in a figure-4. Roll gently or hold pressure on the tender spot. Releases the left piriformis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_piriformis.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_piriformis.mp4?v=2",
     "parentId": "lacrosse_ball_piriformis",
     "parentName": "Lacrosse Ball \u2014 Piriformis"
   },
@@ -7992,7 +7992,7 @@
     "variation": "",
     "emoji": "\ud83c\udf51",
     "setupNotes": "Sit on a lacrosse ball positioned under the right glute/piriformis, right ankle crossed over the left knee in a figure-4. Roll gently or hold pressure on the tender spot. Releases the right piriformis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_piriformis.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_piriformis.mp4?v=2",
     "parentId": "lacrosse_ball_piriformis",
     "parentName": "Lacrosse Ball \u2014 Piriformis"
   },
@@ -8007,7 +8007,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Stand with a lacrosse ball pinned between the left upper back/rear delt and a wall. Lean into the ball to apply pressure and roll in small circles to find tight spots. Releases the left rear delt and upper trap.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_shoulder_rear_delt.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_shoulder_rear_delt.mp4?v=2",
     "parentId": "lacrosse_ball_shoulder_rear_delt",
     "parentName": "Lacrosse Ball \u2014 Shoulder/Rear Delt"
   },
@@ -8022,7 +8022,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Stand with a lacrosse ball pinned between the right upper back/rear delt and a wall. Lean into the ball to apply pressure and roll in small circles to find tight spots. Releases the right rear delt and upper trap.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_shoulder_rear_delt.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_shoulder_rear_delt.mp4?v=2",
     "parentId": "lacrosse_ball_shoulder_rear_delt",
     "parentName": "Lacrosse Ball \u2014 Shoulder/Rear Delt"
   },
@@ -8037,7 +8037,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Sit on floor with front leg bent 90 degrees in front and back leg bent 90 degrees to the side. Lean forward over the front shin to deepen the stretch through the front hip. Hip opener \u2014 switch sides to work both hips.",
-    "videoUrl": "https://videos.liboworld.com/exercises/90_90_hip_stretch.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/90_90_hip_stretch.mp4?v=2"
   },
   {
     "id": "world_s_greatest_stretch_left",
@@ -8050,7 +8050,7 @@
     "variation": "",
     "emoji": "\ud83c\udf1f",
     "setupNotes": "From standing, step the left foot forward into a deep lunge and place both hands on the floor inside the left foot. Rotate the torso toward the left knee and reach the left arm up toward the ceiling. Hold, then return. Mobilises the left hip, T-spine, and hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/worlds_greatest_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/worlds_greatest_stretch.mp4?v=2",
     "parentId": "world_s_greatest_stretch",
     "parentName": "World's Greatest Stretch"
   },
@@ -8065,7 +8065,7 @@
     "variation": "",
     "emoji": "\ud83c\udf1f",
     "setupNotes": "From standing, step the right foot forward into a deep lunge and place both hands on the floor inside the right foot. Rotate the torso toward the right knee and reach the right arm up toward the ceiling. Hold, then return. Mobilises the right hip, T-spine, and hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/worlds_greatest_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/worlds_greatest_stretch.mp4?v=2",
     "parentId": "world_s_greatest_stretch",
     "parentName": "World's Greatest Stretch"
   },
@@ -8080,7 +8080,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "From hands and knees, slide the left knee forward behind the left wrist with the shin angled across the body. Extend the right leg straight back. Lower the torso over the left shin. Hold and breathe. Deep stretch of the left external rotators and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/pigeon_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/pigeon_stretch.mp4?v=2",
     "parentId": "pigeon_stretch",
     "parentName": "Pigeon Stretch"
   },
@@ -8095,7 +8095,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "From hands and knees, slide the right knee forward behind the right wrist with the shin angled across the body. Extend the left leg straight back. Lower the torso over the right shin. Hold and breathe. Deep stretch of the right external rotators and glute.",
-    "videoUrl": "https://videos.liboworld.com/exercises/pigeon_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/pigeon_stretch.mp4?v=2",
     "parentId": "pigeon_stretch",
     "parentName": "Pigeon Stretch"
   },
@@ -8110,7 +8110,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "On hands and knees, reach the left arm under the body through the space between the right hand and right knee, lowering the left shoulder and ear to the floor. Hold and breathe. Rotates the left thoracic spine.",
-    "videoUrl": "https://videos.liboworld.com/exercises/thread_the_needle.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/thread_the_needle.mp4?v=2",
     "parentId": "thread_the_needle",
     "parentName": "Thread the Needle"
   },
@@ -8125,7 +8125,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "On hands and knees, reach the right arm under the body through the space between the left hand and left knee, lowering the right shoulder and ear to the floor. Hold and breathe. Rotates the right thoracic spine.",
-    "videoUrl": "https://videos.liboworld.com/exercises/thread_the_needle.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/thread_the_needle.mp4?v=2",
     "parentId": "thread_the_needle",
     "parentName": "Thread the Needle"
   },
@@ -8196,7 +8196,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Stand facing wall, arms overhead on wall. Slowly push chest toward wall, arching upper back. Hold stretch. Thoracic extension mobility.",
-    "videoUrl": "https://videos.liboworld.com/exercises/wall_thoracic_extension.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/wall_thoracic_extension.mp4?v=2"
   },
   {
     "id": "ankle_dorsiflexion_stretch_left",
@@ -8209,7 +8209,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Half-kneeling facing a wall \u2014 right knee down, left foot forward 4\u20136 inches from the wall. Drive the left knee forward toward the wall without lifting the left heel off the floor. Mobilises the left ankle into dorsiflexion.",
-    "videoUrl": "https://videos.liboworld.com/exercises/ankle_dorsiflexion_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/ankle_dorsiflexion_stretch.mp4?v=2",
     "parentId": "ankle_dorsiflexion_stretch",
     "parentName": "Ankle Dorsiflexion Stretch"
   },
@@ -8224,7 +8224,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Half-kneeling facing a wall \u2014 left knee down, right foot forward 4\u20136 inches from the wall. Drive the right knee forward toward the wall without lifting the right heel off the floor. Mobilises the right ankle into dorsiflexion.",
-    "videoUrl": "https://videos.liboworld.com/exercises/ankle_dorsiflexion_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/ankle_dorsiflexion_stretch.mp4?v=2",
     "parentId": "ankle_dorsiflexion_stretch",
     "parentName": "Ankle Dorsiflexion Stretch"
   },
@@ -8239,7 +8239,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, arms out in a T. Pull the left knee up and across the body to the right side, keeping both shoulders pressed to the floor. Let gravity carry the left knee down. Hold and breathe. Gentle rotation of the lumbar spine.",
-    "videoUrl": "https://videos.liboworld.com/exercises/supine_spinal_twist_left.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/supine_spinal_twist_left.mp4?v=2",
     "parentId": "supine_spinal_twist",
     "parentName": "Supine Spinal Twist"
   },
@@ -8254,7 +8254,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie face up, arms out in a T. Pull the right knee up and across the body to the left side, keeping both shoulders pressed to the floor. Let gravity carry the right knee down. Hold and breathe. Gentle rotation of the lumbar spine.",
-    "videoUrl": "https://videos.liboworld.com/exercises/supine_spinal_twist_right.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/supine_spinal_twist_right.mp4?v=2",
     "parentId": "supine_spinal_twist",
     "parentName": "Supine Spinal Twist"
   },
@@ -8269,7 +8269,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Lie face up with a strap or band looped around the left foot. Extend the left leg toward the ceiling, keeping the knee soft, and gently pull the band for a deeper stretch. Right leg stays flat on the floor. Targets the left hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/supine_hamstring_stretch_with_band.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/supine_hamstring_stretch_with_band.mp4?v=2",
     "parentId": "supine_hamstring_stretch_with_band",
     "parentName": "Supine Hamstring Stretch with Band"
   },
@@ -8284,7 +8284,7 @@
     "variation": "",
     "emoji": "\ud83e\uddb5",
     "setupNotes": "Lie face up with a strap or band looped around the right foot. Extend the right leg toward the ceiling, keeping the knee soft, and gently pull the band for a deeper stretch. Left leg stays flat on the floor. Targets the right hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/supine_hamstring_stretch_with_band.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/supine_hamstring_stretch_with_band.mp4?v=2",
     "parentId": "supine_hamstring_stretch_with_band",
     "parentName": "Supine Hamstring Stretch with Band"
   },
@@ -8311,7 +8311,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie on side with bottom hand on floor directly under shoulder, arm fully straight. Stack or stagger feet. Press the floor away and lift hips into a straight line \u2014 top arm extended overhead or on hip. Targets obliques and shoulder stability.",
-    "videoUrl": "https://videos.liboworld.com/exercises/high_side_plank.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/high_side_plank.mp4?v=2",
     "parentId": "high_side_plank",
     "parentName": "High Side Plank"
   },
@@ -8326,7 +8326,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "Lie on side with bottom hand on floor directly under shoulder, arm fully straight. Stack or stagger feet. Press the floor away and lift hips into a straight line \u2014 top arm extended overhead or on hip. Targets obliques and shoulder stability.",
-    "videoUrl": "https://videos.liboworld.com/exercises/high_side_plank.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/high_side_plank.mp4?v=2",
     "parentId": "high_side_plank",
     "parentName": "High Side Plank"
   },
@@ -8341,7 +8341,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, swing both arms forward and up overhead in large arcs \u2014 then back down. Build momentum with each rep. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_swings_lateral.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_swings_lateral.mp4?v=2"
   },
   {
     "id": "arm_swings_forward_backward_continuous",
@@ -8354,7 +8354,7 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Standing, swing both arms forward and up overhead in large arcs \u2014 then back down. Build momentum with each rep. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_swings_forward_backward_continuous.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_swings_forward_backward_continuous.mp4?v=2"
   },
   {
     "id": "bird_dog_hold",
@@ -8367,7 +8367,7 @@
     "variation": "",
     "emoji": "\ud83d\udd25",
     "setupNotes": "On hands and knees, spine neutral. Extend the left arm forward and the right leg back simultaneously until both are parallel to the floor. Brace the core, hold briefly, return. Trains anti-extension and balance.",
-    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_hold.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_hold.mp4?v=2"
   },
   {
     "id": "plank_to_push_up",
@@ -8380,6 +8380,6 @@
     "variation": "",
     "emoji": "\ud83d\udd1d",
     "setupNotes": "Start in forearm plank. Push up to high plank one arm at a time, then lower back to forearms. Alternate lead arm each rep.",
-    "videoUrl": "https://videos.liboworld.com/exercises/plank_to_push_up.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/plank_to_push_up.mp4?v=2"
   }
 ]
