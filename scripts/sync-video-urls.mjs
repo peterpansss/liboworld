@@ -20,13 +20,26 @@ const EXERCISES_JSON = resolve(LANDING_DIR, '../libo-app-v2/src/data/exercises.j
 
 const DRY_RUN = process.argv.includes('--dry-run');
 
-const slugsWithVideo = new Set(
-  readdirSync(VIDEO_DIR)
-    .filter((f) => f.toLowerCase().endsWith('.mp4'))
-    .map((f) => f.replace(/\.mp4$/i, ''))
-);
+const allSlugs = readdirSync(VIDEO_DIR)
+  .filter((f) => f.toLowerCase().endsWith('.mp4'))
+  .map((f) => f.replace(/\.mp4$/i, ''));
 
-console.log(`${slugsWithVideo.size} slugs have videos in ${VIDEO_DIR}`);
+// Alt-angle slugs end in `_side_view`. They are NOT independent exercises —
+// they belong to the base slug (the same exercise shot from a second camera).
+// Keep them out of the primary lookup so they don't get matched as orphan
+// exercises; surface them via altSlugByBase for videoUrlAlt population.
+const ALT_SUFFIX = '_side_view';
+const altSlugByBase = new Map();
+const slugsWithVideo = new Set();
+for (const slug of allSlugs) {
+  if (slug.endsWith(ALT_SUFFIX)) {
+    altSlugByBase.set(slug.slice(0, -ALT_SUFFIX.length), slug);
+  } else {
+    slugsWithVideo.add(slug);
+  }
+}
+
+console.log(`${slugsWithVideo.size} primary slugs + ${altSlugByBase.size} alt-angle slugs in ${VIDEO_DIR}`);
 
 const exercises = JSON.parse(readFileSync(EXERCISES_JSON, 'utf8'));
 
@@ -54,29 +67,56 @@ function candidateVideoSlugs(exerciseSlug) {
 
 let added = 0;
 let unchanged = 0;
+let altAdded = 0;
+let altUnchanged = 0;
+let altRemoved = 0;
 const usedSlugs = new Set();
+const usedAltSlugs = new Set();
 
 for (const ex of exercises) {
   if (!ex.slug) continue;
+  let matchedBase = null;
   for (const cand of candidateVideoSlugs(ex.slug)) {
     if (slugsWithVideo.has(cand)) {
       usedSlugs.add(cand);
+      matchedBase = cand;
       const url = `${PUBLIC_BASE}/${KEY_PREFIX}${cand}.mp4`;
       if (ex.videoUrl === url) unchanged++;
       else { ex.videoUrl = url; added++; }
       break;
     }
   }
+  // If we matched a base slug, check whether an alt-angle clip exists for it.
+  if (matchedBase) {
+    const altSlug = altSlugByBase.get(matchedBase);
+    if (altSlug) {
+      usedAltSlugs.add(altSlug);
+      const altUrl = `${PUBLIC_BASE}/${KEY_PREFIX}${altSlug}.mp4`;
+      if (ex.videoUrlAlt === altUrl) altUnchanged++;
+      else { ex.videoUrlAlt = altUrl; altAdded++; }
+    } else if (ex.videoUrlAlt) {
+      // Alt clip was deleted upstream — clean stale field
+      delete ex.videoUrlAlt;
+      altRemoved++;
+    }
+  }
 }
 
 const orphanSlugs = [...slugsWithVideo].filter((s) => !usedSlugs.has(s));
+const orphanAltSlugs = [...altSlugByBase.values()].filter((s) => !usedAltSlugs.has(s));
 
 console.log(`\nResults:`);
 console.log(`  Exercises updated:      ${added}`);
 console.log(`  Exercises already set:  ${unchanged}`);
+console.log(`  Alt-angle videoUrlAlt added:    ${altAdded}`);
+console.log(`  Alt-angle videoUrlAlt cached:   ${altUnchanged}`);
+if (altRemoved) console.log(`  Alt-angle videoUrlAlt removed:  ${altRemoved}`);
 console.log(`  Orphan video files (no matching exercise slug): ${orphanSlugs.length}`);
 if (orphanSlugs.length) {
   console.log(`  Orphan slugs: ${orphanSlugs.sort().join(', ')}`);
+}
+if (orphanAltSlugs.length) {
+  console.log(`  Orphan alt-angle slugs (base not matched): ${orphanAltSlugs.sort().join(', ')}`);
 }
 
 if (DRY_RUN) {

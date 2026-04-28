@@ -15,6 +15,8 @@ export interface Exercise {
   emoji: string;
   setupNotes: string;
   videoUrl?: string;  // R2-hosted demo clip, present for ~264 exercises
+  /** Optional alternate-angle video (e.g. side view). Same base slug + `_side_view`. */
+  videoUrlAlt?: string;
   animationUrl?: string;  // Optional 3D/2D animation alternative (gym/equipment only)
   parentId?: string;    // L/R variants inherit parent's media (thumb + video)
   parentName?: string;

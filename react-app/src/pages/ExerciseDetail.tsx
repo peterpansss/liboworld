@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
-import { exerciseThumb, publicVideoUrl } from '../utils/thumbnails';
+import { exerciseThumb, publicVideoUrl, publicVideoUrlAlt } from '../utils/thumbnails';
 import { Target, Dumbbell, Zap, Volume2, VolumeX, ICON_STROKE } from '../utils/icons';
 import { MuscleTile } from '../components/MuscleTile';
 import SiteNav from '../components/SiteNav';
@@ -51,7 +51,11 @@ export default function ExerciseDetail() {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const pipVideoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+  // When `showingAlt` is true the alt-angle clip plays as the main video and
+  // the primary clip moves into the picture-in-picture thumbnail.
+  const [showingAlt, setShowingAlt] = useState(false);
 
   const toggleMuted = () => {
     const v = videoRef.current;
@@ -63,6 +67,17 @@ export default function ExerciseDetail() {
       v.play().catch(() => {});
     }
     setMuted(next);
+  };
+
+  const swapView = () => {
+    setShowingAlt((prev) => !prev);
+    // Reset both videos to time 0 so the swapped views start fresh in sync.
+    requestAnimationFrame(() => {
+      const v = videoRef.current;
+      const p = pipVideoRef.current;
+      if (v) v.play().catch(() => {});
+      if (p) p.play().catch(() => {});
+    });
   };
 
   useEffect(() => {
@@ -158,24 +173,59 @@ export default function ExerciseDetail() {
           <div className="ed-demo">
             {publicVideoUrl(exercise) ? (
               <>
-                <video
-                  ref={videoRef}
-                  src={publicVideoUrl(exercise)}
-                  poster={exerciseThumb(exercise) ?? undefined}
-                  muted={muted}
-                  loop
-                  playsInline
-                  autoPlay
-                  preload="metadata"
-                />
-                <button
-                  type="button"
-                  className="ed-demo-mute"
-                  onClick={toggleMuted}
-                  aria-label={muted ? t('exerciseDetail.unmute', { defaultValue: 'Unmute' }) : t('exerciseDetail.mute', { defaultValue: 'Mute' })}
-                >
-                  {muted ? <VolumeX strokeWidth={ICON_STROKE} /> : <Volume2 strokeWidth={ICON_STROKE} />}
-                </button>
+                {(() => {
+                  const primary = publicVideoUrl(exercise)!;
+                  const alt = publicVideoUrlAlt(exercise);
+                  const mainSrc = showingAlt && alt ? alt : primary;
+                  const pipSrc = showingAlt && alt ? primary : alt;
+                  return (
+                    <>
+                      <video
+                        ref={videoRef}
+                        key={mainSrc}
+                        src={mainSrc}
+                        poster={exerciseThumb(exercise) ?? undefined}
+                        muted={muted}
+                        loop
+                        playsInline
+                        autoPlay
+                        preload="metadata"
+                      />
+                      <button
+                        type="button"
+                        className="ed-demo-mute"
+                        onClick={toggleMuted}
+                        aria-label={muted ? t('exerciseDetail.unmute', { defaultValue: 'Unmute' }) : t('exerciseDetail.mute', { defaultValue: 'Mute' })}
+                      >
+                        {muted ? <VolumeX strokeWidth={ICON_STROKE} /> : <Volume2 strokeWidth={ICON_STROKE} />}
+                      </button>
+                      {pipSrc && (
+                        <button
+                          type="button"
+                          className="ed-demo-pip"
+                          onClick={swapView}
+                          aria-label={t('exerciseDetail.switchView', { defaultValue: 'Switch camera angle' })}
+                        >
+                          <video
+                            ref={pipVideoRef}
+                            key={pipSrc}
+                            src={pipSrc}
+                            muted
+                            loop
+                            playsInline
+                            autoPlay
+                            preload="metadata"
+                          />
+                          <span className="ed-demo-pip-label">
+                            {showingAlt
+                              ? t('exerciseDetail.viewFront', { defaultValue: 'FRONT' })
+                              : t('exerciseDetail.viewSide', { defaultValue: 'SIDE' })}
+                          </span>
+                        </button>
+                      )}
+                    </>
+                  );
+                })()}
               </>
             ) : (
               <MuscleTile muscle={exercise.bodyFocus} size="lg" />

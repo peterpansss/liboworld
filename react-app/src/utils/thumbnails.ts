@@ -17,6 +17,14 @@ export function publicVideoUrl(ex: Exercise): string | undefined {
   return isMediaHidden(ex.cat, ex.equipment) ? undefined : ex.videoUrl;
 }
 
+/**
+ * Alternate-angle (e.g. "_side_view") clip URL — same hidden-media rules
+ * as the primary video. Returns undefined when the exercise has no alt.
+ */
+export function publicVideoUrlAlt(ex: Exercise): string | undefined {
+  return isMediaHidden(ex.cat, ex.equipment) ? undefined : ex.videoUrlAlt;
+}
+
 export function publicAnimationUrl(ex: Exercise): string | undefined {
   return ex.animationUrl || undefined;
 }

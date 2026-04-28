@@ -86,6 +86,8 @@ def build_exercises():
         }
         if ex.get("videoUrl"):
             out["videoUrl"] = ex["videoUrl"]
+        if ex.get("videoUrlAlt"):
+            out["videoUrlAlt"] = ex["videoUrlAlt"]
         # Carry parentId/parentName so the landing site can resolve variant → parent
         # (for thumbnail fallback — L/R variants share parent's thumb).
         # parentId is re-slugged to match landing's id scheme (slug-based, not gym_*/home_*).
