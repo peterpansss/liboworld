@@ -1,0 +1,113 @@
+.anatomy {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: var(--text);
+}
+
+.anatomy__title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* ── SVG ── */
+.anatomy__svg-wrap {
+  display: flex;
+  justify-content: center;
+  background: var(--bg3);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.anatomy__svg {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+}
+
+.anatomy__outline {
+  stroke: var(--border);
+  stroke-width: 0.6;
+  fill: currentColor;
+  color: var(--muted);
+}
+
+.anatomy__view-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  fill: var(--dim);
+  text-transform: uppercase;
+}
+
+/* Default: invisible. Drives off, primary, secondary states. */
+.anatomy__muscle {
+  fill: var(--accent);
+  fill-opacity: 0;
+  transition: fill-opacity 0.25s ease;
+}
+
+.anatomy__muscle[data-state="primary"] {
+  fill-opacity: 0.9;
+}
+
+.anatomy__muscle[data-state="secondary"] {
+  fill-opacity: 0.4;
+}
+
+/* ── Legend ── */
+.anatomy__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.anatomy__legend-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.anatomy__legend-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--dim);
+}
+
+.anatomy__legend-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.anatomy__legend-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.anatomy__legend-chip--primary {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.anatomy__legend-chip--secondary {
+  background: rgba(202, 255, 0, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(202, 255, 0, 0.25);
+}

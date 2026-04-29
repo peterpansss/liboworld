@@ -6,7 +6,11 @@ import { supabase } from '../lib/supabase';
 export interface Exercise {
   id: string;
   name: string;
+  slug?: string;       // Stable URL slug (== id for current data)
   cat: string;        // "gym" | "home" | "mobility"
+  primaryCat?: string; // "Strength" | "Cardio" | "Accessory" | "Core Stability" etc.
+  subcat?: string;     // "Upper Body" | "Lower Body" etc.
+  environment?: string; // "Gym" | "Home" | "Both"
   bodyFocus: string;  // "Chest" | "Back" | "Legs" etc.
   equipment: string;  // "Barbell" | "Bodyweight" | "Dumbbell" etc.
   machineRequired: boolean;
@@ -135,6 +139,40 @@ function loadExercises(): Promise<Exercise[]> {
     return _exercises;
   })();
   return _exercisesPromise;
+}
+
+// --- AI-generated content sidecar -------------------------------------------
+// `exercise_content.json` is produced by scripts/generate-exercise-content.mjs.
+// Missing entries fall back to the heuristic getTips()/getCommonMistakes() in
+// utils/exerciseInfo.ts, so it's safe to ship with partial coverage.
+
+export interface ExerciseContent {
+  tips: string[];
+  commonMistakes: string[];
+  breathingCue?: string;
+}
+
+let _exerciseContent: Record<string, ExerciseContent> | null = null;
+let _exerciseContentPromise: Promise<Record<string, ExerciseContent>> | null = null;
+
+export function loadExerciseContent(): Promise<Record<string, ExerciseContent>> {
+  if (_exerciseContent) return Promise.resolve(_exerciseContent);
+  if (_exerciseContentPromise) return _exerciseContentPromise;
+  _exerciseContentPromise = (async () => {
+    try {
+      const res = await fetch('/exercise_content.json');
+      if (!res.ok) {
+        _exerciseContent = {};
+        return _exerciseContent;
+      }
+      _exerciseContent = (await res.json()) as Record<string, ExerciseContent>;
+      return _exerciseContent;
+    } catch {
+      _exerciseContent = {};
+      return _exerciseContent;
+    }
+  })();
+  return _exerciseContentPromise;
 }
 
 function loadRawWorkouts(): Promise<RawWorkout[]> {

@@ -1,0 +1,116 @@
+#!/usr/bin/env node
+/**
+ * Generate sitemap.xml covering every public route on liboworld.com:
+ *   /, /exercises, /exercises/<slug>, /workouts, /workouts/<id>,
+ *   /blog, /blog/<slug>, /privacy, /terms.
+ *
+ * Reads source data:
+ *   - react-app/public/exercises.json  (680 exercises)
+ *   - react-app/public/workouts.json   (136 workouts)
+ *   - react-app/src/data/blog.ts       (parsed for slugs)
+ *
+ * Writes to:
+ *   - <repo>/sitemap.xml
+ *   - <repo>/react-app/public/sitemap.xml  (so vite copies it into dist/)
+ *   - <repo>/react-app/dist/sitemap.xml    (also overwritten by deploy.yml)
+ *
+ * Run: node scripts/generate-sitemap.mjs
+ */
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = path.resolve(__dirname, '..');
+const SITE_URL = 'https://liboworld.com';
+
+const EXERCISES_JSON = path.join(REPO_ROOT, 'react-app', 'public', 'exercises.json');
+const WORKOUTS_JSON = path.join(REPO_ROOT, 'react-app', 'public', 'workouts.json');
+const BLOG_TS = path.join(REPO_ROOT, 'react-app', 'src', 'data', 'blog.ts');
+
+const OUTPUTS = [
+  path.join(REPO_ROOT, 'sitemap.xml'),
+  path.join(REPO_ROOT, 'react-app', 'public', 'sitemap.xml'),
+];
+
+const TODAY = new Date().toISOString().slice(0, 10);
+
+function urlEntry(loc, priority, changefreq, lastmod = TODAY) {
+  return [
+    '  <url>',
+    `    <loc>${loc}</loc>`,
+    `    <lastmod>${lastmod}</lastmod>`,
+    changefreq ? `    <changefreq>${changefreq}</changefreq>` : null,
+    priority != null ? `    <priority>${priority.toFixed(1)}</priority>` : null,
+    '  </url>',
+  ]
+    .filter(Boolean)
+    .join('\n');
+}
+
+function escapeXml(s) {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function loadBlogSlugs() {
+  const src = fs.readFileSync(BLOG_TS, 'utf8');
+  const slugs = [];
+  const re = /slug:\s*['"]([^'"]+)['"]/g;
+  let m;
+  while ((m = re.exec(src)) !== null) slugs.push(m[1]);
+  return slugs;
+}
+
+function main() {
+  const exercises = JSON.parse(fs.readFileSync(EXERCISES_JSON, 'utf8'));
+  const workouts = JSON.parse(fs.readFileSync(WORKOUTS_JSON, 'utf8'));
+  const blogSlugs = loadBlogSlugs();
+
+  const entries = [];
+
+  // Static high-priority routes
+  entries.push(urlEntry(`${SITE_URL}/`, 1.0, 'weekly'));
+  entries.push(urlEntry(`${SITE_URL}/exercises`, 0.9, 'weekly'));
+  entries.push(urlEntry(`${SITE_URL}/workouts`, 0.9, 'weekly'));
+  entries.push(urlEntry(`${SITE_URL}/blog`, 0.8, 'weekly'));
+  entries.push(urlEntry(`${SITE_URL}/onboarding`, 0.6, 'monthly'));
+  entries.push(urlEntry(`${SITE_URL}/privacy`, 0.3, 'yearly'));
+  entries.push(urlEntry(`${SITE_URL}/terms`, 0.3, 'yearly'));
+
+  // Exercise detail pages (id == slug for current data)
+  for (const ex of exercises) {
+    if (!ex.id) continue;
+    entries.push(urlEntry(`${SITE_URL}/exercises/${escapeXml(ex.id)}`, 0.7, 'monthly'));
+  }
+
+  // Workout detail pages
+  for (const wk of workouts) {
+    if (!wk.id) continue;
+    entries.push(urlEntry(`${SITE_URL}/workouts/${escapeXml(wk.id)}`, 0.7, 'monthly'));
+  }
+
+  // Blog posts
+  for (const slug of blogSlugs) {
+    entries.push(urlEntry(`${SITE_URL}/blog/${escapeXml(slug)}`, 0.6, 'monthly'));
+  }
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries.join('\n')}
+</urlset>
+`;
+
+  for (const out of OUTPUTS) {
+    fs.mkdirSync(path.dirname(out), { recursive: true });
+    fs.writeFileSync(out, xml);
+    console.log(`wrote ${path.relative(REPO_ROOT, out)} (${entries.length} URLs)`);
+  }
+}
+
+main();

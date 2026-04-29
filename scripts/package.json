@@ -7,9 +7,12 @@
   "scripts": {
     "upload-videos": "node upload-videos.mjs",
     "upload-videos:dry": "node upload-videos.mjs --dry-run",
-    "sync-video-urls": "node sync-video-urls.mjs"
+    "sync-video-urls": "node sync-video-urls.mjs",
+    "generate-exercise-content": "node generate-exercise-content.mjs",
+    "generate-exercise-content:all": "node generate-exercise-content.mjs --all"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.88.0",
     "@aws-sdk/client-s3": "^3.658.0",
     "@aws-sdk/lib-storage": "^3.658.0",
     "dotenv": "^16.4.5"

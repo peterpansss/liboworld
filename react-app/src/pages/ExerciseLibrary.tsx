@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
 import { exerciseThumb, isMediaHidden } from '../utils/thumbnails';
 import { MuscleTile } from '../components/MuscleTile';
+import { MuscleGroupStrip } from '../components/MuscleGroupStrip';
+import { SeoHead } from '../components/SeoHead';
+import { libraryCanonicalUrl } from '../utils/schema';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseLibrary.css';
@@ -76,14 +79,34 @@ export default function ExerciseLibrary() {
     });
   }, [i18n.language]);
 
-  // ── SEO: document title ──
-  useEffect(() => {
+  // ── SEO meta ──
+  const seoTitle = useMemo(() => {
     const parts = [t('exerciseLibrary.title')];
     if (muscle !== 'All') parts.push(muscle);
     if (equip !== 'All') parts.push(equip);
-    document.title = `${parts.join(' - ')} | Libo`;
-    return () => { document.title = 'Libo'; };
+    return `${parts.join(' · ')} | Libo`;
   }, [muscle, equip, t]);
+
+  const seoDescription = useMemo(() => {
+    if (muscle !== 'All' && equip !== 'All') {
+      return `Browse ${muscle.toLowerCase()} exercises using ${equip.toLowerCase()} — full demo videos, instructions, and tips for every move.`;
+    }
+    if (muscle !== 'All') {
+      return `Browse ${muscle.toLowerCase()} exercises with full demo videos, step-by-step instructions, and form tips.`;
+    }
+    if (equip !== 'All') {
+      return `Browse ${equip.toLowerCase()} exercises across every muscle group — demo videos, instructions, and form tips.`;
+    }
+    return 'Browse 600+ exercises with demo videos, step-by-step instructions, and form tips. Filter by muscle group or equipment.';
+  }, [muscle, equip]);
+
+  const canonical = useMemo(() => {
+    const params = new URLSearchParams();
+    if (muscle !== 'All') params.set('muscle', muscle);
+    if (equip !== 'All') params.set('equip', equip);
+    const qs = params.toString();
+    return libraryCanonicalUrl(qs || undefined);
+  }, [muscle, equip]);
 
   // ── Filter logic ──
   const filtered = useMemo(() => {
@@ -164,6 +187,11 @@ export default function ExerciseLibrary() {
 
   return (
     <>
+      <SeoHead
+        title={seoTitle}
+        description={seoDescription}
+        canonical={canonical}
+      />
       <SiteNav />
 
       <main className="el-page">
@@ -182,6 +210,9 @@ export default function ExerciseLibrary() {
             <h1 className="font-display">{t('exerciseLibrary.title')}</h1>
             <p>{loading ? t('exerciseLibrary.exercisesWord') : t('exerciseLibrary.exerciseCount', { count: exercises.length })}. {t('exerciseLibrary.heroSubtitle')}</p>
           </div>
+
+          {/* Visual muscle-group navigator */}
+          <MuscleGroupStrip activeMuscle={muscle !== 'All' ? muscle : undefined} />
 
           {/* Search */}
           <div className="el-search-wrap">

@@ -1,41 +1,49 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getExercises, type Exercise } from '../data/exercises';
-import { exerciseThumb, publicVideoUrl, publicVideoUrlAlt } from '../utils/thumbnails';
+import { getExercises, loadExerciseContent, type Exercise, type ExerciseContent } from '../data/exercises';
+import {
+  exerciseThumb,
+  publicVideoUrl,
+  publicVideoUrlAlt,
+  type VoicePreference,
+} from '../utils/thumbnails';
 import { Target, Dumbbell, Zap, Volume2, VolumeX, ICON_STROKE } from '../utils/icons';
 import { MuscleTile } from '../components/MuscleTile';
+import { SeoHead } from '../components/SeoHead';
+import { AnatomyDiagram } from '../components/AnatomyDiagram';
+import { AlternativesGrid } from '../components/AlternativesGrid';
+import { MuscleGroupStrip } from '../components/MuscleGroupStrip';
+import { RelatedArticles } from '../components/RelatedArticles';
+import {
+  getInstructions,
+  getTips,
+  getCommonMistakes,
+  getPrimaryMuscleGroup,
+} from '../utils/exerciseInfo';
+import { buildExerciseGraph, exerciseCanonicalUrl } from '../utils/schema';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseDetail.css';
 
-// ── Parse setup notes into steps ──
-function parseSteps(notes: string): string[] {
-  if (!notes) return [];
-  const raw = notes.split(/\.\s+/).filter(Boolean);
-  return raw.map(s => s.endsWith('.') ? s : s + '.');
-}
-
-// ── Capitalize first letter ──
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 const MUSCLE_I18N_KEYS: Record<string, string> = {
-  'All': 'all', 'Chest': 'chest', 'Back': 'back', 'Shoulders': 'shoulders',
-  'Biceps': 'biceps', 'Triceps': 'triceps', 'Core': 'core', 'Legs': 'legs',
-  'Glutes': 'glutes', 'Cardio': 'cardio', 'Full Body': 'fullBody',
-  'Forearms': 'forearms', 'Traps': 'traps',
+  All: 'all', Chest: 'chest', Back: 'back', Shoulders: 'shoulders',
+  Biceps: 'biceps', Triceps: 'triceps', Core: 'core', Legs: 'legs',
+  Glutes: 'glutes', Cardio: 'cardio', 'Full Body': 'fullBody',
+  Forearms: 'forearms', Traps: 'traps',
 };
 
 const EQUIPMENT_I18N_KEYS: Record<string, string> = {
-  'All': 'all', 'Bodyweight': 'bodyweight', 'Barbell': 'barbell',
-  'Dumbbell': 'dumbbell', 'Cable': 'cable', 'Machine': 'machine',
-  'Kettlebell': 'kettlebell', 'Resistance Bands': 'resistanceBands',
-  'Bar': 'bar', 'Swiss Ball': 'swissBall',
+  All: 'all', Bodyweight: 'bodyweight', Barbell: 'barbell',
+  Dumbbell: 'dumbbell', Cable: 'cable', Machine: 'machine',
+  Kettlebell: 'kettlebell', 'Resistance Bands': 'resistanceBands',
+  Bar: 'bar', 'Swiss Ball': 'swissBall',
 };
 
-// ── Main Component ──
 export default function ExerciseDetail() {
   const { t, i18n } = useTranslation();
   const muscleLabel = (m: string) => {
@@ -46,16 +54,46 @@ export default function ExerciseDetail() {
     const key = EQUIPMENT_I18N_KEYS[e];
     return key ? t(`exerciseLibrary.equipment.${key}`) : e;
   };
-  const difficultyLabel = (d: string) => t(`exerciseDetail.difficultyLevels.${d}`, { defaultValue: capitalize(d) });
+  const difficultyLabel = (d: string) =>
+    t(`exerciseDetail.difficultyLevels.${d}`, { defaultValue: capitalize(d) });
+
   const { id } = useParams<{ id: string }>();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
+  const [aiContent, setAiContent] = useState<Record<string, ExerciseContent>>({});
   const videoRef = useRef<HTMLVideoElement>(null);
   const pipVideoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
-  // When `showingAlt` is true the alt-angle clip plays as the main video and
-  // the primary clip moves into the picture-in-picture thumbnail.
   const [showingAlt, setShowingAlt] = useState(false);
+  // Voice coach: persisted in localStorage so the choice survives reloads.
+  const [voice, setVoice] = useState<VoicePreference>(() => {
+    if (typeof window === 'undefined') return 'male';
+    return (window.localStorage.getItem('libo-voice-pref') as VoicePreference) === 'female'
+      ? 'female'
+      : 'male';
+  });
+  const toggleVoice = () => {
+    const next: VoicePreference = voice === 'male' ? 'female' : 'male';
+    setVoice(next);
+    try {
+      window.localStorage.setItem('libo-voice-pref', next);
+    } catch {
+      /* private mode */
+    }
+    // Reload current videos from t=0 with the new audio track
+    requestAnimationFrame(() => {
+      const v = videoRef.current;
+      const p = pipVideoRef.current;
+      if (v) {
+        v.load();
+        v.play().catch(() => {});
+      }
+      if (p) {
+        p.load();
+        p.play().catch(() => {});
+      }
+    });
+  };
 
   const toggleMuted = () => {
     const v = videoRef.current;
@@ -71,7 +109,6 @@ export default function ExerciseDetail() {
 
   const swapView = () => {
     setShowingAlt((prev) => !prev);
-    // Reset both videos to time 0 so the swapped views start fresh in sync.
     requestAnimationFrame(() => {
       const v = videoRef.current;
       const p = pipVideoRef.current;
@@ -81,36 +118,61 @@ export default function ExerciseDetail() {
   };
 
   useEffect(() => {
-    getExercises(i18n.language).then(data => {
-      setExercises(data);
-      setLoading(false);
-    });
+    Promise.all([getExercises(i18n.language), loadExerciseContent()]).then(
+      ([data, content]) => {
+        setExercises(data);
+        setAiContent(content);
+        setLoading(false);
+      },
+    );
   }, [i18n.language]);
 
   const exercise = useMemo(
-    () => exercises.find(e => e.id === id) || null,
-    [exercises, id]
+    () => exercises.find((e) => e.id === id) || null,
+    [exercises, id],
   );
 
-  const related = useMemo(() => {
+  const instructions = useMemo(
+    () => (exercise ? getInstructions(exercise) : []),
+    [exercise],
+  );
+
+  // Prefer AI-authored content from the sidecar; fall back to heuristics.
+  const aiEntry = exercise ? aiContent[exercise.id] : undefined;
+  const tips = useMemo(() => {
     if (!exercise) return [];
-    return exercises
-      .filter(e => e.bodyFocus === exercise.bodyFocus && e.id !== exercise.id)
-      .slice(0, 4);
-  }, [exercises, exercise]);
+    if (aiEntry?.tips?.length) return aiEntry.tips;
+    return getTips(exercise);
+  }, [exercise, aiEntry]);
+  const mistakes = useMemo(() => {
+    if (!exercise) return [];
+    if (aiEntry?.commonMistakes?.length) return aiEntry.commonMistakes;
+    return getCommonMistakes(exercise);
+  }, [exercise, aiEntry]);
+  const breathingCue = aiEntry?.breathingCue ?? null;
 
-  const steps = useMemo(
-    () => exercise ? parseSteps(exercise.setupNotes) : [],
-    [exercise]
+  const primaryMuscle = useMemo(
+    () => (exercise ? getPrimaryMuscleGroup(exercise.bodyFocus) : ''),
+    [exercise],
   );
 
-  // ── SEO: document title ──
-  useEffect(() => {
-    if (exercise) {
-      document.title = `${exercise.name} - ${t('exerciseDetail.howToPerformTitle')} | Libo`;
-    }
-    return () => { document.title = 'Libo'; };
-  }, [exercise, t]);
+  const seoMeta = useMemo(() => {
+    if (!exercise) return null;
+    const desc = (exercise.setupNotes || '').replace(/\s+/g, ' ').trim();
+    const description = desc
+      ? desc.length > 158
+        ? desc.slice(0, 155) + '…'
+        : desc
+      : `Learn how to perform ${exercise.name} — a ${exercise.diff} ${exercise.bodyFocus.toLowerCase()} exercise using ${exercise.equipment.toLowerCase()}.`;
+    const thumb = exerciseThumb(exercise);
+    return {
+      title: `${exercise.name} — How to Perform | Libo`,
+      description,
+      canonical: exerciseCanonicalUrl(exercise),
+      ogImage: thumb ? `https://liboworld.com${thumb}` : undefined,
+      jsonLd: buildExerciseGraph(exercise, primaryMuscle),
+    };
+  }, [exercise, primaryMuscle]);
 
   if (loading) {
     return (
@@ -142,6 +204,16 @@ export default function ExerciseDetail() {
 
   return (
     <>
+      {seoMeta && (
+        <SeoHead
+          title={seoMeta.title}
+          description={seoMeta.description}
+          canonical={seoMeta.canonical}
+          ogImage={seoMeta.ogImage}
+          ogType="article"
+          jsonLd={seoMeta.jsonLd}
+        />
+      )}
       <SiteNav />
 
       <main className="ed-page">
@@ -152,30 +224,32 @@ export default function ExerciseDetail() {
             <span className="ed-breadcrumb-sep">&gt;</span>
             <Link to="/exercises">{t('exerciseDetail.breadcrumbExercises')}</Link>
             <span className="ed-breadcrumb-sep">&gt;</span>
-            <Link to={`/exercises?muscle=${exercise.bodyFocus}`}>{muscleLabel(exercise.bodyFocus)}</Link>
+            <Link to={`/exercises?muscle=${encodeURIComponent(primaryMuscle)}`}>
+              {muscleLabel(primaryMuscle)}
+            </Link>
             <span className="ed-breadcrumb-sep">&gt;</span>
             <span>{exercise.name}</span>
           </nav>
 
-          {/* Hero */}
+          {/* Hero: H1 + chips */}
           <div className="ed-hero">
             <h1 className="font-display">{exercise.name}</h1>
-            <div className="ed-hero-sub">
-              <span>{muscleLabel(exercise.bodyFocus)}</span>
-              <span className="ed-hero-dot">&middot;</span>
-              <span>{equipmentLabel(exercise.equipment)}</span>
-              <span className="ed-hero-dot">&middot;</span>
-              <span className={`ed-diff-tag ${exercise.diff}`}>{difficultyLabel(exercise.diff)}</span>
+            <div className="ed-chips">
+              <span className="ed-chip">{muscleLabel(exercise.bodyFocus)}</span>
+              <span className="ed-chip">{equipmentLabel(exercise.equipment)}</span>
+              <span className={`ed-chip ed-chip--${exercise.diff}`}>
+                {difficultyLabel(exercise.diff)}
+              </span>
             </div>
           </div>
 
-          {/* Demo video (falls back to gradient tile when no videoUrl / hidden category) */}
-          <div className="ed-demo">
-            {publicVideoUrl(exercise) ? (
-              <>
-                {(() => {
-                  const primary = publicVideoUrl(exercise)!;
-                  const alt = publicVideoUrlAlt(exercise);
+          {/* Video + Anatomy 2-column */}
+          <div className="ed-hero-grid">
+            <div className="ed-demo">
+              {publicVideoUrl(exercise) ? (
+                (() => {
+                  const primary = publicVideoUrl(exercise, voice)!;
+                  const alt = publicVideoUrlAlt(exercise, voice);
                   const mainSrc = showingAlt && alt ? alt : primary;
                   const pipSrc = showingAlt && alt ? primary : alt;
                   return (
@@ -195,16 +269,42 @@ export default function ExerciseDetail() {
                         type="button"
                         className="ed-demo-mute"
                         onClick={toggleMuted}
-                        aria-label={muted ? t('exerciseDetail.unmute', { defaultValue: 'Unmute' }) : t('exerciseDetail.mute', { defaultValue: 'Mute' })}
+                        aria-label={
+                          muted
+                            ? t('exerciseDetail.unmute', { defaultValue: 'Unmute' })
+                            : t('exerciseDetail.mute', { defaultValue: 'Mute' })
+                        }
                       >
-                        {muted ? <VolumeX strokeWidth={ICON_STROKE} /> : <Volume2 strokeWidth={ICON_STROKE} />}
+                        {muted ? (
+                          <VolumeX strokeWidth={ICON_STROKE} />
+                        ) : (
+                          <Volume2 strokeWidth={ICON_STROKE} />
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        className="ed-demo-voice"
+                        onClick={toggleVoice}
+                        aria-label={t('exerciseDetail.toggleVoice', {
+                          defaultValue:
+                            voice === 'male' ? 'Switch to female voice' : 'Switch to male voice',
+                        })}
+                        title={
+                          voice === 'male'
+                            ? 'Male voice (tap for female)'
+                            : 'Female voice (tap for male)'
+                        }
+                      >
+                        <span aria-hidden>{voice === 'male' ? '♂' : '♀'}</span>
                       </button>
                       {pipSrc && (
                         <button
                           type="button"
                           className="ed-demo-pip"
                           onClick={swapView}
-                          aria-label={t('exerciseDetail.switchView', { defaultValue: 'Switch camera angle' })}
+                          aria-label={t('exerciseDetail.switchView', {
+                            defaultValue: 'Switch camera angle',
+                          })}
                         >
                           <video
                             ref={pipVideoRef}
@@ -225,11 +325,13 @@ export default function ExerciseDetail() {
                       )}
                     </>
                   );
-                })()}
-              </>
-            ) : (
-              <MuscleTile muscle={exercise.bodyFocus} size="lg" />
-            )}
+                })()
+              ) : (
+                <MuscleTile muscle={exercise.bodyFocus} size="lg" />
+              )}
+            </div>
+
+            <AnatomyDiagram bodyFocus={exercise.bodyFocus} className="ed-anatomy" />
           </div>
 
           {/* Info cards */}
@@ -255,25 +357,51 @@ export default function ExerciseDetail() {
 
           {/* Main + Sidebar layout */}
           <div className="ed-layout">
-            {/* Main content */}
             <div>
-              {/* Setup Notes */}
-              {steps.length > 0 && (
-                <div>
-                  <h2 className="ed-section-title">{t('exerciseDetail.howToPerform')}</h2>
-                  <div className="ed-steps">
-                    {steps.map((step, i) => (
-                      <div key={i} className="ed-step">
-                        <div className="ed-step-num">{i + 1}</div>
-                        <p className="ed-step-text">{step}</p>
-                      </div>
+              {instructions.length > 0 && (
+                <div className="ed-block">
+                  <h2 className="ed-section-title">Instructions</h2>
+                  <ol className="ed-steps">
+                    {instructions.map((step, i) => (
+                      <li key={i} className="ed-step">
+                        <span className="ed-step-num">{i + 1}</span>
+                        <span className="ed-step-text">{step}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ol>
+                </div>
+              )}
+
+              {tips.length > 0 && (
+                <div className="ed-block">
+                  <h2 className="ed-section-title">Tips</h2>
+                  <ul className="ed-bullets">
+                    {tips.map((tip, i) => (
+                      <li key={i}>{tip}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {breathingCue && (
+                <div className="ed-block">
+                  <h2 className="ed-section-title">Breathing</h2>
+                  <p className="ed-step-text" style={{ paddingTop: 0 }}>{breathingCue}</p>
+                </div>
+              )}
+
+              {mistakes.length > 0 && (
+                <div className="ed-block">
+                  <h2 className="ed-section-title">Common Mistakes</h2>
+                  <ul className="ed-bullets ed-bullets--warn">
+                    {mistakes.map((m, i) => (
+                      <li key={i}>{m}</li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </div>
 
-            {/* Sidebar */}
             <div className="ed-sidebar">
               <div className="ed-facts">
                 <div className="ed-facts-title">{t('exerciseDetail.quickFacts')}</div>
@@ -283,7 +411,9 @@ export default function ExerciseDetail() {
                 </div>
                 <div className="ed-fact">
                   <span className="ed-fact-label">{t('exerciseDetail.machineRequired')}</span>
-                  <span className="ed-fact-value">{exercise.machineRequired ? t('exerciseDetail.yes') : t('exerciseDetail.no')}</span>
+                  <span className="ed-fact-value">
+                    {exercise.machineRequired ? t('exerciseDetail.yes') : t('exerciseDetail.no')}
+                  </span>
                 </div>
                 <div className="ed-fact">
                   <span className="ed-fact-label">{t('exerciseDetail.category')}</span>
@@ -309,38 +439,21 @@ export default function ExerciseDetail() {
           <div className="ed-cta">
             <h3>{t('exerciseDetail.ctaTitle')}</h3>
             <p>{t('exerciseDetail.ctaDescription')}</p>
-            <Link to="/onboarding" className="ed-cta-btn">{t('exerciseDetail.ctaButton')}</Link>
+            <Link to="/onboarding" className="ed-cta-btn">
+              {t('exerciseDetail.ctaButton')}
+            </Link>
           </div>
 
-          {/* Related exercises */}
-          {related.length > 0 && (
-            <div className="ed-related">
-              <h2 className="ed-section-title">{t('exerciseDetail.relatedTitle', { muscle: muscleLabel(exercise.bodyFocus) })}</h2>
-              <div className="ed-related-grid">
-                {related.map(rel => {
-                  const relThumb = exerciseThumb(rel);
-                  return (
-                  <Link key={rel.id} to={`/exercises/${rel.id}`} className="ed-related-card">
-                    <div className="ed-related-media">
-                      <MuscleTile muscle={rel.bodyFocus} size="sm" />
-                      {relThumb && (
-                        <img
-                          src={relThumb}
-                          alt=""
-                          loading="lazy"
-                          onError={(e) => (e.currentTarget.style.display = 'none')}
-                          className="ed-related-thumb"
-                        />
-                      )}
-                    </div>
-                    <div className="ed-related-name">{rel.name}</div>
-                    <div className="ed-related-meta">{equipmentLabel(rel.equipment)} &middot; {difficultyLabel(rel.diff)}</div>
-                  </Link>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+          <AlternativesGrid
+            current={exercise}
+            allExercises={exercises}
+            equipmentLabel={equipmentLabel}
+            difficultyLabel={difficultyLabel}
+          />
+
+          <MuscleGroupStrip activeMuscle={primaryMuscle} />
+
+          <RelatedArticles muscleGroup={primaryMuscle} exerciseId={exercise.id} />
         </div>
       </main>
 

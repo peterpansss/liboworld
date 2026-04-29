@@ -75,7 +75,11 @@ def build_exercises():
         out = {
             "id": ex["slug"],
             "name": ex["name"],
+            "slug": ex["slug"],
             "cat": ex["cat"],
+            "primaryCat": ex.get("primaryCat", ""),
+            "subcat": ex.get("subcat", ""),
+            "environment": ex.get("environment", ""),
             "bodyFocus": ex["bodyFocus"],
             "equipment": ex["equipment"],
             "machineRequired": ex["machineRequired"],
