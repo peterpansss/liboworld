@@ -71,22 +71,62 @@
   font-weight: 600;
 }
 
+/* ── Hero chips (replaces hero-sub line for the redesigned layout) ── */
+.ed-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.ed-chip {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--muted);
+}
+
+.ed-chip--beginner { color: var(--diff-beginner); border-color: rgba(46, 204, 113, 0.25); }
+.ed-chip--intermediate { color: var(--diff-intermediate); border-color: rgba(243, 156, 18, 0.25); }
+.ed-chip--advanced { color: var(--diff-advanced); border-color: rgba(231, 76, 60, 0.25); }
+
 .ed-diff-tag.beginner { color: var(--diff-beginner); }
 .ed-diff-tag.intermediate { color: var(--diff-intermediate); }
 .ed-diff-tag.advanced { color: var(--diff-advanced); }
+
+/* ── Hero grid (video left, anatomy right) ── */
+.ed-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .ed-hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ed-anatomy {
+  align-self: stretch;
+}
 
 /* ── Demo section ── */
 .ed-demo {
   position: relative;
   aspect-ratio: 4 / 3;
-  max-width: 960px;
   background: var(--bg3);
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 80px;
-  margin: 0 auto 32px;
   border: 1px solid var(--border);
   overflow: hidden;
 }
@@ -129,6 +169,39 @@
 .ed-demo-mute svg {
   width: 20px;
   height: 20px;
+}
+
+/* Voice coach toggle (♂/♀) — sits left of the mute button */
+.ed-demo-voice {
+  position: absolute;
+  bottom: 12px;
+  right: 60px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Symbol", sans-serif;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.ed-demo-voice:hover {
+  background: rgba(0, 0, 0, 0.75);
+  transform: scale(1.05);
+}
+
+.ed-demo-voice:active {
+  transform: scale(0.96);
 }
 
 /* Picture-in-picture swap thumbnail (alternate camera angle) */
@@ -512,4 +585,57 @@
 .ed-cta-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* ── Section blocks (Instructions / Tips / Common Mistakes) ── */
+.ed-block {
+  margin-bottom: 32px;
+}
+
+.ed-block:last-child {
+  margin-bottom: 0;
+}
+
+/* Convert the steps element to an <ol> while keeping the existing visual style. */
+ol.ed-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li.ed-step {
+  list-style: none;
+}
+
+/* Bullets for Tips and Common Mistakes */
+.ed-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ed-bullets li {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  padding-left: 20px;
+  position: relative;
+}
+
+.ed-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.ed-bullets--warn li::before {
+  background: var(--diff-advanced, #e74c3c);
 }

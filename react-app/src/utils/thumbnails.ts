@@ -13,16 +13,30 @@ export function isMediaHidden(cat?: string, equipment?: string): boolean {
   return false;
 }
 
-export function publicVideoUrl(ex: Exercise): string | undefined {
-  return isMediaHidden(ex.cat, ex.equipment) ? undefined : ex.videoUrl;
+export type VoicePreference = 'male' | 'female';
+
+/**
+ * Inject `_nova` before .mp4 to switch from the default male (onyx) voice
+ * to the female (nova) variant uploaded by the pipeline. Preserves any
+ * trailing query string (e.g. cache-buster `?v=2`).
+ */
+function withVoice(url: string, voice: VoicePreference): string {
+  if (voice !== 'female') return url;
+  return url.replace(/\.mp4(\?|$)/, '_nova.mp4$1');
+}
+
+export function publicVideoUrl(ex: Exercise, voice: VoicePreference = 'male'): string | undefined {
+  if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrl) return undefined;
+  return withVoice(ex.videoUrl, voice);
 }
 
 /**
  * Alternate-angle (e.g. "_side_view") clip URL — same hidden-media rules
  * as the primary video. Returns undefined when the exercise has no alt.
  */
-export function publicVideoUrlAlt(ex: Exercise): string | undefined {
-  return isMediaHidden(ex.cat, ex.equipment) ? undefined : ex.videoUrlAlt;
+export function publicVideoUrlAlt(ex: Exercise, voice: VoicePreference = 'male'): string | undefined {
+  if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrlAlt) return undefined;
+  return withVoice(ex.videoUrlAlt, voice);
 }
 
 export function publicAnimationUrl(ex: Exercise): string | undefined {
