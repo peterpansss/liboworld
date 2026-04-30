@@ -28,7 +28,7 @@ export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Grou
               className={`mgs__item ${isActive ? 'mgs__item--active' : ''}`}
             >
               <div className="mgs__tile">
-                <MuscleTile muscle={muscle} size="sm" />
+                <MuscleTile muscle={muscle} size="sm" showLabel={false} />
               </div>
               <div className="mgs__label">{muscle.toUpperCase()}</div>
             </Link>

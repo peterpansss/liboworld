@@ -4,12 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
 import { exerciseThumb, isMediaHidden } from '../utils/thumbnails';
 import { MuscleTile } from '../components/MuscleTile';
-import { MuscleGroupStrip } from '../components/MuscleGroupStrip';
 import { SeoHead } from '../components/SeoHead';
 import { libraryCanonicalUrl } from '../utils/schema';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
+import { Search, ICON_STROKE } from '../utils/icons';
 import './ExerciseLibrary.css';
+
+function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 
 // ── Constants ──
 const PER_PAGE = 30;
@@ -208,15 +212,12 @@ export default function ExerciseLibrary() {
           {/* Hero */}
           <div className="el-hero">
             <h1 className="font-display">{t('exerciseLibrary.title')}</h1>
-            <p>{loading ? t('exerciseLibrary.exercisesWord') : t('exerciseLibrary.exerciseCount', { count: exercises.length })}. {t('exerciseLibrary.heroSubtitle')}</p>
+            <p>{loading ? t('exerciseLibrary.exercisesWord') : t('exerciseLibrary.exerciseCount', { count: exercises.length })}</p>
           </div>
-
-          {/* Visual muscle-group navigator */}
-          <MuscleGroupStrip activeMuscle={muscle !== 'All' ? muscle : undefined} />
 
           {/* Search */}
           <div className="el-search-wrap">
-            <span className="el-search-icon">&#128269;</span>
+            <Search className="el-search-icon" strokeWidth={ICON_STROKE} aria-hidden />
             <input
               type="text"
               className="el-search"
@@ -305,8 +306,7 @@ export default function ExerciseLibrary() {
                   <div className="el-card-name">{ex.name}</div>
                   <div className="el-card-meta">
                     <span className="el-card-badge">{ex.bodyFocus}</span>
-                    <span className="el-card-equip">{ex.equipment}</span>
-                    <span className={`el-card-diff ${ex.diff}`}>{ex.diff}</span>
+                    <span className="el-card-meta-text">{ex.equipment} · {capitalize(ex.diff)}</span>
                   </div>
                 </Link>
                 );

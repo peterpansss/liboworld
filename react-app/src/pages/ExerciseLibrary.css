@@ -72,7 +72,8 @@
   top: 50%;
   transform: translateY(-50%);
   color: var(--dim);
-  font-size: 16px;
+  width: 18px;
+  height: 18px;
   pointer-events: none;
 }
 
@@ -126,30 +127,29 @@
 }
 
 .el-chip {
-  padding: 7px 14px;
-  font-size: 12px;
+  padding: 9px 14px;
+  font-size: 13px;
   font-weight: 600;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: transparent;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: var(--bg3);
   color: var(--muted);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
   white-space: nowrap;
-  min-height: 44px;
   display: inline-flex;
   align-items: center;
 }
 
 .el-chip:hover {
-  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--text);
 }
 
 .el-chip.active {
-  background: var(--accent-dim);
-  border-color: rgba(202, 255, 0, 0.25);
-  color: var(--accent);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0e0e0e;
 }
 
 /* ── Results count ── */
@@ -258,33 +258,10 @@
   color: var(--accent);
 }
 
-.el-card-equip {
+.el-card-meta-text {
   font-size: 11px;
+  font-weight: 500;
   color: var(--muted);
-}
-
-.el-card-diff {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 2px 7px;
-  border-radius: 8px;
-}
-
-.el-card-diff.beginner {
-  color: var(--diff-beginner);
-  background: var(--diff-beginner-bg);
-}
-
-.el-card-diff.intermediate {
-  color: var(--diff-intermediate);
-  background: var(--diff-intermediate-bg);
-}
-
-.el-card-diff.advanced {
-  color: var(--diff-advanced);
-  background: var(--diff-advanced-bg);
 }
 
 /* ── Pagination ── */
