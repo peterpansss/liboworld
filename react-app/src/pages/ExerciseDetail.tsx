@@ -435,18 +435,10 @@ export default function ExerciseDetail() {
             </div>
           </div>
 
-          {/* CTA */}
-          <div className="ed-cta">
-            <h3>{t('exerciseDetail.ctaTitle')}</h3>
-            <p>{t('exerciseDetail.ctaDescription')}</p>
-            <Link to="/onboarding" className="ed-cta-btn">
-              {t('exerciseDetail.ctaButton')}
-            </Link>
-          </div>
-
           <AlternativesGrid
             current={exercise}
             allExercises={exercises}
+            limit={4}
             equipmentLabel={equipmentLabel}
             difficultyLabel={difficultyLabel}
           />
