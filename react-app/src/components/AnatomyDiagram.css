@@ -18,51 +18,36 @@
   color: var(--text);
 }
 
-/* ── SVG ── */
-.anatomy__svg-wrap {
-  display: flex;
-  justify-content: center;
-  background: var(--bg3);
-  border-radius: 12px;
-  padding: 12px;
+/* ── Bodies (front + back) ── */
+.anatomy__bodies {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
 
-.anatomy__svg {
+.anatomy__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg3);
+  border-radius: 12px;
+  padding: 10px 6px;
+}
+
+.anatomy__body svg {
   width: 100%;
-  max-width: 280px;
   height: auto;
+  max-height: 200px;
   display: block;
 }
 
-.anatomy__outline {
-  stroke: var(--border);
-  stroke-width: 0.6;
-  fill: currentColor;
-  color: var(--muted);
-}
-
-.anatomy__view-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  fill: var(--dim);
+.anatomy__body-label {
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
-}
-
-/* Default: invisible. Drives off, primary, secondary states. */
-.anatomy__muscle {
-  fill: var(--accent);
-  fill-opacity: 0;
-  transition: fill-opacity 0.25s ease;
-}
-
-.anatomy__muscle[data-state="primary"] {
-  fill-opacity: 0.9;
-}
-
-.anatomy__muscle[data-state="secondary"] {
-  fill-opacity: 0.4;
+  letter-spacing: 0.8px;
+  color: var(--dim);
 }
 
 /* ── Legend ── */
