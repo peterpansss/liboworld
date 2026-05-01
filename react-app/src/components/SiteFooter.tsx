@@ -37,6 +37,8 @@ export default function SiteFooter() {
               <Link to="/#features">{t('footer.features')}</Link>
               <Link to="/#rewards">{t('footer.rewardsLink')}</Link>
               <Link to="/#workouts">{t('footer.workoutsLink')}</Link>
+              <Link to="/giveaway">{t('footer.giveaways')}</Link>
+              <Link to="/cash-challenge">{t('footer.cashChallenges')}</Link>
               <Link to="/onboarding">{t('footer.getStarted')}</Link>
             </div>
           </div>

@@ -80,6 +80,8 @@ function main() {
   entries.push(urlEntry(`${SITE_URL}/workouts`, 0.9, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/blog`, 0.8, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/onboarding`, 0.6, 'monthly'));
+  entries.push(urlEntry(`${SITE_URL}/giveaway`, 0.8, 'daily'));
+  entries.push(urlEntry(`${SITE_URL}/cash-challenge`, 0.8, 'daily'));
   entries.push(urlEntry(`${SITE_URL}/privacy`, 0.3, 'yearly'));
   entries.push(urlEntry(`${SITE_URL}/terms`, 0.3, 'yearly'));
 
