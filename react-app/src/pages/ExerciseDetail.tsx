@@ -8,7 +8,7 @@ import {
   publicVideoUrlAlt,
   type VoicePreference,
 } from '../utils/thumbnails';
-import { Target, Dumbbell, Zap, Volume2, VolumeX, Maximize2, ICON_STROKE } from '../utils/icons';
+import { Target, Dumbbell, Zap, Volume2, VolumeX, Maximize2, Minimize2, ICON_STROKE } from '../utils/icons';
 import { MuscleTile } from '../components/MuscleTile';
 import { SeoHead } from '../components/SeoHead';
 import { AnatomyDiagram } from '../components/AnatomyDiagram';
@@ -105,17 +105,48 @@ export default function ExerciseDetail() {
   // iOS Safari uses webkitEnterFullscreen on the <video> element directly;
   // standards-mode browsers use Element.requestFullscreen on the wrapper so
   // our overlay controls (mute, voice, side-view) remain visible in fullscreen.
-  const enterFullscreen = () => {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    type FsDoc = Document & { webkitFullscreenElement?: Element | null };
+    const sync = () => {
+      const d = document as FsDoc;
+      setIsFullscreen(Boolean(d.fullscreenElement || d.webkitFullscreenElement));
+    };
+    document.addEventListener('fullscreenchange', sync);
+    document.addEventListener('webkitfullscreenchange', sync);
+    return () => {
+      document.removeEventListener('fullscreenchange', sync);
+      document.removeEventListener('webkitfullscreenchange', sync);
+    };
+  }, []);
+
+  const toggleFullscreen = () => {
     const v = videoRef.current;
     if (!v) return;
-    const wrapper = v.parentElement;
+    type FsDoc = Document & {
+      webkitFullscreenElement?: Element | null;
+      webkitExitFullscreen?: () => Promise<void> | void;
+    };
     type FsVideo = HTMLVideoElement & {
       webkitEnterFullscreen?: () => void;
       webkitRequestFullscreen?: () => Promise<void> | void;
     };
     type FsEl = HTMLElement & { webkitRequestFullscreen?: () => Promise<void> | void };
+    const d = document as FsDoc;
     const fv = v as FsVideo;
+    const wrapper = v.parentElement;
     const fw = wrapper as FsEl | null;
+
+    // Exit if already fullscreen
+    if (d.fullscreenElement || d.webkitFullscreenElement) {
+      if (typeof document.exitFullscreen === 'function') {
+        document.exitFullscreen().catch(() => {});
+      } else if (typeof d.webkitExitFullscreen === 'function') {
+        d.webkitExitFullscreen();
+      }
+      return;
+    }
 
     if (fw && typeof fw.requestFullscreen === 'function') {
       fw.requestFullscreen().catch(() => {});
@@ -311,10 +342,18 @@ export default function ExerciseDetail() {
                   <button
                     type="button"
                     className="ed-demo-fullscreen"
-                    onClick={enterFullscreen}
-                    aria-label={t('exerciseDetail.fullscreen', { defaultValue: 'Enter fullscreen' })}
+                    onClick={toggleFullscreen}
+                    aria-label={
+                      isFullscreen
+                        ? t('exerciseDetail.exitFullscreen', { defaultValue: 'Exit fullscreen' })
+                        : t('exerciseDetail.fullscreen', { defaultValue: 'Enter fullscreen' })
+                    }
                   >
-                    <Maximize2 strokeWidth={ICON_STROKE} />
+                    {isFullscreen ? (
+                      <Minimize2 strokeWidth={ICON_STROKE} />
+                    ) : (
+                      <Maximize2 strokeWidth={ICON_STROKE} />
+                    )}
                   </button>
                   <button
                     type="button"
