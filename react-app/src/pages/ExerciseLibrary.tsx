@@ -102,6 +102,7 @@ export default function ExerciseLibrary() {
 
   const [searchInput, setSearchInput] = useState(urlSearch);
   const debouncedSearch = useDebouncedValue(searchInput, 150);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
     getExercises(i18n.language).then(data => {
@@ -304,8 +305,27 @@ export default function ExerciseLibrary() {
             />
           </div>
 
+          {/* Mobile filters toggle — collapses Setting/Type/Equipment into one tap */}
+          <button
+            type="button"
+            className="el-filters-toggle"
+            aria-expanded={filtersOpen}
+            aria-controls="el-filters"
+            onClick={() => setFiltersOpen(o => !o)}
+          >
+            <span>
+              {t('exerciseLibrary.filtersToggle', { defaultValue: 'Filters' })}
+              {(activeFilters.length - (urlSearch ? 1 : 0)) > 0 && (
+                <span className="el-filters-toggle__count" aria-label="active filter count">
+                  {activeFilters.length - (urlSearch ? 1 : 0)}
+                </span>
+              )}
+            </span>
+            <span className="el-filters-toggle__chev" aria-hidden>▾</span>
+          </button>
+
           {/* Filters (muscle group is the visual strip above) */}
-          <div className="el-filters">
+          <div id="el-filters" className={`el-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
             <div className="el-filter-row">
               <span className="el-filter-label">Setting</span>
               <div className="el-chips">

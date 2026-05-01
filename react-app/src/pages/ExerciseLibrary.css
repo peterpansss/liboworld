@@ -350,34 +350,113 @@
 }
 .el-empty-clear:hover { opacity: 0.85; }
 
+/* ── Filters toggle (mobile only) ── */
+.el-filters-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .el-filters-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: var(--text);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .el-filters-toggle:hover { border-color: rgba(255,255,255,0.18); }
+
+  .el-filters-toggle__count {
+    min-width: 22px;
+    height: 22px;
+    padding: 0 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--accent-text);
+    background: var(--accent);
+    border-radius: 11px;
+  }
+
+  .el-filters-toggle__chev {
+    font-size: 11px;
+    color: var(--dim);
+    transition: transform 0.2s;
+  }
+
+  .el-filters-toggle[aria-expanded="true"] .el-filters-toggle__chev {
+    transform: rotate(180deg);
+  }
+
+  .el-filters {
+    display: none;
+  }
+
+  .el-filters--open {
+    display: flex;
+  }
+}
+
 /* ── Mobile responsive overrides ── */
 @media (max-width: 768px) {
   .el-container {
     padding: 0 16px 60px;
   }
 
+  .el-breadcrumb {
+    padding-top: 16px;
+    font-size: 11px;
+  }
+
+  .el-hero {
+    padding-top: 16px;
+    padding-bottom: 12px;
+  }
+
   .el-hero h1 {
-    font-size: clamp(32px, 5vw, 40px);
+    font-size: clamp(28px, 8vw, 36px);
+    margin-bottom: 4px;
   }
 
   .el-hero p {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .el-search {
     padding: 12px 14px 12px 40px;
   }
 
-
   .el-page-btn {
     min-width: 44px;
     height: 44px;
+  }
+
+  .el-filters {
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .el-results-count {
+    font-size: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .el-hero p {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 

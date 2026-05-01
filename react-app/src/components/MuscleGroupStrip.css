@@ -12,6 +12,27 @@
   margin-bottom: 16px;
 }
 
+@media (max-width: 768px) {
+  .mgs {
+    margin: 20px 0 24px;
+    /* Bleed the horizontal scroll to the screen edges so cards feel native */
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  .mgs__title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 0 16px;
+  }
+
+  .mgs__scroll {
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 10px;
+  }
+}
+
 .mgs__scroll {
   display: flex;
   gap: 12px;
@@ -61,6 +82,19 @@
   justify-content: center;
   padding: 6px 4px;
   transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+
+@media (max-width: 768px) {
+  .mgs__tile {
+    width: 96px;
+    height: 116px;
+    border-radius: 12px;
+    padding: 4px 2px;
+  }
+  .mgs__label {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
 }
 
 /* react-body-highlighter renders an inline SVG; let it fill the tile. */
