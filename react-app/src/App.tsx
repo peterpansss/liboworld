@@ -26,6 +26,7 @@ const Terms = lazy(() => import('./pages/Terms'));
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const Giveaway = lazy(() => import('./pages/Giveaway'));
 const CashChallenge = lazy(() => import('./pages/CashChallenge'));
+const GetApp = lazy(() => import('./pages/GetApp'));
 
 // Admin area — lazy, never loads for public visitors, not linked from public pages.
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
@@ -50,6 +51,7 @@ export default function App() {
         <Route path="/auth/callback" element={<Suspense fallback={darkFallback}><AuthCallback /></Suspense>} />
         <Route path="/giveaway" element={<Suspense fallback={darkFallback}><Giveaway /></Suspense>} />
         <Route path="/cash-challenge" element={<Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
+        <Route path="/get-app" element={<Suspense fallback={darkFallback}><GetApp /></Suspense>} />
         <Route path="/admin/*" element={<Suspense fallback={darkFallback}><AdminLayout /></Suspense>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

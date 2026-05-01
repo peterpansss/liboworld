@@ -927,32 +927,14 @@
     },
     "finalCtaTitle": "Reserve your spot now — only 50 per cycle",
     "finalCta": "Reserve my slot",
-    "modal": {
-      "step1Label": "Details",
-      "step1Subtitle": "Where to contact you",
-      "step2Label": "Confirm",
-      "step2Subtitle": "Reserve your slot",
-      "mandatoryNote": "Denotes mandatory fields",
-      "fullNameLabel": "Full Name",
-      "fullNamePlaceholder": "Full Name…",
-      "emailLabel": "Email",
-      "emailPlaceholder": "Email Address…",
-      "phoneLabel": "Phone Number",
-      "phonePlaceholder": "Phone Number…",
-      "cardLabel": "Confirmation",
-      "cardPlaceholder": "Type RESERVE to confirm",
-      "continueCta": "Continue",
-      "submitCta": "Reserve my slot now",
-      "secureCheckout": "Slot held for 15 minutes after reservation",
-      "orderItem": "{tier} · {summary}",
-      "orderTotal": "Reward",
-      "backLabel": "Back to details"
+    "storeOverlay": {
+      "title": "Get the Libo app",
+      "subtitle": "Scan with your phone to download. Then reserve your slot inside the app.",
+      "qrAlt": "QR code linking to the Libo app store page",
+      "appStoreSmall": "Download on the",
+      "googlePlaySmall": "Get it on",
+      "closeLabel": "Close"
     },
-    "modalSuccessTitle": "Slot reserved",
-    "modalSuccessBody": "Your spot is held for the next cycle. Check your inbox for the start date, the rules, and a link to download the Libo app.",
-    "modalDuplicateTitle": "Already reserved",
-    "modalDuplicateBody": "This email is already on the waitlist for this tier. Check your inbox or pick a different tier.",
-    "modalLegal": "By submitting you agree to Libo's Terms and Privacy Policy. Pro/Elite challenge tiers require an active subscription in the Libo app. Open to entrants 18+.",
     "disclaimer": "Cash challenge participation requires a Libo account and (for Pro/Elite tiers) an active subscription. Payouts are subject to identity verification. See full Terms for eligibility, payout schedule, and tax responsibilities by region."
   }
 }

@@ -101,6 +101,46 @@ function isValidEmail(s: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
 
+/**
+ * Anonymous click logger — used by /cash-challenge's RESERVE buttons and
+ * the /get-app QR-redirect endpoint. Captures (funnel, tier_slug, UTM,
+ * referrer, user_agent) into funnel_signups with email=NULL so we can
+ * see "X% of visitors clicked Pro Pool, Y% Elite Pool" without forcing
+ * a contact form on people who just want to download the app.
+ *
+ * Fire-and-forget: the network call runs but we never throw or await it
+ * past returning — navigation continues regardless of whether the row
+ * lands. Schema requires that funnel_signups.email be NULLABLE
+ * (see supabase-migration-funnel-signups-email-nullable.sql).
+ */
+export async function logFunnelClick(args: {
+  funnel: FunnelKind;
+  tierSlug: FunnelTierSlug;
+  giveawayId?: string | null;
+}): Promise<void> {
+  const utm = readUtm();
+  const row = {
+    email: null,
+    full_name: null,
+    phone: null,
+    funnel: args.funnel,
+    tier_slug: args.tierSlug,
+    giveaway_id: args.giveawayId ?? null,
+    utm_source: utm.utm_source,
+    utm_medium: utm.utm_medium,
+    utm_campaign: utm.utm_campaign,
+    utm_content: utm.utm_content,
+    utm_term: utm.utm_term,
+    referrer: readReferrer(),
+    user_agent: readUserAgent(),
+  };
+  try {
+    await supabase.from('funnel_signups').insert(row);
+  } catch {
+    // Swallow — never block navigation on analytics
+  }
+}
+
 export async function submitFunnelInterest(input: FunnelSubmitInput): Promise<FunnelSubmitResult> {
   const email = input.email.trim().toLowerCase();
   if (!isValidEmail(email)) return { ok: false, error: 'invalid_email' };

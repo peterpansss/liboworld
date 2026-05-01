@@ -3,10 +3,16 @@
  *
  * NOT a checkout funnel — cash challenges have no per-cycle entry fee.
  * Entry = subscription tier + slot availability + 30 days of reps.
- * This page surfaces the existing in-app challenge tiers (STARTER /
- * PRO POOL / ELITE POOL) as marketing creative to drive App Store
- * installs. CTAs open a shared modal that captures email + tier
- * interest, then the thank-you screen shows App Store badges.
+ *
+ * On click, the RESERVE MY SLOT button:
+ *   - Logs an anonymous click into funnel_signups (tier + UTM + UA)
+ *   - Fires a Google Analytics event for conversion tracking
+ *   - On mobile: UA-routes directly to App Store (iOS) or Play Store (Android)
+ *   - On desktop: opens a QR-code overlay so the visitor can scan with
+ *     their phone — see StoreRedirectOverlay component.
+ *
+ * The actual slot reservation happens *inside the Libo mobile app* (existing
+ * enroll_in_cycle RPC). The web page is purely an acquisition surface.
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,10 +21,15 @@ import { SeoHead } from '../components/SeoHead';
 import FunnelHeader from '../components/funnel/FunnelHeader';
 import PackageCard from '../components/funnel/PackageCard';
 import FunnelFAQ from '../components/funnel/FunnelFAQ';
-import FunnelCheckoutModal, { type ModalSelectedTier } from '../components/funnel/FunnelCheckoutModal';
-import { submitFunnelInterest, type ChallengeTierSlug } from '../lib/funnelSignups';
+import StoreRedirectOverlay from '../components/funnel/StoreRedirectOverlay';
+import { logFunnelClick, type ChallengeTierSlug } from '../lib/funnelSignups';
+import { detectPlatform, redirectToStore } from '../utils/storeRedirect';
 import { useInView, useCountUp, useRevealOnScroll } from '../utils/funnelAnimations';
 import './Giveaway.css';
+
+declare global {
+  interface Window { gtag?: (...args: unknown[]) => void }
+}
 
 type ChallengeDef = {
   slug: ChallengeTierSlug;
@@ -36,7 +47,7 @@ const FALLBACK_HERO_BG = '/ReferenceImagesReal/3888964e334eac66760016434935572e.
 
 export default function CashChallengePage() {
   const { t } = useTranslation();
-  const [modalTier, setModalTier] = useState<(ChallengeDef & { tier: ModalSelectedTier }) | null>(null);
+  const [overlayTier, setOverlayTier] = useState<string | null>(null);
 
   // Big-stats count-up on scroll
   const statsView = useInView<HTMLElement>(0.4);
@@ -47,19 +58,25 @@ export default function CashChallengePage() {
   // Reveal-on-scroll for [data-reveal]
   useRevealOnScroll();
 
-  const TIER_AMOUNTS: Record<ChallengeTierSlug, number> = {
-    starter: 15, pro_pool: 50, elite_pool: 250,
-  };
+  function handleReserveClick(c: ChallengeDef) {
+    // 1. Anonymous click log (fire-and-forget, doesn't block redirect)
+    void logFunnelClick({ funnel: 'cash_challenge', tierSlug: c.slug });
 
-  function openModal(c: ChallengeDef) {
-    const tier: ModalSelectedTier = {
-      name: t(`cashChallengeFunnel.tiers.${c.slug}.name`),
-      price: t(`cashChallengeFunnel.tiers.${c.slug}.reward`),
-      heroSummary: t(`cashChallengeFunnel.tiers.${c.slug}.heroSummary`),
-      tierSlug: c.slug,
-      amount: TIER_AMOUNTS[c.slug],
-    };
-    setModalTier({ ...c, tier });
+    // 2. Google Analytics event (gtag is loaded site-wide via index.html)
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'cash_challenge_app_redirect', {
+        tier: c.slug,
+        tier_name: t(`cashChallengeFunnel.tiers.${c.slug}.name`),
+      });
+    }
+
+    // 3. Route by platform
+    const platform = detectPlatform();
+    if (platform === 'desktop') {
+      setOverlayTier(c.slug);
+    } else {
+      redirectToStore(platform);
+    }
   }
 
   return (
@@ -121,7 +138,7 @@ export default function CashChallengePage() {
                   { value: t(`cashChallengeFunnel.tiers.${c.slug}.freeze`), label: 'Freeze tokens' },
                 ]}
                 ctaLabel={t('cashChallengeFunnel.ctaReserve')}
-                onSelect={() => openModal(c)}
+                onSelect={() => handleReserveClick(c)}
               />
             ))}
           </div>
@@ -246,49 +263,20 @@ export default function CashChallengePage() {
 
       <SiteFooter />
 
-      <FunnelCheckoutModal
-        open={modalTier !== null}
-        selected={modalTier?.tier ?? null}
-        currency="€"
+      {/* Desktop fallback when RESERVE is clicked — mobile visitors UA-route
+          straight to the right store and never see this overlay. */}
+      <StoreRedirectOverlay
+        open={overlayTier !== null}
+        tierSlug={overlayTier}
         copy={{
-          step1Label: t('cashChallengeFunnel.modal.step1Label'),
-          step1Subtitle: t('cashChallengeFunnel.modal.step1Subtitle'),
-          step2Label: t('cashChallengeFunnel.modal.step2Label'),
-          step2Subtitle: t('cashChallengeFunnel.modal.step2Subtitle'),
-          mandatoryNote: t('cashChallengeFunnel.modal.mandatoryNote'),
-          fullNameLabel: t('cashChallengeFunnel.modal.fullNameLabel'),
-          fullNamePlaceholder: t('cashChallengeFunnel.modal.fullNamePlaceholder'),
-          emailLabel: t('cashChallengeFunnel.modal.emailLabel'),
-          emailPlaceholder: t('cashChallengeFunnel.modal.emailPlaceholder'),
-          phoneLabel: t('cashChallengeFunnel.modal.phoneLabel'),
-          phonePlaceholder: t('cashChallengeFunnel.modal.phonePlaceholder'),
-          cardLabel: t('cashChallengeFunnel.modal.cardLabel'),
-          cardPlaceholder: t('cashChallengeFunnel.modal.cardPlaceholder'),
-          continueCta: t('cashChallengeFunnel.modal.continueCta'),
-          submitCta: t('cashChallengeFunnel.modal.submitCta'),
-          secureCheckout: t('cashChallengeFunnel.modal.secureCheckout'),
-          orderItem: t('cashChallengeFunnel.modal.orderItem'),
-          orderTotal: t('cashChallengeFunnel.modal.orderTotal'),
-          backLabel: t('cashChallengeFunnel.modal.backLabel'),
-          successTitle: t('cashChallengeFunnel.modalSuccessTitle'),
-          successBody: t('cashChallengeFunnel.modalSuccessBody'),
-          duplicateTitle: t('cashChallengeFunnel.modalDuplicateTitle'),
-          duplicateBody: t('cashChallengeFunnel.modalDuplicateBody'),
-          errorMsg: t('cashChallengeFunnel.ctaError'),
-          legalNote: t('cashChallengeFunnel.modalLegal'),
+          title: t('cashChallengeFunnel.storeOverlay.title'),
+          subtitle: t('cashChallengeFunnel.storeOverlay.subtitle'),
+          qrAlt: t('cashChallengeFunnel.storeOverlay.qrAlt'),
+          appStoreSmall: t('cashChallengeFunnel.storeOverlay.appStoreSmall'),
+          googlePlaySmall: t('cashChallengeFunnel.storeOverlay.googlePlaySmall'),
+          closeLabel: t('cashChallengeFunnel.storeOverlay.closeLabel'),
         }}
-        onSubmit={async ({ fullName, email, phone }) => {
-          if (!modalTier) return { ok: false };
-          const r = await submitFunnelInterest({
-            email,
-            fullName,
-            phone,
-            funnel: 'cash_challenge',
-            tierSlug: modalTier.slug,
-          });
-          return r.ok ? { ok: true, duplicate: r.duplicate } : { ok: false, error: r.error };
-        }}
-        onClose={() => setModalTier(null)}
+        onClose={() => setOverlayTier(null)}
       />
     </div>
   );
