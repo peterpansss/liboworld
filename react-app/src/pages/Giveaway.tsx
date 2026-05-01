@@ -22,6 +22,7 @@ import FunnelFAQ from '../components/funnel/FunnelFAQ';
 import FunnelCheckoutModal, { type ModalSelectedTier } from '../components/funnel/FunnelCheckoutModal';
 import { submitFunnelInterest, type GiveawayTierSlug } from '../lib/funnelSignups';
 import { listGiveaways, type Giveaway } from '../lib/adminApi';
+import { useInView, useCountUp, useRevealOnScroll } from '../utils/funnelAnimations';
 import './Giveaway.css';
 
 type PackageDef = {
@@ -44,6 +45,15 @@ export default function GiveawayPage() {
   const [, setLoadingActive] = useState(true);
   const [modalTier, setModalTier] = useState<(PackageDef & { tier: ModalSelectedTier }) | null>(null);
   const [inclusionsOpen, setInclusionsOpen] = useState(false);
+
+  // Big-stats count-up on scroll
+  const statsView = useInView<HTMLElement>(0.4);
+  const statEntries = useCountUp(2400, statsView.inView);
+  const statGivenAway = useCountUp(18, statsView.inView);
+  const statWinners = useCountUp(47, statsView.inView);
+
+  // Reveal-on-scroll for [data-reveal] section headers
+  useRevealOnScroll();
 
   useEffect(() => {
     let cancelled = false;
@@ -109,9 +119,10 @@ export default function GiveawayPage() {
 
         {/* ── PACKAGES (immediately under hero — zero friction) ─ */}
         <section id="packages" className="funnel-section">
-          <header className="funnel-section__header">
-            <a href="#packages" className="funnel-hero__cta" style={{ marginBottom: 24, display: 'inline-block' }}>
+          <header className="funnel-section__header" data-reveal>
+            <a href="#packages" className="funnel-hero__cta funnel-hero__cta--xl" style={{ marginBottom: 32 }}>
               {t('giveawayFunnel.heroCta')}
+              <span className="funnel-hero__cta__arrow" aria-hidden="true">→</span>
             </a>
             <h2 className="funnel-section__title font-display">{t('giveawayFunnel.packagesTitle')}</h2>
             <p className="funnel-section__sub">{t('giveawayFunnel.packagesSub')}</p>
@@ -195,7 +206,7 @@ export default function GiveawayPage() {
 
         {/* ── PRIZE DETAIL CARD ────────────────────────────── */}
         <section className="funnel-section funnel-section--narrow">
-          <header className="funnel-section__header">
+          <header className="funnel-section__header" data-reveal>
             <h2 className="funnel-section__title font-display">{t('giveawayFunnel.prizeDetailTitle')}</h2>
           </header>
 
@@ -251,26 +262,29 @@ export default function GiveawayPage() {
         </section>
 
         {/* ── REPEAT CTA ───────────────────────────────────── */}
-        <div className="funnel-repeat-cta">
+        <div className="funnel-repeat-cta" data-reveal>
           <h2 className="funnel-repeat-cta__title font-display">{t('giveawayFunnel.repeatCta1Title')}</h2>
-          <a href="#packages" className="funnel-hero__cta">{t('giveawayFunnel.heroCta')}</a>
+          <a href="#packages" className="funnel-hero__cta">
+            {t('giveawayFunnel.heroCta')}
+            <span className="funnel-hero__cta__arrow" aria-hidden="true">→</span>
+          </a>
         </div>
 
         {/* ── BIG STATS ────────────────────────────────────── */}
-        <section className="funnel-stats">
-          <h2 className="funnel-stats__title font-display">{t('giveawayFunnel.statsTitle')}</h2>
-          <div className="funnel-stats__sub">{t('giveawayFunnel.statsSub')}</div>
+        <section className="funnel-stats" ref={statsView.ref}>
+          <h2 className="funnel-stats__title font-display" data-reveal>{t('giveawayFunnel.statsTitle')}</h2>
+          <div className="funnel-stats__sub" data-reveal data-reveal-delay="0.1">{t('giveawayFunnel.statsSub')}</div>
           <div className="funnel-stats__grid">
             <div className="funnel-stats__cell">
-              <div className="funnel-stats__num">2,400+</div>
+              <div className="funnel-stats__num">{statEntries.toLocaleString()}+</div>
               <div className="funnel-stats__label">{t('giveawayFunnel.statEntries')}</div>
             </div>
             <div className="funnel-stats__cell">
-              <div className="funnel-stats__num">€18k</div>
+              <div className="funnel-stats__num">€{statGivenAway}k</div>
               <div className="funnel-stats__label">{t('giveawayFunnel.statGivenAway')}</div>
             </div>
             <div className="funnel-stats__cell">
-              <div className="funnel-stats__num">47</div>
+              <div className="funnel-stats__num">{statWinners}</div>
               <div className="funnel-stats__label">{t('giveawayFunnel.statWinners')}</div>
             </div>
           </div>
@@ -278,7 +292,7 @@ export default function GiveawayPage() {
 
         {/* ── WINNERS (placeholder cards) ──────────────────── */}
         <section className="funnel-section">
-          <header className="funnel-section__header">
+          <header className="funnel-section__header" data-reveal>
             <h2 className="funnel-section__title font-display">{t('giveawayFunnel.winnersTitle')}</h2>
             <p className="funnel-section__sub">{t('giveawayFunnel.winnersSub')}</p>
           </header>
@@ -318,7 +332,7 @@ export default function GiveawayPage() {
 
         {/* ── FAQ ──────────────────────────────────────────── */}
         <section className="funnel-section funnel-section--narrow" id="faq">
-          <header className="funnel-section__header">
+          <header className="funnel-section__header" data-reveal>
             <h2 className="funnel-section__title font-display">{t('giveawayFunnel.faqTitle')}</h2>
           </header>
           <FunnelFAQ
@@ -330,9 +344,12 @@ export default function GiveawayPage() {
         </section>
 
         {/* ── FINAL CTA ────────────────────────────────────── */}
-        <div className="funnel-repeat-cta" style={{ paddingBottom: 48 }}>
+        <div className="funnel-repeat-cta" data-reveal style={{ paddingBottom: 48 }}>
           <h2 className="funnel-repeat-cta__title font-display">{t('giveawayFunnel.finalCtaTitle')}</h2>
-          <a href="#packages" className="funnel-hero__cta funnel-hero__cta--xl">{t('giveawayFunnel.finalCta')}</a>
+          <a href="#packages" className="funnel-hero__cta funnel-hero__cta--xl">
+            {t('giveawayFunnel.finalCta')}
+            <span className="funnel-hero__cta__arrow" aria-hidden="true">→</span>
+          </a>
         </div>
 
         {/* ── DISCLAIMER ───────────────────────────────────── */}

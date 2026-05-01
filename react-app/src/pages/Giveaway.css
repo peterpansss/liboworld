@@ -11,6 +11,88 @@
   --cash-green: #6FE26F;
 }
 
+/* ── REVEAL-ON-SCROLL UTILITY ────────────────────────────────── */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .funnel-hero__cta,
+  .funnel-hero__cta::before,
+  .funnel-hero__cta::after,
+  .funnel-hero__cta__arrow,
+  .funnel-hero__brand-eyebrow::before,
+  .funnel-package-card,
+  .funnel-hero__headline,
+  .funnel-hero__cash { animation: none !important; }
+}
+
+/* ── HERO ENTRANCE ANIMATIONS ────────────────────────────────── */
+
+.funnel-hero__brand-eyebrow,
+.funnel-hero__headline,
+.funnel-hero__sub,
+.funnel-hero__prize-image {
+  animation: libo-hero-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.funnel-hero__brand-eyebrow { animation-delay: 0.05s; }
+.funnel-hero__headline      { animation-delay: 0.18s; }
+.funnel-hero__sub           { animation-delay: 0.32s; }
+.funnel-hero__prize-image   { animation-delay: 0.4s; }
+
+@keyframes libo-hero-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Glowing accent on the cash amount */
+.funnel-hero__cash {
+  animation: libo-cash-glow 3.6s ease-in-out infinite, libo-hero-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.18s backwards;
+}
+
+@keyframes libo-cash-glow {
+  0%, 100% { text-shadow: 0 0 20px rgba(111, 226, 111, 0.3), 0 4px 24px rgba(0,0,0,0.6); }
+  50%      { text-shadow: 0 0 36px rgba(111, 226, 111, 0.6), 0 4px 24px rgba(0,0,0,0.6); }
+}
+
+/* Package cards stagger reveal on scroll */
+.funnel-packages-grid .funnel-package-card {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: libo-card-reveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.funnel-packages-grid .funnel-package-card:nth-child(1) { animation-delay: 0.05s; }
+.funnel-packages-grid .funnel-package-card:nth-child(2) { animation-delay: 0.18s; }
+.funnel-packages-grid .funnel-package-card:nth-child(3) { animation-delay: 0.31s; }
+.funnel-packages-grid .funnel-package-card:nth-child(4) { animation-delay: 0.44s; }
+.funnel-packages-grid .funnel-package-card:nth-child(5) { animation-delay: 0.57s; }
+
+@keyframes libo-card-reveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stat numbers — soft scale-in pulse on mount */
+.funnel-stats__num {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.funnel-stats__cell:hover .funnel-stats__num {
+  transform: scale(1.05);
+}
+
 /* ── HERO (2-column: text left, prize photo right) ───────────── */
 
 .funnel-hero {
@@ -171,37 +253,92 @@
 }
 
 .funnel-hero__cta {
-  display: inline-block;
-  padding: 18px 56px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 22px 64px;
   background: linear-gradient(90deg, var(--orange-2) 0%, var(--orange) 100%);
   color: #fff;
   font-weight: 900;
-  font-size: clamp(15px, 2vw, 18px);
+  font-size: clamp(16px, 2.2vw, 20px);
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  border-radius: 10px;
+  border-radius: 12px;
   text-decoration: none;
-  transition: transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 14px 36px rgba(255, 106, 26, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   border: none;
   cursor: pointer;
   font-family: inherit;
-  animation: libo-cta-bounce 2.2s ease-in-out infinite;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(255, 106, 26, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  transition: transform 0.18s ease, box-shadow 0.25s ease;
+  animation: libo-cta-bounce 2.4s ease-in-out infinite;
+}
+
+/* Sweeping shimmer overlay every ~3.5s */
+.funnel-hero__cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%);
+  transform: skewX(-18deg);
+  pointer-events: none;
+  animation: libo-cta-shimmer 3.6s ease-in-out infinite;
+}
+
+/* Soft halo glow ring */
+.funnel-hero__cta::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--orange-2) 0%, var(--orange) 100%);
+  z-index: -1;
+  filter: blur(16px);
+  opacity: 0.55;
+  animation: libo-cta-glow 2.6s ease-in-out infinite;
 }
 
 @keyframes libo-cta-bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes libo-cta-shimmer {
+  0% { left: -120%; }
+  60%, 100% { left: 140%; }
+}
+
+@keyframes libo-cta-glow {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50%      { opacity: 0.75; transform: scale(1.04); }
 }
 
 .funnel-hero__cta:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 20px 44px rgba(255, 106, 26, 0.5);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 24px 48px rgba(255, 106, 26, 0.55);
+}
+
+.funnel-hero__cta__arrow {
+  display: inline-block;
+  font-size: 1.1em;
+  animation: libo-cta-arrow 1.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes libo-cta-arrow {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(5px); }
 }
 
 .funnel-hero__cta--xl {
-  padding: 22px 72px;
-  font-size: clamp(17px, 2.4vw, 22px);
+  padding: 24px 76px;
+  font-size: clamp(18px, 2.6vw, 24px);
 }
 
 /* ── SHARED SECTION SHELL ───────────────────────────────────── */
