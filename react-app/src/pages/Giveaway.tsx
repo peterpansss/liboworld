@@ -82,15 +82,25 @@ export default function GiveawayPage() {
       />
 
       <main id="main-content">
-        {/* ── HERO ─────────────────────────────────────────── */}
+        {/* ── HERO (text left, prize image right) ──────────── */}
         <section className="funnel-hero">
-          <div className="funnel-hero__bg" style={{ backgroundImage: `url(${prizeImage})` }} aria-hidden="true" />
-          <div className="funnel-hero__content">
-            <div className="funnel-hero__brand-eyebrow">{t('giveawayFunnel.eyebrow')}</div>
-            <h1 className="funnel-hero__headline font-display">
-              {t('giveawayFunnel.headline1')}<br />
-              <span className="funnel-hero__cash">{t('giveawayFunnel.cashAmount')}</span>
-            </h1>
+          <div className="funnel-hero__layout">
+            <div className="funnel-hero__text">
+              <div className="funnel-hero__brand-eyebrow">{t('giveawayFunnel.eyebrow')}</div>
+              <h1 className="funnel-hero__headline font-display">
+                {t('giveawayFunnel.headline1')}<br />
+                <span className="funnel-hero__cash">{t('giveawayFunnel.cashAmount')}</span>
+              </h1>
+              <p className="funnel-hero__sub">{t('giveawayFunnel.heroSub')}</p>
+            </div>
+            <div className="funnel-hero__prize-image">
+              <div
+                className="funnel-hero__prize-bg"
+                style={{ backgroundImage: `url(${prizeImage})` }}
+                role="img"
+                aria-label={prizeName}
+              />
+            </div>
           </div>
         </section>
 

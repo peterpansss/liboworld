@@ -11,42 +11,105 @@
   --cash-green: #6FE26F;
 }
 
-/* ── HERO (full-bleed, photo background) ─────────────────────── */
+/* ── HERO (2-column: text left, prize photo right) ───────────── */
 
 .funnel-hero {
   position: relative;
-  min-height: clamp(440px, 70vh, 720px);
-  padding: 80px 24px 48px;
+  min-height: clamp(520px, 78vh, 760px);
+  padding: 64px 24px 48px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  justify-content: center;
   overflow: hidden;
-  background: #050505;
+  background:
+    radial-gradient(circle at 75% 50%, rgba(202, 255, 0, 0.08) 0%, transparent 55%),
+    radial-gradient(circle at 25% 80%, rgba(111, 226, 111, 0.06) 0%, transparent 50%),
+    linear-gradient(160deg, #0a0a0a 0%, #050505 100%);
 }
 
-.funnel-hero__bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.55);
-  z-index: 0;
-}
-
-.funnel-hero__bg::after {
+.funnel-hero::before {
+  /* subtle grid pattern */
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.85) 100%);
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, transparent 80%);
 }
 
-.funnel-hero__content {
+.funnel-hero__layout {
   position: relative;
   z-index: 1;
-  max-width: 980px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .funnel-hero__layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+}
+
+.funnel-hero__text {
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  .funnel-hero__text { text-align: center; order: 1; }
+}
+
+.funnel-hero__prize-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+}
+
+@media (max-width: 900px) {
+  .funnel-hero__prize-image { order: 2; min-height: 280px; }
+}
+
+.funnel-hero__prize-image::before {
+  content: '';
+  position: absolute;
+  inset: -20% -10%;
+  background: radial-gradient(ellipse at center, rgba(202, 255, 0, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.funnel-hero__prize-image img,
+.funnel-hero__prize-image .funnel-hero__prize-bg {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  max-height: 480px;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.6));
+}
+
+/* Background-image style placeholder when no <img> is supplied */
+.funnel-hero__prize-bg {
+  width: 100%;
+  height: 420px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+}
+
+@media (max-width: 900px) {
+  .funnel-hero__prize-bg { height: 280px; }
 }
 
 .funnel-hero__brand-eyebrow {
@@ -59,8 +122,8 @@
   text-transform: uppercase;
   padding: 6px 14px;
   border-radius: 100px;
-  background: rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
   color: #fff;
   margin-bottom: 20px;
   backdrop-filter: blur(8px);
@@ -81,14 +144,25 @@
 }
 
 .funnel-hero__headline {
-  font-size: clamp(44px, 9vw, 96px);
-  line-height: 0.92;
+  font-size: clamp(40px, 6.5vw, 80px);
+  line-height: 0.95;
   letter-spacing: -1.5px;
-  margin: 0 0 28px;
+  margin: 0 0 16px;
   text-transform: uppercase;
   color: #fff;
-  text-shadow: 0 4px 24px rgba(0,0,0,0.5);
   font-weight: 900;
+}
+
+.funnel-hero__sub {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 460px;
+  margin: 0 0 24px;
+}
+
+@media (max-width: 900px) {
+  .funnel-hero__sub { margin: 0 auto 24px; }
 }
 
 .funnel-hero__cash {

@@ -55,15 +55,25 @@ export default function CashChallengePage() {
       />
 
       <main id="main-content">
-        {/* ── HERO ─────────────────────────────────────────── */}
+        {/* ── HERO (text left, training imagery right) ─────── */}
         <section className="funnel-hero">
-          <div className="funnel-hero__bg" style={{ backgroundImage: `url(${FALLBACK_HERO_BG})` }} aria-hidden="true" />
-          <div className="funnel-hero__content">
-            <div className="funnel-hero__brand-eyebrow">{t('cashChallengeFunnel.eyebrow')}</div>
-            <h1 className="funnel-hero__headline font-display">
-              {t('cashChallengeFunnel.headline1')}<br />
-              <span className="funnel-hero__cash">{t('cashChallengeFunnel.headline2')}</span>
-            </h1>
+          <div className="funnel-hero__layout">
+            <div className="funnel-hero__text">
+              <div className="funnel-hero__brand-eyebrow">{t('cashChallengeFunnel.eyebrow')}</div>
+              <h1 className="funnel-hero__headline font-display">
+                {t('cashChallengeFunnel.headline1')}<br />
+                <span className="funnel-hero__cash">{t('cashChallengeFunnel.headline2')}</span>
+              </h1>
+              <p className="funnel-hero__sub">{t('cashChallengeFunnel.heroSub')}</p>
+            </div>
+            <div className="funnel-hero__prize-image">
+              <div
+                className="funnel-hero__prize-bg"
+                style={{ backgroundImage: `url(${FALLBACK_HERO_BG})`, backgroundSize: 'cover', borderRadius: 16 }}
+                role="img"
+                aria-label="Training imagery"
+              />
+            </div>
           </div>
         </section>
 
