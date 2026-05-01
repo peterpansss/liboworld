@@ -33,10 +33,15 @@ export function publicVideoUrl(ex: Exercise, voice: VoicePreference = 'male'): s
 /**
  * Alternate-angle (e.g. "_side_view") clip URL — same hidden-media rules
  * as the primary video. Returns undefined when the exercise has no alt.
+ *
+ * Side-view clips are visual-only (no audio stream — they're a reference
+ * angle, the primary clip carries the voiceover), so the voice preference
+ * doesn't apply here. Always return the base alt URL regardless of voice.
+ * The `_voice` arg is kept for call-site symmetry with publicVideoUrl.
  */
-export function publicVideoUrlAlt(ex: Exercise, voice: VoicePreference = 'male'): string | undefined {
+export function publicVideoUrlAlt(ex: Exercise, _voice: VoicePreference = 'male'): string | undefined {
   if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrlAlt) return undefined;
-  return withVoice(ex.videoUrlAlt, voice);
+  return ex.videoUrlAlt;
 }
 
 export function publicAnimationUrl(ex: Exercise): string | undefined {
