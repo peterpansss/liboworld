@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 import { blogArticles } from '../data/blog';
 import SiteFooter from '../components/SiteFooter';
-import LanguageSwitcher from '../components/LanguageSwitcher';
+import SiteNav from '../components/SiteNav';
 import PricingSection from '../components/PricingSection';
 import { EmojiIcon } from '../components/EmojiIcon';
 import { Star } from '../utils/icons';
@@ -41,8 +41,6 @@ const FEATURE_KEYS = ['exerciseLibrary', 'workoutLibrary', 'programs', 'progress
 const CATEGORY_KEYS = ['homeWorkouts', 'gymTraining', 'mobilityStretch', 'functional', 'morningRoutines', 'eveningWindDown'] as const;
 
 const TESTIMONIAL_AVATARS = ['\uD83D\uDC68', '\uD83D\uDC69', '\uD83E\uDDD1'];
-
-const NAV_SECTIONS = ['features', 'rewards', 'goals'] as const;
 
 // ── Smooth scroll to anchor ──
 function scrollToId(id: string) {
@@ -161,12 +159,8 @@ export default function Landing() {
     sub: t(`trust.stat${n}Sub`),
   }));
 
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [navScrolled, setNavScrolled] = useState(false);
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeNavIdx, setActiveNavIdx] = useState(-1);
-  const [loaded, setLoaded] = useState(false);
   const [heroRevealed, setHeroRevealed] = useState(false);
   const [ctaVisible, setCtaVisible] = useState(false);
 
@@ -178,8 +172,6 @@ export default function Landing() {
   const [formError, setFormError] = useState(false);
 
   // Refs
-  const navLinksRef = useRef<HTMLUListElement>(null);
-  const navIndicatorRef = useRef<HTMLDivElement>(null);
   const featuresGridRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
 
@@ -220,27 +212,12 @@ export default function Landing() {
     function onScroll() {
       const sy = window.scrollY;
 
-      // Nav
-      setNavScrolled(sy > 40);
-
       // Scroll progress
       const max = document.documentElement.scrollHeight - window.innerHeight;
       if (max > 0) setScrollProgress(sy / max);
 
       // Scroll indicator
       if (sy > 100) setScrollIndicatorVisible(false);
-
-      // Active section
-      const midY = window.innerHeight / 2;
-      let idx = -1;
-      NAV_SECTIONS.forEach((id, i) => {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top < midY && rect.bottom > midY) idx = i;
-        }
-      });
-      setActiveNavIdx(idx);
 
       // Parallax (desktop only)
       if (isDesktop.current && !prefersReducedMotion.current) {
@@ -262,28 +239,9 @@ export default function Landing() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ── Nav indicator position ──
-  useEffect(() => {
-    const ul = navLinksRef.current;
-    const indicator = navIndicatorRef.current;
-    if (!ul || !indicator) return;
-
-    const links = ul.querySelectorAll('a');
-    if (activeNavIdx >= 0 && links[activeNavIdx]) {
-      const link = links[activeNavIdx];
-      const rect = link.getBoundingClientRect();
-      const parentRect = ul.getBoundingClientRect();
-      indicator.style.width = `${rect.width}px`;
-      indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
-    } else {
-      indicator.style.width = '0';
-    }
-  }, [activeNavIdx]);
-
   // ── Page load orchestration ──
   useEffect(() => {
     if (prefersReducedMotion.current) {
-      setLoaded(true);
       setHeroRevealed(true);
       setCtaVisible(true);
       setScrollIndicatorVisible(true);
@@ -291,7 +249,6 @@ export default function Landing() {
     }
 
     // Stagger the load sequence
-    requestAnimationFrame(() => setLoaded(true));
     setTimeout(() => setHeroRevealed(true), 200);
     setTimeout(() => setCtaVisible(true), 1000);
     setTimeout(() => setScrollIndicatorVisible(true), 1400);
@@ -452,26 +409,10 @@ export default function Landing() {
     };
   }, []);
 
-  // ── Escape key closes mobile menu ──
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && mobileMenuOpen) setMobileMenuOpen(false);
-    };
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [mobileMenuOpen]);
-
-  // ── Body scroll lock when mobile menu is open ──
-  useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileMenuOpen]);
-
   // ── Nav click handler ──
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     scrollToId(id);
-    setMobileMenuOpen(false);
   }, []);
 
   // ── Form submit ──
@@ -522,6 +463,7 @@ export default function Landing() {
 
   return (
     <>
+    <SiteNav />
     <main className="landing" id="main-content">
       {/* Scroll progress bar */}
       <div
@@ -531,80 +473,6 @@ export default function Landing() {
 
       {/* Cursor follower (desktop only) */}
       <div className="cursor-follower" ref={cursorRef} />
-
-      {/* ── MOBILE MENU ── */}
-      <div
-        className={`mobile-menu${mobileMenuOpen ? ' open' : ''}`}
-        role="dialog"
-        aria-modal={mobileMenuOpen}
-        aria-label={t('nav.navigationMenu')}
-      >
-        <button
-          className="mobile-menu-close"
-          onClick={() => setMobileMenuOpen(false)}
-          aria-label={t('nav.closeMenu')}
-        >
-          &#10005;
-        </button>
-        <a href="#features" onClick={(e) => handleNavClick(e, 'features')}>{t('nav.features')}</a>
-        <a href="#rewards" onClick={(e) => handleNavClick(e, 'rewards')}>{t('nav.rewards')}</a>
-        <a href="#workouts" onClick={(e) => handleNavClick(e, 'workouts')}>{t('nav.workouts')}</a>
-        <a href="#goals" onClick={(e) => handleNavClick(e, 'goals')}>{t('nav.goals')}</a>
-        <Link to="/exercises" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.exerciseLibrary')}</Link>
-        <Link to="/workouts" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.workouts')}</Link>
-        <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.blog')}</Link>
-        <Link to="/onboarding" onClick={() => setMobileMenuOpen(false)}>{t('mobileMenu.getEarlyAccess')}</Link>
-        <div style={{ marginTop: 24 }}>
-          <LanguageSwitcher variant="drawer" />
-        </div>
-      </div>
-
-      {/* ── NAV ── */}
-      <nav className={`landing-nav${navScrolled ? ' scrolled' : ''}`} aria-label={t('nav.mainNavigation')}>
-        <div className="landing-nav-inner">
-          <a href="#" className={`nav-logo${loaded ? ' load-fade loaded' : ' load-fade'}`} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-            <img src="/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png" alt="Libo" />
-          </a>
-          <ul className="nav-links" ref={navLinksRef}>
-            {NAV_SECTIONS.map((id, i) => (
-              <li key={id}>
-                <a
-                  href={`#${id}`}
-                  className={`load-stagger${loaded ? ' loaded' : ''}`}
-                  style={{ transitionDelay: `${0.05 + i * 0.05}s` }}
-                  onClick={(e) => handleNavClick(e, id)}
-                >
-                  {t(`nav.${id}`)}
-                </a>
-              </li>
-            ))}
-            <li className="nav-sep" aria-hidden="true" role="separator" />
-            <li><Link to="/exercises" className={`load-stagger${loaded ? ' loaded' : ''}`} style={{ transitionDelay: '0.3s' }}>{t('nav.exercises')}</Link></li>
-            <li><Link to="/workouts" className={`load-stagger${loaded ? ' loaded' : ''}`} style={{ transitionDelay: '0.35s' }}>{t('nav.workouts')}</Link></li>
-            <li><Link to="/blog" className={`load-stagger${loaded ? ' loaded' : ''}`} style={{ transitionDelay: '0.4s' }}>{t('nav.blog')}</Link></li>
-            <li aria-hidden="true" style={{ position: 'absolute' }}>
-              <div className="nav-indicator" ref={navIndicatorRef} />
-            </li>
-          </ul>
-          <div className="nav-right">
-            <LanguageSwitcher />
-            <Link
-              to="/onboarding"
-              className="btn-nav"
-            >
-              {t('nav.getStarted')}
-            </Link>
-            <button
-              className="nav-hamburger"
-              onClick={() => setMobileMenuOpen(true)}
-              aria-label={t('nav.openMenu')}
-              aria-expanded={mobileMenuOpen}
-            >
-              <span /><span /><span />
-            </button>
-          </div>
-        </div>
-      </nav>
 
       {/* ── HERO ── */}
       <section className="hero">

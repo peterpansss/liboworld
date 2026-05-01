@@ -265,6 +265,11 @@
     display: none;
   }
 
+  /* Lang switcher lives inside the drawer on mobile (site-nav__drawer-bottom) */
+  .site-nav__right > .lang-switch--nav {
+    display: none;
+  }
+
   .site-nav__hamburger {
     display: flex;
   }

@@ -5,10 +5,11 @@ import LanguageSwitcher from './LanguageSwitcher';
 import './SiteNav.css';
 
 const NAV_LINKS = [
-  { labelKey: 'nav.home', to: '/' },
-  { labelKey: 'nav.exercises', to: '/exercises' },
-  { labelKey: 'nav.workouts', to: '/workouts' },
-  { labelKey: 'nav.blog', to: '/blog' },
+  { labelKey: 'nav.exercises', defaultLabel: 'Exercises', to: '/exercises' },
+  { labelKey: 'nav.workouts', defaultLabel: 'Workouts', to: '/workouts' },
+  { labelKey: 'nav.cashChallenges', defaultLabel: 'Cash Challenges', to: '/cash-challenge' },
+  { labelKey: 'nav.giveaways', defaultLabel: 'Giveaways', to: '/giveaway' },
+  { labelKey: 'nav.blog', defaultLabel: 'Blog', to: '/blog' },
 ] as const;
 
 export default function SiteNav() {
@@ -52,14 +53,14 @@ export default function SiteNav() {
 
           {/* Center links */}
           <ul className="site-nav__links">
-            {NAV_LINKS.map(({ labelKey, to }) => (
+            {NAV_LINKS.map(({ labelKey, defaultLabel, to }) => (
               <li key={to}>
                 <Link
                   to={to}
                   className={`site-nav__link${isActive(to) ? ' site-nav__link--active' : ''}`}
                   aria-current={isActive(to) ? 'page' : undefined}
                 >
-                  {t(labelKey)}
+                  {t(labelKey, { defaultValue: defaultLabel })}
                 </Link>
               </li>
             ))}
@@ -113,9 +114,9 @@ export default function SiteNav() {
           </button>
         </div>
         <div className="site-nav__drawer-links">
-          {NAV_LINKS.map(({ labelKey, to }) => (
+          {NAV_LINKS.map(({ labelKey, defaultLabel, to }) => (
             <Link key={to} to={to} className={isActive(to) ? 'site-nav__drawer-link--active' : ''} aria-current={isActive(to) ? 'page' : undefined} onClick={() => setDrawerOpen(false)}>
-              {t(labelKey)}
+              {t(labelKey, { defaultValue: defaultLabel })}
             </Link>
           ))}
         </div>
