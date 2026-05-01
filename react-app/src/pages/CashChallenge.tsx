@@ -5,19 +5,18 @@
  * Entry = subscription tier + slot availability + 30 days of reps.
  * This page surfaces the existing in-app challenge tiers (STARTER /
  * PRO POOL / ELITE POOL) as marketing creative to drive App Store
- * installs. CTAs capture email + tier interest, then route to the
- * mobile app via App Store/Play Store badges.
+ * installs. CTAs open a shared modal that captures email + tier
+ * interest, then the thank-you screen shows App Store badges.
  */
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
 import CountdownBanner from '../components/funnel/CountdownBanner';
 import PackageCard from '../components/funnel/PackageCard';
 import FunnelFAQ from '../components/funnel/FunnelFAQ';
-import SocialProofCounter from '../components/funnel/SocialProofCounter';
+import FunnelCheckoutModal, { type ModalSelectedTier } from '../components/funnel/FunnelCheckoutModal';
 import { submitFunnelInterest, type ChallengeTierSlug } from '../lib/funnelSignups';
-import { colors } from '../theme';
 import './Giveaway.css';
 
 type ChallengeDef = {
@@ -32,8 +31,8 @@ const CHALLENGES: ChallengeDef[] = [
   { slug: 'elite_pool', highlight: 'elite',   badgeKey: 'biggestPayout' },
 ];
 
-// Default countdown — next cycle opens 14 days from now (placeholder
-// until challenge_cycles is queried directly from a public RPC).
+const FALLBACK_HERO_BG = '/ReferenceImagesReal/3888964e334eac66760016434935572e.jpg';
+
 function defaultCycleStart(): string {
   const d = new Date();
   d.setDate(d.getDate() + 14);
@@ -43,6 +42,17 @@ function defaultCycleStart(): string {
 export default function CashChallengePage() {
   const { t } = useTranslation();
   const cycleStart = defaultCycleStart();
+  const [modalTier, setModalTier] = useState<(ChallengeDef & { tier: ModalSelectedTier }) | null>(null);
+
+  function openModal(c: ChallengeDef) {
+    const tier: ModalSelectedTier = {
+      name: t(`cashChallengeFunnel.tiers.${c.slug}.name`),
+      price: t(`cashChallengeFunnel.tiers.${c.slug}.reward`),
+      heroSummary: t(`cashChallengeFunnel.tiers.${c.slug}.heroSummary`),
+      tierSlug: c.slug,
+    };
+    setModalTier({ ...c, tier });
+  }
 
   return (
     <div className="funnel-page">
@@ -57,129 +67,143 @@ export default function CashChallengePage() {
         label={t('cashChallengeFunnel.countdownLabel')}
       />
 
-      <SiteNav />
-
       <main id="main-content">
-        {/* Hero */}
+        {/* ── HERO ─────────────────────────────────────────── */}
         <section className="funnel-hero">
-          <div className="funnel-hero__eyebrow">{t('cashChallengeFunnel.eyebrow')}</div>
-          <h1 className="funnel-hero__headline font-display">
-            {t('cashChallengeFunnel.headline1')}<br />
-            <span className="funnel-hero__headline-accent">{t('cashChallengeFunnel.headline2')}</span>
-          </h1>
-          <p className="funnel-hero__sub">{t('cashChallengeFunnel.sub')}</p>
-
-          <div>
-            <a href="#challenges" className="funnel-hero__cta">
+          <div className="funnel-hero__bg" style={{ backgroundImage: `url(${FALLBACK_HERO_BG})` }} aria-hidden="true" />
+          <div className="funnel-hero__content">
+            <div className="funnel-hero__brand-eyebrow">{t('cashChallengeFunnel.eyebrow')}</div>
+            <h1 className="funnel-hero__headline font-display">
+              {t('cashChallengeFunnel.headline1')}<br />
+              <span className="funnel-hero__cash">{t('cashChallengeFunnel.headline2')}</span>
+            </h1>
+            <a href="#challenges" className="funnel-hero__cta funnel-hero__cta--xl">
               {t('cashChallengeFunnel.heroCta')}
             </a>
           </div>
         </section>
 
-        {/* Social proof counters */}
-        <SocialProofCounter
-          counters={[
-            { value: 312,  label: t('cashChallengeFunnel.statCompleters') },
-            { value: 4680, prefix: '€', label: t('cashChallengeFunnel.statPaidOut') },
-            { value: 50,   label: t('cashChallengeFunnel.statSlotsPerCycle') },
-          ]}
-        />
+        {/* ── CHALLENGES (immediately under hero) ─────────── */}
+        <section id="challenges" className="funnel-section">
+          <header className="funnel-section__header">
+            <a href="#challenges" className="funnel-hero__cta" style={{ marginBottom: 24, display: 'inline-block' }}>
+              {t('cashChallengeFunnel.heroCta')}
+            </a>
+            <h2 className="funnel-section__title font-display">{t('cashChallengeFunnel.tiersTitle')}</h2>
+            <p className="funnel-section__sub">{t('cashChallengeFunnel.tiersSub')}</p>
+          </header>
 
-        {/* How it works */}
+          <div className="funnel-packages-grid funnel-packages-grid--3">
+            {CHALLENGES.map((c) => (
+              <PackageCard
+                key={c.slug}
+                name={t(`cashChallengeFunnel.tiers.${c.slug}.name`)}
+                hero={t(`cashChallengeFunnel.tiers.${c.slug}.reward`)}
+                heroLabel={t('cashChallengeFunnel.tiers.rewardHeroLabel')}
+                price={t(`cashChallengeFunnel.tiers.${c.slug}.reps`) + ' / day'}
+                priceSubline={t(`cashChallengeFunnel.tiers.${c.slug}.gating`)}
+                badge={c.badgeKey ? t(`cashChallengeFunnel.badges.${c.badgeKey}`) : undefined}
+                highlight={c.highlight}
+                perks={[
+                  { value: t(`cashChallengeFunnel.tiers.${c.slug}.days`), label: 'Days' },
+                  { value: t(`cashChallengeFunnel.tiers.${c.slug}.freeze`), label: 'Freeze tokens' },
+                ]}
+                ctaLabel={t('cashChallengeFunnel.ctaReserve')}
+                onSelect={() => openModal(c)}
+              />
+            ))}
+          </div>
+
+          <p className="funnel-amoe-line">
+            {t('cashChallengeFunnel.scarcityLine')}
+          </p>
+        </section>
+
+        {/* ── TRUST BADGES ─────────────────────────────────── */}
+        <div className="funnel-trust-row">
+          <div className="funnel-trust-badge">
+            <span className="funnel-trust-badge__icon" aria-hidden="true">✓</span>
+            {t('cashChallengeFunnel.trust1')}
+          </div>
+          <div className="funnel-trust-badge">
+            <span className="funnel-trust-badge__icon" aria-hidden="true">€</span>
+            {t('cashChallengeFunnel.trust2')}
+          </div>
+          <div className="funnel-trust-badge">
+            <span className="funnel-trust-badge__icon" aria-hidden="true">🏆</span>
+            {t('cashChallengeFunnel.trust3')}
+          </div>
+        </div>
+
+        {/* ── HOW IT WORKS ────────────────────────────────── */}
         <section className="funnel-section funnel-section--narrow">
           <header className="funnel-section__header">
-            <div className="funnel-section__eyebrow">{t('cashChallengeFunnel.howItWorksEyebrow')}</div>
             <h2 className="funnel-section__title font-display">{t('cashChallengeFunnel.howItWorksTitle')}</h2>
             <p className="funnel-section__sub">{t('cashChallengeFunnel.howItWorksSub')}</p>
           </header>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: 16,
-              marginTop: 24,
-            }}
-          >
+          <div className="funnel-steps">
             {[1, 2, 3, 4].map(n => (
-              <div
-                key={n}
-                style={{
-                  padding: 20,
-                  background: colors.bg2,
-                  border: '1px solid ' + colors.border,
-                  borderRadius: 12,
-                }}
-              >
-                <div
-                  className="font-display"
-                  style={{ fontSize: 32, color: colors.accent, lineHeight: 1, marginBottom: 12 }}
-                >
-                  {n.toString().padStart(2, '0')}
-                </div>
-                <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 6, color: colors.text }}>
-                  {t(`cashChallengeFunnel.step${n}Title`)}
-                </div>
-                <p style={{ fontSize: 13, color: colors.muted, lineHeight: 1.5, margin: 0 }}>
-                  {t(`cashChallengeFunnel.step${n}Body`)}
-                </p>
+              <div key={n} className="funnel-step">
+                <div className="funnel-step__num font-display">0{n}</div>
+                <div className="funnel-step__title">{t(`cashChallengeFunnel.step${n}Title`)}</div>
+                <p className="funnel-step__body">{t(`cashChallengeFunnel.step${n}Body`)}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Challenge tiers */}
-        <section id="challenges" className="funnel-section">
-          <header className="funnel-section__header">
-            <div className="funnel-section__eyebrow">{t('cashChallengeFunnel.tiersEyebrow')}</div>
-            <h2 className="funnel-section__title font-display">{t('cashChallengeFunnel.tiersTitle')}</h2>
-            <p className="funnel-section__sub">{t('cashChallengeFunnel.tiersSub')}</p>
-          </header>
+        {/* ── REPEAT CTA ───────────────────────────────────── */}
+        <div className="funnel-repeat-cta">
+          <h2 className="funnel-repeat-cta__title font-display">{t('cashChallengeFunnel.repeatCtaTitle')}</h2>
+          <a href="#challenges" className="funnel-hero__cta">{t('cashChallengeFunnel.heroCta')}</a>
+        </div>
 
-          <div className="funnel-packages-grid">
-            {CHALLENGES.map(({ slug, highlight, badgeKey }) => (
-              <PackageCard
-                key={slug}
-                name={t(`cashChallengeFunnel.tiers.${slug}.name`)}
-                price={t(`cashChallengeFunnel.tiers.${slug}.reward`)}
-                priceSubline={t(`cashChallengeFunnel.tiers.${slug}.rewardSubline`)}
-                badge={badgeKey ? t(`cashChallengeFunnel.badges.${badgeKey}`) : undefined}
-                highlight={highlight}
-                inclusions={[
-                  { value: t(`cashChallengeFunnel.tiers.${slug}.reps`),    label: t('cashChallengeFunnel.repsLabel') },
-                  { value: t(`cashChallengeFunnel.tiers.${slug}.days`),    label: t('cashChallengeFunnel.daysLabel') },
-                  { value: t(`cashChallengeFunnel.tiers.${slug}.freeze`),  label: t('cashChallengeFunnel.freezeLabel') },
-                  { value: t(`cashChallengeFunnel.tiers.${slug}.gating`),  label: t('cashChallengeFunnel.gatingLabel') },
-                ]}
-                ctaLabel={t('cashChallengeFunnel.ctaReserve')}
-                emailPlaceholder={t('cashChallengeFunnel.emailPlaceholder')}
-                successMsg={t('cashChallengeFunnel.ctaSuccess')}
-                duplicateMsg={t('cashChallengeFunnel.ctaDuplicate')}
-                errorMsg={t('cashChallengeFunnel.ctaError')}
-                footnote={t(`cashChallengeFunnel.tiers.${slug}.footnote`)}
-                onSubmit={async (email) => {
-                  const r = await submitFunnelInterest({
-                    email,
-                    funnel: 'cash_challenge',
-                    tierSlug: slug,
-                  });
-                  return r.ok ? { ok: true, duplicate: r.duplicate } : { ok: false, error: r.error };
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Scarcity / cohort note */}
-          <div className="funnel-amoe">
-            <div className="funnel-amoe__title">{t('cashChallengeFunnel.scarcityTitle')}</div>
-            <div className="funnel-amoe__body">{t('cashChallengeFunnel.scarcityBody')}</div>
+        {/* ── BIG STATS ────────────────────────────────────── */}
+        <section className="funnel-stats">
+          <h2 className="funnel-stats__title font-display">{t('cashChallengeFunnel.statsTitle')}</h2>
+          <div className="funnel-stats__sub">{t('cashChallengeFunnel.statsSub')}</div>
+          <div className="funnel-stats__grid">
+            <div className="funnel-stats__cell">
+              <div className="funnel-stats__num">312</div>
+              <div className="funnel-stats__label">{t('cashChallengeFunnel.statCompleters')}</div>
+            </div>
+            <div className="funnel-stats__cell">
+              <div className="funnel-stats__num">€4,680</div>
+              <div className="funnel-stats__label">{t('cashChallengeFunnel.statPaidOut')}</div>
+            </div>
+            <div className="funnel-stats__cell">
+              <div className="funnel-stats__num">50</div>
+              <div className="funnel-stats__label">{t('cashChallengeFunnel.statSlotsPerCycle')}</div>
+            </div>
           </div>
         </section>
 
-        {/* FAQ */}
+        {/* ── APP DOWNLOAD CTA ─────────────────────────────── */}
+        <section className="funnel-section funnel-section--narrow funnel-section--tight">
+          <div className="funnel-app">
+            <h2 className="funnel-app__title">{t('cashChallengeFunnel.appTitle')}</h2>
+            <p className="funnel-app__sub">{t('cashChallengeFunnel.appSub')}</p>
+            <div className="funnel-app__badges">
+              <a href="https://apps.apple.com" className="funnel-app__badge" aria-label="Download on the App Store">
+                <svg width="18" height="22" viewBox="0 0 20 24" fill="none" aria-hidden="true">
+                  <path d="M16.47 12.2c-.03-3.1 2.53-4.59 2.64-4.66-1.44-2.1-3.68-2.39-4.47-2.42-1.9-.19-3.72 1.12-4.69 1.12-.97 0-2.46-1.1-4.05-1.07-2.08.03-4 1.21-5.08 3.08-2.17 3.76-.55 9.33 1.56 12.38 1.03 1.5 2.27 3.17 3.89 3.11 1.56-.06 2.15-1.01 4.03-1.01 1.88 0 2.42 1.01 4.07.98 1.68-.03 2.74-1.52 3.76-3.03 1.19-1.74 1.68-3.42 1.71-3.51-.04-.02-3.28-1.26-3.31-4.97h-.06z" fill="currentColor"/>
+                  <path d="M13.4 3.27C14.24 2.24 14.82.87 14.67-.5c-1.17.05-2.6.78-3.44 1.77-.75.87-1.42 2.27-1.24 3.61 1.31.1 2.65-.67 3.41-1.61z" fill="currentColor"/>
+                </svg>
+                <div><small>{t('cashChallengeFunnel.appStoreSmall')}</small><strong>App Store</strong></div>
+              </a>
+              <a href="https://play.google.com" className="funnel-app__badge" aria-label="Get it on Google Play">
+                <svg width="18" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.997.997 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.18l2.602 2.601-12.16 7.022 9.558-9.623zm5.398-3.105l-3.085 1.78-2.762-2.769 2.762-2.769 3.085 1.78c1.36.785 1.36 2.193 0 2.978zM5.05 1.622l11.443 6.605-2.762 2.768L5.05 1.622z"/>
+                </svg>
+                <div><small>{t('cashChallengeFunnel.googlePlaySmall')}</small><strong>Google Play</strong></div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ── FAQ ──────────────────────────────────────────── */}
         <section className="funnel-section funnel-section--narrow" id="faq">
           <header className="funnel-section__header">
-            <div className="funnel-section__eyebrow">{t('cashChallengeFunnel.faqEyebrow')}</div>
             <h2 className="funnel-section__title font-display">{t('cashChallengeFunnel.faqTitle')}</h2>
           </header>
           <FunnelFAQ
@@ -190,23 +214,45 @@ export default function CashChallengePage() {
           />
         </section>
 
-        {/* Repeat CTA */}
-        <section className="funnel-section funnel-section--narrow" style={{ textAlign: 'center', paddingTop: 0 }}>
-          <h2 className="funnel-section__title font-display" style={{ marginBottom: 24 }}>
-            {t('cashChallengeFunnel.repeatCtaTitle')}
-          </h2>
-          <a href="#challenges" className="funnel-hero__cta">
-            {t('cashChallengeFunnel.repeatCta')}
-          </a>
-        </section>
+        {/* ── FINAL CTA ────────────────────────────────────── */}
+        <div className="funnel-repeat-cta" style={{ paddingBottom: 48 }}>
+          <h2 className="funnel-repeat-cta__title font-display">{t('cashChallengeFunnel.finalCtaTitle')}</h2>
+          <a href="#challenges" className="funnel-hero__cta funnel-hero__cta--xl">{t('cashChallengeFunnel.finalCta')}</a>
+        </div>
 
-        {/* Disclaimer */}
-        <div className="funnel-disclaimer" style={{ borderTop: '1px solid ' + colors.border }}>
+        {/* ── DISCLAIMER ───────────────────────────────────── */}
+        <div className="funnel-disclaimer">
           {t('cashChallengeFunnel.disclaimer')}
         </div>
       </main>
 
       <SiteFooter />
+
+      <FunnelCheckoutModal
+        open={modalTier !== null}
+        selected={modalTier?.tier ?? null}
+        title={t('cashChallengeFunnel.modalTitle')}
+        subtitle={t('cashChallengeFunnel.modalSubtitle')}
+        emailLabel={t('cashChallengeFunnel.modalEmailLabel')}
+        emailPlaceholder={t('cashChallengeFunnel.emailPlaceholder')}
+        ctaLabel={t('cashChallengeFunnel.modalCta')}
+        successTitle={t('cashChallengeFunnel.modalSuccessTitle')}
+        successBody={t('cashChallengeFunnel.modalSuccessBody')}
+        duplicateTitle={t('cashChallengeFunnel.modalDuplicateTitle')}
+        duplicateBody={t('cashChallengeFunnel.modalDuplicateBody')}
+        errorMsg={t('cashChallengeFunnel.ctaError')}
+        legalNote={t('cashChallengeFunnel.modalLegal')}
+        onSubmit={async (email) => {
+          if (!modalTier) return { ok: false };
+          const r = await submitFunnelInterest({
+            email,
+            funnel: 'cash_challenge',
+            tierSlug: modalTier.slug,
+          });
+          return r.ok ? { ok: true, duplicate: r.duplicate } : { ok: false, error: r.error };
+        }}
+        onClose={() => setModalTier(null)}
+      />
     </div>
   );
 }

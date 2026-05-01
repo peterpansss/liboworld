@@ -1,7 +1,6 @@
-import { useState, type FormEvent } from 'react';
-import { colors, webExtras } from '../../theme';
+import { colors } from '../../theme';
 
-export type PackageHighlight = 'bronze' | 'silver' | 'gold' | 'starter' | 'pro' | 'elite';
+export type PackageHighlight = 'entry' | 'bronze' | 'silver' | 'gold' | 'platinum' | 'starter' | 'pro' | 'elite';
 
 export type PackageInclusion = {
   /** Big number, e.g. "5", "1 Month", "€15" */
@@ -11,93 +10,74 @@ export type PackageInclusion = {
 };
 
 type Props = {
-  /** Top label, e.g. "BRONZE PACKAGE" or "STARTER POOL" */
+  /** Top label, e.g. "BRONZE" or "STARTER" */
   name: string;
+  /** Hero number on card (e.g. "5", "100"). The big visual anchor. */
+  hero: string;
+  /** Label under hero number, e.g. "FREE BONUS ENTRIES" */
+  heroLabel: string;
   /** Big price label, e.g. "€10" or "Free" */
   price: string;
-  /** Small text under the price, e.g. "single payment" or "no purchase necessary" */
+  /** Small text under the price, e.g. "single payment · one-time" */
   priceSubline?: string;
-  /** Highlight ribbon e.g. "MOST POPULAR" or "BEST VALUE" */
+  /** Highlight ribbon e.g. "MOST POPULAR" */
   badge?: string;
   /** Color theme of the card */
   highlight: PackageHighlight;
-  /** Bullet inclusions */
-  inclusions: PackageInclusion[];
+  /** Compact perk chips above the price (e.g. "+1 mo / +500 XP") */
+  perks?: PackageInclusion[];
   /** CTA button text e.g. "SELECT" or "RESERVE MY SLOT" */
   ctaLabel: string;
-  /** Submit handler — receives the email */
-  onSubmit: (email: string) => Promise<{ ok: boolean; duplicate?: boolean; error?: string }>;
-  /** Disclosure copy under the form, e.g. tier-gating notes */
-  footnote?: string;
-  /** Email input placeholder */
-  emailPlaceholder: string;
-  /** Success message */
-  successMsg: string;
-  /** Already-on-list message */
-  duplicateMsg: string;
-  /** Error message */
-  errorMsg: string;
+  /** Click handler — opens shared modal */
+  onSelect: () => void;
 };
 
 const HIGHLIGHT_COLORS: Record<PackageHighlight, { bg: string; border: string; accent: string; chip: string }> = {
-  bronze:  { bg: 'linear-gradient(160deg, #4a3a2e 0%, #2a221c 100%)', border: '#8a6a4a', accent: '#d4a373', chip: '#7a5a3a' },
-  silver:  { bg: 'linear-gradient(160deg, #3a3a40 0%, #1f1f24 100%)', border: '#9aa0aa', accent: '#cfd5e0', chip: '#5a606a' },
-  gold:    { bg: 'linear-gradient(160deg, #4a3e1e 0%, #2a230f 100%)', border: '#d4af37', accent: '#f3d06f', chip: '#8a6e1e' },
-  starter: { bg: 'linear-gradient(160deg, #1a1f2a 0%, #0e1118 100%)', border: 'rgba(255,255,255,0.12)', accent: colors.muted, chip: 'rgba(255,255,255,0.06)' },
-  pro:     { bg: 'linear-gradient(160deg, #1a2419 0%, #0d130c 100%)', border: colors.accent, accent: colors.accent, chip: colors.accentDim },
-  elite:   { bg: 'linear-gradient(160deg, #2a2014 0%, #14100a 100%)', border: '#eab308', accent: '#facc15', chip: 'rgba(234,179,8,0.18)' },
+  entry:    { bg: 'linear-gradient(165deg, #4a8fcf 0%, #2c5a8a 100%)', border: '#7ab0e0', accent: '#bce0ff', chip: 'rgba(255,255,255,0.18)' },
+  bronze:   { bg: 'linear-gradient(165deg, #c08552 0%, #6f4422 100%)', border: '#d9a877', accent: '#ffe0bf', chip: 'rgba(255,255,255,0.18)' },
+  silver:   { bg: 'linear-gradient(165deg, #6e7780 0%, #353a40 100%)', border: '#9aa0aa', accent: '#dde2e8', chip: 'rgba(255,255,255,0.18)' },
+  gold:     { bg: 'linear-gradient(165deg, #d4a82e 0%, #8a6a14 100%)', border: '#f3d06f', accent: '#fff3c2', chip: 'rgba(255,255,255,0.18)' },
+  platinum: { bg: 'linear-gradient(165deg, #8b5fbf 0%, #4a2d70 100%)', border: '#b58be0', accent: '#e6d4ff', chip: 'rgba(255,255,255,0.18)' },
+  starter:  { bg: 'linear-gradient(165deg, #5a6a7a 0%, #2a323a 100%)', border: 'rgba(255,255,255,0.25)', accent: '#cfd8e0', chip: 'rgba(255,255,255,0.18)' },
+  pro:      { bg: 'linear-gradient(165deg, #4d8f3a 0%, #244520 100%)', border: colors.accent, accent: colors.accent, chip: 'rgba(255,255,255,0.2)' },
+  elite:    { bg: 'linear-gradient(165deg, #d4a82e 0%, #8a6a14 100%)', border: '#facc15', accent: '#fff3c2', chip: 'rgba(255,255,255,0.18)' },
 };
-
-type Submitting = 'idle' | 'submitting' | 'success' | 'duplicate' | 'error';
 
 export default function PackageCard({
   name,
+  hero,
+  heroLabel,
   price,
   priceSubline,
   badge,
   highlight,
-  inclusions,
+  perks,
   ctaLabel,
-  onSubmit,
-  footnote,
-  emailPlaceholder,
-  successMsg,
-  duplicateMsg,
-  errorMsg,
+  onSelect,
 }: Props) {
   const palette = HIGHLIGHT_COLORS[highlight];
-  const [email, setEmail] = useState('');
-  const [state, setState] = useState<Submitting>('idle');
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    if (state === 'submitting' || state === 'success' || state === 'duplicate') return;
-    setState('submitting');
-    const r = await onSubmit(email.trim());
-    if (r.ok) setState(r.duplicate ? 'duplicate' : 'success');
-    else setState('error');
-  }
-
-  const isDone = state === 'success' || state === 'duplicate';
 
   return (
     <article
       style={{
         position: 'relative',
         borderRadius: 16,
-        padding: '32px 24px 24px',
+        padding: '24px 16px 16px',
         background: palette.bg,
         border: '1px solid ' + palette.border,
         display: 'flex',
         flexDirection: 'column',
-        minHeight: 480,
+        textAlign: 'center',
+        boxShadow: '0 12px 32px rgba(0,0,0,0.35)',
+        transition: 'transform 0.15s ease, box-shadow 0.2s ease',
       }}
+      className="funnel-package-card"
     >
       {badge && (
         <span
           style={{
             position: 'absolute',
-            top: -12,
+            top: -10,
             left: '50%',
             transform: 'translateX(-50%)',
             fontSize: 10,
@@ -106,8 +86,8 @@ export default function PackageCard({
             textTransform: 'uppercase',
             padding: '5px 12px',
             borderRadius: 6,
-            background: palette.accent,
-            color: webExtras.accentText,
+            background: '#FF6A1A',
+            color: '#fff',
             whiteSpace: 'nowrap',
             boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
           }}
@@ -119,97 +99,102 @@ export default function PackageCard({
       <div
         className="font-display"
         style={{
-          fontSize: 22,
-          letterSpacing: 1.5,
+          fontSize: 13,
+          letterSpacing: 2,
           textTransform: 'uppercase',
-          color: palette.accent,
+          color: 'rgba(255,255,255,0.85)',
           marginBottom: 4,
+          fontWeight: 700,
         }}
       >
         {name}
       </div>
-
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 4 }}>
-        <span
-          className="font-display"
-          style={{ fontSize: 44, lineHeight: 1, letterSpacing: '-1px', color: '#fff' }}
-        >
-          {price}
-        </span>
+      <div style={{ fontSize: 9, letterSpacing: 1.5, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginBottom: 16 }}>
+        Package
       </div>
-      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', marginBottom: 20 }}>
+
+      <div
+        className="font-display"
+        style={{
+          fontSize: 56,
+          lineHeight: 1,
+          color: '#fff',
+          letterSpacing: '-1px',
+          fontWeight: 900,
+        }}
+      >
+        {hero}
+      </div>
+      <div
+        style={{
+          fontSize: 10,
+          fontWeight: 800,
+          letterSpacing: 1.5,
+          textTransform: 'uppercase',
+          color: '#fff',
+          marginTop: 4,
+          marginBottom: 16,
+          fontStyle: 'italic',
+        }}
+      >
+        {heroLabel}
+      </div>
+
+      {perks && perks.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 4, marginBottom: 12 }}>
+          {perks.map((p, i) => (
+            <span
+              key={i}
+              style={{
+                fontSize: 10,
+                padding: '3px 8px',
+                borderRadius: 100,
+                background: palette.chip,
+                color: '#fff',
+                fontWeight: 600,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              +{p.value} {p.label}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <div
+        className="font-display"
+        style={{ fontSize: 32, lineHeight: 1, color: '#fff', fontWeight: 900, marginBottom: 4 }}
+      >
+        {price}
+      </div>
+      <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', marginBottom: 16, fontStyle: 'italic' }}>
         {priceSubline ?? ' '}
       </div>
 
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
-        {inclusions.map((inc, i) => (
-          <li
-            key={i}
-            style={{
-              display: 'flex',
-              alignItems: 'baseline',
-              gap: 8,
-              fontSize: 13,
-              color: '#fff',
-              padding: '8px 10px',
-              background: palette.chip,
-              borderRadius: 8,
-              border: '1px solid rgba(255,255,255,0.05)',
-            }}
-          >
-            <strong style={{ color: palette.accent, fontWeight: 700, minWidth: 50 }}>{inc.value}</strong>
-            <span style={{ color: 'rgba(255,255,255,0.85)' }}>{inc.label}</span>
-          </li>
-        ))}
-      </ul>
-
-      <form onSubmit={handleSubmit} style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <input
-          type="email"
-          required
-          aria-label={emailPlaceholder}
-          placeholder={emailPlaceholder}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={isDone}
-          style={{
-            padding: '10px 12px',
-            borderRadius: 8,
-            border: '1px solid rgba(255,255,255,0.12)',
-            background: 'rgba(0,0,0,0.3)',
-            color: '#fff',
-            fontFamily: 'inherit',
-            fontSize: 13,
-            outline: 'none',
-          }}
-        />
-        <button
-          type="submit"
-          disabled={state === 'submitting' || isDone}
-          style={{
-            padding: '12px 16px',
-            borderRadius: 8,
-            border: 'none',
-            background: isDone ? 'rgba(255,255,255,0.1)' : palette.accent,
-            color: isDone ? '#fff' : webExtras.accentText,
-            fontFamily: 'inherit',
-            fontSize: 13,
-            fontWeight: 800,
-            letterSpacing: 1.5,
-            textTransform: 'uppercase',
-            cursor: isDone ? 'default' : 'pointer',
-            transition: 'opacity 0.2s, transform 0.15s',
-          }}
-        >
-          {state === 'submitting' ? '…' : state === 'success' ? successMsg : state === 'duplicate' ? duplicateMsg : state === 'error' ? errorMsg : ctaLabel}
-        </button>
-      </form>
-
-      {footnote && (
-        <div style={{ marginTop: 12, fontSize: 11, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>
-          {footnote}
-        </div>
-      )}
+      <button
+        type="button"
+        onClick={onSelect}
+        style={{
+          padding: '12px 16px',
+          borderRadius: 10,
+          border: 'none',
+          background: '#fff',
+          color: '#1a1a1a',
+          fontFamily: 'inherit',
+          fontSize: 13,
+          fontWeight: 800,
+          letterSpacing: 1.5,
+          textTransform: 'uppercase',
+          cursor: 'pointer',
+          transition: 'transform 0.12s ease, background 0.15s ease',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
+        }}
+        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)'; }}
+        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = ''; }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = ''; }}
+      >
+        {ctaLabel}
+      </button>
     </article>
   );
 }

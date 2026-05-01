@@ -14,7 +14,7 @@ import { supabase } from './supabase';
 
 export type FunnelKind = 'giveaway' | 'cash_challenge';
 
-export type GiveawayTierSlug = 'bronze' | 'silver' | 'gold';
+export type GiveawayTierSlug = 'entry' | 'bronze' | 'silver' | 'gold' | 'platinum';
 export type ChallengeTierSlug = 'starter' | 'pro_pool' | 'elite_pool';
 export type FunnelTierSlug = GiveawayTierSlug | ChallengeTierSlug;
 
