@@ -21,6 +21,8 @@ import PackageCard from '../components/funnel/PackageCard';
 import FunnelFAQ from '../components/funnel/FunnelFAQ';
 import FunnelCheckoutModal, { type ModalSelectedTier } from '../components/funnel/FunnelCheckoutModal';
 import { submitFunnelInterest, type GiveawayTierSlug } from '../lib/funnelSignups';
+import { createPaymentIntent } from '../lib/funnelCheckout';
+import { isStripeConfigured } from '../lib/stripe';
 import { supabase } from '../lib/supabase';
 import { useInView, useCountUp, useRevealOnScroll } from '../utils/funnelAnimations';
 import './Giveaway.css';
@@ -403,11 +405,32 @@ export default function GiveawayPage() {
 
       <SiteFooter />
 
-      {/* Shared LMCT+-style 2-step checkout modal */}
+      {/* Shared LMCT+-style 2-step checkout modal.
+          Stripe-mode (real payment processing) activates automatically when
+          VITE_STRIPE_PUBLISHABLE_KEY is set + the create_payment_intent
+          Edge Function is deployed. Until then, falls back to intent-only
+          capture into funnel_signups. */}
       <FunnelCheckoutModal
         open={modalTier !== null}
         selected={modalTier?.tier ?? null}
         currency="€"
+        createIntent={
+          isStripeConfigured() && modalTier
+            ? async ({ email, fullName, phone }) => {
+                const r = await createPaymentIntent({
+                  funnel: 'giveaway',
+                  tierSlug: modalTier.slug,
+                  email,
+                  fullName,
+                  phone,
+                  giveawayId: active?.id ?? null,
+                });
+                return r.ok
+                  ? { ok: true, clientSecret: r.clientSecret, paymentIntentId: r.paymentIntentId }
+                  : { ok: false, error: r.error };
+              }
+            : undefined
+        }
         copy={{
           step1Label: t('giveawayFunnel.modal.step1Label'),
           step1Subtitle: t('giveawayFunnel.modal.step1Subtitle'),

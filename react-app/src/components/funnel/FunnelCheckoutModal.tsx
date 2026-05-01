@@ -27,8 +27,11 @@
  * Visual reference: LMCT+ checkout modal (lmctgiveaway.com/muscle-orcash
  * → click any package → modal opens).
  */
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import type { Appearance, StripeElementsOptions } from '@stripe/stripe-js';
 import { colors } from '../../theme';
+import { getStripe, isStripeConfigured } from '../../lib/stripe';
 
 export type ModalSelectedTier = {
   /** Display name e.g. "BRONZE" */
@@ -47,13 +50,32 @@ export type FunnelModalSubmitArgs = {
   fullName: string;
   email: string;
   phone: string;
+  /** When Stripe is wired and the PaymentIntent has been confirmed,
+   *  this holds the Stripe payment_intent_id. v1 (no Stripe) leaves
+   *  this undefined and we just write to funnel_signups. */
+  paymentIntentId?: string;
 };
+
+/** Initiates the Stripe PaymentIntent for a given tier+email; returns
+ *  the client_secret needed to confirm payment in the modal.
+ *  Set by the page (Giveaway/CashChallenge) so the modal stays
+ *  framework-agnostic — passes through to lib/funnelCheckout.ts. */
+export type CreateIntentFn = (args: {
+  email: string;
+  fullName: string;
+  phone: string;
+}) => Promise<{ ok: true; clientSecret: string; paymentIntentId: string } | { ok: false; error: string }>;
 
 type Props = {
   open: boolean;
   selected: ModalSelectedTier | null;
   /** Currency symbol for order summary, defaults to "€" */
   currency?: string;
+  /** When provided, the modal switches to real Stripe checkout: Step 2's
+   *  card field becomes a Stripe PaymentElement and submission confirms
+   *  the PaymentIntent. When omitted, falls back to placeholder card +
+   *  intent-only capture into funnel_signups (current v1 behavior). */
+  createIntent?: CreateIntentFn;
   /** Copy strings (i18n keyed) */
   copy: {
     step1Label: string;        // "Details"
@@ -94,6 +116,7 @@ export default function FunnelCheckoutModal({
   open,
   selected,
   currency = '€',
+  createIntent,
   copy,
   onSubmit,
   onClose,
@@ -104,6 +127,13 @@ export default function FunnelCheckoutModal({
   const [phone, setPhone] = useState('');
   const [card, setCard] = useState('');
   const [state, setState] = useState<ModalState>('idle');
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
+  const [intentError, setIntentError] = useState<string | null>(null);
+  const [creatingIntent, setCreatingIntent] = useState(false);
+
+  const stripeMode = !!createIntent && isStripeConfigured();
+  const stripePromise = useMemo(() => (stripeMode ? getStripe() : null), [stripeMode]);
 
   // Reset on close
   useEffect(() => {
@@ -115,6 +145,9 @@ export default function FunnelCheckoutModal({
         setPhone('');
         setCard('');
         setState('idle');
+        setClientSecret(null);
+        setPaymentIntentId(null);
+        setIntentError(null);
       }, 200);
     }
   }, [open]);
@@ -137,13 +170,32 @@ export default function FunnelCheckoutModal({
 
   const isDone = state === 'success' || state === 'duplicate';
 
-  function handleStep1(e: FormEvent) {
+  async function handleStep1(e: FormEvent) {
     e.preventDefault();
     if (!fullName.trim() || !email.trim() || !phone.trim()) return;
+
+    // Stripe mode: kick off the PaymentIntent before transitioning to Step 2,
+    // so the PaymentElement has a clientSecret to render against.
+    if (stripeMode && createIntent) {
+      setCreatingIntent(true);
+      setIntentError(null);
+      const r = await createIntent({
+        fullName: fullName.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+      });
+      setCreatingIntent(false);
+      if (!r.ok) {
+        setIntentError(r.error);
+        return;
+      }
+      setClientSecret(r.clientSecret);
+      setPaymentIntentId(r.paymentIntentId);
+    }
     setStep(2);
   }
 
-  async function handleStep2(e: FormEvent) {
+  async function handleStep2Offline(e: FormEvent) {
     e.preventDefault();
     if (state === 'submitting') return;
     setState('submitting');
@@ -151,6 +203,18 @@ export default function FunnelCheckoutModal({
       fullName: fullName.trim(),
       email: email.trim(),
       phone: phone.trim(),
+    });
+    if (r.ok) setState(r.duplicate ? 'duplicate' : 'success');
+    else setState('error');
+  }
+
+  async function handleStripePaymentSuccess(piId: string) {
+    setState('submitting');
+    const r = await onSubmit({
+      fullName: fullName.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      paymentIntentId: piId,
     });
     if (r.ok) setState(r.duplicate ? 'duplicate' : 'success');
     else setState('error');
@@ -424,16 +488,42 @@ export default function FunnelCheckoutModal({
                     style={input}
                   />
 
-                  <button type="submit" style={submitBtn}>
-                    {copy.continueCta}
+                  <button type="submit" style={submitBtn} disabled={creatingIntent}>
+                    {creatingIntent ? '…' : copy.continueCta}
                   </button>
+
+                  {intentError && (
+                    <p style={{ marginTop: 10, fontSize: 12, color: colors.error, textAlign: 'center' }}>
+                      {intentError}
+                    </p>
+                  )}
 
                   <div style={secureRow}>🔒 {copy.secureCheckout}</div>
                 </form>
               )}
 
-              {step === 2 && (
-                <form onSubmit={handleStep2}>
+              {step === 2 && stripeMode && clientSecret && stripePromise && (
+                <Elements
+                  stripe={stripePromise}
+                  options={{
+                    clientSecret,
+                    appearance: stripeAppearance,
+                  } as StripeElementsOptions}
+                >
+                  <Step2Stripe
+                    selected={selected}
+                    currency={currency}
+                    copy={copy}
+                    paymentIntentId={paymentIntentId}
+                    onPaid={handleStripePaymentSuccess}
+                    onBack={() => setStep(1)}
+                    submitting={state === 'submitting'}
+                  />
+                </Elements>
+              )}
+
+              {step === 2 && (!stripeMode || !clientSecret) && (
+                <form onSubmit={handleStep2Offline}>
                   {/* Order summary header row */}
                   <div
                     style={{
@@ -627,5 +717,219 @@ export default function FunnelCheckoutModal({
         }
       `}</style>
     </div>
+  );
+}
+
+// ── Stripe Elements appearance — matches the Libo dark theme ─────────────
+
+const stripeAppearance: Appearance = {
+  theme: 'night',
+  variables: {
+    colorPrimary: '#FF6A1A',
+    colorBackground: colors.bg3,
+    colorText: colors.text,
+    colorDanger: colors.error,
+    fontFamily: 'inherit',
+    borderRadius: '10px',
+    spacingUnit: '4px',
+  },
+  rules: {
+    '.Input': {
+      backgroundColor: colors.bg3,
+      borderColor: colors.border,
+      color: colors.text,
+    },
+    '.Input:focus': {
+      borderColor: '#FF6A1A',
+      boxShadow: '0 0 0 1px #FF6A1A',
+    },
+    '.Tab': {
+      backgroundColor: colors.bg3,
+      borderColor: colors.border,
+    },
+    '.Tab--selected': {
+      borderColor: '#FF6A1A',
+    },
+  },
+};
+
+// ── Step 2 (Stripe-powered): real <PaymentElement /> ─────────────────────
+
+type Step2StripeProps = {
+  selected: ModalSelectedTier;
+  currency: string;
+  copy: Props['copy'];
+  paymentIntentId: string | null;
+  onPaid: (paymentIntentId: string) => void;
+  onBack: () => void;
+  submitting: boolean;
+};
+
+function Step2Stripe({ selected, currency, copy, paymentIntentId, onPaid, onBack, submitting }: Step2StripeProps) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [paying, setPaying] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const isBusy = paying || submitting;
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!stripe || !elements) return;
+    if (isBusy) return;
+
+    setPaying(true);
+    setErrorMsg(null);
+
+    const result = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // No return_url — we're handling success in-modal. The webhook
+        // is what credits the entries server-side regardless.
+        return_url: window.location.href,
+      },
+      redirect: 'if_required',
+    });
+
+    if (result.error) {
+      setErrorMsg(result.error.message ?? 'Payment failed. Try again.');
+      setPaying(false);
+      return;
+    }
+
+    // Payment succeeded (or 3DS-redirect-completed). The PI id we
+    // stashed in modal state is canonical — pass it to the parent
+    // so it can credit funnel_signups via onSubmit.
+    if (paymentIntentId) {
+      onPaid(paymentIntentId);
+    } else if (result.paymentIntent) {
+      onPaid(result.paymentIntent.id);
+    }
+    setPaying(false);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Order summary header row */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr auto',
+          padding: '12px 14px',
+          background: colors.bg3,
+          border: '1px solid ' + colors.border,
+          borderRadius: 10,
+          marginBottom: 14,
+          fontSize: 13,
+        }}
+      >
+        <div>
+          <div style={{ fontSize: 10, color: colors.muted, letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 4 }}>Item</div>
+          <div style={{ color: colors.text, fontWeight: 600 }}>
+            {copy.orderItem.replace('{tier}', selected.name).replace('{summary}', selected.heroSummary)}
+          </div>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: 10, color: colors.muted, letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 4 }}>Price</div>
+          <div style={{ color: colors.text, fontWeight: 800 }}>{selected.price}</div>
+        </div>
+      </div>
+
+      {/* Stripe PaymentElement — handles card + Apple Pay + Google Pay etc */}
+      <div style={{ marginBottom: 16 }}>
+        <PaymentElement options={{ layout: 'tabs' }} />
+      </div>
+
+      {/* Order total */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr auto',
+          borderTop: '1px solid ' + colors.border,
+          paddingTop: 14,
+          marginBottom: 18,
+          fontSize: 14,
+          gap: 8,
+        }}
+      >
+        <div style={{ color: colors.muted }}>{selected.name} Package</div>
+        <div style={{ textAlign: 'right', color: colors.text, fontWeight: 700 }}>
+          {currency}{selected.amount.toFixed(2)}
+        </div>
+        <div style={{ color: colors.text, fontWeight: 800, fontSize: 16, paddingTop: 6, borderTop: '1px solid ' + colors.border }}>
+          {copy.orderTotal}
+        </div>
+        <div style={{ textAlign: 'right', color: '#FF8A4A', fontWeight: 900, fontSize: 18, paddingTop: 6, borderTop: '1px solid ' + colors.border }}>
+          {currency}{selected.amount.toFixed(2)}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        disabled={!stripe || !elements || isBusy}
+        style={{
+          width: '100%',
+          padding: '16px',
+          borderRadius: 12,
+          border: 'none',
+          background: 'linear-gradient(90deg, #FF8A4A 0%, #FF6A1A 100%)',
+          color: '#fff',
+          fontFamily: 'inherit',
+          fontSize: 14,
+          fontWeight: 900,
+          letterSpacing: 1.5,
+          textTransform: 'uppercase',
+          cursor: isBusy ? 'not-allowed' : 'pointer',
+          boxShadow: '0 8px 24px rgba(255,106,26,0.3)',
+          opacity: isBusy ? 0.7 : 1,
+        }}
+      >
+        {isBusy ? '…' : copy.submitCta}
+      </button>
+
+      {errorMsg && (
+        <p style={{ marginTop: 10, fontSize: 12, color: colors.error, textAlign: 'center' }}>
+          {errorMsg}
+        </p>
+      )}
+
+      <div
+        style={{
+          marginTop: 18,
+          fontSize: 11,
+          color: colors.muted,
+          textAlign: 'center',
+          letterSpacing: 1,
+          textTransform: 'uppercase',
+          fontWeight: 700,
+        }}
+      >
+        🔒 {copy.secureCheckout}
+      </div>
+
+      <button
+        type="button"
+        onClick={onBack}
+        disabled={isBusy}
+        style={{
+          width: '100%',
+          marginTop: 10,
+          padding: '10px',
+          background: 'transparent',
+          color: colors.muted,
+          border: 'none',
+          cursor: isBusy ? 'not-allowed' : 'pointer',
+          fontSize: 12,
+          letterSpacing: 1,
+          textTransform: 'uppercase',
+        }}
+      >
+        ← {copy.backLabel}
+      </button>
+
+      <p style={{ marginTop: 10, fontSize: 10, color: colors.dim, lineHeight: 1.5, textAlign: 'center' }}>
+        {copy.legalNote}
+      </p>
+    </form>
   );
 }
