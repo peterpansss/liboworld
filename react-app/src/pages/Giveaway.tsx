@@ -31,11 +31,9 @@ type PackageDef = {
 };
 
 const PACKAGES: PackageDef[] = [
-  { slug: 'entry',    highlight: 'entry' },
-  { slug: 'bronze',   highlight: 'bronze' },
-  { slug: 'silver',   highlight: 'silver',   badgeKey: 'mostPopular' },
-  { slug: 'gold',     highlight: 'gold',     badgeKey: 'bestValue' },
-  { slug: 'platinum', highlight: 'platinum' },
+  { slug: 'entry',  highlight: 'entry' },
+  { slug: 'silver', highlight: 'silver', badgeKey: 'mostPopular' },
+  { slug: 'gold',   highlight: 'gold',   badgeKey: 'bestValue' },
 ];
 
 const FALLBACK_PRIZE_BG = '/ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg';
@@ -120,7 +118,7 @@ export default function GiveawayPage() {
             <p className="funnel-section__sub">{t('giveawayFunnel.packagesSub')}</p>
           </header>
 
-          <div className="funnel-packages-grid">
+          <div className="funnel-packages-grid funnel-packages-grid--3">
             {PACKAGES.map((p) => (
               <PackageCard
                 key={p.slug}
