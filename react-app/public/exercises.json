@@ -822,7 +822,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing, dumbbells in front of thighs. Raise one or both arms forward to shoulder height, palms down. Controlled lowering.",
-    "videoUrl": "https://videos.liboworld.com/exercises/front_raise_dumbbell.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/front_raise_dumbbell.mp4?v=2"
   },
   {
     "id": "front_raise_plate",
@@ -1039,8 +1039,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing, elbows at 90 degrees at shoulder height. Rotate forearms from pointing down to pointing up. Prehab / rotator cuff work.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cuban_rotation_dumbbell.mp4",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/cuban_rotation_dumbbell_side_view.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/cuban_rotation_dumbbell.mp4?v=2",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/cuban_rotation_dumbbell_side_view.mp4?v=2"
   },
   {
     "id": "lu_raise",
@@ -2905,8 +2905,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing, hold one dumbbell vertically with both palms under the top plate. Curl up keeping elbows close. Long head emphasis at peak contraction.",
-    "videoUrl": "https://videos.liboworld.com/exercises/waiter_curl.mp4",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/waiter_curl_side_view.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/waiter_curl.mp4?v=2",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/waiter_curl_side_view.mp4?v=2"
   },
   {
     "id": "21s_ez_bar",
@@ -3036,8 +3036,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing or seated, one dumbbell behind head in one hand. Elbow points upward. Extend to lockout, controlled lower behind head.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm.mp4",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm_side_view.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm.mp4?v=2",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm_side_view.mp4?v=2",
     "parentId": "single_arm_dumbbell_overhead_extension",
     "parentName": "Single-Arm Dumbbell Overhead Extension"
   },
@@ -3056,8 +3056,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing or seated, one dumbbell behind head in one hand. Elbow points upward. Extend to lockout, controlled lower behind head.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_right_arm.mp4",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_right_arm_side_view.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_right_arm.mp4?v=2",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_right_arm_side_view.mp4?v=2",
     "parentId": "single_arm_dumbbell_overhead_extension",
     "parentName": "Single-Arm Dumbbell Overhead Extension"
   },
@@ -3383,8 +3383,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Flat bench, dumbbells extended above chest with palms facing feet. Lower dumbbells inward so ends touch on chest, press back up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/tate_press.mp4",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/tate_press_side_view.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/tate_press.mp4?v=2",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/tate_press_side_view.mp4?v=2"
   },
   {
     "id": "barbell_wrist_curl",
@@ -6612,8 +6612,8 @@
     "variation": "",
     "emoji": "🔝",
     "setupNotes": "Standing, arms extended straight out to sides at shoulder height. Circle arms forward, gradually increasing the size of the circles. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_forward.mp4",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_forward_side_view.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_forward.mp4?v=2",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_forward_side_view.mp4?v=2"
   },
   {
     "id": "arm_circles_backward",
@@ -6630,8 +6630,8 @@
     "variation": "",
     "emoji": "🔝",
     "setupNotes": "Standing, arms extended straight out to sides at shoulder height. Circle arms backward, gradually increasing the size of the circles. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_backward.mp4",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_backward_side_view.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_backward.mp4?v=2",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_backward_side_view.mp4?v=2"
   },
   {
     "id": "weighted_arm_circles",
@@ -8969,7 +8969,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing, swing both arms horizontally across body in alternating cross pattern. Opens chest and warms up shoulders and pecs.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_arm_swings.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_arm_swings.mp4?v=2"
   },
   {
     "id": "hip_circles",
@@ -9462,8 +9462,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Raise the left arm overhead and bend the elbow so the left hand drops behind the head. Use the right hand to gently press the left elbow back and down. Hold. Stretches the left triceps and lat.",
-    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left.mp4",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left_side_view.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left.mp4?v=2",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left_side_view.mp4?v=2",
     "parentId": "overhead_triceps_stretch",
     "parentName": "Overhead Triceps Stretch"
   },
@@ -9482,8 +9482,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Raise the right arm overhead and bend the elbow so the right hand drops behind the head. Use the left hand to gently press the right elbow back and down. Hold. Stretches the right triceps and lat.",
-    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right.mp4",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right_side_view.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right.mp4?v=2",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right_side_view.mp4?v=2",
     "parentId": "overhead_triceps_stretch",
     "parentName": "Overhead Triceps Stretch"
   },
