@@ -250,9 +250,8 @@ export default function ExerciseDetail() {
             </div>
           </div>
 
-          {/* Video + Anatomy 2-column */}
-          <div className="ed-hero-grid">
-            <div className="ed-demo">
+          {/* Video player (full width) */}
+          <div className="ed-demo">
               {mainSrc ? (
                 <>
                   <video
@@ -328,9 +327,6 @@ export default function ExerciseDetail() {
               )}
             </div>
 
-            <AnatomyDiagram bodyFocus={exercise.bodyFocus} className="ed-anatomy" />
-          </div>
-
           {/* Info cards */}
           <div className="ed-info-row">
             <div className="ed-info-card">
@@ -351,6 +347,9 @@ export default function ExerciseDetail() {
               </span>
             </div>
           </div>
+
+          {/* Target muscle anatomy (front + back) */}
+          <AnatomyDiagram bodyFocus={exercise.bodyFocus} className="ed-anatomy" />
 
           {/* Main + Sidebar layout */}
           <div className="ed-layout">
