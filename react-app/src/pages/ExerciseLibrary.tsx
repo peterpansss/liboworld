@@ -4,11 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { getExercises, type Exercise } from '../data/exercises';
 import { exerciseThumb, isMediaHidden } from '../utils/thumbnails';
 import { MuscleTile } from '../components/MuscleTile';
+import { MuscleGroupStrip } from '../components/MuscleGroupStrip';
+import { ActiveFilters, type ActiveFilter } from '../components/ActiveFilters';
 import { SeoHead } from '../components/SeoHead';
 import { libraryCanonicalUrl } from '../utils/schema';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { Search, ICON_STROKE } from '../utils/icons';
+import { useDebouncedValue } from '../utils/useDebouncedValue';
 import './ExerciseLibrary.css';
 
 function capitalize(s: string): string {
@@ -70,11 +73,14 @@ export default function ExerciseLibrary() {
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const search = searchParams.get('q') || '';
+  const urlSearch = searchParams.get('q') || '';
   const muscle = searchParams.get('muscle') || 'All';
   const equip = searchParams.get('equip') || 'All';
   const pageParam = parseInt(searchParams.get('page') || '1', 10);
   const page = isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
+
+  const [searchInput, setSearchInput] = useState(urlSearch);
+  const debouncedSearch = useDebouncedValue(searchInput, 150);
 
   useEffect(() => {
     getExercises(i18n.language).then(data => {
@@ -116,8 +122,8 @@ export default function ExerciseLibrary() {
   const filtered = useMemo(() => {
     let result = exercises;
 
-    if (search) {
-      const q = search.toLowerCase();
+    if (urlSearch) {
+      const q = urlSearch.toLowerCase();
       result = result.filter(e =>
         e.name.toLowerCase().includes(q) ||
         e.bodyFocus.toLowerCase().includes(q) ||
@@ -154,7 +160,7 @@ export default function ExerciseLibrary() {
     });
 
     return result;
-  }, [exercises, search, muscle, equip]);
+  }, [exercises, urlSearch, muscle, equip]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const safePage = Math.min(page, totalPages);
@@ -189,6 +195,33 @@ export default function ExerciseLibrary() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [setSearchParams]);
 
+  // Sync URL when debounced input changes
+  useEffect(() => {
+    if (debouncedSearch !== urlSearch) {
+      updateParam('q', debouncedSearch);
+    }
+  }, [debouncedSearch, urlSearch, updateParam]);
+
+  // Sync input from URL when external nav changes it (e.g. ActiveFilters clear)
+  useEffect(() => {
+    setSearchInput(urlSearch);
+  }, [urlSearch]);
+
+  // ── Active filters ──
+  const activeFilters: ActiveFilter[] = [];
+  if (muscle !== 'All') activeFilters.push({ key: 'muscle', label: muscleLabel(muscle), value: muscle });
+  if (equip !== 'All') activeFilters.push({ key: 'equip', label: equipmentLabel(equip), value: equip });
+  if (urlSearch) activeFilters.push({ key: 'q', label: `"${urlSearch}"`, value: urlSearch });
+
+  // ── Adaptive results filter context ──
+  const filterContext = useMemo(() => {
+    const parts: string[] = [];
+    if (muscle !== 'All') parts.push(muscleLabel(muscle).toLowerCase());
+    if (equip !== 'All') parts.push(equipmentLabel(equip).toLowerCase());
+    return parts.length > 0 ? ` ${parts.join(' ')} exercises` : '';
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [muscle, equip]);
+
   return (
     <>
       <SeoHead
@@ -215,6 +248,9 @@ export default function ExerciseLibrary() {
             <p>{loading ? t('exerciseLibrary.exercisesWord') : t('exerciseLibrary.exerciseCount', { count: exercises.length })}</p>
           </div>
 
+          {/* Muscle group strip */}
+          <MuscleGroupStrip activeMuscle={muscle !== 'All' ? muscle : undefined} />
+
           {/* Search */}
           <div className="el-search-wrap">
             <Search className="el-search-icon" strokeWidth={ICON_STROKE} aria-hidden />
@@ -223,8 +259,8 @@ export default function ExerciseLibrary() {
               className="el-search"
               placeholder={t('exerciseLibrary.searchPlaceholder')}
               aria-label={t('exerciseLibrary.searchAriaLabel')}
-              value={search}
-              onChange={e => updateParam('q', e.target.value)}
+              value={searchInput}
+              onChange={e => setSearchInput(e.target.value)}
             />
           </div>
 
@@ -262,10 +298,19 @@ export default function ExerciseLibrary() {
             </div>
           </div>
 
+          {/* Active filters */}
+          <ActiveFilters
+            filters={activeFilters}
+            onRemove={(key) => updateParam(key, key === 'q' ? '' : 'All')}
+            onClearAll={() => setSearchParams({})}
+          />
+
           {/* Results count */}
           {!loading && (
             <div className="el-results-count" aria-live="polite">
-              {t('exerciseLibrary.showingPrefix')} <strong>{rangeStart}–{rangeEnd}</strong> {t('exerciseLibrary.showingOf')} <strong>{filtered.length}</strong> {t('exerciseLibrary.showingSuffix')}
+              {filterContext
+                ? <>Showing <strong>{rangeStart}–{rangeEnd}</strong> of <strong>{filtered.length}</strong>{filterContext}</>
+                : <>{t('exerciseLibrary.showingPrefix')} <strong>{rangeStart}–{rangeEnd}</strong> {t('exerciseLibrary.showingOf')} <strong>{filtered.length}</strong> {t('exerciseLibrary.showingSuffix')}</>}
             </div>
           )}
 
@@ -284,6 +329,9 @@ export default function ExerciseLibrary() {
                   ? t('exerciseLibrary.emptyState.descriptionCombo', { equipment: equipmentLabel(equip).toLowerCase(), muscle: muscleLabel(muscle).toLowerCase() })
                   : t('exerciseLibrary.emptyState.description')}
               </p>
+              <button className="el-empty-clear" onClick={() => setSearchParams({})}>
+                Clear filters
+              </button>
             </div>
           ) : (
             <div className="el-grid">
@@ -305,8 +353,8 @@ export default function ExerciseLibrary() {
                   </div>
                   <div className="el-card-name">{ex.name}</div>
                   <div className="el-card-meta">
-                    <span className="el-card-badge">{ex.bodyFocus}</span>
-                    <span className="el-card-meta-text">{ex.equipment} · {capitalize(ex.diff)}</span>
+                    <span className={`el-card-diff el-card-diff--${ex.diff}`}>{capitalize(ex.diff)}</span>
+                    <span className="el-card-meta-text">{ex.equipment}</span>
                   </div>
                 </Link>
                 );
