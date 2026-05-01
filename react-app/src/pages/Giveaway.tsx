@@ -75,12 +75,18 @@ export default function GiveawayPage() {
   const prizeName = active?.prize_description ?? t('giveawayFunnel.fallbackPrize');
   const prizeImage = active?.image_url ?? FALLBACK_PRIZE_BG;
 
+  // Numeric amounts for order summary (parallel to i18n price strings)
+  const TIER_AMOUNTS: Record<GiveawayTierSlug, number> = {
+    entry: 5, bronze: 10, silver: 25, gold: 75, platinum: 250,
+  };
+
   function openModal(p: PackageDef) {
     const tier: ModalSelectedTier = {
       name: t(`giveawayFunnel.packages.${p.slug}.name`),
       price: t(`giveawayFunnel.packages.${p.slug}.price`),
       heroSummary: t(`giveawayFunnel.packages.${p.slug}.heroSummary`),
       tierSlug: p.slug,
+      amount: TIER_AMOUNTS[p.slug],
     };
     setModalTier({ ...p, tier });
   }
@@ -363,25 +369,46 @@ export default function GiveawayPage() {
 
       <SiteFooter />
 
-      {/* Shared modal — rendered once, controlled by openModal */}
+      {/* Shared LMCT+-style 2-step checkout modal */}
       <FunnelCheckoutModal
         open={modalTier !== null}
         selected={modalTier?.tier ?? null}
-        title={t('giveawayFunnel.modalTitle')}
-        subtitle={t('giveawayFunnel.modalSubtitle')}
-        emailLabel={t('giveawayFunnel.modalEmailLabel')}
-        emailPlaceholder={t('giveawayFunnel.emailPlaceholder')}
-        ctaLabel={t('giveawayFunnel.modalCta')}
-        successTitle={t('giveawayFunnel.modalSuccessTitle')}
-        successBody={t('giveawayFunnel.modalSuccessBody')}
-        duplicateTitle={t('giveawayFunnel.modalDuplicateTitle')}
-        duplicateBody={t('giveawayFunnel.modalDuplicateBody')}
-        errorMsg={t('giveawayFunnel.ctaError')}
-        legalNote={t('giveawayFunnel.modalLegal')}
-        onSubmit={async (email) => {
+        currency="€"
+        copy={{
+          step1Label: t('giveawayFunnel.modal.step1Label'),
+          step1Subtitle: t('giveawayFunnel.modal.step1Subtitle'),
+          step2Label: t('giveawayFunnel.modal.step2Label'),
+          step2Subtitle: t('giveawayFunnel.modal.step2Subtitle'),
+          mandatoryNote: t('giveawayFunnel.modal.mandatoryNote'),
+          fullNameLabel: t('giveawayFunnel.modal.fullNameLabel'),
+          fullNamePlaceholder: t('giveawayFunnel.modal.fullNamePlaceholder'),
+          emailLabel: t('giveawayFunnel.modal.emailLabel'),
+          emailPlaceholder: t('giveawayFunnel.modal.emailPlaceholder'),
+          phoneLabel: t('giveawayFunnel.modal.phoneLabel'),
+          phonePlaceholder: t('giveawayFunnel.modal.phonePlaceholder'),
+          cardLabel: t('giveawayFunnel.modal.cardLabel'),
+          cardPlaceholder: t('giveawayFunnel.modal.cardPlaceholder'),
+          continueCta: t('giveawayFunnel.modal.continueCta'),
+          submitCta: t('giveawayFunnel.modal.submitCta'),
+          secureCheckout: t('giveawayFunnel.modal.secureCheckout'),
+          orderItem: t('giveawayFunnel.modal.orderItem'),
+          orderTotal: t('giveawayFunnel.modal.orderTotal'),
+          backLabel: t('giveawayFunnel.modal.backLabel'),
+          successTitle: t('giveawayFunnel.modalSuccessTitle'),
+          successBody: t('giveawayFunnel.modalSuccessBody'),
+          duplicateTitle: t('giveawayFunnel.modalDuplicateTitle'),
+          duplicateBody: t('giveawayFunnel.modalDuplicateBody'),
+          errorMsg: t('giveawayFunnel.ctaError'),
+          legalNote: t('giveawayFunnel.modalLegal'),
+        }}
+        onSubmit={async ({ fullName, email, phone }) => {
           if (!modalTier) return { ok: false };
+          // v1: capture purchase intent + contact info into funnel_signups.
+          // v2: replace with stripe.confirmCardPayment(client_secret, ...).
           const r = await submitFunnelInterest({
             email,
+            fullName,
+            phone,
             funnel: 'giveaway',
             tierSlug: modalTier.slug,
             giveawayId: active?.id ?? null,

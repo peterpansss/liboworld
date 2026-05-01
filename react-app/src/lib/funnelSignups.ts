@@ -70,6 +70,8 @@ export type FunnelSubmitResult =
 
 export type FunnelSubmitInput = {
   email: string;
+  fullName?: string;
+  phone?: string;
   funnel: FunnelKind;
   tierSlug: FunnelTierSlug;
   giveawayId?: string | null;
@@ -106,6 +108,8 @@ export async function submitFunnelInterest(input: FunnelSubmitInput): Promise<Fu
   const utm = readUtm();
   const row = {
     email,
+    full_name: input.fullName?.trim() || null,
+    phone: input.phone?.trim() || null,
     funnel: input.funnel,
     tier_slug: input.tierSlug,
     giveaway_id: input.giveawayId ?? null,

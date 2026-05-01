@@ -47,12 +47,17 @@ export default function CashChallengePage() {
   // Reveal-on-scroll for [data-reveal]
   useRevealOnScroll();
 
+  const TIER_AMOUNTS: Record<ChallengeTierSlug, number> = {
+    starter: 15, pro_pool: 50, elite_pool: 250,
+  };
+
   function openModal(c: ChallengeDef) {
     const tier: ModalSelectedTier = {
       name: t(`cashChallengeFunnel.tiers.${c.slug}.name`),
       price: t(`cashChallengeFunnel.tiers.${c.slug}.reward`),
       heroSummary: t(`cashChallengeFunnel.tiers.${c.slug}.heroSummary`),
       tierSlug: c.slug,
+      amount: TIER_AMOUNTS[c.slug],
     };
     setModalTier({ ...c, tier });
   }
@@ -244,21 +249,40 @@ export default function CashChallengePage() {
       <FunnelCheckoutModal
         open={modalTier !== null}
         selected={modalTier?.tier ?? null}
-        title={t('cashChallengeFunnel.modalTitle')}
-        subtitle={t('cashChallengeFunnel.modalSubtitle')}
-        emailLabel={t('cashChallengeFunnel.modalEmailLabel')}
-        emailPlaceholder={t('cashChallengeFunnel.emailPlaceholder')}
-        ctaLabel={t('cashChallengeFunnel.modalCta')}
-        successTitle={t('cashChallengeFunnel.modalSuccessTitle')}
-        successBody={t('cashChallengeFunnel.modalSuccessBody')}
-        duplicateTitle={t('cashChallengeFunnel.modalDuplicateTitle')}
-        duplicateBody={t('cashChallengeFunnel.modalDuplicateBody')}
-        errorMsg={t('cashChallengeFunnel.ctaError')}
-        legalNote={t('cashChallengeFunnel.modalLegal')}
-        onSubmit={async (email) => {
+        currency="€"
+        copy={{
+          step1Label: t('cashChallengeFunnel.modal.step1Label'),
+          step1Subtitle: t('cashChallengeFunnel.modal.step1Subtitle'),
+          step2Label: t('cashChallengeFunnel.modal.step2Label'),
+          step2Subtitle: t('cashChallengeFunnel.modal.step2Subtitle'),
+          mandatoryNote: t('cashChallengeFunnel.modal.mandatoryNote'),
+          fullNameLabel: t('cashChallengeFunnel.modal.fullNameLabel'),
+          fullNamePlaceholder: t('cashChallengeFunnel.modal.fullNamePlaceholder'),
+          emailLabel: t('cashChallengeFunnel.modal.emailLabel'),
+          emailPlaceholder: t('cashChallengeFunnel.modal.emailPlaceholder'),
+          phoneLabel: t('cashChallengeFunnel.modal.phoneLabel'),
+          phonePlaceholder: t('cashChallengeFunnel.modal.phonePlaceholder'),
+          cardLabel: t('cashChallengeFunnel.modal.cardLabel'),
+          cardPlaceholder: t('cashChallengeFunnel.modal.cardPlaceholder'),
+          continueCta: t('cashChallengeFunnel.modal.continueCta'),
+          submitCta: t('cashChallengeFunnel.modal.submitCta'),
+          secureCheckout: t('cashChallengeFunnel.modal.secureCheckout'),
+          orderItem: t('cashChallengeFunnel.modal.orderItem'),
+          orderTotal: t('cashChallengeFunnel.modal.orderTotal'),
+          backLabel: t('cashChallengeFunnel.modal.backLabel'),
+          successTitle: t('cashChallengeFunnel.modalSuccessTitle'),
+          successBody: t('cashChallengeFunnel.modalSuccessBody'),
+          duplicateTitle: t('cashChallengeFunnel.modalDuplicateTitle'),
+          duplicateBody: t('cashChallengeFunnel.modalDuplicateBody'),
+          errorMsg: t('cashChallengeFunnel.ctaError'),
+          legalNote: t('cashChallengeFunnel.modalLegal'),
+        }}
+        onSubmit={async ({ fullName, email, phone }) => {
           if (!modalTier) return { ok: false };
           const r = await submitFunnelInterest({
             email,
+            fullName,
+            phone,
             funnel: 'cash_challenge',
             tierSlug: modalTier.slug,
           });
