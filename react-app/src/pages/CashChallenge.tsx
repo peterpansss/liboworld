@@ -77,9 +77,6 @@ export default function CashChallengePage() {
               {t('cashChallengeFunnel.headline1')}<br />
               <span className="funnel-hero__cash">{t('cashChallengeFunnel.headline2')}</span>
             </h1>
-            <a href="#challenges" className="funnel-hero__cta funnel-hero__cta--xl">
-              {t('cashChallengeFunnel.heroCta')}
-            </a>
           </div>
         </section>
 

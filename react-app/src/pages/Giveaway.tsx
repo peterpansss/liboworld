@@ -107,9 +107,6 @@ export default function GiveawayPage() {
               {t('giveawayFunnel.headline1')}<br />
               <span className="funnel-hero__cash">{t('giveawayFunnel.cashAmount')}</span>
             </h1>
-            <a href="#packages" className="funnel-hero__cta funnel-hero__cta--xl">
-              {t('giveawayFunnel.heroCta')}
-            </a>
           </div>
         </section>
 
