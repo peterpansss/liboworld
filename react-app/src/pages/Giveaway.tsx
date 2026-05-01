@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
+import FunnelHeader from '../components/funnel/FunnelHeader';
 import PackageCard from '../components/funnel/PackageCard';
 import FunnelFAQ from '../components/funnel/FunnelFAQ';
 import FunnelCheckoutModal, { type ModalSelectedTier } from '../components/funnel/FunnelCheckoutModal';
@@ -85,6 +86,7 @@ export default function GiveawayPage() {
       <main id="main-content">
         {/* ── HERO (text left, prize image right) ──────────── */}
         <section className="funnel-hero">
+          <FunnelHeader />
           <div className="funnel-hero__layout">
             <div className="funnel-hero__text">
               <div className="funnel-hero__brand-eyebrow">{t('giveawayFunnel.eyebrow')}</div>

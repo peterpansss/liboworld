@@ -49,24 +49,30 @@
 
 .mgs__tile {
   position: relative;
-  width: 110px;
-  height: 130px;
+  width: 124px;
+  height: 152px;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border);
-  background: var(--bg3);
+  /* Slightly darker than bg3 so the brighter body silhouette pops. */
+  background: #131418;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 6px;
-  transition: border-color 0.2s, background 0.2s;
+  padding: 6px 4px;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
 }
 
-/* react-body-highlighter renders an inline SVG; constrain it to the tile. */
+/* react-body-highlighter renders an inline SVG; let it fill the tile. */
 .mgs__tile svg {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+.mgs__item:hover .mgs__tile {
+  background: #181a20;
+  transform: translateY(-1px);
 }
 
 .mgs__item:hover .mgs__tile,

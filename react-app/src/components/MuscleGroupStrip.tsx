@@ -38,7 +38,10 @@ const PREVIEW_MAP: Record<string, { side: Side; muscles: Muscle[] }> = {
   'Full Body': { side: 'anterior', muscles: ['chest', 'abs', 'quadriceps', 'biceps'] },
 };
 
-const BODY_COLOR = '#2a2c30';
+// Body needs strong contrast against the dark tile bg or the silhouette
+// disappears. #4a4e58 is the darkest mid-gray that still reads as a body
+// shape on top of var(--bg3).
+const BODY_COLOR = '#4a4e58';
 // react-body-highlighter requires a 2-element tuple.
 // Both slots are lime so any frequency the muscle picks up paints the same color.
 const HIGHLIGHTED_COLORS: [string, string] = ['#caff00', '#caff00'];
