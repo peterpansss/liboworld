@@ -80,19 +80,9 @@ export default function ExerciseDetail() {
     } catch {
       /* private mode */
     }
-    // Reload current videos from t=0 with the new audio track
-    requestAnimationFrame(() => {
-      const v = videoRef.current;
-      const p = pipVideoRef.current;
-      if (v) {
-        v.load();
-        v.play().catch(() => {});
-      }
-      if (p) {
-        p.load();
-        p.play().catch(() => {});
-      }
-    });
+    // Video src reload is handled by the useEffect on [mainSrc]/[pipSrc] —
+    // calling .load() here too races against React's reconcile and causes
+    // a visible flicker.
   };
 
   const toggleMuted = () => {
@@ -108,13 +98,8 @@ export default function ExerciseDetail() {
   };
 
   const swapView = () => {
+    // Same: src reload handled by [mainSrc]/[pipSrc] effects below.
     setShowingAlt((prev) => !prev);
-    requestAnimationFrame(() => {
-      const v = videoRef.current;
-      const p = pipVideoRef.current;
-      if (v) v.play().catch(() => {});
-      if (p) p.play().catch(() => {});
-    });
   };
 
   useEffect(() => {
@@ -155,6 +140,28 @@ export default function ExerciseDetail() {
     () => (exercise ? getPrimaryMuscleGroup(exercise.bodyFocus) : ''),
     [exercise],
   );
+
+  // Resolve video sources at top level so [mainSrc]/[pipSrc] effects can
+  // imperatively .load() the same <video> element when voice toggles or the
+  // user swaps angles — no React `key` change → no remount → no flicker.
+  const primarySrc = exercise ? publicVideoUrl(exercise, voice) : undefined;
+  const altSrc = exercise ? publicVideoUrlAlt(exercise, voice) : undefined;
+  const mainSrc = showingAlt && altSrc ? altSrc : primarySrc;
+  const pipSrc = showingAlt && altSrc ? primarySrc : altSrc;
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !mainSrc) return;
+    v.load();
+    v.play().catch(() => {});
+  }, [mainSrc]);
+
+  useEffect(() => {
+    const p = pipVideoRef.current;
+    if (!p || !pipSrc) return;
+    p.load();
+    p.play().catch(() => {});
+  }, [pipSrc]);
 
   const seoMeta = useMemo(() => {
     if (!exercise) return null;
@@ -246,86 +253,76 @@ export default function ExerciseDetail() {
           {/* Video + Anatomy 2-column */}
           <div className="ed-hero-grid">
             <div className="ed-demo">
-              {publicVideoUrl(exercise) ? (
-                (() => {
-                  const primary = publicVideoUrl(exercise, voice)!;
-                  const alt = publicVideoUrlAlt(exercise, voice);
-                  const mainSrc = showingAlt && alt ? alt : primary;
-                  const pipSrc = showingAlt && alt ? primary : alt;
-                  return (
-                    <>
+              {mainSrc ? (
+                <>
+                  <video
+                    ref={videoRef}
+                    src={mainSrc}
+                    poster={exerciseThumb(exercise) ?? undefined}
+                    muted={muted}
+                    loop
+                    playsInline
+                    autoPlay
+                    preload="metadata"
+                  />
+                  <button
+                    type="button"
+                    className="ed-demo-mute"
+                    onClick={toggleMuted}
+                    aria-label={
+                      muted
+                        ? t('exerciseDetail.unmute', { defaultValue: 'Unmute' })
+                        : t('exerciseDetail.mute', { defaultValue: 'Mute' })
+                    }
+                  >
+                    {muted ? (
+                      <VolumeX strokeWidth={ICON_STROKE} />
+                    ) : (
+                      <Volume2 strokeWidth={ICON_STROKE} />
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    className="ed-demo-voice"
+                    onClick={toggleVoice}
+                    aria-label={t('exerciseDetail.toggleVoice', {
+                      defaultValue:
+                        voice === 'male' ? 'Switch to female voice' : 'Switch to male voice',
+                    })}
+                    title={
+                      voice === 'male'
+                        ? 'Male voice (tap for female)'
+                        : 'Female voice (tap for male)'
+                    }
+                  >
+                    <span aria-hidden>{voice === 'male' ? '♂' : '♀'}</span>
+                  </button>
+                  {pipSrc && (
+                    <button
+                      type="button"
+                      className="ed-demo-pip"
+                      onClick={swapView}
+                      aria-label={t('exerciseDetail.switchView', {
+                        defaultValue: 'Switch camera angle',
+                      })}
+                    >
                       <video
-                        ref={videoRef}
-                        key={mainSrc}
-                        src={mainSrc}
-                        poster={exerciseThumb(exercise) ?? undefined}
-                        muted={muted}
+                        ref={pipVideoRef}
+                        src={pipSrc}
+                        muted
                         loop
                         playsInline
                         autoPlay
                         preload="metadata"
                       />
-                      <button
-                        type="button"
-                        className="ed-demo-mute"
-                        onClick={toggleMuted}
-                        aria-label={
-                          muted
-                            ? t('exerciseDetail.unmute', { defaultValue: 'Unmute' })
-                            : t('exerciseDetail.mute', { defaultValue: 'Mute' })
-                        }
-                      >
-                        {muted ? (
-                          <VolumeX strokeWidth={ICON_STROKE} />
-                        ) : (
-                          <Volume2 strokeWidth={ICON_STROKE} />
-                        )}
-                      </button>
-                      <button
-                        type="button"
-                        className="ed-demo-voice"
-                        onClick={toggleVoice}
-                        aria-label={t('exerciseDetail.toggleVoice', {
-                          defaultValue:
-                            voice === 'male' ? 'Switch to female voice' : 'Switch to male voice',
-                        })}
-                        title={
-                          voice === 'male'
-                            ? 'Male voice (tap for female)'
-                            : 'Female voice (tap for male)'
-                        }
-                      >
-                        <span aria-hidden>{voice === 'male' ? '♂' : '♀'}</span>
-                      </button>
-                      {pipSrc && (
-                        <button
-                          type="button"
-                          className="ed-demo-pip"
-                          onClick={swapView}
-                          aria-label={t('exerciseDetail.switchView', {
-                            defaultValue: 'Switch camera angle',
-                          })}
-                        >
-                          <video
-                            ref={pipVideoRef}
-                            key={pipSrc}
-                            src={pipSrc}
-                            muted
-                            loop
-                            playsInline
-                            autoPlay
-                            preload="metadata"
-                          />
-                          <span className="ed-demo-pip-label">
-                            {showingAlt
-                              ? t('exerciseDetail.viewFront', { defaultValue: 'FRONT' })
-                              : t('exerciseDetail.viewSide', { defaultValue: 'SIDE' })}
-                          </span>
-                        </button>
-                      )}
-                    </>
-                  );
-                })()
+                      <span className="ed-demo-pip-label">
+                        {showingAlt
+                          ? t('exerciseDetail.viewFront', { defaultValue: 'FRONT' })
+                          : t('exerciseDetail.viewSide', { defaultValue: 'SIDE' })}
+                      </span>
+                    </button>
+                  )}
+                </>
               ) : (
                 <MuscleTile muscle={exercise.bodyFocus} size="lg" />
               )}
