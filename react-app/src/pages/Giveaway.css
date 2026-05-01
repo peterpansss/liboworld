@@ -288,6 +288,142 @@
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
 }
 
+/* ── FULL INCLUSIONS (expandable) ───────────────────────────── */
+
+.funnel-inclusions {
+  margin-top: 32px;
+}
+
+.funnel-inclusions__toggle {
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.funnel-inclusions__toggle:hover {
+  background: var(--bg3);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.funnel-inclusions__toggle-wrap {
+  text-align: center;
+}
+
+.funnel-inclusions__arrow {
+  font-size: 11px;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+
+.funnel-inclusions__arrow--open {
+  transform: rotate(180deg);
+}
+
+.funnel-inclusions__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+  animation: libo-inclusions-reveal 0.3s ease-out;
+}
+
+@keyframes libo-inclusions-reveal {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+  .funnel-inclusions__grid { grid-template-columns: 1fr; }
+}
+
+.funnel-inclusions__tile {
+  border-radius: 14px;
+  padding: 22px 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.funnel-inclusions__tile--entry  { background: linear-gradient(135deg, rgba(74, 143, 207, 0.18) 0%, rgba(44, 90, 138, 0.12) 100%); }
+.funnel-inclusions__tile--silver { background: linear-gradient(135deg, rgba(110, 119, 128, 0.18) 0%, rgba(53, 58, 64, 0.12) 100%); }
+.funnel-inclusions__tile--gold   { background: linear-gradient(135deg, rgba(212, 168, 46, 0.20) 0%, rgba(138, 106, 20, 0.12) 100%); }
+
+.funnel-inclusions__tile--gold {
+  grid-column: span 2;
+}
+
+@media (max-width: 700px) {
+  .funnel-inclusions__tile--gold { grid-column: auto; }
+}
+
+.funnel-inclusions__tile-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.funnel-inclusions__tile-name {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.funnel-inclusions__tile-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.7);
+}
+
+.funnel-inclusions__tile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.funnel-inclusions__tile-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.funnel-inclusions__tile-list li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.funnel-inclusions__tile-list li strong {
+  color: #fff;
+  font-weight: 700;
+}
+
 /* ── TRUST BADGES ───────────────────────────────────────────── */
 
 .funnel-trust-row {

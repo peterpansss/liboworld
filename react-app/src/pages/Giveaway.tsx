@@ -42,6 +42,7 @@ export default function GiveawayPage() {
   const [active, setActive] = useState<Giveaway | null>(null);
   const [, setLoadingActive] = useState(true);
   const [modalTier, setModalTier] = useState<(PackageDef & { tier: ModalSelectedTier }) | null>(null);
+  const [inclusionsOpen, setInclusionsOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -133,6 +134,40 @@ export default function GiveawayPage() {
                 onSelect={() => openModal(p)}
               />
             ))}
+          </div>
+
+          {/* CLICK TO VIEW FULL INCLUSIONS — expandable */}
+          <div className="funnel-inclusions">
+            <div className="funnel-inclusions__toggle-wrap">
+              <button
+                type="button"
+                className="funnel-inclusions__toggle"
+                onClick={() => setInclusionsOpen(o => !o)}
+                aria-expanded={inclusionsOpen}
+                aria-controls="funnel-inclusions-panel"
+              >
+                {inclusionsOpen ? t('giveawayFunnel.inclusionsHide') : t('giveawayFunnel.inclusionsShow')}
+                <span className={`funnel-inclusions__arrow${inclusionsOpen ? ' funnel-inclusions__arrow--open' : ''}`}>▼</span>
+              </button>
+            </div>
+            {inclusionsOpen && (
+              <div id="funnel-inclusions-panel" className="funnel-inclusions__grid">
+                {PACKAGES.map((p) => {
+                  const items = t(`giveawayFunnel.inclusions.${p.slug}`, { returnObjects: true }) as string[];
+                  return (
+                    <div key={p.slug} className={`funnel-inclusions__tile funnel-inclusions__tile--${p.highlight}`}>
+                      <div className="funnel-inclusions__tile-header">
+                        <span className="funnel-inclusions__tile-name">{t(`giveawayFunnel.packages.${p.slug}.name`)}</span>
+                        <span className="funnel-inclusions__tile-price">{t(`giveawayFunnel.packages.${p.slug}.price`)}</span>
+                      </div>
+                      <ul className="funnel-inclusions__tile-list">
+                        {Array.isArray(items) && items.map((line, i) => <li key={i}>{line}</li>)}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           <p className="funnel-amoe-line">

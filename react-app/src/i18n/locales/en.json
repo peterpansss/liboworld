@@ -697,6 +697,31 @@
     "emailPlaceholder": "your@email.com",
     "entriesLabel": "Free Bonus Entries",
     "amoeLine": "No purchase necessary — download Libo and complete a workout for 1 free entry. See Terms.",
+    "inclusionsShow": "Click to view full inclusions",
+    "inclusionsHide": "Hide full inclusions",
+    "inclusions": {
+      "entry": [
+        "1 free entry into the iPhone 17 Pro giveaway",
+        "VIP newsletter — early prize reveals",
+        "100 XP added to your Libo account",
+        "100 Libo Coins"
+      ],
+      "silver": [
+        "8 free entries into the iPhone 17 Pro giveaway",
+        "VIP newsletter — early prize reveals",
+        "Access to monthly partner discounts",
+        "800 XP added to your Libo account",
+        "800 Libo Coins"
+      ],
+      "gold": [
+        "30 free entries into the iPhone 17 Pro giveaway",
+        "VIP newsletter — early prize reveals",
+        "Access to monthly partner discounts",
+        "Priority entry to next month's giveaway reveal",
+        "3,000 XP added to your Libo account",
+        "3,000 Libo Coins"
+      ]
+    },
     "badges": {
       "mostPopular": "Most popular",
       "bestValue": "Best value"
