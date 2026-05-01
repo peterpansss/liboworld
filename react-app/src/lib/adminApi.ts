@@ -692,3 +692,130 @@ export async function listConversionsForCode(code: string): Promise<ReferralConv
   if (error) throw error;
   return (data ?? []) as ReferralConversion[];
 }
+
+// ── Challenge cycles (admin) ─────────────────────────────────────────────────
+
+export type ChallengeCycleStatus = 'enrollment_open' | 'running' | 'completed';
+
+export type ChallengeCycleRow = {
+  id: string;
+  challenge_id: string;
+  challenge_title: string;
+  challenge_reward_amount: number;
+  challenge_reward_currency: string;
+  challenge_total_days: number;
+  challenge_min_tier: MoneyChallengeTier;
+  status: ChallengeCycleStatus;
+  enrollment_opens_at: string;
+  start_date: string;
+  end_date: string;
+  max_participants: number;
+  filled_at: string | null;
+  active_count: number;
+  completed_count: number;
+  removed_count: number;
+  payouts_pending: number;
+  payouts_paid: number;
+  total_owed: number;
+  total_paid: number;
+  created_at: string;
+};
+
+export type CycleWinnerRow = {
+  enrollment_id: string;
+  user_id: string;
+  user_email: string | null;
+  tier_at_enrollment: MoneyChallengeTier;
+  completed_days: number;
+  enrolled_at: string;
+  payout_id: string | null;
+  payout_status: ChallengePayoutStatus | null;
+  payout_amount: number | null;
+  payout_paid_at: string | null;
+};
+
+export async function listChallengeCycles(challengeId: string | null = null): Promise<ChallengeCycleRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_cycles', { p_challenge_id: challengeId });
+  if (error) throw error;
+  return (data ?? []) as ChallengeCycleRow[];
+}
+
+export async function openNextCycle(
+  challengeId: string,
+  startDate: string | null = null,
+  maxParticipants = 50,
+): Promise<{ cycle_id: string; promoted_from_waitlist: number }> {
+  const { data, error } = await supabase.rpc('admin_open_next_cycle', {
+    p_challenge_id: challengeId,
+    p_start_date: startDate,
+    p_max_participants: maxParticipants,
+  });
+  if (error) throw error;
+  const r = data as { ok: boolean; cycle_id?: string; promoted_from_waitlist?: number; error?: string };
+  if (!r.ok) throw new Error(r.error ?? 'open_cycle_failed');
+  return { cycle_id: r.cycle_id ?? '', promoted_from_waitlist: r.promoted_from_waitlist ?? 0 };
+}
+
+export async function listCycleWinners(cycleId: string): Promise<CycleWinnerRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_cycle_winners', { p_cycle_id: cycleId });
+  if (error) throw error;
+  return (data ?? []) as CycleWinnerRow[];
+}
+
+// ── Challenge payouts (admin) ────────────────────────────────────────────────
+
+export type ChallengePayoutStatus = 'pending' | 'processing' | 'paid' | 'failed' | 'cancelled';
+export type ChallengePayoutMethod = 'wise' | 'sepa' | 'paypal' | 'manual';
+
+export type ChallengePayoutRow = {
+  id: string;
+  enrollment_id: string;
+  cycle_id: string;
+  challenge_id: string;
+  challenge_title: string;
+  user_id: string;
+  user_email: string | null;
+  amount: number;
+  currency: string;
+  status: ChallengePayoutStatus;
+  payment_method: ChallengePayoutMethod | null;
+  payment_reference: string | null;
+  payee_email: string | null;
+  payee_iban: string | null;
+  payee_country: string | null;
+  cycle_start_date: string;
+  cycle_end_date: string;
+  created_at: string;
+  processed_at: string | null;
+  paid_at: string | null;
+  failed_at: string | null;
+  failure_reason: string | null;
+};
+
+export type MarkPayoutPaidInput = {
+  payment_method: ChallengePayoutMethod;
+  payment_reference: string;
+  payee_email?: string | null;
+  payee_iban?: string | null;
+  payee_country?: string | null;
+};
+
+export async function listChallengePayouts(status: ChallengePayoutStatus | null = null): Promise<ChallengePayoutRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_payouts', { p_status: status });
+  if (error) throw error;
+  return (data ?? []) as ChallengePayoutRow[];
+}
+
+export async function markPayoutPaid(payoutId: string, input: MarkPayoutPaidInput): Promise<void> {
+  const { data, error } = await supabase.rpc('admin_mark_payout_paid', {
+    p_payout_id:        payoutId,
+    p_payment_method:   input.payment_method,
+    p_payment_reference: input.payment_reference,
+    p_payee_email:      input.payee_email ?? null,
+    p_payee_iban:       input.payee_iban ?? null,
+    p_payee_country:    input.payee_country ?? null,
+  });
+  if (error) throw error;
+  const r = data as { ok: boolean; error?: string; detail?: string };
+  if (!r.ok) throw new Error(r.detail ?? r.error ?? 'mark_paid_failed');
+}

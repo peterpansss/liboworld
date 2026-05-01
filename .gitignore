@@ -26,3 +26,9 @@ scripts/video-manifest.json
 scripts/node_modules/
 scripts/package-lock.json
 scripts/upload.log
+
+# ML / CV model weights — not source, downloaded on-demand by the
+# scripts that need them (Ultralytics YOLO, etc).
+*.pt
+*.onnx
+*.weights
