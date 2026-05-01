@@ -93,23 +93,23 @@
   position: relative;
   z-index: 1;
   max-width: 100%;
-  max-height: 480px;
-  object-fit: contain;
   filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.6));
 }
 
-/* Background-image style placeholder when no <img> is supplied */
+/* Magazine-cover style — fills the column, polished frame */
 .funnel-hero__prize-bg {
   width: 100%;
-  height: 420px;
-  background-size: contain;
+  height: 500px;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
 }
 
 @media (max-width: 900px) {
-  .funnel-hero__prize-bg { height: 280px; }
+  .funnel-hero__prize-bg { height: 320px; }
 }
 
 .funnel-hero__brand-eyebrow {

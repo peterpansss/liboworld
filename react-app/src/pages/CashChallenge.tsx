@@ -69,7 +69,7 @@ export default function CashChallengePage() {
             <div className="funnel-hero__prize-image">
               <div
                 className="funnel-hero__prize-bg"
-                style={{ backgroundImage: `url(${FALLBACK_HERO_BG})`, backgroundSize: 'cover', borderRadius: 16 }}
+                style={{ backgroundImage: `url(${FALLBACK_HERO_BG})` }}
                 role="img"
                 aria-label="Training imagery"
               />
