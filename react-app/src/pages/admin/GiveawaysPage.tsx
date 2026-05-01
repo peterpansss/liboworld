@@ -110,6 +110,7 @@ type FormState = {
   winner_count: string;
   starts_at: string;
   ends_at: string;
+  featured: boolean;
 };
 
 const EMPTY_FORM: FormState = {
@@ -125,6 +126,7 @@ const EMPTY_FORM: FormState = {
   winner_count: '1',
   starts_at: '',
   ends_at: '',
+  featured: false,
 };
 
 function rowToForm(row: Giveaway): FormState {
@@ -141,6 +143,7 @@ function rowToForm(row: Giveaway): FormState {
     winner_count: String(row.winner_count),
     starts_at: toLocalDateTimeInput(row.starts_at),
     ends_at: toLocalDateTimeInput(row.ends_at),
+    featured: !!row.featured,
   };
 }
 
@@ -158,6 +161,7 @@ function formToInput(form: FormState): GiveawayInput {
     winner_count: Number(form.winner_count) || 1,
     starts_at: fromLocalDateTimeInput(form.starts_at),
     ends_at: fromLocalDateTimeInput(form.ends_at),
+    featured: form.featured,
   };
 }
 
@@ -331,7 +335,29 @@ export function GiveawaysPage() {
               <div style={{ width: 36, height: 36, borderRadius: 8, background: colors.bg3 }} />
             )}
             <div>
-              <div style={{ fontWeight: 600, color: colors.text }}>{r.title}</div>
+              <div style={{ fontWeight: 600, color: colors.text, display: 'flex', alignItems: 'center', gap: 8 }}>
+                {r.title}
+                {r.featured && (
+                  <span
+                    title="Headlines the public /giveaway funnel"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 4,
+                      padding: '2px 8px',
+                      borderRadius: 6,
+                      background: colors.accentDim,
+                      color: colors.accent,
+                      fontSize: 9,
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    ★ Featured
+                  </span>
+                )}
+              </div>
               <div style={{ fontSize: 11, color: colors.muted }}>{r.prize_description}</div>
             </div>
           </div>
@@ -620,6 +646,49 @@ export function GiveawaysPage() {
               />
             </Field>
           </div>
+
+          <Field
+            label="Featured on /giveaway funnel"
+            hint="When ON, this giveaway is the headline prize on the public liboworld.com/giveaway funnel page. Only one active giveaway can be featured at a time — flipping a new one ON automatically unmarks any previously featured giveaway."
+          >
+            <label
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '10px 14px',
+                borderRadius: 10,
+                border: `1px solid ${form.featured ? colors.accent : colors.border}`,
+                background: form.featured ? colors.accentDim : colors.bg3,
+                cursor: 'pointer',
+                userSelect: 'none',
+                transition: 'background 0.15s, border-color 0.15s',
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={form.featured}
+                onChange={(e) => setForm({ ...form, featured: e.target.checked })}
+                style={{
+                  width: 18,
+                  height: 18,
+                  accentColor: colors.accent,
+                  cursor: 'pointer',
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: form.featured ? colors.accent : colors.text,
+                  textTransform: 'uppercase',
+                  letterSpacing: 1,
+                }}
+              >
+                {form.featured ? 'Featured · headlines public funnel' : 'Not featured'}
+              </span>
+            </label>
+          </Field>
 
           {editing && editing.status === 'completed' && winners && winners.length > 0 && (
             <div

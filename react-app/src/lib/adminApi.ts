@@ -50,6 +50,12 @@ export type Giveaway = {
   starts_at: string;
   ends_at: string;
   drawn_at: string | null;
+  /**
+   * When true, this giveaway is the headline prize on the public
+   * /giveaway funnel page. Only one active giveaway should be featured
+   * at a time; a database trigger auto-unfeatures others on save.
+   */
+  featured: boolean;
   created_at: string;
 };
 
