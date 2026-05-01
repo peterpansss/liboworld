@@ -21,9 +21,25 @@ import PackageCard from '../components/funnel/PackageCard';
 import FunnelFAQ from '../components/funnel/FunnelFAQ';
 import FunnelCheckoutModal, { type ModalSelectedTier } from '../components/funnel/FunnelCheckoutModal';
 import { submitFunnelInterest, type GiveawayTierSlug } from '../lib/funnelSignups';
-import { listGiveaways, type Giveaway } from '../lib/adminApi';
+import { supabase } from '../lib/supabase';
 import { useInView, useCountUp, useRevealOnScroll } from '../utils/funnelAnimations';
 import './Giveaway.css';
+
+/**
+ * Public-safe shape returned by the get_active_giveaway() RPC.
+ * Mirrors the columns the function exposes (no admin-only fields).
+ */
+type ActiveGiveaway = {
+  id: string;
+  title: string;
+  prize_description: string;
+  description: string | null;
+  image_url: string | null;
+  ends_at: string;
+  winner_count: number;
+  type: string;
+  status: string;
+};
 
 type PackageDef = {
   slug: GiveawayTierSlug;
@@ -37,12 +53,10 @@ const PACKAGES: PackageDef[] = [
   { slug: 'gold',   highlight: 'gold',   badgeKey: 'bestValue' },
 ];
 
-const FALLBACK_PRIZE_BG = '/ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg';
-
 export default function GiveawayPage() {
   const { t } = useTranslation();
-  const [active, setActive] = useState<Giveaway | null>(null);
-  const [, setLoadingActive] = useState(true);
+  const [active, setActive] = useState<ActiveGiveaway | null>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [modalTier, setModalTier] = useState<(PackageDef & { tier: ModalSelectedTier }) | null>(null);
   const [inclusionsOpen, setInclusionsOpen] = useState(false);
 
@@ -55,25 +69,38 @@ export default function GiveawayPage() {
   // Reveal-on-scroll for [data-reveal] section headers
   useRevealOnScroll();
 
+  // Fetch the active giveaway via the public RPC `get_active_giveaway()`.
+  // The RPC is SECURITY DEFINER — bypasses RLS and exposes only public-safe
+  // columns. If the RPC doesn't exist yet (admin hasn't run the SQL), this
+  // fails silently and the hero shows the gradient backdrop without an image.
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        const list = await listGiveaways();
-        if (cancelled) return;
-        const a = list.find(g => g.status === 'active') ?? list.find(g => g.status === 'upcoming') ?? null;
-        setActive(a);
+        const { data, error } = await supabase.rpc('get_active_giveaway');
+        if (cancelled || error) return;
+        const row = Array.isArray(data) && data.length > 0 ? (data[0] as ActiveGiveaway) : null;
+        setActive(row);
       } catch {
-        // Public visitors can't read giveaways table — fallback silently
-      } finally {
-        if (!cancelled) setLoadingActive(false);
+        // RPC missing or network failure — leave active=null, no image renders
       }
     })();
     return () => { cancelled = true; };
   }, []);
 
+  // Preload the prize image — only render it once decoded so there's no flash
+  useEffect(() => {
+    setImageLoaded(false);
+    const url = active?.image_url;
+    if (!url) return;
+    const img = new Image();
+    img.src = url;
+    img.onload = () => setImageLoaded(true);
+    img.onerror = () => setImageLoaded(false);
+  }, [active?.image_url]);
+
   const prizeName = active?.prize_description ?? t('giveawayFunnel.fallbackPrize');
-  const prizeImage = active?.image_url ?? FALLBACK_PRIZE_BG;
+  const prizeImage = active?.image_url ?? null;
 
   // Numeric amounts for order summary (parallel to i18n price strings)
   const TIER_AMOUNTS: Record<GiveawayTierSlug, number> = {
@@ -115,7 +142,10 @@ export default function GiveawayPage() {
             <div className="funnel-hero__prize-image">
               <div
                 className="funnel-hero__prize-bg"
-                style={{ backgroundImage: `url(${prizeImage})` }}
+                style={{
+                  backgroundImage: imageLoaded && prizeImage ? `url(${prizeImage})` : undefined,
+                  opacity: imageLoaded ? 1 : 0,
+                }}
                 role="img"
                 aria-label={prizeName}
               />
@@ -222,7 +252,11 @@ export default function GiveawayPage() {
           <div className="funnel-prize-card">
             <div
               className="funnel-prize-card__photo"
-              style={{ backgroundImage: `url(${prizeImage})` }}
+              style={{
+                backgroundImage: imageLoaded && prizeImage ? `url(${prizeImage})` : undefined,
+                opacity: imageLoaded ? 1 : 0,
+                transition: 'opacity 0.4s ease',
+              }}
               aria-hidden="true"
             />
             <div className="funnel-prize-card__body">

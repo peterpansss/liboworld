@@ -188,6 +188,29 @@
   background-color: rgba(255, 255, 255, 0.03);
   border-radius: 20px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  /* Smooth fade-in once the prize image has decoded — prevents
+     flash-of-fallback when transitioning from empty to loaded. */
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), background-image 0s;
+}
+
+/* Subtle shimmer while the prize image is loading (opacity:0 state).
+   Just a very faint diagonal gradient sweep — keeps the slot looking
+   alive without showing the wrong image. */
+.funnel-hero__prize-bg[style*="opacity: 0"] {
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,0.03) 0%,
+      rgba(202,255,0,0.06) 50%,
+      rgba(255,255,255,0.03) 100%
+    );
+  background-size: 200% 100%;
+  animation: libo-prize-shimmer 2.4s ease-in-out infinite;
+}
+
+@keyframes libo-prize-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
 }
 
 @media (max-width: 900px) {
