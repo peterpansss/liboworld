@@ -72,7 +72,6 @@ export default function SiteFooter() {
               <Link to="/workouts?cat=Home">{t('footer.homeWorkouts')}</Link>
               <Link to="/workouts?cat=Stretching">{t('footer.stretching')}</Link>
               <Link to="/workouts?cat=Cardio">{t('footer.cardio')}</Link>
-              <Link to="/workouts?cat=Challenge">{t('footer.challenges')}</Link>
             </div>
           </div>
         </nav>
