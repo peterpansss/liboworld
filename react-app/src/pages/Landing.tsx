@@ -42,7 +42,7 @@ const CATEGORY_KEYS = ['homeWorkouts', 'gymTraining', 'mobilityStretch', 'functi
 
 const TESTIMONIAL_AVATARS = ['\uD83D\uDC68', '\uD83D\uDC69', '\uD83E\uDDD1'];
 
-const NAV_SECTIONS = ['features', 'rewards', 'workouts', 'goals'] as const;
+const NAV_SECTIONS = ['features', 'rewards', 'goals'] as const;
 
 // ── Smooth scroll to anchor ──
 function scrollToId(id: string) {

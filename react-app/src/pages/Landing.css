@@ -110,7 +110,7 @@
   flex-shrink: 0;
 }
 .nav-logo img {
-  height: 22px;
+  height: 26px;
   display: block;
 }
 
@@ -131,6 +131,9 @@
   padding: 8px 14px;
   border-radius: 8px;
   transition: color 0.2s, background 0.2s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 .nav-links a:hover {
   color: var(--text);
@@ -187,12 +190,13 @@
   min-height: 44px;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 .nav-hamburger span {
   display: block;
   width: 20px;
   height: 2px;
-  background: var(--white);
+  background: var(--text);
   border-radius: 1px;
   transition: all 0.3s;
 }

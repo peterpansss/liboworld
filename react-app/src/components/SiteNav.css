@@ -32,7 +32,7 @@
 }
 
 .site-nav__logo img {
-  height: 22px;
+  height: 26px;
   display: block;
 }
 
@@ -131,6 +131,7 @@
   min-height: 44px;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .site-nav__hamburger span {
