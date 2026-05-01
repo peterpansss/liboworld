@@ -140,8 +140,8 @@ export default function GiveawayPage() {
                 badge={p.badgeKey ? t(`giveawayFunnel.badges.${p.badgeKey}`) : undefined}
                 highlight={p.highlight}
                 perks={[
-                  { value: t(`giveawayFunnel.packages.${p.slug}.points`), label: 'XP' },
-                  { value: t(`giveawayFunnel.packages.${p.slug}.coins`), label: 'Coins' },
+                  { value: t(`giveawayFunnel.packages.${p.slug}.points`), label: 'pts' },
+                  { value: t(`giveawayFunnel.packages.${p.slug}.trial`), label: 'Premium' },
                 ]}
                 ctaLabel={t('giveawayFunnel.ctaSelect')}
                 onSelect={() => openModal(p)}
@@ -185,6 +185,9 @@ export default function GiveawayPage() {
 
           <p className="funnel-amoe-line">
             {t('giveawayFunnel.amoeLine')}
+          </p>
+          <p className="funnel-amoe-line" style={{ paddingTop: 0, opacity: 0.85 }}>
+            {t('giveawayFunnel.premiumDisclosure')}
           </p>
         </section>
 
