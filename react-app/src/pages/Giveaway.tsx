@@ -16,7 +16,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
-import CountdownBanner from '../components/funnel/CountdownBanner';
 import PackageCard from '../components/funnel/PackageCard';
 import FunnelFAQ from '../components/funnel/FunnelFAQ';
 import FunnelCheckoutModal, { type ModalSelectedTier } from '../components/funnel/FunnelCheckoutModal';
@@ -37,13 +36,6 @@ const PACKAGES: PackageDef[] = [
 ];
 
 const FALLBACK_PRIZE_BG = '/ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg';
-
-// Default countdown when no active giveaway is loaded — 7 days from now
-function defaultCountdownTarget(): string {
-  const d = new Date();
-  d.setDate(d.getDate() + 7);
-  return d.toISOString();
-}
 
 export default function GiveawayPage() {
   const { t } = useTranslation();
@@ -68,7 +60,6 @@ export default function GiveawayPage() {
     return () => { cancelled = true; };
   }, []);
 
-  const endsAt = active?.ends_at ?? defaultCountdownTarget();
   const prizeName = active?.prize_description ?? t('giveawayFunnel.fallbackPrize');
   const prizeImage = active?.image_url ?? FALLBACK_PRIZE_BG;
 
@@ -88,11 +79,6 @@ export default function GiveawayPage() {
         title={t('giveawayFunnel.seoTitle')}
         description={t('giveawayFunnel.seoDescription')}
         canonical="/giveaway"
-      />
-
-      <CountdownBanner
-        endsAt={endsAt}
-        label={t('giveawayFunnel.countdownLabel')}
       />
 
       <main id="main-content">

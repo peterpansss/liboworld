@@ -12,7 +12,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
-import CountdownBanner from '../components/funnel/CountdownBanner';
 import PackageCard from '../components/funnel/PackageCard';
 import FunnelFAQ from '../components/funnel/FunnelFAQ';
 import FunnelCheckoutModal, { type ModalSelectedTier } from '../components/funnel/FunnelCheckoutModal';
@@ -33,15 +32,8 @@ const CHALLENGES: ChallengeDef[] = [
 
 const FALLBACK_HERO_BG = '/ReferenceImagesReal/3888964e334eac66760016434935572e.jpg';
 
-function defaultCycleStart(): string {
-  const d = new Date();
-  d.setDate(d.getDate() + 14);
-  return d.toISOString();
-}
-
 export default function CashChallengePage() {
   const { t } = useTranslation();
-  const cycleStart = defaultCycleStart();
   const [modalTier, setModalTier] = useState<(ChallengeDef & { tier: ModalSelectedTier }) | null>(null);
 
   function openModal(c: ChallengeDef) {
@@ -60,11 +52,6 @@ export default function CashChallengePage() {
         title={t('cashChallengeFunnel.seoTitle')}
         description={t('cashChallengeFunnel.seoDescription')}
         canonical="/cash-challenge"
-      />
-
-      <CountdownBanner
-        endsAt={cycleStart}
-        label={t('cashChallengeFunnel.countdownLabel')}
       />
 
       <main id="main-content">
