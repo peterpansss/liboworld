@@ -1,18 +1,47 @@
 /**
- * Horizontal scrolling strip of muscle-group chips. Each chip links to
- * /exercises?muscle=<group>. Used on ExerciseDetail and ExerciseLibrary
- * to give users a visual entry point into the catalog.
+ * Horizontal scrolling strip of muscle-group cards. Each card renders a
+ * mini front/back body silhouette with the relevant muscle highlighted in
+ * lime — same `react-body-highlighter` library used in AnatomyDiagram, so
+ * the visual language stays consistent across the page.
+ *
+ * Used on ExerciseDetail and ExerciseLibrary as a visual entry point into
+ * the catalog (Befit-style).
  */
 import { Link } from 'react-router-dom';
+import Model, { type IExerciseData, type Muscle } from 'react-body-highlighter';
 import { MUSCLE_GROUP_KEYS } from '../utils/exerciseInfo';
-import { MuscleTile } from './MuscleTile';
 import './MuscleGroupStrip.css';
 
 interface Props {
-  /** Currently active muscle (highlighted chip). */
+  /** Currently active muscle (highlighted card). */
   activeMuscle?: string;
   title?: string;
 }
+
+type Side = 'anterior' | 'posterior';
+
+// Per-muscle preview configuration: which view to show + which slugs to light up.
+const PREVIEW_MAP: Record<string, { side: Side; muscles: Muscle[] }> = {
+  Chest: { side: 'anterior', muscles: ['chest'] },
+  Back: { side: 'posterior', muscles: ['upper-back', 'lower-back'] },
+  Shoulders: { side: 'anterior', muscles: ['front-deltoids'] },
+  Biceps: { side: 'anterior', muscles: ['biceps'] },
+  Triceps: { side: 'posterior', muscles: ['triceps'] },
+  Forearms: { side: 'anterior', muscles: ['forearm'] },
+  Core: { side: 'anterior', muscles: ['abs', 'obliques'] },
+  Legs: { side: 'anterior', muscles: ['quadriceps', 'calves'] },
+  Quads: { side: 'anterior', muscles: ['quadriceps'] },
+  Hamstrings: { side: 'posterior', muscles: ['hamstring'] },
+  Calves: { side: 'posterior', muscles: ['calves'] },
+  Glutes: { side: 'posterior', muscles: ['gluteal'] },
+  Traps: { side: 'posterior', muscles: ['trapezius'] },
+  'Full Body': { side: 'anterior', muscles: ['chest', 'abs', 'quadriceps', 'biceps'] },
+};
+
+const BODY_COLOR = '#2a2c30';
+// react-body-highlighter requires a 2-element tuple.
+// Both slots are lime so any frequency the muscle picks up paints the same color.
+const HIGHLIGHTED_COLORS: [string, string] = ['#caff00', '#caff00'];
 
 export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Group' }: Props) {
   return (
@@ -21,6 +50,10 @@ export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Grou
       <div className="mgs__scroll">
         {MUSCLE_GROUP_KEYS.map((muscle) => {
           const isActive = activeMuscle === muscle;
+          const preview = PREVIEW_MAP[muscle];
+          const data: IExerciseData[] = preview
+            ? [{ name: muscle, muscles: preview.muscles }]
+            : [];
           return (
             <Link
               key={muscle}
@@ -28,7 +61,15 @@ export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Grou
               className={`mgs__item ${isActive ? 'mgs__item--active' : ''}`}
             >
               <div className="mgs__tile">
-                <MuscleTile muscle={muscle} size="sm" showLabel={false} />
+                {preview ? (
+                  <Model
+                    data={data}
+                    type={preview.side}
+                    bodyColor={BODY_COLOR}
+                    highlightedColors={HIGHLIGHTED_COLORS}
+                    style={{ width: '100%', height: '100%' }}
+                  />
+                ) : null}
               </div>
               <div className="mgs__label">{muscle.toUpperCase()}</div>
             </Link>
