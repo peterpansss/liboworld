@@ -106,9 +106,10 @@
 }
 
 /* ── Demo section ── */
+/* Source video files are 1440×1080 (4:3); container matches so cover doesn't crop. */
 .ed-demo {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
   width: 100%;
   margin: 0 auto 24px;
   background: var(--bg3);
@@ -161,11 +162,11 @@
   height: 20px;
 }
 
-/* Voice coach toggle (♂/♀) — sits left of the mute button */
+/* Voice coach toggle (♂/♀) — sits left of the fullscreen button */
 .ed-demo-voice {
   position: absolute;
   bottom: 12px;
-  right: 60px;
+  right: 108px;
   width: 40px;
   height: 40px;
   border-radius: 100px;
@@ -192,6 +193,56 @@
 
 .ed-demo-voice:active {
   transform: scale(0.96);
+}
+
+/* Fullscreen toggle — sits between voice and mute */
+.ed-demo-fullscreen {
+  position: absolute;
+  bottom: 12px;
+  right: 60px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.ed-demo-fullscreen:hover {
+  background: rgba(0, 0, 0, 0.75);
+  transform: scale(1.05);
+}
+
+.ed-demo-fullscreen:active {
+  transform: scale(0.96);
+}
+
+.ed-demo-fullscreen svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Fullscreen-state styling — when the wrapper is fullscreen, give the
+   video full bleed (no rounded corners, no border) and let it scale to fit. */
+.ed-demo:fullscreen,
+.ed-demo:-webkit-full-screen {
+  border-radius: 0;
+  border: none;
+  background: #000;
+  /* aspect-ratio is ignored in fullscreen — viewport sets the box. */
+}
+
+.ed-demo:fullscreen video,
+.ed-demo:-webkit-full-screen video {
+  border-radius: 0;
+  object-fit: contain;
 }
 
 /* Picture-in-picture swap thumbnail (alternate camera angle) */

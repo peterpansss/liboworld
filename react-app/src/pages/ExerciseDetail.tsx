@@ -8,7 +8,7 @@ import {
   publicVideoUrlAlt,
   type VoicePreference,
 } from '../utils/thumbnails';
-import { Target, Dumbbell, Zap, Volume2, VolumeX, ICON_STROKE } from '../utils/icons';
+import { Target, Dumbbell, Zap, Volume2, VolumeX, Maximize2, ICON_STROKE } from '../utils/icons';
 import { MuscleTile } from '../components/MuscleTile';
 import { SeoHead } from '../components/SeoHead';
 import { AnatomyDiagram } from '../components/AnatomyDiagram';
@@ -100,6 +100,34 @@ export default function ExerciseDetail() {
   const swapView = () => {
     // Same: src reload handled by [mainSrc]/[pipSrc] effects below.
     setShowingAlt((prev) => !prev);
+  };
+
+  // iOS Safari uses webkitEnterFullscreen on the <video> element directly;
+  // standards-mode browsers use Element.requestFullscreen on the wrapper so
+  // our overlay controls (mute, voice, side-view) remain visible in fullscreen.
+  const enterFullscreen = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    const wrapper = v.parentElement;
+    type FsVideo = HTMLVideoElement & {
+      webkitEnterFullscreen?: () => void;
+      webkitRequestFullscreen?: () => Promise<void> | void;
+    };
+    type FsEl = HTMLElement & { webkitRequestFullscreen?: () => Promise<void> | void };
+    const fv = v as FsVideo;
+    const fw = wrapper as FsEl | null;
+
+    if (fw && typeof fw.requestFullscreen === 'function') {
+      fw.requestFullscreen().catch(() => {});
+    } else if (fw && typeof fw.webkitRequestFullscreen === 'function') {
+      fw.webkitRequestFullscreen();
+    } else if (typeof fv.webkitEnterFullscreen === 'function') {
+      // iOS Safari — only the <video> element itself can go fullscreen, and
+      // the native player chrome (with its own fullscreen exit) takes over.
+      fv.webkitEnterFullscreen();
+    } else if (typeof fv.requestFullscreen === 'function') {
+      fv.requestFullscreen().catch(() => {});
+    }
   };
 
   useEffect(() => {
@@ -279,6 +307,14 @@ export default function ExerciseDetail() {
                     ) : (
                       <Volume2 strokeWidth={ICON_STROKE} />
                     )}
+                  </button>
+                  <button
+                    type="button"
+                    className="ed-demo-fullscreen"
+                    onClick={enterFullscreen}
+                    aria-label={t('exerciseDetail.fullscreen', { defaultValue: 'Enter fullscreen' })}
+                  >
+                    <Maximize2 strokeWidth={ICON_STROKE} />
                   </button>
                   <button
                     type="button"
