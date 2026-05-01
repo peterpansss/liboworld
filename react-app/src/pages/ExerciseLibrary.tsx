@@ -21,11 +21,6 @@ function capitalize(s: string): string {
 // ── Constants ──
 const PER_PAGE = 30;
 
-const MUSCLE_GROUPS = [
-  'All', 'Chest', 'Back', 'Shoulders', 'Biceps', 'Triceps',
-  'Core', 'Legs', 'Glutes', 'Cardio', 'Full Body', 'Forearms', 'Traps',
-];
-
 const EQUIPMENT_TYPES = [
   'All', 'Bodyweight', 'Barbell', 'Dumbbell', 'Cable',
   'Machine', 'Kettlebell', 'Resistance Bands', 'Bar', 'Swiss Ball',
@@ -264,23 +259,8 @@ export default function ExerciseLibrary() {
             />
           </div>
 
-          {/* Filters */}
+          {/* Equipment filter (muscle group filter handled by MuscleGroupStrip above) */}
           <div className="el-filters">
-            <div className="el-filter-row">
-              <span className="el-filter-label">{t('exerciseLibrary.muscleGroupLabel')}</span>
-              <div className="el-chips">
-                {MUSCLE_GROUPS.map(m => (
-                  <button
-                    key={m}
-                    className={`el-chip ${muscle === m ? 'active' : ''}`}
-                    aria-pressed={muscle === m}
-                    onClick={() => updateParam('muscle', m)}
-                  >
-                    {muscleLabel(m)}
-                  </button>
-                ))}
-              </div>
-            </div>
             <div className="el-filter-row">
               <span className="el-filter-label">{t('exerciseLibrary.equipmentLabel')}</span>
               <div className="el-chips">
