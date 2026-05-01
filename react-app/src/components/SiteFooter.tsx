@@ -36,10 +36,8 @@ export default function SiteFooter() {
             <div className="site-footer__col-links">
               <Link to="/#features">{t('footer.features')}</Link>
               <Link to="/#rewards">{t('footer.rewardsLink')}</Link>
-              <Link to="/#workouts">{t('footer.workoutsLink')}</Link>
               <Link to="/giveaway">{t('footer.giveaways')}</Link>
               <Link to="/cash-challenge">{t('footer.cashChallenges')}</Link>
-              <Link to="/onboarding">{t('footer.getStarted')}</Link>
             </div>
           </div>
 
@@ -49,8 +47,6 @@ export default function SiteFooter() {
             <div className="site-footer__col-links">
               <Link to="/">{t('footer.about')}</Link>
               <a href="mailto:hello@liboworld.com">{t('footer.contactUs')}</a>
-              <Link to="/privacy">{t('footer.privacy')}</Link>
-              <Link to="/terms">{t('footer.terms')}</Link>
             </div>
           </div>
 
