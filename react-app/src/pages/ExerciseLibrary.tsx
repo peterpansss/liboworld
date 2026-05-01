@@ -26,6 +26,30 @@ const EQUIPMENT_TYPES = [
   'Machine', 'Kettlebell', 'Resistance Bands', 'Bar', 'Swiss Ball',
 ];
 
+// Where the exercise is performed. Maps to the `environment` field in the
+// underlying data ("Gym" | "Home" | "Both").
+const SETTINGS = ['All', 'Gym', 'Home'];
+
+// Training-style buckets. Each label maps to one or more `primaryCat` values
+// from the data — keeps the chip count manageable while covering the whole
+// catalog (Mobility merges Mobility + Cool-Down + Recovery; Strength includes
+// Accessory; Pelvic Floor stands alone since it's a real distinct category).
+const TYPES = [
+  'All', 'Strength', 'Cardio', 'HIIT', 'Power',
+  'Mobility', 'Core', 'Pelvic Floor', 'Warm-Up',
+];
+
+const TYPE_TO_PRIMARY_CATS: Record<string, string[]> = {
+  Strength: ['Strength', 'Accessory'],
+  Cardio: ['Cardio'],
+  HIIT: ['HIIT / Functional'],
+  Power: ['Power'],
+  Mobility: ['Mobility', 'Cool-Down', 'Recovery'],
+  Core: ['Core Stability'],
+  'Pelvic Floor': ['Pelvic Floor & Breathing'],
+  'Warm-Up': ['Warm-Up'],
+};
+
 const MUSCLE_I18N_KEYS: Record<string, string> = {
   'All': 'all', 'Chest': 'chest', 'Back': 'back', 'Shoulders': 'shoulders',
   'Biceps': 'biceps', 'Triceps': 'triceps', 'Core': 'core', 'Legs': 'legs',
@@ -71,6 +95,8 @@ export default function ExerciseLibrary() {
   const urlSearch = searchParams.get('q') || '';
   const muscle = searchParams.get('muscle') || 'All';
   const equip = searchParams.get('equip') || 'All';
+  const setting = searchParams.get('setting') || 'All';
+  const trainingType = searchParams.get('type') || 'All';
   const pageParam = parseInt(searchParams.get('page') || '1', 10);
   const page = isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
 
@@ -148,6 +174,21 @@ export default function ExerciseLibrary() {
       });
     }
 
+    if (setting !== 'All') {
+      // environment is "Gym" | "Home" | "Both" — Both shows up under either chip.
+      result = result.filter(e => {
+        const env = (e.environment || '').toLowerCase();
+        return env === setting.toLowerCase() || env === 'both';
+      });
+    }
+
+    if (trainingType !== 'All') {
+      const cats = TYPE_TO_PRIMARY_CATS[trainingType];
+      if (cats) {
+        result = result.filter(e => cats.includes(e.primaryCat || ''));
+      }
+    }
+
     result = [...result].sort((a, b) => {
       const aHas = isMediaHidden(a.cat, a.equipment) ? 0 : 1;
       const bHas = isMediaHidden(b.cat, b.equipment) ? 0 : 1;
@@ -155,7 +196,7 @@ export default function ExerciseLibrary() {
     });
 
     return result;
-  }, [exercises, urlSearch, muscle, equip]);
+  }, [exercises, urlSearch, muscle, equip, setting, trainingType]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const safePage = Math.min(page, totalPages);
@@ -205,6 +246,8 @@ export default function ExerciseLibrary() {
   // ── Active filters ──
   const activeFilters: ActiveFilter[] = [];
   if (muscle !== 'All') activeFilters.push({ key: 'muscle', label: muscleLabel(muscle), value: muscle });
+  if (setting !== 'All') activeFilters.push({ key: 'setting', label: setting, value: setting });
+  if (trainingType !== 'All') activeFilters.push({ key: 'type', label: trainingType, value: trainingType });
   if (equip !== 'All') activeFilters.push({ key: 'equip', label: equipmentLabel(equip), value: equip });
   if (urlSearch) activeFilters.push({ key: 'q', label: `"${urlSearch}"`, value: urlSearch });
 
@@ -212,10 +255,12 @@ export default function ExerciseLibrary() {
   const filterContext = useMemo(() => {
     const parts: string[] = [];
     if (muscle !== 'All') parts.push(muscleLabel(muscle).toLowerCase());
+    if (setting !== 'All') parts.push(setting.toLowerCase());
+    if (trainingType !== 'All') parts.push(trainingType.toLowerCase());
     if (equip !== 'All') parts.push(equipmentLabel(equip).toLowerCase());
     return parts.length > 0 ? ` ${parts.join(' ')} exercises` : '';
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [muscle, equip]);
+  }, [muscle, setting, trainingType, equip]);
 
   return (
     <>
@@ -259,8 +304,38 @@ export default function ExerciseLibrary() {
             />
           </div>
 
-          {/* Equipment filter (muscle group filter handled by MuscleGroupStrip above) */}
+          {/* Filters (muscle group is the visual strip above) */}
           <div className="el-filters">
+            <div className="el-filter-row">
+              <span className="el-filter-label">Setting</span>
+              <div className="el-chips">
+                {SETTINGS.map(s => (
+                  <button
+                    key={s}
+                    className={`el-chip ${setting === s ? 'active' : ''}`}
+                    aria-pressed={setting === s}
+                    onClick={() => updateParam('setting', s)}
+                  >
+                    {s === 'All' ? t('exerciseLibrary.muscles.all') : s}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="el-filter-row">
+              <span className="el-filter-label">Type</span>
+              <div className="el-chips">
+                {TYPES.map(typ => (
+                  <button
+                    key={typ}
+                    className={`el-chip ${trainingType === typ ? 'active' : ''}`}
+                    aria-pressed={trainingType === typ}
+                    onClick={() => updateParam('type', typ)}
+                  >
+                    {typ === 'All' ? t('exerciseLibrary.muscles.all') : typ}
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="el-filter-row">
               <span className="el-filter-label">{t('exerciseLibrary.equipmentLabel')}</span>
               <div className="el-chips">
