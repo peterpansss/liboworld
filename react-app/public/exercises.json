@@ -1003,7 +1003,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing, raise light dumbbells to shoulder height laterally. Hold position for prescribed time. Maintain slight elbow bend."
+    "setupNotes": "Standing, raise light dumbbells to shoulder height laterally. Hold position for prescribed time. Maintain slight elbow bend.",
+    "videoUrl": "https://videos.liboworld.com/exercises/isometric_lateral_hold_dumbbell.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/isometric_lateral_hold_dumbbell_side_view.mp4"
   },
   {
     "id": "y_raise_dumbbell",
@@ -1054,7 +1056,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing with light dumbbells. Front raise to shoulder height, then continue into lateral raise position without lowering. Smooth arc motion."
+    "setupNotes": "Standing with light dumbbells. Front raise to shoulder height, then continue into lateral raise position without lowering. Smooth arc motion.",
+    "videoUrl": "https://videos.liboworld.com/exercises/lu_raise.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/lu_raise_side_view.mp4"
   },
   {
     "id": "single_arm_landmine_shoulder_press_left_arm",
@@ -2285,7 +2289,8 @@
     "variation": "",
     "emoji": "🏋️",
     "setupNotes": "Barbell on floor, feet hip-width (conventional stance). Mixed or double-overhand grip just outside knees. Flat back, chest up — drive through heels to lockout.",
-    "videoUrl": "https://videos.liboworld.com/exercises/conventional_barbell_deadlift.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/conventional_barbell_deadlift.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/conventional_barbell_deadlift_side_view.mp4"
   },
   {
     "id": "sumo_barbell_deadlift",
@@ -6642,7 +6647,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔝",
-    "setupNotes": "Standing, light dumbbells (1-3 kg) in each hand, arms extended. Small controlled circles. Forward and backward. Shoulder endurance."
+    "setupNotes": "Standing, light dumbbells (1-3 kg) in each hand, arms extended. Small controlled circles. Forward and backward. Shoulder endurance.",
+    "videoUrl": "https://videos.liboworld.com/exercises/weighted_arm_circles.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/weighted_arm_circles_side_view.mp4"
   },
   {
     "id": "superman_hold",
@@ -9415,9 +9422,10 @@
     "variation": "",
     "emoji": "🔝",
     "setupNotes": "Standing tall, bring the left arm straight across the chest. Hook the right forearm under the left elbow and pull the left arm closer to the body. Hold. Stretches the left rear delt and upper back.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch_left.mp4",
     "parentId": "cross_body_shoulder_stretch",
-    "parentName": "Cross-Body Shoulder Stretch"
+    "parentName": "Cross-Body Shoulder Stretch",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch_left_side_view.mp4"
   },
   {
     "id": "cross_body_shoulder_stretch_right",
@@ -9434,9 +9442,10 @@
     "variation": "",
     "emoji": "🔝",
     "setupNotes": "Standing tall, bring the right arm straight across the chest. Hook the left forearm under the right elbow and pull the right arm closer to the body. Hold. Stretches the right rear delt and upper back.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch_right.mp4",
     "parentId": "cross_body_shoulder_stretch",
-    "parentName": "Cross-Body Shoulder Stretch"
+    "parentName": "Cross-Body Shoulder Stretch",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/cross_body_shoulder_stretch_right_side_view.mp4"
   },
   {
     "id": "overhead_triceps_stretch_left",
@@ -11684,7 +11693,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing tall, one dumbbell held overhead in the left hand with arm fully extended. Bend at the elbow to lower the dumbbell behind the head, elbow pointing straight up and pinned in place. Extend back to lockout, squeeze the triceps. Brace the core to prevent lower-back arching."
+    "setupNotes": "Standing tall, one dumbbell held overhead in the left hand with arm fully extended. Bend at the elbow to lower the dumbbell behind the head, elbow pointing straight up and pinned in place. Extend back to lockout, squeeze the triceps. Brace the core to prevent lower-back arching.",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm_standing.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm_standing_side_view.mp4"
   },
   {
     "id": "single_arm_dumbbell_overhead_extension_left_arm_seated",
@@ -11734,7 +11745,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Lie on flat bench, single dumbbell extended above chest in left hand, palm facing feet. Bend the elbow inward so the dumbbell tracks toward the right side of the chest — end of dumbbell lightly touches chest. Press back up to lockout. Hits the long head of the triceps with a unique angle."
+    "setupNotes": "Lie on flat bench, single dumbbell extended above chest in left hand, palm facing feet. Bend the elbow inward so the dumbbell tracks toward the right side of the chest — end of dumbbell lightly touches chest. Press back up to lockout. Hits the long head of the triceps with a unique angle.",
+    "videoUrl": "https://videos.liboworld.com/exercises/tate_press_single_arm_left.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/tate_press_single_arm_left_side_view.mp4"
   },
   {
     "id": "tate_press_single_arm_right",
@@ -11750,7 +11763,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Lie on flat bench, single dumbbell extended above chest in right hand, palm facing feet. Bend the elbow inward so the dumbbell tracks toward the left side of the chest — end of dumbbell lightly touches chest. Press back up to lockout. Hits the long head of the triceps with a unique angle."
+    "setupNotes": "Lie on flat bench, single dumbbell extended above chest in right hand, palm facing feet. Bend the elbow inward so the dumbbell tracks toward the left side of the chest — end of dumbbell lightly touches chest. Press back up to lockout. Hits the long head of the triceps with a unique angle.",
+    "videoUrl": "https://videos.liboworld.com/exercises/tate_press_single_arm_right.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/tate_press_single_arm_right_side_view.mp4"
   },
   {
     "id": "dumbbell_skull_crusher_seated",
@@ -11766,7 +11781,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Seated on upright bench with back support, dumbbells held overhead with neutral grip, arms extended. Bend the elbows to lower the dumbbells beside the ears, elbows pointing forward. Extend back up to lockout. Seated position locks the upper body — pure triceps work."
+    "setupNotes": "Seated on upright bench with back support, dumbbells held overhead with neutral grip, arms extended. Bend the elbows to lower the dumbbells beside the ears, elbows pointing forward. Extend back up to lockout. Seated position locks the upper body — pure triceps work.",
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_skull_crusher_seated.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/dumbbell_skull_crusher_seated_side_view.mp4"
   },
   {
     "id": "dumbbell_skull_crusher_standing",
@@ -11782,6 +11799,123 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing tall, dumbbells held overhead with neutral grip, arms extended. Bend the elbows to lower the dumbbells beside the ears, elbows pinned forward and pointing up. Extend back up to lockout. Brace the core — standing variant adds full-body stability demand."
+    "setupNotes": "Standing tall, dumbbells held overhead with neutral grip, arms extended. Bend the elbows to lower the dumbbells beside the ears, elbows pinned forward and pointing up. Extend back up to lockout. Brace the core — standing variant adds full-body stability demand.",
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_skull_crusher_standing.mp4"
+  },
+  {
+    "id": "battle_ropes_kneeling_power_slam",
+    "name": "Battle Ropes — Kneeling Power Slam",
+    "slug": "battle_ropes_kneeling_power_slam",
+    "cat": "gym",
+    "primaryCat": "HIIT / Functional",
+    "subcat": "Full Body",
+    "environment": "Gym",
+    "bodyFocus": "Full Body / Power",
+    "equipment": "Ropes",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Kneeling",
+    "emoji": "🌟",
+    "setupNotes": "Kneel on mat, both rope ends in hands. Raise both arms overhead then slam ropes down together. Removes legs, isolates upper body and core power.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/battle_ropes_kneeling_power_slam.mp4"
+  },
+  {
+    "id": "leg_press_sumo_hip_width",
+    "name": "Leg Press — Sumo Hip-Width",
+    "slug": "leg_press_sumo_hip_width",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Sumo Hip-Width",
+    "emoji": "🦵",
+    "setupNotes": "Leg press machine. Sit with back against pad, feet wider than shoulder-width in sumo stance, toes turned out. Release safety catches, lower weight until knees at ~90 degrees, press up — emphasizes inner thighs and glutes.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/leg_press_sumo_hip_width.mp4"
+  },
+  {
+    "id": "hack_squat_machine_wide",
+    "name": "Hack Squat Machine — Wide Stance",
+    "slug": "hack_squat_machine_wide",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Wide Stance",
+    "emoji": "🦵",
+    "setupNotes": "Hack squat machine, shoulders under pads, back against pad. Feet wide on platform, toes slightly out. Descend to parallel or below, press up — emphasizes inner thighs and glutes.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/hack_squat_machine_wide.mp4"
+  },
+  {
+    "id": "hack_squat_machine_narrow",
+    "name": "Hack Squat Machine — Narrow Stance",
+    "slug": "hack_squat_machine_narrow",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Narrow Stance",
+    "emoji": "🦵",
+    "setupNotes": "Hack squat machine, shoulders under pads, back against pad. Feet narrow on platform, close together. Descend to parallel or below, press up — emphasizes outer quads.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/hack_squat_machine_narrow.mp4"
+  },
+  {
+    "id": "simultaneous_dumbbell_biceps_hammer_curl_standing",
+    "name": "Simultaneous Hammer Curl — Standing",
+    "slug": "simultaneous_dumbbell_biceps_hammer_curl_standing",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Biceps",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Simultaneous",
+    "emoji": "💪",
+    "setupNotes": "Standing tall, dumbbell in each hand at sides with neutral (palms-in) grip. Curl both arms up at the same time, thumbs pointing up. Lower under control — both arms move together every rep.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/simultaneous_dumbbell_biceps_hammer_curl_standing.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/simultaneous_dumbbell_biceps_hammer_curl_standing_side_view.mp4"
+  },
+  {
+    "id": "arm_circles_weighted_large_forward",
+    "name": "Weighted Arm Circles — Large Forward",
+    "slug": "arm_circles_weighted_large_forward",
+    "cat": "home",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Home",
+    "bodyFocus": "Shoulders",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Large Forward Weighted",
+    "emoji": "🔝",
+    "setupNotes": "Standing, light dumbbells (1-3 kg) in each hand, arms extended out to sides at shoulder height. Circle arms forward in large, controlled arcs. Dynamic shoulder warm-up with added load.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_weighted_large_forward.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_weighted_large_forward_side_view.mp4"
   }
 ]
