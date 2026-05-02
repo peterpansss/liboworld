@@ -6,8 +6,6 @@ import { blogArticles } from '../data/blog';
 import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
 import PricingSection from '../components/PricingSection';
-import { PartnersStrip } from '../components/PartnersStrip';
-import { MethodologyRow } from '../components/MethodologyRow';
 import { EmojiIcon } from '../components/EmojiIcon';
 import { Star } from '../utils/icons';
 import './Landing.css';
@@ -549,8 +547,6 @@ export default function Landing() {
         </div>
       </div>
 
-      <PartnersStrip />
-
       {/* ── STATS STRIP ── */}
       <div className="stats-strip" ref={statsView.ref}>
         <div className="stats-strip-grid">
@@ -782,8 +778,6 @@ export default function Landing() {
           {t('photoBreak2Full.line1')}<br /><span style={{ color: 'var(--accent)' }}>{t('photoBreak2Full.line2')}</span>
         </p>
       </div>
-
-      <MethodologyRow />
 
       {/* ── SOCIAL PROOF ── */}
       <div className="proof-wrapper">
