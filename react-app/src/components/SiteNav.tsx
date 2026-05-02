@@ -14,13 +14,28 @@ const NAV_LINKS = [
 
 // Children of the Reward Club dropdown. Order = visual order in the menu.
 const REWARD_CLUB_CHILDREN = [
-  { labelKey: 'nav.cashChallenges', defaultLabel: 'Cash Challenges', to: '/cash-challenge' },
-  { labelKey: 'nav.giveaways', defaultLabel: 'Giveaways', to: '/giveaway' },
+  {
+    labelKey: 'nav.cashChallenges',
+    defaultLabel: 'Cash Challenges',
+    descriptionKey: 'nav.cashChallengesDesc',
+    defaultDescription: 'Train 30 days, earn up to €250 cash',
+    icon: '💰',
+    to: '/cash-challenge',
+  },
+  {
+    labelKey: 'nav.giveaways',
+    defaultLabel: 'Giveaways',
+    descriptionKey: 'nav.giveawaysDesc',
+    defaultDescription: 'Win iPhones, Apple Watches & monthly prizes',
+    icon: '🎁',
+    to: '/giveaway',
+  },
 ] as const;
 
 export default function SiteNav() {
   const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [rewardOpen, setRewardOpen] = useState(false);
   const location = useLocation();
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -68,10 +83,17 @@ export default function SiteNav() {
     setRewardOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll(); // sync on mount in case page is already scrolled
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
       <a href="#main-content" className="skip-link">{t('nav.skipToMain')}</a>
-      <nav className="site-nav" aria-label={t('nav.mainNavigation')}>
+      <nav className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}`} aria-label={t('nav.mainNavigation')}>
         <div className="site-nav__inner">
           {/* Logo */}
           <Link to="/" className="site-nav__logo">
@@ -114,17 +136,21 @@ export default function SiteNav() {
                 {t('nav.rewardClub', { defaultValue: 'Reward Club' })}
                 <span className="site-nav__dropdown-caret" aria-hidden>▾</span>
               </button>
-              <ul className="site-nav__dropdown-menu" role="menu">
-                {REWARD_CLUB_CHILDREN.map(({ labelKey, defaultLabel, to }) => (
+              <ul className="site-nav__dropdown-menu site-nav__dropdown-menu--mega" role="menu">
+                {REWARD_CLUB_CHILDREN.map(({ labelKey, defaultLabel, descriptionKey, defaultDescription, icon, to }) => (
                   <li key={to} role="none">
                     <Link
                       to={to}
                       role="menuitem"
-                      className={`site-nav__dropdown-item${isActive(to) ? ' site-nav__dropdown-item--active' : ''}`}
+                      className={`site-nav__dropdown-item site-nav__dropdown-item--mega${isActive(to) ? ' site-nav__dropdown-item--active' : ''}`}
                       aria-current={isActive(to) ? 'page' : undefined}
                       onClick={() => setRewardOpen(false)}
                     >
-                      {t(labelKey, { defaultValue: defaultLabel })}
+                      <span className="site-nav__dropdown-item-icon" aria-hidden>{icon}</span>
+                      <span className="site-nav__dropdown-item-text">
+                        <span className="site-nav__dropdown-item-title">{t(labelKey, { defaultValue: defaultLabel })}</span>
+                        <span className="site-nav__dropdown-item-desc">{t(descriptionKey, { defaultValue: defaultDescription })}</span>
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -147,6 +173,12 @@ export default function SiteNav() {
           {/* Right section */}
           <div className="site-nav__right">
             <LanguageSwitcher />
+            <Link
+              to="/onboarding"
+              className="site-nav__login"
+            >
+              {t('nav.login', { defaultValue: 'Log in' })}
+            </Link>
             <Link to="/onboarding" className="site-nav__cta">
               {t('nav.getStarted')}
             </Link>
@@ -204,6 +236,13 @@ export default function SiteNav() {
         </div>
         <div className="site-nav__drawer-bottom">
           <LanguageSwitcher variant="drawer" />
+          <Link
+            to="/onboarding"
+            className="site-nav__drawer-login"
+            onClick={() => setDrawerOpen(false)}
+          >
+            {t('nav.login', { defaultValue: 'Log in' })}
+          </Link>
           <Link
             to="/onboarding"
             className="site-nav__drawer-cta"
