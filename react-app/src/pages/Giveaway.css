@@ -584,6 +584,33 @@
   font-weight: 700;
 }
 
+/* ── ELIGIBILITY CHIP (above the package grid) ─────────────── */
+
+.funnel-eligibility-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  margin: 0 auto 20px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(202, 255, 0, 0.22);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--accent);
+  line-height: 1.4;
+  max-width: 580px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .funnel-eligibility-chip {
+    font-size: 11px;
+    padding: 8px 14px;
+  }
+}
+
 /* ── TRUST BADGES ───────────────────────────────────────────── */
 
 .funnel-trust-row {

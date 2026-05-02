@@ -699,7 +699,8 @@
     "emailPlaceholder": "your@email.com",
     "entriesLabel": "Free Bonus Entries",
     "amoeLine": "No purchase necessary — download Libo and complete a workout for 1 free entry. See Terms.",
-    "premiumDisclosure": "Every package includes a Premium trial that automatically continues at €9.99/mo after the trial ends. Cancel anytime in the Libo app — no questions asked. Existing Libo users keep their plan; package entries stack onto your account.",
+    "eligibilityLine": "Open to everyone — new visitors, Free users, Pro and Elite subscribers. Entries from each package stack onto your Libo account.",
+    "premiumDisclosure": "New buyers get a Premium trial that auto-continues at €9.99/mo after the trial ends — cancel anytime in the Libo app. Existing Pro/Elite subscribers skip the trial entirely — your subscription is untouched, only the entries and bonus points are added.",
     "inclusionsShow": "Click to view full inclusions",
     "inclusionsHide": "Hide full inclusions",
     "inclusions": {
@@ -804,7 +805,13 @@
       "q6": "What happens to the Premium trial after it ends?",
       "a6": "It auto-continues at €9.99/mo so you don't lose access mid-workout. Cancel anytime in the Libo app — settings → manage subscription. Cancel before the trial ends and you're charged nothing. We'll email you 3 days before the trial ends as a reminder.",
       "q7": "Where can I watch the live draw?",
-      "a7": "Libo's Instagram (@liboworld) and TikTok (@libo.world). The full draw is archived for replay. You don't need to watch live — winners are contacted directly via the email tied to their entries within 24 hours."
+      "a7": "Libo's Instagram (@liboworld) and TikTok (@libo.world). The full draw is archived for replay. You don't need to watch live — winners are contacted directly via the email tied to their entries within 24 hours.",
+      "q8": "I'm already a Pro / Elite subscriber — what happens?",
+      "a8": "You keep your existing subscription, untouched. The package's Premium trial is skipped — we just credit the entries and bonus points to your Libo account. No double-charge, no plan downgrade. Buy as many packages as you want; they all stack.",
+      "q9": "Can I buy multiple packages? Do entries stack?",
+      "a9": "Yes — every package adds to whatever's already on your account. Buy Entry today and Gold next week and you've got 31 entries total, plus 3,100 bonus points. We use the email you give us to find your existing account or create a new one.",
+      "q10": "Do I need a Libo account before buying?",
+      "a10": "No. We auto-create one with the email you provide at checkout and send you a magic-link to log in. Existing Libo users (anyone who's signed up before) get the entries credited to their existing account — same email = same account."
     },
     "finalCtaTitle": "Last chance — entries close soon",
     "finalCta": "Click to enter",

@@ -168,6 +168,12 @@ export default function GiveawayPage() {
             <p className="funnel-section__sub">{t('giveawayFunnel.packagesSub')}</p>
           </header>
 
+          <div style={{ textAlign: 'center' }} data-reveal>
+            <div className="funnel-eligibility-chip">
+              ✓ {t('giveawayFunnel.eligibilityLine')}
+            </div>
+          </div>
+
           <div className="funnel-packages-grid funnel-packages-grid--3">
             {PACKAGES.map((p) => (
               <PackageCard
@@ -383,7 +389,7 @@ export default function GiveawayPage() {
             <h2 className="funnel-section__title font-display">{t('giveawayFunnel.faqTitle')}</h2>
           </header>
           <FunnelFAQ
-            items={[1, 2, 3, 4, 5, 6, 7].map(n => ({
+            items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => ({
               q: t(`giveawayFunnel.faq.q${n}`),
               a: t(`giveawayFunnel.faq.a${n}`),
             }))}
