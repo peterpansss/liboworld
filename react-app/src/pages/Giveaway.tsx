@@ -15,6 +15,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SiteFooter from '../components/SiteFooter';
+import SiteNav from '../components/SiteNav';
 import { SeoHead } from '../components/SeoHead';
 import FunnelHeader from '../components/funnel/FunnelHeader';
 import PackageCard from '../components/funnel/PackageCard';
@@ -122,6 +123,7 @@ export default function GiveawayPage() {
 
   return (
     <div className="funnel-page">
+      <SiteNav />
       <SeoHead
         title={t('giveawayFunnel.seoTitle')}
         description={t('giveawayFunnel.seoDescription')}
