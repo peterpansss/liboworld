@@ -174,7 +174,7 @@
     "downloadAppStore": "Download on App Store"
   },
   "trust": {
-    "eyebrow": "Trusted by Athletes",
+    "eyebrow": "Real Beta Numbers",
     "headline": "The numbers speak.",
     "stat1Num": "634",
     "stat1Label": "Exercises",
@@ -186,10 +186,23 @@
     "stat3Label": "Beta Rating",
     "stat3Sub": "From early testers",
     "stat4Num": "50+",
-    "stat4Label": "Beta Testers",
+    "stat4Label": "Athletes Already Training",
     "stat4Sub": "And counting",
     "availableIos": "Available on iOS",
     "betaRating": "4.9 from beta testers"
+  },
+  "partners": {
+    "eyebrow": "BUILT WITH PROFESSIONALS WE TRUST"
+  },
+  "methodology": {
+    "eyebrow": "How Libo Works",
+    "headline": "Built to help you\nactually stick with it.",
+    "pillar1Title": "Built with certified trainers",
+    "pillar1Desc": "Programs designed and reviewed by NASM- and ACE-certified personal trainers — not generic AI output.",
+    "pillar2Title": "Backed by habit science",
+    "pillar2Desc": "Daily reps, streak mechanics, and recovery cues drawn from peer-reviewed habit-formation research.",
+    "pillar3Title": "Follows ACSM guidelines",
+    "pillar3Desc": "Workout structure aligned with American College of Sports Medicine training and recovery principles."
   },
   "faq": {
     "eyebrow": "FAQ",

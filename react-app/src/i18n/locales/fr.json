@@ -406,7 +406,7 @@
     }
   },
   "trust": {
-    "eyebrow": "Approuvé par les athlètes",
+    "eyebrow": "Vrais Chiffres Beta",
     "headline": "Les chiffres parlent.",
     "stat1Num": "634",
     "stat1Label": "Exercices",
@@ -418,10 +418,23 @@
     "stat3Label": "Note Bêta",
     "stat3Sub": "Par les premiers testeurs",
     "stat4Num": "50+",
-    "stat4Label": "Testeurs Bêta",
+    "stat4Label": "Athlètes Déjà En Entraînement",
     "stat4Sub": "Et ça continue",
     "availableIos": "Disponible sur iOS",
     "betaRating": "4.9 par les testeurs bêta"
+  },
+  "partners": {
+    "eyebrow": "CONSTRUIT AVEC DES PROFESSIONNELS DE CONFIANCE"
+  },
+  "methodology": {
+    "eyebrow": "Comment Libo fonctionne",
+    "headline": "Conçu pour que tu\nrestes vraiment fidèle.",
+    "pillar1Title": "Construit avec des coachs certifiés",
+    "pillar1Desc": "Programmes conçus et validés par des coachs personnels certifiés NASM et ACE — pas de génération IA générique.",
+    "pillar2Title": "Soutenu par la science des habitudes",
+    "pillar2Desc": "Reps quotidiennes, mécaniques de séries et signaux de récupération issus de la recherche revue par les pairs.",
+    "pillar3Title": "Suit les directives ACSM",
+    "pillar3Desc": "Structure d'entraînement alignée sur les principes de l'American College of Sports Medicine."
   },
   "faq": {
     "eyebrow": "FAQ",
