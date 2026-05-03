@@ -8,10 +8,14 @@ import {
   fetchUserTopWorkouts,
   fetchUserRecentWorkouts,
   fetchUserPointsLedger,
-  grantTickets,
-  adjustPoints,
-  setSubscriptionTier,
-  setUserAdminFlag,
+  // Sensitive ops go through the *WithReauth wrappers so requireRecentAuth()
+  // can prompt the operator before mutating user state. The un-wrapped
+  // versions exist for backward-compat / unit tests but MUST NOT be used
+  // by UI callers (see lib/adminApi.ts comment near the wrappers).
+  grantTicketsWithReauth as grantTickets,
+  adjustPointsWithReauth as adjustPoints,
+  setSubscriptionTierWithReauth as setSubscriptionTier,
+  setUserAdminFlagWithReauth as setUserAdminFlag,
   fetchLeaderboard,
   type AdminUserRow,
   type TopWorkoutRow,
