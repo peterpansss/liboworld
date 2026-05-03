@@ -131,6 +131,14 @@ export default function FunnelCheckoutModal({
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const [intentError, setIntentError] = useState<string | null>(null);
   const [creatingIntent, setCreatingIntent] = useState(false);
+  // Per-field validation errors for Step 1. Populated when the user clicks
+  // Continue with empty/whitespace-only inputs (the native `required`
+  // attribute would catch empty strings but treats whitespace as valid).
+  const [fieldErrors, setFieldErrors] = useState<{
+    fullName?: string;
+    email?: string;
+    phone?: string;
+  }>({});
 
   const stripeMode = !!createIntent && isStripeConfigured();
   const stripePromise = useMemo(() => (stripeMode ? getStripe() : null), [stripeMode]);
@@ -148,6 +156,7 @@ export default function FunnelCheckoutModal({
         setClientSecret(null);
         setPaymentIntentId(null);
         setIntentError(null);
+        setFieldErrors({});
       }, 200);
     }
   }, [open]);
@@ -170,9 +179,37 @@ export default function FunnelCheckoutModal({
 
   const isDone = state === 'success' || state === 'duplicate';
 
+  // Accessible name for the dialog. The header only renders the brand
+  // wordmark image (`alt="Libo"`), so without an explicit title element
+  // screen readers had nothing to anchor `aria-labelledby` to. We always
+  // include the literal word "Checkout" (so consumers can rely on it for
+  // assistive-tech queries) and append the current step label.
+  const stepTitle = isDone
+    ? state === 'duplicate'
+      ? copy.duplicateTitle
+      : copy.successTitle
+    : step === 1
+    ? copy.step1Label
+    : copy.step2Label;
+  const dialogTitle = `Checkout — ${stepTitle}`;
+
   async function handleStep1(e: FormEvent) {
     e.preventDefault();
-    if (!fullName.trim() || !email.trim() || !phone.trim()) return;
+
+    // Validate against trimmed values so whitespace-only entries don't slip
+    // through the native `required` check (which treats " " as non-empty).
+    const trimmedName = fullName.trim();
+    const trimmedEmail = email.trim();
+    const trimmedPhone = phone.trim();
+    const nextErrors: typeof fieldErrors = {};
+    if (!trimmedName) nextErrors.fullName = 'This field is required';
+    if (!trimmedEmail) nextErrors.email = 'This field is required';
+    if (!trimmedPhone) nextErrors.phone = 'This field is required';
+    if (nextErrors.fullName || nextErrors.email || nextErrors.phone) {
+      setFieldErrors(nextErrors);
+      return;
+    }
+    setFieldErrors({});
 
     // Stripe mode: kick off the PaymentIntent before transitioning to Step 2,
     // so the PaymentElement has a clientSecret to render against.
@@ -352,6 +389,14 @@ export default function FunnelCheckoutModal({
     marginBottom: 14,
   };
 
+  const fieldErrorStyle: React.CSSProperties = {
+    fontSize: 12,
+    color: colors.error,
+    marginTop: 0,
+    marginBottom: 10,
+    fontWeight: 600,
+  };
+
   const submitBtn: React.CSSProperties = {
     width: '100%',
     padding: '16px',
@@ -407,6 +452,24 @@ export default function FunnelCheckoutModal({
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="funnel-modal-title" onClick={onClose} style={overlay}>
       <div onClick={(e) => e.stopPropagation()} style={modal}>
+        {/* Visually-hidden accessible name for the dialog. Anchors the
+            aria-labelledby above so screen readers announce a real title. */}
+        <h2
+          id="funnel-modal-title"
+          style={{
+            position: 'absolute',
+            width: 1,
+            height: 1,
+            padding: 0,
+            margin: -1,
+            overflow: 'hidden',
+            clip: 'rect(0, 0, 0, 0)',
+            whiteSpace: 'nowrap',
+            border: 0,
+          }}
+        >
+          {dialogTitle}
+        </h2>
         {/* HEADER */}
         <div style={header}>
           <img
@@ -444,21 +507,30 @@ export default function FunnelCheckoutModal({
               </div>
 
               {step === 1 && (
-                <form onSubmit={handleStep1}>
+                <form onSubmit={handleStep1} noValidate>
                   <label htmlFor="fm-name" style={fieldLabel}>
                     <span style={{ color: '#FF8A4A' }}>*</span> {copy.fullNameLabel}
                   </label>
                   <input
                     id="fm-name"
                     type="text"
-                    required
                     autoFocus
                     autoComplete="name"
+                    aria-invalid={fieldErrors.fullName ? 'true' : undefined}
+                    aria-describedby={fieldErrors.fullName ? 'fm-name-err' : undefined}
                     value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    onChange={(e) => {
+                      setFullName(e.target.value);
+                      if (fieldErrors.fullName) setFieldErrors((p) => ({ ...p, fullName: undefined }));
+                    }}
                     placeholder={copy.fullNamePlaceholder}
-                    style={input}
+                    style={fieldErrors.fullName ? { ...input, border: '1px solid ' + colors.error, marginBottom: 4 } : input}
                   />
+                  {fieldErrors.fullName && (
+                    <div id="fm-name-err" role="alert" style={fieldErrorStyle}>
+                      {fieldErrors.fullName}
+                    </div>
+                  )}
 
                   <label htmlFor="fm-email" style={fieldLabel}>
                     <span style={{ color: '#FF8A4A' }}>*</span> {copy.emailLabel}
@@ -466,13 +538,22 @@ export default function FunnelCheckoutModal({
                   <input
                     id="fm-email"
                     type="email"
-                    required
                     autoComplete="email"
+                    aria-invalid={fieldErrors.email ? 'true' : undefined}
+                    aria-describedby={fieldErrors.email ? 'fm-email-err' : undefined}
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (fieldErrors.email) setFieldErrors((p) => ({ ...p, email: undefined }));
+                    }}
                     placeholder={copy.emailPlaceholder}
-                    style={input}
+                    style={fieldErrors.email ? { ...input, border: '1px solid ' + colors.error, marginBottom: 4 } : input}
                   />
+                  {fieldErrors.email && (
+                    <div id="fm-email-err" role="alert" style={fieldErrorStyle}>
+                      {fieldErrors.email}
+                    </div>
+                  )}
 
                   <label htmlFor="fm-phone" style={fieldLabel}>
                     <span style={{ color: '#FF8A4A' }}>*</span> {copy.phoneLabel}
@@ -480,13 +561,22 @@ export default function FunnelCheckoutModal({
                   <input
                     id="fm-phone"
                     type="tel"
-                    required
                     autoComplete="tel"
+                    aria-invalid={fieldErrors.phone ? 'true' : undefined}
+                    aria-describedby={fieldErrors.phone ? 'fm-phone-err' : undefined}
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                      if (fieldErrors.phone) setFieldErrors((p) => ({ ...p, phone: undefined }));
+                    }}
                     placeholder={copy.phonePlaceholder}
-                    style={input}
+                    style={fieldErrors.phone ? { ...input, border: '1px solid ' + colors.error, marginBottom: 4 } : input}
                   />
+                  {fieldErrors.phone && (
+                    <div id="fm-phone-err" role="alert" style={fieldErrorStyle}>
+                      {fieldErrors.phone}
+                    </div>
+                  )}
 
                   <button type="submit" style={submitBtn} disabled={creatingIntent}>
                     {creatingIntent ? '…' : copy.continueCta}
