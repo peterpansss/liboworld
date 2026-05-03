@@ -14,6 +14,7 @@ import {
   type Giveaway,
   type GiveawayInput,
 } from '../../lib/adminApi';
+import { safeUrl } from '../../utils/safeUrl';
 
 type Row = Giveaway & { entry_count: number };
 
@@ -323,11 +324,13 @@ export function GiveawaysPage() {
       {
         key: 'title',
         header: 'Title',
-        render: (r) => (
+        render: (r) => {
+          const safeImg = safeUrl(r.image_url);
+          return (
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {r.image_url ? (
+            {safeImg ? (
               <img
-                src={r.image_url}
+                src={safeImg}
                 alt=""
                 style={{ width: 36, height: 36, borderRadius: 8, objectFit: 'cover', background: colors.bg3 }}
               />
@@ -361,7 +364,8 @@ export function GiveawaysPage() {
               <div style={{ fontSize: 11, color: colors.muted }}>{r.prize_description}</div>
             </div>
           </div>
-        ),
+          );
+        },
         sort: (a, b) => a.title.localeCompare(b.title),
       },
       {
@@ -506,9 +510,9 @@ export function GiveawaysPage() {
 
           <Field label="Image">
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-              {form.image_url ? (
+              {safeUrl(form.image_url) ? (
                 <img
-                  src={form.image_url}
+                  src={safeUrl(form.image_url) as string}
                   alt="preview"
                   style={{
                     width: 96,

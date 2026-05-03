@@ -13,6 +13,7 @@ import {
   type GiveawayTemplateInput,
   type GiveawayTemplateType,
 } from '../../lib/adminApi';
+import { safeUrl } from '../../utils/safeUrl';
 
 const TYPE_OPTIONS: GiveawayTemplateType[] = ['common', 'premium', 'elite'];
 
@@ -285,11 +286,13 @@ export function GiveawayTemplatesPage() {
       {
         key: 'title',
         header: 'Title',
-        render: (r) => (
+        render: (r) => {
+          const safePrizeImg = safeUrl(r.prize_image_url);
+          return (
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {r.prize_image_url ? (
+            {safePrizeImg ? (
               <img
-                src={r.prize_image_url}
+                src={safePrizeImg}
                 alt=""
                 style={{ width: 36, height: 36, borderRadius: 8, objectFit: 'cover', background: colors.bg3 }}
               />
@@ -301,7 +304,8 @@ export function GiveawayTemplatesPage() {
               <div style={{ fontSize: 11, color: colors.muted }}>{r.prize_description}</div>
             </div>
           </div>
-        ),
+          );
+        },
         sort: (a, b) => a.title.localeCompare(b.title),
       },
       {
@@ -459,9 +463,9 @@ export function GiveawayTemplatesPage() {
 
           <Field label="Prize image" hint="Used as the main card thumbnail (square crop).">
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-              {form.prize_image_url ? (
+              {safeUrl(form.prize_image_url) ? (
                 <img
-                  src={form.prize_image_url}
+                  src={safeUrl(form.prize_image_url) as string}
                   alt="preview"
                   style={{
                     width: 96,
@@ -527,9 +531,9 @@ export function GiveawayTemplatesPage() {
 
           <Field label="Header / hero image" hint="Optional wide banner shown on the detail screen.">
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-              {form.image_url ? (
+              {safeUrl(form.image_url) ? (
                 <img
-                  src={form.image_url}
+                  src={safeUrl(form.image_url) as string}
                   alt="preview"
                   style={{
                     width: 160,
