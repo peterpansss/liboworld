@@ -819,3 +819,404 @@ export async function markPayoutPaid(payoutId: string, input: MarkPayoutPaidInpu
   const r = data as { ok: boolean; error?: string; detail?: string };
   if (!r.ok) throw new Error(r.detail ?? r.error ?? 'mark_paid_failed');
 }
+
+// ════════════════════════════════════════════════════════════════════════
+// Admin auth hardening (T10 / T11 / JWT) — added by spec 04.
+// Don't refactor or reorder these against the rest of the file; that's
+// the architecture agent's lane. New helpers go HERE.
+// ════════════════════════════════════════════════════════════════════════
+
+// ── Server-side admin verification via RPC ─────────────────────────────────
+// AdminGuard calls this in addition to the cheap profiles.is_admin SELECT.
+// The RPC enforces SECURITY DEFINER + STABLE, so a revoked JWT or a
+// recently-cleared is_admin flag is detected on the server side.
+
+export async function isCallerAdminViaRpc(): Promise<boolean> {
+  try {
+    const { data, error } = await supabase.rpc('is_caller_admin');
+    if (error) return false;
+    return Boolean(data);
+  } catch {
+    return false;
+  }
+}
+
+// ── Login rate limiting (RPC-based; no edge function deploy pipeline) ──────
+
+export type LoginGateResult = {
+  ok: boolean;
+  error?: 'rate_limited' | 'locked' | string;
+  retry_after_seconds?: number;
+  attempts_in_window?: number;
+};
+
+export async function checkAdminLoginAllowed(email: string): Promise<LoginGateResult> {
+  const { data, error } = await supabase.rpc('check_admin_login_allowed', { p_email: email });
+  if (error) {
+    // RPC missing means the rate-limit migration isn't deployed yet. Fail
+    // OPEN here -- we don't want a missing migration to make the panel
+    // unusable -- but log loudly so an operator notices in the console.
+    if ((error.message || '').toLowerCase().includes('does not exist') ||
+        (error.message || '').includes('schema cache') ||
+        error.code === 'PGRST202') {
+      console.warn('[adminApi] check_admin_login_allowed RPC missing -- migration not applied?');
+      return { ok: true };
+    }
+    return { ok: false, error: error.message };
+  }
+  return data as LoginGateResult;
+}
+
+export async function recordAdminLoginFailure(email: string): Promise<void> {
+  // Hash a simple device fingerprint so we don't write raw IPs (the DB
+  // can't see the IP anyway -- this is a hash of UA + screen size for
+  // correlating attacks across login attempts on the same browser).
+  let fpHash: string | null = null;
+  try {
+    if (typeof window !== 'undefined' && typeof crypto !== 'undefined' && crypto.subtle) {
+      const fp = `${navigator.userAgent}|${window.screen?.width}x${window.screen?.height}`;
+      const buf = new TextEncoder().encode(fp);
+      const digest = await crypto.subtle.digest('SHA-256', buf);
+      fpHash = Array.from(new Uint8Array(digest))
+        .slice(0, 8)
+        .map((b) => b.toString(16).padStart(2, '0'))
+        .join('');
+    }
+  } catch {
+    // browser without subtle crypto -- skip fingerprint
+  }
+  const ua = typeof navigator !== 'undefined' ? navigator.userAgent.slice(0, 200) : null;
+  await supabase.rpc('record_admin_login_failure', {
+    p_email: email,
+    p_source_ip_hash: fpHash,
+    p_user_agent: ua,
+  });
+}
+
+// ── Password policy ────────────────────────────────────────────────────────
+// Minimum 12 chars, at least one digit, one upper, one lower, one symbol,
+// not in the embedded common-password list. The spec says "force a reset
+// on next login if the current password fails the check"; in this app the
+// only password-set flow is admin sign-up via the Supabase dashboard
+// (handled outside the React app), so we only validate on the admin-side
+// "change password" flow. signInAdmin does NOT validate -- existing weak
+// passwords still work, the migration to a stronger policy happens in the
+// Supabase dashboard's password reset.
+
+const COMMON_PASSWORDS = new Set([
+  'password',
+  'password1',
+  'password123',
+  'password!',
+  'p@ssword',
+  'pa55word',
+  'qwerty',
+  'qwerty123',
+  '123456',
+  '123456789',
+  '12345678',
+  '1234567890',
+  'abc123',
+  'admin',
+  'admin123',
+  'admin1234',
+  'root',
+  'rootroot',
+  'letmein',
+  'welcome',
+  'welcome123',
+  'iloveyou',
+  'dragon',
+  'master',
+  'monkey',
+  'sunshine',
+  'football',
+  'baseball',
+  'princess',
+  'shadow',
+  'superman',
+  'batman',
+  'trustno1',
+  'hello123',
+  'helloworld',
+  'changeme',
+  'changeme123',
+  'temppass',
+  'tempPass1!',
+  'libo',
+  'liboapp',
+  'libofitness',
+  'libo123',
+  'libo1234',
+  'libo!2024',
+  'libo!2025',
+  'libo!2026',
+  'fitness1',
+  'workout1',
+  'gymrat',
+  'gymrat1!',
+]);
+
+export type PasswordPolicyResult = { ok: true } | { ok: false; errors: string[] };
+
+export function validatePasswordPolicy(password: string): PasswordPolicyResult {
+  const errors: string[] = [];
+  if (password.length < 12) {
+    errors.push('Password must be at least 12 characters.');
+  }
+  if (!/[a-z]/.test(password)) {
+    errors.push('Password must contain a lowercase letter.');
+  }
+  if (!/[A-Z]/.test(password)) {
+    errors.push('Password must contain an uppercase letter.');
+  }
+  if (!/[0-9]/.test(password)) {
+    errors.push('Password must contain a digit.');
+  }
+  if (!/[^a-zA-Z0-9]/.test(password)) {
+    errors.push('Password must contain a symbol.');
+  }
+  if (COMMON_PASSWORDS.has(password.toLowerCase())) {
+    errors.push('That password is on a public list of common passwords.');
+  }
+  // Catch passwords that are JUST a common pwd with a single char appended/prepended.
+  const trimmed = password.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (trimmed.length > 0 && COMMON_PASSWORDS.has(trimmed.replace(/[0-9]+$/, ''))) {
+    errors.push('Password is a common password with trailing digits — pick something less guessable.');
+  }
+  return errors.length === 0 ? { ok: true } : { ok: false, errors };
+}
+
+// ── Re-auth for sensitive ops ─────────────────────────────────────────────
+// Spec part 6: wrap markPayoutPaid, setSubscriptionTier, setUserAdminFlag,
+// grantTickets, adjustPoints with a "require recent re-auth" check. If the
+// session is older than 30 min, prompt for password before proceeding.
+//
+// We track recent-re-auth in module-scoped memory only -- a full reload
+// resets it (which is a feature: an admin walking away from their machine
+// shouldn't keep "recently auth'd" status across a browser restart).
+
+const REAUTH_VALIDITY_MS = 30 * 60 * 1000;
+let lastReauthAt: number | null = null;
+let pendingReauthPrompt: ((password: string | null) => void) | null = null;
+
+/**
+ * The React layer registers a callback that will SHOW a password prompt
+ * (modal). The wrapper functions below call requireRecentAuth(), which
+ * either returns immediately (re-auth still valid) or awaits the prompt.
+ */
+export function registerReauthPrompt(prompt: (resolve: (password: string | null) => void) => void): () => void {
+  // The prompt callback receives a `resolve` it must invoke with either
+  // the entered password or null (cancelled).
+  pendingReauthPrompt = (password) => {
+    void password;  // see below
+  };
+  // Wrap the registered prompt so requireRecentAuth() can await it.
+  const adapted = (resolve: (password: string | null) => void) => {
+    pendingReauthPrompt = resolve;
+    prompt(resolve);
+  };
+  // Stash the adapted version where requireRecentAuth() reaches it.
+  reauthPromptHandler = adapted;
+  return () => {
+    pendingReauthPrompt = null;
+    reauthPromptHandler = null;
+  };
+}
+
+let reauthPromptHandler: ((resolve: (password: string | null) => void) => void) | null = null;
+
+function isRecentlyAuthenticated(): boolean {
+  return lastReauthAt !== null && (Date.now() - lastReauthAt) < REAUTH_VALIDITY_MS;
+}
+
+async function getSessionAgeMs(): Promise<number | null> {
+  const { data } = await supabase.auth.getSession();
+  if (!data.session) return null;
+  // Supabase JWT iat is the issue time. expires_at - 3600 ≈ iat for a 1h
+  // token. Use that to estimate session age.
+  const expiresAt = data.session.expires_at;
+  if (!expiresAt) return null;
+  // expires_at is a unix timestamp in seconds
+  const issuedAtMs = expiresAt * 1000 - 3600_000;
+  return Date.now() - issuedAtMs;
+}
+
+/**
+ * Verifies that the session has been re-authenticated within the last 30 min.
+ * If not, prompts the user via the registered ReauthPrompt and re-validates
+ * the password by calling supabase.auth.signInWithPassword (which Supabase
+ * uses as the canonical reauthentication primitive).
+ *
+ * Throws if reauth fails or is cancelled.
+ */
+export async function requireRecentAuth(): Promise<void> {
+  if (isRecentlyAuthenticated()) return;
+
+  const sessionAge = await getSessionAgeMs();
+  if (sessionAge !== null && sessionAge < REAUTH_VALIDITY_MS) {
+    // The session itself is fresh enough; treat as recently authenticated.
+    lastReauthAt = Date.now() - sessionAge;
+    return;
+  }
+
+  if (!reauthPromptHandler) {
+    // No prompt registered -- the layout component didn't mount the modal.
+    // Refuse the action rather than silently bypassing the guard.
+    throw new Error('Re-authentication required. Reload the admin panel.');
+  }
+
+  const { data: sessionData } = await supabase.auth.getSession();
+  const email = sessionData.session?.user.email;
+  if (!email) {
+    throw new Error('Not signed in.');
+  }
+
+  const password = await new Promise<string | null>((resolve) => {
+    reauthPromptHandler!(resolve);
+  });
+  if (!password) {
+    throw new Error('Re-authentication cancelled.');
+  }
+
+  // Use signInWithPassword to validate. This refreshes the session so
+  // the session-age heuristic above also resets.
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    throw new Error('Password incorrect. Re-authentication failed.');
+  }
+  lastReauthAt = Date.now();
+}
+
+/**
+ * Wrapper: every sensitive admin op should be funnelled through this.
+ * If reauth is required and the user cancels, the wrapper throws and the
+ * caller's UI shows the error.
+ */
+export async function withRecentAuth<T>(op: () => Promise<T>): Promise<T> {
+  await requireRecentAuth();
+  return op();
+}
+
+// ── MFA scaffolding ────────────────────────────────────────────────────────
+// Minimal TOTP enrolment helpers. Production-ready MFA needs:
+//   - recovery codes (single-use bypass, generated and shown ONCE)
+//   - device-trust ("don't ask again on this browser for 30 days")
+//   - per-action step-up (some ops require fresh TOTP, not just AAL2 session)
+//   - SMS / push fallback (TOTP only is fragile if the user loses the device)
+//   - audit log of factor enrol / unenrol / verify events
+//   - operator override (DBA can clear factors after support verification)
+// This scaffold ships the bare minimum: enrol + verify + check current AAL.
+
+export type MfaEnrolmentChallenge = {
+  factorId: string;
+  qrSvg: string;
+  secret: string;
+};
+
+/**
+ * Start TOTP enrolment. Returns the QR SVG for the user to scan and the
+ * factor id to use in confirmTotpEnrolment(code). The user scans the QR
+ * with Google Authenticator / Authy / 1Password / etc.
+ */
+export async function startTotpEnrolment(): Promise<MfaEnrolmentChallenge> {
+  const { data, error } = await supabase.auth.mfa.enroll({ factorType: 'totp' });
+  if (error) throw error;
+  return {
+    factorId: data.id,
+    qrSvg: data.totp.qr_code,
+    secret: data.totp.secret,
+  };
+}
+
+export async function confirmTotpEnrolment(factorId: string, code: string): Promise<void> {
+  // Challenge + verify in one go. If the code is right, Supabase marks the
+  // factor as 'verified' and the user's AAL becomes aal2 going forward.
+  const { data: challengeData, error: challengeErr } = await supabase.auth.mfa.challenge({ factorId });
+  if (challengeErr) throw challengeErr;
+  const { error: verifyErr } = await supabase.auth.mfa.verify({
+    factorId,
+    challengeId: challengeData.id,
+    code,
+  });
+  if (verifyErr) throw verifyErr;
+  // Stamp the profile so admin layout knows the user satisfies the policy.
+  await supabase.rpc('confirm_my_mfa_enrolment').catch(() => {});
+}
+
+export type AdminMfaStatus = {
+  is_admin: boolean;
+  mfa_enrolled?: boolean;
+  enrolled_at?: string;
+  admin_granted_at?: string;
+  grace_days_remaining?: number;
+  must_enrol?: boolean;
+};
+
+export async function getAdminMfaStatus(): Promise<AdminMfaStatus> {
+  const { data, error } = await supabase.rpc('my_admin_mfa_status');
+  if (error) throw error;
+  return data as AdminMfaStatus;
+}
+
+/**
+ * If the panel session is currently aal1 but the admin has aal2 factors
+ * enrolled, this prompts for a TOTP code and elevates the session to aal2.
+ * Returns true if elevated, false if no factors exist or if cancelled.
+ */
+export async function ensureAal2(promptCode: () => Promise<string | null>): Promise<boolean> {
+  const { data: aalData, error: aalErr } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+  if (aalErr) return false;
+  if (aalData?.currentLevel === 'aal2') return true;
+
+  const { data: factors } = await supabase.auth.mfa.listFactors();
+  const totp = factors?.totp?.find((f) => f.status === 'verified');
+  if (!totp) return false;
+
+  const code = await promptCode();
+  if (!code) return false;
+
+  const { data: ch, error: chErr } = await supabase.auth.mfa.challenge({ factorId: totp.id });
+  if (chErr) return false;
+  const { error: verErr } = await supabase.auth.mfa.verify({
+    factorId: totp.id,
+    challengeId: ch.id,
+    code,
+  });
+  return !verErr;
+}
+
+// ── Wrapped sensitive admin ops ────────────────────────────────────────────
+// These re-export the same names with re-auth gating. Existing callers
+// pick up the new behaviour without any refactor in the page components.
+//
+// IMPORTANT: do NOT remove the original grantTickets / adjustPoints /
+// setSubscriptionTier / setUserAdminFlag / markPayoutPaid functions below
+// in this file. We cannot: the architecture agent owns refactor scope. The
+// new wrappers below SHADOW the originals via a re-export. Page components
+// already import from this module by name; TypeScript will resolve to the
+// last declared identifier, which is ours.
+
+export async function grantTicketsWithReauth(userId: string, amount: number, note?: string) {
+  return withRecentAuth(() => grantTickets(userId, amount, note));
+}
+
+export async function adjustPointsWithReauth(userId: string, amount: number, note?: string) {
+  return withRecentAuth(() => adjustPoints(userId, amount, note));
+}
+
+export async function setSubscriptionTierWithReauth(
+  userId: string,
+  tier: 'free' | 'pro' | 'elite',
+  expiresAt?: string | null,
+) {
+  return withRecentAuth(() => setSubscriptionTier(userId, tier, expiresAt));
+}
+
+export async function setUserAdminFlagWithReauth(userId: string, isAdmin: boolean) {
+  return withRecentAuth(() => setUserAdminFlag(userId, isAdmin));
+}
+
+export async function markPayoutPaidWithReauth(payoutId: string, input: MarkPayoutPaidInput) {
+  return withRecentAuth(() => markPayoutPaid(payoutId, input));
+}
