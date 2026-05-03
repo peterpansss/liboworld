@@ -19,6 +19,16 @@ export type LanguageCode = keyof typeof SUPPORTED_LANGUAGES;
 
 try { localStorage.removeItem('libo-lang'); } catch { /* SSR / private mode */ }
 
+// Surface missing translations during development so future drift is obvious.
+// In production we stay silent and rely on fallbackLng: 'en'.
+const isDev = (() => {
+  try {
+    return Boolean(import.meta.env?.DEV);
+  } catch {
+    return false;
+  }
+})();
+
 i18n
   .use(initReactI18next)
   .init({
@@ -34,6 +44,11 @@ i18n
     supportedLngs: ['en', 'de', 'fr', 'es', 'pt'],
     interpolation: { escapeValue: false },
     react: { useSuspense: false },
+    saveMissing: isDev,
+    missingKeyHandler: (lngs, _ns, key) => {
+      if (!isDev) return;
+      console.warn('i18n missing key:', lngs.join(','), key);
+    },
   });
 
 const applyHtmlLang = (lng: string) => {
