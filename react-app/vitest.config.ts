@@ -17,12 +17,12 @@ export default defineConfig({
         'src/utils/**/*.ts',
         'src/components/**/*.tsx',
         'src/pages/**/*.tsx',
-      ],
-      exclude: [
-        'src/**/*.d.ts',
-        'src/main.tsx',
         'src/App.tsx',
+        'src/main.tsx',
+        'src/theme.ts',
+        'src/i18n/index.ts',
       ],
+      exclude: ['src/**/*.d.ts'],
     },
   },
 });
