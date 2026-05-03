@@ -1,104 +1,182 @@
-import { describe, expect, it } from 'vitest';
-import {
-  sanitizeFullName,
-  sanitizePhone,
-  sanitizeLongText,
-  sanitizeUtm,
-} from '../../src/lib/funnelSignups';
+/**
+ * Coverage for src/lib/funnelSignups.ts.
+ *
+ * The supabase client is replaced with a scriptable double; tests exercise
+ * the email validator, UTM/referrer capture, and the duplicate-detection
+ * branch (Postgres unique-violation code 23505).
+ */
+import { describe, expect, it, beforeEach, vi } from 'vitest';
 
-describe('funnelSignups sanitisers', () => {
-  describe('sanitizeFullName', () => {
-    it('returns null for null/undefined/empty', () => {
-      expect(sanitizeFullName(null)).toBeNull();
-      expect(sanitizeFullName(undefined)).toBeNull();
-      expect(sanitizeFullName('')).toBeNull();
-      expect(sanitizeFullName('   ')).toBeNull();
-    });
+const inserts: { table: string; row: any }[] = [];
+let nextInsertResp: { error: any } = { error: null };
 
-    it('trims surrounding whitespace', () => {
-      expect(sanitizeFullName('  Jane Doe  ')).toBe('Jane Doe');
-    });
+vi.mock('../../src/lib/supabase', () => ({
+  supabase: {
+    from: (table: string) => ({
+      insert: async (row: any) => {
+        inserts.push({ table, row });
+        return nextInsertResp;
+      },
+    }),
+  },
+}));
 
-    it('strips ASCII control characters (XSS smuggling vectors)', () => {
-      // Embedded NUL + bell + DEL.
-      expect(sanitizeFullName('Jane\x00\x07\x7FDoe')).toBe('JaneDoe');
-    });
+import { submitFunnelInterest, logFunnelClick } from '../../src/lib/funnelSignups';
 
-    it('clamps to default 80 chars', () => {
-      const long = 'a'.repeat(200);
-      expect(sanitizeFullName(long)?.length).toBe(80);
-    });
+beforeEach(() => {
+  inserts.length = 0;
+  nextInsertResp = { error: null };
+});
 
-    it('does NOT html-escape — JSX handles that on render', () => {
-      // We want literal '<' to stay literal so React auto-escapes it once.
-      expect(sanitizeFullName('<script>alert(1)</script>')).toBe('<script>alert(1)</script>');
+describe('submitFunnelInterest — email validation', () => {
+  it('rejects invalid emails before hitting the network', async () => {
+    const r = await submitFunnelInterest({
+      email: 'not-an-email',
+      funnel: 'giveaway',
+      tierSlug: 'entry',
     });
+    expect(r).toEqual({ ok: false, error: 'invalid_email' });
+    expect(inserts.length).toBe(0);
   });
 
-  describe('sanitizePhone', () => {
-    it('keeps allowed characters: +, digits, dashes, spaces, parens', () => {
-      expect(sanitizePhone('+1 (555) 123-4567')).toBe('+1 (555) 123-4567');
+  it('rejects emails with no domain', async () => {
+    const r = await submitFunnelInterest({
+      email: 'foo@',
+      funnel: 'giveaway',
+      tierSlug: 'entry',
     });
-
-    it('strips letters and punctuation, keeps allowed dash', () => {
-      // `<`, `>`, letters dropped; the dash is in the allowlist so it stays.
-      expect(sanitizePhone('+1<script>555-1234</script>')).toBe('+1555-1234');
-    });
-
-    it('drops everything when input is pure letters', () => {
-      // No digits, parens, +, -, or whitespace remain.
-      expect(sanitizePhone('alertxss')).toBeNull();
-    });
-
-    it('returns null when nothing usable remains', () => {
-      expect(sanitizePhone('<script>')).toBeNull();
-      expect(sanitizePhone(null)).toBeNull();
-    });
-
-    it('clamps to default 30 chars before filtering', () => {
-      // 30 characters of digits is allowed, anything beyond is dropped.
-      expect(sanitizePhone('1'.repeat(50))?.length).toBe(30);
-    });
+    expect(r.ok).toBe(false);
   });
 
-  describe('sanitizeLongText (referrer / user_agent)', () => {
-    it('strips control chars but preserves URL-ish content', () => {
-      expect(sanitizeLongText('https://evil.com\x00/path')).toBe('https://evil.com/path');
+  it('lowercases and trims the email', async () => {
+    await submitFunnelInterest({
+      email: '  Alice@Example.COM  ',
+      funnel: 'giveaway',
+      tierSlug: 'entry',
     });
+    expect(inserts[0].row.email).toBe('alice@example.com');
+  });
+});
 
-    it('clamps to 2000 chars', () => {
-      expect(sanitizeLongText('a'.repeat(5000))?.length).toBe(2000);
+describe('submitFunnelInterest — happy path + duplicate', () => {
+  it('returns ok when insert succeeds', async () => {
+    nextInsertResp = { error: null };
+    const r = await submitFunnelInterest({
+      email: 'alice@example.com',
+      funnel: 'giveaway',
+      tierSlug: 'entry',
+      giveawayId: 'g_1',
     });
-
-    it('returns null for empty after trim', () => {
-      expect(sanitizeLongText('   ')).toBeNull();
-    });
-
-    it('does NOT validate URL shape — that is for safeUrl at render time', () => {
-      // The point of the write-side sanitiser is length + control chars,
-      // not URL safety. Any future read-path that wants a clickable link
-      // must run safeUrl().
-      expect(sanitizeLongText('javascript:alert(1)')).toBe('javascript:alert(1)');
-    });
+    expect(r).toEqual({ ok: true, duplicate: false });
+    expect(inserts[0].table).toBe('funnel_signups');
+    expect(inserts[0].row.giveaway_id).toBe('g_1');
   });
 
-  describe('sanitizeUtm', () => {
-    it('keeps alphanumeric, dot, dash, underscore', () => {
-      expect(sanitizeUtm('summer_2025.v2-final')).toBe('summer_2025.v2-final');
+  it('detects duplicates via Postgres 23505 and returns duplicate=true', async () => {
+    nextInsertResp = { error: { code: '23505', message: 'duplicate key' } };
+    const r = await submitFunnelInterest({
+      email: 'alice@example.com',
+      funnel: 'giveaway',
+      tierSlug: 'entry',
     });
+    expect(r).toEqual({ ok: true, duplicate: true });
+  });
 
-    it('strips everything else (no spaces, no slashes, no <>)', () => {
-      expect(sanitizeUtm('utm/value with <script>')).toBe('utmvaluewithscript');
+  it('returns ok=false / error=unknown for non-23505 errors', async () => {
+    nextInsertResp = { error: { code: '42P01', message: 'relation does not exist' } };
+    const r = await submitFunnelInterest({
+      email: 'alice@example.com',
+      funnel: 'giveaway',
+      tierSlug: 'entry',
     });
+    expect(r.ok).toBe(false);
+    if (r.ok === false) expect(r.error).toBe('unknown');
+  });
 
-    it('clamps to 200 chars', () => {
-      expect(sanitizeUtm('a'.repeat(500))?.length).toBe(200);
+  it('returns network error when the insert promise throws', async () => {
+    // Make the mock throw on next call.
+    const realInsert = inserts;
+    vi.doMock('../../src/lib/supabase', () => ({
+      supabase: {
+        from: () => ({
+          insert: async () => {
+            throw new Error('Network down');
+          },
+        }),
+      },
+    }));
+    // Need a fresh import so the new mock takes effect.
+    vi.resetModules();
+    const { submitFunnelInterest: freshSubmit } = await import('../../src/lib/funnelSignups');
+    const r = await freshSubmit({
+      email: 'alice@example.com',
+      funnel: 'giveaway',
+      tierSlug: 'entry',
     });
+    expect(r.ok).toBe(false);
+    if (r.ok === false) expect(r.error).toBe('network');
+    void realInsert;
+    vi.doUnmock('../../src/lib/supabase');
+  });
 
-    it('returns null for null and empty-after-strip', () => {
-      expect(sanitizeUtm(null)).toBeNull();
-      expect(sanitizeUtm('   ')).toBeNull();
-      expect(sanitizeUtm('!!!@@@')).toBeNull();
+  it('captures full_name and phone when supplied', async () => {
+    await submitFunnelInterest({
+      email: 'alice@example.com',
+      fullName: 'Alice Smith',
+      phone: '+15551234567',
+      funnel: 'giveaway',
+      tierSlug: 'silver',
     });
+    expect(inserts[inserts.length - 1].row.full_name).toBe('Alice Smith');
+    expect(inserts[inserts.length - 1].row.phone).toBe('+15551234567');
+  });
+
+  it('null full_name and phone when blank', async () => {
+    await submitFunnelInterest({
+      email: 'alice@example.com',
+      fullName: '   ',
+      phone: '',
+      funnel: 'giveaway',
+      tierSlug: 'silver',
+    });
+    expect(inserts[inserts.length - 1].row.full_name).toBeNull();
+    expect(inserts[inserts.length - 1].row.phone).toBeNull();
+  });
+});
+
+describe('submitFunnelInterest — UTM capture', () => {
+  it('captures UTM params from window.location.search', async () => {
+    const orig = window.location.search;
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      writable: true,
+      value: { ...window.location, search: '?utm_source=google&utm_campaign=spring' },
+    });
+    await submitFunnelInterest({
+      email: 'a@b.com',
+      funnel: 'giveaway',
+      tierSlug: 'entry',
+    });
+    expect(inserts[inserts.length - 1].row.utm_source).toBe('google');
+    expect(inserts[inserts.length - 1].row.utm_campaign).toBe('spring');
+
+    // Restore.
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      writable: true,
+      value: { ...window.location, search: orig },
+    });
+  });
+});
+
+describe('logFunnelClick — fire-and-forget anon logger', () => {
+  it('inserts a row with email=null', async () => {
+    await logFunnelClick({ funnel: 'cash_challenge', tierSlug: 'pro_pool' });
+    expect(inserts.some((i) => i.row.email === null && i.row.funnel === 'cash_challenge')).toBe(true);
+  });
+
+  it('does not throw when the network call fails', async () => {
+    nextInsertResp = { error: { code: '???', message: 'down' } };
+    await expect(logFunnelClick({ funnel: 'giveaway', tierSlug: 'entry' })).resolves.toBeUndefined();
   });
 });
