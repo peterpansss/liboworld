@@ -1,6 +1,24 @@
 import { createClient } from '@supabase/supabase-js';
 
-export const supabase = createClient(
-  'https://oaftqweofrifoiuwntce.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hZnRxd2VvZnJpZm9pdXdudGNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMTA3MTMsImV4cCI6MjA4OTg4NjcxM30.GOPl-QrAYzekiH3i3DENywHXP-2x7BSLFqObdl6lLJs'
-);
+/**
+ * Supabase client.
+ *
+ * Reads connection details from Vite env vars so that dev / staging /
+ * preview / e2e / production builds can each point at their own project.
+ *
+ * Required env vars (set in `.env.local` for local dev, GitHub Secrets
+ * for CI builds — see `.env.example`):
+ *   - VITE_SUPABASE_URL
+ *   - VITE_SUPABASE_ANON_KEY
+ *
+ * The throw at module load is intentional: fail fast if env vars are
+ * missing rather than silently falling back to a hardcoded prod key.
+ */
+const url = import.meta.env.VITE_SUPABASE_URL;
+const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!url || !key) {
+  throw new Error('VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY must be set');
+}
+
+export const supabase = createClient(url, key);

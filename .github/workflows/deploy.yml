@@ -24,9 +24,24 @@ jobs:
       - run: npm ci
         working-directory: react-app
 
+      # Vite inlines `import.meta.env.VITE_*` at build time, so the
+      # secrets must be present in the build step's env. Configure these
+      # in repo settings → Secrets and variables → Actions:
+      #   - VITE_SUPABASE_URL          (e.g. https://<project>.supabase.co)
+      #   - VITE_SUPABASE_ANON_KEY     (anon JWT for the chosen project)
+      #   - VITE_STRIPE_PUBLISHABLE_KEY (optional — pk_live_… or pk_test_…)
+      #   - VITE_STRIPE_PRICE_ENTRY / _SILVER / _GOLD / _PREMIUM (optional)
       - name: Build React app
         run: npx vite build
         working-directory: react-app
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}
+          VITE_STRIPE_PRICE_ENTRY: ${{ secrets.VITE_STRIPE_PRICE_ENTRY }}
+          VITE_STRIPE_PRICE_SILVER: ${{ secrets.VITE_STRIPE_PRICE_SILVER }}
+          VITE_STRIPE_PRICE_GOLD: ${{ secrets.VITE_STRIPE_PRICE_GOLD }}
+          VITE_STRIPE_PRICE_PREMIUM: ${{ secrets.VITE_STRIPE_PRICE_PREMIUM }}
 
       # ── Merge root static files into dist ──
       # The root index.html is the main landing page.
