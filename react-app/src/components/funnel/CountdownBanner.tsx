@@ -6,6 +6,16 @@ type Props = {
   endsAt: string;
   /** Label prefix, e.g. "GIVEAWAY ENDS IN" */
   label: string;
+  /**
+   * Label to show once the countdown reaches zero. When provided, this is
+   * rendered verbatim — required for any non-English caller because the
+   * fallback collapses an English "ENDS IN" suffix into "CLOSED" via a
+   * regex that doesn't match other languages.
+   *
+   * Example: pass `"FERMÉ"` (FR) or `"GESCHLOSSEN"` (DE) to render the
+   * correct localized closed state.
+   */
+  closedLabel?: string;
   /** Switch to a more urgent visual style in the final hour */
   urgentBelowSeconds?: number;
 };
@@ -24,7 +34,7 @@ function diffParts(target: number, now: number) {
   };
 }
 
-export default function CountdownBanner({ endsAt, label, urgentBelowSeconds = 3600 }: Props) {
+export default function CountdownBanner({ endsAt, label, closedLabel, urgentBelowSeconds = 3600 }: Props) {
   const [now, setNow] = useState(() => Date.now());
   const target = new Date(endsAt).getTime();
   const parts = diffParts(target, now);
@@ -61,7 +71,11 @@ export default function CountdownBanner({ endsAt, label, urgentBelowSeconds = 36
       }}
     >
       {ended ? (
-        <span>{label.replace(/IN$/i, '')} CLOSED</span>
+        // When a `closedLabel` is provided, render it verbatim (i18n-safe).
+        // Otherwise fall back to the legacy English-only behaviour: strip a
+        // trailing "IN" off the prefix and append "CLOSED" — kept for
+        // backwards compatibility with the existing English call sites.
+        <span>{closedLabel ?? `${label.replace(/IN$/i, '').trimEnd()} CLOSED`}</span>
       ) : (
         <>
           <span style={{ marginRight: 12 }}>{label}</span>
