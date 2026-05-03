@@ -1,4 +1,10 @@
 import { supabase } from './supabase';
+import {
+  assertValidUpload,
+  safeExtensionForMime,
+  MAX_IMAGE_BYTES,
+  MAX_VIDEO_BYTES,
+} from './uploadValidation';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -288,7 +294,11 @@ export async function listGiveawayWinners(giveawayId: string) {
 }
 
 export async function uploadGiveawayImage(file: File): Promise<string> {
-  const ext = file.name.split('.').pop() ?? 'jpg';
+  // Client-side validation: rejects oversized / wrong-type / empty files
+  // before bytes go on the wire. Bucket-level constraints + RLS policies
+  // are the authoritative gate (see supabase-migration-storage-policies.sql).
+  assertValidUpload(file, { kind: 'image', maxBytes: MAX_IMAGE_BYTES });
+  const ext = safeExtensionForMime(file.type, 'jpg');
   const path = `${crypto.randomUUID()}.${ext}`;
   const { error } = await supabase.storage.from('giveaway-images').upload(path, file, {
     upsert: false,
@@ -422,7 +432,8 @@ export async function deleteWorkoutOverride(id: string) {
 }
 
 export async function uploadExerciseVideo(file: File): Promise<string> {
-  const ext = (file.name.split('.').pop() ?? 'mp4').toLowerCase();
+  assertValidUpload(file, { kind: 'video', maxBytes: MAX_VIDEO_BYTES });
+  const ext = safeExtensionForMime(file.type, 'mp4');
   const path = `${crypto.randomUUID()}.${ext}`;
   const { error } = await supabase.storage.from('exercise-videos').upload(path, file, {
     upsert: false,
@@ -434,7 +445,8 @@ export async function uploadExerciseVideo(file: File): Promise<string> {
 }
 
 export async function uploadExerciseThumbnail(file: File): Promise<string> {
-  const ext = (file.name.split('.').pop() ?? 'jpg').toLowerCase();
+  assertValidUpload(file, { kind: 'image', maxBytes: MAX_IMAGE_BYTES });
+  const ext = safeExtensionForMime(file.type, 'jpg');
   const path = `${crypto.randomUUID()}.${ext}`;
   const { error } = await supabase.storage.from('exercise-thumbnails').upload(path, file, {
     upsert: false,
