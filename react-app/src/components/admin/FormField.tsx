@@ -24,10 +24,33 @@ const baseInputStyle: React.CSSProperties = {
   boxSizing: 'border-box',
 };
 
-export function Field({ label, error, children, hint }: { label?: string; error?: string | null; children: ReactNode; hint?: string }) {
+export function Field({
+  label,
+  error,
+  children,
+  hint,
+  htmlFor,
+}: {
+  label?: string;
+  error?: string | null;
+  children: ReactNode;
+  hint?: string;
+  /** When provided, wires the <label> to the input via htmlFor and exposes
+   *  a pointer cursor to advertise that the label is genuinely clickable. */
+  htmlFor?: string;
+}) {
+  // When the label is associated with an input via htmlFor, clicking the
+  // label focuses the input - surface that affordance with a pointer cursor.
+  const labelStyleWithCursor: React.CSSProperties = htmlFor
+    ? { ...labelStyle, cursor: 'pointer' }
+    : labelStyle;
   return (
     <div style={{ marginBottom: 16 }}>
-      {label && <label style={labelStyle}>{label}</label>}
+      {label && (
+        <label htmlFor={htmlFor} style={labelStyleWithCursor}>
+          {label}
+        </label>
+      )}
       {children}
       {hint && !error && <div style={{ fontSize: 12, color: colors.dim, marginTop: 4 }}>{hint}</div>}
       {error && <div style={{ fontSize: 12, color: colors.error, marginTop: 4 }}>{error}</div>}
