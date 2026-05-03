@@ -30,8 +30,21 @@ vi.mock('../../src/lib/supabase', () => ({
   },
 }));
 
+// AdminGuard now does TWO checks AND-combined: profiles.is_admin via SELECT
+// (getCurrentUserIsAdmin) AND the is_caller_admin() RPC (isCallerAdminViaRpc).
+// The mock returns the same `nextIsAdmin` value for both, simulating a
+// consistent backend; the AdminGuard logic correctly fails the gate when
+// either disagrees.
 vi.mock('../../src/lib/adminApi', () => ({
   getCurrentUserIsAdmin: () => Promise.resolve(nextIsAdmin),
+  isCallerAdminViaRpc: () => Promise.resolve(nextIsAdmin),
+}));
+
+// ReauthModal is mounted inside the admin tree and listens for re-auth
+// prompts from sensitive RPC wrappers. For these guard tests we don't
+// exercise it, so render a no-op stub.
+vi.mock('../../src/components/admin/ReauthModal', () => ({
+  ReauthModal: () => null,
 }));
 
 // Stub out AdminLogin so we can detect it without rendering its heavy form.

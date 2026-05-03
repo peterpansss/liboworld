@@ -6,6 +6,7 @@
  *
  * This is the unit test that pins down the rendering contract.
  */
+import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { render } from '@testing-library/react';
 import { safeUrl } from '../../src/utils/safeUrl';
