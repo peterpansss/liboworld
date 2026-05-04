@@ -27,11 +27,42 @@
  * Visual reference: LMCT+ checkout modal (lmctgiveaway.com/muscle-orcash
  * → click any package → modal opens).
  */
-import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import type { Appearance, StripeElementsOptions } from '@stripe/stripe-js';
 import { colors } from '../../theme';
 import { getStripe, isStripeConfigured } from '../../lib/stripe';
+
+// Inline sr-only style — visually hidden, still announced by screen readers.
+const srOnly: React.CSSProperties = {
+  position: 'absolute',
+  width: 1,
+  height: 1,
+  overflow: 'hidden',
+  clip: 'rect(0,0,0,0)',
+  whiteSpace: 'nowrap',
+};
+
+const FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled]):not([type="hidden"])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',');
+
+function getFocusable(root: HTMLElement): HTMLElement[] {
+  return Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter((el) => {
+    if (el.getAttribute('aria-hidden') === 'true') return false;
+    // Skip elements explicitly hidden via `display: none` / inline `hidden`.
+    // We deliberately do NOT use `offsetParent === null` because jsdom
+    // does not compute layout and would mark every element as hidden.
+    if (el.hasAttribute('hidden')) return false;
+    if ((el as HTMLElement).style && (el as HTMLElement).style.display === 'none') return false;
+    return true;
+  });
+}
 
 export type ModalSelectedTier = {
   /** Display name e.g. "BRONZE" */
@@ -140,8 +171,15 @@ export default function FunnelCheckoutModal({
     phone?: string;
   }>({});
 
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  // Element to restore focus to when the modal closes — captured on open.
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
   const stripeMode = !!createIntent && isStripeConfigured();
   const stripePromise = useMemo(() => (stripeMode ? getStripe() : null), [stripeMode]);
+
+  const isDirty = !!(fullName || email || phone || card);
+  const isDone = state === 'success' || state === 'duplicate';
 
   // Reset on close
   useEffect(() => {
@@ -161,7 +199,7 @@ export default function FunnelCheckoutModal({
     }
   }, [open]);
 
-  // Esc to close
+  // Esc to close (always allowed — same convention as native <dialog>).
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -175,9 +213,67 @@ export default function FunnelCheckoutModal({
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  if (!open || !selected) return null;
+  // Focus management:
+  //  - on open: capture the currently-focused element (the trigger), then
+  //    move focus into the dialog (first focusable element).
+  //  - on close: restore focus to the trigger.
+  useEffect(() => {
+    if (!open) return;
+    previousFocusRef.current = (document.activeElement as HTMLElement | null) ?? null;
+    // Defer until after the dialog content has rendered.
+    const t = setTimeout(() => {
+      const root = dialogRef.current;
+      if (!root) return;
+      const focusables = getFocusable(root);
+      // Prefer the first input/select/textarea over the close button.
+      const firstField = focusables.find((el) =>
+        el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA',
+      );
+      (firstField ?? focusables[0] ?? root).focus();
+    }, 0);
+    return () => {
+      clearTimeout(t);
+      const prev = previousFocusRef.current;
+      if (prev && typeof prev.focus === 'function') {
+        // Defer so this runs after the dialog is fully torn down.
+        setTimeout(() => prev.focus(), 0);
+      }
+    };
+  }, [open]);
 
-  const isDone = state === 'success' || state === 'duplicate';
+  // Focus trap: cycle Tab / Shift+Tab so focus never escapes the dialog.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const root = dialogRef.current;
+      if (!root) return;
+      const focusables = getFocusable(root);
+      if (focusables.length === 0) {
+        e.preventDefault();
+        root.focus();
+        return;
+      }
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey) {
+        if (active === first || !root.contains(active)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (active === last || !root.contains(active)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  if (!open || !selected) return null;
 
   // Accessible name for the dialog. The header only renders the brand
   // wordmark image (`alt="Libo"`), so without an explicit title element
@@ -192,6 +288,21 @@ export default function FunnelCheckoutModal({
     ? copy.step1Label
     : copy.step2Label;
   const dialogTitle = `Checkout — ${stepTitle}`;
+
+  // Overlay click handler. Closing should NOT silently discard mid-form data,
+  // but the success state and a clean form may close without confirmation.
+  function handleOverlayClick() {
+    if (isDone || !isDirty) {
+      onClose();
+      return;
+    }
+    if (typeof window !== 'undefined' && typeof window.confirm === 'function') {
+      const ok = window.confirm('Discard your information and close this checkout?');
+      if (ok) onClose();
+      return;
+    }
+    onClose();
+  }
 
   async function handleStep1(e: FormEvent) {
     e.preventDefault();
@@ -309,12 +420,18 @@ export default function FunnelCheckoutModal({
     cursor: 'pointer',
     fontSize: 14,
     lineHeight: 1,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 0,
   };
 
   const stepRow: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     padding: '20px 24px 18px',
+    margin: 0,
+    listStyle: 'none',
     borderBottom: '1px solid ' + colors.border,
     gap: 16,
   };
@@ -450,24 +567,11 @@ export default function FunnelCheckoutModal({
   };
 
   return (
-    <div role="dialog" aria-modal="true" aria-labelledby="funnel-modal-title" onClick={onClose} style={overlay}>
-      <div onClick={(e) => e.stopPropagation()} style={modal}>
+    <div role="dialog" aria-modal="true" aria-labelledby="funnel-modal-title" onClick={handleOverlayClick} style={overlay}>
+      <div ref={dialogRef} tabIndex={-1} onClick={(e) => e.stopPropagation()} style={modal}>
         {/* Visually-hidden accessible name for the dialog. Anchors the
             aria-labelledby above so screen readers announce a real title. */}
-        <h2
-          id="funnel-modal-title"
-          style={{
-            position: 'absolute',
-            width: 1,
-            height: 1,
-            padding: 0,
-            margin: -1,
-            overflow: 'hidden',
-            clip: 'rect(0, 0, 0, 0)',
-            whiteSpace: 'nowrap',
-            border: 0,
-          }}
-        >
+        <h2 id="funnel-modal-title" style={srOnly}>
           {dialogTitle}
         </h2>
         {/* HEADER */}
@@ -477,28 +581,58 @@ export default function FunnelCheckoutModal({
             alt="Libo"
             style={{ height: 22, opacity: 0.95 }}
           />
-          <button type="button" onClick={onClose} aria-label="Close" style={closeBtn}>×</button>
+          <button type="button" onClick={onClose} aria-label="Close" style={closeBtn}>
+            {/* SVG x-glyph keeps the visual mark but is hidden from AT —
+                the button's aria-label="Close" is what gets announced. */}
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              style={{ display: 'block' }}
+            >
+              <path
+                d="M2 2 L10 10 M10 2 L2 10"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
         </div>
 
         {!isDone && (
           <>
             {/* STEP INDICATOR */}
-            <div style={stepRow}>
-              <div style={stepCellStyle(step === 1)}>
-                <span style={stepNumStyle(step === 1)}>1</span>
+            <ol style={stepRow} aria-label="Checkout steps">
+              <li
+                style={stepCellStyle(step === 1)}
+                aria-current={step === 1 ? 'step' : undefined}
+              >
+                <span style={stepNumStyle(step === 1)} aria-hidden="true">1</span>
                 <div>
-                  <div style={stepLabelTitle}>{copy.step1Label}</div>
+                  <div style={stepLabelTitle}>
+                    <span style={srOnly}>Step 1 of 2: </span>
+                    {copy.step1Label}
+                  </div>
                   <div style={stepLabelSub}>{copy.step1Subtitle}</div>
                 </div>
-              </div>
-              <div style={stepCellStyle(step === 2)}>
-                <span style={stepNumStyle(step === 2)}>2</span>
+              </li>
+              <li
+                style={stepCellStyle(step === 2)}
+                aria-current={step === 2 ? 'step' : undefined}
+              >
+                <span style={stepNumStyle(step === 2)} aria-hidden="true">2</span>
                 <div>
-                  <div style={stepLabelTitle}>{copy.step2Label}</div>
+                  <div style={stepLabelTitle}>
+                    <span style={srOnly}>Step 2 of 2: </span>
+                    {copy.step2Label}
+                  </div>
                   <div style={stepLabelSub}>{copy.step2Subtitle}</div>
                 </div>
-              </div>
-            </div>
+              </li>
+            </ol>
 
             {/* BODY */}
             <div style={body}>
@@ -514,7 +648,7 @@ export default function FunnelCheckoutModal({
                   <input
                     id="fm-name"
                     type="text"
-                    autoFocus
+                    required
                     autoComplete="name"
                     aria-invalid={fieldErrors.fullName ? 'true' : undefined}
                     aria-describedby={fieldErrors.fullName ? 'fm-name-err' : undefined}
@@ -538,6 +672,7 @@ export default function FunnelCheckoutModal({
                   <input
                     id="fm-email"
                     type="email"
+                    required
                     autoComplete="email"
                     aria-invalid={fieldErrors.email ? 'true' : undefined}
                     aria-describedby={fieldErrors.email ? 'fm-email-err' : undefined}
@@ -561,6 +696,7 @@ export default function FunnelCheckoutModal({
                   <input
                     id="fm-phone"
                     type="tel"
+                    required
                     autoComplete="tel"
                     aria-invalid={fieldErrors.phone ? 'true' : undefined}
                     aria-describedby={fieldErrors.phone ? 'fm-phone-err' : undefined}
