@@ -32,3 +32,4 @@ scripts/upload.log
 *.pt
 *.onnx
 *.weights
+.claude/
