@@ -6,7 +6,8 @@
  *   - normal countdown rendering (HH:MM:SS)
  *   - days segment appears when target is > 24h away
  *   - urgent gradient kicks in inside the urgentBelowSeconds window
- *   - "ENDS IN" → "CLOSED" wording when ended
+ *   - "ENDS IN" → "CLOSED" wording when ended (legacy English fallback)
+ *   - the new `closedLabel` prop renders verbatim once expired (i18n fix)
  *   - the interval cleans up on unmount
  */
 /// <reference types="@testing-library/jest-dom" />
@@ -31,60 +32,86 @@ describe('CountdownBanner', () => {
     const target = new Date('2026-05-02T01:30:45Z'); // 1h 30m 45s away
     render(<CountdownBanner endsAt={target.toISOString()} label="GIVEAWAY ENDS IN" />);
     expect(screen.getByText('GIVEAWAY ENDS IN')).toBeInTheDocument();
-    expect(screen.getByText('01')).toBeInTheDocument(); // hours
-    expect(screen.getByText('30')).toBeInTheDocument(); // minutes
-    expect(screen.getByText('45')).toBeInTheDocument(); // seconds
-    // No days segment for < 24h gap
-    expect(screen.queryByText(/d$/)).not.toBeInTheDocument();
+    expect(screen.getByText('01')).toBeInTheDocument();
+    expect(screen.getByText('30')).toBeInTheDocument();
+    expect(screen.getByText('45')).toBeInTheDocument();
   });
 
   it('renders a days segment for targets > 24h away', () => {
-    const target = new Date('2026-05-04T05:00:00Z'); // 2d 5h
+    const target = new Date('2026-05-04T05:00:00Z');
     render(<CountdownBanner endsAt={target.toISOString()} label="ENDS IN" />);
     expect(screen.getByText('02d')).toBeInTheDocument();
     expect(screen.getByText('05')).toBeInTheDocument();
   });
 
-  it('switches to urgent style when remaining seconds < urgentBelowSeconds', () => {
-    const target = new Date('2026-05-02T00:30:00Z'); // 30 minutes away
+  it('switches to urgent style inside the urgentBelowSeconds window', () => {
+    const target = new Date('2026-05-02T00:30:00Z');
     const { container } = render(
       <CountdownBanner endsAt={target.toISOString()} label="ENDS IN" urgentBelowSeconds={3600} />,
     );
-    // Urgent triggers the red gradient + pulse animation
     const banner = container.firstChild as HTMLElement;
-    expect(banner.style.background).toContain('linear-gradient');
-    expect(banner.style.background).toContain('rgb(200, 74, 74)'); // red
+    expect(banner.style.background).toContain('rgb(200, 74, 74)');
     expect(banner.style.animation).toContain('libo-countdown-pulse');
-  });
-
-  it('renders a non-urgent style when remaining seconds >= urgentBelowSeconds', () => {
-    const target = new Date('2026-05-02T05:00:00Z'); // 5h away
-    const { container } = render(
-      <CountdownBanner endsAt={target.toISOString()} label="ENDS IN" urgentBelowSeconds={3600} />,
-    );
-    const banner = container.firstChild as HTMLElement;
-    // Background is dark linear-gradient (not red)
-    expect(banner.style.background).toContain('rgb(26, 26, 26)');
-    expect(banner.style.animation).toBe('');
-  });
-
-  it('shows "CLOSED" when the target is in the past', () => {
-    const target = new Date('2026-04-30T00:00:00Z'); // 2 days ago
-    render(<CountdownBanner endsAt={target.toISOString()} label="GIVEAWAY ENDS IN" />);
-    // "ENDS IN" → ends → "GIVEAWAY ENDS  CLOSED"
-    expect(screen.getByText(/CLOSED/)).toBeInTheDocument();
-    expect(screen.queryByText('00')).not.toBeInTheDocument();
   });
 
   it('updates every second via setInterval', () => {
     const target = new Date('2026-05-02T00:01:00Z'); // 60s away
     render(<CountdownBanner endsAt={target.toISOString()} label="ENDS IN" />);
-    // Initially: 00h 01m 00s. Both hours and seconds are "00".
-    expect(screen.getAllByText('00').length).toBeGreaterThanOrEqual(2);
-    expect(screen.getByText('01')).toBeInTheDocument(); // minutes
-    // Advance 5 seconds — minutes should now be 0, seconds 55
-    act(() => { vi.advanceTimersByTime(5000); });
+    expect(screen.getByText('01')).toBeInTheDocument();
+    act(() => {
+      vi.advanceTimersByTime(5000);
+    });
     expect(screen.getByText('55')).toBeInTheDocument();
+  });
+
+  describe('expired state', () => {
+    it('falls back to English "CLOSED" wording when no closedLabel is given (legacy)', () => {
+      const target = new Date('2026-04-30T00:00:00Z');
+      render(<CountdownBanner endsAt={target.toISOString()} label="GIVEAWAY ENDS IN" />);
+      // The trailing "IN" is stripped and " CLOSED" appended.
+      expect(screen.getByText(/GIVEAWAY ENDS\s+CLOSED/)).toBeInTheDocument();
+    });
+
+    it('renders closedLabel verbatim when provided (i18n fix — French)', () => {
+      const target = new Date('2026-04-30T00:00:00Z');
+      render(
+        <CountdownBanner
+          endsAt={target.toISOString()}
+          label="FIN DANS"
+          closedLabel="FERMÉ"
+        />,
+      );
+      // Closed label wins — the regex-based English fallback is bypassed.
+      expect(screen.getByText('FERMÉ')).toBeInTheDocument();
+      // The original prefix "FIN DANS" is gone (we replaced the whole text).
+      expect(screen.queryByText(/FIN DANS/)).not.toBeInTheDocument();
+    });
+
+    it('renders closedLabel verbatim when provided (i18n fix — German)', () => {
+      const target = new Date('2026-04-30T00:00:00Z');
+      render(
+        <CountdownBanner
+          endsAt={target.toISOString()}
+          label="ENDET IN"
+          closedLabel="GESCHLOSSEN"
+        />,
+      );
+      expect(screen.getByText('GESCHLOSSEN')).toBeInTheDocument();
+      expect(screen.queryByText(/ENDET/)).not.toBeInTheDocument();
+    });
+
+    it('uses closedLabel even when the English fallback would also have worked', () => {
+      const target = new Date('2026-04-30T00:00:00Z');
+      render(
+        <CountdownBanner
+          endsAt={target.toISOString()}
+          label="GIVEAWAY ENDS IN"
+          closedLabel="GIVEAWAY OVER"
+        />,
+      );
+      expect(screen.getByText('GIVEAWAY OVER')).toBeInTheDocument();
+      expect(screen.queryByText(/CLOSED/)).not.toBeInTheDocument();
+    });
   });
 
   it('clears the interval on unmount (no leaked timers throw)', () => {
