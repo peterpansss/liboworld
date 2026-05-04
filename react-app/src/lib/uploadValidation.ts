@@ -84,13 +84,13 @@ export function validateUpload(
     return { ok: false, error: 'File name contains invalid characters.' };
   }
 
-  const allowed =
+  const allowed: readonly string[] =
     options.kind === 'image' ? IMAGE_MIME_TYPES : VIDEO_MIME_TYPES;
   const type = (file.type ?? '').toLowerCase();
   if (!type) {
     return { ok: false, error: 'Could not determine file type.' };
   }
-  if (!allowed.includes(type as (typeof allowed)[number])) {
+  if (!allowed.includes(type)) {
     return {
       ok: false,
       error: `Type ${type} is not allowed. Use one of: ${allowed.join(', ')}.`,

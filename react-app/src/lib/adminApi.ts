@@ -1020,7 +1020,6 @@ export function validatePasswordPolicy(password: string): PasswordPolicyResult {
 
 const REAUTH_VALIDITY_MS = 30 * 60 * 1000;
 let lastReauthAt: number | null = null;
-let pendingReauthPrompt: ((password: string | null) => void) | null = null;
 
 /**
  * The React layer registers a callback that will SHOW a password prompt
@@ -1029,19 +1028,14 @@ let pendingReauthPrompt: ((password: string | null) => void) | null = null;
  */
 export function registerReauthPrompt(prompt: (resolve: (password: string | null) => void) => void): () => void {
   // The prompt callback receives a `resolve` it must invoke with either
-  // the entered password or null (cancelled).
-  pendingReauthPrompt = (password) => {
-    void password;  // see below
-  };
-  // Wrap the registered prompt so requireRecentAuth() can await it.
+  // the entered password or null (cancelled). requireRecentAuth() awaits
+  // the prompt via reauthPromptHandler below.
   const adapted = (resolve: (password: string | null) => void) => {
-    pendingReauthPrompt = resolve;
     prompt(resolve);
   };
   // Stash the adapted version where requireRecentAuth() reaches it.
   reauthPromptHandler = adapted;
   return () => {
-    pendingReauthPrompt = null;
     reauthPromptHandler = null;
   };
 }
@@ -1163,7 +1157,12 @@ export async function confirmTotpEnrolment(factorId: string, code: string): Prom
   });
   if (verifyErr) throw verifyErr;
   // Stamp the profile so admin layout knows the user satisfies the policy.
-  await supabase.rpc('confirm_my_mfa_enrolment').catch(() => {});
+  // Best-effort: a failure here doesn't undo the verified factor.
+  try {
+    await supabase.rpc('confirm_my_mfa_enrolment');
+  } catch {
+    // Intentionally swallowed.
+  }
 }
 
 export type AdminMfaStatus = {

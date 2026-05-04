@@ -32,7 +32,7 @@ jobs:
       #   - VITE_STRIPE_PUBLISHABLE_KEY (optional — pk_live_… or pk_test_…)
       #   - VITE_STRIPE_PRICE_ENTRY / _SILVER / _GOLD / _PREMIUM (optional)
       - name: Build React app
-        run: npx vite build
+        run: npm run build
         working-directory: react-app
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
