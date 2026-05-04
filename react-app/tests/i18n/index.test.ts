@@ -72,16 +72,19 @@ describe('i18n initialization', () => {
     expect(i18n.t('nope.this.key.does.not.exist')).toBe('nope.this.key.does.not.exist');
   });
 
-  it('falls back to en when the active locale lacks a key (giveawayFunnel.headline1)', async () => {
+  it('falls back to en when the active locale lacks a key', async () => {
     const { default: i18n } = await import('../../src/i18n/index');
-    // de.json is missing giveawayFunnel.headline1 but en.json has it.
-    // With fallbackLng: 'en' the t() call should serve the English copy
-    // rather than leaking the raw key into the UI.
+    // Inject an en-only key, then assert that switching to de still serves
+    // the English copy (rather than leaking the raw key into the UI).
+    // Using a synthetic key keeps this independent of which translations
+    // happen to exist in the de bundle today.
+    const syntheticKey = '__test_only_en_key__';
+    const expected = 'English-only fallback value';
+    i18n.addResource('en', 'translation', syntheticKey, expected);
+    // Make sure de does NOT have it.
+    i18n.removeResourceBundle('de', '__test_only_ns__');
     await i18n.changeLanguage('de');
-    const enValue = i18n.getResource('en', 'translation', 'giveawayFunnel.headline1');
-    if (typeof enValue === 'string') {
-      expect(i18n.t('giveawayFunnel.headline1')).toBe(enValue);
-    }
+    expect(i18n.t(syntheticKey)).toBe(expected);
     await i18n.changeLanguage('en');
   });
 });
