@@ -189,6 +189,8 @@ export async function fetchUserPointsLedger(userId: string, limit = 50): Promise
   return (data ?? []) as PointsLedgerRow[];
 }
 
+/** @deprecated UI callers must use {@link grantTicketsWithReauth} so the
+ *  re-auth gate fires. Retained only for unit tests that assert RPC shape. */
 export async function grantTickets(userId: string, amount: number, note?: string) {
   const { data, error } = await supabase.rpc('admin_grant_tickets', {
     p_user_id: userId,
@@ -199,6 +201,8 @@ export async function grantTickets(userId: string, amount: number, note?: string
   if (!(data as { ok: boolean }).ok) throw new Error((data as { error: string }).error);
 }
 
+/** @deprecated UI callers must use {@link adjustPointsWithReauth} so the
+ *  re-auth gate fires. Retained only for unit tests that assert RPC shape. */
 export async function adjustPoints(userId: string, amount: number, note?: string) {
   const { data, error } = await supabase.rpc('admin_adjust_points', {
     p_user_id: userId,
@@ -209,6 +213,8 @@ export async function adjustPoints(userId: string, amount: number, note?: string
   if (!(data as { ok: boolean }).ok) throw new Error((data as { error: string }).error);
 }
 
+/** @deprecated UI callers must use {@link setSubscriptionTierWithReauth} so
+ *  the re-auth gate fires. Retained only for unit tests that assert RPC shape. */
 export async function setSubscriptionTier(userId: string, tier: 'free' | 'pro' | 'elite', expiresAt?: string | null) {
   const { data, error } = await supabase.rpc('admin_set_subscription_tier', {
     p_user_id: userId,
@@ -219,6 +225,8 @@ export async function setSubscriptionTier(userId: string, tier: 'free' | 'pro' |
   if (!(data as { ok: boolean }).ok) throw new Error((data as { error: string }).error);
 }
 
+/** @deprecated UI callers must use {@link setUserAdminFlagWithReauth} so the
+ *  re-auth gate fires. Retained only for unit tests that assert RPC shape. */
 export async function setUserAdminFlag(userId: string, isAdmin: boolean) {
   const { data, error } = await supabase.rpc('admin_set_user_admin_flag', {
     p_user_id: userId,
@@ -818,6 +826,8 @@ export async function listChallengePayouts(status: ChallengePayoutStatus | null 
   return (data ?? []) as ChallengePayoutRow[];
 }
 
+/** @deprecated UI callers must use {@link markPayoutPaidWithReauth} so the
+ *  re-auth gate fires. Retained only for unit tests that assert RPC shape. */
 export async function markPayoutPaid(payoutId: string, input: MarkPayoutPaidInput): Promise<void> {
   const { data, error } = await supabase.rpc('admin_mark_payout_paid', {
     p_payout_id:        payoutId,
@@ -1199,15 +1209,23 @@ export async function ensureAal2(promptCode: () => Promise<string | null>): Prom
 }
 
 // ── Wrapped sensitive admin ops ────────────────────────────────────────────
-// These re-export the same names with re-auth gating. Existing callers
-// pick up the new behaviour without any refactor in the page components.
+// PUBLIC API for sensitive admin mutations. UI callers (admin page
+// components) MUST import these *WithReauth wrappers - either directly or
+// via an `import { fooWithReauth as foo } from './adminApi'` rename - so
+// that requireRecentAuth() can challenge the operator before the mutation
+// hits the database.
 //
-// IMPORTANT: do NOT remove the original grantTickets / adjustPoints /
-// setSubscriptionTier / setUserAdminFlag / markPayoutPaid functions below
-// in this file. We cannot: the architecture agent owns refactor scope. The
-// new wrappers below SHADOW the originals via a re-export. Page components
-// already import from this module by name; TypeScript will resolve to the
-// last declared identifier, which is ours.
+// The original un-wrapped grantTickets / adjustPoints / setSubscriptionTier
+// / setUserAdminFlag / markPayoutPaid functions remain exported solely to
+// keep the existing unit tests in tests/lib/adminApi.test.ts green (they
+// exercise the RPC payload shape directly, which has nothing to do with
+// re-auth). They are marked @deprecated so a future linter pass / IDE
+// surface flags any new caller that bypasses the gate.
+//
+// Earlier revisions of this file claimed that "TypeScript resolves to the
+// last declared identifier" so callers would automatically pick up the
+// wrapped version. That is incorrect: distinct named exports do not shadow
+// each other. Callers must opt in by importing the *WithReauth name.
 
 export async function grantTicketsWithReauth(userId: string, amount: number, note?: string) {
   return withRecentAuth(() => grantTickets(userId, amount, note));

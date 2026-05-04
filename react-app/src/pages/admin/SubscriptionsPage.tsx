@@ -2,7 +2,13 @@ import { useEffect, useMemo, useState } from 'react';
 import { colors } from '../../theme';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Select, Button, TextInput } from '../../components/admin/FormField';
-import { listUsers, setSubscriptionTier, type AdminUserRow } from '../../lib/adminApi';
+import {
+  listUsers,
+  // Sensitive op: gated through requireRecentAuth() via the wrapper.
+  // See lib/adminApi.ts.
+  setSubscriptionTierWithReauth as setSubscriptionTier,
+  type AdminUserRow,
+} from '../../lib/adminApi';
 
 type Tier = 'free' | 'pro' | 'elite';
 const TIER_OPTIONS: Tier[] = ['free', 'pro', 'elite'];
