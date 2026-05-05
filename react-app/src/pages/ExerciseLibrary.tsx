@@ -142,7 +142,11 @@ export default function ExerciseLibrary() {
 
   // ── Filter logic ──
   const filtered = useMemo(() => {
-    let result = exercises;
+    // Defensive: drop any L/R bilateral child that might leak into the data file.
+    // The sync-from-excel.py script already strips children at build time, but
+    // this guard keeps the library safe if someone hand-edits libo-data.js or
+    // imports a stale exercises.json. Mirrors the mobile `onlyParents()` helper.
+    let result = exercises.filter(e => !e.parentId && !/[—–-]\s*(Left|Right)\b/i.test(e.name));
 
     if (urlSearch) {
       const q = urlSearch.toLowerCase();
@@ -232,12 +236,17 @@ export default function ExerciseLibrary() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [setSearchParams]);
 
-  // Sync URL when debounced input changes
+  // Sync URL when debounced input changes.
+  // Guard: only push when the debounce has settled to the current input —
+  // otherwise an external urlSearch clear (e.g. ActiveFilters × on the search
+  // chip) races against a stale debouncedSearch and immediately re-pushes the
+  // old query.
   useEffect(() => {
+    if (debouncedSearch !== searchInput) return;
     if (debouncedSearch !== urlSearch) {
       updateParam('q', debouncedSearch);
     }
-  }, [debouncedSearch, urlSearch, updateParam]);
+  }, [debouncedSearch, searchInput, urlSearch, updateParam]);
 
   // Sync input from URL when external nav changes it (e.g. ActiveFilters clear)
   useEffect(() => {
