@@ -343,7 +343,7 @@ export default function ExerciseLibrary() {
                     key={s}
                     className={`el-chip ${setting === s ? 'active' : ''}`}
                     aria-pressed={setting === s}
-                    onClick={() => updateParam('setting', s)}
+                    onClick={() => updateParam('setting', setting === s ? 'All' : s)}
                   >
                     {s === 'All' ? t('exerciseLibrary.muscles.all') : s}
                   </button>
@@ -358,7 +358,7 @@ export default function ExerciseLibrary() {
                     key={typ}
                     className={`el-chip ${trainingType === typ ? 'active' : ''}`}
                     aria-pressed={trainingType === typ}
-                    onClick={() => updateParam('type', typ)}
+                    onClick={() => updateParam('type', trainingType === typ ? 'All' : typ)}
                   >
                     {typ === 'All' ? t('exerciseLibrary.muscles.all') : typ}
                   </button>
@@ -373,7 +373,7 @@ export default function ExerciseLibrary() {
                     key={e}
                     className={`el-chip ${equip === e ? 'active' : ''}`}
                     aria-pressed={equip === e}
-                    onClick={() => updateParam('equip', e)}
+                    onClick={() => updateParam('equip', equip === e ? 'All' : e)}
                   >
                     {equipmentLabel(e)}
                   </button>
@@ -385,8 +385,17 @@ export default function ExerciseLibrary() {
           {/* Active filters */}
           <ActiveFilters
             filters={activeFilters}
-            onRemove={(key) => updateParam(key, key === 'q' ? '' : 'All')}
-            onClearAll={() => setSearchParams({})}
+            onRemove={(key) => {
+              // Clear searchInput synchronously alongside the URL so the
+              // debounce-sync effect sees matching state on the next render
+              // and doesn't re-push the stale query.
+              if (key === 'q') setSearchInput('');
+              updateParam(key, key === 'q' ? '' : 'All');
+            }}
+            onClearAll={() => {
+              setSearchInput('');
+              setSearchParams({});
+            }}
           />
 
           {/* Results count */}
