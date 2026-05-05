@@ -7,6 +7,14 @@
  *   - Elite:   €19.99/mo or €149/yr (37% off), 3 freeze tokens, 3x points, €100 pools
  * Both paid tiers: 7-day free trial.
  *
+ * Tier-by-feature policy (PARTNERSHIP-FINANCE-MODEL.md, Y1):
+ *   - Cash challenges run on ALL tiers; stakes scale by tier
+ *     (Free €5–15 / Premium €15–50 / Elite €50–250+).
+ *   - Common product giveaways: all tiers.
+ *   - Premium + Special giveaways (e.g. iPhone-class items): Premium AND Elite.
+ *   - "Elite-exclusive" framing is reserved for genuinely rare campaigns
+ *     (€5k+, experiences) — not the Premium-class items.
+ *
  * Source of truth for numbers: Brand-Management/Project-Structure/TIER-STRATEGY.md
  * and libo-app-v2/src/constants/tierFeatures.ts. These values are duplicated
  * here because the landing builds in isolation (no monorepo import possible).
@@ -57,7 +65,8 @@ const TIERS: Tier[] = [
       'Reps & kg tracking',
       'Basic progress charts',
       'Rewards program (1× points)',
-      'Public money challenges (€15–25 pools)',
+      'Common product giveaways',
+      'Cash challenges (€5–15 stakes)',
     ],
     cta: 'Get started',
     href: '/onboarding',
@@ -80,7 +89,8 @@ const TIERS: Tier[] = [
       'Advanced analytics',
       '2× rewards points',
       '1 freeze token per challenge cycle',
-      'Access to €50 Premium prize pools',
+      'Premium giveaways + Special prize draws (e.g. iPhone-class items)',
+      'Cash challenges (€15–50 stakes)',
     ],
     cta: `Start ${TRIAL_DAYS}-day free trial`,
     href: '/onboarding?tier=premium',
@@ -100,8 +110,8 @@ const TIERS: Tier[] = [
       'Exclusive seasonal workouts',
       '3× rewards points',
       '3 freeze tokens per challenge cycle',
-      'Access to €100 Elite-only prize pools',
-      'Real-money giveaways',
+      'Highest cash-challenge stakes (€50–250+)',
+      'Priority on rare Elite-exclusive campaigns',
       'Creator perks',
       'Early access to new features',
     ],

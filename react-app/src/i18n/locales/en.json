@@ -196,7 +196,7 @@
     "headline": "Frequently\nasked.",
     "description": "Everything you need to know about Libo before you join.",
     "q1": "Is Libo free?",
-    "a1": "Libo offers a free tier with access to workouts, exercises, and basic tracking. Pro unlocks premium programs, advanced analytics, and money challenges.",
+    "a1": "Libo offers a free tier with access to workouts, exercises, basic tracking, common product giveaways, and entry-level cash challenges. Premium and Elite unlock the full library, advanced analytics, larger cash-challenge stakes, and Premium / Special prize giveaways.",
     "q2": "What equipment do I need?",
     "a2": "None — or everything. Libo has 295 home exercises (most need no equipment), 313 gym exercises, and 33 mobility moves. Filter by what you have available.",
     "q3": "How do the money challenges work?",
@@ -793,7 +793,7 @@
     "faqTitle": "Any questions?",
     "faq": {
       "q1": "Is this giveaway open in my country?",
-      "a1": "Available globally where local sweepstakes laws allow paid-entry promotions. The free entry path (download the app + complete a workout) is open everywhere.",
+      "a1": "Available globally except where prohibited by local law. The following jurisdictions are excluded from paid-entry promotions at launch: Quebec, Brazil, mainland China, and OFAC / EU / UN sanctioned regions. The free in-app entry path (download Libo + complete a workout to earn points) is open in every other jurisdiction. Minimum entry age varies by giveaway type — see Terms (Section 3).",
       "q2": "Is this an ongoing payment?",
       "a2": "No. Every package is a single one-time payment. No subscriptions, no recurring charges. You buy entries, you're in, that's it.",
       "q3": "Do I receive entries instantly?",
@@ -840,8 +840,8 @@
     "modalSuccessBody": "Your entries are credited and a confirmation is on its way to your email. Download the Libo app and log in with the same email — your entries are waiting.",
     "modalDuplicateTitle": "Already on the list",
     "modalDuplicateBody": "We've got your details for this tier. Check your inbox for your confirmation, or pick a different package to add more entries.",
-    "modalLegal": "By clicking enter you agree to Libo's Terms and Privacy Policy. Premium trial included with this package automatically continues at €9.99/mo after trial — cancel anytime in the app. No purchase necessary — see Terms for the free-entry path. Open to entrants 18+.",
-    "disclaimer": "No purchase necessary. Free entry available via the Libo app — see Terms. Void where prohibited. Open to entrants 18+. Libo is the sole sponsor; Apple, Google, Instagram, and any partner brands are not affiliated with this giveaway."
+    "modalLegal": "By clicking enter you agree to Libo's Terms and Privacy Policy. Premium trial included with this package automatically continues at €9.99/mo after trial — cancel anytime in the app. No purchase necessary — see Terms for the free-entry path. Minimum age varies by giveaway type — see Terms (Section 3). Cash payouts require winners to be 18+ or a parent-linked payout account.",
+    "disclaimer": "No purchase necessary. Free entry available via the Libo app — see Terms. Void where prohibited by local law. Pre-launch geo-block list: Quebec, Brazil, mainland China, OFAC-sanctioned regions. Minimum entry age varies by giveaway type (13+ for Common product giveaways with parental consent under 16; 16+ for Premium and Special giveaways) — see Terms. Cash payouts require winners to be 18+ or to provide a parent-linked verified payment account. Libo is the sole sponsor; Apple, Google, Instagram, and any partner brands are not affiliated with this giveaway."
   },
   "cashChallengeFunnel": {
     "seoTitle": "Get Paid €250 to Work Out · Libo Cash Challenge",
@@ -924,7 +924,7 @@
       "q3": "What happens if I miss a day?",
       "a3": "Free tier: one miss and you're out for that cycle. Pro: 1 freeze token covers 1 missed day, end date pushes by +1. Elite: up to 3 freeze tokens.",
       "q4": "When do I get paid?",
-      "a4": "Within 48 hours of completing your 30th active day. Payout is to the linked account on file — Stripe / SEPA / PayPal depending on region.",
+      "a4": "Within 14 days of completing your 30th active day, after identity and anti-fraud checks pass. Payout is to the linked account on file — Stripe / SEPA / Wise depending on region. Payout providers require winners to be 18+; if you're 16–17, you can use a parent-linked verified payment account, otherwise the reward is converted to equivalent in-app credit (extra tickets or a Premium month) within 14 days.",
       "q5": "Can I enter multiple tiers at once?",
       "a5": "No — one active enrollment at a time. You can enroll in the next cycle's tier once your current one ends.",
       "q6": "Why limited spots?",
@@ -944,6 +944,6 @@
       "googlePlaySmall": "Get it on",
       "closeLabel": "Close"
     },
-    "disclaimer": "Cash challenge participation requires a Libo account and (for Pro/Elite tiers) an active subscription. Payouts are subject to identity verification. See full Terms for eligibility, payout schedule, and tax responsibilities by region."
+    "disclaimer": "Cash challenge entry is open to all tiers (Free, Premium, Elite) for users aged 16 and over. Stake size varies by tier (Free €5–15 / Premium €15–50 / Elite €50–250+). Cash payouts via Stripe / Wise / SEPA require winners to be 18 or over; winners aged 16–17 may use a parent-linked verified payment account, otherwise the prize is converted to in-app credit (extra tickets or a Premium month). Void where prohibited by local law — see Terms (Section 16) for the launch-time geo-block list. All payouts are subject to identity verification."
   }
 }
