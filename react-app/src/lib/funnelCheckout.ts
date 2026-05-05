@@ -11,13 +11,14 @@ import type { FunnelKind, FunnelTierSlug } from './funnelSignups';
  * Function which:
  *   1. Creates / finds Stripe Customer by email
  *   2. Creates Stripe PaymentIntent for the package amount
- *   3. Sets up the Premium subscription with tier-scaled trial
- *   4. Inserts pending row into `funnel_signups` with stripe refs
- *   5. Returns { client_secret, payment_intent_id, funnel_signup_id }
+ *      (one-time, mode='payment' — no Subscription, no trial)
+ *   3. Inserts pending row into `funnel_signups` with stripe refs
+ *   4. Returns { client_secret, payment_intent_id, funnel_signup_id }
  *
- * The frontend then calls `stripe.confirmCardPayment(client_secret, ...)`
- * with the user's CardElement. On success, the webhook handler
- * (stripe_webhook Edge Function) credits the entries + points.
+ * The frontend then calls `stripe.confirmPayment(client_secret, ...)`
+ * with the PaymentElement. On success, the webhook handler
+ * (stripe_webhook Edge Function) credits the entries + points only —
+ * no subscription / trial setup.
  */
 
 export type CreatePaymentIntentInput = {

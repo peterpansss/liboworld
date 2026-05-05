@@ -699,31 +699,27 @@
     "emailPlaceholder": "your@email.com",
     "entriesLabel": "Free Bonus Entries",
     "amoeLine": "No purchase necessary — download Libo and complete a workout for 1 free entry. See Terms.",
-    "eligibilityLine": "Open to everyone — new visitors, Free users, Pro and Elite subscribers. Entries from each package stack onto your Libo account.",
-    "premiumDisclosure": "New buyers get a Premium trial that auto-continues at €9.99/mo after the trial ends — cancel anytime in the Libo app. Existing Pro/Elite subscribers skip the trial entirely — your subscription is untouched, only the entries and bonus points are added.",
+    "eligibilityLine": "Open to everyone — new visitors, Free users, Premium and Elite subscribers. Entries from each package stack onto your Libo account.",
     "inclusionsShow": "Click to view full inclusions",
     "inclusionsHide": "Hide full inclusions",
     "inclusions": {
       "entry": [
         "1 free entry into the iPhone 17 Pro giveaway",
         "100 bonus points (= 1 future ticket at 100:1)",
-        "7-day Premium trial — full library, 2× points, custom builder",
-        "Auto-renews at €9.99/mo after trial · cancel anytime"
+        "One-time purchase · no subscription, no auto-renewal"
       ],
       "silver": [
         "8 free entries into the iPhone 17 Pro giveaway",
         "800 bonus points (= 8 future tickets)",
-        "14-day Premium trial — full library, 2× points, AI builder",
-        "Auto-renews at €9.99/mo after trial · cancel anytime",
-        "Priority entry to next month's giveaway reveal"
+        "Priority entry to next month's giveaway reveal",
+        "One-time purchase · no subscription, no auto-renewal"
       ],
       "gold": [
         "30 free entries into the iPhone 17 Pro giveaway",
         "3,000 bonus points (= 30 future tickets)",
-        "30-day Premium trial — full library, 2× points, AI builder, advanced analytics",
-        "Auto-renews at €9.99/mo after trial · cancel anytime",
         "Priority entry to next month's giveaway reveal",
-        "First-look access to upcoming prize reveals"
+        "First-look access to upcoming prize reveals",
+        "One-time purchase · no subscription, no auto-renewal"
       ]
     },
     "badges": {
@@ -734,29 +730,26 @@
       "entry": {
         "name": "Entry",
         "price": "€5",
-        "priceSubline": "+ Premium auto-renews after trial",
+        "priceSubline": "One-time · no subscription",
         "entries": "1",
         "points": "100",
-        "trial": "7d",
-        "heroSummary": "1 free entry + 100 bonus points + 7-day Premium trial. Premium then auto-renews at €9.99/mo — cancel anytime in the Libo app."
+        "heroSummary": "1 free entry + 100 bonus points. Single one-time payment — no subscription, no recurring charges."
       },
       "silver": {
         "name": "Silver",
         "price": "€25",
-        "priceSubline": "+ Premium auto-renews after trial",
+        "priceSubline": "One-time · no subscription",
         "entries": "8",
         "points": "800",
-        "trial": "14d",
-        "heroSummary": "8 free entries + 800 bonus points + 14-day Premium trial. Premium then auto-renews at €9.99/mo — cancel anytime in the Libo app."
+        "heroSummary": "8 free entries + 800 bonus points. Single one-time payment — no subscription, no recurring charges."
       },
       "gold": {
         "name": "Gold",
         "price": "€75",
-        "priceSubline": "+ Premium auto-renews after trial",
+        "priceSubline": "One-time · no subscription",
         "entries": "30",
         "points": "3,000",
-        "trial": "30d",
-        "heroSummary": "30 free entries + 3,000 bonus points + 30-day Premium trial. Premium then auto-renews at €9.99/mo — cancel anytime in the Libo app."
+        "heroSummary": "30 free entries + 3,000 bonus points. Single one-time payment — no subscription, no recurring charges."
       }
     },
     "trust1": "Secure & Trusted",
@@ -802,12 +795,12 @@
       "a4": "Your choice. We ship the iPhone 17 Pro to you, or wire the €1,200 cash equivalent — whichever you prefer. Decision is yours after the draw.",
       "q5": "Is the prize tax free?",
       "a5": "Libo pays out the full prize with no tax withheld. Your personal tax obligations depend on your country of residence — please check local rules.",
-      "q6": "What happens to the Premium trial after it ends?",
-      "a6": "It auto-continues at €9.99/mo so you don't lose access mid-workout. Cancel anytime in the Libo app — settings → manage subscription. Cancel before the trial ends and you're charged nothing. We'll email you 3 days before the trial ends as a reminder.",
+      "q6": "Do I get any Premium access with this?",
+      "a6": "No. The package is purely entries + bonus points. Premium (full library, 2× points, AI builder) is a separate subscription you can start anytime in the Libo app — it's not bundled here, so there's nothing to cancel later.",
       "q7": "Where can I watch the live draw?",
       "a7": "Libo's Instagram (@liboworld) and TikTok (@libo.world). The full draw is archived for replay. You don't need to watch live — winners are contacted directly via the email tied to their entries within 24 hours.",
-      "q8": "I'm already a Pro / Elite subscriber — what happens?",
-      "a8": "You keep your existing subscription, untouched. The package's Premium trial is skipped — we just credit the entries and bonus points to your Libo account. No double-charge, no plan downgrade. Buy as many packages as you want; they all stack.",
+      "q8": "I'm already a Premium / Elite subscriber — what happens?",
+      "a8": "You keep your existing subscription, untouched. We just credit the entries and bonus points to your Libo account. No double-charge, no plan downgrade. Buy as many packages as you want; they all stack.",
       "q9": "Can I buy multiple packages? Do entries stack?",
       "a9": "Yes — every package adds to whatever's already on your account. Buy Entry today and Gold next week and you've got 31 entries total, plus 3,100 bonus points. We use the email you give us to find your existing account or create a new one.",
       "q10": "Do I need a Libo account before buying?",
@@ -840,7 +833,7 @@
     "modalSuccessBody": "Your entries are credited and a confirmation is on its way to your email. Download the Libo app and log in with the same email — your entries are waiting.",
     "modalDuplicateTitle": "Already on the list",
     "modalDuplicateBody": "We've got your details for this tier. Check your inbox for your confirmation, or pick a different package to add more entries.",
-    "modalLegal": "By clicking enter you agree to Libo's Terms and Privacy Policy. Premium trial included with this package automatically continues at €9.99/mo after trial — cancel anytime in the app. No purchase necessary — see Terms for the free-entry path. Minimum age varies by giveaway type — see Terms (Section 3). Cash payouts require winners to be 18+ or a parent-linked payout account.",
+    "modalLegal": "By clicking enter you agree to Libo's Terms and Privacy Policy. This is a one-time purchase — no subscription is created and nothing renews. No purchase necessary — see Terms for the free-entry path. Minimum age varies by giveaway type — see Terms (Section 3). Cash payouts require winners to be 18+ or a parent-linked payout account.",
     "disclaimer": "No purchase necessary. Free entry available via the Libo app — see Terms. Void where prohibited by local law. Pre-launch geo-block list: Quebec, Brazil, mainland China, OFAC-sanctioned regions. Minimum entry age varies by giveaway type (13+ for Common product giveaways with parental consent under 16; 16+ for Premium and Special giveaways) — see Terms. Cash payouts require winners to be 18+ or to provide a parent-linked verified payment account. Libo is the sole sponsor; Apple, Google, Instagram, and any partner brands are not affiliated with this giveaway."
   },
   "cashChallengeFunnel": {
