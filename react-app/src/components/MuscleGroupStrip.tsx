@@ -62,6 +62,7 @@ export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Grou
               key={muscle}
               to={`/exercises?muscle=${encodeURIComponent(muscle)}`}
               className={`mgs__item ${isActive ? 'mgs__item--active' : ''}`}
+              aria-current={isActive ? 'true' : undefined}
             >
               <div className="mgs__tile">
                 {preview ? (
