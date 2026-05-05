@@ -66,7 +66,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Flat bench with dumbbell rack nearby. Start with dumbbells on thighs, kick up to pressing position. Retract shoulder blades.",
-    "videoUrl": "https://videos.liboworld.com/exercises/flat_dumbbell_bench_press.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/flat_dumbbell_bench_press.mp4?v=3"
   },
   {
     "id": "incline_dumbbell_bench_press",
@@ -83,7 +83,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Incline bench with dumbbell rack nearby. Start with dumbbells on thighs, kick up to pressing position. Retract shoulder blades.",
-    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_bench_press.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_bench_press.mp4?v=3"
   },
   {
     "id": "decline_dumbbell_bench_press",
@@ -100,7 +100,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Decline bench with dumbbell rack nearby. Start with dumbbells on thighs, kick up to pressing position. Retract shoulder blades.",
-    "videoUrl": "https://videos.liboworld.com/exercises/decline_dumbbell_bench_press.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/decline_dumbbell_bench_press.mp4?v=3"
   },
   {
     "id": "flat_machine_chest_press_overhand_grip",
@@ -149,7 +149,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Incline chest press machine — adjust seat so handles align with upper chest. Grip overhand with palms down, back against pad, feet flat. Press handles forward and slightly up — targets upper chest and front delts."
+    "setupNotes": "Incline chest press machine — adjust seat so handles align with upper chest. Grip overhand with palms down, back against pad, feet flat. Press handles forward and slightly up — targets upper chest and front delts.",
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_machine_chest_press_overhand_grip.mp4"
   },
   {
     "id": "incline_machine_chest_press_neutral_grip",
@@ -181,7 +182,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Decline chest press machine — adjust seat so handles align with lower chest. Grip overhand with palms down, back against pad, feet flat. Press handles forward and slightly down — targets lower chest fibres."
+    "setupNotes": "Decline chest press machine — adjust seat so handles align with lower chest. Grip overhand with palms down, back against pad, feet flat. Press handles forward and slightly down — targets lower chest fibres.",
+    "videoUrl": "https://videos.liboworld.com/exercises/decline_machine_chest_press_overhand_grip.mp4"
   },
   {
     "id": "decline_machine_chest_press_neutral_grip",
@@ -213,7 +215,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Dual cable station, pulley set at low position. D-handles attached. Step forward to create tension, slight bend in elbows throughout."
+    "setupNotes": "Dual cable station, pulley set at low position. D-handles attached. Step forward to create tension, slight bend in elbows throughout.",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_chest_fly_low.mp4"
   },
   {
     "id": "cable_chest_fly_mid",
@@ -229,7 +232,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Dual cable station, pulley set at mid position. D-handles attached. Step forward to create tension, slight bend in elbows throughout."
+    "setupNotes": "Dual cable station, pulley set at mid position. D-handles attached. Step forward to create tension, slight bend in elbows throughout.",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_chest_fly_mid.mp4"
   },
   {
     "id": "cable_chest_fly_high",
@@ -245,7 +249,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Dual cable station, pulley set at high position. D-handles attached. Step forward to create tension, slight bend in elbows throughout."
+    "setupNotes": "Dual cable station, pulley set at high position. D-handles attached. Step forward to create tension, slight bend in elbows throughout.",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_chest_fly_high.mp4"
   },
   {
     "id": "pec_deck_machine",
@@ -279,7 +284,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Flat bench with moderate dumbbells. Arms extended above chest, slight elbow bend. Lower in arc until stretch is felt.",
-    "videoUrl": "https://videos.liboworld.com/exercises/flat_dumbbell_chest_fly.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/flat_dumbbell_chest_fly.mp4?v=3"
   },
   {
     "id": "incline_dumbbell_chest_fly",
@@ -296,7 +301,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Incline bench with moderate dumbbells. Arms extended above chest, slight elbow bend. Lower in arc until stretch is felt.",
-    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_chest_fly.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_dumbbell_chest_fly.mp4?v=3"
   },
   {
     "id": "decline_dumbbell_chest_fly",
@@ -313,7 +318,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Decline bench with moderate dumbbells. Arms extended above chest, slight elbow bend. Lower in arc until stretch is felt.",
-    "videoUrl": "https://videos.liboworld.com/exercises/decline_dumbbell_chest_fly.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/decline_dumbbell_chest_fly.mp4?v=3"
   },
   {
     "id": "standing_landmine_press",
@@ -567,7 +572,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing, hold two small plates squeezed together at chest height. Press outward while maintaining squeeze. Constant chest contraction."
+    "setupNotes": "Standing, hold two small plates squeezed together at chest height. Press outward while maintaining squeeze. Constant chest contraction.",
+    "videoUrl": "https://videos.liboworld.com/exercises/svend_press.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/svend_press_side_view.mp4"
   },
   {
     "id": "seated_dumbbell_shoulder_press_underhand_grip",
@@ -722,7 +729,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Adjust seat so handles start at ear level. Back against pad, feet flat. Press to full extension. Use underhand grip position."
+    "setupNotes": "Adjust seat so handles start at ear level. Back against pad, feet flat. Press to full extension. Use underhand grip position.",
+    "videoUrl": "https://videos.liboworld.com/exercises/machine_shoulder_press_underhand_grip.mp4"
   },
   {
     "id": "machine_shoulder_press_neutral_grip",
@@ -755,7 +763,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Adjust seat so handles start at ear level. Back against pad, feet flat. Press to full extension. Use overhand grip position.",
-    "videoUrl": "https://videos.liboworld.com/exercises/machine_shoulder_press_overhand_grip.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/machine_shoulder_press_overhand_grip.mp4?v=3"
   },
   {
     "id": "lateral_raise_dumbbell",
@@ -789,7 +797,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Single low cable pulley, D-handle. Stand sideways to machine. Raise arm out to side to shoulder height. Constant cable tension."
+    "setupNotes": "Single low cable pulley, D-handle. Stand sideways to machine. Raise arm out to side to shoulder height. Constant cable tension.",
+    "videoUrl": "https://videos.liboworld.com/exercises/lateral_raise_cable.mp4"
   },
   {
     "id": "behind_the_back_cable_lateral_raise",
@@ -805,7 +814,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Low cable pulley, D-handle passed behind back. Stand sideways. Raise arm to side — cable behind body keeps tension through full range."
+    "setupNotes": "Low cable pulley, D-handle passed behind back. Stand sideways. Raise arm to side — cable behind body keeps tension through full range.",
+    "videoUrl": "https://videos.liboworld.com/exercises/behind_the_back_cable_lateral_raise.mp4"
   },
   {
     "id": "front_raise_dumbbell",
@@ -822,7 +832,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing, dumbbells in front of thighs. Raise one or both arms forward to shoulder height, palms down. Controlled lowering.",
-    "videoUrl": "https://videos.liboworld.com/exercises/front_raise_dumbbell.mp4?v=2"
+    "videoUrl": "https://videos.liboworld.com/exercises/front_raise_dumbbell.mp4"
   },
   {
     "id": "front_raise_plate",
@@ -838,7 +848,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing, grip a weight plate at 3 and 9 o'clock. Raise to shoulder height with arms extended. Controlled tempo."
+    "setupNotes": "Standing, grip a weight plate at 3 and 9 o'clock. Raise to shoulder height with arms extended. Controlled tempo.",
+    "videoUrl": "https://videos.liboworld.com/exercises/front_raise_plate.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/front_raise_plate_side_view.mp4"
   },
   {
     "id": "rear_delt_fly_machine",
@@ -854,7 +866,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Sit facing pad on pec deck / rear delt machine. Grip handles with arms extended. Pull handles back in arc, squeezing rear delts."
+    "setupNotes": "Sit facing pad on pec deck / rear delt machine. Grip handles with arms extended. Pull handles back in arc, squeezing rear delts.",
+    "videoUrl": "https://videos.liboworld.com/exercises/rear_delt_fly_machine.mp4"
   },
   {
     "id": "rear_delt_fly_dumbbell",
@@ -906,7 +919,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing, grip ez-bar at hip width. Pull straight up along body to chin level, elbows high. "
+    "setupNotes": "Standing, grip ez-bar at hip width. Pull straight up along body to chin level, elbows high. ",
+    "videoUrl": "https://videos.liboworld.com/exercises/ez_bar_upright_row.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/ez_bar_upright_row_side_view.mp4"
   },
   {
     "id": "cable_upright_row",
@@ -922,7 +937,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing, grip cable at hip width. Pull straight up along body to chin level, elbows high. "
+    "setupNotes": "Standing, grip cable at hip width. Pull straight up along body to chin level, elbows high. ",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_upright_row.mp4"
   },
   {
     "id": "barbell_upright_row",
@@ -955,7 +971,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Cable at upper-chest height, rope attachment. Pull toward face, hands ending beside ears. Elbows high, squeeze rear delts. Standing."
+    "setupNotes": "Cable at upper-chest height, rope attachment. Pull toward face, hands ending beside ears. Elbows high, squeeze rear delts. Standing.",
+    "videoUrl": "https://videos.liboworld.com/exercises/standing_cable_face_pull.mp4"
   },
   {
     "id": "kneeling_cable_face_pull",
@@ -971,7 +988,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Cable at upper-chest height, rope attachment. Pull toward face, hands ending beside ears. Elbows high, squeeze rear delts. Kneeling."
+    "setupNotes": "Cable at upper-chest height, rope attachment. Pull toward face, hands ending beside ears. Elbows high, squeeze rear delts. Kneeling.",
+    "videoUrl": "https://videos.liboworld.com/exercises/kneeling_cable_face_pull.mp4"
   },
   {
     "id": "scapular_retraction_pull",
@@ -1039,8 +1057,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing, elbows at 90 degrees at shoulder height. Rotate forearms from pointing down to pointing up. Prehab / rotator cuff work.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cuban_rotation_dumbbell.mp4?v=2",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/cuban_rotation_dumbbell_side_view.mp4?v=2"
+    "videoUrl": "https://videos.liboworld.com/exercises/cuban_rotation_dumbbell.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/cuban_rotation_dumbbell_side_view.mp4"
   },
   {
     "id": "lu_raise",
@@ -1162,7 +1180,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing inside trap bar loaded with weight. Grip handles, arms straight. Shrug shoulders up toward ears. Neutral grip reduces wrist strain."
+    "setupNotes": "Standing inside trap bar loaded with weight. Grip handles, arms straight. Shrug shoulders up toward ears. Neutral grip reduces wrist strain.",
+    "videoUrl": "https://videos.liboworld.com/exercises/trap_bar_shrug.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/trap_bar_shrug_side_view.mp4?v=3"
   },
   {
     "id": "smith_machine_shrug",
@@ -1195,7 +1215,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Low cable pulley, straight bar or rope attachment. Stand upright, arms straight. Shrug shoulders upward against cable resistance."
+    "setupNotes": "Low cable pulley, straight bar or rope attachment. Stand upright, arms straight. Shrug shoulders upward against cable resistance.",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_shrug.mp4"
   },
   {
     "id": "rack_pull_above_knee",
@@ -1383,7 +1404,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Assisted pull-up / dip machine. Kneel or stand on pad, select counterweight. Grip bar overhead, pull chin above bar."
+    "setupNotes": "Assisted pull-up / dip machine. Kneel or stand on pad, select counterweight. Grip bar overhead, pull chin above bar.",
+    "videoUrl": "https://videos.liboworld.com/exercises/machine_assisted_pull_up.mp4"
   },
   {
     "id": "standard_pull_up",
@@ -1550,7 +1572,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Seated cable row station, V-handle attached. Feet on foot plate, knees slightly bent. Pull handle to lower chest, squeeze shoulder blades."
+    "setupNotes": "Seated cable row station, V-handle attached. Feet on foot plate, knees slightly bent. Pull handle to lower chest, squeeze shoulder blades.",
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_cable_row_neutral_grip_v_handle.mp4"
   },
   {
     "id": "seated_cable_row_wide_grip",
@@ -1566,7 +1589,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Seated cable row station, wide lat bar or straight bar. Overhand grip. Pull to lower chest, elbows out to sides."
+    "setupNotes": "Seated cable row station, wide lat bar or straight bar. Overhand grip. Pull to lower chest, elbows out to sides.",
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_cable_row_wide_grip.mp4"
   },
   {
     "id": "seated_cable_row_underhand_grip",
@@ -1582,7 +1606,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Seated cable row station, straight bar with underhand grip at shoulder-width. Pull to lower chest, elbows close to body."
+    "setupNotes": "Seated cable row station, straight bar with underhand grip at shoulder-width. Pull to lower chest, elbows close to body.",
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_cable_row_underhand_grip.mp4"
   },
   {
     "id": "seated_cable_row_single_arm_left_arm",
@@ -1800,7 +1825,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Barbell on floor. Hinge at hips until torso is parallel to floor. Explosive row from dead stop on each rep. Bar returns to floor between reps."
+    "setupNotes": "Barbell on floor. Hinge at hips until torso is parallel to floor. Explosive row from dead stop on each rep. Bar returns to floor between reps.",
+    "videoUrl": "https://videos.liboworld.com/exercises/pendlay_row.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/pendlay_row_side_view.mp4?v=3"
   },
   {
     "id": "yates_row",
@@ -1865,7 +1892,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "T-bar row machine or landmine setup with V-handle. Straddle bar, neutral grip. Hinge at hips, row to chest."
+    "setupNotes": "T-bar row machine or landmine setup with V-handle. Straddle bar, neutral grip. Hinge at hips, row to chest.",
+    "videoUrl": "https://videos.liboworld.com/exercises/t_bar_row_neutral_grip.mp4"
   },
   {
     "id": "chest_supported_t_bar_row",
@@ -1965,7 +1993,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "High cable pulley, straight bar or rope attachment. Stand facing machine, arms extended overhead. Pull bar down to thighs in arc, lats engaged."
+    "setupNotes": "High cable pulley, straight bar or rope attachment. Stand facing machine, arms extended overhead. Pull bar down to thighs in arc, lats engaged.",
+    "videoUrl": "https://videos.liboworld.com/exercises/straight_arm_cable_pulldown.mp4"
   },
   {
     "id": "single_arm_straight_arm_pulldown_left_arm",
@@ -2206,7 +2235,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Hyper extension / back extension bench. Pad at hip crease, feet anchored. Hinge at hips down and up. Hands behind head or crossed on chest."
+    "setupNotes": "Hyper extension / back extension bench. Pad at hip crease, feet anchored. Hinge at hips down and up. Hands behind head or crossed on chest.",
+    "videoUrl": "https://videos.liboworld.com/exercises/back_extension_standard_machine.mp4"
   },
   {
     "id": "back_extension_weighted",
@@ -2222,7 +2252,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Same setup as standard. Hold weight plate or dumbbell against chest for added resistance. Controlled tempo."
+    "setupNotes": "Same setup as standard. Hold weight plate or dumbbell against chest for added resistance. Controlled tempo.",
+    "videoUrl": "https://videos.liboworld.com/exercises/back_extension_weighted.mp4"
   },
   {
     "id": "back_extension_glute_bias",
@@ -2323,7 +2354,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Trap bar loaded, hinge at hips. Grip both handles with neutral grip. Row to torso, squeeze upper back. Neutral grip reduces bicep strain."
+    "setupNotes": "Trap bar loaded, hinge at hips. Grip both handles with neutral grip. Row to torso, squeeze upper back. Neutral grip reduces bicep strain.",
+    "videoUrl": "https://videos.liboworld.com/exercises/trap_bar_row.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/trap_bar_row_side_view.mp4"
   },
   {
     "id": "barbell_good_morning",
@@ -2357,7 +2390,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Hold dumbbells at shoulders or behind head. Feet hip-width apart. Hinge at hips, push hips back, lower torso to roughly parallel — stand up by driving hips forward."
+    "setupNotes": "Hold dumbbells at shoulders or behind head. Feet hip-width apart. Hinge at hips, push hips back, lower torso to roughly parallel — stand up by driving hips forward.",
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_good_morning.mp4"
   },
   {
     "id": "meadows_row_left_arm",
@@ -2375,7 +2409,8 @@
     "emoji": "🏋️",
     "setupNotes": "Barbell in landmine attachment. Stand perpendicular to the bar in a staggered stance with right foot forward. Overhand grip on the end of the bar with the left hand — row to left hip with slight torso rotation. Targets the lats and upper back.",
     "parentId": "meadows_row",
-    "parentName": "Meadows Row"
+    "parentName": "Meadows Row",
+    "videoUrl": "https://videos.liboworld.com/exercises/meadows_row_left_arm.mp4"
   },
   {
     "id": "meadows_row_right_arm",
@@ -2393,7 +2428,9 @@
     "emoji": "🏋️",
     "setupNotes": "Barbell in landmine attachment. Stand perpendicular to the bar in a staggered stance with left foot forward. Overhand grip on the end of the bar with the right hand — row to right hip with slight torso rotation. Targets the lats and upper back.",
     "parentId": "meadows_row",
-    "parentName": "Meadows Row"
+    "parentName": "Meadows Row",
+    "videoUrl": "https://videos.liboworld.com/exercises/meadows_row_right_arm.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/meadows_row_right_arm_side_view.mp4"
   },
   {
     "id": "ghd_back_extension",
@@ -2409,7 +2446,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Glute-Ham Developer machine. Pad at hip crease, feet anchored on platform. Hinge at hips, lower torso, extend back to horizontal or slight hyperextension."
+    "setupNotes": "Glute-Ham Developer machine. Pad at hip crease, feet anchored on platform. Hinge at hips, lower torso, extend back to horizontal or slight hyperextension.",
+    "videoUrl": "https://videos.liboworld.com/exercises/ghd_back_extension.mp4"
   },
   {
     "id": "reverse_hyper",
@@ -2425,7 +2463,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Reverse hyper machine. Lie face down, hips at edge of pad, grip handles. Extend legs behind and upward using glutes/hamstrings. Controlled swing."
+    "setupNotes": "Reverse hyper machine. Lie face down, hips at edge of pad, grip handles. Extend legs behind and upward using glutes/hamstrings. Controlled swing.",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_hyper.mp4"
   },
   {
     "id": "barbell_curl_standing",
@@ -2458,7 +2497,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing, EZ-bar with comfortable wrist angle. Wide Grip position. Curl to shoulders, squeeze at top, controlled eccentric."
+    "setupNotes": "Standing, EZ-bar with comfortable wrist angle. Wide Grip position. Curl to shoulders, squeeze at top, controlled eccentric.",
+    "videoUrl": "https://videos.liboworld.com/exercises/ez_bar_curl_standing_wide_grip.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/ez_bar_curl_standing_wide_grip_side_view.mp4"
   },
   {
     "id": "ez_bar_curl_standing_narrow_grip",
@@ -2474,7 +2515,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing, EZ-bar with comfortable wrist angle. Narrow Grip position. Curl to shoulders, squeeze at top, controlled eccentric."
+    "setupNotes": "Standing, EZ-bar with comfortable wrist angle. Narrow Grip position. Curl to shoulders, squeeze at top, controlled eccentric.",
+    "videoUrl": "https://videos.liboworld.com/exercises/ez_bar_curl_standing_narrow_grip.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/ez_bar_curl_standing_narrow_grip_side_view.mp4"
   },
   {
     "id": "reverse_barbell_curl",
@@ -2596,7 +2639,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Seated on bench, left elbow braced against inner left thigh. Dumbbell in left hand hanging toward the floor — curl up in strict isolation, squeezing the biceps at the top. No torso movement.",
-    "videoUrl": "https://videos.liboworld.com/exercises/concentration_curl_seated_left_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/concentration_curl_seated_left_arm.mp4?v=3",
     "parentId": "concentration_curl_seated",
     "parentName": "Concentration Curl — Seated"
   },
@@ -2615,7 +2658,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Seated on bench, right elbow braced against inner right thigh. Dumbbell in right hand hanging toward the floor — curl up in strict isolation, squeezing the biceps at the top. No torso movement.",
-    "videoUrl": "https://videos.liboworld.com/exercises/concentration_curl_seated_right_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/concentration_curl_seated_right_arm.mp4?v=3",
     "parentId": "concentration_curl_seated",
     "parentName": "Concentration Curl — Seated"
   },
@@ -2721,7 +2764,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Low cable pulley, straight bar or EZ-bar attachment. Stand facing machine, curl bar to shoulders. Constant cable tension throughout."
+    "setupNotes": "Low cable pulley, straight bar or EZ-bar attachment. Stand facing machine, curl bar to shoulders. Constant cable tension throughout.",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_biceps_curl_straight_bar.mp4"
   },
   {
     "id": "cable_rope_curl",
@@ -2737,7 +2781,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Low cable pulley, rope attachment. Stand facing machine, grip rope ends. Curl up and twist rope outward at top for peak contraction."
+    "setupNotes": "Low cable pulley, rope attachment. Stand facing machine, grip rope ends. Curl up and twist rope outward at top for peak contraction.",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_rope_curl.mp4"
   },
   {
     "id": "behind_the_back_cable_curl",
@@ -2753,7 +2798,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Low cable pulley, D-handle. Stand facing away from machine, arm extended behind. Curl forward against cable for unique stretch-focused angle."
+    "setupNotes": "Low cable pulley, D-handle. Stand facing away from machine, arm extended behind. Curl forward against cable for unique stretch-focused angle.",
+    "videoUrl": "https://videos.liboworld.com/exercises/behind_the_back_cable_curl.mp4"
   },
   {
     "id": "high_cable_curl",
@@ -2769,7 +2815,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Dual cable station, pulleys set high with D-handles. Stand centred, arms extended to sides. Curl handles toward ears — front double bicep position."
+    "setupNotes": "Dual cable station, pulleys set high with D-handles. Stand centred, arms extended to sides. Curl handles toward ears — front double bicep position.",
+    "videoUrl": "https://videos.liboworld.com/exercises/high_cable_curl.mp4"
   },
   {
     "id": "single_arm_cable_curl_left_arm",
@@ -2821,7 +2868,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Low cable pulley, straight bar. Overhand (pronated) grip. Curl up keeping palms down. Cable provides constant tension on forearm extensors."
+    "setupNotes": "Low cable pulley, straight bar. Overhand (pronated) grip. Curl up keeping palms down. Cable provides constant tension on forearm extensors.",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_cable_curl.mp4"
   },
   {
     "id": "ez_bar_preacher_curl",
@@ -2870,7 +2918,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Preacher bench positioned in front of low cable pulley. EZ-bar or straight bar attachment. Constant tension through full range of motion."
+    "setupNotes": "Preacher bench positioned in front of low cable pulley. EZ-bar or straight bar attachment. Constant tension through full range of motion.",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_preacher_curl.mp4"
   },
   {
     "id": "zottman_curl",
@@ -2905,8 +2954,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing, hold one dumbbell vertically with both palms under the top plate. Curl up keeping elbows close. Long head emphasis at peak contraction.",
-    "videoUrl": "https://videos.liboworld.com/exercises/waiter_curl.mp4?v=2",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/waiter_curl_side_view.mp4?v=2"
+    "videoUrl": "https://videos.liboworld.com/exercises/waiter_curl.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/waiter_curl_side_view.mp4?v=3"
   },
   {
     "id": "21s_ez_bar",
@@ -2922,7 +2971,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing, EZ-bar. Perform 7 reps bottom-half range, 7 reps top-half range, 7 reps full range — 21 total. No rest between segments."
+    "setupNotes": "Standing, EZ-bar. Perform 7 reps bottom-half range, 7 reps top-half range, 7 reps full range — 21 total. No rest between segments.",
+    "videoUrl": "https://videos.liboworld.com/exercises/21s_ez_bar.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/21s_ez_bar_side_view.mp4?v=3"
   },
   {
     "id": "triceps_pushdown_straight_bar",
@@ -2938,7 +2989,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "High cable pulley, straight bar attachment. Stand facing machine, elbows pinned to sides. Push bar down to full extension, controlled return."
+    "setupNotes": "High cable pulley, straight bar attachment. Stand facing machine, elbows pinned to sides. Push bar down to full extension, controlled return.",
+    "videoUrl": "https://videos.liboworld.com/exercises/triceps_pushdown_straight_bar.mp4"
   },
   {
     "id": "triceps_pushdown_rope",
@@ -2954,7 +3006,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "High cable pulley, rope attachment. Stand facing machine. Push down and split rope apart at bottom for extra contraction. Elbows stationary."
+    "setupNotes": "High cable pulley, rope attachment. Stand facing machine. Push down and split rope apart at bottom for extra contraction. Elbows stationary.",
+    "videoUrl": "https://videos.liboworld.com/exercises/triceps_pushdown_rope.mp4"
   },
   {
     "id": "triceps_pushdown_v_bar",
@@ -2970,7 +3023,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "High cable pulley, V-bar attachment. Neutral grip. Push down to full extension. Comfortable on wrists, good triceps isolation."
+    "setupNotes": "High cable pulley, V-bar attachment. Neutral grip. Push down to full extension. Comfortable on wrists, good triceps isolation.",
+    "videoUrl": "https://videos.liboworld.com/exercises/triceps_pushdown_v_bar.mp4"
   },
   {
     "id": "triceps_pushdown_reverse_grip",
@@ -2986,7 +3040,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "High cable pulley, straight bar with underhand (supinated) grip. Push down to full extension. Emphasises medial head of triceps."
+    "setupNotes": "High cable pulley, straight bar with underhand (supinated) grip. Push down to full extension. Emphasises medial head of triceps.",
+    "videoUrl": "https://videos.liboworld.com/exercises/triceps_pushdown_reverse_grip.mp4"
   },
   {
     "id": "standing_dumbbell_overhead_triceps_extension",
@@ -3036,8 +3091,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing or seated, one dumbbell behind head in one hand. Elbow points upward. Extend to lockout, controlled lower behind head.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm.mp4?v=2",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm_side_view.mp4?v=2",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_left_arm_side_view.mp4",
     "parentId": "single_arm_dumbbell_overhead_extension",
     "parentName": "Single-Arm Dumbbell Overhead Extension"
   },
@@ -3056,8 +3111,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing or seated, one dumbbell behind head in one hand. Elbow points upward. Extend to lockout, controlled lower behind head.",
-    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_right_arm.mp4?v=2",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_right_arm_side_view.mp4?v=2",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_right_arm.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/single_arm_dumbbell_overhead_extension_right_arm_side_view.mp4",
     "parentId": "single_arm_dumbbell_overhead_extension",
     "parentName": "Single-Arm Dumbbell Overhead Extension"
   },
@@ -3144,7 +3199,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Flat or slight incline bench, EZ-bar. Grip at narrow angle. Lower to forehead, extend to lockout. EZ-bar reduces wrist strain."
+    "setupNotes": "Flat or slight incline bench, EZ-bar. Grip at narrow angle. Lower to forehead, extend to lockout. EZ-bar reduces wrist strain.",
+    "videoUrl": "https://videos.liboworld.com/exercises/ez_bar_skull_crusher.mp4"
   },
   {
     "id": "dumbbell_skull_crusher",
@@ -3227,7 +3283,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Parallel dip bars. Upright torso (not leaning forward), elbows close to body and pointing back. Lower until elbows at 90 degrees, press up."
+    "setupNotes": "Parallel dip bars. Upright torso (not leaning forward), elbows close to body and pointing back. Lower until elbows at 90 degrees, press up.",
+    "videoUrl": "https://videos.liboworld.com/exercises/parallel_bar_dip_triceps_focus.mp4"
   },
   {
     "id": "assisted_parallel_dip",
@@ -3243,7 +3300,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Assisted dip/pull-up machine. Kneel or stand on pad, select counterweight. Upright torso for triceps focus. Full range of motion."
+    "setupNotes": "Assisted dip/pull-up machine. Kneel or stand on pad, select counterweight. Upright torso for triceps focus. Full range of motion.",
+    "videoUrl": "https://videos.liboworld.com/exercises/assisted_parallel_dip.mp4"
   },
   {
     "id": "close_grip_bench_press_barbell",
@@ -3295,7 +3353,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Flat bench, dumbbells pressed together with neutral grip above chest. Press up keeping dumbbells touching. Elbows close to body.",
-    "videoUrl": "https://videos.liboworld.com/exercises/close_grip_bench_press_dumbbell_neutral.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/close_grip_bench_press_dumbbell_neutral.mp4?v=3"
   },
   {
     "id": "diamond_push_up",
@@ -3383,8 +3441,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Flat bench, dumbbells extended above chest with palms facing feet. Lower dumbbells inward so ends touch on chest, press back up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/tate_press.mp4?v=2",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/tate_press_side_view.mp4?v=2"
+    "videoUrl": "https://videos.liboworld.com/exercises/tate_press.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/tate_press_side_view.mp4?v=3"
   },
   {
     "id": "barbell_wrist_curl",
@@ -3450,7 +3508,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "💪",
-    "setupNotes": "Standing, pinch two smooth weight plates together with fingers on one side and thumb on other. Hold for time. Builds pinch grip strength."
+    "setupNotes": "Standing, pinch two smooth weight plates together with fingers on one side and thumb on other. Hold for time. Builds pinch grip strength.",
+    "videoUrl": "https://videos.liboworld.com/exercises/plate_pinch_hold.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/plate_pinch_hold_side_view.mp4"
   },
   {
     "id": "wrist_roller",
@@ -3680,7 +3740,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Standing, hold one dumbbell or kettlebell at chest height with both hands. Feet shoulder-width. Squat down, elbows inside knees at bottom. Standard stance."
+    "setupNotes": "Standing, hold one dumbbell or kettlebell at chest height with both hands. Feet shoulder-width. Squat down, elbows inside knees at bottom. Standard stance.",
+    "videoUrl": "https://videos.liboworld.com/exercises/goblet_squat_standard.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/goblet_squat_standard_side_view.mp4"
   },
   {
     "id": "goblet_squat_elevated_heels",
@@ -3696,7 +3758,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Standing on a small plate or wedge with heels elevated, hold one dumbbell or kettlebell at chest height with both hands. Squat down, elbows inside knees at bottom. Elevated heels bias load onto the quads."
+    "setupNotes": "Standing on a small plate or wedge with heels elevated, hold one dumbbell or kettlebell at chest height with both hands. Squat down, elbows inside knees at bottom. Elevated heels bias load onto the quads.",
+    "videoUrl": "https://videos.liboworld.com/exercises/goblet_squat_elevated_heels.mp4"
   },
   {
     "id": "goblet_squat_b_stance",
@@ -3712,7 +3775,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Standing with one foot half a step behind (heel up, toe lightly anchored), hold a dumbbell or kettlebell at chest height with both hands. Squat down driving mainly through the front leg. Unilateral emphasis with bilateral stability."
+    "setupNotes": "Standing with one foot half a step behind (heel up, toe lightly anchored), hold a dumbbell or kettlebell at chest height with both hands. Squat down driving mainly through the front leg. Unilateral emphasis with bilateral stability.",
+    "videoUrl": "https://videos.liboworld.com/exercises/goblet_squat_b_stance.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/goblet_squat_b_stance_side_view.mp4"
   },
   {
     "id": "hack_squat_machine",
@@ -3745,7 +3810,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Belt squat machine. Attach belt around hips to weight, stand on elevated platforms. Squat down and up — zero spinal loading. Quad and glute focus."
+    "setupNotes": "Belt squat machine. Attach belt around hips to weight, stand on elevated platforms. Squat down and up — zero spinal loading. Quad and glute focus.",
+    "videoUrl": "https://videos.liboworld.com/exercises/belt_squat.mp4"
   },
   {
     "id": "sissy_squat",
@@ -3778,7 +3844,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Pendulum squat machine. Shoulders under pads, feet on platform. Machine pivots on arc. Squat deep with constant tension. Very quad-dominant."
+    "setupNotes": "Pendulum squat machine. Shoulders under pads, feet on platform. Machine pivots on arc. Squat deep with constant tension. Very quad-dominant.",
+    "videoUrl": "https://videos.liboworld.com/exercises/pendulum_squat.mp4"
   },
   {
     "id": "leg_press_standard_hip_width",
@@ -3986,7 +4053,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Open floor space, dumbbells at sides. Step forward into a deep lunge — front knee tracking over toes. Push off front foot, bring rear foot forward into next lunge."
+    "setupNotes": "Open floor space, dumbbells at sides. Step forward into a deep lunge — front knee tracking over toes. Push off front foot, bring rear foot forward into next lunge.",
+    "videoUrl": "https://videos.liboworld.com/exercises/walking_lunge_dumbbell.mp4"
   },
   {
     "id": "walking_lunge_barbell",
@@ -4002,7 +4070,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Open floor space, barbell on upper back. Step forward into a deep lunge — front knee tracking over toes. Push off front foot, bring rear foot forward into next lunge."
+    "setupNotes": "Open floor space, barbell on upper back. Step forward into a deep lunge — front knee tracking over toes. Push off front foot, bring rear foot forward into next lunge.",
+    "videoUrl": "https://videos.liboworld.com/exercises/walking_lunge_barbell.mp4"
   },
   {
     "id": "walking_lunge_front_rack",
@@ -4067,7 +4136,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Standing, step wide to one side, bend stepping leg, keep other leg straight. Push off to return. Using dumbbell."
+    "setupNotes": "Standing, step wide to one side, bend stepping leg, keep other leg straight. Push off to return. Using dumbbell.",
+    "videoUrl": "https://videos.liboworld.com/exercises/dumbbell_lateral_lunge.mp4"
   },
   {
     "id": "jumping_plyo_lunge",
@@ -4100,7 +4170,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Dumbbells or barbell held overhead with arms locked out. Walk forward in lunges. Extreme core and shoulder stability demand."
+    "setupNotes": "Dumbbells or barbell held overhead with arms locked out. Walk forward in lunges. Extreme core and shoulder stability demand.",
+    "videoUrl": "https://videos.liboworld.com/exercises/overhead_walking_lunge.mp4"
   },
   {
     "id": "bulgarian_split_squat_dumbbell_left_leg",
@@ -4118,7 +4189,8 @@
     "emoji": "🦵",
     "setupNotes": "Right foot laces-down on a bench behind you, left foot 2–3 feet forward, dumbbell in each hand at sides. Lower until the left thigh is parallel. Drive up through the front heel — quad and glute emphasis on the left leg.",
     "parentId": "bulgarian_split_squat_dumbbell",
-    "parentName": "Bulgarian Split Squat — Dumbbell"
+    "parentName": "Bulgarian Split Squat — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_dumbbell_left_leg.mp4"
   },
   {
     "id": "bulgarian_split_squat_dumbbell_right_leg",
@@ -4136,7 +4208,8 @@
     "emoji": "🦵",
     "setupNotes": "Left foot laces-down on a bench behind you, right foot 2–3 feet forward, dumbbell in each hand at sides. Lower until the right thigh is parallel. Drive up through the front heel — quad and glute emphasis on the right leg.",
     "parentId": "bulgarian_split_squat_dumbbell",
-    "parentName": "Bulgarian Split Squat — Dumbbell"
+    "parentName": "Bulgarian Split Squat — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_dumbbell_right_leg.mp4"
   },
   {
     "id": "bulgarian_split_squat_barbell_back_rack_left_leg",
@@ -4302,7 +4375,8 @@
     "emoji": "🦵",
     "setupNotes": "Right foot rear-elevated on a bench AND left front foot on a small plate or step. Lower into the deficit split squat — left front thigh well below parallel — then drive up through the left heel. Increased range loads the left glute deeply.",
     "parentId": "bulgarian_split_squat_front_foot_elevated",
-    "parentName": "Bulgarian Split Squat — Front Foot Elevated"
+    "parentName": "Bulgarian Split Squat — Front Foot Elevated",
+    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_front_foot_elevated_left_leg.mp4"
   },
   {
     "id": "bulgarian_split_squat_front_foot_elevated_right_leg",
@@ -4320,7 +4394,8 @@
     "emoji": "🦵",
     "setupNotes": "Left foot rear-elevated on a bench AND right front foot on a small plate or step. Lower into the deficit split squat — right front thigh well below parallel — then drive up through the right heel. Increased range loads the right glute deeply.",
     "parentId": "bulgarian_split_squat_front_foot_elevated",
-    "parentName": "Bulgarian Split Squat — Front Foot Elevated"
+    "parentName": "Bulgarian Split Squat — Front Foot Elevated",
+    "videoUrl": "https://videos.liboworld.com/exercises/bulgarian_split_squat_front_foot_elevated_right_leg.mp4"
   },
   {
     "id": "step_up_dumbbell_left_leg",
@@ -4338,7 +4413,8 @@
     "emoji": "🦵",
     "setupNotes": "Sturdy bench or plyo box at knee height. Dumbbells at sides. Plant the left foot fully on the box and drive through the left heel to stand tall — right foot follows or stays grounded for balance. Step down with control through the left leg. Loads the left quad and glute.",
     "parentId": "step_up_dumbbell",
-    "parentName": "Step-Up — Dumbbell"
+    "parentName": "Step-Up — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/step_up_dumbbell_left_leg.mp4"
   },
   {
     "id": "step_up_dumbbell_right_leg",
@@ -4356,7 +4432,8 @@
     "emoji": "🦵",
     "setupNotes": "Sturdy bench or plyo box at knee height. Dumbbells at sides. Plant the right foot fully on the box and drive through the right heel to stand tall — left foot follows or stays grounded for balance. Step down with control through the right leg. Loads the right quad and glute.",
     "parentId": "step_up_dumbbell",
-    "parentName": "Step-Up — Dumbbell"
+    "parentName": "Step-Up — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/step_up_dumbbell_right_leg.mp4"
   },
   {
     "id": "step_up_barbell_left_leg",
@@ -4374,7 +4451,8 @@
     "emoji": "🦵",
     "setupNotes": "Bench or box at knee height, barbell on upper back. Place left foot fully on box, drive through left heel to stand tall on top. Controlled step down. All reps on left leg.",
     "parentId": "step_up_barbell",
-    "parentName": "Step-Up — Barbell"
+    "parentName": "Step-Up — Barbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/step_up_barbell_left_leg.mp4"
   },
   {
     "id": "step_up_barbell_right_leg",
@@ -4392,7 +4470,8 @@
     "emoji": "🦵",
     "setupNotes": "Bench or box at knee height, barbell on upper back. Place right foot fully on box, drive through right heel to stand tall on top. Controlled step down. All reps on right leg.",
     "parentId": "step_up_barbell",
-    "parentName": "Step-Up — Barbell"
+    "parentName": "Step-Up — Barbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/step_up_barbell_right_leg.mp4"
   },
   {
     "id": "lateral_step_up_left_leg",
@@ -4410,7 +4489,9 @@
     "emoji": "🦵",
     "setupNotes": "Stand with bench/box on your left side. Step up sideways with left foot onto box, drive through left glute to stand fully, controlled step down. All reps on left side.",
     "parentId": "lateral_step_up",
-    "parentName": "Lateral Step-Up"
+    "parentName": "Lateral Step-Up",
+    "videoUrl": "https://videos.liboworld.com/exercises/lateral_step_up_left_leg.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/lateral_step_up_left_leg_side_view.mp4"
   },
   {
     "id": "lateral_step_up_right_leg",
@@ -4428,7 +4509,9 @@
     "emoji": "🦵",
     "setupNotes": "Stand with bench/box on your right side. Step up sideways with right foot onto box, drive through right glute to stand fully, controlled step down. All reps on right side.",
     "parentId": "lateral_step_up",
-    "parentName": "Lateral Step-Up"
+    "parentName": "Lateral Step-Up",
+    "videoUrl": "https://videos.liboworld.com/exercises/lateral_step_up_right_leg.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/lateral_step_up_right_leg_side_view.mp4"
   },
   {
     "id": "barbell_hip_thrust",
@@ -4477,7 +4560,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Dedicated hip thrust / glute drive machine. Sit in machine, back against pad, feet on platform. Drive hips forward to full extension. Squeeze glutes."
+    "setupNotes": "Dedicated hip thrust / glute drive machine. Sit in machine, back against pad, feet on platform. Drive hips forward to full extension. Squeeze glutes.",
+    "videoUrl": "https://videos.liboworld.com/exercises/machine_hip_thrust.mp4"
   },
   {
     "id": "single_leg_hip_thrust_left_leg",
@@ -4564,7 +4648,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Standing, dumbbell in each hand at front of thighs. Same hip hinge as barbell version. Allows more natural arm path."
+    "setupNotes": "Standing, dumbbell in each hand at front of thighs. Same hip hinge as barbell version. Allows more natural arm path.",
+    "videoUrl": "https://videos.liboworld.com/exercises/romanian_deadlift_dumbbell.mp4"
   },
   {
     "id": "single_leg_romanian_deadlift_dumbbell_left_leg",
@@ -4582,7 +4667,8 @@
     "emoji": "🦵",
     "setupNotes": "Standing on the left leg, dumbbell in the right hand. Hinge at the left hip and extend the right leg behind for counterbalance — back flat, dumbbell tracking close to the shin. Drive through the left heel to return upright. Loads the left hamstring and glute.",
     "parentId": "single_leg_romanian_deadlift_dumbbell",
-    "parentName": "Single-Leg Romanian Deadlift — Dumbbell"
+    "parentName": "Single-Leg Romanian Deadlift — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_romanian_deadlift_dumbbell_left_leg.mp4"
   },
   {
     "id": "single_leg_romanian_deadlift_dumbbell_right_leg",
@@ -4600,7 +4686,8 @@
     "emoji": "🦵",
     "setupNotes": "Standing on the right leg, dumbbell in the left hand. Hinge at the right hip and extend the left leg behind for counterbalance — back flat, dumbbell tracking close to the shin. Drive through the right heel to return upright. Loads the right hamstring and glute.",
     "parentId": "single_leg_romanian_deadlift_dumbbell",
-    "parentName": "Single-Leg Romanian Deadlift — Dumbbell"
+    "parentName": "Single-Leg Romanian Deadlift — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_romanian_deadlift_dumbbell_right_leg.mp4"
   },
   {
     "id": "single_leg_romanian_deadlift_kettlebell_left_leg",
@@ -4618,7 +4705,8 @@
     "emoji": "🦵",
     "setupNotes": "Standing on the left leg, kettlebell in the right hand. Hinge at the left hip and extend the right leg behind for counterbalance, bell tracking close to the shin. Drive through the left heel to return upright. Loads the left hamstring and glute.",
     "parentId": "single_leg_romanian_deadlift_kettlebell",
-    "parentName": "Single-Leg Romanian Deadlift — Kettlebell"
+    "parentName": "Single-Leg Romanian Deadlift — Kettlebell",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_romanian_deadlift_kettlebell_left_leg.mp4"
   },
   {
     "id": "single_leg_romanian_deadlift_kettlebell_right_leg",
@@ -4636,7 +4724,8 @@
     "emoji": "🦵",
     "setupNotes": "Standing on the right leg, kettlebell in the left hand. Hinge at the right hip and extend the left leg behind for counterbalance, bell tracking close to the shin. Drive through the right heel to return upright. Loads the right hamstring and glute.",
     "parentId": "single_leg_romanian_deadlift_kettlebell",
-    "parentName": "Single-Leg Romanian Deadlift — Kettlebell"
+    "parentName": "Single-Leg Romanian Deadlift — Kettlebell",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_romanian_deadlift_kettlebell_right_leg.mp4"
   },
   {
     "id": "romanian_deadlift_trap_bar",
@@ -4652,7 +4741,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Standing inside trap bar. Slight knee bend, hinge at hips, lower bar along sides. Neutral grip is easier on lower back."
+    "setupNotes": "Standing inside trap bar. Slight knee bend, hinge at hips, lower bar along sides. Neutral grip is easier on lower back.",
+    "videoUrl": "https://videos.liboworld.com/exercises/romanian_deadlift_trap_bar.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/romanian_deadlift_trap_bar_side_view.mp4"
   },
   {
     "id": "b_stance_romanian_deadlift",
@@ -4668,7 +4759,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Standing with one foot half a step behind (heel up). Most weight on front leg. Hinge at hips with dumbbells. Unilateral emphasis with bilateral stability."
+    "setupNotes": "Standing with one foot half a step behind (heel up). Most weight on front leg. Hinge at hips with dumbbells. Unilateral emphasis with bilateral stability.",
+    "videoUrl": "https://videos.liboworld.com/exercises/b_stance_romanian_deadlift.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/b_stance_romanian_deadlift_side_view.mp4"
   },
   {
     "id": "kettlebell_romanian_deadlift",
@@ -4684,7 +4777,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Standing, kettlebell in each hand or single kettlebell in both. Same hip hinge pattern. Kettlebell shape allows natural hand position."
+    "setupNotes": "Standing, kettlebell in each hand or single kettlebell in both. Same hip hinge pattern. Kettlebell shape allows natural hand position.",
+    "videoUrl": "https://videos.liboworld.com/exercises/kettlebell_romanian_deadlift.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/kettlebell_romanian_deadlift_side_view.mp4?v=3"
   },
   {
     "id": "seated_leg_curl",
@@ -4839,7 +4934,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Standing calf raise machine. Shoulders under pads, balls of feet on edge of platform. Rise onto toes, full extension, controlled lower for stretch at bottom."
+    "setupNotes": "Standing calf raise machine. Shoulders under pads, balls of feet on edge of platform. Rise onto toes, full extension, controlled lower for stretch at bottom.",
+    "videoUrl": "https://videos.liboworld.com/exercises/standing_calf_raise_machine.mp4"
   },
   {
     "id": "seated_calf_raise_machine",
@@ -4855,7 +4951,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Seated calf raise machine. Knee pad on lower thighs, balls of feet on platform. Rise onto toes, squeeze at top, controlled lower. Targets soleus."
+    "setupNotes": "Seated calf raise machine. Knee pad on lower thighs, balls of feet on platform. Rise onto toes, squeeze at top, controlled lower. Targets soleus.",
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_calf_raise_machine.mp4"
   },
   {
     "id": "dumbbell_standing_calf_raise",
@@ -5009,7 +5106,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🍑",
-    "setupNotes": "Seated hip abduction machine. Sit with outer thighs against pads. Push legs outward against resistance, controlled return. Targets glute medius."
+    "setupNotes": "Seated hip abduction machine. Sit with outer thighs against pads. Push legs outward against resistance, controlled return. Targets glute medius.",
+    "videoUrl": "https://videos.liboworld.com/exercises/hip_abductor_machine.mp4"
   },
   {
     "id": "hip_adductor_machine",
@@ -5025,7 +5123,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🍑",
-    "setupNotes": "Seated hip adduction machine. Sit with inner thighs against pads. Squeeze legs together against resistance, controlled release. Inner thigh focus."
+    "setupNotes": "Seated hip adduction machine. Sit with inner thighs against pads. Squeeze legs together against resistance, controlled release. Inner thigh focus.",
+    "videoUrl": "https://videos.liboworld.com/exercises/hip_adductor_machine.mp4"
   },
   {
     "id": "glute_kickback_machine_left_leg",
@@ -5043,7 +5142,8 @@
     "emoji": "🍑",
     "setupNotes": "Standing or kneeling at glute kickback machine. Pad behind left ankle or knee. Push left leg back and up, squeezing left glute at top. Controlled return.",
     "parentId": "glute_kickback_machine",
-    "parentName": "Glute Kickback Machine"
+    "parentName": "Glute Kickback Machine",
+    "videoUrl": "https://videos.liboworld.com/exercises/glute_kickback_machine_left_leg.mp4"
   },
   {
     "id": "glute_kickback_machine_right_leg",
@@ -5061,7 +5161,8 @@
     "emoji": "🍑",
     "setupNotes": "Standing or kneeling at glute kickback machine. Pad behind right ankle or knee. Push right leg back and up, squeezing right glute at top. Controlled return.",
     "parentId": "glute_kickback_machine",
-    "parentName": "Glute Kickback Machine"
+    "parentName": "Glute Kickback Machine",
+    "videoUrl": "https://videos.liboworld.com/exercises/glute_kickback_machine_right_leg.mp4"
   },
   {
     "id": "cable_glute_kickback_left_leg",
@@ -5113,7 +5214,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🍑",
-    "setupNotes": "Low cable pulley, rope attachment. Face away from machine, straddle cable. Hinge at hips, let rope pull through legs, then drive hips forward to standing."
+    "setupNotes": "Low cable pulley, rope attachment. Face away from machine, straddle cable. Hinge at hips, let rope pull through legs, then drive hips forward to standing.",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_pull_through.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/cable_pull_through_side_view.mp4"
   },
   {
     "id": "donkey_kick_cable_machine_left",
@@ -5167,7 +5270,8 @@
     "emoji": "🔥",
     "setupNotes": "Cable at chest height with a D-handle. Stand with the right side toward the stack, hold the handle with both hands at the chest. Press the arms straight forward and resist the cable pulling you into rotation toward the right. Return to chest. Anti-rotation core work.",
     "parentId": "pallof_press_standard",
-    "parentName": "Pallof Press — Standard"
+    "parentName": "Pallof Press — Standard",
+    "videoUrl": "https://videos.liboworld.com/exercises/pallof_press_standard_left_arm.mp4"
   },
   {
     "id": "pallof_press_standard_right_arm",
@@ -5185,7 +5289,8 @@
     "emoji": "🔥",
     "setupNotes": "Cable at chest height with a D-handle. Stand with the left side toward the stack, hold the handle with both hands at the chest. Press the arms straight forward and resist the cable pulling you into rotation toward the left. Return to chest. Anti-rotation core work.",
     "parentId": "pallof_press_standard",
-    "parentName": "Pallof Press — Standard"
+    "parentName": "Pallof Press — Standard",
+    "videoUrl": "https://videos.liboworld.com/exercises/pallof_press_standard_right_arm.mp4"
   },
   {
     "id": "pallof_press_half_kneeling_left_arm",
@@ -5239,7 +5344,8 @@
     "emoji": "🔥",
     "setupNotes": "Cable at chest height. Stand with the right side toward the stack, press the handle out from the chest. From the pressed position slowly rotate the torso away from the stack to the left, then return under control. Combines anti-rotation with controlled rotation.",
     "parentId": "pallof_press_with_rotation",
-    "parentName": "Pallof Press — With Rotation"
+    "parentName": "Pallof Press — With Rotation",
+    "videoUrl": "https://videos.liboworld.com/exercises/pallof_press_with_rotation_left_arm.mp4"
   },
   {
     "id": "pallof_press_with_rotation_right_arm",
@@ -5257,7 +5363,8 @@
     "emoji": "🔥",
     "setupNotes": "Cable at chest height. Stand with the left side toward the stack, press the handle out from the chest. From the pressed position slowly rotate the torso away from the stack to the right, then return under control. Combines anti-rotation with controlled rotation.",
     "parentId": "pallof_press_with_rotation",
-    "parentName": "Pallof Press — With Rotation"
+    "parentName": "Pallof Press — With Rotation",
+    "videoUrl": "https://videos.liboworld.com/exercises/pallof_press_with_rotation_right_arm.mp4"
   },
   {
     "id": "hanging_knee_raise",
@@ -5392,7 +5499,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Captain's chair / vertical knee raise station. Forearms on pads, back against support. Raise knees to chest, controlled lower."
+    "setupNotes": "Captain's chair / vertical knee raise station. Forearms on pads, back against support. Raise knees to chest, controlled lower.",
+    "videoUrl": "https://videos.liboworld.com/exercises/captain_s_chair_knee_raise.mp4"
   },
   {
     "id": "decline_crunch",
@@ -5476,7 +5584,8 @@
     "emoji": "🔥",
     "setupNotes": "Cable at the highest pulley with rope or D-handle. Stand left side toward the stack, both hands on the handle overhead-right. Pull diagonally across the body down to the low-left, rotating through the torso and pivoting the right foot. Trains rotational power and oblique control.",
     "parentId": "cable_woodchop_high_to_low",
-    "parentName": "Cable Woodchop — High-to-Low"
+    "parentName": "Cable Woodchop — High-to-Low",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_woodchop_high_to_low_left.mp4"
   },
   {
     "id": "cable_woodchop_high_to_low_right",
@@ -5494,7 +5603,8 @@
     "emoji": "🔥",
     "setupNotes": "Cable at the highest pulley with rope or D-handle. Stand right side toward the stack, both hands on the handle overhead-left. Pull diagonally across the body down to the low-right, rotating through the torso and pivoting the left foot. Trains rotational power and oblique control.",
     "parentId": "cable_woodchop_high_to_low",
-    "parentName": "Cable Woodchop — High-to-Low"
+    "parentName": "Cable Woodchop — High-to-Low",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_woodchop_high_to_low_right.mp4"
   },
   {
     "id": "cable_woodchop_low_to_high_left",
@@ -5512,7 +5622,8 @@
     "emoji": "🔥",
     "setupNotes": "Cable at the lowest pulley with rope or D-handle. Stand left side toward the stack, both hands on the handle at the low-right hip. Drive diagonally up and across to overhead-left, extending the hips and rotating through the torso. Power from legs and core.",
     "parentId": "cable_woodchop_low_to_high",
-    "parentName": "Cable Woodchop — Low-to-High"
+    "parentName": "Cable Woodchop — Low-to-High",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_woodchop_low_to_high_left.mp4"
   },
   {
     "id": "cable_woodchop_low_to_high_right",
@@ -5530,7 +5641,8 @@
     "emoji": "🔥",
     "setupNotes": "Cable at the lowest pulley with rope or D-handle. Stand right side toward the stack, both hands on the handle at the low-left hip. Drive diagonally up and across to overhead-right, extending the hips and rotating through the torso. Power from legs and core.",
     "parentId": "cable_woodchop_low_to_high",
-    "parentName": "Cable Woodchop — Low-to-High"
+    "parentName": "Cable Woodchop — Low-to-High",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_woodchop_low_to_high_right.mp4"
   },
   {
     "id": "cable_woodchop_horizontal",
@@ -5629,7 +5741,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Forearms on stability ball, feet on floor. Hold plank position. Ball creates instability, demanding more core stabilisation."
+    "setupNotes": "Forearms on stability ball, feet on floor. Hold plank position. Ball creates instability, demanding more core stabilisation.",
+    "videoUrl": "https://videos.liboworld.com/exercises/stability_ball_plank.mp4"
   },
   {
     "id": "ab_machine_crunch",
@@ -5645,7 +5758,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Seated ab crunch machine. Adjust pad at chest or behind head. Select weight. Crunch forward against resistance, controlled return."
+    "setupNotes": "Seated ab crunch machine. Adjust pad at chest or behind head. Select weight. Crunch forward against resistance, controlled return.",
+    "videoUrl": "https://videos.liboworld.com/exercises/ab_machine_crunch.mp4"
   },
   {
     "id": "kneeling_cable_crunch",
@@ -5693,7 +5807,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "High cable pulley, D-handle or rope. Stand sideways to machine. Crunch laterally, pulling toward hip on cable side. Side-bend motion."
+    "setupNotes": "High cable pulley, D-handle or rope. Stand sideways to machine. Crunch laterally, pulling toward hip on cable side. Side-bend motion.",
+    "videoUrl": "https://videos.liboworld.com/exercises/oblique_cable_crunch.mp4"
   },
   {
     "id": "stability_ball_roll_in_knee_tuck",
@@ -5709,7 +5824,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "High plank position with shins on stability ball. Pull knees toward chest, rolling ball forward. Extend back. Controlled tempo."
+    "setupNotes": "High plank position with shins on stability ball. Pull knees toward chest, rolling ball forward. Extend back. Controlled tempo.",
+    "videoUrl": "https://videos.liboworld.com/exercises/stability_ball_roll_in_knee_tuck.mp4"
   },
   {
     "id": "stability_ball_rollout",
@@ -5725,7 +5841,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Kneel behind stability ball, forearms on ball. Roll ball forward extending body, then pull back to start. Similar to ab wheel."
+    "setupNotes": "Kneel behind stability ball, forearms on ball. Roll ball forward extending body, then pull back to start. Similar to ab wheel.",
+    "videoUrl": "https://videos.liboworld.com/exercises/stability_ball_rollout.mp4"
   },
   {
     "id": "stability_ball_pike",
@@ -5741,7 +5858,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "High plank with feet/shins on stability ball. Pike hips upward, pulling ball toward hands. Legs stay straight. Advanced."
+    "setupNotes": "High plank with feet/shins on stability ball. Pike hips upward, pulling ball toward hands. Legs stay straight. Advanced.",
+    "videoUrl": "https://videos.liboworld.com/exercises/stability_ball_pike.mp4"
   },
   {
     "id": "hollow_body_hold",
@@ -5842,7 +5960,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Same seated position as bodyweight. Hold medicine ball in both hands. Rotate side to side, touching ball on floor beside hips."
+    "setupNotes": "Same seated position as bodyweight. Hold medicine ball in both hands. Rotate side to side, touching ball on floor beside hips.",
+    "videoUrl": "https://videos.liboworld.com/exercises/russian_twist_medicine_ball.mp4",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/russian_twist_medicine_ball_side_view.mp4"
   },
   {
     "id": "russian_twist_dumbbell",
@@ -5858,7 +5978,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Same seated V-sit position. Hold one dumbbell with both hands at chest. Rotate side to side. Controlled tempo."
+    "setupNotes": "Same seated V-sit position. Hold one dumbbell with both hands at chest. Rotate side to side. Controlled tempo.",
+    "videoUrl": "https://videos.liboworld.com/exercises/russian_twist_dumbbell.mp4"
   },
   {
     "id": "cable_russian_twist",
@@ -5906,7 +6027,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Standing, grip ab wheel. Roll forward extending body toward floor, pull back using core. Prevent lower back sag."
+    "setupNotes": "Standing, grip ab wheel. Roll forward extending body toward floor, pull back using core. Prevent lower back sag.",
+    "videoUrl": "https://videos.liboworld.com/exercises/standing_ab_wheel_rollout.mp4"
   },
   {
     "id": "dragon_flag",
@@ -5940,7 +6062,8 @@
     "emoji": "🔥",
     "setupNotes": "Lie on the floor holding a kettlebell in the left hand pressed straight up, eyes on the bell. Move through the get-up sequence — roll to the right elbow, to the right hand, hip up, sweep the right leg through, lunge, stand — keeping the left arm vertically locked. Reverse to the floor. Full-body unilateral control.",
     "parentId": "turkish_get_up",
-    "parentName": "Turkish Get-Up"
+    "parentName": "Turkish Get-Up",
+    "videoUrl": "https://videos.liboworld.com/exercises/turkish_get_up_left.mp4"
   },
   {
     "id": "turkish_get_up_right",
@@ -5958,7 +6081,8 @@
     "emoji": "🔥",
     "setupNotes": "Lie on the floor holding a kettlebell in the right hand pressed straight up, eyes on the bell. Move through the get-up sequence — roll to the left elbow, to the left hand, hip up, sweep the left leg through, lunge, stand — keeping the right arm vertically locked. Reverse to the floor. Full-body unilateral control.",
     "parentId": "turkish_get_up",
-    "parentName": "Turkish Get-Up"
+    "parentName": "Turkish Get-Up",
+    "videoUrl": "https://videos.liboworld.com/exercises/turkish_get_up_right.mp4"
   },
   {
     "id": "suitcase_carry_left",
@@ -6030,7 +6154,7 @@
     "variation": "",
     "emoji": "🌟",
     "setupNotes": "Barbell on floor, grip just outside knees. First pull to knees, explosive second pull (hips), catch bar on front delts in front rack. Reset to floor.",
-    "videoUrl": "https://videos.liboworld.com/exercises/power_clean.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/power_clean.mp4?v=3"
   },
   {
     "id": "hang_clean",
@@ -6046,7 +6170,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🌟",
-    "setupNotes": "Barbell at hip level in standing position. Dip-drive hips, explosively pull bar upward, catch on front delts in front rack. Start from hang, not floor."
+    "setupNotes": "Barbell at hip level in standing position. Dip-drive hips, explosively pull bar upward, catch on front delts in front rack. Start from hang, not floor.",
+    "videoUrl": "https://videos.liboworld.com/exercises/hang_clean.mp4"
   },
   {
     "id": "clean_and_press",
@@ -6078,7 +6203,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🌟",
-    "setupNotes": "Bar in front rack on shoulders. Dip knees slightly, drive explosively through legs to press bar overhead to lockout. More weight than strict press."
+    "setupNotes": "Bar in front rack on shoulders. Dip knees slightly, drive explosively through legs to press bar overhead to lockout. More weight than strict press.",
+    "videoUrl": "https://videos.liboworld.com/exercises/push_press.mp4"
   },
   {
     "id": "barbell_snatch",
@@ -6095,7 +6221,7 @@
     "variation": "",
     "emoji": "🌟",
     "setupNotes": "Barbell on floor, very wide grip. Explosive pull from floor, pull body under bar, catch overhead with straight arms in squat. Stand up. Technical lift.",
-    "videoUrl": "https://videos.liboworld.com/exercises/barbell_snatch.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/barbell_snatch.mp4?v=3"
   },
   {
     "id": "barbell_thruster",
@@ -6144,7 +6270,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🌟",
-    "setupNotes": "Standing, kettlebell on floor between feet. Hike KB back between legs, drive hips forward explosively to swing KB to chest/eye height. Hinge, not squat."
+    "setupNotes": "Standing, kettlebell on floor between feet. Hike KB back between legs, drive hips forward explosively to swing KB to chest/eye height. Hinge, not squat.",
+    "videoUrl": "https://videos.liboworld.com/exercises/kettlebell_swing.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/kettlebell_swing_side_view.mp4?v=3"
   },
   {
     "id": "kettlebell_clean_left",
@@ -6162,7 +6290,9 @@
     "emoji": "🌟",
     "setupNotes": "Single kettlebell on the floor between the feet. Hinge and grip with the left hand, swing the bell back between the legs, then drive the hips and pull the bell up — rotate the wrist so it lands softly in the rack on the left forearm and shoulder. Lower under control. Trains explosive hip drive and unilateral grip.",
     "parentId": "kettlebell_clean",
-    "parentName": "Kettlebell Clean"
+    "parentName": "Kettlebell Clean",
+    "videoUrl": "https://videos.liboworld.com/exercises/kettlebell_clean_left.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/kettlebell_clean_left_side_view.mp4?v=3"
   },
   {
     "id": "kettlebell_clean_right",
@@ -6180,7 +6310,9 @@
     "emoji": "🌟",
     "setupNotes": "Single kettlebell on the floor between the feet. Hinge and grip with the right hand, swing the bell back between the legs, then drive the hips and pull the bell up — rotate the wrist so it lands softly in the rack on the right forearm and shoulder. Lower under control. Trains explosive hip drive and unilateral grip.",
     "parentId": "kettlebell_clean",
-    "parentName": "Kettlebell Clean"
+    "parentName": "Kettlebell Clean",
+    "videoUrl": "https://videos.liboworld.com/exercises/kettlebell_clean_right.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/kettlebell_clean_right_side_view.mp4?v=3"
   },
   {
     "id": "kettlebell_snatch",
@@ -6212,7 +6344,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🌟",
-    "setupNotes": "Standing, medicine ball (slam ball) overhead. Slam ball into floor with maximum force using whole body. Pick up and repeat. Use dead bounce slam ball."
+    "setupNotes": "Standing, medicine ball (slam ball) overhead. Slam ball into floor with maximum force using whole body. Pick up and repeat. Use dead bounce slam ball.",
+    "videoUrl": "https://videos.liboworld.com/exercises/medicine_ball_slam.mp4"
   },
   {
     "id": "standard_box_jump",
@@ -6228,7 +6361,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🌟",
-    "setupNotes": "Plyo box at appropriate height. Stand facing box, quarter squat and swing arms, jump onto box landing softly in squat. Step down. Standard start."
+    "setupNotes": "Plyo box at appropriate height. Stand facing box, quarter squat and swing arms, jump onto box landing softly in squat. Step down. Standard start.",
+    "videoUrl": "https://videos.liboworld.com/exercises/standard_box_jump.mp4"
   },
   {
     "id": "seated_box_jump",
@@ -6244,7 +6378,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🌟",
-    "setupNotes": "Sit on a bench or low box facing a plyo box, feet flat and torso upright. From a dead stop, drive through the feet and jump onto the box, landing softly in a quarter squat. Step down and reset. Develops starting-strength power."
+    "setupNotes": "Sit on a bench or low box facing a plyo box, feet flat and torso upright. From a dead stop, drive through the feet and jump onto the box, landing softly in a quarter squat. Step down and reset. Develops starting-strength power.",
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_box_jump.mp4"
   },
   {
     "id": "barbell_hang_snatch",
@@ -6260,7 +6395,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🌟",
-    "setupNotes": "Barbell at hip level, wide snatch grip. Dip-drive hips, pull bar overhead, catch with straight arms. Start from hang position, not floor."
+    "setupNotes": "Barbell at hip level, wide snatch grip. Dip-drive hips, pull bar overhead, catch with straight arms. Start from hang position, not floor.",
+    "videoUrl": "https://videos.liboworld.com/exercises/barbell_hang_snatch.mp4"
   },
   {
     "id": "wide_grip_push_up",
@@ -6612,8 +6748,8 @@
     "variation": "",
     "emoji": "🔝",
     "setupNotes": "Standing, arms extended straight out to sides at shoulder height. Circle arms forward, gradually increasing the size of the circles. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_forward.mp4?v=2",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_forward_side_view.mp4?v=2"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_forward.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_forward_side_view.mp4?v=3"
   },
   {
     "id": "arm_circles_backward",
@@ -6630,8 +6766,8 @@
     "variation": "",
     "emoji": "🔝",
     "setupNotes": "Standing, arms extended straight out to sides at shoulder height. Circle arms backward, gradually increasing the size of the circles. Dynamic shoulder warm-up.",
-    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_backward.mp4?v=2",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_backward_side_view.mp4?v=2"
+    "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_backward.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_backward_side_view.mp4?v=3"
   },
   {
     "id": "weighted_arm_circles",
@@ -7625,7 +7761,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Side plank on the left forearm, hips lifted in a straight line. Slowly lower the left hip toward the floor without touching, then drive back up to the start. Controlled reps through full range. Dynamic loading of the left obliques.",
-    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_hip_dips.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/side_plank_with_hip_dips_left_side.mp4",
     "parentId": "side_plank_with_hip_dips",
     "parentName": "Side Plank with Hip Dips"
   },
@@ -7880,7 +8016,8 @@
     "emoji": "🔥",
     "setupNotes": "Kneeling bird-dog stance with a light resistance band running from the left hand to the right foot. Extend the left arm and right leg until the band is taut, hold, return. Band adds resistance and instability to the diagonal pattern.",
     "parentId": "bird_dog_band_resisted",
-    "parentName": "Bird Dog — Band-Resisted"
+    "parentName": "Bird Dog — Band-Resisted",
+    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_band_resisted_left.mp4"
   },
   {
     "id": "bird_dog_band_resisted_right",
@@ -7898,7 +8035,8 @@
     "emoji": "🔥",
     "setupNotes": "Kneeling bird-dog stance with a light resistance band running from the right hand to the left foot. Extend the right arm and left leg until the band is taut, hold, return. Band adds resistance and instability to the diagonal pattern.",
     "parentId": "bird_dog_band_resisted",
-    "parentName": "Bird Dog — Band-Resisted"
+    "parentName": "Bird Dog — Band-Resisted",
+    "videoUrl": "https://videos.liboworld.com/exercises/bird_dog_band_resisted_right.mp4"
   },
   {
     "id": "bird_dog_row_weighted_left_arm",
@@ -8347,7 +8485,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Stand facing sturdy plyo box or platform. Squat, swing arms, jump onto box landing softly in squat. Step down. Adjust box height to ability."
+    "setupNotes": "Stand facing sturdy plyo box or platform. Squat, swing arms, jump onto box landing softly in squat. Step down. Adjust box height to ability.",
+    "videoUrl": "https://videos.liboworld.com/exercises/box_jump_squat.mp4"
   },
   {
     "id": "mountain_climbers_fast",
@@ -8734,7 +8873,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏃",
-    "setupNotes": "Adjust seat height so slight bend at bottom of pedal stroke. Steady moderate resistance. Upright or recumbent position. Sustained pace."
+    "setupNotes": "Adjust seat height so slight bend at bottom of pedal stroke. Steady moderate resistance. Upright or recumbent position. Sustained pace.",
+    "videoUrl": "https://videos.liboworld.com/exercises/stationary_bike_steady.mp4"
   },
   {
     "id": "spin_bike_standing_climb",
@@ -8750,7 +8890,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏃",
-    "setupNotes": "Spin bike with heavy resistance. Stand on pedals and pedal while standing, simulating uphill climb. Grip handlebars firmly."
+    "setupNotes": "Spin bike with heavy resistance. Stand on pedals and pedal while standing, simulating uphill climb. Grip handlebars firmly.",
+    "videoUrl": "https://videos.liboworld.com/exercises/spin_bike_standing_climb.mp4"
   },
   {
     "id": "rower_steady",
@@ -8867,7 +9008,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏃",
-    "setupNotes": "StairMaster. Alternate fast and slow stepping, or change levels. Hands off rails for best effect. Short burst high effort, longer recovery."
+    "setupNotes": "StairMaster. Alternate fast and slow stepping, or change levels. Hands off rails for best effect. Short burst high effort, longer recovery.",
+    "videoUrl": "https://videos.liboworld.com/exercises/stairmaster_intervals.mp4"
   },
   {
     "id": "assault_air_bike_intervals",
@@ -8969,7 +9111,7 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Standing, swing both arms horizontally across body in alternating cross pattern. Opens chest and warms up shoulders and pecs.",
-    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_arm_swings.mp4?v=2"
+    "videoUrl": "https://videos.liboworld.com/exercises/cross_body_arm_swings.mp4"
   },
   {
     "id": "hip_circles",
@@ -9198,7 +9340,7 @@
     "variation": "",
     "emoji": "🏋️",
     "setupNotes": "Kneel on mat, sit back on heels, extend arms forward on floor. Forehead rests on ground. Deep breathing. Stretches back, lats, and hips.",
-    "videoUrl": "https://videos.liboworld.com/exercises/childs_pose.mp4"
+    "videoUrl": "https://videos.liboworld.com/exercises/child_s_pose.mp4"
   },
   {
     "id": "seated_forward_fold",
@@ -9462,8 +9604,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Raise the left arm overhead and bend the elbow so the left hand drops behind the head. Use the right hand to gently press the left elbow back and down. Hold. Stretches the left triceps and lat.",
-    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left.mp4?v=2",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left_side_view.mp4?v=2",
+    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_left_side_view.mp4?v=3",
     "parentId": "overhead_triceps_stretch",
     "parentName": "Overhead Triceps Stretch"
   },
@@ -9482,8 +9624,8 @@
     "variation": "",
     "emoji": "💪",
     "setupNotes": "Raise the right arm overhead and bend the elbow so the right hand drops behind the head. Use the left hand to gently press the right elbow back and down. Hold. Stretches the right triceps and lat.",
-    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right.mp4?v=2",
-    "videoUrlAlt": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right_side_view.mp4?v=2",
+    "videoUrl": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/overhead_triceps_stretch_right_side_view.mp4?v=3",
     "parentId": "overhead_triceps_stretch",
     "parentName": "Overhead Triceps Stretch"
   },
@@ -9987,7 +10129,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔝",
-    "setupNotes": "Stand on or anchor band low. Arms straight, raise into Y-shape overhead (arms at ~45 degrees from body). Lower controlled. Lower trap activation."
+    "setupNotes": "Stand on or anchor band low. Arms straight, raise into Y-shape overhead (arms at ~45 degrees from body). Lower controlled. Lower trap activation.",
+    "videoUrl": "https://videos.liboworld.com/exercises/band_y_raise.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/band_y_raise_side_view.mp4?v=3"
   },
   {
     "id": "band_t_raise",
@@ -10003,7 +10147,9 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔝",
-    "setupNotes": "Stand on or anchor band low. Arms straight, raise to sides forming a T (arms horizontal). Lower controlled. Middle trap and rear delt."
+    "setupNotes": "Stand on or anchor band low. Arms straight, raise to sides forming a T (arms horizontal). Lower controlled. Middle trap and rear delt.",
+    "videoUrl": "https://videos.liboworld.com/exercises/band_t_raise.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/band_t_raise_side_view.mp4?v=3"
   },
   {
     "id": "band_w_raise",
@@ -10019,7 +10165,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔝",
-    "setupNotes": "Stand on or anchor band low. Pull into W-shape — elbows bent, upper arms at 45 degrees, hands at ear level. Squeeze shoulder blades. Rotator cuff."
+    "setupNotes": "Stand on or anchor band low. Pull into W-shape — elbows bent, upper arms at 45 degrees, hands at ear level. Squeeze shoulder blades. Rotator cuff.",
+    "videoUrl": "https://videos.liboworld.com/exercises/band_w_raise.mp4"
   },
   {
     "id": "external_rotation_band_left_arm",
@@ -10037,7 +10184,8 @@
     "emoji": "💪",
     "setupNotes": "Anchor a band at elbow height to the right. Stand with the right side toward the anchor, hold the band in the left hand with the elbow pinned to the side and bent to 90 degrees. Rotate the forearm outward away from the body against the band. Trains the left rotator cuff (infraspinatus/teres minor).",
     "parentId": "external_rotation_band_left_arm",
-    "parentName": "External Rotation — Band (Left Arm)"
+    "parentName": "External Rotation — Band (Left Arm)",
+    "videoUrl": "https://videos.liboworld.com/exercises/external_rotation_band_left_arm.mp4"
   },
   {
     "id": "external_rotation_band_right_arm",
@@ -10055,7 +10203,8 @@
     "emoji": "💪",
     "setupNotes": "Anchor a band at elbow height to the left. Stand with the left side toward the anchor, hold the band in the right hand with the elbow pinned to the side and bent to 90 degrees. Rotate the forearm outward away from the body against the band. Trains the right rotator cuff (infraspinatus/teres minor).",
     "parentId": "external_rotation_band_right_arm",
-    "parentName": "External Rotation — Band (Right Arm)"
+    "parentName": "External Rotation — Band (Right Arm)",
+    "videoUrl": "https://videos.liboworld.com/exercises/external_rotation_band_right_arm.mp4"
   },
   {
     "id": "external_rotation_90_degree",
@@ -10089,7 +10238,8 @@
     "emoji": "💪",
     "setupNotes": "Anchor a band at elbow height to the left. Stand with the left side toward the anchor, hold the band in the left hand with the elbow pinned to the side and bent to 90 degrees. Rotate the forearm inward across the body against the band. Trains the left subscapularis.",
     "parentId": "internal_rotation_band_left_arm",
-    "parentName": "Internal Rotation — Band (Left Arm)"
+    "parentName": "Internal Rotation — Band (Left Arm)",
+    "videoUrl": "https://videos.liboworld.com/exercises/internal_rotation_band_left_arm.mp4"
   },
   {
     "id": "internal_rotation_band_right_arm",
@@ -10107,7 +10257,8 @@
     "emoji": "💪",
     "setupNotes": "Anchor a band at elbow height to the right. Stand with the right side toward the anchor, hold the band in the right hand with the elbow pinned to the side and bent to 90 degrees. Rotate the forearm inward across the body against the band. Trains the right subscapularis.",
     "parentId": "internal_rotation_band_right_arm",
-    "parentName": "Internal Rotation — Band (Right Arm)"
+    "parentName": "Internal Rotation — Band (Right Arm)",
+    "videoUrl": "https://videos.liboworld.com/exercises/internal_rotation_band_right_arm.mp4"
   },
   {
     "id": "overhead_arm_hold",
@@ -10212,7 +10363,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Lie face up, swiss ball in hands overhead. Crunch up passing ball from hands to feet, lower. Next rep pass back to hands."
+    "setupNotes": "Lie face up, swiss ball in hands overhead. Crunch up passing ball from hands to feet, lower. Next rep pass back to hands.",
+    "videoUrl": "https://videos.liboworld.com/exercises/swiss_ball_v_pass.mp4"
   },
   {
     "id": "stability_ball_leg_extension_dead_bug",
@@ -10228,7 +10380,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Lie face up, calves on stability ball. Dead bug arm movements while legs maintain contact with ball. Core stability focus."
+    "setupNotes": "Lie face up, calves on stability ball. Dead bug arm movements while legs maintain contact with ball. Core stability focus.",
+    "videoUrl": "https://videos.liboworld.com/exercises/stability_ball_leg_extension_dead_bug.mp4"
   },
   {
     "id": "bosu_ball_dead_bug",
@@ -10244,7 +10397,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "Lie face up on BOSU ball (dome up) for added instability. Perform dead bug arm/leg extensions. BOSU challenges balance and core control."
+    "setupNotes": "Lie face up on BOSU ball (dome up) for added instability. Perform dead bug arm/leg extensions. BOSU challenges balance and core control.",
+    "videoUrl": "https://videos.liboworld.com/exercises/bosu_ball_dead_bug.mp4"
   },
   {
     "id": "superman_with_physio_ball_shoulder_rom",
@@ -10260,7 +10414,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🏋️",
-    "setupNotes": "Lie prone, hold physio ball in both hands. Lift chest and ball, then move ball through full shoulder range of motion overhead."
+    "setupNotes": "Lie prone, hold physio ball in both hands. Lift chest and ball, then move ball through full shoulder range of motion overhead.",
+    "videoUrl": "https://videos.liboworld.com/exercises/superman_with_physio_ball_shoulder_rom.mp4"
   },
   {
     "id": "swiss_ball_v_pass_dead_bug",
@@ -10292,7 +10447,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🔥",
-    "setupNotes": "High plank position with shins on stability ball. Pull knees toward chest rolling ball forward (jackknife). Extend back to plank."
+    "setupNotes": "High plank position with shins on stability ball. Pull knees toward chest rolling ball forward (jackknife). Extend back to plank.",
+    "videoUrl": "https://videos.liboworld.com/exercises/stability_ball_jackknife.mp4"
   },
   {
     "id": "swiss_ball_side_plank_with_leg_lift_left",
@@ -10309,7 +10465,7 @@
     "variation": "",
     "emoji": "🔥",
     "setupNotes": "Left forearm on floor, feet stacked on swiss ball (left side down). Lift top (right) leg while holding a tall side plank. Ball adds instability — brace core hard. Hold for time.",
-    "videoUrl": "https://videos.liboworld.com/exercises/swiss_ball_side_plank_with_leg_lift_left.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/swiss_ball_side_plank_with_leg_lift_left.mp4?v=3",
     "parentId": "swiss_ball_side_plank_with_leg_lift",
     "parentName": "Swiss Ball Side Plank with Leg Lift"
   },
@@ -10328,7 +10484,7 @@
     "variation": "",
     "emoji": "🔥",
     "setupNotes": "Right forearm on floor, feet stacked on swiss ball (right side down). Lift top (left) leg while holding a tall side plank. Ball adds instability — brace core hard. Hold for time.",
-    "videoUrl": "https://videos.liboworld.com/exercises/swiss_ball_side_plank_with_leg_lift_right.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/swiss_ball_side_plank_with_leg_lift_right.mp4?v=3",
     "parentId": "swiss_ball_side_plank_with_leg_lift",
     "parentName": "Swiss Ball Side Plank with Leg Lift"
   },
@@ -10362,7 +10518,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Kneeling lunge with the left shin resting on a swiss ball behind, right foot forward. Tuck the pelvis under and push the hips forward until a stretch is felt at the front of the left hip. Ball cushions the shin and adds slight instability."
+    "setupNotes": "Kneeling lunge with the left shin resting on a swiss ball behind, right foot forward. Tuck the pelvis under and push the hips forward until a stretch is felt at the front of the left hip. Ball cushions the shin and adds slight instability.",
+    "videoUrl": "https://videos.liboworld.com/exercises/swiss_ball_hip_flexor_stretch_left.mp4"
   },
   {
     "id": "swiss_ball_hip_flexor_stretch_right",
@@ -10378,7 +10535,8 @@
     "diff": "intermediate",
     "variation": "",
     "emoji": "🦵",
-    "setupNotes": "Kneeling lunge with the right shin resting on a swiss ball behind, left foot forward. Tuck the pelvis under and push the hips forward until a stretch is felt at the front of the right hip. Ball cushions the shin and adds slight instability."
+    "setupNotes": "Kneeling lunge with the right shin resting on a swiss ball behind, left foot forward. Tuck the pelvis under and push the hips forward until a stretch is felt at the front of the right hip. Ball cushions the shin and adds slight instability.",
+    "videoUrl": "https://videos.liboworld.com/exercises/swiss_ball_hip_flexor_stretch_right.mp4"
   },
   {
     "id": "foam_roll_upper_back",
@@ -10467,7 +10625,7 @@
     "variation": "",
     "emoji": "🦵",
     "setupNotes": "Lie on the left side with a foam roller under the left outer thigh, right leg crossed over for support. Roll slowly from just above the knee up to the hip. Releases the left IT band — slow and tolerable.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_it_band.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_it_band_left.mp4",
     "parentId": "foam_roll_it_band",
     "parentName": "Foam Roll — IT Band"
   },
@@ -10560,7 +10718,7 @@
     "variation": "",
     "emoji": "🍑",
     "setupNotes": "Sit on a foam roller, cross the left ankle over the right knee in a figure-4. Lean the weight toward the left side and roll slowly over the left glute, pausing on tender spots. Targeted release of the left glute and piriformis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_glutes.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/foam_roll_glutes_left.mp4",
     "parentId": "foam_roll_glutes",
     "parentName": "Foam Roll — Glutes"
   },
@@ -10598,7 +10756,7 @@
     "variation": "",
     "emoji": "🍑",
     "setupNotes": "Sit on a lacrosse ball positioned under the left glute/piriformis, left ankle crossed over the right knee in a figure-4. Roll gently or hold pressure on the tender spot. Releases the left piriformis.",
-    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_piriformis.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/lacrosse_ball_piriformis_left.mp4",
     "parentId": "lacrosse_ball_piriformis",
     "parentName": "Lacrosse Ball — Piriformis"
   },
@@ -10691,7 +10849,7 @@
     "variation": "",
     "emoji": "🌟",
     "setupNotes": "From standing, step the left foot forward into a deep lunge and place both hands on the floor inside the left foot. Rotate the torso toward the left knee and reach the left arm up toward the ceiling. Hold, then return. Mobilises the left hip, T-spine, and hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/worlds_greatest_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/world_s_greatest_stretch.mp4",
     "parentId": "world_s_greatest_stretch",
     "parentName": "World's Greatest Stretch"
   },
@@ -10710,7 +10868,7 @@
     "variation": "",
     "emoji": "🌟",
     "setupNotes": "From standing, step the right foot forward into a deep lunge and place both hands on the floor inside the right foot. Rotate the torso toward the right knee and reach the right arm up toward the ceiling. Hold, then return. Mobilises the right hip, T-spine, and hamstring.",
-    "videoUrl": "https://videos.liboworld.com/exercises/worlds_greatest_stretch.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/world_s_greatest_stretch.mp4",
     "parentId": "world_s_greatest_stretch",
     "parentName": "World's Greatest Stretch"
   },
@@ -10767,7 +10925,7 @@
     "variation": "",
     "emoji": "🔝",
     "setupNotes": "On hands and knees, reach the left arm under the body through the space between the right hand and right knee, lowering the left shoulder and ear to the floor. Hold and breathe. Rotates the left thoracic spine.",
-    "videoUrl": "https://videos.liboworld.com/exercises/thread_the_needle.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/thread_the_needle_left.mp4",
     "parentId": "thread_the_needle",
     "parentName": "Thread the Needle"
   },
@@ -10806,7 +10964,8 @@
     "emoji": "🦵",
     "setupNotes": "Kneel facing away from a wall with the left shin pressed up against it (toes pointing up), right foot forward in a lunge. Tuck the pelvis and push the hips forward, staying tall. Intense stretch of the left quad and hip flexor.",
     "parentId": "couch_stretch",
-    "parentName": "Couch Stretch"
+    "parentName": "Couch Stretch",
+    "videoUrl": "https://videos.liboworld.com/exercises/couch_stretch_left.mp4"
   },
   {
     "id": "couch_stretch_right",
@@ -10824,7 +10983,8 @@
     "emoji": "🦵",
     "setupNotes": "Kneel facing away from a wall with the right shin pressed up against it (toes pointing up), left foot forward in a lunge. Tuck the pelvis and push the hips forward, staying tall. Intense stretch of the right quad and hip flexor.",
     "parentId": "couch_stretch",
-    "parentName": "Couch Stretch"
+    "parentName": "Couch Stretch",
+    "videoUrl": "https://videos.liboworld.com/exercises/couch_stretch_right.mp4"
   },
   {
     "id": "banded_shoulder_distraction_left",
@@ -10842,7 +11002,8 @@
     "emoji": "🔝",
     "setupNotes": "Anchor a heavy band to a rack at shoulder height. Loop the band around the left wrist and step away to create tension, then drop into a lunge or hinge so the band gently distracts the left shoulder. Hold and breathe. Mobilises the left shoulder capsule.",
     "parentId": "banded_shoulder_distraction",
-    "parentName": "Banded Shoulder Distraction"
+    "parentName": "Banded Shoulder Distraction",
+    "videoUrl": "https://videos.liboworld.com/exercises/banded_shoulder_distraction_left.mp4"
   },
   {
     "id": "banded_shoulder_distraction_right",
@@ -10860,7 +11021,8 @@
     "emoji": "🔝",
     "setupNotes": "Anchor a heavy band to a rack at shoulder height. Loop the band around the right wrist and step away to create tension, then drop into a lunge or hinge so the band gently distracts the right shoulder. Hold and breathe. Mobilises the right shoulder capsule.",
     "parentId": "banded_shoulder_distraction",
-    "parentName": "Banded Shoulder Distraction"
+    "parentName": "Banded Shoulder Distraction",
+    "videoUrl": "https://videos.liboworld.com/exercises/banded_shoulder_distraction_right.mp4"
   },
   {
     "id": "wall_thoracic_extension",
@@ -11638,9 +11800,10 @@
     "variation": "",
     "emoji": "🌟",
     "setupNotes": "Single kettlebell on the floor between the feet. Hinge and grip with the left hand, swing the bell back between the legs, then drive the hips and pull the bell straight overhead in one motion — punch through at the top so it lands softly on the back of the wrist with the arm locked. Controlled lower through the swing.",
-    "videoUrl": "https://videos.liboworld.com/exercises/kettlebell_snatch_left_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/kettlebell_snatch_left_arm.mp4?v=3",
     "parentId": "kettlebell_snatch",
-    "parentName": "Kettlebell Snatch"
+    "parentName": "Kettlebell Snatch",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/kettlebell_snatch_left_arm_side_view.mp4?v=3"
   },
   {
     "id": "kettlebell_snatch_right_arm",
@@ -11657,9 +11820,10 @@
     "variation": "",
     "emoji": "🌟",
     "setupNotes": "Single kettlebell on the floor between the feet. Hinge and grip with the right hand, swing the bell back between the legs, then drive the hips and pull the bell straight overhead in one motion — punch through at the top so it lands softly on the back of the wrist with the arm locked. Controlled lower through the swing.",
-    "videoUrl": "https://videos.liboworld.com/exercises/kettlebell_snatch_right_arm.mp4",
+    "videoUrl": "https://videos.liboworld.com/exercises/kettlebell_snatch_right_arm.mp4?v=3",
     "parentId": "kettlebell_snatch",
-    "parentName": "Kettlebell Snatch"
+    "parentName": "Kettlebell Snatch",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/kettlebell_snatch_right_arm_side_view.mp4?v=3"
   },
   {
     "id": "rear_delt_fly_dumbbell_strong",
@@ -11917,5 +12081,1242 @@
     "parentName": "",
     "videoUrl": "https://videos.liboworld.com/exercises/arm_circles_weighted_large_forward.mp4",
     "videoUrlAlt": "https://videos.liboworld.com/exercises/arm_circles_weighted_large_forward_side_view.mp4"
+  },
+  {
+    "id": "iso_lateral_low_row_neutral_grip",
+    "name": "Iso-Lateral Low Row — Neutral Grip",
+    "slug": "iso_lateral_low_row_neutral_grip",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Iso-Lateral Neutral",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral (independent-arm) plate-loaded low row. Chest against pad, feet on platform. Grip handles with a neutral (palms-facing) grip. Pull handles to the ribs, elbows tracking close to body — squeeze shoulder blades. Targets mid-back and lats.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/iso_lateral_low_row_neutral_grip.mp4"
+  },
+  {
+    "id": "pallof_press_half_kneeling_with_rotation_left_arm",
+    "name": "Pallof Press — Half-Kneeling with Rotation — Left Arm",
+    "slug": "pallof_press_half_kneeling_with_rotation_left_arm",
+    "cat": "home",
+    "primaryCat": "Core Stability",
+    "subcat": "Core",
+    "environment": "Home",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Half-Kneeling + Rotation — Left",
+    "emoji": "🔥",
+    "setupNotes": "Cable at chest height. Half-kneel with the right knee down (closest to the stack), left foot forward, both hands on the handle at the chest. Press the handle out to full extension, then slowly rotate the torso away from the stack to the left and return. Combines anti-rotation with controlled rotation in a low-base position.",
+    "parentId": "gym_227",
+    "parentName": "Pallof Press — Half-Kneeling",
+    "videoUrl": "https://videos.liboworld.com/exercises/pallof_press_half_kneeling_with_rotation_left_arm.mp4"
+  },
+  {
+    "id": "iso_lateral_low_row_underhand_grip",
+    "name": "Iso-Lateral Low Row — Underhand Grip",
+    "slug": "iso_lateral_low_row_underhand_grip",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Iso-Lateral Underhand",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral (independent-arm) plate-loaded low row. Chest against pad, feet on platform. Grip handles with an underhand (supinated) grip. Pull handles to the lower ribs with elbows tucked close to body — biceps assist, emphasises lats.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/iso_lateral_low_row_underhand_grip.mp4"
+  },
+  {
+    "id": "close_grip_incline_dumbbell_bench_press_neutral",
+    "name": "Close-Grip Incline Dumbbell Bench Press — Neutral",
+    "slug": "close_grip_incline_dumbbell_bench_press_neutral",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Chest",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Close-Grip Neutral",
+    "emoji": "🏋️",
+    "setupNotes": "Incline bench (30-45 degrees). Press dumbbells with a neutral (palms-facing) grip and dumbbells touching above the upper chest. Lower under control until upper arms touch ribs, press back up keeping dumbbells together. Neutral close grip is shoulder-friendly and emphasises upper chest and triceps.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/close_grip_incline_dumbbell_bench_press_neutral.mp4"
+  },
+  {
+    "id": "pallof_press_half_kneeling_with_rotation_right_arm",
+    "name": "Pallof Press — Half-Kneeling with Rotation — Right Arm",
+    "slug": "pallof_press_half_kneeling_with_rotation_right_arm",
+    "cat": "home",
+    "primaryCat": "Core Stability",
+    "subcat": "Core",
+    "environment": "Home",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Half-Kneeling + Rotation — Right",
+    "emoji": "🔥",
+    "setupNotes": "Cable at chest height. Half-kneel with the left knee down (closest to the stack), right foot forward, both hands on the handle at the chest. Press the handle out to full extension, then slowly rotate the torso away from the stack to the right and return. Combines anti-rotation with controlled rotation in a low-base position.",
+    "parentId": "gym_227",
+    "parentName": "Pallof Press — Half-Kneeling",
+    "videoUrl": "https://videos.liboworld.com/exercises/pallof_press_half_kneeling_with_rotation_right_arm.mp4"
+  },
+  {
+    "id": "iso_lateral_super_incline_press",
+    "name": "Iso-Lateral Super Incline Press",
+    "slug": "iso_lateral_super_incline_press",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Shoulders",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Iso-Lateral Super-Incline",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral (independent-arm) plate-loaded shoulder-press machine, super-incline / near-vertical setting. Adjust seat so handles align with the shoulders, feet flat, back against pad. Press handles overhead one at a time or together — targets shoulders with upper-chest assistance.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/iso_lateral_super_incline_press.mp4"
+  },
+  {
+    "id": "single_leg_romanian_deadlift_left_leg",
+    "name": "Single-Leg Romanian Deadlift — Left Leg",
+    "slug": "single_leg_romanian_deadlift_left_leg",
+    "cat": "home",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Home",
+    "bodyFocus": "Legs",
+    "equipment": "Bodyweight",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Bodyweight — Left Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing on the left leg, hands free or holding a light load (bodyweight default). Hinge at the left hip and extend the right leg behind for counterbalance — back flat, arms reaching toward the floor. Drive through the left heel to return upright. Trains hip-hinge balance and loads the left hamstring and glute.",
+    "parentId": "gym_199a",
+    "parentName": "Single-Leg Romanian Deadlift — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_romanian_deadlift_left_leg.mp4"
+  },
+  {
+    "id": "reverse_lunge_barbell_left_leg",
+    "name": "Reverse Lunge — Barbell — Left Leg",
+    "slug": "reverse_lunge_barbell_left_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Barbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Barbell — Left Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing tall with a barbell on the upper back, feet hip-width. Step the left foot back into a long lunge, lowering until both knees reach ~90 degrees and the left back knee hovers above the floor. Drive through the right front heel to return to standing. Loads the right front quad and glute under barbell load.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_lunge_barbell_left_leg.mp4"
+  },
+  {
+    "id": "banded_hip_thrust_standing",
+    "name": "Banded Hip Thrust — Standing",
+    "slug": "banded_hip_thrust_standing",
+    "cat": "home",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Home",
+    "bodyFocus": "Legs",
+    "equipment": "Resistance Bands",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Standing",
+    "emoji": "🦵",
+    "setupNotes": "Standing tall, resistance band looped around the hips and anchored at low height behind you (rack post or band peg). Push the hips forward against band tension into a tall lockout, then return to a slight hinge. Squeeze glutes hard at the top — keep ribs down. A standing alternative to the floor hip thrust.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/banded_hip_thrust_standing.mp4"
+  },
+  {
+    "id": "cable_woodchop_horizontal_right",
+    "name": "Cable Woodchop — Horizontal — Right",
+    "slug": "cable_woodchop_horizontal_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Core",
+    "environment": "Gym",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Horizontal — Right",
+    "emoji": "🔥",
+    "setupNotes": "Cable at chest height with rope or D-handle. Stand left side toward the stack, both hands on the handle. Rotate the torso horizontally and pull the handle across the body to the right, pivoting the left foot. Feet planted, rotation from the trunk — trains horizontal rotational power.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_woodchop_horizontal_right.mp4"
+  },
+  {
+    "id": "reverse_lunge_dumbbell_barbell_left_leg",
+    "name": "Reverse Lunge — Dumbbell/Barbell — Left Leg",
+    "slug": "reverse_lunge_dumbbell_barbell_left_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Dumbbell/Barbell — Left Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing tall with dumbbells at sides or barbell on back, feet hip-width. Step the left foot back into a long lunge until both knees reach ~90 degrees, left back knee hovering above the floor. Drive through the right front heel to return to standing. Loads the right front quad and glute.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_lunge_dumbbell_barbell_left_leg.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/reverse_lunge_dumbbell_barbell_left_leg_side_view.mp4?v=3"
+  },
+  {
+    "id": "single_arm_iso_lateral_low_row_underhand_grip_left",
+    "name": "Single-Arm Iso-Lateral Low Row — Underhand Grip — Left",
+    "slug": "single_arm_iso_lateral_low_row_underhand_grip_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Single-Arm Underhand — Left",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral plate-loaded low row. Chest against pad, feet on platform. Grip the left handle with an underhand (supinated) grip, free hand braced on chest pad. Pull the handle to the lower ribs with elbow tucked close to body — biceps assist, emphasises the left lat.",
+    "parentId": "gym_7c",
+    "parentName": "Single-Arm Landmine Press",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_iso_lateral_low_row_underhand_grip_left.mp4"
+  },
+  {
+    "id": "oblique_cable_crunch_left",
+    "name": "Oblique Cable Crunch — Left",
+    "slug": "oblique_cable_crunch_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Core",
+    "environment": "Gym",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Left",
+    "emoji": "🔥",
+    "setupNotes": "High cable pulley, rope or D-handle. Kneel facing the machine, rope behind the head. Crunch the torso down and rotate toward the left hip, bringing the right elbow toward the left knee. Controlled return — emphasises the right obliques.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/oblique_cable_crunch_left.mp4"
+  },
+  {
+    "id": "cable_russian_twist_right",
+    "name": "Cable Russian Twist — Right",
+    "slug": "cable_russian_twist_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Core",
+    "environment": "Gym",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Right",
+    "emoji": "🔥",
+    "setupNotes": "Cable at chest height with D-handle or rope. Stand or kneel with the left side toward the stack, both hands on the handle in front of the chest. Rotate the torso to the right against cable resistance, then return under control. Hips and feet stay planted — rotation comes from the trunk.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_russian_twist_right.mp4"
+  },
+  {
+    "id": "seated_cable_row_overhand_grip_single_arm_left",
+    "name": "Seated Cable Row — Overhand Grip — Single-Arm — Left",
+    "slug": "seated_cable_row_overhand_grip_single_arm_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Overhand Single-Arm — Left",
+    "emoji": "🏋️",
+    "setupNotes": "Seated cable row station, D-handle. Feet on the foot plate, knees slightly bent. Pull the handle to the left ribs with an overhand (pronated) grip, elbow flared slightly. Slight torso rotation toward the working side. Emphasises the left rear delt and upper back.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_cable_row_overhand_grip_single_arm_left.mp4"
+  },
+  {
+    "id": "cable_russian_twist_left",
+    "name": "Cable Russian Twist — Left",
+    "slug": "cable_russian_twist_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Core",
+    "environment": "Gym",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Left",
+    "emoji": "🔥",
+    "setupNotes": "Cable at chest height with D-handle or rope. Stand or kneel with the right side toward the stack, both hands on the handle in front of the chest. Rotate the torso to the left against cable resistance, then return under control. Hips and feet stay planted — rotation comes from the trunk.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_russian_twist_left.mp4"
+  },
+  {
+    "id": "back_extension_banded",
+    "name": "Back Extension — Banded",
+    "slug": "back_extension_banded",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Banded",
+    "emoji": "🏋️",
+    "setupNotes": "Hyper-extension / back-extension bench. Pad at hip crease, feet anchored. Loop a resistance band around the upper back and under the foot platform — band adds tension at the top of the rep. Hinge at the hips down and up, hands behind head or crossed on chest.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/back_extension_banded.mp4"
+  },
+  {
+    "id": "forward_lunge_barbell_left_leg",
+    "name": "Forward Lunge — Barbell — Left Leg",
+    "slug": "forward_lunge_barbell_left_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Barbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Barbell — Left Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing tall with a barbell on the upper back, feet hip-width. Step the left foot forward into a long stride and lower until both knees reach ~90 degrees — front knee tracking over the toes. Push through the left heel to return to standing. Loads the left quad and glute under barbell load.",
+    "parentId": "home_42",
+    "parentName": "Forward Lunge — Bodyweight",
+    "videoUrl": "https://videos.liboworld.com/exercises/forward_lunge_barbell_left_leg.mp4"
+  },
+  {
+    "id": "single_arm_iso_lateral_low_row_overhand_grip_left",
+    "name": "Single-Arm Iso-Lateral Low Row — Overhand Grip — Left",
+    "slug": "single_arm_iso_lateral_low_row_overhand_grip_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Single-Arm Overhand — Left",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral plate-loaded low row. Chest against pad, feet on platform. Grip the left handle with an overhand (pronated) grip, free hand braced on chest pad. Pull the handle to the ribs with elbow flared slightly — targets the left rear delt and upper back.",
+    "parentId": "gym_7c",
+    "parentName": "Single-Arm Landmine Press",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_iso_lateral_low_row_overhand_grip_left.mp4"
+  },
+  {
+    "id": "single_leg_romanian_deadlift_barbell_left_leg",
+    "name": "Single-Leg Romanian Deadlift — Barbell — Left Leg",
+    "slug": "single_leg_romanian_deadlift_barbell_left_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Barbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Barbell — Left Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing on the left leg, barbell held in front of the thighs with both hands. Hinge at the left hip and extend the right leg behind for counterbalance — back flat, bar tracking close to the shin. Drive through the left heel to return upright. Loads the left hamstring and glute under barbell load.",
+    "parentId": "gym_199a",
+    "parentName": "Single-Leg Romanian Deadlift — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_romanian_deadlift_barbell_left_leg.mp4"
+  },
+  {
+    "id": "cable_chest_press_mid",
+    "name": "Cable Chest Press — Mid",
+    "slug": "cable_chest_press_mid",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Chest",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Mid",
+    "emoji": "💪",
+    "setupNotes": "Dual cable station, pulleys set at mid (chest) position with D-handles. Stand facing away in a split stance, handles at chest level. Press both handles forward to full extension, meeting at midline — targets the mid-chest with constant cable tension.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_chest_press_mid.mp4"
+  },
+  {
+    "id": "reverse_cable_curl_narrow_closed_grip",
+    "name": "Reverse Cable Curl — Narrow Closed Grip",
+    "slug": "reverse_cable_curl_narrow_closed_grip",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Biceps",
+    "equipment": "Cable Machine",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Narrow Closed Grip",
+    "emoji": "💪",
+    "setupNotes": "Low cable pulley, straight bar. Overhand (pronated) closed grip, hands narrower than shoulder-width. Curl the bar up keeping palms down and elbows pinned to ribs. Narrow pronated grip biases the brachioradialis and forearm extensors.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_cable_curl_narrow_closed_grip.mp4"
+  },
+  {
+    "id": "cable_woodchop_horizontal_left",
+    "name": "Cable Woodchop — Horizontal — Left",
+    "slug": "cable_woodchop_horizontal_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Core",
+    "environment": "Gym",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Horizontal — Left",
+    "emoji": "🔥",
+    "setupNotes": "Cable at chest height with rope or D-handle. Stand right side toward the stack, both hands on the handle. Rotate the torso horizontally and pull the handle across the body to the left, pivoting the right foot. Feet planted, rotation from the trunk — trains horizontal rotational power.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_woodchop_horizontal_left.mp4"
+  },
+  {
+    "id": "seated_cable_row_overhand_grip_single_arm_right",
+    "name": "Seated Cable Row — Overhand Grip — Single-Arm — Right",
+    "slug": "seated_cable_row_overhand_grip_single_arm_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Overhand Single-Arm — Right",
+    "emoji": "🏋️",
+    "setupNotes": "Seated cable row station, D-handle. Feet on the foot plate, knees slightly bent. Pull the handle to the right ribs with an overhand (pronated) grip, elbow flared slightly. Slight torso rotation toward the working side. Emphasises the right rear delt and upper back.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_cable_row_overhand_grip_single_arm_right.mp4"
+  },
+  {
+    "id": "single_arm_iso_lateral_low_row_right",
+    "name": "Single-Arm Iso-Lateral Low Row — Right",
+    "slug": "single_arm_iso_lateral_low_row_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Single-Arm — Right",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral plate-loaded low row, right side only. Chest against pad, feet on platform. Grip the right handle (neutral grip default), free hand braced on chest pad. Pull the handle to the right ribs with elbow tracking close to body — full stretch at the front, squeeze the shoulder blade at the back.",
+    "parentId": "gym_7c",
+    "parentName": "Single-Arm Landmine Press",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_iso_lateral_low_row_right.mp4"
+  },
+  {
+    "id": "forward_lunge_barbell_right_leg",
+    "name": "Forward Lunge — Barbell — Right Leg",
+    "slug": "forward_lunge_barbell_right_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Barbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Barbell — Right Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing tall with a barbell on the upper back, feet hip-width. Step the right foot forward into a long stride and lower until both knees reach ~90 degrees — front knee tracking over the toes. Push through the right heel to return to standing. Loads the right quad and glute under barbell load.",
+    "parentId": "home_42",
+    "parentName": "Forward Lunge — Bodyweight",
+    "videoUrl": "https://videos.liboworld.com/exercises/forward_lunge_barbell_right_leg.mp4"
+  },
+  {
+    "id": "single_leg_romanian_deadlift_barbell_right_leg",
+    "name": "Single-Leg Romanian Deadlift — Barbell — Right Leg",
+    "slug": "single_leg_romanian_deadlift_barbell_right_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Barbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Barbell — Right Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing on the right leg, barbell held in front of the thighs with both hands. Hinge at the right hip and extend the left leg behind for counterbalance — back flat, bar tracking close to the shin. Drive through the right heel to return upright. Loads the right hamstring and glute under barbell load.",
+    "parentId": "gym_199a",
+    "parentName": "Single-Leg Romanian Deadlift — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_romanian_deadlift_barbell_right_leg.mp4"
+  },
+  {
+    "id": "single_arm_cable_curl_right",
+    "name": "Single-Arm Cable Curl — Right",
+    "slug": "single_arm_cable_curl_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Biceps",
+    "equipment": "Cable Machine",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Single-Arm — Right",
+    "emoji": "💪",
+    "setupNotes": "Low cable pulley, D-handle. Stand facing the machine, handle in the right hand, free hand braced on the machine for stability. Curl the right arm to the shoulder with a supinated grip — keep the elbow pinned to the ribs. Constant cable tension throughout.",
+    "parentId": "gym_116",
+    "parentName": "Single-Arm Cable Curl",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_cable_curl_right.mp4"
+  },
+  {
+    "id": "iso_lateral_low_row_overhand_grip",
+    "name": "Iso-Lateral Low Row — Overhand Grip",
+    "slug": "iso_lateral_low_row_overhand_grip",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Iso-Lateral Overhand",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral (independent-arm) plate-loaded low row. Chest against pad, feet on platform. Grip handles with an overhand (pronated) grip. Pull handles to the ribs with elbows flared slightly — emphasises rear delts and upper back.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/iso_lateral_low_row_overhand_grip.mp4"
+  },
+  {
+    "id": "single_arm_straight_arm_pulldown_left",
+    "name": "Single-Arm Straight-Arm Pulldown — Left",
+    "slug": "single_arm_straight_arm_pulldown_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Single-Arm — Left",
+    "emoji": "🏋️",
+    "setupNotes": "High cable pulley, D-handle. Stand facing the machine, handle in the left hand with a slight forward hinge, free hand on hip or rack. Pull the left arm down in a wide arc to the hip, keeping the arm straight. Full lat stretch at the top, hard squeeze at the bottom.",
+    "parentId": "gym_80",
+    "parentName": "Single-Arm Straight-Arm Pulldown",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_straight_arm_pulldown_left.mp4"
+  },
+  {
+    "id": "cable_overhead_triceps_extension_rope_right",
+    "name": "Cable Overhead Triceps Extension — Rope — Right",
+    "slug": "cable_overhead_triceps_extension_rope_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Triceps",
+    "equipment": "Cable Machine",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Rope — Right",
+    "emoji": "💪",
+    "setupNotes": "Low cable pulley, rope attachment. Face away from the machine in a split stance, right arm overhead with elbow tucked. Extend the right arm forward from behind the head to full lockout, free hand braced on hip. Loads the right triceps with constant cable tension.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_overhead_triceps_extension_rope_right.mp4"
+  },
+  {
+    "id": "kneeling_cable_woodchop_left",
+    "name": "Kneeling Cable Woodchop — Left",
+    "slug": "kneeling_cable_woodchop_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Core",
+    "environment": "Gym",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Kneeling — Left",
+    "emoji": "🔥",
+    "setupNotes": "Cable at high pulley with rope or D-handle. Half-kneel with the right knee down, right side toward the stack, both hands on the handle overhead-right. Pull diagonally across and down to the low-left hip, rotating through the torso. Kneeling removes leg drive — isolates obliques.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/kneeling_cable_woodchop_left.mp4"
+  },
+  {
+    "id": "single_arm_iso_lateral_low_row_overhand_grip_right",
+    "name": "Single-Arm Iso-Lateral Low Row — Overhand Grip — Right",
+    "slug": "single_arm_iso_lateral_low_row_overhand_grip_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Single-Arm Overhand — Right",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral plate-loaded low row. Chest against pad, feet on platform. Grip the right handle with an overhand (pronated) grip, free hand braced on chest pad. Pull the handle to the ribs with elbow flared slightly — targets the right rear delt and upper back.",
+    "parentId": "gym_7c",
+    "parentName": "Single-Arm Landmine Press",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_iso_lateral_low_row_overhand_grip_right.mp4"
+  },
+  {
+    "id": "cable_rope_curl_outside",
+    "name": "Cable Rope Curl — Outside",
+    "slug": "cable_rope_curl_outside",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Biceps",
+    "equipment": "Cable Machine",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Outside",
+    "emoji": "💪",
+    "setupNotes": "Low cable pulley, rope attachment. Stand facing the machine, grip the rope ends with palms turned outward and rope splayed wider than the hands. Curl up driving the rope ends out to the sides at the top — peak contraction with extra supination. Targets biceps short head and brachialis.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_rope_curl_outside.mp4"
+  },
+  {
+    "id": "single_arm_iso_lateral_low_row_underhand_grip_right",
+    "name": "Single-Arm Iso-Lateral Low Row — Underhand Grip — Right",
+    "slug": "single_arm_iso_lateral_low_row_underhand_grip_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Single-Arm Underhand — Right",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral plate-loaded low row. Chest against pad, feet on platform. Grip the right handle with an underhand (supinated) grip, free hand braced on chest pad. Pull the handle to the lower ribs with elbow tucked close to body — biceps assist, emphasises the right lat.",
+    "parentId": "gym_7c",
+    "parentName": "Single-Arm Landmine Press",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_iso_lateral_low_row_underhand_grip_right.mp4"
+  },
+  {
+    "id": "turkish_get_up",
+    "name": "Turkish Get-Up",
+    "slug": "turkish_get_up",
+    "cat": "home",
+    "primaryCat": "Core Stability",
+    "subcat": "Full Body",
+    "environment": "Home",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Kettlebell",
+    "machineRequired": false,
+    "diff": "advanced",
+    "variation": "Standard",
+    "emoji": "🔥",
+    "setupNotes": "Lie on the floor holding a kettlebell in one hand pressed straight up, eyes on the bell. Move through the get-up sequence — roll to the elbow, to the hand, hip up, sweep the trail leg through, lunge, stand — keeping the loaded arm vertically locked the entire time. Reverse step-by-step to the floor.",
+    "parentId": "gym_272",
+    "parentName": "Turkish Get-Up",
+    "videoUrl": "https://videos.liboworld.com/exercises/turkish_get_up.mp4"
+  },
+  {
+    "id": "seated_cable_row_neutral_grip_single_arm_right",
+    "name": "Seated Cable Row — Neutral Grip — Single-Arm — Right",
+    "slug": "seated_cable_row_neutral_grip_single_arm_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Neutral Single-Arm — Right",
+    "emoji": "🏋️",
+    "setupNotes": "Seated cable row station, D-handle. Feet on the foot plate, knees slightly bent. Pull the handle to the right ribs with a neutral (palm-facing) grip, slight rotation of the torso toward the working side. Full stretch at the front, squeeze the shoulder blade at the back. Targets the right lat and mid-back.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_cable_row_neutral_grip_single_arm_right.mp4"
+  },
+  {
+    "id": "stability_ball_plank_alternating_leg_lift",
+    "name": "Stability Ball Plank — Alternating Leg Lift",
+    "slug": "stability_ball_plank_alternating_leg_lift",
+    "cat": "home",
+    "primaryCat": "Core Stability",
+    "subcat": "Core",
+    "environment": "Home",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Swiss Ball",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Alternating Leg Lift",
+    "emoji": "🔥",
+    "setupNotes": "Forearms on a stability ball, feet on the floor in plank position. Lift one foot a few inches off the ground, hold briefly, then alternate. Keep hips square and core braced — the unstable elbow base plus single-leg support stacks anti-rotation demand on the trunk.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/stability_ball_plank_alternating_leg_lift.mp4"
+  },
+  {
+    "id": "forward_lunge_dumbbell_left_leg",
+    "name": "Forward Lunge — Dumbbell — Left Leg",
+    "slug": "forward_lunge_dumbbell_left_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Dumbbell — Left Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing tall, dumbbell in each hand at sides. Step the left foot forward into a long stride and lower until both knees reach ~90 degrees — front knee tracking over the toes. Push through the left heel to return to standing. Loads the left quad and glute.",
+    "parentId": "home_42",
+    "parentName": "Forward Lunge — Bodyweight",
+    "videoUrl": "https://videos.liboworld.com/exercises/forward_lunge_dumbbell_left_leg.mp4"
+  },
+  {
+    "id": "iso_lateral_incline_machine_chest_press",
+    "name": "Iso-Lateral Incline Machine Chest Press",
+    "slug": "iso_lateral_incline_machine_chest_press",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Chest",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Iso-Lateral Incline",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral (independent-arm) plate-loaded chest press, incline setting. Adjust seat so handles align with the upper chest, feet flat, back against pad. Press one handle at a time or both together to full extension — targets upper chest and front delts with no left/right cheating.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/iso_lateral_incline_machine_chest_press.mp4"
+  },
+  {
+    "id": "t_bar_row_overhand_grip",
+    "name": "T-Bar Row — Overhand Grip",
+    "slug": "t_bar_row_overhand_grip",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Overhand Grip",
+    "emoji": "🏋️",
+    "setupNotes": "T-bar row machine or landmine setup with a wide / overhand handle. Straddle the bar, overhand (pronated) grip wider than shoulders. Hinge at the hips with a flat back, row the bar to the lower chest with elbows flared — emphasises rear delts and upper back.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/t_bar_row_overhand_grip.mp4"
+  },
+  {
+    "id": "forward_lunge_dumbbell_right_leg",
+    "name": "Forward Lunge — Dumbbell — Right Leg",
+    "slug": "forward_lunge_dumbbell_right_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Dumbbell — Right Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing tall, dumbbell in each hand at sides. Step the right foot forward into a long stride and lower until both knees reach ~90 degrees — front knee tracking over the toes. Push through the right heel to return to standing. Loads the right quad and glute.",
+    "parentId": "home_42",
+    "parentName": "Forward Lunge — Bodyweight",
+    "videoUrl": "https://videos.liboworld.com/exercises/forward_lunge_dumbbell_right_leg.mp4"
+  },
+  {
+    "id": "single_leg_romanian_deadlift_right_leg",
+    "name": "Single-Leg Romanian Deadlift — Right Leg",
+    "slug": "single_leg_romanian_deadlift_right_leg",
+    "cat": "home",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Home",
+    "bodyFocus": "Legs",
+    "equipment": "Bodyweight",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Bodyweight — Right Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing on the right leg, hands free or holding a light load (bodyweight default). Hinge at the right hip and extend the left leg behind for counterbalance — back flat, arms reaching toward the floor. Drive through the right heel to return upright. Trains hip-hinge balance and loads the right hamstring and glute.",
+    "parentId": "gym_199a",
+    "parentName": "Single-Leg Romanian Deadlift — Dumbbell",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_leg_romanian_deadlift_right_leg.mp4"
+  },
+  {
+    "id": "cable_chest_press_high",
+    "name": "Cable Chest Press — High",
+    "slug": "cable_chest_press_high",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Chest",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "High",
+    "emoji": "💪",
+    "setupNotes": "Dual cable station, pulleys set at high position with D-handles. Stand facing away in a split stance, handles at shoulder level. Press both handles forward and slightly down, meeting at midline — targets the lower chest fibres.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_chest_press_high.mp4"
+  },
+  {
+    "id": "leaning_lateral_raise_left",
+    "name": "Leaning Lateral Raise — Left",
+    "slug": "leaning_lateral_raise_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Shoulders",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Leaning — Left",
+    "emoji": "💪",
+    "setupNotes": "Standing beside a rack post or cable column, hold the post with the right hand and lean the body away to the left. Light dumbbell in the left hand, arm hanging. Raise the left arm out to the side to shoulder height — leaning increases the range of motion at the bottom and constant tension on the medial delt.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/leaning_lateral_raise_left.mp4"
+  },
+  {
+    "id": "standing_leg_curl_cable_right",
+    "name": "Standing Leg Curl — Cable — Right",
+    "slug": "standing_leg_curl_cable_right",
+    "cat": "home",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Home",
+    "bodyFocus": "Legs",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Cable — Right",
+    "emoji": "🦵",
+    "setupNotes": "Low cable pulley, ankle-cuff attachment around the right ankle. Stand facing the machine, hold the frame for balance. Curl the right heel toward the glute, squeezing the hamstring at the top, then return under control. Loads the right hamstring with constant cable tension.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/standing_leg_curl_cable_right.mp4"
+  },
+  {
+    "id": "standing_leg_curl_cable_left",
+    "name": "Standing Leg Curl — Cable — Left",
+    "slug": "standing_leg_curl_cable_left",
+    "cat": "home",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Home",
+    "bodyFocus": "Legs",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Cable — Left",
+    "emoji": "🦵",
+    "setupNotes": "Low cable pulley, ankle-cuff attachment around the left ankle. Stand facing the machine, hold the frame for balance. Curl the left heel toward the glute, squeezing the hamstring at the top, then return under control. Loads the left hamstring with constant cable tension.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/standing_leg_curl_cable_left.mp4"
+  },
+  {
+    "id": "cable_chest_press_low",
+    "name": "Cable Chest Press — Low",
+    "slug": "cable_chest_press_low",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Chest",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Low",
+    "emoji": "💪",
+    "setupNotes": "Dual cable station, pulleys set at low position with D-handles. Stand facing away in a split stance, handles by the hips. Press both handles forward and slightly up, meeting at midline above chest — targets the upper chest and front delts.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_chest_press_low.mp4"
+  },
+  {
+    "id": "single_arm_cable_curl_left",
+    "name": "Single-Arm Cable Curl — Left",
+    "slug": "single_arm_cable_curl_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Biceps",
+    "equipment": "Cable Machine",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Single-Arm — Left",
+    "emoji": "💪",
+    "setupNotes": "Low cable pulley, D-handle. Stand facing the machine, handle in the left hand, free hand braced on the machine for stability. Curl the left arm to the shoulder with a supinated grip — keep the elbow pinned to the ribs. Constant cable tension throughout.",
+    "parentId": "gym_116",
+    "parentName": "Single-Arm Cable Curl",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_cable_curl_left.mp4"
+  },
+  {
+    "id": "iso_lateral_bench_press",
+    "name": "Iso-Lateral Bench Press",
+    "slug": "iso_lateral_bench_press",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Chest",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Iso-Lateral Flat",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral (independent-arm) plate-loaded chest press, flat setting. Adjust seat so handles align with mid-chest, feet flat, back against pad. Press one handle at a time or both together — independent arms force each side to do its own work. Targets chest with triceps assistance.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/iso_lateral_bench_press.mp4"
+  },
+  {
+    "id": "superman_with_physio_ball_alternating",
+    "name": "Superman with Physio Ball — Alternating",
+    "slug": "superman_with_physio_ball_alternating",
+    "cat": "home",
+    "primaryCat": "Core Stability",
+    "subcat": "Back / Shoulders",
+    "environment": "Home",
+    "bodyFocus": "Back / Shoulders",
+    "equipment": "Swiss Ball",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Physio Ball Alternating",
+    "emoji": "🏋️",
+    "setupNotes": "Lie face down on a mat, physio ball under the hips for support, arms extended overhead. Lift the opposite arm and leg simultaneously (right arm + left leg), hold briefly, then alternate. Ball provides counter-pressure under the hips — squeeze glutes and lower back on each rep.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/superman_with_physio_ball_alternating.mp4"
+  },
+  {
+    "id": "back_extension_standard_machine_banded",
+    "name": "Back Extension — Standard (Machine) — Banded",
+    "slug": "back_extension_standard_machine_banded",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Standard Machine + Banded",
+    "emoji": "🏋️",
+    "setupNotes": "Standard back-extension machine, pad against the upper back, feet anchored on the foot plate. Loop a resistance band around the chest pad and the base of the machine for added top-end tension. Extend the torso back against the pad — hinge through the hips, not the lower back. Trains spinal erectors and glutes.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/back_extension_standard_machine_banded.mp4"
+  },
+  {
+    "id": "reverse_lunge_barbell_right_leg",
+    "name": "Reverse Lunge — Barbell — Right Leg",
+    "slug": "reverse_lunge_barbell_right_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Barbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Barbell — Right Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing tall with a barbell on the upper back, feet hip-width. Step the right foot back into a long lunge, lowering until both knees reach ~90 degrees and the right back knee hovers above the floor. Drive through the left front heel to return to standing. Loads the left front quad and glute under barbell load.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_lunge_barbell_right_leg.mp4"
+  },
+  {
+    "id": "kneeling_cable_woodchop_right",
+    "name": "Kneeling Cable Woodchop — Right",
+    "slug": "kneeling_cable_woodchop_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Core",
+    "environment": "Gym",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Kneeling — Right",
+    "emoji": "🔥",
+    "setupNotes": "Cable at high pulley with rope or D-handle. Half-kneel with the left knee down, left side toward the stack, both hands on the handle overhead-left. Pull diagonally across and down to the low-right hip, rotating through the torso. Kneeling removes leg drive — isolates obliques.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/kneeling_cable_woodchop_right.mp4"
+  },
+  {
+    "id": "incline_pec_fly",
+    "name": "Incline Pec Fly",
+    "slug": "incline_pec_fly",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Chest",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Incline",
+    "emoji": "💪",
+    "setupNotes": "Pec deck / fly machine set to an incline pad position (or use an incline-bench machine). Adjust seat so handles align with the upper chest, back firmly against pad, slight elbow bend. Bring handles together in a wide arc in front of the upper chest — emphasises clavicular (upper) chest fibres.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/incline_pec_fly.mp4"
+  },
+  {
+    "id": "single_arm_straight_arm_pulldown_right",
+    "name": "Single-Arm Straight-Arm Pulldown — Right",
+    "slug": "single_arm_straight_arm_pulldown_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Single-Arm — Right",
+    "emoji": "🏋️",
+    "setupNotes": "High cable pulley, D-handle. Stand facing the machine, handle in the right hand with a slight forward hinge, free hand on hip or rack. Pull the right arm down in a wide arc to the hip, keeping the arm straight. Full lat stretch at the top, hard squeeze at the bottom.",
+    "parentId": "gym_80",
+    "parentName": "Single-Arm Straight-Arm Pulldown",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_straight_arm_pulldown_right.mp4"
+  },
+  {
+    "id": "cable_biceps_curl_straight_bar_narrow_closed_grip",
+    "name": "Cable Biceps Curl — Straight Bar — Narrow Closed Grip",
+    "slug": "cable_biceps_curl_straight_bar_narrow_closed_grip",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Biceps",
+    "equipment": "Cable Machine",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Narrow Closed Grip",
+    "emoji": "💪",
+    "setupNotes": "Low cable pulley, straight bar attachment. Stand facing the machine, hands narrower than shoulder-width with a closed (thumb-around) grip. Curl bar to shoulders keeping elbows pinned to ribs — narrow grip emphasises the long head of the biceps.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_biceps_curl_straight_bar_narrow_closed_grip.mp4"
+  },
+  {
+    "id": "leaning_lateral_raise_right",
+    "name": "Leaning Lateral Raise — Right",
+    "slug": "leaning_lateral_raise_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Shoulders",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Leaning — Right",
+    "emoji": "💪",
+    "setupNotes": "Standing beside a rack post or cable column, hold the post with the left hand and lean the body away to the right. Light dumbbell in the right hand, arm hanging. Raise the right arm out to the side to shoulder height — leaning increases the range of motion at the bottom and constant tension on the medial delt.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/leaning_lateral_raise_right.mp4"
+  },
+  {
+    "id": "seated_cable_row_neutral_grip_single_arm_left",
+    "name": "Seated Cable Row — Neutral Grip — Single-Arm — Left",
+    "slug": "seated_cable_row_neutral_grip_single_arm_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Neutral Single-Arm — Left",
+    "emoji": "🏋️",
+    "setupNotes": "Seated cable row station, D-handle. Feet on the foot plate, knees slightly bent. Pull the handle to the left ribs with a neutral (palm-facing) grip, slight rotation of the torso toward the working side. Full stretch at the front, squeeze the shoulder blade at the back. Targets the left lat and mid-back.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/seated_cable_row_neutral_grip_single_arm_left.mp4"
+  },
+  {
+    "id": "single_arm_iso_lateral_low_row_neutral_grip",
+    "name": "Single-Arm Iso-Lateral Low Row — Neutral Grip",
+    "slug": "single_arm_iso_lateral_low_row_neutral_grip",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Back",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Single-Arm Neutral",
+    "emoji": "💪",
+    "setupNotes": "Iso-lateral plate-loaded low row, working one side at a time. Chest against pad, feet on platform. Grip one handle with a neutral (palm-facing) grip, free hand braced on chest pad. Pull the handle to the ribs with elbow tracking close to body. Allows asymmetry correction and full lat focus per side.",
+    "parentId": "gym_7c",
+    "parentName": "Single-Arm Landmine Press",
+    "videoUrl": "https://videos.liboworld.com/exercises/single_arm_iso_lateral_low_row_neutral_grip.mp4"
+  },
+  {
+    "id": "close_grip_decline_dumbbell_bench_press_neutral",
+    "name": "Close-Grip Decline Dumbbell Bench Press — Neutral",
+    "slug": "close_grip_decline_dumbbell_bench_press_neutral",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Chest",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Close-Grip Neutral",
+    "emoji": "🏋️",
+    "setupNotes": "Decline bench, feet secured. Press dumbbells with a neutral (palms-facing) grip and dumbbells touching above lower chest. Lower under control until upper arms touch ribs, press back up keeping dumbbells together. Neutral close grip is shoulder-friendly and emphasises lower chest and triceps.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/close_grip_decline_dumbbell_bench_press_neutral.mp4"
+  },
+  {
+    "id": "cable_overhead_triceps_extension_rope_left",
+    "name": "Cable Overhead Triceps Extension — Rope — Left",
+    "slug": "cable_overhead_triceps_extension_rope_left",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Upper Body",
+    "environment": "Gym",
+    "bodyFocus": "Triceps",
+    "equipment": "Cable Machine",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Rope — Left",
+    "emoji": "💪",
+    "setupNotes": "Low cable pulley, rope attachment. Face away from the machine in a split stance, left arm overhead with elbow tucked. Extend the left arm forward from behind the head to full lockout, free hand braced on hip. Loads the left triceps with constant cable tension.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/cable_overhead_triceps_extension_rope_left.mp4"
+  },
+  {
+    "id": "captain_s_chair_knee_raise_oblique",
+    "name": "Captain's Chair Knee Raise — Oblique",
+    "slug": "captain_s_chair_knee_raise_oblique",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Core",
+    "environment": "Gym",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Machine",
+    "machineRequired": true,
+    "diff": "intermediate",
+    "variation": "Oblique",
+    "emoji": "🔥",
+    "setupNotes": "Captain's chair / vertical knee-raise station. Forearms on the pads, back flat against the support. Raise the knees toward one shoulder, twisting the pelvis to that side, then alternate. Controlled tempo — emphasises the obliques over the rectus abdominis.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/captain_s_chair_knee_raise_oblique.mp4"
+  },
+  {
+    "id": "reverse_lunge_dumbbell_barbell_right_leg",
+    "name": "Reverse Lunge — Dumbbell/Barbell — Right Leg",
+    "slug": "reverse_lunge_dumbbell_barbell_right_leg",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Lower Body",
+    "environment": "Gym",
+    "bodyFocus": "Legs",
+    "equipment": "Dumbbell",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Dumbbell/Barbell — Right Leg",
+    "emoji": "🦵",
+    "setupNotes": "Standing tall with dumbbells at sides or barbell on back, feet hip-width. Step the right foot back into a long lunge until both knees reach ~90 degrees, right back knee hovering above the floor. Drive through the left front heel to return to standing. Loads the left front quad and glute.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/reverse_lunge_dumbbell_barbell_right_leg.mp4?v=3",
+    "videoUrlAlt": "https://videos.liboworld.com/exercises/reverse_lunge_dumbbell_barbell_right_leg_side_view.mp4?v=3"
+  },
+  {
+    "id": "oblique_cable_crunch_right",
+    "name": "Oblique Cable Crunch — Right",
+    "slug": "oblique_cable_crunch_right",
+    "cat": "gym",
+    "primaryCat": "Strength",
+    "subcat": "Core",
+    "environment": "Gym",
+    "bodyFocus": "Core / ABS",
+    "equipment": "Cable",
+    "machineRequired": false,
+    "diff": "intermediate",
+    "variation": "Right",
+    "emoji": "🔥",
+    "setupNotes": "High cable pulley, rope or D-handle. Kneel facing the machine, rope behind the head. Crunch the torso down and rotate toward the right hip, bringing the left elbow toward the right knee. Controlled return — emphasises the left obliques.",
+    "parentId": "",
+    "parentName": "",
+    "videoUrl": "https://videos.liboworld.com/exercises/oblique_cable_crunch_right.mp4"
   }
 ]
