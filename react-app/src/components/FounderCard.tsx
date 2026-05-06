@@ -12,6 +12,9 @@ type FounderShot = {
   src: string;
   caption: string;
   isVideo?: boolean;
+  // First-frame fallback so the card has something to render before the
+  // video buffers (or if autoplay is blocked).
+  poster?: string;
   // True when src still points at a stock placeholder; the rendered <img>
   // gets data-placeholder="founder-bts" so the remaining slots are easy to
   // grep when more real Noah BTS shots are ready.
@@ -20,7 +23,9 @@ type FounderShot = {
 
 const SHOTS: FounderShot[] = [
   {
-    src: '/founder/noah-pose.png',
+    src: '/founder/noah-loop.mp4',
+    poster: '/founder/noah-loop-poster.jpg',
+    isVideo: true,
     caption: 'Designed in the gym, not the office.',
   },
 ];
@@ -45,10 +50,12 @@ export default function FounderCard() {
               {shot.isVideo ? (
                 <video
                   src={shot.src}
+                  poster={shot.poster}
                   autoPlay
                   muted
                   loop
                   playsInline
+                  preload="metadata"
                   {...(shot.placeholder ? { 'data-placeholder': 'founder-bts' } : {})}
                 />
               ) : (
