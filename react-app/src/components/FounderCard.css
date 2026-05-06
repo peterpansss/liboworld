@@ -40,9 +40,11 @@
 /* ── Grid ── */
 .founder-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
   align-items: stretch;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 /* ── Individual shot card ── */
@@ -76,11 +78,10 @@
   transform: scale(1.04);
 }
 
-/* Slight stagger — cards 1 and 3 sit a few px lower than card 2 so the row
-   feels editorial rather than mechanical (Cal AI uses the same trick). */
+/* Two-card layout: subtle vertical offset between the pair so the row
+   feels editorial rather than mechanical. */
 .founder-shot--1 { transform: translateY(0); }
-.founder-shot--2 { transform: translateY(-16px); }
-.founder-shot--3 { transform: translateY(0); }
+.founder-shot--2 { transform: translateY(-12px); }
 
 /* ── Caption pill (bottom-left) ── */
 .founder-caption {
@@ -131,8 +132,7 @@
   }
   /* Drop the stagger; tall portrait cards read better one at a time */
   .founder-shot--1,
-  .founder-shot--2,
-  .founder-shot--3 {
+  .founder-shot--2 {
     transform: none;
   }
   .founder-shot {

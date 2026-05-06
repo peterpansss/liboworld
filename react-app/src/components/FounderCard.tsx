@@ -24,13 +24,8 @@ const SHOTS: FounderShot[] = [
     caption: 'Designed in the gym, not the office.',
   },
   {
-    src: '/founder/noah-mirror.jpg',
+    src: '/founder/noah-physique.jpg',
     caption: 'Every workout in Libo, I trained myself first.',
-  },
-  {
-    src: '/ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg',
-    caption: 'Real reps. Real progress.',
-    placeholder: true,
   },
 ];
 
