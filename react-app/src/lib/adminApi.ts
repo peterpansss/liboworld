@@ -445,6 +445,183 @@ export async function uploadExerciseThumbnail(file: File): Promise<string> {
   return data.publicUrl;
 }
 
+// ── Phase 5: canonical content rows (exercises, workouts, programs) ───────
+//
+// These coexist with the override-based functions above during migration.
+// Once the canonical tables become the source of truth in the app, the
+// override functions can be retired — but until then both paths keep working.
+
+export type ContentStatus = 'draft' | 'published' | 'archived';
+
+export type ExerciseRow = {
+  id: string;
+  slug: string;
+  name: string;
+  cat: string | null;
+  primary_cat: string | null;
+  subcat: string | null;
+  environment: string | null;
+  body_focus: string | null;
+  equipment: string | null;
+  machine_required: boolean;
+  diff: string | null;
+  variation: string;
+  emoji: string;
+  setup_notes: string;
+  parent_id: string;
+  parent_name: string;
+  video_url: string | null;
+  thumbnail_url: string | null;
+  voiceover_url: string | null;
+  status: ContentStatus;
+  origin: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type WorkoutBlockEntry = {
+  exercise_id: string | null;
+  exercise_name: string;
+  sets: string;
+  reps: string;
+};
+
+export type WorkoutRow = {
+  id: string;
+  slug: string;
+  name: string;
+  cat: string | null;
+  subcat: string | null;
+  dur: number | null;
+  diff: string | null;
+  emoji: string;
+  warmup: WorkoutBlockEntry[];
+  main: WorkoutBlockEntry[];
+  cooldown: WorkoutBlockEntry[];
+  status: ContentStatus;
+  origin: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ProgramRow = WorkoutRow & { days: number; blocks: unknown[] };
+
+type CanonicalMutationResult<T> = { ok: boolean; row?: T; error?: string };
+
+// ── Exercises (canonical) ─────────────────────────────────────────────────
+
+export async function listExercises(status?: ContentStatus): Promise<ExerciseRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_exercises', {
+    p_status: status ?? null,
+  });
+  if (error) throw error;
+  return (data ?? []) as ExerciseRow[];
+}
+
+export async function createExercise(
+  row: Partial<ExerciseRow>,
+): Promise<CanonicalMutationResult<ExerciseRow>> {
+  const { data, error } = await supabase.rpc('admin_create_exercise', { p_row: row });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ExerciseRow>;
+}
+
+export async function updateExercise(
+  id: string,
+  patch: Partial<ExerciseRow>,
+): Promise<CanonicalMutationResult<ExerciseRow>> {
+  const { data, error } = await supabase.rpc('admin_update_exercise', {
+    p_id: id,
+    p_patch: patch,
+  });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ExerciseRow>;
+}
+
+export async function deleteExercise(
+  id: string,
+): Promise<CanonicalMutationResult<ExerciseRow>> {
+  const { data, error } = await supabase.rpc('admin_delete_exercise', { p_id: id });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ExerciseRow>;
+}
+
+// ── Workouts (canonical) ──────────────────────────────────────────────────
+
+export async function listWorkouts(status?: ContentStatus): Promise<WorkoutRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_workouts', {
+    p_status: status ?? null,
+  });
+  if (error) throw error;
+  return (data ?? []) as WorkoutRow[];
+}
+
+export async function createWorkout(
+  row: Partial<WorkoutRow>,
+): Promise<CanonicalMutationResult<WorkoutRow>> {
+  const { data, error } = await supabase.rpc('admin_create_workout', { p_row: row });
+  if (error) throw error;
+  return data as CanonicalMutationResult<WorkoutRow>;
+}
+
+export async function updateWorkout(
+  id: string,
+  patch: Partial<WorkoutRow>,
+): Promise<CanonicalMutationResult<WorkoutRow>> {
+  const { data, error } = await supabase.rpc('admin_update_workout', {
+    p_id: id,
+    p_patch: patch,
+  });
+  if (error) throw error;
+  return data as CanonicalMutationResult<WorkoutRow>;
+}
+
+export async function deleteWorkout(
+  id: string,
+): Promise<CanonicalMutationResult<WorkoutRow>> {
+  const { data, error } = await supabase.rpc('admin_delete_workout', { p_id: id });
+  if (error) throw error;
+  return data as CanonicalMutationResult<WorkoutRow>;
+}
+
+// ── Programs (canonical) ──────────────────────────────────────────────────
+
+export async function listPrograms(status?: ContentStatus): Promise<ProgramRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_programs', {
+    p_status: status ?? null,
+  });
+  if (error) throw error;
+  return (data ?? []) as ProgramRow[];
+}
+
+export async function createProgram(
+  row: Partial<ProgramRow>,
+): Promise<CanonicalMutationResult<ProgramRow>> {
+  const { data, error } = await supabase.rpc('admin_create_program', { p_row: row });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ProgramRow>;
+}
+
+export async function updateProgram(
+  id: string,
+  patch: Partial<ProgramRow>,
+): Promise<CanonicalMutationResult<ProgramRow>> {
+  const { data, error } = await supabase.rpc('admin_update_program', {
+    p_id: id,
+    p_patch: patch,
+  });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ProgramRow>;
+}
+
+export async function deleteProgram(
+  id: string,
+): Promise<CanonicalMutationResult<ProgramRow>> {
+  const { data, error } = await supabase.rpc('admin_delete_program', { p_id: id });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ProgramRow>;
+}
+
 // ── Money challenges ──────────────────────────────────────────────────────
 
 export type MoneyChallengeTier = 'free' | 'pro' | 'elite';
@@ -818,4 +995,134 @@ export async function markPayoutPaid(payoutId: string, input: MarkPayoutPaidInpu
   if (error) throw error;
   const r = data as { ok: boolean; error?: string; detail?: string };
   if (!r.ok) throw new Error(r.detail ?? r.error ?? 'mark_paid_failed');
+}
+
+// ─── Media jobs (video processing + voiceover generation) ───────────────────
+export type MediaJobStatus = 'pending' | 'processing' | 'done' | 'error';
+export type MediaJobType = 'process_video' | 'generate_voiceover';
+
+export type MediaJobRow = {
+  id: number;
+  exercise_id: string | null;
+  job_type: MediaJobType;
+  storage_path: string | null;
+  voice: string | null;
+  status: MediaJobStatus;
+  progress_message: string | null;
+  error_message: string | null;
+  output_url: string | null;
+  created_at: string;
+  started_at: string | null;
+  finished_at: string | null;
+  created_by: string | null;
+};
+
+const RAW_VIDEO_BUCKET = 'exercise-videos-raw';
+
+/**
+ * Upload a raw MP4 to the private `exercise-videos-raw` bucket.
+ * Returns the storage path that downstream jobs use to look up the file.
+ */
+export async function uploadExerciseVideoRaw(
+  file: File,
+  intendedSlug: string,
+): Promise<{ storage_path: string }> {
+  const safeSlug = intendedSlug.replace(/[^a-z0-9_-]+/gi, '_').toLowerCase() || 'exercise';
+  const path = `${safeSlug}-${Date.now()}.mp4`;
+  const { error } = await supabase.storage.from(RAW_VIDEO_BUCKET).upload(path, file, {
+    contentType: 'video/mp4',
+    upsert: false,
+  });
+  if (error) throw new Error(`upload failed: ${error.message}`);
+  return { storage_path: path };
+}
+
+export async function createMediaJob(
+  exercise_id: string,
+  job_type: MediaJobType,
+  storage_path: string | null = null,
+  voice: string | null = null,
+): Promise<{ ok: boolean; job?: MediaJobRow; error?: string }> {
+  const { data, error } = await supabase.rpc('admin_create_media_job', {
+    p_exercise_id: exercise_id,
+    p_job_type: job_type,
+    p_storage_path: storage_path,
+    p_voice: voice,
+  });
+  if (error) return { ok: false, error: error.message };
+  return data as { ok: boolean; job?: MediaJobRow; error?: string };
+}
+
+export async function listMediaJobs(
+  exercise_id: string | null = null,
+  status: MediaJobStatus | null = null,
+  limit = 50,
+): Promise<MediaJobRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_media_jobs', {
+    p_exercise_id: exercise_id,
+    p_status: status,
+    p_limit: limit,
+  });
+  if (error) throw error;
+  return (data ?? []) as MediaJobRow[];
+}
+
+export async function getMediaJob(id: number): Promise<MediaJobRow | null> {
+  const { data, error } = await supabase.rpc('admin_get_media_job', { p_id: id });
+  if (error) throw error;
+  const r = data as { ok: boolean; job?: MediaJobRow };
+  return r.ok && r.job ? r.job : null;
+}
+
+/**
+ * Subscribe to status updates for a single media_jobs row via Supabase Realtime.
+ * Falls back to a 3s polling loop if realtime fails to connect within 2s.
+ * Returns an unsubscribe function.
+ */
+export function subscribeToMediaJob(
+  jobId: number,
+  onUpdate: (job: MediaJobRow) => void,
+): () => void {
+  let cancelled = false;
+  let pollTimer: ReturnType<typeof setInterval> | null = null;
+  const channel = supabase
+    .channel(`media-job-${jobId}`)
+    .on(
+      'postgres_changes',
+      {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'media_jobs',
+        filter: `id=eq.${jobId}`,
+      },
+      (payload) => {
+        if (!cancelled) onUpdate(payload.new as MediaJobRow);
+      },
+    )
+    .subscribe();
+
+  const startPolling = () => {
+    if (pollTimer) return;
+    pollTimer = setInterval(async () => {
+      if (cancelled) return;
+      try {
+        const j = await getMediaJob(jobId);
+        if (j && !cancelled) onUpdate(j);
+      } catch {
+        // ignore — next tick will retry
+      }
+    }, 3000);
+  };
+
+  // Fallback: if realtime hasn't subscribed in 2s, start polling.
+  const fallback = setTimeout(() => {
+    if (channel.state !== 'joined') startPolling();
+  }, 2000);
+
+  return () => {
+    cancelled = true;
+    clearTimeout(fallback);
+    if (pollTimer) clearInterval(pollTimer);
+    void supabase.removeChannel(channel);
+  };
 }
