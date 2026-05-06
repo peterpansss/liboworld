@@ -37,10 +37,10 @@ export default function FounderCard() {
       <section className="founder-section" id="founder">
         <header className="founder-header">
           <h2 className="founder-headline font-display">
-            {t('founder.headline', { defaultValue: 'Trained first.' })}
+            {t('founder.headline', { defaultValue: 'No excuses.' })}
           </h2>
           <p className="founder-subhead">
-            {t('founder.subhead', { defaultValue: 'Every workout in Libo was tested by Noah, the founder — gym, home, or anywhere in between.' })}
+            {t('founder.subhead', { defaultValue: 'Used by the founder.' })}
           </p>
         </header>
 
