@@ -3,7 +3,13 @@ import {
   listWorkoutOverrides,
   replaceWorkoutOverride,
   deleteWorkoutOverride,
+  createWorkout,
+  listWorkouts,
+  listExercises,
   type WorkoutOverride,
+  type WorkoutRow,
+  type WorkoutBlockEntry,
+  type ExerciseRow,
 } from '../../lib/adminApi';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, Select, Button } from '../../components/admin/FormField';
@@ -61,6 +67,92 @@ function computeDiff(base: Workout, edited: Workout): Record<string, unknown> {
   return diff;
 }
 
+// ── Create form (canonical workouts) ─────────────────────────────────────
+
+type CreateCat =
+  | 'gym'
+  | 'home'
+  | 'mobility'
+  | 'cardio'
+  | 'stretching'
+  | 'morning routine';
+
+type CreateDiff = 'beginner' | 'intermediate' | 'advanced';
+type CreateStatus = 'draft' | 'published';
+
+type CreateBlockEntry = {
+  exercise_id: string | null;
+  exercise_name: string;
+  sets: string;
+  reps: string;
+};
+
+type CreateFormState = {
+  name: string;
+  slug: string;
+  slugTouched: boolean;
+  cat: CreateCat;
+  subcat: string;
+  dur: string;
+  diff: CreateDiff;
+  emoji: string;
+  status: CreateStatus;
+  warmup: CreateBlockEntry[];
+  main: CreateBlockEntry[];
+  cooldown: CreateBlockEntry[];
+};
+
+const EMPTY_CREATE_FORM: CreateFormState = {
+  name: '',
+  slug: '',
+  slugTouched: false,
+  cat: 'gym',
+  subcat: '',
+  dur: '',
+  diff: 'beginner',
+  emoji: '🏋️',
+  status: 'draft',
+  warmup: [],
+  main: [],
+  cooldown: [],
+};
+
+function slugifyWorkout(input: string): string {
+  const core = input
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .slice(0, 60);
+  if (!core) return '';
+  return core.startsWith('wk_') ? core : `wk_${core}`;
+}
+
+function toBlockEntries(rows: CreateBlockEntry[]): WorkoutBlockEntry[] {
+  return rows.map((r) => ({
+    exercise_id: r.exercise_id,
+    exercise_name: r.exercise_name,
+    sets: r.sets,
+    reps: r.reps,
+  }));
+}
+
+function createFormToPayload(f: CreateFormState): Partial<WorkoutRow> {
+  return {
+    name: f.name.trim(),
+    slug: (f.slug || slugifyWorkout(f.name)).trim(),
+    cat: f.cat,
+    subcat: f.subcat.trim() || null,
+    dur: f.dur.trim() ? Number(f.dur) : null,
+    diff: f.diff,
+    emoji: f.emoji.trim() || '🏋️',
+    warmup: toBlockEntries(f.warmup),
+    main: toBlockEntries(f.main),
+    cooldown: toBlockEntries(f.cooldown),
+    status: f.status,
+  };
+}
+
 function EditedChip() {
   return (
     <span
@@ -97,6 +189,14 @@ export function WorkoutsPage() {
   const [overrideOnly, setOverrideOnly] = useState(false);
 
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  // Create modal state (canonical workouts table)
+  const [createOpen, setCreateOpen] = useState(false);
+  const [createForm, setCreateForm] = useState<CreateFormState>(EMPTY_CREATE_FORM);
+  const [createErr, setCreateErr] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
+  const [canonicalWorkouts, setCanonicalWorkouts] = useState<WorkoutRow[]>([]);
+  const [canonicalExercises, setCanonicalExercises] = useState<ExerciseRow[]>([]);
 
   // Debounce search
   useEffect(() => {
@@ -142,6 +242,73 @@ export function WorkoutsPage() {
       setOverrides(ovs);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
+    }
+  };
+
+  // Create flow (canonical workouts) ────────────────────────────────────────
+  const refreshCanonical = async () => {
+    try {
+      const [wks, exs] = await Promise.all([listWorkouts(), listExercises()]);
+      setCanonicalWorkouts(wks);
+      setCanonicalExercises(exs);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('refreshCanonical failed:', e);
+    }
+  };
+
+  const openCreate = async () => {
+    setCreateForm(EMPTY_CREATE_FORM);
+    setCreateErr(null);
+    setCreateOpen(true);
+    await refreshCanonical();
+  };
+
+  const closeCreate = () => {
+    if (creating) return;
+    setCreateOpen(false);
+    setCreateForm(EMPTY_CREATE_FORM);
+    setCreateErr(null);
+  };
+
+  const handleCreate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const name = createForm.name.trim();
+    if (!name) {
+      setCreateErr('Name is required.');
+      return;
+    }
+    const slug = (createForm.slug || slugifyWorkout(name)).trim();
+    if (!slug) {
+      setCreateErr('Slug is required.');
+      return;
+    }
+    if (canonicalWorkouts.some((w) => w.slug === slug)) {
+      setCreateErr(`Slug "${slug}" is already in use — pick another.`);
+      return;
+    }
+    if (createForm.dur.trim()) {
+      const n = Number(createForm.dur);
+      if (!Number.isFinite(n) || n < 0) {
+        setCreateErr('Duration must be a non-negative number.');
+        return;
+      }
+    }
+    setCreating(true);
+    setCreateErr(null);
+    try {
+      const payload = createFormToPayload({ ...createForm, slug });
+      const res = await createWorkout(payload);
+      if (!res.ok) {
+        setCreateErr(res.error ?? 'Create failed');
+        return;
+      }
+      await refreshCanonical();
+      closeCreate();
+    } catch (e2) {
+      setCreateErr(e2 instanceof Error ? e2.message : String(e2));
+    } finally {
+      setCreating(false);
     }
   };
 
@@ -290,9 +457,14 @@ export function WorkoutsPage() {
             {baseWorkouts.length} workouts, {overrideCount} with overrides
           </div>
         </div>
-        <Button variant="secondary" onClick={refreshOverrides} disabled={loading}>
-          Refresh
-        </Button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Button variant="secondary" onClick={refreshOverrides} disabled={loading}>
+            Refresh
+          </Button>
+          <Button variant="primary" onClick={() => void openCreate()}>
+            + Create Workout
+          </Button>
+        </div>
       </div>
 
       {error && (
@@ -372,6 +544,185 @@ export function WorkoutsPage() {
         onRowClick={(r) => setEditingId(r.id)}
         emptyLabel={loading ? 'Loading…' : 'No workouts match those filters.'}
       />
+
+      {/* Create modal (canonical workouts) */}
+      <Modal
+        open={createOpen}
+        onClose={closeCreate}
+        title="New workout"
+        width={900}
+      >
+        <form onSubmit={handleCreate}>
+          {createErr && (
+            <div
+              style={{
+                padding: '10px 14px',
+                background: colors.errorDim,
+                border: `1px solid ${colors.error}`,
+                color: colors.error,
+                borderRadius: 10,
+                marginBottom: 16,
+                fontSize: 13,
+              }}
+              role="alert"
+            >
+              {createErr}
+            </div>
+          )}
+
+          <datalist id="workout-create-exercise-options">
+            {canonicalExercises.map((ex) => (
+              <option key={ex.id} value={ex.name} />
+            ))}
+          </datalist>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 14 }}>
+            <Field label="Name">
+              <TextInput
+                value={createForm.name}
+                onChange={(e) => {
+                  const name = e.target.value;
+                  setCreateForm((f) => ({
+                    ...f,
+                    name,
+                    slug: f.slugTouched ? f.slug : slugifyWorkout(name),
+                  }));
+                }}
+                required
+              />
+            </Field>
+            <Field label="Emoji">
+              <TextInput
+                value={createForm.emoji}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, emoji: e.target.value }))
+                }
+                maxLength={4}
+              />
+            </Field>
+          </div>
+
+          <Field label="Slug" hint="auto-prefixed wk_…; editable">
+            <TextInput
+              value={createForm.slug}
+              onChange={(e) =>
+                setCreateForm((f) => ({
+                  ...f,
+                  slug: slugifyWorkout(e.target.value),
+                  slugTouched: true,
+                }))
+              }
+              required
+            />
+          </Field>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
+            <Field label="Category">
+              <Select
+                value={createForm.cat}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, cat: e.target.value as CreateCat }))
+                }
+              >
+                <option value="gym">Gym</option>
+                <option value="home">Home</option>
+                <option value="mobility">Mobility</option>
+                <option value="cardio">Cardio</option>
+                <option value="stretching">Stretching</option>
+                <option value="morning routine">Morning Routine</option>
+              </Select>
+            </Field>
+            <Field label="Subcategory">
+              <TextInput
+                value={createForm.subcat}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, subcat: e.target.value }))
+                }
+              />
+            </Field>
+            <Field label="Duration (min)">
+              <TextInput
+                type="number"
+                min={0}
+                value={createForm.dur}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, dur: e.target.value }))
+                }
+                placeholder="30"
+              />
+            </Field>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+            <Field label="Difficulty">
+              <Select
+                value={createForm.diff}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, diff: e.target.value as CreateDiff }))
+                }
+              >
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </Select>
+            </Field>
+            <Field label="Status">
+              <Select
+                value={createForm.status}
+                onChange={(e) =>
+                  setCreateForm((f) => ({
+                    ...f,
+                    status: e.target.value as CreateStatus,
+                  }))
+                }
+              >
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </Select>
+            </Field>
+          </div>
+
+          <CreateBlockSection
+            label="Warmup"
+            rows={createForm.warmup}
+            exercises={canonicalExercises}
+            onChange={(rows) => setCreateForm((f) => ({ ...f, warmup: rows }))}
+            datalistId="workout-create-exercise-options"
+          />
+          <CreateBlockSection
+            label="Main"
+            rows={createForm.main}
+            exercises={canonicalExercises}
+            onChange={(rows) => setCreateForm((f) => ({ ...f, main: rows }))}
+            datalistId="workout-create-exercise-options"
+          />
+          <CreateBlockSection
+            label="Cooldown"
+            rows={createForm.cooldown}
+            exercises={canonicalExercises}
+            onChange={(rows) => setCreateForm((f) => ({ ...f, cooldown: rows }))}
+            datalistId="workout-create-exercise-options"
+          />
+
+          <div
+            style={{
+              display: 'flex',
+              gap: 8,
+              justifyContent: 'flex-end',
+              marginTop: 18,
+              paddingTop: 18,
+              borderTop: `1px solid ${colors.border}`,
+            }}
+          >
+            <Button type="button" variant="ghost" onClick={closeCreate} disabled={creating}>
+              Cancel
+            </Button>
+            <Button type="submit" variant="primary" disabled={creating}>
+              {creating ? 'Creating…' : 'Create workout'}
+            </Button>
+          </div>
+        </form>
+      </Modal>
 
       {/* Edit modal */}
       {editingBase && editingMerged && (
@@ -708,6 +1059,149 @@ function PhaseSection({
 
       <div style={{ marginTop: 8, fontSize: 11, color: colors.dim }}>
         Must match an exercise name from the library exactly.
+      </div>
+    </div>
+  );
+}
+
+// ── Create-mode block section (resolves picks to {id, name}) ─────────────
+
+function CreateBlockSection({
+  label,
+  rows,
+  exercises,
+  onChange,
+  datalistId,
+}: {
+  label: string;
+  rows: CreateBlockEntry[];
+  exercises: ExerciseRow[];
+  onChange: (rows: CreateBlockEntry[]) => void;
+  datalistId: string;
+}) {
+  const addRow = () =>
+    onChange([
+      ...rows,
+      { exercise_id: null, exercise_name: '', sets: '', reps: '' },
+    ]);
+  const removeRow = (i: number) => onChange(rows.filter((_, idx) => idx !== i));
+  const updateRow = (i: number, patch: Partial<CreateBlockEntry>) =>
+    onChange(rows.map((r, idx) => (idx === i ? { ...r, ...patch } : r)));
+  const move = (i: number, dir: -1 | 1) => {
+    const j = i + dir;
+    if (j < 0 || j >= rows.length) return;
+    const next = [...rows];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  };
+
+  return (
+    <div
+      style={{
+        marginTop: 18,
+        padding: 14,
+        background: colors.bg,
+        border: `1px solid ${colors.border}`,
+        borderRadius: 14,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 10,
+        }}
+      >
+        <h3
+          style={{
+            ...BARLOW,
+            margin: 0,
+            fontSize: 16,
+            fontWeight: 700,
+            color: colors.text,
+          }}
+        >
+          {label}{' '}
+          <span style={{ color: colors.dim, fontWeight: 400 }}>({rows.length})</span>
+        </h3>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={addRow}
+          style={{ padding: '6px 12px', fontSize: 12 }}
+        >
+          + Add exercise
+        </Button>
+      </div>
+
+      {rows.length === 0 ? (
+        <div style={{ fontSize: 12, color: colors.dim, padding: '8px 2px' }}>
+          No {label.toLowerCase()} exercises. Click “+ Add exercise” to add one.
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {rows.map((row, i) => (
+            <div
+              key={i}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 80px 100px auto',
+                gap: 8,
+                alignItems: 'center',
+              }}
+            >
+              <TextInput
+                list={datalistId}
+                placeholder="Exercise name"
+                value={row.exercise_name}
+                onChange={(e) => {
+                  const name = e.target.value;
+                  const found = exercises.find((ex) => ex.name === name) ?? null;
+                  updateRow(i, {
+                    exercise_name: name,
+                    exercise_id: found?.id ?? null,
+                  });
+                }}
+              />
+              <TextInput
+                placeholder="3"
+                value={row.sets}
+                onChange={(e) => updateRow(i, { sets: e.target.value })}
+              />
+              <TextInput
+                placeholder="8 reps"
+                value={row.reps}
+                onChange={(e) => updateRow(i, { reps: e.target.value })}
+              />
+              <div style={{ display: 'flex', gap: 4 }}>
+                <IconBtn
+                  label="Move up"
+                  disabled={i === 0}
+                  onClick={() => move(i, -1)}
+                  glyph="↑"
+                />
+                <IconBtn
+                  label="Move down"
+                  disabled={i === rows.length - 1}
+                  onClick={() => move(i, 1)}
+                  glyph="↓"
+                />
+                <IconBtn
+                  label="Remove"
+                  onClick={() => removeRow(i)}
+                  glyph="✕"
+                  danger
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ marginTop: 8, fontSize: 11, color: colors.dim }}>
+        Pick from existing exercises; unmatched names are stored as unresolved
+        references.
       </div>
     </div>
   );

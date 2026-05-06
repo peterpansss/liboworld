@@ -16,11 +16,13 @@ const WorkoutsPage = lazy(() => import('./WorkoutsPage').then((m) => ({ default:
 const ChallengesPage = lazy(() => import('./ChallengesPage').then((m) => ({ default: m.ChallengesPage })));
 const CyclesPage = lazy(() => import('./CyclesPage').then((m) => ({ default: m.CyclesPage })));
 const PayoutsPage = lazy(() => import('./PayoutsPage').then((m) => ({ default: m.PayoutsPage })));
+const ProgramsPage = lazy(() => import('./ProgramsPage').then((m) => ({ default: m.ProgramsPage })));
 
 const NAV = [
   { to: '/admin', label: 'Dashboard', end: true },
   { to: '/admin/exercises', label: 'Exercises' },
   { to: '/admin/workouts', label: 'Workouts' },
+  { to: '/admin/programs', label: 'Programs' },
   { to: '/admin/challenges', label: 'Challenges' },
   { to: '/admin/cycles', label: 'Cycles' },
   { to: '/admin/payouts', label: 'Payouts' },
@@ -142,6 +144,7 @@ function Shell() {
             <Route index element={<DashboardPage />} />
             <Route path="exercises" element={<ExercisesPage />} />
             <Route path="workouts" element={<WorkoutsPage />} />
+            <Route path="programs" element={<ProgramsPage />} />
             <Route path="challenges" element={<ChallengesPage />} />
             <Route path="cycles" element={<CyclesPage />} />
             <Route path="payouts" element={<PayoutsPage />} />
