@@ -26,100 +26,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { colors, webExtras } from '../theme';
-
-// ── Tier data (mirrors libo-app-v2/src/constants/tierFeatures.ts) ──
-const MONTHLY_PRICE = { premium: 9.99, elite: 19.99 } as const;
-const YEARLY_PRICE = { premium: 79, elite: 149 } as const;
-const YEARLY_DISCOUNT = { premium: 34, elite: 37 } as const;
-const TRIAL_DAYS = 7;
-
-type TierId = 'free' | 'premium' | 'elite';
-type BillingCycle = 'monthly' | 'yearly';
-
-type Tier = {
-  id: TierId;
-  name: string;
-  tagline: string;
-  monthlyLabel: string;
-  yearlyLabel: string;
-  monthlySubline: string;
-  yearlySubline: string;
-  badge?: string;
-  features: string[];
-  cta: string;
-  href: string;
-  highlight: 'none' | 'accent' | 'warning';
-};
-
-const TIERS: Tier[] = [
-  {
-    id: 'free',
-    name: 'Free',
-    tagline: 'Start tracking. No card required.',
-    monthlyLabel: '€0',
-    yearlyLabel: '€0',
-    monthlySubline: 'forever',
-    yearlySubline: 'forever',
-    features: [
-      '20 curated workouts',
-      'Reps & kg tracking',
-      'Basic progress charts',
-      'Rewards program (1× points)',
-      'Common product giveaways',
-      'Cash challenges (€5–15 stakes)',
-    ],
-    cta: 'Get started',
-    href: '/onboarding',
-    highlight: 'none',
-  },
-  {
-    id: 'premium',
-    name: 'Premium',
-    tagline: 'Everything you need to train harder.',
-    monthlyLabel: `€${MONTHLY_PRICE.premium.toFixed(2)}`,
-    yearlyLabel: `€${YEARLY_PRICE.premium}`,
-    monthlySubline: '/month',
-    yearlySubline: `/year — save ${YEARLY_DISCOUNT.premium}%`,
-    badge: 'Most popular',
-    features: [
-      'Everything in Free',
-      'Full 140-workout library',
-      'Custom workout builder',
-      'AI workout generator',
-      'Advanced analytics',
-      '2× rewards points',
-      '1 freeze token per challenge cycle',
-      'Premium giveaways + Special prize draws (e.g. iPhone-class items)',
-      'Cash challenges (€15–50 stakes)',
-    ],
-    cta: `Start ${TRIAL_DAYS}-day free trial`,
-    href: '/onboarding?tier=premium',
-    highlight: 'accent',
-  },
-  {
-    id: 'elite',
-    name: 'Elite',
-    tagline: 'The full experience, biggest prizes.',
-    monthlyLabel: `€${MONTHLY_PRICE.elite.toFixed(2)}`,
-    yearlyLabel: `€${YEARLY_PRICE.elite}`,
-    monthlySubline: '/month',
-    yearlySubline: `/year — save ${YEARLY_DISCOUNT.elite}%`,
-    badge: 'Elite',
-    features: [
-      'Everything in Premium',
-      'Exclusive seasonal workouts',
-      '3× rewards points',
-      '3 freeze tokens per challenge cycle',
-      'Highest cash-challenge stakes (€50–250+)',
-      'Priority on rare Elite-exclusive campaigns',
-      'Creator perks',
-      'Early access to new features',
-    ],
-    cta: `Start ${TRIAL_DAYS}-day free trial`,
-    href: '/onboarding?tier=elite',
-    highlight: 'warning',
-  },
-];
+import { TIERS, YEARLY_DISCOUNT, TRIAL_DAYS, buildHref, type Tier, type BillingCycle } from '../data/tiers';
 
 // ── Styles ──
 const sectionStyle: React.CSSProperties = {
@@ -260,13 +167,6 @@ function ctaStyle(highlight: Tier['highlight']): React.CSSProperties {
     color: colors.text,
     border: '1px solid ' + colors.border,
   };
-}
-
-// ── Helpers ──
-function buildHref(base: string, id: TierId, cycle: BillingCycle): string {
-  if (id === 'free') return base;
-  const sep = base.includes('?') ? '&' : '?';
-  return `${base}${sep}cycle=${cycle}`;
 }
 
 // ── Component ──

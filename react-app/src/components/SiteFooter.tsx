@@ -45,7 +45,7 @@ export default function SiteFooter() {
           <div className="site-footer__col">
             <h2 className="site-footer__col-title">{t('footer.companyTitle')}</h2>
             <div className="site-footer__col-links">
-              <Link to="/">{t('footer.about')}</Link>
+              <Link to="/careers">{t('footer.careers', { defaultValue: 'Careers' })}</Link>
               <a href="mailto:hello@liboworld.com">{t('footer.contactUs')}</a>
             </div>
           </div>

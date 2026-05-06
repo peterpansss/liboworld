@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getWorkouts, getExercises, type Workout, type Exercise } from '../data/exercises';
+import { getExercises, type Exercise, type Workout, type WorkoutExercise } from '../data/exercises';
+import { useWorkouts, type WorkoutDisplay, type WorkoutBlock } from '../hooks/useWorkouts';
 import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -10,14 +11,88 @@ import { Search, Hourglass, Frown } from '../utils/icons';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
 
-const CATEGORY_KEYS = ['All', 'Gym', 'Home', 'Cardio', 'Stretching', 'Morning Routine'];
-const MAX_VISIBLE = 6;
+const GOAL_KEYS = ['All', 'Strength', 'Cardio', 'Mobility', 'Recovery', 'Morning', 'Evening'] as const;
+type GoalKey = typeof GOAL_KEYS[number];
+
+const DURATION_KEYS = ['Any', 'Short', 'Medium', 'Long', 'XLong'] as const;
+type DurationKey = typeof DURATION_KEYS[number];
+
+const PAGE_SIZE = 12;
 
 function diffClass(diff: string): string {
   const d = (diff || 'beginner').toLowerCase();
   if (d.startsWith('adv')) return 'advanced';
   if (d.startsWith('int')) return 'intermediate';
   return 'beginner';
+}
+
+// Pagination helper — same shape as ExerciseLibrary.tsx so the el-pagination
+// styles render identically (1 ... N).
+function getPaginationRange(current: number, total: number): (number | 'ellipsis')[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages: (number | 'ellipsis')[] = [1];
+  if (current > 3) pages.push('ellipsis');
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  for (let i = start; i <= end; i++) pages.push(i);
+  if (current < total - 2) pages.push('ellipsis');
+  pages.push(total);
+  return pages;
+}
+
+// Goal classifier — first match wins. Maps the existing cat/subcat fields
+// onto the user-facing Goal axis. No data-schema changes; kept here so it's
+// easy to retune without touching the source spreadsheet.
+function classifyGoal(w: { cat: string; subcat?: string }): Exclude<GoalKey, 'All'> {
+  const cat = (w.cat || '').toLowerCase();
+  const sub = (w.subcat || '').toLowerCase();
+  if (cat === 'morning routine' || sub === 'wake-up') return 'Morning';
+  if (sub === 'before sleep') return 'Evening';
+  if (cat === 'cardio' || sub.includes('hiit') || sub.includes('cardio') || sub === 'steady-state') return 'Cardio';
+  if (cat === 'stretching' || sub === 'mobility' || sub === 'dynamic mobility') return 'Mobility';
+  if (sub === 'recovery' || sub.includes('rehab')) return 'Recovery';
+  return 'Strength';
+}
+
+function matchesDuration(dur: number, key: DurationKey): boolean {
+  switch (key) {
+    case 'Any': return true;
+    case 'Short': return dur <= 15;
+    case 'Medium': return dur > 15 && dur <= 30;
+    case 'Long': return dur > 30 && dur <= 45;
+    case 'XLong': return dur > 45;
+  }
+}
+
+// Adapter: hook's WorkoutDisplay (warmup/main/cooldown blocks) → legacy
+// Workout shape (flat exercises[] with phase tags), so workoutHeroThumb keeps
+// working without touching utils/thumbnails.ts.
+function blockToWorkoutExercise(b: WorkoutBlock, phase: WorkoutExercise['phase']): WorkoutExercise {
+  return {
+    name: b.exerciseName,
+    sets: b.sets,
+    reps: b.reps,
+    dur: b.dur,
+    rest: b.rest,
+    phase,
+  };
+}
+
+function workoutDisplayToLegacy(w: WorkoutDisplay): Workout {
+  return {
+    id: w.id,
+    name: w.name,
+    emoji: w.emoji,
+    diff: w.diff,
+    dur: w.dur,
+    cat: w.cat,
+    subcat: w.subcat,
+    exercises: [
+      ...w.warmup.map((b) => blockToWorkoutExercise(b, 'warmup')),
+      ...w.main.map((b) => blockToWorkoutExercise(b, 'main')),
+      ...w.cooldown.map((b) => blockToWorkoutExercise(b, 'cooldown')),
+    ],
+  };
 }
 
 export default function ProgramLibrary() {
@@ -30,9 +105,16 @@ export default function ProgramLibrary() {
     return t('programLibrary.difficulty.beginner');
   };
 
-  const categoryLabel = (c: string): string => {
+  const goalLabel = (g: GoalKey): string =>
+    t(`programLibrary.goals.${g.toLowerCase()}`, { defaultValue: g });
+
+  const durationLabel = (d: DurationKey): string =>
+    t(`programLibrary.durations.${d.toLowerCase()}`, {
+      defaultValue: d === 'Any' ? 'Any' : d === 'Short' ? '≤15 min' : d === 'Medium' ? '15–30 min' : d === 'Long' ? '30–45 min' : '45+ min',
+    });
+
+  const categoryBadgeLabel = (c: string): string => {
     const map: Record<string, string> = {
-      'All': t('programLibrary.categories.all'),
       'Gym': t('programLibrary.categories.gym'),
       'Home': t('programLibrary.categories.home'),
       'Cardio': t('programLibrary.categories.cardio'),
@@ -42,32 +124,50 @@ export default function ProgramLibrary() {
     return map[c] ?? c;
   };
 
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
+  // Phase 4: public catalog flows through useWorkouts() (race-and-replace
+  // from /workouts.json then Supabase). Exercises only needed for the
+  // thumbnail name->slug map.
+  const { workouts, loading: workoutsLoading } = useWorkouts();
   const [exercises, setExercises] = useState<Exercise[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [exercisesLoading, setExercisesLoading] = useState(true);
+  const loading = workoutsLoading || exercisesLoading;
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const search = searchParams.get('q') || '';
-  const cat = searchParams.get('cat') || 'All';
+  const goalParam = (searchParams.get('goal') || 'All') as GoalKey;
+  const durationParam = (searchParams.get('dur') || 'Any') as DurationKey;
+  const goal: GoalKey = (GOAL_KEYS as readonly string[]).includes(goalParam) ? goalParam : 'All';
+  const duration: DurationKey = (DURATION_KEYS as readonly string[]).includes(durationParam) ? durationParam : 'Any';
+  const pageParam = parseInt(searchParams.get('page') || '1', 10);
+  const page = isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
 
   useEffect(() => {
-    Promise.all([getWorkouts(), getExercises(i18n.language)]).then(([wks, exs]) => {
-      setWorkouts(wks);
+    getExercises(i18n.language).then((exs) => {
       setExercises(exs);
-      setLoading(false);
+      setExercisesLoading(false);
     });
   }, [i18n.language]);
+
+  const legacyWorkouts: Workout[] = useMemo(
+    () => workouts.map(workoutDisplayToLegacy),
+    [workouts]
+  );
 
   const nameToSlug = useMemo(() => buildNameToSlug(exercises), [exercises]);
 
   useEffect(() => {
     const base = t('programLibrary.documentTitle');
-    document.title = cat !== 'All' ? `${cat} ${base} | Libo` : `${base} | Libo`;
+    document.title = goal !== 'All' ? `${goalLabel(goal)} ${base} | Libo` : `${base} | Libo`;
     return () => { document.title = 'Libo'; };
-  }, [cat, t]);
+  }, [goal, t]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Apply search + goal + duration. When all three are at their default
+  // ("nothing selected") we keep the full list so the grouped view below can
+  // bucket by goal — that "default browse" pattern is what NTC's "By Focus"
+  // does and it matches how people pick a workout (by intent, not by tag).
   const filtered = useMemo(() => {
-    let result = workouts;
+    let result = legacyWorkouts;
 
     if (search) {
       const q = search.toLowerCase();
@@ -79,24 +179,96 @@ export default function ProgramLibrary() {
       );
     }
 
-    if (cat !== 'All') {
-      result = result.filter((w) => w.cat.toLowerCase() === cat.toLowerCase());
+    if (goal !== 'All') {
+      result = result.filter((w) => classifyGoal(w) === goal);
+    }
+
+    if (duration !== 'Any') {
+      result = result.filter((w) => matchesDuration(w.dur, duration));
     }
 
     return result;
-  }, [workouts, search, cat]);
+  }, [legacyWorkouts, search, goal, duration]);
 
-  const visible = filtered.slice(0, MAX_VISIBLE);
-  const moreCount = Math.max(0, filtered.length - MAX_VISIBLE);
+  const filtersActive = !!search || goal !== 'All' || duration !== 'Any';
+  const activeFilterCount =
+    (goal !== 'All' ? 1 : 0) + (duration !== 'Any' ? 1 : 0);
 
-  function updateParam(key: string, value: string) {
-    const next = new URLSearchParams(searchParams);
-    if (value === 'All' || value === '') {
-      next.delete(key);
-    } else {
-      next.set(key, value);
-    }
-    setSearchParams(next, { replace: true });
+  // Bucket workouts by goal for the unfiltered "default browse" view.
+  // Order matches GOAL_KEYS so Morning/Evening don't lead the page.
+  const groupedByGoal = useMemo(() => {
+    const groups: Record<Exclude<GoalKey, 'All'>, Workout[]> = {
+      Strength: [], Cardio: [], Mobility: [], Recovery: [], Morning: [], Evening: [],
+    };
+    legacyWorkouts.forEach((w) => groups[classifyGoal(w)].push(w));
+    return groups;
+  }, [legacyWorkouts]);
+
+  // Paginated flat view (only used when filters are active).
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const pageStart = (safePage - 1) * PAGE_SIZE;
+  const pageEnd = pageStart + PAGE_SIZE;
+  const pageWorkouts = filtered.slice(pageStart, pageEnd);
+
+  const updateParam = useCallback((key: string, value: string) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev);
+      const isDefault =
+        (key === 'goal' && value === 'All') ||
+        (key === 'dur' && value === 'Any') ||
+        (key === 'q' && value === '');
+      if (isDefault) {
+        next.delete(key);
+      } else {
+        next.set(key, value);
+      }
+      next.delete('page'); // reset page on any filter change
+      return next;
+    }, { replace: true });
+  }, [setSearchParams]);
+
+  const setPage = useCallback((p: number) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev);
+      if (p <= 1) next.delete('page'); else next.set('page', String(p));
+      return next;
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [setSearchParams]);
+
+  function clearAll() {
+    setSearchParams({}, { replace: true });
+  }
+
+  function renderCard(w: Workout) {
+    const heroThumb = workoutHeroThumb(w, nameToSlug, exercises);
+    return (
+      <Link key={w.id} to={`/workouts/${w.id}`} className="el-card">
+        <div className="el-card-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
+          <span aria-hidden="true" style={{ position: 'relative', zIndex: 0 }}>
+            <EmojiIcon emoji={w.emoji || '🏋️'} size={28} />
+          </span>
+          {heroThumb && (
+            <img
+              src={heroThumb}
+              alt=""
+              loading="lazy"
+              onError={(e) => (e.currentTarget.style.display = 'none')}
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+            />
+          )}
+        </div>
+        <div className="el-card-name">{w.name}</div>
+        <div className="el-card-meta">
+          <span className="el-card-badge">{categoryBadgeLabel(w.cat)}</span>
+          <span className="el-card-equip">{t('programLibrary.card.minutes', { count: w.dur })}</span>
+          <span className={`el-card-diff ${diffClass(w.diff)}`}>
+            {diffLabel(w.diff)}
+          </span>
+        </div>
+      </Link>
+    );
   }
 
   return (
@@ -117,7 +289,7 @@ export default function ProgramLibrary() {
           {/* Hero */}
           <div className="el-hero">
             <h1 className="font-display">{t('programLibrary.title')}</h1>
-            <p>{t('programLibrary.subtitle', { count: workouts.length })}</p>
+            <p>{t('programLibrary.subtitleAll', { count: workouts.length, defaultValue: '{{count}} guided workouts. Pick by goal, by time, or just browse.' })}</p>
           </div>
 
           {/* Search */}
@@ -135,92 +307,162 @@ export default function ProgramLibrary() {
             />
           </div>
 
+          {/* Mobile filters toggle — collapses goal+duration into one tap on
+              ≤768px (CSS lives in ExerciseLibrary.css under .el-filters-toggle) */}
+          <button
+            type="button"
+            className="el-filters-toggle"
+            aria-expanded={filtersOpen}
+            aria-controls="el-filters"
+            onClick={() => setFiltersOpen(o => !o)}
+          >
+            <span>
+              {t('exerciseLibrary.filtersToggle', { defaultValue: 'Filters' })}
+              {activeFilterCount > 0 && (
+                <span className="el-filters-toggle__count" aria-label="active filter count">
+                  {activeFilterCount}
+                </span>
+              )}
+            </span>
+            <span className="el-filters-toggle__chev" aria-hidden>▾</span>
+          </button>
+
           {/* Filters */}
-          <div className="el-filters">
+          <div id="el-filters" className={`el-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
             <div className="el-filter-row">
-              <span className="el-filter-label">{t('programLibrary.filters.category')}</span>
+              <span className="el-filter-label">{t('programLibrary.filters.goal', { defaultValue: 'Goal' })}</span>
               <div className="el-chips">
-                {CATEGORY_KEYS.map((c) => (
+                {GOAL_KEYS.map((g) => (
                   <button
-                    key={c}
-                    className={`el-chip ${cat === c ? 'active' : ''}`}
-                    aria-pressed={cat === c}
-                    onClick={() => updateParam('cat', c)}
+                    key={g}
+                    className={`el-chip ${goal === g ? 'active' : ''}`}
+                    aria-pressed={goal === g}
+                    onClick={() => updateParam('goal', goal === g ? 'All' : g)}
                   >
-                    {categoryLabel(c)}
+                    {goalLabel(g)}
                   </button>
                 ))}
               </div>
             </div>
+            <div className="el-filter-row">
+              <span className="el-filter-label">{t('programLibrary.filters.duration', { defaultValue: 'Duration' })}</span>
+              <div className="el-chips">
+                {DURATION_KEYS.map((d) => (
+                  <button
+                    key={d}
+                    className={`el-chip ${duration === d ? 'active' : ''}`}
+                    aria-pressed={duration === d}
+                    onClick={() => updateParam('dur', duration === d ? 'Any' : d)}
+                  >
+                    {durationLabel(d)}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {filtersActive && (
+              <button type="button" className="wk-clear-filters" onClick={clearAll}>
+                {t('common.clearFilters', { defaultValue: 'Clear filters' })}
+              </button>
+            )}
           </div>
 
-          {/* Results count */}
-          {!loading && (
-            <div className="el-results-count" aria-live="polite" role="status">
-              {t('programLibrary.resultsCountPrefix')} <strong>{visible.length}</strong> {t('programLibrary.resultsCountOf')} <strong>{filtered.length}</strong> {t('programLibrary.resultsCountSuffix')}
-            </div>
-          )}
-
-          {/* Grid */}
-          {loading ? (
+          {/* Loading */}
+          {loading && (
             <div className="el-empty">
               <div className="el-empty-icon" aria-hidden="true">
                 <EmojiIcon icon={Hourglass} size={40} />
               </div>
               <p className="el-empty-text">{t('programLibrary.loading')}</p>
             </div>
-          ) : visible.length === 0 ? (
-            <div className="el-empty">
-              <div className="el-empty-icon" aria-hidden="true">
-                <EmojiIcon icon={Frown} size={40} />
-              </div>
-              <p className="el-empty-text">{t('programLibrary.empty.title')}</p>
-              <p className="el-empty-sub">{t('programLibrary.empty.subtitle')}</p>
-            </div>
-          ) : (
-            <div className="el-grid">
-              {visible.map((w) => {
-                const heroThumb = workoutHeroThumb(w, nameToSlug, exercises);
+          )}
+
+          {/* Default browse — grouped by goal (no filters active) */}
+          {!loading && !filtersActive && (
+            <div className="wk-groups">
+              {(Object.keys(groupedByGoal) as Array<keyof typeof groupedByGoal>).map((g) => {
+                const items = groupedByGoal[g];
+                if (items.length === 0) return null;
                 return (
-                <Link key={w.id} to={`/workouts/${w.id}`} className="el-card">
-                  <div className="el-card-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
-                    <span aria-hidden="true" style={{ position: 'relative', zIndex: 0 }}>
-                      <EmojiIcon emoji={w.emoji || '🏋️'} size={28} />
-                    </span>
-                    {heroThumb && (
-                      <img
-                        src={heroThumb}
-                        alt=""
-                        loading="lazy"
-                        onError={(e) => (e.currentTarget.style.display = 'none')}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
-                      />
-                    )}
-                  </div>
-                  <div className="el-card-name">{w.name}</div>
-                  <div className="el-card-meta">
-                    <span className="el-card-badge">{categoryLabel(w.cat)}</span>
-                    <span className="el-card-equip">{t('programLibrary.card.minutes', { count: w.dur })}</span>
-                    <span className={`el-card-diff ${diffClass(w.diff)}`}>
-                      {diffLabel(w.diff)}
-                    </span>
-                  </div>
-                </Link>
+                  <section key={g} className="wk-group" aria-labelledby={`wk-group-${g}`}>
+                    <header className="wk-group-header">
+                      <h2 id={`wk-group-${g}`} className="wk-group-title font-display">{goalLabel(g)}</h2>
+                      <button
+                        type="button"
+                        className="wk-group-link"
+                        onClick={() => updateParam('goal', g)}
+                      >
+                        {t('programLibrary.viewAll', { defaultValue: 'View all' })} →
+                      </button>
+                    </header>
+                    <div className="wk-group-grid">
+                      {items.slice(0, 6).map(renderCard)}
+                    </div>
+                  </section>
                 );
               })}
             </div>
           )}
 
-          {/* More in app CTA */}
-          {moreCount > 0 && (
-            <div className="wk-more-cta">
-              <p className="wk-more-text">
-                {t('programLibrary.moreCta.text', { count: moreCount })}
-              </p>
-              <Link to="/onboarding" className="wk-more-btn">
-                {t('programLibrary.moreCta.button')}
-              </Link>
-            </div>
+          {/* Filtered — flat grid + pagination */}
+          {!loading && filtersActive && (
+            <>
+              <div className="el-results-count" aria-live="polite" role="status">
+                {t('programLibrary.resultsCountPrefix')} <strong>{Math.min(pageStart + 1, filtered.length)}–{Math.min(pageEnd, filtered.length)}</strong> {t('programLibrary.resultsCountOf')} <strong>{filtered.length}</strong> {t('programLibrary.resultsCountSuffix')}
+              </div>
+
+              {filtered.length === 0 ? (
+                <div className="el-empty">
+                  <div className="el-empty-icon" aria-hidden="true">
+                    <EmojiIcon icon={Frown} size={40} />
+                  </div>
+                  <p className="el-empty-text">{t('programLibrary.empty.title')}</p>
+                  <p className="el-empty-sub">{t('programLibrary.empty.subtitle')}</p>
+                  <button className="el-empty-clear" onClick={clearAll}>
+                    {t('common.clearFilters', { defaultValue: 'Clear filters' })}
+                  </button>
+                </div>
+              ) : (
+                <div className="el-grid">
+                  {pageWorkouts.map(renderCard)}
+                </div>
+              )}
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="el-pagination">
+                  <button
+                    className="el-page-btn"
+                    disabled={safePage <= 1}
+                    aria-label={t('exerciseLibrary.previousPage', { defaultValue: 'Previous page' })}
+                    onClick={() => setPage(safePage - 1)}
+                  >
+                    &#8249;
+                  </button>
+                  {getPaginationRange(safePage, totalPages).map((item, i) =>
+                    item === 'ellipsis' ? (
+                      <span key={`e${i}`} className="el-page-ellipsis">&hellip;</span>
+                    ) : (
+                      <button
+                        key={item}
+                        className={`el-page-btn ${safePage === item ? 'active' : ''}`}
+                        {...(safePage === item ? { 'aria-current': 'page' as const } : {})}
+                        onClick={() => setPage(item)}
+                      >
+                        {item}
+                      </button>
+                    )
+                  )}
+                  <button
+                    className="el-page-btn"
+                    disabled={safePage >= totalPages}
+                    aria-label={t('exerciseLibrary.nextPage', { defaultValue: 'Next page' })}
+                    onClick={() => setPage(safePage + 1)}
+                  >
+                    &#8250;
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </main>

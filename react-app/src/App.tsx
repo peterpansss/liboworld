@@ -15,10 +15,13 @@ import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
 
 // Content pages — lazy loaded
+const Careers = lazy(() => import('./pages/Careers'));
+const Pricing = lazy(() => import('./pages/Pricing'));
 const ExerciseLibrary = lazy(() => import('./pages/ExerciseLibrary'));
 const ExerciseDetail = lazy(() => import('./pages/ExerciseDetail'));
 const ProgramLibrary = lazy(() => import('./pages/ProgramLibrary'));
 const ProgramDetail = lazy(() => import('./pages/ProgramDetail'));
+const Programs = lazy(() => import('./pages/Programs'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Privacy = lazy(() => import('./pages/Privacy'));
@@ -39,11 +42,14 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/careers" element={<Suspense fallback={darkFallback}><Careers /></Suspense>} />
+        <Route path="/pricing" element={<Suspense fallback={darkFallback}><Pricing /></Suspense>} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/exercises" element={<Suspense fallback={darkFallback}><ExerciseLibrary /></Suspense>} />
         <Route path="/exercises/:id" element={<Suspense fallback={darkFallback}><ExerciseDetail /></Suspense>} />
         <Route path="/workouts" element={<Suspense fallback={darkFallback}><ProgramLibrary /></Suspense>} />
         <Route path="/workouts/:id" element={<Suspense fallback={darkFallback}><ProgramDetail /></Suspense>} />
+        <Route path="/programs" element={<Suspense fallback={darkFallback}><Programs /></Suspense>} />
         <Route path="/blog" element={<Suspense fallback={darkFallback}><Blog /></Suspense>} />
         <Route path="/blog/:slug" element={<Suspense fallback={darkFallback}><BlogPost /></Suspense>} />
         <Route path="/privacy" element={<Suspense fallback={darkFallback}><Privacy /></Suspense>} />

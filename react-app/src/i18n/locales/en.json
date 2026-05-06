@@ -7,7 +7,9 @@
     "cta": "Get Early Access",
     "home": "Home",
     "exercises": "Exercises",
+    "pricing": "Pricing",
     "blog": "Blog",
+    "careers": "Careers",
     "cashChallenges": "Cash Challenges",
     "giveaways": "Giveaways",
     "getStarted": "Get Started",
@@ -17,6 +19,10 @@
     "mainNavigation": "Main navigation",
     "navigationMenu": "Navigation menu",
     "changeLanguage": "Change language"
+  },
+  "common": {
+    "clearAll": "Clear all",
+    "clearFilters": "Clear filters"
   },
   "hero": {
     "eyebrow": "Coming Soon — Join the Waitlist",
@@ -509,6 +515,33 @@
     },
     "previousPage": "Previous page",
     "nextPage": "Next page",
+    "exploreByMuscleGroup": "Explore by Muscle Group",
+    "filtersToggle": "Filters",
+    "settingLabel": "Setting",
+    "typeLabel": "Type",
+    "setting": {
+      "all": "All",
+      "gym": "Gym",
+      "home": "Home"
+    },
+    "type": {
+      "all": "All",
+      "strength": "Strength",
+      "cardio": "Cardio",
+      "hiit": "HIIT",
+      "power": "Power",
+      "mobility": "Mobility",
+      "core": "Core",
+      "pelvicFloor": "Pelvic Floor",
+      "warmUp": "Warm-Up"
+    },
+    "showingResults": "Showing {{from}}–{{to}} of {{total}} exercises",
+    "showingResultsFiltered": "Showing {{from}}–{{to}} of {{total}}{{context}}",
+    "filterContext": {
+      "muscle": " {{muscle}} exercises",
+      "equipment": " {{equipment}} exercises",
+      "muscleAndEquipment": " {{muscle}} {{equipment}} exercises"
+    },
     "muscles": {
       "all": "All",
       "chest": "Chest",
@@ -522,7 +555,19 @@
       "cardio": "Cardio",
       "fullBody": "Full Body",
       "forearms": "Forearms",
-      "traps": "Traps"
+      "traps": "Traps",
+      "quads": "Quads",
+      "hamstrings": "Hamstrings",
+      "calves": "Calves",
+      "frontDelts": "Front Delts",
+      "sideDelts": "Side Delts",
+      "rearDelts": "Rear Delts",
+      "lats": "Lats",
+      "rhomboids": "Rhomboids",
+      "abs": "Abs",
+      "obliques": "Obliques",
+      "lowerBack": "Lower Back",
+      "hipFlexors": "Hip Flexors"
     },
     "equipment": {
       "all": "All",
@@ -560,6 +605,101 @@
     "ctaDescription": "Log sets, reps, and weight. See your progress over time.",
     "ctaButton": "Join Waitlist",
     "relatedTitle": "Related {{muscle}} Exercises",
+    "instructions": "Instructions",
+    "tips": "Tips",
+    "breathing": "Breathing",
+    "commonMistakes": "Common Mistakes",
+    "alternativeExercisesTitle": "Alternative Exercises to replace {{name}}",
+    "voiceMaleHint": "Male voice (tap for female)",
+    "voiceFemaleHint": "Female voice (tap for male)",
+    "anatomy": {
+      "targetMuscle": "Target Muscle",
+      "front": "Front",
+      "back": "Back",
+      "primary": "Primary",
+      "secondary": "Secondary"
+    },
+    "heuristics": {
+      "instructions": {
+        "press": [
+          "Brace your core and maintain a controlled tempo throughout the movement.",
+          "Lower the weight under control, then press up explosively.",
+          "Fully extend at the top without locking out joints."
+        ],
+        "pull": [
+          "Initiate the movement by retracting your shoulder blades.",
+          "Pull towards your body with control, squeezing at the peak contraction.",
+          "Lower under control to full extension."
+        ],
+        "squat": [
+          "Keep your chest up and core braced throughout the movement.",
+          "Lower with control, keeping knees tracking over toes.",
+          "Drive through your heels to return to the starting position."
+        ],
+        "curl": [
+          "Keep your elbows pinned to your sides throughout the movement.",
+          "Curl the weight up with control, squeezing at the top.",
+          "Lower slowly under control — avoid swinging."
+        ],
+        "stretch": [
+          "Move into the stretch slowly and hold at the point of mild tension.",
+          "Breathe deeply and relax into the position — do not force it.",
+          "Hold for the prescribed duration, then release gently."
+        ],
+        "hold": [
+          "Engage your core and maintain a straight line from head to heels.",
+          "Breathe steadily — do not hold your breath.",
+          "Hold for the prescribed duration, maintaining form throughout."
+        ],
+        "hinge": [
+          "Hinge at the hips, keeping your spine neutral throughout.",
+          "Drive through your heels and squeeze your glutes at the top.",
+          "Lower with control, maintaining tension in the target muscles."
+        ],
+        "default": [
+          "Perform the movement with controlled tempo.",
+          "Focus on mind-muscle connection with the target area.",
+          "Complete all reps with proper form before increasing weight."
+        ]
+      },
+      "tips": {
+        "barbell": "Start with lighter weight to perfect your form before loading up.",
+        "advanced": "This is an advanced movement — ensure you can perform the basic version first.",
+        "unilateral": "Start with your weaker side first to ensure balanced development.",
+        "sided": "Perform equal reps on both sides for balanced development.",
+        "stretch": "Never bounce in a stretch — hold steady and breathe."
+      },
+      "mistakes": {
+        "squat": [
+          "Letting the knees collapse inward — keep them tracking over your toes.",
+          "Rounding the lower back at the bottom — keep your chest tall and core braced."
+        ],
+        "press": [
+          "Flaring the elbows out at 90° — keep them at a comfortable 45–60° angle.",
+          "Bouncing the weight off your chest — control the descent."
+        ],
+        "pull": [
+          "Using momentum to swing the weight — keep your torso steady.",
+          "Stopping short of full contraction — pull all the way through."
+        ],
+        "hinge": [
+          "Rounding the lower back — keep your spine neutral throughout.",
+          "Hyperextending at the top — finish with a squeeze, not a lean."
+        ],
+        "curl": [
+          "Swinging the weight with your back — pin elbows and isolate the bicep.",
+          "Cutting reps short — fully extend at the bottom for full range."
+        ],
+        "hold": [
+          "Letting the hips sag — keep a straight line from head to heels.",
+          "Holding your breath — breathe steadily throughout."
+        ],
+        "stretch": [
+          "Bouncing into the stretch — hold steady, never bounce.",
+          "Forcing the range — relax into mild tension, not pain."
+        ]
+      }
+    },
     "difficultyLevels": {
       "beginner": "Beginner",
       "intermediate": "Intermediate",
@@ -612,10 +752,30 @@
     },
     "title": "Workouts",
     "subtitle": "{{count}} guided workouts. Preview a selection — unlock the full library in the app.",
+    "subtitleAll": "{{count}} guided workouts. Pick by goal, by time, or just browse.",
     "searchPlaceholder": "Search workouts...",
     "searchAria": "Search workouts",
+    "viewAll": "View all",
     "filters": {
-      "category": "Category"
+      "category": "Category",
+      "goal": "Goal",
+      "duration": "Duration"
+    },
+    "goals": {
+      "all": "All",
+      "strength": "Strength",
+      "cardio": "Cardio",
+      "mobility": "Mobility",
+      "recovery": "Recovery",
+      "morning": "Morning",
+      "evening": "Evening"
+    },
+    "durations": {
+      "any": "Any",
+      "short": "≤15 min",
+      "medium": "15–30 min",
+      "long": "30–45 min",
+      "xlong": "45+ min"
     },
     "categories": {
       "all": "All",

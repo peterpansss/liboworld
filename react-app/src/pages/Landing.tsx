@@ -5,7 +5,8 @@ import { supabase } from '../lib/supabase';
 import { blogArticles } from '../data/blog';
 import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
-import PricingSection from '../components/PricingSection';
+import FounderCard from '../components/FounderCard';
+import FreeTrialCta from '../components/FreeTrialCta';
 import { EmojiIcon } from '../components/EmojiIcon';
 import { Star } from '../utils/icons';
 import './Landing.css';
@@ -40,7 +41,6 @@ const FEATURE_KEYS = ['exerciseLibrary', 'workoutLibrary', 'programs', 'progress
 
 const CATEGORY_KEYS = ['homeWorkouts', 'gymTraining', 'mobilityStretch', 'functional', 'morningRoutines', 'eveningWindDown'] as const;
 
-const TESTIMONIAL_AVATARS = ['\uD83D\uDC68', '\uD83D\uDC69', '\uD83E\uDDD1'];
 
 // ── Smooth scroll to anchor ──
 function scrollToId(id: string) {
@@ -139,13 +139,6 @@ export default function Landing() {
     title: t(`goals.${key}`),
     desc: t(`goals.${key}Desc`),
     goalParam: GOAL_PARAMS[i],
-  }));
-
-  const TESTIMONIALS = [1, 2, 3].map((n, i) => ({
-    quote: t(`proof.card${n}Quote`),
-    name: t(`proof.card${n}Author`),
-    meta: t(`proof.card${n}Meta`),
-    avatar: TESTIMONIAL_AVATARS[i],
   }));
 
   const FAQ_ITEMS = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
@@ -569,6 +562,9 @@ export default function Landing() {
         </div>
       </div>
 
+      {/* ── FOUNDER BTS CARD ── */}
+      <FounderCard />
+
       {/* ── STATEMENT ── */}
       <div className="statement-wrapper">
         <div className="statement">
@@ -779,44 +775,6 @@ export default function Landing() {
         </p>
       </div>
 
-      {/* ── SOCIAL PROOF ── */}
-      <div className="proof-wrapper">
-        <section className="proof-section" id="proof">
-          <div className="reveal">
-            <div className="label label-spaced">{t('proof.eyebrow')}</div>
-            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('proof.headline')}</h2>
-          </div>
-          <div className="proof-grid">
-            {TESTIMONIALS.map((testimonial, i) => (
-              <div
-                key={testimonial.name}
-                className="proof-card reveal-card"
-                data-reveal="fade-up"
-                data-delay={String(i * 0.15)}
-              >
-                <div className="proof-stars">
-                  {[...Array(5)].map((_, j) => (
-                    <span key={j} className="star-animate">
-                      <EmojiIcon icon={Star} size={14} color="#CAFF00" />
-                    </span>
-                  ))}
-                </div>
-                <p className="proof-quote">{testimonial.quote}</p>
-                <div className="proof-author">
-                  <div className="proof-avatar">
-                    <EmojiIcon emoji={testimonial.avatar} size={28} />
-                  </div>
-                  <div>
-                    <div className="proof-name">{testimonial.name}</div>
-                    <div className="proof-meta">{testimonial.meta}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-
       {/* ── TRUST BADGES ── */}
       <section className="trust-section">
         <div className="trust-inner">
@@ -857,8 +815,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ── PRICING ── */}
-      <PricingSection />
+      {/* ── FREE TRIAL CTA — pricing detail moved to /pricing ── */}
+      <FreeTrialCta />
 
       {/* ── FAQ ── */}
       <section className="faq-section" id="faq">
