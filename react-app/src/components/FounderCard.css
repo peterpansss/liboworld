@@ -8,7 +8,7 @@
 
 .founder-section {
   padding: 96px 40px;
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
 }
 
@@ -41,7 +41,7 @@
 .founder-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 20px;
   align-items: stretch;
 }
 
@@ -49,10 +49,10 @@
 .founder-shot {
   position: relative;
   margin: 0;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
   background: #1a1a1a;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -122,42 +122,39 @@
     padding: 72px 20px;
   }
   .founder-header {
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
+  /* Stack 1-per-row, full-width — Cal AI mobile pattern. All 3 cards visible. */
   .founder-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
-  /* Drop the stagger on small viewports so cards align cleanly */
+  /* Drop the stagger; tall portrait cards read better one at a time */
   .founder-shot--1,
   .founder-shot--2,
   .founder-shot--3 {
     transform: none;
   }
+  .founder-shot {
+    /* Slightly taller on mobile for the same hero feeling Cal AI has */
+    aspect-ratio: 4 / 5;
+  }
   .founder-caption {
-    bottom: 8px;
-    left: 8px;
-    right: 8px;
-    padding: 8px 10px;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    padding: 12px 14px;
   }
   .founder-caption__text {
-    font-size: 11px;
+    font-size: 13px;
   }
   .founder-caption__quote {
-    font-size: 18px;
+    font-size: 22px;
   }
 }
 
 @media (max-width: 480px) {
   .founder-section {
     padding: 56px 16px;
-  }
-  .founder-grid {
-    /* Two-up on the smallest screens, third card hides — captions stay legible */
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-  .founder-shot--3 {
-    display: none;
   }
 }
