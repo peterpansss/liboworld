@@ -37,13 +37,14 @@
   margin: 0 auto;
 }
 
-/* ── Grid ── */
+/* ── Grid (single card — single column, capped width so the photo stays
+   editorial instead of stretching the full container) ── */
 .founder-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 0;
   align-items: stretch;
-  max-width: 960px;
+  max-width: 560px;
   margin: 0 auto;
 }
 
@@ -78,10 +79,8 @@
   transform: scale(1.04);
 }
 
-/* Two-card layout: subtle vertical offset between the pair so the row
-   feels editorial rather than mechanical. */
+/* Single card — no stagger needed */
 .founder-shot--1 { transform: translateY(0); }
-.founder-shot--2 { transform: translateY(-12px); }
 
 /* ── Caption pill (bottom-left) ── */
 .founder-caption {
@@ -130,9 +129,7 @@
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  /* Drop the stagger; tall portrait cards read better one at a time */
-  .founder-shot--1,
-  .founder-shot--2 {
+  .founder-shot--1 {
     transform: none;
   }
   .founder-shot {

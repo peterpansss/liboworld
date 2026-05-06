@@ -23,10 +23,6 @@ const SHOTS: FounderShot[] = [
     src: '/founder/noah-pose.png',
     caption: 'Designed in the gym, not the office.',
   },
-  {
-    src: '/founder/noah-physique.jpg',
-    caption: 'Every workout in Libo, I trained myself first.',
-  },
 ];
 
 export default function FounderCard() {
