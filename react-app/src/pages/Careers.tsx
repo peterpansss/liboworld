@@ -25,20 +25,6 @@ const ROLES: Role[] = [
     type: 'Contract',
     applyHref: 'mailto:hello@liboworld.com?subject=Application%20%E2%80%94%20Mobile%20Engineer',
   },
-  {
-    id: 'content-producer',
-    title: 'Content Producer (Exercise Library)',
-    location: 'Lisbon · or remote',
-    type: 'Contract',
-    applyHref: 'mailto:hello@liboworld.com?subject=Application%20%E2%80%94%20Content%20Producer',
-  },
-  {
-    id: 'community-creator',
-    title: 'Community & Creator Lead',
-    location: 'Remote',
-    type: 'Part-time',
-    applyHref: 'mailto:hello@liboworld.com?subject=Application%20%E2%80%94%20Community%20Lead',
-  },
 ];
 
 export default function Careers() {
