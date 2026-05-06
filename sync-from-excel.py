@@ -7,12 +7,38 @@ Exercises: derived from libo-app-v2/src/data/exercises.json (already correct, 63
 Workouts: parsed from Exercise_Library_v5_Workouts.xlsx workout detail sheets.
 
 Challenge Programs are excluded from workout output.
+
+GATED as of 2026-05-07: requires --allow-overwrite. Excel is no longer the
+source of truth — the admin panel at https://liboworld.com/admin is. See
+CLAUDE.md → "Exercise Data Sync Rule".
 """
 
+import argparse
+import sys
 import json
 import re
 import os
 import openpyxl
+
+
+GUARD_BANNER = """\
+============================================================
+  EXCEL IS NO LONGER THE SOURCE OF TRUTH
+============================================================
+  As of 2026-05-07, the admin panel is authoritative:
+      https://liboworld.com/admin
+
+  Excel (Exercise_Library_v5_Workouts.xlsx) is preserved as
+  read-only historical reference. Running this script would
+  regenerate libo-data.js and react-app/public/{exercises,
+  workouts}.json and silently overwrite admin-authored data.
+
+  If you really need to do this (disaster recovery only),
+  re-run with --allow-overwrite.
+
+  Context: CLAUDE.md → "Exercise Data Sync Rule".
+============================================================
+"""
 
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
 MONO_ROOT = os.path.dirname(REPO_ROOT)
@@ -236,6 +262,18 @@ def build_workouts():
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        '--allow-overwrite',
+        action='store_true',
+        help='Bypass the guard and regenerate JSON from Excel. Disaster recovery only.',
+    )
+    args = parser.parse_args()
+
+    if not args.allow_overwrite:
+        sys.stderr.write(GUARD_BANNER)
+        sys.exit(1)
+
     print("Building exercises from app data...")
     exercises = build_exercises()
     print(f"  {len(exercises)} exercises")
