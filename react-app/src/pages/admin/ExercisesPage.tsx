@@ -11,6 +11,7 @@ import {
   uploadExerciseThumbnail,
   createExercise,
   listExercises,
+  updateExercise,
   uploadExerciseVideoRaw,
   createMediaJob,
   type ExerciseOverride,
@@ -133,6 +134,43 @@ const bilateralBadgeStyle: React.CSSProperties = {
   textTransform: 'uppercase',
   letterSpacing: 0.6,
   verticalAlign: 'middle',
+};
+
+// Save-path indicator pills shown at the top of the Edit modal so the admin
+// knows whether Save will write to the canonical `exercises` table or fall
+// back to the legacy `exercise_overrides` patch layer.
+const canonicalPillStyle: React.CSSProperties = {
+  display: 'inline-block',
+  padding: '3px 10px',
+  borderRadius: 8,
+  background: colors.accentDim,
+  color: colors.accent,
+  fontSize: 10,
+  fontWeight: 800,
+  textTransform: 'uppercase',
+  letterSpacing: 0.6,
+};
+
+const legacyPillStyle: React.CSSProperties = {
+  display: 'inline-block',
+  padding: '3px 10px',
+  borderRadius: 8,
+  background: 'transparent',
+  color: colors.muted,
+  border: `1px solid ${colors.border}`,
+  fontSize: 10,
+  fontWeight: 700,
+  textTransform: 'uppercase',
+  letterSpacing: 0.6,
+};
+
+const savePathRowStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 10,
+  marginBottom: 14,
+  fontSize: 12,
+  color: colors.muted,
 };
 
 const childNoteStyle: React.CSSProperties = {
@@ -681,6 +719,51 @@ export function ExercisesPage() {
 
   async function handleSave() {
     if (!editing || !form) return;
+
+    // Detect path: if a canonical row exists for this exercise (slug match,
+    // falling back to id match), Save writes directly to the `exercises`
+    // table via updateExercise. Otherwise we keep the legacy override-patch
+    // path so base-only rows from the bundled JSON still work.
+    const canonical = findCanonicalForEditing(editing);
+
+    if (canonical) {
+      // Canonical-update path: diff form against the canonical row's current
+      // values and send only the changed columns.
+      //
+      // Edge case: if a row exists in canonical but its `setup_notes` is empty
+      // and the form was preloaded from the bundled JSON (via openEdit's
+      // mergedRow), saving here will push that bundled value into the
+      // canonical row — which is the same content the merged view would show
+      // either way, so it's a benign first-write. Admin retains full control:
+      // they can clear the field before saving if they don't want it
+      // persisted.
+      const patch = diffCanonical(canonical, form);
+      if (Object.keys(patch).length === 0) {
+        setModalErr('No changes');
+        return;
+      }
+      try {
+        setSaving(true);
+        setModalErr(null);
+        const res = await updateExercise(canonical.id, patch);
+        if (!res.ok || !res.row) {
+          setModalErr(res.error ?? 'Update failed');
+          return;
+        }
+        await refreshCanonical();
+        const savedName = res.row.name;
+        closeEdit();
+        showToast(`Saved ${savedName}`);
+      } catch (e) {
+        setModalErr(e instanceof Error ? e.message : String(e));
+      } finally {
+        setSaving(false);
+      }
+      return;
+    }
+
+    // Legacy override-patch path (unchanged): for base-only rows from the
+    // bundled exercises.json that don't have a canonical row yet.
     const patch = diffAgainstBase(editing, form);
     if (Object.keys(patch).length === 0 && !overridesById.has(editing.id)) {
       setModalErr('No changes');
@@ -697,6 +780,52 @@ export function ExercisesPage() {
     } finally {
       setSaving(false);
     }
+  }
+
+  /** Look up the canonical row for an editing target by slug, then by id. */
+  function findCanonicalForEditing(ex: Exercise): ExerciseRow | null {
+    const slug = str(ex.slug);
+    if (slug) {
+      const bySlug = canonicalRows.find((r) => r.slug === slug);
+      if (bySlug) return bySlug;
+    }
+    const byId = canonicalRows.find((r) => r.id === ex.id);
+    return byId ?? null;
+  }
+
+  /**
+   * Diff form state against a canonical row's current values, returning a
+   * `Partial<ExerciseRow>` patch with snake_case columns. Only includes fields
+   * whose form value differs from the canonical row. Empty string `""` means
+   * "clear" — we send `""` (not null) so the column is set to empty.
+   *
+   * `animationUrl` from FormState has no canonical column and is intentionally
+   * skipped.
+   */
+  function diffCanonical(row: ExerciseRow, f: FormState): Partial<ExerciseRow> {
+    const patch: Partial<ExerciseRow> = {};
+    const setIfChanged = <K extends keyof ExerciseRow>(
+      key: K,
+      formVal: string,
+      rowVal: ExerciseRow[K] | null,
+    ) => {
+      const current = rowVal === null || rowVal === undefined ? '' : String(rowVal);
+      if (formVal !== current) {
+        patch[key] = formVal as ExerciseRow[K];
+      }
+    };
+    setIfChanged('name', f.name, row.name);
+    setIfChanged('setup_notes', f.setupNotes, row.setup_notes);
+    setIfChanged('body_focus', f.bodyFocus, row.body_focus);
+    setIfChanged('equipment', f.equipment, row.equipment);
+    setIfChanged('primary_cat', f.primaryCat, row.primary_cat);
+    setIfChanged('subcat', f.subcat, row.subcat);
+    setIfChanged('environment', f.environment, row.environment);
+    setIfChanged('diff', f.diff, row.diff);
+    setIfChanged('emoji', f.emoji, row.emoji);
+    setIfChanged('video_url', f.videoUrl, row.video_url);
+    setIfChanged('thumbnail_url', f.thumbnailUrl, row.thumbnail_url);
+    return patch;
   }
 
   async function handleClearOverride() {
@@ -1633,6 +1762,7 @@ export function ExercisesPage() {
             } else if (isChild && childParent) {
               bilateralInfo = { kind: 'child', parentName: childParent };
             }
+            const isCanonical = findCanonicalForEditing(editing) !== null;
             return (
               <EditForm
                 base={editing}
@@ -1643,6 +1773,7 @@ export function ExercisesPage() {
                 uploadingVideo={uploadingVideo}
                 uploadingThumb={uploadingThumb}
                 hasOverride={overridesById.has(editing.id)}
+                isCanonical={isCanonical}
                 videoInputRef={videoInputRef}
                 thumbInputRef={thumbInputRef}
                 onVideoFile={handleVideoFile}
@@ -1753,6 +1884,7 @@ function EditForm({
   uploadingVideo,
   uploadingThumb,
   hasOverride,
+  isCanonical,
   videoInputRef,
   thumbInputRef,
   onVideoFile,
@@ -1779,6 +1911,7 @@ function EditForm({
   uploadingVideo: boolean;
   uploadingThumb: boolean;
   hasOverride: boolean;
+  isCanonical: boolean;
   videoInputRef: React.MutableRefObject<HTMLInputElement | null>;
   thumbInputRef: React.MutableRefObject<HTMLInputElement | null>;
   onVideoFile: (f: File) => void;
@@ -1815,6 +1948,22 @@ function EditForm({
 
   return (
     <div>
+      <div style={savePathRowStyle}>
+        {isCanonical ? (
+          <>
+            <span style={canonicalPillStyle}>Canonical</span>
+            <span>Save writes to the <code>exercises</code> table.</span>
+          </>
+        ) : (
+          <>
+            <span style={legacyPillStyle}>Legacy override</span>
+            <span>
+              Save writes via <code>exercise_overrides</code> patch layer.
+            </span>
+          </>
+        )}
+      </div>
+
       {modalErr && (
         <div style={errorBannerStyle} role="alert">
           {modalErr}
