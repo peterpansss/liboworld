@@ -1,8 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getExercises, type Exercise, type Workout, type WorkoutExercise } from '../data/exercises';
-import { useWorkouts, type WorkoutDisplay, type WorkoutBlock } from '../hooks/useWorkouts';
+import { getWorkouts, getExercises, type Exercise, type Workout } from '../data/exercises';
 import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -64,37 +63,6 @@ function matchesDuration(dur: number, key: DurationKey): boolean {
   }
 }
 
-// Adapter: hook's WorkoutDisplay (warmup/main/cooldown blocks) → legacy
-// Workout shape (flat exercises[] with phase tags), so workoutHeroThumb keeps
-// working without touching utils/thumbnails.ts.
-function blockToWorkoutExercise(b: WorkoutBlock, phase: WorkoutExercise['phase']): WorkoutExercise {
-  return {
-    name: b.exerciseName,
-    sets: b.sets,
-    reps: b.reps,
-    dur: b.dur,
-    rest: b.rest,
-    phase,
-  };
-}
-
-function workoutDisplayToLegacy(w: WorkoutDisplay): Workout {
-  return {
-    id: w.id,
-    name: w.name,
-    emoji: w.emoji,
-    diff: w.diff,
-    dur: w.dur,
-    cat: w.cat,
-    subcat: w.subcat,
-    exercises: [
-      ...w.warmup.map((b) => blockToWorkoutExercise(b, 'warmup')),
-      ...w.main.map((b) => blockToWorkoutExercise(b, 'main')),
-      ...w.cooldown.map((b) => blockToWorkoutExercise(b, 'cooldown')),
-    ],
-  };
-}
-
 export default function ProgramLibrary() {
   const { t, i18n } = useTranslation();
 
@@ -124,13 +92,13 @@ export default function ProgramLibrary() {
     return map[c] ?? c;
   };
 
-  // Phase 4: public catalog flows through useWorkouts() (race-and-replace
-  // from /workouts.json then Supabase). Exercises only needed for the
-  // thumbnail name->slug map.
-  const { workouts, loading: workoutsLoading } = useWorkouts();
+  // Static catalogs — workouts.json + exercises.json (build-time baseline).
+  // The Supabase race-and-replace path used to live here via a useWorkouts
+  // hook, but that hook was never committed; ship a simpler getWorkouts/
+  // getExercises path so the page keeps working without it.
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [exercises, setExercises] = useState<Exercise[]>([]);
-  const [exercisesLoading, setExercisesLoading] = useState(true);
-  const loading = workoutsLoading || exercisesLoading;
+  const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const [filtersOpen, setFiltersOpen] = useState(false);
 
@@ -143,16 +111,15 @@ export default function ProgramLibrary() {
   const page = isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
 
   useEffect(() => {
-    getExercises(i18n.language).then((exs) => {
-      setExercises(exs);
-      setExercisesLoading(false);
+    let cancelled = false;
+    Promise.all([getWorkouts(), getExercises(i18n.language)]).then(([w, e]) => {
+      if (cancelled) return;
+      setWorkouts(w);
+      setExercises(e);
+      setLoading(false);
     });
+    return () => { cancelled = true; };
   }, [i18n.language]);
-
-  const legacyWorkouts: Workout[] = useMemo(
-    () => workouts.map(workoutDisplayToLegacy),
-    [workouts]
-  );
 
   const nameToSlug = useMemo(() => buildNameToSlug(exercises), [exercises]);
 
@@ -162,12 +129,8 @@ export default function ProgramLibrary() {
     return () => { document.title = 'Libo'; };
   }, [goal, t]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Apply search + goal + duration. When all three are at their default
-  // ("nothing selected") we keep the full list so the grouped view below can
-  // bucket by goal — that "default browse" pattern is what NTC's "By Focus"
-  // does and it matches how people pick a workout (by intent, not by tag).
   const filtered = useMemo(() => {
-    let result = legacyWorkouts;
+    let result = workouts;
 
     if (search) {
       const q = search.toLowerCase();
@@ -188,23 +151,20 @@ export default function ProgramLibrary() {
     }
 
     return result;
-  }, [legacyWorkouts, search, goal, duration]);
+  }, [workouts, search, goal, duration]);
 
   const filtersActive = !!search || goal !== 'All' || duration !== 'Any';
   const activeFilterCount =
     (goal !== 'All' ? 1 : 0) + (duration !== 'Any' ? 1 : 0);
 
-  // Bucket workouts by goal for the unfiltered "default browse" view.
-  // Order matches GOAL_KEYS so Morning/Evening don't lead the page.
   const groupedByGoal = useMemo(() => {
     const groups: Record<Exclude<GoalKey, 'All'>, Workout[]> = {
       Strength: [], Cardio: [], Mobility: [], Recovery: [], Morning: [], Evening: [],
     };
-    legacyWorkouts.forEach((w) => groups[classifyGoal(w)].push(w));
+    workouts.forEach((w) => groups[classifyGoal(w)].push(w));
     return groups;
-  }, [legacyWorkouts]);
+  }, [workouts]);
 
-  // Paginated flat view (only used when filters are active).
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
   const pageStart = (safePage - 1) * PAGE_SIZE;
@@ -223,7 +183,7 @@ export default function ProgramLibrary() {
       } else {
         next.set(key, value);
       }
-      next.delete('page'); // reset page on any filter change
+      next.delete('page');
       return next;
     }, { replace: true });
   }, [setSearchParams]);
@@ -277,7 +237,6 @@ export default function ProgramLibrary() {
 
       <main className="el-page">
         <div className="el-container">
-          {/* Breadcrumb */}
           <nav aria-label={t('programLibrary.breadcrumbAria')} className="el-breadcrumb">
             <Link to="/">{t('programLibrary.breadcrumb.home')}</Link>
             <span className="el-breadcrumb-sep">&gt;</span>
@@ -286,13 +245,11 @@ export default function ProgramLibrary() {
             <span>{t('programLibrary.breadcrumb.workouts')}</span>
           </nav>
 
-          {/* Hero */}
           <div className="el-hero">
             <h1 className="font-display">{t('programLibrary.title')}</h1>
             <p>{t('programLibrary.subtitleAll', { count: workouts.length, defaultValue: '{{count}} guided workouts. Pick by goal, by time, or just browse.' })}</p>
           </div>
 
-          {/* Search */}
           <div className="el-search-wrap">
             <span className="el-search-icon" aria-hidden="true">
               <EmojiIcon icon={Search} size={16} />
@@ -307,8 +264,6 @@ export default function ProgramLibrary() {
             />
           </div>
 
-          {/* Mobile filters toggle — collapses goal+duration into one tap on
-              ≤768px (CSS lives in ExerciseLibrary.css under .el-filters-toggle) */}
           <button
             type="button"
             className="el-filters-toggle"
@@ -327,7 +282,6 @@ export default function ProgramLibrary() {
             <span className="el-filters-toggle__chev" aria-hidden>▾</span>
           </button>
 
-          {/* Filters */}
           <div id="el-filters" className={`el-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
             <div className="el-filter-row">
               <span className="el-filter-label">{t('programLibrary.filters.goal', { defaultValue: 'Goal' })}</span>
@@ -366,7 +320,6 @@ export default function ProgramLibrary() {
             )}
           </div>
 
-          {/* Loading */}
           {loading && (
             <div className="el-empty">
               <div className="el-empty-icon" aria-hidden="true">
@@ -376,7 +329,6 @@ export default function ProgramLibrary() {
             </div>
           )}
 
-          {/* Default browse — grouped by goal (no filters active) */}
           {!loading && !filtersActive && (
             <div className="wk-groups">
               {(Object.keys(groupedByGoal) as Array<keyof typeof groupedByGoal>).map((g) => {
@@ -403,7 +355,6 @@ export default function ProgramLibrary() {
             </div>
           )}
 
-          {/* Filtered — flat grid + pagination */}
           {!loading && filtersActive && (
             <>
               <div className="el-results-count" aria-live="polite" role="status">
@@ -427,7 +378,6 @@ export default function ProgramLibrary() {
                 </div>
               )}
 
-              {/* Pagination */}
               {totalPages > 1 && (
                 <div className="el-pagination">
                   <button
