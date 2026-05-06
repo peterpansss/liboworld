@@ -9,14 +9,8 @@ import {
   deleteExerciseOverride,
   uploadExerciseVideo,
   uploadExerciseThumbnail,
-  createExercise,
-  listExercises,
-  uploadExerciseVideoRaw,
-  createMediaJob,
   type ExerciseOverride,
-  type ExerciseRow,
 } from '../../lib/adminApi';
-import { VideoUpload, MediaJobStatus } from '../../components/admin/VideoUpload';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -73,10 +67,6 @@ const EDITABLE_KEYS: EditableKey[] = [
 
 type FormState = Record<EditableKey, string>;
 
-// OpenAI tts-1 voices supported by the voiceover worker.
-type TtsVoice = 'alloy' | 'echo' | 'fable' | 'nova' | 'onyx' | 'shimmer';
-const TTS_VOICES: TtsVoice[] = ['alloy', 'echo', 'fable', 'nova', 'onyx', 'shimmer'];
-
 // ── Styles ─────────────────────────────────────────────────────────────────
 
 const pageStyle: React.CSSProperties = {
@@ -119,52 +109,6 @@ const editedChipStyle: React.CSSProperties = {
   fontWeight: 700,
   textTransform: 'uppercase',
   letterSpacing: 0.5,
-};
-
-const bilateralBadgeStyle: React.CSSProperties = {
-  display: 'inline-block',
-  marginLeft: 8,
-  padding: '2px 7px',
-  borderRadius: 6,
-  background: 'rgba(80, 200, 120, 0.15)',
-  color: '#3ec97a',
-  fontSize: 10,
-  fontWeight: 700,
-  textTransform: 'uppercase',
-  letterSpacing: 0.6,
-  verticalAlign: 'middle',
-};
-
-const childNoteStyle: React.CSSProperties = {
-  fontSize: 11,
-  color: colors.muted,
-  fontStyle: 'italic',
-  marginTop: 2,
-};
-
-const bilateralInfoBoxStyle: React.CSSProperties = {
-  background: colors.bg,
-  border: `1px solid ${colors.border}`,
-  borderRadius: 10,
-  padding: '10px 12px',
-  marginBottom: 14,
-  fontSize: 12,
-  color: colors.text,
-  display: 'flex',
-  alignItems: 'center',
-  gap: 8,
-  flexWrap: 'wrap',
-};
-
-const bilateralPreviewStyle: React.CSSProperties = {
-  background: colors.bg,
-  border: `1px dashed ${colors.border}`,
-  borderRadius: 10,
-  padding: 12,
-  marginTop: 8,
-  marginBottom: 14,
-  fontSize: 12,
-  color: colors.text,
 };
 
 const filterBarStyle: React.CSSProperties = {
@@ -235,171 +179,6 @@ function uniqueSorted(vals: (string | undefined)[]): string[] {
   return Array.from(set).sort();
 }
 
-// ── Bilateral helpers (mirrors libo-app-v2/src/utils/bilateral.ts regex) ───
-//
-// Kept in sync with `SIDE_SUFFIX_RE` in libo-app-v2/src/utils/bilateral.ts.
-// Don't edit one without editing the other.
-const SIDE_SUFFIX_RE = /\s*[—–-]\s*(Left|Right)(\s+(Leg|Arm|Side|Hip|Shoulder))?\s*$/i;
-
-type BilateralSideLabel = 'Arm' | 'Leg' | 'Side' | 'Hip' | 'Shoulder' | '';
-
-const BILATERAL_SIDE_LABELS: { value: BilateralSideLabel; label: string }[] = [
-  { value: 'Arm', label: 'Arm' },
-  { value: 'Leg', label: 'Leg' },
-  { value: 'Side', label: 'Side' },
-  { value: 'Hip', label: 'Hip' },
-  { value: 'Shoulder', label: 'Shoulder' },
-  { value: '', label: '(none)' },
-];
-
-function parentNameOfClient(name: string): string {
-  return name.replace(SIDE_SUFFIX_RE, '').trim();
-}
-
-function isChildNameClient(name: string): boolean {
-  return SIDE_SUFFIX_RE.test(name);
-}
-
-function sideOfClient(name: string): 'L' | 'R' | null {
-  const m = name.match(SIDE_SUFFIX_RE);
-  if (!m) return null;
-  return m[1].toLowerCase() === 'left' ? 'L' : 'R';
-}
-
-function bilateralChildName(parent: string, side: 'Left' | 'Right', label: BilateralSideLabel): string {
-  const trimmed = parent.trim();
-  if (!trimmed) return '';
-  const tail = label ? ` ${label}` : '';
-  return `${trimmed} — ${side}${tail}`;
-}
-
-/**
- * Build a `Set<parentName>` of names that have at least one Left and one Right
- * child in `rows` (matching the runtime regex). Used to flag rows in the table.
- */
-function computeBilateralParents(rows: { name?: string }[]): Set<string> {
-  const groups = new Map<string, { L: number; R: number }>();
-  for (const r of rows) {
-    const name = r.name ?? '';
-    const side = sideOfClient(name);
-    if (!side) continue;
-    const parent = parentNameOfClient(name);
-    const g = groups.get(parent) ?? { L: 0, R: 0 };
-    if (side === 'L') g.L += 1;
-    else g.R += 1;
-    groups.set(parent, g);
-  }
-  const out = new Set<string>();
-  for (const [parent, g] of groups) {
-    if (g.L >= 1 && g.R >= 1) out.add(parent);
-  }
-  return out;
-}
-
-// ── Create form (canonical exercises) ─────────────────────────────────────
-
-type ExerciseCat = 'gym' | 'home' | 'mobility';
-type ExerciseDiff = 'beginner' | 'intermediate' | 'advanced';
-type ExerciseStatus = 'draft' | 'published';
-
-type CreateFormState = {
-  name: string;
-  slug: string;
-  slugTouched: boolean;
-  cat: ExerciseCat;
-  primary_cat: string;
-  subcat: string;
-  environment: string;
-  body_focus: string;
-  equipment: string;
-  machine_required: boolean;
-  diff: ExerciseDiff;
-  variation: string;
-  emoji: string;
-  setup_notes: string;
-  parent_id: string;
-  parent_name: string;
-  video_url: string;
-  status: ExerciseStatus;
-  // Bilateral pair fields (only used when `bilateral` is true)
-  bilateral: boolean;
-  bilateral_side_label: BilateralSideLabel;
-  bilateral_left_video_url: string;
-  bilateral_right_video_url: string;
-};
-
-const EMPTY_CREATE_FORM: CreateFormState = {
-  name: '',
-  slug: '',
-  slugTouched: false,
-  cat: 'gym',
-  primary_cat: '',
-  subcat: '',
-  environment: '',
-  body_focus: '',
-  equipment: '',
-  machine_required: false,
-  diff: 'beginner',
-  variation: '',
-  emoji: '',
-  setup_notes: '',
-  parent_id: '',
-  parent_name: '',
-  video_url: '',
-  status: 'draft',
-  bilateral: false,
-  bilateral_side_label: 'Arm',
-  bilateral_left_video_url: '',
-  bilateral_right_video_url: '',
-};
-
-function slugifyExercise(input: string): string {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^_+|_+$/g, '')
-    .slice(0, 64);
-}
-
-function createFormToPayload(f: CreateFormState): Partial<ExerciseRow> {
-  return {
-    name: f.name.trim(),
-    slug: (f.slug || slugifyExercise(f.name)).trim(),
-    cat: f.cat,
-    primary_cat: f.primary_cat.trim() || null,
-    subcat: f.subcat.trim() || null,
-    environment: f.environment.trim() || null,
-    body_focus: f.body_focus.trim() || null,
-    equipment: f.equipment.trim() || null,
-    machine_required: f.machine_required,
-    diff: f.diff,
-    variation: f.variation.trim(),
-    emoji: f.emoji.trim(),
-    setup_notes: f.setup_notes.trim(),
-    parent_id: f.parent_id.trim(),
-    parent_name: f.parent_name.trim(),
-    video_url: f.video_url.trim() || null,
-    status: f.status,
-  };
-}
-
-function isValidHttpUrl(s: string): boolean {
-  if (!s) return false;
-  try {
-    const u = new URL(s);
-    return u.protocol === 'http:' || u.protocol === 'https:';
-  } catch {
-    return false;
-  }
-}
-
-type FailedChild = {
-  side: 'L' | 'R';
-  payload: Partial<ExerciseRow>;
-  error: string;
-};
-
 // ── Component ──────────────────────────────────────────────────────────────
 
 export function ExercisesPage() {
@@ -426,65 +205,6 @@ export function ExercisesPage() {
   const [uploadingThumb, setUploadingThumb] = useState(false);
   const videoInputRef = useRef<HTMLInputElement | null>(null);
   const thumbInputRef = useRef<HTMLInputElement | null>(null);
-
-  // Voiceover-job state (lives inside the Edit modal)
-  const [voiceoverJobId, setVoiceoverJobId] = useState<number | null>(null);
-  const [voiceoverVoice, setVoiceoverVoice] = useState<TtsVoice>('onyx');
-  const [voiceoverStatusVisible, setVoiceoverStatusVisible] = useState(false);
-  const [voiceoverErr, setVoiceoverErr] = useState<string | null>(null);
-  const [voiceoverQueuing, setVoiceoverQueuing] = useState(false);
-
-  // Create modal state (canonical exercises table)
-  const [createOpen, setCreateOpen] = useState(false);
-  const [createForm, setCreateForm] = useState<CreateFormState>(EMPTY_CREATE_FORM);
-  const [createErr, setCreateErr] = useState<string | null>(null);
-  const [creating, setCreating] = useState(false);
-  const [canonicalRows, setCanonicalRows] = useState<ExerciseRow[]>([]);
-  // When a bilateral parent insert succeeds but a child fails, hold onto the
-  // failed payload so admin can retry just that one without recreating parent.
-  // The failed child's payload already carries parent_id, so we don't need to
-  // track the parent id separately.
-  const [failedChild, setFailedChild] = useState<FailedChild | null>(null);
-  const [retrying, setRetrying] = useState(false);
-  // Toast (lightweight inline)
-  const [toast, setToast] = useState<string | null>(null);
-
-  // Video upload state. The widgets hold a File until create completes, then
-  // the upload+job runs and `mediaJobId` is set so the widget subscribes.
-  const [singleVideoFile, setSingleVideoFile] = useState<File | null>(null);
-  const [singleMediaJobId, setSingleMediaJobId] = useState<number | null>(null);
-  const [leftVideoFile, setLeftVideoFile] = useState<File | null>(null);
-  const [leftMediaJobId, setLeftMediaJobId] = useState<number | null>(null);
-  const [rightVideoFile, setRightVideoFile] = useState<File | null>(null);
-  const [rightMediaJobId, setRightMediaJobId] = useState<number | null>(null);
-
-  function resetVideoState() {
-    setSingleVideoFile(null);
-    setSingleMediaJobId(null);
-    setLeftVideoFile(null);
-    setLeftMediaJobId(null);
-    setRightVideoFile(null);
-    setRightMediaJobId(null);
-  }
-
-  async function uploadAndQueue(
-    exerciseId: string,
-    slug: string,
-    file: File,
-  ): Promise<number | null> {
-    try {
-      const { storage_path } = await uploadExerciseVideoRaw(file, slug);
-      const res = await createMediaJob(exerciseId, 'process_video', storage_path);
-      if (!res.ok || !res.job) {
-        setCreateErr(`Video upload failed for ${slug}: ${res.error ?? 'unknown'}`);
-        return null;
-      }
-      return res.job.id;
-    } catch (e) {
-      setCreateErr(`Video upload failed for ${slug}: ${e instanceof Error ? e.message : String(e)}`);
-      return null;
-    }
-  }
 
   // Debounced search
   useEffect(() => {
@@ -530,69 +250,14 @@ export function ExercisesPage() {
     }
   }
 
-  // Load canonical rows (admin-created, plus excel-baseline imports) on mount
-  // so the list shows rows that don't exist in the bundled exercises.json.
-  useEffect(() => {
-    void refreshCanonical();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Map a snake_case canonical row to the camelCase Exercise shape the list expects.
-  function canonicalToExercise(r: ExerciseRow): Exercise {
-    return {
-      id: r.id,
-      name: r.name,
-      slug: r.slug,
-      cat: r.cat ?? '',
-      bodyFocus: r.body_focus ?? '',
-      equipment: r.equipment ?? '',
-      primaryCat: r.primary_cat ?? '',
-      subcat: r.subcat ?? '',
-      environment: r.environment ?? '',
-      diff: r.diff ?? '',
-      emoji: r.emoji ?? '',
-      setupNotes: r.setup_notes ?? '',
-      videoUrl: r.video_url ?? '',
-      thumbnailUrl: r.thumbnail_url ?? undefined,
-      machineRequired: r.machine_required,
-      parentId: r.parent_id ?? '',
-      parentName: r.parent_name ?? '',
-    };
-  }
-
-  // Merged view: base (exercises.json) + legacy patch overrides + canonical rows.
-  // Canonical rows take precedence (they're admin-created or the explicit table version).
+  // Merged view
   const merged = useMemo<Exercise[]>(() => {
-    const byId = new Map<string, Exercise>();
-    for (const b of base) {
+    return base.map((b) => {
       const o = overridesById.get(b.id);
-      byId.set(b.id, o ? { ...b, ...(o.patch as Partial<Exercise>) } : b);
-    }
-    for (const r of canonicalRows) {
-      byId.set(r.id, canonicalToExercise(r));
-    }
-    return Array.from(byId.values());
-  }, [base, overridesById, canonicalRows]);
-
-  // Bilateral lookups (computed off the merged dataset so renamed rows pick up).
-  const bilateralParentNames = useMemo(
-    () => computeBilateralParents(merged.map((e) => ({ name: e.name }))),
-    [merged],
-  );
-  const bilateralChildrenByParent = useMemo(() => {
-    const map = new Map<string, { L?: Exercise; R?: Exercise }>();
-    for (const ex of merged) {
-      const side = sideOfClient(ex.name ?? '');
-      if (!side) continue;
-      const parent = parentNameOfClient(ex.name ?? '');
-      if (!bilateralParentNames.has(parent)) continue;
-      const cur = map.get(parent) ?? {};
-      if (side === 'L' && !cur.L) cur.L = ex;
-      else if (side === 'R' && !cur.R) cur.R = ex;
-      map.set(parent, cur);
-    }
-    return map;
-  }, [merged, bilateralParentNames]);
+      if (!o) return b;
+      return { ...b, ...(o.patch as Partial<Exercise>) };
+    });
+  }, [base, overridesById]);
 
   // Filter options
   const bodyFocusOpts = useMemo(() => uniqueSorted(merged.map((e) => e.bodyFocus)), [merged]);
@@ -636,47 +301,6 @@ export function ExercisesPage() {
     setModalErr(null);
     setUploadingVideo(false);
     setUploadingThumb(false);
-    setVoiceoverJobId(null);
-    setVoiceoverStatusVisible(false);
-    setVoiceoverErr(null);
-    setVoiceoverQueuing(false);
-  }
-
-  async function handleGenerateVoiceover() {
-    if (!editing || !form) return;
-    if (!form.videoUrl || !form.setupNotes.trim()) {
-      setVoiceoverErr('Voiceover requires a video and setupNotes.');
-      return;
-    }
-    try {
-      setVoiceoverQueuing(true);
-      setVoiceoverErr(null);
-      const res = await createMediaJob(editing.id, 'generate_voiceover', null, voiceoverVoice);
-      if (!res.ok || !res.job) {
-        setVoiceoverErr(res.error ?? 'Failed to queue voiceover job');
-        return;
-      }
-      setVoiceoverJobId(res.job.id);
-      setVoiceoverStatusVisible(true);
-    } catch (e) {
-      setVoiceoverErr(e instanceof Error ? e.message : String(e));
-    } finally {
-      setVoiceoverQueuing(false);
-    }
-  }
-
-  function handleVoiceoverDone() {
-    // Refresh canonical rows so any updated voiceover_url is reflected.
-    void refreshCanonical();
-    // Auto-dismiss the status display after 5s.
-    setTimeout(() => {
-      setVoiceoverStatusVisible(false);
-      setVoiceoverJobId(null);
-    }, 5000);
-  }
-
-  function handleVoiceoverError(job: { error_message: string | null }) {
-    setVoiceoverErr(job.error_message ?? 'Voiceover job failed');
   }
 
   async function handleSave() {
@@ -740,275 +364,6 @@ export function ExercisesPage() {
     }
   }
 
-  // ── Create flow (canonical exercises) ────────────────────────────────────
-
-  async function refreshCanonical() {
-    try {
-      const rows = await listExercises();
-      setCanonicalRows(rows);
-    } catch (e) {
-      // Don't block opening the modal if list fails — just leave canonical
-      // empty so uniqueness check is best-effort.
-      // eslint-disable-next-line no-console
-      console.warn('listExercises failed:', e);
-    }
-  }
-
-  async function openCreate() {
-    setCreateForm(EMPTY_CREATE_FORM);
-    setCreateErr(null);
-    setFailedChild(null);
-    resetVideoState();
-    setCreateOpen(true);
-    await refreshCanonical();
-  }
-
-  function closeCreate() {
-    if (creating || retrying) return;
-    setCreateOpen(false);
-    setCreateForm(EMPTY_CREATE_FORM);
-    setCreateErr(null);
-    setFailedChild(null);
-    resetVideoState();
-  }
-
-  function showToast(msg: string) {
-    setToast(msg);
-    setTimeout(() => setToast((t) => (t === msg ? null : t)), 3500);
-  }
-
-  async function handleCreate(e: React.FormEvent) {
-    e.preventDefault();
-    const name = createForm.name.trim();
-    if (!name) {
-      setCreateErr('Name is required.');
-      return;
-    }
-
-    // Branch on bilateral toggle.
-    if (createForm.bilateral) {
-      await handleCreateBilateral(name);
-      return;
-    }
-
-    const slug = (createForm.slug || slugifyExercise(name)).trim();
-    if (!slug) {
-      setCreateErr('Slug is required.');
-      return;
-    }
-    if (canonicalRows.some((r) => r.slug === slug)) {
-      setCreateErr(`Slug "${slug}" is already in use — pick another.`);
-      return;
-    }
-    setCreating(true);
-    setCreateErr(null);
-    try {
-      const payload = createFormToPayload({ ...createForm, slug });
-      const res = await createExercise(payload);
-      if (!res.ok || !res.row) {
-        setCreateErr(res.error ?? 'Create failed');
-        return;
-      }
-      await refreshCanonical();
-      // If a file was selected, upload it and queue the processing job. Keep
-      // the drawer open so the VideoUpload widget can show job progress.
-      if (singleVideoFile) {
-        const jobId = await uploadAndQueue(res.row.id, slug, singleVideoFile);
-        if (jobId != null) {
-          setSingleMediaJobId(jobId);
-          showToast(`Created ${createForm.name.trim()} — processing video…`);
-        }
-        return; // leave drawer open
-      }
-      closeCreate();
-    } catch (e2) {
-      setCreateErr(e2 instanceof Error ? e2.message : String(e2));
-    } finally {
-      setCreating(false);
-    }
-  }
-
-  function buildBilateralPayloads(parentName: string, parentSlug: string, parentId: string | null) {
-    const label = createForm.bilateral_side_label;
-    const leftName = bilateralChildName(parentName, 'Left', label);
-    const rightName = bilateralChildName(parentName, 'Right', label);
-
-    // Children inherit most parent metadata but override name/slug/video and
-    // get their parent_id wired up.
-    const childBase = createFormToPayload({
-      ...createForm,
-      name: parentName,
-      slug: parentSlug,
-      video_url: '', // children get their own video URL
-    });
-
-    const leftPayload: Partial<ExerciseRow> = {
-      ...childBase,
-      name: leftName,
-      slug: `${parentSlug}_left`,
-      parent_id: parentId ?? '',
-      parent_name: parentName,
-      video_url: createForm.bilateral_left_video_url.trim() || null,
-    };
-    const rightPayload: Partial<ExerciseRow> = {
-      ...childBase,
-      name: rightName,
-      slug: `${parentSlug}_right`,
-      parent_id: parentId ?? '',
-      parent_name: parentName,
-      video_url: createForm.bilateral_right_video_url.trim() || null,
-    };
-    return { leftPayload, rightPayload, leftName, rightName };
-  }
-
-  async function handleCreateBilateral(parentName: string) {
-    const parentSlug = (createForm.slug || slugifyExercise(parentName)).trim();
-    if (!parentSlug) {
-      setCreateErr('Slug is required.');
-      return;
-    }
-    const leftSlug = `${parentSlug}_left`;
-    const rightSlug = `${parentSlug}_right`;
-
-    // Slug uniqueness against existing canonical rows.
-    const taken = new Set(canonicalRows.map((r) => r.slug));
-    for (const s of [parentSlug, leftSlug, rightSlug]) {
-      if (taken.has(s)) {
-        setCreateErr(`Slug "${s}" is already in use — pick another base name.`);
-        return;
-      }
-    }
-
-    // Video URL validation: both empty OR both valid http(s).
-    const leftU = createForm.bilateral_left_video_url.trim();
-    const rightU = createForm.bilateral_right_video_url.trim();
-    const bothEmpty = !leftU && !rightU;
-    const bothFilled = !!leftU && !!rightU;
-    if (!bothEmpty && !bothFilled) {
-      setCreateErr('Provide BOTH Left and Right video URLs, or leave both blank.');
-      return;
-    }
-    if (bothFilled && (!isValidHttpUrl(leftU) || !isValidHttpUrl(rightU))) {
-      setCreateErr('Video URLs must start with http:// or https://.');
-      return;
-    }
-
-    setCreating(true);
-    setCreateErr(null);
-    setFailedChild(null);
-    try {
-      // 1. Create parent first to get its id.
-      const parentPayload: Partial<ExerciseRow> = {
-        ...createFormToPayload({ ...createForm, slug: parentSlug }),
-        name: parentName,
-      };
-      const parentRes = await createExercise(parentPayload);
-      if (!parentRes.ok || !parentRes.row) {
-        setCreateErr(parentRes.error ?? 'Parent create failed');
-        return;
-      }
-      const parentId = parentRes.row.id;
-
-      // 2. Create both children in parallel.
-      const { leftPayload, rightPayload, leftName, rightName } =
-        buildBilateralPayloads(parentName, parentSlug, parentId);
-
-      const [leftRes, rightRes] = await Promise.all([
-        createExercise(leftPayload).catch((err) => ({
-          ok: false as const,
-          error: err instanceof Error ? err.message : String(err),
-        })),
-        createExercise(rightPayload).catch((err) => ({
-          ok: false as const,
-          error: err instanceof Error ? err.message : String(err),
-        })),
-      ]);
-
-      const leftOk = 'ok' in leftRes && leftRes.ok;
-      const rightOk = 'ok' in rightRes && rightRes.ok;
-
-      if (leftOk && rightOk) {
-        await refreshCanonical();
-        const leftRow = 'row' in leftRes ? leftRes.row : undefined;
-        const rightRow = 'row' in rightRes ? rightRes.row : undefined;
-        // Kick off video uploads for whichever sides have a file picked.
-        let queuedAny = false;
-        if (leftVideoFile && leftRow) {
-          const jid = await uploadAndQueue(leftRow.id, leftRow.slug, leftVideoFile);
-          if (jid != null) {
-            setLeftMediaJobId(jid);
-            queuedAny = true;
-          }
-        }
-        if (rightVideoFile && rightRow) {
-          const jid = await uploadAndQueue(rightRow.id, rightRow.slug, rightVideoFile);
-          if (jid != null) {
-            setRightMediaJobId(jid);
-            queuedAny = true;
-          }
-        }
-        if (queuedAny) {
-          showToast(`Created bilateral pair: ${parentName} — processing videos…`);
-          return; // leave drawer open
-        }
-        showToast(`Created bilateral pair: ${parentName}`);
-        closeCreate();
-        return;
-      }
-
-      // Surface which child failed; keep modal open with retry button.
-      await refreshCanonical();
-      if (!leftOk) {
-        setFailedChild({
-          side: 'L',
-          payload: leftPayload,
-          error: ('error' in leftRes && leftRes.error) || `Left child (${leftName}) failed`,
-        });
-        setCreateErr(
-          `Parent created. Left child failed: ${('error' in leftRes && leftRes.error) || 'unknown error'}`,
-        );
-      } else if (!rightOk) {
-        setFailedChild({
-          side: 'R',
-          payload: rightPayload,
-          error: ('error' in rightRes && rightRes.error) || `Right child (${rightName}) failed`,
-        });
-        setCreateErr(
-          `Parent created. Right child failed: ${('error' in rightRes && rightRes.error) || 'unknown error'}`,
-        );
-      }
-    } catch (e2) {
-      setCreateErr(e2 instanceof Error ? e2.message : String(e2));
-    } finally {
-      setCreating(false);
-    }
-  }
-
-  async function handleRetryFailedChild() {
-    if (!failedChild) return;
-    setRetrying(true);
-    setCreateErr(null);
-    try {
-      const res = await createExercise(failedChild.payload);
-      if (!res.ok) {
-        setCreateErr(res.error ?? `Retry failed for ${failedChild.side === 'L' ? 'Left' : 'Right'} child`);
-        return;
-      }
-      await refreshCanonical();
-      const parentName = createForm.name.trim();
-      showToast(`Created bilateral pair: ${parentName}`);
-      setFailedChild(null);
-      // Close inline (don't go through closeCreate, which guards on `retrying`).
-      setCreateOpen(false);
-      setCreateForm(EMPTY_CREATE_FORM);
-      setCreateErr(null);
-    } catch (e2) {
-      setCreateErr(e2 instanceof Error ? e2.message : String(e2));
-    } finally {
-      setRetrying(false);
-    }
-  }
-
   // ── Columns ──────────────────────────────────────────────────────────────
   const columns: Column<Exercise>[] = [
     {
@@ -1033,24 +388,12 @@ export function ExercisesPage() {
       key: 'name',
       header: 'Name',
       sort: (a, b) => str(a.name).localeCompare(str(b.name)),
-      render: (r) => {
-        const name = r.name ?? '';
-        const isParent = bilateralParentNames.has(name);
-        const childParentName = isChildNameClient(name) ? parentNameOfClient(name) : null;
-        const isChild = childParentName !== null && bilateralParentNames.has(childParentName);
-        return (
-          <div>
-            <div style={{ fontWeight: 600, color: colors.text }}>
-              {name || r.id}
-              {isParent && <span style={bilateralBadgeStyle}>Bilateral</span>}
-            </div>
-            {isChild && childParentName && (
-              <div style={childNoteStyle}>child of {childParentName}</div>
-            )}
-            <div style={{ fontSize: 11, color: colors.dim }}>{r.id}</div>
-          </div>
-        );
-      },
+      render: (r) => (
+        <div>
+          <div style={{ fontWeight: 600, color: colors.text }}>{r.name || r.id}</div>
+          <div style={{ fontSize: 11, color: colors.dim }}>{r.id}</div>
+        </div>
+      ),
     },
     {
       key: 'bodyFocus',
@@ -1110,12 +453,9 @@ export function ExercisesPage() {
             {loading ? 'Loading…' : `${base.length} exercises, ${overrideCount} with overrides`}
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div>
           <Button variant="secondary" onClick={refreshOverrides} disabled={loading}>
             Refresh
-          </Button>
-          <Button variant="primary" onClick={() => void openCreate()}>
-            + Create Exercise
           </Button>
         </div>
       </div>
@@ -1194,550 +534,31 @@ export function ExercisesPage() {
       />
 
       <Modal
-        open={createOpen}
-        onClose={closeCreate}
-        title="New exercise"
-        width={780}
-      >
-        <form onSubmit={handleCreate}>
-          {createErr && (
-            <div style={errorBannerStyle}>
-              {createErr}
-              {failedChild && (
-                <div style={{ marginTop: 8 }}>
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={() => void handleRetryFailedChild()}
-                    disabled={retrying}
-                  >
-                    {retrying
-                      ? 'Retrying…'
-                      : `Retry just the failed ${failedChild.side === 'L' ? 'Left' : 'Right'} child`}
-                  </Button>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Bilateral toggle */}
-          <div style={bilateralInfoBoxStyle}>
-            <label
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                cursor: 'pointer',
-                fontWeight: 600,
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={createForm.bilateral}
-                onChange={(e) => {
-                  const bilateral = e.target.checked;
-                  setCreateForm((f) => ({
-                    ...f,
-                    bilateral,
-                    // Clear single-mode video when switching to bilateral.
-                    video_url: bilateral ? '' : f.video_url,
-                  }));
-                  setFailedChild(null);
-                  setCreateErr(null);
-                }}
-              />
-              <span>Create as bilateral pair</span>
-            </label>
-            <span style={{ color: colors.muted, fontSize: 11 }}>
-              Submits parent + Left + Right rows in one go. Names guaranteed to match the
-              app&rsquo;s pairing regex.
-            </span>
-          </div>
-
-          <datalist id="exercise-parent-options">
-            {canonicalRows.map((r) => (
-              <option key={r.id} value={r.name} />
-            ))}
-          </datalist>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 14 }}>
-            <Field label={createForm.bilateral ? 'Parent base name' : 'Name'}>
-              <TextInput
-                value={createForm.name}
-                onChange={(e) => {
-                  const name = e.target.value;
-                  setCreateForm((f) => ({
-                    ...f,
-                    name,
-                    slug: f.slugTouched ? f.slug : slugifyExercise(name),
-                  }));
-                }}
-                required
-                placeholder={createForm.bilateral ? 'One Arm PullSlide' : ''}
-              />
-            </Field>
-            <Field label="Emoji">
-              <TextInput
-                value={createForm.emoji}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, emoji: e.target.value }))
-                }
-                maxLength={4}
-                placeholder="💪"
-              />
-            </Field>
-          </div>
-
-          <Field label="Slug" hint="lowercase_with_underscores; auto-derived unless edited">
-            <TextInput
-              value={createForm.slug}
-              onChange={(e) =>
-                setCreateForm((f) => ({
-                  ...f,
-                  slug: slugifyExercise(e.target.value),
-                  slugTouched: true,
-                }))
-              }
-              required
-            />
-          </Field>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
-            <Field label="Category">
-              <Select
-                value={createForm.cat}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, cat: e.target.value as ExerciseCat }))
-                }
-              >
-                <option value="gym">Gym</option>
-                <option value="home">Home</option>
-                <option value="mobility">Mobility</option>
-              </Select>
-            </Field>
-            <Field label="Primary Category">
-              <TextInput
-                value={createForm.primary_cat}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, primary_cat: e.target.value }))
-                }
-                placeholder="e.g. Strength, Cardio"
-              />
-            </Field>
-            <Field label="Subcategory">
-              <TextInput
-                value={createForm.subcat}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, subcat: e.target.value }))
-                }
-              />
-            </Field>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
-            <Field label="Environment">
-              <TextInput
-                value={createForm.environment}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, environment: e.target.value }))
-                }
-                placeholder="Gym, Home, Both"
-              />
-            </Field>
-            <Field label="Body Focus">
-              <TextInput
-                value={createForm.body_focus}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, body_focus: e.target.value }))
-                }
-                placeholder="e.g. Chest"
-              />
-            </Field>
-            <Field label="Equipment">
-              <TextInput
-                value={createForm.equipment}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, equipment: e.target.value }))
-                }
-              />
-            </Field>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
-            <Field label="Difficulty">
-              <Select
-                value={createForm.diff}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, diff: e.target.value as ExerciseDiff }))
-                }
-              >
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </Select>
-            </Field>
-            <Field label="Variation">
-              <TextInput
-                value={createForm.variation}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, variation: e.target.value }))
-                }
-                placeholder="optional"
-              />
-            </Field>
-            <Field label="Status">
-              <Select
-                value={createForm.status}
-                onChange={(e) =>
-                  setCreateForm((f) => ({
-                    ...f,
-                    status: e.target.value as ExerciseStatus,
-                  }))
-                }
-              >
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-              </Select>
-            </Field>
-          </div>
-
-          <Field label="Machine Required">
-            <label
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                padding: '10px 12px',
-                border: `1px solid ${colors.border}`,
-                borderRadius: 10,
-                background: colors.bg,
-                color: colors.text,
-                fontSize: 13,
-                cursor: 'pointer',
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={createForm.machine_required}
-                onChange={(e) =>
-                  setCreateForm((f) => ({ ...f, machine_required: e.target.checked }))
-                }
-              />
-              <span>Requires a machine</span>
-            </label>
-          </Field>
-
-          <Field
-            label="Setup Notes"
-            hint="Imperative voice. ~25–40 words. Cue posture and key form points."
-          >
-            <TextArea
-              value={createForm.setup_notes}
-              onChange={(e) =>
-                setCreateForm((f) => ({ ...f, setup_notes: e.target.value }))
-              }
-              rows={3}
-              style={{ minHeight: 80 }}
-            />
-          </Field>
-
-          <Field label="Parent exercise" hint="Pick existing exercise; auto-fills parent name">
-            <TextInput
-              list="exercise-parent-options"
-              value={createForm.parent_name}
-              onChange={(e) => {
-                const name = e.target.value;
-                const found = canonicalRows.find((r) => r.name === name);
-                setCreateForm((f) => ({
-                  ...f,
-                  parent_name: name,
-                  parent_id: found?.id ?? '',
-                }));
-              }}
-              placeholder="optional"
-            />
-          </Field>
-
-          {createForm.bilateral ? (
-            <>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 14 }}>
-                <Field
-                  label="Side label"
-                  hint='Appears after "Left"/"Right" in the child name; must be one of these to match the app&rsquo;s regex.'
-                >
-                  <Select
-                    value={createForm.bilateral_side_label}
-                    onChange={(e) =>
-                      setCreateForm((f) => ({
-                        ...f,
-                        bilateral_side_label: e.target.value as BilateralSideLabel,
-                      }))
-                    }
-                  >
-                    {BILATERAL_SIDE_LABELS.map((o) => (
-                      <option key={o.value || 'none'} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </Select>
-                </Field>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  <VideoUpload
-                    label="Left video (upload)"
-                    selectedFile={leftVideoFile}
-                    onFileSelected={setLeftVideoFile}
-                    jobId={leftMediaJobId}
-                    disabled={creating}
-                  />
-                  <Field label="…or paste a Left video URL" hint="Optional; pre-hosted MP4">
-                    <TextInput
-                      value={createForm.bilateral_left_video_url}
-                      onChange={(e) =>
-                        setCreateForm((f) => ({ ...f, bilateral_left_video_url: e.target.value }))
-                      }
-                      placeholder="https://…"
-                    />
-                  </Field>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  <VideoUpload
-                    label="Right video (upload)"
-                    selectedFile={rightVideoFile}
-                    onFileSelected={setRightVideoFile}
-                    jobId={rightMediaJobId}
-                    disabled={creating}
-                  />
-                  <Field label="…or paste a Right video URL" hint="Optional; pre-hosted MP4">
-                    <TextInput
-                      value={createForm.bilateral_right_video_url}
-                      onChange={(e) =>
-                        setCreateForm((f) => ({ ...f, bilateral_right_video_url: e.target.value }))
-                      }
-                      placeholder="https://…"
-                    />
-                  </Field>
-                </div>
-              </div>
-              <Field label="Parent video URL (optional)" hint="Some pairs have a parent demo; many don't">
-                <TextInput
-                  value={createForm.video_url}
-                  onChange={(e) =>
-                    setCreateForm((f) => ({ ...f, video_url: e.target.value }))
-                  }
-                  placeholder="https://… (optional)"
-                />
-              </Field>
-
-              {/* Live preview */}
-              <div style={bilateralPreviewStyle}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 6 }}>
-                  Will create 3 rows:
-                </div>
-                <BilateralPreview form={createForm} />
-              </div>
-            </>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <VideoUpload
-                label="Exercise video (upload)"
-                selectedFile={singleVideoFile}
-                onFileSelected={setSingleVideoFile}
-                jobId={singleMediaJobId}
-                disabled={creating}
-              />
-              <Field label="…or paste a video URL" hint="Optional; pre-hosted MP4">
-                <TextInput
-                  value={createForm.video_url}
-                  onChange={(e) =>
-                    setCreateForm((f) => ({ ...f, video_url: e.target.value }))
-                  }
-                  placeholder="https://…"
-                />
-              </Field>
-            </div>
-          )}
-
-          <div
-            style={{
-              display: 'flex',
-              gap: 8,
-              justifyContent: 'flex-end',
-              marginTop: 18,
-              paddingTop: 18,
-              borderTop: `1px solid ${colors.border}`,
-            }}
-          >
-            {(singleMediaJobId !== null ||
-              leftMediaJobId !== null ||
-              rightMediaJobId !== null) ? (
-              // Post-create: row exists, video is uploading/processing/done.
-              // Re-submitting would try to create a duplicate, so swap to a
-              // "Done" button that just closes the drawer.
-              <Button
-                type="button"
-                variant="primary"
-                onClick={async () => {
-                  await refreshCanonical();
-                  closeCreate();
-                }}
-              >
-                Done
-              </Button>
-            ) : (
-              <>
-                <Button type="button" variant="ghost" onClick={closeCreate} disabled={creating}>
-                  Cancel
-                </Button>
-                <Button type="submit" variant="primary" disabled={creating || retrying}>
-                  {creating
-                    ? createForm.bilateral
-                      ? 'Creating pair…'
-                      : 'Creating…'
-                    : createForm.bilateral
-                    ? 'Create bilateral pair'
-                    : 'Create exercise'}
-                </Button>
-              </>
-            )}
-          </div>
-        </form>
-      </Modal>
-
-      <Modal
         open={editing !== null}
         onClose={closeEdit}
         title={editing ? `Edit · ${str(editing.name) || editing.id}` : 'Edit'}
         width={900}
       >
-        {editing &&
-          form &&
-          (() => {
-            // Determine bilateral relationship info for the info row.
-            const editingName = str(editing.name);
-            const isParent = bilateralParentNames.has(editingName);
-            const childParent = isChildNameClient(editingName)
-              ? parentNameOfClient(editingName)
-              : null;
-            const isChild =
-              childParent !== null && bilateralParentNames.has(childParent);
-            const pair = isParent ? bilateralChildrenByParent.get(editingName) : null;
-            let bilateralInfo: BilateralInfo | null = null;
-            if (isParent && pair) {
-              bilateralInfo = {
-                kind: 'parent',
-                leftName: pair.L?.name ?? '(missing)',
-                rightName: pair.R?.name ?? '(missing)',
-              };
-            } else if (isChild && childParent) {
-              bilateralInfo = { kind: 'child', parentName: childParent };
-            }
-            return (
-              <EditForm
-                base={editing}
-                form={form}
-                setForm={setForm}
-                modalErr={modalErr}
-                saving={saving}
-                uploadingVideo={uploadingVideo}
-                uploadingThumb={uploadingThumb}
-                hasOverride={overridesById.has(editing.id)}
-                videoInputRef={videoInputRef}
-                thumbInputRef={thumbInputRef}
-                onVideoFile={handleVideoFile}
-                onThumbFile={handleThumbFile}
-                onSave={handleSave}
-                onClearOverride={handleClearOverride}
-                onCancel={closeEdit}
-                bilateralInfo={bilateralInfo}
-                voiceoverVoice={voiceoverVoice}
-                onVoiceoverVoiceChange={setVoiceoverVoice}
-                voiceoverJobId={voiceoverJobId}
-                voiceoverStatusVisible={voiceoverStatusVisible}
-                voiceoverErr={voiceoverErr}
-                voiceoverQueuing={voiceoverQueuing}
-                onGenerateVoiceover={handleGenerateVoiceover}
-                onVoiceoverDone={handleVoiceoverDone}
-                onVoiceoverError={handleVoiceoverError}
-              />
-            );
-          })()}
+        {editing && form && (
+          <EditForm
+            base={editing}
+            form={form}
+            setForm={setForm}
+            modalErr={modalErr}
+            saving={saving}
+            uploadingVideo={uploadingVideo}
+            uploadingThumb={uploadingThumb}
+            hasOverride={overridesById.has(editing.id)}
+            videoInputRef={videoInputRef}
+            thumbInputRef={thumbInputRef}
+            onVideoFile={handleVideoFile}
+            onThumbFile={handleThumbFile}
+            onSave={handleSave}
+            onClearOverride={handleClearOverride}
+            onCancel={closeEdit}
+          />
+        )}
       </Modal>
-
-      {toast && (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: 24,
-            right: 24,
-            background: colors.text,
-            color: colors.bg,
-            padding: '12px 18px',
-            borderRadius: 12,
-            fontSize: 13,
-            fontWeight: 600,
-            boxShadow: '0 6px 22px rgba(0,0,0,0.25)',
-            zIndex: 1000,
-          }}
-        >
-          {toast}
-        </div>
-      )}
-    </div>
-  );
-}
-
-// Read-only bilateral relationship descriptor passed into EditForm.
-type BilateralInfo =
-  | { kind: 'parent'; leftName: string; rightName: string }
-  | { kind: 'child'; parentName: string };
-
-// ── Bilateral live preview ────────────────────────────────────────────────
-
-function BilateralPreview({ form }: { form: CreateFormState }) {
-  const parentName = form.name.trim() || '<parent name>';
-  const baseSlug = (form.slug || slugifyExercise(form.name)).trim() || '<slug>';
-  const label = form.bilateral_side_label;
-  const leftName = form.name.trim() ? bilateralChildName(parentName, 'Left', label) : `<parent name> — Left${label ? ` ${label}` : ''}`;
-  const rightName = form.name.trim() ? bilateralChildName(parentName, 'Right', label) : `<parent name> — Right${label ? ` ${label}` : ''}`;
-  const rowStyle: React.CSSProperties = {
-    display: 'grid',
-    gridTemplateColumns: '24px 1fr auto',
-    gap: 10,
-    padding: '4px 0',
-    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
-    fontSize: 12,
-    color: colors.text,
-  };
-  const numStyle: React.CSSProperties = { color: colors.muted, textAlign: 'right' };
-  const tagStyle: React.CSSProperties = { color: colors.muted, fontSize: 10, textTransform: 'uppercase', letterSpacing: 0.5 };
-  return (
-    <div>
-      <div style={rowStyle}>
-        <span style={numStyle}>1.</span>
-        <span>
-          <strong>{parentName}</strong>{' '}
-          <span style={{ color: colors.dim, fontSize: 10 }}>({baseSlug})</span>
-        </span>
-        <span style={tagStyle}>parent</span>
-      </div>
-      <div style={rowStyle}>
-        <span style={numStyle}>2.</span>
-        <span>
-          {leftName}{' '}
-          <span style={{ color: colors.dim, fontSize: 10 }}>({baseSlug}_left)</span>
-        </span>
-        <span style={tagStyle}>child · L</span>
-      </div>
-      <div style={rowStyle}>
-        <span style={numStyle}>3.</span>
-        <span>
-          {rightName}{' '}
-          <span style={{ color: colors.dim, fontSize: 10 }}>({baseSlug}_right)</span>
-        </span>
-        <span style={tagStyle}>child · R</span>
-      </div>
     </div>
   );
 }
@@ -1760,16 +581,6 @@ function EditForm({
   onSave,
   onClearOverride,
   onCancel,
-  bilateralInfo,
-  voiceoverVoice,
-  onVoiceoverVoiceChange,
-  voiceoverJobId,
-  voiceoverStatusVisible,
-  voiceoverErr,
-  voiceoverQueuing,
-  onGenerateVoiceover,
-  onVoiceoverDone,
-  onVoiceoverError,
 }: {
   base: Exercise;
   form: FormState;
@@ -1786,16 +597,6 @@ function EditForm({
   onSave: () => void;
   onClearOverride: () => void;
   onCancel: () => void;
-  bilateralInfo: BilateralInfo | null;
-  voiceoverVoice: TtsVoice;
-  onVoiceoverVoiceChange: (v: TtsVoice) => void;
-  voiceoverJobId: number | null;
-  voiceoverStatusVisible: boolean;
-  voiceoverErr: string | null;
-  voiceoverQueuing: boolean;
-  onGenerateVoiceover: () => void;
-  onVoiceoverDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
-  onVoiceoverError: (job: import('../../lib/adminApi').MediaJobRow) => void;
 }) {
   const update = (k: EditableKey, v: string) =>
     setForm((prev) => (prev ? { ...prev, [k]: v } : prev));
@@ -1818,37 +619,6 @@ function EditForm({
       {modalErr && (
         <div style={errorBannerStyle} role="alert">
           {modalErr}
-        </div>
-      )}
-
-      {bilateralInfo && (
-        <div
-          style={{
-            background: 'rgba(80, 200, 120, 0.08)',
-            border: '1px solid rgba(80, 200, 120, 0.35)',
-            borderRadius: 10,
-            padding: '10px 14px',
-            marginBottom: 14,
-            fontSize: 13,
-            color: colors.text,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            flexWrap: 'wrap',
-          }}
-        >
-          <span style={bilateralBadgeStyle}>Bilateral</span>
-          {bilateralInfo.kind === 'parent' ? (
-            <span>
-              Bilateral parent — children:{' '}
-              <strong>{bilateralInfo.leftName}</strong>,{' '}
-              <strong>{bilateralInfo.rightName}</strong>
-            </span>
-          ) : (
-            <span>
-              Bilateral child of <strong>{bilateralInfo.parentName}</strong>
-            </span>
-          )}
         </div>
       )}
 
@@ -1990,21 +760,6 @@ function EditForm({
             />
           </Field>
 
-          <VoiceoverPanel
-            hasVideo={Boolean(form.videoUrl)}
-            hasSetupNotes={form.setupNotes.trim().length > 0}
-            voice={voiceoverVoice}
-            onVoiceChange={onVoiceoverVoiceChange}
-            jobId={voiceoverJobId}
-            statusVisible={voiceoverStatusVisible}
-            err={voiceoverErr}
-            queuing={voiceoverQueuing}
-            onGenerate={onGenerateVoiceover}
-            onDone={onVoiceoverDone}
-            onError={onVoiceoverError}
-            disabled={saving || isUploading}
-          />
-
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <Field label="Body Focus">
               <TextInput value={form.bodyFocus} onChange={(e) => update('bodyFocus', e.target.value)} />
@@ -2085,115 +840,6 @@ function EditForm({
           </Button>
         </div>
       </div>
-    </div>
-  );
-}
-
-// ── Voiceover panel (sits inside EditForm) ────────────────────────────────
-
-function VoiceoverPanel({
-  hasVideo,
-  hasSetupNotes,
-  voice,
-  onVoiceChange,
-  jobId,
-  statusVisible,
-  err,
-  queuing,
-  onGenerate,
-  onDone,
-  onError,
-  disabled,
-}: {
-  hasVideo: boolean;
-  hasSetupNotes: boolean;
-  voice: TtsVoice;
-  onVoiceChange: (v: TtsVoice) => void;
-  jobId: number | null;
-  statusVisible: boolean;
-  err: string | null;
-  queuing: boolean;
-  onGenerate: () => void;
-  onDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
-  onError: (job: import('../../lib/adminApi').MediaJobRow) => void;
-  disabled: boolean;
-}) {
-  const eligible = hasVideo && hasSetupNotes;
-
-  const wrapperStyle: React.CSSProperties = {
-    background: colors.bg,
-    border: `1px solid ${colors.border}`,
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 14,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
-  };
-
-  const headerStyle: React.CSSProperties = {
-    fontSize: 11,
-    fontWeight: 700,
-    color: colors.muted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  };
-
-  const rowStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    flexWrap: 'wrap',
-  };
-
-  const errorStyle: React.CSSProperties = {
-    fontSize: 12,
-    color: '#fca5a5',
-    background: 'rgba(220, 38, 38, 0.08)',
-    border: '1px solid rgba(220, 38, 38, 0.4)',
-    borderRadius: 8,
-    padding: '6px 10px',
-  };
-
-  const hintStyle: React.CSSProperties = {
-    fontSize: 11,
-    color: colors.muted,
-    fontStyle: 'italic',
-  };
-
-  return (
-    <div style={wrapperStyle}>
-      <span style={headerStyle}>Voiceover</span>
-      <div style={rowStyle}>
-        <Select
-          value={voice}
-          onChange={(e) => onVoiceChange(e.target.value as TtsVoice)}
-          disabled={disabled || queuing || !eligible}
-          style={{ width: 110 }}
-        >
-          {TTS_VOICES.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </Select>
-        <Button
-          variant="secondary"
-          onClick={onGenerate}
-          disabled={disabled || queuing || !eligible}
-        >
-          {queuing ? 'Queuing…' : 'Generate voiceover'}
-        </Button>
-        {!eligible && (
-          <span style={hintStyle}>
-            Voiceover requires a video and setupNotes.
-          </span>
-        )}
-      </div>
-      {err && <div style={errorStyle}>{err}</div>}
-      {statusVisible && jobId != null && (
-        <MediaJobStatus jobId={jobId} onDone={onDone} onError={onError} />
-      )}
     </div>
   );
 }
