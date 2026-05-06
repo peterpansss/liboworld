@@ -12,20 +12,25 @@ type FounderShot = {
   src: string;
   caption: string;
   isVideo?: boolean;
+  // True when src still points at a stock placeholder; the rendered <img>
+  // gets data-placeholder="founder-bts" so the remaining slots are easy to
+  // grep when more real Noah BTS shots are ready.
+  placeholder?: boolean;
 };
 
 const SHOTS: FounderShot[] = [
   {
-    src: '/ReferenceImagesReal/780b162e3c5b30de4cb9bef7f776be2a.jpg',
-    caption: 'Squat day. Form first.',
-  },
-  {
-    src: '/ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg',
+    src: '/founder/noah-pose.png',
     caption: 'Designed in the gym, not the office.',
   },
   {
-    src: '/ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg',
+    src: '/founder/noah-mirror.jpg',
     caption: 'Every workout in Libo, I trained myself first.',
+  },
+  {
+    src: '/ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg',
+    caption: 'Real reps. Real progress.',
+    placeholder: true,
   },
 ];
 
@@ -53,14 +58,14 @@ export default function FounderCard() {
                   muted
                   loop
                   playsInline
-                  data-placeholder="founder-bts"
+                  {...(shot.placeholder ? { 'data-placeholder': 'founder-bts' } : {})}
                 />
               ) : (
                 <img
                   src={shot.src}
                   alt=""
                   loading="lazy"
-                  data-placeholder="founder-bts"
+                  {...(shot.placeholder ? { 'data-placeholder': 'founder-bts' } : {})}
                 />
               )}
               <figcaption className="founder-caption">
