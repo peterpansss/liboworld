@@ -18,13 +18,11 @@
  *       1. Frontend → POST /functions/v1/create_payment_intent
  *          body: { tier_slug, amount, email, full_name, phone }
  *          Edge Function creates Stripe Customer (find by email or new),
- *          creates PaymentIntent (one-time, mode='payment' — no
- *          Subscription, no trial), returns { client_secret,
- *          payment_intent_id }
- *       2. Frontend → stripe.confirmPayment(client_secret, {...})
+ *          creates PaymentIntent (mode=subscription with trial),
+ *          returns { client_secret, payment_intent_id }
+ *       2. Frontend → stripe.confirmCardPayment(client_secret, {...})
  *       3. Stripe webhook fires `payment_intent.succeeded` → handler
- *          credits tickets_ledger + points_ledger only. No subscription
- *          row written.
+ *          credits tickets_ledger, points_ledger, sets up trialing sub
  *
  * Visual reference: LMCT+ checkout modal (lmctgiveaway.com/muscle-orcash
  * → click any package → modal opens).
