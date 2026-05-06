@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { getExercises, type Exercise } from '../data/exercises';
+import { Trans, useTranslation } from 'react-i18next';
+import { useExercises } from '../hooks/useExercises';
 import { exerciseThumb, isMediaHidden } from '../utils/thumbnails';
 import { MuscleTile } from '../components/MuscleTile';
 import { MuscleGroupStrip } from '../components/MuscleGroupStrip';
@@ -12,6 +12,12 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { Search, ICON_STROKE } from '../utils/icons';
 import { useDebouncedValue } from '../utils/useDebouncedValue';
+import {
+  MUSCLE_I18N_KEYS,
+  EQUIPMENT_I18N_KEYS,
+  SETTING_I18N_KEYS,
+  TYPE_I18N_KEYS,
+} from '../utils/i18nKeys';
 import './ExerciseLibrary.css';
 
 function capitalize(s: string): string {
@@ -50,20 +56,6 @@ const TYPE_TO_PRIMARY_CATS: Record<string, string[]> = {
   'Warm-Up': ['Warm-Up'],
 };
 
-const MUSCLE_I18N_KEYS: Record<string, string> = {
-  'All': 'all', 'Chest': 'chest', 'Back': 'back', 'Shoulders': 'shoulders',
-  'Biceps': 'biceps', 'Triceps': 'triceps', 'Core': 'core', 'Legs': 'legs',
-  'Glutes': 'glutes', 'Cardio': 'cardio', 'Full Body': 'fullBody',
-  'Forearms': 'forearms', 'Traps': 'traps',
-};
-
-const EQUIPMENT_I18N_KEYS: Record<string, string> = {
-  'All': 'all', 'Bodyweight': 'bodyweight', 'Barbell': 'barbell',
-  'Dumbbell': 'dumbbell', 'Cable': 'cable', 'Machine': 'machine',
-  'Kettlebell': 'kettlebell', 'Resistance Bands': 'resistanceBands',
-  'Bar': 'bar', 'Swiss Ball': 'swissBall',
-};
-
 // ── Pagination helpers ──
 function getPaginationRange(current: number, total: number): (number | 'ellipsis')[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
@@ -88,8 +80,14 @@ export default function ExerciseLibrary() {
   const { t, i18n } = useTranslation();
   const muscleLabel = (m: string) => t(`exerciseLibrary.muscles.${MUSCLE_I18N_KEYS[m] ?? 'all'}`);
   const equipmentLabel = (e: string) => t(`exerciseLibrary.equipment.${EQUIPMENT_I18N_KEYS[e] ?? 'all'}`);
-  const [exercises, setExercises] = useState<Exercise[]>([]);
-  const [loading, setLoading] = useState(true);
+  const settingLabel = (s: string) => t(`exerciseLibrary.setting.${SETTING_I18N_KEYS[s] ?? 'all'}`);
+  const typeLabel = (typ: string) => t(`exerciseLibrary.type.${TYPE_I18N_KEYS[typ] ?? 'all'}`);
+  // Phase 4: public catalog now flows through useExercises(). The hook paints
+  // /exercises.json first (build-time SEO baseline) then swaps in the canonical
+  // Supabase rows once they arrive — so admin-published changes show up live.
+  // Locale overlay (setupNotes translations) doesn't apply on the listing page;
+  // detail pages still go through getExercises() in src/data/exercises.ts.
+  const { exercises, loading } = useExercises();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const urlSearch = searchParams.get('q') || '';
@@ -103,13 +101,6 @@ export default function ExerciseLibrary() {
   const [searchInput, setSearchInput] = useState(urlSearch);
   const debouncedSearch = useDebouncedValue(searchInput, 150);
   const [filtersOpen, setFiltersOpen] = useState(false);
-
-  useEffect(() => {
-    getExercises(i18n.language).then(data => {
-      setExercises(data);
-      setLoading(false);
-    });
-  }, [i18n.language]);
 
   // ── SEO meta ──
   const seoTitle = useMemo(() => {
@@ -256,21 +247,38 @@ export default function ExerciseLibrary() {
   // ── Active filters ──
   const activeFilters: ActiveFilter[] = [];
   if (muscle !== 'All') activeFilters.push({ key: 'muscle', label: muscleLabel(muscle), value: muscle });
-  if (setting !== 'All') activeFilters.push({ key: 'setting', label: setting, value: setting });
-  if (trainingType !== 'All') activeFilters.push({ key: 'type', label: trainingType, value: trainingType });
+  if (setting !== 'All') activeFilters.push({ key: 'setting', label: settingLabel(setting), value: setting });
+  if (trainingType !== 'All') activeFilters.push({ key: 'type', label: typeLabel(trainingType), value: trainingType });
   if (equip !== 'All') activeFilters.push({ key: 'equip', label: equipmentLabel(equip), value: equip });
   if (urlSearch) activeFilters.push({ key: 'q', label: `"${urlSearch}"`, value: urlSearch });
 
   // ── Adaptive results filter context ──
+  // Built from the new filterContext.* i18n keys so the result-count line
+  // reads naturally in every locale. Setting + Type join into the muscle
+  // slot when present so we can keep the grammar working across languages.
   const filterContext = useMemo(() => {
-    const parts: string[] = [];
-    if (muscle !== 'All') parts.push(muscleLabel(muscle).toLowerCase());
-    if (setting !== 'All') parts.push(setting.toLowerCase());
-    if (trainingType !== 'All') parts.push(trainingType.toLowerCase());
-    if (equip !== 'All') parts.push(equipmentLabel(equip).toLowerCase());
-    return parts.length > 0 ? ` ${parts.join(' ')} exercises` : '';
+    const muscleParts: string[] = [];
+    if (muscle !== 'All') muscleParts.push(muscleLabel(muscle).toLowerCase());
+    if (setting !== 'All') muscleParts.push(settingLabel(setting).toLowerCase());
+    if (trainingType !== 'All') muscleParts.push(typeLabel(trainingType).toLowerCase());
+    const muscleStr = muscleParts.join(' ');
+    const equipStr = equip !== 'All' ? equipmentLabel(equip).toLowerCase() : '';
+
+    if (muscleStr && equipStr) {
+      return t('exerciseLibrary.filterContext.muscleAndEquipment', {
+        muscle: muscleStr,
+        equipment: equipStr,
+      });
+    }
+    if (muscleStr) {
+      return t('exerciseLibrary.filterContext.muscle', { muscle: muscleStr });
+    }
+    if (equipStr) {
+      return t('exerciseLibrary.filterContext.equipment', { equipment: equipStr });
+    }
+    return '';
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [muscle, setting, trainingType, equip]);
+  }, [muscle, setting, trainingType, equip, i18n.language]);
 
   return (
     <>
@@ -323,7 +331,7 @@ export default function ExerciseLibrary() {
             onClick={() => setFiltersOpen(o => !o)}
           >
             <span>
-              {t('exerciseLibrary.filtersToggle', { defaultValue: 'Filters' })}
+              {t('exerciseLibrary.filtersToggle')}
               {(activeFilters.length - (urlSearch ? 1 : 0)) > 0 && (
                 <span className="el-filters-toggle__count" aria-label="active filter count">
                   {activeFilters.length - (urlSearch ? 1 : 0)}
@@ -336,7 +344,7 @@ export default function ExerciseLibrary() {
           {/* Filters (muscle group is the visual strip above) */}
           <div id="el-filters" className={`el-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
             <div className="el-filter-row">
-              <span className="el-filter-label">Setting</span>
+              <span className="el-filter-label">{t('exerciseLibrary.settingLabel')}</span>
               <div className="el-chips">
                 {SETTINGS.map(s => (
                   <button
@@ -345,13 +353,13 @@ export default function ExerciseLibrary() {
                     aria-pressed={setting === s}
                     onClick={() => updateParam('setting', setting === s ? 'All' : s)}
                   >
-                    {s === 'All' ? t('exerciseLibrary.muscles.all') : s}
+                    {settingLabel(s)}
                   </button>
                 ))}
               </div>
             </div>
             <div className="el-filter-row">
-              <span className="el-filter-label">Type</span>
+              <span className="el-filter-label">{t('exerciseLibrary.typeLabel')}</span>
               <div className="el-chips">
                 {TYPES.map(typ => (
                   <button
@@ -360,7 +368,7 @@ export default function ExerciseLibrary() {
                     aria-pressed={trainingType === typ}
                     onClick={() => updateParam('type', trainingType === typ ? 'All' : typ)}
                   >
-                    {typ === 'All' ? t('exerciseLibrary.muscles.all') : typ}
+                    {typeLabel(typ)}
                   </button>
                 ))}
               </div>
@@ -401,9 +409,26 @@ export default function ExerciseLibrary() {
           {/* Results count */}
           {!loading && (
             <div className="el-results-count" aria-live="polite">
-              {filterContext
-                ? <>Showing <strong>{rangeStart}–{rangeEnd}</strong> of <strong>{filtered.length}</strong>{filterContext}</>
-                : <>{t('exerciseLibrary.showingPrefix')} <strong>{rangeStart}–{rangeEnd}</strong> {t('exerciseLibrary.showingOf')} <strong>{filtered.length}</strong> {t('exerciseLibrary.showingSuffix')}</>}
+              {filterContext ? (
+                <Trans
+                  i18nKey="exerciseLibrary.showingResultsFiltered"
+                  values={{
+                    from: rangeStart,
+                    to: rangeEnd,
+                    total: filtered.length,
+                    context: filterContext,
+                  }}
+                />
+              ) : (
+                <Trans
+                  i18nKey="exerciseLibrary.showingResults"
+                  values={{
+                    from: rangeStart,
+                    to: rangeEnd,
+                    total: filtered.length,
+                  }}
+                />
+              )}
             </div>
           )}
 
@@ -423,7 +448,7 @@ export default function ExerciseLibrary() {
                   : t('exerciseLibrary.emptyState.description')}
               </p>
               <button className="el-empty-clear" onClick={() => setSearchParams({})}>
-                Clear filters
+                {t('common.clearFilters')}
               </button>
             </div>
           ) : (

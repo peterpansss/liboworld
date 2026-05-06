@@ -8,8 +8,10 @@
  * the catalog (Befit-style).
  */
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Model, { type IExerciseData, type Muscle } from 'react-body-highlighter';
 import { MUSCLE_GROUP_KEYS } from '../utils/exerciseInfo';
+import { MUSCLE_NAME_I18N_KEYS } from '../utils/i18nKeys';
 import './MuscleGroupStrip.css';
 
 interface Props {
@@ -46,10 +48,12 @@ const BODY_COLOR = '#4a4e58';
 // Both slots are lime so any frequency the muscle picks up paints the same color.
 const HIGHLIGHTED_COLORS: [string, string] = ['#caff00', '#caff00'];
 
-export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Group' }: Props) {
+export function MuscleGroupStrip({ activeMuscle, title }: Props) {
+  const { t } = useTranslation();
+  const resolvedTitle = title ?? t('exerciseLibrary.exploreByMuscleGroup');
   return (
     <section className="mgs">
-      <h2 className="mgs__title">{title}</h2>
+      <h2 className="mgs__title">{resolvedTitle}</h2>
       <div className="mgs__scroll">
         {MUSCLE_GROUP_KEYS.map((muscle) => {
           const isActive = activeMuscle === muscle;
@@ -57,6 +61,7 @@ export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Grou
           const data: IExerciseData[] = preview
             ? [{ name: muscle, muscles: preview.muscles }]
             : [];
+          const label = t(`exerciseLibrary.muscles.${MUSCLE_NAME_I18N_KEYS[muscle] ?? 'all'}`).toUpperCase();
           return (
             <Link
               key={muscle}
@@ -75,7 +80,7 @@ export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Grou
                   />
                 ) : null}
               </div>
-              <div className="mgs__label">{muscle.toUpperCase()}</div>
+              <div className="mgs__label">{label}</div>
             </Link>
           );
         })}
