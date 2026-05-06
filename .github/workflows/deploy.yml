@@ -24,6 +24,12 @@ jobs:
       - run: npm ci
         working-directory: react-app
 
+      # tsc catches pure type errors that vite's bundle-time check misses
+      # (mismatched signatures, narrowing bugs, etc). Cheap — runs in ~2s.
+      - name: Type-check React app
+        run: npx tsc --noEmit -p tsconfig.app.json
+        working-directory: react-app
+
       - name: Build React app
         run: npx vite build
         working-directory: react-app
