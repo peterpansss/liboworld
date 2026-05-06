@@ -20,19 +20,24 @@
 
 .founder-headline {
   color: #0e0e0e;
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  line-height: 1.05;
-  margin: 0 0 16px;
+  /* Match Landing's display-lg scale so the section reads at the same
+     register as Hero / Statement headlines instead of disappearing into
+     the surrounding stats strip. */
+  font-size: clamp(48px, 8vw, 88px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 0.95;
+  margin: 0 0 20px;
   text-transform: uppercase;
 }
 
 .founder-subhead {
-  color: #666;
-  font-size: clamp(15px, 1.6vw, 17px);
-  line-height: 1.6;
-  font-weight: 500;
+  color: #0e0e0e;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  text-transform: uppercase;
   max-width: 48ch;
   margin: 0 auto;
 }
