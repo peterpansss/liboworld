@@ -4,16 +4,19 @@ import {
   replaceWorkoutOverride,
   deleteWorkoutOverride,
   createWorkout,
+  updateWorkout,
   listWorkouts,
   listExercises,
   type WorkoutOverride,
   type WorkoutRow,
   type WorkoutBlockEntry,
   type ExerciseRow,
+  type ContentStatus,
 } from '../../lib/adminApi';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, Select, Button } from '../../components/admin/FormField';
 import { Modal } from '../../components/admin/Modal';
+import { StatusChip } from '../../components/admin/StatusChip';
 import { colors } from '../../theme';
 
 // ── Types ────────────────────────────────────────────────────────────────
@@ -318,6 +321,30 @@ export function WorkoutsPage() {
     return m;
   }, [overrides]);
 
+  // Lookup canonical workouts by id and slug for status display + status edits.
+  // Bundled `workouts.json` and Supabase use different id conventions, so check
+  // both id and slug like ExercisesPage does.
+  const canonicalByKey = useMemo(() => {
+    const byId = new Map<string, WorkoutRow>();
+    const bySlug = new Map<string, WorkoutRow>();
+    for (const r of canonicalWorkouts) {
+      byId.set(r.id, r);
+      if (r.slug) bySlug.set(r.slug, r);
+    }
+    return { byId, bySlug };
+  }, [canonicalWorkouts]);
+
+  function findCanonical(w: Workout): WorkoutRow | null {
+    return canonicalByKey.byId.get(w.id) ?? canonicalByKey.bySlug.get(w.id) ?? null;
+  }
+
+  // Refresh canonical workouts on mount so the status column populates without
+  // forcing the user to open the create modal first.
+  useEffect(() => {
+    void refreshCanonical();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Merged list
   const mergedWorkouts = useMemo<Workout[]>(() => {
     return baseWorkouts.map((w) => mergeWorkout(w, overrideMap.get(w.id)?.patch));
@@ -410,6 +437,17 @@ export function WorkoutsPage() {
         ((b.warmup?.length ?? 0) + (b.main?.length ?? 0) + (b.cooldown?.length ?? 0)),
     },
     {
+      key: 'status',
+      header: 'Status',
+      width: 110,
+      render: (r) => {
+        const c = findCanonical(r);
+        return c ? <StatusChip status={c.status} /> : <span style={{ color: colors.dim }}>—</span>;
+      },
+      sort: (a, b) =>
+        (findCanonical(a)?.status ?? '').localeCompare(findCanonical(b)?.status ?? ''),
+    },
+    {
       key: 'override',
       header: 'Override',
       width: 90,
@@ -427,6 +465,8 @@ export function WorkoutsPage() {
   ];
 
   const overrideCount = overrides.length;
+  const publishedCount = canonicalWorkouts.filter((r) => r.status === 'published').length;
+  const draftCount = canonicalWorkouts.filter((r) => r.status === 'draft').length;
 
   return (
     <div style={{ padding: '24px 28px', color: colors.text }}>
@@ -454,7 +494,7 @@ export function WorkoutsPage() {
             Workouts
           </h1>
           <div style={{ marginTop: 6, color: colors.muted, fontSize: 13 }}>
-            {baseWorkouts.length} workouts, {overrideCount} with overrides
+            {baseWorkouts.length} workouts · {publishedCount} published · {draftCount} draft · {overrideCount} with overrides
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
@@ -731,10 +771,11 @@ export function WorkoutsPage() {
           base={editingBase}
           initial={editingMerged}
           hasOverride={overrideMap.has(editingBase.id)}
+          canonical={findCanonical(editingBase)}
           exerciseNames={exerciseNames}
           onClose={() => setEditingId(null)}
           onSaved={async () => {
-            await refreshOverrides();
+            await Promise.all([refreshOverrides(), refreshCanonical()]);
             setEditingId(null);
           }}
           onClearOverride={async () => {
@@ -755,6 +796,7 @@ function EditWorkoutModal({
   base,
   initial,
   hasOverride,
+  canonical,
   exerciseNames,
   onClose,
   onSaved,
@@ -764,18 +806,21 @@ function EditWorkoutModal({
   base: Workout;
   initial: Workout;
   hasOverride: boolean;
+  canonical: WorkoutRow | null;
   exerciseNames: string[];
   onClose: () => void;
   onSaved: () => Promise<void> | void;
   onClearOverride: () => Promise<void> | void;
 }) {
   const [form, setForm] = useState<Workout>(initial);
+  const [status, setStatus] = useState<ContentStatus>(canonical?.status ?? 'published');
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
   // Reset form whenever the workout being edited changes
   useEffect(() => {
     setForm(initial);
+    setStatus(canonical?.status ?? 'published');
     setErr(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initial.id]);
@@ -791,7 +836,19 @@ function EditWorkoutModal({
     setErr(null);
     try {
       const diff = computeDiff(base, form);
-      await replaceWorkoutOverride(base.id, diff);
+      const overrideHasChanges = Object.keys(diff).length > 0;
+      const statusChanged = canonical !== null && status !== canonical.status;
+
+      if (overrideHasChanges) {
+        await replaceWorkoutOverride(base.id, diff);
+      }
+      if (statusChanged && canonical) {
+        const res = await updateWorkout(canonical.id, { status });
+        if (!res.ok) {
+          setErr(res.error ?? 'Status update failed');
+          return;
+        }
+      }
       await onSaved();
     } catch (e) {
       setErr(e instanceof Error ? e.message : String(e));
@@ -888,6 +945,26 @@ function EditWorkoutModal({
         <div style={{ gridColumn: 'span 3' }}>
           <Field label="Emoji">
             <TextInput value={form.emoji} onChange={(e) => setField('emoji', e.target.value)} />
+          </Field>
+        </div>
+        <div style={{ gridColumn: 'span 3' }}>
+          <Field
+            label="Visibility"
+            hint={
+              canonical
+                ? 'Draft hides this workout on web + app.'
+                : 'Bundled-only — save another change first to make it editable.'
+            }
+          >
+            <Select
+              value={status}
+              onChange={(e) => setStatus(e.target.value as ContentStatus)}
+              disabled={!canonical}
+            >
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="archived">Archived</option>
+            </Select>
           </Field>
         </div>
         <div style={{ gridColumn: 'span 3', display: 'flex', alignItems: 'flex-end' }}>

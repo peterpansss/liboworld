@@ -3,6 +3,7 @@ import { colors } from '../../theme';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, Select, Button } from '../../components/admin/FormField';
 import { Modal } from '../../components/admin/Modal';
+import { StatusChip } from '../../components/admin/StatusChip';
 import {
   listPrograms,
   createProgram,
@@ -11,7 +12,6 @@ import {
   listWorkouts,
   type ProgramRow,
   type WorkoutRow,
-  type ContentStatus,
 } from '../../lib/adminApi';
 
 // ── styles ────────────────────────────────────────────────────────────────
@@ -53,33 +53,6 @@ const bigNum: React.CSSProperties = {
   color: colors.text,
   letterSpacing: 0.4,
 };
-
-// ── chips ─────────────────────────────────────────────────────────────────
-
-function statusStyle(status: ContentStatus): React.CSSProperties {
-  if (status === 'published') return { background: colors.successDim, color: colors.success };
-  if (status === 'archived') return { background: colors.bg3, color: colors.muted };
-  return { background: colors.warningDim, color: colors.warning };
-}
-
-function StatusChip({ status }: { status: ContentStatus }) {
-  return (
-    <span
-      style={{
-        display: 'inline-block',
-        padding: '3px 10px',
-        borderRadius: 8,
-        fontSize: 11,
-        fontWeight: 700,
-        textTransform: 'uppercase',
-        letterSpacing: 0.5,
-        ...statusStyle(status),
-      }}
-    >
-      {status}
-    </span>
-  );
-}
 
 // ── form types ────────────────────────────────────────────────────────────
 

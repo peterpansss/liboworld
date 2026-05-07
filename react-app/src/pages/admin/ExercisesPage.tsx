@@ -16,8 +16,10 @@ import {
   createMediaJob,
   type ExerciseOverride,
   type ExerciseRow,
+  type ContentStatus,
 } from '../../lib/adminApi';
 import { VideoUpload, MediaJobStatus } from '../../components/admin/VideoUpload';
+import { StatusChip } from '../../components/admin/StatusChip';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -40,6 +42,7 @@ type Exercise = {
   machineRequired?: boolean;
   parentId?: string;
   parentName?: string;
+  status?: ContentStatus;
   [k: string]: unknown;
 };
 
@@ -55,7 +58,8 @@ type EditableKey =
   | 'emoji'
   | 'videoUrl'
   | 'animationUrl'
-  | 'thumbnailUrl';
+  | 'thumbnailUrl'
+  | 'status';
 
 const EDITABLE_KEYS: EditableKey[] = [
   'name',
@@ -70,6 +74,7 @@ const EDITABLE_KEYS: EditableKey[] = [
   'videoUrl',
   'animationUrl',
   'thumbnailUrl',
+  'status',
 ];
 
 type FormState = Record<EditableKey, string>;
@@ -472,6 +477,12 @@ export function ExercisesPage() {
   const [voiceoverErr, setVoiceoverErr] = useState<string | null>(null);
   const [voiceoverQueuing, setVoiceoverQueuing] = useState(false);
 
+  // Delete-video-job state (lives inside the Edit modal)
+  const [deleteVideoJobId, setDeleteVideoJobId] = useState<number | null>(null);
+  const [deleteVideoStatusVisible, setDeleteVideoStatusVisible] = useState(false);
+  const [deleteVideoErr, setDeleteVideoErr] = useState<string | null>(null);
+  const [deleteVideoQueuing, setDeleteVideoQueuing] = useState(false);
+
   // Create modal state (canonical exercises table)
   const [createOpen, setCreateOpen] = useState(false);
   const [createForm, setCreateForm] = useState<CreateFormState>(EMPTY_CREATE_FORM);
@@ -604,6 +615,7 @@ export function ExercisesPage() {
       machineRequired: r.machine_required,
       parentId: r.parent_id ?? '',
       parentName: r.parent_name ?? '',
+      status: r.status,
     };
   }
 
@@ -674,6 +686,8 @@ export function ExercisesPage() {
   }, [merged, search, fBodyFocus, fEquipment, fEnvironment, fDiff, fHasOverride, overridesById]);
 
   const overrideCount = overridesById.size;
+  const publishedCount = canonicalRows.filter((r) => r.status === 'published').length;
+  const draftCount = canonicalRows.filter((r) => r.status === 'draft').length;
 
   // Open edit modal: use BASE for the exercise (so diff is computed against base) but
   // prefill the form with merged (base + override) values so admin sees current state.
@@ -703,6 +717,10 @@ export function ExercisesPage() {
     setVoiceoverStatusVisible(false);
     setVoiceoverErr(null);
     setVoiceoverQueuing(false);
+    setDeleteVideoJobId(null);
+    setDeleteVideoStatusVisible(false);
+    setDeleteVideoErr(null);
+    setDeleteVideoQueuing(false);
   }
 
   async function handleGenerateVoiceover() {
@@ -740,6 +758,49 @@ export function ExercisesPage() {
 
   function handleVoiceoverError(job: { error_message: string | null }) {
     setVoiceoverErr(job.error_message ?? 'Voiceover job failed');
+  }
+
+  async function handleDeleteVideo() {
+    if (!editing || !form) return;
+    if (!form.videoUrl) {
+      setDeleteVideoErr('No video to delete.');
+      return;
+    }
+    if (
+      !confirm(
+        "Delete this exercise's video and thumbnail? The MP4 will be removed from R2 and the thumbnail from Supabase Storage. This cannot be undone.",
+      )
+    ) {
+      return;
+    }
+    try {
+      setDeleteVideoQueuing(true);
+      setDeleteVideoErr(null);
+      const res = await createMediaJob(editing.id, 'delete_video');
+      if (!res.ok || !res.job) {
+        setDeleteVideoErr(res.error ?? 'Failed to queue delete-video job');
+        return;
+      }
+      setDeleteVideoJobId(res.job.id);
+      setDeleteVideoStatusVisible(true);
+    } catch (e) {
+      setDeleteVideoErr(e instanceof Error ? e.message : String(e));
+    } finally {
+      setDeleteVideoQueuing(false);
+    }
+  }
+
+  function handleDeleteVideoDone() {
+    void refreshCanonical();
+    setForm((prev) => (prev ? { ...prev, videoUrl: '', thumbnailUrl: '' } : prev));
+    setTimeout(() => {
+      setDeleteVideoStatusVisible(false);
+      setDeleteVideoJobId(null);
+    }, 4000);
+  }
+
+  function handleDeleteVideoError(job: { error_message: string | null }) {
+    setDeleteVideoErr(job.error_message ?? 'Delete-video job failed');
   }
 
   async function handleSave() {
@@ -871,6 +932,7 @@ export function ExercisesPage() {
     setIfChanged('emoji', f.emoji, row.emoji);
     setIfChanged('video_url', f.videoUrl, row.video_url);
     setIfChanged('thumbnail_url', f.thumbnailUrl, row.thumbnail_url);
+    setIfChanged('status', f.status, row.status);
     return patch;
   }
 
@@ -1263,6 +1325,14 @@ export function ExercisesPage() {
         ),
     },
     {
+      key: 'status',
+      header: 'Status',
+      width: 110,
+      sort: (a, b) => (a.status ?? '').localeCompare(b.status ?? ''),
+      render: (r) =>
+        r.status ? <StatusChip status={r.status} /> : <span style={{ color: colors.dim }}>—</span>,
+    },
+    {
       key: 'override',
       header: 'Override',
       render: (r) => (overridesById.has(r.id) ? <span style={editedChipStyle}>Edited</span> : <span style={{ color: colors.dim }}>—</span>),
@@ -1282,7 +1352,9 @@ export function ExercisesPage() {
         <div>
           <h1 style={h1Style}>Exercises</h1>
           <div style={statsStyle}>
-            {loading ? 'Loading…' : `${base.length} exercises, ${overrideCount} with overrides`}
+            {loading
+              ? 'Loading…'
+              : `${base.length} exercises · ${publishedCount} published · ${draftCount} draft · ${overrideCount} with overrides`}
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
@@ -1395,7 +1467,13 @@ export function ExercisesPage() {
             </div>
           )}
 
-          {/* Bilateral toggle */}
+          {/*
+            Misnamed in code: this models *unilateral* exercises (one side at a
+            time, separate L/R recordings — e.g. Bulgarian split squat). True
+            bilateral lifts (squat, deadlift) need only one row and don't use
+            this toggle. UI label was corrected; full code rename deferred —
+            see memory `project_pending_unilateral_rename.md`.
+          */}
           <div style={bilateralInfoBoxStyle}>
             <label
               style={{
@@ -1414,18 +1492,19 @@ export function ExercisesPage() {
                   setCreateForm((f) => ({
                     ...f,
                     bilateral,
-                    // Clear single-mode video when switching to bilateral.
+                    // Clear single-mode video when switching to L/R variants.
                     video_url: bilateral ? '' : f.video_url,
                   }));
                   setFailedChild(null);
                   setCreateErr(null);
                 }}
               />
-              <span>Create as bilateral pair</span>
+              <span>Unilateral — create Left + Right variants</span>
             </label>
             <span style={{ color: colors.muted, fontSize: 11 }}>
-              Submits parent + Left + Right rows in one go. Names guaranteed to match the
-              app&rsquo;s pairing regex.
+              For exercises trained one side at a time (e.g. Bulgarian split squat). Submits
+              parent + Left + Right rows in one go. Names guaranteed to match the app&rsquo;s
+              pairing regex.
             </span>
           </div>
 
@@ -1837,6 +1916,13 @@ export function ExercisesPage() {
                 onGenerateVoiceover={handleGenerateVoiceover}
                 onVoiceoverDone={handleVoiceoverDone}
                 onVoiceoverError={handleVoiceoverError}
+                deleteVideoJobId={deleteVideoJobId}
+                deleteVideoStatusVisible={deleteVideoStatusVisible}
+                deleteVideoErr={deleteVideoErr}
+                deleteVideoQueuing={deleteVideoQueuing}
+                onDeleteVideo={handleDeleteVideo}
+                onDeleteVideoDone={handleDeleteVideoDone}
+                onDeleteVideoError={handleDeleteVideoError}
               />
             );
           })()}
@@ -1948,6 +2034,13 @@ function EditForm({
   onGenerateVoiceover,
   onVoiceoverDone,
   onVoiceoverError,
+  deleteVideoJobId,
+  deleteVideoStatusVisible,
+  deleteVideoErr,
+  deleteVideoQueuing,
+  onDeleteVideo,
+  onDeleteVideoDone,
+  onDeleteVideoError,
 }: {
   base: Exercise;
   form: FormState;
@@ -1975,6 +2068,13 @@ function EditForm({
   onGenerateVoiceover: () => void;
   onVoiceoverDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
   onVoiceoverError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  deleteVideoJobId: number | null;
+  deleteVideoStatusVisible: boolean;
+  deleteVideoErr: string | null;
+  deleteVideoQueuing: boolean;
+  onDeleteVideo: () => void;
+  onDeleteVideoDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onDeleteVideoError: (job: import('../../lib/adminApi').MediaJobRow) => void;
 }) {
   const update = (k: EditableKey, v: string) =>
     setForm((prev) => (prev ? { ...prev, [k]: v } : prev));
@@ -2078,7 +2178,7 @@ function EditForm({
             )}
           </div>
 
-          <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+          <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
             <input
               ref={videoInputRef}
               type="file"
@@ -2097,7 +2197,31 @@ function EditForm({
             >
               {uploadingVideo ? 'Uploading…' : 'Upload new video'}
             </Button>
+            {form.videoUrl && (
+              <Button
+                variant="danger"
+                onClick={onDeleteVideo}
+                disabled={isUploading || saving || deleteVideoQueuing || deleteVideoJobId !== null}
+              >
+                {deleteVideoQueuing ? 'Queuing…' : 'Delete video'}
+              </Button>
+            )}
           </div>
+
+          {deleteVideoErr && (
+            <div style={{ ...errorBannerStyle, marginBottom: 12 }} role="alert">
+              {deleteVideoErr}
+            </div>
+          )}
+          {deleteVideoStatusVisible && deleteVideoJobId !== null && (
+            <div style={{ marginBottom: 16 }}>
+              <MediaJobStatus
+                jobId={deleteVideoJobId}
+                onDone={onDeleteVideoDone}
+                onError={onDeleteVideoError}
+              />
+            </div>
+          )}
 
           <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>
             Thumbnail preview
@@ -2233,6 +2357,17 @@ function EditForm({
               <TextInput value={form.emoji} onChange={(e) => update('emoji', e.target.value)} />
             </Field>
           </div>
+
+          <Field
+            label="Visibility"
+            hint="Draft hides this exercise on web + app; published makes it visible."
+          >
+            <Select value={form.status || 'draft'} onChange={(e) => update('status', e.target.value)}>
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="archived">Archived</option>
+            </Select>
+          </Field>
 
           <Field label="Video URL">
             <TextInput value={form.videoUrl} onChange={(e) => update('videoUrl', e.target.value)} placeholder="https://…" />

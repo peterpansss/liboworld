@@ -116,6 +116,32 @@ function fromSupabase(row: ExerciseRow): ExerciseDisplay {
   };
 }
 
+/**
+ * Hide exercises that have no playable video AND no fallback child with a
+ * video. Belt-and-suspenders alongside the admin status toggle: if a row is
+ * marked `published` but its mp4 is missing (mid-production, freshly created
+ * row, etc.), an empty card on the public site looks like a bug. Filtering
+ * here keeps the catalog clean even when admins forget to flip status.
+ *
+ * Rules:
+ *   - A canonical (parent) exercise is kept if its own videoUrl is non-empty
+ *     OR at least one of its children (rows whose parentId matches this
+ *     exercise's id) has a non-empty videoUrl. Same fallback the detail page
+ *     already uses to source a thumbnail/clip.
+ *   - A child variant is kept only if its own videoUrl is non-empty.
+ */
+function filterPlayable(rows: ExerciseDisplay[]): ExerciseDisplay[] {
+  const childrenWithVideoByParent = new Set<string>();
+  for (const r of rows) {
+    if (r.parentId && r.videoUrl) childrenWithVideoByParent.add(r.parentId);
+  }
+  return rows.filter((r) => {
+    if (r.videoUrl) return true;
+    if (r.parentId) return false;
+    return childrenWithVideoByParent.has(r.id);
+  });
+}
+
 // Module-level cache so navigating away/back doesn't refetch.
 let cachedSupabase: ExerciseDisplay[] | null = null;
 let cachedStatic: ExerciseDisplay[] | null = null;
@@ -152,7 +178,7 @@ export function useExercises(): {
         const res = await fetch('/exercises.json');
         if (!res.ok) throw new Error(`exercises.json ${res.status}`);
         const rows = (await res.json()) as StaticExerciseRow[];
-        cachedStatic = rows.map(fromStatic);
+        cachedStatic = filterPlayable(rows.map(fromStatic));
         return cachedStatic;
       } catch (e) {
         // A static fetch failure is non-fatal; Supabase may still rescue us.
@@ -170,7 +196,7 @@ export function useExercises(): {
           .eq('status', 'published')
           .order('cat');
         if (sbError) throw sbError;
-        cachedSupabase = (data ?? []).map((r) => fromSupabase(r as ExerciseRow));
+        cachedSupabase = filterPlayable((data ?? []).map((r) => fromSupabase(r as ExerciseRow)));
         return cachedSupabase;
       } catch (e) {
         // Migration may not be applied yet, or the table is unreachable.

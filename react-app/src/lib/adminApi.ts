@@ -999,7 +999,7 @@ export async function markPayoutPaid(payoutId: string, input: MarkPayoutPaidInpu
 
 // ─── Media jobs (video processing + voiceover generation) ───────────────────
 export type MediaJobStatus = 'pending' | 'processing' | 'done' | 'error';
-export type MediaJobType = 'process_video' | 'generate_voiceover';
+export type MediaJobType = 'process_video' | 'generate_voiceover' | 'delete_video';
 
 export type MediaJobRow = {
   id: number;
