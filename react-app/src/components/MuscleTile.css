@@ -30,5 +30,5 @@
 }
 
 .muscle-tile--sm .muscle-tile__label { font-size: 12px; letter-spacing: 0.5px; }
-.muscle-tile--md .muscle-tile__label { font-size: 22px; letter-spacing: 0.6px; }
+.muscle-tile--md .muscle-tile__label { font-size: 22px; letter-spacing: 1.5px; }
 .muscle-tile--lg .muscle-tile__label { font-size: 34px; letter-spacing: -0.5px; }
