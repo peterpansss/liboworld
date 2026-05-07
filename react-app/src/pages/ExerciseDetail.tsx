@@ -68,7 +68,9 @@ export default function ExerciseDetail() {
   // English fallback on the current (exercise, voice, lang) tuple. Reset by
   // the effect below whenever any of those change, so each new selection
   // gets a fresh chance to load the localized clip.
-  const langFallbackUsedRef = useRef(false);
+  // Tracks which fallback step has been attempted on the current source.
+  // 0 = primary (lang+voice), 1 = en+voice, 2 = en+onyx (always exists).
+  const fallbackStepRef = useRef(0);
   const [muted, setMuted] = useState(true);
   const [showingAlt, setShowingAlt] = useState(false);
   // Voice coach: persisted in localStorage so the choice survives reloads.
@@ -221,18 +223,30 @@ export default function ExerciseDetail() {
     ? (langCode as SupportedLang)
     : 'en';
 
+  // If the page is a parent canonical that has no own video, fall back to
+  // a child (typically the L side) for both video playback and thumbnail.
+  // Mirrors the same pattern used on the library card grid so the user
+  // sees a real frame and a working <video> instead of a placeholder.
+  const videoSource = useMemo(() => {
+    if (!exercise) return null;
+    if (exercise.videoUrl) return exercise;
+    const child = exercises.find(e => e.parentId === exercise.id && e.videoUrl);
+    return child ?? exercise;
+  }, [exercise, exercises]);
+
   // Resolve video sources at top level so [mainSrc]/[pipSrc] effects can
   // imperatively .load() the same <video> element when voice toggles or the
   // user swaps angles — no React `key` change → no remount → no flicker.
-  const primarySrc = exercise ? publicVideoUrl(exercise, voice, lang) : undefined;
-  const altSrc = exercise ? publicVideoUrlAlt(exercise, voice, lang) : undefined;
+  const primarySrc = videoSource ? publicVideoUrl(videoSource, voice, lang) : undefined;
+  const altSrc = videoSource ? publicVideoUrlAlt(videoSource, voice, lang) : undefined;
   const mainSrc = showingAlt && altSrc ? altSrc : primarySrc;
   const pipSrc = showingAlt && altSrc ? primarySrc : altSrc;
 
-  // Reset the lang-fallback latch whenever the (exercise, voice, lang) tuple
-  // changes, so each new selection re-attempts the localized variant first.
+  // Reset the fallback-step counter whenever the (exercise, voice, lang)
+  // tuple changes, so each new selection re-attempts the localized variant
+  // first.
   useEffect(() => {
-    langFallbackUsedRef.current = false;
+    fallbackStepRef.current = 0;
   }, [exercise?.id, voice, lang]);
 
   useEffect(() => {
@@ -257,7 +271,7 @@ export default function ExerciseDetail() {
         ? desc.slice(0, 155) + '…'
         : desc
       : `Learn how to perform ${exercise.name} — a ${exercise.diff} ${exercise.bodyFocus.toLowerCase()} exercise using ${exercise.equipment.toLowerCase()}.`;
-    const thumb = exerciseThumb(exercise);
+    const thumb = exerciseThumb(exercise) ?? exerciseThumb(videoSource);
     return {
       title: `${exercise.name} — How to Perform | Libo`,
       description,
@@ -265,7 +279,7 @@ export default function ExerciseDetail() {
       ogImage: thumb ? `https://liboworld.com${thumb}` : undefined,
       jsonLd: buildExerciseGraph(exercise, primaryMuscle),
     };
-  }, [exercise, primaryMuscle]);
+  }, [exercise, primaryMuscle, videoSource]);
 
   if (loading) {
     return (
@@ -347,23 +361,32 @@ export default function ExerciseDetail() {
                   <video
                     ref={videoRef}
                     src={mainSrc}
-                    poster={exerciseThumb(exercise) ?? undefined}
+                    poster={(exerciseThumb(exercise) ?? exerciseThumb(videoSource)) ?? undefined}
                     muted={muted}
                     loop
                     playsInline
                     autoPlay
                     preload="metadata"
                     onError={() => {
-                      // Not every exercise has a localized voiceover yet
-                      // (~217/605 voiced as of the staged multilingual run).
-                      // If the localized clip 404s, fall back to English once.
-                      if (lang !== 'en' && !langFallbackUsedRef.current && exercise) {
-                        langFallbackUsedRef.current = true;
-                        const enUrl = publicVideoUrl(exercise, voice, 'en');
-                        if (enUrl && videoRef.current) {
-                          videoRef.current.src = enUrl;
-                          videoRef.current.load();
+                      // Fallback chain: localized (lang+voice) → en+voice →
+                      // en+onyx. The plain English clip is guaranteed to
+                      // exist for any recorded exercise, including the 6
+                      // slugs in voiceover_excluded.json that have no
+                      // voiceover variants at all.
+                      if (!exercise || !videoRef.current) return;
+                      let nextUrl: string | undefined;
+                      while (fallbackStepRef.current < 2 && !nextUrl) {
+                        fallbackStepRef.current += 1;
+                        if (fallbackStepRef.current === 1 && lang !== 'en') {
+                          nextUrl = publicVideoUrl(exercise, voice, 'en');
+                        } else if (fallbackStepRef.current === 2 && voice !== 'male') {
+                          nextUrl = publicVideoUrl(exercise, 'male', 'en');
                         }
+                        if (nextUrl === videoRef.current.src) nextUrl = undefined;
+                      }
+                      if (nextUrl) {
+                        videoRef.current.src = nextUrl;
+                        videoRef.current.load();
                       }
                     }}
                   />
