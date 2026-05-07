@@ -7,6 +7,13 @@
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
+  # Asset directories return real 404 if the file is missing instead of
+  # falling back to index.html. Prevents Cloudflare from caching the SPA
+  # shell as the response for image/asset URLs that don't exist yet at the
+  # moment of the first request, which then poisons the cache for hours
+  # after the asset is actually deployed.
+  RewriteRule ^(images|assets|videos|fonts|audio|founder)/ - [L,R=404]
+
   # Everything else → index.html (React Router handles routing client-side)
   RewriteRule ^ index.html [L]
 </IfModule>

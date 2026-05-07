@@ -78,6 +78,13 @@ export function exerciseSupportsAnimation(ex: Exercise): boolean {
   return true;
 }
 
+// Cache-bust suffix for thumbnail URLs. Bump this whenever we deploy a
+// batch of new thumbnail JPGs whose paths might already be poisoned in
+// Cloudflare's edge cache from before the file existed (the .htaccess
+// asset-404 rule prevents future occurrences, but doesn't help URLs
+// Cloudflare cached as index.html in earlier deploys).
+const THUMB_CACHE_BUST = 'v=2';
+
 // Thumbnails are extracted from the processed video, so the file basename
 // always matches the videoUrl basename (not necessarily the exercise id —
 // e.g. id=child_s_pose vs file=childs_pose.jpg).
@@ -87,7 +94,7 @@ export function exerciseThumb(ex: Exercise | undefined | null): string | null {
   if (!ex.videoUrl) return null;
   const basename = ex.videoUrl.split('?')[0].split('/').pop()?.replace(/\.mp4$/i, '');
   if (!basename) return null;
-  return `/images/thumbnails/exercises/${basename}.jpg`;
+  return `/images/thumbnails/exercises/${basename}.jpg?${THUMB_CACHE_BUST}`;
 }
 
 export function buildNameToSlug(exercises: Exercise[]): Record<string, string> {
