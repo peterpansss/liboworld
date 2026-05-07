@@ -934,12 +934,8 @@ export default function Landing() {
           <p className={`form-msg${formError ? ' error' : ''}`}>{formMsg}</p>
         </div>
         <div className="store-row reveal">
-          <a href="https://apps.apple.com" className="store-btn" aria-label={t('store.downloadAppStore')}>
-            <svg width="20" height="24" viewBox="0 0 20 24" fill="none" style={{ flexShrink: 0 }}>
-              <path d="M16.47 12.2c-.03-3.1 2.53-4.59 2.64-4.66-1.44-2.1-3.68-2.39-4.47-2.42-1.9-.19-3.72 1.12-4.69 1.12-.97 0-2.46-1.1-4.05-1.07-2.08.03-4 1.21-5.08 3.08-2.17 3.76-.55 9.33 1.56 12.38 1.03 1.5 2.27 3.17 3.89 3.11 1.56-.06 2.15-1.01 4.03-1.01 1.88 0 2.42 1.01 4.07.98 1.68-.03 2.74-1.52 3.76-3.03 1.19-1.74 1.68-3.42 1.71-3.51-.04-.02-3.28-1.26-3.31-4.97h-.06z" fill="white" />
-              <path d="M13.4 3.27C14.24 2.24 14.82.87 14.67-.5c-1.17.05-2.6.78-3.44 1.77-.75.87-1.42 2.27-1.24 3.61 1.31.1 2.65-.67 3.41-1.61z" fill="white" />
-            </svg>
-            <div><small>{t('store.comingSoonOn')}</small><strong>{t('store.appStore')}</strong></div>
+          <a href="https://apps.apple.com" className="store-btn store-btn--img" aria-label={t('store.downloadAppStore')}>
+            <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} />
           </a>
         </div>
       </section>

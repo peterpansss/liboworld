@@ -1462,6 +1462,26 @@ button:focus-visible {
   font-weight: 700;
 }
 
+/* Image variant: the SVG already includes its own background, padding,
+   and rounded corners — strip the button chrome so the asset is shown
+   as-is, only keeping the hover lift. */
+.store-btn--img {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.store-btn--img:hover {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+.store-btn--img img {
+  height: 56px;
+  width: auto;
+  display: block;
+}
+
 /* ─────────────────────────────
    SCROLL REVEAL
 ───────────────────────────── */
