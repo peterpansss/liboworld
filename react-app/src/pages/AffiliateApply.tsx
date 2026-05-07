@@ -18,10 +18,9 @@ import './AffiliateApply.css';
 //   3. supabase secrets set AFFILIATE_TO_EMAIL=affiliates@liboworld.com
 //   4. cd libo-app-v2 && supabase functions deploy affiliate_apply
 //
-// Fallback: if the function call fails (network, function not deployed,
-// etc.) the form opens the user's email client with the answers pre-filled
-// so applications are never silently lost.
-const RECIPIENT_EMAIL = 'affiliates@liboworld.com';
+// Fallback: if the function call fails the form surfaces an inline error
+// pointing the user at affiliates@liboworld.com so applications are never
+// silently lost.
 
 const TERMS_TEXT = `1. These Terms and Conditions apply to the Affiliate Programme of Libo World, S.L. (hereafter, "Libo").
 
