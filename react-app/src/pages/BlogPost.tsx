@@ -7,9 +7,9 @@ import { EmojiIcon } from '../components/EmojiIcon';
 import { blogArticles } from '../data/blog';
 import './BlogPost.css';
 
-function formatDate(dateStr: string) {
+function formatDate(dateStr: string, locale: string) {
   const d = new Date(dateStr + 'T00:00:00');
-  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  return d.toLocaleDateString(locale, { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
 function formatId(id: string) {
@@ -20,7 +20,7 @@ function formatId(id: string) {
 }
 
 export default function BlogPost() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
 
   const { article, prevArticle, nextArticle } = useMemo(() => {
@@ -71,7 +71,7 @@ export default function BlogPost() {
 
         <div className="blogpost-meta">
           <span>{article.author}</span>
-          <time dateTime={article.date || ''}>{formatDate(article.date)}</time>
+          <time dateTime={article.date || ''}>{formatDate(article.date, i18n.language)}</time>
           <span>{t('blogPost.minRead', { count: article.readTime })}</span>
         </div>
 
