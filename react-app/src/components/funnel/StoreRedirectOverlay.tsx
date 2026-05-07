@@ -129,6 +129,18 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
     letterSpacing: 0.3,
   };
 
+  const badgeImgLink: React.CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    textDecoration: 'none',
+  };
+
+  const badgeImg: React.CSSProperties = {
+    height: 44,
+    width: 'auto',
+    display: 'block',
+  };
+
   const badgeSmall: React.CSSProperties = {
     display: 'block',
     fontSize: 9,
@@ -174,17 +186,10 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
             href={STORE_URLS.ios}
             target="_blank"
             rel="noopener noreferrer"
-            style={badge}
+            style={badgeImgLink}
             aria-label="Download on the App Store"
           >
-            <svg width="18" height="22" viewBox="0 0 20 24" fill="none" aria-hidden="true">
-              <path d="M16.47 12.2c-.03-3.1 2.53-4.59 2.64-4.66-1.44-2.1-3.68-2.39-4.47-2.42-1.9-.19-3.72 1.12-4.69 1.12-.97 0-2.46-1.1-4.05-1.07-2.08.03-4 1.21-5.08 3.08-2.17 3.76-.55 9.33 1.56 12.38 1.03 1.5 2.27 3.17 3.89 3.11 1.56-.06 2.15-1.01 4.03-1.01 1.88 0 2.42 1.01 4.07.98 1.68-.03 2.74-1.52 3.76-3.03 1.19-1.74 1.68-3.42 1.71-3.51-.04-.02-3.28-1.26-3.31-4.97h-.06z" fill="currentColor" />
-              <path d="M13.4 3.27C14.24 2.24 14.82.87 14.67-.5c-1.17.05-2.6.78-3.44 1.77-.75.87-1.42 2.27-1.24 3.61 1.31.1 2.65-.67 3.41-1.61z" fill="currentColor" />
-            </svg>
-            <span>
-              <small style={badgeSmall}>{copy.appStoreSmall}</small>
-              <strong style={badgeStrong}>App Store</strong>
-            </span>
+            <img src="/store-badges/app-store.svg" alt="Download on the App Store" style={badgeImg} />
           </a>
           <a
             href={STORE_URLS.android}

@@ -995,6 +995,19 @@
   opacity: 0.7;
 }
 
+/* Image variant: the SVG already includes its own background, padding,
+   and rounded corners — strip the chrome so the asset is shown as-is. */
+.funnel-app__badge--img {
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+.funnel-app__badge--img img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
 .funnel-app__badge strong {
   display: block;
   font-size: 14px;
