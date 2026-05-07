@@ -131,13 +131,18 @@ export default function ExerciseLibrary() {
     return libraryCanonicalUrl(qs || undefined);
   }, [muscle, equip]);
 
+  // ── Parent-only baseline ──
+  // The library never displays bilateral L/R children — they're shown via the
+  // parent's detail page. Kept as a separate memo so the header counter and
+  // the filtered grid agree on what "exercise" means.
+  const parentExercises = useMemo(
+    () => exercises.filter(e => !e.parentId && !/[—–-]\s*(Left|Right)\b/i.test(e.name)),
+    [exercises],
+  );
+
   // ── Filter logic ──
   const filtered = useMemo(() => {
-    // Defensive: drop any L/R bilateral child that might leak into the data file.
-    // The sync-from-excel.py script already strips children at build time, but
-    // this guard keeps the library safe if someone hand-edits libo-data.js or
-    // imports a stale exercises.json. Mirrors the mobile `onlyParents()` helper.
-    let result = exercises.filter(e => !e.parentId && !/[—–-]\s*(Left|Right)\b/i.test(e.name));
+    let result = parentExercises;
 
     if (urlSearch) {
       const q = urlSearch.toLowerCase();
@@ -192,7 +197,7 @@ export default function ExerciseLibrary() {
     });
 
     return result;
-  }, [exercises, urlSearch, muscle, equip, setting, trainingType]);
+  }, [parentExercises, urlSearch, muscle, equip, setting, trainingType]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const safePage = Math.min(page, totalPages);
@@ -303,7 +308,7 @@ export default function ExerciseLibrary() {
           {/* Hero */}
           <div className="el-hero">
             <h1 className="font-display">{t('exerciseLibrary.title')}</h1>
-            <p>{loading ? t('exerciseLibrary.exercisesWord') : t('exerciseLibrary.exerciseCount', { count: exercises.length })}</p>
+            <p>{loading ? t('exerciseLibrary.exercisesWord') : t('exerciseLibrary.exerciseCount', { count: parentExercises.length })}</p>
           </div>
 
           {/* Muscle group strip */}
