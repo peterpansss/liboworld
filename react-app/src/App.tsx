@@ -30,6 +30,11 @@ const Giveaway = lazy(() => import('./pages/Giveaway'));
 const CashChallenge = lazy(() => import('./pages/CashChallenge'));
 const GetApp = lazy(() => import('./pages/GetApp'));
 const Founder = lazy(() => import('./pages/Founder'));
+const Affiliate = lazy(() => import('./pages/Affiliate'));
+const AffiliateApply = lazy(() => import('./pages/AffiliateApply'));
+const AffiliateApplySent = lazy(() => import('./pages/AffiliateApplySent'));
+const Press = lazy(() => import('./pages/Press'));
+const PressSent = lazy(() => import('./pages/PressSent'));
 
 // Admin area — lazy, never loads for public visitors, not linked from public pages.
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
@@ -58,6 +63,11 @@ export default function App() {
         <Route path="/cash-challenge" element={<Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
         <Route path="/get-app" element={<Suspense fallback={darkFallback}><GetApp /></Suspense>} />
         <Route path="/founder" element={<Suspense fallback={darkFallback}><Founder /></Suspense>} />
+        <Route path="/affiliate" element={<Suspense fallback={darkFallback}><Affiliate /></Suspense>} />
+        <Route path="/affiliate/apply" element={<Suspense fallback={darkFallback}><AffiliateApply /></Suspense>} />
+        <Route path="/affiliate/apply/sent" element={<Suspense fallback={darkFallback}><AffiliateApplySent /></Suspense>} />
+        <Route path="/press" element={<Suspense fallback={darkFallback}><Press /></Suspense>} />
+        <Route path="/press/sent" element={<Suspense fallback={darkFallback}><PressSent /></Suspense>} />
         <Route path="/admin/*" element={<Suspense fallback={darkFallback}><AdminLayout /></Suspense>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -15,6 +15,7 @@ const CATEGORY_VALUES: Record<(typeof CATEGORY_KEYS)[number], string> = {
   lifestyle: 'Lifestyle',
   guides: 'Guides',
 };
+const VALID_CATEGORIES = Object.values(CATEGORY_VALUES);
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr + 'T00:00:00');
@@ -23,7 +24,21 @@ function formatDate(dateStr: string) {
 
 export default function Blog() {
   const { t } = useTranslation();
-  const [activeCategory, setActiveCategory] = useState('All');
+  // Active category is driven by the `?cat=` query param so the nav
+  // dropdown can deep-link to a pre-filtered view (e.g. /blog?cat=Training).
+  // Falls back to "All" when missing or unrecognized.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const catParam = searchParams.get('cat');
+  const activeCategory = catParam && VALID_CATEGORIES.includes(catParam) ? catParam : 'All';
+
+  const setActiveCategory = (next: string) => {
+    if (next === 'All') {
+      // Drop the query param entirely so /blog stays clean.
+      setSearchParams({}, { replace: true });
+    } else {
+      setSearchParams({ cat: next }, { replace: true });
+    }
+  };
 
   const filtered = useMemo(() => {
     if (activeCategory === 'All') return blogArticles;

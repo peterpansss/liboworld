@@ -1,0 +1,170 @@
+/* ─────────────────────────────
+   PRESS INQUIRY FORM — Press.css
+   CalAi-inspired layout, dark Libo styling.
+   ───────────────────────────── */
+
+.press-page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ── Hero ── */
+.press-hero {
+  padding: 64px 32px 24px;
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.press-sent-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 auto 24px;
+  border: 1px solid rgba(202, 255, 0, 0.3);
+}
+
+.press-headline {
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1;
+  letter-spacing: -1px;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+
+.press-sub {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* ── Form shell ── */
+.press-form {
+  max-width: 560px;
+  margin: 32px auto 80px;
+  padding: 32px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+/* ── Field shared ── */
+.press-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.press-field:last-of-type {
+  margin-bottom: 24px;
+}
+
+.press-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.press-field input,
+.press-field textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.press-field input:hover,
+.press-field textarea:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.press-field input:focus,
+.press-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg);
+}
+
+.press-field textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.5;
+}
+
+.press-field input::placeholder,
+.press-field textarea::placeholder {
+  color: var(--dim);
+}
+
+/* ── Error ── */
+.press-error {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  background: rgba(255, 51, 51, 0.08);
+  border: 1px solid rgba(255, 51, 51, 0.3);
+  border-radius: 10px;
+  color: #ff7a7a;
+  font-size: 14px;
+}
+
+/* ── Submit ── */
+.press-submit {
+  display: block;
+  width: 100%;
+  background: var(--accent);
+  color: var(--accent-text);
+  border: 0;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  min-height: 48px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.press-submit:hover:not(:disabled) {
+  background: var(--accent2);
+  transform: translateY(-1px);
+}
+
+.press-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.press-submit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .press-hero {
+    padding: 40px 20px 16px;
+  }
+  .press-form {
+    padding: 24px 20px;
+    border-radius: 16px;
+    margin: 20px 16px 60px;
+  }
+}

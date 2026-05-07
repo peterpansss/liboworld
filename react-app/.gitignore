@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Local environment — secrets like Web3Forms / Stripe access keys
+.env
+.env.production
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

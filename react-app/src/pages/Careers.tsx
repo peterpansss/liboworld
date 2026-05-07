@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
@@ -15,6 +15,10 @@ type Role = {
   location: string;
   type: 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
   applyHref: string;
+  description: string;
+  whatYouDo: string[];
+  yourExpertise: string[];
+  niceToHave?: string[];
 };
 
 const ROLES: Role[] = [
@@ -23,12 +27,35 @@ const ROLES: Role[] = [
     title: 'Mobile Engineer (React Native)',
     location: 'Remote · EU/UK timezone',
     type: 'Contract',
-    applyHref: 'mailto:hello@liboworld.com?subject=Application%20%E2%80%94%20Mobile%20Engineer',
+    applyHref: 'mailto:careers@liboworld.com?subject=Application%20%E2%80%94%20Mobile%20Engineer',
+    description:
+      "Own the Libo mobile app end-to-end — a premium, NTC-inspired fitness product with 641 exercises and 140 guided workouts. You'll ship features that feel fast and quiet, from the workout player to offline sync, on a small team where craft is the bar.",
+    whatYouDo: [
+      'Ship the workout player with synced voiceovers and rest-timer haptics',
+      'Build offline-first exercise sync over expo-sqlite and MMKV',
+      'Tune list and video-grid performance to stay buttery on mid-tier Androids',
+      'Wire Supabase auth, deltas, and media URLs into Zustand stores',
+      "Integrate the media worker's 4:3 clips and thumbnails into playback",
+      'Submit and maintain App Store and Play Store releases via EAS',
+    ],
+    yourExpertise: [
+      'Strong React Native + TypeScript with Expo Router',
+      'Animation and gesture chops; Reanimated or equivalent',
+      'Native APIs: haptics, audio, video, file system',
+      'Zustand or similar; clean local state and persistence',
+      'Owns a feature from spec to ship to telemetry',
+    ],
+    niceToHave: [
+      'Reanimated or Skia for custom motion',
+      'Supabase, Postgres, or row-level security',
+      'Shipped a fitness or media-heavy app',
+    ],
   },
 ];
 
 export default function Careers() {
   const { t } = useTranslation();
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
     document.title = `${t('careers.documentTitle', { defaultValue: 'Careers' })} | Libo`;
@@ -66,26 +93,79 @@ export default function Careers() {
               </div>
             ) : (
               <ul className="careers-roles__list">
-                {ROLES.map((role) => (
-                  <li key={role.id}>
-                    <a
-                      href={role.applyHref}
-                      className="careers-role"
-                      target={role.applyHref.startsWith('http') ? '_blank' : undefined}
-                      rel={role.applyHref.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    >
-                      <div className="careers-role__title-block">
-                        <span className="careers-role__title font-display">{role.title}</span>
-                        <span className="careers-role__type">{role.type}</span>
-                      </div>
-                      <div className="careers-role__location">{role.location}</div>
-                      <div className="careers-role__cta">
-                        {t('careers.viewOpening', { defaultValue: 'View opening' })}
-                        <span aria-hidden> →</span>
-                      </div>
-                    </a>
-                  </li>
-                ))}
+                {ROLES.map((role) => {
+                  const isOpen = expandedId === role.id;
+                  const panelId = `careers-role-panel-${role.id}`;
+                  return (
+                    <li key={role.id}>
+                      <button
+                        type="button"
+                        className={`careers-role${isOpen ? ' careers-role--open' : ''}`}
+                        aria-expanded={isOpen}
+                        aria-controls={panelId}
+                        onClick={() => setExpandedId(isOpen ? null : role.id)}
+                      >
+                        <div className="careers-role__title-block">
+                          <span className="careers-role__title font-display">{role.title}</span>
+                          <span className="careers-role__type">{role.type}</span>
+                        </div>
+                        <div className="careers-role__location">{role.location}</div>
+                        <div className="careers-role__cta">
+                          {isOpen
+                            ? t('careers.closeOpening', { defaultValue: 'Close' })
+                            : t('careers.viewOpening', { defaultValue: 'View opening' })}
+                          <span aria-hidden>{isOpen ? ' ↑' : ' →'}</span>
+                        </div>
+                      </button>
+
+                      {isOpen && (
+                        <div id={panelId} className="careers-role__detail">
+                          <p className="careers-role__description">{role.description}</p>
+
+                          <h3 className="careers-role__section-title font-display">
+                            {t('careers.whatYouDo', { defaultValue: "What you'll do" })}
+                          </h3>
+                          <ul className="careers-role__bullets">
+                            {role.whatYouDo.map((item, i) => (
+                              <li key={i}>{item}</li>
+                            ))}
+                          </ul>
+
+                          <h3 className="careers-role__section-title font-display">
+                            {t('careers.yourExpertise', { defaultValue: 'Your expertise' })}
+                          </h3>
+                          <ul className="careers-role__bullets">
+                            {role.yourExpertise.map((item, i) => (
+                              <li key={i}>{item}</li>
+                            ))}
+                          </ul>
+
+                          {role.niceToHave && role.niceToHave.length > 0 && (
+                            <>
+                              <h3 className="careers-role__section-title font-display">
+                                {t('careers.niceToHave', { defaultValue: 'Nice to have' })}
+                              </h3>
+                              <ul className="careers-role__bullets">
+                                {role.niceToHave.map((item, i) => (
+                                  <li key={i}>{item}</li>
+                                ))}
+                              </ul>
+                            </>
+                          )}
+
+                          <a
+                            href={role.applyHref}
+                            className="careers-role__apply"
+                            target={role.applyHref.startsWith('http') ? '_blank' : undefined}
+                            rel={role.applyHref.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          >
+                            {t('careers.applyNow', { defaultValue: 'Apply Now' })}
+                          </a>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             )}
 

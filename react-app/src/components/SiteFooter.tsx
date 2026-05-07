@@ -40,6 +40,7 @@ export default function SiteFooter() {
               <Link to="/#rewards">{t('footer.rewardsLink')}</Link>
               <Link to="/giveaway">{t('footer.giveaways')}</Link>
               <Link to="/cash-challenge">{t('footer.cashChallenges')}</Link>
+              <Link to="/affiliate">{t('footer.affiliate', { defaultValue: 'Affiliate Program' })}</Link>
             </div>
           </div>
 
