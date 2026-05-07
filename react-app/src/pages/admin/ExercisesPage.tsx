@@ -667,8 +667,14 @@ export function ExercisesPage() {
   // Open edit modal: use BASE for the exercise (so diff is computed against base) but
   // prefill the form with merged (base + override) values so admin sees current state.
   function openEdit(row: Exercise) {
-    const baseRow = base.find((b) => b.id === row.id);
-    if (!baseRow) return;
+    // Bundled JSON uses slug-as-id while Supabase uses gym_*/home_* ids, so
+    // a strict id lookup misses any row whose canonical Supabase id differs
+    // from its bundled-JSON id. Try id first, then slug, then fall back to
+    // the merged row itself (which is what the table is already rendering).
+    const baseRow =
+      base.find((b) => b.id === row.id) ??
+      (row.slug ? base.find((b) => b.slug === row.slug) : undefined) ??
+      row;
     const o = overridesById.get(row.id);
     const mergedRow: Exercise = o ? { ...baseRow, ...(o.patch as Partial<Exercise>) } : baseRow;
     setEditing(baseRow);
