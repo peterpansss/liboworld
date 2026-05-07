@@ -140,6 +140,21 @@ export default function ExerciseLibrary() {
     [exercises],
   );
 
+  // Map each parent's id → first child with a video URL set. Lets the card
+  // grid fall back to a child's thumbnail when the parent canonical itself
+  // has no own demo (common pattern for ~110 single-arm parents we
+  // restructured: parent has no video, L/R children carry the demos).
+  const childThumbDonorByParent = useMemo(() => {
+    const map = new Map<string, typeof exercises[number]>();
+    for (const e of exercises) {
+      const pid = e.parentId;
+      if (!pid) continue;
+      if (!e.videoUrl) continue;
+      if (!map.has(pid)) map.set(pid, e);
+    }
+    return map;
+  }, [exercises]);
+
   // ── Filter logic ──
   const filtered = useMemo(() => {
     let result = parentExercises;
@@ -465,7 +480,12 @@ export default function ExerciseLibrary() {
           ) : (
             <div className="el-grid">
               {pageExercises.map(ex => {
-                const thumb = exerciseThumb(ex);
+                // If the parent canonical has no own video, derive its
+                // library-card thumbnail from a child's video so the grid
+                // doesn't fall back to the muscle-tile placeholder.
+                const thumb =
+                  exerciseThumb(ex) ??
+                  exerciseThumb(childThumbDonorByParent.get(ex.id));
                 return (
                 <Link key={ex.id} to={`/exercises/${ex.slug ?? ex.id}`} className="el-card">
                   <div className="el-card-media">
