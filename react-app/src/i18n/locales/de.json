@@ -16,7 +16,8 @@
     "skipToMain": "Zum Hauptinhalt springen",
     "mainNavigation": "Hauptnavigation",
     "navigationMenu": "Navigationsmenü",
-    "changeLanguage": "Sprache ändern"
+    "changeLanguage": "Sprache ändern",
+    "articles": "Artikel"
   },
   "common": {
     "clearAll": "Alle löschen",
@@ -704,12 +705,12 @@
     }
   },
   "blog": {
-    "title": "Blog",
+    "title": "Artikel",
     "subtitle": "Trainingsguides, Tipps und Einblicke für dein Fitness-Level-Up.",
     "breadcrumbAria": "Brotkrumen",
     "breadcrumbHome": "Start",
     "breadcrumbResources": "Ressourcen",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Artikel",
     "filterAria": "Nach Kategorie filtern",
     "categories": {
       "all": "Alle",
@@ -724,10 +725,10 @@
   "blogPost": {
     "breadcrumbAria": "Brotkrumen",
     "breadcrumbHome": "Start",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Artikel",
     "notFoundTitle": "Artikel nicht gefunden",
     "notFoundBody": "Der Artikel, den du suchst, existiert nicht.",
-    "backToBlog": "Zurück zum Blog",
+    "backToBlog": "Zurück zu den Artikeln",
     "minRead": "{{count}} Min. Lesezeit",
     "relatedTitle": "Verwandtes entdecken",
     "relatedExerciseLabel": "Übung",

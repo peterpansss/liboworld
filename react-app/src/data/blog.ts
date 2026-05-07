@@ -24,7 +24,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🏋️',
     heroImage: '/images/blog/best-chest-exercises-for-building-muscle.jpg',
-    relatedExercises: ['barbell-bench-press', 'push-up', 'dumbbell-flye', 'dips'],
+    relatedExercises: ['flat_barbell_bench_press', 'push_up_standard', 'flat_dumbbell_chest_fly', 'parallel_bar_dip_triceps_focus'],
     content: `
 <h2>Why Chest Training Matters</h2>
 <p>The chest is one of the most visible muscle groups on your body, and training it properly does more than just improve aesthetics. <strong>A strong chest supports pushing movements in daily life</strong>, improves posture when balanced with back work, and builds the kind of upper-body foundation that carries over into every other lift.</p>
@@ -82,7 +82,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🏠',
     heroImage: '/images/blog/complete-guide-to-home-workouts-without-equipment.jpg',
-    relatedExercises: ['push-up', 'bodyweight-squat', 'plank', 'burpees'],
+    relatedExercises: ['push_up_standard', 'bodyweight_squat', 'forearm_plank', 'burpee'],
     content: `
 <h2>Why Bodyweight Training Works</h2>
 <p>There's a persistent myth that you need a gym to get fit. <strong>That's simply not true.</strong> Calisthenics athletes, gymnasts, and military personnel have been building impressive physiques with bodyweight training for centuries.</p>
@@ -145,7 +145,6 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🔥',
     heroImage: '/images/blog/how-to-start-a-30-day-fitness-challenge.jpg',
-    relatedPrograms: ['30-day-pushup-challenge', '30-day-squat-challenge'],
     content: `
 <h2>Why 30-Day Challenges Work</h2>
 <p>Thirty days is long enough to build a real habit but short enough to feel achievable. <strong>The psychology is simple: a clear end date creates urgency</strong>, and daily commitment builds momentum that's hard to break.</p>
@@ -191,7 +190,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '💪',
     heroImage: '/images/blog/the-ultimate-push-pull-legs-split-explained.jpg',
-    relatedExercises: ['barbell-bench-press', 'barbell-row', 'barbell-squat'],
+    relatedExercises: ['flat_barbell_bench_press', 'barbell_bent_over_row_overhand', 'barbell_front_squat'],
     content: `
 <h2>What Is Push-Pull-Legs?</h2>
 <p>Push-Pull-Legs (PPL) is a training split that divides your workouts into three categories based on movement patterns:</p>
@@ -262,7 +261,6 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🌅',
     heroImage: '/images/blog/5-morning-stretching-routines-to-start-your-day.jpg',
-    relatedPrograms: ['morning-stretch', 'morning-mobility-flow'],
     content: `
 <h2>Why Morning Stretching Changes Everything</h2>
 <p>After 7-8 hours of sleep, your muscles are stiff, your joints are tight, and your nervous system is still waking up. <strong>A short stretching routine bridges the gap between sleep and full alertness</strong> faster than coffee ever could.</p>
@@ -332,7 +330,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🎯',
     heroImage: '/images/blog/beginners-guide-to-strength-training.jpg',
-    relatedExercises: ['barbell-squat', 'barbell-bench-press', 'deadlift'],
+    relatedExercises: ['barbell_front_squat', 'flat_barbell_bench_press', 'conventional_barbell_deadlift'],
     content: `
 <h2>Why Strength Training?</h2>
 <p>Strength training isn't just for bodybuilders. It's for everyone. Regular resistance training <strong>increases bone density, boosts metabolism, improves posture, reduces injury risk</strong>, and builds the kind of functional strength that makes everyday life easier.</p>
@@ -437,8 +435,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🧘',
     heroImage: '/images/blog/recovery-and-mobility-why-stretching-matters.jpg',
-    relatedExercises: ['foam-roller-upper-back', 'hip-flexor-stretch', 'hamstring-stretch'],
-    relatedPrograms: ['morning-mobility-flow', 'evening-stretch'],
+    relatedExercises: ['foam_roll_upper_back', 'hip_flexor_stretch', 'hamstring_stretch_seated'],
     content: `
 <h2>The Recovery Problem</h2>
 <p>Most people focus entirely on training and completely neglect recovery. They wonder why their knees hurt, their shoulders are tight, and their progress stalls. <strong>Training breaks your body down. Recovery is where you actually get stronger.</strong></p>

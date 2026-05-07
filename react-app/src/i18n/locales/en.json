@@ -18,7 +18,8 @@
     "skipToMain": "Skip to main content",
     "mainNavigation": "Main navigation",
     "navigationMenu": "Navigation menu",
-    "changeLanguage": "Change language"
+    "changeLanguage": "Change language",
+    "articles": "Articles"
   },
   "common": {
     "clearAll": "Clear all",
@@ -708,12 +709,12 @@
     }
   },
   "blog": {
-    "title": "Blog",
+    "title": "Articles",
     "subtitle": "Training guides, tips, and insights to level up your fitness.",
     "breadcrumbAria": "Breadcrumb",
     "breadcrumbHome": "Home",
     "breadcrumbResources": "Resources",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Articles",
     "filterAria": "Filter by category",
     "categories": {
       "all": "All",
@@ -728,10 +729,10 @@
   "blogPost": {
     "breadcrumbAria": "Breadcrumb",
     "breadcrumbHome": "Home",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Articles",
     "notFoundTitle": "Article Not Found",
     "notFoundBody": "The article you are looking for does not exist.",
-    "backToBlog": "Back to Blog",
+    "backToBlog": "Back to Articles",
     "minRead": "{{count}} min read",
     "relatedTitle": "Explore Related",
     "relatedExerciseLabel": "Exercise",

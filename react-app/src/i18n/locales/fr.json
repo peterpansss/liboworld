@@ -16,7 +16,8 @@
     "skipToMain": "Aller au contenu principal",
     "mainNavigation": "Navigation principale",
     "navigationMenu": "Menu de navigation",
-    "changeLanguage": "Changer de langue"
+    "changeLanguage": "Changer de langue",
+    "articles": "Articles"
   },
   "common": {
     "clearAll": "Tout effacer",
@@ -429,12 +430,12 @@
     }
   },
   "blog": {
-    "title": "Blog",
+    "title": "Articles",
     "subtitle": "Guides d'entraînement, astuces et conseils pour booster ta forme.",
     "breadcrumbAria": "Fil d'Ariane",
     "breadcrumbHome": "Accueil",
     "breadcrumbResources": "Ressources",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Articles",
     "filterAria": "Filtrer par catégorie",
     "categories": {
       "all": "Tout",
@@ -449,10 +450,10 @@
   "blogPost": {
     "breadcrumbAria": "Fil d'Ariane",
     "breadcrumbHome": "Accueil",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Articles",
     "notFoundTitle": "Article Introuvable",
     "notFoundBody": "L'article que tu cherches n'existe pas.",
-    "backToBlog": "Retour au Blog",
+    "backToBlog": "Retour aux articles",
     "minRead": "{{count}} min de lecture",
     "relatedTitle": "À Découvrir",
     "relatedExerciseLabel": "Exercice",

@@ -16,7 +16,8 @@
     "skipToMain": "Saltar al contenido principal",
     "mainNavigation": "Navegación principal",
     "navigationMenu": "Menú de navegación",
-    "changeLanguage": "Cambiar idioma"
+    "changeLanguage": "Cambiar idioma",
+    "articles": "Artículos"
   },
   "common": {
     "clearAll": "Borrar todo",
@@ -429,12 +430,12 @@
     }
   },
   "blog": {
-    "title": "Blog",
+    "title": "Artículos",
     "subtitle": "Guías de entrenamiento, consejos y trucos para subir tu fitness.",
     "breadcrumbAria": "Ruta de navegación",
     "breadcrumbHome": "Inicio",
     "breadcrumbResources": "Recursos",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Artículos",
     "filterAria": "Filtrar por categoría",
     "categories": {
       "all": "Todas",
@@ -449,10 +450,10 @@
   "blogPost": {
     "breadcrumbAria": "Ruta de navegación",
     "breadcrumbHome": "Inicio",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Artículos",
     "notFoundTitle": "Artículo No Encontrado",
     "notFoundBody": "El artículo que buscas no existe.",
-    "backToBlog": "Volver al Blog",
+    "backToBlog": "Volver a Artículos",
     "minRead": "{{count}} min de lectura",
     "relatedTitle": "Explora Relacionados",
     "relatedExerciseLabel": "Ejercicio",
