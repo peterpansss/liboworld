@@ -16,8 +16,7 @@
     "skipToMain": "Pular para o conteúdo principal",
     "mainNavigation": "Navegação principal",
     "navigationMenu": "Menu de navegação",
-    "changeLanguage": "Mudar idioma",
-    "articles": "Artigos"
+    "changeLanguage": "Mudar idioma"
   },
   "common": {
     "clearAll": "Limpar tudo",
@@ -434,7 +433,6 @@
     "subtitle": "Guias de treino, dicas e insights para subir de nível no fitness.",
     "breadcrumbAria": "Trilha de navegação",
     "breadcrumbHome": "Início",
-    "breadcrumbResources": "Recursos",
     "breadcrumbBlog": "Artigos",
     "filterAria": "Filtrar por categoria",
     "categories": {

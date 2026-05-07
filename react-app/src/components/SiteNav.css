@@ -73,13 +73,12 @@
 .site-nav__link--active::after {
   content: '';
   position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 2px;
+  bottom: -6px;
+  left: 12px;
+  right: 12px;
+  height: 3px;
   background: var(--accent);
-  border-radius: 1px;
+  border-radius: 2px;
 }
 
 /* ── Reward Club dropdown (desktop) ── */
@@ -217,6 +216,16 @@
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.04), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Subpage default (route !== '/') — gentle frosted containment without
+   the scrolled-state shadow. Lifted automatically into --scrolled once
+   the user scrolls past 12px. ── */
+.site-nav--subpage:not(.site-nav--scrolled) {
+  background: rgba(11, 12, 15, 0.78);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 /* ── Focus-visible ── */

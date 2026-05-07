@@ -16,8 +16,7 @@
     "skipToMain": "Aller au contenu principal",
     "mainNavigation": "Navigation principale",
     "navigationMenu": "Menu de navigation",
-    "changeLanguage": "Changer de langue",
-    "articles": "Articles"
+    "changeLanguage": "Changer de langue"
   },
   "common": {
     "clearAll": "Tout effacer",
@@ -434,7 +433,6 @@
     "subtitle": "Guides d'entraînement, astuces et conseils pour booster ta forme.",
     "breadcrumbAria": "Fil d'Ariane",
     "breadcrumbHome": "Accueil",
-    "breadcrumbResources": "Ressources",
     "breadcrumbBlog": "Articles",
     "filterAria": "Filtrer par catégorie",
     "categories": {

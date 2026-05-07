@@ -18,8 +18,7 @@
     "skipToMain": "Skip to main content",
     "mainNavigation": "Main navigation",
     "navigationMenu": "Navigation menu",
-    "changeLanguage": "Change language",
-    "articles": "Articles"
+    "changeLanguage": "Change language"
   },
   "common": {
     "clearAll": "Clear all",
@@ -713,7 +712,6 @@
     "subtitle": "Training guides, tips, and insights to level up your fitness.",
     "breadcrumbAria": "Breadcrumb",
     "breadcrumbHome": "Home",
-    "breadcrumbResources": "Resources",
     "breadcrumbBlog": "Articles",
     "filterAria": "Filter by category",
     "categories": {

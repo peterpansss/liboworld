@@ -3,8 +3,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './SiteNav.css';
 
-// Top-level desktop nav items. Reward Club + Articles are parents that
-// expand into dropdowns (REWARD_CLUB_CHILDREN / ARTICLES_CHILDREN below).
+// Top-level desktop nav items. Reward Club is the only parent that
+// expands into a dropdown (REWARD_CLUB_CHILDREN below).
+// Insertion convention: Reward Club + Blog get rendered between
+// NAV_LINKS.slice(0, 2) (Exercises, Workouts) and NAV_LINKS.slice(2)
+// (Press, Careers). Blog is a plain link rendered alongside the
+// Reward Club dropdown. Visible order ends up as:
+//   Exercises, Workouts, Reward Club, Blog, Press, Careers.
 const NAV_LINKS = [
   { labelKey: 'nav.exercises', defaultLabel: 'Exercises', to: '/exercises' },
   { labelKey: 'nav.workouts', defaultLabel: 'Workouts', to: '/workouts' },
@@ -32,31 +37,18 @@ const REWARD_CLUB_CHILDREN = [
   },
 ] as const;
 
-// Children of the Articles dropdown. Categories match the Blog page chips;
-// `to` uses the `?cat=` query param so the destination page pre-filters.
-const ARTICLES_CHILDREN = [
-  { labelKey: 'nav.articlesAll',       defaultLabel: 'All',       to: '/blog' },
-  { labelKey: 'nav.articlesTraining',  defaultLabel: 'Training',  to: '/blog?cat=Training' },
-  { labelKey: 'nav.articlesNutrition', defaultLabel: 'Nutrition', to: '/blog?cat=Nutrition' },
-  { labelKey: 'nav.articlesLifestyle', defaultLabel: 'Lifestyle', to: '/blog?cat=Lifestyle' },
-  { labelKey: 'nav.articlesGuides',    defaultLabel: 'Guides',    to: '/blog?cat=Guides' },
-] as const;
-
 export default function SiteNav() {
   const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [rewardOpen, setRewardOpen] = useState(false);
-  const [articlesOpen, setArticlesOpen] = useState(false);
   const location = useLocation();
   const closeRef = useRef<HTMLButtonElement>(null);
   const rewardWrapRef = useRef<HTMLLIElement>(null);
-  const articlesWrapRef = useRef<HTMLLIElement>(null);
 
   const isActive = (to: string) =>
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
-  // For the Articles parent: only "active" when on /blog (any sub-path).
-  const isArticlesActive = location.pathname.startsWith('/blog');
+  const isSubpage = location.pathname !== '/';
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -94,26 +86,7 @@ export default function SiteNav() {
   }, [rewardOpen]);
 
   useEffect(() => {
-    if (!articlesOpen) return;
-    const handleClick = (e: MouseEvent) => {
-      if (articlesWrapRef.current && !articlesWrapRef.current.contains(e.target as Node)) {
-        setArticlesOpen(false);
-      }
-    };
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setArticlesOpen(false);
-    };
-    document.addEventListener('mousedown', handleClick);
-    document.addEventListener('keydown', handleKey);
-    return () => {
-      document.removeEventListener('mousedown', handleClick);
-      document.removeEventListener('keydown', handleKey);
-    };
-  }, [articlesOpen]);
-
-  useEffect(() => {
     setRewardOpen(false);
-    setArticlesOpen(false);
   }, [location.pathname, location.search]);
 
   useEffect(() => {
@@ -126,7 +99,10 @@ export default function SiteNav() {
   return (
     <>
       <a href="#main-content" className="skip-link">{t('nav.skipToMain')}</a>
-      <nav className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}`} aria-label={t('nav.mainNavigation')}>
+      <nav
+        className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}${isSubpage ? ' site-nav--subpage' : ''}`}
+        aria-label={t('nav.mainNavigation')}
+      >
         <div className="site-nav__inner">
           {/* Logo */}
           <Link to="/" className="site-nav__logo">
@@ -190,39 +166,15 @@ export default function SiteNav() {
               </ul>
             </li>
 
-            {/* Articles dropdown */}
-            <li
-              ref={articlesWrapRef}
-              className={`site-nav__dropdown${articlesOpen ? ' site-nav__dropdown--open' : ''}`}
-              onMouseEnter={() => setArticlesOpen(true)}
-              onMouseLeave={() => setArticlesOpen(false)}
-            >
-              <button
-                type="button"
-                className={`site-nav__link site-nav__dropdown-trigger${
-                  isArticlesActive ? ' site-nav__link--active' : ''
-                }`}
-                aria-haspopup="menu"
-                aria-expanded={articlesOpen}
-                onClick={() => setArticlesOpen((o) => !o)}
+            {/* Blog (plain link — replaces former Articles dropdown) */}
+            <li>
+              <Link
+                to="/blog"
+                className={`site-nav__link${isActive('/blog') ? ' site-nav__link--active' : ''}`}
+                aria-current={isActive('/blog') ? 'page' : undefined}
               >
-                {t('nav.articles', { defaultValue: 'Articles' })}
-                <span className="site-nav__dropdown-caret" aria-hidden>▾</span>
-              </button>
-              <ul className="site-nav__dropdown-menu" role="menu">
-                {ARTICLES_CHILDREN.map(({ labelKey, defaultLabel, to }) => (
-                  <li key={to} role="none">
-                    <Link
-                      to={to}
-                      role="menuitem"
-                      className="site-nav__dropdown-item"
-                      onClick={() => setArticlesOpen(false)}
-                    >
-                      {t(labelKey, { defaultValue: defaultLabel })}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                {t('nav.blog', { defaultValue: 'Blog' })}
+              </Link>
             </li>
 
             {NAV_LINKS.slice(2).map(({ labelKey, defaultLabel, to }) => (
@@ -288,9 +240,7 @@ export default function SiteNav() {
           {[
             ...NAV_LINKS.slice(0, 2),
             ...REWARD_CLUB_CHILDREN,
-            // Articles collapsed to a single entry on mobile; users use the
-            // category chips on the /blog page itself.
-            { labelKey: 'nav.articles', defaultLabel: 'Articles', to: '/blog' },
+            { labelKey: 'nav.blog', defaultLabel: 'Blog', to: '/blog' },
             ...NAV_LINKS.slice(2),
           ].map(({ labelKey, defaultLabel, to }) => (
             <Link key={to} to={to} className={isActive(to) ? 'site-nav__drawer-link--active' : ''} aria-current={isActive(to) ? 'page' : undefined} onClick={() => setDrawerOpen(false)}>

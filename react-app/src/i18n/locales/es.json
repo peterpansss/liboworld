@@ -16,8 +16,7 @@
     "skipToMain": "Saltar al contenido principal",
     "mainNavigation": "Navegación principal",
     "navigationMenu": "Menú de navegación",
-    "changeLanguage": "Cambiar idioma",
-    "articles": "Artículos"
+    "changeLanguage": "Cambiar idioma"
   },
   "common": {
     "clearAll": "Borrar todo",
@@ -434,7 +433,6 @@
     "subtitle": "Guías de entrenamiento, consejos y trucos para subir tu fitness.",
     "breadcrumbAria": "Ruta de navegación",
     "breadcrumbHome": "Inicio",
-    "breadcrumbResources": "Recursos",
     "breadcrumbBlog": "Artículos",
     "filterAria": "Filtrar por categoría",
     "categories": {

@@ -16,8 +16,7 @@
     "skipToMain": "Zum Hauptinhalt springen",
     "mainNavigation": "Hauptnavigation",
     "navigationMenu": "Navigationsmenü",
-    "changeLanguage": "Sprache ändern",
-    "articles": "Artikel"
+    "changeLanguage": "Sprache ändern"
   },
   "common": {
     "clearAll": "Alle löschen",
@@ -709,7 +708,6 @@
     "subtitle": "Trainingsguides, Tipps und Einblicke für dein Fitness-Level-Up.",
     "breadcrumbAria": "Brotkrumen",
     "breadcrumbHome": "Start",
-    "breadcrumbResources": "Ressourcen",
     "breadcrumbBlog": "Artikel",
     "filterAria": "Nach Kategorie filtern",
     "categories": {
