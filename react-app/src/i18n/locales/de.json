@@ -18,6 +18,10 @@
     "navigationMenu": "Navigationsmenü",
     "changeLanguage": "Sprache ändern"
   },
+  "common": {
+    "clearAll": "Alle löschen",
+    "clearFilters": "Filter zurücksetzen"
+  },
   "hero": {
     "eyebrow": "Bald verfügbar — Trag dich ein",
     "headline1": "Trainiere",
@@ -238,6 +242,7 @@
     "siteFooterLabel": "Footer",
     "footerNavigation": "Footer-Navigation",
     "productTitle": "Produkt",
+    "pricing": "Preise",
     "companyTitle": "Unternehmen",
     "resourcesTitle": "Ressourcen",
     "workoutsTitle": "Workouts",
@@ -507,6 +512,33 @@
     },
     "previousPage": "Vorherige Seite",
     "nextPage": "Nächste Seite",
+    "exploreByMuscleGroup": "Nach Muskelgruppe entdecken",
+    "filtersToggle": "Filter",
+    "settingLabel": "Umgebung",
+    "typeLabel": "Typ",
+    "setting": {
+      "all": "Alle",
+      "gym": "Studio",
+      "home": "Zuhause"
+    },
+    "type": {
+      "all": "Alle",
+      "strength": "Kraft",
+      "cardio": "Cardio",
+      "hiit": "HIIT",
+      "power": "Power",
+      "mobility": "Mobilität",
+      "core": "Rumpf",
+      "pelvicFloor": "Beckenboden",
+      "warmUp": "Aufwärmen"
+    },
+    "showingResults": "Zeige {{from}}–{{to}} von {{total}} Übungen",
+    "showingResultsFiltered": "Zeige {{from}}–{{to}} von {{total}}{{context}}",
+    "filterContext": {
+      "muscle": " {{muscle}}-Übungen",
+      "equipment": " {{equipment}}-Übungen",
+      "muscleAndEquipment": " {{muscle}}-Übungen mit {{equipment}}"
+    },
     "muscles": {
       "all": "Alle",
       "chest": "Brust",
@@ -520,7 +552,19 @@
       "cardio": "Cardio",
       "fullBody": "Ganzkörper",
       "forearms": "Unterarme",
-      "traps": "Trapezius"
+      "traps": "Trapezius",
+      "quads": "Quadrizeps",
+      "hamstrings": "Beinbeuger",
+      "calves": "Waden",
+      "frontDelts": "Vordere Schulter",
+      "sideDelts": "Seitliche Schulter",
+      "rearDelts": "Hintere Schulter",
+      "lats": "Latissimus",
+      "rhomboids": "Rhomboiden",
+      "abs": "Bauchmuskeln",
+      "obliques": "Schräge Bauchmuskeln",
+      "lowerBack": "Unterer Rücken",
+      "hipFlexors": "Hüftbeuger"
     },
     "equipment": {
       "all": "Alle",
@@ -558,6 +602,101 @@
     "ctaDescription": "Logge Sätze, Wiederholungen und Gewicht. Sieh deinen Fortschritt über die Zeit.",
     "ctaButton": "Auf die Warteliste",
     "relatedTitle": "Weitere {{muscle}}-Übungen",
+    "instructions": "Anleitung",
+    "tips": "Tipps",
+    "breathing": "Atmung",
+    "commonMistakes": "Häufige Fehler",
+    "alternativeExercisesTitle": "Alternativübungen zu {{name}}",
+    "voiceMaleHint": "Männliche Stimme (tippe für weibliche)",
+    "voiceFemaleHint": "Weibliche Stimme (tippe für männliche)",
+    "anatomy": {
+      "targetMuscle": "Zielmuskel",
+      "front": "Vorderseite",
+      "back": "Rückseite",
+      "primary": "Primär",
+      "secondary": "Sekundär"
+    },
+    "heuristics": {
+      "instructions": {
+        "press": [
+          "Spann deine Körpermitte an und halte das Tempo während der gesamten Bewegung kontrolliert.",
+          "Senke das Gewicht kontrolliert ab und drücke es dann explosiv nach oben.",
+          "Strecke oben vollständig, ohne die Gelenke durchzudrücken."
+        ],
+        "pull": [
+          "Leite die Bewegung ein, indem du die Schulterblätter zurückziehst.",
+          "Ziehe kontrolliert zum Körper und kneife am höchsten Punkt zusammen.",
+          "Lass kontrolliert bis zur vollen Streckung ab."
+        ],
+        "squat": [
+          "Halte die Brust oben und die Körpermitte während der gesamten Bewegung angespannt.",
+          "Senke dich kontrolliert ab und halte die Knie in Linie mit den Zehen.",
+          "Drücke dich über die Fersen zurück in die Ausgangsposition."
+        ],
+        "curl": [
+          "Halte die Ellbogen während der gesamten Bewegung eng am Körper.",
+          "Curle das Gewicht kontrolliert nach oben und kneife oben zusammen.",
+          "Senke langsam und kontrolliert ab — vermeide Schwung."
+        ],
+        "stretch": [
+          "Geh langsam in den Stretch und halte ihn am Punkt leichter Spannung.",
+          "Atme tief und entspann dich in die Position — erzwinge nichts.",
+          "Halte die vorgegebene Dauer und löse dann sanft auf."
+        ],
+        "hold": [
+          "Spann deine Körpermitte an und halte eine gerade Linie von Kopf bis Ferse.",
+          "Atme gleichmäßig — halte nicht die Luft an.",
+          "Halte die vorgegebene Dauer und behalte dabei die Form bei."
+        ],
+        "hinge": [
+          "Beuge dich aus der Hüfte und halte die Wirbelsäule neutral.",
+          "Drücke dich über die Fersen hoch und kneife oben den Po zusammen.",
+          "Senke kontrolliert ab und halte Spannung in den Zielmuskeln."
+        ],
+        "default": [
+          "Führe die Bewegung in einem kontrollierten Tempo aus.",
+          "Konzentriere dich auf die Mind-Muscle-Verbindung mit dem Zielbereich.",
+          "Beende alle Wiederholungen mit sauberer Form, bevor du das Gewicht erhöhst."
+        ]
+      },
+      "tips": {
+        "barbell": "Starte mit leichterem Gewicht, um deine Form zu perfektionieren, bevor du auflädst.",
+        "advanced": "Das ist eine fortgeschrittene Übung — stell sicher, dass du die Grundvariante beherrschst.",
+        "unilateral": "Beginne zuerst mit deiner schwächeren Seite für eine ausgewogene Entwicklung.",
+        "sided": "Mach gleich viele Wiederholungen auf beiden Seiten für ausgewogene Entwicklung.",
+        "stretch": "Wipp niemals in einem Stretch — halte ruhig und atme."
+      },
+      "mistakes": {
+        "squat": [
+          "Knie kippen nach innen — halte sie in Linie mit deinen Zehen.",
+          "Runder unterer Rücken am tiefsten Punkt — Brust hoch, Körpermitte fest."
+        ],
+        "press": [
+          "Ellbogen auf 90° abgespreizt — halte sie in einem bequemen 45–60°-Winkel.",
+          "Gewicht von der Brust abprallen lassen — kontrolliere das Absenken."
+        ],
+        "pull": [
+          "Mit Schwung arbeiten — halte den Oberkörper ruhig.",
+          "Nicht voll durchziehen — zieh bis zur vollen Kontraktion."
+        ],
+        "hinge": [
+          "Runder unterer Rücken — halte die Wirbelsäule neutral.",
+          "Oben überstrecken — beende mit einem Po-Squeeze, nicht mit einer Lehne nach hinten."
+        ],
+        "curl": [
+          "Mit dem Rücken schwingen — fixiere die Ellbogen und isoliere den Bizeps.",
+          "Verkürzte Wiederholungen — strecke unten voll für die volle Range."
+        ],
+        "hold": [
+          "Hüfte sackt ab — halte eine gerade Linie von Kopf bis Ferse.",
+          "Luft anhalten — atme die ganze Zeit gleichmäßig."
+        ],
+        "stretch": [
+          "In den Stretch wippen — halte ruhig, niemals wippen.",
+          "Range erzwingen — entspann dich in milde Spannung, nicht in Schmerz."
+        ]
+      }
+    },
     "difficultyLevels": {
       "beginner": "Anfänger",
       "intermediate": "Mittel",

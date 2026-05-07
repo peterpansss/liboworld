@@ -34,6 +34,7 @@ export default function SiteFooter() {
           <div className="site-footer__col">
             <h2 className="site-footer__col-title">{t('footer.productTitle')}</h2>
             <div className="site-footer__col-links">
+              <Link to="/pricing">{t('footer.pricing')}</Link>
               <Link to="/#features">{t('footer.features')}</Link>
               <Link to="/#rewards">{t('footer.rewardsLink')}</Link>
               <Link to="/giveaway">{t('footer.giveaways')}</Link>

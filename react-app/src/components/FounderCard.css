@@ -42,14 +42,13 @@
   margin: 0 auto;
 }
 
-/* ── Grid (single card — single column, capped width so the photo stays
-   editorial instead of stretching the full container) ── */
+/* ── Grid (2 cards side-by-side desktop, stacked mobile) ── */
 .founder-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
   align-items: stretch;
-  max-width: 560px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -60,7 +59,7 @@
   border-radius: 20px;
   overflow: hidden;
   background: #1a1a1a;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 2 / 3;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -84,8 +83,12 @@
   transform: scale(1.04);
 }
 
-/* Single card — no stagger needed */
-.founder-shot--1 { transform: translateY(0); }
+.founder-shot--1,
+.founder-shot--2 { transform: translateY(0); }
+
+.founder-shot--2 img {
+  object-position: center 28%;
+}
 
 /* ── Caption pill (bottom-left) ── */
 .founder-caption {
@@ -129,14 +132,18 @@
   .founder-header {
     margin-bottom: 32px;
   }
-  /* Stack 1-per-row, full-width — Cal AI mobile pattern. All 3 cards visible. */
+  /* Stack 1-per-row, full-width — Cal AI mobile pattern.
+     Reverse order on mobile: image first, then video. */
   .founder-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  .founder-shot--1 {
+  .founder-shot--1,
+  .founder-shot--2 {
     transform: none;
   }
+  .founder-shot--1 { order: 2; }
+  .founder-shot--2 { order: 1; }
   .founder-shot {
     /* Slightly taller on mobile for the same hero feeling Cal AI has */
     aspect-ratio: 4 / 5;

@@ -9,7 +9,8 @@
     "upload-videos:dry": "node upload-videos.mjs --dry-run",
     "sync-video-urls": "node sync-video-urls.mjs",
     "generate-exercise-content": "node generate-exercise-content.mjs",
-    "generate-exercise-content:all": "node generate-exercise-content.mjs --all"
+    "generate-exercise-content:all": "node generate-exercise-content.mjs --all",
+    "translate-setup-notes": "node translate-setup-notes.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",

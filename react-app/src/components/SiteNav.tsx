@@ -9,7 +9,6 @@ import './SiteNav.css';
 const NAV_LINKS = [
   { labelKey: 'nav.exercises', defaultLabel: 'Exercises', to: '/exercises' },
   { labelKey: 'nav.workouts', defaultLabel: 'Workouts', to: '/workouts' },
-  { labelKey: 'nav.pricing', defaultLabel: 'Pricing', to: '/pricing' },
   { labelKey: 'nav.blog', defaultLabel: 'Blog', to: '/blog' },
   { labelKey: 'nav.careers', defaultLabel: 'Careers', to: '/careers' },
 ] as const;

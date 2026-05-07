@@ -1921,5 +1921,518 @@
   },
   "plank_to_push_up": {
     "setupNotes": "In der Unterarm-Plank-Position starten. Einen Arm nach dem anderen in den hohen Plank hochdrücken, dann zurück auf die Unterarme absenken. Den führenden Arm bei jeder Wiederholung wechseln."
+  },
+  "single_arm_lat_pulldown": {
+    "setupNotes": "Kabelzug Lat Pulldown, D-Griff-Aufsatz. Ein Arm nach dem anderen, leichte Neigung zur Arbeitsseite. Vollständige Streckung oben, Squeeze unten."
+  },
+  "seated_cable_row_single_arm": {
+    "setupNotes": "Kabelzug-Rudergerät, D-Griff. Ein Arm nach dem anderen. Leichte Rotation zur Arbeitsseite. Vollständige Dehnung und Squeeze."
+  },
+  "one_arm_dumbbell_row": {
+    "setupNotes": "Rechte Hand und rechtes Knie auf Flachbank, linker Fuß auf dem Boden, Rücken gerade. Kurzhantel in linker Hand hängend unter der Schulter — zum linken Hüftgelenk rudern, Ellbogen nah am Körper. Latissimus oben zusammendrücken."
+  },
+  "single_arm_landmine_shoulder_press": {
+    "setupNotes": "Langhantel in der Landmine-Halterung, versetzter Stand. Griff am Ende der Stange auf Schulterhöhe mit einer Hand. Drücke in einem Bogen nach oben bis zur vollständigen Streckung des Arms — senke langsam ab."
+  },
+  "bench_supported_one_arm_row": {
+    "setupNotes": "Schrägbank auf ca. 30 Grad, Brust gegen das Polster. Kurzhantel in der linken Hand — Rücken zur linken Hüfte, Ellbogen dicht am Körper. Die Bank verhindert Schwung für striktes Lat-Training."
+  },
+  "single_arm_landmine_press": {
+    "setupNotes": "Langhantel in Landmine-Halter oder in der Ecke eingeklemmt. Stehe im Schrittstand, packe das Ende der Stange mit einer Hand auf Schulterhöhe. Drücke in einem Bogen nach oben und vorne zur vollständigen Streckung — zielt auf Brust und Schulter mit einseitiger Rumpfbelastung."
+  },
+  "kroc_row": {
+    "setupNotes": "Eine Hand auf Bank oder Rack zur Stabilisierung. Schwere Kurzhantel, leichte Torsorotation erlaubt. Hochwiederholungs-Ruderübung explosiv ausführen für Rückenmasse."
+  },
+  "single_arm_landmine_row": {
+    "setupNotes": "Langhantel in Landmine-Halterung. Stelle dich spreizbeinig über die Stange, greife das Ende mit einer Hand. Rudere zur Hüfte mit leichter Rotation. Stabiler Stand."
+  },
+  "inverted_row_single_arm": {
+    "setupNotes": "Langhantel im Rack. Greife die Stange mit einer Hand, die andere Arm hängt seitlich oder hinter dem Rücken. Ziehe deinen Körper mit einer Arm nach oben. Fortgeschrittene unilaterale Übung."
+  },
+  "meadows_row": {
+    "setupNotes": "Langhantel in der Landmine-Halterung. Stehe perpendicular zur Stange im versetzten Stand mit rechtem Fuß vorne. Übergriff am Ende der Stange mit der linken Hand — ziehe zur linken Hüfte mit leichter Drehung des Oberkörpers. Zielt auf Latissimus und oberen Rücken ab."
+  },
+  "single_arm_straight_arm_pulldown": {
+    "setupNotes": "Kabelzug auf hoher Position, D-Griff. Gesicht zur Maschine. Ein Arm nach dem anderen, zieh den Griff in einem Bogen zur Hüfte — volle Dehnung des Latissimus oben."
+  },
+  "concentration_curl_seated": {
+    "setupNotes": "Sitze auf der Bank, linker Ellbogen gegen die Innenseite des linken Oberschenkels gestützt. Kurzhantel in der linken Hand hängend zum Boden — hochcurlen in strikter Isolation, Bizeps oben zusammendrücken. Keine Rumpfbewegung."
+  },
+  "single_arm_dumbbell_overhead_extension": {
+    "setupNotes": "Stehen oder sitzen, eine Kurzhantel in einer Hand hinter dem Kopf. Ellbogen zeigt nach oben. Strecke bis zum Lockout, kontrolliert hinter den Kopf senken."
+  },
+  "single_arm_cable_curl": {
+    "setupNotes": "Kabelzug auf niedrige Höhe stellen, D-Griff angebracht. Frontal zur Maschine stehen. Je einen Arm curlen. Freie Hand zur Stabilisierung an der Maschine abstützen."
+  },
+  "dumbbell_triceps_kickback": {
+    "setupNotes": "Rechte Hand und rechtes Knie auf der Flachbank, linker Fuß auf dem Boden, Rücken flach. Kurzhantel in der linken Hand, Oberarm parallel zum Boden, Ellbogen an der Seite fixiert. Linken Unterarm nach hinten zur vollständigen Streckung ausstrecken, Trizeps anspannen. Kontrollierte Rückführung."
+  },
+  "single_arm_cable_overhead_extension": {
+    "setupNotes": "Kabelzug auf niedriger Höhe, D-Griff. Blick weg vom Gerät, einen Arm über Kopf. Nach vorne zur vollständigen Streckung erweitern. Freie Hand kann sich am Oberschenkel abstützen — für Stabilität."
+  },
+  "single_leg_press": {
+    "setupNotes": "Beinpressmaschine, Rücken gegen die Rückenlehne, linkes Bein mittig auf der Plattform, rechtes Bein oben. Drücke das Gewicht mit dem linken Bein nach oben, senke es kontrolliert bis ca. 90 Grad ab. Leichteres Gewicht als bei beidbeining. Deckt Kraft-Unausgeglichenheiten auf der linken Seite auf."
+  },
+  "bulgarian_split_squat_dumbbell": {
+    "setupNotes": "Rechter Fuß mit Schnürseite nach unten auf einer Bank hinter dir, linker Fuß 2–3 Fuß nach vorne, je eine Kurzhantel an den Seiten in der Hand. Senk dich ab, bis der linke Oberschenkel parallel ist. Drück dich über die vordere Ferse hoch — Quadrizeps- und Gesäßbetonung im linken Bein."
+  },
+  "bulgarian_split_squat_barbell_back_rack": {
+    "setupNotes": "Rechtes Bein erhöht auf der Bank aufgestellt, Langhantel im Rack auf dem oberen Rücken. Senke dich in die Split Squat ab, bis der linke Oberschenkel parallel ist, dann drücke durch die linke Ferse nach oben. Trainiert den linken Quadrizeps und das Gesäß unter axialer Last."
+  },
+  "bulgarian_split_squat_barbell_front_rack": {
+    "setupNotes": "Rechter Fuß erhöht auf einer Bank, Langhantel in der Front Rack Position über den Schultern, Ellbogen oben. Senke dich ab, bis der linke Oberschenkel parallel ist, treibe dich durch die linke Ferse hoch. Front Rack erzwingt einen aufrechten Oberkörper — stärkere Betonung auf dem linken Quadrizeps."
+  },
+  "bulgarian_split_squat_jump_plyo": {
+    "setupNotes": "Rechten Fuß erhöht auf einer Bank, nur Körpergewicht. Absenken in die Split Squat Position, dann explosiv über das linke Bein hochfahren und weich zurück in die Ausgangsposition landen. Vor dem nächsten Rep stabilisieren. Plyometrische Power durch das linke Bein."
+  },
+  "bulgarian_split_squat_paused": {
+    "setupNotes": "Rechtes Bein auf einer Bank hinter dir, linkes Bein nach vorne, Kurzhanteln an den Seiten. Senke dich ab, bis der linke Oberschenkel parallel zum Boden ist, halte 2–3 Sekunden und drücke dich dann hoch. Elimininiert den Dehnreflex — baut Kraft in der Tiefposition auf."
+  },
+  "step_up_dumbbell": {
+    "setupNotes": "Stabile Bank oder Plyo Box in Kniehöhe. Kurzhanteln an den Seiten. Linken Fuß vollständig auf der Box aufsetzen und durch die linke Ferse drücken, um aufzustehen — der rechte Fuß folgt oder bleibt am Boden für Balance. Kontrolliert durch das linke Bein hinabsteigen. Belastet Quadrizeps und Gesäß der linken Seite."
+  },
+  "lateral_step_up": {
+    "setupNotes": "Stelle dich mit der Bank/Box auf deiner linken Seite auf. Steige seitwärts mit dem linken Fuß auf die Box, drücke dich durch dein linkes Gesäß ab um vollständig zu stehen, kontrolliert absteigen. Alle Wiederholungen auf der linken Seite."
+  },
+  "step_up_barbell": {
+    "setupNotes": "Flachbank oder Box in Kniehöhe, Langhantel auf dem oberen Rücken. Linken Fuß komplett auf die Box stellen, über die linke Ferse drücken, um aufrecht oben zu stehen. Kontrolliert absteigen. Alle Wiederholungen mit dem linken Bein."
+  },
+  "single_leg_hip_thrust": {
+    "setupNotes": "Oberer Rücken auf der Bank, linker Fuß hüftbreit aufgestellt, rechtes Knie angehoben oder Bein gestreckt. Drück die Hüften nach oben bis zum Lockout über die linke Ferse — squeeze das linke Gesäß oben hart, kontrolliert senken. Schwerer als bilateral pro Bein."
+  },
+  "single_leg_romanian_deadlift_dumbbell": {
+    "setupNotes": "Steh auf dem linken Bein, Kurzhantel in der rechten Hand. Beuge dich in der linken Hüfte und strecke das rechte Bein nach hinten zur Balance — Rücken gerade, Kurzhantel nah am Schienbein. Drücke dich über die linke Ferse nach oben. Belastet den linken Beinbeuger und das Gesäß."
+  },
+  "single_leg_romanian_deadlift_kettlebell": {
+    "setupNotes": "Stehe auf dem linken Bein, die Kettlebell in der rechten Hand. Beuge dich in der linken Hüfte und strecke das rechte Bein nach hinten zum Ausgleich — die Kettlebell bleibt nah am Schienbein. Drücke dich durch die linke Ferse nach oben zurück. Trainiert den linken Beinbeuger und Gesäß."
+  },
+  "bulgarian_split_squat_front_foot_elevated": {
+    "setupNotes": "Rechten Fuß erhöht auf einer Bank, linken Fuß auf einem kleinen Podest oder Step. Senke dich in die Deficit Split Squat — linker Oberschenkel deutlich unter Parallele — dann drücke dich über die linke Ferse hoch. Erhöhter Range of Motion belastet das linke Gesäß intensiv."
+  },
+  "leg_extension_single_leg": {
+    "setupNotes": "Sitze an der Beinstreckmaschine, Schienbeinpolster auf dem linken Schienbein, rechtes Bein entspannt zur Seite. Strecke das linke Bein zum vollständigen Lockout, drücke den Quadrizeps, kontrolliere die Bewegung nach unten. Leichtere Last — deckt Ungleichgewichte auf der linken Seite auf und korrigiert sie."
+  },
+  "glute_kickback_machine": {
+    "setupNotes": "Stehe oder knie an der Glute-Kickback-Maschine. Polster hinter linkem Knöchel oder Knie. Drücke linkes Bein nach hinten und oben, drücke linken Gesäß oben zusammen. Kontrollierte Rückkehr."
+  },
+  "cable_glute_kickback": {
+    "setupNotes": "Niedriger Kabelzug, Fußmanschette am linken Fuß. Blick zur Maschine, leicht nach vorne gelehnt, Rahmen halten. Linkes Bein nach hinten-oben kicken, linkes Gesäß anspannen — kontrollierte Rückkehr."
+  },
+  "donkey_kick_cable_machine": {
+    "setupNotes": "Knien am Kabelzug mit Fußmanschette am linken Fuß, oder stehen an der Gesäß-Kickback-Maschine mit dem linken Fuß auf der Plattform. Treibe die linke Ferse nach hinten und oben, spanne das linke Gesäß oben an, senke kontrolliert ab. Rumpf während der ganzen Bewegung angespannt."
+  },
+  "pallof_press_standard": {
+    "setupNotes": "Kabelzug auf Brusthöhe mit D-Griff. Stelle dich mit der rechten Seite zum Stack, halte den Griff mit beiden Händen an der Brust. Drücke die Arme gerade nach vorne und widerstehe dem Kabelzug, der dich nach rechts rotieren will — Anti-Rotations-Kernarbeit. Zurück zur Brust."
+  },
+  "pallof_press_half_kneeling": {
+    "setupNotes": "Kabelzug auf Brusthöhe. Halbkniestand mit rechtem Knie unten (zur Maschine hin), linkes Bein vorgestreckt. Drücke den Griff aus der Brust heraus und widerstehe der Rotationsbewegung nach rechts. Die niedrigere Position erhöht die Rumpfspannung gegenüber dem Stand."
+  },
+  "pallof_press_with_rotation": {
+    "setupNotes": "Kabelzug auf Brusthöhe. Stell dich mit der rechten Seite zum Stack, drücke den Griff aus der Brust. Aus der Druckposition drehst du den Oberkörper langsam vom Stack weg nach links, dann kontrolliert zurück. Kombiniert Anti-Rotation mit kontrollierter Rotation."
+  },
+  "wall_sit_single_leg": {
+    "setupNotes": "Rücken flach an der Wand, Knie zu ca. 90 Grad gebeugt wie bei einem Standard-Wandsitz. Strecke das rechte Bein nach vorne, das gesamte Gewicht auf dem linken Bein. Halte die Position. Deutlich schwerer — isometrische Belastung auf dem linken Quadrizeps."
+  },
+  "cable_woodchop_high_to_low": {
+    "setupNotes": "Kabelzug auf höchster Rolle mit Seil oder D-Griff. Stell dich mit der linken Seite zur Maschine, beide Hände am Griff über-rechts. Zieh diagonal über den Körper nach unten-links, dreh durch den Rumpf und pivot mit dem rechten Fuß — trainiert Rotationskraft und schräge Bauchmuskeln-Kontrolle."
+  },
+  "cable_woodchop_low_to_high": {
+    "setupNotes": "Kabelzug auf unterster Position mit Seil oder D-Griff. Steh mit der linken Seite zur Maschine, beide Hände am Griff auf Hüfthöhe rechts unten. Treib diagonal nach oben und über zur linken Seite oben, streck die Hüften und rotiere durch den Oberkörper — Power kommt aus Beinen und Rumpf."
+  },
+  "suitcase_carry": {
+    "setupNotes": "Halte eine schwere Kurzhantel oder Kettlebell in der linken Hand an der Seite. Gehe in einer geraden Linie, halte den Oberkörper aufrecht und die Schultern auf gleicher Höhe — widerstehe der Last, die dich in eine Neigung zur linken Seite zieht. Anti-Lateral-Flexion durch die rechten schrägen Bauchmuskeln und QL."
+  },
+  "turkish_get_up": {
+    "setupNotes": "Liege auf dem Boden und halte die Kettlebell in der linken Hand senkrecht nach oben gedrückt, Blick auf die Kettlebell. Gehe durch die Get-Up-Sequenz — roll auf den rechten Unterarm, auf die rechte Hand, Hüfte hoch, rechtes Bein durchschwingen, Ausfallschritt, aufstehen — halte den linken Arm vertikal gestreckt. Zurück auf den Boden. Volle Körperkontrolle unilateral."
+  },
+  "archer_push_up": {
+    "setupNotes": "Hände sehr weit auseinander, Körper in gerader Linie. Senke den Körper zur linken Hand, während der rechte Arm gestreckt bleibt. Drücke dich über die linke Seite nach oben — unilaterale Brust- und Trizeps-Betonung."
+  },
+  "kettlebell_clean": {
+    "setupNotes": "Einzelne Kettlebell auf dem Boden zwischen den Füßen. Beuge dich hin und greife mit der linken Hand, schwinge die Kettlebell zurück zwischen den Beinen, dann treibe die Hüfte an und ziehe die Kettlebell hoch — drehe das Handgelenk, sodass sie sanft in der Rack-Position auf dem linken Unterarm und der Schulter landet. Senke kontrolliert ab. Trainiert explosive Hüftstreckung und unilaterale Griffkraft."
+  },
+  "spiderman_push_up": {
+    "setupNotes": "Hohe Plank-Position, Hände unter den Schultern, Körper in einer geraden Linie. Während du dich in den Push-up absenkst, zieh das linke Knie heraus zum linken Ellbogen. Bring das Bein zurück, während du wieder hochdrückst — das trainiert zusätzlich schräge Bauchmuskeln und Hüftbeuger."
+  },
+  "rotational_push_up": {
+    "setupNotes": "Hoher Plank, Körper in einer geraden Linie. Führe einen Push-up aus, dann rotiere oben den Körper nach links in einen seitlichen Plank — linker Arm zur Decke gestreckt, Gewicht auf der rechten Hand. Zurück in den Plank und Reset. Trainiert Rotationskraft des Rumpfs und Schulterstabilität."
+  },
+  "pistol_squat_single_leg": {
+    "setupNotes": "Stehe auf dem linken Bein, das rechte Bein nach vorne gestreckt vom Boden ab. Beuge dich auf dem linken Bein bis zur vollen Tiefe – Hüfte unter Knie – und halte das rechte Bein angehoben, dann drücke dich zurück in die Ausgangsposition. Nutze bei Bedarf einen Türrahmen oder TRX als Hilfe. Fortgeschrittene Kraft im linken Bein."
+  },
+  "shrimp_squat": {
+    "setupNotes": "Stehe auf dem linken Bein, halte deinen rechten Fuß mit der rechten Hand am Gesäß. Beuge dich auf dem linken Bein ab, bis dein rechtes Knie den Boden berührt, dann drücke dich zurück in die Ausgangsposition. Fortgeschrittene unilaterale Kniebeuge — intensive Belastung für Quadrizeps und Gesäß des linken Beins."
+  },
+  "lateral_squat": {
+    "setupNotes": "Stelle dich mit den Füßen breiter als schulterbreit auf, Zehen nach vorne. Verlagere dein Gewicht nach links, beuge das linke Knie in eine tiefe Seitkniebeuge, während das rechte Bein gestreckt bleibt. Drücke durch die linke Ferse zurück zur Mitte — belastet den linken Adduktor und das Gesäß."
+  },
+  "bulgarian_split_squat_bodyweight": {
+    "setupNotes": "Rechter Fuß erhöht auf Stuhl oder niedriger Bank, linker Fuß 60–90 cm nach vorne. Senke dich, bis der linke Oberschenkel parallel zum Boden ist, drücke dich über die linke Ferse wieder hoch. Nur Körpergewicht — sauberer Schuh für den linken Quadrizeps und Gesäß."
+  },
+  "single_leg_sit_to_stand": {
+    "setupNotes": "Setz dich auf einen Stuhl, linkes Bein aufgestellt, rechtes Bein vom Boden abheben. Stehe auf, indem du nur das linke Bein nutzt — drücke über die Ferse ab, ohne zu wiegen. Senke dich kontrolliert zurück ins Sitzen. Baut Kraft im linken Bein ohne Equipment auf."
+  },
+  "forward_lunge_bodyweight": {
+    "setupNotes": "Aufrecht stehen, Hände in den Hüften oder an den Seiten. Linken Fuß weit nach vorne treten und senken, bis beide Knie etwa 90 Grad erreichen — vorderes Knie folgt den Zehen. Durch die linke Ferse drücken, um in die Ausgangsposition zurückzukehren. Belastet den linken Quadrizeps und das Gesäß."
+  },
+  "static_lunge_hold": {
+    "setupNotes": "Spreizbein mit dem linken Fuß vorne und rechtem Fuß hinten, beide Knie zu ca. 90 Grad gebeugt. Halte die Position mit dem hinteren Knie knapp über dem Boden und aufrechtem Oberkörper. Isometrische Quad- und Gesäßausdauer über das vordere linke Bein."
+  },
+  "glute_bridge_single_leg": {
+    "setupNotes": "Liege auf dem Rücken, linken Fuß hüftbreit aufgesetzt, rechtes Knie angehoben oder rechtes Bein zur Decke gestreckt. Drücke die Hüften über die linke Ferse nach oben — der Körper bildet eine gerade Linie, drücke den linken Gesäßmuskel oben hard. Senke kontrolliert ab."
+  },
+  "curtsy_lunge_bodyweight": {
+    "setupNotes": "Aufrecht stehen. Linken Fuß hinter und über das rechte Bein setzen, senken bis der rechte Oberschenkel parallel zum Boden ist. Durch die rechte Ferse drücken, um in die Ausgangsposition zurückzukehren. Zielt auf den Gluteus medius."
+  },
+  "reverse_lunge_bodyweight": {
+    "setupNotes": "Stehe aufrecht, Hände auf den Hüften. Schritt mit dem linken Fuß nach hinten in einen langen Ausfallschritt, senke dich ab, bis beide Knie etwa 90 Grad erreichen und das linke hintere Knie knapp über dem Boden schwebt. Drücke dich durch die rechte vordere Ferse nach oben zurück in die Ausgangsposition — belastet den rechten vorderen Quadrizeps und das Gesäß."
+  },
+  "fire_hydrant": {
+    "setupNotes": "Hände und Knie auf dem Boden, Wirbelsäule neutral. Heb das linke Knie zur Seite, halte den 90-Grad-Winkel — drück die Gesäßmuskulatur oben zusammen. Kontrolliert senken — zielt auf den linken Gluteus medius."
+  },
+  "donkey_kick": {
+    "setupNotes": "Auf Händen und Knien im vierfüßigen Stand, Matte unter den Knien. Drücke die linke Ferse zur Decke, Knie in 90-Grad-Winkel gebeugt, Gesäß oben anspannen. Kontrollierte Rückführung — isoliert den linken Gesäßmuskel."
+  },
+  "side_plank": {
+    "setupNotes": "Leg dich auf die linke Seite, linker Unterarm auf dem Boden unter der Schulter, Füße gestapelt oder versetzt. Hebe die Hüfte — so bildet dein Körper eine gerade Linie von Kopf bis Ferse, rechter Arm zur Decke gestreckt oder an der Hüfte. Halte die Position. Belastet die linken schrägen Bauchmuskeln und den QL."
+  },
+  "bodyweight_step_up": {
+    "setupNotes": "Stabiler Stuhl, Bank oder Treppenstufe. Linken Fuß vollständig auf die Oberfläche setzen. Durch die linke Ferse drücken, um aufrecht oben zu stehen. Kontrolliert absteigen. Alle Wiederholungen mit dem linken Bein."
+  },
+  "single_leg_calf_raise": {
+    "setupNotes": "Stehe auf dem linken Fuß am Rand einer Stufe, Fußballen am Rand und Ferse hängend über der Kante. Hand an der Wand zur Balance. Gehe so hoch wie möglich auf die Zehen, senke dann die Ferse unter die Stufe ab — dadurch trainierst du die linke Wade durch den vollen Bewegungsumfang."
+  },
+  "bird_dog_standard": {
+    "setupNotes": "Auf Händen und Knien, Wirbelsäule neutral. Strecke den linken Arm nach vorne und das rechte Bein nach hinten gleichzeitig aus, bis beide parallel zum Boden sind. Core anspannen, kurz halten, zurück. Trainiert Anti-Extension und Balance."
+  },
+  "side_plank_with_hip_dips": {
+    "setupNotes": "Seitlich auf dem linken Unterarm stützen, Hüfte in gerader Linie angehoben. Linke Hüfte langsam zum Boden senken, ohne zu berühren — dann zurück zur Ausgangsposition fahren. Kontrollierte Wiederholungen über den vollständigen Bewegungsumfang. Dynamische Belastung der linken schrägen Bauchmuskeln."
+  },
+  "side_plank_with_leg_lift": {
+    "setupNotes": "Seitstütz auf dem linken Unterarm, Hüfte angehoben. Hebe das rechte (obere) Bein nach oben und halte es oder pulsiere oben, während du die Hüfte stabil hältst — aktiviert Gluteus medius und die äußere Hüfte zusätzlich zur schrägen Bauchmuskulatur-Anspannung auf der linken Seite."
+  },
+  "bird_dog_from_push_up_position": {
+    "setupNotes": "Hohe Plank-Position, Hände unter den Schultern, Körper in gerader Linie. Arm nach vorne und das gegenüberliegende Bein nach hinten gleichzeitig ausstrecken, kurz halten ohne die Hüften rotieren zu lassen. Zurück. Deutlich anspruchsvoller als die Variante auf den Knien."
+  },
+  "bird_dog_band_resisted": {
+    "setupNotes": "Kniend in Bird-Dog-Position mit leichtem Widerstandsband von der linken Hand zum rechten Fuß. Strecke den linken Arm und das rechte Bein, bis das Band straff ist, halte, zurück. Das Band erzeugt zusätzlichen Widerstand und Instabilität im diagonalen Bewegungsmuster."
+  },
+  "bird_dog_row_weighted": {
+    "setupNotes": "Knie dich hin, Bird-Dog-Position mit einer Kurzhantel in der linken Hand. Streck das rechte Bein nach hinten, dann zieh die Kurzhantel zur Hüfte — Hüften stabil halten und Core angespannt. Kurzhantel senken, zurück. Kombiniert Anti-Rotation mit einseitigem Rudern."
+  },
+  "supine_heel_slide": {
+    "setupNotes": "Leg dich auf den Rücken, Knie gebeugt, Füße flach und Becken in Neutralposition. Schiebe langsam die linke Ferse über den Boden, bis das Bein gestreckt ist, dann führe es kontrolliert zurück. Halte das Becken stabil — trainiert tiefe Bauchmuskeln und Lumbopelvale Kontrolle."
+  },
+  "hamstring_stretch_seated": {
+    "setupNotes": "Sitz auf dem Boden, linkes Bein gestreckt, rechter Fuß an die Innenseite des linken Oberschenkels gezogen. Beuge dich in der Hüfte nach vorn und greife über das linke Bein, Rücken gerade. Halte die Position und atme ruhig. Zielt auf den linken Beinbeuger ab."
+  },
+  "anti_rotation_brace_band": {
+    "setupNotes": "Befestige ein leichtes Widerstandsband auf Brusthöhe auf der rechten Seite. Stehe mit der rechten Seite zum Anker, halte das Band mit beiden Händen auf Brusthöhe. Drücke die Arme gerade nach vorne und halte — widerstehe der Zugkraft des Bands, die dich nach rechts rotiert. Anti-Rotations-Core-Halteposition."
+  },
+  "standing_quad_stretch": {
+    "setupNotes": "Aufrecht stehen, freie Hand an der Wand zur Balance. Den linken Fuß mit der linken Hand zum linken Gesäß hochziehen, Knie zusammen und Hüfte leicht nach vorne drücken. Halten und atmen. Dehnt den linken Quadrizeps und die Hüftbeuger."
+  },
+  "chest_stretch_doorway": {
+    "setupNotes": "Stell dich in einen Türrahmen, linken Unterarm gegen den Rahmen mit dem Ellbogen in 90-Grad-Winkel auf Schulterhöhe. Tritt mit dem linken Fuß durch die Türöffnung und rotiere die Brust vom Arm weg — bis du eine Dehnung über dem linken Brustmuskel und der vorderen Schulter spürst. Halten."
+  },
+  "overhead_triceps_stretch": {
+    "setupNotes": "Hebe den linken Arm nach oben und beuge den Ellbogen, sodass die linke Hand hinter den Kopf fällt. Nutze die rechte Hand, um den linken Ellbogen sanft nach hinten und unten zu drücken. Halten. Dehnt den linken Trizeps und Latissimus."
+  },
+  "hamstring_stretch_standing": {
+    "setupNotes": "Stehe aufrecht, platziere deine linke Ferse auf einer niedrigen Bank oder Stufe mit gestrecktem Bein. Beuge dich aus der Hüfte und lehne dich nach vorne über das linke Bein, halte deinen Rücken flach. Halten. Zielt auf den linken Beinbeuger."
+  },
+  "clamshell_standard": {
+    "setupNotes": "Leg dich auf die rechte Seite, Knie im 90-Grad-Winkel gebeugt, Füße übereinander. Halte die Füße zusammen und öffne das linke (obere) Knie nach oben wie eine Muschel — dabei den linken Gluteus medius anspannen. Kontrolliert senken."
+  },
+  "single_leg_balance_hold": {
+    "setupNotes": "Stell dich auf das linke Bein, rechter Fuß knapp über dem Boden. Halte 30–60 Sekunden, Blick nach vorne. Schließe die Augen für zusätzliche Schwierigkeit. Trainiert Knöchelstabilität und Propriozeption des linken Beins."
+  },
+  "foam_roll_calves": {
+    "setupNotes": "Setz dich auf den Boden mit der Faszienrolle unter der linken Wade, rechtes Bein über das linke gekreuzt für zusätzlichen Druck. Hände hinten zur Unterstützung, heb die Hüfte an und roll von der Achillessehne bis knapp unter das Knie. Drehe das Bein, um die medialen und lateralen Fasern zu treffen."
+  },
+  "foam_roll_it_band": {
+    "setupNotes": "Leg dich auf die linke Seite, die Faszienrolle unter dem linken äußeren Oberschenkel, rechtes Bein zum Abstützen übergekreuzt. Roll langsam vom Knie bis zur Hüfte. Entspannt das linke IT Band — langsam und verträglich."
+  },
+  "lacrosse_ball_piriformis": {
+    "setupNotes": "Setz dich auf einen Lacrosse Ball unter dem linken Gesäß/Piriformis, linken Knöchel über das rechte Knie in einer Figur-4 Position. Rolle sanft oder halte Druck auf der empfindlichen Stelle — entlastet den linken Piriformis."
+  },
+  "lacrosse_ball_shoulder_rear_delt": {
+    "setupNotes": "Stell dich mit einem Lacrosse Ball zwischen deine linke Oberschulter/hintere Schulter und die Wand. Lehn dich in den Ball, um Druck aufzubauen, und roll in kleinen Kreisen, um enge Stellen zu finden. Entspannt die linke hintere Schulter und den oberen Trapezius."
+  },
+  "foam_roll_glutes": {
+    "setupNotes": "Sitz auf der Faszienrolle, leg den linken Knöchel über das rechte Knie in der Figure-4-Position. Verlagere dein Gewicht nach links und rolle langsam über den linken Gesäßmuskel, bleib bei empfindlichen Stellen kurz stehen — gezielt den linken Gesäßmuskel und Piriformis freigeben."
+  },
+  "barbell_floor_press_close_narrow_grip": {
+    "setupNotes": "Liege auf dem Boden mit der Langhantel. Knie gebeugt, Füße flach. Hände enger als Schulterweit für Trizeps-Fokus. Senke die Stange zur Brust, Oberarme berühren den Boden am tiefsten Punkt — drücke explosiv nach oben."
+  },
+  "barbell_good_morning_seated": {
+    "setupNotes": "Sitze auf einer Flachbank, Langhantel auf dem oberen Rücken wie beim Squat. Füße aufgestellt. Beuge dich nach vorne in den Hüften, Brust Richtung Oberschenkel. Treibe Hüften und Oberkörper zurück nach oben — isoliert den unteren Rücken ohne Beinbeteiligung."
+  },
+  "supine_spinal_twist": {
+    "setupNotes": "Leg dich auf den Rücken, Arme im T ausgestreckt. Zieh das linke Knie hoch und über die Körpermitte nach rechts, beide Schultern bleiben am Boden — die Schwerkraft führt das Knie nach unten. Halten und atmen. Sanfte Rotation der Lendenwirbelsäule."
+  },
+  "incline_barbell_bench_press_narrow_close_grip": {
+    "setupNotes": "Schrägbank (30-45 Grad) im Power Rack. Hände enger als schulterbreit auf der Langhantel. Ausrasten, Stange zur oberen Brust senken mit eingezogenen Ellbogen, hochdrücken zum Lockout — betont Trizeps und obere Brustfasern."
+  },
+  "bench_press_smith_machine": {
+    "setupNotes": "Smith Machine mit der Langhantel auf Brusthöhe über einer Flachbank. Leg dich flach hin, Füße auf dem Boden, Schulterblätter retrahiert. Entriegle mit einer kleinen Handgelenksdreh, senke die Langhantel zur Brustmitte, drücke bis zum Lockout. Die feste Stangenbahn hält deine Form stabil."
+  },
+  "smith_machine_front_squat": {
+    "setupNotes": "Langhantel auf der Smith Machine auf den vorderen Deltamuskeln in Front-Rack- oder Überkreuzposition ablegen. Füße schulterbreit und leicht vor der Bahnlinie der Langhantel positionieren. Nach unten fahren, Oberkörper aufrecht halten, über die Fersen hochdrücken. Die fixe Bahnlinie ermöglicht dir, dich ganz auf Kniebeugentiefe und Quadrizeps-Aktivierung zu konzentrieren."
+  },
+  "cuban_rotation_disk_front": {
+    "setupNotes": "Stehend, Gewichtsscheibe in einer Hand auf Hüfthöhe halten. Ellbogen hochziehen, sodass der Oberarm parallel zum Boden ist und der Ellbogen 90 Grad gebeugt ist — Unterarm hängt nach unten. Unterarm kontrolliert nach oben rotieren, bis er zur Decke zeigt, kontrolliert senken. Leichtes Gewicht — reine Rotatorenmanschetten-Arbeit."
+  },
+  "dumbbell_floor_press_close_grip_neutral": {
+    "setupNotes": "Lie auf dem Boden, Knie gebeugt, Kurzhanteln mit neutralem Griff (Handflächen zueinander) über der Brust. Senke ab, bis die Oberarme den Boden berühren, drücke zurück nach oben und halte die Kurzhanteln eng beieinander. Der Boden begrenzt die Bewegungsamplitude — schont die Schultern, hohe Belastung auf Trizeps und Lockout."
+  },
+  "arnold_press_standing": {
+    "setupNotes": "Aufrecht stehen, Kurzhanteln auf Kinnhöhe mit Handflächen zu dir gedreht, Ellbogen eng. Handflächen nach außen rotieren während du nach oben presst — mit gestreckten Armen und Handflächen nach vorne beenden. Rumpf anspannen, um Überstreckung des unteren Rückens zu vermeiden. Trainiert alle drei Deltoidköpfe mit erhöhter Rumpfbeanspruchung gegenüber der sitzenden Variante."
+  },
+  "single_arm_dumbbell_overhead_extension_left_arm_standing": {
+    "setupNotes": "Aufrecht stehen, eine Kurzhantel in der linken Hand über dem Kopf mit vollständig gestrecktem Arm halten. Im Ellbogen beugen, um die Kurzhantel hinter den Kopf zu senken, Ellbogen zeigt gerade nach oben und bleibt fixiert. Zurück zum Lockout strecken, Trizeps anspannen. Bauch anspannen, um Hohlkreuz zu vermeiden."
+  },
+  "tate_press_single_arm_left": {
+    "setupNotes": "Lie auf der Flachbank, Kurzhantel in der linken Hand über der Brust gestreckt, Handfläche zu den Füßen. Beuge den Ellenbogen nach innen, die Kurzhantel bewegt sich zur rechten Seite der Brust — das Ende der Kurzhantel berührt leicht die Brust. Drücke zurück zum Lockout. Trainiert den langen Kopf des Trizeps aus einem einzigartigen Winkel."
+  },
+  "rear_delt_fly_dumbbell_strong": {
+    "setupNotes": "Beuge dich um etwa 45° in der Hüfte, leichte Kniebeugen, Rücken flach, Kurzhanteln hängend unter der Brust mit neutralem Griff. Hebe die Arme weit auseinander, Ellbogen führen bis die Oberarme parallel zum Boden sind — höhere Last als beim Standard Rear Delt Fly, leichte Body English erlaubt. Kontrolliertes Senken, Hintere Delts und mittlerer Trapezius anspannen."
+  },
+  "single_arm_dumbbell_overhead_extension_right_arm_seated": {
+    "setupNotes": "Sitze aufrecht auf einer Bank mit Rückenlehne, eine Kurzhantel in der rechten Hand über dem Kopf mit vollständig ausgestrecktem Arm. Beuge den Ellbogen, um die Kurzhantel hinter den Kopf zu senken, Ellbogen zeigt senkrecht nach oben und bleibt fixiert. Strecke zurück bis zum Lockout. Die Rückenlehne reduziert die Belastung des unteren Rückens und isoliert den Trizeps."
+  },
+  "battle_ropes_kneeling_power_slam": {
+    "setupNotes": "Kniel auf der Matte, beide Seilenden in den Händen. Hebe beide Arme über Kopfhöhe und schlage die Seile zusammen nach unten — isoliert Oberkörper und Rumpfkraft."
+  },
+  "hack_squat_machine_narrow": {
+    "setupNotes": "Hack-Squat-Maschine, Schultern unter den Polstern, Rücken gegen das Polster. Füße eng auf der Plattform, dicht beieinander. Absenken bis parallel oder tiefer, hochdrücken — betont die äußeren Quadrizeps."
+  },
+  "hack_squat_machine_wide": {
+    "setupNotes": "Hack-Squat-Maschine, Schultern unter den Polstern, Rücken gegen das Polster. Füße breit auf der Plattform, Zehen leicht nach außen. Herab bis Parallel oder tiefer, hochdrücken — betont die Innenschenkel und das Gesäß."
+  },
+  "simultaneous_dumbbell_biceps_hammer_curl_standing": {
+    "setupNotes": "Aufrecht stehen, je eine Kurzhantel seitlich mit neutralem Griff (Handflächen innen). Beide Arme gleichzeitig nach oben curlen, Daumen zeigen nach oben. Kontrolliert absenken — beide Arme bewegen sich bei jedem Satz zusammen."
+  },
+  "cable_biceps_curl_straight_bar_narrow_closed_grip": {
+    "setupNotes": "Niedriger Kabelzug, Langhantel-Aufsatz. Stelle dich zum Kabelzug, Hände enger als Schultterbreite mit geschlossenem Griff (Daumen umfassend). Ziehe die Stange zu den Schultern, halte die Ellbogen an den Rippen — enge Griffweite betont den langen Kopf des Bizeps."
+  },
+  "cable_overhead_triceps_extension_rope_right": {
+    "setupNotes": "Niedriger Kabelzug, Seil-Aufsatz. Abgewandt zur Maschine im Split-Stand, rechter Arm oben mit eingezogenem Ellbogen. Streck den rechten Arm nach vorn von hinter dem Kopf bis zur vollständigen Streckung, freie Hand auf der Hüfte abgestützt. Belastet den rechten Trizeps mit konstanter Kabelspannung."
+  },
+  "cable_chest_press_low": {
+    "setupNotes": "Doppelkabelzug, Rollen in niedriger Position mit D-Griffen. Stelle dich mit gespanntem Stand seitlich zur Maschine, Griffe auf Hüfthöhe. Drücke beide Griffe nach vorne und leicht nach oben, treffen sich in der Mittellinie über der Brust — zielt auf die obere Brust und vorderen Schultern."
+  },
+  "cable_woodchop_horizontal_left": {
+    "setupNotes": "Kabelzug auf Brusthöhe mit Seil oder D-Griff. Stelle dich mit der rechten Seite zur Maschine, beide Hände am Griff. Rotiere den Oberkörper horizontal und ziehe den Griff über die Brust nach links, während du deinen rechten Fuß pivotierst. Füße stabil, Rotation aus dem Rumpf — trainiert horizontale Rotationskraft."
+  },
+  "cable_chest_press_mid": {
+    "setupNotes": "Doppel-Kabelzug, Umlenkrollen auf Höhe der Brust mit D-Griffen. Stehe mit gespreiztem Stand zur Station hin, Griffe auf Brusthöhe. Drücke beide Griffe nach vorne bis zur vollständigen Streckung, treffen sich auf der Mittellinie — zielt auf die mittlere Brust mit konstanter Kabelspannung."
+  },
+  "close_grip_decline_dumbbell_bench_press_neutral": {
+    "setupNotes": "Schrägbank negativ, Füße gesichert. Drücke die Kurzhanteln mit neutralem Griff (Handflächen zueinander) und Kurzhanteln berührend über der unteren Brust. Senke kontrolliert ab, bis die Oberarme an den Rippen anliegen, drücke wieder hoch und halte die Kurzhanteln zusammen. Der neutrale enge Griff ist schulterfreundlich und betont die untere Brust sowie Trizeps."
+  },
+  "cable_woodchop_horizontal_right": {
+    "setupNotes": "Kabelzug auf Brusthöhe mit Seil oder D-Griff. Stelle dich mit der linken Seite zur Maschine, beide Hände am Griff. Rotiere den Oberkörper horizontal und ziehe den Griff über deinen Körper nach rechts, der linke Fuß dreht mit. Füße fest am Boden, Rotation aus der Rumpfmitte — trainiert horizontale Rotationskraft."
+  },
+  "kneeling_cable_woodchop_left": {
+    "setupNotes": "Kabelzug auf hoher Rolle mit Seil oder D-Griff. Halbe Kniebeuge mit rechtem Knie unten, rechte Seite zur Maschine, beide Hände am Griff oben-rechts. Ziehe diagonal nach unten zur tiefen linken Hüfte, drehe durch den Oberkörper. Knien entfernt Beinkraft — isoliert die schrägen Bauchmuskeln."
+  },
+  "reverse_cable_curl_narrow_closed_grip": {
+    "setupNotes": "Niedriger Kabelzug, gerade Stange. Übergriff (Pronation), geschlossener Griff enger als Schulterbasisbreite. Zieh die Stange hoch, halte die Handflächen unten und die Ellbogen an den Rippen. Enger Pronationsgriff betont Brachioradialis und Unterarmstrecker."
+  },
+  "reverse_lunge_dumbbell_barbell_left_leg": {
+    "setupNotes": "Aufrecht stehen mit Kurzhanteln seitlich oder Langhantel auf dem Rücken, Füße hüftbreit. Linken Fuß zurücktreten in einen langen Ausfallschritt bis beide Knie etwa 90 Grad erreichen, linkes hinteres Knie knapp über dem Boden schwebend. Durch die rechte Ferse vorne drücken zum Zurückbringen in die Ausgangsposition — belastet Quadrizeps und Gesäß der rechten Seite."
+  },
+  "kneeling_cable_woodchop_right": {
+    "setupNotes": "Kabelzug auf hoher Rolle mit Seil oder D-Griff. Halb-Kniestand mit linkem Knie unten, linke Seite zur Maschine, beide Hände auf dem Griff oben-links. Ziehe diagonal nach unten zur unteren rechten Hüfte, drehe dich durch den Oberkörper — Kniestand eliminiert Beinarbeit und isoliert die schrägen Bauchmuskeln."
+  },
+  "reverse_lunge_barbell_right_leg": {
+    "setupNotes": "Aufrecht stehen mit der Langhantel auf dem oberen Rücken, Füße hüftbreit auseinander. Das rechte Bein nach hinten in einen langen Ausfallschritt setzen, senken bis beide Knie ca. 90 Grad erreichen und das rechte hintere Knie knapp über dem Boden schwebt. Durch die linke Ferse drücken, um wieder aufzustehen — belastet den linken vorderen Quadrizeps und das Gesäß unter der Langhantelbelastung."
+  },
+  "seated_cable_row_overhand_grip_single_arm_right": {
+    "setupNotes": "Sitz-Kabelzug-Station, D-Griff. Füße auf der Fußplatte, Knie leicht gebeugt. Ziehe den Griff mit Obergriff (proniert) zu den rechten Rippen, Ellbogen leicht abgespreizt. Leichte Rumpfrotation zur Arbeitsseite — betont die rechte hintere Schulter und den oberen Rücken."
+  },
+  "stability_ball_plank_alternating_leg_lift": {
+    "setupNotes": "Unterarme auf dem Stabilitätsball, Füße auf dem Boden in Plankposition. Heb ein Bein wenige Zentimeter vom Boden ab, halte kurz, dann wechsle. Hüften stabil halten und Core angespannt — die instabile Unterstützung durch die Unterarme plus einseitige Belastung fordert maximale Anti-Rotations-Stabilität im Rumpf."
+  },
+  "superman_with_physio_ball_alternating": {
+    "setupNotes": "Lieg mit Gesicht nach unten auf einer Matte, Physioball unter den Hüften zur Unterstützung, Arme nach vorne ausgestreckt. Heb gleichzeitig den gegenüberliegenden Arm und das Bein (rechter Arm + linkes Bein), halte kurz an, wechsle dann ab. Der Ball gibt Gegendruck unter den Hüften — drück Gesäß und unteren Rücken bei jeder Wiederholung."
+  },
+  "seated_cable_row_overhand_grip_single_arm_left": {
+    "setupNotes": "Kabelzug-Rudermaschine, D-Griff. Füße auf der Fußplatte, Knie leicht gebeugt. Ziehe den Griff mit Obergriff (Pronation) zu den linken Rippen, Ellbogen leicht abgespreizt. Geringe Oberkörperrotation zur Arbeitsseite — betont den linken hinteren Delt und oberen Rücken."
+  },
+  "standing_leg_curl_cable_right": {
+    "setupNotes": "Kabelzug auf niedriger Höhe, Fußmanschette um den rechten Knöchel. Frontal zur Maschine stehen, dich am Rahmen festhalten. Den rechten Ferse zum Gesäß hochziehen, Beinbeuger oben anspannen, dann kontrolliert zurück. Belastet den rechten Beinbeuger mit konstanter Spannung."
+  },
+  "iso_lateral_low_row_overhand_grip": {
+    "setupNotes": "Iso-laterale (unabhängige Arme) Plattenlademaschine Rudern tief. Brust gegen Auflage, Füße auf Plattform. Griffe mit Übergriff (proniert) fassen. Griffe zu den Rippen ziehen, Ellbogen leicht abgespreizt — betont hintere Deltas und oberen Rücken."
+  },
+  "t_bar_row_overhand_grip": {
+    "setupNotes": "T-Bar-Row-Maschine oder Landmine-Setup mit breitem Obergriff. Stelle dich mit gespreizten Beinen über die Stange, Obergriff (Pronation) breiter als Schulterbrust. Beuge dich in den Hüften mit geradem Rücken, ziehe die Stange zur unteren Brust mit abgespreizten Ellbogen — betont Hintere Schultern und oberen Rücken."
+  },
+  "iso_lateral_low_row_underhand_grip": {
+    "setupNotes": "Iso-laterale (unabhängig arbeitende Arme) Maschinen-Rudergerät mit Gewichtsplattformen. Brust gegen Polster, Füße auf Plattform. Griffe im Untergriff (supiniert) fassen. Griffe zu den unteren Rippen ziehen, Ellbogen nah am Körper — Bizeps assistieren, betont Latissimus."
+  },
+  "leaning_lateral_raise_left": {
+    "setupNotes": "Stelle dich neben einen Rack-Pfosten oder eine Kabelstütze, fasse den Pfosten mit der rechten Hand und lehne deinen Körper nach links. Leichte Kurzhantel in der linken Hand, Arm hängend. Hebe den linken Arm seitlich bis Schulterhöhe — das Lehnen erhöht die Bewegungsamplitude unten und sorgt für konstante Spannung auf dem mittleren Deltamuskel."
+  },
+  "cross_body_shoulder_stretch": {
+    "setupNotes": "Aufrecht stehen, den linken Arm gerade über die Brust bringen. Den rechten Unterarm unter dem linken Ellbogen einhaken und den linken Arm näher zum Körper ziehen. Halten. Dehnt den linken hinteren Delt und oberen Rücken."
+  },
+  "hip_flexor_stretch": {
+    "setupNotes": "Halb kniend auf der Matte — linkes Knie unten, rechter Fuß nach vorne. Becken unter die Hüften schieben und die Hüften sanft nach vorne drücken, bis du eine Dehnung vorne in der linken Hüfte spürst. Halte den Oberkörper aufrecht. Halten. Dehnt den linken Hüftbeuger."
+  },
+  "glute_stretch_figure_4": {
+    "setupNotes": "Leg dich auf den Rücken, Knie gebeugt. Kreuze den linken Fuß über das rechte Knie in einer Figur-4. Greife durch und ziehe den rechten Oberschenkel zur Brust — du wirst eine tiefe Dehnung im linken Gesäß spüren. Halten. Zielt auf den linken Piriformis."
+  },
+  "neck_side_stretch": {
+    "setupNotes": "Stehe oder sitze aufrecht, neige das rechte Ohr sanft zur rechten Schulter, halte die linke Schulter entspannt und gesenkt. Optional nutze die rechte Hand für leichten zusätzlichen Druck. Halten. Dehnt die linke NackenSeite."
+  },
+  "upper_trap_stretch": {
+    "setupNotes": "Aufrecht sitzen, linke Hand hinter den Rücken legen. Kopf weg von der linken Schulter neigen und rechte Hand am Kopf für sanften zusätzlichen Druck nutzen. Halten. Löst Verspannungen im linken oberen Trapezius."
+  },
+  "clamshell_banded": {
+    "setupNotes": "Leg dich auf die rechte Seite, das Widerstandsband knapp über den Knien. Knie zu 90 Grad gebeugt, Füße gestapelt. Öffne das linke (obere) Knie gegen den Widerstand, dabei den linken Gesäßmuskel (medial) anspannen. Kontrolliert absenken."
+  },
+  "reverse_clamshell": {
+    "setupNotes": "Leg dich auf die rechte Seite, Knie gebeugt und übereinander. Halte die Knie zusammengepresst und hebe den linken (oberen) Fuß nach oben, rotierend aus der linken Hüfte. Senke kontrolliert ab. Trainiert die Innenrotation der linken Hüfte."
+  },
+  "swiss_ball_side_plank_with_leg_lift": {
+    "setupNotes": "Linker Unterarm am Boden, Füße übereinander auf dem Gymnastikball (linke Seite unten). Oberes (rechtes) Bein heben, während du eine aufrechte Seitplank hältst. Der Ball erzeugt Instabilität — Rumpf hart anspannen. Halte die Position."
+  },
+  "foam_roll_lats": {
+    "setupNotes": "Leg dich auf die linke Seite, die Schaumrolle unter der linken Achselhöhle/im Latbereich, linken Arm nach oben ausstrecken. Rolle langsam von der Achselhöhle bis zum mittleren Brustkorb, pausiere auf empfindlichen Stellen. Entspannt den linken Latissimus."
+  },
+  "world_s_greatest_stretch": {
+    "setupNotes": "Stelle dich hin, schritt mit dem linken Fuß nach vorne in einen tiefen Ausfallschritt und platziere beide Hände auf dem Boden neben dem linken Fuß. Drehe deinen Oberkörper zur linken Seite und strecke deinen linken Arm zur Decke. Halten, dann zurück. Mobilisiert die linke Hüfte, die Brustwirbelsäule und die Beinbeuger."
+  },
+  "pigeon_stretch": {
+    "setupNotes": "Aus der Knie-Ellenbogen-Position das linke Knie nach vorne hinter das linke Handgelenk schieben, das Schienbein quer über den Körper anwinkeln. Das rechte Bein nach hinten ausstrecken. Den Oberkörper über das linke Schienbein senken. Halten und atmen. Tiefe Dehnung der linken äußeren Rotatoren und des Gesäß."
+  },
+  "thread_the_needle": {
+    "setupNotes": "Auf Händen und Knien, führe den linken Arm unter dem Körper durch den Raum zwischen rechter Hand und rechtem Knie hindurch, senke die linke Schulter und das linke Ohr zum Boden. Halten und atmen. Rotiert die linke Brustwirbelsäule."
+  },
+  "banded_shoulder_distraction": {
+    "setupNotes": "Befestige ein starkes Widerstandsband an einem Power Rack in Schulterhöhe. Schlinge das Band um dein linkes Handgelenk und tritt zurück, um Spannung aufzubauen, dann geh in einen Ausfallschritt oder eine Beugung — das Band zieht die linke Schulter sanft. Halte und atme. Mobilisiert die linke Schulterkapsel."
+  },
+  "couch_stretch": {
+    "setupNotes": "Knie mit dem Gesicht zur Wand weg, linkes Schienbein an der Wand nach oben (Zehen zeigen nach oben), rechter Fuß vorne in Ausfallschritt. Becken nach hinten kippen und Hüften nach vorne schieben, aufrecht bleiben — intensive Dehnung des linken Quadrizeps und der Hüftbeuger."
+  },
+  "ankle_dorsiflexion_stretch": {
+    "setupNotes": "Halbkniend zur Wand gewandt — rechtes Knie unten, linker Fuß 10–15 cm vor der Wand. Treib das linke Knie nach vorn zur Wand, ohne die linke Ferse vom Boden zu heben. Mobilisiert das linke Sprunggelenk in Dorsalflexion."
+  },
+  "supine_hamstring_stretch_with_band": {
+    "setupNotes": "Leg dich rücklings hin, eine Schlaufe oder ein Widerstandsband um den linken Fuß. Strecke das linke Bein zur Decke, halte das Knie leicht gebeugt, und ziehe sanft am Band für eine tiefere Dehnung. Das rechte Bein bleibt flach auf dem Boden. Zielt auf den linken Beinbeuger."
+  },
+  "high_side_plank": {
+    "setupNotes": "Leg dich seitlich hin, die untere Hand direkt unter der Schulter auf dem Boden, Arm vollständig gestreckt. Füße übereinander oder versetzt. Drücke den Boden weg und hebe die Hüften in eine gerade Linie — oberer Arm über dem Kopf gestreckt oder an der Hüfte. Zielt auf schräge Bauchmuskeln und Schulterstabilität ab."
+  },
+  "decline_barbell_bench_press_narrow_close_grip": {
+    "setupNotes": "Schrägbank negativ im Power Rack, Füße gesichert. Hände enger als Schultterbreite an der Langhantel. Ausrack, Langhantel zur unteren Brust senken mit eng angelegten Ellbogen, drücke bis zum Lockout — betont Trizeps und die untere Brustmuskulatur."
+  },
+  "spider_curl_barbell_ez_bar": {
+    "setupNotes": "Bauchlage auf der Schrägbank (Brust oben). Arme hängen senkrecht herab, EZ-Stange in den Händen mit halbproniertem Griff. Curl die Stange bis zum Kinn nach oben — ohne Schulterbewegung. Eliminiert Body English — reine Peak-Bizeps-Kontraktion mit angenehmerer Handgelenksposition als bei einer geraden Stange."
+  },
+  "half_kneeling_landmine_press": {
+    "setupNotes": "Langhantel in der Landmine-Halterung oder in der Ecke verkeilt. Knielauf mit einer Seite zum Gewicht (ein Knie unten, gegenüberliegender Fuß nach vorne). Fasse das Stangenende mit beiden Händen an deinem Kinn. Drücke diagonal nach oben bis zur vollständigen Streckung — fordert Core und Schulterstabilität durch die versätzte Ausgangsposition."
+  },
+  "reverse_barbell_curl_ez_bar": {
+    "setupNotes": "Stehend, EZ-Langhantel mit Obergriff (proniert) in Schulterbheite halten. Ellbogen an den Seiten fixiert. Nach oben curlen, Handgelenke gerade halten, Unterarme machen die Arbeit. Die leichte Knöchel-oben-Position der EZ-Langhantel ist schonender für die Handgelenke als eine gerade Stange — betont Brachialis und Unterarmstrecker."
+  },
+  "decline_dumbbell_bench_press_close_grip_neutral": {
+    "setupNotes": "Schrägbank negativ, Kurzhanteln mit neutralem Griff (Handflächen zueinander) über der unteren Brust halten. Kontrolliert senken, bis die Oberarme die Rippen berühren, dann hochdrücken und Kurzhanteln nah beieinander halten. Neutraler Griff schont die Schultern und verlagert den Fokus auf untere Brust und Trizeps."
+  },
+  "dumbbell_row": {
+    "setupNotes": "Stehe aufrecht, beuge dich in der Hüfte mit geradem Rücken auf etwa 45 Grad, Kurzhantel in jeder Hand hängend unter den Schultern mit neutralem Griff. Rudere beide Kurzhanteln zur Rippenkorb-Höhe, Ellbogen nah am Körper, drücke die Lats oben zusammen. Kontrolliertes Senken — kein Schwung."
+  },
+  "dumbbell_row_overhand": {
+    "setupNotes": "Stehend, in den Hüften abknicken mit geradem Rücken, jeweils eine Kurzhantel in der Hand mit Überhand-Griff (Handflächen nach hinten). Beide Kurzhanteln zu den unteren Rippen rudern mit Ellbogen nach außen flared. Überhand-Griff bevorzugt oberen Rücken, hintere Schultern und Rhomboiden gegenüber dem Latissimus."
+  },
+  "single_arm_dumbbell_overhead_extension_left_arm_seated": {
+    "setupNotes": "Sitze auf einer Schrägbank mit Rückenlehne, halte eine Kurzhantel über deinem Kopf in der linken Hand mit vollständig ausgestrecktem Arm. Beuge den Ellbogen, um die Kurzhantel hinter deinen Kopf zu senken, Ellbogen zeigt nach oben und bleibt fixiert. Strecke zurück bis zum Lockout. Die Rückenlehne reduziert die Belastung der Lendenwirbelsäule und isoliert den Trizeps."
+  },
+  "dumbbell_skull_crusher_seated": {
+    "setupNotes": "Sitz aufrecht auf der Bank mit Rückenstütze, Kurzhanteln über dem Kopf mit neutralem Griff halten, Arme gestreckt. Beuge die Ellbogen, um die Kurzhanteln neben den Ohren abzusenken, Ellbogen zeigen nach vorne. Strecke zurück bis zum Lockout. Die Sitzposition fixiert den Oberkörper — reine Trizepsarbeit."
+  },
+  "tate_press_single_arm_right": {
+    "setupNotes": "Leg dich auf die Flachbank, Kurzhantel in der rechten Hand über der Brust ausgestreckt, Handfläche zu den Füßen. Beuge den Ellbogen nach innen, sodass die Kurzhantel zur linken Seite der Brust wandert — das Ende der Kurzhantel berührt leicht die Brust. Drück zurück in den Lockout. Trainiert den langen Kopf des Trizeps aus einem einzigartigen Winkel."
+  },
+  "leg_press_sumo_hip_width": {
+    "setupNotes": "Leg-Press-Maschine. Setz dich mit dem Rücken gegen das Polster, Füße breiter als schulterbreit in Sumo-Position, Zehen nach außen gedreht. Sicherungen lösen, Gewicht senken bis Knie bei ca. 90 Grad — betont innere Oberschenkel und Gesäß."
+  },
+  "dumbbell_skull_crusher_standing": {
+    "setupNotes": "Aufrecht stehen, Kurzhanteln über dem Kopf mit neutralem Griff halten, Arme gestreckt. Ellbogen beugen, um die Kurzhanteln neben den Ohren zu senken, Ellbogen nach vorne fixiert und nach oben zeigend. Zurück zum Lockout strecken. Core anspannen — die Standvariante erfordert volle Ganzkörperstabilität."
+  },
+  "back_extension_banded": {
+    "setupNotes": "Hyper-Extension- bzw. Rückenstreck-Bank. Polster auf Hüftbeuge, Füße verankert. Schlinge ein Widerstandsband um den oberen Rücken und unter die Fußplattform — das Band erzeugt Spannung oben in der Bewegung. Hüfte nach unten und oben heben, Hände hinter dem Kopf oder gekreuzt auf der Brust."
+  },
+  "arm_circles_weighted_large_forward": {
+    "setupNotes": "Stehe aufrecht, leichte Kurzhanteln (1–3 kg) in jeder Hand, Arme seitlich auf Schulterhöhe ausgestreckt. Führe deine Arme in großen, kontrollierten Bögen nach vorne. Dynamisches Schulter-Warm-up mit zusätzlichem Gewicht."
+  },
+  "back_extension_standard_machine_banded": {
+    "setupNotes": "Stell dich an die Standard-Rückenstreckmaschine, Polster gegen den oberen Rücken, Füße auf der Fußplatte verankert. Wickle ein Widerstandsband um das Brustpolster und die Maschinenbasis für zusätzliche Spannung am Ende der Bewegung. Strecke den Oberkörper gegen das Polster zurück — führe die Bewegung aus den Hüften, nicht aus dem unteren Rücken. Trainiert die Rückenstreckmuskeln und das Gesäß."
+  },
+  "cable_chest_press_high": {
+    "setupNotes": "Dualer Kabelzug, Rollen auf hoher Position mit D-Griffen. Stelle dich mit geteiltem Stand nach vorne gewandt hin, Griffe auf Schulterhöhe. Drücke beide Griffe nach vorne und leicht nach unten, treffen sich auf der Mittellinie — zielt auf die unteren Brustfasern ab."
+  },
+  "banded_hip_thrust_standing": {
+    "setupNotes": "Aufrecht stehen, Widerstandsband um die Hüften gelegt und in niedriger Höhe hinter dir befestigt (Rack-Pfosten oder Band-Pin). Hüften gegen die Bandspannung nach vorne drücken in einen aufrechten Lockout, dann leicht in eine Hüftbeuge zurückkehren. Gesäß oben hart anspannen — Rippen unten halten. Eine aufrechte Alternative zum Floor Hip Thrust."
+  },
+  "cable_rope_curl_outside": {
+    "setupNotes": "Niedriger Kabelzug, Seilaufsatz. Stelle dich zur Maschine, greife die Seilenden mit Handflächen nach außen und Seil breiter als die Hände. Curle nach oben, drücke die Seilenden oben zu den Seiten — maximale Kontraktion mit extra Supination. Zielt auf Bizeps-Kurzköpf und Brachialis ab."
+  },
+  "cable_overhead_triceps_extension_rope_left": {
+    "setupNotes": "Niedriger Kabelzug, Seilaufsatz. Weg von der Maschine in Schrittstellung, linker Arm overhead mit eng an den Körper gezogenem Ellbogen. Linken Arm von hinterm Kopf nach vorne bis zur vollständigen Streckung, freie Hand auf der Hüfte gestützt. Belastet den linken Trizeps mit konstanter Kabelspannung."
+  },
+  "cable_russian_twist_right": {
+    "setupNotes": "Kabel auf Brusthöhe mit D-Griff oder Seil. Stehe oder kniele mit der linken Seite zum Stack, beide Hände am Griff vor der Brust. Rotiere den Oberkörper nach rechts gegen den Kabelwiderstand, dann kontrolliert zurück. Hüfte und Füße bleiben stabil — die Rotation kommt aus dem Rumpf."
+  },
+  "cable_russian_twist_left": {
+    "setupNotes": "Kabelzug auf Brusthöhe mit D-Griff oder Seil. Stehe oder kniele mit der rechten Seite zur Maschine, beide Hände am Griff vor der Brust. Drehe den Oberkörper nach links gegen den Widerstand, dann kontrolliert zurück. Hüften und Füße bleiben stabil — die Rotation kommt aus dem Rumpf."
+  },
+  "captain_s_chair_knee_raise_oblique": {
+    "setupNotes": "Captain's Chair / Vertical Knee-Raise Station. Unterarme auf den Pads, Rücken flach gegen die Stütze. Knie zu einer Schulter heben, Becken dabei zu dieser Seite drehen, dann wechseln. Kontrolliertes Tempo — betont die schrägen Bauchmuskeln statt der geraden Bauchmuskulatur."
+  },
+  "close_grip_incline_dumbbell_bench_press_neutral": {
+    "setupNotes": "Schrägbank (30-45 Grad). Kurzhantel mit neutralem Griff (Handflächen zueinander) drücken, Hanteln berühren sich über der oberen Brust. Kontrolliert senken, bis Oberarme die Rippen berühren, zurück drücken und Hanteln zusammenhalten. Neutraler enger Griff ist schulterfreundlich und betont obere Brust und Trizeps."
+  },
+  "oblique_cable_crunch_left": {
+    "setupNotes": "Kabelzug auf hoher Rolle, Seil oder D-Griff. Knien Sie zur Maschine hin, Seil hinter dem Kopf. Rumpf nach unten krunchen und zur linken Hüfte rotieren, rechten Ellbogen zum linken Knie — das betont die rechten schrägen Bauchmuskeln. Kontrollierte Rückführung."
+  },
+  "incline_pec_fly": {
+    "setupNotes": "Pec-Deck- / Flugmaschine auf Schrägbank-Position einstellen (oder Schrägbank-Maschine nutzen). Sitzhöhe so justieren, dass die Griffe auf Höhe der oberen Brust ausgerichtet sind, Rücken fest gegen das Polster, leichte Ellenbeuge. Griffe in großem Bogen vor der oberen Brust zusammenbringen — betont die Fasern der Klavikula (oberen) Brust."
+  },
+  "oblique_cable_crunch_right": {
+    "setupNotes": "Kabelzug auf maximale Höhe, Seil oder D-Griff. Knie dich vor der Maschine auf, Seil hinter dem Kopf. Beuge den Oberkörper nach unten und rotiere zur rechten Hüfte, bringe den linken Ellbogen zum rechten Knie. Kontrollierte Rückbewegung — betont die linke schräge Bauchmuskulatur."
+  },
+  "reverse_lunge_barbell_left_leg": {
+    "setupNotes": "Aufrecht stehen mit der Langhantel auf dem oberen Rücken, Füße hüftbreit auseinander. Den linken Fuß nach hinten in einen langen Ausfallschritt senken, bis beide Knie etwa 90 Grad erreichen und das linke hintere Knie knapp über dem Boden schwebt. Durch die rechte Ferse drücken, um in die Ausgangsposition zurückzukehren — belastet den rechten vorderen Quadrizeps und das Gesäß unter Langhantelgewicht."
+  },
+  "reverse_lunge_dumbbell_barbell_right_leg": {
+    "setupNotes": "Aufrecht stehen, Kurzhanteln an den Seiten oder Langhantel im Nacken, Füße hüftbreit. Rechtes Bein nach hinten in einen langen Ausfallschritt absetzen, bis beide Knie etwa 90 Grad erreichen, rechtes hinteres Knie knapp über dem Boden schwebend. Durch die linke Ferse nach vorne treiben, um in die Ausgangsposition zurückzukehren — belastet den linken vorderen Quadrizeps und das Gesäß."
+  },
+  "seated_cable_row_neutral_grip_single_arm_left": {
+    "setupNotes": "Kabelzug-Ruderstation, D-Griff. Füße auf der Fußplatte, Knie leicht gebeugt. Zieh den Griff zu den linken Rippen mit neutralem Griff (Handfläche zueinander), leichte Drehung des Oberkörpers zur Arbeitsseite. Volle Streckung vorn, Schulterblatt hinten zusammenziehen. Trainiert den linken Latissimus und mittleren Rücken."
+  },
+  "standing_leg_curl_cable_left": {
+    "setupNotes": "Niedriger Kabelzug, Knöchelmanschette um den linken Knöchel. Stehe zur Maschine gewandt und halte dich am Rahmen fest. Beuge die linke Ferse zur Gesäßmuskulatur, drücke den Beinbeuger oben zusammen, dann kontrolliert zurück. Belastet den linken Beinbeuger mit konstanter Kabelspannung."
+  },
+  "seated_cable_row_neutral_grip_single_arm_right": {
+    "setupNotes": "Kabelzug-Rudermaschine, D-Griff. Füße auf der Fußplatte, Knie leicht gebeugt. Ziehe den Griff mit neutralem Griff (Handfläche zugewandt) zu den rechten Rippen, leichte Rotation des Oberkörpers zur arbeitenden Seite. Vollständige Streckung vorne, Schulterblatt hinten zusammendrücken. Trainiert den rechten Latissimus und den mittleren Rücken."
+  },
+  "iso_lateral_incline_machine_chest_press": {
+    "setupNotes": "Iso-laterale (unabhängige Arme) Plattenladungs-Brustpresse, Schrägposition. Stelle den Sitz so ein, dass die Griffe auf der Oberbrust ausgerichtet sind, Füße flach, Rücken gegen die Polsterung. Drücke einen Griff oder beide gleichzeitig zur vollständigen Streckung — zielt auf Oberbrust und vordere Schultern ab, ohne links/rechts auszuweichen."
+  },
+  "iso_lateral_bench_press": {
+    "setupNotes": "Iso-laterale (unabhängige Arme) Brustpresse mit Gewichtsplatten, flache Position. Stelle den Sitz so ein, dass die Griffe auf Höhe der mittleren Brust ausgerichtet sind, Füße flach, Rücken gegen die Rückenlehne. Drücke einen Griff auf einmal oder beide zusammen — die unabhängigen Arme zwingen jede Seite, ihre eigene Arbeit zu leisten. Zielt auf die Brust mit Unterstützung durch den Trizeps."
+  },
+  "iso_lateral_low_row_neutral_grip": {
+    "setupNotes": "Iso-laterale (unabhängige Arme) Plattenladungsrudermaschine. Brust gegen Polster, Füße auf Plattform. Griffe mit neutralem Griff (Handflächen zugewandt) fassen. Griffe zu den Rippen ziehen, Ellbogen dicht am Körper — Schulterblätter zusammendrücken. Trainiert mittleren Rücken und Latissimus."
+  },
+  "iso_lateral_super_incline_press": {
+    "setupNotes": "Iso-lateral (unabhängige Arme) plattenbeladene Schulterpress-Maschine, super-Schrägstellung / fast vertikal. Stelle den Sitz so ein, dass die Griffe mit den Schultern ausgerichtet sind, Füße flach, Rücken gegen das Polster. Drücke die Griffe über Kopf einzeln oder zusammen — zielt auf Schultern mit Unterstützung der oberen Brust ab."
+  },
+  "leaning_lateral_raise_right": {
+    "setupNotes": "Stelle dich neben einen Rackpfosten oder eine Kabelstütze, halte den Pfosten mit der linken Hand und lehne deinen Körper nach rechts. Leichte Kurzhantel in der rechten Hand, Arm hängend. Hebe den rechten Arm zur Seite bis Schulterhöhe — das Lehnen vergrößert die Range of Motion unten und sorgt für konstante Spannung auf dem seitlichen Deltamuskel."
   }
 }

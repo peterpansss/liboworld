@@ -18,6 +18,10 @@
     "navigationMenu": "Menu de navegação",
     "changeLanguage": "Mudar idioma"
   },
+  "common": {
+    "clearAll": "Limpar tudo",
+    "clearFilters": "Limpar filtros"
+  },
   "hero": {
     "eyebrow": "Em Breve — Entre na Lista",
     "headline1": "Treine",
@@ -183,6 +187,7 @@
     "siteFooterLabel": "Rodapé do site",
     "footerNavigation": "Navegação do rodapé",
     "productTitle": "Produto",
+    "pricing": "Preços",
     "companyTitle": "Empresa",
     "resourcesTitle": "Recursos",
     "workoutsTitle": "Treinos",
@@ -232,6 +237,33 @@
     },
     "previousPage": "Página anterior",
     "nextPage": "Próxima página",
+    "exploreByMuscleGroup": "Explorar por grupo muscular",
+    "filtersToggle": "Filtros",
+    "settingLabel": "Local",
+    "typeLabel": "Tipo",
+    "setting": {
+      "all": "Todos",
+      "gym": "Academia",
+      "home": "Casa"
+    },
+    "type": {
+      "all": "Todos",
+      "strength": "Força",
+      "cardio": "Cardio",
+      "hiit": "HIIT",
+      "power": "Potência",
+      "mobility": "Mobilidade",
+      "core": "Core",
+      "pelvicFloor": "Assoalho pélvico",
+      "warmUp": "Aquecimento"
+    },
+    "showingResults": "Mostrando {{from}}–{{to}} de {{total}} exercícios",
+    "showingResultsFiltered": "Mostrando {{from}}–{{to}} de {{total}}{{context}}",
+    "filterContext": {
+      "muscle": " exercícios de {{muscle}}",
+      "equipment": " exercícios com {{equipment}}",
+      "muscleAndEquipment": " exercícios de {{muscle}} com {{equipment}}"
+    },
     "muscles": {
       "all": "Todos",
       "chest": "Peito",
@@ -245,7 +277,19 @@
       "cardio": "Cardio",
       "fullBody": "Corpo inteiro",
       "forearms": "Antebraços",
-      "traps": "Trapézios"
+      "traps": "Trapézios",
+      "quads": "Quadríceps",
+      "hamstrings": "Posteriores da coxa",
+      "calves": "Panturrilhas",
+      "frontDelts": "Deltoide anterior",
+      "sideDelts": "Deltoide lateral",
+      "rearDelts": "Deltoide posterior",
+      "lats": "Latíssimo",
+      "rhomboids": "Rombóides",
+      "abs": "Abdominais",
+      "obliques": "Oblíquos",
+      "lowerBack": "Lombar",
+      "hipFlexors": "Flexores do quadril"
     },
     "equipment": {
       "all": "Todos",
@@ -283,6 +327,101 @@
     "ctaDescription": "Registre séries, repetições e peso. Veja seu progresso ao longo do tempo.",
     "ctaButton": "Entrar na Lista",
     "relatedTitle": "Exercícios Relacionados de {{muscle}}",
+    "instructions": "Instruções",
+    "tips": "Dicas",
+    "breathing": "Respiração",
+    "commonMistakes": "Erros comuns",
+    "alternativeExercisesTitle": "Exercícios alternativos a {{name}}",
+    "voiceMaleHint": "Voz masculina (toque para feminina)",
+    "voiceFemaleHint": "Voz feminina (toque para masculina)",
+    "anatomy": {
+      "targetMuscle": "Músculo alvo",
+      "front": "Frente",
+      "back": "Costas",
+      "primary": "Principal",
+      "secondary": "Secundário"
+    },
+    "heuristics": {
+      "instructions": {
+        "press": [
+          "Contraia o core e mantenha um ritmo controlado durante todo o movimento.",
+          "Desça o peso de forma controlada e depois empurre para cima de forma explosiva.",
+          "Estenda totalmente no topo sem travar as articulações."
+        ],
+        "pull": [
+          "Inicie o movimento retraindo as escápulas.",
+          "Puxe em direção ao corpo com controle, contraindo no pico do movimento.",
+          "Desça com controle até a extensão total."
+        ],
+        "squat": [
+          "Mantenha o peito erguido e o core contraído durante todo o movimento.",
+          "Desça com controle, mantendo os joelhos alinhados com os dedos dos pés.",
+          "Empurre pelos calcanhares para voltar à posição inicial."
+        ],
+        "curl": [
+          "Mantenha os cotovelos colados ao corpo durante todo o movimento.",
+          "Suba o peso com controle, contraindo no topo.",
+          "Desça devagar e com controle — evite balançar."
+        ],
+        "stretch": [
+          "Entre no alongamento devagar e segure no ponto de leve tensão.",
+          "Respire fundo e relaxe na posição — não force.",
+          "Mantenha pelo tempo indicado e depois solte com suavidade."
+        ],
+        "hold": [
+          "Contraia o core e mantenha uma linha reta da cabeça aos calcanhares.",
+          "Respire de forma constante — não prenda a respiração.",
+          "Mantenha pelo tempo indicado, preservando a forma o tempo todo."
+        ],
+        "hinge": [
+          "Faça a dobradiça pelos quadris, mantendo a coluna neutra o tempo todo.",
+          "Empurre pelos calcanhares e contraia os glúteos no topo.",
+          "Desça com controle, mantendo a tensão nos músculos alvo."
+        ],
+        "default": [
+          "Execute o movimento em ritmo controlado.",
+          "Concentre-se na conexão mente-músculo com a área alvo.",
+          "Complete todas as repetições com boa forma antes de aumentar o peso."
+        ]
+      },
+      "tips": {
+        "barbell": "Comece com peso mais leve para aperfeiçoar a forma antes de carregar.",
+        "advanced": "Este é um movimento avançado — certifique-se de dominar a versão básica primeiro.",
+        "unilateral": "Comece pelo lado mais fraco para garantir um desenvolvimento equilibrado.",
+        "sided": "Faça o mesmo número de repetições dos dois lados para um desenvolvimento equilibrado.",
+        "stretch": "Nunca dê impulsos no alongamento — fique firme e respire."
+      },
+      "mistakes": {
+        "squat": [
+          "Deixar os joelhos caírem para dentro — mantenha-os alinhados com os dedos dos pés.",
+          "Arredondar a lombar embaixo — peito alto e core contraído."
+        ],
+        "press": [
+          "Abrir os cotovelos a 90° — mantenha-os num ângulo confortável de 45–60°.",
+          "Quicar o peso no peito — controle a descida."
+        ],
+        "pull": [
+          "Usar impulso para balançar o peso — mantenha o tronco firme.",
+          "Parar antes da contração total — puxe até o fim."
+        ],
+        "hinge": [
+          "Arredondar a lombar — mantenha a coluna neutra o tempo todo.",
+          "Hiperestender no topo — termine com uma contração, não inclinando para trás."
+        ],
+        "curl": [
+          "Balançar o peso com as costas — fixe os cotovelos e isole o bíceps.",
+          "Cortar as repetições — estenda totalmente embaixo para amplitude completa."
+        ],
+        "hold": [
+          "Deixar o quadril cair — mantenha uma linha reta da cabeça aos calcanhares.",
+          "Prender a respiração — respire de forma constante o tempo todo."
+        ],
+        "stretch": [
+          "Dar impulsos no alongamento — fique firme, nunca dê impulsos.",
+          "Forçar a amplitude — relaxe na tensão leve, não na dor."
+        ]
+      }
+    },
     "difficultyLevels": {
       "beginner": "Iniciante",
       "intermediate": "Intermediário",

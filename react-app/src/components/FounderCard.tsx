@@ -10,7 +10,6 @@ import './FounderCard.css';
 // Noah supplies real BTS footage.
 type FounderShot = {
   src: string;
-  caption: string;
   isVideo?: boolean;
   // First-frame fallback so the card has something to render before the
   // video buffers (or if autoplay is blocked).
@@ -26,7 +25,9 @@ const SHOTS: FounderShot[] = [
     src: '/founder/noah-loop.mp4',
     poster: '/founder/noah-loop-poster.jpg',
     isVideo: true,
-    caption: 'Trained, not typed.',
+  },
+  {
+    src: '/founder/noah-photo.jpg',
   },
 ];
 
@@ -66,10 +67,6 @@ export default function FounderCard() {
                   {...(shot.placeholder ? { 'data-placeholder': 'founder-bts' } : {})}
                 />
               )}
-              <figcaption className="founder-caption">
-                <span className="founder-caption__quote" aria-hidden>"</span>
-                <span className="founder-caption__text">{shot.caption}</span>
-              </figcaption>
             </figure>
           ))}
         </div>

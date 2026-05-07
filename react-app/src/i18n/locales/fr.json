@@ -18,6 +18,10 @@
     "navigationMenu": "Menu de navigation",
     "changeLanguage": "Changer de langue"
   },
+  "common": {
+    "clearAll": "Tout effacer",
+    "clearFilters": "Effacer les filtres"
+  },
   "hero": {
     "eyebrow": "Bientôt Disponible — Rejoins la Liste",
     "headline1": "Entraîne-toi",
@@ -183,6 +187,7 @@
     "siteFooterLabel": "Pied de page du site",
     "footerNavigation": "Navigation du pied de page",
     "productTitle": "Produit",
+    "pricing": "Tarifs",
     "companyTitle": "Entreprise",
     "resourcesTitle": "Ressources",
     "workoutsTitle": "Entraînements",
@@ -232,6 +237,33 @@
     },
     "previousPage": "Page précédente",
     "nextPage": "Page suivante",
+    "exploreByMuscleGroup": "Explorer par groupe musculaire",
+    "filtersToggle": "Filtres",
+    "settingLabel": "Lieu",
+    "typeLabel": "Type",
+    "setting": {
+      "all": "Tous",
+      "gym": "Salle",
+      "home": "Maison"
+    },
+    "type": {
+      "all": "Tous",
+      "strength": "Force",
+      "cardio": "Cardio",
+      "hiit": "HIIT",
+      "power": "Puissance",
+      "mobility": "Mobilité",
+      "core": "Gainage",
+      "pelvicFloor": "Plancher pelvien",
+      "warmUp": "Échauffement"
+    },
+    "showingResults": "Affichage de {{from}}–{{to}} sur {{total}} exercices",
+    "showingResultsFiltered": "Affichage de {{from}}–{{to}} sur {{total}}{{context}}",
+    "filterContext": {
+      "muscle": " exercices {{muscle}}",
+      "equipment": " exercices avec {{equipment}}",
+      "muscleAndEquipment": " exercices {{muscle}} avec {{equipment}}"
+    },
     "muscles": {
       "all": "Tous",
       "chest": "Pectoraux",
@@ -245,7 +277,19 @@
       "cardio": "Cardio",
       "fullBody": "Corps entier",
       "forearms": "Avant-bras",
-      "traps": "Trapèzes"
+      "traps": "Trapèzes",
+      "quads": "Quadriceps",
+      "hamstrings": "Ischio-jambiers",
+      "calves": "Mollets",
+      "frontDelts": "Deltoïdes antérieurs",
+      "sideDelts": "Deltoïdes latéraux",
+      "rearDelts": "Deltoïdes postérieurs",
+      "lats": "Grand dorsal",
+      "rhomboids": "Rhomboïdes",
+      "abs": "Abdos",
+      "obliques": "Obliques",
+      "lowerBack": "Bas du dos",
+      "hipFlexors": "Fléchisseurs de hanche"
     },
     "equipment": {
       "all": "Tout",
@@ -283,6 +327,101 @@
     "ctaDescription": "Enregistre tes séries, reps et poids. Vois ta progression dans le temps.",
     "ctaButton": "Rejoindre la Liste",
     "relatedTitle": "Exercices {{muscle}} Similaires",
+    "instructions": "Instructions",
+    "tips": "Conseils",
+    "breathing": "Respiration",
+    "commonMistakes": "Erreurs courantes",
+    "alternativeExercisesTitle": "Exercices alternatifs à {{name}}",
+    "voiceMaleHint": "Voix masculine (touche pour féminine)",
+    "voiceFemaleHint": "Voix féminine (touche pour masculine)",
+    "anatomy": {
+      "targetMuscle": "Muscle ciblé",
+      "front": "Avant",
+      "back": "Arrière",
+      "primary": "Principal",
+      "secondary": "Secondaire"
+    },
+    "heuristics": {
+      "instructions": {
+        "press": [
+          "Gaine ton tronc et garde un tempo contrôlé pendant tout le mouvement.",
+          "Descends la charge de façon contrôlée, puis pousse vers le haut de manière explosive.",
+          "Étends complètement en haut sans verrouiller les articulations."
+        ],
+        "pull": [
+          "Démarre le mouvement en rétractant les omoplates.",
+          "Tire vers ton corps avec contrôle, en serrant à la contraction maximale.",
+          "Redescends avec contrôle jusqu'à l'extension complète."
+        ],
+        "squat": [
+          "Garde la poitrine haute et le tronc gainé pendant tout le mouvement.",
+          "Descends avec contrôle, en gardant les genoux alignés avec les orteils.",
+          "Pousse à travers les talons pour revenir à la position de départ."
+        ],
+        "curl": [
+          "Garde les coudes collés au corps pendant tout le mouvement.",
+          "Monte la charge avec contrôle, en serrant en haut.",
+          "Redescends lentement et sous contrôle — évite de balancer."
+        ],
+        "stretch": [
+          "Entre dans l'étirement lentement et tiens au point de légère tension.",
+          "Respire profondément et relâche-toi dans la position — ne force pas.",
+          "Tiens la durée prescrite, puis relâche doucement."
+        ],
+        "hold": [
+          "Engage ton tronc et garde une ligne droite de la tête aux talons.",
+          "Respire calmement — ne bloque pas ta respiration.",
+          "Tiens la durée prescrite en gardant la forme du début à la fin."
+        ],
+        "hinge": [
+          "Bascule depuis les hanches en gardant la colonne neutre tout du long.",
+          "Pousse à travers les talons et serre les fessiers en haut.",
+          "Redescends avec contrôle en maintenant la tension dans les muscles ciblés."
+        ],
+        "default": [
+          "Effectue le mouvement à un tempo contrôlé.",
+          "Concentre-toi sur la connexion esprit-muscle avec la zone ciblée.",
+          "Termine toutes les reps avec une bonne forme avant d'augmenter la charge."
+        ]
+      },
+      "tips": {
+        "barbell": "Commence avec une charge légère pour perfectionner ta forme avant de charger.",
+        "advanced": "C'est un mouvement avancé — assure-toi de maîtriser la version de base d'abord.",
+        "unilateral": "Commence par ton côté faible pour assurer un développement équilibré.",
+        "sided": "Fais le même nombre de reps des deux côtés pour un développement équilibré.",
+        "stretch": "Ne rebondis jamais dans un étirement — tiens stable et respire."
+      },
+      "mistakes": {
+        "squat": [
+          "Laisser les genoux rentrer vers l'intérieur — garde-les alignés avec tes orteils.",
+          "Arrondir le bas du dos en bas — garde la poitrine haute et le tronc gainé."
+        ],
+        "press": [
+          "Écarter les coudes à 90° — garde-les à un angle confortable de 45–60°.",
+          "Faire rebondir la charge sur ta poitrine — contrôle la descente."
+        ],
+        "pull": [
+          "Utiliser l'élan pour balancer la charge — garde le torse stable.",
+          "S'arrêter avant la contraction complète — tire jusqu'au bout."
+        ],
+        "hinge": [
+          "Arrondir le bas du dos — garde la colonne neutre tout du long.",
+          "Hyperextension en haut — finis avec un serrage, pas en te penchant en arrière."
+        ],
+        "curl": [
+          "Balancer la charge avec le dos — fixe les coudes et isole le biceps.",
+          "Couper les reps — étends complètement en bas pour toute l'amplitude."
+        ],
+        "hold": [
+          "Laisser tomber les hanches — garde une ligne droite de la tête aux talons.",
+          "Bloquer ta respiration — respire calmement du début à la fin."
+        ],
+        "stretch": [
+          "Rebondir dans l'étirement — tiens stable, ne rebondis jamais.",
+          "Forcer l'amplitude — relâche-toi dans une légère tension, pas dans la douleur."
+        ]
+      }
+    },
     "difficultyLevels": {
       "beginner": "Débutant",
       "intermediate": "Intermédiaire",
