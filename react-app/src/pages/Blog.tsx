@@ -17,13 +17,13 @@ const CATEGORY_VALUES: Record<(typeof CATEGORY_KEYS)[number], string> = {
 };
 const VALID_CATEGORIES = Object.values(CATEGORY_VALUES);
 
-function formatDate(dateStr: string) {
-  const d = new Date(dateStr + 'T00:00:00');
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-}
-
 export default function Blog() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const formatDate = (dateStr: string) => {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString(i18n.language, { month: 'short', day: 'numeric', year: 'numeric' });
+  };
   // Active category is driven by the `?cat=` query param so the nav
   // dropdown can deep-link to a pre-filtered view (e.g. /blog?cat=Training).
   // Falls back to "All" when missing or unrecognized.
@@ -53,8 +53,6 @@ export default function Blog() {
       <section className="blog-hero">
         <nav aria-label={t('blog.breadcrumbAria')} className="blog-breadcrumb">
           <Link to="/">{t('blog.breadcrumbHome')}</Link>
-          <span>&rsaquo;</span>
-          {t('blog.breadcrumbResources')}
           <span>&rsaquo;</span>
           {t('blog.breadcrumbBlog')}
         </nav>
