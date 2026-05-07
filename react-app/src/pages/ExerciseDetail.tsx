@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getExercises, loadExerciseContent, type Exercise, type ExerciseContent } from '../data/exercises';
 import {
@@ -7,6 +7,7 @@ import {
   publicVideoUrl,
   publicVideoUrlAlt,
   type VoicePreference,
+  type SupportedLang,
 } from '../utils/thumbnails';
 import { Target, Dumbbell, Zap, Volume2, VolumeX, Maximize2, Minimize2, ICON_STROKE } from '../utils/icons';
 import { MuscleTile } from '../components/MuscleTile';
@@ -57,12 +58,17 @@ export default function ExerciseDetail() {
   const difficultyLabel = (d: string) =>
     t(`exerciseDetail.difficultyLevels.${d}`, { defaultValue: capitalize(d) });
 
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const [aiContent, setAiContent] = useState<Record<string, ExerciseContent>>({});
   const videoRef = useRef<HTMLVideoElement>(null);
   const pipVideoRef = useRef<HTMLVideoElement>(null);
+  // Tracks whether we've already swapped a missing localized variant for the
+  // English fallback on the current (exercise, voice, lang) tuple. Reset by
+  // the effect below whenever any of those change, so each new selection
+  // gets a fresh chance to load the localized clip.
+  const langFallbackUsedRef = useRef(false);
   const [muted, setMuted] = useState(true);
   const [showingAlt, setShowingAlt] = useState(false);
   // Voice coach: persisted in localStorage so the choice survives reloads.
@@ -172,13 +178,19 @@ export default function ExerciseDetail() {
   }, [i18n.language]);
 
   const exercise = useMemo(
-    () => exercises.find((e) => e.id === id) || null,
-    [exercises, id],
+    () => exercises.find((e) => e.slug === slug || e.id === slug) || null,
+    [exercises, slug],
+  );
+
+  // Backward-compat: if the URL still uses the legacy id (or any non-slug
+  // identifier) and the exercise carries a distinct slug, canonicalize the URL.
+  const needsSlugRedirect = Boolean(
+    exercise && exercise.slug && exercise.slug !== slug,
   );
 
   const instructions = useMemo(
-    () => (exercise ? getInstructions(exercise) : []),
-    [exercise],
+    () => (exercise ? getInstructions(exercise, t) : []),
+    [exercise, t],
   );
 
   // Prefer AI-authored content from the sidecar; fall back to heuristics.
@@ -186,13 +198,13 @@ export default function ExerciseDetail() {
   const tips = useMemo(() => {
     if (!exercise) return [];
     if (aiEntry?.tips?.length) return aiEntry.tips;
-    return getTips(exercise);
-  }, [exercise, aiEntry]);
+    return getTips(exercise, t);
+  }, [exercise, aiEntry, t]);
   const mistakes = useMemo(() => {
     if (!exercise) return [];
     if (aiEntry?.commonMistakes?.length) return aiEntry.commonMistakes;
-    return getCommonMistakes(exercise);
-  }, [exercise, aiEntry]);
+    return getCommonMistakes(exercise, t);
+  }, [exercise, aiEntry, t]);
   const breathingCue = aiEntry?.breathingCue ?? null;
 
   const primaryMuscle = useMemo(
@@ -200,13 +212,28 @@ export default function ExerciseDetail() {
     [exercise],
   );
 
+  // Resolve the active language (truncated to its primary subtag, e.g.
+  // 'en-US' → 'en'). Falls back to English for any locale without a voiced
+  // variant in the pipeline.
+  const supportedLangs: ReadonlyArray<SupportedLang> = ['en', 'de', 'es', 'fr', 'pt'];
+  const langCode = (i18n.language || 'en').split('-')[0];
+  const lang: SupportedLang = (supportedLangs as readonly string[]).includes(langCode)
+    ? (langCode as SupportedLang)
+    : 'en';
+
   // Resolve video sources at top level so [mainSrc]/[pipSrc] effects can
   // imperatively .load() the same <video> element when voice toggles or the
   // user swaps angles — no React `key` change → no remount → no flicker.
-  const primarySrc = exercise ? publicVideoUrl(exercise, voice) : undefined;
-  const altSrc = exercise ? publicVideoUrlAlt(exercise, voice) : undefined;
+  const primarySrc = exercise ? publicVideoUrl(exercise, voice, lang) : undefined;
+  const altSrc = exercise ? publicVideoUrlAlt(exercise, voice, lang) : undefined;
   const mainSrc = showingAlt && altSrc ? altSrc : primarySrc;
   const pipSrc = showingAlt && altSrc ? primarySrc : altSrc;
+
+  // Reset the lang-fallback latch whenever the (exercise, voice, lang) tuple
+  // changes, so each new selection re-attempts the localized variant first.
+  useEffect(() => {
+    langFallbackUsedRef.current = false;
+  }, [exercise?.id, voice, lang]);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -248,6 +275,10 @@ export default function ExerciseDetail() {
         <SiteFooter />
       </>
     );
+  }
+
+  if (needsSlugRedirect && exercise) {
+    return <Navigate to={`/exercises/${exercise.slug}`} replace />;
   }
 
   if (!exercise) {
@@ -322,6 +353,19 @@ export default function ExerciseDetail() {
                     playsInline
                     autoPlay
                     preload="metadata"
+                    onError={() => {
+                      // Not every exercise has a localized voiceover yet
+                      // (~217/605 voiced as of the staged multilingual run).
+                      // If the localized clip 404s, fall back to English once.
+                      if (lang !== 'en' && !langFallbackUsedRef.current && exercise) {
+                        langFallbackUsedRef.current = true;
+                        const enUrl = publicVideoUrl(exercise, voice, 'en');
+                        if (enUrl && videoRef.current) {
+                          videoRef.current.src = enUrl;
+                          videoRef.current.load();
+                        }
+                      }
+                    }}
                   />
                   <button
                     type="button"
@@ -365,8 +409,8 @@ export default function ExerciseDetail() {
                     })}
                     title={
                       voice === 'male'
-                        ? 'Male voice (tap for female)'
-                        : 'Female voice (tap for male)'
+                        ? t('exerciseDetail.voiceMaleHint')
+                        : t('exerciseDetail.voiceFemaleHint')
                     }
                   >
                     <span aria-hidden>{voice === 'male' ? '♂' : '♀'}</span>
@@ -431,7 +475,7 @@ export default function ExerciseDetail() {
             <div>
               {instructions.length > 0 && (
                 <div className="ed-block">
-                  <h2 className="ed-section-title">Instructions</h2>
+                  <h2 className="ed-section-title">{t('exerciseDetail.instructions')}</h2>
                   <ol className="ed-steps">
                     {instructions.map((step, i) => (
                       <li key={i} className="ed-step">
@@ -445,7 +489,7 @@ export default function ExerciseDetail() {
 
               {tips.length > 0 && (
                 <div className="ed-block">
-                  <h2 className="ed-section-title">Tips</h2>
+                  <h2 className="ed-section-title">{t('exerciseDetail.tips')}</h2>
                   <ul className="ed-bullets">
                     {tips.map((tip, i) => (
                       <li key={i}>{tip}</li>
@@ -456,14 +500,14 @@ export default function ExerciseDetail() {
 
               {breathingCue && (
                 <div className="ed-block">
-                  <h2 className="ed-section-title">Breathing</h2>
+                  <h2 className="ed-section-title">{t('exerciseDetail.breathing')}</h2>
                   <p className="ed-step-text" style={{ paddingTop: 0 }}>{breathingCue}</p>
                 </div>
               )}
 
               {mistakes.length > 0 && (
                 <div className="ed-block">
-                  <h2 className="ed-section-title">Common Mistakes</h2>
+                  <h2 className="ed-section-title">{t('exerciseDetail.commonMistakes')}</h2>
                   <ul className="ed-bullets ed-bullets--warn">
                     {mistakes.map((m, i) => (
                       <li key={i}>{m}</li>

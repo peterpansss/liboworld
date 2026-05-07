@@ -45,7 +45,7 @@ export default function App() {
         <Route path="/pricing" element={<Suspense fallback={darkFallback}><Pricing /></Suspense>} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/exercises" element={<Suspense fallback={darkFallback}><ExerciseLibrary /></Suspense>} />
-        <Route path="/exercises/:id" element={<Suspense fallback={darkFallback}><ExerciseDetail /></Suspense>} />
+        <Route path="/exercises/:slug" element={<Suspense fallback={darkFallback}><ExerciseDetail /></Suspense>} />
         <Route path="/workouts" element={<Suspense fallback={darkFallback}><ProgramLibrary /></Suspense>} />
         <Route path="/workouts/:id" element={<Suspense fallback={darkFallback}><ProgramDetail /></Suspense>} />
         <Route path="/blog" element={<Suspense fallback={darkFallback}><Blog /></Suspense>} />

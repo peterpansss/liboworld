@@ -599,17 +599,25 @@ export function ExercisesPage() {
   }
 
   // Merged view: base (exercises.json) + legacy patch overrides + canonical rows.
-  // Canonical rows take precedence (they're admin-created or the explicit table version).
+  // Canonical rows take precedence (they're admin-created or the explicit table
+  // version). Dedupe is keyed on `slug` — not `id` — because the bundled JSON
+  // and Supabase use different id conventions (e.g. bundled `zercher_squat` vs
+  // canonical `gym_162`) for the same exercise. Slug has a UNIQUE constraint
+  // in Supabase and is present on every bundled row, so it's the stable key.
+  // Rows missing a slug fall back to id so they still appear once.
   const merged = useMemo<Exercise[]>(() => {
-    const byId = new Map<string, Exercise>();
+    const keyOf = (e: { id: string; slug?: string }) => e.slug ?? e.id;
+    const bySlug = new Map<string, Exercise>();
     for (const b of base) {
       const o = overridesById.get(b.id);
-      byId.set(b.id, o ? { ...b, ...(o.patch as Partial<Exercise>) } : b);
+      const row = o ? { ...b, ...(o.patch as Partial<Exercise>) } : b;
+      bySlug.set(keyOf(row), row);
     }
     for (const r of canonicalRows) {
-      byId.set(r.id, canonicalToExercise(r));
+      const row = canonicalToExercise(r);
+      bySlug.set(keyOf(row), row);
     }
-    return Array.from(byId.values());
+    return Array.from(bySlug.values());
   }, [base, overridesById, canonicalRows]);
 
   // Bilateral lookups (computed off the merged dataset so renamed rows pick up).

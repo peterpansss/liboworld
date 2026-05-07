@@ -456,7 +456,7 @@ export default function ExerciseLibrary() {
               {pageExercises.map(ex => {
                 const thumb = exerciseThumb(ex);
                 return (
-                <Link key={ex.id} to={`/exercises/${ex.id}`} className="el-card">
+                <Link key={ex.id} to={`/exercises/${ex.slug ?? ex.id}`} className="el-card">
                   <div className="el-card-media">
                     <MuscleTile muscle={ex.bodyFocus} />
                     {thumb && (

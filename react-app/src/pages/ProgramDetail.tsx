@@ -29,9 +29,11 @@ function formatSetsReps(ex: WorkoutExercise): string {
 }
 
 function findExerciseId(name: string, exerciseDb: Exercise[]): string | null {
+  // Returns the URL identifier for an exercise — slug-first, id fallback —
+  // so links built from program data work after the route switched to :slug.
   const normalized = name.toLowerCase().trim();
   const match = exerciseDb.find((e) => e.name.toLowerCase().trim() === normalized);
-  return match ? match.id : null;
+  return match ? (match.slug ?? match.id) : null;
 }
 
 function findExerciseEquipment(name: string, exerciseDb: Exercise[]): string | null {

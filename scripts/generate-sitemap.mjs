@@ -86,10 +86,11 @@ function main() {
   entries.push(urlEntry(`${SITE_URL}/privacy`, 0.3, 'yearly'));
   entries.push(urlEntry(`${SITE_URL}/terms`, 0.3, 'yearly'));
 
-  // Exercise detail pages (id == slug for current data)
+  // Exercise detail pages — slug-first, id fallback (route is /exercises/:slug)
   for (const ex of exercises) {
-    if (!ex.id) continue;
-    entries.push(urlEntry(`${SITE_URL}/exercises/${escapeXml(ex.id)}`, 0.7, 'monthly'));
+    const urlKey = ex.slug || ex.id;
+    if (!urlKey) continue;
+    entries.push(urlEntry(`${SITE_URL}/exercises/${escapeXml(urlKey)}`, 0.7, 'monthly'));
   }
 
   // Workout detail pages
