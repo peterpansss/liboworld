@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Workout, type WorkoutExercise, type Exercise } from '../data/exercises';
+import { buildPlayableExerciseNames, filterPlayableBlocks, filterPlayableWorkouts } from '../lib/playableWorkouts';
 import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -90,10 +91,24 @@ export default function ProgramDetail() {
 
   useEffect(() => {
     Promise.all([getWorkouts(), getExercises(i18n.language)]).then(([wks, exs]) => {
-      setAllWorkouts(wks);
+      // Drop unplayable blocks before the page renders — the per-phase
+      // overview, the exercise count chip, and the duration chip all read
+      // off the filtered shape so they don't claim more than the player
+      // can deliver. Done at consumer-level so admin pages still see the
+      // raw data.
+      const playableNames = buildPlayableExerciseNames(exs);
+      const filteredWks = filterPlayableWorkouts(wks, playableNames);
+      setAllWorkouts(filteredWks);
       setExerciseDb(exs);
-      const found = wks.find((w) => w.id === id) || null;
-      setWorkout(found);
+      // The looked-up workout is filtered too — even if the list drops a
+      // workout entirely (all blocks unplayable), a direct URL hit should
+      // still resolve to the same view-of-truth, so re-filter the matched
+      // raw workout and surface it only if it still has at least one block.
+      const rawFound = wks.find((w) => w.id === id) || null;
+      const found = rawFound
+        ? filterPlayableBlocks(rawFound, playableNames)
+        : null;
+      setWorkout(found && found.exercises.length > 0 ? found : null);
       setLoading(false);
     });
   }, [id, i18n.language]);

@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Exercise, type Workout } from '../data/exercises';
+import { buildPlayableExerciseNames, filterPlayableWorkouts } from '../lib/playableWorkouts';
 import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -114,7 +115,12 @@ export default function ProgramLibrary() {
     let cancelled = false;
     Promise.all([getWorkouts(), getExercises(i18n.language)]).then(([w, e]) => {
       if (cancelled) return;
-      setWorkouts(w);
+      // Drop workout blocks whose exercise has no playable video (and no
+      // child fallback). Same predicate as the exercise library uses — when
+      // animations ship, both inherit the wider rule. Workouts that end up
+      // with zero blocks are dropped from the list entirely.
+      const playableNames = buildPlayableExerciseNames(e);
+      setWorkouts(filterPlayableWorkouts(w, playableNames));
       setExercises(e);
       setLoading(false);
     });

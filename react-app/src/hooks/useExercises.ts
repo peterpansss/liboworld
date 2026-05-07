@@ -117,29 +117,51 @@ function fromSupabase(row: ExerciseRow): ExerciseDisplay {
 }
 
 /**
- * Hide exercises that have no playable video AND no fallback child with a
- * video. Belt-and-suspenders alongside the admin status toggle: if a row is
- * marked `published` but its mp4 is missing (mid-production, freshly created
- * row, etc.), an empty card on the public site looks like a bug. Filtering
- * here keeps the catalog clean even when admins forget to flip status.
+ * Per-row "is this exercise playable right now?" predicate. Belt-and-suspenders
+ * alongside the admin status toggle: if a row is marked `published` but its
+ * mp4 is missing (mid-production, freshly created row, etc.), an empty card on
+ * the public site looks like a bug. The same predicate is reused at the
+ * workout-block level so a workout that references a video-less exercise
+ * silently drops that block instead of breaking the player.
  *
  * Rules:
- *   - A canonical (parent) exercise is kept if its own videoUrl is non-empty
- *     OR at least one of its children (rows whose parentId matches this
- *     exercise's id) has a non-empty videoUrl. Same fallback the detail page
- *     already uses to source a thumbnail/clip.
- *   - A child variant is kept only if its own videoUrl is non-empty.
+ *   - A canonical (parent) exercise is playable if its own videoUrl is
+ *     non-empty OR at least one of its children (rows whose parentId matches
+ *     this exercise's id) has a non-empty videoUrl. Same fallback the detail
+ *     page already uses to source a thumbnail/clip.
+ *   - A child variant is playable only if its own videoUrl is non-empty.
+ *
+ * `childrenWithVideoByParent` is built once by the caller and threaded
+ * through, so callers that filter many rows don't pay an O(n) scan per call.
+ *
+ * Future-proofing: when animations ship, widen the rule to
+ * `hasVideo OR hasAnimation` in this one place — `filterPlayable` and the
+ * workout-block filter both inherit the change.
  */
-function filterPlayable(rows: ExerciseDisplay[]): ExerciseDisplay[] {
-  const childrenWithVideoByParent = new Set<string>();
+type PlayableExercise = Pick<ExerciseDisplay, 'id' | 'parentId' | 'videoUrl'>;
+
+export function buildChildrenWithVideoByParent(
+  rows: readonly PlayableExercise[],
+): Set<string> {
+  const set = new Set<string>();
   for (const r of rows) {
-    if (r.parentId && r.videoUrl) childrenWithVideoByParent.add(r.parentId);
+    if (r.parentId && r.videoUrl) set.add(r.parentId);
   }
-  return rows.filter((r) => {
-    if (r.videoUrl) return true;
-    if (r.parentId) return false;
-    return childrenWithVideoByParent.has(r.id);
-  });
+  return set;
+}
+
+export function isPlayable(
+  ex: PlayableExercise,
+  childrenWithVideoByParent: Set<string>,
+): boolean {
+  if (ex.videoUrl) return true;
+  if (ex.parentId) return false;
+  return childrenWithVideoByParent.has(ex.id);
+}
+
+function filterPlayable(rows: ExerciseDisplay[]): ExerciseDisplay[] {
+  const childrenWithVideoByParent = buildChildrenWithVideoByParent(rows);
+  return rows.filter((r) => isPlayable(r, childrenWithVideoByParent));
 }
 
 // Module-level cache so navigating away/back doesn't refetch.
