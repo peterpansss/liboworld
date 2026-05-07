@@ -145,11 +145,17 @@ export default function ExerciseLibrary() {
     let result = parentExercises;
 
     if (urlSearch) {
-      const q = urlSearch.toLowerCase();
+      // Normalize hyphens / em-dashes to spaces (then collapse runs of
+      // whitespace) on both query and candidate text. This way searches
+      // like "iso la" match "Iso-Lateral", "single arm" matches "Single-Arm",
+      // and "world s" matches "World's". Case-insensitive throughout.
+      const norm = (s: string) =>
+        s.toLowerCase().replace(/[—–\-']/g, ' ').replace(/\s+/g, ' ').trim();
+      const q = norm(urlSearch);
       result = result.filter(e =>
-        e.name.toLowerCase().includes(q) ||
-        e.bodyFocus.toLowerCase().includes(q) ||
-        e.equipment.toLowerCase().includes(q)
+        norm(e.name).includes(q) ||
+        norm(e.bodyFocus).includes(q) ||
+        norm(e.equipment).includes(q)
       );
     }
 
