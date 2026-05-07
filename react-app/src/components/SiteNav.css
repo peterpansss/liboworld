@@ -172,19 +172,6 @@
   white-space: normal; /* allow desc to wrap */
 }
 
-.site-nav__dropdown-item-icon {
-  font-size: 22px;
-  line-height: 1;
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(202, 255, 0, 0.08);
-  border-radius: 10px;
-}
-
 .site-nav__dropdown-item-text {
   display: flex;
   flex-direction: column;
@@ -204,10 +191,6 @@
   font-weight: 400;
   color: var(--muted);
   line-height: 1.4;
-}
-
-.site-nav__dropdown-item--mega:hover .site-nav__dropdown-item-icon {
-  background: rgba(202, 255, 0, 0.16);
 }
 
 /* ── Frosted-glass scroll state ── */

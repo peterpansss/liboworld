@@ -24,7 +24,6 @@ const REWARD_CLUB_CHILDREN = [
     defaultLabel: 'Cash Challenges',
     descriptionKey: 'nav.cashChallengesDesc',
     defaultDescription: 'Train 30 days, earn up to €250 cash',
-    icon: '💰',
     to: '/cash-challenge',
   },
   {
@@ -32,7 +31,6 @@ const REWARD_CLUB_CHILDREN = [
     defaultLabel: 'Giveaways',
     descriptionKey: 'nav.giveawaysDesc',
     defaultDescription: 'Win iPhones, Apple Watches & monthly prizes',
-    icon: '🎁',
     to: '/giveaway',
   },
 ] as const;
@@ -146,7 +144,7 @@ export default function SiteNav() {
                 <span className="site-nav__dropdown-caret" aria-hidden>▾</span>
               </button>
               <ul className="site-nav__dropdown-menu site-nav__dropdown-menu--mega" role="menu">
-                {REWARD_CLUB_CHILDREN.map(({ labelKey, defaultLabel, descriptionKey, defaultDescription, icon, to }) => (
+                {REWARD_CLUB_CHILDREN.map(({ labelKey, defaultLabel, descriptionKey, defaultDescription, to }) => (
                   <li key={to} role="none">
                     <Link
                       to={to}
@@ -155,7 +153,6 @@ export default function SiteNav() {
                       aria-current={isActive(to) ? 'page' : undefined}
                       onClick={() => setRewardOpen(false)}
                     >
-                      <span className="site-nav__dropdown-item-icon" aria-hidden>{icon}</span>
                       <span className="site-nav__dropdown-item-text">
                         <span className="site-nav__dropdown-item-title">{t(labelKey, { defaultValue: defaultLabel })}</span>
                         <span className="site-nav__dropdown-item-desc">{t(descriptionKey, { defaultValue: defaultDescription })}</span>
