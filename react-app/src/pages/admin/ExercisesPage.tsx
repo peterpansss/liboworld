@@ -524,9 +524,18 @@ export function ExercisesPage() {
     }
   }
 
+  // Normalize hyphens/em-dashes/punctuation/underscores → spaces, collapse
+  // whitespace, lowercase. Lets "single arm" match "Single-Arm" AND
+  // single_arm_*, "iso lateral low" match "Iso-Lateral Low Row" AND
+  // iso_lateral_low_row, etc. Underscore is included because admin search
+  // runs over slugs/ids too (admins regularly look up exercises by slug),
+  // unlike the public-site search which doesn't expose slugs to users.
+  const normSearch = (s: string) =>
+    s.toLowerCase().replace(/[—–\-'/.,()_]/g, ' ').replace(/\s+/g, ' ').trim();
+
   // Debounced search
   useEffect(() => {
-    const t = setTimeout(() => setSearch(searchRaw.trim().toLowerCase()), 250);
+    const t = setTimeout(() => setSearch(normSearch(searchRaw)), 250);
     return () => clearTimeout(t);
   }, [searchRaw]);
 
@@ -655,7 +664,9 @@ export function ExercisesPage() {
       if (fDiff && e.diff !== fDiff) return false;
       if (fHasOverride && !overridesById.has(e.id)) return false;
       if (search) {
-        const hay = `${e.name ?? ''} ${e.bodyFocus ?? ''} ${e.equipment ?? ''}`.toLowerCase();
+        const hay = normSearch(
+          `${e.name ?? ''} ${e.slug ?? ''} ${e.id ?? ''} ${e.bodyFocus ?? ''} ${e.equipment ?? ''}`,
+        );
         if (!hay.includes(search)) return false;
       }
       return true;
