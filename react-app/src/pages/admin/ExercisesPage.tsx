@@ -751,7 +751,28 @@ export function ExercisesPage() {
       // either way, so it's a benign first-write. Admin retains full control:
       // they can clear the field before saving if they don't want it
       // persisted.
-      const patch = diffCanonical(canonical, form);
+      let patch = diffCanonical(canonical, form);
+
+      // Auto-link bilateral children: when the name pattern says this is
+      // "X — Left" / "X — Right" and there's a canonical parent row "X" with
+      // its own id, but THIS row has no parent_id yet, include parent_id +
+      // parent_name in the save patch. This back-fills legacy data that was
+      // imported as 3 independent parent rows instead of parent + 2 children.
+      const editingName = str(editing.name);
+      if (isChildNameClient(editingName) && !canonical.parent_id) {
+        const parentName = parentNameOfClient(editingName);
+        const parentRow = canonicalRows.find(
+          (r) => r.name === parentName && !r.parent_id,
+        );
+        if (parentRow) {
+          patch = {
+            ...patch,
+            parent_id: parentRow.id,
+            parent_name: parentName,
+          };
+        }
+      }
+
       if (Object.keys(patch).length === 0) {
         setModalErr('No changes');
         return;
