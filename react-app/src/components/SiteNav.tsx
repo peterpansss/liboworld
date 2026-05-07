@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './LanguageSwitcher';
 import './SiteNav.css';
 
 // Top-level desktop nav items. The Reward Club entry is a parent that
@@ -173,13 +172,6 @@ export default function SiteNav() {
 
           {/* Right section */}
           <div className="site-nav__right">
-            <LanguageSwitcher />
-            <Link
-              to="/onboarding"
-              className="site-nav__login"
-            >
-              {t('nav.login', { defaultValue: 'Log in' })}
-            </Link>
             <Link to="/onboarding" className="site-nav__cta">
               {t('nav.getStarted')}
             </Link>
@@ -236,14 +228,6 @@ export default function SiteNav() {
           ))}
         </div>
         <div className="site-nav__drawer-bottom">
-          <LanguageSwitcher variant="drawer" />
-          <Link
-            to="/onboarding"
-            className="site-nav__drawer-login"
-            onClick={() => setDrawerOpen(false)}
-          >
-            {t('nav.login', { defaultValue: 'Log in' })}
-          </Link>
           <Link
             to="/onboarding"
             className="site-nav__drawer-cta"

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { SUPPORTED_LANGUAGES, type LanguageCode } from '../i18n';
 import './LanguageSwitcher.css';
 
-type Props = { variant?: 'nav' | 'drawer' };
+type Props = { variant?: 'nav' | 'drawer' | 'footer' };
 
 export default function LanguageSwitcher({ variant = 'nav' }: Props) {
   const { i18n, t } = useTranslation();

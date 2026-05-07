@@ -1,13 +1,9 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './FounderCard.css';
 
-// Cal AI-style "Built by athletes" section. Centered headline + 3 portrait
-// cards. Decorative — no link target. Each card has a small dark caption
-// pill in the bottom-left.
-//
-// Placeholders pulled from public/ReferenceImagesReal/. Marked with
-// data-placeholder="founder-bts" so the assets are easy to swap when
-// Noah supplies real BTS footage.
+// Founder section: 2 portrait cards (video + photo) with editorial caption
+// pills, plus a CTA to the dedicated /founder page for the full story.
 type FounderShot = {
   src: string;
   isVideo?: boolean;
@@ -69,6 +65,13 @@ export default function FounderCard() {
               )}
             </figure>
           ))}
+        </div>
+
+        <div className="founder-cta-row">
+          <Link to="/founder" className="founder-cta">
+            {t('founder.ctaText', { defaultValue: 'Read the founder story' })}
+            <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
     </div>

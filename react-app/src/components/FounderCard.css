@@ -124,6 +124,37 @@
   font-weight: 500;
 }
 
+/* ── CTA row below the grid ── */
+.founder-cta-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.founder-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: #0e0e0e;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 14px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.founder-cta:hover {
+  background: #1a1a1a;
+  transform: translateY(-1px);
+}
+
+.founder-cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .founder-section {
@@ -145,8 +176,19 @@
   .founder-shot--1 { order: 2; }
   .founder-shot--2 { order: 1; }
   .founder-shot {
-    /* Slightly taller on mobile for the same hero feeling Cal AI has */
     aspect-ratio: 4 / 5;
+  }
+  /* Video card is square on mobile — source video (DAR 9:16) leaves
+     empty floor space at 4:5. Square crops out the floor. */
+  .founder-shot--1 {
+    aspect-ratio: 1 / 1;
+  }
+  .founder-shot--1 video {
+    object-position: center 30%;
+  }
+  /* Photo card: show face down to torso instead of mid-body. */
+  .founder-shot--2 img {
+    object-position: center top;
   }
   .founder-caption {
     bottom: 14px;

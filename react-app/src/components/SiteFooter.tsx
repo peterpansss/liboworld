@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 import './SiteFooter.css';
 
 export default function SiteFooter() {
@@ -78,9 +79,12 @@ export default function SiteFooter() {
           <span className="site-footer__copy">
             &copy; {new Date().getFullYear()} Libo World. {t('footer.allRightsReserved')}
           </span>
-          <div className="site-footer__legal">
-            <Link to="/terms">{t('footer.termsAndConditions')}</Link>
-            <Link to="/privacy">{t('footer.privacy')}</Link>
+          <div className="site-footer__bottom-right">
+            <div className="site-footer__legal">
+              <Link to="/terms">{t('footer.termsAndConditions')}</Link>
+              <Link to="/privacy">{t('footer.privacy')}</Link>
+            </div>
+            <LanguageSwitcher variant="footer" />
           </div>
         </div>
       </div>

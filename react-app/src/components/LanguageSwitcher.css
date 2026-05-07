@@ -96,3 +96,10 @@
   left: 0;
   width: 100%;
 }
+
+/* Footer variant: open the menu upward so it doesn't get clipped at
+   the bottom of the page. */
+.lang-switch--footer .lang-switch__menu {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
