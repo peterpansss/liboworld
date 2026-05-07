@@ -458,6 +458,7 @@ export function ExercisesPage() {
   const [fEquipment, setFEquipment] = useState('');
   const [fEnvironment, setFEnvironment] = useState('');
   const [fDiff, setFDiff] = useState('');
+  const [fStatus, setFStatus] = useState<'' | 'published' | 'draft' | 'archived'>('');
   const [fHasOverride, setFHasOverride] = useState(false);
 
   // Modal state
@@ -674,6 +675,7 @@ export function ExercisesPage() {
       if (fEquipment && e.equipment !== fEquipment) return false;
       if (fEnvironment && e.environment !== fEnvironment) return false;
       if (fDiff && e.diff !== fDiff) return false;
+      if (fStatus && e.status !== fStatus) return false;
       if (fHasOverride && !overridesById.has(e.id)) return false;
       if (search) {
         const hay = normSearch(
@@ -683,7 +685,7 @@ export function ExercisesPage() {
       }
       return true;
     });
-  }, [merged, search, fBodyFocus, fEquipment, fEnvironment, fDiff, fHasOverride, overridesById]);
+  }, [merged, search, fBodyFocus, fEquipment, fEnvironment, fDiff, fStatus, fHasOverride, overridesById]);
 
   const overrideCount = overridesById.size;
   const publishedCount = canonicalRows.filter((r) => r.status === 'published').length;
@@ -1406,6 +1408,15 @@ export function ExercisesPage() {
               {o}
             </option>
           ))}
+        </Select>
+        <Select
+          value={fStatus}
+          onChange={(e) => setFStatus(e.target.value as typeof fStatus)}
+        >
+          <option value="">All statuses</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+          <option value="archived">Archived</option>
         </Select>
         <label
           style={{
