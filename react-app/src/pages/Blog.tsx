@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
-import { blogArticles } from '../data/blog';
+import { getBlogArticles } from '../data/blogTranslations';
 import './Blog.css';
 
 const CATEGORY_KEYS = ['all', 'training', 'nutrition', 'lifestyle', 'guides'] as const;
@@ -40,10 +40,11 @@ export default function Blog() {
     }
   };
 
+  const articles = useMemo(() => getBlogArticles(i18n.language), [i18n.language]);
   const filtered = useMemo(() => {
-    if (activeCategory === 'All') return blogArticles;
-    return blogArticles.filter((a) => a.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === 'All') return articles;
+    return articles.filter((a) => a.category === activeCategory);
+  }, [activeCategory, articles]);
 
   return (
     <div className="blog-page">
@@ -98,7 +99,7 @@ export default function Blog() {
                 </div>
               )}
               <div className="blog-card-body">
-                <span className="blog-card-category">{article.category}</span>
+                <span className="blog-card-category">{t(`blog.categories.${article.category.toLowerCase()}`, { defaultValue: article.category })}</span>
                 <h2 className="blog-card-title">{article.title}</h2>
                 <p className="blog-card-excerpt">{article.excerpt}</p>
                 <div className="blog-card-meta">

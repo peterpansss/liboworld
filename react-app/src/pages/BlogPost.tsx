@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
-import { blogArticles } from '../data/blog';
+import { getBlogArticles } from '../data/blogTranslations';
 import './BlogPost.css';
 
 function formatDate(dateStr: string, locale: string) {
@@ -23,14 +23,17 @@ export default function BlogPost() {
   const { t, i18n } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
 
+  const articles = useMemo(() => getBlogArticles(i18n.language), [i18n.language]);
   const { article, prevArticle, nextArticle } = useMemo(() => {
-    const idx = blogArticles.findIndex((a) => a.slug === slug);
+    const idx = articles.findIndex((a) => a.slug === slug);
     return {
-      article: idx >= 0 ? blogArticles[idx] : null,
-      prevArticle: idx > 0 ? blogArticles[idx - 1] : null,
-      nextArticle: idx >= 0 && idx < blogArticles.length - 1 ? blogArticles[idx + 1] : null,
+      article: idx >= 0 ? articles[idx] : null,
+      prevArticle: idx > 0 ? articles[idx - 1] : null,
+      nextArticle: idx >= 0 && idx < articles.length - 1 ? articles[idx + 1] : null,
     };
-  }, [slug]);
+  }, [slug, articles]);
+  const categoryLabel = (cat: string) =>
+    t(`blog.categories.${cat.toLowerCase()}`, { defaultValue: cat });
 
   if (!article) {
     return (
@@ -61,12 +64,12 @@ export default function BlogPost() {
           <span>&rsaquo;</span>
           <Link to="/blog">{t('blogPost.breadcrumbBlog')}</Link>
           <span>&rsaquo;</span>
-          <Link to={`/blog?cat=${article.category}`}>{article.category}</Link>
+          <Link to={`/blog?cat=${article.category}`}>{categoryLabel(article.category)}</Link>
           <span>&rsaquo;</span>
           {article.title}
         </nav>
 
-        <div className="blogpost-category">{article.category}</div>
+        <div className="blogpost-category">{categoryLabel(article.category)}</div>
         <h1 className="font-display">{article.title}</h1>
 
         <div className="blogpost-meta">
