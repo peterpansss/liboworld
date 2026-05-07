@@ -96,36 +96,12 @@ export default function GetAppPage() {
           >
             <img src="/store-badges/app-store.svg" alt="Download on the App Store" style={badgeImg} />
           </a>
-          <a
-            href={STORE_URLS.android}
-            style={badgeStyle}
-            aria-label="Get it on Google Play"
-          >
-            <svg width="18" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M3.609 1.814L13.792 12 3.61 22.186a.997.997 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.18l2.602 2.601-12.16 7.022 9.558-9.623zm5.398-3.105l-3.085 1.78-2.762-2.769 2.762-2.769 3.085 1.78c1.36.785 1.36 2.193 0 2.978zM5.05 1.622l11.443 6.605-2.762 2.768L5.05 1.622z" />
-            </svg>
-            <span>
-              <small style={smallStyle}>Get it on</small>
-              <strong style={strongStyle}>Google Play</strong>
-            </span>
-          </a>
         </div>
       </div>
     </div>
   );
 }
 
-const badgeStyle: React.CSSProperties = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: 10,
-  padding: '12px 18px',
-  background: '#000',
-  color: '#fff',
-  borderRadius: 10,
-  textDecoration: 'none',
-  fontSize: 12,
-};
 const badgeImgLink: React.CSSProperties = {
   display: 'inline-flex',
   alignItems: 'center',
@@ -135,16 +111,4 @@ const badgeImg: React.CSSProperties = {
   height: 44,
   width: 'auto',
   display: 'block',
-};
-const smallStyle: React.CSSProperties = {
-  display: 'block',
-  fontSize: 9,
-  letterSpacing: 1.5,
-  textTransform: 'uppercase',
-  opacity: 0.7,
-};
-const strongStyle: React.CSSProperties = {
-  display: 'block',
-  fontSize: 14,
-  fontWeight: 700,
 };

@@ -369,12 +369,6 @@ export default function GiveawayPage() {
               <a href="https://apps.apple.com" className="funnel-app__badge funnel-app__badge--img" aria-label="Download on the App Store">
                 <img src="/store-badges/app-store.svg" alt="Download on the App Store" />
               </a>
-              <a href="https://play.google.com" className="funnel-app__badge" aria-label="Get it on Google Play">
-                <svg width="18" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.997.997 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.18l2.602 2.601-12.16 7.022 9.558-9.623zm5.398-3.105l-3.085 1.78-2.762-2.769 2.762-2.769 3.085 1.78c1.36.785 1.36 2.193 0 2.978zM5.05 1.622l11.443 6.605-2.762 2.768L5.05 1.622z"/>
-                </svg>
-                <div><small>{t('giveawayFunnel.googlePlaySmall')}</small><strong>Google Play</strong></div>
-              </a>
             </div>
           </div>
         </section>
