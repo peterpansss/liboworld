@@ -111,9 +111,16 @@
   padding: 0 56px;
 }
 
+/* Column-major grid: cards flow top-row first, then bottom, then advance
+   to the next column. Snap targets are columns; arrow buttons paginate by
+   container width (= 2 columns on desktop = a 2×2 block). */
 .blog-carousel {
-  display: flex;
-  gap: 20px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-columns: calc((100% - 20px) / 2); /* 2 columns visible */
+  column-gap: 20px;
+  row-gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -126,8 +133,8 @@
 .blog-carousel::-webkit-scrollbar { display: none; }
 
 .blog-carousel-item {
-  flex: 0 0 calc((100% - 60px) / 4); /* 4 cards: 3 gaps × 20px = 60 */
   scroll-snap-align: start;
+  min-width: 0; /* Let card body wrap inside grid track */
 }
 
 .blog-carousel-arrow {
@@ -264,13 +271,6 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 1100px) {
-  /* 3 visible */
-  .blog-carousel-item {
-    flex-basis: calc((100% - 40px) / 3);
-  }
-}
-
 @media (max-width: 768px) {
   .blog-hero {
     padding: 20px 20px 32px;
@@ -290,18 +290,30 @@
     margin-bottom: 60px;
   }
 
-  /* 2 visible */
+  /* Mobile carousel: 1 column visible at 88% width so the next column's
+     edge peeks through — reads as a carousel even before the user swipes.
+     Pair with 2-row grid (already inherited) so each "page" is the
+     1-on-top / 1-on-bottom block the user described. */
   .blog-carousel-wrap {
-    padding: 0 20px;
+    padding: 0 16px;
     margin-bottom: 60px;
   }
-  .blog-carousel-item {
-    flex-basis: calc((100% - 20px) / 2);
+  .blog-carousel {
+    grid-auto-columns: 88%;
+    column-gap: 12px;
+    row-gap: 14px;
   }
-  /* Arrows are too cramped at this width — hide them and let touch swipe drive it */
+
+  /* Smaller arrows on mobile so they don't crowd the cards. Move them
+     out of the carousel viewport (above-right of the strip) so they sit
+     as a clear pagination affordance. */
   .blog-carousel-arrow {
-    display: none;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
+  .blog-carousel-arrow--prev { left: -4px; }
+  .blog-carousel-arrow--next { right: -4px; }
 
   .blog-card-emoji {
     height: 140px;
@@ -310,9 +322,8 @@
 }
 
 @media (max-width: 480px) {
-  /* 1 visible */
-  .blog-carousel-item {
-    flex-basis: 100%;
+  .blog-carousel {
+    grid-auto-columns: 86%;
   }
 }
 
