@@ -14,32 +14,56 @@ export function isMediaHidden(cat?: string, equipment?: string): boolean {
 }
 
 export type VoicePreference = 'male' | 'female';
+export type SupportedLang = 'en' | 'de' | 'es' | 'fr' | 'pt';
+
+const VOICE_SLUG: Record<VoicePreference, 'onyx' | 'nova'> = { male: 'onyx', female: 'nova' };
 
 /**
- * Inject `_nova` before .mp4 to switch from the default male (onyx) voice
- * to the female (nova) variant uploaded by the pipeline. Preserves any
- * trailing query string (e.g. cache-buster `?v=2`).
+ * Suffix convention used by the upload pipeline:
+ *   en + onyx → '' (default, e.g. `<slug>.mp4`)
+ *   en + nova → '_nova' (e.g. `<slug>_nova.mp4`)
+ *   <lang> + <voice> → '_<lang>_<voice>' (e.g. `<slug>_de_onyx.mp4`)
  */
-function withVoice(url: string, voice: VoicePreference): string {
-  if (voice !== 'female') return url;
-  return url.replace(/\.mp4(\?|$)/, '_nova.mp4$1');
+function suffixForLangVoice(lang: SupportedLang, voice: VoicePreference): string {
+  const v = VOICE_SLUG[voice];
+  if (lang === 'en' && v === 'onyx') return '';
+  if (lang === 'en') return `_${v}`;
+  return `_${lang}_${v}`;
 }
 
-export function publicVideoUrl(ex: Exercise, voice: VoicePreference = 'male'): string | undefined {
+/**
+ * Inject the lang+voice suffix before .mp4 to pick up the matching variant
+ * uploaded by the pipeline. Preserves any trailing query string (e.g.
+ * cache-buster `?v=2`).
+ */
+function withLangVoice(url: string, lang: SupportedLang, voice: VoicePreference): string {
+  const suffix = suffixForLangVoice(lang, voice);
+  if (!suffix) return url;
+  return url.replace(/\.mp4(\?|$)/, `${suffix}.mp4$1`);
+}
+
+export function publicVideoUrl(
+  ex: Exercise,
+  voice: VoicePreference = 'male',
+  lang: SupportedLang = 'en',
+): string | undefined {
   if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrl) return undefined;
-  return withVoice(ex.videoUrl, voice);
+  return withLangVoice(ex.videoUrl, lang, voice);
 }
 
 /**
  * Alternate-angle (e.g. "_side_view") clip URL — same hidden-media rules
  * as the primary video. Returns undefined when the exercise has no alt.
  *
- * Side-view clips are visual-only (no audio stream — they're a reference
- * angle, the primary clip carries the voiceover), so the voice preference
- * doesn't apply here. Always return the base alt URL regardless of voice.
- * The `_voice` arg is kept for call-site symmetry with publicVideoUrl.
+ * Side-view clips are language-agnostic, no voiceover — they're a visual
+ * reference angle (no audio stream); the primary clip carries the voiceover.
+ * Voice and lang args are kept for call-site symmetry with publicVideoUrl.
  */
-export function publicVideoUrlAlt(ex: Exercise, _voice: VoicePreference = 'male'): string | undefined {
+export function publicVideoUrlAlt(
+  ex: Exercise,
+  _voice: VoicePreference = 'male',
+  _lang: SupportedLang = 'en',
+): string | undefined {
   if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrlAlt) return undefined;
   return ex.videoUrlAlt;
 }
