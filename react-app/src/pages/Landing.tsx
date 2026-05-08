@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 import { blogArticles } from '../data/blog';
@@ -108,6 +108,18 @@ function useInView(threshold = 0.1) {
 // ═══════════════════════════════════════
 export default function Landing() {
   const { t } = useTranslation();
+  const location = useLocation();
+
+  // Scroll to #section when arriving with a hash (e.g. footer "Features" /
+  // "Rewards" links, which use react-router <Link to="/#features">). React
+  // Router updates the URL but doesn't trigger native hash scrolling, so we
+  // do it here. Re-runs on hash change so clicking the same hash twice still
+  // scrolls. Two animation frames give content time to mount before measuring.
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.slice(1);
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollToId(id)));
+  }, [location.hash, location.key]);
 
   // ── Derive data from translations ──
   const MARQUEE_ITEMS = [
