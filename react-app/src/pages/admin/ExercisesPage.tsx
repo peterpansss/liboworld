@@ -10,6 +10,7 @@ import {
   uploadExerciseVideo,
   uploadExerciseThumbnail,
   createExercise,
+  deleteExercise,
   listExercises,
   updateExercise,
   uploadExerciseVideoRaw,
@@ -953,6 +954,45 @@ export function ExercisesPage() {
     setIfChanged('thumbnail_url', f.thumbnailUrl, row.thumbnail_url);
     setIfChanged('status', f.status, row.status);
     return patch;
+  }
+
+  async function handleDeleteExercise() {
+    if (!editing) return;
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setModalErr('No canonical row to delete.');
+      return;
+    }
+    if (
+      !confirm(
+        `Permanently delete "${canonical.name}"? It will disappear from web + app immediately. This cannot be undone — to hide without deleting, set Visibility to Archived instead.`,
+      )
+    ) {
+      return;
+    }
+    try {
+      setSaving(true);
+      setModalErr(null);
+      const res = await deleteExercise(canonical.id);
+      if (!res.ok) {
+        setModalErr(
+          typeof res.error === 'string' && res.error
+            ? res.error
+            : res.error
+              ? errMessage(res.error)
+              : 'Delete failed',
+        );
+        return;
+      }
+      await refreshCanonical();
+      const deletedName = canonical.name;
+      closeEdit();
+      showToast(`Deleted ${deletedName}`);
+    } catch (e) {
+      setModalErr(errMessage(e));
+    } finally {
+      setSaving(false);
+    }
   }
 
   async function handleClearOverride() {
@@ -1933,6 +1973,7 @@ export function ExercisesPage() {
                 onThumbFile={handleThumbFile}
                 onSave={handleSave}
                 onClearOverride={handleClearOverride}
+                onDeleteExercise={handleDeleteExercise}
                 onCancel={closeEdit}
                 bilateralInfo={bilateralInfo}
                 voiceoverVoice={voiceoverVoice}
@@ -2051,6 +2092,7 @@ function EditForm({
   onThumbFile,
   onSave,
   onClearOverride,
+  onDeleteExercise,
   onCancel,
   bilateralInfo,
   voiceoverVoice,
@@ -2085,6 +2127,7 @@ function EditForm({
   onThumbFile: (f: File) => void;
   onSave: () => void;
   onClearOverride: () => void;
+  onDeleteExercise: () => void;
   onCancel: () => void;
   bilateralInfo: BilateralInfo | null;
   voiceoverVoice: TtsVoice;
@@ -2388,7 +2431,7 @@ function EditForm({
 
           <Field
             label="Visibility"
-            hint="Draft hides this exercise on web + app; published makes it visible."
+            hint="Draft or Archived hides this exercise on web + app (soft hide); Published makes it visible. Use Delete exercise below for a permanent removal."
           >
             <Select value={form.status || 'draft'} onChange={(e) => update('status', e.target.value)}>
               <option value="draft">Draft</option>
@@ -2433,6 +2476,11 @@ function EditForm({
           {hasOverride && (
             <Button variant="danger" onClick={onClearOverride} disabled={saving || isUploading}>
               Clear override
+            </Button>
+          )}
+          {isCanonical && (
+            <Button variant="danger" onClick={onDeleteExercise} disabled={saving || isUploading}>
+              Delete exercise
             </Button>
           )}
           <Button variant="ghost" onClick={onCancel} disabled={saving}>
