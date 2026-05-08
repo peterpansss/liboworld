@@ -66,7 +66,7 @@ export default function FounderCard() {
 
         <div className="founder-cta-row">
           <Link to="/founder" className="founder-cta">
-            {t('founder.ctaText', { defaultValue: 'Read the founder story' })}
+            {t('founder.ctaText', { defaultValue: 'Read story of Libo World' })}
             <span aria-hidden>→</span>
           </Link>
         </div>
