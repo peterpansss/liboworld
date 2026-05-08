@@ -732,10 +732,15 @@ export function ExercisesPage() {
       setVoiceoverErr('Voiceover requires a video and setupNotes.');
       return;
     }
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setVoiceoverErr('No canonical row for this exercise — save it once before generating voiceover.');
+      return;
+    }
     try {
       setVoiceoverQueuing(true);
       setVoiceoverErr(null);
-      const res = await createMediaJob(editing.id, 'generate_voiceover', null, voiceoverVoice);
+      const res = await createMediaJob(canonical.id, 'generate_voiceover', null, voiceoverVoice);
       if (!res.ok || !res.job) {
         setVoiceoverErr(res.error ?? 'Failed to queue voiceover job');
         return;
@@ -769,6 +774,11 @@ export function ExercisesPage() {
       setDeleteVideoErr('No video to delete.');
       return;
     }
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setDeleteVideoErr('No canonical row for this exercise — save it once before deleting the video.');
+      return;
+    }
     if (
       !confirm(
         "Delete this exercise's video and thumbnail? The MP4 will be removed from R2 and the thumbnail from Supabase Storage. This cannot be undone.",
@@ -779,7 +789,7 @@ export function ExercisesPage() {
     try {
       setDeleteVideoQueuing(true);
       setDeleteVideoErr(null);
-      const res = await createMediaJob(editing.id, 'delete_video');
+      const res = await createMediaJob(canonical.id, 'delete_video');
       if (!res.ok || !res.job) {
         setDeleteVideoErr(res.error ?? 'Failed to queue delete-video job');
         return;
