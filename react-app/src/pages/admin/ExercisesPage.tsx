@@ -1249,6 +1249,27 @@ export function ExercisesPage() {
         await refreshCanonical();
         const leftRow = 'row' in leftRes ? leftRes.row : undefined;
         const rightRow = 'row' in rightRes ? rightRes.row : undefined;
+
+        if (skipProcessing) {
+          // Upload as-is, no worker pipeline.
+          try {
+            if (leftVideoFile && leftRow) {
+              const url = await uploadExerciseVideo(leftVideoFile);
+              await updateExercise(leftRow.id, { video_url: url });
+            }
+            if (rightVideoFile && rightRow) {
+              const url = await uploadExerciseVideo(rightVideoFile);
+              await updateExercise(rightRow.id, { video_url: url });
+            }
+            await refreshCanonical();
+            showToast(`Created bilateral pair: ${parentName}`);
+            closeCreate();
+          } catch (e) {
+            setCreateErr(`Video upload failed: ${errMessage(e)}`);
+          }
+          return;
+        }
+
         // Kick off video uploads for whichever sides have a file picked.
         let queuedAny = false;
         if (leftVideoFile && leftRow) {
@@ -1826,6 +1847,24 @@ export function ExercisesPage() {
                   </Select>
                 </Field>
               </div>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  fontSize: 12,
+                  color: colors.muted,
+                  cursor: creating ? 'default' : 'pointer',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={skipProcessing}
+                  disabled={creating}
+                  onChange={(e) => setSkipProcessing(e.target.checked)}
+                />
+                Skip processing — already cropped + ready (applies to both sides)
+              </label>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <VideoUpload
@@ -1834,6 +1873,7 @@ export function ExercisesPage() {
                     onFileSelected={setLeftVideoFile}
                     jobId={leftMediaJobId}
                     disabled={creating}
+                    skipProcessing={skipProcessing}
                   />
                   <Field label="…or paste a Left video URL" hint="Optional; pre-hosted MP4">
                     <TextInput
@@ -1852,6 +1892,7 @@ export function ExercisesPage() {
                     onFileSelected={setRightVideoFile}
                     jobId={rightMediaJobId}
                     disabled={creating}
+                    skipProcessing={skipProcessing}
                   />
                   <Field label="…or paste a Right video URL" hint="Optional; pre-hosted MP4">
                     <TextInput
