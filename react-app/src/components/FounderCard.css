@@ -188,3 +188,37 @@
     padding: 56px 16px;
   }
 }
+
+/* ── Desktop: editorial split — copy left, video right ── */
+@media (min-width: 901px) {
+  .founder-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "header shot"
+      "cta    shot";
+    grid-template-rows: 1fr auto;
+    column-gap: 80px;
+  }
+  .founder-header {
+    grid-area: header;
+    text-align: left;
+    margin-bottom: 24px;
+    align-self: end;
+  }
+  .founder-subhead {
+    margin: 0;
+  }
+  .founder-grid {
+    grid-area: shot;
+    width: 480px;
+    max-width: none;
+    margin: 0;
+  }
+  .founder-cta-row {
+    grid-area: cta;
+    justify-content: flex-start;
+    margin-top: 0;
+    align-self: start;
+  }
+}
