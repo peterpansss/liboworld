@@ -65,7 +65,7 @@ export function MuscleGroupStrip({ activeMuscle, title }: Props) {
           return (
             <Link
               key={muscle}
-              to={`/exercises?muscle=${encodeURIComponent(muscle)}`}
+              to={isActive ? '/exercises' : `/exercises?muscle=${encodeURIComponent(muscle)}`}
               className={`mgs__item ${isActive ? 'mgs__item--active' : ''}`}
               aria-current={isActive ? 'true' : undefined}
             >

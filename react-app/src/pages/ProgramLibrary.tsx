@@ -17,6 +17,9 @@ type GoalKey = typeof GOAL_KEYS[number];
 const DURATION_KEYS = ['Any', 'Short', 'Medium', 'Long', 'XLong'] as const;
 type DurationKey = typeof DURATION_KEYS[number];
 
+const CAT_KEYS = ['All', 'Gym', 'Home', 'Cardio', 'Stretching', 'Morning Routine'] as const;
+type CatKey = typeof CAT_KEYS[number];
+
 const PAGE_SIZE = 12;
 
 function diffClass(diff: string): string {
@@ -167,9 +170,9 @@ export default function ProgramLibrary() {
     return result;
   }, [workouts, search, goal, duration, cat]);
 
-  const filtersActive = !!search || goal !== 'All' || duration !== 'Any';
+  const filtersActive = !!search || goal !== 'All' || duration !== 'Any' || !!cat;
   const activeFilterCount =
-    (goal !== 'All' ? 1 : 0) + (duration !== 'Any' ? 1 : 0);
+    (goal !== 'All' ? 1 : 0) + (duration !== 'Any' ? 1 : 0) + (cat ? 1 : 0);
 
   const groupedByGoal = useMemo(() => {
     const groups: Record<Exclude<GoalKey, 'All'>, Workout[]> = {
@@ -191,6 +194,7 @@ export default function ProgramLibrary() {
       const isDefault =
         (key === 'goal' && value === 'All') ||
         (key === 'dur' && value === 'Any') ||
+        (key === 'cat' && value === '') ||
         (key === 'q' && value === '');
       if (isDefault) {
         next.delete(key);
@@ -276,6 +280,27 @@ export default function ProgramLibrary() {
               value={search}
               onChange={(e) => updateParam('q', e.target.value)}
             />
+          </div>
+
+          <div className="el-filter-row el-filter-row--primary">
+            <div className="el-chips">
+              {CAT_KEYS.map((c: CatKey) => {
+                const isActive = (cat || 'All') === c;
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    className={`el-chip ${isActive ? 'active' : ''}`}
+                    aria-pressed={isActive}
+                    onClick={() => updateParam('cat', c === 'All' ? '' : c)}
+                  >
+                    {c === 'All'
+                      ? t('programLibrary.filters.catAll', { defaultValue: 'All' })
+                      : categoryBadgeLabel(c)}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <button

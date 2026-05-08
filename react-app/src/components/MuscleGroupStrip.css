@@ -114,20 +114,6 @@
   border-color: var(--accent);
 }
 
-/* Active tile is its own destination — kill the "I'm clickable" affordances
-   so it reads as the current state, not another thing to click. Removal
-   happens via the active-filter pill below the muscle strip. */
-.mgs__item--active {
-  cursor: default;
-}
-.mgs__item--active:hover {
-  transform: none;
-}
-.mgs__item--active:hover .mgs__tile {
-  background: #131418;
-  transform: none;
-}
-
 .mgs__label {
   font-size: 10px;
   font-weight: 700;
