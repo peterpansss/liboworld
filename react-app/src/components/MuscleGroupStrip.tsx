@@ -7,7 +7,8 @@
  * Used on ExerciseDetail and ExerciseLibrary as a visual entry point into
  * the catalog (Befit-style).
  */
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import type { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import Model, { type IExerciseData, type Muscle } from 'react-body-highlighter';
 import { MUSCLE_GROUP_KEYS } from '../utils/exerciseInfo';
@@ -50,6 +51,7 @@ const HIGHLIGHTED_COLORS: [string, string] = ['#caff00', '#caff00'];
 
 export function MuscleGroupStrip({ activeMuscle, title }: Props) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const resolvedTitle = title ?? t('exerciseLibrary.exploreByMuscleGroup');
   return (
     <section className="mgs">
@@ -62,10 +64,21 @@ export function MuscleGroupStrip({ activeMuscle, title }: Props) {
             ? [{ name: muscle, muscles: preview.muscles }]
             : [];
           const label = t(`exerciseLibrary.muscles.${MUSCLE_NAME_I18N_KEYS[muscle] ?? 'all'}`).toUpperCase();
+          const target = isActive ? '/exercises' : `/exercises?muscle=${encodeURIComponent(muscle)}`;
+          // Explicit onClick guarantees navigation even if a descendant
+          // (e.g. react-body-highlighter's polygon onClick) interferes with
+          // the anchor's default activation. preventDefault avoids a
+          // double-navigate and keeps focus behaviour predictable.
+          const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+            e.preventDefault();
+            navigate(target);
+          };
           return (
             <Link
               key={muscle}
-              to={isActive ? '/exercises' : `/exercises?muscle=${encodeURIComponent(muscle)}`}
+              to={target}
+              onClick={onClick}
               className={`mgs__item ${isActive ? 'mgs__item--active' : ''}`}
               aria-current={isActive ? 'true' : undefined}
             >
