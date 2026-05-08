@@ -486,6 +486,14 @@ export function ExercisesPage() {
   const [deleteVideoErr, setDeleteVideoErr] = useState<string | null>(null);
   const [deleteVideoQueuing, setDeleteVideoQueuing] = useState(false);
 
+  // Edit-modal "Upload new video" routing. Default off → run through the
+  // media_worker (4:3 crop, R2, thumbnail). Checked → direct upload to
+  // Supabase Storage, no worker (matches the Create-flow Skip-processing).
+  const [editSkipProcessing, setEditSkipProcessing] = useState(false);
+  const [videoUploadJobId, setVideoUploadJobId] = useState<number | null>(null);
+  const [videoUploadStatusVisible, setVideoUploadStatusVisible] = useState(false);
+  const [videoUploadErr, setVideoUploadErr] = useState<string | null>(null);
+
   // Create modal state (canonical exercises table)
   const [createOpen, setCreateOpen] = useState(false);
   const [createForm, setCreateForm] = useState<CreateFormState>(EMPTY_CREATE_FORM);
@@ -733,6 +741,10 @@ export function ExercisesPage() {
     setDeleteVideoStatusVisible(false);
     setDeleteVideoErr(null);
     setDeleteVideoQueuing(false);
+    setEditSkipProcessing(false);
+    setVideoUploadJobId(null);
+    setVideoUploadStatusVisible(false);
+    setVideoUploadErr(null);
   }
 
   async function handleGenerateVoiceover() {
@@ -1019,16 +1031,82 @@ export function ExercisesPage() {
   }
 
   async function handleVideoFile(f: File) {
+    if (!editing) return;
+    setVideoUploadErr(null);
+
+    // Skip-processing path: direct upload to Supabase Storage. The video is
+    // immediately playable but stays a UUID-named file with no R2 mirror and
+    // no thumbnail extraction.
+    if (editSkipProcessing) {
+      try {
+        setUploadingVideo(true);
+        setModalErr(null);
+        const url = await uploadExerciseVideo(f);
+        setForm((prev) => (prev ? { ...prev, videoUrl: url } : prev));
+      } catch (e) {
+        setModalErr(errMessage(e));
+      } finally {
+        setUploadingVideo(false);
+      }
+      return;
+    }
+
+    // Default: enqueue a process_video media_job so the worker re-encodes,
+    // pushes to R2 + extracts a thumbnail, then updates the canonical row.
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setVideoUploadErr('No canonical row for this exercise — save it once before uploading a video through the worker.');
+      return;
+    }
     try {
       setUploadingVideo(true);
-      setModalErr(null);
-      const url = await uploadExerciseVideo(f);
-      setForm((prev) => (prev ? { ...prev, videoUrl: url } : prev));
+      const { storage_path } = await uploadExerciseVideoRaw(f, canonical.slug);
+      const res = await createMediaJob(canonical.id, 'process_video', storage_path);
+      if (!res.ok || !res.job) {
+        setVideoUploadErr(res.error ?? 'Failed to queue media job');
+        return;
+      }
+      setVideoUploadJobId(res.job.id);
+      setVideoUploadStatusVisible(true);
     } catch (e) {
-      setModalErr(errMessage(e));
+      setVideoUploadErr(errMessage(e));
     } finally {
       setUploadingVideo(false);
     }
+  }
+
+  async function handleVideoUploadDone() {
+    // Worker has produced a fresh R2 url + thumbnail. Pull canonical so the
+    // form reflects them without requiring the admin to reopen the modal.
+    if (editing) {
+      try {
+        const rows = await listExercises();
+        setCanonicalRows(rows);
+        const slug = str(editing.slug ?? editing.id);
+        const fresh = rows.find((r) => r.slug === slug || r.id === editing.id);
+        if (fresh) {
+          setForm((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  videoUrl: fresh.video_url ?? '',
+                  thumbnailUrl: fresh.thumbnail_url ?? '',
+                }
+              : prev,
+          );
+        }
+      } catch {
+        // non-fatal — admin can reopen to pick up the new urls
+      }
+    }
+    setTimeout(() => {
+      setVideoUploadStatusVisible(false);
+      setVideoUploadJobId(null);
+    }, 4000);
+  }
+
+  function handleVideoUploadError(job: { error_message: string | null }) {
+    setVideoUploadErr(job.error_message ?? 'Video processing failed');
   }
 
   async function handleThumbFile(f: File) {
@@ -2074,6 +2152,13 @@ export function ExercisesPage() {
                 onDeleteVideo={handleDeleteVideo}
                 onDeleteVideoDone={handleDeleteVideoDone}
                 onDeleteVideoError={handleDeleteVideoError}
+                editSkipProcessing={editSkipProcessing}
+                onEditSkipProcessingChange={setEditSkipProcessing}
+                videoUploadJobId={videoUploadJobId}
+                videoUploadStatusVisible={videoUploadStatusVisible}
+                videoUploadErr={videoUploadErr}
+                onVideoUploadDone={handleVideoUploadDone}
+                onVideoUploadError={handleVideoUploadError}
               />
             );
           })()}
@@ -2193,6 +2278,13 @@ function EditForm({
   onDeleteVideo,
   onDeleteVideoDone,
   onDeleteVideoError,
+  editSkipProcessing,
+  onEditSkipProcessingChange,
+  videoUploadJobId,
+  videoUploadStatusVisible,
+  videoUploadErr,
+  onVideoUploadDone,
+  onVideoUploadError,
 }: {
   base: Exercise;
   form: FormState;
@@ -2228,6 +2320,13 @@ function EditForm({
   onDeleteVideo: () => void;
   onDeleteVideoDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
   onDeleteVideoError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  editSkipProcessing: boolean;
+  onEditSkipProcessingChange: (v: boolean) => void;
+  videoUploadJobId: number | null;
+  videoUploadStatusVisible: boolean;
+  videoUploadErr: string | null;
+  onVideoUploadDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onVideoUploadError: (job: import('../../lib/adminApi').MediaJobRow) => void;
 }) {
   const update = (k: EditableKey, v: string) =>
     setForm((prev) => (prev ? { ...prev, [k]: v } : prev));
@@ -2331,6 +2430,26 @@ function EditForm({
             )}
           </div>
 
+          <label
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              fontSize: 12,
+              color: colors.muted,
+              cursor: isUploading || saving ? 'default' : 'pointer',
+              marginBottom: 8,
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={editSkipProcessing}
+              disabled={isUploading || saving || videoUploadJobId !== null}
+              onChange={(e) => onEditSkipProcessingChange(e.target.checked)}
+            />
+            Skip processing — already cropped + ready (no R2 mirror, no auto-thumbnail)
+          </label>
+
           <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
             <input
               ref={videoInputRef}
@@ -2346,7 +2465,7 @@ function EditForm({
             <Button
               variant="secondary"
               onClick={() => videoInputRef.current?.click()}
-              disabled={isUploading || saving}
+              disabled={isUploading || saving || videoUploadJobId !== null}
             >
               {uploadingVideo ? 'Uploading…' : 'Upload new video'}
             </Button>
@@ -2354,12 +2473,27 @@ function EditForm({
               <Button
                 variant="danger"
                 onClick={onDeleteVideo}
-                disabled={isUploading || saving || deleteVideoQueuing || deleteVideoJobId !== null}
+                disabled={isUploading || saving || deleteVideoQueuing || deleteVideoJobId !== null || videoUploadJobId !== null}
               >
                 {deleteVideoQueuing ? 'Queuing…' : 'Delete video'}
               </Button>
             )}
           </div>
+
+          {videoUploadErr && (
+            <div style={{ ...errorBannerStyle, marginBottom: 12 }} role="alert">
+              {videoUploadErr}
+            </div>
+          )}
+          {videoUploadStatusVisible && videoUploadJobId !== null && (
+            <div style={{ marginBottom: 16 }}>
+              <MediaJobStatus
+                jobId={videoUploadJobId}
+                onDone={onVideoUploadDone}
+                onError={onVideoUploadError}
+              />
+            </div>
+          )}
 
           {deleteVideoErr && (
             <div style={{ ...errorBannerStyle, marginBottom: 12 }} role="alert">
