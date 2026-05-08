@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './FounderCard.css';
 
@@ -29,6 +28,9 @@ export default function FounderCard() {
   const { t } = useTranslation();
   const markRef = useRef<HTMLImageElement>(null);
   const [markIn, setMarkIn] = useState(false);
+  const [introOpen, setIntroOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const node = markRef.current;
@@ -45,6 +47,38 @@ export default function FounderCard() {
     obs.observe(node);
     return () => obs.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!introOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeIntro();
+    };
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    // User click on the trigger counts as a gesture, so unmuted autoplay
+    // is permitted. If the browser still blocks it (rare on Safari/iOS),
+    // fall back to muted so something plays.
+    const v = videoRef.current;
+    if (v) {
+      v.muted = false;
+      v.currentTime = 0;
+      v.play().catch(() => {
+        v.muted = true;
+        v.play().catch(() => {});
+      });
+    }
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [introOpen]);
+
+  function closeIntro() {
+    videoRef.current?.pause();
+    setIntroOpen(false);
+    requestAnimationFrame(() => triggerRef.current?.focus());
+  }
 
   return (
     <div className="founder-wrapper">
@@ -90,12 +124,49 @@ export default function FounderCard() {
         </div>
 
         <div className="founder-cta-row">
-          <Link to="/founder" className="founder-cta">
+          <button
+            ref={triggerRef}
+            type="button"
+            className="founder-cta"
+            onClick={() => setIntroOpen(true)}
+          >
             {t('founder.ctaText', { defaultValue: 'About Us' })}
             <span aria-hidden>→</span>
-          </Link>
+          </button>
         </div>
       </section>
+
+      {introOpen && (
+        <div
+          className="founder-intro-backdrop"
+          onClick={closeIntro}
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('founder.introAria', { defaultValue: 'Libo World introduction' })}
+        >
+          <div
+            className="founder-intro-card"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="founder-intro-close"
+              onClick={closeIntro}
+              aria-label={t('founder.introClose', { defaultValue: 'Close' })}
+            >
+              <span aria-hidden>✕</span>
+            </button>
+            <video
+              ref={videoRef}
+              src="/founder/noah-loop.mp4"
+              poster="/founder/noah-loop-poster.jpg"
+              controls
+              playsInline
+              preload="auto"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
