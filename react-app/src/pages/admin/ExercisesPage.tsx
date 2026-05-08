@@ -504,6 +504,7 @@ export function ExercisesPage() {
   // Video upload state. The widgets hold a File until create completes, then
   // the upload+job runs and `mediaJobId` is set so the widget subscribes.
   const [singleVideoFile, setSingleVideoFile] = useState<File | null>(null);
+  const [skipProcessing, setSkipProcessing] = useState(false);
   const [singleMediaJobId, setSingleMediaJobId] = useState<number | null>(null);
   const [leftVideoFile, setLeftVideoFile] = useState<File | null>(null);
   const [leftMediaJobId, setLeftMediaJobId] = useState<number | null>(null);
@@ -517,6 +518,7 @@ export function ExercisesPage() {
     setLeftMediaJobId(null);
     setRightVideoFile(null);
     setRightMediaJobId(null);
+    setSkipProcessing(false);
   }
 
   async function uploadAndQueue(
@@ -1112,9 +1114,23 @@ export function ExercisesPage() {
         return;
       }
       await refreshCanonical();
-      // If a file was selected, upload it and queue the processing job. Keep
-      // the drawer open so the VideoUpload widget can show job progress.
+      // If a file was selected, either upload as-is (skipProcessing) or
+      // queue the worker pipeline. The as-is path closes the drawer
+      // immediately; the pipeline path keeps the drawer open so the
+      // VideoUpload widget can show job progress.
       if (singleVideoFile) {
+        if (skipProcessing) {
+          try {
+            const url = await uploadExerciseVideo(singleVideoFile);
+            await updateExercise(res.row.id, { video_url: url });
+            await refreshCanonical();
+            showToast(`Created ${createForm.name.trim()}`);
+            closeCreate();
+          } catch (e2) {
+            setCreateErr(`Video upload failed: ${errMessage(e2)}`);
+          }
+          return;
+        }
         const jobId = await uploadAndQueue(res.row.id, slug, singleVideoFile);
         if (jobId != null) {
           setSingleMediaJobId(jobId);
@@ -1124,7 +1140,7 @@ export function ExercisesPage() {
       }
       closeCreate();
     } catch (e2) {
-      setCreateErr(e2 instanceof Error ? e2.message : String(e2));
+      setCreateErr(errMessage(e2));
     } finally {
       setCreating(false);
     }
@@ -1868,12 +1884,31 @@ export function ExercisesPage() {
             </>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  fontSize: 12,
+                  color: colors.muted,
+                  cursor: creating ? 'default' : 'pointer',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={skipProcessing}
+                  disabled={creating}
+                  onChange={(e) => setSkipProcessing(e.target.checked)}
+                />
+                Skip processing — already cropped + ready
+              </label>
               <VideoUpload
                 label="Exercise video (upload)"
                 selectedFile={singleVideoFile}
                 onFileSelected={setSingleVideoFile}
                 jobId={singleMediaJobId}
                 disabled={creating}
+                skipProcessing={skipProcessing}
               />
               <Field label="…or paste a video URL" hint="Optional; pre-hosted MP4">
                 <TextInput

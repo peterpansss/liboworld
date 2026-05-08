@@ -28,6 +28,12 @@ interface VideoUploadProps {
   label?: string;
   /** Disable the file picker (e.g. during form submit). */
   disabled?: boolean;
+  /**
+   * When true, the parent intends to upload the file as-is (no worker
+   * pipeline). Only changes the hint copy here; the upload routing happens
+   * in the parent on submit.
+   */
+  skipProcessing?: boolean;
 }
 
 const containerStyle: React.CSSProperties = {
@@ -126,6 +132,7 @@ export function VideoUpload({
   thumbnailUrl,
   label = 'Exercise video',
   disabled = false,
+  skipProcessing = false,
 }: VideoUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
@@ -168,12 +175,22 @@ export function VideoUpload({
     inputRef.current?.click();
   }
 
+  function isAcceptedVideo(f: File): boolean {
+    const n = f.name.toLowerCase();
+    return (
+      f.type === 'video/mp4' ||
+      f.type === 'video/quicktime' ||
+      n.endsWith('.mp4') ||
+      n.endsWith('.mov')
+    );
+  }
+
   function handleFileChange(ev: React.ChangeEvent<HTMLInputElement>) {
     const f = ev.target.files?.[0] ?? null;
-    if (f && f.type !== 'video/mp4' && !f.name.toLowerCase().endsWith('.mp4')) {
+    if (f && !isAcceptedVideo(f)) {
       onFileSelected(null);
       // eslint-disable-next-line no-alert
-      alert('Please pick an MP4 file.');
+      alert('Please pick an MP4 or MOV file.');
       return;
     }
     onFileSelected(f);
@@ -185,7 +202,7 @@ export function VideoUpload({
     setDragActive(false);
     if (disabled) return;
     const f = ev.dataTransfer.files?.[0] ?? null;
-    if (f && (f.type === 'video/mp4' || f.name.toLowerCase().endsWith('.mp4'))) {
+    if (f && isAcceptedVideo(f)) {
       onFileSelected(f);
     }
   }
@@ -310,15 +327,17 @@ export function VideoUpload({
         onDrop={handleDrop}
       >
         <div style={{ fontSize: 22, marginBottom: 4 }}>🎬</div>
-        <div style={{ color: colors.text, fontWeight: 600 }}>Drag MP4 here, or click to choose</div>
+        <div style={{ color: colors.text, fontWeight: 600 }}>Drag MP4 or MOV here, or click to choose</div>
         <div style={{ color: colors.muted, fontSize: 11, marginTop: 2 }}>
-          Will be processed (4:3 crop, thumbnail, R2 upload) on save.
+          {skipProcessing
+            ? 'Will be uploaded as-is (no processing).'
+            : 'Will be processed (4:3 crop, thumbnail, R2 upload) on save.'}
         </div>
       </div>
       <input
         ref={inputRef}
         type="file"
-        accept="video/mp4,.mp4"
+        accept="video/mp4,video/quicktime,.mp4,.mov"
         style={{ display: 'none' }}
         onChange={handleFileChange}
         disabled={disabled}
