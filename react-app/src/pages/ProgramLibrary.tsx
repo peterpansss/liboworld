@@ -108,6 +108,10 @@ export default function ProgramLibrary() {
   const durationParam = (searchParams.get('dur') || 'Any') as DurationKey;
   const goal: GoalKey = (GOAL_KEYS as readonly string[]).includes(goalParam) ? goalParam : 'All';
   const duration: DurationKey = (DURATION_KEYS as readonly string[]).includes(durationParam) ? durationParam : 'Any';
+  // ?cat=Gym|Home|Cardio|Stretching|Morning Routine — entry point used by the
+  // footer's per-category links. Filters by w.cat directly (different axis from
+  // ?goal which classifies intent like Strength/Mobility).
+  const cat = searchParams.get('cat') || '';
   const pageParam = parseInt(searchParams.get('page') || '1', 10);
   const page = isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
 
@@ -156,8 +160,12 @@ export default function ProgramLibrary() {
       result = result.filter((w) => matchesDuration(w.dur, duration));
     }
 
+    if (cat) {
+      result = result.filter((w) => w.cat === cat);
+    }
+
     return result;
-  }, [workouts, search, goal, duration]);
+  }, [workouts, search, goal, duration, cat]);
 
   const filtersActive = !!search || goal !== 'All' || duration !== 'Any';
   const activeFilterCount =
