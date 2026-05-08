@@ -707,7 +707,13 @@ export function ExercisesPage() {
     const o = overridesById.get(row.id);
     const mergedRow: Exercise = o ? { ...baseRow, ...(o.patch as Partial<Exercise>) } : baseRow;
     setEditing(baseRow);
-    setForm(buildForm(mergedRow));
+    // For canonical-backed exercises, `row` is already canonicalToExercise(r)
+    // (see the `merged` useMemo) and carries DB-valid fields like `status`.
+    // The bundled JSON has no `status` column, so building from `mergedRow`
+    // would seed form.status as '' and a save would violate the
+    // exercises_status_check constraint.
+    const canonical = findCanonicalForEditing(baseRow);
+    setForm(buildForm(canonical ? row : mergedRow));
     setModalErr(null);
   }
 
