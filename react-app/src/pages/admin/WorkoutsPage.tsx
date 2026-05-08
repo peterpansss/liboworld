@@ -13,6 +13,7 @@ import {
   type ExerciseRow,
   type ContentStatus,
 } from '../../lib/adminApi';
+import { errMessage } from '../../lib/errors';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, Select, Button } from '../../components/admin/FormField';
 import { Modal } from '../../components/admin/Modal';
@@ -229,7 +230,7 @@ export function WorkoutsPage() {
         setOverrides(ovs);
         setExerciseNames(Array.from(new Set(exRes.map((e) => e.name))).sort());
       } catch (e) {
-        if (alive) setError(e instanceof Error ? e.message : String(e));
+        if (alive) setError(errMessage(e));
       } finally {
         if (alive) setLoading(false);
       }
@@ -244,7 +245,7 @@ export function WorkoutsPage() {
       const ovs = await listWorkoutOverrides();
       setOverrides(ovs);
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(errMessage(e));
     }
   };
 
@@ -851,7 +852,7 @@ function EditWorkoutModal({
       }
       await onSaved();
     } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+      setErr(errMessage(e));
     } finally {
       setSaving(false);
     }
@@ -863,7 +864,7 @@ function EditWorkoutModal({
     try {
       await onClearOverride();
     } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+      setErr(errMessage(e));
     } finally {
       setSaving(false);
     }

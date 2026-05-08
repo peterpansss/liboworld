@@ -18,6 +18,7 @@ import {
   type ExerciseRow,
   type ContentStatus,
 } from '../../lib/adminApi';
+import { errMessage } from '../../lib/errors';
 import { VideoUpload, MediaJobStatus } from '../../components/admin/VideoUpload';
 import { StatusChip } from '../../components/admin/StatusChip';
 
@@ -531,7 +532,7 @@ export function ExercisesPage() {
       }
       return res.job.id;
     } catch (e) {
-      setCreateErr(`Video upload failed for ${slug}: ${e instanceof Error ? e.message : String(e)}`);
+      setCreateErr(`Video upload failed for ${slug}: ${errMessage(e)}`);
       return null;
     }
   }
@@ -570,7 +571,7 @@ export function ExercisesPage() {
         setErr(null);
       } catch (e) {
         if (!alive) return;
-        setErr(e instanceof Error ? e.message : String(e));
+        setErr(errMessage(e));
       } finally {
         if (alive) setLoading(false);
       }
@@ -585,7 +586,7 @@ export function ExercisesPage() {
       const oRes = await listExerciseOverrides();
       setOverridesById(new Map(oRes.map((o) => [o.id, o])));
     } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+      setErr(errMessage(e));
     }
   }
 
@@ -742,7 +743,7 @@ export function ExercisesPage() {
       setVoiceoverJobId(res.job.id);
       setVoiceoverStatusVisible(true);
     } catch (e) {
-      setVoiceoverErr(e instanceof Error ? e.message : String(e));
+      setVoiceoverErr(errMessage(e));
     } finally {
       setVoiceoverQueuing(false);
     }
@@ -786,7 +787,7 @@ export function ExercisesPage() {
       setDeleteVideoJobId(res.job.id);
       setDeleteVideoStatusVisible(true);
     } catch (e) {
-      setDeleteVideoErr(e instanceof Error ? e.message : String(e));
+      setDeleteVideoErr(errMessage(e));
     } finally {
       setDeleteVideoQueuing(false);
     }
@@ -856,7 +857,13 @@ export function ExercisesPage() {
         setModalErr(null);
         const res = await updateExercise(canonical.id, patch);
         if (!res.ok || !res.row) {
-          setModalErr(res.error ?? 'Update failed');
+          setModalErr(
+            typeof res.error === 'string' && res.error
+              ? res.error
+              : res.error
+                ? errMessage(res.error)
+                : 'Update failed',
+          );
           return;
         }
         await refreshCanonical();
@@ -864,7 +871,7 @@ export function ExercisesPage() {
         closeEdit();
         showToast(`Saved ${savedName}`);
       } catch (e) {
-        setModalErr(e instanceof Error ? e.message : String(e));
+        setModalErr(errMessage(e));
       } finally {
         setSaving(false);
       }
@@ -885,7 +892,7 @@ export function ExercisesPage() {
       await refreshOverrides();
       closeEdit();
     } catch (e) {
-      setModalErr(e instanceof Error ? e.message : String(e));
+      setModalErr(errMessage(e));
     } finally {
       setSaving(false);
     }
@@ -947,7 +954,7 @@ export function ExercisesPage() {
       await refreshOverrides();
       closeEdit();
     } catch (e) {
-      setModalErr(e instanceof Error ? e.message : String(e));
+      setModalErr(errMessage(e));
     } finally {
       setSaving(false);
     }
@@ -960,7 +967,7 @@ export function ExercisesPage() {
       const url = await uploadExerciseVideo(f);
       setForm((prev) => (prev ? { ...prev, videoUrl: url } : prev));
     } catch (e) {
-      setModalErr(e instanceof Error ? e.message : String(e));
+      setModalErr(errMessage(e));
     } finally {
       setUploadingVideo(false);
     }
@@ -973,7 +980,7 @@ export function ExercisesPage() {
       const url = await uploadExerciseThumbnail(f);
       setForm((prev) => (prev ? { ...prev, thumbnailUrl: url } : prev));
     } catch (e) {
-      setModalErr(e instanceof Error ? e.message : String(e));
+      setModalErr(errMessage(e));
     } finally {
       setUploadingThumb(false);
     }
