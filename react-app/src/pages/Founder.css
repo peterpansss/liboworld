@@ -1,195 +1,48 @@
 /* ─────────────────────────────
-   FOUNDER PAGE — Founder.css
-   Long-form founder story. Premium editorial layout.
+   FOUNDER / ABOUT US PAGE — Founder.css
+   Minimal layout: a single centered media card with the intro video.
    ───────────────────────────── */
 
 .founder-page {
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
+  display: flex;
+  flex-direction: column;
 }
 
-/* ── Hero ── */
-.fp-hero {
-  padding: 32px 32px 32px;
-  max-width: 880px;
-  margin: 0 auto;
+.fp-intro-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
 }
 
-.fp-breadcrumb {
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 24px;
-  letter-spacing: 0.5px;
-}
-
-.fp-breadcrumb a {
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.fp-breadcrumb a:hover {
-  color: var(--text);
-}
-
-.fp-breadcrumb span {
-  margin: 0 8px;
-  opacity: 0.5;
-}
-
-.fp-hero-headline {
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: 0.95;
-  letter-spacing: -1.5px;
-  color: var(--text);
-  margin-bottom: 20px;
-}
-
-.fp-hero-lede {
-  font-size: clamp(17px, 2vw, 20px);
-  line-height: 1.5;
-  color: var(--muted);
-  max-width: 640px;
-}
-
-/* ── Portrait section ── */
-.fp-portrait-section {
-  padding: 24px 32px 48px;
-  max-width: 880px;
-  margin: 0 auto;
-}
-
-.fp-portrait {
-  margin: 0;
-  border-radius: 20px;
+.fp-intro-card {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
   overflow: hidden;
-  background: #1a1a1a;
-  aspect-ratio: 3 / 4;
+  background: #000;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
 }
 
-.fp-portrait img {
+.fp-intro-card video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 25%;
+  object-fit: contain;
   display: block;
+  background: #000;
 }
 
-/* ── Story body ── */
-.fp-story {
-  padding: 40px 32px 80px;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.fp-story-block {
-  margin-bottom: 56px;
-}
-
-.fp-story-heading {
-  font-size: clamp(28px, 4vw, 40px);
-  line-height: 1;
-  letter-spacing: -1px;
-  color: var(--text);
-  margin-bottom: 16px;
-}
-
-.fp-story-block p {
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--muted);
-}
-
-.fp-signature {
-  margin-top: 64px;
-  padding-top: 32px;
-  border-top: 1px solid var(--border);
-}
-
-.fp-signature-name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 18px;
-  color: var(--text);
-  margin: 0 0 4px;
-}
-
-.fp-signature-role {
-  font-size: 13px;
-  color: var(--muted);
-  margin: 0;
-}
-
-/* ── CTA band ── */
-.fp-cta-band {
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 80px 32px;
-  text-align: center;
-}
-
-.fp-cta-headline {
-  font-size: clamp(40px, 6vw, 64px);
-  line-height: 0.95;
-  letter-spacing: -1.5px;
-  color: var(--text);
-  margin: 0 0 16px;
-}
-
-.fp-cta-sub {
-  font-size: 17px;
-  line-height: 1.5;
-  color: var(--muted);
-  max-width: 480px;
-  margin: 0 auto 32px;
-}
-
-.fp-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  background: var(--accent);
-  color: var(--accent-text);
-  text-decoration: none;
-  padding: 14px 28px;
-  font-size: 15px;
-  font-weight: 700;
-  border-radius: 14px;
-  transition: background 0.2s, transform 0.15s;
-  min-height: 44px;
-}
-
-.fp-cta-btn:hover {
-  background: var(--accent2);
-  transform: translateY(-1px);
-}
-
-.fp-cta-btn:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-}
-
-/* ── Responsive ── */
 @media (max-width: 768px) {
-  .fp-hero {
-    padding: 20px 20px 16px;
+  .fp-intro-main {
+    padding: 40px 16px;
   }
-  .fp-portrait-section {
-    padding: 16px 20px 32px;
-  }
-  .fp-portrait {
-    aspect-ratio: 4 / 5;
-  }
-  .fp-story {
-    padding: 24px 20px 60px;
-  }
-  .fp-story-block {
-    margin-bottom: 40px;
-  }
-  .fp-cta-band {
-    padding: 56px 20px;
+  .fp-intro-card {
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
   }
 }
