@@ -48,9 +48,13 @@ export interface Workout {
   type?: string;
 }
 
-/** Raw workout shape from workouts.json (warmup/main/cooldown with "exercise" key) */
+/** Raw workout shape from workouts.json (warmup/main/cooldown). Admin/Supabase
+ * persists snake_case (`exercise_name`/`exercise_id`); a handful of legacy
+ * blocks still use the older `exercise` key. Both are read defensively. */
 interface RawWorkoutExercise {
-  exercise: string;
+  exercise?: string;
+  exercise_name?: string;
+  exercise_id?: string | null;
   sets: string;
   reps: string;
   dur?: number;
@@ -75,7 +79,7 @@ interface RawWorkout {
 /** Normalize raw workout: merge warmup/main/cooldown into flat exercises array with phase tags */
 function normalizeWorkout(raw: RawWorkout): Workout {
   const toExercise = (item: RawWorkoutExercise, phase: 'warmup' | 'main' | 'cooldown'): WorkoutExercise => ({
-    name: item.exercise,
+    name: item.exercise_name ?? item.exercise ?? '',
     sets: item.sets,
     reps: item.reps,
     dur: item.dur,
