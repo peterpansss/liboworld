@@ -11,13 +11,13 @@ import { Search, Hourglass, Frown } from '../utils/icons';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
 
-const GOAL_KEYS = ['All', 'Strength', 'Cardio', 'Mobility', 'Recovery', 'Morning', 'Evening'] as const;
+const GOAL_KEYS = ['All', 'Strength', 'Cardio', 'Mobility', 'Stretching', 'Recovery', 'Morning', 'Evening'] as const;
 type GoalKey = typeof GOAL_KEYS[number];
 
 const DURATION_KEYS = ['Any', 'Short', 'Medium', 'Long', 'XLong'] as const;
 type DurationKey = typeof DURATION_KEYS[number];
 
-const CAT_KEYS = ['All', 'Gym', 'Home', 'Cardio', 'Stretching', 'Morning Routine'] as const;
+const CAT_KEYS = ['All', 'Gym', 'Home'] as const;
 type CatKey = typeof CAT_KEYS[number];
 
 const PAGE_SIZE = 12;
@@ -52,7 +52,8 @@ function classifyGoal(w: { cat: string; subcat?: string }): Exclude<GoalKey, 'Al
   if (cat === 'morning routine' || sub === 'wake-up') return 'Morning';
   if (sub === 'before sleep') return 'Evening';
   if (cat === 'cardio' || sub.includes('hiit') || sub.includes('cardio') || sub === 'steady-state') return 'Cardio';
-  if (cat === 'stretching' || sub === 'mobility' || sub === 'dynamic mobility') return 'Mobility';
+  if (cat === 'stretching') return 'Stretching';
+  if (sub === 'mobility' || sub === 'dynamic mobility') return 'Mobility';
   if (sub === 'recovery' || sub.includes('rehab')) return 'Recovery';
   return 'Strength';
 }
@@ -176,7 +177,7 @@ export default function ProgramLibrary() {
 
   const groupedByGoal = useMemo(() => {
     const groups: Record<Exclude<GoalKey, 'All'>, Workout[]> = {
-      Strength: [], Cardio: [], Mobility: [], Recovery: [], Morning: [], Evening: [],
+      Strength: [], Cardio: [], Mobility: [], Stretching: [], Recovery: [], Morning: [], Evening: [],
     };
     workouts.forEach((w) => groups[classifyGoal(w)].push(w));
     return groups;

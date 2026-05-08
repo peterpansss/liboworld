@@ -490,7 +490,7 @@ export default function ExerciseLibrary() {
                 <Link key={ex.id} to={`/exercises/${ex.slug ?? ex.id}`} className="el-card">
                   <div className="el-card-media">
                     <MuscleTile muscle={ex.bodyFocus} />
-                    {thumb && (
+                    {thumb ? (
                       <img
                         src={thumb}
                         alt=""
@@ -498,7 +498,15 @@ export default function ExerciseLibrary() {
                         onError={(e) => (e.currentTarget.style.display = 'none')}
                         className="el-card-thumb"
                       />
-                    )}
+                    ) : ex.videoUrl ? (
+                      <video
+                        src={ex.videoUrl}
+                        preload="metadata"
+                        muted
+                        playsInline
+                        className="el-card-thumb"
+                      />
+                    ) : null}
                   </div>
                   <div className="el-card-name">{ex.name}</div>
                   <div className="el-card-meta">
