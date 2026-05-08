@@ -40,9 +40,6 @@ export default function FounderCard() {
           <h2 className="founder-headline font-display">
             {t('founder.headline', { defaultValue: 'No excuses.' })}
           </h2>
-          <p className="founder-subhead">
-            {t('founder.subhead', { defaultValue: 'Used by the founder.' })}
-          </p>
         </header>
 
         <div className="founder-grid">
