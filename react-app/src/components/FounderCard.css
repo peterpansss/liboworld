@@ -11,11 +11,17 @@
   margin: 0 auto;
 }
 
-/* ── Brand mark (ascending dots) — confident scale, premium accent ── */
+/* ── Brand mark (ascending dots) — confident scale, premium accent.
+   Source PNG has heavy transparent padding around the dots; we crop it
+   visually with a tight aspect-ratio + object-fit so the rendered dots
+   feel anchored rather than floating in empty space. ── */
 .founder-mark {
   display: block;
-  width: 140px;
+  width: 220px;
+  aspect-ratio: 5 / 2;
   height: auto;
+  object-fit: cover;
+  object-position: center center;
   margin: 0 auto 28px;
 }
 
@@ -212,7 +218,7 @@
   }
   .founder-mark {
     grid-area: mark;
-    width: 240px;
+    width: 480px;
     margin: 0;
     align-self: start;
   }
