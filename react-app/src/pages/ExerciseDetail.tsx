@@ -71,7 +71,12 @@ export default function ExerciseDetail() {
   // Tracks which fallback step has been attempted on the current source.
   // 0 = primary (lang+voice), 1 = en+voice, 2 = en+onyx (always exists).
   const fallbackStepRef = useRef(0);
-  const [muted, setMuted] = useState(true);
+  // Default unmuted so the voiceover coaching is the first thing users
+  // hear — many users specifically come for the VO. Browsers block unmuted
+  // autoplay without a user gesture; the [mainSrc] effect below falls back
+  // to muted in that case so the video still plays and the prominent volume
+  // button advertises that audio is available.
+  const [muted, setMuted] = useState(false);
   const [showingAlt, setShowingAlt] = useState(false);
   // Voice coach: persisted in localStorage so the choice survives reloads.
   const [voice, setVoice] = useState<VoicePreference>(() => {
@@ -253,7 +258,17 @@ export default function ExerciseDetail() {
     const v = videoRef.current;
     if (!v || !mainSrc) return;
     v.load();
-    v.play().catch(() => {});
+    v.play().catch(() => {
+      // Autoplay was blocked — almost always because the user landed on
+      // the page without a prior gesture and we asked for unmuted audio.
+      // Fall back to muted so the video still plays; the volume button
+      // overlay tells users VO is one click away.
+      if (!v.muted) {
+        v.muted = true;
+        setMuted(true);
+        v.play().catch(() => {});
+      }
+    });
   }, [mainSrc]);
 
   useEffect(() => {
