@@ -22,9 +22,6 @@ const SHOTS: FounderShot[] = [
     poster: '/founder/noah-loop-poster.jpg',
     isVideo: true,
   },
-  {
-    src: '/founder/noah-photo.jpg',
-  },
 ];
 
 export default function FounderCard() {

@@ -1,6 +1,5 @@
-/* Founder section — Cal AI-style "Built by athletes" pattern.
-   Centered headline + 3 portrait cards in a slightly staggered row, each
-   with a small dark caption pill in the bottom-left. */
+/* Founder section — single centered portrait video card under a
+   "Built by athletes" headline + CTA. */
 
 .founder-wrapper {
   background: var(--white);
@@ -42,13 +41,13 @@
   margin: 0 auto;
 }
 
-/* ── Grid (2 cards side-by-side desktop, stacked mobile) ── */
+/* ── Grid (single centered card) ── */
 .founder-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
   align-items: stretch;
-  max-width: 1100px;
+  max-width: 520px;
   margin: 0 auto;
 }
 
@@ -83,12 +82,7 @@
   transform: scale(1.04);
 }
 
-.founder-shot--1,
-.founder-shot--2 { transform: translateY(0); }
-
-.founder-shot--2 img {
-  object-position: center 28%;
-}
+.founder-shot--1 { transform: translateY(0); }
 
 /* ── Caption pill (bottom-left) ── */
 .founder-caption {
@@ -163,32 +157,17 @@
   .founder-header {
     margin-bottom: 32px;
   }
-  /* Stack 1-per-row, full-width — Cal AI mobile pattern.
-     Reverse order on mobile: image first, then video. */
   .founder-grid {
-    grid-template-columns: 1fr;
     gap: 16px;
-  }
-  .founder-shot--1,
-  .founder-shot--2 {
-    transform: none;
-  }
-  .founder-shot--1 { order: 2; }
-  .founder-shot--2 { order: 1; }
-  .founder-shot {
-    aspect-ratio: 4 / 5;
   }
   /* Video card is square on mobile — source video (DAR 9:16) leaves
      empty floor space at 4:5. Square crops out the floor. */
   .founder-shot--1 {
+    transform: none;
     aspect-ratio: 1 / 1;
   }
   .founder-shot--1 video {
     object-position: center 30%;
-  }
-  /* Photo card: show face down to torso instead of mid-body. */
-  .founder-shot--2 img {
-    object-position: center top;
   }
   .founder-caption {
     bottom: 14px;
