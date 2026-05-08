@@ -83,7 +83,7 @@ export function exerciseSupportsAnimation(ex: Exercise): boolean {
 // Cloudflare's edge cache from before the file existed (the .htaccess
 // asset-404 rule prevents future occurrences, but doesn't help URLs
 // Cloudflare cached as index.html in earlier deploys).
-const THUMB_CACHE_BUST = 'v=2';
+const THUMB_CACHE_BUST = 'v=3';
 
 // Thumbnails are extracted from the processed video, so the file basename
 // always matches the videoUrl basename (not necessarily the exercise id —
