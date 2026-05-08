@@ -42,7 +42,7 @@ const SETTINGS = ['All', 'Gym', 'Home'];
 // Accessory; Pelvic Floor stands alone since it's a real distinct category).
 const TYPES = [
   'All', 'Strength', 'Cardio', 'HIIT', 'Power',
-  'Mobility', 'Core', 'Pelvic Floor', 'Warm-Up',
+  'Mobility', 'Stretching', 'Core', 'Pelvic Floor', 'Warm-Up',
 ];
 
 const TYPE_TO_PRIMARY_CATS: Record<string, string[]> = {
@@ -50,7 +50,8 @@ const TYPE_TO_PRIMARY_CATS: Record<string, string[]> = {
   Cardio: ['Cardio'],
   HIIT: ['HIIT / Functional'],
   Power: ['Power'],
-  Mobility: ['Mobility', 'Cool-Down', 'Recovery'],
+  Mobility: ['Mobility', 'Recovery'],
+  Stretching: ['Cool-Down'],
   Core: ['Core Stability'],
   'Pelvic Floor': ['Pelvic Floor & Breathing'],
   'Warm-Up': ['Warm-Up'],

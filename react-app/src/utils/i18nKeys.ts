@@ -48,6 +48,7 @@ export const TYPE_I18N_KEYS: Record<string, string> = {
   HIIT: 'hiit',
   Power: 'power',
   Mobility: 'mobility',
+  Stretching: 'stretching',
   Core: 'core',
   'Pelvic Floor': 'pelvicFloor',
   'Warm-Up': 'warmUp',
