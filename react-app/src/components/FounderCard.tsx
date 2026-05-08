@@ -162,14 +162,29 @@ export default function FounderCard() {
             <video
               ref={videoRef}
               className="founder-intro-video"
-              src="/founder/noah-loop.mp4"
               poster="/founder/noah-loop-poster.jpg"
               playsInline
               preload="auto"
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
               onEnded={() => setIsPlaying(false)}
-            />
+            >
+              {/* Portrait cut served on phones (≤768px). Placeholder is
+                  noah-loop.mp4 (9:16) — swap to /founder/intro-portrait.mp4
+                  (1080×1920) once the real cut is recorded. */}
+              <source
+                src="/founder/noah-loop.mp4"
+                media="(max-width: 768px)"
+                type="video/mp4"
+              />
+              {/* Landscape cut for desktop / tablet. Placeholder is the same
+                  9:16 file for now — swap to /founder/intro-landscape.mp4
+                  (1920×1080) once recorded. */}
+              <source
+                src="/founder/noah-loop.mp4"
+                type="video/mp4"
+              />
+            </video>
 
             <button
               type="button"
