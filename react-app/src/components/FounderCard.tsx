@@ -29,6 +29,7 @@ export default function FounderCard() {
   const markRef = useRef<HTMLImageElement>(null);
   const [markIn, setMarkIn] = useState(false);
   const [introOpen, setIntroOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -78,6 +79,16 @@ export default function FounderCard() {
     videoRef.current?.pause();
     setIntroOpen(false);
     requestAnimationFrame(() => triggerRef.current?.focus());
+  }
+
+  function togglePlay() {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
   }
 
   return (
@@ -148,22 +159,55 @@ export default function FounderCard() {
             className="founder-intro-card"
             onClick={(e) => e.stopPropagation()}
           >
+            <video
+              ref={videoRef}
+              className="founder-intro-video"
+              src="/founder/noah-loop.mp4"
+              poster="/founder/noah-loop-poster.jpg"
+              playsInline
+              preload="auto"
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              onEnded={() => setIsPlaying(false)}
+            />
+
+            <button
+              type="button"
+              className="founder-intro-toggle"
+              onClick={togglePlay}
+              aria-label={
+                isPlaying
+                  ? t('founder.introPause', { defaultValue: 'Pause' })
+                  : t('founder.introPlay', { defaultValue: 'Play' })
+              }
+            >
+              {isPlaying ? (
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden>
+                  <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />
+                  <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden>
+                  <path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor" />
+                </svg>
+              )}
+            </button>
+
             <button
               type="button"
               className="founder-intro-close"
               onClick={closeIntro}
               aria-label={t('founder.introClose', { defaultValue: 'Close' })}
             >
-              <span aria-hidden>✕</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
             </button>
-            <video
-              ref={videoRef}
-              src="/founder/noah-loop.mp4"
-              poster="/founder/noah-loop-poster.jpg"
-              controls
-              playsInline
-              preload="auto"
-            />
           </div>
         </div>
       )}
