@@ -422,11 +422,14 @@ export async function deleteWorkoutOverride(id: string) {
 }
 
 export async function uploadExerciseVideo(file: File): Promise<string> {
-  const ext = (file.name.split('.').pop() ?? 'mp4').toLowerCase();
-  const path = `${crypto.randomUUID()}.${ext}`;
+  // The exercise-videos bucket only allows video/mp4, but iPhone/QuickTime
+  // recordings come in as video/quicktime (.mov). Both formats share the
+  // ISO BMFF container, so we always store as .mp4 with mime video/mp4 —
+  // browsers and downstream ffmpeg handle either input transparently.
+  const path = `${crypto.randomUUID()}.mp4`;
   const { error } = await supabase.storage.from('exercise-videos').upload(path, file, {
     upsert: false,
-    contentType: file.type || 'video/mp4',
+    contentType: 'video/mp4',
   });
   if (error) throw error;
   const { data } = supabase.storage.from('exercise-videos').getPublicUrl(path);
