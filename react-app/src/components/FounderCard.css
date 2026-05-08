@@ -11,10 +11,10 @@
   margin: 0 auto;
 }
 
-/* ── Brand mark (ascending dots) — small, restrained, premium accent ── */
+/* ── Brand mark (ascending dots) — confident scale, premium accent ── */
 .founder-mark {
   display: block;
-  width: 72px;
+  width: 140px;
   height: auto;
   margin: 0 auto 28px;
 }
@@ -212,7 +212,7 @@
   }
   .founder-mark {
     grid-area: mark;
-    width: 88px;
+    width: 240px;
     margin: 0;
     align-self: start;
   }
