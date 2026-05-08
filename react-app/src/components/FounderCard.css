@@ -14,7 +14,9 @@
 /* ── Brand mark (ascending dots) — bold scale, anchors the section.
    Source PNG has heavy transparent padding around the dots; we crop it
    visually with a tight aspect-ratio + object-fit so the rendered dots
-   feel anchored rather than floating in empty space. ── */
+   feel anchored rather than floating in empty space.
+   Hidden by default; fades up when the section enters the viewport
+   (toggled by .founder-mark--in via IntersectionObserver). ── */
 .founder-mark {
   display: block;
   width: 320px;
@@ -23,6 +25,25 @@
   object-fit: cover;
   object-position: center center;
   margin: 0 auto 28px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1) 80ms,
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 80ms;
+  will-change: opacity, transform;
+}
+
+.founder-mark--in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .founder-mark {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ── Header ── */

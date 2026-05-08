@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './FounderCard.css';
@@ -26,11 +27,31 @@ const SHOTS: FounderShot[] = [
 
 export default function FounderCard() {
   const { t } = useTranslation();
+  const markRef = useRef<HTMLImageElement>(null);
+  const [markIn, setMarkIn] = useState(false);
+
+  useEffect(() => {
+    const node = markRef.current;
+    if (!node) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMarkIn(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.4 },
+    );
+    obs.observe(node);
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <div className="founder-wrapper">
       <section className="founder-section" id="founder">
         <img
-          className="founder-mark"
+          ref={markRef}
+          className={`founder-mark${markIn ? ' founder-mark--in' : ''}`}
           src="/brand/logo_options/dots_only_transparent.png"
           alt=""
           aria-hidden="true"
