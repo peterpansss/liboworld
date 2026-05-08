@@ -11,6 +11,14 @@
   margin: 0 auto;
 }
 
+/* ── Brand mark (ascending dots) — small, restrained, premium accent ── */
+.founder-mark {
+  display: block;
+  width: 72px;
+  height: auto;
+  margin: 0 auto 28px;
+}
+
 /* ── Header ── */
 .founder-header {
   text-align: center;
@@ -189,22 +197,30 @@
   }
 }
 
-/* ── Desktop: editorial split — copy left, video right ── */
+/* ── Desktop: editorial split — copy left (mark / headline / CTA distributed
+   vertically), video right ── */
 @media (min-width: 901px) {
   .founder-section {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
+      "mark   shot"
       "header shot"
       "cta    shot";
-    grid-template-rows: 1fr auto;
+    grid-template-rows: auto 1fr auto;
     column-gap: 80px;
+  }
+  .founder-mark {
+    grid-area: mark;
+    width: 88px;
+    margin: 0;
+    align-self: start;
   }
   .founder-header {
     grid-area: header;
     text-align: left;
-    margin-bottom: 24px;
-    align-self: end;
+    margin: 0;
+    align-self: center;
   }
   .founder-subhead {
     margin: 0;
@@ -219,6 +235,6 @@
     grid-area: cta;
     justify-content: flex-start;
     margin-top: 0;
-    align-self: start;
+    align-self: end;
   }
 }

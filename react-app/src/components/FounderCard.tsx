@@ -29,6 +29,13 @@ export default function FounderCard() {
   return (
     <div className="founder-wrapper">
       <section className="founder-section" id="founder">
+        <img
+          className="founder-mark"
+          src="/brand/logo_options/dots_only_transparent.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        />
         <header className="founder-header">
           <h2 className="founder-headline font-display">
             {t('founder.headline', { defaultValue: 'No excuses.' })}
