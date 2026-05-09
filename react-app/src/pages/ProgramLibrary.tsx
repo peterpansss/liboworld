@@ -46,15 +46,22 @@ function getPaginationRange(current: number, total: number): (number | 'ellipsis
 // Goal classifier — first match wins. Maps the existing cat/subcat fields
 // onto the user-facing Goal axis. No data-schema changes; kept here so it's
 // easy to retune without touching the source spreadsheet.
+//
+// Specific subcat signals are checked BEFORE broad cat fallbacks. Otherwise a
+// workout correctly tagged subcat='Before Sleep' / 'Mobility' / 'Recovery'
+// gets caught by the earlier cat === 'morning routine' / 'stretching' branch
+// and ends up in the wrong bucket — leaving the Evening / Mobility / Recovery
+// chips empty even though tagged content exists.
 function classifyGoal(w: { cat: string; subcat?: string }): Exclude<GoalKey, 'All'> {
   const cat = (w.cat || '').toLowerCase();
   const sub = (w.subcat || '').toLowerCase();
-  if (cat === 'morning routine' || sub === 'wake-up') return 'Morning';
   if (sub === 'before sleep') return 'Evening';
-  if (cat === 'cardio' || sub.includes('hiit') || sub.includes('cardio') || sub === 'steady-state') return 'Cardio';
-  if (cat === 'stretching') return 'Stretching';
+  if (sub === 'wake-up') return 'Morning';
   if (sub === 'mobility' || sub === 'dynamic mobility') return 'Mobility';
   if (sub === 'recovery' || sub.includes('rehab')) return 'Recovery';
+  if (cat === 'cardio' || sub.includes('hiit') || sub.includes('cardio') || sub === 'steady-state') return 'Cardio';
+  if (cat === 'morning routine') return 'Morning';
+  if (cat === 'stretching') return 'Stretching';
   return 'Strength';
 }
 
