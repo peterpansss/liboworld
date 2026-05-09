@@ -7,7 +7,7 @@ import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
-import { Search, Hourglass, Frown } from '../utils/icons';
+import { Hourglass, Frown } from '../utils/icons';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
 
@@ -292,35 +292,6 @@ export default function ProgramLibrary() {
             </Link>
           </div>
 
-          {/* Popular collections — links to /best-workouts/<facet> hubs. */}
-          <div className="el-filter-row" style={{ marginTop: 16, marginBottom: 16 }}>
-            <div className="el-filter-label">
-              {t('programLibrary.popularCollections', { defaultValue: 'Popular collections' })}
-            </div>
-            <div className="el-chips">
-              <Link to="/best-workouts/upper-body" className="el-chip">{t('programLibrary.bestUpperBody', { defaultValue: 'Upper Body' })}</Link>
-              <Link to="/best-workouts/lower-body" className="el-chip">{t('programLibrary.bestLowerBody', { defaultValue: 'Lower Body' })}</Link>
-              <Link to="/best-workouts/bodyweight" className="el-chip">{t('programLibrary.bestBodyweight', { defaultValue: 'Bodyweight' })}</Link>
-              <Link to="/best-workouts/dumbbell"   className="el-chip">{t('programLibrary.bestDumbbell',   { defaultValue: 'Dumbbell' })}</Link>
-              <Link to="/best-workouts/30-minute"  className="el-chip">{t('programLibrary.best30Min',     { defaultValue: '30-Minute' })}</Link>
-              <Link to="/best-workouts/home"       className="el-chip">{t('programLibrary.bestHome',       { defaultValue: 'Home Workouts' })}</Link>
-            </div>
-          </div>
-
-          <div className="el-search-wrap">
-            <span className="el-search-icon" aria-hidden="true">
-              <EmojiIcon icon={Search} size={16} />
-            </span>
-            <input
-              type="text"
-              className="el-search"
-              placeholder={t('programLibrary.searchPlaceholder')}
-              aria-label={t('programLibrary.searchAria')}
-              value={search}
-              onChange={(e) => updateParam('q', e.target.value)}
-            />
-          </div>
-
           <div className="el-filter-row el-filter-row--primary">
             <div className="el-chips">
               {CAT_KEYS.map((c: CatKey) => {
@@ -425,7 +396,7 @@ export default function ProgramLibrary() {
                       </button>
                     </header>
                     <div className="wk-group-grid">
-                      {items.slice(0, 6).map(renderCard)}
+                      {items.slice(0, 3).map(renderCard)}
                     </div>
                   </section>
                 );
