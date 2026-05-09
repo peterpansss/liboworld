@@ -391,15 +391,11 @@ export default function ProgramLibrary() {
                     <div className="wk-group-grid">
                       {items.slice(0, 3).map(renderCard)}
                     </div>
-                    {items.length > 3 && (
-                      <Link to="/get-app" className="wk-group-more">
-                        {t('programLibrary.moreInApp', {
-                          count: items.length - 3,
-                          goal: goalLabel(g),
-                          defaultValue: '+ {{count}} more {{goal}} workouts in the Libo app →',
-                        })}
-                      </Link>
-                    )}
+                    <Link to="/get-app" className="wk-group-more">
+                      {t('programLibrary.allInApp', {
+                        defaultValue: 'All available in the Libo app →',
+                      })}
+                    </Link>
                   </section>
                 );
               })}
