@@ -276,6 +276,22 @@ export default function ProgramLibrary() {
             <p>{t('programLibrary.subtitleAll', { count: workouts.length, defaultValue: '{{count}} guided workouts. Pick by goal, by time, or just browse.' })}</p>
           </div>
 
+          {/* Popular collections — links to /best-workouts/<facet> hubs.
+              Plain English with t-defaultValue: pages are English-only in v1. */}
+          <div className="el-filter-row" style={{ marginTop: 8, marginBottom: 16 }}>
+            <div className="el-filter-label">
+              {t('programLibrary.popularCollections', { defaultValue: 'Popular collections' })}
+            </div>
+            <div className="el-chips">
+              <Link to="/best-workouts/upper-body" className="el-chip">{t('programLibrary.bestUpperBody', { defaultValue: 'Upper Body' })}</Link>
+              <Link to="/best-workouts/lower-body" className="el-chip">{t('programLibrary.bestLowerBody', { defaultValue: 'Lower Body' })}</Link>
+              <Link to="/best-workouts/bodyweight" className="el-chip">{t('programLibrary.bestBodyweight', { defaultValue: 'Bodyweight' })}</Link>
+              <Link to="/best-workouts/dumbbell"   className="el-chip">{t('programLibrary.bestDumbbell',   { defaultValue: 'Dumbbell' })}</Link>
+              <Link to="/best-workouts/30-minute"  className="el-chip">{t('programLibrary.best30Min',     { defaultValue: '30-Minute' })}</Link>
+              <Link to="/best-workouts/home"       className="el-chip">{t('programLibrary.bestHome',       { defaultValue: 'Home Workouts' })}</Link>
+            </div>
+          </div>
+
           <div className="el-search-wrap">
             <span className="el-search-icon" aria-hidden="true">
               <EmojiIcon icon={Search} size={16} />

@@ -27,6 +27,7 @@ const SITE_URL = 'https://liboworld.com';
 
 const EXERCISES_JSON = path.join(REPO_ROOT, 'react-app', 'public', 'exercises.json');
 const WORKOUTS_JSON = path.join(REPO_ROOT, 'react-app', 'public', 'workouts.json');
+const FACETS_JSON = path.join(REPO_ROOT, 'react-app', 'public', 'workout-facets.json');
 const BLOG_TS = path.join(REPO_ROOT, 'react-app', 'src', 'data', 'blog.ts');
 
 const OUTPUTS = [
@@ -97,6 +98,16 @@ function main() {
   for (const wk of workouts) {
     if (!wk.id) continue;
     entries.push(urlEntry(`${SITE_URL}/workouts/${escapeXml(wk.id)}`, 0.7, 'monthly'));
+  }
+
+  // Best-workouts facet landing pages — programmatic SEO hub network.
+  // Slugs are stable (treated as an API by generate-workout-facets.mjs);
+  // only facets with ≥3 matching workouts make it into the sidecar.
+  if (fs.existsSync(FACETS_JSON)) {
+    const facetData = JSON.parse(fs.readFileSync(FACETS_JSON, 'utf8'));
+    for (const slug of Object.keys(facetData.facets || {})) {
+      entries.push(urlEntry(`${SITE_URL}/best-workouts/${escapeXml(slug)}`, 0.7, 'weekly'));
+    }
   }
 
   // Blog posts

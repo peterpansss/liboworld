@@ -63,14 +63,18 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          {/* Workouts */}
+          {/* Best Workouts — programmatic SEO hubs at /best-workouts/<facet>.
+              Plain English with defaultValue: v1 of these pages is English-only,
+              and the hardcoded labels match the H1 keyword pattern. */}
           <div className="site-footer__col">
-            <h2 className="site-footer__col-title">{t('footer.workoutsTitle')}</h2>
+            <h2 className="site-footer__col-title">{t('footer.bestWorkoutsTitle', { defaultValue: 'Best Workouts' })}</h2>
             <div className="site-footer__col-links">
-              <Link to="/workouts?cat=Gym">{t('footer.gymWorkouts')}</Link>
-              <Link to="/workouts?cat=Home">{t('footer.homeWorkouts')}</Link>
-              <Link to="/workouts?cat=Stretching">{t('footer.stretching')}</Link>
-              <Link to="/workouts?cat=Cardio">{t('footer.cardio')}</Link>
+              <Link to="/best-workouts/upper-body">{t('footer.bestUpperBody', { defaultValue: 'Upper Body' })}</Link>
+              <Link to="/best-workouts/lower-body">{t('footer.bestLowerBody', { defaultValue: 'Lower Body' })}</Link>
+              <Link to="/best-workouts/bodyweight">{t('footer.bestBodyweight', { defaultValue: 'Bodyweight' })}</Link>
+              <Link to="/best-workouts/dumbbell">{t('footer.bestDumbbell', { defaultValue: 'Dumbbell' })}</Link>
+              <Link to="/best-workouts/30-minute">{t('footer.best30Minute', { defaultValue: '30-Minute' })}</Link>
+              <Link to="/best-workouts/home">{t('footer.bestHome', { defaultValue: 'Home Workouts' })}</Link>
             </div>
           </div>
         </nav>
