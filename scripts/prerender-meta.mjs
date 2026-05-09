@@ -284,6 +284,24 @@ function prerenderFacets(template) {
   return count;
 }
 
+// Apache (Netcup hosting) serves a directory request like `/workouts/` by
+// looking for an `index.html` inside it. When the prerender step writes
+// `/workouts/generate/index.html` or `/exercises/<slug>/index.html` it
+// creates the parent dir without ever placing an index.html at the dir
+// root — apache then returns **403 Forbidden** because directory
+// listings are disabled. The .htaccess SPA fallback only kicks in for
+// missing files, not for existing dirs without an index.
+//
+// Fix: for every parent path that gets prerendered children, write a
+// shell index.html (the SPA root template) at the parent so apache
+// serves the React app and lets it route client-side.
+function ensureParentIndex(parentDir, template) {
+  const target = path.join(parentDir, 'index.html');
+  if (fs.existsSync(target)) return;
+  fs.mkdirSync(parentDir, { recursive: true });
+  fs.writeFileSync(target, template);
+}
+
 function main() {
   const indexHtmlPath = path.join(DIST, 'index.html');
   if (!fs.existsSync(indexHtmlPath)) {
@@ -324,10 +342,12 @@ function main() {
   }
 
   console.log(`prerender-meta: wrote ${count} exercise route stubs into dist/exercises/<slug>/index.html`);
+  ensureParentIndex(path.join(DIST, 'exercises'), template);
 
   const facetCount = prerenderFacets(template);
   if (facetCount > 0) {
     console.log(`prerender-meta: wrote ${facetCount} best-workouts facet route stubs into dist/best-workouts/<facet>/index.html`);
+    ensureParentIndex(path.join(DIST, 'best-workouts'), template);
   }
 
   // Static-meta page: /workouts/generate
@@ -362,6 +382,7 @@ function main() {
   fs.mkdirSync(generateOutDir, { recursive: true });
   fs.writeFileSync(path.join(generateOutDir, 'index.html'), injectHead(template, generateInjection));
   console.log('prerender-meta: wrote /workouts/generate/index.html');
+  ensureParentIndex(path.join(DIST, 'workouts'), template);
 }
 
 main();
