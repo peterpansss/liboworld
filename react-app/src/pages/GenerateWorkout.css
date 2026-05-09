@@ -1,0 +1,148 @@
+/* /workouts/generate — Fitbod-style chip picker.
+ * Reuses .pd-breadcrumb from ProgramDetail.css. */
+
+.gw-container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 24px 20px 80px;
+}
+
+/* Hero ---------------------------------------------------------------- */
+
+.gw-hero {
+  margin: 24px 0 32px;
+}
+.gw-hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  text-transform: uppercase;
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: 0.5px;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+@media (min-width: 720px) {
+  .gw-hero h1 { font-size: 56px; }
+}
+.gw-subtitle {
+  color: var(--muted);
+  font-size: 15.5px;
+  margin: 0;
+  max-width: 560px;
+}
+
+/* Sections ------------------------------------------------------------ */
+
+.gw-section {
+  padding: 22px 0 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.gw-section:last-of-type {
+  border-bottom: none;
+}
+
+.gw-section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--text);
+  margin: 0 0 14px;
+  font-weight: 600;
+}
+
+.gw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gw-chip {
+  appearance: none;
+  background: var(--bg2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: 22px;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 100ms ease, border-color 100ms ease, transform 100ms ease;
+}
+.gw-chip:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.gw-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.gw-chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+/* CTA ----------------------------------------------------------------- */
+
+.gw-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 36px 0 16px;
+  flex-wrap: wrap;
+}
+
+.gw-cta {
+  appearance: none;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 16px 32px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: filter 120ms ease, transform 120ms ease;
+}
+.gw-cta:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+.gw-cta:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.gw-cta:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.gw-clear {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.gw-clear:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.gw-hint {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 24px 0 0;
+}
+.gw-hint a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.gw-hint a:hover {
+  text-decoration: underline;
+}

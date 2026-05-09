@@ -276,9 +276,24 @@ export default function ProgramLibrary() {
             <p>{t('programLibrary.subtitleAll', { count: workouts.length, defaultValue: '{{count}} guided workouts. Pick by goal, by time, or just browse.' })}</p>
           </div>
 
-          {/* Popular collections — links to /best-workouts/<facet> hubs.
-              Plain English with t-defaultValue: pages are English-only in v1. */}
-          <div className="el-filter-row" style={{ marginTop: 8, marginBottom: 16 }}>
+          {/* Generate-workout CTA — routes to the Fitbod-style picker page.
+              Sits above the chips so it's the first thing visitors see. */}
+          <div className="el-generate-cta">
+            <div>
+              <div className="el-generate-cta__title">
+                {t('programLibrary.generateTitle', { defaultValue: 'Generate your next workout' })}
+              </div>
+              <div className="el-generate-cta__sub">
+                {t('programLibrary.generateSub', { defaultValue: 'Pick your focus and get a matching routine in seconds.' })}
+              </div>
+            </div>
+            <Link to="/workouts/generate" className="el-generate-cta__btn">
+              {t('programLibrary.generateBtn', { defaultValue: 'Generate →' })}
+            </Link>
+          </div>
+
+          {/* Popular collections — links to /best-workouts/<facet> hubs. */}
+          <div className="el-filter-row" style={{ marginTop: 16, marginBottom: 16 }}>
             <div className="el-filter-label">
               {t('programLibrary.popularCollections', { defaultValue: 'Popular collections' })}
             </div>

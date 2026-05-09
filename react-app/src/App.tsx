@@ -22,6 +22,7 @@ const ExerciseDetail = lazy(() => import('./pages/ExerciseDetail'));
 const ProgramLibrary = lazy(() => import('./pages/ProgramLibrary'));
 const ProgramDetail = lazy(() => import('./pages/ProgramDetail'));
 const BestWorkouts = lazy(() => import('./pages/BestWorkouts'));
+const GenerateWorkout = lazy(() => import('./pages/GenerateWorkout'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Privacy = lazy(() => import('./pages/Privacy'));
@@ -54,6 +55,7 @@ export default function App() {
         <Route path="/exercises" element={<Suspense fallback={darkFallback}><ExerciseLibrary /></Suspense>} />
         <Route path="/exercises/:slug" element={<Suspense fallback={darkFallback}><ExerciseDetail /></Suspense>} />
         <Route path="/workouts" element={<Suspense fallback={darkFallback}><ProgramLibrary /></Suspense>} />
+        <Route path="/workouts/generate" element={<Suspense fallback={darkFallback}><GenerateWorkout /></Suspense>} />
         <Route path="/workouts/:id" element={<Suspense fallback={darkFallback}><ProgramDetail /></Suspense>} />
         <Route path="/best-workouts/:facet" element={<Suspense fallback={darkFallback}><BestWorkouts /></Suspense>} />
         <Route path="/blog" element={<Suspense fallback={darkFallback}><Blog /></Suspense>} />

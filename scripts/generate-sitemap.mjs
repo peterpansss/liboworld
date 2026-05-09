@@ -79,6 +79,7 @@ function main() {
   entries.push(urlEntry(`${SITE_URL}/`, 1.0, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/exercises`, 0.9, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/workouts`, 0.9, 'weekly'));
+  entries.push(urlEntry(`${SITE_URL}/workouts/generate`, 0.8, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/blog`, 0.8, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/onboarding`, 0.6, 'monthly'));
   entries.push(urlEntry(`${SITE_URL}/giveaway`, 0.8, 'daily'));

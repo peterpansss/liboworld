@@ -329,6 +329,39 @@ function main() {
   if (facetCount > 0) {
     console.log(`prerender-meta: wrote ${facetCount} best-workouts facet route stubs into dist/best-workouts/<facet>/index.html`);
   }
+
+  // Static-meta page: /workouts/generate
+  const generateInjection = buildHeadInjection({
+    title: 'Generate Your Next Workout — Pick Your Focus | Libo',
+    description: 'Pick a muscle group, equipment, duration, or goal and we will route you to the matching workouts from the Libo library — 140 free routines.',
+    canonical: `${SITE_URL}/workouts/generate`,
+    ogImage: DEFAULT_OG_IMAGE,
+    ogType: 'website',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${SITE_URL}/workouts/generate`,
+          name: 'Generate Your Next Workout',
+          description: 'Pick a workout focus to start.',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${SITE_URL}/workouts/generate#breadcrumb`,
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+            { '@type': 'ListItem', position: 2, name: 'Workouts', item: `${SITE_URL}/workouts` },
+            { '@type': 'ListItem', position: 3, name: 'Generate', item: `${SITE_URL}/workouts/generate` },
+          ],
+        },
+      ],
+    },
+  });
+  const generateOutDir = path.join(DIST, 'workouts', 'generate');
+  fs.mkdirSync(generateOutDir, { recursive: true });
+  fs.writeFileSync(path.join(generateOutDir, 'index.html'), injectHead(template, generateInjection));
+  console.log('prerender-meta: wrote /workouts/generate/index.html');
 }
 
 main();
