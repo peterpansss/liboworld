@@ -104,8 +104,19 @@ export function exerciseThumb(ex: Exercise | undefined | null): string | null {
 }
 
 export function buildNameToSlug(exercises: Exercise[]): Record<string, string> {
+  // When two exercises share a display name (e.g. an orphan duplicate canonical
+  // alongside the real one), prefer the row that actually has a videoUrl —
+  // otherwise workout cards whose hero resolves via this map can land on the
+  // empty-canonical id and end up with no thumbnail.
   const map: Record<string, string> = {};
-  for (const ex of exercises) map[ex.name] = ex.id;
+  const haveVideo: Record<string, boolean> = {};
+  for (const ex of exercises) {
+    const hasVideo = !!ex.videoUrl;
+    if (!(ex.name in map) || (hasVideo && !haveVideo[ex.name])) {
+      map[ex.name] = ex.id;
+      haveVideo[ex.name] = hasVideo;
+    }
+  }
   return map;
 }
 
@@ -120,5 +131,13 @@ export function workoutHeroThumb(
   const slug = nameToSlug[hero.name];
   if (!slug) return null;
   const ex = exercises?.find(e => e.id === slug);
-  return exerciseThumb(ex);
+  const own = exerciseThumb(ex);
+  if (own) return own;
+  // Parent canonical with no own video — fall back to a child variant's
+  // thumbnail (the same pattern ExerciseLibrary uses for grid cards).
+  if (ex && exercises) {
+    const childWithVideo = exercises.find(e => e.parentId === ex.id && e.videoUrl);
+    if (childWithVideo) return exerciseThumb(childWithVideo);
+  }
+  return null;
 }
