@@ -144,7 +144,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-15',
     author: 'Libo Team',
     heroEmoji: '🔥',
-    heroImage: '/images/blog/how-to-start-a-30-day-fitness-challenge.jpg',
+    heroImage: '/images/blog/how-to-start-a-30-day-fitness-challenge-v2.jpg',
     content: `
 <h2>Why 30-Day Challenges Work</h2>
 <p>Thirty days is long enough to build a real habit but short enough to feel achievable. <strong>The psychology is simple: a clear end date creates urgency</strong>, and daily commitment builds momentum that's hard to break.</p>
@@ -260,7 +260,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-28',
     author: 'Libo Team',
     heroEmoji: '🌅',
-    heroImage: '/images/blog/5-morning-stretching-routines-to-start-your-day.jpg',
+    heroImage: '/images/blog/5-morning-stretching-routines-to-start-your-day-v2.jpg',
     content: `
 <h2>Why Morning Stretching Changes Everything</h2>
 <p>After 7-8 hours of sleep, your muscles are stiff, your joints are tight, and your nervous system is still waking up. <strong>A short stretching routine bridges the gap between sleep and full alertness</strong> faster than coffee ever could.</p>
