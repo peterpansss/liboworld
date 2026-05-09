@@ -46,6 +46,32 @@
   gap: 16px;
 }
 
+/* Inline "+N more in the app" CTA below each goal section's card row.
+   Sits below the 3-card grid; styled as a soft accent strip so it reads
+   as adjacent ad-copy rather than a card. */
+.wk-group-more {
+  display: block;
+  margin-top: 14px;
+  padding: 14px 18px;
+  border: 1px dashed rgba(208, 255, 0, 0.28);
+  border-radius: 12px;
+  text-align: center;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+.wk-group-more:hover {
+  background: rgba(208, 255, 0, 0.04);
+  border-color: rgba(208, 255, 0, 0.5);
+}
+.wk-group-more:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 @media (max-width: 768px) {
   .wk-groups { gap: 36px; }
   /* Horizontally scrollable rail on mobile so users can flick through

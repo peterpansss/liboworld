@@ -387,17 +387,19 @@ export default function ProgramLibrary() {
                   <section key={g} className="wk-group" aria-labelledby={`wk-group-${g}`}>
                     <header className="wk-group-header">
                       <h2 id={`wk-group-${g}`} className="wk-group-title font-display">{goalLabel(g)}</h2>
-                      <button
-                        type="button"
-                        className="wk-group-link"
-                        onClick={() => updateParam('goal', g)}
-                      >
-                        {t('programLibrary.viewAll', { defaultValue: 'View all' })} →
-                      </button>
                     </header>
                     <div className="wk-group-grid">
                       {items.slice(0, 3).map(renderCard)}
                     </div>
+                    {items.length > 3 && (
+                      <Link to="/get-app" className="wk-group-more">
+                        {t('programLibrary.moreInApp', {
+                          count: items.length - 3,
+                          goal: goalLabel(g),
+                          defaultValue: '+ {{count}} more {{goal}} workouts in the Libo app →',
+                        })}
+                      </Link>
+                    )}
                   </section>
                 );
               })}
