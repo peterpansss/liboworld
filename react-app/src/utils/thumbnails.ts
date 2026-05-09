@@ -88,9 +88,15 @@ const THUMB_CACHE_BUST = 'v=3';
 // Thumbnails are extracted from the processed video, so the file basename
 // always matches the videoUrl basename (not necessarily the exercise id —
 // e.g. id=child_s_pose vs file=childs_pose.jpg).
+//
+// `thumbnailUrl` (set by media-worker for admin-uploaded rows) takes precedence
+// over the bundled-static path: legacy rows have it null and stay on the
+// SEO-friendly /images path; admin-only rows render directly from Supabase
+// Storage so they don't require a sync_landing_thumbnails + redeploy first.
 export function exerciseThumb(ex: Exercise | undefined | null): string | null {
   if (!ex) return null;
   if (isMediaHidden(ex.cat, ex.equipment)) return null;
+  if (ex.thumbnailUrl) return ex.thumbnailUrl;
   if (!ex.videoUrl) return null;
   const basename = ex.videoUrl.split('?')[0].split('/').pop()?.replace(/\.mp4$/i, '');
   if (!basename) return null;

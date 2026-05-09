@@ -22,6 +22,10 @@ export interface Exercise {
   /** Optional alternate-angle video (e.g. side view). Same base slug + `_side_view`. */
   videoUrlAlt?: string;
   animationUrl?: string;  // Optional 3D/2D animation alternative (gym/equipment only)
+  // Set by media-worker for admin-uploaded rows; null on the legacy bundled
+  // catalog. Used by exerciseThumb() as the authoritative thumbnail source
+  // before falling back to /images/thumbnails/<basename>.jpg.
+  thumbnailUrl?: string;
   parentId?: string;    // L/R variants inherit parent's media (thumb + video)
   parentName?: string;
 }

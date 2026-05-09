@@ -291,7 +291,7 @@ export default function ExerciseDetail() {
       title: `${exercise.name} — How to Perform | Libo`,
       description,
       canonical: exerciseCanonicalUrl(exercise),
-      ogImage: thumb ? `https://liboworld.com${thumb}` : undefined,
+      ogImage: thumb ? (thumb.startsWith('http') ? thumb : `https://liboworld.com${thumb}`) : undefined,
       jsonLd: buildExerciseGraph(exercise, primaryMuscle),
     };
   }, [exercise, primaryMuscle, videoSource]);
