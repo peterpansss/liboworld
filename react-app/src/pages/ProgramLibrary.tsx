@@ -20,27 +20,12 @@ type DurationKey = typeof DURATION_KEYS[number];
 const CAT_KEYS = ['All', 'Gym', 'Home'] as const;
 type CatKey = typeof CAT_KEYS[number];
 
-const PAGE_SIZE = 12;
 
 function diffClass(diff: string): string {
   const d = (diff || 'beginner').toLowerCase();
   if (d.startsWith('adv')) return 'advanced';
   if (d.startsWith('int')) return 'intermediate';
   return 'beginner';
-}
-
-// Pagination helper — same shape as ExerciseLibrary.tsx so the el-pagination
-// styles render identically (1 ... N).
-function getPaginationRange(current: number, total: number): (number | 'ellipsis')[] {
-  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
-  const pages: (number | 'ellipsis')[] = [1];
-  if (current > 3) pages.push('ellipsis');
-  const start = Math.max(2, current - 1);
-  const end = Math.min(total - 1, current + 1);
-  for (let i = start; i <= end; i++) pages.push(i);
-  if (current < total - 2) pages.push('ellipsis');
-  pages.push(total);
-  return pages;
 }
 
 // Goal classifier — first match wins. Maps the existing cat/subcat fields
@@ -123,8 +108,6 @@ export default function ProgramLibrary() {
   // footer's per-category links. Filters by w.cat directly (different axis from
   // ?goal which classifies intent like Strength/Mobility).
   const cat = searchParams.get('cat') || '';
-  const pageParam = parseInt(searchParams.get('page') || '1', 10);
-  const page = isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
 
   useEffect(() => {
     let cancelled = false;
@@ -182,19 +165,15 @@ export default function ProgramLibrary() {
   const activeFilterCount =
     (goal !== 'All' ? 1 : 0) + (duration !== 'Any' ? 1 : 0) + (cat ? 1 : 0);
 
+  // Group the FILTERED workouts so the Goal/Duration/Cat chips narrow each
+  // section in place rather than swapping to a flat paginated list.
   const groupedByGoal = useMemo(() => {
     const groups: Record<Exclude<GoalKey, 'All'>, Workout[]> = {
       Strength: [], Cardio: [], Mobility: [], Stretching: [], Recovery: [], Morning: [], Evening: [],
     };
-    workouts.forEach((w) => groups[classifyGoal(w)].push(w));
+    filtered.forEach((w) => groups[classifyGoal(w)].push(w));
     return groups;
-  }, [workouts]);
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const safePage = Math.min(page, totalPages);
-  const pageStart = (safePage - 1) * PAGE_SIZE;
-  const pageEnd = pageStart + PAGE_SIZE;
-  const pageWorkouts = filtered.slice(pageStart, pageEnd);
+  }, [filtered]);
 
   const updateParam = useCallback((key: string, value: string) => {
     setSearchParams(prev => {
@@ -212,15 +191,6 @@ export default function ProgramLibrary() {
       next.delete('page');
       return next;
     }, { replace: true });
-  }, [setSearchParams]);
-
-  const setPage = useCallback((p: number) => {
-    setSearchParams(prev => {
-      const next = new URLSearchParams(prev);
-      if (p <= 1) next.delete('page'); else next.set('page', String(p));
-      return next;
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [setSearchParams]);
 
   function clearAll() {
@@ -362,7 +332,20 @@ export default function ProgramLibrary() {
             </div>
           )}
 
-          {!loading && !filtersActive && (
+          {!loading && filtered.length === 0 && (
+            <div className="el-empty">
+              <div className="el-empty-icon" aria-hidden="true">
+                <EmojiIcon icon={Frown} size={40} />
+              </div>
+              <p className="el-empty-text">{t('programLibrary.empty.title')}</p>
+              <p className="el-empty-sub">{t('programLibrary.empty.subtitle')}</p>
+              <button className="el-empty-clear" onClick={clearAll}>
+                {t('common.clearFilters', { defaultValue: 'Clear filters' })}
+              </button>
+            </div>
+          )}
+
+          {!loading && filtered.length > 0 && (
             <div className="wk-groups">
               {(Object.keys(groupedByGoal) as Array<keyof typeof groupedByGoal>).map((g) => {
                 const items = groupedByGoal[g];
@@ -384,66 +367,6 @@ export default function ProgramLibrary() {
                 );
               })}
             </div>
-          )}
-
-          {!loading && filtersActive && (
-            <>
-              <div className="el-results-count" aria-live="polite" role="status">
-                {t('programLibrary.resultsCountPrefix')} <strong>{Math.min(pageStart + 1, filtered.length)}–{Math.min(pageEnd, filtered.length)}</strong> {t('programLibrary.resultsCountOf')} <strong>{filtered.length}</strong> {t('programLibrary.resultsCountSuffix')}
-              </div>
-
-              {filtered.length === 0 ? (
-                <div className="el-empty">
-                  <div className="el-empty-icon" aria-hidden="true">
-                    <EmojiIcon icon={Frown} size={40} />
-                  </div>
-                  <p className="el-empty-text">{t('programLibrary.empty.title')}</p>
-                  <p className="el-empty-sub">{t('programLibrary.empty.subtitle')}</p>
-                  <button className="el-empty-clear" onClick={clearAll}>
-                    {t('common.clearFilters', { defaultValue: 'Clear filters' })}
-                  </button>
-                </div>
-              ) : (
-                <div className="el-grid">
-                  {pageWorkouts.map(renderCard)}
-                </div>
-              )}
-
-              {totalPages > 1 && (
-                <div className="el-pagination">
-                  <button
-                    className="el-page-btn"
-                    disabled={safePage <= 1}
-                    aria-label={t('exerciseLibrary.previousPage', { defaultValue: 'Previous page' })}
-                    onClick={() => setPage(safePage - 1)}
-                  >
-                    &#8249;
-                  </button>
-                  {getPaginationRange(safePage, totalPages).map((item, i) =>
-                    item === 'ellipsis' ? (
-                      <span key={`e${i}`} className="el-page-ellipsis">&hellip;</span>
-                    ) : (
-                      <button
-                        key={item}
-                        className={`el-page-btn ${safePage === item ? 'active' : ''}`}
-                        {...(safePage === item ? { 'aria-current': 'page' as const } : {})}
-                        onClick={() => setPage(item)}
-                      >
-                        {item}
-                      </button>
-                    )
-                  )}
-                  <button
-                    className="el-page-btn"
-                    disabled={safePage >= totalPages}
-                    aria-label={t('exerciseLibrary.nextPage', { defaultValue: 'Next page' })}
-                    onClick={() => setPage(safePage + 1)}
-                  >
-                    &#8250;
-                  </button>
-                </div>
-              )}
-            </>
           )}
         </div>
       </main>
