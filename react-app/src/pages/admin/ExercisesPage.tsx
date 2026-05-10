@@ -478,6 +478,12 @@ export function ExercisesPage() {
   const videoAltInputRef = useRef<HTMLInputElement | null>(null);
   const thumbInputRef = useRef<HTMLInputElement | null>(null);
 
+  // Cache-buster for admin media previews. The worker re-uploads to the same
+  // R2 key on every successful process_video, so the video URL never changes —
+  // browsers happily serve the cached old mp4 even after a fresh upload.
+  // Bump this on each upload/delete completion to force a reload.
+  const [mediaVer, setMediaVer] = useState<number>(() => Date.now());
+
   // Voiceover-job state (lives inside the Edit modal)
   const [voiceoverJobId, setVoiceoverJobId] = useState<number | null>(null);
   const [voiceoverVoice, setVoiceoverVoice] = useState<TtsVoice>('onyx');
@@ -851,6 +857,7 @@ export function ExercisesPage() {
   function handleDeleteVideoDone() {
     void refreshCanonical();
     setForm((prev) => (prev ? { ...prev, videoUrl: '', thumbnailUrl: '' } : prev));
+    setMediaVer(Date.now());
     showToast('Primary video deleted');
     setTimeout(() => {
       setDeleteVideoStatusVisible(false);
@@ -901,6 +908,7 @@ export function ExercisesPage() {
   function handleDeleteVideoAltDone() {
     void refreshCanonical();
     setForm((prev) => (prev ? { ...prev, videoUrlAlt: '' } : prev));
+    setMediaVer(Date.now());
     showToast('Alt video deleted');
     setTimeout(() => {
       setDeleteVideoAltStatusVisible(false);
@@ -961,6 +969,8 @@ export function ExercisesPage() {
         // non-fatal — admin can reopen to pick up the new url
       }
     }
+    setMediaVer(Date.now());
+    showToast('Alt video uploaded');
     setTimeout(() => {
       setVideoAltUploadStatusVisible(false);
       setVideoAltUploadJobId(null);
@@ -1236,6 +1246,8 @@ export function ExercisesPage() {
         // non-fatal — admin can reopen to pick up the new urls
       }
     }
+    setMediaVer(Date.now());
+    showToast('Primary video uploaded');
     setTimeout(() => {
       setVideoUploadStatusVisible(false);
       setVideoUploadJobId(null);
@@ -2311,6 +2323,7 @@ export function ExercisesPage() {
                 videoAltUploadErr={videoAltUploadErr}
                 onVideoAltUploadDone={handleVideoAltUploadDone}
                 onVideoAltUploadError={handleVideoAltUploadError}
+                mediaVer={mediaVer}
               />
             );
           })()}
@@ -2452,6 +2465,7 @@ function EditForm({
   videoAltUploadErr,
   onVideoAltUploadDone,
   onVideoAltUploadError,
+  mediaVer,
 }: {
   base: Exercise;
   form: FormState;
@@ -2509,7 +2523,12 @@ function EditForm({
   videoAltUploadErr: string | null;
   onVideoAltUploadDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
   onVideoAltUploadError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  mediaVer: number;
 }) {
+  function withBuster(url: string): string {
+    if (!url) return url;
+    return url + (url.includes('?') ? '&' : '?') + 'v=' + mediaVer;
+  }
   const update = (k: EditableKey, v: string) =>
     setForm((prev) => (prev ? { ...prev, [k]: v } : prev));
 
@@ -2629,8 +2648,8 @@ function EditForm({
           >
             {form.videoUrl ? (
               <video
-                key={form.videoUrl}
-                src={form.videoUrl}
+                key={`${form.videoUrl}@${mediaVer}`}
+                src={withBuster(form.videoUrl)}
                 controls
                 style={{ width: '100%', maxHeight: 300, borderRadius: 10, background: '#000' }}
               />
@@ -2766,8 +2785,8 @@ function EditForm({
           >
             {form.videoUrlAlt ? (
               <video
-                key={form.videoUrlAlt}
-                src={form.videoUrlAlt}
+                key={`${form.videoUrlAlt}@${mediaVer}`}
+                src={withBuster(form.videoUrlAlt)}
                 controls
                 style={{ width: '100%', maxHeight: 240, borderRadius: 10, background: '#000' }}
               />
@@ -2854,7 +2873,8 @@ function EditForm({
           >
             {form.thumbnailUrl ? (
               <img
-                src={form.thumbnailUrl}
+                key={`${form.thumbnailUrl}@${mediaVer}`}
+                src={withBuster(form.thumbnailUrl)}
                 alt="Thumbnail"
                 style={{ maxWidth: '100%', maxHeight: 180, borderRadius: 10 }}
               />
