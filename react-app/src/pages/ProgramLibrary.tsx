@@ -276,22 +276,6 @@ export default function ProgramLibrary() {
             <p>{t('programLibrary.subtitleAll', { count: workouts.length, defaultValue: '{{count}} guided workouts. Pick by goal, by time, or just browse.' })}</p>
           </div>
 
-          {/* Generate-workout CTA — routes to the Fitbod-style picker page.
-              Sits above the chips so it's the first thing visitors see. */}
-          <div className="el-generate-cta">
-            <div>
-              <div className="el-generate-cta__title">
-                {t('programLibrary.generateTitle', { defaultValue: 'Generate your next workout' })}
-              </div>
-              <div className="el-generate-cta__sub">
-                {t('programLibrary.generateSub', { defaultValue: 'Pick your focus and get a matching routine in seconds.' })}
-              </div>
-            </div>
-            <Link to="/workouts/generate" className="el-generate-cta__btn">
-              {t('programLibrary.generateBtn', { defaultValue: 'Generate →' })}
-            </Link>
-          </div>
-
           <div className="el-filter-row el-filter-row--primary">
             <div className="el-chips">
               {CAT_KEYS.map((c: CatKey) => {
