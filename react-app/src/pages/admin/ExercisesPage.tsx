@@ -2580,8 +2580,35 @@ function EditForm({
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 24 }}>
         {/* Left: media previews + uploads */}
         <div>
-          <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>
-            Video preview
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+              gap: 8,
+              marginBottom: 4,
+            }}
+          >
+            <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              Video preview · primary
+            </div>
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: 0.4,
+                textTransform: 'uppercase',
+                color: '#0a0a0a',
+                background: '#c5f56a',
+                padding: '2px 6px',
+                borderRadius: 4,
+              }}
+            >
+              Thumbnail · voiceover
+            </span>
+          </div>
+          <div style={{ fontSize: 11, color: colors.dim, marginBottom: 8 }}>
+            Main clip. Uploading regenerates the thumbnail; voiceovers are generated from this slot.
           </div>
           <div
             style={{
@@ -2689,8 +2716,36 @@ function EditForm({
           )}
 
           {/* Alt-angle (side view) video — separate slot, same media-worker pipeline. */}
-          <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>
-            Video preview (alt — side view)
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+              gap: 8,
+              marginBottom: 4,
+            }}
+          >
+            <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              Video preview · alt
+            </div>
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: 0.4,
+                textTransform: 'uppercase',
+                color: colors.muted,
+                background: 'transparent',
+                border: `1px solid ${colors.border}`,
+                padding: '2px 6px',
+                borderRadius: 4,
+              }}
+            >
+              PiP swap · no thumbnail
+            </span>
+          </div>
+          <div style={{ fontSize: 11, color: colors.dim, marginBottom: 8 }}>
+            Side-view clip. Renders as the small swap thumbnail (PiP) on the public page. Does not affect the thumbnail or voiceover.
           </div>
           <div
             style={{
@@ -2923,11 +2978,11 @@ function EditForm({
             </Select>
           </Field>
 
-          <Field label="Video URL">
+          <Field label="Video URL · primary" hint="Main clip. Source of the thumbnail and voiceovers.">
             <TextInput value={form.videoUrl} onChange={(e) => update('videoUrl', e.target.value)} placeholder="https://…" />
           </Field>
 
-          <Field label="Video URL (alt — side view)" hint="Optional alternate-angle clip rendered as the PiP swap on the public exercise page.">
+          <Field label="Video URL · alt" hint="Optional side-view clip — renders as the PiP swap on the public page. No thumbnail or voiceover.">
             <TextInput value={form.videoUrlAlt} onChange={(e) => update('videoUrlAlt', e.target.value)} placeholder="https://…" />
           </Field>
 
