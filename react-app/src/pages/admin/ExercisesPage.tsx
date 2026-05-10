@@ -851,6 +851,7 @@ export function ExercisesPage() {
   function handleDeleteVideoDone() {
     void refreshCanonical();
     setForm((prev) => (prev ? { ...prev, videoUrl: '', thumbnailUrl: '' } : prev));
+    showToast('Primary video deleted');
     setTimeout(() => {
       setDeleteVideoStatusVisible(false);
       setDeleteVideoJobId(null);
@@ -900,6 +901,7 @@ export function ExercisesPage() {
   function handleDeleteVideoAltDone() {
     void refreshCanonical();
     setForm((prev) => (prev ? { ...prev, videoUrlAlt: '' } : prev));
+    showToast('Alt video deleted');
     setTimeout(() => {
       setDeleteVideoAltStatusVisible(false);
       setDeleteVideoAltJobId(null);
@@ -1012,7 +1014,9 @@ export function ExercisesPage() {
       }
 
       if (Object.keys(patch).length === 0) {
-        setModalErr('No changes');
+        setModalErr(
+          'Form matches the saved row — nothing to write. Video uploads and deletes persist automatically when the worker finishes.',
+        );
         return;
       }
       try {
