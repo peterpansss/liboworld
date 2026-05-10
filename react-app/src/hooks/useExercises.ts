@@ -42,6 +42,7 @@ export type ExerciseDisplay = {
   parentId?: string;
   parentName?: string;
   videoUrl?: string;
+  videoUrlAlt?: string;
   thumbnailUrl?: string;
   voiceoverUrl?: string;
 };
@@ -64,6 +65,7 @@ type StaticExerciseRow = {
   parentId?: string;
   parentName?: string;
   videoUrl?: string;
+  videoUrlAlt?: string;
   thumbnailUrl?: string;
   voiceoverUrl?: string;
 };
@@ -87,6 +89,7 @@ function fromStatic(row: StaticExerciseRow): ExerciseDisplay {
     parentId: row.parentId,
     parentName: row.parentName,
     videoUrl: row.videoUrl,
+    videoUrlAlt: row.videoUrlAlt,
     thumbnailUrl: row.thumbnailUrl,
     voiceoverUrl: row.voiceoverUrl,
   };
@@ -111,6 +114,7 @@ function fromSupabase(row: ExerciseRow): ExerciseDisplay {
     parentId: row.parent_id || undefined,
     parentName: row.parent_name || undefined,
     videoUrl: row.video_url ?? undefined,
+    videoUrlAlt: row.video_url_alt ?? undefined,
     thumbnailUrl: row.thumbnail_url ?? undefined,
     voiceoverUrl: row.voiceover_url ?? undefined,
   };

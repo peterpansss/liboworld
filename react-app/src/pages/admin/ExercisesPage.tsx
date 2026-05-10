@@ -39,6 +39,7 @@ type Exercise = {
   emoji?: string;
   setupNotes?: string;
   videoUrl?: string;
+  videoUrlAlt?: string;
   animationUrl?: string;
   thumbnailUrl?: string;
   machineRequired?: boolean;
@@ -59,6 +60,7 @@ type EditableKey =
   | 'diff'
   | 'emoji'
   | 'videoUrl'
+  | 'videoUrlAlt'
   | 'animationUrl'
   | 'thumbnailUrl'
   | 'status';
@@ -74,6 +76,7 @@ const EDITABLE_KEYS: EditableKey[] = [
   'diff',
   'emoji',
   'videoUrl',
+  'videoUrlAlt',
   'animationUrl',
   'thumbnailUrl',
   'status',
@@ -469,8 +472,10 @@ export function ExercisesPage() {
   const [modalErr, setModalErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [uploadingVideoAlt, setUploadingVideoAlt] = useState(false);
   const [uploadingThumb, setUploadingThumb] = useState(false);
   const videoInputRef = useRef<HTMLInputElement | null>(null);
+  const videoAltInputRef = useRef<HTMLInputElement | null>(null);
   const thumbInputRef = useRef<HTMLInputElement | null>(null);
 
   // Voiceover-job state (lives inside the Edit modal)
@@ -485,6 +490,16 @@ export function ExercisesPage() {
   const [deleteVideoStatusVisible, setDeleteVideoStatusVisible] = useState(false);
   const [deleteVideoErr, setDeleteVideoErr] = useState<string | null>(null);
   const [deleteVideoQueuing, setDeleteVideoQueuing] = useState(false);
+
+  // Alt-video twins of the upload/delete state. The alt slot reuses the same
+  // media-worker pipeline (process_video / delete_video) routed via media_jobs.target.
+  const [deleteVideoAltJobId, setDeleteVideoAltJobId] = useState<number | null>(null);
+  const [deleteVideoAltStatusVisible, setDeleteVideoAltStatusVisible] = useState(false);
+  const [deleteVideoAltErr, setDeleteVideoAltErr] = useState<string | null>(null);
+  const [deleteVideoAltQueuing, setDeleteVideoAltQueuing] = useState(false);
+  const [videoAltUploadJobId, setVideoAltUploadJobId] = useState<number | null>(null);
+  const [videoAltUploadStatusVisible, setVideoAltUploadStatusVisible] = useState(false);
+  const [videoAltUploadErr, setVideoAltUploadErr] = useState<string | null>(null);
 
   // Edit-modal "Upload new video" routing. Default off → run through the
   // media_worker (4:3 crop, R2, thumbnail). Checked → direct upload to
@@ -624,6 +639,7 @@ export function ExercisesPage() {
       emoji: r.emoji ?? '',
       setupNotes: r.setup_notes ?? '',
       videoUrl: r.video_url ?? '',
+      videoUrlAlt: r.video_url_alt ?? '',
       thumbnailUrl: r.thumbnail_url ?? undefined,
       machineRequired: r.machine_required,
       parentId: r.parent_id ?? '',
@@ -732,6 +748,7 @@ export function ExercisesPage() {
     setForm(null);
     setModalErr(null);
     setUploadingVideo(false);
+    setUploadingVideoAlt(false);
     setUploadingThumb(false);
     setVoiceoverJobId(null);
     setVoiceoverStatusVisible(false);
@@ -741,10 +758,17 @@ export function ExercisesPage() {
     setDeleteVideoStatusVisible(false);
     setDeleteVideoErr(null);
     setDeleteVideoQueuing(false);
+    setDeleteVideoAltJobId(null);
+    setDeleteVideoAltStatusVisible(false);
+    setDeleteVideoAltErr(null);
+    setDeleteVideoAltQueuing(false);
     setEditSkipProcessing(false);
     setVideoUploadJobId(null);
     setVideoUploadStatusVisible(false);
     setVideoUploadErr(null);
+    setVideoAltUploadJobId(null);
+    setVideoAltUploadStatusVisible(false);
+    setVideoAltUploadErr(null);
   }
 
   async function handleGenerateVoiceover() {
@@ -835,6 +859,114 @@ export function ExercisesPage() {
 
   function handleDeleteVideoError(job: { error_message: string | null }) {
     setDeleteVideoErr(job.error_message ?? 'Delete-video job failed');
+  }
+
+  // ── Alt-video twins (target='alt' on the same media-worker job types) ────
+  async function handleDeleteVideoAlt() {
+    if (!editing || !form) return;
+    if (!form.videoUrlAlt) {
+      setDeleteVideoAltErr('No alt video to delete.');
+      return;
+    }
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setDeleteVideoAltErr('No canonical row for this exercise — save it once before deleting the alt video.');
+      return;
+    }
+    if (
+      !confirm(
+        "Delete this exercise's alt (side-view) video? The MP4 will be removed from R2. The primary video and thumbnail are untouched. This cannot be undone.",
+      )
+    ) {
+      return;
+    }
+    try {
+      setDeleteVideoAltQueuing(true);
+      setDeleteVideoAltErr(null);
+      const res = await createMediaJob(canonical.id, 'delete_video', null, null, 'alt');
+      if (!res.ok || !res.job) {
+        setDeleteVideoAltErr(res.error ?? 'Failed to queue delete-video job');
+        return;
+      }
+      setDeleteVideoAltJobId(res.job.id);
+      setDeleteVideoAltStatusVisible(true);
+    } catch (e) {
+      setDeleteVideoAltErr(errMessage(e));
+    } finally {
+      setDeleteVideoAltQueuing(false);
+    }
+  }
+
+  function handleDeleteVideoAltDone() {
+    void refreshCanonical();
+    setForm((prev) => (prev ? { ...prev, videoUrlAlt: '' } : prev));
+    setTimeout(() => {
+      setDeleteVideoAltStatusVisible(false);
+      setDeleteVideoAltJobId(null);
+    }, 4000);
+  }
+
+  function handleDeleteVideoAltError(job: { error_message: string | null }) {
+    setDeleteVideoAltErr(job.error_message ?? 'Delete-video job failed');
+  }
+
+  async function handleVideoFileAlt(f: File) {
+    if (!editing) return;
+    setVideoAltUploadErr(null);
+
+    // Alt videos always go through the worker — no skip-processing path. The
+    // worker writes to video_url_alt and skips thumbnail extraction.
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setVideoAltUploadErr('No canonical row for this exercise — save it once before uploading an alt video through the worker.');
+      return;
+    }
+    try {
+      setUploadingVideoAlt(true);
+      const { storage_path } = await uploadExerciseVideoRaw(f, `${canonical.slug}_side_view`);
+      const res = await createMediaJob(canonical.id, 'process_video', storage_path, null, 'alt');
+      if (!res.ok || !res.job) {
+        setVideoAltUploadErr(res.error ?? 'Failed to queue media job');
+        return;
+      }
+      setVideoAltUploadJobId(res.job.id);
+      setVideoAltUploadStatusVisible(true);
+    } catch (e) {
+      setVideoAltUploadErr(errMessage(e));
+    } finally {
+      setUploadingVideoAlt(false);
+    }
+  }
+
+  async function handleVideoAltUploadDone() {
+    if (editing) {
+      try {
+        const rows = await listExercises();
+        setCanonicalRows(rows);
+        const slug = str(editing.slug ?? editing.id);
+        const fresh = rows.find((r) => r.slug === slug || r.id === editing.id);
+        if (fresh) {
+          setForm((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  videoUrlAlt: fresh.video_url_alt ?? '',
+                }
+              : prev,
+          );
+        }
+      } catch {
+        // non-fatal — admin can reopen to pick up the new url
+      }
+    }
+    setTimeout(() => {
+      setVideoAltUploadStatusVisible(false);
+      setVideoAltUploadJobId(null);
+    }, 4000);
+  }
+
+  function handleVideoAltUploadError(job: { error_message: string | null }) {
+    setVideoAltUploadErr(job.error_message ?? 'Alt video processing failed');
   }
 
   async function handleSave() {
@@ -971,6 +1103,7 @@ export function ExercisesPage() {
     setIfChanged('diff', f.diff, row.diff);
     setIfChanged('emoji', f.emoji, row.emoji);
     setIfChanged('video_url', f.videoUrl, row.video_url);
+    setIfChanged('video_url_alt', f.videoUrlAlt, row.video_url_alt);
     setIfChanged('thumbnail_url', f.thumbnailUrl, row.thumbnail_url);
     setIfChanged('status', f.status, row.status);
     return patch;
@@ -2124,12 +2257,15 @@ export function ExercisesPage() {
                 modalErr={modalErr}
                 saving={saving}
                 uploadingVideo={uploadingVideo}
+                uploadingVideoAlt={uploadingVideoAlt}
                 uploadingThumb={uploadingThumb}
                 hasOverride={overridesById.has(editing.id)}
                 isCanonical={isCanonical}
                 videoInputRef={videoInputRef}
+                videoAltInputRef={videoAltInputRef}
                 thumbInputRef={thumbInputRef}
                 onVideoFile={handleVideoFile}
+                onVideoFileAlt={handleVideoFileAlt}
                 onThumbFile={handleThumbFile}
                 onSave={handleSave}
                 onClearOverride={handleClearOverride}
@@ -2152,6 +2288,13 @@ export function ExercisesPage() {
                 onDeleteVideo={handleDeleteVideo}
                 onDeleteVideoDone={handleDeleteVideoDone}
                 onDeleteVideoError={handleDeleteVideoError}
+                deleteVideoAltJobId={deleteVideoAltJobId}
+                deleteVideoAltStatusVisible={deleteVideoAltStatusVisible}
+                deleteVideoAltErr={deleteVideoAltErr}
+                deleteVideoAltQueuing={deleteVideoAltQueuing}
+                onDeleteVideoAlt={handleDeleteVideoAlt}
+                onDeleteVideoAltDone={handleDeleteVideoAltDone}
+                onDeleteVideoAltError={handleDeleteVideoAltError}
                 editSkipProcessing={editSkipProcessing}
                 onEditSkipProcessingChange={setEditSkipProcessing}
                 videoUploadJobId={videoUploadJobId}
@@ -2159,6 +2302,11 @@ export function ExercisesPage() {
                 videoUploadErr={videoUploadErr}
                 onVideoUploadDone={handleVideoUploadDone}
                 onVideoUploadError={handleVideoUploadError}
+                videoAltUploadJobId={videoAltUploadJobId}
+                videoAltUploadStatusVisible={videoAltUploadStatusVisible}
+                videoAltUploadErr={videoAltUploadErr}
+                onVideoAltUploadDone={handleVideoAltUploadDone}
+                onVideoAltUploadError={handleVideoAltUploadError}
               />
             );
           })()}
@@ -2250,12 +2398,15 @@ function EditForm({
   modalErr,
   saving,
   uploadingVideo,
+  uploadingVideoAlt,
   uploadingThumb,
   hasOverride,
   isCanonical,
   videoInputRef,
+  videoAltInputRef,
   thumbInputRef,
   onVideoFile,
+  onVideoFileAlt,
   onThumbFile,
   onSave,
   onClearOverride,
@@ -2278,6 +2429,13 @@ function EditForm({
   onDeleteVideo,
   onDeleteVideoDone,
   onDeleteVideoError,
+  deleteVideoAltJobId,
+  deleteVideoAltStatusVisible,
+  deleteVideoAltErr,
+  deleteVideoAltQueuing,
+  onDeleteVideoAlt,
+  onDeleteVideoAltDone,
+  onDeleteVideoAltError,
   editSkipProcessing,
   onEditSkipProcessingChange,
   videoUploadJobId,
@@ -2285,6 +2443,11 @@ function EditForm({
   videoUploadErr,
   onVideoUploadDone,
   onVideoUploadError,
+  videoAltUploadJobId,
+  videoAltUploadStatusVisible,
+  videoAltUploadErr,
+  onVideoAltUploadDone,
+  onVideoAltUploadError,
 }: {
   base: Exercise;
   form: FormState;
@@ -2292,12 +2455,15 @@ function EditForm({
   modalErr: string | null;
   saving: boolean;
   uploadingVideo: boolean;
+  uploadingVideoAlt: boolean;
   uploadingThumb: boolean;
   hasOverride: boolean;
   isCanonical: boolean;
   videoInputRef: React.MutableRefObject<HTMLInputElement | null>;
+  videoAltInputRef: React.MutableRefObject<HTMLInputElement | null>;
   thumbInputRef: React.MutableRefObject<HTMLInputElement | null>;
   onVideoFile: (f: File) => void;
+  onVideoFileAlt: (f: File) => void;
   onThumbFile: (f: File) => void;
   onSave: () => void;
   onClearOverride: () => void;
@@ -2320,6 +2486,13 @@ function EditForm({
   onDeleteVideo: () => void;
   onDeleteVideoDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
   onDeleteVideoError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  deleteVideoAltJobId: number | null;
+  deleteVideoAltStatusVisible: boolean;
+  deleteVideoAltErr: string | null;
+  deleteVideoAltQueuing: boolean;
+  onDeleteVideoAlt: () => void;
+  onDeleteVideoAltDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onDeleteVideoAltError: (job: import('../../lib/adminApi').MediaJobRow) => void;
   editSkipProcessing: boolean;
   onEditSkipProcessingChange: (v: boolean) => void;
   videoUploadJobId: number | null;
@@ -2327,13 +2500,18 @@ function EditForm({
   videoUploadErr: string | null;
   onVideoUploadDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
   onVideoUploadError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  videoAltUploadJobId: number | null;
+  videoAltUploadStatusVisible: boolean;
+  videoAltUploadErr: string | null;
+  onVideoAltUploadDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onVideoAltUploadError: (job: import('../../lib/adminApi').MediaJobRow) => void;
 }) {
   const update = (k: EditableKey, v: string) =>
     setForm((prev) => (prev ? { ...prev, [k]: v } : prev));
 
   const diff = diffAgainstBase(base, form);
   const diffCount = Object.keys(diff).length;
-  const isUploading = uploadingVideo || uploadingThumb;
+  const isUploading = uploadingVideo || uploadingVideoAlt || uploadingThumb;
 
   const readOnlyFields: { label: string; value: string }[] = [
     { label: 'ID', value: str(base.id) },
@@ -2510,6 +2688,95 @@ function EditForm({
             </div>
           )}
 
+          {/* Alt-angle (side view) video — separate slot, same media-worker pipeline. */}
+          <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>
+            Video preview (alt — side view)
+          </div>
+          <div
+            style={{
+              background: colors.bg,
+              border: `1px solid ${colors.border}`,
+              borderRadius: 14,
+              padding: 10,
+              marginBottom: 12,
+              minHeight: 160,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {form.videoUrlAlt ? (
+              <video
+                key={form.videoUrlAlt}
+                src={form.videoUrlAlt}
+                controls
+                style={{ width: '100%', maxHeight: 240, borderRadius: 10, background: '#000' }}
+              />
+            ) : (
+              <div style={{ color: colors.dim, fontSize: 13 }}>No alt video</div>
+            )}
+          </div>
+
+          <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+            <input
+              ref={videoAltInputRef}
+              type="file"
+              accept="video/*"
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) onVideoFileAlt(f);
+                e.currentTarget.value = '';
+              }}
+            />
+            <Button
+              variant="secondary"
+              onClick={() => videoAltInputRef.current?.click()}
+              disabled={isUploading || saving || videoAltUploadJobId !== null}
+            >
+              {uploadingVideoAlt ? 'Uploading…' : 'Upload alt video'}
+            </Button>
+            {form.videoUrlAlt && (
+              <Button
+                variant="danger"
+                onClick={onDeleteVideoAlt}
+                disabled={isUploading || saving || deleteVideoAltQueuing || deleteVideoAltJobId !== null || videoAltUploadJobId !== null}
+              >
+                {deleteVideoAltQueuing ? 'Queuing…' : 'Delete alt video'}
+              </Button>
+            )}
+          </div>
+
+          {videoAltUploadErr && (
+            <div style={{ ...errorBannerStyle, marginBottom: 12 }} role="alert">
+              {videoAltUploadErr}
+            </div>
+          )}
+          {videoAltUploadStatusVisible && videoAltUploadJobId !== null && (
+            <div style={{ marginBottom: 16 }}>
+              <MediaJobStatus
+                jobId={videoAltUploadJobId}
+                onDone={onVideoAltUploadDone}
+                onError={onVideoAltUploadError}
+              />
+            </div>
+          )}
+
+          {deleteVideoAltErr && (
+            <div style={{ ...errorBannerStyle, marginBottom: 12 }} role="alert">
+              {deleteVideoAltErr}
+            </div>
+          )}
+          {deleteVideoAltStatusVisible && deleteVideoAltJobId !== null && (
+            <div style={{ marginBottom: 16 }}>
+              <MediaJobStatus
+                jobId={deleteVideoAltJobId}
+                onDone={onDeleteVideoAltDone}
+                onError={onDeleteVideoAltError}
+              />
+            </div>
+          )}
+
           <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>
             Thumbnail preview
           </div>
@@ -2658,6 +2925,10 @@ function EditForm({
 
           <Field label="Video URL">
             <TextInput value={form.videoUrl} onChange={(e) => update('videoUrl', e.target.value)} placeholder="https://…" />
+          </Field>
+
+          <Field label="Video URL (alt — side view)" hint="Optional alternate-angle clip rendered as the PiP swap on the public exercise page.">
+            <TextInput value={form.videoUrlAlt} onChange={(e) => update('videoUrlAlt', e.target.value)} placeholder="https://…" />
           </Field>
 
           <Field label="Animation URL">

@@ -474,6 +474,7 @@ export type ExerciseRow = {
   parent_id: string;
   parent_name: string;
   video_url: string | null;
+  video_url_alt: string | null;
   thumbnail_url: string | null;
   voiceover_url: string | null;
   status: ContentStatus;
@@ -1003,6 +1004,12 @@ export async function markPayoutPaid(payoutId: string, input: MarkPayoutPaidInpu
 // ─── Media jobs (video processing + voiceover generation) ───────────────────
 export type MediaJobStatus = 'pending' | 'processing' | 'done' | 'error';
 export type MediaJobType = 'process_video' | 'generate_voiceover' | 'delete_video';
+/**
+ * Routes process_video / delete_video jobs to either the primary `video_url`
+ * slot (default) or the alternate-angle `video_url_alt` slot (side-view clip
+ * rendered as the PiP swap on the public site).
+ */
+export type MediaJobTarget = 'primary' | 'alt';
 
 export type MediaJobRow = {
   id: number;
@@ -1010,6 +1017,7 @@ export type MediaJobRow = {
   job_type: MediaJobType;
   storage_path: string | null;
   voice: string | null;
+  target: MediaJobTarget;
   status: MediaJobStatus;
   progress_message: string | null;
   error_message: string | null;
@@ -1045,12 +1053,14 @@ export async function createMediaJob(
   job_type: MediaJobType,
   storage_path: string | null = null,
   voice: string | null = null,
+  target: MediaJobTarget = 'primary',
 ): Promise<{ ok: boolean; job?: MediaJobRow; error?: string }> {
   const { data, error } = await supabase.rpc('admin_create_media_job', {
     p_exercise_id: exercise_id,
     p_job_type: job_type,
     p_storage_path: storage_path,
     p_voice: voice,
+    p_target: target,
   });
   if (error) return { ok: false, error: error.message };
   return data as { ok: boolean; job?: MediaJobRow; error?: string };
