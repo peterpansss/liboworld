@@ -24,13 +24,14 @@ function lerp(a: number, b: number, t: number) {
 // ── Static config ──
 // CATEGORY_KEYS order: homeWorkouts, gymTraining, mobilityStretch, functional,
 // morningRoutines, eveningWindDown — keep these aligned 1:1 with that array.
+// JSX adds the leading slash via `/${cat.img}`, so no leading slash here.
 const CATEGORY_IMAGES = [
-  '/images/landing/category-home-workouts.jpg',
-  '/images/landing/category-gym-training.jpg',
-  '/images/landing/category-mobility-stretch.jpg',
-  '/images/landing/category-functional.jpg',
-  '/images/landing/category-morning-routines.jpg',
-  '/images/landing/category-evening-wind-down.jpg',
+  'images/landing/category-home-workouts.jpg',
+  'images/landing/category-gym-training.jpg',
+  'images/landing/category-mobility-stretch.jpg',
+  'images/landing/category-functional.jpg',
+  'images/landing/category-morning-routines.jpg',
+  'images/landing/category-evening-wind-down.jpg',
 ];
 
 const GOAL_PARAMS = ['lose-weight', 'build-muscle', 'improve-mobility', 'stay-active', 'reduce-stress'];
