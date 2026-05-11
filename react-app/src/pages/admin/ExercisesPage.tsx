@@ -805,9 +805,26 @@ export function ExercisesPage() {
     }
   }
 
-  function handleVoiceoverDone() {
-    // Refresh canonical rows so any updated voiceover_url is reflected.
-    void refreshCanonical();
+  async function handleVoiceoverDone() {
+    // Refresh canonical rows so any updated voiceover_url is reflected, and
+    // re-sync the form's video_url from the fresh row. The voiceover worker
+    // rewrites video_url with a cache-bust query param (?v=…) — without this
+    // sync, the form would still hold the pre-voiceover URL, and a later
+    // save would diff it against the new canonical value and clobber the
+    // worker's update with the stale URL.
+    const fresh = await refreshCanonical();
+    if (fresh && editing) {
+      const slug = str(editing.slug);
+      const refreshed =
+        (slug && fresh.find((r) => r.slug === slug)) ||
+        fresh.find((r) => r.id === editing.id) ||
+        null;
+      if (refreshed) {
+        setForm((prev) =>
+          prev ? { ...prev, videoUrl: str(refreshed.video_url) } : prev,
+        );
+      }
+    }
     // Auto-dismiss the status display after 5s.
     setTimeout(() => {
       setVoiceoverStatusVisible(false);
@@ -1273,15 +1290,17 @@ export function ExercisesPage() {
 
   // ── Create flow (canonical exercises) ────────────────────────────────────
 
-  async function refreshCanonical() {
+  async function refreshCanonical(): Promise<ExerciseRow[] | null> {
     try {
       const rows = await listExercises();
       setCanonicalRows(rows);
+      return rows;
     } catch (e) {
       // Don't block opening the modal if list fails — just leave canonical
       // empty so uniqueness check is best-effort.
       // eslint-disable-next-line no-console
       console.warn('listExercises failed:', e);
+      return null;
     }
   }
 
