@@ -3,7 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Exercise, type Workout } from '../data/exercises';
 import { buildPlayableExerciseNames, filterPlayableWorkouts } from '../lib/playableWorkouts';
-import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
+import { buildNameToSlug, workoutHeroThumbSet } from '../utils/thumbnails';
+import { ThumbPicture } from '../components/ThumbPicture';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
@@ -198,22 +199,19 @@ export default function ProgramLibrary() {
   }
 
   function renderCard(w: Workout) {
-    const heroThumb = workoutHeroThumb(w, nameToSlug, exercises);
+    const heroThumb = workoutHeroThumbSet(w, nameToSlug, exercises);
     return (
       <Link key={w.id} to={`/workouts/${w.id}`} className="el-card">
         <div className="el-card-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
           <span aria-hidden="true" style={{ position: 'relative', zIndex: 0 }}>
             <EmojiIcon emoji={w.emoji || '🏋️'} size={28} />
           </span>
-          {heroThumb && (
-            <img
-              src={heroThumb}
-              alt=""
-              loading="lazy"
-              onError={(e) => (e.currentTarget.style.display = 'none')}
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
-            />
-          )}
+          <ThumbPicture
+            thumb={heroThumb}
+            loading="lazy"
+            onError={(e) => (e.currentTarget.style.display = 'none')}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+          />
         </div>
         <div className="el-card-name">{w.name}</div>
         <div className="el-card-meta">

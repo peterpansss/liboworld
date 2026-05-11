@@ -3,7 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Workout, type WorkoutExercise, type Exercise } from '../data/exercises';
 import { buildPlayableExerciseNames, filterPlayableBlocks, filterPlayableWorkouts } from '../lib/playableWorkouts';
-import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
+import { buildNameToSlug, workoutHeroThumbSet } from '../utils/thumbnails';
+import { ThumbPicture } from '../components/ThumbPicture';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ProgramDetail.css';
@@ -259,7 +260,7 @@ export default function ProgramDetail() {
             <h2>{t('programDetail.related.title', { category: workout.cat })}</h2>
             <div className="pd-related-grid">
               {related.map((w) => {
-                const heroThumb = workoutHeroThumb(w, nameToSlug, exerciseDb);
+                const heroThumb = workoutHeroThumbSet(w, nameToSlug, exerciseDb);
                 return (
                 <Link key={w.id} to={`/workouts/${w.id}`} className="pd-related-card">
                   <span
@@ -270,15 +271,12 @@ export default function ProgramDetail() {
                     <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, zIndex: 0 }}>
                       {w.emoji}
                     </span>
-                    {heroThumb && (
-                      <img
-                        src={heroThumb}
-                        alt=""
-                        loading="lazy"
-                        onError={(e) => (e.currentTarget.style.display = 'none')}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
-                      />
-                    )}
+                    <ThumbPicture
+                      thumb={heroThumb}
+                      loading="lazy"
+                      onError={(e) => (e.currentTarget.style.display = 'none')}
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                    />
                   </span>
                   <span className="pd-related-name">{w.name}</span>
                   <span className="pd-related-meta">

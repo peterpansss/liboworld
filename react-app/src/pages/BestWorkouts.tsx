@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { getWorkouts, getExercises, type Workout, type WorkoutExercise, type Exercise } from '../data/exercises';
 import { buildPlayableExerciseNames, filterPlayableWorkouts } from '../lib/playableWorkouts';
-import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
+import { buildNameToSlug, workoutHeroThumbSet } from '../utils/thumbnails';
+import { ThumbPicture } from '../components/ThumbPicture';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import FreeTrialCta from '../components/FreeTrialCta';
@@ -197,7 +198,7 @@ export default function BestWorkouts() {
         {/* Workout cards */}
         <section className="bw-cards">
           {facetWorkouts.map((w, idx) => {
-            const heroThumb = workoutHeroThumb(w, nameToSlug, exerciseDb);
+            const heroThumb = workoutHeroThumbSet(w, nameToSlug, exerciseDb);
             const main = w.exercises.filter((e) => (e.phase || 'main') === 'main');
             const visible = main.slice(0, PREVIEW_EXERCISES);
             const more = main.length - visible.length;
@@ -206,14 +207,11 @@ export default function BestWorkouts() {
               <article key={w.id} className="bw-card">
                 <Link to={`/workouts/${w.id}`} className="bw-card-thumb" aria-label={w.name}>
                   <span className="bw-card-thumb-emoji" aria-hidden="true">{w.emoji}</span>
-                  {heroThumb && (
-                    <img
-                      src={heroThumb}
-                      alt=""
-                      loading={idx < 2 ? 'eager' : 'lazy'}
-                      onError={(e) => (e.currentTarget.style.display = 'none')}
-                    />
-                  )}
+                  <ThumbPicture
+                    thumb={heroThumb}
+                    loading={idx < 2 ? 'eager' : 'lazy'}
+                    onError={(e) => (e.currentTarget.style.display = 'none')}
+                  />
                 </Link>
 
                 <div className="bw-card-body">

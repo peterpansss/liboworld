@@ -52,20 +52,19 @@ export function publicVideoUrl(
 }
 
 /**
- * Alternate-angle (e.g. "_side_view") clip URL — same hidden-media rules
- * as the primary video. Returns undefined when the exercise has no alt.
- *
- * Side-view clips are language-agnostic, no voiceover — they're a visual
- * reference angle (no audio stream); the primary clip carries the voiceover.
- * Voice and lang args are kept for call-site symmetry with publicVideoUrl.
+ * Alternate-angle (e.g. "_side_view") clip URL — same hidden-media and
+ * lang/voice suffix rules as the primary video. Side-view clips carry
+ * the same voiceover the canonical does (the muxer reuses the canonical's
+ * mp3, since both angles share setupNotes), so the URL gets the same
+ * `_<lang>_<voice>` suffix.
  */
 export function publicVideoUrlAlt(
   ex: Exercise,
-  _voice: VoicePreference = 'male',
-  _lang: SupportedLang = 'en',
+  voice: VoicePreference = 'male',
+  lang: SupportedLang = 'en',
 ): string | undefined {
   if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrlAlt) return undefined;
-  return ex.videoUrlAlt;
+  return withLangVoice(ex.videoUrlAlt, lang, voice);
 }
 
 export function publicAnimationUrl(ex: Exercise): string | undefined {
@@ -82,8 +81,35 @@ export function exerciseSupportsAnimation(ex: Exercise): boolean {
 // batch of new thumbnail JPGs whose paths might already be poisoned in
 // Cloudflare's edge cache from before the file existed (the .htaccess
 // asset-404 rule prevents future occurrences, but doesn't help URLs
-// Cloudflare cached as index.html in earlier deploys).
-const THUMB_CACHE_BUST = 'v=3';
+// Cloudflare cached as index.html in earlier deploys). v=4 marks the
+// 1440x1080 WebP+JPEG quality regen.
+const THUMB_CACHE_BUST = 'v=4';
+
+/**
+ * Two-variant thumbnail set for <picture> rendering: WebP primary (~97% of
+ * browsers) + JPEG fallback for legacy. Both at 1440x1080 — modern browsers
+ * downsample for non-retina viewports without visible quality loss, so we
+ * skip 1x density variants to keep the on-disk asset count down.
+ */
+export interface ThumbnailSet {
+  webp: string;
+  jpeg: string;
+}
+
+/**
+ * Derive the WebP URL from a canonical JPEG URL by string substitution.
+ * Works for both `/images/thumbnails/exercises/foo.jpg?v=4` (bundled-static
+ * path) and Supabase Storage public URLs (admin uploads).
+ */
+function deriveVariants(canonicalJpeg: string): ThumbnailSet {
+  const [pathPart, queryPart] = canonicalJpeg.split('?');
+  const q = queryPart ? `?${queryPart}` : '';
+  const base = pathPart.replace(/\.jpg$/i, '');
+  return {
+    jpeg: `${base}.jpg${q}`,
+    webp: `${base}.webp${q}`,
+  };
+}
 
 // Thumbnails are extracted from the processed video, so the file basename
 // always matches the videoUrl basename (not necessarily the exercise id —
@@ -103,6 +129,11 @@ export function exerciseThumb(ex: Exercise | undefined | null): string | null {
   return `/images/thumbnails/exercises/${basename}.jpg?${THUMB_CACHE_BUST}`;
 }
 
+export function exerciseThumbSet(ex: Exercise | undefined | null): ThumbnailSet | null {
+  const canonical = exerciseThumb(ex);
+  return canonical ? deriveVariants(canonical) : null;
+}
+
 export function buildNameToSlug(exercises: Exercise[]): Record<string, string> {
   // When two exercises share a display name (e.g. an orphan duplicate canonical
   // alongside the real one), prefer the row that actually has a videoUrl —
@@ -120,24 +151,42 @@ export function buildNameToSlug(exercises: Exercise[]): Record<string, string> {
   return map;
 }
 
+function workoutHeroExercise(
+  workout: Workout,
+  nameToSlug: Record<string, string>,
+  exercises?: Exercise[]
+): Exercise | undefined {
+  const main = workout.exercises.find((e: WorkoutExercise) => e.phase === 'main');
+  const hero = main ?? workout.exercises[0];
+  if (!hero) return undefined;
+  const slug = nameToSlug[hero.name];
+  if (!slug) return undefined;
+  const ex = exercises?.find(e => e.id === slug);
+  if (!ex) return undefined;
+  if (exerciseThumb(ex)) return ex;
+  // Parent canonical with no own video — fall back to a child variant's
+  // thumbnail (the same pattern ExerciseLibrary uses for grid cards).
+  if (exercises) {
+    const childWithVideo = exercises.find(e => e.parentId === ex.id && e.videoUrl);
+    if (childWithVideo) return childWithVideo;
+  }
+  return ex;
+}
+
 export function workoutHeroThumb(
   workout: Workout,
   nameToSlug: Record<string, string>,
   exercises?: Exercise[]
 ): string | null {
-  const main = workout.exercises.find((e: WorkoutExercise) => e.phase === 'main');
-  const hero = main ?? workout.exercises[0];
-  if (!hero) return null;
-  const slug = nameToSlug[hero.name];
-  if (!slug) return null;
-  const ex = exercises?.find(e => e.id === slug);
-  const own = exerciseThumb(ex);
-  if (own) return own;
-  // Parent canonical with no own video — fall back to a child variant's
-  // thumbnail (the same pattern ExerciseLibrary uses for grid cards).
-  if (ex && exercises) {
-    const childWithVideo = exercises.find(e => e.parentId === ex.id && e.videoUrl);
-    if (childWithVideo) return exerciseThumb(childWithVideo);
-  }
-  return null;
+  const ex = workoutHeroExercise(workout, nameToSlug, exercises);
+  return exerciseThumb(ex);
+}
+
+export function workoutHeroThumbSet(
+  workout: Workout,
+  nameToSlug: Record<string, string>,
+  exercises?: Exercise[]
+): ThumbnailSet | null {
+  const ex = workoutHeroExercise(workout, nameToSlug, exercises);
+  return exerciseThumbSet(ex);
 }

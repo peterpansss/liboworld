@@ -2,7 +2,8 @@ import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import { useExercises } from '../hooks/useExercises';
-import { exerciseThumb, isMediaHidden } from '../utils/thumbnails';
+import { exerciseThumbSet, isMediaHidden } from '../utils/thumbnails';
+import { ThumbPicture } from '../components/ThumbPicture';
 import { MuscleTile } from '../components/MuscleTile';
 import { MuscleGroupStrip } from '../components/MuscleGroupStrip';
 import { ActiveFilters, type ActiveFilter } from '../components/ActiveFilters';
@@ -485,16 +486,15 @@ export default function ExerciseLibrary() {
                 // library-card thumbnail from a child's video so the grid
                 // doesn't fall back to the muscle-tile placeholder.
                 const thumb =
-                  exerciseThumb(ex) ??
-                  exerciseThumb(childThumbDonorByParent.get(ex.id));
+                  exerciseThumbSet(ex) ??
+                  exerciseThumbSet(childThumbDonorByParent.get(ex.id));
                 return (
                 <Link key={ex.id} to={`/exercises/${ex.slug ?? ex.id}`} className="el-card">
                   <div className="el-card-media">
                     <MuscleTile muscle={ex.bodyFocus} />
                     {thumb ? (
-                      <img
-                        src={thumb}
-                        alt=""
+                      <ThumbPicture
+                        thumb={thumb}
                         loading="lazy"
                         onError={(e) => (e.currentTarget.style.display = 'none')}
                         className="el-card-thumb"
