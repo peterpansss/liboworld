@@ -22,13 +22,15 @@ function lerp(a: number, b: number, t: number) {
 }
 
 // ── Static config ──
+// CATEGORY_KEYS order: homeWorkouts, gymTraining, mobilityStretch, functional,
+// morningRoutines, eveningWindDown — keep these aligned 1:1 with that array.
 const CATEGORY_IMAGES = [
-  'ReferenceImagesReal/3888964e334eac66760016434935572e.jpg',
-  'ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg',
-  'ReferenceImagesReal/e64b6bf3121062bba39727d191b390cc.jpg',
-  'ReferenceImagesReal/4d2d6f35aaa3192a75bb1d865a1ec584.jpg',
-  'ReferenceImagesReal/7f2a6692e0dccd63b0cc05e0e7197d38.jpg',
-  'ReferenceImagesReal/2df174c21bbc8db6cd5ce2d0b96b810e.jpg',
+  '/images/landing/category-home-workouts.jpg',
+  '/images/landing/category-gym-training.jpg',
+  '/images/landing/category-mobility-stretch.jpg',
+  '/images/landing/category-functional.jpg',
+  '/images/landing/category-morning-routines.jpg',
+  '/images/landing/category-evening-wind-down.jpg',
 ];
 
 const GOAL_PARAMS = ['lose-weight', 'build-muscle', 'improve-mobility', 'stay-active', 'reduce-stress'];
@@ -581,7 +583,7 @@ export default function Landing() {
       {/* ── FULL-BLEED PHOTO BREAK ── */}
       <div className="photo-break" style={{ height: 480 }}>
         <img
-          src="/ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg"
+          src="/images/onboarding/step-2.jpg"
           alt="Strength training"
           loading="lazy"
           style={{ objectPosition: 'center 62%' }}

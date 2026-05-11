@@ -44,7 +44,7 @@ const CHALLENGES: ChallengeDef[] = [
   { slug: 'elite_pool', highlight: 'elite',   badgeKey: 'biggestPayout' },
 ];
 
-const FALLBACK_HERO_BG = '/ReferenceImagesReal/3888964e334eac66760016434935572e.jpg';
+const FALLBACK_HERO_BG = '/images/marketing/cash-challenge-hero.jpg';
 
 export default function CashChallengePage() {
   const { t } = useTranslation();

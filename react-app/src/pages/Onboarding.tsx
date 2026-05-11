@@ -81,7 +81,7 @@ const STEPS: Step[] = [
   // Step 2: Motivational interstitial (dynamic based on goal)
   {
     type: 'interstitial', dynamic: 'goal',
-    image: '/ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg',
+    image: '/images/onboarding/step-2.jpg',
   },
   // Step 3: Secondary Goals
   {
@@ -148,7 +148,7 @@ const STEPS: Step[] = [
     type: 'interstitial',
     headingKey: 'onboarding.step9.heading',
     bodyKey: 'onboarding.step9.body',
-    image: '/ReferenceImagesReal/1933bd503955db5451058dd0bcae5740.jpg',
+    image: '/images/onboarding/step-9.jpg',
   },
   // Step 10: Target Zones (grid)
   {
