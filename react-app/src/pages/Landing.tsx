@@ -8,7 +8,6 @@ import SiteNav from '../components/SiteNav';
 import FounderCard from '../components/FounderCard';
 import FreeTrialCta from '../components/FreeTrialCta';
 import { EmojiIcon } from '../components/EmojiIcon';
-import { Star } from '../utils/icons';
 import './Landing.css';
 
 // ── Helpers ──
@@ -158,12 +157,6 @@ export default function Landing() {
     a: t(`faq.a${n}`),
   }));
 
-  const TRUST_STATS = [1, 2, 3, 4].map((n) => ({
-    num: t(`trust.stat${n}Num`),
-    label: t(`trust.stat${n}Label`),
-    sub: t(`trust.stat${n}Sub`),
-  }));
-
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [heroRevealed, setHeroRevealed] = useState(false);
@@ -190,16 +183,9 @@ export default function Landing() {
   const blogPreview = blogArticles.slice(0, 3);
 
   // InView triggers
-  const heroBottomView = useInView(0.3);
-  const statsView = useInView(0.3);
   const rewardsStatView = useInView(0.5);
 
   // CountUp values
-  const heroExercises = useCountUp(634, heroBottomView.inView);
-  const heroWorkouts = useCountUp(136, heroBottomView.inView);
-  const statExercises = useCountUp(634, statsView.inView);
-  const statWorkouts = useCountUp(136, statsView.inView);
-  const statFormats = useCountUp(6, statsView.inView);
   const rewardsStat = useCountUp(15, rewardsStatView.inView, 1200);
 
   // ── Feature detection ──
@@ -526,17 +512,6 @@ export default function Landing() {
           </div>
         </div>
 
-        <div className="hero-bottom" ref={heroBottomView.ref} style={{ gridTemplateColumns: '1fr 1fr' }}>
-          <div className="hero-bottom-cell">
-            <div className="hero-bottom-num">{heroExercises}</div>
-            <div className="hero-bottom-lbl">{t('hero.stat1Label')}</div>
-          </div>
-          <div className="hero-bottom-cell">
-            <div className="hero-bottom-num">{heroWorkouts}</div>
-            <div className="hero-bottom-lbl">{t('hero.stat2Label')}</div>
-          </div>
-        </div>
-
         <div className={`scroll-indicator${scrollIndicatorVisible ? ' visible' : ''}`}>
           <span>{t('hero.scrollIndicator')}</span>
           <div className="chevron" />
@@ -549,28 +524,6 @@ export default function Landing() {
       <div className="marquee-wrap">
         <div className="marquee-track">
           {renderMarqueeItems(MARQUEE_ITEMS)}
-        </div>
-      </div>
-
-      {/* ── STATS STRIP ── */}
-      <div className="stats-strip" ref={statsView.ref}>
-        <div className="stats-strip-grid">
-          <div data-reveal="fade-up" data-delay="0">
-            <div className="stats-strip-num">{statExercises}</div>
-            <div className="stats-strip-label">{t('statsStrip.exercises')}</div>
-          </div>
-          <div data-reveal="fade-up" data-delay="0.1">
-            <div className="stats-strip-num">{statWorkouts}</div>
-            <div className="stats-strip-label">{t('statsStrip.workouts')}</div>
-          </div>
-          <div data-reveal="fade-up" data-delay="0.2">
-            <div className="stats-strip-num">{statFormats}</div>
-            <div className="stats-strip-label">{t('statsStrip.trainingFormats')}</div>
-          </div>
-          <div data-reveal="fade-up" data-delay="0.3" className="stats-hide-mobile">
-            <div className="stats-strip-num">{t('hero.stat3Value')}</div>
-            <div className="stats-strip-label">{t('statsStrip.equipmentRequired')}</div>
-          </div>
         </div>
       </div>
 
@@ -786,46 +739,6 @@ export default function Landing() {
           {t('photoBreak2Full.line1')}<br /><span style={{ color: 'var(--accent)' }}>{t('photoBreak2Full.line2')}</span>
         </p>
       </div>
-
-      {/* ── TRUST BADGES ── */}
-      <section className="trust-section">
-        <div className="trust-inner">
-          <div className="trust-header reveal">
-            <div className="label label-spaced">{t('trust.eyebrow')}</div>
-            <h2 className="display display-sm font-display">{t('trust.headline')}</h2>
-          </div>
-          <div className="trust-grid">
-            {TRUST_STATS.map((s, i) => (
-              <div
-                key={s.label}
-                className="trust-card"
-                data-reveal="fade-up"
-                data-delay={String(i * 0.1)}
-              >
-                <div className="trust-num font-display">{s.num}</div>
-                <div className="trust-label">{s.label}</div>
-                <div className="trust-sub">{s.sub}</div>
-              </div>
-            ))}
-          </div>
-          <div className="trust-badges reveal">
-            <div className="trust-badge">
-              <svg width="18" height="22" viewBox="0 0 20 24" fill="none" aria-hidden="true">
-                <path d="M16.47 12.2c-.03-3.1 2.53-4.59 2.64-4.66-1.44-2.1-3.68-2.39-4.47-2.42-1.9-.19-3.72 1.12-4.69 1.12-.97 0-2.46-1.1-4.05-1.07-2.08.03-4 1.21-5.08 3.08-2.17 3.76-.55 9.33 1.56 12.38 1.03 1.5 2.27 3.17 3.89 3.11 1.56-.06 2.15-1.01 4.03-1.01 1.88 0 2.42 1.01 4.07.98 1.68-.03 2.74-1.52 3.76-3.03 1.19-1.74 1.68-3.42 1.71-3.51-.04-.02-3.28-1.26-3.31-4.97h-.06z" fill="currentColor"/><path d="M13.4 3.27C14.24 2.24 14.82.87 14.67-.5c-1.17.05-2.6.78-3.44 1.77-.75.87-1.42 2.27-1.24 3.61 1.31.1 2.65-.67 3.41-1.61z" fill="currentColor"/>
-              </svg>
-              <span>{t('trust.availableIos')}</span>
-            </div>
-            <div className="trust-badge">
-              <span className="trust-badge-stars" style={{ display: 'inline-flex', gap: 2 }}>
-                {[...Array(5)].map((_, k) => (
-                  <EmojiIcon key={k} icon={Star} size={14} color="#CAFF00" />
-                ))}
-              </span>
-              <span>{t('trust.betaRating')}</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── FREE TRIAL CTA — pricing detail moved to /pricing ── */}
       <FreeTrialCta />

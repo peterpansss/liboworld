@@ -28,10 +28,6 @@
     "headline2": "Partout.",
     "headline3": "À tout moment.",
     "cta": "Rejoindre la Liste →",
-    "stat1Label": "Exercices",
-    "stat2Label": "Entraînements",
-    "stat3Value": "0 kg",
-    "stat3Label": "Équipement Requis",
     "scrollIndicator": "Défile pour explorer"
   },
   "marquee": {
@@ -51,13 +47,6 @@
     "eveningRoutines": "Routines du Soir",
     "flexibility": "Souplesse",
     "strengthTraining": "Musculation"
-  },
-  "statsStrip": {
-    "label": "Ce Qu'il y a Dedans",
-    "exercises": "Exercices",
-    "workouts": "Entraînements",
-    "trainingFormats": "Formats d'Entraînement",
-    "equipmentRequired": "Équipement Requis"
   },
   "statement": {
     "line1": "Un club.",
@@ -543,24 +532,6 @@
       "title": "Plus d'Entraînements {{category}}",
       "cardMeta": "{{duration}} min · {{difficulty}} · {{count}} ex"
     }
-  },
-  "trust": {
-    "eyebrow": "Approuvé par les athlètes",
-    "headline": "Les chiffres parlent.",
-    "stat1Num": "634",
-    "stat1Label": "Exercices",
-    "stat1Sub": "Salle, maison et mobilité",
-    "stat2Num": "136",
-    "stat2Label": "Entraînements",
-    "stat2Sub": "Prêts à suivre",
-    "stat3Num": "4.9",
-    "stat3Label": "Note Bêta",
-    "stat3Sub": "Par les premiers testeurs",
-    "stat4Num": "50+",
-    "stat4Label": "Testeurs Bêta",
-    "stat4Sub": "Et ça continue",
-    "availableIos": "Disponible sur iOS",
-    "betaRating": "4.9 par les testeurs bêta"
   },
   "faq": {
     "eyebrow": "FAQ",

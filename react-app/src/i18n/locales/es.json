@@ -28,10 +28,6 @@
     "headline2": "Donde Sea.",
     "headline3": "Cuando Sea.",
     "cta": "Únete a la Lista →",
-    "stat1Label": "Ejercicios",
-    "stat2Label": "Entrenamientos",
-    "stat3Value": "0 kg",
-    "stat3Label": "Equipamiento Necesario",
     "scrollIndicator": "Desliza para explorar"
   },
   "marquee": {
@@ -51,13 +47,6 @@
     "eveningRoutines": "Rutinas Nocturnas",
     "flexibility": "Flexibilidad",
     "strengthTraining": "Entrenamiento de Fuerza"
-  },
-  "statsStrip": {
-    "label": "Qué Incluye",
-    "exercises": "Ejercicios",
-    "workouts": "Entrenamientos",
-    "trainingFormats": "Formatos de Entrenamiento",
-    "equipmentRequired": "Equipamiento Necesario"
   },
   "statement": {
     "line1": "Un club.",
@@ -543,24 +532,6 @@
       "title": "Más Entrenamientos de {{category}}",
       "cardMeta": "{{duration}} min · {{difficulty}} · {{count}} ej"
     }
-  },
-  "trust": {
-    "eyebrow": "La confianza de los atletas",
-    "headline": "Los números hablan.",
-    "stat1Num": "634",
-    "stat1Label": "Ejercicios",
-    "stat1Sub": "Gimnasio, casa y movilidad",
-    "stat2Num": "136",
-    "stat2Label": "Entrenamientos",
-    "stat2Sub": "Listos para seguir",
-    "stat3Num": "4.9",
-    "stat3Label": "Valoración Beta",
-    "stat3Sub": "De los primeros testers",
-    "stat4Num": "50+",
-    "stat4Label": "Testers Beta",
-    "stat4Sub": "Y subiendo",
-    "availableIos": "Disponible en iOS",
-    "betaRating": "4.9 de los testers beta"
   },
   "faq": {
     "eyebrow": "FAQ",

@@ -30,10 +30,6 @@
     "headline2": "Anywhere.",
     "headline3": "Anytime.",
     "cta": "Join the Waitlist →",
-    "stat1Label": "Exercises",
-    "stat2Label": "Workouts",
-    "stat3Value": "0 kg",
-    "stat3Label": "Equipment Required",
     "scrollIndicator": "Scroll to explore"
   },
   "marquee": {
@@ -53,13 +49,6 @@
     "eveningRoutines": "Evening Routines",
     "flexibility": "Flexibility",
     "strengthTraining": "Strength Training"
-  },
-  "statsStrip": {
-    "label": "What's Inside",
-    "exercises": "Exercises",
-    "workouts": "Workouts",
-    "trainingFormats": "Training Formats",
-    "equipmentRequired": "Equipment Required"
   },
   "statement": {
     "line1": "One club.",
@@ -178,24 +167,6 @@
     "appStore": "App Store",
     "googlePlay": "Google Play",
     "downloadAppStore": "Download on App Store"
-  },
-  "trust": {
-    "eyebrow": "Trusted by Athletes",
-    "headline": "The numbers speak.",
-    "stat1Num": "634",
-    "stat1Label": "Exercises",
-    "stat1Sub": "Gym, home & mobility",
-    "stat2Num": "136",
-    "stat2Label": "Workouts",
-    "stat2Sub": "Ready to follow",
-    "stat3Num": "4.9",
-    "stat3Label": "Beta Rating",
-    "stat3Sub": "From early testers",
-    "stat4Num": "50+",
-    "stat4Label": "Beta Testers",
-    "stat4Sub": "And counting",
-    "availableIos": "Available on iOS",
-    "betaRating": "4.9 from beta testers"
   },
   "faq": {
     "eyebrow": "FAQ",

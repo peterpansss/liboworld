@@ -28,10 +28,6 @@
     "headline2": "Em Qualquer Lugar.",
     "headline3": "A Qualquer Hora.",
     "cta": "Entrar na Lista →",
-    "stat1Label": "Exercícios",
-    "stat2Label": "Treinos",
-    "stat3Value": "0 kg",
-    "stat3Label": "Equipamento Necessário",
     "scrollIndicator": "Role para explorar"
   },
   "marquee": {
@@ -51,13 +47,6 @@
     "eveningRoutines": "Rotinas Noturnas",
     "flexibility": "Flexibilidade",
     "strengthTraining": "Treino de Força"
-  },
-  "statsStrip": {
-    "label": "O Que Tem Dentro",
-    "exercises": "Exercícios",
-    "workouts": "Treinos",
-    "trainingFormats": "Formatos de Treino",
-    "equipmentRequired": "Equipamento Necessário"
   },
   "statement": {
     "line1": "Um clube.",
@@ -543,24 +532,6 @@
       "title": "Mais Treinos de {{category}}",
       "cardMeta": "{{duration}} min · {{difficulty}} · {{count}} ex"
     }
-  },
-  "trust": {
-    "eyebrow": "Escolhido por Atletas",
-    "headline": "Os números falam.",
-    "stat1Num": "634",
-    "stat1Label": "Exercícios",
-    "stat1Sub": "Academia, casa e mobilidade",
-    "stat2Num": "136",
-    "stat2Label": "Treinos",
-    "stat2Sub": "Prontos para seguir",
-    "stat3Num": "4.9",
-    "stat3Label": "Nota Beta",
-    "stat3Sub": "Dos primeiros testadores",
-    "stat4Num": "50+",
-    "stat4Label": "Testadores Beta",
-    "stat4Sub": "E crescendo",
-    "availableIos": "Disponível no iOS",
-    "betaRating": "4.9 dos testadores beta"
   },
   "faq": {
     "eyebrow": "FAQ",
