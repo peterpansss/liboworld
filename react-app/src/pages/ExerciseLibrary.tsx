@@ -336,7 +336,6 @@ export default function ExerciseLibrary() {
           {/* Hero */}
           <div className="el-hero">
             <h1 className="font-display">{t('exerciseLibrary.title')}</h1>
-            <p>{loading ? t('exerciseLibrary.exercisesWord') : t('exerciseLibrary.exerciseCount', { count: parentExercises.length })}</p>
           </div>
 
           {/* Muscle group strip */}
