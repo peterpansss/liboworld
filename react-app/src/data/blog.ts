@@ -555,4 +555,64 @@ export const blogArticles: BlogArticle[] = [
 <p>Consistency beats complexity. <strong>If you hit 30g+ of protein per meal, three or four times a day</strong>, you'll quietly out-grow everyone who's still chasing the perfect macro spreadsheet. Pick two of these meals, rotate them this week, and let the rest fall into place.</p>
 `,
   },
+  {
+    slug: 'how-to-lose-fat-and-stay-lean',
+    title: 'Don’t Eat Lunch. Seriously.',
+    excerpt: 'Two habits that’ll actually cut fat without killing your muscle. The first one’s controversial: don’t eat lunch. Seriously.',
+    category: 'Nutrition',
+    readTime: 4,
+    date: '2026-05-12',
+    author: 'Libo Team',
+    heroEmoji: '🔥',
+    heroImage: '/images/blog/how-to-lose-fat-and-stay-lean.jpg',
+    content: `
+<h2>The Question Everyone Asks Me</h2>
+<p>"How do you eat? How do you train? How do you stay lean year-round without losing muscle?"</p>
+<p>I get this every week. And here's the thing — most people who want to lose fat end up tanking their muscle, their energy, and their consistency in the process. They jump on a diet, lose 5kg in three weeks, look worse, feel worse, and rebound a month later. <strong>Fat loss isn't a nutrition problem. It's a mindset problem.</strong></p>
+<p>If you actually want to get lean and stay lean, there are two things I want you to do. Just two. Apply them this week and you'll see real change in 1–3 months.</p>
+
+<h2>1. Don’t Eat Lunch. Seriously.</h2>
+<p>This is the one nobody wants to hear. <strong>Cut your lunch. Stop eating it.</strong> Use that hour to train.</p>
+<p>If you don't have a gym near work, doesn't matter — have a couple of go-to exercises you can do anywhere. Push-ups, squats, lunges, a band, a pull-up bar at home. Just be active during the time you'd normally be sitting in front of a sandwich.</p>
+<p>If you absolutely need something, eat <strong>a piece of fruit — an apple, a banana, nothing more</strong>. Keep your breakfast. Coffee is fine. Then go home and have a proper, nutritious dinner.</p>
+<p>Why this works:</p>
+<ul>
+<li><strong>Post-lunch energy crash is real.</strong> Most people get sluggish after eating midday, then drag through the afternoon. Skipping lunch keeps you sharp.</li>
+<li><strong>Training fasted (or near-fasted) is fine.</strong> Honestly, you often perform better slightly hungry. Your body is primed to move, not digest.</li>
+<li><strong>You walk in the door starving.</strong> That dinner — the one you actually planned — hits harder, satisfies more, and you stop snacking on garbage at 9pm.</li>
+<li><strong>It's the cleanest calorie deficit you'll ever run.</strong> One meal gone, one workout gained. The math takes care of itself.</li>
+</ul>
+<blockquote>If you're sitting there thinking "I could never skip lunch" — that's the exact reason you should try it. The voice telling you it's impossible is the same voice that's kept you stuck for two years.</blockquote>
+
+<h2>2. Stop Scrolling Between Sets</h2>
+<p>This is the other one. <strong>Put the phone away when you train.</strong></p>
+<p>Walk into any gym and you'll see the same thing: guys doing one set, then sitting on the bench for 4 minutes scrolling Instagram, then doing another set, then talking to a friend, then another set. <strong>That's not training. That's hanging out with weights.</strong></p>
+<p>Here's how I train when I want to get lean:</p>
+<ul>
+<li><strong>High reps. Weight doesn't matter — rep count matters.</strong> If you can't sweat through a set, the weight is irrelevant.</li>
+<li><strong>Rest is short.</strong> 30–60 seconds, max. If you're not breathing hard between sets, you're not earning anything.</li>
+<li><strong>Always have something in between.</strong> Finished a set of bench? Drop into push-ups. Done with squats? Hit a plank. The goal is to <strong>never fully stop moving</strong>.</li>
+<li><strong>No phone. No talking. No mirror time.</strong> You're there for 45 minutes, then you leave. Treat it like work.</li>
+</ul>
+<p>Do this and two things happen at once: your session time drops by maybe a third, and you burn dramatically more fat than the guy doing the same lifts with 3-minute rests. <strong>Intensity is what cuts fat. Not the program.</strong></p>
+
+<h2>The Math Behind It</h2>
+<p>Fat loss is, at the end of the day, a <strong>calorie deficit</strong>. You can dress it up with macros, intermittent windows, keto, whatever — the underlying math is "less in than out."</p>
+<p>Skipping lunch is the simplest, lowest-willpower way to create that deficit without obsessing over food. You're not weighing chicken breasts. You're not tracking apps. You're just removing one meal from a day where you probably weren't that hungry at noon anyway.</p>
+<p>Pair that with high-intensity, low-rest training and you've stacked the two biggest fat-loss levers — diet and exercise — at the same time of day. <strong>You can't out-train a bad diet, but you sure can out-train a missing lunch.</strong></p>
+
+<h2>What This Isn't</h2>
+<p>This isn't a starvation plan. You're still eating breakfast, you're still eating a real dinner, you might have a piece of fruit at midday. You're not skipping meals because food is bad — you're skipping a meal because it bought you a workout.</p>
+<p>If you have a medical reason to eat regular meals, or you're dealing with anything that makes fasting risky for you, this isn't for you. <strong>Listen to your body.</strong> But if your only objection is "but I love my lunch break," that's exactly the comfort you need to break to change anything.</p>
+
+<h2>Try It for 30 Days</h2>
+<p>Two habits. That's the entire program:</p>
+<ul>
+<li>Skip lunch, train during lunch hour. Small fruit if needed.</li>
+<li>Train without your phone. High reps. Short rest. Always moving.</li>
+</ul>
+<p>Run that for 30 days and you'll be leaner, fitter, and — this part surprises people — <strong>you'll have more time</strong>. Your training sessions are shorter. Your lunch break is freed up. Your dinner is the meal you look forward to instead of an afterthought.</p>
+<p>One to three months in, you won't recognise yourself. And you didn't count a single macro.</p>
+`,
+  },
 ];
