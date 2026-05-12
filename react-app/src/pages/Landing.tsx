@@ -38,8 +38,8 @@ const GOAL_PARAMS = ['lose-weight', 'build-muscle', 'improve-mobility', 'stay-ac
 const GOAL_ICONS = ['\uD83D\uDD25', '\uD83D\uDCAA', '\uD83E\uDDD8', '\u26A1', '\uD83E\uDEC1'];
 const GOAL_KEYS = ['loseWeight', 'buildMuscle', 'improveMobility', 'stayActive', 'reduceStress'] as const;
 
-const FEATURE_ICONS = ['\uD83D\uDCDA', '\uD83C\uDFCB\uFE0F', '\uD83D\uDCC5', '\uD83D\uDCCA', '\u270F\uFE0F', '\uD83C\uDFC6'];
-const FEATURE_KEYS = ['exerciseLibrary', 'workoutLibrary', 'programs', 'progressTracking', 'customBuilder', 'moneyChallenges'] as const;
+const FEATURE_ICONS = ['\uD83C\uDFC6', '\uD83D\uDCDA', '\uD83C\uDFCB\uFE0F', '\uD83D\uDCC5', '\uD83D\uDCCA', '\u270F\uFE0F'];
+const FEATURE_KEYS = ['moneyChallenges', 'exerciseLibrary', 'workoutLibrary', 'programs', 'progressTracking', 'customBuilder'] as const;
 
 const CATEGORY_KEYS = ['homeWorkouts', 'gymTraining', 'mobilityStretch', 'functional', 'morningRoutines', 'eveningWindDown'] as const;
 
@@ -173,11 +173,7 @@ export default function Landing() {
   const [formError, setFormError] = useState(false);
 
   // Refs
-  const featuresGridRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
-
-  // Feature dots state
-  const [activeDot, setActiveDot] = useState(0);
 
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -248,22 +244,6 @@ export default function Landing() {
     setTimeout(() => setScrollIndicatorVisible(true), 1400);
   }, []);
 
-  // ── Feature carousel dots (mobile) ──
-  useEffect(() => {
-    const grid = featuresGridRef.current;
-    if (!grid) return;
-    function onGridScroll() {
-      if (!grid) return;
-      const scrollLeft = grid.scrollLeft;
-      const first = grid.firstElementChild as HTMLElement | null;
-      if (!first) return;
-      const cardWidth = first.offsetWidth + 14;
-      setActiveDot(Math.round(scrollLeft / cardWidth));
-    }
-    grid.addEventListener('scroll', onGridScroll, { passive: true });
-    return () => grid.removeEventListener('scroll', onGridScroll);
-  }, []);
-
   // ── Cursor follower (desktop) ──
   useEffect(() => {
     if (!isDesktop.current || prefersReducedMotion.current) return;
@@ -287,7 +267,7 @@ export default function Landing() {
       cursor!.classList.remove('visible');
     }
 
-    const hoverables = 'a, button, .feature-item, .cat-item, .goal-row, .proof-card, .store-btn, input';
+    const hoverables = 'a, button, .combined-card, .cat-item, .goal-row, .proof-card, .store-btn, input';
     function onOver(e: MouseEvent) {
       if ((e.target as Element).closest(hoverables)) cursor!.classList.add('hover');
     }
@@ -333,7 +313,7 @@ export default function Landing() {
                 setTimeout(() => star.classList.add('bounced'), i * 100);
               });
               // Icon bounce
-              const icon = el.querySelector('.feature-icon');
+              const icon = el.querySelector('.combined-card-icon');
               if (icon) setTimeout(() => icon.classList.add('icon-bounce'), 200);
             }, delay);
             observer.unobserve(el);
@@ -377,15 +357,16 @@ export default function Landing() {
   useEffect(() => {
     if (!isDesktop.current || prefersReducedMotion.current) return;
 
-    const cards = document.querySelectorAll<HTMLElement>('.feature-item');
+    const cards = document.querySelectorAll<HTMLElement>('.combined-card');
     const handlers = new Map<HTMLElement, { move: (e: MouseEvent) => void; leave: () => void }>();
 
     cards.forEach((card) => {
+      const xOffset = getComputedStyle(card).getPropertyValue('--x-offset').trim() || '0px';
       const move = (e: MouseEvent) => {
         const rect = card.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `perspective(800px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-3px) scale(1.01)`;
+        card.style.transform = `perspective(800px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translate3d(${xOffset}, -3px, 0) scale(1.01)`;
         card.style.setProperty('--spot-x', `${((e.clientX - rect.left) / rect.width) * 100}%`);
         card.style.setProperty('--spot-y', `${((e.clientY - rect.top) / rect.height) * 100}%`);
       };
@@ -533,84 +514,38 @@ export default function Landing() {
       {/* ── FOUNDER BTS CARD ── */}
       <FounderCard />
 
-      {/* ── STATEMENT ── */}
-      <div className="statement-wrapper">
-        <div className="statement">
-          <p className="statement-text">
-            <span className="dim" data-reveal="fade-up" data-delay="0">{t('statement.line1')}</span><br />
-            <span className="bright" data-reveal="fade-up" data-delay="0.15" style={{ display: 'inline-block' }}>{t('statement.line2')}</span><br />
-            <span className="dim" data-reveal="fade-up" data-delay="0.3" style={{ display: 'inline-block' }}>{t('statement.line3')}</span><br />
-            <span className="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style={{ display: 'inline-block' }}>{t('statement.line4')}</span>
-          </p>
-          <p className="body-lg statement-body" data-reveal="fade-up" data-delay="0.6">
-            {t('statement.description')}
-          </p>
-        </div>
-      </div>
-
-      {/* ── FEATURES ── */}
-      <section className="features-section" id="features">
-        <div className="features-header reveal">
-          <div>
-            <div className="label label-spaced">{t('features.eyebrow')}</div>
-            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('features.headline')}</h2>
+      {/* ── COMBINED STATEMENT + FEATURES ── */}
+      <section className="combined-section" id="features">
+        <div className="combined-section-inner">
+          <div className="combined-left">
+            <p className="statement-text">
+              <span className="dim" data-reveal="fade-up" data-delay="0">{t('statement.line1')}</span><br />
+              <span className="bright" data-reveal="fade-up" data-delay="0.15" style={{ display: 'inline-block' }}>{t('statement.line2')}</span><br />
+              <span className="dim" data-reveal="fade-up" data-delay="0.3" style={{ display: 'inline-block' }}>{t('statement.line3')}</span><br />
+              <span className="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style={{ display: 'inline-block' }}>{t('statement.line4')}</span>
+            </p>
+            <p className="body-lg statement-body" data-reveal="fade-up" data-delay="0.6">
+              {t('statement.description')}
+            </p>
           </div>
-          <p className="body-md text-narrow">
-            {t('features.description')}
-          </p>
-        </div>
-        <div className="features-grid" ref={featuresGridRef}>
-          {FEATURES.map((f, i) => (
-            <div
-              key={f.num}
-              className={`feature-item reveal${i % 3 === 1 ? ' reveal-delay-1' : i % 3 === 2 ? ' reveal-delay-2' : ''}`}
-            >
-              <div className="feature-num">{f.num}</div>
-              <span className="feature-icon">
-                <EmojiIcon emoji={f.icon} size={32} />
-              </span>
-              <div className="feature-name font-display">{f.name}</div>
-              <p className="feature-desc">{f.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div className="features-dots">
-          {FEATURES.map((_, i) => (
-            <div key={i} className={`dot${i === activeDot ? ' active' : ''}`} />
-          ))}
+          <div className="combined-right">
+            {FEATURES.map((f, i) => (
+              <div
+                key={f.num}
+                className={`combined-card combined-card-${i + 1}`}
+                data-reveal="fade-up"
+              >
+                <div className="combined-card-num">{f.num}</div>
+                <span className="combined-card-icon">
+                  <EmojiIcon emoji={f.icon} size={36} />
+                </span>
+                <div className="combined-card-name font-display">{f.name}</div>
+                <p className="combined-card-desc">{f.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-
-      {/* ── FULL-BLEED PHOTO BREAK ── */}
-      <div className="photo-break" style={{ height: 480 }}>
-        <img
-          src="/images/onboarding/step-2.jpg"
-          alt="Strength training"
-          loading="lazy"
-          style={{ objectPosition: 'center 62%' }}
-        />
-        <div
-          className="photo-break-overlay"
-          style={{
-            background: 'linear-gradient(to right,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.2) 50%,transparent 100%)',
-          }}
-        >
-          <div>
-            <div className="label label-spaced" style={{ color: 'var(--accent)' }}>{t('photoBreak1.eyebrow')}</div>
-            <h2 className="display display-md font-display text-narrow">
-              {(() => {
-                const lines = t('photoBreak1.headline').split('\n');
-                return lines.map((line, idx) => (
-                  <span key={idx}>
-                    {idx === lines.length - 1 ? <span style={{ color: 'var(--accent)' }}>{line}</span> : line}
-                    {idx < lines.length - 1 && <br />}
-                  </span>
-                ));
-              })()}
-            </h2>
-          </div>
-        </div>
-      </div>
 
       {/* ── REWARDS ── */}
       <section className="rewards-section" id="rewards">
