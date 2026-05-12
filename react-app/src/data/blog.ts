@@ -557,7 +557,7 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     slug: 'how-to-lose-fat-and-stay-lean',
-    title: 'Don’t Eat Lunch. Seriously.',
+    title: 'Don’t Eat Lunch. Seriously. (How I Lose Fat and Stay Lean)',
     excerpt: 'Two habits that’ll actually cut fat without killing your muscle. The first one’s controversial: don’t eat lunch. Seriously.',
     category: 'Nutrition',
     readTime: 4,
