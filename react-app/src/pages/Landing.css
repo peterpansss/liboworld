@@ -222,6 +222,15 @@ button:focus-visible {
 }
 .hero-phone__video {
   background: #000;
+  /* Decorative loop — never interactive. Blocks tap-to-pause on iOS Safari
+     and any chrome the browser might inject. */
+  pointer-events: none;
+}
+.hero-phone__video::-webkit-media-controls,
+.hero-phone__video::-webkit-media-controls-enclosure,
+.hero-phone__video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
 }
 
 /* Center phone — largest, front */
@@ -445,6 +454,46 @@ button:focus-visible {
 .combined-card-5 { --x-offset: -20px; margin-top: -32px; }
 .combined-card-6 { --x-offset: 16px;  margin-top: -32px; }
 .combined-card { transform: translateX(var(--x-offset, 0px)); }
+
+/* Per-card muted radial wash + matching border tint. Each card carries its
+   own hue at ~10% opacity over the #141414 base — enough to register without
+   reading as colored. Gradient origin varies so the cards don't look mirrored. */
+.combined-card-1 {
+  background:
+    radial-gradient(circle at 88% 12%, rgba(255, 184, 70, 0.14), transparent 62%),
+    #141414;
+  border-color: rgba(255, 184, 70, 0.10);
+}
+.combined-card-2 {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(202, 255, 0, 0.12), transparent 60%),
+    #141414;
+  border-color: rgba(202, 255, 0, 0.10);
+}
+.combined-card-3 {
+  background:
+    radial-gradient(circle at 90% 88%, rgba(80, 220, 200, 0.13), transparent 62%),
+    #141414;
+  border-color: rgba(80, 220, 200, 0.10);
+}
+.combined-card-4 {
+  background:
+    radial-gradient(circle at 86% 14%, rgba(160, 130, 255, 0.13), transparent 62%),
+    #141414;
+  border-color: rgba(160, 130, 255, 0.10);
+}
+.combined-card-5 {
+  background:
+    radial-gradient(circle at 14% 86%, rgba(255, 120, 150, 0.13), transparent 62%),
+    #141414;
+  border-color: rgba(255, 120, 150, 0.10);
+}
+.combined-card-6 {
+  background:
+    radial-gradient(circle at 88% 16%, rgba(100, 170, 255, 0.13), transparent 62%),
+    #141414;
+  border-color: rgba(100, 170, 255, 0.10);
+}
 .combined-card[data-reveal='fade-up'] {
   transform: translate(var(--x-offset, 0px), 32px);
 }
@@ -556,6 +605,41 @@ button:focus-visible {
   display: flex;
   align-items: flex-end;
   padding: 48px 8%;
+}
+
+/* "NO EXCUSES. JUST RESULTS." accent band — sits between Goals and the white
+   trust band. Deep flat black with a soft inner vignette so it reads as a
+   deliberate brand moment instead of dead space, no shine. */
+.photo-break-minimal {
+  position: relative;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background:
+    radial-gradient(ellipse 70% 90% at 50% 50%, #0a0a0a 0%, #050505 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+.photo-break-minimal__text {
+  text-align: center;
+  letter-spacing: -1px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+.photo-break-minimal__accent {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .photo-break-minimal {
+    height: auto;
+    min-height: 240px;
+    padding: 64px 20px;
+  }
 }
 
 /* ─────────────────────────────
@@ -886,6 +970,50 @@ button:focus-visible {
   background: rgba(202, 255, 0, 0.04);
   transform: translateY(-4px);
 }
+
+/* Per-goal hue: radial wash from the top (where the icon sits) plus a matching
+   icon-tile tint. Palette mirrors the feature cards so the page reads as one
+   colorway, not five. Hue maps to meaning (fire/strength/flow/energy/calm). */
+.goal-row:nth-child(1) {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 184, 70, 0.14), transparent 58%),
+    rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 184, 70, 0.14);
+}
+.goal-row:nth-child(1) .goal-row-icon { background: rgba(255, 184, 70, 0.10); }
+
+.goal-row:nth-child(2) {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(202, 255, 0, 0.12), transparent 58%),
+    rgba(255, 255, 255, 0.02);
+  border-color: rgba(202, 255, 0, 0.14);
+}
+.goal-row:nth-child(2) .goal-row-icon { background: rgba(202, 255, 0, 0.10); }
+
+.goal-row:nth-child(3) {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(80, 220, 200, 0.13), transparent 58%),
+    rgba(255, 255, 255, 0.02);
+  border-color: rgba(80, 220, 200, 0.14);
+}
+.goal-row:nth-child(3) .goal-row-icon { background: rgba(80, 220, 200, 0.10); }
+
+.goal-row:nth-child(4) {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(160, 130, 255, 0.13), transparent 58%),
+    rgba(255, 255, 255, 0.02);
+  border-color: rgba(160, 130, 255, 0.14);
+}
+.goal-row:nth-child(4) .goal-row-icon { background: rgba(160, 130, 255, 0.10); }
+
+.goal-row:nth-child(5) {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(100, 170, 255, 0.13), transparent 58%),
+    rgba(255, 255, 255, 0.02);
+  border-color: rgba(100, 170, 255, 0.14);
+}
+.goal-row:nth-child(5) .goal-row-icon { background: rgba(100, 170, 255, 0.10); }
+
 .goal-row-icon {
   font-size: 36px;
   width: 72px;

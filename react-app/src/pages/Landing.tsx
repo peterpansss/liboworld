@@ -491,6 +491,9 @@ export default function Landing() {
                     preload="metadata"
                     poster="/mockups/hero-poster.jpg?v=20260512"
                     aria-label="Libo app in action: home tab with streak, today's workout, and rewards"
+                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                    disablePictureInPicture
+                    disableRemotePlayback
                   >
                     <source src="/mockups/hero-video.webm?v=20260512" type="video/webm" />
                     <source src="/mockups/hero-video.mp4?v=20260512" type="video/mp4" />
@@ -674,20 +677,9 @@ export default function Landing() {
       </section>
 
       {/* ── PHOTO BREAK 2 ── */}
-      <div
-        className="photo-break-minimal"
-        style={{
-          height: 360,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%)',
-          borderTop: '1px solid rgba(255,255,255,0.05)',
-          borderBottom: '1px solid rgba(255,255,255,0.05)',
-        }}
-      >
-        <p className="display display-lg font-display" style={{ textAlign: 'center', letterSpacing: '-1px' }}>
-          {t('photoBreak2Full.line1')}<br /><span style={{ color: 'var(--accent)' }}>{t('photoBreak2Full.line2')}</span>
+      <div className="photo-break-minimal">
+        <p className="photo-break-minimal__text display display-lg font-display">
+          {t('photoBreak2Full.line1')}<br /><span className="photo-break-minimal__accent">{t('photoBreak2Full.line2')}</span>
         </p>
       </div>
 
