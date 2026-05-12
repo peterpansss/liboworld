@@ -98,11 +98,20 @@ export default function ExerciseDetail() {
     // a visible flicker.
   };
 
+  // Sticky once the user explicitly clicks the volume button. The
+  // [mainSrc] effect's catch handler uses this to skip the "fall back
+  // to muted" rescue on subsequent src changes (e.g. angle swap), so
+  // the user's unmute preference survives the swap instead of getting
+  // clobbered every time Chrome decides the play() call after a
+  // setState looks like autoplay.
+  const userExpressedMutePrefRef = useRef(false);
+
   const toggleMuted = () => {
     const v = videoRef.current;
     if (!v) return;
     const next = !muted;
     v.muted = next;
+    userExpressedMutePrefRef.current = true;
     if (!next) {
       v.currentTime = 0;
       v.play().catch(() => {});
@@ -263,7 +272,16 @@ export default function ExerciseDetail() {
       // the page without a prior gesture and we asked for unmuted audio.
       // Fall back to muted so the video still plays; the volume button
       // overlay tells users VO is one click away.
-      if (!v.muted) {
+      //
+      // Skip the fallback once the user has explicitly clicked the volume
+      // button. On angle swap the play() call runs in a useEffect after
+      // setState, which Chrome sometimes classifies as autoplay even
+      // though there was a fresh user gesture — re-muting then silently
+      // clobbers the unmute preference and the side view plays silent.
+      // Better to leave the element unmuted: if play() really did fail
+      // we'll show a stalled poster, which is rare and self-recovers as
+      // soon as the user clicks anywhere on the player.
+      if (!v.muted && !userExpressedMutePrefRef.current) {
         v.muted = true;
         setMuted(true);
         v.play().catch(() => {});
