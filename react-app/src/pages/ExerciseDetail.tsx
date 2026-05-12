@@ -6,6 +6,7 @@ import {
   exerciseThumb,
   publicVideoUrl,
   publicVideoUrlAlt,
+  publicVideoUrlAltBase,
   type VoicePreference,
   type SupportedLang,
 } from '../utils/thumbnails';
@@ -406,7 +407,19 @@ export default function ExerciseDetail() {
                       // exist for any recorded exercise, including the 6
                       // slugs in voiceover_excluded.json that have no
                       // voiceover variants at all.
+                      //
+                      // When showingAlt is true the same chain applies to
+                      // the alt clip, falling back to the bare side-view URL
+                      // (no suffix) which is the canonical we always upload.
                       if (!exercise || !videoRef.current) return;
+                      if (showingAlt) {
+                        const base = publicVideoUrlAltBase(exercise);
+                        if (base && videoRef.current.src !== base) {
+                          videoRef.current.src = base;
+                          videoRef.current.load();
+                        }
+                        return;
+                      }
                       let nextUrl: string | undefined;
                       while (fallbackStepRef.current < 2 && !nextUrl) {
                         fallbackStepRef.current += 1;
@@ -488,6 +501,20 @@ export default function ExerciseDetail() {
                         playsInline
                         autoPlay
                         preload="metadata"
+                        onError={() => {
+                          // Per-(lang, voice) side-view variants may be
+                          // missing for some exercises (TTS mp3 wasn't
+                          // produced for that locale yet). Fall back to the
+                          // bare alt URL — guaranteed to exist on R2.
+                          if (!exercise || !pipVideoRef.current) return;
+                          if (showingAlt) return; // PiP shows primary in this case; primary's own chain handles it
+                          const base = publicVideoUrlAltBase(exercise);
+                          if (base && pipVideoRef.current.src !== base) {
+                            pipVideoRef.current.src = base;
+                            pipVideoRef.current.load();
+                            pipVideoRef.current.play().catch(() => {});
+                          }
+                        }}
                       />
                       <span className="ed-demo-pip-label">
                         {showingAlt

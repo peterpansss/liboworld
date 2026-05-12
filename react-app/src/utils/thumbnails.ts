@@ -54,20 +54,31 @@ export function publicVideoUrl(
 /**
  * Alternate-angle (e.g. "_side_view") clip URL.
  *
- * The voiceover pipeline only ever produced per-lang/voice variants for the
- * primary clips — side-view variants like `<slug>_side_view_nova.mp4` or
- * `<slug>_side_view_de_onyx.mp4` were never uploaded (HEAD-checked against R2:
- * all 404). So we deliberately ignore voice + lang here and always return the
- * base `_side_view.mp4`. Without this, every alt-video exercise (61 of them
- * today) renders a black PiP for any user whose localStorage holds a non-
- * default voice/lang preference. If side-view voiceover variants ever ship,
- * thread voice + lang back through and add an onError fallback to the base.
+ * Mirrors `publicVideoUrl`'s lang/voice suffixing — per-(lang, voice) side-view
+ * variants are produced by `Brand-Management/Exercises/voiceovers/add-sideview-voiceover.sh`
+ * and uploaded to R2 alongside the canonical (`{slug}_side_view_<lang>_<voice>.mp4`).
+ *
+ * Safety net: callers must wire an `onError` on the <video> that falls back
+ * to the bare `videoUrlAlt` — exercises whose TTS mp3 is missing for a given
+ * (lang, voice) won't have a matching side-view variant uploaded, and the
+ * 404 would otherwise leave a black PiP for users on that preference.
  */
 export function publicVideoUrlAlt(
   ex: Exercise,
-  _voice: VoicePreference = 'male',
-  _lang: SupportedLang = 'en',
+  voice: VoicePreference = 'male',
+  lang: SupportedLang = 'en',
 ): string | undefined {
+  if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrlAlt) return undefined;
+  return withLangVoice(ex.videoUrlAlt, lang, voice);
+}
+
+/**
+ * Bare (en+onyx) alt URL for the onError fallback path. Strips any
+ * `_<lang>_<voice>` or `_<voice>` suffix that publicVideoUrlAlt may have
+ * appended before the `.mp4` so the video element can retry against the
+ * canonical that's guaranteed to exist on R2.
+ */
+export function publicVideoUrlAltBase(ex: Exercise): string | undefined {
   if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrlAlt) return undefined;
   return ex.videoUrlAlt;
 }
