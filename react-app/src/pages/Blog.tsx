@@ -43,7 +43,13 @@ export default function Blog() {
   const articles = useMemo(() => getBlogArticles(i18n.language), [i18n.language]);
   const filtered = useMemo(() => {
     if (activeCategory === 'All') return articles;
-    return articles.filter((a) => a.category === activeCategory);
+    // Cross-topic posts surface under any of their secondary categories
+    // without duplicating in "All" (each article is one object).
+    return articles.filter(
+      (a) =>
+        a.category === activeCategory ||
+        a.secondaryCategories?.includes(activeCategory)
+    );
   }, [activeCategory, articles]);
 
   // Carousel scroll state — track whether the prev/next arrows should be

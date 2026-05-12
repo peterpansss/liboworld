@@ -3,6 +3,11 @@ export interface BlogArticle {
   title: string;
   excerpt: string;
   category: string;
+  // Additional categories this post should surface under in the filter chips
+  // on /blog. Primary `category` still drives the breadcrumb + badge on the
+  // post page; secondaries are filter-only so cross-topic posts (e.g. fasting
+  // is nutrition + training + lifestyle) don't need a single canonical home.
+  secondaryCategories?: string[];
   readTime: number;
   date: string;
   author: string;
@@ -560,6 +565,7 @@ export const blogArticles: BlogArticle[] = [
     title: 'Don’t Eat Lunch. Seriously. (How I Lose Fat and Stay Lean)',
     excerpt: 'Two habits that’ll actually cut fat without killing your muscle. The first one’s controversial: don’t eat lunch. Seriously.',
     category: 'Nutrition',
+    secondaryCategories: ['Training', 'Lifestyle'],
     readTime: 4,
     date: '2026-05-12',
     author: 'Noah F.',
