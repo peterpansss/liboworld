@@ -474,4 +474,85 @@ export const blogArticles: BlogArticle[] = [
 <p><strong>The investment is small, but the payoff is massive:</strong> fewer injuries, better range of motion, faster recovery between sessions, and workouts that actually feel good instead of grinding through stiffness and pain.</p>
 `,
   },
+  {
+    slug: 'simple-high-protein-meals-in-15-minutes',
+    title: 'Simple High-Protein Meals You Can Prep in 15 Minutes',
+    excerpt: 'Five plate-and-go meals that each hit 30g+ of protein and take less time than scrolling a takeout menu. No recipes, no fluff.',
+    category: 'Nutrition',
+    readTime: 5,
+    date: '2026-05-12',
+    author: 'Libo Team',
+    heroEmoji: '🍳',
+    heroImage: '/images/blog/simple-high-protein-meals-in-15-minutes.jpg',
+    content: `
+<h2>Why Protein, Why 15 Minutes</h2>
+<p>If you're training hard and not eating enough protein, you're leaving results on the table. <strong>Most lifters need 1.6 to 2.2 grams of protein per kilogram of bodyweight</strong> to build muscle — that's roughly 130 to 180g per day for an 80kg guy.</p>
+<p>The problem isn't knowing this. The problem is hitting it on a Tuesday night when you're tired, broke on time, and the easy move is to order in. These five meals each deliver <strong>30g+ of protein in 15 minutes or less</strong>, use ingredients you can buy at any supermarket, and don't require you to follow a recipe.</p>
+
+<h2>1. Chicken + Rice Bowl (35g protein)</h2>
+<p>The default meal. Cheap, scales endlessly, freezer-friendly.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>150g pre-cooked chicken breast (or rotisserie pulled off the bone)</li>
+<li>1 microwave rice pouch (basmati or jasmine, ~250g)</li>
+<li>A handful of frozen edamame or peas</li>
+<li>Soy sauce, sriracha, sesame seeds</li>
+</ul>
+<p><strong>Do this:</strong> Microwave the rice pouch for 2 minutes. Microwave the edamame for 90 seconds. Dump both into a bowl, add the chicken on top, hit it with soy and sriracha. Done. <strong>If you batch-cooked chicken on Sunday</strong>, this takes 4 minutes start to finish.</p>
+
+<h2>2. Cottage Cheese + Egg Scramble on Toast (32g protein)</h2>
+<p>Breakfast or post-workout, this is the most underrated high-protein meal in the rotation.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>3 eggs</li>
+<li>100g cottage cheese (full-fat is fine)</li>
+<li>2 slices of sourdough or rye bread</li>
+<li>Salt, pepper, chili flakes, a knob of butter</li>
+</ul>
+<p><strong>Do this:</strong> Whisk the eggs with a pinch of salt. Melt butter in a non-stick pan over medium-low heat. Pour in the eggs, push them around slowly with a spatula. When they're 70% set, fold the cottage cheese through and kill the heat. Toast the bread. Pile the scramble on top, chili flakes, eat. <strong>Cottage cheese melts into the eggs</strong> — you barely notice it, but it adds 12g of protein for almost no effort.</p>
+
+<h2>3. Tuna + White Bean Salad (30g protein)</h2>
+<p>No cooking. No dishes. Survives a desk lunch.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>1 can tuna in olive oil (drained)</li>
+<li>1 can white beans / cannellini (drained, rinsed)</li>
+<li>Half a red onion, sliced thin</li>
+<li>Olive oil, lemon juice, salt, pepper, parsley if you have it</li>
+</ul>
+<p><strong>Do this:</strong> Dump everything in a bowl. Squeeze the lemon. Stir. That's the recipe. Eat with crackers, on toast, or straight out of the bowl. <strong>The white beans add another 15g of protein</strong> on top of the tuna and turn this from a snack into an actual meal.</p>
+
+<h2>4. Greek Yogurt Power Bowl (35g protein)</h2>
+<p>Two minutes flat. Works as breakfast, snack, or dessert.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>250g Greek yogurt (0% or 2%, get the high-protein kind — 18g+ per 100g)</li>
+<li>30g protein granola (or regular granola + a scoop of whey if you have it lying around)</li>
+<li>A handful of berries or sliced banana</li>
+<li>1 tbsp peanut butter, drizzle of honey</li>
+</ul>
+<p><strong>Do this:</strong> Scoop the yogurt into a bowl. Top with everything else. Eat. <strong>This is what you eat at 10pm</strong> when you realized you only hit 100g of protein for the day.</p>
+
+<h2>5. Beef + Broccoli Stir-Fry (40g protein)</h2>
+<p>The Sunday-night version of takeout. 12 minutes if you move with intent.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>150g lean beef strips (rump, sirloin, or pre-sliced stir-fry beef)</li>
+<li>1 head of broccoli, cut into florets (or a bag of pre-cut)</li>
+<li>1 microwave rice pouch</li>
+<li>2 tbsp soy sauce, 1 tbsp oyster sauce, garlic, ginger, sesame oil</li>
+</ul>
+<p><strong>Do this:</strong> Get a pan ripping hot with a splash of neutral oil. Sear the beef 60 seconds per side, pull it out. Throw in the broccoli with 2 tbsp of water, lid on, 3 minutes. Add minced garlic and ginger, soy, oyster sauce. Return the beef. Toss for 30 seconds. Microwave the rice while the broccoli steams. Serve. <strong>Don't overthink the seasoning</strong> — soy + oyster + garlic is 90% of the flavor of any stir-fry on earth.</p>
+
+<h2>The Real Trick: Prep One Thing on Sunday</h2>
+<p>The single biggest unlock isn't a recipe — it's having one cooked protein already in the fridge. Pick one of these on Sunday:</p>
+<ul>
+<li><strong>Bake 1kg of chicken breast</strong> with salt, pepper, paprika at 200°C for 22 minutes. Slice. Done for the week.</li>
+<li><strong>Boil 8 eggs</strong> while you make dinner. Cool, fridge, peel-as-you-go.</li>
+<li><strong>Brown 500g of lean mince</strong> with onion and seasoning. Use it for bowls, tacos, pasta, eggs.</li>
+</ul>
+<blockquote>You don't need to meal-prep every meal for the week. You need one protein ready to go. The rest assembles itself in 5 minutes.</blockquote>
+<p>Consistency beats complexity. <strong>If you hit 30g+ of protein per meal, three or four times a day</strong>, you'll quietly out-grow everyone who's still chasing the perfect macro spreadsheet. Pick two of these meals, rotate them this week, and let the rest fall into place.</p>
+`,
+  },
 ];
