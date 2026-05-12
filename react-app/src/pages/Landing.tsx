@@ -475,21 +475,34 @@ export default function Landing() {
             <div className="hero-phone hero-phone--left">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/hero-left.png" alt="Libo Explore tab showing 140 exercises across workouts, exercises, and programs" loading="eager" />
+                  <img src="/mockups/hero-left.png?v=20260512" alt="Libo Explore tab with Build Your Own, AI Generate, and My Workouts cards above the workout grid" loading="eager" />
                 </div>
               </div>
             </div>
             <div className="hero-phone hero-phone--center">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/hero-center.png" alt="Libo Home tab with today's Upper/Lower Superset workout and progress stats" loading="eager" />
+                  <video
+                    className="hero-phone__video"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster="/mockups/hero-poster.jpg?v=20260512"
+                    aria-label="Libo app in action: home tab with streak, today's workout, and rewards"
+                  >
+                    <source src="/mockups/hero-video.webm?v=20260512" type="video/webm" />
+                    <source src="/mockups/hero-video.mp4?v=20260512" type="video/mp4" />
+                    <img src="/mockups/hero-center.png?v=20260512" alt="Libo Home tab with streak counter, today's workout, and progress stats" />
+                  </video>
                 </div>
               </div>
             </div>
             <div className="hero-phone hero-phone--right">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/hero-right.png" alt="Libo workout player mid-session showing a bodyweight squat" loading="eager" />
+                  <img src="/mockups/hero-right.png?v=20260512" alt="Libo Rewards tab showing 436 points and an Apple Watch Ultra 3 giveaway" loading="eager" />
                 </div>
               </div>
             </div>
