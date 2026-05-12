@@ -174,6 +174,7 @@ export default function Landing() {
 
   // Refs
   const cursorRef = useRef<HTMLDivElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -242,6 +243,25 @@ export default function Landing() {
     setTimeout(() => setHeroRevealed(true), 200);
     setTimeout(() => setCtaVisible(true), 1000);
     setTimeout(() => setScrollIndicatorVisible(true), 1400);
+  }, []);
+
+  // ── Force-start the hero loop ──
+  // Some browsers (esp. iOS Safari in low-power mode, Chrome on Android with
+  // strict autoplay policies) ignore the `autoPlay` attribute on initial paint.
+  // Calling play() explicitly after mount works because the video is muted +
+  // playsInline + offscreen-safe. We also retry on tab visibility flips so the
+  // loop resumes when the user switches back to the tab.
+  useEffect(() => {
+    const v = heroVideoRef.current;
+    if (!v) return;
+    const tryPlay = () => {
+      const p = v.play();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    };
+    tryPlay();
+    const onVisible = () => { if (document.visibilityState === 'visible') tryPlay(); };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
   }, []);
 
   // ── Cursor follower (desktop) ──
@@ -483,12 +503,13 @@ export default function Landing() {
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
                   <video
+                    ref={heroVideoRef}
                     className="hero-phone__video"
                     autoPlay
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="auto"
                     poster="/mockups/hero-poster.jpg?v=20260512"
                     aria-label="Libo app in action: home tab with streak, today's workout, and rewards"
                     controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
