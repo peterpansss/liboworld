@@ -102,7 +102,12 @@ export default function ExerciseLibrary() {
 
   const [searchInput, setSearchInput] = useState(urlSearch);
   const debouncedSearch = useDebouncedValue(searchInput, 150);
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(() => {
+    const s = searchParams.get('setting') || 'All';
+    const t = searchParams.get('type') || 'All';
+    const e = searchParams.get('equip') || 'All';
+    return s !== 'All' || t !== 'All' || e !== 'All';
+  });
 
   // ── SEO meta ──
   const seoTitle = useMemo(() => {

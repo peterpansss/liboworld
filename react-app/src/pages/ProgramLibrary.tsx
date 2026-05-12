@@ -98,7 +98,11 @@ export default function ProgramLibrary() {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(() => {
+    const g = searchParams.get('goal') || 'All';
+    const d = searchParams.get('dur') || 'Any';
+    return g !== 'All' || d !== 'Any';
+  });
 
   const search = searchParams.get('q') || '';
   const goalParam = (searchParams.get('goal') || 'All') as GoalKey;
