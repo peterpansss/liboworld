@@ -704,6 +704,7 @@
     "notFoundBody": "The article you are looking for does not exist.",
     "backToBlog": "Back to Articles",
     "minRead": "{{count}} min read",
+    "writtenBy": "Written by {{author}}",
     "relatedTitle": "Explore Related",
     "relatedExerciseLabel": "Exercise",
     "relatedProgramLabel": "Program",

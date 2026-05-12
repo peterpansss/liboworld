@@ -562,7 +562,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Nutrition',
     readTime: 4,
     date: '2026-05-12',
-    author: 'Libo Team',
+    author: 'Noah Fofana',
     heroEmoji: '🔥',
     heroImage: '/images/blog/how-to-lose-fat-and-stay-lean.jpg',
     content: `

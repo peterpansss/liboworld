@@ -700,6 +700,7 @@
     "notFoundBody": "Der Artikel, den du suchst, existiert nicht.",
     "backToBlog": "Zurück zu den Artikeln",
     "minRead": "{{count}} Min. Lesezeit",
+    "writtenBy": "Geschrieben von {{author}}",
     "relatedTitle": "Verwandtes entdecken",
     "relatedExerciseLabel": "Übung",
     "relatedProgramLabel": "Programm",

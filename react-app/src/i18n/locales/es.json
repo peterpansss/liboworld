@@ -443,6 +443,7 @@
     "notFoundBody": "El artículo que buscas no existe.",
     "backToBlog": "Volver a Artículos",
     "minRead": "{{count}} min de lectura",
+    "writtenBy": "Escrito por {{author}}",
     "relatedTitle": "Explora Relacionados",
     "relatedExerciseLabel": "Ejercicio",
     "relatedProgramLabel": "Programa",

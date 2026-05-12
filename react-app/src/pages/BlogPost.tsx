@@ -73,7 +73,7 @@ export default function BlogPost() {
         <h1 className="font-display">{article.title}</h1>
 
         <div className="blogpost-meta">
-          <span>{article.author}</span>
+          <span>{t('blogPost.writtenBy', { author: article.author })}</span>
           <time dateTime={article.date || ''}>{formatDate(article.date, i18n.language)}</time>
           <span>{t('blogPost.minRead', { count: article.readTime })}</span>
         </div>
