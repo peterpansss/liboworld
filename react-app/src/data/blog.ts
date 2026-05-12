@@ -570,7 +570,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-05-12',
     author: 'Noah F.',
     heroEmoji: '🔥',
-    heroImage: '/images/blog/how-to-lose-fat-and-stay-lean.jpg',
+    heroImage: '/images/blog/how-to-lose-fat-and-stay-lean-v2.jpg',
     content: `
 <h2>The Question Everyone Asks Me</h2>
 <p>"How do you eat? How do you train? How do you stay lean year-round without losing muscle?"</p>
@@ -630,6 +630,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-05-12',
     author: 'Noah F.',
     heroEmoji: '💰',
+    heroImage: '/images/blog/30-days-one-habit-real-money.jpg',
     content: `
 <h2>Day 4 Is When Most People Quit</h2>
 <p>Open your phone right now and count how many fitness apps are sitting there from "this is the year I finally do it." Three? Five? <strong>Day one you crushed it. Day four you ignored the notification. By day ten the app is dead to you.</strong></p>
