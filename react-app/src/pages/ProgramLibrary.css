@@ -46,30 +46,27 @@
   gap: 16px;
 }
 
-/* Inline "+N more in the app" CTA below each goal section's card row.
-   Sits below the 3-card grid; styled as a soft accent strip so it reads
-   as adjacent ad-copy rather than a card. */
+/* Inline "more in app" link below each goal section. Subtle text link — the
+   previous full-width dashed strip was too loud and visually cut across the
+   workouts list when repeated per goal. */
 .wk-group-more {
-  display: block;
-  margin-top: 14px;
-  padding: 14px 18px;
-  border: 1px dashed rgba(208, 255, 0, 0.28);
-  border-radius: 12px;
-  text-align: center;
-  color: var(--accent);
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 0;
+  color: var(--dim);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.2px;
-  transition: background 120ms ease, border-color 120ms ease;
+  transition: color 120ms ease;
 }
 .wk-group-more:hover {
-  background: rgba(208, 255, 0, 0.04);
-  border-color: rgba(208, 255, 0, 0.5);
+  color: var(--accent);
 }
 .wk-group-more:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 @media (max-width: 768px) {

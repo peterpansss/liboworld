@@ -248,44 +248,46 @@ export default function ProgramLibrary() {
             <p>{t('programLibrary.subtitleAll', { count: workouts.length, defaultValue: '{{count}} guided workouts. Pick by goal, by time, or just browse.' })}</p>
           </div>
 
-          <div className="el-filter-row el-filter-row--primary">
-            <div className="el-chips">
-              {CAT_KEYS.map((c: CatKey) => {
-                const isActive = (cat || 'All') === c;
-                return (
-                  <button
-                    key={c}
-                    type="button"
-                    className={`el-chip ${isActive ? 'active' : ''}`}
-                    aria-pressed={isActive}
-                    onClick={() => updateParam('cat', c === 'All' ? '' : c)}
-                  >
-                    {c === 'All'
-                      ? t('programLibrary.filters.catAll', { defaultValue: 'All' })
-                      : categoryBadgeLabel(c)}
-                  </button>
-                );
-              })}
+          <div className="el-primary-bar">
+            <div className="el-filter-row el-filter-row--primary">
+              <div className="el-chips">
+                {CAT_KEYS.map((c: CatKey) => {
+                  const isActive = (cat || 'All') === c;
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      className={`el-chip ${isActive ? 'active' : ''}`}
+                      aria-pressed={isActive}
+                      onClick={() => updateParam('cat', c === 'All' ? '' : c)}
+                    >
+                      {c === 'All'
+                        ? t('programLibrary.filters.catAll', { defaultValue: 'All' })
+                        : categoryBadgeLabel(c)}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
 
-          <button
-            type="button"
-            className="el-filters-toggle"
-            aria-expanded={filtersOpen}
-            aria-controls="el-filters"
-            onClick={() => setFiltersOpen(o => !o)}
-          >
-            <span>
-              {t('exerciseLibrary.filtersToggle', { defaultValue: 'Filters' })}
-              {activeFilterCount > 0 && (
-                <span className="el-filters-toggle__count" aria-label="active filter count">
-                  {activeFilterCount}
-                </span>
-              )}
-            </span>
-            <span className="el-filters-toggle__chev" aria-hidden>▾</span>
-          </button>
+            <button
+              type="button"
+              className="el-filters-toggle"
+              aria-expanded={filtersOpen}
+              aria-controls="el-filters"
+              onClick={() => setFiltersOpen(o => !o)}
+            >
+              <span>
+                {t('exerciseLibrary.filtersToggle', { defaultValue: 'Filters' })}
+                {activeFilterCount > 0 && (
+                  <span className="el-filters-toggle__count" aria-label="active filter count">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </span>
+              <span className="el-filters-toggle__chev" aria-hidden>▾</span>
+            </button>
+          </div>
 
           <div id="el-filters" className={`el-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
             <div className="el-filter-row">

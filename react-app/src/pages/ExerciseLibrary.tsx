@@ -342,37 +342,39 @@ export default function ExerciseLibrary() {
           {/* Muscle group strip */}
           <MuscleGroupStrip activeMuscle={muscle !== 'All' ? muscle : undefined} />
 
-          {/* Search */}
-          <div className="el-search-wrap">
-            <Search className="el-search-icon" strokeWidth={ICON_STROKE} aria-hidden />
-            <input
-              type="text"
-              className="el-search"
-              placeholder={t('exerciseLibrary.searchPlaceholder')}
-              aria-label={t('exerciseLibrary.searchAriaLabel')}
-              value={searchInput}
-              onChange={e => setSearchInput(e.target.value)}
-            />
-          </div>
+          <div className="el-primary-bar">
+            {/* Search */}
+            <div className="el-search-wrap">
+              <Search className="el-search-icon" strokeWidth={ICON_STROKE} aria-hidden />
+              <input
+                type="text"
+                className="el-search"
+                placeholder={t('exerciseLibrary.searchPlaceholder')}
+                aria-label={t('exerciseLibrary.searchAriaLabel')}
+                value={searchInput}
+                onChange={e => setSearchInput(e.target.value)}
+              />
+            </div>
 
-          {/* Mobile filters toggle — collapses Setting/Type/Equipment into one tap */}
-          <button
-            type="button"
-            className="el-filters-toggle"
-            aria-expanded={filtersOpen}
-            aria-controls="el-filters"
-            onClick={() => setFiltersOpen(o => !o)}
-          >
-            <span>
-              {t('exerciseLibrary.filtersToggle')}
-              {(activeFilters.length - (urlSearch ? 1 : 0)) > 0 && (
-                <span className="el-filters-toggle__count" aria-label="active filter count">
-                  {activeFilters.length - (urlSearch ? 1 : 0)}
-                </span>
-              )}
-            </span>
-            <span className="el-filters-toggle__chev" aria-hidden>▾</span>
-          </button>
+            {/* Filters toggle — collapses Setting/Type/Equipment into a single button (visible on desktop and mobile) */}
+            <button
+              type="button"
+              className="el-filters-toggle"
+              aria-expanded={filtersOpen}
+              aria-controls="el-filters"
+              onClick={() => setFiltersOpen(o => !o)}
+            >
+              <span>
+                {t('exerciseLibrary.filtersToggle')}
+                {(activeFilters.length - (urlSearch ? 1 : 0)) > 0 && (
+                  <span className="el-filters-toggle__count" aria-label="active filter count">
+                    {activeFilters.length - (urlSearch ? 1 : 0)}
+                  </span>
+                )}
+              </span>
+              <span className="el-filters-toggle__chev" aria-hidden>▾</span>
+            </button>
+          </div>
 
           {/* Filters (muscle group is the visual strip above) */}
           <div id="el-filters" className={`el-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
