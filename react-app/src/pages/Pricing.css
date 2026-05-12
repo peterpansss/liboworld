@@ -479,3 +479,42 @@
     font-size: 11px;
   }
 }
+
+/* ─────────────────────────────
+   FAQ — LIGHT VARIANT (Ladder-style)
+   Flips the Pricing FAQ section to an off-white trust panel so it
+   reads as a deliberate "answer your doubts" block on the otherwise
+   dark page. Scoped under .pricing-faq--light; existing dark styles
+   above stay intact for any future neutral-bg usage.
+───────────────────────────── */
+.pricing-faq--light {
+  background: #F5F5F2;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.pricing-faq--light .pricing-faq__headline {
+  color: #0A0A0A;
+}
+.pricing-faq--light .pricing-faq__item {
+  background: #EDEDE8;
+  border-color: transparent;
+}
+.pricing-faq--light .pricing-faq__item.open {
+  background: #E7E7E2;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+.pricing-faq--light .pricing-faq__question {
+  color: #0A0A0A;
+}
+.pricing-faq--light .pricing-faq__question:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+.pricing-faq--light .pricing-faq__chev {
+  color: #6A6A6A;
+}
+.pricing-faq--light .pricing-faq__item.open .pricing-faq__chev {
+  color: #0A0A0A;
+}
+.pricing-faq--light .pricing-faq__answer p {
+  color: #3A3A3A;
+}

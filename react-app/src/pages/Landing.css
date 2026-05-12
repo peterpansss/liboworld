@@ -1075,6 +1075,104 @@ button:focus-visible {
 }
 
 /* ─────────────────────────────
+   LIGHT TRUST BAND (Ladder-style)
+   Wraps the free-trial CTA + FAQ on home in a single off-white panel.
+   Inner sections drop their own bg + top border so the band reads as
+   one continuous trust block, not two stripes.
+───────────────────────────── */
+.light-band {
+  background: #F5F5F2;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.light-band .trial-cta-section--light {
+  padding-bottom: 40px;
+}
+.light-band .faq-section--light {
+  border-top: none;
+  padding-top: 40px;
+}
+/* Single-column layout — kills the wide whitespace gap of the 2-col grid
+   and lets each Q&A be a full-width pill. Header sits above the list. */
+.faq-section--light .faq-inner {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  max-width: 880px;
+}
+.faq-section--light .faq-header {
+  position: static;
+  text-align: left;
+}
+.faq-section--light .faq-header .body-md {
+  margin-top: 12px;
+  max-width: 52ch;
+}
+.faq-section--light .label {
+  color: #0A0A0A;
+  opacity: 0.55;
+}
+.faq-section--light .display {
+  color: #0A0A0A;
+}
+.faq-section--light .body-md {
+  color: #3A3A3A;
+}
+/* List → stack of rounded pills, gap between, no dividing borders. */
+.faq-section--light .faq-list {
+  gap: 8px;
+}
+.faq-section--light .faq-item,
+.faq-section--light .faq-item:first-child {
+  background: #EDEDE8;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.faq-section--light .faq-item:hover {
+  background: #E7E7E2;
+}
+.faq-section--light .faq-item.open {
+  background: #E7E7E2;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+.faq-section--light .faq-question {
+  color: #0A0A0A;
+  padding: 22px 24px;
+  font-weight: 600;
+}
+.faq-section--light .faq-question:hover {
+  color: #0A0A0A;
+}
+.faq-section--light .faq-icon {
+  color: #6A6A6A;
+}
+.faq-section--light .faq-item.open .faq-icon {
+  color: #0A0A0A;
+}
+.faq-section--light .faq-answer > p {
+  color: #3A3A3A;
+  font-size: 15px;
+  padding: 0 24px;
+}
+.faq-section--light .faq-item.open .faq-answer > p {
+  padding: 0 24px 22px;
+}
+
+@media (max-width: 768px) {
+  .faq-section--light .faq-question {
+    padding: 18px 20px;
+    font-size: 15px;
+  }
+  .faq-section--light .faq-answer > p {
+    padding: 0 20px;
+    font-size: 14px;
+  }
+  .faq-section--light .faq-item.open .faq-answer > p {
+    padding: 0 20px 18px;
+  }
+}
+
+/* ─────────────────────────────
    BLOG PREVIEW
 ───────────────────────────── */
 .blog-preview-section {

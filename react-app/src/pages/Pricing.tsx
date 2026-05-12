@@ -123,8 +123,8 @@ export default function Pricing() {
           </div>
         </section>
 
-        {/* FAQ — clean light-grey accordion, generous spacing */}
-        <section className="pricing-faq">
+        {/* FAQ — light trust band, Ladder-style, on the otherwise dark page */}
+        <section className="pricing-faq pricing-faq--light">
           <div className="pricing-faq__inner">
             <h2 className="pricing-faq__headline font-display">
               {t('pricing.faqHeadline', { defaultValue: 'Still have questions?' })}

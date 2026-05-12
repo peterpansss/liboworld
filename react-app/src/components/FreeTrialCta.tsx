@@ -6,10 +6,14 @@ import './FreeTrialCta.css';
 // Replaces the inline 3-card pricing dump on the homepage. Joinladder-style
 // single CTA — pushes the curiosity-stage user to a dedicated /pricing page
 // instead of forcing a tier decision in the middle of the marketing scroll.
-export default function FreeTrialCta() {
+export default function FreeTrialCta({ variant = 'dark' }: { variant?: 'dark' | 'light' } = {}) {
   const { t } = useTranslation();
   return (
-    <section className="trial-cta-section" id="pricing-cta" aria-labelledby="trial-cta-heading">
+    <section
+      className={`trial-cta-section${variant === 'light' ? ' trial-cta-section--light' : ''}`}
+      id="pricing-cta"
+      aria-labelledby="trial-cta-heading"
+    >
       <div className="trial-cta-inner">
         <div className="label label-spaced trial-cta-eyebrow">
           {t('freeTrialCta.eyebrow', { defaultValue: '100% Free trial' })}

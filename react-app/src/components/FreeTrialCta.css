@@ -107,6 +107,46 @@
   font-weight: 700;
 }
 
+/* ── Light variant (Ladder-style): white panel sandwiched between dark
+   sections. Builds trust on the trial-offer block where readability matters
+   most. Scoped under .trial-cta-section--light so other usages (BestWorkouts)
+   stay dark until we decide to roll it out.
+   When inside .light-band the wrapper owns the bg + borders; this section
+   stays transparent so CTA + FAQ read as one continuous panel. */
+.trial-cta-section--light {
+  background: transparent;
+  border-top: none;
+}
+.trial-cta-section--light .trial-cta-eyebrow {
+  color: #0A0A0A;
+  opacity: 0.55;
+}
+.trial-cta-section--light .trial-cta-headline {
+  color: #0A0A0A;
+}
+.trial-cta-section--light .trial-cta-body {
+  color: #3A3A3A;
+}
+.trial-cta-section--light .trial-cta-primary {
+  background: #0A0A0A;
+  color: #FFFFFF;
+}
+.trial-cta-section--light .trial-cta-primary:hover {
+  background: #000000;
+}
+.trial-cta-section--light .trial-cta-secondary {
+  color: #0A0A0A;
+}
+.trial-cta-section--light .trial-cta-secondary:hover {
+  border-color: #0A0A0A;
+}
+.trial-cta-section--light .trial-cta-bullets li {
+  color: #5A5A5A;
+}
+.trial-cta-section--light .trial-cta-bullets li::before {
+  color: #0A0A0A;
+}
+
 @media (max-width: 768px) {
   .trial-cta-section {
     padding: 80px 20px;

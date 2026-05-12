@@ -678,11 +678,10 @@ export default function Landing() {
         </p>
       </div>
 
-      {/* ── FREE TRIAL CTA — pricing detail moved to /pricing ── */}
-      <FreeTrialCta />
-
-      {/* ── FAQ ── */}
-      <section className="faq-section" id="faq">
+      {/* ── LIGHT TRUST BAND: trial CTA + FAQ on white, Ladder-style ── */}
+      <div className="light-band">
+        <FreeTrialCta variant="light" />
+        <section className="faq-section faq-section--light" id="faq">
         <div className="faq-inner">
           <div className="faq-header reveal">
             <div>
@@ -714,7 +713,8 @@ export default function Landing() {
             ))}
           </div>
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* ── BLOG PREVIEW ── */}
       <section className="blog-preview-section">
