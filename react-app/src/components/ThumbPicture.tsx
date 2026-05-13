@@ -22,7 +22,7 @@ export function ThumbPicture({ thumb, alt = '', className, loading = 'lazy', sty
   if (!thumb) return null;
   return (
     <picture>
-      <source type="image/webp" srcSet={thumb.webp} />
+      {thumb.webp && <source type="image/webp" srcSet={thumb.webp} />}
       <img
         src={thumb.jpeg}
         alt={alt}

@@ -108,22 +108,25 @@ const THUMB_CACHE_BUST = 'v=4';
  * skip 1x density variants to keep the on-disk asset count down.
  */
 export interface ThumbnailSet {
-  webp: string;
+  /**
+   * Null for admin-uploaded Supabase Storage thumbnails. Only the bundled
+   * `/images/thumbnails/` pipeline produces a .webp alongside the .jpg —
+   * deriving a .webp URL for any other origin would 400, and Chrome doesn't
+   * gracefully fall through to the <img> when a <source srcSet> returns
+   * 400/404, so the card silently goes blank.
+   */
+  webp: string | null;
   jpeg: string;
 }
 
-/**
- * Derive the WebP URL from a canonical JPEG URL by string substitution.
- * Works for both `/images/thumbnails/exercises/foo.jpg?v=4` (bundled-static
- * path) and Supabase Storage public URLs (admin uploads).
- */
 function deriveVariants(canonicalJpeg: string): ThumbnailSet {
   const [pathPart, queryPart] = canonicalJpeg.split('?');
   const q = queryPart ? `?${queryPart}` : '';
   const base = pathPart.replace(/\.jpg$/i, '');
+  const hasWebp = pathPart.startsWith('/images/thumbnails/');
   return {
     jpeg: `${base}.jpg${q}`,
-    webp: `${base}.webp${q}`,
+    webp: hasWebp ? `${base}.webp${q}` : null,
   };
 }
 
