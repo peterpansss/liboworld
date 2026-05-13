@@ -484,12 +484,18 @@ export function ExercisesPage() {
   // Bump this on each upload/delete completion to force a reload.
   const [mediaVer, setMediaVer] = useState<number>(() => Date.now());
 
-  // Voiceover-job state (lives inside the Edit modal)
+  // Voiceover-job state (lives inside the Edit modal). The "voice" select is
+  // retained for legacy compatibility but is no longer consulted by the
+  // fan-out handler — one click queues every available (voice × lang) variant.
   const [voiceoverJobId, setVoiceoverJobId] = useState<number | null>(null);
   const [voiceoverVoice, setVoiceoverVoice] = useState<TtsVoice>('onyx');
   const [voiceoverStatusVisible, setVoiceoverStatusVisible] = useState(false);
   const [voiceoverErr, setVoiceoverErr] = useState<string | null>(null);
   const [voiceoverQueuing, setVoiceoverQueuing] = useState(false);
+  // Number of (voice × lang) jobs queued by the latest fan-out click.
+  // Surfaced in the status banner so admins know how many variants are
+  // expected to land on R2 as the worker processes them.
+  const [voiceoverQueuingTotal, setVoiceoverQueuingTotal] = useState<number>(0);
 
   // Delete-video-job state (lives inside the Edit modal)
   const [deleteVideoJobId, setDeleteVideoJobId] = useState<number | null>(null);
@@ -760,6 +766,7 @@ export function ExercisesPage() {
     setVoiceoverStatusVisible(false);
     setVoiceoverErr(null);
     setVoiceoverQueuing(false);
+    setVoiceoverQueuingTotal(0);
     setDeleteVideoJobId(null);
     setDeleteVideoStatusVisible(false);
     setDeleteVideoErr(null);
@@ -785,19 +792,109 @@ export function ExercisesPage() {
     }
     const canonical = findCanonicalForEditing(editing);
     if (!canonical) {
-      setVoiceoverErr('No canonical row for this exercise — save it once before generating voiceover.');
+      setVoiceoverErr(
+        'No canonical row for this exercise — save it once before generating voiceover.',
+      );
       return;
     }
+
+    // Variant matrix: 5 langs × 2 voices = up to 10 media_jobs per click.
+    // EN reads canonical.setup_notes (the source of truth for English copy
+    // shown in admin); other langs read /exercises.<lang>.json overlays
+    // produced by the translation pipeline. A lang with no overlay entry
+    // for this slug is silently skipped — we do not block the EN queue on
+    // missing translations.
+    const LANGS: { code: string; file: string | null }[] = [
+      { code: 'en', file: null },
+      { code: 'de', file: '/exercises.de.json' },
+      { code: 'es', file: '/exercises.es.json' },
+      { code: 'fr', file: '/exercises.fr.json' },
+      { code: 'pt', file: '/exercises.pt.json' },
+    ];
+    const VOICES: TtsVoice[] = ['onyx', 'nova'];
+
     try {
       setVoiceoverQueuing(true);
       setVoiceoverErr(null);
-      const res = await createMediaJob(canonical.id, 'generate_voiceover', null, voiceoverVoice);
-      if (!res.ok || !res.job) {
-        setVoiceoverErr(res.error ?? 'Failed to queue voiceover job');
+      setVoiceoverQueuingTotal(0);
+
+      // Fetch all translation overlays in parallel; tolerate missing ones.
+      const overlays: Record<string, Record<string, { setupNotes?: string }>> = {};
+      await Promise.all(
+        LANGS.filter((l) => l.file).map(async (l) => {
+          try {
+            const r = await fetch(l.file!);
+            if (r.ok) {
+              overlays[l.code] = (await r.json()) as Record<
+                string,
+                { setupNotes?: string }
+              >;
+            }
+          } catch {
+            // missing translation overlay — variants for that lang are skipped
+          }
+        }),
+      );
+
+      const slug = canonical.slug;
+      const enText = canonical.setup_notes ?? form.setupNotes ?? '';
+
+      // Decide which (voice × lang) jobs to queue.
+      const planned: { voice: TtsVoice; lang: string; sourceText: string }[] = [];
+      for (const v of VOICES) {
+        for (const l of LANGS) {
+          if (l.code === 'en') {
+            const t = enText.trim();
+            if (t.length > 0) planned.push({ voice: v, lang: 'en', sourceText: t });
+          } else {
+            const t = overlays[l.code]?.[slug]?.setupNotes?.trim();
+            if (t && t.length > 0) {
+              planned.push({ voice: v, lang: l.code, sourceText: t });
+            }
+          }
+        }
+      }
+
+      if (planned.length === 0) {
+        setVoiceoverErr(
+          'No source text available — English setup_notes is empty and no translation overlays match this slug.',
+        );
         return;
       }
-      setVoiceoverJobId(res.job.id);
-      setVoiceoverStatusVisible(true);
+
+      const results = await Promise.all(
+        planned.map((p) =>
+          createMediaJob(
+            canonical.id,
+            'generate_voiceover',
+            null,
+            p.voice,
+            'primary',
+            p.lang,
+            p.sourceText,
+          ),
+        ),
+      );
+
+      const failed = results.filter((r) => !r.ok);
+      const firstOk = results.find((r) => r.ok && r.job);
+      if (firstOk?.job) {
+        setVoiceoverJobId(firstOk.job.id);
+        setVoiceoverStatusVisible(true);
+      }
+      setVoiceoverQueuingTotal(planned.length);
+
+      if (failed.length === results.length) {
+        setVoiceoverErr(
+          failed[0]?.error ?? 'Failed to queue any voiceover jobs',
+        );
+      } else if (failed.length > 0) {
+        setVoiceoverErr(
+          `${failed.length}/${results.length} variants failed to queue: ${failed[0]?.error ?? 'unknown error'}`,
+        );
+      } else {
+        showToast(`Queued ${planned.length} voiceover variants`);
+      }
     } catch (e) {
       setVoiceoverErr(errMessage(e));
     } finally {
@@ -2313,6 +2410,7 @@ export function ExercisesPage() {
                 voiceoverStatusVisible={voiceoverStatusVisible}
                 voiceoverErr={voiceoverErr}
                 voiceoverQueuing={voiceoverQueuing}
+                voiceoverQueuingTotal={voiceoverQueuingTotal}
                 onGenerateVoiceover={handleGenerateVoiceover}
                 onVoiceoverDone={handleVoiceoverDone}
                 onVoiceoverError={handleVoiceoverError}
@@ -2455,6 +2553,7 @@ function EditForm({
   voiceoverStatusVisible,
   voiceoverErr,
   voiceoverQueuing,
+  voiceoverQueuingTotal,
   onGenerateVoiceover,
   onVoiceoverDone,
   onVoiceoverError,
@@ -2513,6 +2612,7 @@ function EditForm({
   voiceoverStatusVisible: boolean;
   voiceoverErr: string | null;
   voiceoverQueuing: boolean;
+  voiceoverQueuingTotal: number;
   onGenerateVoiceover: () => void;
   onVoiceoverDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
   onVoiceoverError: (job: import('../../lib/adminApi').MediaJobRow) => void;
@@ -2970,6 +3070,7 @@ function EditForm({
             statusVisible={voiceoverStatusVisible}
             err={voiceoverErr}
             queuing={voiceoverQueuing}
+            queuingTotal={voiceoverQueuingTotal}
             onGenerate={onGenerateVoiceover}
             onDone={onVoiceoverDone}
             onError={onVoiceoverError}
@@ -3091,6 +3192,7 @@ function VoiceoverPanel({
   statusVisible,
   err,
   queuing,
+  queuingTotal,
   onGenerate,
   onDone,
   onError,
@@ -3104,6 +3206,7 @@ function VoiceoverPanel({
   statusVisible: boolean;
   err: string | null;
   queuing: boolean;
+  queuingTotal: number;
   onGenerate: () => void;
   onDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
   onError: (job: import('../../lib/adminApi').MediaJobRow) => void;
@@ -3173,7 +3276,7 @@ function VoiceoverPanel({
           onClick={onGenerate}
           disabled={disabled || queuing || !eligible}
         >
-          {queuing ? 'Queuing…' : 'Generate voiceover'}
+          {queuing ? 'Queuing…' : 'Generate voiceover (all langs × voices)'}
         </Button>
         {!eligible && (
           <span style={hintStyle}>
@@ -3181,6 +3284,12 @@ function VoiceoverPanel({
           </span>
         )}
       </div>
+      {statusVisible && queuingTotal > 0 && (
+        <div style={hintStyle}>
+          Queued {queuingTotal} variant{queuingTotal === 1 ? '' : 's'}. Each
+          will appear on R2 as it finishes.
+        </div>
+      )}
       {err && <div style={errorStyle}>{err}</div>}
       {statusVisible && jobId != null && (
         <MediaJobStatus jobId={jobId} onDone={onDone} onError={onError} />

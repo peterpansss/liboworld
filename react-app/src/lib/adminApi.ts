@@ -1026,6 +1026,10 @@ export type MediaJobRow = {
   started_at: string | null;
   finished_at: string | null;
   created_by: string | null;
+  // New columns added in the lang+source_text migration. Optional in TS so
+  // older rows (or non-voiceover jobs) without these fields stay typed.
+  lang?: string | null;
+  source_text?: string | null;
 };
 
 const RAW_VIDEO_BUCKET = 'exercise-videos-raw';
@@ -1054,14 +1058,19 @@ export async function createMediaJob(
   storage_path: string | null = null,
   voice: string | null = null,
   target: MediaJobTarget = 'primary',
+  lang?: string,
+  source_text?: string,
 ): Promise<{ ok: boolean; job?: MediaJobRow; error?: string }> {
-  const { data, error } = await supabase.rpc('admin_create_media_job', {
+  const params: Record<string, unknown> = {
     p_exercise_id: exercise_id,
     p_job_type: job_type,
     p_storage_path: storage_path,
     p_voice: voice,
     p_target: target,
-  });
+  };
+  if (lang !== undefined) params.p_lang = lang;
+  if (source_text !== undefined) params.p_source_text = source_text;
+  const { data, error } = await supabase.rpc('admin_create_media_job', params);
   if (error) return { ok: false, error: error.message };
   return data as { ok: boolean; job?: MediaJobRow; error?: string };
 }
