@@ -22,6 +22,7 @@ import {
 import { errMessage } from '../../lib/errors';
 import { VideoUpload, MediaJobStatus } from '../../components/admin/VideoUpload';
 import { StatusChip } from '../../components/admin/StatusChip';
+import { supabase } from '../../lib/supabase';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -38,6 +39,13 @@ type Exercise = {
   diff?: string;
   emoji?: string;
   setupNotes?: string;
+  // Phase 3 multilingual setup_notes mirrors. Each maps to the matching
+  // `setup_notes_{lang}` column on the canonical row. Empty string when
+  // the column is NULL (admin form treats '' as "clear / unset").
+  setupNotesDe?: string;
+  setupNotesEs?: string;
+  setupNotesFr?: string;
+  setupNotesPt?: string;
   videoUrl?: string;
   videoUrlAlt?: string;
   animationUrl?: string;
@@ -52,6 +60,10 @@ type Exercise = {
 type EditableKey =
   | 'name'
   | 'setupNotes'
+  | 'setupNotesDe'
+  | 'setupNotesEs'
+  | 'setupNotesFr'
+  | 'setupNotesPt'
   | 'bodyFocus'
   | 'equipment'
   | 'primaryCat'
@@ -68,6 +80,10 @@ type EditableKey =
 const EDITABLE_KEYS: EditableKey[] = [
   'name',
   'setupNotes',
+  'setupNotesDe',
+  'setupNotesEs',
+  'setupNotesFr',
+  'setupNotesPt',
   'bodyFocus',
   'equipment',
   'primaryCat',
@@ -81,6 +97,28 @@ const EDITABLE_KEYS: EditableKey[] = [
   'thumbnailUrl',
   'status',
 ];
+
+// Languages whose translations live in `setup_notes_{lang}` columns and
+// surface as tabs in the Edit modal. EN is the source-of-truth column
+// (`setup_notes`); the other four are auto-populated by the
+// `translate-exercise` Edge Function and overridable by the admin.
+type SetupNotesLang = 'en' | 'de' | 'es' | 'fr' | 'pt';
+const SETUP_NOTES_LANGS: SetupNotesLang[] = ['en', 'de', 'es', 'fr', 'pt'];
+const SETUP_NOTES_LANG_LABEL: Record<SetupNotesLang, string> = {
+  en: 'EN',
+  de: 'DE',
+  es: 'ES',
+  fr: 'FR',
+  pt: 'PT',
+};
+// Map a lang code to the FormState key that holds its text.
+const SETUP_NOTES_FORM_KEY: Record<SetupNotesLang, EditableKey> = {
+  en: 'setupNotes',
+  de: 'setupNotesDe',
+  es: 'setupNotesEs',
+  fr: 'setupNotesFr',
+  pt: 'setupNotesPt',
+};
 
 type FormState = Record<EditableKey, string>;
 
@@ -497,6 +535,13 @@ export function ExercisesPage() {
   // expected to land on R2 as the worker processes them.
   const [voiceoverQueuingTotal, setVoiceoverQueuingTotal] = useState<number>(0);
 
+  // Phase 3: setup_notes language tab + transient "translations updating" hint
+  // that fires after a save where EN setup_notes changed (or it's a new row).
+  // The Edge Function runs async on the backend; we don't await it, we just
+  // surface that we kicked it off and clear the hint on a timer.
+  const [activeNotesLang, setActiveNotesLang] = useState<SetupNotesLang>('en');
+  const [translationsUpdating, setTranslationsUpdating] = useState(false);
+
   // Delete-video-job state (lives inside the Edit modal)
   const [deleteVideoJobId, setDeleteVideoJobId] = useState<number | null>(null);
   const [deleteVideoStatusVisible, setDeleteVideoStatusVisible] = useState(false);
@@ -650,6 +695,10 @@ export function ExercisesPage() {
       diff: r.diff ?? '',
       emoji: r.emoji ?? '',
       setupNotes: r.setup_notes ?? '',
+      setupNotesDe: r.setup_notes_de ?? '',
+      setupNotesEs: r.setup_notes_es ?? '',
+      setupNotesFr: r.setup_notes_fr ?? '',
+      setupNotesPt: r.setup_notes_pt ?? '',
       videoUrl: r.video_url ?? '',
       videoUrlAlt: r.video_url_alt ?? '',
       thumbnailUrl: r.thumbnail_url ?? undefined,
@@ -759,6 +808,8 @@ export function ExercisesPage() {
     setEditing(null);
     setForm(null);
     setModalErr(null);
+    setActiveNotesLang('en');
+    setTranslationsUpdating(false);
     setUploadingVideo(false);
     setUploadingVideoAlt(false);
     setUploadingThumb(false);
@@ -799,17 +850,19 @@ export function ExercisesPage() {
     }
 
     // Variant matrix: 5 langs × 2 voices = up to 10 media_jobs per click.
-    // EN reads canonical.setup_notes (the source of truth for English copy
-    // shown in admin); other langs read /exercises.<lang>.json overlays
-    // produced by the translation pipeline. A lang with no overlay entry
-    // for this slug is silently skipped — we do not block the EN queue on
-    // missing translations.
-    const LANGS: { code: string; file: string | null }[] = [
-      { code: 'en', file: null },
-      { code: 'de', file: '/exercises.de.json' },
-      { code: 'es', file: '/exercises.es.json' },
-      { code: 'fr', file: '/exercises.fr.json' },
-      { code: 'pt', file: '/exercises.pt.json' },
+    // All five language sources now live on the canonical row directly:
+    // `setup_notes` (EN) + `setup_notes_{de,es,fr,pt}`. The non-EN columns
+    // are populated asynchronously by the translate-exercise Edge Function
+    // after every EN save. A lang whose column is NULL/empty is silently
+    // skipped — we do not block the EN queue on missing translations, and
+    // a follow-up click after translations land will queue the remaining
+    // variants.
+    const LANGS: { code: SetupNotesLang; sourceText: string }[] = [
+      { code: 'en', sourceText: canonical.setup_notes ?? form.setupNotes ?? '' },
+      { code: 'de', sourceText: canonical.setup_notes_de ?? '' },
+      { code: 'es', sourceText: canonical.setup_notes_es ?? '' },
+      { code: 'fr', sourceText: canonical.setup_notes_fr ?? '' },
+      { code: 'pt', sourceText: canonical.setup_notes_pt ?? '' },
     ];
     const VOICES: TtsVoice[] = ['onyx', 'nova'];
 
@@ -818,46 +871,20 @@ export function ExercisesPage() {
       setVoiceoverErr(null);
       setVoiceoverQueuingTotal(0);
 
-      // Fetch all translation overlays in parallel; tolerate missing ones.
-      const overlays: Record<string, Record<string, { setupNotes?: string }>> = {};
-      await Promise.all(
-        LANGS.filter((l) => l.file).map(async (l) => {
-          try {
-            const r = await fetch(l.file!);
-            if (r.ok) {
-              overlays[l.code] = (await r.json()) as Record<
-                string,
-                { setupNotes?: string }
-              >;
-            }
-          } catch {
-            // missing translation overlay — variants for that lang are skipped
-          }
-        }),
-      );
-
-      const slug = canonical.slug;
-      const enText = canonical.setup_notes ?? form.setupNotes ?? '';
-
       // Decide which (voice × lang) jobs to queue.
       const planned: { voice: TtsVoice; lang: string; sourceText: string }[] = [];
       for (const v of VOICES) {
         for (const l of LANGS) {
-          if (l.code === 'en') {
-            const t = enText.trim();
-            if (t.length > 0) planned.push({ voice: v, lang: 'en', sourceText: t });
-          } else {
-            const t = overlays[l.code]?.[slug]?.setupNotes?.trim();
-            if (t && t.length > 0) {
-              planned.push({ voice: v, lang: l.code, sourceText: t });
-            }
+          const t = l.sourceText.trim();
+          if (t.length > 0) {
+            planned.push({ voice: v, lang: l.code, sourceText: t });
           }
         }
       }
 
       if (planned.length === 0) {
         setVoiceoverErr(
-          'No source text available — English setup_notes is empty and no translation overlays match this slug.',
+          'No source text available — English setup_notes is empty and no translation columns are populated. Save the EN copy first; translations will fill in shortly.',
         );
         return;
       }
@@ -1143,6 +1170,12 @@ export function ExercisesPage() {
         );
         return;
       }
+      // Capture whether EN setup_notes is part of this patch BEFORE the
+      // save so the post-save fan-out trigger can decide whether to fire
+      // the translate-exercise Edge Function. EN change → re-translate
+      // the 4 non-EN columns; non-EN edits alone never trigger the
+      // function (they're treated as manual overrides).
+      const enChanged = Object.prototype.hasOwnProperty.call(patch, 'setup_notes');
       try {
         setSaving(true);
         setModalErr(null);
@@ -1159,6 +1192,15 @@ export function ExercisesPage() {
         }
         await refreshCanonical();
         const savedName = res.row.name;
+
+        // Fire-and-forget: trigger the translate-exercise Edge Function
+        // when the admin changed the English setup_notes. We do not await
+        // the call — the function writes setup_notes_{de,es,fr,pt} to
+        // Supabase directly, and the next refreshCanonical surfaces them.
+        if (enChanged) {
+          triggerTranslateExercise(res.row.id, res.row.setup_notes);
+        }
+
         closeEdit();
         showToast(`Saved ${savedName}`);
       } catch (e) {
@@ -1187,6 +1229,26 @@ export function ExercisesPage() {
     } finally {
       setSaving(false);
     }
+  }
+
+  /**
+   * Fire-and-forget call into the translate-exercise Edge Function. The
+   * Edge Function reads `en_text`, runs it through the translation
+   * pipeline, and writes the 4 non-EN columns directly on the row. We
+   * don't await — admin save returns immediately. A brief
+   * "Translations updating…" hint clears on a 5s timer.
+   */
+  function triggerTranslateExercise(exerciseId: string, enText: string | null) {
+    setTranslationsUpdating(true);
+    void supabase.functions
+      .invoke('translate-exercise', {
+        body: { exercise_id: exerciseId, en_text: enText ?? '' },
+      })
+      .catch((e) => {
+        // eslint-disable-next-line no-console
+        console.warn('[translate-exercise] failed:', e);
+      });
+    setTimeout(() => setTranslationsUpdating(false), 5000);
   }
 
   /** Look up the canonical row for an editing target by slug, then by id. */
@@ -1223,6 +1285,10 @@ export function ExercisesPage() {
     };
     setIfChanged('name', f.name, row.name);
     setIfChanged('setup_notes', f.setupNotes, row.setup_notes);
+    setIfChanged('setup_notes_de', f.setupNotesDe, row.setup_notes_de);
+    setIfChanged('setup_notes_es', f.setupNotesEs, row.setup_notes_es);
+    setIfChanged('setup_notes_fr', f.setupNotesFr, row.setup_notes_fr);
+    setIfChanged('setup_notes_pt', f.setupNotesPt, row.setup_notes_pt);
     setIfChanged('body_focus', f.bodyFocus, row.body_focus);
     setIfChanged('equipment', f.equipment, row.equipment);
     setIfChanged('primary_cat', f.primaryCat, row.primary_cat);
@@ -1457,6 +1523,12 @@ export function ExercisesPage() {
         return;
       }
       await refreshCanonical();
+      // Fire-and-forget translate-exercise on the newly created row if it
+      // shipped with any EN setup_notes copy. Empty setup_notes → nothing
+      // to translate; skip.
+      if (res.row.setup_notes && res.row.setup_notes.trim().length > 0) {
+        triggerTranslateExercise(res.row.id, res.row.setup_notes);
+      }
       // If a file was selected, either upload as-is (skipProcessing) or
       // queue the worker pipeline. The as-is path closes the drawer
       // immediately; the pipeline path keeps the drawer open so the
@@ -1592,6 +1664,17 @@ export function ExercisesPage() {
         await refreshCanonical();
         const leftRow = 'row' in leftRes ? leftRes.row : undefined;
         const rightRow = 'row' in rightRes ? rightRes.row : undefined;
+
+        // Fire-and-forget translate-exercise on each of the three newly
+        // created rows whose EN setup_notes is non-empty. Parent + both
+        // children typically share the same setup_notes via
+        // createFormToPayload, but we still fan out per-row so each row
+        // gets its own setup_notes_{lang} columns populated.
+        for (const row of [parentRes.row, leftRow, rightRow]) {
+          if (row && row.setup_notes && row.setup_notes.trim().length > 0) {
+            triggerTranslateExercise(row.id, row.setup_notes);
+          }
+        }
 
         if (skipProcessing) {
           // Upload as-is, no worker pipeline.
@@ -2393,6 +2476,9 @@ export function ExercisesPage() {
                 uploadingThumb={uploadingThumb}
                 hasOverride={overridesById.has(editing.id)}
                 isCanonical={isCanonical}
+                activeNotesLang={activeNotesLang}
+                onActiveNotesLangChange={setActiveNotesLang}
+                translationsUpdating={translationsUpdating}
                 videoInputRef={videoInputRef}
                 videoAltInputRef={videoAltInputRef}
                 thumbInputRef={thumbInputRef}
@@ -2536,6 +2622,9 @@ function EditForm({
   uploadingThumb,
   hasOverride,
   isCanonical,
+  activeNotesLang,
+  onActiveNotesLangChange,
+  translationsUpdating,
   videoInputRef,
   videoAltInputRef,
   thumbInputRef,
@@ -2595,6 +2684,9 @@ function EditForm({
   uploadingThumb: boolean;
   hasOverride: boolean;
   isCanonical: boolean;
+  activeNotesLang: SetupNotesLang;
+  onActiveNotesLangChange: (l: SetupNotesLang) => void;
+  translationsUpdating: boolean;
   videoInputRef: React.MutableRefObject<HTMLInputElement | null>;
   videoAltInputRef: React.MutableRefObject<HTMLInputElement | null>;
   thumbInputRef: React.MutableRefObject<HTMLInputElement | null>;
@@ -3052,12 +3144,16 @@ function EditForm({
             <TextInput value={form.name} onChange={(e) => update('name', e.target.value)} />
           </Field>
 
-          <Field label="Setup Notes" hint="The most commonly edited field.">
-            <TextArea
-              value={form.setupNotes}
-              onChange={(e) => update('setupNotes', e.target.value)}
-              rows={6}
-              style={{ minHeight: 140 }}
+          <Field
+            label="Setup Notes"
+            hint="EN is the source of truth — translations auto-fill on save."
+          >
+            <SetupNotesTabs
+              form={form}
+              activeLang={activeNotesLang}
+              onLangChange={onActiveNotesLangChange}
+              onChange={update}
+              translationsUpdating={translationsUpdating}
             />
           </Field>
 
@@ -3293,6 +3389,117 @@ function VoiceoverPanel({
       {err && <div style={errorStyle}>{err}</div>}
       {statusVisible && jobId != null && (
         <MediaJobStatus jobId={jobId} onDone={onDone} onError={onError} />
+      )}
+    </div>
+  );
+}
+
+// ── Setup-notes language tabs (lives inside EditForm) ────────────────────
+//
+// Renders 5 tabs (EN/DE/ES/FR/PT) with a shared textarea below. EN is the
+// source of truth — the four non-EN columns are auto-populated by the
+// translate-exercise Edge Function on EN save. Admin can manually edit a
+// non-EN tab to override the auto-translation; the override sticks until
+// the next EN edit re-triggers translation (matching the brief: "If
+// admin manually edits a non-EN translation, save BOTH the English + the
+// override. The Edge Function won't re-fire because the EN text didn't
+// change.").
+function SetupNotesTabs({
+  form,
+  activeLang,
+  onLangChange,
+  onChange,
+  translationsUpdating,
+}: {
+  form: FormState;
+  activeLang: SetupNotesLang;
+  onLangChange: (l: SetupNotesLang) => void;
+  onChange: (k: EditableKey, v: string) => void;
+  translationsUpdating: boolean;
+}) {
+  const activeKey = SETUP_NOTES_FORM_KEY[activeLang];
+  const value = form[activeKey];
+  const isEn = activeLang === 'en';
+
+  const tabsRowStyle: React.CSSProperties = {
+    display: 'flex',
+    gap: 4,
+    marginBottom: 8,
+    borderBottom: `1px solid ${colors.border}`,
+  };
+  const tabStyle = (active: boolean): React.CSSProperties => ({
+    padding: '6px 12px',
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 0.5,
+    background: 'transparent',
+    border: 'none',
+    borderBottom: active
+      ? `2px solid ${colors.accent}`
+      : '2px solid transparent',
+    color: active ? colors.text : colors.muted,
+    cursor: 'pointer',
+    marginBottom: -1,
+  });
+  const hintStyle: React.CSSProperties = {
+    fontSize: 11,
+    color: colors.muted,
+    fontStyle: 'italic',
+    marginTop: 6,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+  };
+  const updatingPillStyle: React.CSSProperties = {
+    fontSize: 11,
+    fontWeight: 700,
+    color: colors.accent,
+    background: 'rgba(255, 255, 255, 0.04)',
+    border: `1px solid ${colors.border}`,
+    borderRadius: 8,
+    padding: '2px 8px',
+    marginTop: 6,
+    display: 'inline-block',
+  };
+
+  return (
+    <div>
+      <div style={tabsRowStyle} role="tablist" aria-label="Setup notes language">
+        {SETUP_NOTES_LANGS.map((l) => {
+          const active = l === activeLang;
+          return (
+            <button
+              key={l}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              onClick={() => onLangChange(l)}
+              style={tabStyle(active)}
+            >
+              {SETUP_NOTES_LANG_LABEL[l]}
+            </button>
+          );
+        })}
+      </div>
+      <TextArea
+        value={value}
+        onChange={(e) => onChange(activeKey, e.target.value)}
+        rows={6}
+        style={{ minHeight: 140 }}
+        placeholder={
+          isEn
+            ? 'English setup notes — source of truth for translations and voiceover.'
+            : `${SETUP_NOTES_LANG_LABEL[activeLang]} translation. Auto-filled on EN save; edit to override.`
+        }
+      />
+      {!isEn && (
+        <div style={hintStyle}>
+          Auto-translated from EN. Edit to override — changes here are saved
+          alongside EN but don't re-trigger translation.
+        </div>
+      )}
+      {translationsUpdating && (
+        <div style={updatingPillStyle}>Translations updating…</div>
       )}
     </div>
   );

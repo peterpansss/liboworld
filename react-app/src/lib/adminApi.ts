@@ -471,6 +471,14 @@ export type ExerciseRow = {
   variation: string;
   emoji: string;
   setup_notes: string;
+  // Phase 3: per-language translations of setup_notes. Columns are
+  // populated asynchronously by the `translate-exercise` Edge Function
+  // (fire-and-forget on EN save). NULL until first translation run for
+  // that (row, lang) pair, or if admin explicitly clears the override.
+  setup_notes_de: string | null;
+  setup_notes_es: string | null;
+  setup_notes_fr: string | null;
+  setup_notes_pt: string | null;
   parent_id: string;
   parent_name: string;
   video_url: string | null;
