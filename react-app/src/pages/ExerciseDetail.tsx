@@ -107,12 +107,19 @@ export default function ExerciseDetail() {
   // setState looks like autoplay.
   const userExpressedMutePrefRef = useRef(false);
 
+  // Cleanup for any pending one-shot "unmute on next gesture" listeners. Set
+  // when the muted-fallback fires below; cleared whenever it runs, the user
+  // toggles mute manually, src changes, or the component unmounts.
+  const unmuteOnNextGestureRef = useRef<(() => void) | null>(null);
+
   const toggleMuted = () => {
     const v = videoRef.current;
     if (!v) return;
     const next = !muted;
     v.muted = next;
     userExpressedMutePrefRef.current = true;
+    // Manual interaction supersedes any pending auto-unmute.
+    unmuteOnNextGestureRef.current?.();
     if (!next) {
       v.currentTime = 0;
       v.play().catch(() => {});
@@ -286,9 +293,41 @@ export default function ExerciseDetail() {
         v.muted = true;
         setMuted(true);
         v.play().catch(() => {});
+        // Auto-unmute on the user's first interaction anywhere on the
+        // page. Replaces any previously pending one-shot so a src change
+        // (angle swap, voice/lang) doesn't accumulate listeners.
+        unmuteOnNextGestureRef.current?.();
+        const handler = () => {
+          cleanup();
+          if (userExpressedMutePrefRef.current) return;
+          const vv = videoRef.current;
+          if (!vv) return;
+          vv.muted = false;
+          setMuted(false);
+          vv.play().catch(() => {});
+        };
+        const cleanup = () => {
+          document.removeEventListener('pointerdown', handler, true);
+          document.removeEventListener('keydown', handler, true);
+          document.removeEventListener('touchstart', handler, true);
+          if (unmuteOnNextGestureRef.current === cleanup) {
+            unmuteOnNextGestureRef.current = null;
+          }
+        };
+        document.addEventListener('pointerdown', handler, { capture: true, passive: true });
+        document.addEventListener('keydown', handler, { capture: true });
+        document.addEventListener('touchstart', handler, { capture: true, passive: true });
+        unmuteOnNextGestureRef.current = cleanup;
       }
     });
   }, [mainSrc]);
+
+  // Tear down any pending one-shot gesture listener on unmount.
+  useEffect(() => {
+    return () => {
+      unmuteOnNextGestureRef.current?.();
+    };
+  }, []);
 
   useEffect(() => {
     const p = pipVideoRef.current;
