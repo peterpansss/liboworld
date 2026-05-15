@@ -1000,6 +1000,13 @@ function EnrollmentRow({
           {' · enrolled '}
           {relativeTime(e.enrolled_at)}
         </div>
+        {e.status === 'removed' && e.removed_reason && (
+          <div style={{ fontSize: 11, color: colors.muted, marginTop: 4 }}>
+            Removed {e.last_active_at ? relativeTime(e.last_active_at) : ''}
+            {' · '}
+            <span style={{ color: colors.text, fontStyle: 'italic' }}>“{e.removed_reason}”</span>
+          </div>
+        )}
       </div>
 
       <span
