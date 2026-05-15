@@ -803,6 +803,18 @@ export async function resetEnrollment(enrollmentId: string): Promise<void> {
   }
 }
 
+export async function removeEnrollment(enrollmentId: string, reason: string): Promise<void> {
+  const { data, error } = await supabase.rpc('admin_remove_enrollment', {
+    p_enrollment_id: enrollmentId,
+    p_reason: reason,
+  });
+  if (error) throw error;
+  const result = data as { ok: boolean; error?: string; detail?: string } | null;
+  if (!result?.ok) {
+    throw new Error(result?.detail ?? result?.error ?? 'remove_failed');
+  }
+}
+
 // ── Giveaway templates ────────────────────────────────────────────────────
 
 export type GiveawayTemplateType = 'common' | 'premium' | 'elite';

@@ -15,6 +15,7 @@ import {
   fetchLeaderboard,
   listUserEnrollments,
   resetEnrollment,
+  removeEnrollment,
   type AdminUserRow,
   type TopWorkoutRow,
   type WorkoutLogRow,
@@ -540,6 +541,23 @@ function UserDetailModal({
     });
   };
 
+  const handleKickEnrollment = (enrollmentId: string, label: string) => {
+    const reason = window.prompt(
+      `Kick user from "${label}"?\n\n` +
+      `Removes them from the running cycle (status → removed). The row stays ` +
+      `for history. Enter a reason (required):`
+    );
+    if (reason === null) return;
+    const trimmed = reason.trim();
+    if (!trimmed) {
+      window.alert('A reason is required to kick a user.');
+      return;
+    }
+    void wrap(`kick-${enrollmentId}`, async () => {
+      await removeEnrollment(enrollmentId, trimmed);
+    });
+  };
+
   return (
     <Modal open={user !== null} onClose={onClose} title={user?.name ?? user?.email ?? 'User'} width={720}>
       {user && (
@@ -739,19 +757,19 @@ function UserDetailModal({
               <Muted text="No challenge history yet." />
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {enrollments.map((e) => (
-                  <EnrollmentRow
-                    key={e.enrollment_id}
-                    enrollment={e}
-                    busy={savingAction === `reset-${e.enrollment_id}`}
-                    onReset={() =>
-                      handleResetEnrollment(
-                        e.enrollment_id,
-                        `${e.challenge_emoji ?? ''} ${e.challenge_title}`.trim()
-                      )
-                    }
-                  />
-                ))}
+                {enrollments.map((e) => {
+                  const label = `${e.challenge_emoji ?? ''} ${e.challenge_title}`.trim();
+                  return (
+                    <EnrollmentRow
+                      key={e.enrollment_id}
+                      enrollment={e}
+                      busyReset={savingAction === `reset-${e.enrollment_id}`}
+                      busyKick={savingAction === `kick-${e.enrollment_id}`}
+                      onReset={() => handleResetEnrollment(e.enrollment_id, label)}
+                      onKick={() => handleKickEnrollment(e.enrollment_id, label)}
+                    />
+                  );
+                })}
               </div>
             )}
           </Section>
@@ -943,14 +961,19 @@ const ENROLLMENT_STATUS_STYLE: Record<AdminUserEnrollment['status'], React.CSSPr
 
 function EnrollmentRow({
   enrollment,
-  busy,
+  busyReset,
+  busyKick,
   onReset,
+  onKick,
 }: {
   enrollment: AdminUserEnrollment;
-  busy: boolean;
+  busyReset: boolean;
+  busyKick: boolean;
   onReset: () => void;
+  onKick: () => void;
 }) {
   const e = enrollment;
+  const canKick = e.status === 'active';
   return (
     <div
       style={{
@@ -1006,8 +1029,14 @@ function EnrollmentRow({
         ❄ {e.freeze_tokens_remaining}
       </div>
 
-      <Button variant="danger" onClick={onReset} disabled={busy}>
-        {busy ? 'Resetting…' : 'Reset'}
+      {canKick && (
+        <Button variant="secondary" onClick={onKick} disabled={busyKick || busyReset}>
+          {busyKick ? 'Kicking…' : 'Kick'}
+        </Button>
+      )}
+
+      <Button variant="danger" onClick={onReset} disabled={busyReset || busyKick}>
+        {busyReset ? 'Resetting…' : 'Reset'}
       </Button>
     </div>
   );
