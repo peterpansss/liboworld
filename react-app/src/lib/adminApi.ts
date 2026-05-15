@@ -287,12 +287,47 @@ export async function listGiveawayWinners(giveawayId: string) {
   return data ?? [];
 }
 
+/**
+ * Browser-side resize before upload. Phone photos are 2-5 MB at 4032×3024;
+ * giveaway cards render at ~400 px wide on mobile so anything over ~1000 px
+ * is wasted bandwidth. We re-encode to JPEG q=78 at max-width 1200 (retina-safe).
+ * Typical 3 MB upload becomes ~40-80 KB. Solves Supabase Free-plan storage
+ * slowness without paying for Pro image transforms.
+ */
+async function resizeForUpload(file: File, maxWidth = 1200, quality = 0.78): Promise<Blob> {
+  // GIFs would lose animation through canvas; pass through untouched.
+  if (file.type === 'image/gif') return file;
+
+  const bitmap = await createImageBitmap(file);
+  const scale = bitmap.width > maxWidth ? maxWidth / bitmap.width : 1;
+  const w = Math.round(bitmap.width * scale);
+  const h = Math.round(bitmap.height * scale);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    bitmap.close();
+    return file; // canvas unavailable (extremely rare) — fall back to raw upload
+  }
+  ctx.drawImage(bitmap, 0, 0, w, h);
+  bitmap.close();
+
+  const blob: Blob | null = await new Promise((resolve) => {
+    canvas.toBlob((b) => resolve(b), 'image/jpeg', quality);
+  });
+  return blob ?? file;
+}
+
 export async function uploadGiveawayImage(file: File): Promise<string> {
-  const ext = file.name.split('.').pop() ?? 'jpg';
+  const resized = await resizeForUpload(file);
+  // Always store as .jpg since resizeForUpload re-encodes to JPEG (except GIF).
+  const ext = resized.type === 'image/gif' ? 'gif' : 'jpg';
   const path = `${crypto.randomUUID()}.${ext}`;
-  const { error } = await supabase.storage.from('giveaway-images').upload(path, file, {
+  const { error } = await supabase.storage.from('giveaway-images').upload(path, resized, {
     upsert: false,
-    contentType: file.type,
+    contentType: resized.type,
   });
   if (error) throw error;
   const { data } = supabase.storage.from('giveaway-images').getPublicUrl(path);
