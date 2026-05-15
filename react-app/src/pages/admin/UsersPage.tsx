@@ -1030,7 +1030,7 @@ function EnrollmentRow({
       </div>
 
       {canKick && (
-        <Button variant="secondary" onClick={onKick} disabled={busyKick || busyReset}>
+        <Button variant="warning" onClick={onKick} disabled={busyKick || busyReset}>
           {busyKick ? 'Kicking…' : 'Kick'}
         </Button>
       )}

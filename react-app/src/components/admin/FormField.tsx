@@ -51,11 +51,12 @@ export function Button({
   variant = 'primary',
   children,
   ...rest
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'danger' | 'ghost' }) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'danger' | 'warning' | 'ghost' }) {
   const styles: Record<typeof variant, React.CSSProperties> = {
     primary: { background: colors.accent, color: '#080B10', border: `1px solid ${colors.accent}` },
     secondary: { background: colors.bg3, color: colors.text, border: `1px solid ${colors.border}` },
     danger: { background: colors.errorDim, color: colors.error, border: `1px solid ${colors.error}` },
+    warning: { background: colors.warningDim, color: colors.warning, border: `1px solid ${colors.warning}` },
     ghost: { background: 'transparent', color: colors.text, border: `1px solid ${colors.border}` },
   };
   return (
