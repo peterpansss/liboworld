@@ -717,6 +717,53 @@ export async function setMoneyChallengeActive(id: string, isActive: boolean) {
   if (error) throw error;
 }
 
+// ── User enrollment management ────────────────────────────────────────────
+// Per-user view + reset of a user's cash-challenge state. Backed by
+// admin_list_user_enrollments + admin_reset_enrollment (see
+// supabase-migration-admin-enrollments.sql).
+
+export type AdminUserEnrollment = {
+  enrollment_id: string;
+  challenge_id: string;
+  challenge_title: string;
+  challenge_emoji: string | null;
+  challenge_reward_amount: number;
+  challenge_reward_currency: string;
+  challenge_total_days: number;
+  cycle_id: string | null;
+  cycle_status: 'enrollment_open' | 'running' | 'completed' | null;
+  cycle_start_date: string | null;
+  cycle_end_date: string | null;
+  status: 'active' | 'completed' | 'failed' | 'removed' | 'reward_claimed';
+  tier_at_enrollment: 'free' | 'pro' | 'elite';
+  freeze_tokens_remaining: number;
+  freeze_days: string[];
+  effective_end_date: string | null;
+  completed_days: number;
+  enrolled_at: string;
+  last_active_at: string | null;
+  removed_reason: string | null;
+};
+
+export async function listUserEnrollments(userId: string): Promise<AdminUserEnrollment[]> {
+  const { data, error } = await supabase.rpc('admin_list_user_enrollments', {
+    p_user_id: userId,
+  });
+  if (error) throw error;
+  return (data ?? []) as AdminUserEnrollment[];
+}
+
+export async function resetEnrollment(enrollmentId: string): Promise<void> {
+  const { data, error } = await supabase.rpc('admin_reset_enrollment', {
+    p_enrollment_id: enrollmentId,
+  });
+  if (error) throw error;
+  const result = data as { ok: boolean; error?: string; detail?: string } | null;
+  if (!result?.ok) {
+    throw new Error(result?.detail ?? result?.error ?? 'reset_failed');
+  }
+}
+
 // ── Giveaway templates ────────────────────────────────────────────────────
 
 export type GiveawayTemplateType = 'common' | 'premium' | 'elite';

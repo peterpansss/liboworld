@@ -13,11 +13,14 @@ import {
   setSubscriptionTier,
   setUserAdminFlag,
   fetchLeaderboard,
+  listUserEnrollments,
+  resetEnrollment,
   type AdminUserRow,
   type TopWorkoutRow,
   type WorkoutLogRow,
   type PointsLedgerRow,
   type LeaderboardRow,
+  type AdminUserEnrollment,
 } from '../../lib/adminApi';
 
 // ── helpers ────────────────────────────────────────────────────────────────
@@ -430,6 +433,7 @@ function UserDetailModal({
   const [topWorkouts, setTopWorkouts] = useState<TopWorkoutRow[]>([]);
   const [recentWorkouts, setRecentWorkouts] = useState<WorkoutLogRow[]>([]);
   const [ledger, setLedger] = useState<PointsLedgerRow[]>([]);
+  const [enrollments, setEnrollments] = useState<AdminUserEnrollment[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -446,14 +450,16 @@ function UserDetailModal({
     setLoading(true);
     setError(null);
     try {
-      const [tops, recents, led] = await Promise.all([
+      const [tops, recents, led, enrolls] = await Promise.all([
         fetchUserTopWorkouts(id, 5),
         fetchUserRecentWorkouts(id, 20),
         fetchUserPointsLedger(id, 50),
+        listUserEnrollments(id),
       ]);
       setTopWorkouts(tops);
       setRecentWorkouts(recents);
       setLedger(led);
+      setEnrollments(enrolls);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load user details');
     } finally {
@@ -468,6 +474,7 @@ function UserDetailModal({
       setTopWorkouts([]);
       setRecentWorkouts([]);
       setLedger([]);
+      setEnrollments([]);
       setError(null);
       setTicketAmount('');
       setTicketNote('');
@@ -518,6 +525,20 @@ function UserDetailModal({
     wrap('admin', async () => {
       await setUserAdminFlag(userId!, !user!.is_admin);
     });
+
+  const handleResetEnrollment = (enrollmentId: string, label: string) => {
+    if (!window.confirm(
+      `Reset "${label}"?\n\n` +
+      `Wipes per-day completion history, restores freeze tokens to the user's ` +
+      `current tier default, and re-stamps enrolled_at to now. The user will ` +
+      `appear freshly joined in the running cycle.`
+    )) {
+      return;
+    }
+    void wrap(`reset-${enrollmentId}`, async () => {
+      await resetEnrollment(enrollmentId);
+    });
+  };
 
   return (
     <Modal open={user !== null} onClose={onClose} title={user?.name ?? user?.email ?? 'User'} width={720}>
@@ -710,6 +731,31 @@ function UserDetailModal({
             </div>
           </Section>
 
+          {/* Cash challenges */}
+          <Section title={`Cash challenges${enrollments.length ? ` (${enrollments.length})` : ''}`}>
+            {loading && enrollments.length === 0 ? (
+              <Muted text="Loading…" />
+            ) : enrollments.length === 0 ? (
+              <Muted text="No challenge history yet." />
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {enrollments.map((e) => (
+                  <EnrollmentRow
+                    key={e.enrollment_id}
+                    enrollment={e}
+                    busy={savingAction === `reset-${e.enrollment_id}`}
+                    onReset={() =>
+                      handleResetEnrollment(
+                        e.enrollment_id,
+                        `${e.challenge_emoji ?? ''} ${e.challenge_title}`.trim()
+                      )
+                    }
+                  />
+                ))}
+              </div>
+            )}
+          </Section>
+
           {/* Top workouts */}
           <Section title="What they train most">
             {loading && topWorkouts.length === 0 ? (
@@ -883,4 +929,86 @@ function StatBox({ label, value }: { label: string; value: string }) {
 
 function Muted({ text }: { text: string }) {
   return <div style={{ fontSize: 13, color: colors.muted, padding: '8px 0' }}>{text}</div>;
+}
+
+// ── Enrollment row (per-user cash-challenge state + reset) ─────────────────
+
+const ENROLLMENT_STATUS_STYLE: Record<AdminUserEnrollment['status'], React.CSSProperties> = {
+  active:         { background: colors.accentDim,  color: colors.accent,  border: `1px solid ${colors.accent}` },
+  completed:      { background: colors.successDim, color: colors.success, border: `1px solid ${colors.success}` },
+  failed:         { background: colors.errorDim,   color: colors.error,   border: `1px solid ${colors.error}` },
+  removed:        { background: colors.bg3,        color: colors.muted,   border: `1px solid ${colors.border}` },
+  reward_claimed: { background: colors.successDim, color: colors.success, border: `1px solid ${colors.success}` },
+};
+
+function EnrollmentRow({
+  enrollment,
+  busy,
+  onReset,
+}: {
+  enrollment: AdminUserEnrollment;
+  busy: boolean;
+  onReset: () => void;
+}) {
+  const e = enrollment;
+  return (
+    <div
+      style={{
+        background: colors.bg3,
+        border: `1px solid ${colors.border}`,
+        borderRadius: 12,
+        padding: 12,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        flexWrap: 'wrap',
+      }}
+    >
+      <div style={{ flex: '1 1 200px', minWidth: 200 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+          <span style={{ fontSize: 18 }}>{e.challenge_emoji ?? '🏆'}</span>
+          <span style={{ fontSize: 14, fontWeight: 700, color: colors.text }}>{e.challenge_title}</span>
+        </div>
+        <div style={{ fontSize: 11, color: colors.dim }}>
+          {e.cycle_start_date && e.cycle_end_date
+            ? `${formatDate(e.cycle_start_date)} – ${formatDate(e.cycle_end_date)}`
+            : 'No cycle'}
+          {e.cycle_status ? ` · cycle ${e.cycle_status}` : ''}
+          {' · enrolled '}
+          {relativeTime(e.enrolled_at)}
+        </div>
+      </div>
+
+      <span
+        style={{
+          padding: '3px 10px',
+          borderRadius: 8,
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: 0.5,
+          textTransform: 'uppercase',
+          ...ENROLLMENT_STATUS_STYLE[e.status],
+        }}
+      >
+        {e.status.replace('_', ' ')}
+      </span>
+
+      <div style={{ ...bigNum, fontSize: 16, minWidth: 60, textAlign: 'right' }}>
+        {e.completed_days}/{e.challenge_total_days}
+        <div style={{ fontSize: 10, color: colors.muted, fontFamily: 'inherit', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+          days
+        </div>
+      </div>
+
+      <TierChip tier={e.tier_at_enrollment} />
+
+      <div style={{ ...bigNum, fontSize: 16, minWidth: 40, textAlign: 'right' }}>
+        ❄ {e.freeze_tokens_remaining}
+      </div>
+
+      <Button variant="danger" onClick={onReset} disabled={busy}>
+        {busy ? 'Resetting…' : 'Reset'}
+      </Button>
+    </div>
+  );
 }
