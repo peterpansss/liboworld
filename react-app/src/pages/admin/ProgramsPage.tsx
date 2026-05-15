@@ -264,6 +264,33 @@ export function ProgramsPage() {
     }
   };
 
+  /**
+   * Open the "New program" modal pre-filled from the source row — including the
+   * full per-day schedule (blocks), since rebuilding a multi-week schedule by
+   * hand is exactly the chore duplicate is meant to spare. editingId=null so
+   * handleSave hits createProgram, not updateProgram. Status forced to 'draft'
+   * so a published program can't be accidentally cloned live. The schedule is
+   * deep-cloned via structuredClone so editing the duplicate doesn't mutate
+   * the source row in the rows[] state.
+   */
+  const handleDuplicate = (row: ProgramRow, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingId(null);
+    const base = rowToForm(row);
+    const newName = `${row.name} (copy)`;
+    setForm({
+      ...base,
+      blocks: structuredClone(base.blocks),
+      id: '',
+      name: newName,
+      slug: slugify(newName),
+      slugTouched: false,
+      status: 'draft',
+    });
+    setFormErr(null);
+    setModalOpen(true);
+  };
+
   const columns: Column<ProgramRow>[] = useMemo(
     () => [
       {
@@ -346,26 +373,63 @@ export function ProgramsPage() {
       {
         key: 'actions',
         header: '',
-        width: 90,
+        width: 84,
         render: (r) => (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              void handleDelete(r);
-            }}
-            aria-label="Archive"
-            style={{
-              background: 'transparent',
-              border: `1px solid ${colors.border}`,
-              color: colors.muted,
-              padding: '4px 10px',
-              borderRadius: 8,
-              fontSize: 12,
-              cursor: 'pointer',
-            }}
-          >
-            Archive
-          </button>
+          <div style={{ display: 'inline-flex', gap: 4 }}>
+            <button
+              onClick={(e) => handleDuplicate(r, e)}
+              aria-label={`Duplicate ${r.name}`}
+              title="Duplicate program"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: colors.muted,
+                cursor: 'pointer',
+                fontSize: 14,
+                padding: '4px 6px',
+                borderRadius: 6,
+                lineHeight: 1,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.accent;
+                (e.currentTarget as HTMLButtonElement).style.background = colors.accentDim;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+              }}
+            >
+              ⎘
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                void handleDelete(r);
+              }}
+              aria-label={`Archive ${r.name}`}
+              title="Archive program"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: colors.muted,
+                cursor: 'pointer',
+                fontSize: 16,
+                padding: 4,
+                borderRadius: 6,
+                lineHeight: 1,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.error;
+                (e.currentTarget as HTMLButtonElement).style.background = colors.errorDim;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+              }}
+            >
+              ×
+            </button>
+          </div>
         ),
       },
     ],

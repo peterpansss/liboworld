@@ -5,6 +5,7 @@ import {
   deleteWorkoutOverride,
   createWorkout,
   updateWorkout,
+  deleteWorkout,
   listWorkouts,
   listExercises,
   type WorkoutOverride,
@@ -316,6 +317,110 @@ export function WorkoutsPage() {
     }
   };
 
+  /**
+   * Delete a canonical workout. Bundled-only rows (no canonical match) cannot be
+   * deleted from the admin — those live in `workouts.json` and must be removed
+   * via a code change + redeploy. We still expose the button uniformly but it's
+   * a no-op with a warning toast for bundled-only rows.
+   */
+  const handleDelete = async (row: Workout, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const canonical = findCanonical(row);
+    if (!canonical) {
+      window.alert(
+        `"${row.name}" is bundled-only (no canonical row in Supabase). Bundled workouts must be removed by editing workouts.json and redeploying.`,
+      );
+      return;
+    }
+    if (!window.confirm(`Delete workout "${row.name}"? This cannot be undone.`)) return;
+    try {
+      const res = await deleteWorkout(canonical.id);
+      if (!res.ok) {
+        setError(res.error ?? 'Delete failed');
+        return;
+      }
+      await Promise.all([refreshOverrides(), refreshCanonical()]);
+    } catch (err) {
+      setError(errMessage(err));
+    }
+  };
+
+  /**
+   * Open the "New workout" modal pre-filled with the source row's fields,
+   * INCLUDING the warmup/main/cooldown exercise blocks (the whole point of
+   * duplicating a workout). We deep-clone the block arrays via
+   * structuredClone so editing the duplicate's blocks doesn't mutate the
+   * source row. editing-state (none in this page — the create modal is its
+   * own thing) is bypassed by routing through the create modal, so save hits
+   * createWorkout not updateWorkout.
+   *
+   * Field overrides for safety:
+   *  - name gets " (copy)" appended
+   *  - slug regenerated from the new name (auto-prefixed wk_…)
+   *  - status forced to 'draft' so the dupe doesn't go live immediately
+   *  - exercise_id resolved by matching block.exercise (name) against the
+   *    canonical exercise list; falls back to null + the literal name string
+   */
+  const handleDuplicate = (row: Workout, e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Refresh canonical lists first so exercise-id resolution + slug-collision
+    // checks use the latest data — fire-and-forget; the form opens immediately.
+    void refreshCanonical();
+
+    const exByName = new Map<string, ExerciseRow>();
+    for (const ex of canonicalExercises) exByName.set(ex.name.toLowerCase(), ex);
+
+    const toCreateBlocks = (steps: WorkoutStep[] | undefined): CreateBlockEntry[] => {
+      const cloned: WorkoutStep[] = structuredClone(steps ?? []);
+      return cloned.map((s) => {
+        const match = exByName.get((s.exercise ?? '').toLowerCase());
+        return {
+          exercise_id: match?.id ?? null,
+          exercise_name: s.exercise ?? '',
+          sets: s.sets ?? '',
+          reps: s.reps ?? '',
+        };
+      });
+    };
+
+    const newName = `${row.name} (copy)`;
+    const newSlug = slugifyWorkout(newName);
+    const cat = (row.cat ?? 'gym').toLowerCase();
+    const allowedCats: CreateCat[] = [
+      'gym',
+      'home',
+      'mobility',
+      'cardio',
+      'stretching',
+      'morning routine',
+    ];
+    const safeCat: CreateCat = (allowedCats as string[]).includes(cat)
+      ? (cat as CreateCat)
+      : 'gym';
+    const diff = (row.diff ?? 'beginner').toLowerCase();
+    const allowedDiffs: CreateDiff[] = ['beginner', 'intermediate', 'advanced'];
+    const safeDiff: CreateDiff = (allowedDiffs as string[]).includes(diff)
+      ? (diff as CreateDiff)
+      : 'beginner';
+
+    setCreateForm({
+      name: newName,
+      slug: newSlug,
+      slugTouched: true,
+      cat: safeCat,
+      subcat: row.subcat ?? '',
+      dur: row.dur != null ? String(row.dur) : '',
+      diff: safeDiff,
+      emoji: row.emoji || '🏋️',
+      status: 'draft', // never clone into 'published' — user must publish explicitly
+      warmup: toCreateBlocks(row.warmup),
+      main: toCreateBlocks(row.main),
+      cooldown: toCreateBlocks(row.cooldown),
+    });
+    setCreateErr(null);
+    setCreateOpen(true);
+  };
+
   const overrideMap = useMemo(() => {
     const m = new Map<string, WorkoutOverride>();
     for (const o of overrides) m.set(o.id, o);
@@ -457,10 +562,61 @@ export function WorkoutsPage() {
     {
       key: 'actions',
       header: '',
-      width: 90,
+      width: 84,
       align: 'right',
-      render: () => (
-        <span style={{ color: colors.accent, fontWeight: 700, fontSize: 12 }}>Edit →</span>
+      render: (r) => (
+        <div style={{ display: 'inline-flex', gap: 4 }}>
+          <button
+            onClick={(e) => handleDuplicate(r, e)}
+            aria-label={`Duplicate ${r.name}`}
+            title="Duplicate workout"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: colors.muted,
+              cursor: 'pointer',
+              fontSize: 14,
+              padding: '4px 6px',
+              borderRadius: 6,
+              lineHeight: 1,
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = colors.accent;
+              (e.currentTarget as HTMLButtonElement).style.background = colors.accentDim;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+              (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+            }}
+          >
+            ⎘
+          </button>
+          <button
+            onClick={(e) => void handleDelete(r, e)}
+            aria-label={`Delete ${r.name}`}
+            title="Delete workout"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: colors.muted,
+              cursor: 'pointer',
+              fontSize: 16,
+              padding: 4,
+              borderRadius: 6,
+              lineHeight: 1,
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = colors.error;
+              (e.currentTarget as HTMLButtonElement).style.background = colors.errorDim;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+              (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+            }}
+          >
+            ×
+          </button>
+        </div>
       ),
     },
   ];
