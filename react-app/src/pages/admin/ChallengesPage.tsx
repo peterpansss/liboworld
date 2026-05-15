@@ -279,7 +279,10 @@ export function ChallengesPage() {
       await refresh();
       closeModal();
     } catch (e2) {
-      setFormErr(e2 instanceof Error ? e2.message : 'Save failed');
+      console.error('[admin/challenges] save failed', e2);
+      const err = e2 as { message?: string; code?: string; details?: string; hint?: string } | null;
+      const parts = [err?.message, err?.code && `(${err.code})`, err?.details, err?.hint].filter(Boolean);
+      setFormErr(parts.length ? parts.join(' — ') : 'Save failed');
     } finally {
       setSaving(false);
     }
