@@ -289,12 +289,16 @@ export async function listGiveawayWinners(giveawayId: string) {
 
 /**
  * Browser-side resize before upload. Phone photos are 2-5 MB at 4032×3024;
- * giveaway cards render at ~400 px wide on mobile so anything over ~1000 px
- * is wasted bandwidth. We re-encode to JPEG q=78 at max-width 1200 (retina-safe).
- * Typical 3 MB upload becomes ~40-80 KB. Solves Supabase Free-plan storage
- * slowness without paying for Pro image transforms.
+ * giveaway cards render at ~400 px wide on mobile (~1200 px at 3× retina),
+ * so anything over ~1600 px is wasted bandwidth. We re-encode to JPEG q=85
+ * at max-width 1600 — that's the headroom-friendly sweet spot:
+ *   • visually indistinguishable from the original at card sizes
+ *   • future-proof for tablet / large-screen rendering
+ *   • typical 3 MB upload becomes ~120-250 KB (still 15-25× smaller)
+ * Solves Supabase Free-plan storage slowness without paying for Pro image
+ * transforms.
  */
-async function resizeForUpload(file: File, maxWidth = 1200, quality = 0.78): Promise<Blob> {
+async function resizeForUpload(file: File, maxWidth = 1600, quality = 0.85): Promise<Blob> {
   // GIFs would lose animation through canvas; pass through untouched.
   if (file.type === 'image/gif') return file;
 
