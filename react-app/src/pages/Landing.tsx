@@ -179,8 +179,15 @@ export default function Landing() {
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Blog preview — first 3 articles
-  const blogPreview = blogArticles.slice(0, 3);
+  // Blog preview — featured articles (curated)
+  const FEATURED_SLUGS = [
+    '30-days-one-habit-real-money',
+    'how-to-lose-fat-and-stay-lean',
+    'simple-high-protein-meals-in-15-minutes',
+  ] as const;
+  const blogPreview = FEATURED_SLUGS
+    .map((slug) => blogArticles.find((a) => a.slug === slug))
+    .filter((a): a is typeof blogArticles[number] => a !== undefined);
 
   // InView triggers
   const rewardsStatView = useInView(0.5);
