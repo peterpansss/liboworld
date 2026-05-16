@@ -113,6 +113,10 @@ type Props = {
     duplicateBody: string;
     errorMsg: string;
     backLabel: string;         // "Back"
+    /** EU Directive 2011/83/EU Art. 16(m) consent strings (Step 1 checkbox) */
+    consentLabel: string;
+    consentLinkLabel: string;
+    consentRequired: string;
   };
   /** Submission */
   onSubmit: (args: FunnelModalSubmitArgs) => Promise<{ ok: boolean; duplicate?: boolean; error?: string }>;
@@ -141,6 +145,11 @@ export default function FunnelCheckoutModal({
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const [intentError, setIntentError] = useState<string | null>(null);
   const [creatingIntent, setCreatingIntent] = useState(false);
+  // EU Directive 2011/83/EU Art. 16(m) — buyer must expressly acknowledge
+  // the non-refundability of converted points + waive the 14-day right of
+  // withdrawal. Without this consent, the non-refundability clause is
+  // legally unenforceable in the EU. See PARTNERSHIP-FINANCE-MODEL.md §4.4.
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const stripeMode = !!createIntent && isStripeConfigured();
   const stripePromise = useMemo(() => (stripeMode ? getStripe() : null), [stripeMode]);
@@ -158,6 +167,7 @@ export default function FunnelCheckoutModal({
         setClientSecret(null);
         setPaymentIntentId(null);
         setIntentError(null);
+        setTermsAccepted(false);
       }, 200);
     }
   }, [open]);
@@ -183,6 +193,14 @@ export default function FunnelCheckoutModal({
   async function handleStep1(e: FormEvent) {
     e.preventDefault();
     if (!fullName.trim() || !email.trim() || !phone.trim()) return;
+    // Defense-in-depth: the submit button is already disabled when this is
+    // false, but a malicious client could re-enable it via devtools. Block
+    // here too so the only way to reach Step 2 is with explicit consent.
+    // EU Directive 2011/83/EU Art. 16(m) — see PARTNERSHIP-FINANCE-MODEL.md §4.4.
+    if (!termsAccepted) {
+      setIntentError(copy.consentRequired);
+      return;
+    }
 
     // Stripe mode: kick off the PaymentIntent before transitioning to Step 2,
     // so the PaymentElement has a clientSecret to render against.
@@ -498,7 +516,68 @@ export default function FunnelCheckoutModal({
                     style={input}
                   />
 
-                  <button type="submit" style={submitBtn} disabled={creatingIntent}>
+                  {/* EU Directive 2011/83/EU Art. 16(m) consent — buyer must
+                      expressly acknowledge non-refundability of converted
+                      points and waive the 14-day right of withdrawal. The
+                      Continue button is disabled until this is checked, and
+                      handleStep1 also rejects submission as defense-in-depth.
+                      See PARTNERSHIP-FINANCE-MODEL.md §4.4. */}
+                  <label
+                    htmlFor="fm-terms"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 8,
+                      marginTop: 4,
+                      marginBottom: 14,
+                      fontSize: 12,
+                      lineHeight: 1.5,
+                      color: colors.muted,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <input
+                      id="fm-terms"
+                      type="checkbox"
+                      checked={termsAccepted}
+                      onChange={(e) => {
+                        setTermsAccepted(e.target.checked);
+                        if (e.target.checked && intentError === copy.consentRequired) {
+                          setIntentError(null);
+                        }
+                      }}
+                      style={{
+                        flexShrink: 0,
+                        marginTop: 2,
+                        width: 14,
+                        height: 14,
+                        accentColor: '#FF6A1A',
+                        cursor: 'pointer',
+                      }}
+                    />
+                    <span>
+                      {copy.consentLabel}{' '}
+                      <a
+                        href="/terms#points-packs"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ color: '#FF8A4A', textDecoration: 'underline' }}
+                      >
+                        {copy.consentLinkLabel}
+                      </a>
+                    </span>
+                  </label>
+
+                  <button
+                    type="submit"
+                    style={{
+                      ...submitBtn,
+                      opacity: !termsAccepted || creatingIntent ? 0.5 : 1,
+                      cursor: !termsAccepted || creatingIntent ? 'not-allowed' : 'pointer',
+                    }}
+                    disabled={creatingIntent || !termsAccepted}
+                  >
                     {creatingIntent ? '…' : copy.continueCta}
                   </button>
 

@@ -964,7 +964,10 @@
       "secureCheckout": "100% guaranteed secure & safe checkout",
       "orderItem": "{tier} Package · {summary}",
       "orderTotal": "Order Total",
-      "backLabel": "Back to details"
+      "backLabel": "Back to details",
+      "consentLabel": "I acknowledge that purchased points are non-refundable once converted to giveaway tickets in-app, and I waive my 14-day right of withdrawal under EU Directive 2011/83/EU.",
+      "consentLinkLabel": "Read full terms",
+      "consentRequired": "Please acknowledge the terms above to continue."
     },
     "modalSuccessTitle": "You're in",
     "modalSuccessBody": "Your points and full-app access are credited and a confirmation is on its way to your email. Download the Libo app and sign in with the same email — your points and Elite features are waiting.",

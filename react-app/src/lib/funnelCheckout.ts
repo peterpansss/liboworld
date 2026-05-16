@@ -29,6 +29,14 @@ export type CreatePaymentIntentInput = {
   giveawayId?: string | null;
   /** UTM params auto-captured from URL */
   utm?: Record<string, string | null>;
+  /**
+   * EU consumer-law consent (Directive 2011/83/EU Art. 16(m) — waiver of
+   * 14-day right of withdrawal). Required at the modal layer; passed through
+   * to the Edge Function as `terms_acknowledged` for the server-side audit
+   * gate and Stripe charge metadata.
+   * See PARTNERSHIP-FINANCE-MODEL.md §4.4.
+   */
+  termsAcknowledged: boolean;
 };
 
 export type CreatePaymentIntentResult =
@@ -56,6 +64,7 @@ export async function createPaymentIntent(
         giveaway_id: input.giveawayId ?? null,
         utm: input.utm ?? null,
         referrer: typeof document !== 'undefined' ? document.referrer : null,
+        terms_acknowledged: input.termsAcknowledged,
       },
     });
     if (error) return { ok: false, error: error.message ?? 'create_payment_intent failed' };

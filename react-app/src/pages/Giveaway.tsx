@@ -422,6 +422,11 @@ export default function GiveawayPage() {
                   fullName,
                   phone,
                   giveawayId: active?.id ?? null,
+                  // EU Directive 2011/83/EU Art. 16(m): the modal blocks
+                  // submission unless the consent checkbox is ticked, so by
+                  // the time createIntent runs we know consent was given.
+                  // See PARTNERSHIP-FINANCE-MODEL.md §4.4.
+                  termsAcknowledged: true,
                 });
                 return r.ok
                   ? { ok: true, clientSecret: r.clientSecret, paymentIntentId: r.paymentIntentId }
@@ -455,6 +460,9 @@ export default function GiveawayPage() {
           duplicateBody: t('giveawayFunnel.modalDuplicateBody'),
           errorMsg: t('giveawayFunnel.ctaError'),
           legalNote: t('giveawayFunnel.modalLegal'),
+          consentLabel: t('giveawayFunnel.modal.consentLabel'),
+          consentLinkLabel: t('giveawayFunnel.modal.consentLinkLabel'),
+          consentRequired: t('giveawayFunnel.modal.consentRequired'),
         }}
         onSubmit={async ({ fullName, email, phone, paymentIntentId }) => {
           if (!modalTier) return { ok: false };
