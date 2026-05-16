@@ -456,10 +456,18 @@ export default function GiveawayPage() {
           errorMsg: t('giveawayFunnel.ctaError'),
           legalNote: t('giveawayFunnel.modalLegal'),
         }}
-        onSubmit={async ({ fullName, email, phone }) => {
+        onSubmit={async ({ fullName, email, phone, paymentIntentId }) => {
           if (!modalTier) return { ok: false };
-          // v1: capture purchase intent + contact info into funnel_signups.
-          // v2: replace with stripe.confirmCardPayment(client_secret, ...).
+          // Stripe mode: the create_payment_intent Edge Function already
+          // inserted the funnel_signups row keyed to this PaymentIntent.
+          // A second insert here would hit the UNIQUE(email, funnel,
+          // tier_slug, giveaway_id) constraint and surface as the
+          // "Already on the list" duplicate screen — misleading, since
+          // the payment actually just succeeded.
+          if (paymentIntentId) {
+            return { ok: true };
+          }
+          // v1 (no Stripe): capture purchase intent into funnel_signups.
           const r = await submitFunnelInterest({
             email,
             fullName,

@@ -37,6 +37,11 @@ jobs:
       - name: Build React app
         run: npm run build
         working-directory: react-app
+        env:
+          # Inlined at build time by Vite. Activates Stripe Elements on /giveaway —
+          # without it the modal silently falls back to the offline placeholder.
+          # Set in GitHub repo → Settings → Secrets and variables → Actions.
+          VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}
 
       # ── Merge root static files into dist ──
       # The root index.html is the main landing page.
