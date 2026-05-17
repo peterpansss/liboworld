@@ -9,6 +9,7 @@ import { MuscleGroupStrip } from '../components/MuscleGroupStrip';
 import { ActiveFilters, type ActiveFilter } from '../components/ActiveFilters';
 import { SeoHead } from '../components/SeoHead';
 import { libraryCanonicalUrl } from '../utils/schema';
+import { safeUrl } from '../utils/safeUrl';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { Search, ICON_STROKE } from '../utils/icons';
@@ -505,9 +506,14 @@ export default function ExerciseLibrary() {
                         onError={(e) => (e.currentTarget.style.display = 'none')}
                         className="el-card-thumb"
                       />
-                    ) : ex.videoUrl ? (
+                    ) : safeUrl(ex.videoUrl) ? (
+                      // ex.videoUrl is DB-stored on admin-edited rows, so it
+                      // must pass safeUrl's protocol allowlist before flowing
+                      // into <video src>. A javascript:/data: payload would
+                      // be replaced by the MuscleTile fallback already
+                      // rendered behind this layer (no broken src="null").
                       <video
-                        src={ex.videoUrl}
+                        src={safeUrl(ex.videoUrl) ?? undefined}
                         preload="metadata"
                         muted
                         playsInline
