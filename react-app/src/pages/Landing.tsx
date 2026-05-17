@@ -261,14 +261,28 @@ export default function Landing() {
   useEffect(() => {
     const v = heroVideoRef.current;
     if (!v) return;
+    // Safari desktop decides autoplay eligibility at the moment .play() is
+    // invoked, not when the element is created. React's `muted` JSX prop only
+    // seeds initial state, so set both `defaultMuted` (the DOM attribute
+    // Safari actually consults for autoplay policy) and `muted` imperatively
+    // before every play attempt.
+    try { v.defaultMuted = true; v.muted = true; } catch {}
     const tryPlay = () => {
+      try { v.muted = true; } catch {}
       const p = v.play();
       if (p && typeof p.catch === 'function') p.catch(() => {});
     };
     tryPlay();
+    // Safari sometimes drops the very first play() call when the asset is still
+    // preloading; a second attempt once metadata is ready reliably recovers.
+    const onLoaded = () => tryPlay();
+    v.addEventListener('loadedmetadata', onLoaded);
     const onVisible = () => { if (document.visibilityState === 'visible') tryPlay(); };
     document.addEventListener('visibilitychange', onVisible);
-    return () => document.removeEventListener('visibilitychange', onVisible);
+    return () => {
+      v.removeEventListener('loadedmetadata', onLoaded);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
   }, []);
 
   // ── Cursor follower (desktop) ──
