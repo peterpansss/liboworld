@@ -24,6 +24,7 @@ import {
   getPrimaryMuscleGroup,
 } from '../utils/exerciseInfo';
 import { buildExerciseGraph, exerciseCanonicalUrl } from '../utils/schema';
+import { safeUrl } from '../utils/safeUrl';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseDetail.css';
@@ -259,8 +260,16 @@ export default function ExerciseDetail() {
   // Resolve video sources at top level so [mainSrc]/[pipSrc] effects can
   // imperatively .load() the same <video> element when voice toggles or the
   // user swaps angles — no React `key` change → no remount → no flicker.
-  const primarySrc = videoSource ? publicVideoUrl(videoSource, voice, lang) : undefined;
-  const altSrc = videoSource ? publicVideoUrlAlt(videoSource, voice, lang) : undefined;
+  //
+  // Each URL is funnelled through safeUrl() so a malicious value stored in
+  // exercises.video_url (e.g. javascript:…) can never reach a <video src>
+  // attribute. safeUrl returns null for anything outside http(s)/mailto;
+  // we coerce that to undefined so the conditional render below falls back
+  // to the muscle-tile placeholder instead of a broken `src="null"`.
+  const rawPrimary = videoSource ? publicVideoUrl(videoSource, voice, lang) : undefined;
+  const rawAlt = videoSource ? publicVideoUrlAlt(videoSource, voice, lang) : undefined;
+  const primarySrc = safeUrl(rawPrimary) ?? undefined;
+  const altSrc = safeUrl(rawAlt) ?? undefined;
   const mainSrc = showingAlt && altSrc ? altSrc : primarySrc;
   const pipSrc = showingAlt && altSrc ? primarySrc : altSrc;
 
@@ -452,22 +461,22 @@ export default function ExerciseDetail() {
                       // (no suffix) which is the canonical we always upload.
                       if (!exercise || !videoRef.current) return;
                       if (showingAlt) {
-                        const base = publicVideoUrlAltBase(exercise);
+                        const base = safeUrl(publicVideoUrlAltBase(exercise));
                         if (base && videoRef.current.src !== base) {
                           videoRef.current.src = base;
                           videoRef.current.load();
                         }
                         return;
                       }
-                      let nextUrl: string | undefined;
+                      let nextUrl: string | null = null;
                       while (fallbackStepRef.current < 2 && !nextUrl) {
                         fallbackStepRef.current += 1;
                         if (fallbackStepRef.current === 1 && lang !== 'en') {
-                          nextUrl = publicVideoUrl(exercise, voice, 'en');
+                          nextUrl = safeUrl(publicVideoUrl(exercise, voice, 'en'));
                         } else if (fallbackStepRef.current === 2 && voice !== 'male') {
-                          nextUrl = publicVideoUrl(exercise, 'male', 'en');
+                          nextUrl = safeUrl(publicVideoUrl(exercise, 'male', 'en'));
                         }
-                        if (nextUrl === videoRef.current.src) nextUrl = undefined;
+                        if (nextUrl === videoRef.current.src) nextUrl = null;
                       }
                       if (nextUrl) {
                         videoRef.current.src = nextUrl;
@@ -547,7 +556,7 @@ export default function ExerciseDetail() {
                           // bare alt URL — guaranteed to exist on R2.
                           if (!exercise || !pipVideoRef.current) return;
                           if (showingAlt) return; // PiP shows primary in this case; primary's own chain handles it
-                          const base = publicVideoUrlAltBase(exercise);
+                          const base = safeUrl(publicVideoUrlAltBase(exercise));
                           if (base && pipVideoRef.current.src !== base) {
                             pipVideoRef.current.src = base;
                             pipVideoRef.current.load();

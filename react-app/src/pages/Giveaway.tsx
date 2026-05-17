@@ -25,8 +25,33 @@ import { submitFunnelInterest, type GiveawayTierSlug } from '../lib/funnelSignup
 import { createPaymentIntent } from '../lib/funnelCheckout';
 import { isStripeConfigured } from '../lib/stripe';
 import { supabase } from '../lib/supabase';
+import { safeUrl } from '../utils/safeUrl';
 import { useInView, useCountUp, useRevealOnScroll } from '../utils/funnelAnimations';
 import './Giveaway.css';
+
+/**
+ * Build a CSS `url("…")` value from an untrusted (DB-stored) URL.
+ *
+ * Two-layer guard:
+ *   1. safeUrl() blocks anything outside http(s)/mailto. javascript:/data:
+ *      payloads return null.
+ *   2. Even for an allowed protocol, the raw URL may contain CSS-meaningful
+ *      characters (`"`, `)`, whitespace, backslash) that would break out of
+ *      the `url("…")` token and inject arbitrary declarations into the
+ *      inline-style block. React escapes JSX attribute values but NOT CSS
+ *      values inside `style={{ backgroundImage: \`url(${x})\` }}`. We
+ *      percent-encode the dangerous characters so the result is always a
+ *      well-formed single CSS token.
+ *
+ * Returns `undefined` when the URL fails either check, so the caller can
+ * fall back to no background (the section reads as the solid backdrop).
+ */
+function cssBackgroundUrl(input: string | null | undefined): string | undefined {
+  const safe = safeUrl(input);
+  if (!safe) return undefined;
+  const escaped = safe.replace(/[\\"()\s]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0')}`);
+  return `url("${escaped}")`;
+}
 
 /**
  * Public-safe shape returned by the get_active_giveaway() RPC.
@@ -91,10 +116,12 @@ export default function GiveawayPage() {
     return () => { cancelled = true; };
   }, []);
 
-  // Preload the prize image — only render it once decoded so there's no flash
+  // Preload the prize image — only render it once decoded so there's no flash.
+  // Funnel the DB-stored URL through safeUrl so we never assign a
+  // javascript:/data: payload to an Image element either.
   useEffect(() => {
     setImageLoaded(false);
-    const url = active?.image_url;
+    const url = safeUrl(active?.image_url);
     if (!url) return;
     const img = new Image();
     img.src = url;
@@ -147,7 +174,7 @@ export default function GiveawayPage() {
               <div
                 className="funnel-hero__prize-bg"
                 style={{
-                  backgroundImage: imageLoaded && prizeImage ? `url(${prizeImage})` : undefined,
+                  backgroundImage: imageLoaded ? cssBackgroundUrl(prizeImage) : undefined,
                   opacity: imageLoaded ? 1 : 0,
                 }}
                 role="img"
@@ -263,7 +290,7 @@ export default function GiveawayPage() {
             <div
               className="funnel-prize-card__photo"
               style={{
-                backgroundImage: imageLoaded && prizeImage ? `url(${prizeImage})` : undefined,
+                backgroundImage: imageLoaded ? cssBackgroundUrl(prizeImage) : undefined,
                 opacity: imageLoaded ? 1 : 0,
                 transition: 'opacity 0.4s ease',
               }}
