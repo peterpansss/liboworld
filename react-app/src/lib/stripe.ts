@@ -32,16 +32,7 @@ export function isStripeConfigured(): boolean {
   return !!PUBLISHABLE_KEY;
 }
 
-/**
- * Stripe price IDs for each /giveaway funnel package tier.
- *
- * Once you've created the products in Stripe Dashboard, paste their
- * `price_…` IDs here (or set them via env vars and read with
- * import.meta.env.VITE_STRIPE_PRICE_*).
- */
-export const STRIPE_PRICE_IDS = {
-  entry: import.meta.env.VITE_STRIPE_PRICE_ENTRY as string | undefined,
-  silver: import.meta.env.VITE_STRIPE_PRICE_SILVER as string | undefined,
-  gold: import.meta.env.VITE_STRIPE_PRICE_GOLD as string | undefined,
-  premium: import.meta.env.VITE_STRIPE_PRICE_PREMIUM as string | undefined, // €9.99/mo recurring
-} as const;
+// Stripe price IDs are resolved server-side by the `create_payment_intent`
+// Supabase Edge Function, which maps tier_slug → price using Edge Function
+// secrets (`supabase secrets set STRIPE_PRICE_ENTRY=price_…` etc.).
+// The frontend only needs the publishable key.
