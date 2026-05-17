@@ -1,11 +1,29 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { getCurrentUserIsAdmin, isCallerAdminViaRpc } from '../../lib/adminApi';
+import {
+  getCurrentUserIsAdmin,
+  isCallerAdminViaRpc,
+  getAdminMfaStatus,
+} from '../../lib/adminApi';
 import { AdminLogin } from './AdminLogin';
 import { ReauthModal } from '../../components/admin/ReauthModal';
 import { colors } from '../../theme';
 
 type AuthState = 'loading' | 'unauthenticated' | 'authenticated-not-admin' | 'admin';
+
+// Path of the MFA enrolment page. Kept in sync with AdminLayout.tsx and
+// MfaPage.tsx. We compare against this exact path so an admin who is already
+// on /admin/mfa isn't redirected to itself (infinite loop).
+const MFA_ENROL_PATH = '/admin/mfa';
+
+// TODO (deferred for min-viable MFA scope):
+//   - Recovery codes (10 single-use). Without these a lost-device admin must
+//     be unlocked by a sysadmin via the Supabase dashboard.
+//   - "Trust this device" cookie keyed by browser + 30-day expiry, to skip
+//     the aal2 prompt on subsequent sessions.
+//   - SMS / push factor fallback. TOTP-only is fragile.
+//   - Audit log of enrol / verify / unenrol events into admin_audit.
 
 // Re-check the admin flag every 5 minutes. Long-lived admin sessions are a
 // liability: an admin whose `is_admin` flag was revoked in the DB should not
@@ -15,6 +33,10 @@ const RECHECK_INTERVAL_MS = 5 * 60 * 1000;
 
 export function AdminGuard({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AuthState>('loading');
+  // null = unknown / not-yet-fetched; false = grace still active or enrolled;
+  // true = grace expired AND not enrolled (hard-redirect).
+  const [mustEnrol, setMustEnrol] = useState<boolean>(false);
+  const location = useLocation();
   // Track in-flight check so we don't queue concurrent SELECTs on rapid
   // mount + onAuthStateChange firing within the same tick.
   const inFlight = useRef(false);
@@ -41,6 +63,27 @@ export function AdminGuard({ children }: { children: ReactNode }) {
       ]);
       const ok = profileSaysAdmin && rpcSaysAdmin;
       setState(ok ? 'admin' : 'authenticated-not-admin');
+
+      // Only check MFA enforcement once we've confirmed admin status. For
+      // non-admins the must_enrol flag is irrelevant (they won't see the
+      // panel anyway).
+      if (ok) {
+        try {
+          const mfa = await getAdminMfaStatus();
+          setMustEnrol(mfa.must_enrol === true);
+        } catch (e) {
+          // Mirror the fail-open pattern used by checkAdminLoginAllowed: a
+          // missing RPC means the MFA migration isn't deployed yet. Log
+          // loudly so an operator notices, but don't lock the admin out.
+          console.warn(
+            '[AdminGuard] getAdminMfaStatus failed — MFA enforcement skipped:',
+            e instanceof Error ? e.message : e,
+          );
+          setMustEnrol(false);
+        }
+      } else {
+        setMustEnrol(false);
+      }
     } finally {
       inFlight.current = false;
     }
@@ -78,6 +121,14 @@ export function AdminGuard({ children }: { children: ReactNode }) {
 
   if (state === 'unauthenticated' || state === 'authenticated-not-admin') {
     return <AdminLogin onSignedIn={check} deniedReason={state === 'authenticated-not-admin' ? 'Not an admin account.' : null} />;
+  }
+
+  // Hard-redirect: grace period expired AND no factor enrolled. Allow the
+  // /admin/mfa route itself through (otherwise the user can never reach the
+  // enrolment UI to fix the situation). All other admin routes are blocked
+  // until enrolment completes.
+  if (mustEnrol && location.pathname !== MFA_ENROL_PATH) {
+    return <Navigate to={MFA_ENROL_PATH} replace />;
   }
 
   // Admin pass-through. ReauthModal listens for requireRecentAuth() prompts
