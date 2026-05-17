@@ -152,8 +152,8 @@ export default function GiveawayPage() {
     <div className="funnel-page">
       <SiteNav />
       <SeoHead
-        title={t('giveawayFunnel.seoTitle')}
-        description={t('giveawayFunnel.seoDescription')}
+        title={t('giveawayFunnel.seoTitle', { prize: prizeName })}
+        description={t('giveawayFunnel.seoDescription', { prize: prizeName })}
         canonical="/giveaway"
       />
 
@@ -165,7 +165,7 @@ export default function GiveawayPage() {
             <div className="funnel-hero__text">
               <div className="funnel-hero__brand-eyebrow">{t('giveawayFunnel.eyebrow')}</div>
               <h1 className="funnel-hero__headline font-display">
-                {t('giveawayFunnel.headline1')}<br />
+                {t('giveawayFunnel.headline1', { prize: prizeName })}<br />
                 <span className="funnel-hero__cash">{t('giveawayFunnel.cashAmount')}</span>
               </h1>
               <p className="funnel-hero__sub">{t('giveawayFunnel.heroSub')}</p>
