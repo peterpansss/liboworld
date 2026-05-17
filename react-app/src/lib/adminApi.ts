@@ -189,9 +189,12 @@ export async function fetchUserPointsLedger(userId: string, limit = 50): Promise
   return (data ?? []) as PointsLedgerRow[];
 }
 
-/** @deprecated UI callers must use {@link grantTicketsWithReauth} so the
- *  re-auth gate fires. Retained only for unit tests that assert RPC shape. */
-export async function grantTickets(userId: string, amount: number, note?: string) {
+/**
+ * UNGATED — only for unit tests that assert RPC shape. UI callers MUST use
+ * {@link grantTicketsWithReauth}. The `_unsafe` suffix is the import-time
+ * marker that this bypasses the re-auth gate.
+ */
+export async function grantTickets_unsafe(userId: string, amount: number, note?: string) {
   const { data, error } = await supabase.rpc('admin_grant_tickets', {
     p_user_id: userId,
     p_amount: amount,
@@ -201,9 +204,8 @@ export async function grantTickets(userId: string, amount: number, note?: string
   if (!(data as { ok: boolean }).ok) throw new Error((data as { error: string }).error);
 }
 
-/** @deprecated UI callers must use {@link adjustPointsWithReauth} so the
- *  re-auth gate fires. Retained only for unit tests that assert RPC shape. */
-export async function adjustPoints(userId: string, amount: number, note?: string) {
+/** UNGATED — see {@link grantTickets_unsafe} comment. Use {@link adjustPointsWithReauth} from UI. */
+export async function adjustPoints_unsafe(userId: string, amount: number, note?: string) {
   const { data, error } = await supabase.rpc('admin_adjust_points', {
     p_user_id: userId,
     p_amount: amount,
@@ -213,9 +215,8 @@ export async function adjustPoints(userId: string, amount: number, note?: string
   if (!(data as { ok: boolean }).ok) throw new Error((data as { error: string }).error);
 }
 
-/** @deprecated UI callers must use {@link setSubscriptionTierWithReauth} so
- *  the re-auth gate fires. Retained only for unit tests that assert RPC shape. */
-export async function setSubscriptionTier(userId: string, tier: 'free' | 'pro' | 'elite', expiresAt?: string | null) {
+/** UNGATED — see {@link grantTickets_unsafe} comment. Use {@link setSubscriptionTierWithReauth} from UI. */
+export async function setSubscriptionTier_unsafe(userId: string, tier: 'free' | 'pro' | 'elite', expiresAt?: string | null) {
   const { data, error } = await supabase.rpc('admin_set_subscription_tier', {
     p_user_id: userId,
     p_tier: tier,
@@ -225,9 +226,8 @@ export async function setSubscriptionTier(userId: string, tier: 'free' | 'pro' |
   if (!(data as { ok: boolean }).ok) throw new Error((data as { error: string }).error);
 }
 
-/** @deprecated UI callers must use {@link setUserAdminFlagWithReauth} so the
- *  re-auth gate fires. Retained only for unit tests that assert RPC shape. */
-export async function setUserAdminFlag(userId: string, isAdmin: boolean) {
+/** UNGATED — see {@link grantTickets_unsafe} comment. Use {@link setUserAdminFlagWithReauth} from UI. */
+export async function setUserAdminFlag_unsafe(userId: string, isAdmin: boolean) {
   const { data, error } = await supabase.rpc('admin_set_user_admin_flag', {
     p_user_id: userId,
     p_is_admin: isAdmin,
@@ -1114,9 +1114,8 @@ export async function listChallengePayouts(status: ChallengePayoutStatus | null 
   return (data ?? []) as ChallengePayoutRow[];
 }
 
-/** @deprecated UI callers must use {@link markPayoutPaidWithReauth} so the
- *  re-auth gate fires. Retained only for unit tests that assert RPC shape. */
-export async function markPayoutPaid(payoutId: string, input: MarkPayoutPaidInput): Promise<void> {
+/** UNGATED — see {@link grantTickets_unsafe} comment. Use {@link markPayoutPaidWithReauth} from UI. */
+export async function markPayoutPaid_unsafe(payoutId: string, input: MarkPayoutPaidInput): Promise<void> {
   const { data, error } = await supabase.rpc('admin_mark_payout_paid', {
     p_payout_id:        payoutId,
     p_payment_method:   input.payment_method,
@@ -1496,30 +1495,18 @@ export async function ensureAal2(promptCode: () => Promise<string | null>): Prom
 }
 
 // ── Wrapped sensitive admin ops ────────────────────────────────────────────
-// PUBLIC API for sensitive admin mutations. UI callers (admin page
-// components) MUST import these *WithReauth wrappers - either directly or
-// via an `import { fooWithReauth as foo } from './adminApi'` rename - so
-// that requireRecentAuth() can challenge the operator before the mutation
-// hits the database.
-//
-// The original un-wrapped grantTickets / adjustPoints / setSubscriptionTier
-// / setUserAdminFlag / markPayoutPaid functions remain exported solely to
-// keep the existing unit tests in tests/lib/adminApi.test.ts green (they
-// exercise the RPC payload shape directly, which has nothing to do with
-// re-auth). They are marked @deprecated so a future linter pass / IDE
-// surface flags any new caller that bypasses the gate.
-//
-// Earlier revisions of this file claimed that "TypeScript resolves to the
-// last declared identifier" so callers would automatically pick up the
-// wrapped version. That is incorrect: distinct named exports do not shadow
-// each other. Callers must opt in by importing the *WithReauth name.
+// PUBLIC API for sensitive admin mutations. UI callers import these
+// *WithReauth wrappers so requireRecentAuth() can challenge the operator
+// before the mutation hits the DB. The underlying ungated versions are
+// named with an explicit `_unsafe` suffix and exist only for unit tests
+// that assert RPC shape.
 
 export async function grantTicketsWithReauth(userId: string, amount: number, note?: string) {
-  return withRecentAuth(() => grantTickets(userId, amount, note));
+  return withRecentAuth(() => grantTickets_unsafe(userId, amount, note));
 }
 
 export async function adjustPointsWithReauth(userId: string, amount: number, note?: string) {
-  return withRecentAuth(() => adjustPoints(userId, amount, note));
+  return withRecentAuth(() => adjustPoints_unsafe(userId, amount, note));
 }
 
 export async function setSubscriptionTierWithReauth(
@@ -1527,15 +1514,15 @@ export async function setSubscriptionTierWithReauth(
   tier: 'free' | 'pro' | 'elite',
   expiresAt?: string | null,
 ) {
-  return withRecentAuth(() => setSubscriptionTier(userId, tier, expiresAt));
+  return withRecentAuth(() => setSubscriptionTier_unsafe(userId, tier, expiresAt));
 }
 
 export async function setUserAdminFlagWithReauth(userId: string, isAdmin: boolean) {
-  return withRecentAuth(() => setUserAdminFlag(userId, isAdmin));
+  return withRecentAuth(() => setUserAdminFlag_unsafe(userId, isAdmin));
 }
 
 export async function markPayoutPaidWithReauth(payoutId: string, input: MarkPayoutPaidInput) {
-  return withRecentAuth(() => markPayoutPaid(payoutId, input));
+  return withRecentAuth(() => markPayoutPaid_unsafe(payoutId, input));
 }
 
 // ─── Media jobs (video processing + voiceover generation) ───────────────────

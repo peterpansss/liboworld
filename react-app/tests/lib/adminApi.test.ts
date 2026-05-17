@@ -105,10 +105,10 @@ import {
   fetchUserTopWorkouts,
   fetchUserRecentWorkouts,
   fetchUserPointsLedger,
-  grantTickets,
-  adjustPoints,
-  setSubscriptionTier,
-  setUserAdminFlag,
+  grantTickets_unsafe,
+  adjustPoints_unsafe,
+  setSubscriptionTier_unsafe,
+  setUserAdminFlag_unsafe,
   fetchLeaderboard,
   listGiveaways,
   createGiveaway,
@@ -244,38 +244,38 @@ describe('Dashboard / users / leaderboard RPCs', () => {
   });
 });
 
-describe('grantTickets / adjustPoints / setSubscriptionTier / setUserAdminFlag', () => {
-  it('grantTickets calls admin_grant_tickets and rejects on ok=false', async () => {
+describe('grantTickets_unsafe / adjustPoints_unsafe / setSubscriptionTier_unsafe / setUserAdminFlag_unsafe', () => {
+  it('grantTickets_unsafe calls admin_grant_tickets and rejects on ok=false', async () => {
     nextRpcResp = { data: { ok: false, error: 'invalid amount' }, error: null };
-    await expect(grantTickets('u1', -5, 'why')).rejects.toThrow('invalid amount');
+    await expect(grantTickets_unsafe('u1', -5, 'why')).rejects.toThrow('invalid amount');
     expect(rpcCalls[0].name).toBe('admin_grant_tickets');
     expect(rpcCalls[0].args).toEqual({ p_user_id: 'u1', p_amount: -5, p_note: 'why' });
   });
 
-  it('grantTickets returns void on ok=true', async () => {
+  it('grantTickets_unsafe returns void on ok=true', async () => {
     nextRpcResp = { data: { ok: true }, error: null };
-    await expect(grantTickets('u1', 5)).resolves.toBeUndefined();
+    await expect(grantTickets_unsafe('u1', 5)).resolves.toBeUndefined();
   });
 
-  it('adjustPoints calls admin_adjust_points', async () => {
+  it('adjustPoints_unsafe calls admin_adjust_points', async () => {
     nextRpcResp = { data: { ok: true }, error: null };
-    await adjustPoints('u1', 50, 'bonus');
+    await adjustPoints_unsafe('u1', 50, 'bonus');
     expect(rpcCalls[0].name).toBe('admin_adjust_points');
   });
 
-  it('setSubscriptionTier passes expiresAt or null', async () => {
+  it('setSubscriptionTier_unsafe passes expiresAt or null', async () => {
     nextRpcResp = { data: { ok: true }, error: null };
-    await setSubscriptionTier('u1', 'pro');
+    await setSubscriptionTier_unsafe('u1', 'pro');
     expect(rpcCalls[0].args.p_expires_at).toBeNull();
     rpcCalls.length = 0;
     nextRpcResp = { data: { ok: true }, error: null };
-    await setSubscriptionTier('u1', 'pro', '2099-01-01T00:00:00Z');
+    await setSubscriptionTier_unsafe('u1', 'pro', '2099-01-01T00:00:00Z');
     expect(rpcCalls[0].args.p_expires_at).toBe('2099-01-01T00:00:00Z');
   });
 
-  it('setUserAdminFlag toggles is_admin', async () => {
+  it('setUserAdminFlag_unsafe toggles is_admin', async () => {
     nextRpcResp = { data: { ok: true }, error: null };
-    await setUserAdminFlag('u1', true);
+    await setUserAdminFlag_unsafe('u1', true);
     expect(rpcCalls[0].args).toEqual({ p_user_id: 'u1', p_is_admin: true });
   });
 });

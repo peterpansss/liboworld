@@ -1,11 +1,10 @@
 /**
  * User management admin RPCs and queries.
  *
- * NOTE: this is currently a thin re-export from `../adminApi.ts` to introduce
- * the new domain-organized api/ layout. The data-mutation functions
- * (grantTickets, adjustPoints, setSubscriptionTier, setUserAdminFlag) are
- * coordinated with the admin-auth security work and live in adminApi.ts;
- * this file re-exports them so callers can migrate import paths file-by-file.
+ * Thin re-export from `../adminApi.ts`. UI callers get the re-auth-gated
+ * `*WithReauth` wrappers under their familiar names. The ungated
+ * `*_unsafe` variants are exported only so tests in `tests/lib/adminApi.test.ts`
+ * can assert RPC shape without bothering to mock the re-auth modal.
  */
 export {
   type AdminUserRow,
@@ -16,8 +15,12 @@ export {
   fetchUserTopWorkouts,
   fetchUserRecentWorkouts,
   fetchUserPointsLedger,
-  grantTickets,
-  adjustPoints,
-  setSubscriptionTier,
-  setUserAdminFlag,
+  grantTicketsWithReauth,
+  adjustPointsWithReauth,
+  setSubscriptionTierWithReauth,
+  setUserAdminFlagWithReauth,
+  grantTickets_unsafe,
+  adjustPoints_unsafe,
+  setSubscriptionTier_unsafe,
+  setUserAdminFlag_unsafe,
 } from '../adminApi';

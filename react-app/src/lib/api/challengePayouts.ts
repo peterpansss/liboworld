@@ -1,6 +1,6 @@
 /**
- * Challenge payout admin operations.
- * Re-exports from adminApi.ts.
+ * Challenge payout admin operations. Thin re-export from `../adminApi.ts`.
+ * UI callers get `markPayoutPaidWithReauth`; tests use `markPayoutPaid_unsafe`.
  */
 export {
   type ChallengePayoutRow,
@@ -8,5 +8,6 @@ export {
   type ChallengePayoutMethod,
   type MarkPayoutPaidInput,
   listChallengePayouts,
-  markPayoutPaid,
+  markPayoutPaidWithReauth,
+  markPayoutPaid_unsafe,
 } from '../adminApi';
