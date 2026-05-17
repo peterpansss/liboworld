@@ -2,7 +2,9 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Workout, type WorkoutExercise, type Exercise } from '../data/exercises';
-import { buildNameToSlug, workoutHeroThumb } from '../utils/thumbnails';
+import { buildPlayableExerciseNames, filterPlayableBlocks, filterPlayableWorkouts } from '../lib/playableWorkouts';
+import { buildNameToSlug, workoutHeroThumbSet } from '../utils/thumbnails';
+import { ThumbPicture } from '../components/ThumbPicture';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ProgramDetail.css';
@@ -29,9 +31,11 @@ function formatSetsReps(ex: WorkoutExercise): string {
 }
 
 function findExerciseId(name: string, exerciseDb: Exercise[]): string | null {
+  // Returns the URL identifier for an exercise — slug-first, id fallback —
+  // so links built from program data work after the route switched to :slug.
   const normalized = name.toLowerCase().trim();
   const match = exerciseDb.find((e) => e.name.toLowerCase().trim() === normalized);
-  return match ? match.id : null;
+  return match ? (match.slug ?? match.id) : null;
 }
 
 function findExerciseEquipment(name: string, exerciseDb: Exercise[]): string | null {
@@ -88,10 +92,24 @@ export default function ProgramDetail() {
 
   useEffect(() => {
     Promise.all([getWorkouts(), getExercises(i18n.language)]).then(([wks, exs]) => {
-      setAllWorkouts(wks);
+      // Drop unplayable blocks before the page renders — the per-phase
+      // overview, the exercise count chip, and the duration chip all read
+      // off the filtered shape so they don't claim more than the player
+      // can deliver. Done at consumer-level so admin pages still see the
+      // raw data.
+      const playableNames = buildPlayableExerciseNames(exs);
+      const filteredWks = filterPlayableWorkouts(wks, playableNames);
+      setAllWorkouts(filteredWks);
       setExerciseDb(exs);
-      const found = wks.find((w) => w.id === id) || null;
-      setWorkout(found);
+      // The looked-up workout is filtered too — even if the list drops a
+      // workout entirely (all blocks unplayable), a direct URL hit should
+      // still resolve to the same view-of-truth, so re-filter the matched
+      // raw workout and surface it only if it still has at least one block.
+      const rawFound = wks.find((w) => w.id === id) || null;
+      const found = rawFound
+        ? filterPlayableBlocks(rawFound, playableNames)
+        : null;
+      setWorkout(found && found.exercises.length > 0 ? found : null);
       setLoading(false);
     });
   }, [id, i18n.language]);
@@ -242,7 +260,7 @@ export default function ProgramDetail() {
             <h2>{t('programDetail.related.title', { category: workout.cat })}</h2>
             <div className="pd-related-grid">
               {related.map((w) => {
-                const heroThumb = workoutHeroThumb(w, nameToSlug, exerciseDb);
+                const heroThumb = workoutHeroThumbSet(w, nameToSlug, exerciseDb);
                 return (
                 <Link key={w.id} to={`/workouts/${w.id}`} className="pd-related-card">
                   <span
@@ -253,15 +271,12 @@ export default function ProgramDetail() {
                     <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, zIndex: 0 }}>
                       {w.emoji}
                     </span>
-                    {heroThumb && (
-                      <img
-                        src={heroThumb}
-                        alt=""
-                        loading="lazy"
-                        onError={(e) => (e.currentTarget.style.display = 'none')}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
-                      />
-                    )}
+                    <ThumbPicture
+                      thumb={heroThumb}
+                      loading="lazy"
+                      onError={(e) => (e.currentTarget.style.display = 'none')}
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+                    />
                   </span>
                   <span className="pd-related-name">{w.name}</span>
                   <span className="pd-related-meta">

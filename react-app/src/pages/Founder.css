@@ -1,0 +1,48 @@
+/* ─────────────────────────────
+   FOUNDER / ABOUT US PAGE — Founder.css
+   Minimal layout: a single centered media card with the intro video.
+   ───────────────────────────── */
+
+.founder-page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+
+.fp-intro-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+}
+
+.fp-intro-card {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+}
+
+.fp-intro-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+@media (max-width: 768px) {
+  .fp-intro-main {
+    padding: 40px 16px;
+  }
+  .fp-intro-card {
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  }
+}

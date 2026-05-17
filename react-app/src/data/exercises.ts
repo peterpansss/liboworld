@@ -22,6 +22,10 @@ export interface Exercise {
   /** Optional alternate-angle video (e.g. side view). Same base slug + `_side_view`. */
   videoUrlAlt?: string;
   animationUrl?: string;  // Optional 3D/2D animation alternative (gym/equipment only)
+  // Set by media-worker for admin-uploaded rows; null on the legacy bundled
+  // catalog. Used by exerciseThumb() as the authoritative thumbnail source
+  // before falling back to /images/thumbnails/<basename>.jpg.
+  thumbnailUrl?: string;
   parentId?: string;    // L/R variants inherit parent's media (thumb + video)
   parentName?: string;
 }
@@ -48,9 +52,13 @@ export interface Workout {
   type?: string;
 }
 
-/** Raw workout shape from workouts.json (warmup/main/cooldown with "exercise" key) */
+/** Raw workout shape from workouts.json (warmup/main/cooldown). Admin/Supabase
+ * persists snake_case (`exercise_name`/`exercise_id`); a handful of legacy
+ * blocks still use the older `exercise` key. Both are read defensively. */
 interface RawWorkoutExercise {
-  exercise: string;
+  exercise?: string;
+  exercise_name?: string;
+  exercise_id?: string | null;
   sets: string;
   reps: string;
   dur?: number;
@@ -75,7 +83,7 @@ interface RawWorkout {
 /** Normalize raw workout: merge warmup/main/cooldown into flat exercises array with phase tags */
 function normalizeWorkout(raw: RawWorkout): Workout {
   const toExercise = (item: RawWorkoutExercise, phase: 'warmup' | 'main' | 'cooldown'): WorkoutExercise => ({
-    name: item.exercise,
+    name: item.exercise_name ?? item.exercise ?? '',
     sets: item.sets,
     reps: item.reps,
     dur: item.dur,
@@ -226,6 +234,105 @@ function loadExerciseOverrides(): Promise<Record<string, Partial<Exercise>>> {
   return _exerciseOverridesPromise;
 }
 
+/**
+ * Pull every published exercise straight from the Supabase `exercises` table.
+ *
+ * Why: the bundled JSON is a build-time snapshot. Anything created via the
+ * admin panel after that snapshot lives in Supabase only — without this fetch,
+ * `getExercises()` would silently skip those rows and the public detail page
+ * 404s on URLs that the admin clearly shows. Union'd into the base catalog
+ * below by id; rows already present in the bundle still win on their own
+ * row + override + locale chain.
+ *
+ * Defensive trim on URL fields: admin input occasionally lands with stray
+ * leading/trailing whitespace (one row in the wild had two leading spaces on
+ * `video_url`), which silently breaks every URL the row points at. Cheaper
+ * to absorb here than to rely on every save path scrubbing perfectly.
+ */
+type SupabaseExerciseRow = {
+  id: string;
+  slug: string | null;
+  name: string;
+  cat: string | null;
+  primary_cat: string | null;
+  subcat: string | null;
+  environment: string | null;
+  body_focus: string | null;
+  equipment: string | null;
+  machine_required: boolean | null;
+  diff: string | null;
+  variation: string | null;
+  emoji: string | null;
+  setup_notes: string | null;
+  parent_id: string | null;
+  parent_name: string | null;
+  video_url: string | null;
+  video_url_alt: string | null;
+  thumbnail_url: string | null;
+};
+
+let _supabaseExercises: Exercise[] | null = null;
+let _supabaseExercisesPromise: Promise<Exercise[]> | null = null;
+
+function trimOrEmpty(v: string | null | undefined): string {
+  return typeof v === 'string' ? v.trim() : '';
+}
+function trimOrUndefined(v: string | null | undefined): string | undefined {
+  const t = trimOrEmpty(v);
+  return t ? t : undefined;
+}
+
+function supabaseRowToExercise(r: SupabaseExerciseRow): Exercise {
+  return {
+    id: r.id,
+    slug: trimOrUndefined(r.slug),
+    name: trimOrEmpty(r.name),
+    cat: trimOrEmpty(r.cat),
+    primaryCat: trimOrUndefined(r.primary_cat),
+    subcat: trimOrUndefined(r.subcat),
+    environment: trimOrUndefined(r.environment),
+    bodyFocus: trimOrEmpty(r.body_focus),
+    equipment: trimOrEmpty(r.equipment),
+    machineRequired: !!r.machine_required,
+    diff: trimOrEmpty(r.diff),
+    variation: trimOrEmpty(r.variation),
+    emoji: trimOrEmpty(r.emoji),
+    setupNotes: trimOrEmpty(r.setup_notes),
+    parentId: trimOrUndefined(r.parent_id),
+    parentName: trimOrUndefined(r.parent_name),
+    videoUrl: trimOrUndefined(r.video_url),
+    videoUrlAlt: trimOrUndefined(r.video_url_alt),
+    thumbnailUrl: trimOrUndefined(r.thumbnail_url),
+  };
+}
+
+function loadSupabaseExercises(): Promise<Exercise[]> {
+  if (_supabaseExercises) return Promise.resolve(_supabaseExercises);
+  if (_supabaseExercisesPromise) return _supabaseExercisesPromise;
+  _supabaseExercisesPromise = (async () => {
+    try {
+      const { data, error } = await supabase
+        .from('exercises')
+        .select(
+          'id, slug, name, cat, primary_cat, subcat, environment, body_focus, equipment, machine_required, diff, variation, emoji, setup_notes, parent_id, parent_name, video_url, video_url_alt, thumbnail_url',
+        )
+        .eq('status', 'published');
+      if (error) {
+        _supabaseExercises = [];
+        return _supabaseExercises;
+      }
+      _supabaseExercises = ((data ?? []) as SupabaseExerciseRow[]).map(
+        supabaseRowToExercise,
+      );
+      return _supabaseExercises;
+    } catch {
+      _supabaseExercises = [];
+      return _supabaseExercises;
+    }
+  })();
+  return _supabaseExercisesPromise;
+}
+
 function loadWorkoutOverrides(): Promise<Record<string, Partial<RawWorkout>>> {
   if (_workoutOverrides) return Promise.resolve(_workoutOverrides);
   if (_workoutOverridesPromise) return _workoutOverridesPromise;
@@ -256,21 +363,21 @@ function loadWorkoutOverrides(): Promise<Record<string, Partial<RawWorkout>>> {
 
 export async function getExercises(lang: string = 'en'): Promise<Exercise[]> {
   const code = (lang || 'en').split('-')[0];
-  // Fetch base data, admin overrides, and (if needed) locale overlay in parallel.
-  const [base, overrides, overlay] = await Promise.all([
+  // Fetch base data, admin overrides, locale overlay, AND the live Supabase
+  // exercises table in parallel. The Supabase fetch surfaces admin-created
+  // rows that don't exist in the bundled snapshot, so the public detail page
+  // can resolve them by slug instead of 404-ing.
+  const [base, overrides, overlay, supabaseRows] = await Promise.all([
     loadExercises(),
     loadExerciseOverrides(),
     code === 'en' ? Promise.resolve<LocaleOverlay>({}) : loadOverlay(code),
+    loadSupabaseExercises(),
   ]);
-
-  const hasOverrides = Object.keys(overrides).length > 0;
-  const hasOverlay = Object.keys(overlay).length > 0;
-  if (!hasOverrides && !hasOverlay) return base;
 
   // Precedence (low -> high so the latter wins):
   //   base  <  admin override  <  locale overlay (non-en setupNotes)
   // Rationale: a translated setupNotes should win over an English admin edit.
-  return base.map((ex) => {
+  const merged = base.map((ex) => {
     const override = overrides[ex.id];
     const loc = overlay[ex.id];
     let out: Exercise = ex;
@@ -278,6 +385,17 @@ export async function getExercises(lang: string = 'en'): Promise<Exercise[]> {
     if (loc?.setupNotes) out = { ...out, setupNotes: loc.setupNotes };
     return out;
   });
+
+  // Union admin-only rows. Anything whose id isn't in the bundled catalog is
+  // appended; rows that ARE in the bundle stay on the existing override path
+  // above to avoid changing precedence for the 99% case.
+  if (supabaseRows.length > 0) {
+    const baseIds = new Set(base.map((b) => b.id));
+    for (const r of supabaseRows) {
+      if (!baseIds.has(r.id)) merged.push(r);
+    }
+  }
+  return merged;
 }
 
 export async function getWorkouts(): Promise<Workout[]> {

@@ -1,0 +1,409 @@
+/* ─────────────────────────────
+   AFFILIATE PAGE — Affiliate.css
+   Hevy-style program page: hero → earnings slider → 3 steps → FAQ → CTA
+   ───────────────────────────── */
+
+.aff-page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ── Hero ── */
+.aff-hero {
+  padding: 64px 32px 56px;
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.aff-eyebrow {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+.aff-headline {
+  font-size: clamp(44px, 7vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -1.5px;
+  color: var(--text);
+  margin: 0 0 20px;
+}
+
+.aff-subhead {
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0 auto 40px;
+}
+
+/* Trust strip */
+.aff-trust {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 28px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.aff-trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 80px;
+}
+
+.aff-trust-num {
+  font-size: 28px;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+}
+
+.aff-trust-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.aff-trust-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border);
+}
+
+/* ── Section shared ── */
+.aff-section-heading {
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 0.95;
+  letter-spacing: -1px;
+  color: var(--text);
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.aff-section-sub {
+  font-size: 16px;
+  color: var(--muted);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.5;
+}
+
+/* ── Earnings calculator ── */
+.aff-calc {
+  padding: 64px 32px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.aff-calc-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+}
+
+.aff-calc-label {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.aff-calc-users {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 56px;
+  color: var(--text);
+  line-height: 1;
+  margin: 8px 0 20px;
+  letter-spacing: -1px;
+}
+
+.aff-calc-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 24px;
+  cursor: pointer;
+}
+
+.aff-calc-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  background: var(--bg4);
+  border-radius: 100px;
+}
+
+.aff-calc-slider::-moz-range-track {
+  height: 6px;
+  background: var(--bg4);
+  border-radius: 100px;
+}
+
+.aff-calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 0;
+  margin-top: -8px;
+  cursor: grab;
+  box-shadow: 0 2px 8px rgba(202, 255, 0, 0.35);
+}
+
+.aff-calc-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 0;
+  cursor: grab;
+  box-shadow: 0 2px 8px rgba(202, 255, 0, 0.35);
+}
+
+.aff-calc-slider:focus-visible {
+  outline: none;
+}
+
+.aff-calc-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(202, 255, 0, 0.25);
+}
+
+.aff-calc-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 28px 0 24px;
+}
+
+.aff-calc-label--earnings {
+  margin-bottom: 8px;
+}
+
+.aff-calc-earnings {
+  font-size: 56px;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -1px;
+}
+
+/* ── How it works ── */
+.aff-how {
+  padding: 56px 32px 72px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.aff-how-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.aff-how-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.aff-how-num {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border: 1px solid rgba(202, 255, 0, 0.25);
+}
+
+.aff-how-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 4px 0 6px;
+}
+
+.aff-how-step p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── FAQ ── */
+.aff-faq {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 72px 32px;
+}
+
+.aff-faq-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.aff-faq-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.aff-faq-item--open {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.aff-faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  min-height: 56px;
+}
+
+.aff-faq-trigger:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.aff-faq-icon {
+  font-size: 20px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-left: 16px;
+  flex-shrink: 0;
+}
+
+.aff-faq-body {
+  padding: 0 20px 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── Final CTA band ── */
+.aff-cta-band {
+  padding: 80px 32px;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.aff-cta-headline {
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 0.95;
+  letter-spacing: -1px;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+
+.aff-cta-sub {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 32px;
+  line-height: 1.5;
+}
+
+.aff-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 14px;
+  transition: background 0.2s, transform 0.15s;
+  min-height: 44px;
+}
+
+.aff-cta-btn:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+}
+
+.aff-cta-btn:focus-visible,
+.aff-faq-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .aff-hero {
+    padding: 40px 20px 32px;
+  }
+  .aff-trust {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 24px;
+  }
+  .aff-trust-divider {
+    width: 60%;
+    height: 1px;
+  }
+  .aff-calc {
+    padding: 40px 20px;
+  }
+  .aff-calc-card {
+    padding: 24px;
+  }
+  .aff-calc-users,
+  .aff-calc-earnings {
+    font-size: 44px;
+  }
+  .aff-how {
+    padding: 32px 20px 56px;
+  }
+  .aff-how-step {
+    gap: 16px;
+  }
+  .aff-faq {
+    padding: 48px 20px;
+  }
+  .aff-cta-band {
+    padding: 56px 20px;
+  }
+}

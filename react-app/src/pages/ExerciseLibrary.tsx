@@ -1,8 +1,9 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { getExercises, type Exercise } from '../data/exercises';
-import { exerciseThumb, isMediaHidden } from '../utils/thumbnails';
+import { Trans, useTranslation } from 'react-i18next';
+import { useExercises } from '../hooks/useExercises';
+import { exerciseThumbSet, isMediaHidden } from '../utils/thumbnails';
+import { ThumbPicture } from '../components/ThumbPicture';
 import { MuscleTile } from '../components/MuscleTile';
 import { MuscleGroupStrip } from '../components/MuscleGroupStrip';
 import { ActiveFilters, type ActiveFilter } from '../components/ActiveFilters';
@@ -12,6 +13,12 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { Search, ICON_STROKE } from '../utils/icons';
 import { useDebouncedValue } from '../utils/useDebouncedValue';
+import {
+  MUSCLE_I18N_KEYS,
+  EQUIPMENT_I18N_KEYS,
+  SETTING_I18N_KEYS,
+  TYPE_I18N_KEYS,
+} from '../utils/i18nKeys';
 import './ExerciseLibrary.css';
 
 function capitalize(s: string): string {
@@ -36,7 +43,7 @@ const SETTINGS = ['All', 'Gym', 'Home'];
 // Accessory; Pelvic Floor stands alone since it's a real distinct category).
 const TYPES = [
   'All', 'Strength', 'Cardio', 'HIIT', 'Power',
-  'Mobility', 'Core', 'Pelvic Floor', 'Warm-Up',
+  'Mobility', 'Stretching', 'Core', 'Pelvic Floor', 'Warm-Up',
 ];
 
 const TYPE_TO_PRIMARY_CATS: Record<string, string[]> = {
@@ -44,24 +51,11 @@ const TYPE_TO_PRIMARY_CATS: Record<string, string[]> = {
   Cardio: ['Cardio'],
   HIIT: ['HIIT / Functional'],
   Power: ['Power'],
-  Mobility: ['Mobility', 'Cool-Down', 'Recovery'],
+  Mobility: ['Mobility', 'Recovery'],
+  Stretching: ['Cool-Down'],
   Core: ['Core Stability'],
   'Pelvic Floor': ['Pelvic Floor & Breathing'],
   'Warm-Up': ['Warm-Up'],
-};
-
-const MUSCLE_I18N_KEYS: Record<string, string> = {
-  'All': 'all', 'Chest': 'chest', 'Back': 'back', 'Shoulders': 'shoulders',
-  'Biceps': 'biceps', 'Triceps': 'triceps', 'Core': 'core', 'Legs': 'legs',
-  'Glutes': 'glutes', 'Cardio': 'cardio', 'Full Body': 'fullBody',
-  'Forearms': 'forearms', 'Traps': 'traps',
-};
-
-const EQUIPMENT_I18N_KEYS: Record<string, string> = {
-  'All': 'all', 'Bodyweight': 'bodyweight', 'Barbell': 'barbell',
-  'Dumbbell': 'dumbbell', 'Cable': 'cable', 'Machine': 'machine',
-  'Kettlebell': 'kettlebell', 'Resistance Bands': 'resistanceBands',
-  'Bar': 'bar', 'Swiss Ball': 'swissBall',
 };
 
 // ── Pagination helpers ──
@@ -88,8 +82,14 @@ export default function ExerciseLibrary() {
   const { t, i18n } = useTranslation();
   const muscleLabel = (m: string) => t(`exerciseLibrary.muscles.${MUSCLE_I18N_KEYS[m] ?? 'all'}`);
   const equipmentLabel = (e: string) => t(`exerciseLibrary.equipment.${EQUIPMENT_I18N_KEYS[e] ?? 'all'}`);
-  const [exercises, setExercises] = useState<Exercise[]>([]);
-  const [loading, setLoading] = useState(true);
+  const settingLabel = (s: string) => t(`exerciseLibrary.setting.${SETTING_I18N_KEYS[s] ?? 'all'}`);
+  const typeLabel = (typ: string) => t(`exerciseLibrary.type.${TYPE_I18N_KEYS[typ] ?? 'all'}`);
+  // Phase 4: public catalog now flows through useExercises(). The hook paints
+  // /exercises.json first (build-time SEO baseline) then swaps in the canonical
+  // Supabase rows once they arrive — so admin-published changes show up live.
+  // Locale overlay (setupNotes translations) doesn't apply on the listing page;
+  // detail pages still go through getExercises() in src/data/exercises.ts.
+  const { exercises, loading } = useExercises();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const urlSearch = searchParams.get('q') || '';
@@ -102,14 +102,12 @@ export default function ExerciseLibrary() {
 
   const [searchInput, setSearchInput] = useState(urlSearch);
   const debouncedSearch = useDebouncedValue(searchInput, 150);
-  const [filtersOpen, setFiltersOpen] = useState(false);
-
-  useEffect(() => {
-    getExercises(i18n.language).then(data => {
-      setExercises(data);
-      setLoading(false);
-    });
-  }, [i18n.language]);
+  const [filtersOpen, setFiltersOpen] = useState(() => {
+    const s = searchParams.get('setting') || 'All';
+    const t = searchParams.get('type') || 'All';
+    const e = searchParams.get('equip') || 'All';
+    return s !== 'All' || t !== 'All' || e !== 'All';
+  });
 
   // ── SEO meta ──
   const seoTitle = useMemo(() => {
@@ -140,16 +138,46 @@ export default function ExerciseLibrary() {
     return libraryCanonicalUrl(qs || undefined);
   }, [muscle, equip]);
 
+  // ── Parent-only baseline ──
+  // The library never displays bilateral L/R children — they're shown via the
+  // parent's detail page. Kept as a separate memo so the header counter and
+  // the filtered grid agree on what "exercise" means.
+  const parentExercises = useMemo(
+    () => exercises.filter(e => !e.parentId && !/[—–-]\s*(Left|Right)\b/i.test(e.name)),
+    [exercises],
+  );
+
+  // Map each parent's id → first child with a video URL set. Lets the card
+  // grid fall back to a child's thumbnail when the parent canonical itself
+  // has no own demo (common pattern for ~110 single-arm parents we
+  // restructured: parent has no video, L/R children carry the demos).
+  const childThumbDonorByParent = useMemo(() => {
+    const map = new Map<string, typeof exercises[number]>();
+    for (const e of exercises) {
+      const pid = e.parentId;
+      if (!pid) continue;
+      if (!e.videoUrl) continue;
+      if (!map.has(pid)) map.set(pid, e);
+    }
+    return map;
+  }, [exercises]);
+
   // ── Filter logic ──
   const filtered = useMemo(() => {
-    let result = exercises;
+    let result = parentExercises;
 
     if (urlSearch) {
-      const q = urlSearch.toLowerCase();
+      // Normalize hyphens / em-dashes to spaces (then collapse runs of
+      // whitespace) on both query and candidate text. This way searches
+      // like "iso la" match "Iso-Lateral", "single arm" matches "Single-Arm",
+      // and "world s" matches "World's". Case-insensitive throughout.
+      const norm = (s: string) =>
+        s.toLowerCase().replace(/[—–\-']/g, ' ').replace(/\s+/g, ' ').trim();
+      const q = norm(urlSearch);
       result = result.filter(e =>
-        e.name.toLowerCase().includes(q) ||
-        e.bodyFocus.toLowerCase().includes(q) ||
-        e.equipment.toLowerCase().includes(q)
+        norm(e.name).includes(q) ||
+        norm(e.bodyFocus).includes(q) ||
+        norm(e.equipment).includes(q)
       );
     }
 
@@ -197,7 +225,7 @@ export default function ExerciseLibrary() {
     });
 
     return result;
-  }, [exercises, urlSearch, muscle, equip, setting, trainingType]);
+  }, [parentExercises, urlSearch, muscle, equip, setting, trainingType]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const safePage = Math.min(page, totalPages);
@@ -232,12 +260,17 @@ export default function ExerciseLibrary() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [setSearchParams]);
 
-  // Sync URL when debounced input changes
+  // Sync URL when debounced input changes.
+  // Guard: only push when the debounce has settled to the current input —
+  // otherwise an external urlSearch clear (e.g. ActiveFilters × on the search
+  // chip) races against a stale debouncedSearch and immediately re-pushes the
+  // old query.
   useEffect(() => {
+    if (debouncedSearch !== searchInput) return;
     if (debouncedSearch !== urlSearch) {
       updateParam('q', debouncedSearch);
     }
-  }, [debouncedSearch, urlSearch, updateParam]);
+  }, [debouncedSearch, searchInput, urlSearch, updateParam]);
 
   // Sync input from URL when external nav changes it (e.g. ActiveFilters clear)
   useEffect(() => {
@@ -247,21 +280,38 @@ export default function ExerciseLibrary() {
   // ── Active filters ──
   const activeFilters: ActiveFilter[] = [];
   if (muscle !== 'All') activeFilters.push({ key: 'muscle', label: muscleLabel(muscle), value: muscle });
-  if (setting !== 'All') activeFilters.push({ key: 'setting', label: setting, value: setting });
-  if (trainingType !== 'All') activeFilters.push({ key: 'type', label: trainingType, value: trainingType });
+  if (setting !== 'All') activeFilters.push({ key: 'setting', label: settingLabel(setting), value: setting });
+  if (trainingType !== 'All') activeFilters.push({ key: 'type', label: typeLabel(trainingType), value: trainingType });
   if (equip !== 'All') activeFilters.push({ key: 'equip', label: equipmentLabel(equip), value: equip });
   if (urlSearch) activeFilters.push({ key: 'q', label: `"${urlSearch}"`, value: urlSearch });
 
   // ── Adaptive results filter context ──
+  // Built from the new filterContext.* i18n keys so the result-count line
+  // reads naturally in every locale. Setting + Type join into the muscle
+  // slot when present so we can keep the grammar working across languages.
   const filterContext = useMemo(() => {
-    const parts: string[] = [];
-    if (muscle !== 'All') parts.push(muscleLabel(muscle).toLowerCase());
-    if (setting !== 'All') parts.push(setting.toLowerCase());
-    if (trainingType !== 'All') parts.push(trainingType.toLowerCase());
-    if (equip !== 'All') parts.push(equipmentLabel(equip).toLowerCase());
-    return parts.length > 0 ? ` ${parts.join(' ')} exercises` : '';
+    const muscleParts: string[] = [];
+    if (muscle !== 'All') muscleParts.push(muscleLabel(muscle).toLowerCase());
+    if (setting !== 'All') muscleParts.push(settingLabel(setting).toLowerCase());
+    if (trainingType !== 'All') muscleParts.push(typeLabel(trainingType).toLowerCase());
+    const muscleStr = muscleParts.join(' ');
+    const equipStr = equip !== 'All' ? equipmentLabel(equip).toLowerCase() : '';
+
+    if (muscleStr && equipStr) {
+      return t('exerciseLibrary.filterContext.muscleAndEquipment', {
+        muscle: muscleStr,
+        equipment: equipStr,
+      });
+    }
+    if (muscleStr) {
+      return t('exerciseLibrary.filterContext.muscle', { muscle: muscleStr });
+    }
+    if (equipStr) {
+      return t('exerciseLibrary.filterContext.equipment', { equipment: equipStr });
+    }
+    return '';
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [muscle, setting, trainingType, equip]);
+  }, [muscle, setting, trainingType, equip, i18n.language]);
 
   return (
     <>
@@ -286,72 +336,73 @@ export default function ExerciseLibrary() {
           {/* Hero */}
           <div className="el-hero">
             <h1 className="font-display">{t('exerciseLibrary.title')}</h1>
-            <p>{loading ? t('exerciseLibrary.exercisesWord') : t('exerciseLibrary.exerciseCount', { count: exercises.length })}</p>
           </div>
 
           {/* Muscle group strip */}
           <MuscleGroupStrip activeMuscle={muscle !== 'All' ? muscle : undefined} />
 
-          {/* Search */}
-          <div className="el-search-wrap">
-            <Search className="el-search-icon" strokeWidth={ICON_STROKE} aria-hidden />
-            <input
-              type="text"
-              className="el-search"
-              placeholder={t('exerciseLibrary.searchPlaceholder')}
-              aria-label={t('exerciseLibrary.searchAriaLabel')}
-              value={searchInput}
-              onChange={e => setSearchInput(e.target.value)}
-            />
-          </div>
+          <div className="el-primary-bar">
+            {/* Search */}
+            <div className="el-search-wrap">
+              <Search className="el-search-icon" strokeWidth={ICON_STROKE} aria-hidden />
+              <input
+                type="text"
+                className="el-search"
+                placeholder={t('exerciseLibrary.searchPlaceholder')}
+                aria-label={t('exerciseLibrary.searchAriaLabel')}
+                value={searchInput}
+                onChange={e => setSearchInput(e.target.value)}
+              />
+            </div>
 
-          {/* Mobile filters toggle — collapses Setting/Type/Equipment into one tap */}
-          <button
-            type="button"
-            className="el-filters-toggle"
-            aria-expanded={filtersOpen}
-            aria-controls="el-filters"
-            onClick={() => setFiltersOpen(o => !o)}
-          >
-            <span>
-              {t('exerciseLibrary.filtersToggle', { defaultValue: 'Filters' })}
-              {(activeFilters.length - (urlSearch ? 1 : 0)) > 0 && (
-                <span className="el-filters-toggle__count" aria-label="active filter count">
-                  {activeFilters.length - (urlSearch ? 1 : 0)}
-                </span>
-              )}
-            </span>
-            <span className="el-filters-toggle__chev" aria-hidden>▾</span>
-          </button>
+            {/* Filters toggle — collapses Setting/Type/Equipment into a single button (visible on desktop and mobile) */}
+            <button
+              type="button"
+              className="el-filters-toggle"
+              aria-expanded={filtersOpen}
+              aria-controls="el-filters"
+              onClick={() => setFiltersOpen(o => !o)}
+            >
+              <span>
+                {t('exerciseLibrary.filtersToggle')}
+                {(activeFilters.length - (urlSearch ? 1 : 0)) > 0 && (
+                  <span className="el-filters-toggle__count" aria-label="active filter count">
+                    {activeFilters.length - (urlSearch ? 1 : 0)}
+                  </span>
+                )}
+              </span>
+              <span className="el-filters-toggle__chev" aria-hidden>▾</span>
+            </button>
+          </div>
 
           {/* Filters (muscle group is the visual strip above) */}
           <div id="el-filters" className={`el-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
             <div className="el-filter-row">
-              <span className="el-filter-label">Setting</span>
+              <span className="el-filter-label">{t('exerciseLibrary.settingLabel')}</span>
               <div className="el-chips">
                 {SETTINGS.map(s => (
                   <button
                     key={s}
                     className={`el-chip ${setting === s ? 'active' : ''}`}
                     aria-pressed={setting === s}
-                    onClick={() => updateParam('setting', s)}
+                    onClick={() => updateParam('setting', setting === s ? 'All' : s)}
                   >
-                    {s === 'All' ? t('exerciseLibrary.muscles.all') : s}
+                    {settingLabel(s)}
                   </button>
                 ))}
               </div>
             </div>
             <div className="el-filter-row">
-              <span className="el-filter-label">Type</span>
+              <span className="el-filter-label">{t('exerciseLibrary.typeLabel')}</span>
               <div className="el-chips">
                 {TYPES.map(typ => (
                   <button
                     key={typ}
                     className={`el-chip ${trainingType === typ ? 'active' : ''}`}
                     aria-pressed={trainingType === typ}
-                    onClick={() => updateParam('type', typ)}
+                    onClick={() => updateParam('type', trainingType === typ ? 'All' : typ)}
                   >
-                    {typ === 'All' ? t('exerciseLibrary.muscles.all') : typ}
+                    {typeLabel(typ)}
                   </button>
                 ))}
               </div>
@@ -364,7 +415,7 @@ export default function ExerciseLibrary() {
                     key={e}
                     className={`el-chip ${equip === e ? 'active' : ''}`}
                     aria-pressed={equip === e}
-                    onClick={() => updateParam('equip', e)}
+                    onClick={() => updateParam('equip', equip === e ? 'All' : e)}
                   >
                     {equipmentLabel(e)}
                   </button>
@@ -376,16 +427,42 @@ export default function ExerciseLibrary() {
           {/* Active filters */}
           <ActiveFilters
             filters={activeFilters}
-            onRemove={(key) => updateParam(key, key === 'q' ? '' : 'All')}
-            onClearAll={() => setSearchParams({})}
+            onRemove={(key) => {
+              // Clear searchInput synchronously alongside the URL so the
+              // debounce-sync effect sees matching state on the next render
+              // and doesn't re-push the stale query.
+              if (key === 'q') setSearchInput('');
+              updateParam(key, key === 'q' ? '' : 'All');
+            }}
+            onClearAll={() => {
+              setSearchInput('');
+              setSearchParams({});
+            }}
           />
 
           {/* Results count */}
           {!loading && (
             <div className="el-results-count" aria-live="polite">
-              {filterContext
-                ? <>Showing <strong>{rangeStart}–{rangeEnd}</strong> of <strong>{filtered.length}</strong>{filterContext}</>
-                : <>{t('exerciseLibrary.showingPrefix')} <strong>{rangeStart}–{rangeEnd}</strong> {t('exerciseLibrary.showingOf')} <strong>{filtered.length}</strong> {t('exerciseLibrary.showingSuffix')}</>}
+              {filterContext ? (
+                <Trans
+                  i18nKey="exerciseLibrary.showingResultsFiltered"
+                  values={{
+                    from: rangeStart,
+                    to: rangeEnd,
+                    total: filtered.length,
+                    context: filterContext,
+                  }}
+                />
+              ) : (
+                <Trans
+                  i18nKey="exerciseLibrary.showingResults"
+                  values={{
+                    from: rangeStart,
+                    to: rangeEnd,
+                    total: filtered.length,
+                  }}
+                />
+              )}
             </div>
           )}
 
@@ -405,26 +482,38 @@ export default function ExerciseLibrary() {
                   : t('exerciseLibrary.emptyState.description')}
               </p>
               <button className="el-empty-clear" onClick={() => setSearchParams({})}>
-                Clear filters
+                {t('common.clearFilters')}
               </button>
             </div>
           ) : (
             <div className="el-grid">
               {pageExercises.map(ex => {
-                const thumb = exerciseThumb(ex);
+                // If the parent canonical has no own video, derive its
+                // library-card thumbnail from a child's video so the grid
+                // doesn't fall back to the muscle-tile placeholder.
+                const thumb =
+                  exerciseThumbSet(ex) ??
+                  exerciseThumbSet(childThumbDonorByParent.get(ex.id));
                 return (
-                <Link key={ex.id} to={`/exercises/${ex.id}`} className="el-card">
+                <Link key={ex.id} to={`/exercises/${ex.slug ?? ex.id}`} className="el-card">
                   <div className="el-card-media">
                     <MuscleTile muscle={ex.bodyFocus} />
-                    {thumb && (
-                      <img
-                        src={thumb}
-                        alt=""
+                    {thumb ? (
+                      <ThumbPicture
+                        thumb={thumb}
                         loading="lazy"
                         onError={(e) => (e.currentTarget.style.display = 'none')}
                         className="el-card-thumb"
                       />
-                    )}
+                    ) : ex.videoUrl ? (
+                      <video
+                        src={ex.videoUrl}
+                        preload="metadata"
+                        muted
+                        playsInline
+                        className="el-card-thumb"
+                      />
+                    ) : null}
                   </div>
                   <div className="el-card-name">{ex.name}</div>
                   <div className="el-card-meta">

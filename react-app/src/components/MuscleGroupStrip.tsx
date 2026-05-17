@@ -7,9 +7,12 @@
  * Used on ExerciseDetail and ExerciseLibrary as a visual entry point into
  * the catalog (Befit-style).
  */
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import type { MouseEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import Model, { type IExerciseData, type Muscle } from 'react-body-highlighter';
 import { MUSCLE_GROUP_KEYS } from '../utils/exerciseInfo';
+import { MUSCLE_NAME_I18N_KEYS } from '../utils/i18nKeys';
 import './MuscleGroupStrip.css';
 
 interface Props {
@@ -46,10 +49,13 @@ const BODY_COLOR = '#4a4e58';
 // Both slots are lime so any frequency the muscle picks up paints the same color.
 const HIGHLIGHTED_COLORS: [string, string] = ['#caff00', '#caff00'];
 
-export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Group' }: Props) {
+export function MuscleGroupStrip({ activeMuscle, title }: Props) {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const resolvedTitle = title ?? t('exerciseLibrary.exploreByMuscleGroup');
   return (
     <section className="mgs">
-      <h2 className="mgs__title">{title}</h2>
+      <h2 className="mgs__title">{resolvedTitle}</h2>
       <div className="mgs__scroll">
         {MUSCLE_GROUP_KEYS.map((muscle) => {
           const isActive = activeMuscle === muscle;
@@ -57,11 +63,24 @@ export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Grou
           const data: IExerciseData[] = preview
             ? [{ name: muscle, muscles: preview.muscles }]
             : [];
+          const label = t(`exerciseLibrary.muscles.${MUSCLE_NAME_I18N_KEYS[muscle] ?? 'all'}`).toUpperCase();
+          const target = isActive ? '/exercises' : `/exercises?muscle=${encodeURIComponent(muscle)}`;
+          // Explicit onClick guarantees navigation even if a descendant
+          // (e.g. react-body-highlighter's polygon onClick) interferes with
+          // the anchor's default activation. preventDefault avoids a
+          // double-navigate and keeps focus behaviour predictable.
+          const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+            e.preventDefault();
+            navigate(target);
+          };
           return (
             <Link
               key={muscle}
-              to={`/exercises?muscle=${encodeURIComponent(muscle)}`}
+              to={target}
+              onClick={onClick}
               className={`mgs__item ${isActive ? 'mgs__item--active' : ''}`}
+              aria-current={isActive ? 'true' : undefined}
             >
               <div className="mgs__tile">
                 {preview ? (
@@ -74,7 +93,7 @@ export function MuscleGroupStrip({ activeMuscle, title = 'Explore by Muscle Grou
                   />
                 ) : null}
               </div>
-              <div className="mgs__label">{muscle.toUpperCase()}</div>
+              <div className="mgs__label">{label}</div>
             </Link>
           );
         })}

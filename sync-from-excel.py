@@ -7,12 +7,38 @@ Exercises: derived from libo-app-v2/src/data/exercises.json (already correct, 63
 Workouts: parsed from Exercise_Library_v5_Workouts.xlsx workout detail sheets.
 
 Challenge Programs are excluded from workout output.
+
+GATED as of 2026-05-07: requires --allow-overwrite. Excel is no longer the
+source of truth — the admin panel at https://liboworld.com/admin is. See
+CLAUDE.md → "Exercise Data Sync Rule".
 """
 
+import argparse
+import sys
 import json
 import re
 import os
 import openpyxl
+
+
+GUARD_BANNER = """\
+============================================================
+  EXCEL IS NO LONGER THE SOURCE OF TRUTH
+============================================================
+  As of 2026-05-07, the admin panel is authoritative:
+      https://liboworld.com/admin
+
+  Excel (Exercise_Library_v5_Workouts.xlsx) is preserved as
+  read-only historical reference. Running this script would
+  regenerate libo-data.js and react-app/public/{exercises,
+  workouts}.json and silently overwrite admin-authored data.
+
+  If you really need to do this (disaster recovery only),
+  re-run with --allow-overwrite.
+
+  Context: CLAUDE.md → "Exercise Data Sync Rule".
+============================================================
+"""
 
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
 MONO_ROOT = os.path.dirname(REPO_ROOT)
@@ -66,12 +92,65 @@ def slugify_name(name: str) -> str:
 
 
 def build_exercises():
-    """Load exercises from the app's exercises.json and convert to libo-data.js format."""
+    """Load exercises from the app's exercises.json and convert to libo-data.js format.
+
+    Web shows ONLY parent exercises (Hevy / Strong / MuscleWiki convention).
+    L/R distinction is reserved for the mobile app's active workout player.
+
+    Some bilateral exercises live in source as L/R children only (no canonical
+    parent row exists). For those we synthesize a parent entry from the first
+    child seen, using the child's metadata + the parentName as the display name.
+    """
     with open(APP_EXERCISES_PATH) as f:
         app_exercises = json.load(f)
 
+    # Index real parents by id for O(1) lookup.
+    real_parent_ids = {ex["id"] for ex in app_exercises if not ex.get("parentId")}
+
     exercises = []
+    synthesized_parent_ids: set[str] = set()
+
     for ex in app_exercises:
+        parent_id = ex.get("parentId")
+
+        if parent_id:
+            # Bilateral child. If a real parent row exists, skip — the parent will
+            # be processed in its own iteration.
+            if parent_id in real_parent_ids:
+                continue
+            # No real parent row — synthesize one from this child (only the first).
+            if parent_id in synthesized_parent_ids:
+                continue
+            synthesized_parent_ids.add(parent_id)
+            display_name = ex.get("parentName") or ex["name"]
+            display_slug = slugify_name(display_name)
+            out = {
+                "id": display_slug,
+                "name": display_name,
+                "slug": display_slug,
+                "cat": ex["cat"],
+                "primaryCat": ex.get("primaryCat", ""),
+                "subcat": ex.get("subcat", ""),
+                "environment": ex.get("environment", ""),
+                "bodyFocus": ex["bodyFocus"],
+                "equipment": ex["equipment"],
+                "machineRequired": ex["machineRequired"],
+                "diff": ex["diff"],
+                "variation": ex.get("variation", ""),
+                "emoji": ex["emoji"],
+                "setupNotes": ex.get("setupNotes", ""),
+            }
+            # Inherit a video from the L child if available — landing's media
+            # falls back to slug-based lookup, but having the URL inline is
+            # safer for future schema changes.
+            if ex.get("videoUrl"):
+                out["videoUrl"] = ex["videoUrl"]
+            if ex.get("videoUrlAlt"):
+                out["videoUrlAlt"] = ex["videoUrlAlt"]
+            exercises.append(out)
+            continue
+
+        # Real parent row.
         out = {
             "id": ex["slug"],
             "name": ex["name"],
@@ -92,13 +171,8 @@ def build_exercises():
             out["videoUrl"] = ex["videoUrl"]
         if ex.get("videoUrlAlt"):
             out["videoUrlAlt"] = ex["videoUrlAlt"]
-        # Carry parentId/parentName so the landing site can resolve variant → parent
-        # (for thumbnail fallback — L/R variants share parent's thumb).
-        # parentId is re-slugged to match landing's id scheme (slug-based, not gym_*/home_*).
-        parent_name = ex.get("parentName") or ""
-        if parent_name and ex["name"].startswith(parent_name):
-            out["parentId"] = slugify_name(parent_name)
-            out["parentName"] = parent_name
+        # NOTE: parentId/parentName intentionally not propagated — web entries
+        # are parents only (children skipped above), so there's nothing to link to.
         exercises.append(out)
 
     return exercises
@@ -188,6 +262,18 @@ def build_workouts():
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        '--allow-overwrite',
+        action='store_true',
+        help='Bypass the guard and regenerate JSON from Excel. Disaster recovery only.',
+    )
+    args = parser.parse_args()
+
+    if not args.allow_overwrite:
+        sys.stderr.write(GUARD_BANNER)
+        sys.exit(1)
+
     print("Building exercises from app data...")
     exercises = build_exercises()
     print(f"  {len(exercises)} exercises")

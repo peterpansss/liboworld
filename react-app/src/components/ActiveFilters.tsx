@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X } from '../utils/icons';
 import './ActiveFilters.css';
 
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export function ActiveFilters({ filters, onRemove, onClearAll }: Props): ReactElement | null {
+  const { t } = useTranslation();
   if (filters.length === 0) return null;
 
   return (
@@ -38,7 +40,7 @@ export function ActiveFilters({ filters, onRemove, onClearAll }: Props): ReactEl
           className="active-filters__clear"
           onClick={onClearAll}
         >
-          Clear all
+          {t('common.clearAll')}
         </button>
       )}
     </div>

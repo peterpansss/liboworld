@@ -301,16 +301,55 @@ export async function listGiveawayWinners(giveawayId: string) {
   return data ?? [];
 }
 
+/**
+ * Browser-side resize before upload. Phone photos are 2-5 MB at 4032×3024;
+ * giveaway cards render at ~400 px wide on mobile (~1200 px at 3× retina),
+ * so anything over ~1600 px is wasted bandwidth. We re-encode to JPEG q=85
+ * at max-width 1600 — that's the headroom-friendly sweet spot:
+ *   • visually indistinguishable from the original at card sizes
+ *   • future-proof for tablet / large-screen rendering
+ *   • typical 3 MB upload becomes ~120-250 KB (still 15-25× smaller)
+ * Solves Supabase Free-plan storage slowness without paying for Pro image
+ * transforms.
+ */
+async function resizeForUpload(file: File, maxWidth = 1600, quality = 0.85): Promise<Blob> {
+  // GIFs would lose animation through canvas; pass through untouched.
+  if (file.type === 'image/gif') return file;
+
+  const bitmap = await createImageBitmap(file);
+  const scale = bitmap.width > maxWidth ? maxWidth / bitmap.width : 1;
+  const w = Math.round(bitmap.width * scale);
+  const h = Math.round(bitmap.height * scale);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    bitmap.close();
+    return file; // canvas unavailable (extremely rare) — fall back to raw upload
+  }
+  ctx.drawImage(bitmap, 0, 0, w, h);
+  bitmap.close();
+
+  const blob: Blob | null = await new Promise((resolve) => {
+    canvas.toBlob((b) => resolve(b), 'image/jpeg', quality);
+  });
+  return blob ?? file;
+}
+
 export async function uploadGiveawayImage(file: File): Promise<string> {
-  // Client-side validation: rejects oversized / wrong-type / empty files
-  // before bytes go on the wire. Bucket-level constraints + RLS policies
-  // are the authoritative gate (see supabase-migration-storage-policies.sql).
+  // Client-side validation BEFORE resize: rejects oversized / wrong-type /
+  // empty files before bytes go on the wire. Bucket-level constraints + RLS
+  // policies are the authoritative gate (see supabase-migration-storage-policies.sql).
   assertValidUpload(file, { kind: 'image', maxBytes: MAX_IMAGE_BYTES });
-  const ext = safeExtensionForMime(file.type, 'jpg');
+  const resized = await resizeForUpload(file);
+  // Always store as .jpg since resizeForUpload re-encodes to JPEG (except GIF).
+  const ext = resized.type === 'image/gif' ? 'gif' : 'jpg';
   const path = `${crypto.randomUUID()}.${ext}`;
-  const { error } = await supabase.storage.from('giveaway-images').upload(path, file, {
+  const { error } = await supabase.storage.from('giveaway-images').upload(path, resized, {
     upsert: false,
-    contentType: file.type,
+    contentType: resized.type,
   });
   if (error) throw error;
   const { data } = supabase.storage.from('giveaway-images').getPublicUrl(path);
@@ -440,12 +479,16 @@ export async function deleteWorkoutOverride(id: string) {
 }
 
 export async function uploadExerciseVideo(file: File): Promise<string> {
+  // Validate first (size, MIME allowlist incl. video/quicktime).
   assertValidUpload(file, { kind: 'video', maxBytes: MAX_VIDEO_BYTES });
-  const ext = safeExtensionForMime(file.type, 'mp4');
-  const path = `${crypto.randomUUID()}.${ext}`;
+  // The exercise-videos bucket only allows video/mp4, but iPhone/QuickTime
+  // recordings come in as video/quicktime (.mov). Both formats share the
+  // ISO BMFF container, so we always store as .mp4 with mime video/mp4 —
+  // browsers and downstream ffmpeg handle either input transparently.
+  const path = `${crypto.randomUUID()}.mp4`;
   const { error } = await supabase.storage.from('exercise-videos').upload(path, file, {
     upsert: false,
-    contentType: file.type || 'video/mp4',
+    contentType: 'video/mp4',
   });
   if (error) throw error;
   const { data } = supabase.storage.from('exercise-videos').getPublicUrl(path);
@@ -463,6 +506,192 @@ export async function uploadExerciseThumbnail(file: File): Promise<string> {
   if (error) throw error;
   const { data } = supabase.storage.from('exercise-thumbnails').getPublicUrl(path);
   return data.publicUrl;
+}
+
+// ── Phase 5: canonical content rows (exercises, workouts, programs) ───────
+//
+// These coexist with the override-based functions above during migration.
+// Once the canonical tables become the source of truth in the app, the
+// override functions can be retired — but until then both paths keep working.
+
+export type ContentStatus = 'draft' | 'published' | 'archived';
+
+export type ExerciseRow = {
+  id: string;
+  slug: string;
+  name: string;
+  cat: string | null;
+  primary_cat: string | null;
+  subcat: string | null;
+  environment: string | null;
+  body_focus: string | null;
+  equipment: string | null;
+  machine_required: boolean;
+  diff: string | null;
+  variation: string;
+  emoji: string;
+  setup_notes: string;
+  // Phase 3: per-language translations of setup_notes. Columns are
+  // populated asynchronously by the `translate-exercise` Edge Function
+  // (fire-and-forget on EN save). NULL until first translation run for
+  // that (row, lang) pair, or if admin explicitly clears the override.
+  setup_notes_de: string | null;
+  setup_notes_es: string | null;
+  setup_notes_fr: string | null;
+  setup_notes_pt: string | null;
+  parent_id: string;
+  parent_name: string;
+  video_url: string | null;
+  video_url_alt: string | null;
+  thumbnail_url: string | null;
+  voiceover_url: string | null;
+  status: ContentStatus;
+  origin: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type WorkoutBlockEntry = {
+  exercise_id: string | null;
+  exercise_name: string;
+  sets: string;
+  reps: string;
+};
+
+export type WorkoutRow = {
+  id: string;
+  slug: string;
+  name: string;
+  cat: string | null;
+  subcat: string | null;
+  dur: number | null;
+  diff: string | null;
+  emoji: string;
+  warmup: WorkoutBlockEntry[];
+  main: WorkoutBlockEntry[];
+  cooldown: WorkoutBlockEntry[];
+  status: ContentStatus;
+  origin: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ProgramRow = WorkoutRow & { days: number; blocks: unknown[] };
+
+type CanonicalMutationResult<T> = { ok: boolean; row?: T; error?: string };
+
+// ── Exercises (canonical) ─────────────────────────────────────────────────
+
+export async function listExercises(status?: ContentStatus): Promise<ExerciseRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_exercises', {
+    p_status: status ?? null,
+  });
+  if (error) throw error;
+  return (data ?? []) as ExerciseRow[];
+}
+
+export async function createExercise(
+  row: Partial<ExerciseRow>,
+): Promise<CanonicalMutationResult<ExerciseRow>> {
+  const { data, error } = await supabase.rpc('admin_create_exercise', { p_row: row });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ExerciseRow>;
+}
+
+export async function updateExercise(
+  id: string,
+  patch: Partial<ExerciseRow>,
+): Promise<CanonicalMutationResult<ExerciseRow>> {
+  const { data, error } = await supabase.rpc('admin_update_exercise', {
+    p_id: id,
+    p_patch: patch,
+  });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ExerciseRow>;
+}
+
+export async function deleteExercise(
+  id: string,
+): Promise<CanonicalMutationResult<ExerciseRow>> {
+  const { data, error } = await supabase.rpc('admin_delete_exercise', { p_id: id });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ExerciseRow>;
+}
+
+// ── Workouts (canonical) ──────────────────────────────────────────────────
+
+export async function listWorkouts(status?: ContentStatus): Promise<WorkoutRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_workouts', {
+    p_status: status ?? null,
+  });
+  if (error) throw error;
+  return (data ?? []) as WorkoutRow[];
+}
+
+export async function createWorkout(
+  row: Partial<WorkoutRow>,
+): Promise<CanonicalMutationResult<WorkoutRow>> {
+  const { data, error } = await supabase.rpc('admin_create_workout', { p_row: row });
+  if (error) throw error;
+  return data as CanonicalMutationResult<WorkoutRow>;
+}
+
+export async function updateWorkout(
+  id: string,
+  patch: Partial<WorkoutRow>,
+): Promise<CanonicalMutationResult<WorkoutRow>> {
+  const { data, error } = await supabase.rpc('admin_update_workout', {
+    p_id: id,
+    p_patch: patch,
+  });
+  if (error) throw error;
+  return data as CanonicalMutationResult<WorkoutRow>;
+}
+
+export async function deleteWorkout(
+  id: string,
+): Promise<CanonicalMutationResult<WorkoutRow>> {
+  const { data, error } = await supabase.rpc('admin_delete_workout', { p_id: id });
+  if (error) throw error;
+  return data as CanonicalMutationResult<WorkoutRow>;
+}
+
+// ── Programs (canonical) ──────────────────────────────────────────────────
+
+export async function listPrograms(status?: ContentStatus): Promise<ProgramRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_programs', {
+    p_status: status ?? null,
+  });
+  if (error) throw error;
+  return (data ?? []) as ProgramRow[];
+}
+
+export async function createProgram(
+  row: Partial<ProgramRow>,
+): Promise<CanonicalMutationResult<ProgramRow>> {
+  const { data, error } = await supabase.rpc('admin_create_program', { p_row: row });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ProgramRow>;
+}
+
+export async function updateProgram(
+  id: string,
+  patch: Partial<ProgramRow>,
+): Promise<CanonicalMutationResult<ProgramRow>> {
+  const { data, error } = await supabase.rpc('admin_update_program', {
+    p_id: id,
+    p_patch: patch,
+  });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ProgramRow>;
+}
+
+export async function deleteProgram(
+  id: string,
+): Promise<CanonicalMutationResult<ProgramRow>> {
+  const { data, error } = await supabase.rpc('admin_delete_program', { p_id: id });
+  if (error) throw error;
+  return data as CanonicalMutationResult<ProgramRow>;
 }
 
 // ── Money challenges ──────────────────────────────────────────────────────
@@ -546,6 +775,65 @@ export async function deleteMoneyChallenge(id: string) {
 export async function setMoneyChallengeActive(id: string, isActive: boolean) {
   const { error } = await supabase.from('money_challenges').update({ is_active: isActive }).eq('id', id);
   if (error) throw error;
+}
+
+// ── User enrollment management ────────────────────────────────────────────
+// Per-user view + reset of a user's cash-challenge state. Backed by
+// admin_list_user_enrollments + admin_reset_enrollment (see
+// supabase-migration-admin-enrollments.sql).
+
+export type AdminUserEnrollment = {
+  enrollment_id: string;
+  challenge_id: string;
+  challenge_title: string;
+  challenge_emoji: string | null;
+  challenge_reward_amount: number;
+  challenge_reward_currency: string;
+  challenge_total_days: number;
+  cycle_id: string | null;
+  cycle_status: 'enrollment_open' | 'running' | 'completed' | null;
+  cycle_start_date: string | null;
+  cycle_end_date: string | null;
+  status: 'active' | 'completed' | 'failed' | 'removed' | 'reward_claimed';
+  tier_at_enrollment: 'free' | 'pro' | 'elite';
+  freeze_tokens_remaining: number;
+  freeze_days: string[];
+  effective_end_date: string | null;
+  completed_days: number;
+  enrolled_at: string;
+  last_active_at: string | null;
+  removed_reason: string | null;
+};
+
+export async function listUserEnrollments(userId: string): Promise<AdminUserEnrollment[]> {
+  const { data, error } = await supabase.rpc('admin_list_user_enrollments', {
+    p_user_id: userId,
+  });
+  if (error) throw error;
+  return (data ?? []) as AdminUserEnrollment[];
+}
+
+export async function resetEnrollment(enrollmentId: string): Promise<void> {
+  const { data, error } = await supabase.rpc('admin_reset_enrollment', {
+    p_enrollment_id: enrollmentId,
+  });
+  if (error) throw error;
+  const result = data as { ok: boolean; error?: string; detail?: string } | null;
+  if (!result?.ok) {
+    throw new Error(result?.detail ?? result?.error ?? 'reset_failed');
+  }
+}
+
+export async function removeEnrollment(enrollmentId: string, reason: string): Promise<void> {
+  const { data, error } = await supabase.rpc('admin_remove_enrollment', {
+    p_enrollment_id: enrollmentId,
+    p_reason: reason,
+  });
+  if (error) throw error;
+  const result = data as { ok: boolean; error?: string; detail?: string } | null;
+  if (!result?.ok) {
+    throw new Error(result?.detail ?? result?.error ?? 'remove_failed');
+  }
 }
 
 // ── Giveaway templates ────────────────────────────────────────────────────
@@ -1248,4 +1536,152 @@ export async function setUserAdminFlagWithReauth(userId: string, isAdmin: boolea
 
 export async function markPayoutPaidWithReauth(payoutId: string, input: MarkPayoutPaidInput) {
   return withRecentAuth(() => markPayoutPaid(payoutId, input));
+}
+
+// ─── Media jobs (video processing + voiceover generation) ───────────────────
+export type MediaJobStatus = 'pending' | 'processing' | 'done' | 'error';
+export type MediaJobType = 'process_video' | 'generate_voiceover' | 'delete_video';
+/**
+ * Routes process_video / delete_video jobs to either the primary `video_url`
+ * slot (default) or the alternate-angle `video_url_alt` slot (side-view clip
+ * rendered as the PiP swap on the public site).
+ */
+export type MediaJobTarget = 'primary' | 'alt';
+
+export type MediaJobRow = {
+  id: number;
+  exercise_id: string | null;
+  job_type: MediaJobType;
+  storage_path: string | null;
+  voice: string | null;
+  target: MediaJobTarget;
+  status: MediaJobStatus;
+  progress_message: string | null;
+  error_message: string | null;
+  output_url: string | null;
+  created_at: string;
+  started_at: string | null;
+  finished_at: string | null;
+  created_by: string | null;
+  // New columns added in the lang+source_text migration. Optional in TS so
+  // older rows (or non-voiceover jobs) without these fields stay typed.
+  lang?: string | null;
+  source_text?: string | null;
+};
+
+const RAW_VIDEO_BUCKET = 'exercise-videos-raw';
+
+/**
+ * Upload a raw MP4 to the private `exercise-videos-raw` bucket.
+ * Returns the storage path that downstream jobs use to look up the file.
+ */
+export async function uploadExerciseVideoRaw(
+  file: File,
+  intendedSlug: string,
+): Promise<{ storage_path: string }> {
+  const safeSlug = intendedSlug.replace(/[^a-z0-9_-]+/gi, '_').toLowerCase() || 'exercise';
+  const path = `${safeSlug}-${Date.now()}.mp4`;
+  const { error } = await supabase.storage.from(RAW_VIDEO_BUCKET).upload(path, file, {
+    contentType: 'video/mp4',
+    upsert: false,
+  });
+  if (error) throw new Error(`upload failed: ${error.message}`);
+  return { storage_path: path };
+}
+
+export async function createMediaJob(
+  exercise_id: string,
+  job_type: MediaJobType,
+  storage_path: string | null = null,
+  voice: string | null = null,
+  target: MediaJobTarget = 'primary',
+  lang?: string,
+  source_text?: string,
+): Promise<{ ok: boolean; job?: MediaJobRow; error?: string }> {
+  const params: Record<string, unknown> = {
+    p_exercise_id: exercise_id,
+    p_job_type: job_type,
+    p_storage_path: storage_path,
+    p_voice: voice,
+    p_target: target,
+  };
+  if (lang !== undefined) params.p_lang = lang;
+  if (source_text !== undefined) params.p_source_text = source_text;
+  const { data, error } = await supabase.rpc('admin_create_media_job', params);
+  if (error) return { ok: false, error: error.message };
+  return data as { ok: boolean; job?: MediaJobRow; error?: string };
+}
+
+export async function listMediaJobs(
+  exercise_id: string | null = null,
+  status: MediaJobStatus | null = null,
+  limit = 50,
+): Promise<MediaJobRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_media_jobs', {
+    p_exercise_id: exercise_id,
+    p_status: status,
+    p_limit: limit,
+  });
+  if (error) throw error;
+  return (data ?? []) as MediaJobRow[];
+}
+
+export async function getMediaJob(id: number): Promise<MediaJobRow | null> {
+  const { data, error } = await supabase.rpc('admin_get_media_job', { p_id: id });
+  if (error) throw error;
+  const r = data as { ok: boolean; job?: MediaJobRow };
+  return r.ok && r.job ? r.job : null;
+}
+
+/**
+ * Subscribe to status updates for a single media_jobs row via Supabase Realtime.
+ * Falls back to a 3s polling loop if realtime fails to connect within 2s.
+ * Returns an unsubscribe function.
+ */
+export function subscribeToMediaJob(
+  jobId: number,
+  onUpdate: (job: MediaJobRow) => void,
+): () => void {
+  let cancelled = false;
+  let pollTimer: ReturnType<typeof setInterval> | null = null;
+  const channel = supabase
+    .channel(`media-job-${jobId}`)
+    .on(
+      'postgres_changes',
+      {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'media_jobs',
+        filter: `id=eq.${jobId}`,
+      },
+      (payload) => {
+        if (!cancelled) onUpdate(payload.new as MediaJobRow);
+      },
+    )
+    .subscribe();
+
+  const startPolling = () => {
+    if (pollTimer) return;
+    pollTimer = setInterval(async () => {
+      if (cancelled) return;
+      try {
+        const j = await getMediaJob(jobId);
+        if (j && !cancelled) onUpdate(j);
+      } catch {
+        // ignore — next tick will retry
+      }
+    }, 3000);
+  };
+
+  // Fallback: if realtime hasn't subscribed in 2s, start polling.
+  const fallback = setTimeout(() => {
+    if (channel.state !== 'joined') startPolling();
+  }, 2000);
+
+  return () => {
+    cancelled = true;
+    clearTimeout(fallback);
+    if (pollTimer) clearInterval(pollTimer);
+    void supabase.removeChannel(channel);
+  };
 }

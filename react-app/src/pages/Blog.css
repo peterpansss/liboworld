@@ -16,9 +16,9 @@
 }
 
 .blog-breadcrumb {
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 20px;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--muted) 55%, var(--text) 45%);
+  margin-bottom: 28px;
   letter-spacing: 0.5px;
 }
 
@@ -41,18 +41,18 @@
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
-  font-size: clamp(48px, 8vw, 80px);
+  font-size: clamp(36px, 4.2vw, 48px);
   line-height: 0.9;
   letter-spacing: -1px;
   color: var(--text);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .blog-hero-subtitle {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--muted);
   line-height: 1.6;
-  max-width: 480px;
+  max-width: 560px;
 }
 
 /* ── Category Filter ── */
@@ -68,7 +68,7 @@
 .blog-filter-chip {
   font-size: 12px;
   font-weight: 600;
-  padding: 7px 14px;
+  padding: 0 14px;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -92,14 +92,86 @@
   color: var(--accent);
 }
 
-/* ── Article Grid ── */
+/* ── Article Grid (used only for empty state now) ── */
 .blog-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
   padding: 0 32px;
   max-width: 1100px;
   margin: 0 auto 80px;
+}
+
+/* ── Article Carousel ──
+   Horizontal scroll-snap strip. 4 cards visible on desktop, 3 on tablet,
+   2 on small tablet, 1 on mobile. Native CSS scroll-snap drives the snap
+   behavior for swipe + arrow-button paging; the arrows just scrollBy one
+   container width at a time. */
+.blog-carousel-wrap {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto 80px;
+  padding: 0 56px;
+}
+
+/* Column-major grid: cards flow top-row first, then bottom, then advance
+   to the next column. Snap targets are columns; arrow buttons paginate by
+   container width (= 2 columns on desktop = a 2×2 block). */
+.blog-carousel {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-columns: calc((100% - 20px) / 2); /* 2 columns visible */
+  column-gap: 20px;
+  row-gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* Bleed gives card hover transform room without clipping */
+  padding: 4px 4px 24px;
+  margin: -4px -4px 0;
+}
+.blog-carousel::-webkit-scrollbar { display: none; }
+
+.blog-carousel-item {
+  scroll-snap-align: start;
+  min-width: 0; /* Let card body wrap inside grid track */
+}
+
+.blog-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(calc(-50% - 12px)); /* offset for the bottom padding */
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: opacity 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.blog-carousel-arrow:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.blog-carousel-arrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.blog-carousel-arrow--prev {
+  left: 4px;
+}
+.blog-carousel-arrow--next {
+  right: 4px;
 }
 
 .blog-card {
@@ -109,7 +181,7 @@
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.25s, transform 0.25s;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
   display: flex;
   flex-direction: column;
 }
@@ -205,7 +277,7 @@
   }
 
   .blog-hero h1 {
-    font-size: clamp(40px, 10vw, 56px);
+    font-size: clamp(36px, 9vw, 48px);
   }
 
   .blog-filters {
@@ -214,15 +286,44 @@
   }
 
   .blog-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
     padding: 0 20px;
     margin-bottom: 60px;
   }
 
+  /* Mobile carousel: 1 column visible at 88% width so the next column's
+     edge peeks through — reads as a carousel even before the user swipes.
+     Pair with 2-row grid (already inherited) so each "page" is the
+     1-on-top / 1-on-bottom block the user described. */
+  .blog-carousel-wrap {
+    padding: 0 16px;
+    margin-bottom: 60px;
+  }
+  .blog-carousel {
+    grid-auto-columns: 88%;
+    column-gap: 12px;
+    row-gap: 14px;
+  }
+
+  /* Smaller arrows on mobile so they don't crowd the cards. Move them
+     out of the carousel viewport (above-right of the strip) so they sit
+     as a clear pagination affordance. */
+  .blog-carousel-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  .blog-carousel-arrow--prev { left: -4px; }
+  .blog-carousel-arrow--next { right: -4px; }
+
   .blog-card-emoji {
     height: 140px;
     font-size: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-carousel {
+    grid-auto-columns: 86%;
   }
 }
 
@@ -233,7 +334,8 @@
 }
 
 .blog-filter-chip:focus-visible,
-.blog-card:focus-visible {
+.blog-card:focus-visible,
+.blog-carousel-arrow:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

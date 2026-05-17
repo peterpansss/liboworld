@@ -1,15 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './LanguageSwitcher';
 import './SiteNav.css';
 
-// Top-level desktop nav items. The Reward Club entry is a parent that
-// expands into a dropdown of REWARD_CLUB_CHILDREN (see below).
+// Top-level desktop nav items. Reward Club is the only parent that
+// expands into a dropdown (REWARD_CLUB_CHILDREN below).
+// Insertion convention: Reward Club + Blog get rendered between
+// NAV_LINKS.slice(0, 2) (Exercises, Workouts) and NAV_LINKS.slice(2)
+// (Press, Careers). Blog is a plain link rendered alongside the
+// Reward Club dropdown. Visible order ends up as:
+//   Exercises, Workouts, Reward Club, Blog, Press, Careers.
 const NAV_LINKS = [
   { labelKey: 'nav.exercises', defaultLabel: 'Exercises', to: '/exercises' },
   { labelKey: 'nav.workouts', defaultLabel: 'Workouts', to: '/workouts' },
-  { labelKey: 'nav.blog', defaultLabel: 'Blog', to: '/blog' },
+  { labelKey: 'nav.press', defaultLabel: 'Press', to: '/press' },
+  { labelKey: 'nav.careers', defaultLabel: 'Careers', to: '/careers' },
 ] as const;
 
 // Children of the Reward Club dropdown. Order = visual order in the menu.
@@ -19,7 +24,6 @@ const REWARD_CLUB_CHILDREN = [
     defaultLabel: 'Cash Challenges',
     descriptionKey: 'nav.cashChallengesDesc',
     defaultDescription: 'Train 30 days, earn up to €250 cash',
-    icon: '💰',
     to: '/cash-challenge',
   },
   {
@@ -27,7 +31,6 @@ const REWARD_CLUB_CHILDREN = [
     defaultLabel: 'Giveaways',
     descriptionKey: 'nav.giveawaysDesc',
     defaultDescription: 'Win iPhones, Apple Watches & monthly prizes',
-    icon: '🎁',
     to: '/giveaway',
   },
 ] as const;
@@ -43,6 +46,7 @@ export default function SiteNav() {
 
   const isActive = (to: string) =>
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
+  const isSubpage = location.pathname !== '/';
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -81,7 +85,7 @@ export default function SiteNav() {
 
   useEffect(() => {
     setRewardOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, location.search]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -93,7 +97,10 @@ export default function SiteNav() {
   return (
     <>
       <a href="#main-content" className="skip-link">{t('nav.skipToMain')}</a>
-      <nav className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}`} aria-label={t('nav.mainNavigation')}>
+      <nav
+        className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}${isSubpage ? ' site-nav--subpage' : ''}`}
+        aria-label={t('nav.mainNavigation')}
+      >
         <div className="site-nav__inner">
           {/* Logo */}
           <Link to="/" className="site-nav__logo">
@@ -137,7 +144,7 @@ export default function SiteNav() {
                 <span className="site-nav__dropdown-caret" aria-hidden>▾</span>
               </button>
               <ul className="site-nav__dropdown-menu site-nav__dropdown-menu--mega" role="menu">
-                {REWARD_CLUB_CHILDREN.map(({ labelKey, defaultLabel, descriptionKey, defaultDescription, icon, to }) => (
+                {REWARD_CLUB_CHILDREN.map(({ labelKey, defaultLabel, descriptionKey, defaultDescription, to }) => (
                   <li key={to} role="none">
                     <Link
                       to={to}
@@ -146,7 +153,6 @@ export default function SiteNav() {
                       aria-current={isActive(to) ? 'page' : undefined}
                       onClick={() => setRewardOpen(false)}
                     >
-                      <span className="site-nav__dropdown-item-icon" aria-hidden>{icon}</span>
                       <span className="site-nav__dropdown-item-text">
                         <span className="site-nav__dropdown-item-title">{t(labelKey, { defaultValue: defaultLabel })}</span>
                         <span className="site-nav__dropdown-item-desc">{t(descriptionKey, { defaultValue: defaultDescription })}</span>
@@ -155,6 +161,17 @@ export default function SiteNav() {
                   </li>
                 ))}
               </ul>
+            </li>
+
+            {/* Blog (plain link — replaces former Articles dropdown) */}
+            <li>
+              <Link
+                to="/blog"
+                className={`site-nav__link${isActive('/blog') ? ' site-nav__link--active' : ''}`}
+                aria-current={isActive('/blog') ? 'page' : undefined}
+              >
+                {t('nav.blog', { defaultValue: 'Blog' })}
+              </Link>
             </li>
 
             {NAV_LINKS.slice(2).map(({ labelKey, defaultLabel, to }) => (
@@ -172,13 +189,6 @@ export default function SiteNav() {
 
           {/* Right section */}
           <div className="site-nav__right">
-            <LanguageSwitcher />
-            <Link
-              to="/onboarding"
-              className="site-nav__login"
-            >
-              {t('nav.login', { defaultValue: 'Log in' })}
-            </Link>
             <Link to="/onboarding" className="site-nav__cta">
               {t('nav.getStarted')}
             </Link>
@@ -227,6 +237,7 @@ export default function SiteNav() {
           {[
             ...NAV_LINKS.slice(0, 2),
             ...REWARD_CLUB_CHILDREN,
+            { labelKey: 'nav.blog', defaultLabel: 'Blog', to: '/blog' },
             ...NAV_LINKS.slice(2),
           ].map(({ labelKey, defaultLabel, to }) => (
             <Link key={to} to={to} className={isActive(to) ? 'site-nav__drawer-link--active' : ''} aria-current={isActive(to) ? 'page' : undefined} onClick={() => setDrawerOpen(false)}>
@@ -235,14 +246,6 @@ export default function SiteNav() {
           ))}
         </div>
         <div className="site-nav__drawer-bottom">
-          <LanguageSwitcher variant="drawer" />
-          <Link
-            to="/onboarding"
-            className="site-nav__drawer-login"
-            onClick={() => setDrawerOpen(false)}
-          >
-            {t('nav.login', { defaultValue: 'Log in' })}
-          </Link>
           <Link
             to="/onboarding"
             className="site-nav__drawer-cta"

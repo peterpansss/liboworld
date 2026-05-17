@@ -100,10 +100,40 @@
 
 /* ── Filters ── */
 .el-filters {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 32px;
+}
+
+.el-filters--open {
+  display: flex;
+}
+
+/* ── Primary bar: hosts the primary chip row (or search input) + Filters
+   toggle on one line. Used by both /workouts (chips + toggle) and
+   /exercises (search input + toggle). ── */
+.el-primary-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.el-primary-bar .el-filter-row {
+  margin: 0;
+}
+
+.el-primary-bar .el-search-wrap {
+  flex: 1 1 240px;
+  min-width: 240px;
+  margin: 0;
+}
+
+.el-primary-bar .el-filters-toggle {
+  margin-bottom: 0;
 }
 
 .el-filter-row {
@@ -350,63 +380,61 @@
 }
 .el-empty-clear:hover { opacity: 0.85; }
 
-/* ── Filters toggle (mobile only) ── */
+/* ── Filters toggle — ghost pill, visually distinct from chips ── */
 .el-filters-toggle {
-  display: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--dim);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.el-filters-toggle:hover {
+  border-color: rgba(255,255,255,0.25);
+  color: var(--text);
+  background: rgba(255,255,255,0.02);
+}
+
+.el-filters-toggle__count {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent-text);
+  background: var(--accent);
+  border-radius: 11px;
+  margin-left: 6px;
+}
+
+.el-filters-toggle__chev {
+  font-size: 11px;
+  color: var(--dim);
+  transition: transform 0.2s;
+}
+
+.el-filters-toggle[aria-expanded="true"] .el-filters-toggle__chev {
+  transform: rotate(180deg);
 }
 
 @media (max-width: 768px) {
   .el-filters-toggle {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
     width: 100%;
     padding: 12px 16px;
-    margin-bottom: 16px;
     font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.2px;
-    color: var(--text);
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-  }
-
-  .el-filters-toggle:hover { border-color: rgba(255,255,255,0.18); }
-
-  .el-filters-toggle__count {
-    min-width: 22px;
-    height: 22px;
-    padding: 0 7px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 800;
-    color: var(--accent-text);
-    background: var(--accent);
-    border-radius: 11px;
-  }
-
-  .el-filters-toggle__chev {
-    font-size: 11px;
-    color: var(--dim);
-    transition: transform 0.2s;
-  }
-
-  .el-filters-toggle[aria-expanded="true"] .el-filters-toggle__chev {
-    transform: rotate(180deg);
-  }
-
-  .el-filters {
-    display: none;
-  }
-
-  .el-filters--open {
-    display: flex;
   }
 }
 

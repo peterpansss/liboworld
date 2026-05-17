@@ -4,15 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build && npm run postbuild:seo",
     "dev": "vite",
-    "lint": "eslint .",
+    "build": "npm run prebuild:facets && tsc -b && vite build && npm run postbuild:seo",
+    "prebuild:facets": "node ../scripts/generate-workout-facets.mjs",
     "postbuild:seo": "node ../scripts/generate-sitemap.mjs && node ../scripts/prerender-meta.mjs",
+    "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run"
   },
   "dependencies": {
+    "@fontsource/barlow-condensed": "^5.2.8",
+    "@fontsource/inter": "^5.2.8",
     "@stripe/react-stripe-js": "^6.3.0",
     "@stripe/stripe-js": "^9.4.0",
     "@supabase/supabase-js": "^2.103.0",

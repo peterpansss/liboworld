@@ -4,9 +4,11 @@
  * Befit-style title pattern: "Alternative Exercises to replace X".
  */
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { Exercise } from '../data/exercises';
 import { getRecommended } from '../utils/exerciseAlternatives';
-import { exerciseThumb } from '../utils/thumbnails';
+import { exerciseThumbSet } from '../utils/thumbnails';
+import { ThumbPicture } from './ThumbPicture';
 import { MuscleTile } from './MuscleTile';
 import './AlternativesGrid.css';
 
@@ -25,28 +27,31 @@ export function AlternativesGrid({
   equipmentLabel = (e) => e,
   difficultyLabel = (d) => d,
 }: Props) {
+  const { t } = useTranslation();
   const alternatives = getRecommended(current.id, allExercises, limit);
   if (alternatives.length === 0) return null;
 
   return (
     <section className="alts">
-      <h2 className="alts__title">Alternative Exercises to replace {current.name}</h2>
+      <h2 className="alts__title">
+        {t('exerciseDetail.alternativeExercisesTitle', {
+          name: current.name,
+          defaultValue: 'Alternative Exercises to replace {{name}}',
+        })}
+      </h2>
       <div className="alts__grid">
         {alternatives.map((alt) => {
-          const thumb = exerciseThumb(alt);
+          const thumb = exerciseThumbSet(alt);
           return (
-            <Link key={alt.id} to={`/exercises/${alt.id}`} className="alts__card">
+            <Link key={alt.id} to={`/exercises/${alt.slug ?? alt.id}`} className="alts__card">
               <div className="alts__media">
                 <MuscleTile muscle={alt.bodyFocus} size="md" />
-                {thumb && (
-                  <img
-                    src={thumb}
-                    alt=""
-                    loading="lazy"
-                    onError={(e) => (e.currentTarget.style.display = 'none')}
-                    className="alts__thumb"
-                  />
-                )}
+                <ThumbPicture
+                  thumb={thumb}
+                  loading="lazy"
+                  onError={(e) => (e.currentTarget.style.display = 'none')}
+                  className="alts__thumb"
+                />
               </div>
               <div className="alts__body">
                 <div className="alts__name">{alt.name}</div>

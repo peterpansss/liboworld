@@ -198,6 +198,110 @@ function injectHead(template, injection) {
   return html.replace('</head>', `    ${injection}\n  </head>`);
 }
 
+// ── Best-workouts facet pages ───────────────────────────────────────────
+// `/best-workouts/<facet>` is a programmatic SEO landing page that lists
+// 3-5 curated workouts matching one filter (muscle / equipment / setting /
+// duration / goal). The data sidecar is built by generate-workout-facets.mjs.
+
+function buildFacetGraph(slug, entry, workoutsById, intro) {
+  const workouts = entry.workoutIds
+    .map((id) => workoutsById.get(id))
+    .filter(Boolean)
+    .slice(0, 5);
+
+  const itemList = {
+    '@type': 'ItemList',
+    '@id': `${SITE_URL}/best-workouts/${slug}#list`,
+    name: `Best ${entry.label} Workouts`,
+    numberOfItems: workouts.length,
+    itemListElement: workouts.map((w, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE_URL}/workouts/${w.id}`,
+      name: w.name,
+    })),
+  };
+
+  const breadcrumb = {
+    '@type': 'BreadcrumbList',
+    '@id': `${SITE_URL}/best-workouts/${slug}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Workouts', item: `${SITE_URL}/workouts` },
+      { '@type': 'ListItem', position: 3, name: `Best ${entry.label} Workouts`, item: `${SITE_URL}/best-workouts/${slug}` },
+    ],
+  };
+
+  const collectionPage = {
+    '@type': 'CollectionPage',
+    '@id': `${SITE_URL}/best-workouts/${slug}`,
+    name: `Best ${entry.label} Workouts`,
+    description: intro || `${workouts.length} curated ${entry.label.toLowerCase()} workouts to follow along in the Libo app.`,
+    mainEntity: { '@id': `${SITE_URL}/best-workouts/${slug}#list` },
+  };
+
+  return { '@context': 'https://schema.org', '@graph': [collectionPage, itemList, breadcrumb] };
+}
+
+function prerenderFacets(template) {
+  const facetsPath = path.join(DIST, 'workout-facets.json');
+  const copyPath = path.join(DIST, 'workout-facet-copy.json');
+  const workoutsPath = path.join(DIST, 'workouts.json');
+
+  if (!fs.existsSync(facetsPath) || !fs.existsSync(workoutsPath)) {
+    console.warn('prerender-meta: workout-facets.json or workouts.json missing — skipping /best-workouts/* prerender');
+    return 0;
+  }
+
+  const facetData = JSON.parse(fs.readFileSync(facetsPath, 'utf8'));
+  const intros = fs.existsSync(copyPath) ? JSON.parse(fs.readFileSync(copyPath, 'utf8')) : {};
+  const workouts = JSON.parse(fs.readFileSync(workoutsPath, 'utf8'));
+  const workoutsById = new Map(workouts.map((w) => [w.id, w]));
+
+  let count = 0;
+  for (const [slug, entry] of Object.entries(facetData.facets || {})) {
+    const intro = (intros[slug] || '').trim();
+    const description = intro
+      ? (intro.length > 158 ? intro.slice(0, 155) + '…' : intro)
+      : `${entry.workoutIds.length} curated ${entry.label.toLowerCase()} workouts to follow along in the Libo app.`;
+
+    const injection = buildHeadInjection({
+      title: `Best ${entry.label} Workouts — ${Math.min(entry.workoutIds.length, 5)} Free Routines | Libo`,
+      description,
+      canonical: `${SITE_URL}/best-workouts/${slug}`,
+      ogImage: DEFAULT_OG_IMAGE,
+      ogType: 'website',
+      jsonLd: buildFacetGraph(slug, entry, workoutsById, intro),
+    });
+
+    const html = injectHead(template, injection);
+    const outDir = path.join(DIST, 'best-workouts', slug);
+    fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync(path.join(outDir, 'index.html'), html);
+    count++;
+  }
+
+  return count;
+}
+
+// Apache (Netcup hosting) serves a directory request like `/exercises/`
+// by looking for an `index.html` inside it. When the prerender step writes
+// `/exercises/<slug>/index.html` or `/best-workouts/<facet>/index.html`
+// it creates the parent dir without ever placing an index.html at the
+// dir root — apache then returns **403 Forbidden** because directory
+// listings are disabled. The .htaccess SPA fallback only kicks in for
+// missing files, not for existing dirs without an index.
+//
+// Fix: for every parent path that gets prerendered children, write a
+// shell index.html (the SPA root template) at the parent so apache
+// serves the React app and lets it route client-side.
+function ensureParentIndex(parentDir, template) {
+  const target = path.join(parentDir, 'index.html');
+  if (fs.existsSync(target)) return;
+  fs.mkdirSync(parentDir, { recursive: true });
+  fs.writeFileSync(target, template);
+}
+
 function main() {
   const indexHtmlPath = path.join(DIST, 'index.html');
   if (!fs.existsSync(indexHtmlPath)) {
@@ -238,6 +342,14 @@ function main() {
   }
 
   console.log(`prerender-meta: wrote ${count} exercise route stubs into dist/exercises/<slug>/index.html`);
+  ensureParentIndex(path.join(DIST, 'exercises'), template);
+
+  const facetCount = prerenderFacets(template);
+  if (facetCount > 0) {
+    console.log(`prerender-meta: wrote ${facetCount} best-workouts facet route stubs into dist/best-workouts/<facet>/index.html`);
+    ensureParentIndex(path.join(DIST, 'best-workouts'), template);
+  }
+
 }
 
 main();

@@ -6,7 +6,7 @@
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.5px;
+  letter-spacing: 1.5px;
   font-size: 22px;
   color: var(--text);
   margin-bottom: 16px;
@@ -102,6 +102,17 @@
   width: 100%;
   height: 100%;
   display: block;
+}
+
+/* pointer-events: none on the SVG and its children — the library attaches
+ * per-muscle onClick handlers with cursor: pointer that swallow clicks on
+ * the highlighted paths, which broke click-to-deselect on the active tile
+ * (the natural target is the muscle shape itself). Disabling pointer
+ * events lets every click pass through to the wrapping <Link>, so the
+ * whole tile behaves as one uniform target. */
+.mgs__tile svg,
+.mgs__tile svg * {
+  pointer-events: none;
 }
 
 .mgs__item:hover .mgs__tile {

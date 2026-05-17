@@ -3,11 +3,22 @@ import {
   listWorkoutOverrides,
   replaceWorkoutOverride,
   deleteWorkoutOverride,
+  createWorkout,
+  updateWorkout,
+  deleteWorkout,
+  listWorkouts,
+  listExercises,
   type WorkoutOverride,
+  type WorkoutRow,
+  type WorkoutBlockEntry,
+  type ExerciseRow,
+  type ContentStatus,
 } from '../../lib/adminApi';
+import { errMessage } from '../../lib/errors';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, Select, Button } from '../../components/admin/FormField';
 import { Modal } from '../../components/admin/Modal';
+import { StatusChip } from '../../components/admin/StatusChip';
 import { colors } from '../../theme';
 
 // ── Types ────────────────────────────────────────────────────────────────
@@ -61,6 +72,92 @@ function computeDiff(base: Workout, edited: Workout): Record<string, unknown> {
   return diff;
 }
 
+// ── Create form (canonical workouts) ─────────────────────────────────────
+
+type CreateCat =
+  | 'gym'
+  | 'home'
+  | 'mobility'
+  | 'cardio'
+  | 'stretching'
+  | 'morning routine';
+
+type CreateDiff = 'beginner' | 'intermediate' | 'advanced';
+type CreateStatus = 'draft' | 'published';
+
+type CreateBlockEntry = {
+  exercise_id: string | null;
+  exercise_name: string;
+  sets: string;
+  reps: string;
+};
+
+type CreateFormState = {
+  name: string;
+  slug: string;
+  slugTouched: boolean;
+  cat: CreateCat;
+  subcat: string;
+  dur: string;
+  diff: CreateDiff;
+  emoji: string;
+  status: CreateStatus;
+  warmup: CreateBlockEntry[];
+  main: CreateBlockEntry[];
+  cooldown: CreateBlockEntry[];
+};
+
+const EMPTY_CREATE_FORM: CreateFormState = {
+  name: '',
+  slug: '',
+  slugTouched: false,
+  cat: 'gym',
+  subcat: '',
+  dur: '',
+  diff: 'beginner',
+  emoji: '🏋️',
+  status: 'draft',
+  warmup: [],
+  main: [],
+  cooldown: [],
+};
+
+function slugifyWorkout(input: string): string {
+  const core = input
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .slice(0, 60);
+  if (!core) return '';
+  return core.startsWith('wk_') ? core : `wk_${core}`;
+}
+
+function toBlockEntries(rows: CreateBlockEntry[]): WorkoutBlockEntry[] {
+  return rows.map((r) => ({
+    exercise_id: r.exercise_id,
+    exercise_name: r.exercise_name,
+    sets: r.sets,
+    reps: r.reps,
+  }));
+}
+
+function createFormToPayload(f: CreateFormState): Partial<WorkoutRow> {
+  return {
+    name: f.name.trim(),
+    slug: (f.slug || slugifyWorkout(f.name)).trim(),
+    cat: f.cat,
+    subcat: f.subcat.trim() || null,
+    dur: f.dur.trim() ? Number(f.dur) : null,
+    diff: f.diff,
+    emoji: f.emoji.trim() || '🏋️',
+    warmup: toBlockEntries(f.warmup),
+    main: toBlockEntries(f.main),
+    cooldown: toBlockEntries(f.cooldown),
+    status: f.status,
+  };
+}
+
 function EditedChip() {
   return (
     <span
@@ -98,6 +195,14 @@ export function WorkoutsPage() {
 
   const [editingId, setEditingId] = useState<string | null>(null);
 
+  // Create modal state (canonical workouts table)
+  const [createOpen, setCreateOpen] = useState(false);
+  const [createForm, setCreateForm] = useState<CreateFormState>(EMPTY_CREATE_FORM);
+  const [createErr, setCreateErr] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
+  const [canonicalWorkouts, setCanonicalWorkouts] = useState<WorkoutRow[]>([]);
+  const [canonicalExercises, setCanonicalExercises] = useState<ExerciseRow[]>([]);
+
   // Debounce search
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(search.trim().toLowerCase()), 250);
@@ -126,7 +231,7 @@ export function WorkoutsPage() {
         setOverrides(ovs);
         setExerciseNames(Array.from(new Set(exRes.map((e) => e.name))).sort());
       } catch (e) {
-        if (alive) setError(e instanceof Error ? e.message : String(e));
+        if (alive) setError(errMessage(e));
       } finally {
         if (alive) setLoading(false);
       }
@@ -141,8 +246,179 @@ export function WorkoutsPage() {
       const ovs = await listWorkoutOverrides();
       setOverrides(ovs);
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(errMessage(e));
     }
+  };
+
+  // Create flow (canonical workouts) ────────────────────────────────────────
+  const refreshCanonical = async () => {
+    try {
+      const [wks, exs] = await Promise.all([listWorkouts(), listExercises()]);
+      setCanonicalWorkouts(wks);
+      setCanonicalExercises(exs);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('refreshCanonical failed:', e);
+    }
+  };
+
+  const openCreate = async () => {
+    setCreateForm(EMPTY_CREATE_FORM);
+    setCreateErr(null);
+    setCreateOpen(true);
+    await refreshCanonical();
+  };
+
+  const closeCreate = () => {
+    if (creating) return;
+    setCreateOpen(false);
+    setCreateForm(EMPTY_CREATE_FORM);
+    setCreateErr(null);
+  };
+
+  const handleCreate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const name = createForm.name.trim();
+    if (!name) {
+      setCreateErr('Name is required.');
+      return;
+    }
+    const slug = (createForm.slug || slugifyWorkout(name)).trim();
+    if (!slug) {
+      setCreateErr('Slug is required.');
+      return;
+    }
+    if (canonicalWorkouts.some((w) => w.slug === slug)) {
+      setCreateErr(`Slug "${slug}" is already in use — pick another.`);
+      return;
+    }
+    if (createForm.dur.trim()) {
+      const n = Number(createForm.dur);
+      if (!Number.isFinite(n) || n < 0) {
+        setCreateErr('Duration must be a non-negative number.');
+        return;
+      }
+    }
+    setCreating(true);
+    setCreateErr(null);
+    try {
+      const payload = createFormToPayload({ ...createForm, slug });
+      const res = await createWorkout(payload);
+      if (!res.ok) {
+        setCreateErr(res.error ?? 'Create failed');
+        return;
+      }
+      await refreshCanonical();
+      closeCreate();
+    } catch (e2) {
+      setCreateErr(e2 instanceof Error ? e2.message : String(e2));
+    } finally {
+      setCreating(false);
+    }
+  };
+
+  /**
+   * Delete a canonical workout. Bundled-only rows (no canonical match) cannot be
+   * deleted from the admin — those live in `workouts.json` and must be removed
+   * via a code change + redeploy. We still expose the button uniformly but it's
+   * a no-op with a warning toast for bundled-only rows.
+   */
+  const handleDelete = async (row: Workout, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const canonical = findCanonical(row);
+    if (!canonical) {
+      window.alert(
+        `"${row.name}" is bundled-only (no canonical row in Supabase). Bundled workouts must be removed by editing workouts.json and redeploying.`,
+      );
+      return;
+    }
+    if (!window.confirm(`Delete workout "${row.name}"? This cannot be undone.`)) return;
+    try {
+      const res = await deleteWorkout(canonical.id);
+      if (!res.ok) {
+        setError(res.error ?? 'Delete failed');
+        return;
+      }
+      await Promise.all([refreshOverrides(), refreshCanonical()]);
+    } catch (err) {
+      setError(errMessage(err));
+    }
+  };
+
+  /**
+   * Open the "New workout" modal pre-filled with the source row's fields,
+   * INCLUDING the warmup/main/cooldown exercise blocks (the whole point of
+   * duplicating a workout). We deep-clone the block arrays via
+   * structuredClone so editing the duplicate's blocks doesn't mutate the
+   * source row. editing-state (none in this page — the create modal is its
+   * own thing) is bypassed by routing through the create modal, so save hits
+   * createWorkout not updateWorkout.
+   *
+   * Field overrides for safety:
+   *  - name gets " (copy)" appended
+   *  - slug regenerated from the new name (auto-prefixed wk_…)
+   *  - status forced to 'draft' so the dupe doesn't go live immediately
+   *  - exercise_id resolved by matching block.exercise (name) against the
+   *    canonical exercise list; falls back to null + the literal name string
+   */
+  const handleDuplicate = (row: Workout, e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Refresh canonical lists first so exercise-id resolution + slug-collision
+    // checks use the latest data — fire-and-forget; the form opens immediately.
+    void refreshCanonical();
+
+    const exByName = new Map<string, ExerciseRow>();
+    for (const ex of canonicalExercises) exByName.set(ex.name.toLowerCase(), ex);
+
+    const toCreateBlocks = (steps: WorkoutStep[] | undefined): CreateBlockEntry[] => {
+      const cloned: WorkoutStep[] = structuredClone(steps ?? []);
+      return cloned.map((s) => {
+        const match = exByName.get((s.exercise ?? '').toLowerCase());
+        return {
+          exercise_id: match?.id ?? null,
+          exercise_name: s.exercise ?? '',
+          sets: s.sets ?? '',
+          reps: s.reps ?? '',
+        };
+      });
+    };
+
+    const newName = `${row.name} (copy)`;
+    const newSlug = slugifyWorkout(newName);
+    const cat = (row.cat ?? 'gym').toLowerCase();
+    const allowedCats: CreateCat[] = [
+      'gym',
+      'home',
+      'mobility',
+      'cardio',
+      'stretching',
+      'morning routine',
+    ];
+    const safeCat: CreateCat = (allowedCats as string[]).includes(cat)
+      ? (cat as CreateCat)
+      : 'gym';
+    const diff = (row.diff ?? 'beginner').toLowerCase();
+    const allowedDiffs: CreateDiff[] = ['beginner', 'intermediate', 'advanced'];
+    const safeDiff: CreateDiff = (allowedDiffs as string[]).includes(diff)
+      ? (diff as CreateDiff)
+      : 'beginner';
+
+    setCreateForm({
+      name: newName,
+      slug: newSlug,
+      slugTouched: true,
+      cat: safeCat,
+      subcat: row.subcat ?? '',
+      dur: row.dur != null ? String(row.dur) : '',
+      diff: safeDiff,
+      emoji: row.emoji || '🏋️',
+      status: 'draft', // never clone into 'published' — user must publish explicitly
+      warmup: toCreateBlocks(row.warmup),
+      main: toCreateBlocks(row.main),
+      cooldown: toCreateBlocks(row.cooldown),
+    });
+    setCreateErr(null);
+    setCreateOpen(true);
   };
 
   const overrideMap = useMemo(() => {
@@ -150,6 +426,30 @@ export function WorkoutsPage() {
     for (const o of overrides) m.set(o.id, o);
     return m;
   }, [overrides]);
+
+  // Lookup canonical workouts by id and slug for status display + status edits.
+  // Bundled `workouts.json` and Supabase use different id conventions, so check
+  // both id and slug like ExercisesPage does.
+  const canonicalByKey = useMemo(() => {
+    const byId = new Map<string, WorkoutRow>();
+    const bySlug = new Map<string, WorkoutRow>();
+    for (const r of canonicalWorkouts) {
+      byId.set(r.id, r);
+      if (r.slug) bySlug.set(r.slug, r);
+    }
+    return { byId, bySlug };
+  }, [canonicalWorkouts]);
+
+  function findCanonical(w: Workout): WorkoutRow | null {
+    return canonicalByKey.byId.get(w.id) ?? canonicalByKey.bySlug.get(w.id) ?? null;
+  }
+
+  // Refresh canonical workouts on mount so the status column populates without
+  // forcing the user to open the create modal first.
+  useEffect(() => {
+    void refreshCanonical();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Merged list
   const mergedWorkouts = useMemo<Workout[]>(() => {
@@ -243,6 +543,17 @@ export function WorkoutsPage() {
         ((b.warmup?.length ?? 0) + (b.main?.length ?? 0) + (b.cooldown?.length ?? 0)),
     },
     {
+      key: 'status',
+      header: 'Status',
+      width: 110,
+      render: (r) => {
+        const c = findCanonical(r);
+        return c ? <StatusChip status={c.status} /> : <span style={{ color: colors.dim }}>—</span>;
+      },
+      sort: (a, b) =>
+        (findCanonical(a)?.status ?? '').localeCompare(findCanonical(b)?.status ?? ''),
+    },
+    {
       key: 'override',
       header: 'Override',
       width: 90,
@@ -251,15 +562,68 @@ export function WorkoutsPage() {
     {
       key: 'actions',
       header: '',
-      width: 90,
+      width: 84,
       align: 'right',
-      render: () => (
-        <span style={{ color: colors.accent, fontWeight: 700, fontSize: 12 }}>Edit →</span>
+      render: (r) => (
+        <div style={{ display: 'inline-flex', gap: 4 }}>
+          <button
+            onClick={(e) => handleDuplicate(r, e)}
+            aria-label={`Duplicate ${r.name}`}
+            title="Duplicate workout"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: colors.muted,
+              cursor: 'pointer',
+              fontSize: 14,
+              padding: '4px 6px',
+              borderRadius: 6,
+              lineHeight: 1,
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = colors.accent;
+              (e.currentTarget as HTMLButtonElement).style.background = colors.accentDim;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+              (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+            }}
+          >
+            ⎘
+          </button>
+          <button
+            onClick={(e) => void handleDelete(r, e)}
+            aria-label={`Delete ${r.name}`}
+            title="Delete workout"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: colors.muted,
+              cursor: 'pointer',
+              fontSize: 16,
+              padding: 4,
+              borderRadius: 6,
+              lineHeight: 1,
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = colors.error;
+              (e.currentTarget as HTMLButtonElement).style.background = colors.errorDim;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+              (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+            }}
+          >
+            ×
+          </button>
+        </div>
       ),
     },
   ];
 
   const overrideCount = overrides.length;
+  const publishedCount = canonicalWorkouts.filter((r) => r.status === 'published').length;
+  const draftCount = canonicalWorkouts.filter((r) => r.status === 'draft').length;
 
   return (
     <div style={{ padding: '24px 28px', color: colors.text }}>
@@ -287,12 +651,17 @@ export function WorkoutsPage() {
             Workouts
           </h1>
           <div style={{ marginTop: 6, color: colors.muted, fontSize: 13 }}>
-            {baseWorkouts.length} workouts, {overrideCount} with overrides
+            {baseWorkouts.length} workouts · {publishedCount} published · {draftCount} draft · {overrideCount} with overrides
           </div>
         </div>
-        <Button variant="secondary" onClick={refreshOverrides} disabled={loading}>
-          Refresh
-        </Button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Button variant="secondary" onClick={refreshOverrides} disabled={loading}>
+            Refresh
+          </Button>
+          <Button variant="primary" onClick={() => void openCreate()}>
+            + Create Workout
+          </Button>
+        </div>
       </div>
 
       {error && (
@@ -373,6 +742,185 @@ export function WorkoutsPage() {
         emptyLabel={loading ? 'Loading…' : 'No workouts match those filters.'}
       />
 
+      {/* Create modal (canonical workouts) */}
+      <Modal
+        open={createOpen}
+        onClose={closeCreate}
+        title="New workout"
+        width={900}
+      >
+        <form onSubmit={handleCreate}>
+          {createErr && (
+            <div
+              style={{
+                padding: '10px 14px',
+                background: colors.errorDim,
+                border: `1px solid ${colors.error}`,
+                color: colors.error,
+                borderRadius: 10,
+                marginBottom: 16,
+                fontSize: 13,
+              }}
+              role="alert"
+            >
+              {createErr}
+            </div>
+          )}
+
+          <datalist id="workout-create-exercise-options">
+            {canonicalExercises.map((ex) => (
+              <option key={ex.id} value={ex.name} />
+            ))}
+          </datalist>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 14 }}>
+            <Field label="Name">
+              <TextInput
+                value={createForm.name}
+                onChange={(e) => {
+                  const name = e.target.value;
+                  setCreateForm((f) => ({
+                    ...f,
+                    name,
+                    slug: f.slugTouched ? f.slug : slugifyWorkout(name),
+                  }));
+                }}
+                required
+              />
+            </Field>
+            <Field label="Emoji">
+              <TextInput
+                value={createForm.emoji}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, emoji: e.target.value }))
+                }
+                maxLength={4}
+              />
+            </Field>
+          </div>
+
+          <Field label="Slug" hint="auto-prefixed wk_…; editable">
+            <TextInput
+              value={createForm.slug}
+              onChange={(e) =>
+                setCreateForm((f) => ({
+                  ...f,
+                  slug: slugifyWorkout(e.target.value),
+                  slugTouched: true,
+                }))
+              }
+              required
+            />
+          </Field>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
+            <Field label="Category">
+              <Select
+                value={createForm.cat}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, cat: e.target.value as CreateCat }))
+                }
+              >
+                <option value="gym">Gym</option>
+                <option value="home">Home</option>
+                <option value="mobility">Mobility</option>
+                <option value="cardio">Cardio</option>
+                <option value="stretching">Stretching</option>
+                <option value="morning routine">Morning Routine</option>
+              </Select>
+            </Field>
+            <Field label="Subcategory">
+              <TextInput
+                value={createForm.subcat}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, subcat: e.target.value }))
+                }
+              />
+            </Field>
+            <Field label="Duration (min)">
+              <TextInput
+                type="number"
+                min={0}
+                value={createForm.dur}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, dur: e.target.value }))
+                }
+                placeholder="30"
+              />
+            </Field>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+            <Field label="Difficulty">
+              <Select
+                value={createForm.diff}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, diff: e.target.value as CreateDiff }))
+                }
+              >
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </Select>
+            </Field>
+            <Field label="Status">
+              <Select
+                value={createForm.status}
+                onChange={(e) =>
+                  setCreateForm((f) => ({
+                    ...f,
+                    status: e.target.value as CreateStatus,
+                  }))
+                }
+              >
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </Select>
+            </Field>
+          </div>
+
+          <CreateBlockSection
+            label="Warmup"
+            rows={createForm.warmup}
+            exercises={canonicalExercises}
+            onChange={(rows) => setCreateForm((f) => ({ ...f, warmup: rows }))}
+            datalistId="workout-create-exercise-options"
+          />
+          <CreateBlockSection
+            label="Main"
+            rows={createForm.main}
+            exercises={canonicalExercises}
+            onChange={(rows) => setCreateForm((f) => ({ ...f, main: rows }))}
+            datalistId="workout-create-exercise-options"
+          />
+          <CreateBlockSection
+            label="Cooldown"
+            rows={createForm.cooldown}
+            exercises={canonicalExercises}
+            onChange={(rows) => setCreateForm((f) => ({ ...f, cooldown: rows }))}
+            datalistId="workout-create-exercise-options"
+          />
+
+          <div
+            style={{
+              display: 'flex',
+              gap: 8,
+              justifyContent: 'flex-end',
+              marginTop: 18,
+              paddingTop: 18,
+              borderTop: `1px solid ${colors.border}`,
+            }}
+          >
+            <Button type="button" variant="ghost" onClick={closeCreate} disabled={creating}>
+              Cancel
+            </Button>
+            <Button type="submit" variant="primary" disabled={creating}>
+              {creating ? 'Creating…' : 'Create workout'}
+            </Button>
+          </div>
+        </form>
+      </Modal>
+
       {/* Edit modal */}
       {editingBase && editingMerged && (
         <EditWorkoutModal
@@ -380,10 +928,11 @@ export function WorkoutsPage() {
           base={editingBase}
           initial={editingMerged}
           hasOverride={overrideMap.has(editingBase.id)}
+          canonical={findCanonical(editingBase)}
           exerciseNames={exerciseNames}
           onClose={() => setEditingId(null)}
           onSaved={async () => {
-            await refreshOverrides();
+            await Promise.all([refreshOverrides(), refreshCanonical()]);
             setEditingId(null);
           }}
           onClearOverride={async () => {
@@ -404,6 +953,7 @@ function EditWorkoutModal({
   base,
   initial,
   hasOverride,
+  canonical,
   exerciseNames,
   onClose,
   onSaved,
@@ -413,18 +963,21 @@ function EditWorkoutModal({
   base: Workout;
   initial: Workout;
   hasOverride: boolean;
+  canonical: WorkoutRow | null;
   exerciseNames: string[];
   onClose: () => void;
   onSaved: () => Promise<void> | void;
   onClearOverride: () => Promise<void> | void;
 }) {
   const [form, setForm] = useState<Workout>(initial);
+  const [status, setStatus] = useState<ContentStatus>(canonical?.status ?? 'published');
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
   // Reset form whenever the workout being edited changes
   useEffect(() => {
     setForm(initial);
+    setStatus(canonical?.status ?? 'published');
     setErr(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initial.id]);
@@ -440,10 +993,22 @@ function EditWorkoutModal({
     setErr(null);
     try {
       const diff = computeDiff(base, form);
-      await replaceWorkoutOverride(base.id, diff);
+      const overrideHasChanges = Object.keys(diff).length > 0;
+      const statusChanged = canonical !== null && status !== canonical.status;
+
+      if (overrideHasChanges) {
+        await replaceWorkoutOverride(base.id, diff);
+      }
+      if (statusChanged && canonical) {
+        const res = await updateWorkout(canonical.id, { status });
+        if (!res.ok) {
+          setErr(res.error ?? 'Status update failed');
+          return;
+        }
+      }
       await onSaved();
     } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+      setErr(errMessage(e));
     } finally {
       setSaving(false);
     }
@@ -455,7 +1020,7 @@ function EditWorkoutModal({
     try {
       await onClearOverride();
     } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+      setErr(errMessage(e));
     } finally {
       setSaving(false);
     }
@@ -537,6 +1102,26 @@ function EditWorkoutModal({
         <div style={{ gridColumn: 'span 3' }}>
           <Field label="Emoji">
             <TextInput value={form.emoji} onChange={(e) => setField('emoji', e.target.value)} />
+          </Field>
+        </div>
+        <div style={{ gridColumn: 'span 3' }}>
+          <Field
+            label="Visibility"
+            hint={
+              canonical
+                ? 'Draft hides this workout on web + app.'
+                : 'Bundled-only — save another change first to make it editable.'
+            }
+          >
+            <Select
+              value={status}
+              onChange={(e) => setStatus(e.target.value as ContentStatus)}
+              disabled={!canonical}
+            >
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="archived">Archived</option>
+            </Select>
           </Field>
         </div>
         <div style={{ gridColumn: 'span 3', display: 'flex', alignItems: 'flex-end' }}>
@@ -708,6 +1293,149 @@ function PhaseSection({
 
       <div style={{ marginTop: 8, fontSize: 11, color: colors.dim }}>
         Must match an exercise name from the library exactly.
+      </div>
+    </div>
+  );
+}
+
+// ── Create-mode block section (resolves picks to {id, name}) ─────────────
+
+function CreateBlockSection({
+  label,
+  rows,
+  exercises,
+  onChange,
+  datalistId,
+}: {
+  label: string;
+  rows: CreateBlockEntry[];
+  exercises: ExerciseRow[];
+  onChange: (rows: CreateBlockEntry[]) => void;
+  datalistId: string;
+}) {
+  const addRow = () =>
+    onChange([
+      ...rows,
+      { exercise_id: null, exercise_name: '', sets: '', reps: '' },
+    ]);
+  const removeRow = (i: number) => onChange(rows.filter((_, idx) => idx !== i));
+  const updateRow = (i: number, patch: Partial<CreateBlockEntry>) =>
+    onChange(rows.map((r, idx) => (idx === i ? { ...r, ...patch } : r)));
+  const move = (i: number, dir: -1 | 1) => {
+    const j = i + dir;
+    if (j < 0 || j >= rows.length) return;
+    const next = [...rows];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  };
+
+  return (
+    <div
+      style={{
+        marginTop: 18,
+        padding: 14,
+        background: colors.bg,
+        border: `1px solid ${colors.border}`,
+        borderRadius: 14,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 10,
+        }}
+      >
+        <h3
+          style={{
+            ...BARLOW,
+            margin: 0,
+            fontSize: 16,
+            fontWeight: 700,
+            color: colors.text,
+          }}
+        >
+          {label}{' '}
+          <span style={{ color: colors.dim, fontWeight: 400 }}>({rows.length})</span>
+        </h3>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={addRow}
+          style={{ padding: '6px 12px', fontSize: 12 }}
+        >
+          + Add exercise
+        </Button>
+      </div>
+
+      {rows.length === 0 ? (
+        <div style={{ fontSize: 12, color: colors.dim, padding: '8px 2px' }}>
+          No {label.toLowerCase()} exercises. Click “+ Add exercise” to add one.
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {rows.map((row, i) => (
+            <div
+              key={i}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 80px 100px auto',
+                gap: 8,
+                alignItems: 'center',
+              }}
+            >
+              <TextInput
+                list={datalistId}
+                placeholder="Exercise name"
+                value={row.exercise_name}
+                onChange={(e) => {
+                  const name = e.target.value;
+                  const found = exercises.find((ex) => ex.name === name) ?? null;
+                  updateRow(i, {
+                    exercise_name: name,
+                    exercise_id: found?.id ?? null,
+                  });
+                }}
+              />
+              <TextInput
+                placeholder="3"
+                value={row.sets}
+                onChange={(e) => updateRow(i, { sets: e.target.value })}
+              />
+              <TextInput
+                placeholder="8 reps"
+                value={row.reps}
+                onChange={(e) => updateRow(i, { reps: e.target.value })}
+              />
+              <div style={{ display: 'flex', gap: 4 }}>
+                <IconBtn
+                  label="Move up"
+                  disabled={i === 0}
+                  onClick={() => move(i, -1)}
+                  glyph="↑"
+                />
+                <IconBtn
+                  label="Move down"
+                  disabled={i === rows.length - 1}
+                  onClick={() => move(i, 1)}
+                  glyph="↓"
+                />
+                <IconBtn
+                  label="Remove"
+                  onClick={() => removeRow(i)}
+                  glyph="✕"
+                  danger
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ marginTop: 8, fontSize: 11, color: colors.dim }}>
+        Pick from existing exercises; unmatched names are stored as unresolved
+        references.
       </div>
     </div>
   );

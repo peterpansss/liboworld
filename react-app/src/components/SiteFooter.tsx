@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 import './SiteFooter.css';
 
 export default function SiteFooter() {
@@ -34,10 +35,12 @@ export default function SiteFooter() {
           <div className="site-footer__col">
             <h2 className="site-footer__col-title">{t('footer.productTitle')}</h2>
             <div className="site-footer__col-links">
+              <Link to="/pricing">{t('footer.pricing')}</Link>
               <Link to="/#features">{t('footer.features')}</Link>
               <Link to="/#rewards">{t('footer.rewardsLink')}</Link>
               <Link to="/giveaway">{t('footer.giveaways')}</Link>
               <Link to="/cash-challenge">{t('footer.cashChallenges')}</Link>
+              <Link to="/affiliate">{t('footer.affiliate', { defaultValue: 'Affiliate Program' })}</Link>
             </div>
           </div>
 
@@ -45,7 +48,7 @@ export default function SiteFooter() {
           <div className="site-footer__col">
             <h2 className="site-footer__col-title">{t('footer.companyTitle')}</h2>
             <div className="site-footer__col-links">
-              <Link to="/">{t('footer.about')}</Link>
+              <Link to="/careers">{t('footer.careers', { defaultValue: 'Careers' })}</Link>
               <a href="mailto:hello@liboworld.com">{t('footer.contactUs')}</a>
             </div>
           </div>
@@ -60,14 +63,18 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          {/* Workouts */}
+          {/* Best Workouts — programmatic SEO hubs at /best-workouts/<facet>.
+              Plain English with defaultValue: v1 of these pages is English-only,
+              and the hardcoded labels match the H1 keyword pattern. */}
           <div className="site-footer__col">
-            <h2 className="site-footer__col-title">{t('footer.workoutsTitle')}</h2>
+            <h2 className="site-footer__col-title">{t('footer.bestWorkoutsTitle', { defaultValue: 'Best Workouts' })}</h2>
             <div className="site-footer__col-links">
-              <Link to="/workouts?cat=Gym">{t('footer.gymWorkouts')}</Link>
-              <Link to="/workouts?cat=Home">{t('footer.homeWorkouts')}</Link>
-              <Link to="/workouts?cat=Stretching">{t('footer.stretching')}</Link>
-              <Link to="/workouts?cat=Cardio">{t('footer.cardio')}</Link>
+              <Link to="/best-workouts/upper-body">{t('footer.bestUpperBody', { defaultValue: 'Upper Body' })}</Link>
+              <Link to="/best-workouts/lower-body">{t('footer.bestLowerBody', { defaultValue: 'Lower Body' })}</Link>
+              <Link to="/best-workouts/bodyweight">{t('footer.bestBodyweight', { defaultValue: 'Bodyweight' })}</Link>
+              <Link to="/best-workouts/dumbbell">{t('footer.bestDumbbell', { defaultValue: 'Dumbbell' })}</Link>
+              <Link to="/best-workouts/30-minute">{t('footer.best30Minute', { defaultValue: '30-Minute' })}</Link>
+              <Link to="/best-workouts/home">{t('footer.bestHome', { defaultValue: 'Home Workouts' })}</Link>
             </div>
           </div>
         </nav>
@@ -77,9 +84,12 @@ export default function SiteFooter() {
           <span className="site-footer__copy">
             &copy; {new Date().getFullYear()} Libo World. {t('footer.allRightsReserved')}
           </span>
-          <div className="site-footer__legal">
-            <Link to="/terms">{t('footer.termsAndConditions')}</Link>
-            <Link to="/privacy">{t('footer.privacy')}</Link>
+          <div className="site-footer__bottom-right">
+            <div className="site-footer__legal">
+              <Link to="/terms">{t('footer.termsAndConditions')}</Link>
+              <Link to="/privacy">{t('footer.privacy')}</Link>
+            </div>
+            <LanguageSwitcher variant="footer" />
           </div>
         </div>
       </div>

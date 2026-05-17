@@ -319,6 +319,30 @@ export function GiveawaysPage() {
     }
   };
 
+  /**
+   * Open the "New giveaway" modal pre-filled with the source row's fields.
+   * Dates are cleared (the user must pick a new schedule) and the status is
+   * forced back to 'upcoming' so a live giveaway isn't accidentally duplicated
+   * into another live one. editing=null so handleSave hits createGiveaway,
+   * not updateGiveaway.
+   */
+  const handleDuplicate = (row: Row, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditing(null);
+    setForm({
+      ...rowToForm(row),
+      title: `${row.title} (copy)`,
+      status: 'upcoming',
+      starts_at: '',
+      ends_at: '',
+      featured: false, // never clone "featured" — at most one giveaway should headline
+    });
+    setFormError(null);
+    setFormMessage(null);
+    setWinners(null);
+    setModalOpen(true);
+  };
+
   const columns: Column<Row>[] = useMemo(
     () => [
       {
@@ -416,33 +440,61 @@ export function GiveawaysPage() {
       {
         key: 'actions',
         header: '',
-        width: 48,
+        width: 84,
         align: 'right',
         render: (r) => (
-          <button
-            onClick={(e) => void handleDelete(r, e)}
-            aria-label={`Delete ${r.title}`}
-            title="Delete giveaway"
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: colors.muted,
-              cursor: 'pointer',
-              fontSize: 16,
-              padding: 4,
-              borderRadius: 6,
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = colors.error;
-              (e.currentTarget as HTMLButtonElement).style.background = colors.errorDim;
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
-              (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
-            }}
-          >
-            ×
-          </button>
+          <div style={{ display: 'inline-flex', gap: 4 }}>
+            <button
+              onClick={(e) => handleDuplicate(r, e)}
+              aria-label={`Duplicate ${r.title}`}
+              title="Duplicate giveaway"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: colors.muted,
+                cursor: 'pointer',
+                fontSize: 14,
+                padding: '4px 6px',
+                borderRadius: 6,
+                lineHeight: 1,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.accent;
+                (e.currentTarget as HTMLButtonElement).style.background = colors.accentDim;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+              }}
+            >
+              ⎘
+            </button>
+            <button
+              onClick={(e) => void handleDelete(r, e)}
+              aria-label={`Delete ${r.title}`}
+              title="Delete giveaway"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: colors.muted,
+                cursor: 'pointer',
+                fontSize: 16,
+                padding: 4,
+                borderRadius: 6,
+                lineHeight: 1,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.error;
+                (e.currentTarget as HTMLButtonElement).style.background = colors.errorDim;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+              }}
+            >
+              ×
+            </button>
+          </div>
         ),
       },
     ],

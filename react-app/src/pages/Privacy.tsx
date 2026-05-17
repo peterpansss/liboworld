@@ -27,7 +27,7 @@ export default function Privacy() {
             <div className="legal-label">Legal</div>
             <h1 className="font-display">Privacy Policy</h1>
             <p className="legal-meta">
-              Last updated: <span>March 2026</span> &middot; Effective date: <span>March 2026</span>
+              Last updated: <span>May 2026</span> &middot; Effective date: <span>May 2026</span>
             </p>
           </div>
 
@@ -227,8 +227,14 @@ export default function Privacy() {
           <section className="legal-section" id="p9">
             <div className="legal-section-num">09</div>
             <h2>Children's Privacy</h2>
-            <p>Libo is not intended for use by anyone under the age of <strong>18</strong>. We do not knowingly collect personal data from children. If we become aware that we have collected personal data from a child without verified parental consent, we will delete it promptly.</p>
-            <p>If you believe a child has provided us with personal data, please contact us at <a href="mailto:privacy@liboworld.com">privacy@liboworld.com</a>.</p>
+            <p>Libo applies layered minimum ages depending on the activity (see our <Link to="/terms#s3">Terms of Service, Section 3 (Eligibility)</Link>). At a high level:</p>
+            <ul>
+              <li>The app, accounts, the rewards programme and Common product giveaways are open to users aged <strong>13 and over</strong>.</li>
+              <li>Users under <strong>16</strong> may only use the Service with verified parental consent — typically provided through Apple Family Sharing or Google Family Link, which act as our first-line age and consent gate.</li>
+              <li>Premium/Special giveaways and cash challenges are restricted to users aged <strong>16 and over</strong>; direct cash payouts are restricted to users aged <strong>18 and over</strong>.</li>
+            </ul>
+            <p>We do not knowingly collect personal data from children under 13, or from children aged 13–15 without verified parental consent. If we become aware that we have collected such data without the required consent, we will delete it promptly.</p>
+            <p>If you are a parent or guardian and you believe your child has provided us with personal data without your consent, please contact us at <a href="mailto:privacy@liboworld.com">privacy@liboworld.com</a> and we will action your request within 30 days.</p>
           </section>
 
           {/* 10 */}

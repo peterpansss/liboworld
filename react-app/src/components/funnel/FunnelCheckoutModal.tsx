@@ -32,6 +32,16 @@ import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-
 import type { Appearance, StripeElementsOptions } from '@stripe/stripe-js';
 import { colors } from '../../theme';
 import { getStripe, isStripeConfigured } from '../../lib/stripe';
+import { STORE_URLS } from '../../utils/storeRedirect';
+
+// Public QR generator — matches the pattern used by StoreRedirectOverlay on
+// /cash-challenge. The QR target is liboworld.com/get-app, which client-side
+// UA-routes phones to App Store / Play Store. No per-platform QR variants
+// needed; tierSlug is included for downstream analytics.
+function qrSrcForGetApp(tierSlug: string): string {
+  const target = `https://liboworld.com/get-app?tier=${encodeURIComponent(tierSlug)}`;
+  return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=8&data=${encodeURIComponent(target)}`;
+}
 
 // Inline sr-only style — visually hidden, still announced by screen readers.
 const srOnly: React.CSSProperties = {
@@ -134,6 +144,10 @@ type Props = {
     duplicateBody: string;
     errorMsg: string;
     backLabel: string;         // "Back"
+    /** EU Directive 2011/83/EU Art. 16(m) consent strings (Step 1 checkbox) */
+    consentLabel: string;
+    consentLinkLabel: string;
+    consentRequired: string;
   };
   /** Submission */
   onSubmit: (args: FunnelModalSubmitArgs) => Promise<{ ok: boolean; duplicate?: boolean; error?: string }>;
@@ -170,6 +184,11 @@ export default function FunnelCheckoutModal({
     email?: string;
     phone?: string;
   }>({});
+  // EU Directive 2011/83/EU Art. 16(m) — buyer must expressly acknowledge
+  // the non-refundability of converted points + waive the 14-day right of
+  // withdrawal. Without this consent, the non-refundability clause is
+  // legally unenforceable in the EU. See PARTNERSHIP-FINANCE-MODEL.md §4.4.
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const dialogRef = useRef<HTMLDivElement | null>(null);
   // Element to restore focus to when the modal closes — captured on open.
@@ -195,6 +214,7 @@ export default function FunnelCheckoutModal({
         setPaymentIntentId(null);
         setIntentError(null);
         setFieldErrors({});
+        setTermsAccepted(false);
       }, 200);
     }
   }, [open]);
@@ -321,6 +341,14 @@ export default function FunnelCheckoutModal({
       return;
     }
     setFieldErrors({});
+    // Defense-in-depth: the submit button is already disabled when this is
+    // false, but a malicious client could re-enable it via devtools. Block
+    // here too so the only way to reach Step 2 is with explicit consent.
+    // EU Directive 2011/83/EU Art. 16(m) — see PARTNERSHIP-FINANCE-MODEL.md §4.4.
+    if (!termsAccepted) {
+      setIntentError(copy.consentRequired);
+      return;
+    }
 
     // Stripe mode: kick off the PaymentIntent before transitioning to Step 2,
     // so the PaymentElement has a clientSecret to render against.
@@ -714,7 +742,68 @@ export default function FunnelCheckoutModal({
                     </div>
                   )}
 
-                  <button type="submit" style={submitBtn} disabled={creatingIntent}>
+                  {/* EU Directive 2011/83/EU Art. 16(m) consent — buyer must
+                      expressly acknowledge non-refundability of converted
+                      points and waive the 14-day right of withdrawal. The
+                      Continue button is disabled until this is checked, and
+                      handleStep1 also rejects submission as defense-in-depth.
+                      See PARTNERSHIP-FINANCE-MODEL.md §4.4. */}
+                  <label
+                    htmlFor="fm-terms"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 8,
+                      marginTop: 4,
+                      marginBottom: 14,
+                      fontSize: 12,
+                      lineHeight: 1.5,
+                      color: colors.muted,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <input
+                      id="fm-terms"
+                      type="checkbox"
+                      checked={termsAccepted}
+                      onChange={(e) => {
+                        setTermsAccepted(e.target.checked);
+                        if (e.target.checked && intentError === copy.consentRequired) {
+                          setIntentError(null);
+                        }
+                      }}
+                      style={{
+                        flexShrink: 0,
+                        marginTop: 2,
+                        width: 14,
+                        height: 14,
+                        accentColor: '#FF6A1A',
+                        cursor: 'pointer',
+                      }}
+                    />
+                    <span>
+                      {copy.consentLabel}{' '}
+                      <a
+                        href="/terms#points-packs"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ color: '#FF8A4A', textDecoration: 'underline' }}
+                      >
+                        {copy.consentLinkLabel}
+                      </a>
+                    </span>
+                  </label>
+
+                  <button
+                    type="submit"
+                    style={{
+                      ...submitBtn,
+                      opacity: !termsAccepted || creatingIntent ? 0.5 : 1,
+                      cursor: !termsAccepted || creatingIntent ? 'not-allowed' : 'pointer',
+                    }}
+                    disabled={creatingIntent || !termsAccepted}
+                  >
                     {creatingIntent ? '…' : copy.continueCta}
                   </button>
 
@@ -909,28 +998,71 @@ export default function FunnelCheckoutModal({
             <h2 className="font-display" style={{ fontSize: 26, margin: '0 0 12px', color: colors.text, letterSpacing: '-0.5px' }}>
               {state === 'duplicate' ? copy.duplicateTitle : copy.successTitle}
             </h2>
-            <p style={{ fontSize: 14, color: colors.muted, lineHeight: 1.6, margin: '0 0 28px' }}>
+            <p style={{ fontSize: 14, color: colors.muted, lineHeight: 1.6, margin: '0 0 22px' }}>
               {state === 'duplicate' ? copy.duplicateBody : copy.successBody}
             </p>
-            <button
-              type="button"
-              onClick={onClose}
-              style={{
-                padding: '12px 24px',
-                borderRadius: 10,
-                border: '1px solid ' + colors.border,
-                background: 'transparent',
-                color: colors.text,
-                fontFamily: 'inherit',
-                fontSize: 13,
-                fontWeight: 700,
-                letterSpacing: 1,
-                textTransform: 'uppercase',
-                cursor: 'pointer',
-              }}
-            >
-              Close
-            </button>
+
+            {/* Scan-to-download — same /get-app routing pattern as
+                /cash-challenge. Phones tapping the App Store badge get
+                routed; desktops scan the QR with their phone. */}
+            {selected && (
+              <>
+                <div
+                  style={{
+                    width: 168,
+                    height: 168,
+                    margin: '0 auto 14px',
+                    padding: 10,
+                    background: '#fff',
+                    borderRadius: 12,
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+                  }}
+                >
+                  <img
+                    src={qrSrcForGetApp(selected.tierSlug)}
+                    alt="Scan to download the Libo app"
+                    width={148}
+                    height={148}
+                    style={{ display: 'block', width: '100%', height: '100%' }}
+                  />
+                </div>
+                <a
+                  href={STORE_URLS.ios}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Download on the App Store"
+                  style={{ display: 'inline-block', marginBottom: 22, textDecoration: 'none' }}
+                >
+                  <img
+                    src="/store-badges/app-store.svg"
+                    alt="Download on the App Store"
+                    style={{ height: 40, width: 'auto', display: 'block' }}
+                  />
+                </a>
+              </>
+            )}
+
+            <div>
+              <button
+                type="button"
+                onClick={onClose}
+                style={{
+                  padding: '12px 24px',
+                  borderRadius: 10,
+                  border: '1px solid ' + colors.border,
+                  background: 'transparent',
+                  color: colors.text,
+                  fontFamily: 'inherit',
+                  fontSize: 13,
+                  fontWeight: 700,
+                  letterSpacing: 1,
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                }}
+              >
+                Close
+              </button>
+            </div>
           </div>
         )}
       </div>

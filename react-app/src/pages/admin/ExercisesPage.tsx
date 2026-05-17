@@ -9,9 +9,21 @@ import {
   deleteExerciseOverride,
   uploadExerciseVideo,
   uploadExerciseThumbnail,
+  createExercise,
+  deleteExercise,
+  listExercises,
+  updateExercise,
+  uploadExerciseVideoRaw,
+  createMediaJob,
   type ExerciseOverride,
+  type ExerciseRow,
+  type ContentStatus,
 } from '../../lib/adminApi';
 import { safeUrl } from '../../utils/safeUrl';
+import { errMessage } from '../../lib/errors';
+import { VideoUpload, MediaJobStatus } from '../../components/admin/VideoUpload';
+import { StatusChip } from '../../components/admin/StatusChip';
+import { supabase } from '../../lib/supabase';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -28,18 +40,31 @@ type Exercise = {
   diff?: string;
   emoji?: string;
   setupNotes?: string;
+  // Phase 3 multilingual setup_notes mirrors. Each maps to the matching
+  // `setup_notes_{lang}` column on the canonical row. Empty string when
+  // the column is NULL (admin form treats '' as "clear / unset").
+  setupNotesDe?: string;
+  setupNotesEs?: string;
+  setupNotesFr?: string;
+  setupNotesPt?: string;
   videoUrl?: string;
+  videoUrlAlt?: string;
   animationUrl?: string;
   thumbnailUrl?: string;
   machineRequired?: boolean;
   parentId?: string;
   parentName?: string;
+  status?: ContentStatus;
   [k: string]: unknown;
 };
 
 type EditableKey =
   | 'name'
   | 'setupNotes'
+  | 'setupNotesDe'
+  | 'setupNotesEs'
+  | 'setupNotesFr'
+  | 'setupNotesPt'
   | 'bodyFocus'
   | 'equipment'
   | 'primaryCat'
@@ -48,12 +73,18 @@ type EditableKey =
   | 'diff'
   | 'emoji'
   | 'videoUrl'
+  | 'videoUrlAlt'
   | 'animationUrl'
-  | 'thumbnailUrl';
+  | 'thumbnailUrl'
+  | 'status';
 
 const EDITABLE_KEYS: EditableKey[] = [
   'name',
   'setupNotes',
+  'setupNotesDe',
+  'setupNotesEs',
+  'setupNotesFr',
+  'setupNotesPt',
   'bodyFocus',
   'equipment',
   'primaryCat',
@@ -62,11 +93,39 @@ const EDITABLE_KEYS: EditableKey[] = [
   'diff',
   'emoji',
   'videoUrl',
+  'videoUrlAlt',
   'animationUrl',
   'thumbnailUrl',
+  'status',
 ];
 
+// Languages whose translations live in `setup_notes_{lang}` columns and
+// surface as tabs in the Edit modal. EN is the source-of-truth column
+// (`setup_notes`); the other four are auto-populated by the
+// `translate-exercise` Edge Function and overridable by the admin.
+type SetupNotesLang = 'en' | 'de' | 'es' | 'fr' | 'pt';
+const SETUP_NOTES_LANGS: SetupNotesLang[] = ['en', 'de', 'es', 'fr', 'pt'];
+const SETUP_NOTES_LANG_LABEL: Record<SetupNotesLang, string> = {
+  en: 'EN',
+  de: 'DE',
+  es: 'ES',
+  fr: 'FR',
+  pt: 'PT',
+};
+// Map a lang code to the FormState key that holds its text.
+const SETUP_NOTES_FORM_KEY: Record<SetupNotesLang, EditableKey> = {
+  en: 'setupNotes',
+  de: 'setupNotesDe',
+  es: 'setupNotesEs',
+  fr: 'setupNotesFr',
+  pt: 'setupNotesPt',
+};
+
 type FormState = Record<EditableKey, string>;
+
+// OpenAI tts-1 voices supported by the voiceover worker.
+type TtsVoice = 'alloy' | 'echo' | 'fable' | 'nova' | 'onyx' | 'shimmer';
+const TTS_VOICES: TtsVoice[] = ['alloy', 'echo', 'fable', 'nova', 'onyx', 'shimmer'];
 
 // ── Styles ─────────────────────────────────────────────────────────────────
 
@@ -110,6 +169,89 @@ const editedChipStyle: React.CSSProperties = {
   fontWeight: 700,
   textTransform: 'uppercase',
   letterSpacing: 0.5,
+};
+
+const bilateralBadgeStyle: React.CSSProperties = {
+  display: 'inline-block',
+  marginLeft: 8,
+  padding: '2px 7px',
+  borderRadius: 6,
+  background: 'rgba(80, 200, 120, 0.15)',
+  color: '#3ec97a',
+  fontSize: 10,
+  fontWeight: 700,
+  textTransform: 'uppercase',
+  letterSpacing: 0.6,
+  verticalAlign: 'middle',
+};
+
+// Save-path indicator pills shown at the top of the Edit modal so the admin
+// knows whether Save will write to the canonical `exercises` table or fall
+// back to the legacy `exercise_overrides` patch layer.
+const canonicalPillStyle: React.CSSProperties = {
+  display: 'inline-block',
+  padding: '3px 10px',
+  borderRadius: 8,
+  background: colors.accentDim,
+  color: colors.accent,
+  fontSize: 10,
+  fontWeight: 800,
+  textTransform: 'uppercase',
+  letterSpacing: 0.6,
+};
+
+const legacyPillStyle: React.CSSProperties = {
+  display: 'inline-block',
+  padding: '3px 10px',
+  borderRadius: 8,
+  background: 'transparent',
+  color: colors.muted,
+  border: `1px solid ${colors.border}`,
+  fontSize: 10,
+  fontWeight: 700,
+  textTransform: 'uppercase',
+  letterSpacing: 0.6,
+};
+
+const savePathRowStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 10,
+  marginBottom: 14,
+  fontSize: 12,
+  color: colors.muted,
+};
+
+const childNoteStyle: React.CSSProperties = {
+  fontSize: 11,
+  color: colors.muted,
+  fontStyle: 'italic',
+  marginTop: 2,
+};
+
+const bilateralInfoBoxStyle: React.CSSProperties = {
+  background: colors.bg,
+  border: `1px solid ${colors.border}`,
+  borderRadius: 10,
+  padding: '10px 12px',
+  marginBottom: 14,
+  fontSize: 12,
+  color: colors.text,
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
+  flexWrap: 'wrap',
+};
+
+const bilateralPreviewStyle: React.CSSProperties = {
+  background: colors.bg,
+  border: `1px dashed ${colors.border}`,
+  borderRadius: 10,
+  padding: 12,
+  marginTop: 8,
+  marginBottom: 14,
+  fontSize: 12,
+  color: colors.text,
 };
 
 const filterBarStyle: React.CSSProperties = {
@@ -180,6 +322,171 @@ function uniqueSorted(vals: (string | undefined)[]): string[] {
   return Array.from(set).sort();
 }
 
+// ── Bilateral helpers (mirrors libo-app-v2/src/utils/bilateral.ts regex) ───
+//
+// Kept in sync with `SIDE_SUFFIX_RE` in libo-app-v2/src/utils/bilateral.ts.
+// Don't edit one without editing the other.
+const SIDE_SUFFIX_RE = /\s*[—–-]\s*(Left|Right)(\s+(Leg|Arm|Side|Hip|Shoulder))?\s*$/i;
+
+type BilateralSideLabel = 'Arm' | 'Leg' | 'Side' | 'Hip' | 'Shoulder' | '';
+
+const BILATERAL_SIDE_LABELS: { value: BilateralSideLabel; label: string }[] = [
+  { value: 'Arm', label: 'Arm' },
+  { value: 'Leg', label: 'Leg' },
+  { value: 'Side', label: 'Side' },
+  { value: 'Hip', label: 'Hip' },
+  { value: 'Shoulder', label: 'Shoulder' },
+  { value: '', label: '(none)' },
+];
+
+function parentNameOfClient(name: string): string {
+  return name.replace(SIDE_SUFFIX_RE, '').trim();
+}
+
+function isChildNameClient(name: string): boolean {
+  return SIDE_SUFFIX_RE.test(name);
+}
+
+function sideOfClient(name: string): 'L' | 'R' | null {
+  const m = name.match(SIDE_SUFFIX_RE);
+  if (!m) return null;
+  return m[1].toLowerCase() === 'left' ? 'L' : 'R';
+}
+
+function bilateralChildName(parent: string, side: 'Left' | 'Right', label: BilateralSideLabel): string {
+  const trimmed = parent.trim();
+  if (!trimmed) return '';
+  const tail = label ? ` ${label}` : '';
+  return `${trimmed} — ${side}${tail}`;
+}
+
+/**
+ * Build a `Set<parentName>` of names that have at least one Left and one Right
+ * child in `rows` (matching the runtime regex). Used to flag rows in the table.
+ */
+function computeBilateralParents(rows: { name?: string }[]): Set<string> {
+  const groups = new Map<string, { L: number; R: number }>();
+  for (const r of rows) {
+    const name = r.name ?? '';
+    const side = sideOfClient(name);
+    if (!side) continue;
+    const parent = parentNameOfClient(name);
+    const g = groups.get(parent) ?? { L: 0, R: 0 };
+    if (side === 'L') g.L += 1;
+    else g.R += 1;
+    groups.set(parent, g);
+  }
+  const out = new Set<string>();
+  for (const [parent, g] of groups) {
+    if (g.L >= 1 && g.R >= 1) out.add(parent);
+  }
+  return out;
+}
+
+// ── Create form (canonical exercises) ─────────────────────────────────────
+
+type ExerciseCat = 'gym' | 'home' | 'mobility';
+type ExerciseDiff = 'beginner' | 'intermediate' | 'advanced';
+type ExerciseStatus = 'draft' | 'published';
+
+type CreateFormState = {
+  name: string;
+  slug: string;
+  slugTouched: boolean;
+  cat: ExerciseCat;
+  primary_cat: string;
+  subcat: string;
+  environment: string;
+  body_focus: string;
+  equipment: string;
+  machine_required: boolean;
+  diff: ExerciseDiff;
+  variation: string;
+  emoji: string;
+  setup_notes: string;
+  parent_id: string;
+  parent_name: string;
+  video_url: string;
+  status: ExerciseStatus;
+  // Bilateral pair fields (only used when `bilateral` is true)
+  bilateral: boolean;
+  bilateral_side_label: BilateralSideLabel;
+  bilateral_left_video_url: string;
+  bilateral_right_video_url: string;
+};
+
+const EMPTY_CREATE_FORM: CreateFormState = {
+  name: '',
+  slug: '',
+  slugTouched: false,
+  cat: 'gym',
+  primary_cat: '',
+  subcat: '',
+  environment: '',
+  body_focus: '',
+  equipment: '',
+  machine_required: false,
+  diff: 'beginner',
+  variation: '',
+  emoji: '',
+  setup_notes: '',
+  parent_id: '',
+  parent_name: '',
+  video_url: '',
+  status: 'draft',
+  bilateral: false,
+  bilateral_side_label: 'Arm',
+  bilateral_left_video_url: '',
+  bilateral_right_video_url: '',
+};
+
+function slugifyExercise(input: string): string {
+  return input
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .slice(0, 64);
+}
+
+function createFormToPayload(f: CreateFormState): Partial<ExerciseRow> {
+  return {
+    name: f.name.trim(),
+    slug: (f.slug || slugifyExercise(f.name)).trim(),
+    cat: f.cat,
+    primary_cat: f.primary_cat.trim() || null,
+    subcat: f.subcat.trim() || null,
+    environment: f.environment.trim() || null,
+    body_focus: f.body_focus.trim() || null,
+    equipment: f.equipment.trim() || null,
+    machine_required: f.machine_required,
+    diff: f.diff,
+    variation: f.variation.trim(),
+    emoji: f.emoji.trim(),
+    setup_notes: f.setup_notes.trim(),
+    parent_id: f.parent_id.trim(),
+    parent_name: f.parent_name.trim(),
+    video_url: f.video_url.trim() || null,
+    status: f.status,
+  };
+}
+
+function isValidHttpUrl(s: string): boolean {
+  if (!s) return false;
+  try {
+    const u = new URL(s);
+    return u.protocol === 'http:' || u.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+type FailedChild = {
+  side: 'L' | 'R';
+  payload: Partial<ExerciseRow>;
+  error: string;
+};
+
 // ── Component ──────────────────────────────────────────────────────────────
 
 export function ExercisesPage() {
@@ -195,6 +502,7 @@ export function ExercisesPage() {
   const [fEquipment, setFEquipment] = useState('');
   const [fEnvironment, setFEnvironment] = useState('');
   const [fDiff, setFDiff] = useState('');
+  const [fStatus, setFStatus] = useState<'' | 'published' | 'draft' | 'archived'>('');
   const [fHasOverride, setFHasOverride] = useState(false);
 
   // Modal state
@@ -203,13 +511,128 @@ export function ExercisesPage() {
   const [modalErr, setModalErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [uploadingVideoAlt, setUploadingVideoAlt] = useState(false);
   const [uploadingThumb, setUploadingThumb] = useState(false);
   const videoInputRef = useRef<HTMLInputElement | null>(null);
+  const videoAltInputRef = useRef<HTMLInputElement | null>(null);
   const thumbInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Cache-buster for admin media previews. The worker re-uploads to the same
+  // R2 key on every successful process_video, so the video URL never changes —
+  // browsers happily serve the cached old mp4 even after a fresh upload.
+  // Bump this on each upload/delete completion to force a reload.
+  const [mediaVer, setMediaVer] = useState<number>(() => Date.now());
+
+  // Voiceover-job state (lives inside the Edit modal). The "voice" select is
+  // retained for legacy compatibility but is no longer consulted by the
+  // fan-out handler — one click queues every available (voice × lang) variant.
+  const [voiceoverJobId, setVoiceoverJobId] = useState<number | null>(null);
+  const [voiceoverVoice, setVoiceoverVoice] = useState<TtsVoice>('onyx');
+  const [voiceoverStatusVisible, setVoiceoverStatusVisible] = useState(false);
+  const [voiceoverErr, setVoiceoverErr] = useState<string | null>(null);
+  const [voiceoverQueuing, setVoiceoverQueuing] = useState(false);
+  // Number of (voice × lang) jobs queued by the latest fan-out click.
+  // Surfaced in the status banner so admins know how many variants are
+  // expected to land on R2 as the worker processes them.
+  const [voiceoverQueuingTotal, setVoiceoverQueuingTotal] = useState<number>(0);
+
+  // Phase 3: setup_notes language tab + transient "translations updating" hint
+  // that fires after a save where EN setup_notes changed (or it's a new row).
+  // The Edge Function runs async on the backend; we don't await it, we just
+  // surface that we kicked it off and clear the hint on a timer.
+  const [activeNotesLang, setActiveNotesLang] = useState<SetupNotesLang>('en');
+  const [translationsUpdating, setTranslationsUpdating] = useState(false);
+
+  // Delete-video-job state (lives inside the Edit modal)
+  const [deleteVideoJobId, setDeleteVideoJobId] = useState<number | null>(null);
+  const [deleteVideoStatusVisible, setDeleteVideoStatusVisible] = useState(false);
+  const [deleteVideoErr, setDeleteVideoErr] = useState<string | null>(null);
+  const [deleteVideoQueuing, setDeleteVideoQueuing] = useState(false);
+
+  // Alt-video twins of the upload/delete state. The alt slot reuses the same
+  // media-worker pipeline (process_video / delete_video) routed via media_jobs.target.
+  const [deleteVideoAltJobId, setDeleteVideoAltJobId] = useState<number | null>(null);
+  const [deleteVideoAltStatusVisible, setDeleteVideoAltStatusVisible] = useState(false);
+  const [deleteVideoAltErr, setDeleteVideoAltErr] = useState<string | null>(null);
+  const [deleteVideoAltQueuing, setDeleteVideoAltQueuing] = useState(false);
+  const [videoAltUploadJobId, setVideoAltUploadJobId] = useState<number | null>(null);
+  const [videoAltUploadStatusVisible, setVideoAltUploadStatusVisible] = useState(false);
+  const [videoAltUploadErr, setVideoAltUploadErr] = useState<string | null>(null);
+
+  // Edit-modal "Upload new video" routing. Default off → run through the
+  // media_worker (4:3 crop, R2, thumbnail). Checked → direct upload to
+  // Supabase Storage, no worker (matches the Create-flow Skip-processing).
+  const [editSkipProcessing, setEditSkipProcessing] = useState(false);
+  const [videoUploadJobId, setVideoUploadJobId] = useState<number | null>(null);
+  const [videoUploadStatusVisible, setVideoUploadStatusVisible] = useState(false);
+  const [videoUploadErr, setVideoUploadErr] = useState<string | null>(null);
+
+  // Create modal state (canonical exercises table)
+  const [createOpen, setCreateOpen] = useState(false);
+  const [createForm, setCreateForm] = useState<CreateFormState>(EMPTY_CREATE_FORM);
+  const [createErr, setCreateErr] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
+  const [canonicalRows, setCanonicalRows] = useState<ExerciseRow[]>([]);
+  // When a bilateral parent insert succeeds but a child fails, hold onto the
+  // failed payload so admin can retry just that one without recreating parent.
+  // The failed child's payload already carries parent_id, so we don't need to
+  // track the parent id separately.
+  const [failedChild, setFailedChild] = useState<FailedChild | null>(null);
+  const [retrying, setRetrying] = useState(false);
+  // Toast (lightweight inline)
+  const [toast, setToast] = useState<string | null>(null);
+
+  // Video upload state. The widgets hold a File until create completes, then
+  // the upload+job runs and `mediaJobId` is set so the widget subscribes.
+  const [singleVideoFile, setSingleVideoFile] = useState<File | null>(null);
+  const [skipProcessing, setSkipProcessing] = useState(false);
+  const [singleMediaJobId, setSingleMediaJobId] = useState<number | null>(null);
+  const [leftVideoFile, setLeftVideoFile] = useState<File | null>(null);
+  const [leftMediaJobId, setLeftMediaJobId] = useState<number | null>(null);
+  const [rightVideoFile, setRightVideoFile] = useState<File | null>(null);
+  const [rightMediaJobId, setRightMediaJobId] = useState<number | null>(null);
+
+  function resetVideoState() {
+    setSingleVideoFile(null);
+    setSingleMediaJobId(null);
+    setLeftVideoFile(null);
+    setLeftMediaJobId(null);
+    setRightVideoFile(null);
+    setRightMediaJobId(null);
+    setSkipProcessing(false);
+  }
+
+  async function uploadAndQueue(
+    exerciseId: string,
+    slug: string,
+    file: File,
+  ): Promise<number | null> {
+    try {
+      const { storage_path } = await uploadExerciseVideoRaw(file, slug);
+      const res = await createMediaJob(exerciseId, 'process_video', storage_path);
+      if (!res.ok || !res.job) {
+        setCreateErr(`Video upload failed for ${slug}: ${res.error ?? 'unknown'}`);
+        return null;
+      }
+      return res.job.id;
+    } catch (e) {
+      setCreateErr(`Video upload failed for ${slug}: ${errMessage(e)}`);
+      return null;
+    }
+  }
+
+  // Normalize hyphens/em-dashes/punctuation/underscores → spaces, collapse
+  // whitespace, lowercase. Lets "single arm" match "Single-Arm" AND
+  // single_arm_*, "iso lateral low" match "Iso-Lateral Low Row" AND
+  // iso_lateral_low_row, etc. Underscore is included because admin search
+  // runs over slugs/ids too (admins regularly look up exercises by slug),
+  // unlike the public-site search which doesn't expose slugs to users.
+  const normSearch = (s: string) =>
+    s.toLowerCase().replace(/[—–\-'/.,()_]/g, ' ').replace(/\s+/g, ' ').trim();
 
   // Debounced search
   useEffect(() => {
-    const t = setTimeout(() => setSearch(searchRaw.trim().toLowerCase()), 250);
+    const t = setTimeout(() => setSearch(normSearch(searchRaw)), 250);
     return () => clearTimeout(t);
   }, [searchRaw]);
 
@@ -232,7 +655,7 @@ export function ExercisesPage() {
         setErr(null);
       } catch (e) {
         if (!alive) return;
-        setErr(e instanceof Error ? e.message : String(e));
+        setErr(errMessage(e));
       } finally {
         if (alive) setLoading(false);
       }
@@ -247,18 +670,87 @@ export function ExercisesPage() {
       const oRes = await listExerciseOverrides();
       setOverridesById(new Map(oRes.map((o) => [o.id, o])));
     } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+      setErr(errMessage(e));
     }
   }
 
-  // Merged view
+  // Load canonical rows (admin-created, plus excel-baseline imports) on mount
+  // so the list shows rows that don't exist in the bundled exercises.json.
+  useEffect(() => {
+    void refreshCanonical();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Map a snake_case canonical row to the camelCase Exercise shape the list expects.
+  function canonicalToExercise(r: ExerciseRow): Exercise {
+    return {
+      id: r.id,
+      name: r.name,
+      slug: r.slug,
+      cat: r.cat ?? '',
+      bodyFocus: r.body_focus ?? '',
+      equipment: r.equipment ?? '',
+      primaryCat: r.primary_cat ?? '',
+      subcat: r.subcat ?? '',
+      environment: r.environment ?? '',
+      diff: r.diff ?? '',
+      emoji: r.emoji ?? '',
+      setupNotes: r.setup_notes ?? '',
+      setupNotesDe: r.setup_notes_de ?? '',
+      setupNotesEs: r.setup_notes_es ?? '',
+      setupNotesFr: r.setup_notes_fr ?? '',
+      setupNotesPt: r.setup_notes_pt ?? '',
+      videoUrl: r.video_url ?? '',
+      videoUrlAlt: r.video_url_alt ?? '',
+      thumbnailUrl: r.thumbnail_url ?? undefined,
+      machineRequired: r.machine_required,
+      parentId: r.parent_id ?? '',
+      parentName: r.parent_name ?? '',
+      status: r.status,
+    };
+  }
+
+  // Merged view: base (exercises.json) + legacy patch overrides + canonical rows.
+  // Canonical rows take precedence (they're admin-created or the explicit table
+  // version). Dedupe is keyed on `slug` — not `id` — because the bundled JSON
+  // and Supabase use different id conventions (e.g. bundled `zercher_squat` vs
+  // canonical `gym_162`) for the same exercise. Slug has a UNIQUE constraint
+  // in Supabase and is present on every bundled row, so it's the stable key.
+  // Rows missing a slug fall back to id so they still appear once.
   const merged = useMemo<Exercise[]>(() => {
-    return base.map((b) => {
+    const keyOf = (e: { id: string; slug?: string }) => e.slug ?? e.id;
+    const bySlug = new Map<string, Exercise>();
+    for (const b of base) {
       const o = overridesById.get(b.id);
-      if (!o) return b;
-      return { ...b, ...(o.patch as Partial<Exercise>) };
-    });
-  }, [base, overridesById]);
+      const row = o ? { ...b, ...(o.patch as Partial<Exercise>) } : b;
+      bySlug.set(keyOf(row), row);
+    }
+    for (const r of canonicalRows) {
+      const row = canonicalToExercise(r);
+      bySlug.set(keyOf(row), row);
+    }
+    return Array.from(bySlug.values());
+  }, [base, overridesById, canonicalRows]);
+
+  // Bilateral lookups (computed off the merged dataset so renamed rows pick up).
+  const bilateralParentNames = useMemo(
+    () => computeBilateralParents(merged.map((e) => ({ name: e.name }))),
+    [merged],
+  );
+  const bilateralChildrenByParent = useMemo(() => {
+    const map = new Map<string, { L?: Exercise; R?: Exercise }>();
+    for (const ex of merged) {
+      const side = sideOfClient(ex.name ?? '');
+      if (!side) continue;
+      const parent = parentNameOfClient(ex.name ?? '');
+      if (!bilateralParentNames.has(parent)) continue;
+      const cur = map.get(parent) ?? {};
+      if (side === 'L' && !cur.L) cur.L = ex;
+      else if (side === 'R' && !cur.R) cur.R = ex;
+      map.set(parent, cur);
+    }
+    return map;
+  }, [merged, bilateralParentNames]);
 
   // Filter options
   const bodyFocusOpts = useMemo(() => uniqueSorted(merged.map((e) => e.bodyFocus)), [merged]);
@@ -273,26 +765,43 @@ export function ExercisesPage() {
       if (fEquipment && e.equipment !== fEquipment) return false;
       if (fEnvironment && e.environment !== fEnvironment) return false;
       if (fDiff && e.diff !== fDiff) return false;
+      if (fStatus && e.status !== fStatus) return false;
       if (fHasOverride && !overridesById.has(e.id)) return false;
       if (search) {
-        const hay = `${e.name ?? ''} ${e.bodyFocus ?? ''} ${e.equipment ?? ''}`.toLowerCase();
+        const hay = normSearch(
+          `${e.name ?? ''} ${e.slug ?? ''} ${e.id ?? ''} ${e.bodyFocus ?? ''} ${e.equipment ?? ''}`,
+        );
         if (!hay.includes(search)) return false;
       }
       return true;
     });
-  }, [merged, search, fBodyFocus, fEquipment, fEnvironment, fDiff, fHasOverride, overridesById]);
+  }, [merged, search, fBodyFocus, fEquipment, fEnvironment, fDiff, fStatus, fHasOverride, overridesById]);
 
   const overrideCount = overridesById.size;
+  const publishedCount = canonicalRows.filter((r) => r.status === 'published').length;
+  const draftCount = canonicalRows.filter((r) => r.status === 'draft').length;
 
   // Open edit modal: use BASE for the exercise (so diff is computed against base) but
   // prefill the form with merged (base + override) values so admin sees current state.
   function openEdit(row: Exercise) {
-    const baseRow = base.find((b) => b.id === row.id);
-    if (!baseRow) return;
+    // Bundled JSON uses slug-as-id while Supabase uses gym_*/home_* ids, so
+    // a strict id lookup misses any row whose canonical Supabase id differs
+    // from its bundled-JSON id. Try id first, then slug, then fall back to
+    // the merged row itself (which is what the table is already rendering).
+    const baseRow =
+      base.find((b) => b.id === row.id) ??
+      (row.slug ? base.find((b) => b.slug === row.slug) : undefined) ??
+      row;
     const o = overridesById.get(row.id);
     const mergedRow: Exercise = o ? { ...baseRow, ...(o.patch as Partial<Exercise>) } : baseRow;
     setEditing(baseRow);
-    setForm(buildForm(mergedRow));
+    // For canonical-backed exercises, `row` is already canonicalToExercise(r)
+    // (see the `merged` useMemo) and carries DB-valid fields like `status`.
+    // The bundled JSON has no `status` column, so building from `mergedRow`
+    // would seed form.status as '' and a save would violate the
+    // exercises_status_check constraint.
+    const canonical = findCanonicalForEditing(baseRow);
+    setForm(buildForm(canonical ? row : mergedRow));
     setModalErr(null);
   }
 
@@ -300,12 +809,411 @@ export function ExercisesPage() {
     setEditing(null);
     setForm(null);
     setModalErr(null);
+    setActiveNotesLang('en');
+    setTranslationsUpdating(false);
     setUploadingVideo(false);
+    setUploadingVideoAlt(false);
     setUploadingThumb(false);
+    setVoiceoverJobId(null);
+    setVoiceoverStatusVisible(false);
+    setVoiceoverErr(null);
+    setVoiceoverQueuing(false);
+    setVoiceoverQueuingTotal(0);
+    setDeleteVideoJobId(null);
+    setDeleteVideoStatusVisible(false);
+    setDeleteVideoErr(null);
+    setDeleteVideoQueuing(false);
+    setDeleteVideoAltJobId(null);
+    setDeleteVideoAltStatusVisible(false);
+    setDeleteVideoAltErr(null);
+    setDeleteVideoAltQueuing(false);
+    setEditSkipProcessing(false);
+    setVideoUploadJobId(null);
+    setVideoUploadStatusVisible(false);
+    setVideoUploadErr(null);
+    setVideoAltUploadJobId(null);
+    setVideoAltUploadStatusVisible(false);
+    setVideoAltUploadErr(null);
+  }
+
+  async function handleGenerateVoiceover() {
+    if (!editing || !form) return;
+    if (!form.videoUrl || !form.setupNotes.trim()) {
+      setVoiceoverErr('Voiceover requires a video and setupNotes.');
+      return;
+    }
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setVoiceoverErr(
+        'No canonical row for this exercise — save it once before generating voiceover.',
+      );
+      return;
+    }
+
+    // Variant matrix: 5 langs × 2 voices = up to 10 media_jobs per click.
+    // All five language sources now live on the canonical row directly:
+    // `setup_notes` (EN) + `setup_notes_{de,es,fr,pt}`. The non-EN columns
+    // are populated asynchronously by the translate-exercise Edge Function
+    // after every EN save. A lang whose column is NULL/empty is silently
+    // skipped — we do not block the EN queue on missing translations, and
+    // a follow-up click after translations land will queue the remaining
+    // variants.
+    const LANGS: { code: SetupNotesLang; sourceText: string }[] = [
+      { code: 'en', sourceText: canonical.setup_notes ?? form.setupNotes ?? '' },
+      { code: 'de', sourceText: canonical.setup_notes_de ?? '' },
+      { code: 'es', sourceText: canonical.setup_notes_es ?? '' },
+      { code: 'fr', sourceText: canonical.setup_notes_fr ?? '' },
+      { code: 'pt', sourceText: canonical.setup_notes_pt ?? '' },
+    ];
+    const VOICES: TtsVoice[] = ['onyx', 'nova'];
+
+    try {
+      setVoiceoverQueuing(true);
+      setVoiceoverErr(null);
+      setVoiceoverQueuingTotal(0);
+
+      // Decide which (voice × lang) jobs to queue.
+      const planned: { voice: TtsVoice; lang: string; sourceText: string }[] = [];
+      for (const v of VOICES) {
+        for (const l of LANGS) {
+          const t = l.sourceText.trim();
+          if (t.length > 0) {
+            planned.push({ voice: v, lang: l.code, sourceText: t });
+          }
+        }
+      }
+
+      if (planned.length === 0) {
+        setVoiceoverErr(
+          'No source text available — English setup_notes is empty and no translation columns are populated. Save the EN copy first; translations will fill in shortly.',
+        );
+        return;
+      }
+
+      const results = await Promise.all(
+        planned.map((p) =>
+          createMediaJob(
+            canonical.id,
+            'generate_voiceover',
+            null,
+            p.voice,
+            'primary',
+            p.lang,
+            p.sourceText,
+          ),
+        ),
+      );
+
+      const failed = results.filter((r) => !r.ok);
+      const firstOk = results.find((r) => r.ok && r.job);
+      if (firstOk?.job) {
+        setVoiceoverJobId(firstOk.job.id);
+        setVoiceoverStatusVisible(true);
+      }
+      setVoiceoverQueuingTotal(planned.length);
+
+      if (failed.length === results.length) {
+        setVoiceoverErr(
+          failed[0]?.error ?? 'Failed to queue any voiceover jobs',
+        );
+      } else if (failed.length > 0) {
+        setVoiceoverErr(
+          `${failed.length}/${results.length} variants failed to queue: ${failed[0]?.error ?? 'unknown error'}`,
+        );
+      } else {
+        showToast(`Queued ${planned.length} voiceover variants`);
+      }
+    } catch (e) {
+      setVoiceoverErr(errMessage(e));
+    } finally {
+      setVoiceoverQueuing(false);
+    }
+  }
+
+  async function handleVoiceoverDone() {
+    // Refresh canonical rows so any updated voiceover_url is reflected, and
+    // re-sync the form's video_url from the fresh row. The voiceover worker
+    // rewrites video_url with a cache-bust query param (?v=…) — without this
+    // sync, the form would still hold the pre-voiceover URL, and a later
+    // save would diff it against the new canonical value and clobber the
+    // worker's update with the stale URL.
+    const fresh = await refreshCanonical();
+    if (fresh && editing) {
+      const slug = str(editing.slug);
+      const refreshed =
+        (slug && fresh.find((r) => r.slug === slug)) ||
+        fresh.find((r) => r.id === editing.id) ||
+        null;
+      if (refreshed) {
+        setForm((prev) =>
+          prev ? { ...prev, videoUrl: str(refreshed.video_url) } : prev,
+        );
+      }
+    }
+    // Auto-dismiss the status display after 5s.
+    setTimeout(() => {
+      setVoiceoverStatusVisible(false);
+      setVoiceoverJobId(null);
+    }, 5000);
+  }
+
+  function handleVoiceoverError(job: { error_message: string | null }) {
+    setVoiceoverErr(job.error_message ?? 'Voiceover job failed');
+  }
+
+  async function handleDeleteVideo() {
+    if (!editing || !form) return;
+    if (!form.videoUrl) {
+      setDeleteVideoErr('No video to delete.');
+      return;
+    }
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setDeleteVideoErr('No canonical row for this exercise — save it once before deleting the video.');
+      return;
+    }
+    if (
+      !confirm(
+        "Delete this exercise's video and thumbnail? The MP4 will be removed from R2 and the thumbnail from Supabase Storage. This cannot be undone.",
+      )
+    ) {
+      return;
+    }
+    try {
+      setDeleteVideoQueuing(true);
+      setDeleteVideoErr(null);
+      const res = await createMediaJob(canonical.id, 'delete_video');
+      if (!res.ok || !res.job) {
+        setDeleteVideoErr(res.error ?? 'Failed to queue delete-video job');
+        return;
+      }
+      setDeleteVideoJobId(res.job.id);
+      setDeleteVideoStatusVisible(true);
+    } catch (e) {
+      setDeleteVideoErr(errMessage(e));
+    } finally {
+      setDeleteVideoQueuing(false);
+    }
+  }
+
+  function handleDeleteVideoDone() {
+    void refreshCanonical();
+    setForm((prev) => (prev ? { ...prev, videoUrl: '', thumbnailUrl: '' } : prev));
+    setMediaVer(Date.now());
+    showToast('Primary video deleted');
+    setTimeout(() => {
+      setDeleteVideoStatusVisible(false);
+      setDeleteVideoJobId(null);
+    }, 4000);
+  }
+
+  function handleDeleteVideoError(job: { error_message: string | null }) {
+    setDeleteVideoErr(job.error_message ?? 'Delete-video job failed');
+  }
+
+  // ── Alt-video twins (target='alt' on the same media-worker job types) ────
+  async function handleDeleteVideoAlt() {
+    if (!editing || !form) return;
+    if (!form.videoUrlAlt) {
+      setDeleteVideoAltErr('No alt video to delete.');
+      return;
+    }
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setDeleteVideoAltErr('No canonical row for this exercise — save it once before deleting the alt video.');
+      return;
+    }
+    if (
+      !confirm(
+        "Delete this exercise's alt (side-view) video? The MP4 will be removed from R2. The primary video and thumbnail are untouched. This cannot be undone.",
+      )
+    ) {
+      return;
+    }
+    try {
+      setDeleteVideoAltQueuing(true);
+      setDeleteVideoAltErr(null);
+      const res = await createMediaJob(canonical.id, 'delete_video', null, null, 'alt');
+      if (!res.ok || !res.job) {
+        setDeleteVideoAltErr(res.error ?? 'Failed to queue delete-video job');
+        return;
+      }
+      setDeleteVideoAltJobId(res.job.id);
+      setDeleteVideoAltStatusVisible(true);
+    } catch (e) {
+      setDeleteVideoAltErr(errMessage(e));
+    } finally {
+      setDeleteVideoAltQueuing(false);
+    }
+  }
+
+  function handleDeleteVideoAltDone() {
+    void refreshCanonical();
+    setForm((prev) => (prev ? { ...prev, videoUrlAlt: '' } : prev));
+    setMediaVer(Date.now());
+    showToast('Alt video deleted');
+    setTimeout(() => {
+      setDeleteVideoAltStatusVisible(false);
+      setDeleteVideoAltJobId(null);
+    }, 4000);
+  }
+
+  function handleDeleteVideoAltError(job: { error_message: string | null }) {
+    setDeleteVideoAltErr(job.error_message ?? 'Delete-video job failed');
+  }
+
+  async function handleVideoFileAlt(f: File) {
+    if (!editing) return;
+    setVideoAltUploadErr(null);
+
+    // Alt videos always go through the worker — no skip-processing path. The
+    // worker writes to video_url_alt and skips thumbnail extraction.
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setVideoAltUploadErr('No canonical row for this exercise — save it once before uploading an alt video through the worker.');
+      return;
+    }
+    try {
+      setUploadingVideoAlt(true);
+      const { storage_path } = await uploadExerciseVideoRaw(f, `${canonical.slug}_side_view`);
+      const res = await createMediaJob(canonical.id, 'process_video', storage_path, null, 'alt');
+      if (!res.ok || !res.job) {
+        setVideoAltUploadErr(res.error ?? 'Failed to queue media job');
+        return;
+      }
+      setVideoAltUploadJobId(res.job.id);
+      setVideoAltUploadStatusVisible(true);
+    } catch (e) {
+      setVideoAltUploadErr(errMessage(e));
+    } finally {
+      setUploadingVideoAlt(false);
+    }
+  }
+
+  async function handleVideoAltUploadDone() {
+    if (editing) {
+      try {
+        const rows = await listExercises();
+        setCanonicalRows(rows);
+        const slug = str(editing.slug ?? editing.id);
+        const fresh = rows.find((r) => r.slug === slug || r.id === editing.id);
+        if (fresh) {
+          setForm((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  videoUrlAlt: fresh.video_url_alt ?? '',
+                }
+              : prev,
+          );
+        }
+      } catch {
+        // non-fatal — admin can reopen to pick up the new url
+      }
+    }
+    setMediaVer(Date.now());
+    showToast('Alt video uploaded');
+    setTimeout(() => {
+      setVideoAltUploadStatusVisible(false);
+      setVideoAltUploadJobId(null);
+    }, 4000);
+  }
+
+  function handleVideoAltUploadError(job: { error_message: string | null }) {
+    setVideoAltUploadErr(job.error_message ?? 'Alt video processing failed');
   }
 
   async function handleSave() {
     if (!editing || !form) return;
+
+    // Detect path: if a canonical row exists for this exercise (slug match,
+    // falling back to id match), Save writes directly to the `exercises`
+    // table via updateExercise. Otherwise we keep the legacy override-patch
+    // path so base-only rows from the bundled JSON still work.
+    const canonical = findCanonicalForEditing(editing);
+
+    if (canonical) {
+      // Canonical-update path: diff form against the canonical row's current
+      // values and send only the changed columns.
+      //
+      // Edge case: if a row exists in canonical but its `setup_notes` is empty
+      // and the form was preloaded from the bundled JSON (via openEdit's
+      // mergedRow), saving here will push that bundled value into the
+      // canonical row — which is the same content the merged view would show
+      // either way, so it's a benign first-write. Admin retains full control:
+      // they can clear the field before saving if they don't want it
+      // persisted.
+      let patch = diffCanonical(canonical, form);
+
+      // Auto-link bilateral children: when the name pattern says this is
+      // "X — Left" / "X — Right" and there's a canonical parent row "X" with
+      // its own id, but THIS row has no parent_id yet, include parent_id +
+      // parent_name in the save patch. This back-fills legacy data that was
+      // imported as 3 independent parent rows instead of parent + 2 children.
+      const editingName = str(editing.name);
+      if (isChildNameClient(editingName) && !canonical.parent_id) {
+        const parentName = parentNameOfClient(editingName);
+        const parentRow = canonicalRows.find(
+          (r) => r.name === parentName && !r.parent_id,
+        );
+        if (parentRow) {
+          patch = {
+            ...patch,
+            parent_id: parentRow.id,
+            parent_name: parentName,
+          };
+        }
+      }
+
+      if (Object.keys(patch).length === 0) {
+        setModalErr(
+          'Form matches the saved row — nothing to write. Video uploads and deletes persist automatically when the worker finishes.',
+        );
+        return;
+      }
+      // Capture whether EN setup_notes is part of this patch BEFORE the
+      // save so the post-save fan-out trigger can decide whether to fire
+      // the translate-exercise Edge Function. EN change → re-translate
+      // the 4 non-EN columns; non-EN edits alone never trigger the
+      // function (they're treated as manual overrides).
+      const enChanged = Object.prototype.hasOwnProperty.call(patch, 'setup_notes');
+      try {
+        setSaving(true);
+        setModalErr(null);
+        const res = await updateExercise(canonical.id, patch);
+        if (!res.ok || !res.row) {
+          setModalErr(
+            typeof res.error === 'string' && res.error
+              ? res.error
+              : res.error
+                ? errMessage(res.error)
+                : 'Update failed',
+          );
+          return;
+        }
+        await refreshCanonical();
+        const savedName = res.row.name;
+
+        // Fire-and-forget: trigger the translate-exercise Edge Function
+        // when the admin changed the English setup_notes. We do not await
+        // the call — the function writes setup_notes_{de,es,fr,pt} to
+        // Supabase directly, and the next refreshCanonical surfaces them.
+        if (enChanged) {
+          triggerTranslateExercise(res.row.id, res.row.setup_notes);
+        }
+
+        closeEdit();
+        showToast(`Saved ${savedName}`);
+      } catch (e) {
+        setModalErr(errMessage(e));
+      } finally {
+        setSaving(false);
+      }
+      return;
+    }
+
+    // Legacy override-patch path (unchanged): for base-only rows from the
+    // bundled exercises.json that don't have a canonical row yet.
     const patch = diffAgainstBase(editing, form);
     if (Object.keys(patch).length === 0 && !overridesById.has(editing.id)) {
       setModalErr('No changes');
@@ -318,7 +1226,118 @@ export function ExercisesPage() {
       await refreshOverrides();
       closeEdit();
     } catch (e) {
-      setModalErr(e instanceof Error ? e.message : String(e));
+      setModalErr(errMessage(e));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  /**
+   * Fire-and-forget call into the translate-exercise Edge Function. The
+   * Edge Function reads `en_text`, runs it through the translation
+   * pipeline, and writes the 4 non-EN columns directly on the row. We
+   * don't await — admin save returns immediately. A brief
+   * "Translations updating…" hint clears on a 5s timer.
+   */
+  function triggerTranslateExercise(exerciseId: string, enText: string | null) {
+    setTranslationsUpdating(true);
+    void supabase.functions
+      .invoke('translate-exercise', {
+        body: { exercise_id: exerciseId, en_text: enText ?? '' },
+      })
+      .catch((e) => {
+        // eslint-disable-next-line no-console
+        console.warn('[translate-exercise] failed:', e);
+      });
+    setTimeout(() => setTranslationsUpdating(false), 5000);
+  }
+
+  /** Look up the canonical row for an editing target by slug, then by id. */
+  function findCanonicalForEditing(ex: Exercise): ExerciseRow | null {
+    const slug = str(ex.slug);
+    if (slug) {
+      const bySlug = canonicalRows.find((r) => r.slug === slug);
+      if (bySlug) return bySlug;
+    }
+    const byId = canonicalRows.find((r) => r.id === ex.id);
+    return byId ?? null;
+  }
+
+  /**
+   * Diff form state against a canonical row's current values, returning a
+   * `Partial<ExerciseRow>` patch with snake_case columns. Only includes fields
+   * whose form value differs from the canonical row. Empty string `""` means
+   * "clear" — we send `""` (not null) so the column is set to empty.
+   *
+   * `animationUrl` from FormState has no canonical column and is intentionally
+   * skipped.
+   */
+  function diffCanonical(row: ExerciseRow, f: FormState): Partial<ExerciseRow> {
+    const patch: Partial<ExerciseRow> = {};
+    const setIfChanged = <K extends keyof ExerciseRow>(
+      key: K,
+      formVal: string,
+      rowVal: ExerciseRow[K] | null,
+    ) => {
+      const current = rowVal === null || rowVal === undefined ? '' : String(rowVal);
+      if (formVal !== current) {
+        patch[key] = formVal as ExerciseRow[K];
+      }
+    };
+    setIfChanged('name', f.name, row.name);
+    setIfChanged('setup_notes', f.setupNotes, row.setup_notes);
+    setIfChanged('setup_notes_de', f.setupNotesDe, row.setup_notes_de);
+    setIfChanged('setup_notes_es', f.setupNotesEs, row.setup_notes_es);
+    setIfChanged('setup_notes_fr', f.setupNotesFr, row.setup_notes_fr);
+    setIfChanged('setup_notes_pt', f.setupNotesPt, row.setup_notes_pt);
+    setIfChanged('body_focus', f.bodyFocus, row.body_focus);
+    setIfChanged('equipment', f.equipment, row.equipment);
+    setIfChanged('primary_cat', f.primaryCat, row.primary_cat);
+    setIfChanged('subcat', f.subcat, row.subcat);
+    setIfChanged('environment', f.environment, row.environment);
+    setIfChanged('diff', f.diff, row.diff);
+    setIfChanged('emoji', f.emoji, row.emoji);
+    setIfChanged('video_url', f.videoUrl, row.video_url);
+    setIfChanged('video_url_alt', f.videoUrlAlt, row.video_url_alt);
+    setIfChanged('thumbnail_url', f.thumbnailUrl, row.thumbnail_url);
+    setIfChanged('status', f.status, row.status);
+    return patch;
+  }
+
+  async function handleDeleteExercise() {
+    if (!editing) return;
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setModalErr('No canonical row to delete.');
+      return;
+    }
+    if (
+      !confirm(
+        `Permanently delete "${canonical.name}"? It will disappear from web + app immediately. This cannot be undone — to hide without deleting, set Visibility to Archived instead.`,
+      )
+    ) {
+      return;
+    }
+    try {
+      setSaving(true);
+      setModalErr(null);
+      const res = await deleteExercise(canonical.id);
+      if (!res.ok) {
+        setModalErr(
+          typeof res.error === 'string' && res.error
+            ? res.error
+            : res.error
+              ? errMessage(res.error)
+              : 'Delete failed',
+        );
+        return;
+      }
+      await refreshCanonical();
+      const deletedName = canonical.name;
+      closeEdit();
+      showToast(`Deleted ${deletedName}`);
+    } catch (e) {
+      setModalErr(errMessage(e));
     } finally {
       setSaving(false);
     }
@@ -333,23 +1352,91 @@ export function ExercisesPage() {
       await refreshOverrides();
       closeEdit();
     } catch (e) {
-      setModalErr(e instanceof Error ? e.message : String(e));
+      setModalErr(errMessage(e));
     } finally {
       setSaving(false);
     }
   }
 
   async function handleVideoFile(f: File) {
+    if (!editing) return;
+    setVideoUploadErr(null);
+
+    // Skip-processing path: direct upload to Supabase Storage. The video is
+    // immediately playable but stays a UUID-named file with no R2 mirror and
+    // no thumbnail extraction.
+    if (editSkipProcessing) {
+      try {
+        setUploadingVideo(true);
+        setModalErr(null);
+        const url = await uploadExerciseVideo(f);
+        setForm((prev) => (prev ? { ...prev, videoUrl: url } : prev));
+      } catch (e) {
+        setModalErr(errMessage(e));
+      } finally {
+        setUploadingVideo(false);
+      }
+      return;
+    }
+
+    // Default: enqueue a process_video media_job so the worker re-encodes,
+    // pushes to R2 + extracts a thumbnail, then updates the canonical row.
+    const canonical = findCanonicalForEditing(editing);
+    if (!canonical) {
+      setVideoUploadErr('No canonical row for this exercise — save it once before uploading a video through the worker.');
+      return;
+    }
     try {
       setUploadingVideo(true);
-      setModalErr(null);
-      const url = await uploadExerciseVideo(f);
-      setForm((prev) => (prev ? { ...prev, videoUrl: url } : prev));
+      const { storage_path } = await uploadExerciseVideoRaw(f, canonical.slug);
+      const res = await createMediaJob(canonical.id, 'process_video', storage_path);
+      if (!res.ok || !res.job) {
+        setVideoUploadErr(res.error ?? 'Failed to queue media job');
+        return;
+      }
+      setVideoUploadJobId(res.job.id);
+      setVideoUploadStatusVisible(true);
     } catch (e) {
-      setModalErr(e instanceof Error ? e.message : String(e));
+      setVideoUploadErr(errMessage(e));
     } finally {
       setUploadingVideo(false);
     }
+  }
+
+  async function handleVideoUploadDone() {
+    // Worker has produced a fresh R2 url + thumbnail. Pull canonical so the
+    // form reflects them without requiring the admin to reopen the modal.
+    if (editing) {
+      try {
+        const rows = await listExercises();
+        setCanonicalRows(rows);
+        const slug = str(editing.slug ?? editing.id);
+        const fresh = rows.find((r) => r.slug === slug || r.id === editing.id);
+        if (fresh) {
+          setForm((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  videoUrl: fresh.video_url ?? '',
+                  thumbnailUrl: fresh.thumbnail_url ?? '',
+                }
+              : prev,
+          );
+        }
+      } catch {
+        // non-fatal — admin can reopen to pick up the new urls
+      }
+    }
+    setMediaVer(Date.now());
+    showToast('Primary video uploaded');
+    setTimeout(() => {
+      setVideoUploadStatusVisible(false);
+      setVideoUploadJobId(null);
+    }, 4000);
+  }
+
+  function handleVideoUploadError(job: { error_message: string | null }) {
+    setVideoUploadErr(job.error_message ?? 'Video processing failed');
   }
 
   async function handleThumbFile(f: File) {
@@ -359,9 +1446,332 @@ export function ExercisesPage() {
       const url = await uploadExerciseThumbnail(f);
       setForm((prev) => (prev ? { ...prev, thumbnailUrl: url } : prev));
     } catch (e) {
-      setModalErr(e instanceof Error ? e.message : String(e));
+      setModalErr(errMessage(e));
     } finally {
       setUploadingThumb(false);
+    }
+  }
+
+  // ── Create flow (canonical exercises) ────────────────────────────────────
+
+  async function refreshCanonical(): Promise<ExerciseRow[] | null> {
+    try {
+      const rows = await listExercises();
+      setCanonicalRows(rows);
+      return rows;
+    } catch (e) {
+      // Don't block opening the modal if list fails — just leave canonical
+      // empty so uniqueness check is best-effort.
+      // eslint-disable-next-line no-console
+      console.warn('listExercises failed:', e);
+      return null;
+    }
+  }
+
+  async function openCreate() {
+    setCreateForm(EMPTY_CREATE_FORM);
+    setCreateErr(null);
+    setFailedChild(null);
+    resetVideoState();
+    setCreateOpen(true);
+    await refreshCanonical();
+  }
+
+  function closeCreate() {
+    if (creating || retrying) return;
+    setCreateOpen(false);
+    setCreateForm(EMPTY_CREATE_FORM);
+    setCreateErr(null);
+    setFailedChild(null);
+    resetVideoState();
+  }
+
+  function showToast(msg: string) {
+    setToast(msg);
+    setTimeout(() => setToast((t) => (t === msg ? null : t)), 3500);
+  }
+
+  async function handleCreate(e: React.FormEvent) {
+    e.preventDefault();
+    const name = createForm.name.trim();
+    if (!name) {
+      setCreateErr('Name is required.');
+      return;
+    }
+
+    // Branch on bilateral toggle.
+    if (createForm.bilateral) {
+      await handleCreateBilateral(name);
+      return;
+    }
+
+    const slug = (createForm.slug || slugifyExercise(name)).trim();
+    if (!slug) {
+      setCreateErr('Slug is required.');
+      return;
+    }
+    if (canonicalRows.some((r) => r.slug === slug)) {
+      setCreateErr(`Slug "${slug}" is already in use — pick another.`);
+      return;
+    }
+    setCreating(true);
+    setCreateErr(null);
+    try {
+      const payload = createFormToPayload({ ...createForm, slug });
+      const res = await createExercise(payload);
+      if (!res.ok || !res.row) {
+        setCreateErr(res.error ?? 'Create failed');
+        return;
+      }
+      await refreshCanonical();
+      // Fire-and-forget translate-exercise on the newly created row if it
+      // shipped with any EN setup_notes copy. Empty setup_notes → nothing
+      // to translate; skip.
+      if (res.row.setup_notes && res.row.setup_notes.trim().length > 0) {
+        triggerTranslateExercise(res.row.id, res.row.setup_notes);
+      }
+      // If a file was selected, either upload as-is (skipProcessing) or
+      // queue the worker pipeline. The as-is path closes the drawer
+      // immediately; the pipeline path keeps the drawer open so the
+      // VideoUpload widget can show job progress.
+      if (singleVideoFile) {
+        if (skipProcessing) {
+          try {
+            const url = await uploadExerciseVideo(singleVideoFile);
+            await updateExercise(res.row.id, { video_url: url });
+            await refreshCanonical();
+            showToast(`Created ${createForm.name.trim()}`);
+            closeCreate();
+          } catch (e2) {
+            setCreateErr(`Video upload failed: ${errMessage(e2)}`);
+          }
+          return;
+        }
+        const jobId = await uploadAndQueue(res.row.id, slug, singleVideoFile);
+        if (jobId != null) {
+          setSingleMediaJobId(jobId);
+          showToast(`Created ${createForm.name.trim()} — processing video…`);
+        }
+        return; // leave drawer open
+      }
+      closeCreate();
+    } catch (e2) {
+      setCreateErr(errMessage(e2));
+    } finally {
+      setCreating(false);
+    }
+  }
+
+  function buildBilateralPayloads(parentName: string, parentSlug: string, parentId: string | null) {
+    const label = createForm.bilateral_side_label;
+    const leftName = bilateralChildName(parentName, 'Left', label);
+    const rightName = bilateralChildName(parentName, 'Right', label);
+
+    // Children inherit most parent metadata but override name/slug/video and
+    // get their parent_id wired up.
+    const childBase = createFormToPayload({
+      ...createForm,
+      name: parentName,
+      slug: parentSlug,
+      video_url: '', // children get their own video URL
+    });
+
+    const leftPayload: Partial<ExerciseRow> = {
+      ...childBase,
+      name: leftName,
+      slug: `${parentSlug}_left`,
+      parent_id: parentId ?? '',
+      parent_name: parentName,
+      video_url: createForm.bilateral_left_video_url.trim() || null,
+    };
+    const rightPayload: Partial<ExerciseRow> = {
+      ...childBase,
+      name: rightName,
+      slug: `${parentSlug}_right`,
+      parent_id: parentId ?? '',
+      parent_name: parentName,
+      video_url: createForm.bilateral_right_video_url.trim() || null,
+    };
+    return { leftPayload, rightPayload, leftName, rightName };
+  }
+
+  async function handleCreateBilateral(parentName: string) {
+    const parentSlug = (createForm.slug || slugifyExercise(parentName)).trim();
+    if (!parentSlug) {
+      setCreateErr('Slug is required.');
+      return;
+    }
+    const leftSlug = `${parentSlug}_left`;
+    const rightSlug = `${parentSlug}_right`;
+
+    // Slug uniqueness against existing canonical rows.
+    const taken = new Set(canonicalRows.map((r) => r.slug));
+    for (const s of [parentSlug, leftSlug, rightSlug]) {
+      if (taken.has(s)) {
+        setCreateErr(`Slug "${s}" is already in use — pick another base name.`);
+        return;
+      }
+    }
+
+    // Video URL validation: both empty OR both valid http(s).
+    const leftU = createForm.bilateral_left_video_url.trim();
+    const rightU = createForm.bilateral_right_video_url.trim();
+    const bothEmpty = !leftU && !rightU;
+    const bothFilled = !!leftU && !!rightU;
+    if (!bothEmpty && !bothFilled) {
+      setCreateErr('Provide BOTH Left and Right video URLs, or leave both blank.');
+      return;
+    }
+    if (bothFilled && (!isValidHttpUrl(leftU) || !isValidHttpUrl(rightU))) {
+      setCreateErr('Video URLs must start with http:// or https://.');
+      return;
+    }
+
+    setCreating(true);
+    setCreateErr(null);
+    setFailedChild(null);
+    try {
+      // 1. Create parent first to get its id.
+      const parentPayload: Partial<ExerciseRow> = {
+        ...createFormToPayload({ ...createForm, slug: parentSlug }),
+        name: parentName,
+      };
+      const parentRes = await createExercise(parentPayload);
+      if (!parentRes.ok || !parentRes.row) {
+        setCreateErr(parentRes.error ?? 'Parent create failed');
+        return;
+      }
+      const parentId = parentRes.row.id;
+
+      // 2. Create both children in parallel.
+      const { leftPayload, rightPayload, leftName, rightName } =
+        buildBilateralPayloads(parentName, parentSlug, parentId);
+
+      const [leftRes, rightRes] = await Promise.all([
+        createExercise(leftPayload).catch((err) => ({
+          ok: false as const,
+          error: err instanceof Error ? err.message : String(err),
+        })),
+        createExercise(rightPayload).catch((err) => ({
+          ok: false as const,
+          error: err instanceof Error ? err.message : String(err),
+        })),
+      ]);
+
+      const leftOk = 'ok' in leftRes && leftRes.ok;
+      const rightOk = 'ok' in rightRes && rightRes.ok;
+
+      if (leftOk && rightOk) {
+        await refreshCanonical();
+        const leftRow = 'row' in leftRes ? leftRes.row : undefined;
+        const rightRow = 'row' in rightRes ? rightRes.row : undefined;
+
+        // Fire-and-forget translate-exercise on each of the three newly
+        // created rows whose EN setup_notes is non-empty. Parent + both
+        // children typically share the same setup_notes via
+        // createFormToPayload, but we still fan out per-row so each row
+        // gets its own setup_notes_{lang} columns populated.
+        for (const row of [parentRes.row, leftRow, rightRow]) {
+          if (row && row.setup_notes && row.setup_notes.trim().length > 0) {
+            triggerTranslateExercise(row.id, row.setup_notes);
+          }
+        }
+
+        if (skipProcessing) {
+          // Upload as-is, no worker pipeline.
+          try {
+            if (leftVideoFile && leftRow) {
+              const url = await uploadExerciseVideo(leftVideoFile);
+              await updateExercise(leftRow.id, { video_url: url });
+            }
+            if (rightVideoFile && rightRow) {
+              const url = await uploadExerciseVideo(rightVideoFile);
+              await updateExercise(rightRow.id, { video_url: url });
+            }
+            await refreshCanonical();
+            showToast(`Created bilateral pair: ${parentName}`);
+            closeCreate();
+          } catch (e) {
+            setCreateErr(`Video upload failed: ${errMessage(e)}`);
+          }
+          return;
+        }
+
+        // Kick off video uploads for whichever sides have a file picked.
+        let queuedAny = false;
+        if (leftVideoFile && leftRow) {
+          const jid = await uploadAndQueue(leftRow.id, leftRow.slug, leftVideoFile);
+          if (jid != null) {
+            setLeftMediaJobId(jid);
+            queuedAny = true;
+          }
+        }
+        if (rightVideoFile && rightRow) {
+          const jid = await uploadAndQueue(rightRow.id, rightRow.slug, rightVideoFile);
+          if (jid != null) {
+            setRightMediaJobId(jid);
+            queuedAny = true;
+          }
+        }
+        if (queuedAny) {
+          showToast(`Created bilateral pair: ${parentName} — processing videos…`);
+          return; // leave drawer open
+        }
+        showToast(`Created bilateral pair: ${parentName}`);
+        closeCreate();
+        return;
+      }
+
+      // Surface which child failed; keep modal open with retry button.
+      await refreshCanonical();
+      if (!leftOk) {
+        setFailedChild({
+          side: 'L',
+          payload: leftPayload,
+          error: ('error' in leftRes && leftRes.error) || `Left child (${leftName}) failed`,
+        });
+        setCreateErr(
+          `Parent created. Left child failed: ${('error' in leftRes && leftRes.error) || 'unknown error'}`,
+        );
+      } else if (!rightOk) {
+        setFailedChild({
+          side: 'R',
+          payload: rightPayload,
+          error: ('error' in rightRes && rightRes.error) || `Right child (${rightName}) failed`,
+        });
+        setCreateErr(
+          `Parent created. Right child failed: ${('error' in rightRes && rightRes.error) || 'unknown error'}`,
+        );
+      }
+    } catch (e2) {
+      setCreateErr(e2 instanceof Error ? e2.message : String(e2));
+    } finally {
+      setCreating(false);
+    }
+  }
+
+  async function handleRetryFailedChild() {
+    if (!failedChild) return;
+    setRetrying(true);
+    setCreateErr(null);
+    try {
+      const res = await createExercise(failedChild.payload);
+      if (!res.ok) {
+        setCreateErr(res.error ?? `Retry failed for ${failedChild.side === 'L' ? 'Left' : 'Right'} child`);
+        return;
+      }
+      await refreshCanonical();
+      const parentName = createForm.name.trim();
+      showToast(`Created bilateral pair: ${parentName}`);
+      setFailedChild(null);
+      // Close inline (don't go through closeCreate, which guards on `retrying`).
+      setCreateOpen(false);
+      setCreateForm(EMPTY_CREATE_FORM);
+      setCreateErr(null);
+    } catch (e2) {
+      setCreateErr(e2 instanceof Error ? e2.message : String(e2));
+    } finally {
+      setRetrying(false);
     }
   }
 
@@ -392,12 +1802,24 @@ export function ExercisesPage() {
       key: 'name',
       header: 'Name',
       sort: (a, b) => str(a.name).localeCompare(str(b.name)),
-      render: (r) => (
-        <div>
-          <div style={{ fontWeight: 600, color: colors.text }}>{r.name || r.id}</div>
-          <div style={{ fontSize: 11, color: colors.dim }}>{r.id}</div>
-        </div>
-      ),
+      render: (r) => {
+        const name = r.name ?? '';
+        const isParent = bilateralParentNames.has(name);
+        const childParentName = isChildNameClient(name) ? parentNameOfClient(name) : null;
+        const isChild = childParentName !== null && bilateralParentNames.has(childParentName);
+        return (
+          <div>
+            <div style={{ fontWeight: 600, color: colors.text }}>
+              {name || r.id}
+              {isParent && <span style={bilateralBadgeStyle}>Bilateral</span>}
+            </div>
+            {isChild && childParentName && (
+              <div style={childNoteStyle}>child of {childParentName}</div>
+            )}
+            <div style={{ fontSize: 11, color: colors.dim }}>{r.id}</div>
+          </div>
+        );
+      },
     },
     {
       key: 'bodyFocus',
@@ -435,6 +1857,14 @@ export function ExercisesPage() {
         ),
     },
     {
+      key: 'status',
+      header: 'Status',
+      width: 110,
+      sort: (a, b) => (a.status ?? '').localeCompare(b.status ?? ''),
+      render: (r) =>
+        r.status ? <StatusChip status={r.status} /> : <span style={{ color: colors.dim }}>—</span>,
+    },
+    {
       key: 'override',
       header: 'Override',
       render: (r) => (overridesById.has(r.id) ? <span style={editedChipStyle}>Edited</span> : <span style={{ color: colors.dim }}>—</span>),
@@ -454,12 +1884,17 @@ export function ExercisesPage() {
         <div>
           <h1 style={h1Style}>Exercises</h1>
           <div style={statsStyle}>
-            {loading ? 'Loading…' : `${base.length} exercises, ${overrideCount} with overrides`}
+            {loading
+              ? 'Loading…'
+              : `${base.length} exercises · ${publishedCount} published · ${draftCount} draft · ${overrideCount} with overrides`}
           </div>
         </div>
-        <div>
+        <div style={{ display: 'flex', gap: 8 }}>
           <Button variant="secondary" onClick={refreshOverrides} disabled={loading}>
             Refresh
+          </Button>
+          <Button variant="primary" onClick={() => void openCreate()}>
+            + Create Exercise
           </Button>
         </div>
       </div>
@@ -504,6 +1939,15 @@ export function ExercisesPage() {
             </option>
           ))}
         </Select>
+        <Select
+          value={fStatus}
+          onChange={(e) => setFStatus(e.target.value as typeof fStatus)}
+        >
+          <option value="">All statuses</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+          <option value="archived">Archived</option>
+        </Select>
         <label
           style={{
             display: 'flex',
@@ -538,31 +1982,633 @@ export function ExercisesPage() {
       />
 
       <Modal
+        open={createOpen}
+        onClose={closeCreate}
+        title="New exercise"
+        width={780}
+      >
+        <form onSubmit={handleCreate}>
+          {createErr && (
+            <div style={errorBannerStyle}>
+              {createErr}
+              {failedChild && (
+                <div style={{ marginTop: 8 }}>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={() => void handleRetryFailedChild()}
+                    disabled={retrying}
+                  >
+                    {retrying
+                      ? 'Retrying…'
+                      : `Retry just the failed ${failedChild.side === 'L' ? 'Left' : 'Right'} child`}
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/*
+            Misnamed in code: this models *unilateral* exercises (one side at a
+            time, separate L/R recordings — e.g. Bulgarian split squat). True
+            bilateral lifts (squat, deadlift) need only one row and don't use
+            this toggle. UI label was corrected; full code rename deferred —
+            see memory `project_pending_unilateral_rename.md`.
+          */}
+          <div style={bilateralInfoBoxStyle}>
+            <label
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={createForm.bilateral}
+                onChange={(e) => {
+                  const bilateral = e.target.checked;
+                  setCreateForm((f) => ({
+                    ...f,
+                    bilateral,
+                    // Clear single-mode video when switching to L/R variants.
+                    video_url: bilateral ? '' : f.video_url,
+                  }));
+                  setFailedChild(null);
+                  setCreateErr(null);
+                }}
+              />
+              <span>Unilateral — create Left + Right variants</span>
+            </label>
+            <span style={{ color: colors.muted, fontSize: 11 }}>
+              For exercises trained one side at a time (e.g. Bulgarian split squat). Submits
+              parent + Left + Right rows in one go. Names guaranteed to match the app&rsquo;s
+              pairing regex.
+            </span>
+          </div>
+
+          <datalist id="exercise-parent-options">
+            {canonicalRows.map((r) => (
+              <option key={r.id} value={r.name} />
+            ))}
+          </datalist>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 14 }}>
+            <Field label={createForm.bilateral ? 'Parent base name' : 'Name'}>
+              <TextInput
+                value={createForm.name}
+                onChange={(e) => {
+                  const name = e.target.value;
+                  setCreateForm((f) => ({
+                    ...f,
+                    name,
+                    slug: f.slugTouched ? f.slug : slugifyExercise(name),
+                  }));
+                }}
+                required
+                placeholder={createForm.bilateral ? 'One Arm PullSlide' : ''}
+              />
+            </Field>
+            <Field label="Emoji">
+              <TextInput
+                value={createForm.emoji}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, emoji: e.target.value }))
+                }
+                maxLength={4}
+                placeholder="💪"
+              />
+            </Field>
+          </div>
+
+          <Field label="Slug" hint="lowercase_with_underscores; auto-derived unless edited">
+            <TextInput
+              value={createForm.slug}
+              onChange={(e) =>
+                setCreateForm((f) => ({
+                  ...f,
+                  slug: slugifyExercise(e.target.value),
+                  slugTouched: true,
+                }))
+              }
+              required
+            />
+          </Field>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
+            <Field label="Category">
+              <Select
+                value={createForm.cat}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, cat: e.target.value as ExerciseCat }))
+                }
+              >
+                <option value="gym">Gym</option>
+                <option value="home">Home</option>
+                <option value="mobility">Mobility</option>
+              </Select>
+            </Field>
+            <Field label="Primary Category">
+              <TextInput
+                value={createForm.primary_cat}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, primary_cat: e.target.value }))
+                }
+                placeholder="e.g. Strength, Cardio"
+              />
+            </Field>
+            <Field label="Subcategory">
+              <TextInput
+                value={createForm.subcat}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, subcat: e.target.value }))
+                }
+              />
+            </Field>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
+            <Field label="Environment">
+              <TextInput
+                value={createForm.environment}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, environment: e.target.value }))
+                }
+                placeholder="Gym, Home, Both"
+              />
+            </Field>
+            <Field label="Body Focus">
+              <TextInput
+                value={createForm.body_focus}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, body_focus: e.target.value }))
+                }
+                placeholder="e.g. Chest"
+              />
+            </Field>
+            <Field label="Equipment">
+              <TextInput
+                value={createForm.equipment}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, equipment: e.target.value }))
+                }
+              />
+            </Field>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
+            <Field label="Difficulty">
+              <Select
+                value={createForm.diff}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, diff: e.target.value as ExerciseDiff }))
+                }
+              >
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </Select>
+            </Field>
+            <Field label="Variation">
+              <TextInput
+                value={createForm.variation}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, variation: e.target.value }))
+                }
+                placeholder="optional"
+              />
+            </Field>
+            <Field label="Status">
+              <Select
+                value={createForm.status}
+                onChange={(e) =>
+                  setCreateForm((f) => ({
+                    ...f,
+                    status: e.target.value as ExerciseStatus,
+                  }))
+                }
+              >
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </Select>
+            </Field>
+          </div>
+
+          <Field label="Machine Required">
+            <label
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 12px',
+                border: `1px solid ${colors.border}`,
+                borderRadius: 10,
+                background: colors.bg,
+                color: colors.text,
+                fontSize: 13,
+                cursor: 'pointer',
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={createForm.machine_required}
+                onChange={(e) =>
+                  setCreateForm((f) => ({ ...f, machine_required: e.target.checked }))
+                }
+              />
+              <span>Requires a machine</span>
+            </label>
+          </Field>
+
+          <Field
+            label="Setup Notes"
+            hint="Imperative voice. ~25–40 words. Cue posture and key form points."
+          >
+            <TextArea
+              value={createForm.setup_notes}
+              onChange={(e) =>
+                setCreateForm((f) => ({ ...f, setup_notes: e.target.value }))
+              }
+              rows={3}
+              style={{ minHeight: 80 }}
+            />
+          </Field>
+
+          <Field label="Parent exercise" hint="Pick existing exercise; auto-fills parent name">
+            <TextInput
+              list="exercise-parent-options"
+              value={createForm.parent_name}
+              onChange={(e) => {
+                const name = e.target.value;
+                const found = canonicalRows.find((r) => r.name === name);
+                setCreateForm((f) => ({
+                  ...f,
+                  parent_name: name,
+                  parent_id: found?.id ?? '',
+                }));
+              }}
+              placeholder="optional"
+            />
+          </Field>
+
+          {createForm.bilateral ? (
+            <>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 14 }}>
+                <Field
+                  label="Side label"
+                  hint='Appears after "Left"/"Right" in the child name; must be one of these to match the app&rsquo;s regex.'
+                >
+                  <Select
+                    value={createForm.bilateral_side_label}
+                    onChange={(e) =>
+                      setCreateForm((f) => ({
+                        ...f,
+                        bilateral_side_label: e.target.value as BilateralSideLabel,
+                      }))
+                    }
+                  >
+                    {BILATERAL_SIDE_LABELS.map((o) => (
+                      <option key={o.value || 'none'} value={o.value}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </Select>
+                </Field>
+              </div>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  fontSize: 12,
+                  color: colors.muted,
+                  cursor: creating ? 'default' : 'pointer',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={skipProcessing}
+                  disabled={creating}
+                  onChange={(e) => setSkipProcessing(e.target.checked)}
+                />
+                Skip processing — already cropped + ready (applies to both sides)
+              </label>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <VideoUpload
+                    label="Left video (upload)"
+                    selectedFile={leftVideoFile}
+                    onFileSelected={setLeftVideoFile}
+                    jobId={leftMediaJobId}
+                    disabled={creating}
+                    skipProcessing={skipProcessing}
+                  />
+                  <Field label="…or paste a Left video URL" hint="Optional; pre-hosted MP4">
+                    <TextInput
+                      value={createForm.bilateral_left_video_url}
+                      onChange={(e) =>
+                        setCreateForm((f) => ({ ...f, bilateral_left_video_url: e.target.value }))
+                      }
+                      placeholder="https://…"
+                    />
+                  </Field>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <VideoUpload
+                    label="Right video (upload)"
+                    selectedFile={rightVideoFile}
+                    onFileSelected={setRightVideoFile}
+                    jobId={rightMediaJobId}
+                    disabled={creating}
+                    skipProcessing={skipProcessing}
+                  />
+                  <Field label="…or paste a Right video URL" hint="Optional; pre-hosted MP4">
+                    <TextInput
+                      value={createForm.bilateral_right_video_url}
+                      onChange={(e) =>
+                        setCreateForm((f) => ({ ...f, bilateral_right_video_url: e.target.value }))
+                      }
+                      placeholder="https://…"
+                    />
+                  </Field>
+                </div>
+              </div>
+              <Field label="Parent video URL (optional)" hint="Some pairs have a parent demo; many don't">
+                <TextInput
+                  value={createForm.video_url}
+                  onChange={(e) =>
+                    setCreateForm((f) => ({ ...f, video_url: e.target.value }))
+                  }
+                  placeholder="https://… (optional)"
+                />
+              </Field>
+
+              {/* Live preview */}
+              <div style={bilateralPreviewStyle}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 6 }}>
+                  Will create 3 rows:
+                </div>
+                <BilateralPreview form={createForm} />
+              </div>
+            </>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  fontSize: 12,
+                  color: colors.muted,
+                  cursor: creating ? 'default' : 'pointer',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={skipProcessing}
+                  disabled={creating}
+                  onChange={(e) => setSkipProcessing(e.target.checked)}
+                />
+                Skip processing — already cropped + ready
+              </label>
+              <VideoUpload
+                label="Exercise video (upload)"
+                selectedFile={singleVideoFile}
+                onFileSelected={setSingleVideoFile}
+                jobId={singleMediaJobId}
+                disabled={creating}
+                skipProcessing={skipProcessing}
+              />
+              <Field label="…or paste a video URL" hint="Optional; pre-hosted MP4">
+                <TextInput
+                  value={createForm.video_url}
+                  onChange={(e) =>
+                    setCreateForm((f) => ({ ...f, video_url: e.target.value }))
+                  }
+                  placeholder="https://…"
+                />
+              </Field>
+            </div>
+          )}
+
+          <div
+            style={{
+              display: 'flex',
+              gap: 8,
+              justifyContent: 'flex-end',
+              marginTop: 18,
+              paddingTop: 18,
+              borderTop: `1px solid ${colors.border}`,
+            }}
+          >
+            {(singleMediaJobId !== null ||
+              leftMediaJobId !== null ||
+              rightMediaJobId !== null) ? (
+              // Post-create: row exists, video is uploading/processing/done.
+              // Re-submitting would try to create a duplicate, so swap to a
+              // "Done" button that just closes the drawer.
+              <Button
+                type="button"
+                variant="primary"
+                onClick={async () => {
+                  await refreshCanonical();
+                  closeCreate();
+                }}
+              >
+                Done
+              </Button>
+            ) : (
+              <>
+                <Button type="button" variant="ghost" onClick={closeCreate} disabled={creating}>
+                  Cancel
+                </Button>
+                <Button type="submit" variant="primary" disabled={creating || retrying}>
+                  {creating
+                    ? createForm.bilateral
+                      ? 'Creating pair…'
+                      : 'Creating…'
+                    : createForm.bilateral
+                    ? 'Create bilateral pair'
+                    : 'Create exercise'}
+                </Button>
+              </>
+            )}
+          </div>
+        </form>
+      </Modal>
+
+      <Modal
         open={editing !== null}
         onClose={closeEdit}
         title={editing ? `Edit · ${str(editing.name) || editing.id}` : 'Edit'}
         width={900}
       >
-        {editing && form && (
-          <EditForm
-            base={editing}
-            form={form}
-            setForm={setForm}
-            modalErr={modalErr}
-            saving={saving}
-            uploadingVideo={uploadingVideo}
-            uploadingThumb={uploadingThumb}
-            hasOverride={overridesById.has(editing.id)}
-            videoInputRef={videoInputRef}
-            thumbInputRef={thumbInputRef}
-            onVideoFile={handleVideoFile}
-            onThumbFile={handleThumbFile}
-            onSave={handleSave}
-            onClearOverride={handleClearOverride}
-            onCancel={closeEdit}
-          />
-        )}
+        {editing &&
+          form &&
+          (() => {
+            // Determine bilateral relationship info for the info row.
+            const editingName = str(editing.name);
+            const isParent = bilateralParentNames.has(editingName);
+            const childParent = isChildNameClient(editingName)
+              ? parentNameOfClient(editingName)
+              : null;
+            const isChild =
+              childParent !== null && bilateralParentNames.has(childParent);
+            const pair = isParent ? bilateralChildrenByParent.get(editingName) : null;
+            let bilateralInfo: BilateralInfo | null = null;
+            if (isParent && pair) {
+              bilateralInfo = {
+                kind: 'parent',
+                leftName: pair.L?.name ?? '(missing)',
+                rightName: pair.R?.name ?? '(missing)',
+              };
+            } else if (isChild && childParent) {
+              bilateralInfo = { kind: 'child', parentName: childParent };
+            }
+            const isCanonical = findCanonicalForEditing(editing) !== null;
+            return (
+              <EditForm
+                base={editing}
+                form={form}
+                setForm={setForm}
+                modalErr={modalErr}
+                saving={saving}
+                uploadingVideo={uploadingVideo}
+                uploadingVideoAlt={uploadingVideoAlt}
+                uploadingThumb={uploadingThumb}
+                hasOverride={overridesById.has(editing.id)}
+                isCanonical={isCanonical}
+                activeNotesLang={activeNotesLang}
+                onActiveNotesLangChange={setActiveNotesLang}
+                translationsUpdating={translationsUpdating}
+                videoInputRef={videoInputRef}
+                videoAltInputRef={videoAltInputRef}
+                thumbInputRef={thumbInputRef}
+                onVideoFile={handleVideoFile}
+                onVideoFileAlt={handleVideoFileAlt}
+                onThumbFile={handleThumbFile}
+                onSave={handleSave}
+                onClearOverride={handleClearOverride}
+                onDeleteExercise={handleDeleteExercise}
+                onCancel={closeEdit}
+                bilateralInfo={bilateralInfo}
+                voiceoverVoice={voiceoverVoice}
+                onVoiceoverVoiceChange={setVoiceoverVoice}
+                voiceoverJobId={voiceoverJobId}
+                voiceoverStatusVisible={voiceoverStatusVisible}
+                voiceoverErr={voiceoverErr}
+                voiceoverQueuing={voiceoverQueuing}
+                voiceoverQueuingTotal={voiceoverQueuingTotal}
+                onGenerateVoiceover={handleGenerateVoiceover}
+                onVoiceoverDone={handleVoiceoverDone}
+                onVoiceoverError={handleVoiceoverError}
+                deleteVideoJobId={deleteVideoJobId}
+                deleteVideoStatusVisible={deleteVideoStatusVisible}
+                deleteVideoErr={deleteVideoErr}
+                deleteVideoQueuing={deleteVideoQueuing}
+                onDeleteVideo={handleDeleteVideo}
+                onDeleteVideoDone={handleDeleteVideoDone}
+                onDeleteVideoError={handleDeleteVideoError}
+                deleteVideoAltJobId={deleteVideoAltJobId}
+                deleteVideoAltStatusVisible={deleteVideoAltStatusVisible}
+                deleteVideoAltErr={deleteVideoAltErr}
+                deleteVideoAltQueuing={deleteVideoAltQueuing}
+                onDeleteVideoAlt={handleDeleteVideoAlt}
+                onDeleteVideoAltDone={handleDeleteVideoAltDone}
+                onDeleteVideoAltError={handleDeleteVideoAltError}
+                editSkipProcessing={editSkipProcessing}
+                onEditSkipProcessingChange={setEditSkipProcessing}
+                videoUploadJobId={videoUploadJobId}
+                videoUploadStatusVisible={videoUploadStatusVisible}
+                videoUploadErr={videoUploadErr}
+                onVideoUploadDone={handleVideoUploadDone}
+                onVideoUploadError={handleVideoUploadError}
+                videoAltUploadJobId={videoAltUploadJobId}
+                videoAltUploadStatusVisible={videoAltUploadStatusVisible}
+                videoAltUploadErr={videoAltUploadErr}
+                onVideoAltUploadDone={handleVideoAltUploadDone}
+                onVideoAltUploadError={handleVideoAltUploadError}
+                mediaVer={mediaVer}
+              />
+            );
+          })()}
       </Modal>
+
+      {toast && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 24,
+            right: 24,
+            background: colors.text,
+            color: colors.bg,
+            padding: '12px 18px',
+            borderRadius: 12,
+            fontSize: 13,
+            fontWeight: 600,
+            boxShadow: '0 6px 22px rgba(0,0,0,0.25)',
+            zIndex: 1000,
+          }}
+        >
+          {toast}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Read-only bilateral relationship descriptor passed into EditForm.
+type BilateralInfo =
+  | { kind: 'parent'; leftName: string; rightName: string }
+  | { kind: 'child'; parentName: string };
+
+// ── Bilateral live preview ────────────────────────────────────────────────
+
+function BilateralPreview({ form }: { form: CreateFormState }) {
+  const parentName = form.name.trim() || '<parent name>';
+  const baseSlug = (form.slug || slugifyExercise(form.name)).trim() || '<slug>';
+  const label = form.bilateral_side_label;
+  const leftName = form.name.trim() ? bilateralChildName(parentName, 'Left', label) : `<parent name> — Left${label ? ` ${label}` : ''}`;
+  const rightName = form.name.trim() ? bilateralChildName(parentName, 'Right', label) : `<parent name> — Right${label ? ` ${label}` : ''}`;
+  const rowStyle: React.CSSProperties = {
+    display: 'grid',
+    gridTemplateColumns: '24px 1fr auto',
+    gap: 10,
+    padding: '4px 0',
+    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+    fontSize: 12,
+    color: colors.text,
+  };
+  const numStyle: React.CSSProperties = { color: colors.muted, textAlign: 'right' };
+  const tagStyle: React.CSSProperties = { color: colors.muted, fontSize: 10, textTransform: 'uppercase', letterSpacing: 0.5 };
+  return (
+    <div>
+      <div style={rowStyle}>
+        <span style={numStyle}>1.</span>
+        <span>
+          <strong>{parentName}</strong>{' '}
+          <span style={{ color: colors.dim, fontSize: 10 }}>({baseSlug})</span>
+        </span>
+        <span style={tagStyle}>parent</span>
+      </div>
+      <div style={rowStyle}>
+        <span style={numStyle}>2.</span>
+        <span>
+          {leftName}{' '}
+          <span style={{ color: colors.dim, fontSize: 10 }}>({baseSlug}_left)</span>
+        </span>
+        <span style={tagStyle}>child · L</span>
+      </div>
+      <div style={rowStyle}>
+        <span style={numStyle}>3.</span>
+        <span>
+          {rightName}{' '}
+          <span style={{ color: colors.dim, fontSize: 10 }}>({baseSlug}_right)</span>
+        </span>
+        <span style={tagStyle}>child · R</span>
+      </div>
     </div>
   );
 }
@@ -576,15 +2622,61 @@ function EditForm({
   modalErr,
   saving,
   uploadingVideo,
+  uploadingVideoAlt,
   uploadingThumb,
   hasOverride,
+  isCanonical,
+  activeNotesLang,
+  onActiveNotesLangChange,
+  translationsUpdating,
   videoInputRef,
+  videoAltInputRef,
   thumbInputRef,
   onVideoFile,
+  onVideoFileAlt,
   onThumbFile,
   onSave,
   onClearOverride,
+  onDeleteExercise,
   onCancel,
+  bilateralInfo,
+  voiceoverVoice,
+  onVoiceoverVoiceChange,
+  voiceoverJobId,
+  voiceoverStatusVisible,
+  voiceoverErr,
+  voiceoverQueuing,
+  voiceoverQueuingTotal,
+  onGenerateVoiceover,
+  onVoiceoverDone,
+  onVoiceoverError,
+  deleteVideoJobId,
+  deleteVideoStatusVisible,
+  deleteVideoErr,
+  deleteVideoQueuing,
+  onDeleteVideo,
+  onDeleteVideoDone,
+  onDeleteVideoError,
+  deleteVideoAltJobId,
+  deleteVideoAltStatusVisible,
+  deleteVideoAltErr,
+  deleteVideoAltQueuing,
+  onDeleteVideoAlt,
+  onDeleteVideoAltDone,
+  onDeleteVideoAltError,
+  editSkipProcessing,
+  onEditSkipProcessingChange,
+  videoUploadJobId,
+  videoUploadStatusVisible,
+  videoUploadErr,
+  onVideoUploadDone,
+  onVideoUploadError,
+  videoAltUploadJobId,
+  videoAltUploadStatusVisible,
+  videoAltUploadErr,
+  onVideoAltUploadDone,
+  onVideoAltUploadError,
+  mediaVer,
 }: {
   base: Exercise;
   form: FormState;
@@ -592,22 +2684,72 @@ function EditForm({
   modalErr: string | null;
   saving: boolean;
   uploadingVideo: boolean;
+  uploadingVideoAlt: boolean;
   uploadingThumb: boolean;
   hasOverride: boolean;
+  isCanonical: boolean;
+  activeNotesLang: SetupNotesLang;
+  onActiveNotesLangChange: (l: SetupNotesLang) => void;
+  translationsUpdating: boolean;
   videoInputRef: React.MutableRefObject<HTMLInputElement | null>;
+  videoAltInputRef: React.MutableRefObject<HTMLInputElement | null>;
   thumbInputRef: React.MutableRefObject<HTMLInputElement | null>;
   onVideoFile: (f: File) => void;
+  onVideoFileAlt: (f: File) => void;
   onThumbFile: (f: File) => void;
   onSave: () => void;
   onClearOverride: () => void;
+  onDeleteExercise: () => void;
   onCancel: () => void;
+  bilateralInfo: BilateralInfo | null;
+  voiceoverVoice: TtsVoice;
+  onVoiceoverVoiceChange: (v: TtsVoice) => void;
+  voiceoverJobId: number | null;
+  voiceoverStatusVisible: boolean;
+  voiceoverErr: string | null;
+  voiceoverQueuing: boolean;
+  voiceoverQueuingTotal: number;
+  onGenerateVoiceover: () => void;
+  onVoiceoverDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onVoiceoverError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  deleteVideoJobId: number | null;
+  deleteVideoStatusVisible: boolean;
+  deleteVideoErr: string | null;
+  deleteVideoQueuing: boolean;
+  onDeleteVideo: () => void;
+  onDeleteVideoDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onDeleteVideoError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  deleteVideoAltJobId: number | null;
+  deleteVideoAltStatusVisible: boolean;
+  deleteVideoAltErr: string | null;
+  deleteVideoAltQueuing: boolean;
+  onDeleteVideoAlt: () => void;
+  onDeleteVideoAltDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onDeleteVideoAltError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  editSkipProcessing: boolean;
+  onEditSkipProcessingChange: (v: boolean) => void;
+  videoUploadJobId: number | null;
+  videoUploadStatusVisible: boolean;
+  videoUploadErr: string | null;
+  onVideoUploadDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onVideoUploadError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  videoAltUploadJobId: number | null;
+  videoAltUploadStatusVisible: boolean;
+  videoAltUploadErr: string | null;
+  onVideoAltUploadDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onVideoAltUploadError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  mediaVer: number;
 }) {
+  function withBuster(url: string): string {
+    if (!url) return url;
+    return url + (url.includes('?') ? '&' : '?') + 'v=' + mediaVer;
+  }
   const update = (k: EditableKey, v: string) =>
     setForm((prev) => (prev ? { ...prev, [k]: v } : prev));
 
   const diff = diffAgainstBase(base, form);
   const diffCount = Object.keys(diff).length;
-  const isUploading = uploadingVideo || uploadingThumb;
+  const isUploading = uploadingVideo || uploadingVideoAlt || uploadingThumb;
 
   const readOnlyFields: { label: string; value: string }[] = [
     { label: 'ID', value: str(base.id) },
@@ -620,17 +2762,91 @@ function EditForm({
 
   return (
     <div>
+      <div style={savePathRowStyle}>
+        {isCanonical ? (
+          <>
+            <span style={canonicalPillStyle}>Canonical</span>
+            <span>Save writes to the <code>exercises</code> table.</span>
+          </>
+        ) : (
+          <>
+            <span style={legacyPillStyle}>Legacy override</span>
+            <span>
+              Save writes via <code>exercise_overrides</code> patch layer.
+            </span>
+          </>
+        )}
+      </div>
+
       {modalErr && (
         <div style={errorBannerStyle} role="alert">
           {modalErr}
         </div>
       )}
 
+      {bilateralInfo && (
+        <div
+          style={{
+            background: 'rgba(80, 200, 120, 0.08)',
+            border: '1px solid rgba(80, 200, 120, 0.35)',
+            borderRadius: 10,
+            padding: '10px 14px',
+            marginBottom: 14,
+            fontSize: 13,
+            color: colors.text,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            flexWrap: 'wrap',
+          }}
+        >
+          <span style={bilateralBadgeStyle}>Bilateral</span>
+          {bilateralInfo.kind === 'parent' ? (
+            <span>
+              Bilateral parent — children:{' '}
+              <strong>{bilateralInfo.leftName}</strong>,{' '}
+              <strong>{bilateralInfo.rightName}</strong>
+            </span>
+          ) : (
+            <span>
+              Bilateral child of <strong>{bilateralInfo.parentName}</strong>
+            </span>
+          )}
+        </div>
+      )}
+
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 24 }}>
         {/* Left: media previews + uploads */}
         <div>
-          <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>
-            Video preview
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+              gap: 8,
+              marginBottom: 4,
+            }}
+          >
+            <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              Video preview · primary
+            </div>
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: 0.4,
+                textTransform: 'uppercase',
+                color: '#0a0a0a',
+                background: '#c5f56a',
+                padding: '2px 6px',
+                borderRadius: 4,
+              }}
+            >
+              Thumbnail · voiceover
+            </span>
+          </div>
+          <div style={{ fontSize: 11, color: colors.dim, marginBottom: 8 }}>
+            Main clip. Uploading regenerates the thumbnail; voiceovers are generated from this slot.
           </div>
           <div
             style={{
@@ -649,8 +2865,8 @@ function EditForm({
               const safeVideo = safeUrl(form.videoUrl);
               return safeVideo ? (
                 <video
-                  key={safeVideo}
-                  src={safeVideo}
+                  key={`${safeVideo}@${mediaVer}`}
+                  src={withBuster(safeVideo)}
                   controls
                   style={{ width: '100%', maxHeight: 300, borderRadius: 10, background: '#000' }}
                 />
@@ -660,7 +2876,27 @@ function EditForm({
             })()}
           </div>
 
-          <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+          <label
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              fontSize: 12,
+              color: colors.muted,
+              cursor: isUploading || saving ? 'default' : 'pointer',
+              marginBottom: 8,
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={editSkipProcessing}
+              disabled={isUploading || saving || videoUploadJobId !== null}
+              onChange={(e) => onEditSkipProcessingChange(e.target.checked)}
+            />
+            Skip processing — already cropped + ready (no R2 mirror, no auto-thumbnail)
+          </label>
+
+          <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
             <input
               ref={videoInputRef}
               type="file"
@@ -675,11 +2911,167 @@ function EditForm({
             <Button
               variant="secondary"
               onClick={() => videoInputRef.current?.click()}
-              disabled={isUploading || saving}
+              disabled={isUploading || saving || videoUploadJobId !== null}
             >
               {uploadingVideo ? 'Uploading…' : 'Upload new video'}
             </Button>
+            {form.videoUrl && (
+              <Button
+                variant="danger"
+                onClick={onDeleteVideo}
+                disabled={isUploading || saving || deleteVideoQueuing || deleteVideoJobId !== null || videoUploadJobId !== null}
+              >
+                {deleteVideoQueuing ? 'Queuing…' : 'Delete video'}
+              </Button>
+            )}
           </div>
+
+          {videoUploadErr && (
+            <div style={{ ...errorBannerStyle, marginBottom: 12 }} role="alert">
+              {videoUploadErr}
+            </div>
+          )}
+          {videoUploadStatusVisible && videoUploadJobId !== null && (
+            <div style={{ marginBottom: 16 }}>
+              <MediaJobStatus
+                jobId={videoUploadJobId}
+                onDone={onVideoUploadDone}
+                onError={onVideoUploadError}
+              />
+            </div>
+          )}
+
+          {deleteVideoErr && (
+            <div style={{ ...errorBannerStyle, marginBottom: 12 }} role="alert">
+              {deleteVideoErr}
+            </div>
+          )}
+          {deleteVideoStatusVisible && deleteVideoJobId !== null && (
+            <div style={{ marginBottom: 16 }}>
+              <MediaJobStatus
+                jobId={deleteVideoJobId}
+                onDone={onDeleteVideoDone}
+                onError={onDeleteVideoError}
+              />
+            </div>
+          )}
+
+          {/* Alt-angle (side view) video — separate slot, same media-worker pipeline. */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+              gap: 8,
+              marginBottom: 4,
+            }}
+          >
+            <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              Video preview · alt
+            </div>
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: 0.4,
+                textTransform: 'uppercase',
+                color: colors.muted,
+                background: 'transparent',
+                border: `1px solid ${colors.border}`,
+                padding: '2px 6px',
+                borderRadius: 4,
+              }}
+            >
+              PiP swap · no thumbnail
+            </span>
+          </div>
+          <div style={{ fontSize: 11, color: colors.dim, marginBottom: 8 }}>
+            Side-view clip. Renders as the small swap thumbnail (PiP) on the public page. Does not affect the thumbnail or voiceover.
+          </div>
+          <div
+            style={{
+              background: colors.bg,
+              border: `1px solid ${colors.border}`,
+              borderRadius: 14,
+              padding: 10,
+              marginBottom: 12,
+              minHeight: 160,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {form.videoUrlAlt ? (
+              <video
+                key={`${form.videoUrlAlt}@${mediaVer}`}
+                src={withBuster(form.videoUrlAlt)}
+                controls
+                style={{ width: '100%', maxHeight: 240, borderRadius: 10, background: '#000' }}
+              />
+            ) : (
+              <div style={{ color: colors.dim, fontSize: 13 }}>No alt video</div>
+            )}
+          </div>
+
+          <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+            <input
+              ref={videoAltInputRef}
+              type="file"
+              accept="video/*"
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) onVideoFileAlt(f);
+                e.currentTarget.value = '';
+              }}
+            />
+            <Button
+              variant="secondary"
+              onClick={() => videoAltInputRef.current?.click()}
+              disabled={isUploading || saving || videoAltUploadJobId !== null}
+            >
+              {uploadingVideoAlt ? 'Uploading…' : 'Upload alt video'}
+            </Button>
+            {form.videoUrlAlt && (
+              <Button
+                variant="danger"
+                onClick={onDeleteVideoAlt}
+                disabled={isUploading || saving || deleteVideoAltQueuing || deleteVideoAltJobId !== null || videoAltUploadJobId !== null}
+              >
+                {deleteVideoAltQueuing ? 'Queuing…' : 'Delete alt video'}
+              </Button>
+            )}
+          </div>
+
+          {videoAltUploadErr && (
+            <div style={{ ...errorBannerStyle, marginBottom: 12 }} role="alert">
+              {videoAltUploadErr}
+            </div>
+          )}
+          {videoAltUploadStatusVisible && videoAltUploadJobId !== null && (
+            <div style={{ marginBottom: 16 }}>
+              <MediaJobStatus
+                jobId={videoAltUploadJobId}
+                onDone={onVideoAltUploadDone}
+                onError={onVideoAltUploadError}
+              />
+            </div>
+          )}
+
+          {deleteVideoAltErr && (
+            <div style={{ ...errorBannerStyle, marginBottom: 12 }} role="alert">
+              {deleteVideoAltErr}
+            </div>
+          )}
+          {deleteVideoAltStatusVisible && deleteVideoAltJobId !== null && (
+            <div style={{ marginBottom: 16 }}>
+              <MediaJobStatus
+                jobId={deleteVideoAltJobId}
+                onDone={onDeleteVideoAltDone}
+                onError={onDeleteVideoAltError}
+              />
+            </div>
+          )}
 
           <div style={{ fontSize: 12, fontWeight: 600, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>
             Thumbnail preview
@@ -701,7 +3093,8 @@ function EditForm({
               const safeThumb = safeUrl(form.thumbnailUrl);
               return safeThumb ? (
                 <img
-                  src={safeThumb}
+                  key={`${safeThumb}@${mediaVer}`}
+                  src={withBuster(safeThumb)}
                   alt="Thumbnail"
                   style={{ maxWidth: '100%', maxHeight: 180, borderRadius: 10 }}
                 />
@@ -761,14 +3154,34 @@ function EditForm({
             <TextInput value={form.name} onChange={(e) => update('name', e.target.value)} />
           </Field>
 
-          <Field label="Setup Notes" hint="The most commonly edited field.">
-            <TextArea
-              value={form.setupNotes}
-              onChange={(e) => update('setupNotes', e.target.value)}
-              rows={6}
-              style={{ minHeight: 140 }}
+          <Field
+            label="Setup Notes"
+            hint="EN is the source of truth — translations auto-fill on save."
+          >
+            <SetupNotesTabs
+              form={form}
+              activeLang={activeNotesLang}
+              onLangChange={onActiveNotesLangChange}
+              onChange={update}
+              translationsUpdating={translationsUpdating}
             />
           </Field>
+
+          <VoiceoverPanel
+            hasVideo={Boolean(form.videoUrl)}
+            hasSetupNotes={form.setupNotes.trim().length > 0}
+            voice={voiceoverVoice}
+            onVoiceChange={onVoiceoverVoiceChange}
+            jobId={voiceoverJobId}
+            statusVisible={voiceoverStatusVisible}
+            err={voiceoverErr}
+            queuing={voiceoverQueuing}
+            queuingTotal={voiceoverQueuingTotal}
+            onGenerate={onGenerateVoiceover}
+            onDone={onVoiceoverDone}
+            onError={onVoiceoverError}
+            disabled={saving || isUploading}
+          />
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <Field label="Body Focus">
@@ -804,8 +3217,23 @@ function EditForm({
             </Field>
           </div>
 
-          <Field label="Video URL">
+          <Field
+            label="Visibility"
+            hint="Draft or Archived hides this exercise on web + app (soft hide); Published makes it visible. Use Delete exercise below for a permanent removal."
+          >
+            <Select value={form.status || 'draft'} onChange={(e) => update('status', e.target.value)}>
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="archived">Archived</option>
+            </Select>
+          </Field>
+
+          <Field label="Video URL · primary" hint="Main clip. Source of the thumbnail and voiceovers.">
             <TextInput value={form.videoUrl} onChange={(e) => update('videoUrl', e.target.value)} placeholder="https://…" />
+          </Field>
+
+          <Field label="Video URL · alt" hint="Optional side-view clip — renders as the PiP swap on the public page. No thumbnail or voiceover.">
+            <TextInput value={form.videoUrlAlt} onChange={(e) => update('videoUrlAlt', e.target.value)} placeholder="https://…" />
           </Field>
 
           <Field label="Animation URL">
@@ -842,6 +3270,11 @@ function EditForm({
               Clear override
             </Button>
           )}
+          {isCanonical && (
+            <Button variant="danger" onClick={onDeleteExercise} disabled={saving || isUploading}>
+              Delete exercise
+            </Button>
+          )}
           <Button variant="ghost" onClick={onCancel} disabled={saving}>
             Cancel
           </Button>
@@ -850,6 +3283,234 @@ function EditForm({
           </Button>
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Voiceover panel (sits inside EditForm) ────────────────────────────────
+
+function VoiceoverPanel({
+  hasVideo,
+  hasSetupNotes,
+  voice,
+  onVoiceChange,
+  jobId,
+  statusVisible,
+  err,
+  queuing,
+  queuingTotal,
+  onGenerate,
+  onDone,
+  onError,
+  disabled,
+}: {
+  hasVideo: boolean;
+  hasSetupNotes: boolean;
+  voice: TtsVoice;
+  onVoiceChange: (v: TtsVoice) => void;
+  jobId: number | null;
+  statusVisible: boolean;
+  err: string | null;
+  queuing: boolean;
+  queuingTotal: number;
+  onGenerate: () => void;
+  onDone: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  onError: (job: import('../../lib/adminApi').MediaJobRow) => void;
+  disabled: boolean;
+}) {
+  const eligible = hasVideo && hasSetupNotes;
+
+  const wrapperStyle: React.CSSProperties = {
+    background: colors.bg,
+    border: `1px solid ${colors.border}`,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 14,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  };
+
+  const headerStyle: React.CSSProperties = {
+    fontSize: 11,
+    fontWeight: 700,
+    color: colors.muted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  };
+
+  const rowStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    flexWrap: 'wrap',
+  };
+
+  const errorStyle: React.CSSProperties = {
+    fontSize: 12,
+    color: '#fca5a5',
+    background: 'rgba(220, 38, 38, 0.08)',
+    border: '1px solid rgba(220, 38, 38, 0.4)',
+    borderRadius: 8,
+    padding: '6px 10px',
+  };
+
+  const hintStyle: React.CSSProperties = {
+    fontSize: 11,
+    color: colors.muted,
+    fontStyle: 'italic',
+  };
+
+  return (
+    <div style={wrapperStyle}>
+      <span style={headerStyle}>Voiceover</span>
+      <div style={rowStyle}>
+        <Select
+          value={voice}
+          onChange={(e) => onVoiceChange(e.target.value as TtsVoice)}
+          disabled={disabled || queuing || !eligible}
+          style={{ width: 110 }}
+        >
+          {TTS_VOICES.map((v) => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
+        </Select>
+        <Button
+          variant="secondary"
+          onClick={onGenerate}
+          disabled={disabled || queuing || !eligible}
+        >
+          {queuing ? 'Queuing…' : 'Generate voiceover (all langs × voices)'}
+        </Button>
+        {!eligible && (
+          <span style={hintStyle}>
+            Voiceover requires a video and setupNotes.
+          </span>
+        )}
+      </div>
+      {statusVisible && queuingTotal > 0 && (
+        <div style={hintStyle}>
+          Queued {queuingTotal} variant{queuingTotal === 1 ? '' : 's'}. Each
+          will appear on R2 as it finishes.
+        </div>
+      )}
+      {err && <div style={errorStyle}>{err}</div>}
+      {statusVisible && jobId != null && (
+        <MediaJobStatus jobId={jobId} onDone={onDone} onError={onError} />
+      )}
+    </div>
+  );
+}
+
+// ── Setup-notes language tabs (lives inside EditForm) ────────────────────
+//
+// Renders 5 tabs (EN/DE/ES/FR/PT) with a shared textarea below. EN is the
+// source of truth — the four non-EN columns are auto-populated by the
+// translate-exercise Edge Function on EN save. Admin can manually edit a
+// non-EN tab to override the auto-translation; the override sticks until
+// the next EN edit re-triggers translation (matching the brief: "If
+// admin manually edits a non-EN translation, save BOTH the English + the
+// override. The Edge Function won't re-fire because the EN text didn't
+// change.").
+function SetupNotesTabs({
+  form,
+  activeLang,
+  onLangChange,
+  onChange,
+  translationsUpdating,
+}: {
+  form: FormState;
+  activeLang: SetupNotesLang;
+  onLangChange: (l: SetupNotesLang) => void;
+  onChange: (k: EditableKey, v: string) => void;
+  translationsUpdating: boolean;
+}) {
+  const activeKey = SETUP_NOTES_FORM_KEY[activeLang];
+  const value = form[activeKey];
+  const isEn = activeLang === 'en';
+
+  const tabsRowStyle: React.CSSProperties = {
+    display: 'flex',
+    gap: 4,
+    marginBottom: 8,
+    borderBottom: `1px solid ${colors.border}`,
+  };
+  const tabStyle = (active: boolean): React.CSSProperties => ({
+    padding: '6px 12px',
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 0.5,
+    background: 'transparent',
+    border: 'none',
+    borderBottom: active
+      ? `2px solid ${colors.accent}`
+      : '2px solid transparent',
+    color: active ? colors.text : colors.muted,
+    cursor: 'pointer',
+    marginBottom: -1,
+  });
+  const hintStyle: React.CSSProperties = {
+    fontSize: 11,
+    color: colors.muted,
+    fontStyle: 'italic',
+    marginTop: 6,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+  };
+  const updatingPillStyle: React.CSSProperties = {
+    fontSize: 11,
+    fontWeight: 700,
+    color: colors.accent,
+    background: 'rgba(255, 255, 255, 0.04)',
+    border: `1px solid ${colors.border}`,
+    borderRadius: 8,
+    padding: '2px 8px',
+    marginTop: 6,
+    display: 'inline-block',
+  };
+
+  return (
+    <div>
+      <div style={tabsRowStyle} role="tablist" aria-label="Setup notes language">
+        {SETUP_NOTES_LANGS.map((l) => {
+          const active = l === activeLang;
+          return (
+            <button
+              key={l}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              onClick={() => onLangChange(l)}
+              style={tabStyle(active)}
+            >
+              {SETUP_NOTES_LANG_LABEL[l]}
+            </button>
+          );
+        })}
+      </div>
+      <TextArea
+        value={value}
+        onChange={(e) => onChange(activeKey, e.target.value)}
+        rows={6}
+        style={{ minHeight: 140 }}
+        placeholder={
+          isEn
+            ? 'English setup notes — source of truth for translations and voiceover.'
+            : `${SETUP_NOTES_LANG_LABEL[activeLang]} translation. Auto-filled on EN save; edit to override.`
+        }
+      />
+      {!isEn && (
+        <div style={hintStyle}>
+          Auto-translated from EN. Edit to override — changes here are saved
+          alongside EN but don't re-trigger translation.
+        </div>
+      )}
+      {translationsUpdating && (
+        <div style={updatingPillStyle}>Translations updating…</div>
+      )}
     </div>
   );
 }

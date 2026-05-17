@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, useCallback, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 import { blogArticles } from '../data/blog';
 import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
-import PricingSection from '../components/PricingSection';
+import FounderCard from '../components/FounderCard';
+import FreeTrialCta from '../components/FreeTrialCta';
 import { EmojiIcon } from '../components/EmojiIcon';
-import { Star } from '../utils/icons';
 import './Landing.css';
 
 // ── Helpers ──
@@ -22,25 +22,27 @@ function lerp(a: number, b: number, t: number) {
 }
 
 // ── Static config ──
+// CATEGORY_KEYS order: homeWorkouts, gymTraining, mobilityStretch, functional,
+// morningRoutines, eveningWindDown — keep these aligned 1:1 with that array.
+// JSX adds the leading slash via `/${cat.img}`, so no leading slash here.
 const CATEGORY_IMAGES = [
-  'ReferenceImagesReal/3888964e334eac66760016434935572e.jpg',
-  'ReferenceImagesReal/8ee1370056b3d2132deac27ce992a93d.jpg',
-  'ReferenceImagesReal/e64b6bf3121062bba39727d191b390cc.jpg',
-  'ReferenceImagesReal/4d2d6f35aaa3192a75bb1d865a1ec584.jpg',
-  'ReferenceImagesReal/7f2a6692e0dccd63b0cc05e0e7197d38.jpg',
-  'ReferenceImagesReal/2df174c21bbc8db6cd5ce2d0b96b810e.jpg',
+  'images/landing/category-home-workouts.jpg',
+  'images/landing/category-gym-training.jpg',
+  'images/landing/category-mobility-stretch.jpg',
+  'images/landing/category-functional.jpg',
+  'images/landing/category-morning-routines.jpg',
+  'images/landing/category-evening-wind-down.jpg',
 ];
 
 const GOAL_PARAMS = ['lose-weight', 'build-muscle', 'improve-mobility', 'stay-active', 'reduce-stress'];
 const GOAL_ICONS = ['\uD83D\uDD25', '\uD83D\uDCAA', '\uD83E\uDDD8', '\u26A1', '\uD83E\uDEC1'];
 const GOAL_KEYS = ['loseWeight', 'buildMuscle', 'improveMobility', 'stayActive', 'reduceStress'] as const;
 
-const FEATURE_ICONS = ['\uD83D\uDCDA', '\uD83C\uDFCB\uFE0F', '\uD83D\uDCC5', '\uD83D\uDCCA', '\u270F\uFE0F', '\uD83C\uDFC6'];
-const FEATURE_KEYS = ['exerciseLibrary', 'workoutLibrary', 'programs', 'progressTracking', 'customBuilder', 'moneyChallenges'] as const;
+const FEATURE_ICONS = ['\uD83C\uDFC6', '\uD83D\uDCDA', '\uD83C\uDFCB\uFE0F', '\uD83D\uDCC5', '\uD83D\uDCCA', '\u270F\uFE0F'];
+const FEATURE_KEYS = ['moneyChallenges', 'exerciseLibrary', 'workoutLibrary', 'programs', 'progressTracking', 'customBuilder'] as const;
 
 const CATEGORY_KEYS = ['homeWorkouts', 'gymTraining', 'mobilityStretch', 'functional', 'morningRoutines', 'eveningWindDown'] as const;
 
-const TESTIMONIAL_AVATARS = ['\uD83D\uDC68', '\uD83D\uDC69', '\uD83E\uDDD1'];
 
 // ── Smooth scroll to anchor ──
 function scrollToId(id: string) {
@@ -108,6 +110,18 @@ function useInView(threshold = 0.1) {
 // ═══════════════════════════════════════
 export default function Landing() {
   const { t } = useTranslation();
+  const location = useLocation();
+
+  // Scroll to #section when arriving with a hash (e.g. footer "Features" /
+  // "Rewards" links, which use react-router <Link to="/#features">). React
+  // Router updates the URL but doesn't trigger native hash scrolling, so we
+  // do it here. Re-runs on hash change so clicking the same hash twice still
+  // scrolls. Two animation frames give content time to mount before measuring.
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.slice(1);
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollToId(id)));
+  }, [location.hash, location.key]);
 
   // ── Derive data from translations ──
   const MARQUEE_ITEMS = [
@@ -141,22 +155,9 @@ export default function Landing() {
     goalParam: GOAL_PARAMS[i],
   }));
 
-  const TESTIMONIALS = [1, 2, 3].map((n, i) => ({
-    quote: t(`proof.card${n}Quote`),
-    name: t(`proof.card${n}Author`),
-    meta: t(`proof.card${n}Meta`),
-    avatar: TESTIMONIAL_AVATARS[i],
-  }));
-
   const FAQ_ITEMS = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
     q: t(`faq.q${n}`),
     a: t(`faq.a${n}`),
-  }));
-
-  const TRUST_STATS = [1, 2, 3, 4].map((n) => ({
-    num: t(`trust.stat${n}Num`),
-    label: t(`trust.stat${n}Label`),
-    sub: t(`trust.stat${n}Sub`),
   }));
 
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(false);
@@ -172,29 +173,26 @@ export default function Landing() {
   const [formError, setFormError] = useState(false);
 
   // Refs
-  const featuresGridRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
-
-  // Feature dots state
-  const [activeDot, setActiveDot] = useState(0);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Blog preview — first 3 articles
-  const blogPreview = blogArticles.slice(0, 3);
+  // Blog preview — featured articles (curated)
+  const FEATURED_SLUGS = [
+    '30-days-one-habit-real-money',
+    'how-to-lose-fat-and-stay-lean',
+    'simple-high-protein-meals-in-15-minutes',
+  ] as const;
+  const blogPreview = FEATURED_SLUGS
+    .map((slug) => blogArticles.find((a) => a.slug === slug))
+    .filter((a): a is typeof blogArticles[number] => a !== undefined);
 
   // InView triggers
-  const heroBottomView = useInView(0.3);
-  const statsView = useInView(0.3);
   const rewardsStatView = useInView(0.5);
 
   // CountUp values
-  const heroExercises = useCountUp(634, heroBottomView.inView);
-  const heroWorkouts = useCountUp(136, heroBottomView.inView);
-  const statExercises = useCountUp(634, statsView.inView);
-  const statWorkouts = useCountUp(136, statsView.inView);
-  const statFormats = useCountUp(6, statsView.inView);
   const rewardsStat = useCountUp(15, rewardsStatView.inView, 1200);
 
   // ── Feature detection ──
@@ -254,20 +252,23 @@ export default function Landing() {
     setTimeout(() => setScrollIndicatorVisible(true), 1400);
   }, []);
 
-  // ── Feature carousel dots (mobile) ──
+  // ── Force-start the hero loop ──
+  // Some browsers (esp. iOS Safari in low-power mode, Chrome on Android with
+  // strict autoplay policies) ignore the `autoPlay` attribute on initial paint.
+  // Calling play() explicitly after mount works because the video is muted +
+  // playsInline + offscreen-safe. We also retry on tab visibility flips so the
+  // loop resumes when the user switches back to the tab.
   useEffect(() => {
-    const grid = featuresGridRef.current;
-    if (!grid) return;
-    function onGridScroll() {
-      if (!grid) return;
-      const scrollLeft = grid.scrollLeft;
-      const first = grid.firstElementChild as HTMLElement | null;
-      if (!first) return;
-      const cardWidth = first.offsetWidth + 14;
-      setActiveDot(Math.round(scrollLeft / cardWidth));
-    }
-    grid.addEventListener('scroll', onGridScroll, { passive: true });
-    return () => grid.removeEventListener('scroll', onGridScroll);
+    const v = heroVideoRef.current;
+    if (!v) return;
+    const tryPlay = () => {
+      const p = v.play();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    };
+    tryPlay();
+    const onVisible = () => { if (document.visibilityState === 'visible') tryPlay(); };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
   }, []);
 
   // ── Cursor follower (desktop) ──
@@ -293,7 +294,7 @@ export default function Landing() {
       cursor!.classList.remove('visible');
     }
 
-    const hoverables = 'a, button, .feature-item, .cat-item, .goal-row, .proof-card, .store-btn, input';
+    const hoverables = 'a, button, .combined-card, .cat-item, .goal-row, .proof-card, .store-btn, input';
     function onOver(e: MouseEvent) {
       if ((e.target as Element).closest(hoverables)) cursor!.classList.add('hover');
     }
@@ -339,7 +340,7 @@ export default function Landing() {
                 setTimeout(() => star.classList.add('bounced'), i * 100);
               });
               // Icon bounce
-              const icon = el.querySelector('.feature-icon');
+              const icon = el.querySelector('.combined-card-icon');
               if (icon) setTimeout(() => icon.classList.add('icon-bounce'), 200);
             }, delay);
             observer.unobserve(el);
@@ -383,15 +384,16 @@ export default function Landing() {
   useEffect(() => {
     if (!isDesktop.current || prefersReducedMotion.current) return;
 
-    const cards = document.querySelectorAll<HTMLElement>('.feature-item');
+    const cards = document.querySelectorAll<HTMLElement>('.combined-card');
     const handlers = new Map<HTMLElement, { move: (e: MouseEvent) => void; leave: () => void }>();
 
     cards.forEach((card) => {
+      const xOffset = getComputedStyle(card).getPropertyValue('--x-offset').trim() || '0px';
       const move = (e: MouseEvent) => {
         const rect = card.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `perspective(800px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-3px) scale(1.01)`;
+        card.style.transform = `perspective(800px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translate3d(${xOffset}, -3px, 0) scale(1.01)`;
         card.style.setProperty('--spot-x', `${((e.clientX - rect.left) / rect.width) * 100}%`);
         card.style.setProperty('--spot-y', `${((e.clientY - rect.top) / rect.height) * 100}%`);
       };
@@ -500,35 +502,41 @@ export default function Landing() {
             <div className="hero-phone hero-phone--left">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/hero-left.png" alt="Libo Explore tab showing 140 exercises across workouts, exercises, and programs" loading="eager" />
+                  <img src="/mockups/hero-left.png?v=20260512" alt="Libo Explore tab with Build Your Own, AI Generate, and My Workouts cards above the workout grid" loading="eager" />
                 </div>
               </div>
             </div>
             <div className="hero-phone hero-phone--center">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/hero-center.png" alt="Libo Home tab with today's Upper/Lower Superset workout and progress stats" loading="eager" />
+                  <video
+                    ref={heroVideoRef}
+                    className="hero-phone__video"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    poster="/mockups/hero-poster.jpg?v=20260512"
+                    aria-label="Libo app in action: home tab with streak, today's workout, and rewards"
+                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                    disablePictureInPicture
+                    disableRemotePlayback
+                  >
+                    <source src="/mockups/hero-video.webm?v=20260512" type="video/webm" />
+                    <source src="/mockups/hero-video.mp4?v=20260512" type="video/mp4" />
+                    <img src="/mockups/hero-center.png?v=20260512" alt="Libo Home tab with streak counter, today's workout, and progress stats" />
+                  </video>
                 </div>
               </div>
             </div>
             <div className="hero-phone hero-phone--right">
               <div className="hero-phone__frame">
                 <div className="hero-phone__screen">
-                  <img src="/mockups/hero-right.png" alt="Libo workout player mid-session showing a bodyweight squat" loading="eager" />
+                  <img src="/mockups/hero-right.png?v=20260512" alt="Libo Rewards tab showing 436 points and an Apple Watch Ultra 3 giveaway" loading="eager" />
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="hero-bottom" ref={heroBottomView.ref} style={{ gridTemplateColumns: '1fr 1fr' }}>
-          <div className="hero-bottom-cell">
-            <div className="hero-bottom-num">{heroExercises}</div>
-            <div className="hero-bottom-lbl">{t('hero.stat1Label')}</div>
-          </div>
-          <div className="hero-bottom-cell">
-            <div className="hero-bottom-num">{heroWorkouts}</div>
-            <div className="hero-bottom-lbl">{t('hero.stat2Label')}</div>
           </div>
         </div>
 
@@ -547,106 +555,41 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* ── STATS STRIP ── */}
-      <div className="stats-strip" ref={statsView.ref}>
-        <div className="stats-strip-grid">
-          <div data-reveal="fade-up" data-delay="0">
-            <div className="stats-strip-num">{statExercises}</div>
-            <div className="stats-strip-label">{t('statsStrip.exercises')}</div>
-          </div>
-          <div data-reveal="fade-up" data-delay="0.1">
-            <div className="stats-strip-num">{statWorkouts}</div>
-            <div className="stats-strip-label">{t('statsStrip.workouts')}</div>
-          </div>
-          <div data-reveal="fade-up" data-delay="0.2">
-            <div className="stats-strip-num">{statFormats}</div>
-            <div className="stats-strip-label">{t('statsStrip.trainingFormats')}</div>
-          </div>
-          <div data-reveal="fade-up" data-delay="0.3" className="stats-hide-mobile">
-            <div className="stats-strip-num">{t('hero.stat3Value')}</div>
-            <div className="stats-strip-label">{t('statsStrip.equipmentRequired')}</div>
-          </div>
-        </div>
-      </div>
+      {/* ── FOUNDER BTS CARD ── */}
+      <FounderCard />
 
-      {/* ── STATEMENT ── */}
-      <div className="statement-wrapper">
-        <div className="statement">
-          <p className="statement-text">
-            <span className="dim" data-reveal="fade-up" data-delay="0">{t('statement.line1')}</span><br />
-            <span className="bright" data-reveal="fade-up" data-delay="0.15" style={{ display: 'inline-block' }}>{t('statement.line2')}</span><br />
-            <span className="dim" data-reveal="fade-up" data-delay="0.3" style={{ display: 'inline-block' }}>{t('statement.line3')}</span><br />
-            <span className="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style={{ display: 'inline-block' }}>{t('statement.line4')}</span>
-          </p>
-          <p className="body-lg statement-body" data-reveal="fade-up" data-delay="0.6">
-            {t('statement.description')}
-          </p>
-        </div>
-      </div>
-
-      {/* ── FEATURES ── */}
-      <section className="features-section" id="features">
-        <div className="features-header reveal">
-          <div>
-            <div className="label label-spaced">{t('features.eyebrow')}</div>
-            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('features.headline')}</h2>
+      {/* ── COMBINED STATEMENT + FEATURES ── */}
+      <section className="combined-section" id="features">
+        <div className="combined-section-inner">
+          <div className="combined-left">
+            <p className="statement-text">
+              <span className="dim" data-reveal="fade-up" data-delay="0">{t('statement.line1')}</span><br />
+              <span className="bright" data-reveal="fade-up" data-delay="0.15" style={{ display: 'inline-block' }}>{t('statement.line2')}</span><br />
+              <span className="dim" data-reveal="fade-up" data-delay="0.3" style={{ display: 'inline-block' }}>{t('statement.line3')}</span><br />
+              <span className="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style={{ display: 'inline-block' }}>{t('statement.line4')}</span>
+            </p>
+            <p className="body-lg statement-body" data-reveal="fade-up" data-delay="0.6">
+              {t('statement.description')}
+            </p>
           </div>
-          <p className="body-md text-narrow">
-            {t('features.description')}
-          </p>
-        </div>
-        <div className="features-grid" ref={featuresGridRef}>
-          {FEATURES.map((f, i) => (
-            <div
-              key={f.num}
-              className={`feature-item reveal${i % 3 === 1 ? ' reveal-delay-1' : i % 3 === 2 ? ' reveal-delay-2' : ''}`}
-            >
-              <div className="feature-num">{f.num}</div>
-              <span className="feature-icon">
-                <EmojiIcon emoji={f.icon} size={32} />
-              </span>
-              <div className="feature-name font-display">{f.name}</div>
-              <p className="feature-desc">{f.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div className="features-dots">
-          {FEATURES.map((_, i) => (
-            <div key={i} className={`dot${i === activeDot ? ' active' : ''}`} />
-          ))}
+          <div className="combined-right">
+            {FEATURES.map((f, i) => (
+              <div
+                key={f.num}
+                className={`combined-card combined-card-${i + 1}`}
+                data-reveal="fade-up"
+              >
+                <div className="combined-card-num">{f.num}</div>
+                <span className="combined-card-icon">
+                  <EmojiIcon emoji={f.icon} size={36} />
+                </span>
+                <div className="combined-card-name font-display">{f.name}</div>
+                <p className="combined-card-desc">{f.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-
-      {/* ── FULL-BLEED PHOTO BREAK ── */}
-      <div className="photo-break" style={{ height: 480 }}>
-        <img
-          src="/ReferenceImagesReal/935abbc2c7027fa606dba7152c73c59e.jpg"
-          alt="Strength training"
-          loading="lazy"
-          style={{ objectPosition: 'center 62%' }}
-        />
-        <div
-          className="photo-break-overlay"
-          style={{
-            background: 'linear-gradient(to right,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.2) 50%,transparent 100%)',
-          }}
-        >
-          <div>
-            <div className="label label-spaced" style={{ color: 'var(--accent)' }}>{t('photoBreak1.eyebrow')}</div>
-            <h2 className="display display-md font-display text-narrow">
-              {(() => {
-                const lines = t('photoBreak1.headline').split('\n');
-                return lines.map((line, idx) => (
-                  <span key={idx}>
-                    {idx === lines.length - 1 ? <span style={{ color: 'var(--accent)' }}>{line}</span> : line}
-                    {idx < lines.length - 1 && <br />}
-                  </span>
-                ));
-              })()}
-            </h2>
-          </div>
-        </div>
-      </div>
 
       {/* ── REWARDS ── */}
       <section className="rewards-section" id="rewards">
@@ -762,106 +705,16 @@ export default function Landing() {
       </section>
 
       {/* ── PHOTO BREAK 2 ── */}
-      <div
-        className="photo-break-minimal"
-        style={{
-          height: 360,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%)',
-          borderTop: '1px solid rgba(255,255,255,0.05)',
-          borderBottom: '1px solid rgba(255,255,255,0.05)',
-        }}
-      >
-        <p className="display display-lg font-display" style={{ textAlign: 'center', letterSpacing: '-1px' }}>
-          {t('photoBreak2Full.line1')}<br /><span style={{ color: 'var(--accent)' }}>{t('photoBreak2Full.line2')}</span>
+      <div className="photo-break-minimal">
+        <p className="photo-break-minimal__text display display-lg font-display">
+          {t('photoBreak2Full.line1')}<br /><span className="photo-break-minimal__accent">{t('photoBreak2Full.line2')}</span>
         </p>
       </div>
 
-      {/* ── SOCIAL PROOF ── */}
-      <div className="proof-wrapper">
-        <section className="proof-section" id="proof">
-          <div className="reveal">
-            <div className="label label-spaced">{t('proof.eyebrow')}</div>
-            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('proof.headline')}</h2>
-          </div>
-          <div className="proof-grid">
-            {TESTIMONIALS.map((testimonial, i) => (
-              <div
-                key={testimonial.name}
-                className="proof-card reveal-card"
-                data-reveal="fade-up"
-                data-delay={String(i * 0.15)}
-              >
-                <div className="proof-stars">
-                  {[...Array(5)].map((_, j) => (
-                    <span key={j} className="star-animate">
-                      <EmojiIcon icon={Star} size={14} color="#CAFF00" />
-                    </span>
-                  ))}
-                </div>
-                <p className="proof-quote">{testimonial.quote}</p>
-                <div className="proof-author">
-                  <div className="proof-avatar">
-                    <EmojiIcon emoji={testimonial.avatar} size={28} />
-                  </div>
-                  <div>
-                    <div className="proof-name">{testimonial.name}</div>
-                    <div className="proof-meta">{testimonial.meta}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      {/* ── TRUST BADGES ── */}
-      <section className="trust-section">
-        <div className="trust-inner">
-          <div className="trust-header reveal">
-            <div className="label label-spaced">{t('trust.eyebrow')}</div>
-            <h2 className="display display-sm font-display">{t('trust.headline')}</h2>
-          </div>
-          <div className="trust-grid">
-            {TRUST_STATS.map((s, i) => (
-              <div
-                key={s.label}
-                className="trust-card"
-                data-reveal="fade-up"
-                data-delay={String(i * 0.1)}
-              >
-                <div className="trust-num font-display">{s.num}</div>
-                <div className="trust-label">{s.label}</div>
-                <div className="trust-sub">{s.sub}</div>
-              </div>
-            ))}
-          </div>
-          <div className="trust-badges reveal">
-            <div className="trust-badge">
-              <svg width="18" height="22" viewBox="0 0 20 24" fill="none" aria-hidden="true">
-                <path d="M16.47 12.2c-.03-3.1 2.53-4.59 2.64-4.66-1.44-2.1-3.68-2.39-4.47-2.42-1.9-.19-3.72 1.12-4.69 1.12-.97 0-2.46-1.1-4.05-1.07-2.08.03-4 1.21-5.08 3.08-2.17 3.76-.55 9.33 1.56 12.38 1.03 1.5 2.27 3.17 3.89 3.11 1.56-.06 2.15-1.01 4.03-1.01 1.88 0 2.42 1.01 4.07.98 1.68-.03 2.74-1.52 3.76-3.03 1.19-1.74 1.68-3.42 1.71-3.51-.04-.02-3.28-1.26-3.31-4.97h-.06z" fill="currentColor"/><path d="M13.4 3.27C14.24 2.24 14.82.87 14.67-.5c-1.17.05-2.6.78-3.44 1.77-.75.87-1.42 2.27-1.24 3.61 1.31.1 2.65-.67 3.41-1.61z" fill="currentColor"/>
-              </svg>
-              <span>{t('trust.availableIos')}</span>
-            </div>
-            <div className="trust-badge">
-              <span className="trust-badge-stars" style={{ display: 'inline-flex', gap: 2 }}>
-                {[...Array(5)].map((_, k) => (
-                  <EmojiIcon key={k} icon={Star} size={14} color="#CAFF00" />
-                ))}
-              </span>
-              <span>{t('trust.betaRating')}</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── PRICING ── */}
-      <PricingSection />
-
-      {/* ── FAQ ── */}
-      <section className="faq-section" id="faq">
+      {/* ── LIGHT TRUST BAND: trial CTA + FAQ on white, Ladder-style ── */}
+      <div className="light-band">
+        <FreeTrialCta variant="light" />
+        <section className="faq-section faq-section--light" id="faq">
         <div className="faq-inner">
           <div className="faq-header reveal">
             <div>
@@ -893,7 +746,8 @@ export default function Landing() {
             ))}
           </div>
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* ── BLOG PREVIEW ── */}
       <section className="blog-preview-section">
@@ -976,12 +830,8 @@ export default function Landing() {
           <p className={`form-msg${formError ? ' error' : ''}`}>{formMsg}</p>
         </div>
         <div className="store-row reveal">
-          <a href="https://apps.apple.com" className="store-btn" aria-label={t('store.downloadAppStore')}>
-            <svg width="20" height="24" viewBox="0 0 20 24" fill="none" style={{ flexShrink: 0 }}>
-              <path d="M16.47 12.2c-.03-3.1 2.53-4.59 2.64-4.66-1.44-2.1-3.68-2.39-4.47-2.42-1.9-.19-3.72 1.12-4.69 1.12-.97 0-2.46-1.1-4.05-1.07-2.08.03-4 1.21-5.08 3.08-2.17 3.76-.55 9.33 1.56 12.38 1.03 1.5 2.27 3.17 3.89 3.11 1.56-.06 2.15-1.01 4.03-1.01 1.88 0 2.42 1.01 4.07.98 1.68-.03 2.74-1.52 3.76-3.03 1.19-1.74 1.68-3.42 1.71-3.51-.04-.02-3.28-1.26-3.31-4.97h-.06z" fill="white" />
-              <path d="M13.4 3.27C14.24 2.24 14.82.87 14.67-.5c-1.17.05-2.6.78-3.44 1.77-.75.87-1.42 2.27-1.24 3.61 1.31.1 2.65-.67 3.41-1.61z" fill="white" />
-            </svg>
-            <div><small>{t('store.comingSoonOn')}</small><strong>{t('store.appStore')}</strong></div>
+          <a href="https://apps.apple.com" className="store-btn store-btn--img" aria-label={t('store.downloadAppStore')}>
+            <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} />
           </a>
         </div>
       </section>

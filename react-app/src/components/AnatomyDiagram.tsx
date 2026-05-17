@@ -4,7 +4,9 @@
  * exercise detail uses the same Fitbod-style visualization as mobile.
  */
 import Model, { type IExerciseData, type Muscle } from 'react-body-highlighter';
+import { useTranslation } from 'react-i18next';
 import { getMuscleGroups, type MuscleGroup } from '../utils/exerciseInfo';
+import { MUSCLE_NAME_I18N_KEYS } from '../utils/i18nKeys';
 import './AnatomyDiagram.css';
 
 interface Props {
@@ -68,6 +70,7 @@ function buildBodyData(muscles: MuscleGroup[], side: Side): IExerciseData[] {
 }
 
 export function AnatomyDiagram({ bodyFocus, className = '' }: Props) {
+  const { t } = useTranslation();
   const muscles = getMuscleGroups(bodyFocus);
   const primary = muscles.filter((m) => m.intensity === 'primary');
   const secondary = muscles.filter((m) => m.intensity === 'secondary');
@@ -79,13 +82,18 @@ export function AnatomyDiagram({ bodyFocus, className = '' }: Props) {
   const bodyColor = '#2a2c30';
   const highlightedColors = ['#7a8a00', '#caff00']; // [secondary, primary]
 
+  const muscleLabel = (name: string): string => {
+    const key = MUSCLE_NAME_I18N_KEYS[name] ?? 'all';
+    return t(`exerciseLibrary.muscles.${key}`);
+  };
+
   return (
     <div className={`anatomy ${className}`.trim()}>
-      <div className="anatomy__title">Target Muscle</div>
+      <div className="anatomy__title">{t('exerciseDetail.anatomy.targetMuscle')}</div>
 
       <div className="anatomy__bodies">
         <div className="anatomy__body">
-          <div className="anatomy__body-label">Front</div>
+          <div className="anatomy__body-label">{t('exerciseDetail.anatomy.front')}</div>
           <Model
             data={anteriorData}
             type="anterior"
@@ -95,7 +103,7 @@ export function AnatomyDiagram({ bodyFocus, className = '' }: Props) {
           />
         </div>
         <div className="anatomy__body">
-          <div className="anatomy__body-label">Back</div>
+          <div className="anatomy__body-label">{t('exerciseDetail.anatomy.back')}</div>
           <Model
             data={posteriorData}
             type="posterior"
@@ -108,10 +116,20 @@ export function AnatomyDiagram({ bodyFocus, className = '' }: Props) {
 
       <div className="anatomy__legend">
         {primary.length > 0 && (
-          <Legend label="Primary" muscles={primary} variant="primary" />
+          <Legend
+            label={t('exerciseDetail.anatomy.primary')}
+            muscles={primary}
+            variant="primary"
+            muscleLabel={muscleLabel}
+          />
         )}
         {secondary.length > 0 && (
-          <Legend label="Secondary" muscles={secondary} variant="secondary" />
+          <Legend
+            label={t('exerciseDetail.anatomy.secondary')}
+            muscles={secondary}
+            variant="secondary"
+            muscleLabel={muscleLabel}
+          />
         )}
       </div>
     </div>
@@ -122,10 +140,12 @@ function Legend({
   label,
   muscles,
   variant,
+  muscleLabel,
 }: {
   label: string;
   muscles: MuscleGroup[];
   variant: 'primary' | 'secondary';
+  muscleLabel: (name: string) => string;
 }) {
   return (
     <div className="anatomy__legend-group">
@@ -136,7 +156,7 @@ function Legend({
             key={m.name}
             className={`anatomy__legend-chip anatomy__legend-chip--${variant}`}
           >
-            {m.name}
+            {muscleLabel(m.name)}
           </span>
         ))}
       </div>

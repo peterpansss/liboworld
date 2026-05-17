@@ -18,16 +18,16 @@
     "navigationMenu": "Menú de navegación",
     "changeLanguage": "Cambiar idioma"
   },
+  "common": {
+    "clearAll": "Borrar todo",
+    "clearFilters": "Borrar filtros"
+  },
   "hero": {
     "eyebrow": "Próximamente — Únete a la Lista",
     "headline1": "Entrena",
     "headline2": "Donde Sea.",
     "headline3": "Cuando Sea.",
     "cta": "Únete a la Lista →",
-    "stat1Label": "Ejercicios",
-    "stat2Label": "Entrenamientos",
-    "stat3Value": "0 kg",
-    "stat3Label": "Equipamiento Necesario",
     "scrollIndicator": "Desliza para explorar"
   },
   "marquee": {
@@ -47,13 +47,6 @@
     "eveningRoutines": "Rutinas Nocturnas",
     "flexibility": "Flexibilidad",
     "strengthTraining": "Entrenamiento de Fuerza"
-  },
-  "statsStrip": {
-    "label": "Qué Incluye",
-    "exercises": "Ejercicios",
-    "workouts": "Entrenamientos",
-    "trainingFormats": "Formatos de Entrenamiento",
-    "equipmentRequired": "Equipamiento Necesario"
   },
   "statement": {
     "line1": "Un club.",
@@ -183,6 +176,7 @@
     "siteFooterLabel": "Pie de página del sitio",
     "footerNavigation": "Navegación del pie de página",
     "productTitle": "Producto",
+    "pricing": "Precios",
     "companyTitle": "Empresa",
     "resourcesTitle": "Recursos",
     "workoutsTitle": "Entrenamientos",
@@ -234,6 +228,34 @@
     },
     "previousPage": "Página anterior",
     "nextPage": "Página siguiente",
+    "exploreByMuscleGroup": "Explorar por grupo muscular",
+    "filtersToggle": "Filtros",
+    "settingLabel": "Lugar",
+    "typeLabel": "Tipo",
+    "setting": {
+      "all": "Todos",
+      "gym": "Gimnasio",
+      "home": "Casa"
+    },
+    "type": {
+      "all": "Todos",
+      "strength": "Fuerza",
+      "cardio": "Cardio",
+      "hiit": "HIIT",
+      "power": "Potencia",
+      "mobility": "Movilidad",
+      "stretching": "Estiramiento",
+      "core": "Core",
+      "pelvicFloor": "Suelo pélvico",
+      "warmUp": "Calentamiento"
+    },
+    "showingResults": "Mostrando {{from}}–{{to}} de {{total}} ejercicios",
+    "showingResultsFiltered": "Mostrando {{from}}–{{to}} de {{total}}{{context}}",
+    "filterContext": {
+      "muscle": " ejercicios de {{muscle}}",
+      "equipment": " ejercicios con {{equipment}}",
+      "muscleAndEquipment": " ejercicios de {{muscle}} con {{equipment}}"
+    },
     "muscles": {
       "all": "Todos",
       "chest": "Pecho",
@@ -247,7 +269,19 @@
       "cardio": "Cardio",
       "fullBody": "Cuerpo completo",
       "forearms": "Antebrazos",
-      "traps": "Trapecios"
+      "traps": "Trapecios",
+      "quads": "Cuádriceps",
+      "hamstrings": "Isquiotibiales",
+      "calves": "Pantorrillas",
+      "frontDelts": "Deltoides anterior",
+      "sideDelts": "Deltoides lateral",
+      "rearDelts": "Deltoides posterior",
+      "lats": "Dorsales",
+      "rhomboids": "Romboides",
+      "abs": "Abdominales",
+      "obliques": "Oblicuos",
+      "lowerBack": "Zona lumbar",
+      "hipFlexors": "Flexores de cadera"
     },
     "equipment": {
       "all": "Todo",
@@ -285,6 +319,101 @@
     "ctaDescription": "Registra series, reps y peso. Ve tu progreso a lo largo del tiempo.",
     "ctaButton": "Unirme a la Lista",
     "relatedTitle": "Ejercicios Relacionados de {{muscle}}",
+    "instructions": "Instrucciones",
+    "tips": "Consejos",
+    "breathing": "Respiración",
+    "commonMistakes": "Errores comunes",
+    "alternativeExercisesTitle": "Ejercicios alternativos a {{name}}",
+    "voiceMaleHint": "Voz masculina (toca para femenina)",
+    "voiceFemaleHint": "Voz femenina (toca para masculina)",
+    "anatomy": {
+      "targetMuscle": "Músculo objetivo",
+      "front": "Frente",
+      "back": "Espalda",
+      "primary": "Principal",
+      "secondary": "Secundario"
+    },
+    "heuristics": {
+      "instructions": {
+        "press": [
+          "Activa el core y mantén un ritmo controlado durante todo el movimiento.",
+          "Baja el peso de forma controlada y luego empuja hacia arriba con explosividad.",
+          "Extiende completamente arriba sin bloquear las articulaciones."
+        ],
+        "pull": [
+          "Inicia el movimiento retrayendo las escápulas.",
+          "Tira hacia tu cuerpo de forma controlada, apretando en la contracción máxima.",
+          "Baja con control hasta la extensión completa."
+        ],
+        "squat": [
+          "Mantén el pecho arriba y el core activado durante todo el movimiento.",
+          "Baja con control, manteniendo las rodillas alineadas con los dedos de los pies.",
+          "Empuja a través de los talones para volver a la posición inicial."
+        ],
+        "curl": [
+          "Mantén los codos pegados a los costados durante todo el movimiento.",
+          "Sube el peso con control, apretando arriba.",
+          "Baja despacio y con control — evita balancearte."
+        ],
+        "stretch": [
+          "Entra en el estiramiento despacio y mantén el punto de tensión leve.",
+          "Respira profundo y relájate en la posición — no la fuerces.",
+          "Mantén el tiempo indicado y luego suelta con suavidad."
+        ],
+        "hold": [
+          "Activa el core y mantén una línea recta de la cabeza a los talones.",
+          "Respira de forma constante — no aguantes la respiración.",
+          "Mantén el tiempo indicado conservando la forma en todo momento."
+        ],
+        "hinge": [
+          "Bisagra desde las caderas, manteniendo la columna neutra en todo momento.",
+          "Empuja a través de los talones y aprieta los glúteos arriba.",
+          "Baja con control, manteniendo la tensión en los músculos objetivo."
+        ],
+        "default": [
+          "Realiza el movimiento con un ritmo controlado.",
+          "Concéntrate en la conexión mente-músculo con la zona objetivo.",
+          "Completa todas las reps con buena forma antes de subir el peso."
+        ]
+      },
+      "tips": {
+        "barbell": "Empieza con menos peso para perfeccionar tu técnica antes de cargar.",
+        "advanced": "Es un movimiento avanzado — asegúrate de dominar la versión básica primero.",
+        "unilateral": "Empieza por tu lado más débil para asegurar un desarrollo equilibrado.",
+        "sided": "Haz las mismas reps en ambos lados para un desarrollo equilibrado.",
+        "stretch": "Nunca rebotes en un estiramiento — mantén firme y respira."
+      },
+      "mistakes": {
+        "squat": [
+          "Dejar que las rodillas se hundan hacia adentro — mantenlas alineadas con los dedos de los pies.",
+          "Redondear la zona lumbar abajo — pecho alto y core activado."
+        ],
+        "press": [
+          "Abrir los codos a 90° — mantenlos en un ángulo cómodo de 45–60°.",
+          "Rebotar el peso en el pecho — controla la bajada."
+        ],
+        "pull": [
+          "Usar impulso para mover el peso — mantén el torso firme.",
+          "Quedarse corto en la contracción — tira hasta el final."
+        ],
+        "hinge": [
+          "Redondear la zona lumbar — mantén la columna neutra.",
+          "Hiperextender arriba — termina con un apretón, no inclinándote hacia atrás."
+        ],
+        "curl": [
+          "Balancear el peso con la espalda — fija los codos y aísla el bíceps.",
+          "Recortar las reps — extiende abajo para todo el recorrido."
+        ],
+        "hold": [
+          "Dejar caer las caderas — mantén una línea recta de la cabeza a los talones.",
+          "Aguantar la respiración — respira de forma constante."
+        ],
+        "stretch": [
+          "Rebotar al estirar — mantén firme, nunca rebotes.",
+          "Forzar el rango — relájate en tensión leve, no en dolor."
+        ]
+      }
+    },
     "difficultyLevels": {
       "beginner": "Principiante",
       "intermediate": "Intermedio",
@@ -292,12 +421,11 @@
     }
   },
   "blog": {
-    "title": "Blog",
+    "title": "Artículos",
     "subtitle": "Guías de entrenamiento, consejos y trucos para subir tu fitness.",
     "breadcrumbAria": "Ruta de navegación",
     "breadcrumbHome": "Inicio",
-    "breadcrumbResources": "Recursos",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Artículos",
     "filterAria": "Filtrar por categoría",
     "categories": {
       "all": "Todas",
@@ -312,11 +440,12 @@
   "blogPost": {
     "breadcrumbAria": "Ruta de navegación",
     "breadcrumbHome": "Inicio",
-    "breadcrumbBlog": "Blog",
+    "breadcrumbBlog": "Artículos",
     "notFoundTitle": "Artículo No Encontrado",
     "notFoundBody": "El artículo que buscas no existe.",
-    "backToBlog": "Volver al Blog",
+    "backToBlog": "Volver a Artículos",
     "minRead": "{{count}} min de lectura",
+    "writtenBy": "Escrito por {{author}}",
     "relatedTitle": "Explora Relacionados",
     "relatedExerciseLabel": "Ejercicio",
     "relatedProgramLabel": "Programa",
@@ -406,24 +535,6 @@
       "title": "Más Entrenamientos de {{category}}",
       "cardMeta": "{{duration}} min · {{difficulty}} · {{count}} ej"
     }
-  },
-  "trust": {
-    "eyebrow": "La confianza de los atletas",
-    "headline": "Los números hablan.",
-    "stat1Num": "634",
-    "stat1Label": "Ejercicios",
-    "stat1Sub": "Gimnasio, casa y movilidad",
-    "stat2Num": "136",
-    "stat2Label": "Entrenamientos",
-    "stat2Sub": "Listos para seguir",
-    "stat3Num": "4.9",
-    "stat3Label": "Valoración Beta",
-    "stat3Sub": "De los primeros testers",
-    "stat4Num": "50+",
-    "stat4Label": "Testers Beta",
-    "stat4Sub": "Y subiendo",
-    "availableIos": "Disponible en iOS",
-    "betaRating": "4.9 de los testers beta"
   },
   "faq": {
     "eyebrow": "FAQ",

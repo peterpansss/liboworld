@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getExercises, loadExerciseContent, type Exercise, type ExerciseContent } from '../data/exercises';
 import {
   exerciseThumb,
   publicVideoUrl,
   publicVideoUrlAlt,
+  publicVideoUrlAltBase,
   type VoicePreference,
+  type SupportedLang,
 } from '../utils/thumbnails';
 import { Target, Dumbbell, Zap, Volume2, VolumeX, Maximize2, Minimize2, ICON_STROKE } from '../utils/icons';
 import { MuscleTile } from '../components/MuscleTile';
@@ -57,13 +59,25 @@ export default function ExerciseDetail() {
   const difficultyLabel = (d: string) =>
     t(`exerciseDetail.difficultyLevels.${d}`, { defaultValue: capitalize(d) });
 
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const [aiContent, setAiContent] = useState<Record<string, ExerciseContent>>({});
   const videoRef = useRef<HTMLVideoElement>(null);
   const pipVideoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(true);
+  // Tracks whether we've already swapped a missing localized variant for the
+  // English fallback on the current (exercise, voice, lang) tuple. Reset by
+  // the effect below whenever any of those change, so each new selection
+  // gets a fresh chance to load the localized clip.
+  // Tracks which fallback step has been attempted on the current source.
+  // 0 = primary (lang+voice), 1 = en+voice, 2 = en+onyx (always exists).
+  const fallbackStepRef = useRef(0);
+  // Default unmuted so the voiceover coaching is the first thing users
+  // hear — many users specifically come for the VO. Browsers block unmuted
+  // autoplay without a user gesture; the [mainSrc] effect below falls back
+  // to muted in that case so the video still plays and the prominent volume
+  // button advertises that audio is available.
+  const [muted, setMuted] = useState(false);
   const [showingAlt, setShowingAlt] = useState(false);
   // Voice coach: persisted in localStorage so the choice survives reloads.
   const [voice, setVoice] = useState<VoicePreference>(() => {
@@ -85,11 +99,27 @@ export default function ExerciseDetail() {
     // a visible flicker.
   };
 
+  // Sticky once the user explicitly clicks the volume button. The
+  // [mainSrc] effect's catch handler uses this to skip the "fall back
+  // to muted" rescue on subsequent src changes (e.g. angle swap), so
+  // the user's unmute preference survives the swap instead of getting
+  // clobbered every time Chrome decides the play() call after a
+  // setState looks like autoplay.
+  const userExpressedMutePrefRef = useRef(false);
+
+  // Cleanup for any pending one-shot "unmute on next gesture" listeners. Set
+  // when the muted-fallback fires below; cleared whenever it runs, the user
+  // toggles mute manually, src changes, or the component unmounts.
+  const unmuteOnNextGestureRef = useRef<(() => void) | null>(null);
+
   const toggleMuted = () => {
     const v = videoRef.current;
     if (!v) return;
     const next = !muted;
     v.muted = next;
+    userExpressedMutePrefRef.current = true;
+    // Manual interaction supersedes any pending auto-unmute.
+    unmuteOnNextGestureRef.current?.();
     if (!next) {
       v.currentTime = 0;
       v.play().catch(() => {});
@@ -172,13 +202,19 @@ export default function ExerciseDetail() {
   }, [i18n.language]);
 
   const exercise = useMemo(
-    () => exercises.find((e) => e.id === id) || null,
-    [exercises, id],
+    () => exercises.find((e) => e.slug === slug || e.id === slug) || null,
+    [exercises, slug],
+  );
+
+  // Backward-compat: if the URL still uses the legacy id (or any non-slug
+  // identifier) and the exercise carries a distinct slug, canonicalize the URL.
+  const needsSlugRedirect = Boolean(
+    exercise && exercise.slug && exercise.slug !== slug,
   );
 
   const instructions = useMemo(
-    () => (exercise ? getInstructions(exercise) : []),
-    [exercise],
+    () => (exercise ? getInstructions(exercise, t) : []),
+    [exercise, t],
   );
 
   // Prefer AI-authored content from the sidecar; fall back to heuristics.
@@ -186,13 +222,13 @@ export default function ExerciseDetail() {
   const tips = useMemo(() => {
     if (!exercise) return [];
     if (aiEntry?.tips?.length) return aiEntry.tips;
-    return getTips(exercise);
-  }, [exercise, aiEntry]);
+    return getTips(exercise, t);
+  }, [exercise, aiEntry, t]);
   const mistakes = useMemo(() => {
     if (!exercise) return [];
     if (aiEntry?.commonMistakes?.length) return aiEntry.commonMistakes;
-    return getCommonMistakes(exercise);
-  }, [exercise, aiEntry]);
+    return getCommonMistakes(exercise, t);
+  }, [exercise, aiEntry, t]);
   const breathingCue = aiEntry?.breathingCue ?? null;
 
   const primaryMuscle = useMemo(
@@ -200,20 +236,98 @@ export default function ExerciseDetail() {
     [exercise],
   );
 
+  // Resolve the active language (truncated to its primary subtag, e.g.
+  // 'en-US' → 'en'). Falls back to English for any locale without a voiced
+  // variant in the pipeline.
+  const supportedLangs: ReadonlyArray<SupportedLang> = ['en', 'de', 'es', 'fr', 'pt'];
+  const langCode = (i18n.language || 'en').split('-')[0];
+  const lang: SupportedLang = (supportedLangs as readonly string[]).includes(langCode)
+    ? (langCode as SupportedLang)
+    : 'en';
+
+  // If the page is a parent canonical that has no own video, fall back to
+  // a child (typically the L side) for both video playback and thumbnail.
+  // Mirrors the same pattern used on the library card grid so the user
+  // sees a real frame and a working <video> instead of a placeholder.
+  const videoSource = useMemo(() => {
+    if (!exercise) return null;
+    if (exercise.videoUrl) return exercise;
+    const child = exercises.find(e => e.parentId === exercise.id && e.videoUrl);
+    return child ?? exercise;
+  }, [exercise, exercises]);
+
   // Resolve video sources at top level so [mainSrc]/[pipSrc] effects can
   // imperatively .load() the same <video> element when voice toggles or the
   // user swaps angles — no React `key` change → no remount → no flicker.
-  const primarySrc = exercise ? publicVideoUrl(exercise, voice) : undefined;
-  const altSrc = exercise ? publicVideoUrlAlt(exercise, voice) : undefined;
+  const primarySrc = videoSource ? publicVideoUrl(videoSource, voice, lang) : undefined;
+  const altSrc = videoSource ? publicVideoUrlAlt(videoSource, voice, lang) : undefined;
   const mainSrc = showingAlt && altSrc ? altSrc : primarySrc;
   const pipSrc = showingAlt && altSrc ? primarySrc : altSrc;
+
+  // Reset the fallback-step counter whenever the (exercise, voice, lang)
+  // tuple changes, so each new selection re-attempts the localized variant
+  // first.
+  useEffect(() => {
+    fallbackStepRef.current = 0;
+  }, [exercise?.id, voice, lang]);
 
   useEffect(() => {
     const v = videoRef.current;
     if (!v || !mainSrc) return;
     v.load();
-    v.play().catch(() => {});
+    v.play().catch(() => {
+      // Autoplay was blocked — almost always because the user landed on
+      // the page without a prior gesture and we asked for unmuted audio.
+      // Fall back to muted so the video still plays; the volume button
+      // overlay tells users VO is one click away.
+      //
+      // Skip the fallback once the user has explicitly clicked the volume
+      // button. On angle swap the play() call runs in a useEffect after
+      // setState, which Chrome sometimes classifies as autoplay even
+      // though there was a fresh user gesture — re-muting then silently
+      // clobbers the unmute preference and the side view plays silent.
+      // Better to leave the element unmuted: if play() really did fail
+      // we'll show a stalled poster, which is rare and self-recovers as
+      // soon as the user clicks anywhere on the player.
+      if (!v.muted && !userExpressedMutePrefRef.current) {
+        v.muted = true;
+        setMuted(true);
+        v.play().catch(() => {});
+        // Auto-unmute on the user's first interaction anywhere on the
+        // page. Replaces any previously pending one-shot so a src change
+        // (angle swap, voice/lang) doesn't accumulate listeners.
+        unmuteOnNextGestureRef.current?.();
+        const handler = () => {
+          cleanup();
+          if (userExpressedMutePrefRef.current) return;
+          const vv = videoRef.current;
+          if (!vv) return;
+          vv.muted = false;
+          setMuted(false);
+          vv.play().catch(() => {});
+        };
+        const cleanup = () => {
+          document.removeEventListener('pointerdown', handler, true);
+          document.removeEventListener('keydown', handler, true);
+          document.removeEventListener('touchstart', handler, true);
+          if (unmuteOnNextGestureRef.current === cleanup) {
+            unmuteOnNextGestureRef.current = null;
+          }
+        };
+        document.addEventListener('pointerdown', handler, { capture: true, passive: true });
+        document.addEventListener('keydown', handler, { capture: true });
+        document.addEventListener('touchstart', handler, { capture: true, passive: true });
+        unmuteOnNextGestureRef.current = cleanup;
+      }
+    });
   }, [mainSrc]);
+
+  // Tear down any pending one-shot gesture listener on unmount.
+  useEffect(() => {
+    return () => {
+      unmuteOnNextGestureRef.current?.();
+    };
+  }, []);
 
   useEffect(() => {
     const p = pipVideoRef.current;
@@ -230,15 +344,15 @@ export default function ExerciseDetail() {
         ? desc.slice(0, 155) + '…'
         : desc
       : `Learn how to perform ${exercise.name} — a ${exercise.diff} ${exercise.bodyFocus.toLowerCase()} exercise using ${exercise.equipment.toLowerCase()}.`;
-    const thumb = exerciseThumb(exercise);
+    const thumb = exerciseThumb(exercise) ?? exerciseThumb(videoSource);
     return {
       title: `${exercise.name} — How to Perform | Libo`,
       description,
       canonical: exerciseCanonicalUrl(exercise),
-      ogImage: thumb ? `https://liboworld.com${thumb}` : undefined,
+      ogImage: thumb ? (thumb.startsWith('http') ? thumb : `https://liboworld.com${thumb}`) : undefined,
       jsonLd: buildExerciseGraph(exercise, primaryMuscle),
     };
-  }, [exercise, primaryMuscle]);
+  }, [exercise, primaryMuscle, videoSource]);
 
   if (loading) {
     return (
@@ -248,6 +362,10 @@ export default function ExerciseDetail() {
         <SiteFooter />
       </>
     );
+  }
+
+  if (needsSlugRedirect && exercise) {
+    return <Navigate to={`/exercises/${exercise.slug}`} replace />;
   }
 
   if (!exercise) {
@@ -316,12 +434,46 @@ export default function ExerciseDetail() {
                   <video
                     ref={videoRef}
                     src={mainSrc}
-                    poster={exerciseThumb(exercise) ?? undefined}
+                    poster={(exerciseThumb(exercise) ?? exerciseThumb(videoSource)) ?? undefined}
                     muted={muted}
                     loop
                     playsInline
                     autoPlay
                     preload="metadata"
+                    onError={() => {
+                      // Fallback chain: localized (lang+voice) → en+voice →
+                      // en+onyx. The plain English clip is guaranteed to
+                      // exist for any recorded exercise, including the 6
+                      // slugs in voiceover_excluded.json that have no
+                      // voiceover variants at all.
+                      //
+                      // When showingAlt is true the same chain applies to
+                      // the alt clip, falling back to the bare side-view URL
+                      // (no suffix) which is the canonical we always upload.
+                      if (!exercise || !videoRef.current) return;
+                      if (showingAlt) {
+                        const base = publicVideoUrlAltBase(exercise);
+                        if (base && videoRef.current.src !== base) {
+                          videoRef.current.src = base;
+                          videoRef.current.load();
+                        }
+                        return;
+                      }
+                      let nextUrl: string | undefined;
+                      while (fallbackStepRef.current < 2 && !nextUrl) {
+                        fallbackStepRef.current += 1;
+                        if (fallbackStepRef.current === 1 && lang !== 'en') {
+                          nextUrl = publicVideoUrl(exercise, voice, 'en');
+                        } else if (fallbackStepRef.current === 2 && voice !== 'male') {
+                          nextUrl = publicVideoUrl(exercise, 'male', 'en');
+                        }
+                        if (nextUrl === videoRef.current.src) nextUrl = undefined;
+                      }
+                      if (nextUrl) {
+                        videoRef.current.src = nextUrl;
+                        videoRef.current.load();
+                      }
+                    }}
                   />
                   <button
                     type="button"
@@ -365,8 +517,8 @@ export default function ExerciseDetail() {
                     })}
                     title={
                       voice === 'male'
-                        ? 'Male voice (tap for female)'
-                        : 'Female voice (tap for male)'
+                        ? t('exerciseDetail.voiceMaleHint')
+                        : t('exerciseDetail.voiceFemaleHint')
                     }
                   >
                     <span aria-hidden>{voice === 'male' ? '♂' : '♀'}</span>
@@ -388,6 +540,20 @@ export default function ExerciseDetail() {
                         playsInline
                         autoPlay
                         preload="metadata"
+                        onError={() => {
+                          // Per-(lang, voice) side-view variants may be
+                          // missing for some exercises (TTS mp3 wasn't
+                          // produced for that locale yet). Fall back to the
+                          // bare alt URL — guaranteed to exist on R2.
+                          if (!exercise || !pipVideoRef.current) return;
+                          if (showingAlt) return; // PiP shows primary in this case; primary's own chain handles it
+                          const base = publicVideoUrlAltBase(exercise);
+                          if (base && pipVideoRef.current.src !== base) {
+                            pipVideoRef.current.src = base;
+                            pipVideoRef.current.load();
+                            pipVideoRef.current.play().catch(() => {});
+                          }
+                        }}
                       />
                       <span className="ed-demo-pip-label">
                         {showingAlt
@@ -431,7 +597,7 @@ export default function ExerciseDetail() {
             <div>
               {instructions.length > 0 && (
                 <div className="ed-block">
-                  <h2 className="ed-section-title">Instructions</h2>
+                  <h2 className="ed-section-title">{t('exerciseDetail.instructions')}</h2>
                   <ol className="ed-steps">
                     {instructions.map((step, i) => (
                       <li key={i} className="ed-step">
@@ -445,7 +611,7 @@ export default function ExerciseDetail() {
 
               {tips.length > 0 && (
                 <div className="ed-block">
-                  <h2 className="ed-section-title">Tips</h2>
+                  <h2 className="ed-section-title">{t('exerciseDetail.tips')}</h2>
                   <ul className="ed-bullets">
                     {tips.map((tip, i) => (
                       <li key={i}>{tip}</li>
@@ -456,14 +622,14 @@ export default function ExerciseDetail() {
 
               {breathingCue && (
                 <div className="ed-block">
-                  <h2 className="ed-section-title">Breathing</h2>
+                  <h2 className="ed-section-title">{t('exerciseDetail.breathing')}</h2>
                   <p className="ed-step-text" style={{ paddingTop: 0 }}>{breathingCue}</p>
                 </div>
               )}
 
               {mistakes.length > 0 && (
                 <div className="ed-block">
-                  <h2 className="ed-section-title">Common Mistakes</h2>
+                  <h2 className="ed-section-title">{t('exerciseDetail.commonMistakes')}</h2>
                   <ul className="ed-bullets ed-bullets--warn">
                     {mistakes.map((m, i) => (
                       <li key={i}>{m}</li>

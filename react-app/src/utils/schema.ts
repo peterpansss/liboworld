@@ -36,7 +36,7 @@ export function buildHowToSchema(ex: Exercise) {
   const image = exerciseThumb(ex);
   const out: Record<string, unknown> = {
     '@type': 'HowTo',
-    '@id': `${SITE_URL}/exercises/${ex.id}#howto`,
+    '@id': `${SITE_URL}/exercises/${ex.slug ?? ex.id}#howto`,
     name: `How to do ${ex.name}`,
     description: exerciseDescription(ex),
     step: steps,
@@ -51,7 +51,7 @@ export function buildVideoObjectSchema(ex: Exercise) {
   const thumb = exerciseThumb(ex);
   return {
     '@type': 'VideoObject',
-    '@id': `${SITE_URL}/exercises/${ex.id}#video`,
+    '@id': `${SITE_URL}/exercises/${ex.slug ?? ex.id}#video`,
     name: `${ex.name} demo`,
     description: exerciseDescription(ex),
     thumbnailUrl: thumb ? absoluteUrl(thumb) : undefined,
@@ -63,7 +63,7 @@ export function buildVideoObjectSchema(ex: Exercise) {
 export function buildBreadcrumbSchema(ex: Exercise, primaryMuscle: string) {
   return {
     '@type': 'BreadcrumbList',
-    '@id': `${SITE_URL}/exercises/${ex.id}#breadcrumb`,
+    '@id': `${SITE_URL}/exercises/${ex.slug ?? ex.id}#breadcrumb`,
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
       { '@type': 'ListItem', position: 2, name: 'Exercises', item: `${SITE_URL}/exercises` },
@@ -77,7 +77,7 @@ export function buildBreadcrumbSchema(ex: Exercise, primaryMuscle: string) {
         '@type': 'ListItem',
         position: 4,
         name: ex.name,
-        item: `${SITE_URL}/exercises/${ex.id}`,
+        item: `${SITE_URL}/exercises/${ex.slug ?? ex.id}`,
       },
     ],
   };
@@ -97,7 +97,7 @@ export function buildExerciseGraph(ex: Exercise, primaryMuscle: string) {
 }
 
 export function exerciseCanonicalUrl(ex: Exercise): string {
-  return `${SITE_URL}/exercises/${ex.id}`;
+  return `${SITE_URL}/exercises/${ex.slug ?? ex.id}`;
 }
 
 export function libraryCanonicalUrl(query?: string): string {

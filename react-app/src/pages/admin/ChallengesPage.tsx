@@ -279,7 +279,10 @@ export function ChallengesPage() {
       await refresh();
       closeModal();
     } catch (e2) {
-      setFormErr(e2 instanceof Error ? e2.message : 'Save failed');
+      console.error('[admin/challenges] save failed', e2);
+      const err = e2 as { message?: string; code?: string; details?: string; hint?: string } | null;
+      const parts = [err?.message, err?.code && `(${err.code})`, err?.details, err?.hint].filter(Boolean);
+      setFormErr(parts.length ? parts.join(' — ') : 'Save failed');
     } finally {
       setSaving(false);
     }
@@ -297,6 +300,30 @@ export function ChallengesPage() {
     } catch (e) {
       setErr(e instanceof Error ? e.message : 'Delete failed');
     }
+  };
+
+  /**
+   * Open the "New challenge" modal pre-filled with the source row's fields.
+   * The ID is cleared (admin must pick a new unique slug — `id` is the PK and
+   * can't be auto-generated), schedule windows are cleared, and the duplicate
+   * starts Inactive so a live challenge isn't accidentally cloned into another
+   * live one. editingId=null so handleSave hits createMoneyChallenge.
+   */
+  const handleDuplicate = (row: MoneyChallenge, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingId(null);
+    const maxSort = rows.reduce((m, r) => Math.max(m, r.sort_order ?? 0), 0);
+    setForm({
+      ...rowToForm(row),
+      id: '', // PK is required at create — admin must pick a new unique slug
+      title: `${row.title} (copy)`,
+      is_active: false, // never auto-go-live on duplicate
+      sort_order: String(maxSort + 1), // park at the end
+      starts_at: '',
+      ends_at: '',
+    });
+    setFormErr(null);
+    setModalOpen(true);
   };
 
   const columns: Column<MoneyChallenge>[] = useMemo(
@@ -385,26 +412,53 @@ export function ChallengesPage() {
       {
         key: 'actions',
         header: '',
-        width: 90,
+        width: 84,
         render: (r) => (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              void handleDelete(r);
-            }}
-            aria-label="Delete"
-            style={{
-              background: 'transparent',
-              border: `1px solid ${colors.border}`,
-              color: colors.muted,
-              padding: '4px 10px',
-              borderRadius: 8,
-              fontSize: 12,
-              cursor: 'pointer',
-            }}
-          >
-            Delete
-          </button>
+          <div style={{ display: 'inline-flex', gap: 4 }}>
+            <button
+              onClick={(e) => handleDuplicate(r, e)}
+              aria-label={`Duplicate ${r.title}`}
+              title="Duplicate challenge"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: colors.muted,
+                cursor: 'pointer',
+                fontSize: 14,
+                padding: '4px 6px',
+                borderRadius: 6,
+                lineHeight: 1,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.accent;
+                (e.currentTarget as HTMLButtonElement).style.background = colors.accentDim;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+              }}
+            >
+              ⎘
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                void handleDelete(r);
+              }}
+              aria-label="Delete"
+              style={{
+                background: 'transparent',
+                border: `1px solid ${colors.border}`,
+                color: colors.muted,
+                padding: '4px 10px',
+                borderRadius: 8,
+                fontSize: 12,
+                cursor: 'pointer',
+              }}
+            >
+              Delete
+            </button>
+          </div>
         ),
       },
     ],

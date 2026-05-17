@@ -3,6 +3,11 @@ export interface BlogArticle {
   title: string;
   excerpt: string;
   category: string;
+  // Additional categories this post should surface under in the filter chips
+  // on /blog. Primary `category` still drives the breadcrumb + badge on the
+  // post page; secondaries are filter-only so cross-topic posts (e.g. fasting
+  // is nutrition + training + lifestyle) don't need a single canonical home.
+  secondaryCategories?: string[];
   readTime: number;
   date: string;
   author: string;
@@ -24,7 +29,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🏋️',
     heroImage: '/images/blog/best-chest-exercises-for-building-muscle.jpg',
-    relatedExercises: ['barbell-bench-press', 'push-up', 'dumbbell-flye', 'dips'],
+    relatedExercises: ['flat_barbell_bench_press', 'push_up_standard', 'flat_dumbbell_chest_fly', 'parallel_bar_dip_triceps_focus'],
     content: `
 <h2>Why Chest Training Matters</h2>
 <p>The chest is one of the most visible muscle groups on your body, and training it properly does more than just improve aesthetics. <strong>A strong chest supports pushing movements in daily life</strong>, improves posture when balanced with back work, and builds the kind of upper-body foundation that carries over into every other lift.</p>
@@ -82,7 +87,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🏠',
     heroImage: '/images/blog/complete-guide-to-home-workouts-without-equipment.jpg',
-    relatedExercises: ['push-up', 'bodyweight-squat', 'plank', 'burpees'],
+    relatedExercises: ['push_up_standard', 'bodyweight_squat', 'forearm_plank', 'burpee'],
     content: `
 <h2>Why Bodyweight Training Works</h2>
 <p>There's a persistent myth that you need a gym to get fit. <strong>That's simply not true.</strong> Calisthenics athletes, gymnasts, and military personnel have been building impressive physiques with bodyweight training for centuries.</p>
@@ -144,8 +149,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-15',
     author: 'Libo Team',
     heroEmoji: '🔥',
-    heroImage: '/images/blog/how-to-start-a-30-day-fitness-challenge.jpg',
-    relatedPrograms: ['30-day-pushup-challenge', '30-day-squat-challenge'],
+    heroImage: '/images/blog/how-to-start-a-30-day-fitness-challenge-v2.jpg',
     content: `
 <h2>Why 30-Day Challenges Work</h2>
 <p>Thirty days is long enough to build a real habit but short enough to feel achievable. <strong>The psychology is simple: a clear end date creates urgency</strong>, and daily commitment builds momentum that's hard to break.</p>
@@ -191,7 +195,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '💪',
     heroImage: '/images/blog/the-ultimate-push-pull-legs-split-explained.jpg',
-    relatedExercises: ['barbell-bench-press', 'barbell-row', 'barbell-squat'],
+    relatedExercises: ['flat_barbell_bench_press', 'barbell_bent_over_row_overhand', 'barbell_front_squat'],
     content: `
 <h2>What Is Push-Pull-Legs?</h2>
 <p>Push-Pull-Legs (PPL) is a training split that divides your workouts into three categories based on movement patterns:</p>
@@ -261,8 +265,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-28',
     author: 'Libo Team',
     heroEmoji: '🌅',
-    heroImage: '/images/blog/5-morning-stretching-routines-to-start-your-day.jpg',
-    relatedPrograms: ['morning-stretch', 'morning-mobility-flow'],
+    heroImage: '/images/blog/5-morning-stretching-routines-to-start-your-day-v2.jpg',
     content: `
 <h2>Why Morning Stretching Changes Everything</h2>
 <p>After 7-8 hours of sleep, your muscles are stiff, your joints are tight, and your nervous system is still waking up. <strong>A short stretching routine bridges the gap between sleep and full alertness</strong> faster than coffee ever could.</p>
@@ -332,7 +335,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🎯',
     heroImage: '/images/blog/beginners-guide-to-strength-training.jpg',
-    relatedExercises: ['barbell-squat', 'barbell-bench-press', 'deadlift'],
+    relatedExercises: ['barbell_front_squat', 'flat_barbell_bench_press', 'conventional_barbell_deadlift'],
     content: `
 <h2>Why Strength Training?</h2>
 <p>Strength training isn't just for bodybuilders. It's for everyone. Regular resistance training <strong>increases bone density, boosts metabolism, improves posture, reduces injury risk</strong>, and builds the kind of functional strength that makes everyday life easier.</p>
@@ -437,8 +440,7 @@ export const blogArticles: BlogArticle[] = [
     author: 'Libo Team',
     heroEmoji: '🧘',
     heroImage: '/images/blog/recovery-and-mobility-why-stretching-matters.jpg',
-    relatedExercises: ['foam-roller-upper-back', 'hip-flexor-stretch', 'hamstring-stretch'],
-    relatedPrograms: ['morning-mobility-flow', 'evening-stretch'],
+    relatedExercises: ['foam_roll_upper_back', 'hip_flexor_stretch', 'hamstring_stretch_seated'],
     content: `
 <h2>The Recovery Problem</h2>
 <p>Most people focus entirely on training and completely neglect recovery. They wonder why their knees hurt, their shoulders are tight, and their progress stalls. <strong>Training breaks your body down. Recovery is where you actually get stronger.</strong></p>
@@ -475,6 +477,202 @@ export const blogArticles: BlogArticle[] = [
 <li><strong>Off days:</strong> Full-body mobility routine (Libo has several 10-15 minute sessions designed exactly for this)</li>
 </ul>
 <p><strong>The investment is small, but the payoff is massive:</strong> fewer injuries, better range of motion, faster recovery between sessions, and workouts that actually feel good instead of grinding through stiffness and pain.</p>
+`,
+  },
+  {
+    slug: 'simple-high-protein-meals-in-15-minutes',
+    title: 'Simple High-Protein Meals You Can Prep in 15 Minutes',
+    excerpt: 'Five plate-and-go meals that each hit 30g+ of protein and take less time than scrolling a takeout menu. No recipes, no fluff.',
+    category: 'Nutrition',
+    readTime: 5,
+    date: '2026-05-12',
+    author: 'Libo Team',
+    heroEmoji: '🍳',
+    heroImage: '/images/blog/simple-high-protein-meals-in-15-minutes.jpg',
+    content: `
+<h2>Why Protein, Why 15 Minutes</h2>
+<p>If you're training hard and not eating enough protein, you're leaving results on the table. <strong>Most lifters need 1.6 to 2.2 grams of protein per kilogram of bodyweight</strong> to build muscle — that's roughly 130 to 180g per day for an 80kg guy.</p>
+<p>The problem isn't knowing this. The problem is hitting it on a Tuesday night when you're tired, broke on time, and the easy move is to order in. These five meals each deliver <strong>30g+ of protein in 15 minutes or less</strong>, use ingredients you can buy at any supermarket, and don't require you to follow a recipe.</p>
+
+<h2>1. Chicken + Rice Bowl (35g protein)</h2>
+<p>The default meal. Cheap, scales endlessly, freezer-friendly.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>150g pre-cooked chicken breast (or rotisserie pulled off the bone)</li>
+<li>1 microwave rice pouch (basmati or jasmine, ~250g)</li>
+<li>A handful of frozen edamame or peas</li>
+<li>Soy sauce, sriracha, sesame seeds</li>
+</ul>
+<p><strong>Do this:</strong> Microwave the rice pouch for 2 minutes. Microwave the edamame for 90 seconds. Dump both into a bowl, add the chicken on top, hit it with soy and sriracha. Done. <strong>If you batch-cooked chicken on Sunday</strong>, this takes 4 minutes start to finish.</p>
+
+<h2>2. Cottage Cheese + Egg Scramble on Toast (32g protein)</h2>
+<p>Breakfast or post-workout, this is the most underrated high-protein meal in the rotation.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>3 eggs</li>
+<li>100g cottage cheese (full-fat is fine)</li>
+<li>2 slices of sourdough or rye bread</li>
+<li>Salt, pepper, chili flakes, a knob of butter</li>
+</ul>
+<p><strong>Do this:</strong> Whisk the eggs with a pinch of salt. Melt butter in a non-stick pan over medium-low heat. Pour in the eggs, push them around slowly with a spatula. When they're 70% set, fold the cottage cheese through and kill the heat. Toast the bread. Pile the scramble on top, chili flakes, eat. <strong>Cottage cheese melts into the eggs</strong> — you barely notice it, but it adds 12g of protein for almost no effort.</p>
+
+<h2>3. Tuna + White Bean Salad (30g protein)</h2>
+<p>No cooking. No dishes. Survives a desk lunch.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>1 can tuna in olive oil (drained)</li>
+<li>1 can white beans / cannellini (drained, rinsed)</li>
+<li>Half a red onion, sliced thin</li>
+<li>Olive oil, lemon juice, salt, pepper, parsley if you have it</li>
+</ul>
+<p><strong>Do this:</strong> Dump everything in a bowl. Squeeze the lemon. Stir. That's the recipe. Eat with crackers, on toast, or straight out of the bowl. <strong>The white beans add another 15g of protein</strong> on top of the tuna and turn this from a snack into an actual meal.</p>
+
+<h2>4. Greek Yogurt Power Bowl (35g protein)</h2>
+<p>Two minutes flat. Works as breakfast, snack, or dessert.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>250g Greek yogurt (0% or 2%, get the high-protein kind — 18g+ per 100g)</li>
+<li>30g protein granola (or regular granola + a scoop of whey if you have it lying around)</li>
+<li>A handful of berries or sliced banana</li>
+<li>1 tbsp peanut butter, drizzle of honey</li>
+</ul>
+<p><strong>Do this:</strong> Scoop the yogurt into a bowl. Top with everything else. Eat. <strong>This is what you eat at 10pm</strong> when you realized you only hit 100g of protein for the day.</p>
+
+<h2>5. Beef + Broccoli Stir-Fry (40g protein)</h2>
+<p>The Sunday-night version of takeout. 12 minutes if you move with intent.</p>
+<p><strong>You need:</strong></p>
+<ul>
+<li>150g lean beef strips (rump, sirloin, or pre-sliced stir-fry beef)</li>
+<li>1 head of broccoli, cut into florets (or a bag of pre-cut)</li>
+<li>1 microwave rice pouch</li>
+<li>2 tbsp soy sauce, 1 tbsp oyster sauce, garlic, ginger, sesame oil</li>
+</ul>
+<p><strong>Do this:</strong> Get a pan ripping hot with a splash of neutral oil. Sear the beef 60 seconds per side, pull it out. Throw in the broccoli with 2 tbsp of water, lid on, 3 minutes. Add minced garlic and ginger, soy, oyster sauce. Return the beef. Toss for 30 seconds. Microwave the rice while the broccoli steams. Serve. <strong>Don't overthink the seasoning</strong> — soy + oyster + garlic is 90% of the flavor of any stir-fry on earth.</p>
+
+<h2>The Real Trick: Prep One Thing on Sunday</h2>
+<p>The single biggest unlock isn't a recipe — it's having one cooked protein already in the fridge. Pick one of these on Sunday:</p>
+<ul>
+<li><strong>Bake 1kg of chicken breast</strong> with salt, pepper, paprika at 200°C for 22 minutes. Slice. Done for the week.</li>
+<li><strong>Boil 8 eggs</strong> while you make dinner. Cool, fridge, peel-as-you-go.</li>
+<li><strong>Brown 500g of lean mince</strong> with onion and seasoning. Use it for bowls, tacos, pasta, eggs.</li>
+</ul>
+<blockquote>You don't need to meal-prep every meal for the week. You need one protein ready to go. The rest assembles itself in 5 minutes.</blockquote>
+<p>Consistency beats complexity. <strong>If you hit 30g+ of protein per meal, three or four times a day</strong>, you'll quietly out-grow everyone who's still chasing the perfect macro spreadsheet. Pick two of these meals, rotate them this week, and let the rest fall into place.</p>
+`,
+  },
+  {
+    slug: 'how-to-lose-fat-and-stay-lean',
+    title: 'Don’t Eat Lunch. Seriously. (How I Lose Fat and Stay Lean)',
+    excerpt: 'Two habits that’ll actually cut fat without killing your muscle. The first one’s controversial: don’t eat lunch. Seriously.',
+    category: 'Nutrition',
+    secondaryCategories: ['Training', 'Lifestyle'],
+    readTime: 4,
+    date: '2026-05-12',
+    author: 'Noah F.',
+    heroEmoji: '🔥',
+    heroImage: '/images/blog/how-to-lose-fat-and-stay-lean-v2.jpg',
+    content: `
+<h2>The Question Everyone Asks Me</h2>
+<p>"How do you eat? How do you train? How do you stay lean year-round without losing muscle?"</p>
+<p>I get this every week. And here's the thing — most people who want to lose fat end up tanking their muscle, their energy, and their consistency in the process. They jump on a diet, lose 5kg in three weeks, look worse, feel worse, and rebound a month later. <strong>Fat loss isn't a nutrition problem. It's a mindset problem.</strong></p>
+<p>If you actually want to get lean and stay lean, there are two things I want you to do. Just two. Apply them this week and you'll see real change in 1–3 months.</p>
+
+<h2>1. Don’t Eat Lunch. Seriously.</h2>
+<p>This is the one nobody wants to hear. <strong>Cut your lunch. Stop eating it.</strong> Use that hour to train.</p>
+<p>If you don't have a gym near work, doesn't matter — have a couple of go-to exercises you can do anywhere. Push-ups, squats, lunges, a band, a pull-up bar at home. Just be active during the time you'd normally be sitting in front of a sandwich.</p>
+<p>If you absolutely need something, eat <strong>a piece of fruit — an apple, a banana, nothing more</strong>. Keep your breakfast. Coffee is fine. Then go home and have a proper, nutritious dinner.</p>
+<p>Why this works:</p>
+<ul>
+<li><strong>Post-lunch energy crash is real.</strong> Most people get sluggish after eating midday, then drag through the afternoon. Skipping lunch keeps you sharp.</li>
+<li><strong>Training fasted (or near-fasted) is fine.</strong> Honestly, you often perform better slightly hungry. Your body is primed to move, not digest.</li>
+<li><strong>You walk in the door starving.</strong> That dinner — the one you actually planned — hits harder, satisfies more, and you stop snacking on garbage at 9pm.</li>
+<li><strong>It's the cleanest calorie deficit you'll ever run.</strong> One meal gone, one workout gained. The math takes care of itself.</li>
+</ul>
+<blockquote>If you're sitting there thinking "I could never skip lunch" — that's the exact reason you should try it. The voice telling you it's impossible is the same voice that's kept you stuck for two years.</blockquote>
+
+<h2>2. Stop Scrolling Between Sets</h2>
+<p>This is the other one. <strong>Put the phone away when you train.</strong></p>
+<p>Walk into any gym and you'll see the same thing: guys doing one set, then sitting on the bench for 4 minutes scrolling Instagram, then doing another set, then talking to a friend, then another set. <strong>That's not training. That's hanging out with weights.</strong></p>
+<p>Here's how I train when I want to get lean:</p>
+<ul>
+<li><strong>High reps. Weight doesn't matter — rep count matters.</strong> If you can't sweat through a set, the weight is irrelevant.</li>
+<li><strong>Rest is short.</strong> 30–60 seconds, max. If you're not breathing hard between sets, you're not earning anything.</li>
+<li><strong>Always have something in between.</strong> Finished a set of bench? Drop into push-ups. Done with squats? Hit a plank. The goal is to <strong>never fully stop moving</strong>.</li>
+<li><strong>No phone. No talking. No mirror time.</strong> You're there for 45 minutes, then you leave. Treat it like work.</li>
+</ul>
+<p>Do this and two things happen at once: your session time drops by maybe a third, and you burn dramatically more fat than the guy doing the same lifts with 3-minute rests. <strong>Intensity is what cuts fat. Not the program.</strong></p>
+
+<h2>The Math Behind It</h2>
+<p>Fat loss is, at the end of the day, a <strong>calorie deficit</strong>. You can dress it up with macros, intermittent windows, keto, whatever — the underlying math is "less in than out."</p>
+<p>Skipping lunch is the simplest, lowest-willpower way to create that deficit without obsessing over food. You're not weighing chicken breasts. You're not tracking apps. You're just removing one meal from a day where you probably weren't that hungry at noon anyway.</p>
+<p>Pair that with high-intensity, low-rest training and you've stacked the two biggest fat-loss levers — diet and exercise — at the same time of day. <strong>You can't out-train a bad diet, but you sure can out-train a missing lunch.</strong></p>
+
+<h2>What This Isn't</h2>
+<p>This isn't a starvation plan. You're still eating breakfast, you're still eating a real dinner, you might have a piece of fruit at midday. You're not skipping meals because food is bad — you're skipping a meal because it bought you a workout.</p>
+<p>If you have a medical reason to eat regular meals, or you're dealing with anything that makes fasting risky for you, this isn't for you. <strong>Listen to your body.</strong> But if your only objection is "but I love my lunch break," that's exactly the comfort you need to break to change anything.</p>
+
+<h2>Try It for 30 Days</h2>
+<p>Two habits. That's the entire program:</p>
+<ul>
+<li>Skip lunch, train during lunch hour. Small fruit if needed.</li>
+<li>Train without your phone. High reps. Short rest. Always moving.</li>
+</ul>
+<p>Run that for 30 days and you'll be leaner, fitter, and — this part surprises people — <strong>you'll have more time</strong>. Your training sessions are shorter. Your lunch break is freed up. Your dinner is the meal you look forward to instead of an afterthought.</p>
+<p>One to three months in, you won't recognise yourself. And you didn't count a single macro.</p>
+`,
+  },
+  {
+    slug: '30-days-one-habit-real-money',
+    title: '30 Days, One Habit, Real Money',
+    excerpt: "What Libo's cash challenges actually do to your body, brain, and bank account — and why the habit outlasts the app.",
+    category: 'Lifestyle',
+    readTime: 5,
+    date: '2026-05-12',
+    author: 'Noah F.',
+    heroEmoji: '💰',
+    heroImage: '/images/blog/30-days-one-habit-real-money.jpg',
+    content: `
+<h2>Day 4 Is When Most People Quit</h2>
+<p>Open your phone right now and count how many fitness apps are sitting there from "this is the year I finally do it." Three? Five? <strong>Day one you crushed it. Day four you ignored the notification. By day ten the app is dead to you.</strong></p>
+<p>This isn't a willpower problem. It's a brain problem. Your nervous system is wired to chase novelty — and on day four, the novelty is gone. There's no fireworks for opening an app. There's no consequence for skipping. So your brain does what brains do: it moves on to the next shiny thing.</p>
+<p>I built Libo because I lived this loop for years. Same gym memberships, same January reset, same March drop-off. And I noticed something — the only times I actually stayed consistent were when I had <strong>real skin in the game</strong>. Not points. Not streaks. Money on the line.</p>
+
+<h2>Why I Bet on Cash Challenges</h2>
+<p>Most fitness apps reward you with badges. A digital sticker. A "well done!" pop-up. <strong>Your brain figures out within a week that none of it is real.</strong> There's no cost to ignoring it.</p>
+<p>Cash challenges flip that. You put down a small stake — €5, €15, €50, your choice. You commit to a 30-day routine. You finish, you get your money back <em>and</em> a slice of the prize pool from everyone who didn't. You quit on day 12? Your stake is gone. That's it.</p>
+<p>People hear "you can lose money" and panic. That's the point. <strong>Loss aversion is the most powerful psychological lever we have</strong> — we'd rather avoid losing €15 than gain it. Once your money is in the game, your brain stops treating the workout like an optional notification. It treats it like rent. And rent gets paid.</p>
+<blockquote>If "I don't want to lose €15" is what finally gets you to the gym five times a week, you didn't lose €15 — you bought yourself a body for €0. That's the math nobody talks about.</blockquote>
+
+<h2>What 30 Days Actually Does To You</h2>
+<p>Here's what happens when you stack 30 days of forced consistency:</p>
+<ul>
+<li><strong>Days 1–7: friction.</strong> Every session feels like a chore. You're sore. You don't want to. You go anyway because the money's on the line. <em>That's the entire point — the cash is doing the work your motivation can't.</em></li>
+<li><strong>Days 8–14: routine kicks in.</strong> Your alarm goes off and you don't argue with it for ten minutes anymore. You pack your bag the night before. The friction is still there, but it's quieter.</li>
+<li><strong>Days 15–21: identity shift.</strong> You start saying "I train" instead of "I'm trying to get in shape." Small thing. Massive consequence. Your brain is rewriting who you are.</li>
+<li><strong>Days 22–30: the flip.</strong> Missing a day starts to feel <em>wrong</em>. Not virtuous — wrong. Like skipping a shower. Your body has learned what "active" feels like and it's quietly demanding it back.</li>
+</ul>
+<p>By day 30 you've done three things at once: <strong>improved your body, won money (if you finished), and rewired your brain</strong> to default toward movement instead of away from it. That last one is the real prize. The cash is just what got you there.</p>
+
+<h2>Why This Outlasts Libo</h2>
+<p>Here's the part most people don't get until they live it. <strong>After 30 days of forced daily training, your body and your mind get used to it.</strong> You don't have to keep paying us. You don't have to keep logging in.</p>
+<p>If you stopped using Libo tomorrow — uninstalled it, never opened it again — your body would still ask you, every day, <em>"why aren't we moving?"</em> That question doesn't go away. We installed it. You can't uninstall it.</p>
+<p>That's why this is the cheapest investment you'll ever make. Not because €15 is cheap, but because the habit you take home is worth ten thousand times that for the rest of your life. <strong>Consistency is a skill that transfers.</strong> Once you've proven to yourself you can show up for 30 days straight, that muscle carries into your work, your sleep, your money, your relationships. It's not a fitness habit. It's a self-respect habit.</p>
+<blockquote>You're not buying workouts. You're buying the version of yourself who can keep promises.</blockquote>
+
+<h2>The Mental Side Nobody Markets</h2>
+<p>I'm going to be honest — the physical changes after 30 days are real, but they're not what hits hardest. The mental shift is.</p>
+<p>People come out of their first 30-day cash challenge and tell me: <em>"I'm less anxious. I sleep better. I'm not doomscrolling at midnight."</em> That's not fitness. That's the side effect of finally being someone who finishes what they start. Your brain rewards you for it — dopamine, serotonin, all the chemistry that gets shorted when you spend your day stuck.</p>
+<p>For most of our users — guys between 16 and 35, trying to figure out money, career, body, all at once — that mental clarity is the real unlock. <strong>You can't build a business, save money, or have a serious relationship on a brain that hasn't moved in three days.</strong> Training is the cheapest mental health tool that exists. We just made it impossible to skip.</p>
+
+<h2>Start Small. Start This Week.</h2>
+<p>If this resonates, don't go big. Don't put €100 on the line. <strong>Start with a €5 challenge.</strong> 30 days. One simple routine. Whatever you can actually do every day.</p>
+<p>You'll either:</p>
+<ul>
+<li>Finish, get your stake back, win a slice of the pool, and walk away with a body and brain that work better than they did a month ago, or</li>
+<li>Quit early, lose €5, and learn — at a price you can afford — that this stuff is harder than you thought. Either way you've moved.</li>
+</ul>
+<p>Most people choose the comfortable lie: "I'll start next month." I'd rather you spend €5 to find out who you actually are.</p>
+<p>30 days. One habit. Real money. Pick your stake.</p>
 `,
   },
 ];

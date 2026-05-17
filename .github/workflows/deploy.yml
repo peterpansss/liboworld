@@ -24,13 +24,24 @@ jobs:
       - run: npm ci
         working-directory: react-app
 
+      # tsc catches pure type errors that vite's bundle-time check misses
+      # (mismatched signatures, narrowing bugs, etc). Cheap — runs in ~2s.
+      - name: Type-check React app
+        run: npx tsc --noEmit -p tsconfig.app.json
+        working-directory: react-app
+
       # Vite inlines `import.meta.env.VITE_*` at build time, so the
       # secrets must be present in the build step's env. Configure these
       # in repo settings → Secrets and variables → Actions:
-      #   - VITE_SUPABASE_URL          (e.g. https://<project>.supabase.co)
-      #   - VITE_SUPABASE_ANON_KEY     (anon JWT for the chosen project)
-      #   - VITE_STRIPE_PUBLISHABLE_KEY (optional — pk_live_… or pk_test_…)
+      #   - VITE_SUPABASE_URL          (required — module load throws if missing)
+      #   - VITE_SUPABASE_ANON_KEY     (required — anon JWT for the project)
+      #   - VITE_STRIPE_PUBLISHABLE_KEY (optional — pk_live_… or pk_test_…;
+      #     funnel falls back to offline placeholder when absent)
       #   - VITE_STRIPE_PRICE_ENTRY / _SILVER / _GOLD / _PREMIUM (optional)
+      #
+      # `npm run build` runs `prebuild:facets && tsc -b && vite build && postbuild:seo`,
+      # which generates workout facets, sitemap.xml, and prerenders per-route
+      # meta tags into dist/exercises/<slug>/index.html etc.
       - name: Build React app
         run: npm run build
         working-directory: react-app

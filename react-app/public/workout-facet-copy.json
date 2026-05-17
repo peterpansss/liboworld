@@ -1,0 +1,49 @@
+{
+  "_comment": "Hand-written intros for /best-workouts/<slug> SEO landing pages. Keep each 60-90 words, unique (Google penalizes near-duplicates as doorway pages), and lead with concrete value rather than generic fluff. The h1 is generated separately as 'Best {Label} Workouts'.",
+
+  "upper-body": "These upper-body workouts hit chest, back, shoulders, and arms in the same session — the most efficient way to build visible strength up top. Each routine layers a heavy compound (press or row) with focused accessory work so you finish stronger and more pumped than a single-muscle split. Pick a 30-minute option for after work, or block out 45 if you want full coverage in one go.",
+
+  "lower-body": "Lower-body training is where most physiques are built or broken. These routines balance quad-dominant work (squats, lunges) with posterior-chain pulls (hinges, hamstring curls) so your strength stays even and your knees stay healthy. Most run 30-45 minutes — long enough to load the big lifts properly without burning out the smaller stabilizers you'll need next session.",
+
+  "full-body": "Full-body workouts are the highest-ROI option when you can only train two or three times a week. Each session here pairs an upper push, a lower pull, and a core-driven finisher so every major movement pattern gets touched. Expect to leave winded — these are designed for frequency over volume, not for camping under the bar.",
+
+  "chest": "Chest workouts that go beyond bench press. These routines mix horizontal pressing (flat, incline, decline) with flyes and bodyweight finishers so you load every angle of the pec — upper, mid, and inner — instead of overdeveloping one spot. Most include a focused triceps assist near the end since they share the press pattern.",
+
+  "back": "A strong back fixes posture, protects your shoulders, and finishes any physique. These workouts stack horizontal rows with vertical pulls (pulldowns, pull-ups) and finish with isolated lat or rear-delt work so the whole upper back grows together. Pick the 30-minute option for a maintenance day, the longer ones for serious volume.",
+
+  "shoulders": "Shoulder workouts that build width without trashing your rotator cuff. Each routine starts with a controlled overhead press, layers in lateral raises for the side delts most people under-train, and closes with rear-delt work to keep the joint balanced. Form-first programming — the shoulders are the easiest place to over-rep yourself into a problem.",
+
+  "arms": "Arm-focused sessions for when you want a dedicated biceps and triceps day. These workouts alternate push-pull supersets so each muscle gets a brief rest while the other works — twice the volume in the same time, with a much better pump. Most include a forearm or grip finisher; the small muscles often decide how much you can lift in the bigger lifts.",
+
+  "legs": "Leg workouts built around the squat, hinge, and lunge patterns — the three movements that drive almost every athletic skill. These routines spend the first half on the heavy compound, then move to single-leg work to expose and fix imbalances. Expect to be sore for a day or two after the longer ones.",
+
+  "core": "Core training that goes beyond crunches. These routines work the deep stabilizers (planks, dead-bugs, anti-rotation) before the surface abs, because that's the order they actually fire when you lift heavy or sprint. Most are short — 15 to 20 minutes — so they slot in as a finisher after a strength session or as a standalone on a rest day.",
+
+  "glutes": "Glute workouts that target all three heads (max, medius, minimus) instead of just the obvious one. Each routine mixes hip extension (bridges, hip thrusts) with hip abduction (banded walks, side-lying raises) so you build the rounder, broader shape that hip thrusts alone don't quite deliver. Bands optional but recommended.",
+
+  "bodyweight": "No equipment, no excuses — these workouts use only your body and a small amount of space. Each one progresses from easier to harder variations of the same movement family (push-up regressions, squat tempo work) so you can keep training the same routine for weeks and still get stronger. Travel-friendly, hotel-room friendly, and fully scalable.",
+
+  "dumbbell": "Dumbbells are the most versatile single piece of equipment — and a pair plus a bench covers 80% of what a full gym does. These workouts lean on dumbbell-only movement patterns: presses, rows, hinges, and Bulgarian splits. Easy to scale (just grab the next pair up) and easy to fit in a corner of your living room.",
+
+  "barbell": "Barbell workouts for building real strength. These routines center on the four classic lifts — squat, bench, deadlift, overhead press — with carefully chosen accessories that fix the weak points each lift exposes. Bring a rack and a competent spotter for the heavier days; this is loaded training, not metcon work.",
+
+  "resistance-band": "Resistance bands are deceptively effective: the variable tension hits your muscles hardest at peak contraction, where dumbbells go light. These workouts use bands for everything from full-body strength to glute activation. Cheap, packable, and travel-perfect — a single set of bands replaces a small gym's worth of cable work.",
+
+  "machine": "Machine-based workouts for hypertrophy. Machines remove the stabilizer demand of free weights, which lets you push closer to true failure on the target muscle without the usual systemic fatigue. Perfect for high-volume hypertrophy days, or when you're training around an injury and need to limit the joints involved.",
+
+  "home": "Workouts you can finish in a bedroom or living room. No platform, no rack, no neighbours-banging-on-the-ceiling exercises. Each one is tested on a yoga mat with at most a pair of dumbbells, so what you see is what you can actually do tonight. Scale by changing tempo, range, or rest — not by adding weight you don't have.",
+
+  "gym": "Gym workouts that justify the membership. These routines assume you have access to a barbell, a power rack, dumbbells up to a reasonable weight, and at least one cable stack. Built around the lifts that need real load — squats, deadlifts, presses — paired with the machines that fill the gaps your free weights can't reach.",
+
+  "15-minute": "Short workouts for the days when 'no time' would otherwise mean no training. Each 15-minute session is built around two or three movements run as a circuit — fewer rest periods, more density, same stimulus. Better than skipping; for many people, three 15-minute sessions a week beats one 60-minute session they keep meaning to do.",
+
+  "30-minute": "Thirty minutes is the sweet spot for most people most weeks: long enough to train two muscle groups properly, short enough to actually fit between meetings. These routines hit one heavy compound, one accessory pair, and a brief finisher — no fluff, no warmup theatrics, just the work that moves the needle.",
+
+  "45-minute": "Forty-five-minute workouts are where you can cover a major lift, two or three accessories, and still leave room for a focused finisher. These routines are built for the serious training days when your goal is real progress, not just maintenance. Fuel up beforehand — the longer sessions reward it.",
+
+  "strength": "Strength workouts focused on getting genuinely stronger, not just sweaty. The structure on every routine is the same: heavy compound first while the nervous system is fresh, accessories in the middle, then a focused isolation or core finisher. Rest periods are honoured here — strength is built between sets as much as during them.",
+
+  "cardio": "Cardio workouts that don't require a treadmill. Each routine uses bodyweight movement and short sprints to push your heart rate without the joint pounding of long-distance running. Built as intervals so you can match the intensity to the day — brutal when you're feeling it, manageable when you're not.",
+
+  "stretching": "Stretching routines designed to actually move the needle on flexibility, not just feel good for ten minutes. Each session targets a specific area — hips, hamstrings, thoracic spine — with holds long enough to change tissue, not just blood flow. Best done daily or every other day; flexibility responds to frequency more than intensity."
+}
