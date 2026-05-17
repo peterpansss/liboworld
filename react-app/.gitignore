@@ -10,11 +10,13 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+coverage
 *.local
 
-# Local environment — secrets like Web3Forms / Stripe access keys
+# Env / secrets (never commit). `.env.example` is the only env file we track.
 .env
-.env.production
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*
@@ -26,3 +28,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright test artefacts
+test-results/
+playwright-report/

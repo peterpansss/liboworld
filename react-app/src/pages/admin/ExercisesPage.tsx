@@ -19,6 +19,7 @@ import {
   type ExerciseRow,
   type ContentStatus,
 } from '../../lib/adminApi';
+import { safeUrl } from '../../utils/safeUrl';
 import { errMessage } from '../../lib/errors';
 import { VideoUpload, MediaJobStatus } from '../../components/admin/VideoUpload';
 import { StatusChip } from '../../components/admin/StatusChip';
@@ -1780,19 +1781,22 @@ export function ExercisesPage() {
       key: 'thumb',
       header: '',
       width: 60,
-      render: (r) => (
-        <div style={thumbCellStyle}>
-          {r.thumbnailUrl ? (
-            <img
-              src={r.thumbnailUrl}
-              alt=""
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          ) : (
-            <span>{r.emoji || '💪'}</span>
-          )}
-        </div>
-      ),
+      render: (r) => {
+        const thumb = safeUrl(r.thumbnailUrl);
+        return (
+          <div style={thumbCellStyle}>
+            {thumb ? (
+              <img
+                src={thumb}
+                alt=""
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <span>{r.emoji || '💪'}</span>
+            )}
+          </div>
+        );
+      },
     },
     {
       key: 'name',
@@ -2857,16 +2861,19 @@ function EditForm({
               justifyContent: 'center',
             }}
           >
-            {form.videoUrl ? (
-              <video
-                key={`${form.videoUrl}@${mediaVer}`}
-                src={withBuster(form.videoUrl)}
-                controls
-                style={{ width: '100%', maxHeight: 300, borderRadius: 10, background: '#000' }}
-              />
-            ) : (
-              <div style={{ color: colors.dim, fontSize: 13 }}>No video</div>
-            )}
+            {(() => {
+              const safeVideo = safeUrl(form.videoUrl);
+              return safeVideo ? (
+                <video
+                  key={`${safeVideo}@${mediaVer}`}
+                  src={withBuster(safeVideo)}
+                  controls
+                  style={{ width: '100%', maxHeight: 300, borderRadius: 10, background: '#000' }}
+                />
+              ) : (
+                <div style={{ color: colors.dim, fontSize: 13 }}>No video</div>
+              );
+            })()}
           </div>
 
           <label
@@ -3082,16 +3089,19 @@ function EditForm({
               justifyContent: 'center',
             }}
           >
-            {form.thumbnailUrl ? (
-              <img
-                key={`${form.thumbnailUrl}@${mediaVer}`}
-                src={withBuster(form.thumbnailUrl)}
-                alt="Thumbnail"
-                style={{ maxWidth: '100%', maxHeight: 180, borderRadius: 10 }}
-              />
-            ) : (
-              <div style={{ fontSize: 48 }}>{form.emoji || '💪'}</div>
-            )}
+            {(() => {
+              const safeThumb = safeUrl(form.thumbnailUrl);
+              return safeThumb ? (
+                <img
+                  key={`${safeThumb}@${mediaVer}`}
+                  src={withBuster(safeThumb)}
+                  alt="Thumbnail"
+                  style={{ maxWidth: '100%', maxHeight: 180, borderRadius: 10 }}
+                />
+              ) : (
+                <div style={{ fontSize: 48 }}>{form.emoji || '💪'}</div>
+              );
+            })()}
           </div>
 
           <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>

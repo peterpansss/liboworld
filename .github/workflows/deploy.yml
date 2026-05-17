@@ -30,18 +30,29 @@ jobs:
         run: npx tsc --noEmit -p tsconfig.app.json
         working-directory: react-app
 
-      # `npm run build` runs `tsc -b && vite build && npm run postbuild:seo`,
-      # which generates sitemap.xml and prerenders per-route meta tags into
-      # dist/exercises/<slug>/index.html etc. Without this, prerender + sitemap
-      # never reach production.
+      # Vite inlines `import.meta.env.VITE_*` at build time, so the
+      # secrets must be present in the build step's env. Configure these
+      # in repo settings → Secrets and variables → Actions:
+      #   - VITE_SUPABASE_URL          (required — module load throws if missing)
+      #   - VITE_SUPABASE_ANON_KEY     (required — anon JWT for the project)
+      #   - VITE_STRIPE_PUBLISHABLE_KEY (optional — pk_live_… or pk_test_…;
+      #     funnel falls back to offline placeholder when absent)
+      #   - VITE_STRIPE_PRICE_ENTRY / _SILVER / _GOLD / _PREMIUM (optional)
+      #
+      # `npm run build` runs `prebuild:facets && tsc -b && vite build && postbuild:seo`,
+      # which generates workout facets, sitemap.xml, and prerenders per-route
+      # meta tags into dist/exercises/<slug>/index.html etc.
       - name: Build React app
         run: npm run build
         working-directory: react-app
         env:
-          # Inlined at build time by Vite. Activates Stripe Elements on /giveaway —
-          # without it the modal silently falls back to the offline placeholder.
-          # Set in GitHub repo → Settings → Secrets and variables → Actions.
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}
+          VITE_STRIPE_PRICE_ENTRY: ${{ secrets.VITE_STRIPE_PRICE_ENTRY }}
+          VITE_STRIPE_PRICE_SILVER: ${{ secrets.VITE_STRIPE_PRICE_SILVER }}
+          VITE_STRIPE_PRICE_GOLD: ${{ secrets.VITE_STRIPE_PRICE_GOLD }}
+          VITE_STRIPE_PRICE_PREMIUM: ${{ secrets.VITE_STRIPE_PRICE_PREMIUM }}
 
       # ── Merge root static files into dist ──
       # The root index.html is the main landing page.

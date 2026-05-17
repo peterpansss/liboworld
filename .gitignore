@@ -32,6 +32,7 @@ scripts/upload.log
 *.pt
 *.onnx
 *.weights
+.claude/
 
 # Build artifacts (root-level vite dist; react-app/dist already ignored
 # in react-app/.gitignore).

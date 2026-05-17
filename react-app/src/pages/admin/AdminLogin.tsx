@@ -1,7 +1,26 @@
 import { useState, type FormEvent } from 'react';
-import { signInAdmin } from '../../lib/adminApi';
+import {
+  signInAdmin,
+  checkAdminLoginAllowed,
+  recordAdminLoginFailure,
+  validatePasswordPolicy,
+} from '../../lib/adminApi';
 import { Field, TextInput, Button } from '../../components/admin/FormField';
 import { colors } from '../../theme';
+
+// T11: hardened admin login.
+// - Rate-limit via check_admin_login_allowed (RPC) before signInWithPassword.
+// - Record failure via record_admin_login_failure (RPC) on auth error.
+// - Password policy: 12+ chars with mixed classes, common-password block.
+//   Existing admins whose stored password fails the policy aren't locked
+//   out -- the policy only gates new-password fields (sign-up, change pwd).
+//   On sign-in we DON'T validate the entered password against the policy
+//   (the password may be older than the policy); we only call this from
+//   "set new password" flows.
+//
+// Re-auth for sensitive ops (markPayoutPaid, setSubscriptionTier, etc.) is
+// implemented by the wrappers in adminApi.ts that call requireRecentAuth();
+// see ReauthModal.
 
 export function AdminLogin({ onSignedIn, deniedReason }: { onSignedIn: () => void; deniedReason: string | null }) {
   const [email, setEmail] = useState('');
@@ -14,7 +33,34 @@ export function AdminLogin({ onSignedIn, deniedReason }: { onSignedIn: () => voi
     setLoading(true);
     setError(null);
     try {
-      await signInAdmin(email.trim(), password);
+      const trimmedEmail = email.trim();
+      if (!trimmedEmail) throw new Error('Email is required.');
+      if (!password) throw new Error('Password is required.');
+
+      // 1. Pre-flight rate-limit check. Done BEFORE signInWithPassword so a
+      //    locked email never reaches the auth server.
+      const gate = await checkAdminLoginAllowed(trimmedEmail);
+      if (!gate.ok) {
+        if (gate.error === 'locked') {
+          throw new Error(`Too many failed sign-ins. Try again in ${Math.ceil((gate.retry_after_seconds ?? 900) / 60)} min.`);
+        }
+        if (gate.error === 'rate_limited') {
+          throw new Error('Slow down — too many attempts. Wait a minute and try again.');
+        }
+        throw new Error('Sign-in temporarily unavailable.');
+      }
+
+      // 2. Try the actual sign-in.
+      try {
+        await signInAdmin(trimmedEmail, password);
+      } catch (authErr) {
+        // Record the failure so the rate-limit window catches up. We DO this
+        // even if the email doesn't exist -- otherwise an attacker could
+        // probe addresses with no penalty.
+        await recordAdminLoginFailure(trimmedEmail).catch(() => {});
+        throw authErr;
+      }
+
       onSignedIn();
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Sign-in failed';
@@ -74,7 +120,20 @@ export function AdminLogin({ onSignedIn, deniedReason }: { onSignedIn: () => voi
         <Button type="submit" disabled={loading} style={{ width: '100%', padding: '12px 16px', fontSize: 14 }}>
           {loading ? 'Signing in…' : 'Sign in'}
         </Button>
+
+        <p style={{ marginTop: 16, fontSize: 11, color: colors.dim, textAlign: 'center' }}>
+          Repeated failures lock this email for 15 min. After 5 failures in 15 min you'll be slowed down.
+        </p>
       </form>
     </div>
   );
+}
+
+// Exported for use by sign-up / change-password flows. Returns the first
+// problem found, or null if the password is acceptable. We don't surface the
+// full list because the UI shows a single error string.
+export function describePasswordPolicyError(password: string): string | null {
+  const result = validatePasswordPolicy(password);
+  if (result.ok) return null;
+  return result.errors[0] ?? 'Password is not strong enough.';
 }

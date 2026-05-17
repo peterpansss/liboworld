@@ -1,4 +1,13 @@
-import type { ReactNode, InputHTMLAttributes, TextareaHTMLAttributes, SelectHTMLAttributes } from 'react';
+import {
+  cloneElement,
+  isValidElement,
+  useId,
+  type ReactNode,
+  type ReactElement,
+  type InputHTMLAttributes,
+  type TextareaHTMLAttributes,
+  type SelectHTMLAttributes,
+} from 'react';
 import { colors } from '../../theme';
 
 const labelStyle: React.CSSProperties = {
@@ -24,11 +33,56 @@ const baseInputStyle: React.CSSProperties = {
   boxSizing: 'border-box',
 };
 
-export function Field({ label, error, children, hint }: { label?: string; error?: string | null; children: ReactNode; hint?: string }) {
+/**
+ * Field wraps a single form control with a `<label>` and (optionally) a hint
+ * or error message.
+ *
+ * Accessibility:
+ *   - The `<label>` is associated to its child input via `htmlFor`/`id`. If
+ *     the consumer doesn't pass `id`, one is auto-generated with `useId()`
+ *     and forwarded to the child via `cloneElement`. This means screen
+ *     readers announce the label text when the input is focused, and
+ *     clicking the label moves focus to the input.
+ *   - Existing `id` props on the child take precedence (so callers that
+ *     wire their own ids — e.g. `fm-email` — keep working).
+ */
+export function Field({
+  id,
+  label,
+  error,
+  children,
+  hint,
+}: {
+  id?: string;
+  label?: string;
+  error?: string | null;
+  children: ReactNode;
+  hint?: string;
+}) {
+  const generatedId = useId();
+  // Only wire an id to the input when there's a label to associate with it
+  // AND the child is a real React element we can clone. Pure text children
+  // (e.g. <Field label="Plain">just text</Field>) get no htmlFor — there
+  // is nothing to point to, and emitting an orphan htmlFor would be worse
+  // than no htmlFor at all.
+  const explicitChildId =
+    isValidElement(children) ? ((children.props as { id?: string }).id ?? undefined) : undefined;
+  const canAttachId = label && (id || isValidElement(children));
+  const childId: string | undefined = canAttachId ? id ?? explicitChildId ?? generatedId : undefined;
+
+  let renderedChildren: ReactNode = children;
+  if (childId && isValidElement(children) && !explicitChildId) {
+    renderedChildren = cloneElement(children as ReactElement<{ id?: string }>, { id: childId });
+  }
+
   return (
     <div style={{ marginBottom: 16 }}>
-      {label && <label style={labelStyle}>{label}</label>}
-      {children}
+      {label && (
+        <label htmlFor={childId} style={labelStyle}>
+          {label}
+        </label>
+      )}
+      {renderedChildren}
       {hint && !error && <div style={{ fontSize: 12, color: colors.dim, marginTop: 4 }}>{hint}</div>}
       {error && <div style={{ fontSize: 12, color: colors.error, marginTop: 4 }}>{error}</div>}
     </div>

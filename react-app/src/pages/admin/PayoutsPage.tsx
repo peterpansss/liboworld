@@ -5,7 +5,9 @@ import { Field, TextInput, Select, Button } from '../../components/admin/FormFie
 import { Modal } from '../../components/admin/Modal';
 import {
   listChallengePayouts,
-  markPayoutPaid,
+  // Sensitive op: gated through requireRecentAuth() via the wrapper.
+  // See lib/adminApi.ts.
+  markPayoutPaidWithReauth as markPayoutPaid,
   type ChallengePayoutRow,
   type ChallengePayoutStatus,
   type ChallengePayoutMethod,

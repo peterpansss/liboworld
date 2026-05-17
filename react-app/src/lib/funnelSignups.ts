@@ -101,6 +101,63 @@ function isValidEmail(s: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
 
+// Strips ASCII control characters (\x00-\x1F and \x7F). They have no business
+// in any of these fields and are a common smuggling vector.
+// eslint-disable-next-line no-control-regex
+const CONTROL_CHARS_RE = /[\x00-\x1F\x7F]/g;
+
+function stripControlChars(s: string): string {
+  return s.replace(CONTROL_CHARS_RE, '');
+}
+
+function clamp(s: string, max: number): string {
+  return s.length > max ? s.slice(0, max) : s;
+}
+
+/**
+ * Sanitise a free-text name field. Trims, strips control chars, clamps to
+ * `max`. Returns null for empty input. We do NOT HTML-escape here — JSX
+ * auto-escapes on render, and double-escaping shows up as literal entities
+ * in the admin UI.
+ */
+export function sanitizeFullName(input: string | null | undefined, max = 80): string | null {
+  if (!input) return null;
+  const cleaned = clamp(stripControlChars(String(input).trim()), max);
+  return cleaned || null;
+}
+
+/**
+ * Sanitise a phone field: trim, strip control chars, clamp to `max`, then
+ * keep only `[+\d\-\s()]`. Returns null if nothing usable remains.
+ */
+export function sanitizePhone(input: string | null | undefined, max = 30): string | null {
+  if (!input) return null;
+  const trimmed = clamp(stripControlChars(String(input).trim()), max);
+  const filtered = trimmed.replace(/[^+\d\-\s()]/g, '');
+  return filtered || null;
+}
+
+/**
+ * Sanitise referrer / user_agent: trim, strip control chars, clamp to 2000.
+ */
+export function sanitizeLongText(input: string | null | undefined, max = 2000): string | null {
+  if (!input) return null;
+  const cleaned = clamp(stripControlChars(String(input).trim()), max);
+  return cleaned || null;
+}
+
+/**
+ * Sanitise a UTM parameter: trim, strip control chars, clamp to 200, then
+ * keep only `[A-Za-z0-9._\-]`. UTM values are tracking codes, not free text;
+ * anything else is almost certainly an injection attempt.
+ */
+export function sanitizeUtm(input: string | null | undefined, max = 200): string | null {
+  if (!input) return null;
+  const trimmed = clamp(stripControlChars(String(input).trim()), max);
+  const filtered = trimmed.replace(/[^A-Za-z0-9._-]/g, '');
+  return filtered || null;
+}
+
 /**
  * Anonymous click logger — used by /cash-challenge's RESERVE buttons and
  * the /get-app QR-redirect endpoint. Captures (funnel, tier_slug, UTM,
@@ -126,13 +183,13 @@ export async function logFunnelClick(args: {
     funnel: args.funnel,
     tier_slug: args.tierSlug,
     giveaway_id: args.giveawayId ?? null,
-    utm_source: utm.utm_source,
-    utm_medium: utm.utm_medium,
-    utm_campaign: utm.utm_campaign,
-    utm_content: utm.utm_content,
-    utm_term: utm.utm_term,
-    referrer: readReferrer(),
-    user_agent: readUserAgent(),
+    utm_source: sanitizeUtm(utm.utm_source),
+    utm_medium: sanitizeUtm(utm.utm_medium),
+    utm_campaign: sanitizeUtm(utm.utm_campaign),
+    utm_content: sanitizeUtm(utm.utm_content),
+    utm_term: sanitizeUtm(utm.utm_term),
+    referrer: sanitizeLongText(readReferrer()),
+    user_agent: sanitizeLongText(readUserAgent()),
   };
   try {
     await supabase.from('funnel_signups').insert(row);
@@ -148,18 +205,18 @@ export async function submitFunnelInterest(input: FunnelSubmitInput): Promise<Fu
   const utm = readUtm();
   const row = {
     email,
-    full_name: input.fullName?.trim() || null,
-    phone: input.phone?.trim() || null,
+    full_name: sanitizeFullName(input.fullName),
+    phone: sanitizePhone(input.phone),
     funnel: input.funnel,
     tier_slug: input.tierSlug,
     giveaway_id: input.giveawayId ?? null,
-    utm_source: utm.utm_source,
-    utm_medium: utm.utm_medium,
-    utm_campaign: utm.utm_campaign,
-    utm_content: utm.utm_content,
-    utm_term: utm.utm_term,
-    referrer: readReferrer(),
-    user_agent: readUserAgent(),
+    utm_source: sanitizeUtm(utm.utm_source),
+    utm_medium: sanitizeUtm(utm.utm_medium),
+    utm_campaign: sanitizeUtm(utm.utm_campaign),
+    utm_content: sanitizeUtm(utm.utm_content),
+    utm_term: sanitizeUtm(utm.utm_term),
+    referrer: sanitizeLongText(readReferrer()),
+    user_agent: sanitizeLongText(readUserAgent()),
   };
 
   try {
