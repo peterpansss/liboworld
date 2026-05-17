@@ -21,11 +21,15 @@ jobs:
           cache: npm
           cache-dependency-path: react-app/package-lock.json
 
-      # Strict install from the committed lockfile. If this ever fails with
-      # EBADPLATFORM after someone commits a macOS-generated lockfile, run
-      # the "Regenerate package-lock.json on Linux" workflow (manual trigger)
-      # to refresh the lockfile from this same Linux runner.
-      - run: npm ci
+      # `npm install` instead of `npm ci`. The "strict" approach has bitten
+      # us in both directions: a macOS-generated lockfile fails on Linux
+      # (`EBADPLATFORM` on aix-ppc64), and a Linux-regenerated lockfile fails
+      # too (only locks linux-x64, npm ci then complains about missing
+      # linux-ppc64/riscv64/etc). `npm install` reconciles silently. The
+      # tradeoff is tiny version drift between builds — `tsc -b` catches
+      # anything that matters. Keep this until the npm cross-platform
+      # optional-dep story stabilizes.
+      - run: npm install --no-audit --no-fund
         working-directory: react-app
 
       # tsc catches pure type errors that vite's bundle-time check misses
