@@ -17,6 +17,7 @@ const ChallengesPage = lazy(() => import('./ChallengesPage').then((m) => ({ defa
 const CyclesPage = lazy(() => import('./CyclesPage').then((m) => ({ default: m.CyclesPage })));
 const PayoutsPage = lazy(() => import('./PayoutsPage').then((m) => ({ default: m.PayoutsPage })));
 const ProgramsPage = lazy(() => import('./ProgramsPage').then((m) => ({ default: m.ProgramsPage })));
+const MfaPage = lazy(() => import('./MfaPage').then((m) => ({ default: m.MfaPage })));
 
 const NAV = [
   { to: '/admin', label: 'Dashboard', end: true },
@@ -32,6 +33,7 @@ const NAV = [
   { to: '/admin/activity', label: 'Activity' },
   { to: '/admin/subscriptions', label: 'Subscriptions' },
   { to: '/admin/referral-codes', label: 'Referral Codes' },
+  { to: '/admin/mfa', label: 'Security · MFA' },
 ];
 
 function Shell() {
@@ -154,6 +156,7 @@ function Shell() {
             <Route path="activity" element={<ActivityPage />} />
             <Route path="subscriptions" element={<SubscriptionsPage />} />
             <Route path="referral-codes" element={<ReferralCodesPage />} />
+            <Route path="mfa" element={<MfaPage />} />
             <Route path="*" element={<Navigate to="" replace />} />
           </Routes>
         </Suspense>
