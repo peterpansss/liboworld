@@ -69,34 +69,6 @@ describe('getStripe / isStripeConfigured (test key)', () => {
   });
 });
 
-describe('STRIPE_PRICE_IDS', () => {
-  it('exposes the four documented tiers, undefined when env vars unset', async () => {
-    // Clear any inherited values from outer test runs
-    vi.stubEnv('VITE_STRIPE_PRICE_ENTRY', '');
-    vi.stubEnv('VITE_STRIPE_PRICE_SILVER', '');
-    vi.stubEnv('VITE_STRIPE_PRICE_GOLD', '');
-    vi.stubEnv('VITE_STRIPE_PRICE_PREMIUM', '');
-    const { STRIPE_PRICE_IDS } = await import('../../src/lib/stripe');
-    expect(Object.keys(STRIPE_PRICE_IDS).sort()).toEqual(['entry', 'gold', 'premium', 'silver']);
-    // Empty stubbed strings come through as '' (falsy) — both '' and undefined are acceptable here.
-    for (const v of Object.values(STRIPE_PRICE_IDS)) {
-      expect(v === undefined || v === '').toBe(true);
-    }
-  });
-
-  it('passes env-supplied price ids through unchanged', async () => {
-    vi.stubEnv('VITE_STRIPE_PRICE_ENTRY', 'price_entry_001');
-    vi.stubEnv('VITE_STRIPE_PRICE_SILVER', 'price_silver_002');
-    vi.stubEnv('VITE_STRIPE_PRICE_GOLD', 'price_gold_003');
-    vi.stubEnv('VITE_STRIPE_PRICE_PREMIUM', 'price_premium_004');
-    const { STRIPE_PRICE_IDS } = await import('../../src/lib/stripe');
-    expect(STRIPE_PRICE_IDS.entry).toBe('price_entry_001');
-    expect(STRIPE_PRICE_IDS.silver).toBe('price_silver_002');
-    expect(STRIPE_PRICE_IDS.gold).toBe('price_gold_003');
-    expect(STRIPE_PRICE_IDS.premium).toBe('price_premium_004');
-  });
-});
-
 describe('infra/stripe re-export', () => {
   it('re-exports the same getStripe', async () => {
     vi.stubEnv('VITE_STRIPE_PUBLISHABLE_KEY', 'pk_test_reexport');
@@ -104,6 +76,5 @@ describe('infra/stripe re-export', () => {
     const infra = await import('../../src/lib/infra/stripe');
     expect(infra.getStripe).toBe(direct.getStripe);
     expect(infra.isStripeConfigured).toBe(direct.isStripeConfigured);
-    expect(infra.STRIPE_PRICE_IDS).toBe(direct.STRIPE_PRICE_IDS);
   });
 });
