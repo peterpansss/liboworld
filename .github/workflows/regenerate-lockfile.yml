@@ -1,0 +1,47 @@
+name: Regenerate package-lock.json on Linux
+
+# Manually triggered helper. Use this whenever the committed
+# react-app/package-lock.json drifts to host-platform-specific optional
+# deps (typically after someone runs `npm install` on macOS or Windows
+# and commits the result — `npm ci` then fails on the Linux deploy runner
+# with EBADPLATFORM).
+#
+# Usage:  Actions tab → "Regenerate package-lock.json on Linux" → Run workflow
+# Commits the fresh lockfile back to the branch it was triggered on.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Persist the default GITHUB_TOKEN so the later push works.
+          persist-credentials: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Regenerate lockfile
+        working-directory: react-app
+        run: |
+          rm -f package-lock.json
+          npm install --no-audit --no-fund
+
+      - name: Commit + push if changed
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add react-app/package-lock.json
+          if git diff --staged --quiet; then
+            echo "No lockfile changes — nothing to commit."
+          else
+            git commit -m "chore(ci): regenerate package-lock.json on Linux"
+            git push
+          fi
