@@ -1,6 +1,9 @@
 /**
  * Giveaway template admin operations.
  * Re-exports from adminApi.ts.
+ *
+ * `deleteGiveawayTemplate` resolves to the re-auth-gated wrapper for UI
+ * callers; the `_unsafe` variant is exported for tests.
  */
 export {
   type GiveawayTemplate,
@@ -9,5 +12,6 @@ export {
   listGiveawayTemplates,
   createGiveawayTemplate,
   updateGiveawayTemplate,
-  deleteGiveawayTemplate,
+  deleteGiveawayTemplateWithReauth as deleteGiveawayTemplate,
+  deleteGiveawayTemplate_unsafe,
 } from '../adminApi';

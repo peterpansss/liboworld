@@ -7,8 +7,11 @@ import {
   listGiveaways,
   createGiveaway,
   updateGiveaway,
-  deleteGiveaway,
-  drawGiveawayWinners,
+  // Destructive ops go through the *WithReauth wrappers so
+  // requireRecentAuth() can challenge the operator before the mutation
+  // hits the DB. The ungated `_unsafe` versions exist only for tests.
+  deleteGiveawayWithReauth as deleteGiveaway,
+  drawGiveawayWinnersWithReauth as drawGiveawayWinners,
   uploadGiveawayImage,
   listGiveawayWinners,
   type Giveaway,

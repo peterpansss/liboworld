@@ -6,11 +6,13 @@ import { Modal } from '../../components/admin/Modal';
 import {
   listExerciseOverrides,
   replaceExerciseOverride,
-  deleteExerciseOverride,
+  // Destructive ops go through the *WithReauth wrappers so
+  // requireRecentAuth() can challenge the operator before delete.
+  deleteExerciseOverrideWithReauth as deleteExerciseOverride,
   uploadExerciseVideo,
   uploadExerciseThumbnail,
   createExercise,
-  deleteExercise,
+  deleteExerciseWithReauth as deleteExercise,
   listExercises,
   updateExercise,
   uploadExerciseVideoRaw,
@@ -3001,16 +3003,19 @@ function EditForm({
               justifyContent: 'center',
             }}
           >
-            {form.videoUrlAlt ? (
-              <video
-                key={`${form.videoUrlAlt}@${mediaVer}`}
-                src={withBuster(form.videoUrlAlt)}
-                controls
-                style={{ width: '100%', maxHeight: 240, borderRadius: 10, background: '#000' }}
-              />
-            ) : (
-              <div style={{ color: colors.dim, fontSize: 13 }}>No alt video</div>
-            )}
+            {(() => {
+              const safeVideoAlt = safeUrl(form.videoUrlAlt);
+              return safeVideoAlt ? (
+                <video
+                  key={`${safeVideoAlt}@${mediaVer}`}
+                  src={withBuster(safeVideoAlt)}
+                  controls
+                  style={{ width: '100%', maxHeight: 240, borderRadius: 10, background: '#000' }}
+                />
+              ) : (
+                <div style={{ color: colors.dim, fontSize: 13 }}>No alt video</div>
+              );
+            })()}
           </div>
 
           <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>

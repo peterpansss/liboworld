@@ -113,15 +113,15 @@ import {
   listGiveaways,
   createGiveaway,
   updateGiveaway,
-  deleteGiveaway,
-  drawGiveawayWinners,
+  deleteGiveaway_unsafe,
+  drawGiveawayWinners_unsafe,
   uploadGiveawayImage,
   fetchActivityFeed,
   fetchDistinctWorkoutNames,
   uploadExerciseVideo,
   uploadExerciseThumbnail,
   upsertExerciseOverride,
-  deleteExerciseOverride,
+  deleteExerciseOverride_unsafe,
   upsertWorkoutOverride,
   listMoneyChallenges,
   setMoneyChallengeActive,
@@ -301,20 +301,20 @@ describe('Giveaways CRUD', () => {
     expect(r.title).toBe('Updated');
   });
 
-  it('deleteGiveaway hits delete on the giveaways table', async () => {
-    await deleteGiveaway('g1');
+  it('deleteGiveaway_unsafe hits delete on the giveaways table', async () => {
+    await deleteGiveaway_unsafe('g1');
     expect(captured.deletes.find((d) => d.table === 'giveaways')).toBeDefined();
   });
 
-  it('drawGiveawayWinners returns winners_drawn count on success', async () => {
+  it('drawGiveawayWinners_unsafe returns winners_drawn count on success', async () => {
     nextRpcResp = { data: { ok: true, winners_drawn: 3 }, error: null };
-    const n = await drawGiveawayWinners('g1');
+    const n = await drawGiveawayWinners_unsafe('g1');
     expect(n).toBe(3);
   });
 
-  it('drawGiveawayWinners throws when ok=false', async () => {
+  it('drawGiveawayWinners_unsafe throws when ok=false', async () => {
     nextRpcResp = { data: { ok: false, error: 'too soon' }, error: null };
-    await expect(drawGiveawayWinners('g1')).rejects.toThrow('too soon');
+    await expect(drawGiveawayWinners_unsafe('g1')).rejects.toThrow('too soon');
   });
 
   it('uploadGiveawayImage uploads and returns public URL', async () => {
@@ -361,9 +361,9 @@ describe('Content overrides', () => {
     await expect(upsertExerciseOverride('e1', { x: 1 })).rejects.toThrow('nope');
   });
 
-  it('deleteExerciseOverride throws on data null', async () => {
+  it('deleteExerciseOverride_unsafe throws on data null', async () => {
     nextRpcResp = { data: { ok: false }, error: null };
-    await expect(deleteExerciseOverride('e1')).rejects.toThrow('delete_failed');
+    await expect(deleteExerciseOverride_unsafe('e1')).rejects.toThrow('delete_failed');
   });
 
   it('upsertWorkoutOverride passes patch through', async () => {

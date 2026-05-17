@@ -25,7 +25,8 @@ const deleteWorkoutOverrideMock = vi.fn();
 vi.mock('../../src/lib/adminApi', () => ({
   listWorkoutOverrides: () => listWorkoutOverridesMock(),
   replaceWorkoutOverride: (...a: unknown[]) => replaceWorkoutOverrideMock(...a),
-  deleteWorkoutOverride: (...a: unknown[]) => deleteWorkoutOverrideMock(...a),
+  // Page imports the *WithReauth wrapper under the original name.
+  deleteWorkoutOverrideWithReauth: (...a: unknown[]) => deleteWorkoutOverrideMock(...a),
 }));
 
 import { WorkoutsPage } from '../../src/pages/admin/WorkoutsPage';

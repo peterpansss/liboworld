@@ -7,7 +7,9 @@ import {
   listMoneyChallenges,
   createMoneyChallenge,
   updateMoneyChallenge,
-  deleteMoneyChallenge,
+  // Destructive op goes through the *WithReauth wrapper so
+  // requireRecentAuth() can challenge the operator before delete.
+  deleteMoneyChallengeWithReauth as deleteMoneyChallenge,
   EXERCISE_OPTION_CATALOG,
   type MoneyChallenge,
   type MoneyChallengeInput,
