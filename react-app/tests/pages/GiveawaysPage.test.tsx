@@ -31,8 +31,11 @@ vi.mock('../../src/lib/adminApi', () => ({
   listGiveaways: () => listGiveawaysMock(),
   createGiveaway: (...a: unknown[]) => createGiveawayMock(...a),
   updateGiveaway: (...a: unknown[]) => updateGiveawayMock(...a),
-  deleteGiveaway: (...a: unknown[]) => deleteGiveawayMock(...a),
-  drawGiveawayWinners: (...a: unknown[]) => drawGiveawayWinnersMock(...a),
+  // The page imports the *WithReauth wrappers under the original names;
+  // tests assert that the wrapper is invoked. We don't need to exercise
+  // the re-auth modal here — it's covered separately in adminApi tests.
+  deleteGiveawayWithReauth: (...a: unknown[]) => deleteGiveawayMock(...a),
+  drawGiveawayWinnersWithReauth: (...a: unknown[]) => drawGiveawayWinnersMock(...a),
   uploadGiveawayImage: (...a: unknown[]) => uploadGiveawayImageMock(...a),
   listGiveawayWinners: (...a: unknown[]) => listGiveawayWinnersMock(...a),
 }));

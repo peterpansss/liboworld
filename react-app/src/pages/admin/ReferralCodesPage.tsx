@@ -7,7 +7,9 @@ import {
   listReferralCodes,
   createReferralCode,
   updateReferralCode,
-  deleteReferralCode,
+  // Destructive op goes through the *WithReauth wrapper so
+  // requireRecentAuth() can challenge the operator before delete.
+  deleteReferralCodeWithReauth as deleteReferralCode,
   listConversionsForCode,
   listUsers,
   type ReferralCode,

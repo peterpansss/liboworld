@@ -29,7 +29,8 @@ vi.mock('../../src/lib/adminApi', () => ({
   listReferralCodes: (...a: unknown[]) => listMock(...a),
   createReferralCode: (...a: unknown[]) => createMock(...a),
   updateReferralCode: (...a: unknown[]) => updateMock(...a),
-  deleteReferralCode: (...a: unknown[]) => deleteMock(...a),
+  // Page imports the *WithReauth wrapper under the original name.
+  deleteReferralCodeWithReauth: (...a: unknown[]) => deleteMock(...a),
   listConversionsForCode: (...a: unknown[]) => listConversionsMock(...a),
   listUsers: (...a: unknown[]) => listUsersMock(...a),
 }));

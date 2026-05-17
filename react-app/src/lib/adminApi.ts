@@ -279,12 +279,14 @@ export async function updateGiveaway(id: string, input: Partial<GiveawayInput>):
   return data as Giveaway;
 }
 
-export async function deleteGiveaway(id: string) {
+/** UNGATED — UI callers must use {@link deleteGiveawayWithReauth}. */
+export async function deleteGiveaway_unsafe(id: string) {
   const { error } = await supabase.from('giveaways').delete().eq('id', id);
   if (error) throw error;
 }
 
-export async function drawGiveawayWinners(giveawayId: string): Promise<number> {
+/** UNGATED — UI callers must use {@link drawGiveawayWinnersWithReauth}. */
+export async function drawGiveawayWinners_unsafe(giveawayId: string): Promise<number> {
   const { data, error } = await supabase.rpc('draw_giveaway_winners', { p_giveaway_id: giveawayId });
   if (error) throw error;
   const r = data as { ok: boolean; winners_drawn?: number; error?: string };
@@ -444,7 +446,8 @@ export async function replaceExerciseOverride(id: string, patch: Record<string, 
   if (!r.ok) throw new Error(r.error ?? 'replace_failed');
 }
 
-export async function deleteExerciseOverride(id: string) {
+/** UNGATED — UI callers must use {@link deleteExerciseOverrideWithReauth}. */
+export async function deleteExerciseOverride_unsafe(id: string) {
   const { data, error } = await supabase.rpc('admin_delete_exercise_override', { p_id: id });
   if (error) throw error;
   const r = data as { ok: boolean; error?: string };
@@ -471,7 +474,8 @@ export async function replaceWorkoutOverride(id: string, patch: Record<string, u
   if (!r.ok) throw new Error(r.error ?? 'replace_failed');
 }
 
-export async function deleteWorkoutOverride(id: string) {
+/** UNGATED — UI callers must use {@link deleteWorkoutOverrideWithReauth}. */
+export async function deleteWorkoutOverride_unsafe(id: string) {
   const { data, error } = await supabase.rpc('admin_delete_workout_override', { p_id: id });
   if (error) throw error;
   const r = data as { ok: boolean; error?: string };
@@ -610,7 +614,8 @@ export async function updateExercise(
   return data as CanonicalMutationResult<ExerciseRow>;
 }
 
-export async function deleteExercise(
+/** UNGATED — UI callers must use {@link deleteExerciseWithReauth}. */
+export async function deleteExercise_unsafe(
   id: string,
 ): Promise<CanonicalMutationResult<ExerciseRow>> {
   const { data, error } = await supabase.rpc('admin_delete_exercise', { p_id: id });
@@ -648,7 +653,8 @@ export async function updateWorkout(
   return data as CanonicalMutationResult<WorkoutRow>;
 }
 
-export async function deleteWorkout(
+/** UNGATED — UI callers must use {@link deleteWorkoutWithReauth}. */
+export async function deleteWorkout_unsafe(
   id: string,
 ): Promise<CanonicalMutationResult<WorkoutRow>> {
   const { data, error } = await supabase.rpc('admin_delete_workout', { p_id: id });
@@ -686,7 +692,8 @@ export async function updateProgram(
   return data as CanonicalMutationResult<ProgramRow>;
 }
 
-export async function deleteProgram(
+/** UNGATED — UI callers must use {@link deleteProgramWithReauth}. */
+export async function deleteProgram_unsafe(
   id: string,
 ): Promise<CanonicalMutationResult<ProgramRow>> {
   const { data, error } = await supabase.rpc('admin_delete_program', { p_id: id });
@@ -767,7 +774,8 @@ export async function updateMoneyChallenge(id: string, input: Partial<MoneyChall
   if (error) throw error;
 }
 
-export async function deleteMoneyChallenge(id: string) {
+/** UNGATED — UI callers must use {@link deleteMoneyChallengeWithReauth}. */
+export async function deleteMoneyChallenge_unsafe(id: string) {
   const { error } = await supabase.from('money_challenges').delete().eq('id', id);
   if (error) throw error;
 }
@@ -891,7 +899,8 @@ export async function updateGiveawayTemplate(
   return data as GiveawayTemplate;
 }
 
-export async function deleteGiveawayTemplate(id: string) {
+/** UNGATED — UI callers must use {@link deleteGiveawayTemplateWithReauth}. */
+export async function deleteGiveawayTemplate_unsafe(id: string) {
   const { error } = await supabase.from('giveaway_templates').delete().eq('id', id);
   if (error) throw error;
 }
@@ -986,7 +995,8 @@ export async function updateReferralCode(
   return data as ReferralCode;
 }
 
-export async function deleteReferralCode(id: string) {
+/** UNGATED — UI callers must use {@link deleteReferralCodeWithReauth}. */
+export async function deleteReferralCode_unsafe(id: string) {
   const { error } = await supabase.from('referral_codes').delete().eq('id', id);
   if (error) throw error;
 }
@@ -1523,6 +1533,57 @@ export async function setUserAdminFlagWithReauth(userId: string, isAdmin: boolea
 
 export async function markPayoutPaidWithReauth(payoutId: string, input: MarkPayoutPaidInput) {
   return withRecentAuth(() => markPayoutPaid_unsafe(payoutId, input));
+}
+
+// Destructive content + drawing ops — all gated through requireRecentAuth().
+// Deletes are irreversible (RLS-scoped) and winner draws are irreversible
+// (writes ledger rows + flips state), so each needs an operator challenge
+// before the mutation is committed.
+
+export async function deleteGiveawayWithReauth(id: string) {
+  return withRecentAuth(() => deleteGiveaway_unsafe(id));
+}
+
+export async function drawGiveawayWinnersWithReauth(giveawayId: string): Promise<number> {
+  return withRecentAuth(() => drawGiveawayWinners_unsafe(giveawayId));
+}
+
+export async function deleteExerciseWithReauth(
+  id: string,
+): Promise<CanonicalMutationResult<ExerciseRow>> {
+  return withRecentAuth(() => deleteExercise_unsafe(id));
+}
+
+export async function deleteWorkoutWithReauth(
+  id: string,
+): Promise<CanonicalMutationResult<WorkoutRow>> {
+  return withRecentAuth(() => deleteWorkout_unsafe(id));
+}
+
+export async function deleteProgramWithReauth(
+  id: string,
+): Promise<CanonicalMutationResult<ProgramRow>> {
+  return withRecentAuth(() => deleteProgram_unsafe(id));
+}
+
+export async function deleteMoneyChallengeWithReauth(id: string) {
+  return withRecentAuth(() => deleteMoneyChallenge_unsafe(id));
+}
+
+export async function deleteGiveawayTemplateWithReauth(id: string) {
+  return withRecentAuth(() => deleteGiveawayTemplate_unsafe(id));
+}
+
+export async function deleteReferralCodeWithReauth(id: string) {
+  return withRecentAuth(() => deleteReferralCode_unsafe(id));
+}
+
+export async function deleteExerciseOverrideWithReauth(id: string) {
+  return withRecentAuth(() => deleteExerciseOverride_unsafe(id));
+}
+
+export async function deleteWorkoutOverrideWithReauth(id: string) {
+  return withRecentAuth(() => deleteWorkoutOverride_unsafe(id));
 }
 
 // ─── Media jobs (video processing + voiceover generation) ───────────────────

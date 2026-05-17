@@ -8,7 +8,9 @@ import {
   listPrograms,
   createProgram,
   updateProgram,
-  deleteProgram,
+  // Destructive op goes through the *WithReauth wrapper so
+  // requireRecentAuth() can challenge the operator before delete.
+  deleteProgramWithReauth as deleteProgram,
   listWorkouts,
   type ProgramRow,
   type WorkoutRow,

@@ -1,6 +1,9 @@
 /**
  * Referral code admin operations.
  * Re-exports from adminApi.ts.
+ *
+ * `deleteReferralCode` resolves to the re-auth-gated wrapper for UI
+ * callers; the `_unsafe` variant is exported for tests.
  */
 export {
   type ReferralCode,
@@ -11,6 +14,7 @@ export {
   listReferralCodes,
   createReferralCode,
   updateReferralCode,
-  deleteReferralCode,
+  deleteReferralCodeWithReauth as deleteReferralCode,
+  deleteReferralCode_unsafe,
   listConversionsForCode,
 } from '../adminApi';

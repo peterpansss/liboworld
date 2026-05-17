@@ -29,7 +29,8 @@ vi.mock('../../src/lib/adminApi', async () => {
     listMoneyChallenges: () => listMock(),
     createMoneyChallenge: (...a: unknown[]) => createMock(...a),
     updateMoneyChallenge: (...a: unknown[]) => updateMock(...a),
-    deleteMoneyChallenge: (...a: unknown[]) => deleteMock(...a),
+    // Page imports the *WithReauth wrapper under the original name.
+    deleteMoneyChallengeWithReauth: (...a: unknown[]) => deleteMock(...a),
   };
 });
 

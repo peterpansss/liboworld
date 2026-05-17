@@ -27,7 +27,8 @@ const uploadExerciseThumbnailMock = vi.fn();
 vi.mock('../../src/lib/adminApi', () => ({
   listExerciseOverrides: () => listExerciseOverridesMock(),
   replaceExerciseOverride: (...a: unknown[]) => replaceExerciseOverrideMock(...a),
-  deleteExerciseOverride: (...a: unknown[]) => deleteExerciseOverrideMock(...a),
+  // Page imports the *WithReauth wrapper under the original name.
+  deleteExerciseOverrideWithReauth: (...a: unknown[]) => deleteExerciseOverrideMock(...a),
   uploadExerciseVideo: (...a: unknown[]) => uploadExerciseVideoMock(...a),
   uploadExerciseThumbnail: (...a: unknown[]) => uploadExerciseThumbnailMock(...a),
 }));

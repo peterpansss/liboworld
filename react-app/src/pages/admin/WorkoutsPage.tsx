@@ -2,10 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   listWorkoutOverrides,
   replaceWorkoutOverride,
-  deleteWorkoutOverride,
+  // Destructive ops go through the *WithReauth wrappers so
+  // requireRecentAuth() can challenge the operator before delete.
+  deleteWorkoutOverrideWithReauth as deleteWorkoutOverride,
   createWorkout,
   updateWorkout,
-  deleteWorkout,
+  deleteWorkoutWithReauth as deleteWorkout,
   listWorkouts,
   listExercises,
   type WorkoutOverride,

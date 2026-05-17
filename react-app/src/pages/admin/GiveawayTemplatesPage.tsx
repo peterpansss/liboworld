@@ -7,7 +7,9 @@ import {
   listGiveawayTemplates,
   createGiveawayTemplate,
   updateGiveawayTemplate,
-  deleteGiveawayTemplate,
+  // Destructive op goes through the *WithReauth wrapper so
+  // requireRecentAuth() can challenge the operator before delete.
+  deleteGiveawayTemplateWithReauth as deleteGiveawayTemplate,
   uploadGiveawayImage,
   type GiveawayTemplate,
   type GiveawayTemplateInput,
