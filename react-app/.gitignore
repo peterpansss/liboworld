@@ -28,3 +28,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright test artefacts
+test-results/
+playwright-report/
