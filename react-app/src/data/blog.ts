@@ -488,7 +488,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-05-12',
     author: 'Libo Team',
     heroEmoji: '🍳',
-    heroImage: '/images/blog/simple-high-protein-meals-in-15-minutes-v2.jpg',
+    heroImage: '/images/blog/simple-high-protein-meals-in-15-minutes-v3.jpg',
     content: `
 <h2>Why Protein, Why 15 Minutes</h2>
 <p>If you're training hard and not eating enough protein, you're leaving results on the table. <strong>Most lifters need 1.6 to 2.2 grams of protein per kilogram of bodyweight</strong> to build muscle — that's roughly 130 to 180g per day for an 80kg guy.</p>
