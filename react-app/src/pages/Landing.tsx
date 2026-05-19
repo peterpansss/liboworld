@@ -7,6 +7,7 @@ import SiteNav from '../components/SiteNav';
 import FounderCard from '../components/FounderCard';
 import FreeTrialCta from '../components/FreeTrialCta';
 import CommunityConstellation from '../components/CommunityConstellation';
+import PricingReveal from '../components/PricingReveal';
 import AppStoreBadge from '../components/AppStoreBadge';
 import { EmojiIcon } from '../components/EmojiIcon';
 import './Landing.css';
@@ -623,6 +624,9 @@ export default function Landing() {
 
       {/* ── COMMUNITY CONSTELLATION ── */}
       <CommunityConstellation />
+
+      {/* ── PRICING REVEAL (homepage teaser → /pricing) ── */}
+      <PricingReveal />
 
       {/* ── WORKOUT CATEGORIES ── */}
       <section id="workouts">

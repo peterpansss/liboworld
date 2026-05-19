@@ -1,0 +1,317 @@
+/* ─────────────────────────────
+   PRICING REVEAL
+   Homepage teaser for /pricing. Two "membership cards" floating with
+   opposite tilt on desktop, stacked flat on mobile. Matches the dark-band
+   rhythm of CommunityConstellation / FAQ sections.
+───────────────────────────── */
+
+.pricing-reveal {
+  background: var(--bg);
+  padding: 120px 24px;
+  border-top: 1px solid var(--border, rgba(255, 255, 255, 0.07));
+}
+
+.pricing-reveal__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Top block ── */
+.pricing-reveal__head {
+  text-align: center;
+  margin: 0 auto 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pricing-reveal__eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.pricing-reveal__headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0;
+}
+
+.pricing-reveal__subhead {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 20px auto 0;
+}
+
+/* ── Floating card row ── */
+.pricing-reveal__cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  padding: 24px 0;
+}
+
+.pricing-reveal-card {
+  position: relative;
+  width: 320px;
+  height: 480px;
+  padding: 28px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 240ms ease-out, box-shadow 240ms ease-out;
+  will-change: transform;
+  color: var(--text);
+}
+
+.pricing-reveal-card--premium {
+  background: linear-gradient(135deg, #1c2419 0%, #0f1418 100%);
+  border: 1px solid rgba(202, 255, 0, 0.15);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.3);
+  transform: rotate(-3deg);
+  /* Premium sits slightly higher than Elite */
+  margin-top: -24px;
+}
+
+.pricing-reveal-card--elite {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  border: 1px solid var(--accent);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(202, 255, 0, 0.08);
+  transform: rotate(3deg);
+  /* Elite sits slightly lower than Premium */
+  margin-top: 24px;
+}
+
+/* Hover: flatten + lift */
+.pricing-reveal-card:hover {
+  transform: rotate(0deg) translateY(-8px);
+}
+
+.pricing-reveal-card--premium:hover {
+  box-shadow:
+    0 32px 72px rgba(0, 0, 0, 0.55),
+    0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.pricing-reveal-card--elite:hover {
+  box-shadow:
+    0 32px 72px rgba(0, 0, 0, 0.55),
+    0 0 56px rgba(202, 255, 0, 0.14);
+}
+
+/* ── Card head ── */
+.pricing-reveal-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.pricing-reveal-card__label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pricing-reveal-card__pill {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: var(--accent);
+  color: #000;
+}
+
+.pricing-reveal-card__diamond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+/* ── Price row ── */
+.pricing-reveal-card__price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.pricing-reveal-card__price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 72px;
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.pricing-reveal-card__period {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ── Feature list ── */
+.pricing-reveal-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.pricing-reveal-card__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.pricing-reveal-card__check {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* ── Bottom ── */
+.pricing-reveal-card__bottom {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pricing-reveal-card__trial {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+/* ── Bottom CTA ── */
+.pricing-reveal__cta {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.pricing-reveal__cta-pill {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border-radius: 100px;
+  background: var(--accent);
+  color: #000;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: filter 200ms ease, transform 200ms ease;
+}
+
+.pricing-reveal__cta-pill:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.pricing-reveal__cta-arrow {
+  display: inline-block;
+}
+
+.pricing-reveal__cta-subtext {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── Tablet (768–1023px) ── */
+@media (max-width: 1023px) {
+  .pricing-reveal__cards {
+    gap: 24px;
+  }
+
+  .pricing-reveal__headline {
+    font-size: clamp(36px, 5vw, 48px);
+  }
+}
+
+/* ── Mobile (< 768px) ── */
+@media (max-width: 767px) {
+  .pricing-reveal {
+    padding: 80px 20px;
+  }
+
+  .pricing-reveal__cards {
+    flex-direction: column;
+    gap: 24px;
+    padding: 8px 0;
+  }
+
+  .pricing-reveal-card {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    min-height: 440px;
+  }
+
+  .pricing-reveal-card--premium,
+  .pricing-reveal-card--elite {
+    transform: rotate(0deg);
+    margin-top: 0;
+  }
+
+  .pricing-reveal-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .pricing-reveal__headline {
+    font-size: clamp(36px, 9vw, 44px);
+  }
+
+  .pricing-reveal-card__price {
+    font-size: 60px;
+  }
+}
