@@ -729,6 +729,9 @@
     },
     "title": "Workouts",
     "subtitle": "{{count}} geführte Workouts. Sieh dir eine Auswahl an — die ganze Bibliothek gibt es in der App.",
+    "subtitleAll": "_todo {{count}} guided workouts. Pick by goal, by time, or just browse.",
+    "subtitleFiltered": "_todo {{count}} of {{total}} workouts",
+    "appCta": "_todo Track all {{count}} workouts in the Libo app",
     "searchPlaceholder": "Workouts suchen...",
     "searchAria": "Workouts suchen",
     "filters": {
@@ -740,7 +743,8 @@
       "home": "Zu Hause",
       "cardio": "Cardio",
       "stretching": "Stretching",
-      "morningRoutine": "Morgenroutine"
+      "morningRoutine": "Morgenroutine",
+      "eveningRoutine": "_todo Evening Routine"
     },
     "resultsCountPrefix": "Zeige",
     "resultsCountOf": "von",

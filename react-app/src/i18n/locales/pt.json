@@ -472,6 +472,9 @@
     },
     "title": "Treinos",
     "subtitle": "{{count}} treinos guiados. Veja uma seleção — desbloqueie a biblioteca completa no app.",
+    "subtitleAll": "_todo {{count}} guided workouts. Pick by goal, by time, or just browse.",
+    "subtitleFiltered": "_todo {{count}} of {{total}} workouts",
+    "appCta": "_todo Track all {{count}} workouts in the Libo app",
     "searchPlaceholder": "Buscar treinos...",
     "searchAria": "Buscar treinos",
     "filters": {
@@ -483,7 +486,8 @@
       "home": "Casa",
       "cardio": "Cardio",
       "stretching": "Alongamento",
-      "morningRoutine": "Rotina Matinal"
+      "morningRoutine": "Rotina Matinal",
+      "eveningRoutine": "_todo Evening Routine"
     },
     "resultsCountPrefix": "Mostrando",
     "resultsCountOf": "de",
