@@ -166,6 +166,13 @@
     "googlePlay": "Google Play",
     "downloadAppStore": "Descargar en App Store"
   },
+  "community": {
+    "_todo": "i18n: translate community.* (stubbed to English)",
+    "eyebrow": "THE LIBO COMMUNITY",
+    "headline": "JOIN A COMMUNITY THAT TRAINS WITH YOU.",
+    "body": "Real people training together. Logging reps, hitting streaks, splitting cash challenges. No coaches selling courses. No fitness influencers. Just members showing up every day.",
+    "androidNote": "iOS only · Android coming soon"
+  },
   "footer": {
     "copyright": "© 2026 Libo World",
     "privacy": "Política de Privacidad",
