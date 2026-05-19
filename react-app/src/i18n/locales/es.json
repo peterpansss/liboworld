@@ -171,7 +171,7 @@
     "eyebrow": "THE LIBO COMMUNITY",
     "headline": "JOIN A COMMUNITY THAT TRAINS WITH YOU.",
     "body": "Real people training together. Logging reps, hitting streaks, splitting cash challenges. No coaches selling courses. No fitness influencers. Just members showing up every day.",
-    "androidNote": "iOS only · Android coming soon"
+    "androidNote": "iOS only"
   },
   "footer": {
     "copyright": "© 2026 Libo World",
@@ -568,36 +568,17 @@
     "reveal": {
       "_todo": "i18n: translate pricing.reveal.* (stubbed to English)",
       "eyebrow": "MEMBERSHIP",
-      "headline": "START WITH 7 DAYS FREE.",
-      "subhead": "No card needed. Cancel anytime. Use Libo as long as you want.",
+      "headline": "100% FREE TRIAL.",
+      "subheadline": "NO CARD NEEDED.",
       "premiumLabel": "PREMIUM",
-      "premiumPopular": "MOST POPULAR",
-      "premiumPrice": "€79",
-      "premiumPeriod": "/year — save 34%",
+      "premiumPrice": "€79/yr",
+      "premiumMo": "12 months · €6.58/mo",
+      "premiumMember": "LIBO MEMBER · TEAM 2026",
       "eliteLabel": "ELITE",
-      "elitePrice": "€149",
-      "elitePeriod": "/year — save 37%",
-      "trial": "7 days free",
-      "ctaLabel": "SEE ALL PLANS",
-      "ctaSubtext": "3 tiers including Free forever",
-      "features": {
-        "premium": [
-          "Full 140-workout library",
-          "Custom workout builder",
-          "AI workout generator",
-          "2× rewards points",
-          "Premium giveaways + prize draws",
-          "Cash challenges €15–50"
-        ],
-        "elite": [
-          "Everything in Premium",
-          "Exclusive seasonal workouts",
-          "3× rewards points",
-          "Cash challenges €50–250+",
-          "Priority Elite campaigns",
-          "Early access to new features"
-        ]
-      }
+      "elitePrice": "€149/yr",
+      "eliteMo": "12 months · €12.42/mo",
+      "eliteMember": "LIBO ELITE · CHARTER MEMBER",
+      "ctaLabel": "FIND YOUR PLAN"
     }
   },
   "blogPreview": {

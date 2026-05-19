@@ -1,8 +1,8 @@
 /* ─────────────────────────────
-   PRICING REVEAL
-   Homepage teaser for /pricing. Two "membership cards" floating with
-   opposite tilt on desktop, stacked flat on mobile. Matches the dark-band
-   rhythm of CommunityConstellation / FAQ sections.
+   PRICING REVEAL  (Ladder-style minimalist)
+   Two decorative "membership cards" floating with opposite tilt, framed
+   by thin floating price labels on either side. Cards carry no pricing
+   info — they're a physical-club metaphor pointing to /pricing.
 ───────────────────────────── */
 
 .pricing-reveal {
@@ -38,7 +38,7 @@
 .pricing-reveal__headline {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
-  font-size: clamp(40px, 6vw, 64px);
+  font-size: clamp(48px, 7vw, 80px);
   line-height: 0.95;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -46,14 +46,59 @@
   margin: 0;
 }
 
-.pricing-reveal__subhead {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1.5;
+.pricing-reveal__headline-line {
+  display: block;
+}
+
+/* ── Stage: side labels flank the card cluster ── */
+.pricing-reveal__stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.pricing-reveal__side-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Barlow Condensed', sans-serif;
   color: var(--muted);
-  max-width: 520px;
-  margin: 20px auto 0;
+  flex: 0 0 auto;
+  width: 160px;
+}
+
+.pricing-reveal__side-label--left {
+  text-align: right;
+}
+
+.pricing-reveal__side-label--right {
+  text-align: left;
+}
+
+.pricing-reveal__side-label-tier {
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pricing-reveal__side-label-price {
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-transform: uppercase;
+}
+
+.pricing-reveal__side-label-mo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
 }
 
 /* ── Floating card row ── */
@@ -77,6 +122,7 @@
   transition: transform 240ms ease-out, box-shadow 240ms ease-out;
   will-change: transform;
   color: var(--text);
+  overflow: hidden;
 }
 
 .pricing-reveal-card--premium {
@@ -122,8 +168,7 @@
 .pricing-reveal-card__top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
+  justify-content: flex-start;
 }
 
 .pricing-reveal-card__label {
@@ -135,109 +180,45 @@
   color: var(--accent);
 }
 
-.pricing-reveal-card__pill {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 100px;
-  background: var(--accent);
-  color: #000;
-}
-
-.pricing-reveal-card__diamond {
-  display: inline-flex;
+/* ── Embossed center glyph ── */
+.pricing-reveal-card__glyph {
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent);
-}
-
-/* ── Price row ── */
-.pricing-reveal-card__price-row {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.pricing-reveal-card__price {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
-  font-size: 72px;
+  font-size: 220px;
   line-height: 1;
-  color: var(--text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.15);
+  user-select: none;
+  pointer-events: none;
 }
 
-.pricing-reveal-card__period {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-/* ── Feature list ── */
-.pricing-reveal-card__features {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-.pricing-reveal-card__features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.4;
-  color: var(--text);
-}
-
-.pricing-reveal-card__check {
-  flex: 0 0 auto;
-  color: var(--accent);
+/* ── Bottom member line ── */
+.pricing-reveal-card__member {
+  font-family: 'Barlow Condensed', sans-serif;
   font-weight: 700;
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-/* ── Bottom ── */
-.pricing-reveal-card__bottom {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.pricing-reveal-card__trial {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
   font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--muted);
-  letter-spacing: 0.02em;
+  text-align: center;
 }
 
 /* ── Bottom CTA ── */
 .pricing-reveal__cta {
   margin-top: 48px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
+  justify-content: center;
 }
 
 .pricing-reveal__cta-pill {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.04em;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 16px 32px;
   border-radius: 100px;
@@ -259,22 +240,18 @@
   display: inline-block;
 }
 
-.pricing-reveal__cta-subtext {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--muted);
-  margin: 0;
-}
-
 /* ── Tablet (768–1023px) ── */
 @media (max-width: 1023px) {
   .pricing-reveal__cards {
     gap: 24px;
   }
 
-  .pricing-reveal__headline {
-    font-size: clamp(36px, 5vw, 48px);
+  .pricing-reveal__side-label {
+    width: 120px;
+  }
+
+  .pricing-reveal__side-label-price {
+    font-size: 18px;
   }
 }
 
@@ -282,6 +259,11 @@
 @media (max-width: 767px) {
   .pricing-reveal {
     padding: 80px 20px;
+  }
+
+  .pricing-reveal__stage {
+    flex-direction: column;
+    gap: 24px;
   }
 
   .pricing-reveal__cards {
@@ -292,9 +274,8 @@
 
   .pricing-reveal-card {
     width: 100%;
-    max-width: 320px;
-    height: auto;
-    min-height: 440px;
+    max-width: 280px;
+    height: 440px;
   }
 
   .pricing-reveal-card--premium,
@@ -307,11 +288,35 @@
     transform: translateY(-4px);
   }
 
-  .pricing-reveal__headline {
-    font-size: clamp(36px, 9vw, 44px);
+  .pricing-reveal-card__glyph {
+    font-size: 180px;
   }
 
-  .pricing-reveal-card__price {
-    font-size: 60px;
+  .pricing-reveal__headline {
+    font-size: clamp(40px, 11vw, 48px);
   }
+
+  /* Side labels move below the cards on mobile and present as a row */
+  .pricing-reveal__side-label {
+    width: auto;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pricing-reveal__side-label--left,
+  .pricing-reveal__side-label--right {
+    text-align: center;
+  }
+
+  /* Show labels under the matching card by reordering: left-label is
+     element 1 (before cards), right-label is element 3. We want order:
+     premium-card, premium-label, elite-card, elite-label. Re-flow via
+     order property — relies on the stage being a flex column. */
+  .pricing-reveal__stage > .pricing-reveal__cards { order: 0; }
+  .pricing-reveal__stage > .pricing-reveal__side-label--left { order: 1; }
+  .pricing-reveal__stage > .pricing-reveal__side-label--right { order: 2; }
 }
