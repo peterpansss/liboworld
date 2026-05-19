@@ -29,6 +29,12 @@
   --error: #FF3333;
   --success: #22c55e;
   --warning: #eab308;
+
+  /* Card image color grade — unifies exercise/workout photos shot in
+     different environments. Tune live via the dev TweaksPanel. */
+  --card-img-saturation: 0.85;
+  --card-img-brightness: 0.95;
+  --card-img-contrast: 1.05;
 }
 
 *,

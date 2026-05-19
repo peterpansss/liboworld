@@ -123,6 +123,10 @@
   height: 100%;
   object-fit: cover;
   z-index: 1;
+  filter: saturate(var(--card-img-saturation))
+          brightness(var(--card-img-brightness))
+          contrast(var(--card-img-contrast));
+  transition: filter 120ms ease-out;
 }
 
 .bw-card-body {

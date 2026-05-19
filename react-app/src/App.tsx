@@ -40,6 +40,11 @@ const PressSent = lazy(() => import('./pages/PressSent'));
 // Admin area — lazy, never loads for public visitors, not linked from public pages.
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
 
+// Dev-only card image color-grade tweak panel.
+const CardImageTweaksPanel = import.meta.env.DEV
+  ? lazy(() => import('./components/dev/CardImageTweaksPanel'))
+  : null;
+
 const darkFallback = <div style={{ background: '#080808', height: '100vh' }} />;
 
 export default function App() {
@@ -73,6 +78,11 @@ export default function App() {
         <Route path="/admin/*" element={<Suspense fallback={darkFallback}><AdminLayout /></Suspense>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      {import.meta.env.DEV && CardImageTweaksPanel && (
+        <Suspense fallback={null}>
+          <CardImageTweaksPanel />
+        </Suspense>
+      )}
     </BrowserRouter>
   );
 }
