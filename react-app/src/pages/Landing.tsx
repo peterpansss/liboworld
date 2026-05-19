@@ -7,6 +7,7 @@ import SiteNav from '../components/SiteNav';
 import FounderCard from '../components/FounderCard';
 import FreeTrialCta from '../components/FreeTrialCta';
 import CommunityConstellation from '../components/CommunityConstellation';
+import BetaReviews from '../components/BetaReviews';
 import AppStoreBadge from '../components/AppStoreBadge';
 import { EmojiIcon } from '../components/EmojiIcon';
 import './Landing.css';
@@ -670,6 +671,9 @@ export default function Landing() {
       <div className="light-band">
         <FreeTrialCta variant="light" />
       </div>
+
+      {/* ── BETA REVIEWS ── */}
+      <BetaReviews />
 
       {/* ── FAQ (dark) ── */}
       <section className="faq-section" id="faq">
