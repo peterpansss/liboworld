@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { blogArticles } from '../data/blog';
@@ -7,7 +7,6 @@ import SiteNav from '../components/SiteNav';
 import FounderCard from '../components/FounderCard';
 import FreeTrialCta from '../components/FreeTrialCta';
 import CommunityConstellation from '../components/CommunityConstellation';
-import PricingReveal from '../components/PricingReveal';
 import AppStoreBadge from '../components/AppStoreBadge';
 import { EmojiIcon } from '../components/EmojiIcon';
 import './Landing.css';
@@ -165,7 +164,6 @@ export default function Landing() {
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [heroRevealed, setHeroRevealed] = useState(false);
-  const [ctaVisible, setCtaVisible] = useState(false);
 
   // Refs
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -236,14 +234,12 @@ export default function Landing() {
   useEffect(() => {
     if (prefersReducedMotion.current) {
       setHeroRevealed(true);
-      setCtaVisible(true);
       setScrollIndicatorVisible(true);
       return;
     }
 
     // Stagger the load sequence
     setTimeout(() => setHeroRevealed(true), 200);
-    setTimeout(() => setCtaVisible(true), 1000);
     setTimeout(() => setScrollIndicatorVisible(true), 1400);
   }, []);
 
@@ -420,12 +416,6 @@ export default function Landing() {
     };
   }, []);
 
-  // ── Nav click handler ──
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    scrollToId(id);
-  }, []);
-
   // ── Render helpers ──
   function renderMarqueeItems(items: string[]) {
     // Double for seamless loop
@@ -459,20 +449,6 @@ export default function Landing() {
               <span className={`line-2 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.35s' }}>{t('hero.headline2')}</span>
               <span className={`line-3 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.5s' }}>{t('hero.headline3')}</span>
             </h1>
-            <div
-              className="hero-cta-stack"
-              style={{ opacity: ctaVisible ? 1 : 0, transition: 'opacity 0.4s ease' }}
-            >
-              <AppStoreBadge className="hero-app-store-badge" />
-              <p className="hero-platform-note">{t('hero.iosOnly')}</p>
-              <a
-                href="#pricing-cta"
-                className="hero-see-plans"
-                onClick={(e) => handleNavClick(e, 'pricing-cta')}
-              >
-                {t('hero.seePlans')}
-              </a>
-            </div>
           </div>
           <div className={`hero-phones hero-image-reveal${heroRevealed ? ' revealed' : ''}`}>
             <div className="hero-phone hero-phone--left">
@@ -624,9 +600,6 @@ export default function Landing() {
 
       {/* ── COMMUNITY CONSTELLATION ── */}
       <CommunityConstellation />
-
-      {/* ── PRICING REVEAL (homepage teaser → /pricing) ── */}
-      <PricingReveal />
 
       {/* ── WORKOUT CATEGORIES ── */}
       <section id="workouts">

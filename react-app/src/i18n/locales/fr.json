@@ -564,23 +564,6 @@
     "q8": "Libo suit-il ma progression ?",
     "a8": "Chaque série, rep et poids est enregistré. Libo suit ton historique d'entraînement, tes records personnels, tes séries et affiche ta progression dans le temps avec des graphiques clairs."
   },
-  "pricing": {
-    "reveal": {
-      "_todo": "i18n: translate pricing.reveal.* (stubbed to English)",
-      "eyebrow": "MEMBERSHIP",
-      "headline": "100% FREE TRIAL.",
-      "subheadline": "NO CARD NEEDED.",
-      "premiumLabel": "PREMIUM",
-      "premiumPrice": "€79/yr",
-      "premiumMo": "12 months · €6.58/mo",
-      "premiumMember": "LIBO MEMBER · TEAM 2026",
-      "eliteLabel": "ELITE",
-      "elitePrice": "€149/yr",
-      "eliteMo": "12 months · €12.42/mo",
-      "eliteMember": "LIBO ELITE · CHARTER MEMBER",
-      "ctaLabel": "FIND YOUR PLAN"
-    }
-  },
   "blogPreview": {
     "eyebrow": "Depuis le blog",
     "headline": "Guides et conseils.",

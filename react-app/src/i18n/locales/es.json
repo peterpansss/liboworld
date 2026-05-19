@@ -564,23 +564,6 @@
     "q8": "¿Libo sigue mi progreso?",
     "a8": "Cada serie, repetición y peso queda registrado. Libo rastrea tu historial de entrenamientos, récords personales, rachas y muestra tu progreso con el tiempo mediante gráficos claros."
   },
-  "pricing": {
-    "reveal": {
-      "_todo": "i18n: translate pricing.reveal.* (stubbed to English)",
-      "eyebrow": "MEMBERSHIP",
-      "headline": "100% FREE TRIAL.",
-      "subheadline": "NO CARD NEEDED.",
-      "premiumLabel": "PREMIUM",
-      "premiumPrice": "€79/yr",
-      "premiumMo": "12 months · €6.58/mo",
-      "premiumMember": "LIBO MEMBER · TEAM 2026",
-      "eliteLabel": "ELITE",
-      "elitePrice": "€149/yr",
-      "eliteMo": "12 months · €12.42/mo",
-      "eliteMember": "LIBO ELITE · CHARTER MEMBER",
-      "ctaLabel": "FIND YOUR PLAN"
-    }
-  },
   "blogPreview": {
     "eyebrow": "Desde el Blog",
     "headline": "Guías y consejos.",

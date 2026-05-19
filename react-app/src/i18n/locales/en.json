@@ -187,22 +187,6 @@
     "q8": "Does Libo track my progress?",
     "a8": "Every set, rep, and weight is logged. Libo tracks your workout history, personal records, streaks, and shows your progress over time with clear charts."
   },
-  "pricing": {
-    "reveal": {
-      "eyebrow": "MEMBERSHIP",
-      "headline": "100% FREE TRIAL.",
-      "subheadline": "NO CARD NEEDED.",
-      "premiumLabel": "PREMIUM",
-      "premiumPrice": "€79/yr",
-      "premiumMo": "12 months · €6.58/mo",
-      "premiumMember": "LIBO MEMBER · TEAM 2026",
-      "eliteLabel": "ELITE",
-      "elitePrice": "€149/yr",
-      "eliteMo": "12 months · €12.42/mo",
-      "eliteMember": "LIBO ELITE · CHARTER MEMBER",
-      "ctaLabel": "FIND YOUR PLAN"
-    }
-  },
   "blogPreview": {
     "eyebrow": "From the Blog",
     "headline": "Guides & insights.",
