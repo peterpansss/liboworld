@@ -27,10 +27,10 @@ function lerp(a: number, b: number, t: number) {
 // morningRoutines, eveningWindDown — keep these aligned 1:1 with that array.
 // JSX adds the leading slash via `/${cat.img}`, so no leading slash here.
 const CATEGORY_IMAGES = [
-  'images/landing/category-home-workouts-v2.jpg',
-  'images/landing/category-gym-training-v2.jpg',
+  'images/landing/category-home-workouts-v3.jpg',
+  'images/landing/category-gym-training-v3.jpg',
   'images/landing/category-mobility-stretch.jpg',
-  'images/landing/category-functional-v2.jpg',
+  'images/landing/category-functional-v3.jpg',
   'images/landing/category-morning-routines.jpg',
   'images/landing/category-evening-wind-down.jpg',
 ];
