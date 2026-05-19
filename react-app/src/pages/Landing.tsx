@@ -6,6 +6,8 @@ import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
 import FounderCard from '../components/FounderCard';
 import FreeTrialCta from '../components/FreeTrialCta';
+import CommunityConstellation from '../components/CommunityConstellation';
+import AppStoreBadge from '../components/AppStoreBadge';
 import { EmojiIcon } from '../components/EmojiIcon';
 import './Landing.css';
 
@@ -19,10 +21,6 @@ function easeInOutCubic(t: number) {
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
-
-// ── Store links ──
-// TODO: replace placeholder with real App Store URL once the app is live.
-const APP_STORE_URL = 'https://apps.apple.com/app/libo';
 
 // ── Static config ──
 // CATEGORY_KEYS order: homeWorkouts, gymTraining, mobilityStretch, functional,
@@ -464,13 +462,7 @@ export default function Landing() {
               className="hero-cta-stack"
               style={{ opacity: ctaVisible ? 1 : 0, transition: 'opacity 0.4s ease' }}
             >
-              <a
-                href={APP_STORE_URL}
-                className="hero-app-store-badge"
-                aria-label={t('store.downloadAppStore')}
-              >
-                <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} />
-              </a>
+              <AppStoreBadge className="hero-app-store-badge" />
               <p className="hero-platform-note">{t('hero.iosOnly')}</p>
               <a
                 href="#pricing-cta"
@@ -628,6 +620,9 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      {/* ── COMMUNITY CONSTELLATION ── */}
+      <CommunityConstellation />
 
       {/* ── WORKOUT CATEGORIES ── */}
       <section id="workouts">
@@ -791,13 +786,7 @@ export default function Landing() {
               <span className="qr-closer-caption">{t('qrCloser.scanCaption')}</span>
             </div>
             <div className="qr-closer-badge">
-              <a
-                href={APP_STORE_URL}
-                className="qr-closer-badge-link"
-                aria-label={t('store.downloadAppStore')}
-              >
-                <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} />
-              </a>
+              <AppStoreBadge className="qr-closer-badge-link" />
               <span className="qr-closer-caption">{t('qrCloser.platformNote')}</span>
             </div>
           </div>
