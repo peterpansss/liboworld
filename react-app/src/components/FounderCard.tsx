@@ -32,7 +32,7 @@ export default function FounderCard() {
         <img
           ref={markRef}
           className={`founder-mark${markIn ? ' founder-mark--in' : ''}`}
-          src="/brand/logo_options/dots_only_transparent.png"
+          src="/brand/logo_options/libo-mark.svg"
           alt=""
           aria-hidden="true"
           loading="lazy"

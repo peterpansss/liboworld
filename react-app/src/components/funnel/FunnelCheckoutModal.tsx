@@ -605,7 +605,7 @@ export default function FunnelCheckoutModal({
         {/* HEADER */}
         <div style={header}>
           <img
-            src="/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png"
+            src="/brand/logo_options/libo-dark.svg"
             alt="Libo"
             style={{ height: 22, opacity: 0.95 }}
           />

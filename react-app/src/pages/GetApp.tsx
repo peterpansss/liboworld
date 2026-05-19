@@ -69,7 +69,7 @@ export default function GetAppPage() {
     >
       <div style={{ maxWidth: 380 }}>
         <img
-          src="/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png"
+          src="/brand/logo_options/libo-dark.svg"
           alt="Libo"
           style={{ height: 32, marginBottom: 28, opacity: 0.95 }}
         />

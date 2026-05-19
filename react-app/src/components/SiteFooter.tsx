@@ -12,7 +12,7 @@ export default function SiteFooter() {
         <div className="site-footer__top">
           <Link to="/" className="site-footer__logo">
             <img
-              src="/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png"
+              src="/brand/logo_options/libo-dark.svg"
               alt="Libo"
             />
           </Link>

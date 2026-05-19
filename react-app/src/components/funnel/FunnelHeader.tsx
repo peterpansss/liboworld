@@ -28,7 +28,7 @@ export default function FunnelHeader() {
         style={{ display: 'inline-flex', textDecoration: 'none' }}
       >
         <img
-          src="/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png"
+          src="/brand/logo_options/libo-dark.svg"
           alt="Libo"
           style={{
             height: 28,

@@ -280,7 +280,7 @@ export default function AuthCallback() {
       <div className="auth-callback-card">
         <Link to="/" className="auth-callback-logo" aria-label="Libo home">
           <img
-            src="/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png"
+            src="/brand/logo_options/libo-dark.svg"
             alt="Libo"
           />
         </Link>

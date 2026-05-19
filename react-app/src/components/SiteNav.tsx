@@ -105,7 +105,7 @@ export default function SiteNav() {
           {/* Logo */}
           <Link to="/" className="site-nav__logo">
             <img
-              src="/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png"
+              src="/brand/logo_options/libo-dark.svg"
               alt="Libo"
             />
           </Link>
@@ -220,7 +220,7 @@ export default function SiteNav() {
         <div className="site-nav__drawer-header">
           <Link to="/" className="site-nav__logo" onClick={() => setDrawerOpen(false)}>
             <img
-              src="/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png"
+              src="/brand/logo_options/libo-dark.svg"
               alt="Libo"
             />
           </Link>

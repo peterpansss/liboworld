@@ -248,7 +248,7 @@ const STEPS: Step[] = [
 ];
 
 // ── Logo path ──
-const LOGO_SRC = '/brand/logo_options/option_A_wordmark_ascending_dots_transparent.png';
+const LOGO_SRC = '/brand/logo_options/libo-dark.svg';
 
 // ── Component ──
 
