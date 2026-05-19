@@ -95,6 +95,16 @@ describe('Landing', () => {
     expect(screen.getByText('qrCloser.eyebrow')).toBeInTheDocument();
   });
 
+  it('mounts the community constellation with avatars rendered', () => {
+    renderPage();
+    expect(screen.getByText('community.eyebrow')).toBeInTheDocument();
+    // The first avatar in AVATARS uses initials "JM" — proves both the
+    // section and the placeholder avatar component render together.
+    expect(document.querySelector('.community-section')).not.toBeNull();
+    const avatars = document.querySelectorAll('.community-avatar');
+    expect(avatars.length).toBeGreaterThan(0);
+  });
+
   it('shows the hero App Store badge linking to the placeholder App Store URL', () => {
     renderPage();
     const heroBadge = screen.getAllByRole('link', { name: 'store.downloadAppStore' })[0];
@@ -107,16 +117,19 @@ describe('Landing', () => {
     expect(seePlans).toHaveAttribute('href', '#pricing-cta');
   });
 
-  it('renders the QR closer with a QR image and a second App Store badge', () => {
+  it('renders the QR closer with a QR image and an App Store badge', () => {
     renderPage();
     expect(screen.getByAltText('qrCloser.qrAlt')).toHaveAttribute(
       'src',
       '/images/qr-app-store.svg',
     );
-    // Two badge links on the page now: hero + QR closer.
+    // Badge appears in three places now: hero, community constellation,
+    // and QR closer. They all point to the same placeholder URL.
     const badges = screen.getAllByRole('link', { name: 'store.downloadAppStore' });
-    expect(badges).toHaveLength(2);
-    expect(badges[1]).toHaveAttribute('href', 'https://apps.apple.com/app/libo');
+    expect(badges).toHaveLength(3);
+    badges.forEach((badge) => {
+      expect(badge).toHaveAttribute('href', 'https://apps.apple.com/app/libo');
+    });
   });
 
   it('renders the 3 blog preview cards as links into /blog/:slug', () => {

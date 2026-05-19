@@ -28,7 +28,7 @@
     "headline1": "Train",
     "headline2": "Anywhere.",
     "headline3": "Anytime.",
-    "iosOnly": "iOS only · Android coming soon",
+    "iosOnly": "iOS only",
     "seePlans": "See plans →",
     "scrollIndicator": "Scroll to explore"
   },
@@ -152,13 +152,18 @@
     "subline": "Free forever. Premium when you want it.",
     "qrAlt": "QR code linking to Libo on the App Store",
     "scanCaption": "Scan to download",
-    "platformNote": "iOS only · Android coming soon"
+    "platformNote": "iOS only"
   },
   "store": {
     "comingSoonOn": "Coming Soon on",
     "appStore": "App Store",
     "googlePlay": "Google Play",
     "downloadAppStore": "Download on App Store"
+  },
+  "community": {
+    "eyebrow": "THE LIBO COMMUNITY",
+    "headline": "JOIN A COMMUNITY THAT TRAINS WITH YOU.",
+    "body": "Real people training together. Logging reps, hitting streaks, splitting cash challenges. No coaches selling courses. No fitness influencers. Just members showing up every day."
   },
   "faq": {
     "eyebrow": "FAQ",

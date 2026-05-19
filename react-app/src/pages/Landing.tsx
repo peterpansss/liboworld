@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { blogArticles } from '../data/blog';
@@ -6,6 +6,8 @@ import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
 import FounderCard from '../components/FounderCard';
 import FreeTrialCta from '../components/FreeTrialCta';
+import CommunityConstellation from '../components/CommunityConstellation';
+import AppStoreBadge from '../components/AppStoreBadge';
 import { EmojiIcon } from '../components/EmojiIcon';
 import './Landing.css';
 
@@ -19,10 +21,6 @@ function easeInOutCubic(t: number) {
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
-
-// ── Store links ──
-// TODO: replace placeholder with real App Store URL once the app is live.
-const APP_STORE_URL = 'https://apps.apple.com/app/libo';
 
 // ── Static config ──
 // CATEGORY_KEYS order: homeWorkouts, gymTraining, mobilityStretch, functional,
@@ -166,7 +164,6 @@ export default function Landing() {
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [heroRevealed, setHeroRevealed] = useState(false);
-  const [ctaVisible, setCtaVisible] = useState(false);
 
   // Refs
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -237,14 +234,12 @@ export default function Landing() {
   useEffect(() => {
     if (prefersReducedMotion.current) {
       setHeroRevealed(true);
-      setCtaVisible(true);
       setScrollIndicatorVisible(true);
       return;
     }
 
     // Stagger the load sequence
     setTimeout(() => setHeroRevealed(true), 200);
-    setTimeout(() => setCtaVisible(true), 1000);
     setTimeout(() => setScrollIndicatorVisible(true), 1400);
   }, []);
 
@@ -421,12 +416,6 @@ export default function Landing() {
     };
   }, []);
 
-  // ── Nav click handler ──
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    scrollToId(id);
-  }, []);
-
   // ── Render helpers ──
   function renderMarqueeItems(items: string[]) {
     // Double for seamless loop
@@ -460,26 +449,6 @@ export default function Landing() {
               <span className={`line-2 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.35s' }}>{t('hero.headline2')}</span>
               <span className={`line-3 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.5s' }}>{t('hero.headline3')}</span>
             </h1>
-            <div
-              className="hero-cta-stack"
-              style={{ opacity: ctaVisible ? 1 : 0, transition: 'opacity 0.4s ease' }}
-            >
-              <a
-                href={APP_STORE_URL}
-                className="hero-app-store-badge"
-                aria-label={t('store.downloadAppStore')}
-              >
-                <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} />
-              </a>
-              <p className="hero-platform-note">{t('hero.iosOnly')}</p>
-              <a
-                href="#pricing-cta"
-                className="hero-see-plans"
-                onClick={(e) => handleNavClick(e, 'pricing-cta')}
-              >
-                {t('hero.seePlans')}
-              </a>
-            </div>
           </div>
           <div className={`hero-phones hero-image-reveal${heroRevealed ? ' revealed' : ''}`}>
             <div className="hero-phone hero-phone--left">
@@ -628,6 +597,9 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      {/* ── COMMUNITY CONSTELLATION ── */}
+      <CommunityConstellation />
 
       {/* ── WORKOUT CATEGORIES ── */}
       <section id="workouts">
@@ -791,13 +763,7 @@ export default function Landing() {
               <span className="qr-closer-caption">{t('qrCloser.scanCaption')}</span>
             </div>
             <div className="qr-closer-badge">
-              <a
-                href={APP_STORE_URL}
-                className="qr-closer-badge-link"
-                aria-label={t('store.downloadAppStore')}
-              >
-                <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} />
-              </a>
+              <AppStoreBadge className="qr-closer-badge-link" />
               <span className="qr-closer-caption">{t('qrCloser.platformNote')}</span>
             </div>
           </div>
