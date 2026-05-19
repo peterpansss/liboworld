@@ -32,3 +32,43 @@ coverage
 # Playwright test artefacts
 test-results/
 playwright-report/
+
+# Personal screenshots & screen recordings
+public/IMG_*.PNG
+public/IMG_*.JPG
+public/mockups/IMG_*.PNG
+public/mockups/IMG_*.JPG
+public/ScreenRecording_*
+public/mockups/ScreenRecording_*
+*.mov
+*.MP4
+
+# Ad-hoc image versions (with spaces or -2 suffix)
+**/* -2.jpg
+**/*  -2.jpg
+public/images/categories/ *
+Images/
+Fitbod Generate Workout Example /
+ReferenceImagesReal/
+scripts/_logs/
+supabase/.temp/
+
+# Personal screenshots & screen recordings
+public/IMG_*.PNG
+public/IMG_*.JPG
+public/mockups/IMG_*.PNG
+public/mockups/IMG_*.JPG
+public/ScreenRecording_*
+public/mockups/ScreenRecording_*
+*.mov
+*.MP4
+
+# Ad-hoc image versions (with spaces or -2 suffix)
+**/* -2.jpg
+**/*  -2.jpg
+public/images/categories/ *
+Images/
+Fitbod Generate Workout Example /
+ReferenceImagesReal/
+scripts/_logs/
+supabase/.temp/
