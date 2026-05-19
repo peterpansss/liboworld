@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import AppStoreBadge from './AppStoreBadge';
 import CommunityAvatar, { type AvatarGradient } from './CommunityAvatar';
 import './CommunityConstellation.css';
 
@@ -45,10 +44,6 @@ export default function CommunityConstellation() {
             {t('community.headline')}
           </h2>
           <p className="community-body">{t('community.body')}</p>
-          <div className="community-cta">
-            <AppStoreBadge className="community-badge-link" />
-            <p className="community-platform-note">{t('community.androidNote')}</p>
-          </div>
         </div>
 
         <div className="community-constellation" aria-hidden="true">
