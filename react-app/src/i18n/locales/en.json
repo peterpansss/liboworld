@@ -25,11 +25,11 @@
     "clearFilters": "Clear filters"
   },
   "hero": {
-    "eyebrow": "Coming Soon — Join the Waitlist",
     "headline1": "Train",
     "headline2": "Anywhere.",
     "headline3": "Anytime.",
-    "cta": "Join the Waitlist →",
+    "iosOnly": "iOS only · Android coming soon",
+    "seePlans": "See plans →",
     "scrollIndicator": "Scroll to explore"
   },
   "marquee": {
@@ -146,21 +146,13 @@
     "card3Author": "Lucas R.",
     "card3Meta": "Following a program · São Paulo"
   },
-  "cta": {
-    "eyebrow": "Join the Waitlist",
-    "headline": "Be first.\nTrain better.",
-    "description": "Libo is coming soon. Join the waitlist and get early access plus an exclusive launch offer.",
-    "emailPlaceholder": "Enter your email address",
-    "submitButton": "Join →",
-    "formMessage": "No spam. Only when Libo launches.",
-    "successMessage": "You're on the list!",
-    "successNotification": "Welcome! We'll notify you when Libo launches.",
-    "duplicateMessage": "You're on the list!",
-    "duplicateNotification": "You're already on the waitlist! We'll be in touch.",
-    "errorMessage": "Something went wrong. Please try again.",
-    "connectionError": "Connection error. Please try again.",
-    "joining": "Joining...",
-    "emailLabel": "Email address"
+  "qrCloser": {
+    "eyebrow": "Ready to start?",
+    "headline": "Train better.",
+    "subline": "Free forever. Premium when you want it.",
+    "qrAlt": "QR code linking to Libo on the App Store",
+    "scanCaption": "Scan to download",
+    "platformNote": "iOS only · Android coming soon"
   },
   "store": {
     "comingSoonOn": "Coming Soon on",
@@ -181,7 +173,7 @@
     "q4": "Can I build my own workouts?",
     "a4": "Yes. The Custom Builder lets you pick from 634 exercises, set your own sets, reps, and rest times, then save and reuse your workouts anytime.",
     "q5": "Is Libo available on Android?",
-    "a5": "Libo is launching on iOS first. Android is on the roadmap — join the waitlist and we'll notify you when it's available.",
+    "a5": "Libo is iOS only at launch. Android support is on our roadmap — we'll announce a date when it's locked. For now, the App Store badge above will get you started on any iPhone.",
     "q6": "How is Libo different from other fitness apps?",
     "a6": "Libo combines a massive exercise library, structured programs, progress tracking, and real cash challenges in one app — with a premium dark UI that stays out of your way. No ads, no clutter.",
     "q7": "Can I follow structured programs?",
@@ -236,13 +228,6 @@
     "challenges": "Challenges",
     "allRightsReserved": "All rights reserved.",
     "termsAndConditions": "Terms & Conditions"
-  },
-  "comingSoon": {
-    "eyebrow": "Coming Soon — Join the Waitlist",
-    "headline1": "Train",
-    "headline2": "Everywhere.",
-    "headline3": "Anytime.",
-    "cta": "Join the Waitlist →"
   },
   "onboarding": {
     "topBar": {

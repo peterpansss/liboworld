@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState, useCallback, type FormEvent } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { supabase } from '../lib/supabase';
 import { blogArticles } from '../data/blog';
 import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
@@ -20,6 +19,10 @@ function easeInOutCubic(t: number) {
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
+
+// ── Store links ──
+// TODO: replace placeholder with real App Store URL once the app is live.
+const APP_STORE_URL = 'https://apps.apple.com/app/libo';
 
 // ── Static config ──
 // CATEGORY_KEYS order: homeWorkouts, gymTraining, mobilityStretch, functional,
@@ -165,13 +168,6 @@ export default function Landing() {
   const [heroRevealed, setHeroRevealed] = useState(false);
   const [ctaVisible, setCtaVisible] = useState(false);
 
-  // Form state
-  const [email, setEmail] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [formSuccess, setFormSuccess] = useState(false);
-  const [formMsg, setFormMsg] = useState(t('cta.formMessage'));
-  const [formError, setFormError] = useState(false);
-
   // Refs
   const cursorRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
@@ -308,7 +304,7 @@ export default function Landing() {
       cursor!.classList.remove('visible');
     }
 
-    const hoverables = 'a, button, .combined-card, .cat-item, .goal-row, .proof-card, .store-btn, input';
+    const hoverables = 'a, button, .combined-card, .cat-item, .goal-row, .proof-card, input';
     function onOver(e: MouseEvent) {
       if ((e.target as Element).closest(hoverables)) cursor!.classList.add('hover');
     }
@@ -431,41 +427,6 @@ export default function Landing() {
     scrollToId(id);
   }, []);
 
-  // ── Form submit ──
-  const handleSubmit = useCallback(async (e: FormEvent) => {
-    e.preventDefault();
-    const trimmed = email.trim();
-    if (!trimmed) return;
-
-    setSubmitting(true);
-    setFormError(false);
-    setFormMsg('');
-
-    try {
-      const { error } = await supabase
-        .from('waitlist')
-        .insert({ email: trimmed, source: 'landing_page' });
-
-      if (!error) {
-        setFormSuccess(true);
-        setEmail('');
-        setFormMsg(t('cta.successNotification'));
-      } else if (error.code === '23505') {
-        setFormSuccess(true);
-        setEmail('');
-        setFormMsg(t('cta.duplicateNotification'));
-      } else {
-        setFormError(true);
-        setFormMsg(t('cta.errorMessage'));
-      }
-    } catch {
-      setFormError(true);
-      setFormMsg(t('cta.connectionError'));
-    } finally {
-      setSubmitting(false);
-    }
-  }, [email, t]);
-
   // ── Render helpers ──
   function renderMarqueeItems(items: string[]) {
     // Double for seamless loop
@@ -494,23 +455,31 @@ export default function Landing() {
       <section className="hero">
         <div className="hero-content">
           <div className="hero-text">
-            <div className="hero-eyebrow">
-              <div className="hero-eyebrow-dot" />
-              <span className="label">{t('hero.eyebrow')}</span>
-            </div>
             <h1 className="hero-headline display display-xl">
               <span className={`line-1 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.2s' }}>{t('hero.headline1')}</span>
               <span className={`line-2 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.35s' }}>{t('hero.headline2')}</span>
               <span className={`line-3 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.5s' }}>{t('hero.headline3')}</span>
             </h1>
-            <a
-              href="#cta"
-              className={`hero-cta-btn${ctaVisible ? ' cta-pulse' : ''}`}
+            <div
+              className="hero-cta-stack"
               style={{ opacity: ctaVisible ? 1 : 0, transition: 'opacity 0.4s ease' }}
-              onClick={(e) => handleNavClick(e, 'cta')}
             >
-              {t('hero.cta')}
-            </a>
+              <a
+                href={APP_STORE_URL}
+                className="hero-app-store-badge"
+                aria-label={t('store.downloadAppStore')}
+              >
+                <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} />
+              </a>
+              <p className="hero-platform-note">{t('hero.iosOnly')}</p>
+              <a
+                href="#pricing-cta"
+                className="hero-see-plans"
+                onClick={(e) => handleNavClick(e, 'pricing-cta')}
+              >
+                {t('hero.seePlans')}
+              </a>
+            </div>
           </div>
           <div className={`hero-phones hero-image-reveal${heroRevealed ? ' revealed' : ''}`}>
             <div className="hero-phone hero-phone--left">
@@ -725,10 +694,13 @@ export default function Landing() {
         </p>
       </div>
 
-      {/* ── LIGHT TRUST BAND: trial CTA + FAQ on white, Ladder-style ── */}
+      {/* ── TRIAL CTA (light island) ── */}
       <div className="light-band">
         <FreeTrialCta variant="light" />
-        <section className="faq-section faq-section--light" id="faq">
+      </div>
+
+      {/* ── FAQ (dark) ── */}
+      <section className="faq-section" id="faq">
         <div className="faq-inner">
           <div className="faq-header reveal">
             <div>
@@ -760,8 +732,7 @@ export default function Landing() {
             ))}
           </div>
         </div>
-        </section>
-      </div>
+      </section>
 
       {/* ── BLOG PREVIEW ── */}
       <section className="blog-preview-section">
@@ -803,50 +774,33 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="cta-section" id="cta">
-        <div className="reveal">
-          <div className="label cta-label">{t('cta.eyebrow')}</div>
-          <h2 className="display display-lg font-display" style={{ whiteSpace: 'pre-line' }}>{t('cta.headline')}</h2>
-          <p className="cta-sub">
-            {t('cta.description')}
-          </p>
-          <form className="email-form" onSubmit={handleSubmit}>
-            <label htmlFor="emailInput" className="sr-only" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>
-              {t('cta.emailLabel')}
-            </label>
-            <input
-              className="email-input"
-              type="email"
-              id="emailInput"
-              placeholder={t('cta.emailPlaceholder')}
-              required
-              aria-label={t('cta.emailLabel')}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <button
-              className="btn-cta"
-              type="submit"
-              disabled={submitting || formSuccess}
-              style={formSuccess ? { background: '#1a1a1a' } : undefined}
-            >
-              {submitting ? t('cta.joining') : formSuccess ? (
-                <>
-                  <svg width="16" height="12" viewBox="0 0 16 12" fill="none" style={{ verticalAlign: 'middle', marginRight: 6 }}>
-                    <path d="M1 6L6 11L15 1" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ strokeDasharray: 22, strokeDashoffset: 0, animation: 'checkDraw 0.4s ease forwards' }} />
-                  </svg>
-                  {t('cta.successMessage')}
-                </>
-              ) : t('cta.submitButton')}
-            </button>
-          </form>
-          <p className={`form-msg${formError ? ' error' : ''}`}>{formMsg}</p>
-        </div>
-        <div className="store-row reveal">
-          <a href="https://apps.apple.com" className="store-btn store-btn--img" aria-label={t('store.downloadAppStore')}>
-            <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} />
-          </a>
+      {/* ── QR + APP STORE CLOSER ── */}
+      <section className="qr-closer" id="get-the-app">
+        <div className="qr-closer-inner reveal">
+          <div className="label qr-closer-eyebrow">{t('qrCloser.eyebrow')}</div>
+          <h2 className="display display-lg font-display qr-closer-headline">{t('qrCloser.headline')}</h2>
+          <p className="qr-closer-sub">{t('qrCloser.subline')}</p>
+          <div className="qr-closer-row">
+            <div className="qr-closer-qr">
+              <img
+                src="/images/qr-app-store.svg"
+                alt={t('qrCloser.qrAlt')}
+                width={120}
+                height={120}
+              />
+              <span className="qr-closer-caption">{t('qrCloser.scanCaption')}</span>
+            </div>
+            <div className="qr-closer-badge">
+              <a
+                href={APP_STORE_URL}
+                className="qr-closer-badge-link"
+                aria-label={t('store.downloadAppStore')}
+              >
+                <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} />
+              </a>
+              <span className="qr-closer-caption">{t('qrCloser.platformNote')}</span>
+            </div>
+          </div>
         </div>
       </section>
 
