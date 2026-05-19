@@ -149,7 +149,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-15',
     author: 'Libo Team',
     heroEmoji: '🔥',
-    heroImage: '/images/blog/how-to-start-a-30-day-fitness-challenge-v2.jpg',
+    heroImage: '/images/blog/how-to-start-a-30-day-fitness-challenge-v3.jpg',
     content: `
 <h2>Why 30-Day Challenges Work</h2>
 <p>Thirty days is long enough to build a real habit but short enough to feel achievable. <strong>The psychology is simple: a clear end date creates urgency</strong>, and daily commitment builds momentum that's hard to break.</p>
@@ -194,7 +194,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-03-08',
     author: 'Libo Team',
     heroEmoji: '💪',
-    heroImage: '/images/blog/the-ultimate-push-pull-legs-split-explained.jpg',
+    heroImage: '/images/blog/the-ultimate-push-pull-legs-split-explained-v2.jpg',
     relatedExercises: ['flat_barbell_bench_press', 'barbell_bent_over_row_overhand', 'barbell_front_squat'],
     content: `
 <h2>What Is Push-Pull-Legs?</h2>
@@ -265,7 +265,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-28',
     author: 'Libo Team',
     heroEmoji: '🌅',
-    heroImage: '/images/blog/5-morning-stretching-routines-to-start-your-day-v2.jpg',
+    heroImage: '/images/blog/5-morning-stretching-routines-to-start-your-day-v3.jpg',
     content: `
 <h2>Why Morning Stretching Changes Everything</h2>
 <p>After 7-8 hours of sleep, your muscles are stiff, your joints are tight, and your nervous system is still waking up. <strong>A short stretching routine bridges the gap between sleep and full alertness</strong> faster than coffee ever could.</p>
@@ -379,7 +379,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-12',
     author: 'Libo Team',
     heroEmoji: '📋',
-    heroImage: '/images/blog/how-to-build-a-custom-workout-plan.jpg',
+    heroImage: '/images/blog/how-to-build-a-custom-workout-plan-v2.jpg',
     content: `
 <h2>Why Custom Plans Beat Random Workouts</h2>
 <p>Following a different workout video every day might feel productive, but it's one of the least effective ways to train. <strong>Random training leads to random results.</strong> A structured plan ensures you're progressing, balancing muscle groups, and recovering properly.</p>
@@ -439,7 +439,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-02-05',
     author: 'Libo Team',
     heroEmoji: '🧘',
-    heroImage: '/images/blog/recovery-and-mobility-why-stretching-matters.jpg',
+    heroImage: '/images/blog/recovery-and-mobility-why-stretching-matters-v2.jpg',
     relatedExercises: ['foam_roll_upper_back', 'hip_flexor_stretch', 'hamstring_stretch_seated'],
     content: `
 <h2>The Recovery Problem</h2>
@@ -488,7 +488,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-05-12',
     author: 'Libo Team',
     heroEmoji: '🍳',
-    heroImage: '/images/blog/simple-high-protein-meals-in-15-minutes-v3.jpg',
+    heroImage: '/images/blog/simple-high-protein-meals-in-15-minutes-v4.jpg',
     content: `
 <h2>Why Protein, Why 15 Minutes</h2>
 <p>If you're training hard and not eating enough protein, you're leaving results on the table. <strong>Most lifters need 1.6 to 2.2 grams of protein per kilogram of bodyweight</strong> to build muscle — that's roughly 130 to 180g per day for an 80kg guy.</p>
@@ -570,7 +570,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-05-12',
     author: 'Noah F.',
     heroEmoji: '🔥',
-    heroImage: '/images/blog/how-to-lose-fat-and-stay-lean-v2.jpg',
+    heroImage: '/images/blog/how-to-lose-fat-and-stay-lean-v3.jpg',
     content: `
 <h2>The Question Everyone Asks Me</h2>
 <p>"How do you eat? How do you train? How do you stay lean year-round without losing muscle?"</p>
