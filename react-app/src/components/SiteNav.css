@@ -31,8 +31,10 @@
   flex-shrink: 0;
 }
 
-.site-nav__logo img {
+.site-nav__logo img,
+.site-nav__logo svg {
   height: 38px;
+  width: auto;
   display: block;
 }
 
@@ -412,7 +414,8 @@
     height: 56px;
   }
 
-  .site-nav__logo img {
+  .site-nav__logo img,
+  .site-nav__logo svg {
     height: 32px;
   }
 }
