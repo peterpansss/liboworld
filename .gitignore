@@ -41,3 +41,8 @@ dist/
 # Local backup files written by data-sync scripts as safety nets.
 # Pattern matches libo-data.js.bak_*, workouts.json.bak_*, etc.
 *.bak_*
+
+# Personal reference folders + local CLI temp + script logs
+ReferenceImagesReal/
+scripts/_logs/
+supabase/.temp/

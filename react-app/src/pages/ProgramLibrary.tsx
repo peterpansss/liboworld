@@ -8,6 +8,7 @@ import { ThumbPicture } from '../components/ThumbPicture';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
+import WorkoutsAppCTA from '../components/WorkoutsAppCTA';
 import { Hourglass, Frown } from '../utils/icons';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
@@ -51,6 +52,35 @@ function classifyGoal(w: { cat: string; subcat?: string }): Exclude<GoalKey, 'Al
   return 'Strength';
 }
 
+type DiffLevel = 'beginner' | 'intermediate' | 'advanced';
+
+function DifficultyDots({ level, label }: { level: DiffLevel; label: string }) {
+  const filled = level === 'beginner' ? 1 : level === 'intermediate' ? 2 : 3;
+  return (
+    <span className={`wk-card-diff wk-card-diff--${level}`}>
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className={`wk-card-diff-dot${i < filled ? ' is-filled' : ''}`}
+          aria-hidden="true"
+        />
+      ))}
+      <span className="visually-hidden">{label}</span>
+    </span>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <span className="wk-card-play" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+        <path d="M9.5 7.5L16 12L9.5 16.5V7.5Z" fill="white" />
+      </svg>
+    </span>
+  );
+}
+
 function matchesDuration(dur: number, key: DurationKey): boolean {
   switch (key) {
     case 'Any': return true;
@@ -86,6 +116,7 @@ export default function ProgramLibrary() {
       'Cardio': t('programLibrary.categories.cardio'),
       'Stretching': t('programLibrary.categories.stretching'),
       'Morning Routine': t('programLibrary.categories.morningRoutine'),
+      'Evening Routine': t('programLibrary.categories.eveningRoutine', { defaultValue: 'Evening Routine' }),
     };
     return map[c] ?? c;
   };
@@ -204,6 +235,7 @@ export default function ProgramLibrary() {
 
   function renderCard(w: Workout) {
     const heroThumb = workoutHeroThumbSet(w, nameToSlug, exercises);
+    const level = diffClass(w.diff) as DiffLevel;
     return (
       <Link key={w.id} to={`/workouts/${w.id}`} className="el-card">
         <div className="el-card-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
@@ -216,14 +248,13 @@ export default function ProgramLibrary() {
             onError={(e) => (e.currentTarget.style.display = 'none')}
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
           />
+          <PlayIcon />
         </div>
         <div className="el-card-name">{w.name}</div>
         <div className="el-card-meta">
           <span className="el-card-badge">{categoryBadgeLabel(w.cat)}</span>
           <span className="el-card-equip">{t('programLibrary.card.minutes', { count: w.dur })}</span>
-          <span className={`el-card-diff ${diffClass(w.diff)}`}>
-            {diffLabel(w.diff)}
-          </span>
+          <DifficultyDots level={level} label={diffLabel(w.diff)} />
         </div>
       </Link>
     );
@@ -245,7 +276,18 @@ export default function ProgramLibrary() {
 
           <div className="el-hero">
             <h1 className="font-display">{t('programLibrary.title')}</h1>
-            <p>{t('programLibrary.subtitleAll', { count: workouts.length, defaultValue: '{{count}} guided workouts. Pick by goal, by time, or just browse.' })}</p>
+            <p>
+              {filtersActive && filtered.length !== workouts.length
+                ? t('programLibrary.subtitleFiltered', {
+                    count: filtered.length,
+                    total: workouts.length,
+                    defaultValue: '{{count}} of {{total}} workouts',
+                  })
+                : t('programLibrary.subtitleAll', {
+                    count: workouts.length,
+                    defaultValue: '{{count}} guided workouts. Pick by goal, by time, or just browse.',
+                  })}
+            </p>
           </div>
 
           <div className="el-primary-bar">
@@ -362,11 +404,6 @@ export default function ProgramLibrary() {
                     <div className="wk-group-grid">
                       {items.slice(0, 3).map(renderCard)}
                     </div>
-                    <Link to="/get-app" className="wk-group-more">
-                      {t('programLibrary.allInApp', {
-                        defaultValue: 'All available in the Libo app →',
-                      })}
-                    </Link>
                   </section>
                 );
               })}
@@ -374,6 +411,8 @@ export default function ProgramLibrary() {
           )}
         </div>
       </main>
+
+      <WorkoutsAppCTA />
 
       <SiteFooter />
     </>
