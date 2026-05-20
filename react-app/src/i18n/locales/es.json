@@ -167,15 +167,14 @@
     "downloadAppStore": "Descargar en App Store"
   },
   "community": {
-    "_todo": "i18n: translate community.* (stubbed to English)",
-    "eyebrow": "THE LIBO COMMUNITY",
-    "headline": "JOIN A COMMUNITY THAT TRAINS WITH YOU.",
-    "body": "Real people training together. Logging reps, hitting streaks, splitting cash challenges. No coaches selling courses. No fitness influencers. Just members showing up every day."
+    "eyebrow": "LA COMUNIDAD LIBO",
+    "headline": "ÚNETE A UNA COMUNIDAD\nQUE ENTRENA CONTIGO.",
+    "body": "Gente real entrenando junta. Registrando reps, manteniendo rachas, ganando cash challenges. Sin coaches vendiendo cursos. Sin influencers de fitness. Solo miembros que aparecen cada día."
   },
   "betaReviews": {
-    "eyebrow": "BETA PROGRAM",
-    "headline": "EARLY REVIEWS.",
-    "subhead": "Honest feedback from our first beta testers."
+    "eyebrow": "PROGRAMA BETA",
+    "headline": "PRIMERAS RESEÑAS.",
+    "subhead": "Opiniones honestas de nuestros primeros beta testers."
   },
   "footer": {
     "copyright": "© 2026 Libo World",
@@ -815,35 +814,32 @@
     "heroCta": "Clic para ganar",
     "fallbackPrize": "premios increíbles",
     "packagesTitle": "Selecciona un paquete",
-    "packagesSub": "Compra cualquier paquete y entras automáticamente al sorteo. Más entradas, mejores probabilidades. Pago único, sin cargos recurrentes.",
+    "packagesSub": "Compra un paquete y desbloquea toda la app Libo, más puntos bonus que conviertes en entradas al sorteo dentro de la app, a tu ritmo. Pago único, sin suscripción, sin renovación.",
     "ctaSelect": "Seleccionar",
     "ctaError": "Algo salió mal — inténtalo de nuevo",
     "emailPlaceholder": "tu@email.com",
-    "entriesLabel": "Entradas Bonus Gratis",
-    "amoeLine": "Sin compra necesaria — descarga Libo y completa un workout para 1 entrada gratis. Ver Términos.",
-    "eligibilityLine": "Abierto a todos — nuevos visitantes, usuarios Free, suscriptores Pro y Elite. Las entradas de cada paquete se acumulan en tu cuenta Libo.",
-    "premiumDisclosure": "Los nuevos compradores reciben una prueba Premium que continúa automáticamente a €9,99/mes después de la prueba — cancelable en cualquier momento en la app Libo. Los suscriptores Pro/Elite existentes saltan la prueba por completo — tu suscripción no se toca, solo se añaden las entradas y los puntos bonus.",
+    "entriesLabel": "Días de acceso total",
+    "amoeLine": "Sin compra necesaria — descarga Libo y gana puntos entrenando. Los puntos se convierten en entradas al sorteo dentro de la app. Ver Términos.",
+    "eligibilityLine": "Abierto a todos — nuevos visitantes, usuarios Free, suscriptores Pro y Elite. Los puntos y el acceso de cada paquete se suman a tu cuenta Libo.",
+    "premiumDisclosure": "Pago único. Sin suscripción, sin renovación — pagas una vez y ya está. Los suscriptores Pro o Elite existentes pueden seguir comprando paquetes; tu suscripción no se toca, y los puntos y días de acceso del paquete se suman a lo que ya tienes.",
     "inclusionsShow": "Clic para ver todo lo incluido",
     "inclusionsHide": "Ocultar lo incluido",
     "inclusions": {
       "entry": [
-        "1 entrada gratis al sorteo del iPhone 17 Pro",
-        "100 puntos bonus (= 1 ticket futuro a 100:1)",
-        "Prueba Premium 7 días — biblioteca completa, puntos x2, custom builder",
-        "Renovación auto a €9,99/mes tras la prueba · cancelable en cualquier momento"
+        "100 puntos bonus — conviértelos en entradas al sorteo dentro de la app, a tu ritmo",
+        "7 días de acceso total a la app Libo — todas las funciones Pro y Elite desbloqueadas",
+        "Pago único · sin suscripción, sin renovación"
       ],
       "silver": [
-        "8 entradas gratis al sorteo del iPhone 17 Pro",
-        "800 puntos bonus (= 8 tickets futuros)",
-        "Prueba Premium 14 días — biblioteca completa, puntos x2, AI builder",
-        "Renovación auto a €9,99/mes tras la prueba · cancelable en cualquier momento",
+        "800 puntos bonus — conviértelos en entradas al sorteo dentro de la app, a tu ritmo",
+        "14 días de acceso total a la app Libo — todas las funciones Pro y Elite desbloqueadas",
+        "Pago único · sin suscripción, sin renovación",
         "Acceso prioritario al próximo sorteo del mes"
       ],
       "gold": [
-        "30 entradas gratis al sorteo del iPhone 17 Pro",
-        "3.000 puntos bonus (= 30 tickets futuros)",
-        "Prueba Premium 30 días — biblioteca completa, puntos x2, AI builder, estadísticas avanzadas",
-        "Renovación auto a €9,99/mes tras la prueba · cancelable en cualquier momento",
+        "3.000 puntos bonus — conviértelos en entradas al sorteo dentro de la app, a tu ritmo",
+        "30 días de acceso total a la app Libo — todas las funciones Pro y Elite desbloqueadas",
+        "Pago único · sin suscripción, sin renovación",
         "Acceso prioritario al próximo sorteo del mes",
         "Acceso anticipado a las próximas revelaciones de premios"
       ]
@@ -856,29 +852,29 @@
       "entry": {
         "name": "Entry",
         "price": "€5",
-        "priceSubline": "+ Premium se renueva tras la prueba",
-        "entries": "1",
+        "priceSubline": "Pago único · sin renovación",
+        "entries": "7",
         "points": "100",
         "trial": "7d",
-        "heroSummary": "1 entrada gratis + 100 puntos bonus + prueba Premium 7 días. Premium luego se renueva automáticamente a €9,99/mes — cancelable en cualquier momento en la app Libo."
+        "heroSummary": "7 días de acceso total a la app Libo + 100 puntos bonus convertibles en entradas al sorteo dentro de la app. Pago único — sin suscripción, sin renovación."
       },
       "silver": {
         "name": "Silver",
         "price": "€25",
-        "priceSubline": "+ Premium se renueva tras la prueba",
-        "entries": "8",
+        "priceSubline": "Pago único · sin renovación",
+        "entries": "14",
         "points": "800",
         "trial": "14d",
-        "heroSummary": "8 entradas gratis + 800 puntos bonus + prueba Premium 14 días. Premium luego se renueva automáticamente a €9,99/mes — cancelable en cualquier momento en la app Libo."
+        "heroSummary": "14 días de acceso total a la app Libo + 800 puntos bonus convertibles en entradas al sorteo dentro de la app. Pago único — sin suscripción, sin renovación."
       },
       "gold": {
         "name": "Gold",
         "price": "€75",
-        "priceSubline": "+ Premium se renueva tras la prueba",
+        "priceSubline": "Pago único · sin renovación",
         "entries": "30",
         "points": "3.000",
         "trial": "30d",
-        "heroSummary": "30 entradas gratis + 3.000 puntos bonus + prueba Premium 30 días. Premium luego se renueva automáticamente a €9,99/mes — cancelable en cualquier momento en la app Libo."
+        "heroSummary": "30 días de acceso total a la app Libo + 3.000 puntos bonus convertibles en entradas al sorteo dentro de la app. Pago único — sin suscripción, sin renovación."
       }
     },
     "trust1": "Seguro y de confianza",
