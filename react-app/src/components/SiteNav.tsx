@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import LiboLogo from './LiboLogo';
 import './SiteNav.css';
 
 // Top-level desktop nav items. Reward Club is the only parent that
@@ -103,11 +104,8 @@ export default function SiteNav() {
       >
         <div className="site-nav__inner">
           {/* Logo */}
-          <Link to="/" className="site-nav__logo">
-            <img
-              src="/brand/logo_options/libo-dark.svg"
-              alt="Libo"
-            />
+          <Link to="/" className="site-nav__logo" aria-label="Libo home">
+            <LiboLogo />
           </Link>
 
           {/* Center links */}
@@ -218,11 +216,8 @@ export default function SiteNav() {
         className={`site-nav__drawer${drawerOpen ? ' site-nav__drawer--open' : ''}`}
       >
         <div className="site-nav__drawer-header">
-          <Link to="/" className="site-nav__logo" onClick={() => setDrawerOpen(false)}>
-            <img
-              src="/brand/logo_options/libo-dark.svg"
-              alt="Libo"
-            />
+          <Link to="/" className="site-nav__logo" aria-label="Libo home" onClick={() => setDrawerOpen(false)}>
+            <LiboLogo />
           </Link>
           <button
             ref={closeRef}

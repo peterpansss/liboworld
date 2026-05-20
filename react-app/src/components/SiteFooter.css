@@ -28,8 +28,10 @@
   display: block;
 }
 
-.site-footer__logo img {
+.site-footer__logo img,
+.site-footer__logo svg {
   height: 26px;
+  width: auto;
   display: block;
 }
 

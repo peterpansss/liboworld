@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
+import LiboLogo from './LiboLogo';
 import './SiteFooter.css';
 
 export default function SiteFooter() {
@@ -10,11 +11,8 @@ export default function SiteFooter() {
       <div className="site-footer__inner">
         {/* Top section: logo + social */}
         <div className="site-footer__top">
-          <Link to="/" className="site-footer__logo">
-            <img
-              src="/brand/logo_options/libo-dark.svg"
-              alt="Libo"
-            />
+          <Link to="/" className="site-footer__logo" aria-label="Libo home">
+            <LiboLogo />
           </Link>
           <div className="site-footer__social">
             <a href="https://www.instagram.com/liboworld/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
