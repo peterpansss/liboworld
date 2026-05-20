@@ -167,10 +167,14 @@
     "downloadAppStore": "Im App Store laden"
   },
   "community": {
-    "_todo": "i18n: translate community.* (stubbed to English)",
-    "eyebrow": "THE LIBO COMMUNITY",
-    "headline": "JOIN A COMMUNITY THAT TRAINS WITH YOU.",
-    "body": "Real people training together. Logging reps, hitting streaks, splitting cash challenges. No coaches selling courses. No fitness influencers. Just members showing up every day."
+    "eyebrow": "DIE LIBO COMMUNITY",
+    "headline": "TRITT EINER COMMUNITY BEI,\nDIE MIT DIR TRAINIERT.",
+    "body": "Echte Menschen, die zusammen trainieren. Reps loggen, Streaks halten, Cash-Challenges meistern. Keine Coaches, die Kurse verkaufen. Keine Fitness-Influencer. Nur Mitglieder, die jeden Tag dabei sind."
+  },
+  "betaReviews": {
+    "eyebrow": "BETA-PROGRAMM",
+    "headline": "ERSTE REVIEWS.",
+    "subhead": "Ehrliches Feedback von unseren ersten Beta-Testern."
   },
   "faq": {
     "eyebrow": "FAQ",
@@ -729,9 +733,6 @@
     },
     "title": "Workouts",
     "subtitle": "{{count}} geführte Workouts. Sieh dir eine Auswahl an — die ganze Bibliothek gibt es in der App.",
-    "subtitleAll": "_todo {{count}} guided workouts. Pick by goal, by time, or just browse.",
-    "subtitleFiltered": "_todo {{count}} of {{total}} workouts",
-    "appCta": "_todo Track all {{count}} workouts in the Libo app",
     "searchPlaceholder": "Workouts suchen...",
     "searchAria": "Workouts suchen",
     "filters": {
@@ -743,8 +744,7 @@
       "home": "Zu Hause",
       "cardio": "Cardio",
       "stretching": "Stretching",
-      "morningRoutine": "Morgenroutine",
-      "eveningRoutine": "_todo Evening Routine"
+      "morningRoutine": "Morgenroutine"
     },
     "resultsCountPrefix": "Zeige",
     "resultsCountOf": "von",
@@ -814,35 +814,32 @@
     "heroCta": "Klick zum Gewinnen",
     "fallbackPrize": "tolle Preise",
     "packagesTitle": "Wähl ein Paket",
-    "packagesSub": "Kauf irgendein Paket und du bist automatisch im Giveaway. Mehr Lose, bessere Chancen. Einmalzahlung, keine Abos.",
+    "packagesSub": "Kauf ein Paket und schalte die komplette Libo-App frei, plus Bonuspunkte, die du in der App im eigenen Tempo in Giveaway-Lose umwandelst. Einmalzahlung, kein Abo, keine Verlängerung.",
     "ctaSelect": "Auswählen",
     "ctaError": "Etwas ist schiefgelaufen — versuch es nochmal",
     "emailPlaceholder": "deine@email.com",
-    "entriesLabel": "Kostenlose Bonuslose",
-    "amoeLine": "Kein Kauf nötig — lade Libo herunter und mach ein Workout für 1 kostenloses Los. Siehe AGB.",
-    "eligibilityLine": "Offen für alle — neue Besucher, Free-Nutzer, Pro- und Elite-Abonnenten. Lose aus jedem Paket werden auf deinem Libo-Konto gestapelt.",
-    "premiumDisclosure": "Neue Käufer bekommen einen Premium-Trial, der nach Ablauf automatisch für €9,99/Monat weiterläuft — jederzeit in der Libo-App kündbar. Bestehende Pro/Elite-Abonnenten überspringen den Trial komplett — dein Abo bleibt unangetastet, nur die Lose und Bonuspunkte werden gutgeschrieben.",
+    "entriesLabel": "Tage Vollzugriff",
+    "amoeLine": "Kein Kauf nötig — lade Libo herunter und sammle Punkte durch Workouts. Punkte werden in der App in Giveaway-Lose umgewandelt. Siehe AGB.",
+    "eligibilityLine": "Offen für alle — neue Besucher, Free-Nutzer, Pro- und Elite-Abonnenten. Punkte und Zugriffstage aus jedem Paket werden zu deinem Libo-Konto dazugerechnet.",
+    "premiumDisclosure": "Einmalzahlung. Kein Abo, keine Verlängerung — du zahlst einmal und das war's. Bestehende Pro- oder Elite-Abonnenten können trotzdem Pakete kaufen; dein Abo bleibt unangetastet, und die Punkte und Zugriffstage des Pakets werden zu deinem Konto dazugerechnet.",
     "inclusionsShow": "Klick für alle Leistungen",
     "inclusionsHide": "Leistungen ausblenden",
     "inclusions": {
       "entry": [
-        "1 kostenloses Los für das iPhone 17 Pro Giveaway",
-        "100 Bonuspunkte (= 1 zukünftiges Ticket bei 100:1)",
-        "7 Tage Premium-Trial — komplette Bibliothek, 2× Punkte, Custom Builder",
-        "Verlängert sich nach Trial automatisch für €9,99/Monat · jederzeit kündbar"
+        "100 Bonuspunkte — wandle sie in der App im eigenen Tempo in Giveaway-Lose um",
+        "7 Tage Vollzugriff auf die Libo-App — alle Pro- und Elite-Features freigeschaltet",
+        "Einmalzahlung · kein Abo, keine Verlängerung"
       ],
       "silver": [
-        "8 kostenlose Lose für das iPhone 17 Pro Giveaway",
-        "800 Bonuspunkte (= 8 zukünftige Tickets)",
-        "14 Tage Premium-Trial — komplette Bibliothek, 2× Punkte, AI Builder",
-        "Verlängert sich nach Trial automatisch für €9,99/Monat · jederzeit kündbar",
+        "800 Bonuspunkte — wandle sie in der App im eigenen Tempo in Giveaway-Lose um",
+        "14 Tage Vollzugriff auf die Libo-App — alle Pro- und Elite-Features freigeschaltet",
+        "Einmalzahlung · kein Abo, keine Verlängerung",
         "Vorrangiger Zugang zum nächsten Giveaway-Reveal"
       ],
       "gold": [
-        "30 kostenlose Lose für das iPhone 17 Pro Giveaway",
-        "3.000 Bonuspunkte (= 30 zukünftige Tickets)",
-        "30 Tage Premium-Trial — komplette Bibliothek, 2× Punkte, AI Builder, detaillierte Auswertungen",
-        "Verlängert sich nach Trial automatisch für €9,99/Monat · jederzeit kündbar",
+        "3.000 Bonuspunkte — wandle sie in der App im eigenen Tempo in Giveaway-Lose um",
+        "30 Tage Vollzugriff auf die Libo-App — alle Pro- und Elite-Features freigeschaltet",
+        "Einmalzahlung · kein Abo, keine Verlängerung",
         "Vorrangiger Zugang zum nächsten Giveaway-Reveal",
         "First-Look-Zugang zu kommenden Preis-Reveals"
       ]
@@ -855,29 +852,29 @@
       "entry": {
         "name": "Entry",
         "price": "€5",
-        "priceSubline": "+ Premium verlängert sich nach Trial",
-        "entries": "1",
+        "priceSubline": "Einmalzahlung · keine Verlängerung",
+        "entries": "7",
         "points": "100",
         "trial": "7T",
-        "heroSummary": "1 kostenloses Los + 100 Bonuspunkte + 7 Tage Premium-Trial. Premium verlängert sich danach automatisch für €9,99/Monat — jederzeit in der Libo-App kündbar."
+        "heroSummary": "7 Tage Vollzugriff auf die Libo-App + 100 Bonuspunkte, die du in der App in Giveaway-Lose umwandeln kannst. Einmalzahlung — kein Abo, keine Verlängerung."
       },
       "silver": {
         "name": "Silver",
         "price": "€25",
-        "priceSubline": "+ Premium verlängert sich nach Trial",
-        "entries": "8",
+        "priceSubline": "Einmalzahlung · keine Verlängerung",
+        "entries": "14",
         "points": "800",
         "trial": "14T",
-        "heroSummary": "8 kostenlose Lose + 800 Bonuspunkte + 14 Tage Premium-Trial. Premium verlängert sich danach automatisch für €9,99/Monat — jederzeit in der Libo-App kündbar."
+        "heroSummary": "14 Tage Vollzugriff auf die Libo-App + 800 Bonuspunkte, die du in der App in Giveaway-Lose umwandeln kannst. Einmalzahlung — kein Abo, keine Verlängerung."
       },
       "gold": {
         "name": "Gold",
         "price": "€75",
-        "priceSubline": "+ Premium verlängert sich nach Trial",
+        "priceSubline": "Einmalzahlung · keine Verlängerung",
         "entries": "30",
         "points": "3.000",
         "trial": "30T",
-        "heroSummary": "30 kostenlose Lose + 3.000 Bonuspunkte + 30 Tage Premium-Trial. Premium verlängert sich danach automatisch für €9,99/Monat — jederzeit in der Libo-App kündbar."
+        "heroSummary": "30 Tage Vollzugriff auf die Libo-App + 3.000 Bonuspunkte, die du in der App in Giveaway-Lose umwandeln kannst. Einmalzahlung — kein Abo, keine Verlängerung."
       }
     },
     "trust1": "Sicher & vertrauenswürdig",

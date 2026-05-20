@@ -167,10 +167,14 @@
     "downloadAppStore": "Télécharger sur l'App Store"
   },
   "community": {
-    "_todo": "i18n: translate community.* (stubbed to English)",
-    "eyebrow": "THE LIBO COMMUNITY",
-    "headline": "JOIN A COMMUNITY THAT TRAINS WITH YOU.",
-    "body": "Real people training together. Logging reps, hitting streaks, splitting cash challenges. No coaches selling courses. No fitness influencers. Just members showing up every day."
+    "eyebrow": "LA COMMUNAUTÉ LIBO",
+    "headline": "REJOINS UNE COMMUNAUTÉ\nQUI S'ENTRAÎNE AVEC TOI.",
+    "body": "Des gens qui s'entraînent vraiment ensemble. Loggent leurs reps, tiennent leurs streaks, relèvent des cash challenges. Pas de coachs qui vendent des programmes. Pas d'influenceurs fitness. Juste des membres présents chaque jour."
+  },
+  "betaReviews": {
+    "eyebrow": "PROGRAMME BETA",
+    "headline": "PREMIERS AVIS.",
+    "subhead": "Retours sincères de nos premiers bêta-testeurs."
   },
   "footer": {
     "copyright": "© 2026 Libo World",
@@ -472,9 +476,6 @@
     },
     "title": "Entraînements",
     "subtitle": "{{count}} entraînements guidés. Découvre une sélection — toute la bibliothèque dans l'app.",
-    "subtitleAll": "_todo {{count}} guided workouts. Pick by goal, by time, or just browse.",
-    "subtitleFiltered": "_todo {{count}} of {{total}} workouts",
-    "appCta": "_todo Track all {{count}} workouts in the Libo app",
     "searchPlaceholder": "Rechercher des entraînements...",
     "searchAria": "Rechercher des entraînements",
     "filters": {
@@ -486,8 +487,7 @@
       "home": "Maison",
       "cardio": "Cardio",
       "stretching": "Étirements",
-      "morningRoutine": "Routine Matinale",
-      "eveningRoutine": "_todo Evening Routine"
+      "morningRoutine": "Routine Matinale"
     },
     "resultsCountPrefix": "Affichage",
     "resultsCountOf": "sur",
@@ -814,35 +814,32 @@
     "heroCta": "Clique pour gagner",
     "fallbackPrize": "des prix incroyables",
     "packagesTitle": "Sélectionne un pack",
-    "packagesSub": "Achète n'importe quel pack et tu es automatiquement inscrit au tirage. Plus d'entrées, meilleures chances. Paiement unique, sans abonnement.",
+    "packagesSub": "Achète un pack et débloque toute l'app Libo, plus des points bonus que tu convertis en entrées au tirage in-app, à ton rythme. Paiement unique, sans abonnement, sans renouvellement.",
     "ctaSelect": "Sélectionner",
     "ctaError": "Quelque chose a mal tourné — réessaie",
     "emailPlaceholder": "ton@email.com",
-    "entriesLabel": "Entrées Bonus Gratuites",
-    "amoeLine": "Aucun achat requis — télécharge Libo et fais un workout pour 1 entrée gratuite. Voir Conditions.",
-    "eligibilityLine": "Ouvert à tous — nouveaux visiteurs, utilisateurs Free, abonnés Pro et Elite. Les entrées de chaque pack s'ajoutent à ton compte Libo.",
-    "premiumDisclosure": "Les nouveaux acheteurs reçoivent un essai Premium qui se renouvelle automatiquement à €9,99/mois après l'essai — annulable à tout moment dans l'app Libo. Les abonnés Pro/Elite existants sautent l'essai entièrement — ton abonnement reste intact, seules les entrées et les points bonus sont ajoutés.",
+    "entriesLabel": "Jours d'accès complet",
+    "amoeLine": "Aucun achat requis — télécharge Libo et gagne des points en t'entraînant. Les points se convertissent en entrées au tirage in-app. Voir Conditions.",
+    "eligibilityLine": "Ouvert à tous — nouveaux visiteurs, utilisateurs Free, abonnés Pro et Elite. Les points et l'accès de chaque pack s'ajoutent à ton compte Libo.",
+    "premiumDisclosure": "Paiement unique. Sans abonnement, sans renouvellement — tu paies une fois et c'est tout. Les abonnés Pro ou Elite existants peuvent quand même acheter des packs ; ton abonnement reste intact, et les points et jours d'accès du pack s'ajoutent à ce que tu as déjà.",
     "inclusionsShow": "Voir tout ce qui est inclus",
     "inclusionsHide": "Masquer les détails",
     "inclusions": {
       "entry": [
-        "1 entrée gratuite au tirage iPhone 17 Pro",
-        "100 points bonus (= 1 ticket futur à 100:1)",
-        "Essai Premium 7 jours — bibliothèque complète, points ×2, custom builder",
-        "Renouvellement auto à €9,99/mois après l'essai · annulable à tout moment"
+        "100 points bonus — convertis-les en entrées au tirage in-app, à ton rythme",
+        "7 jours d'accès complet à l'app Libo — toutes les fonctionnalités Pro et Elite débloquées",
+        "Paiement unique · sans abonnement, sans renouvellement"
       ],
       "silver": [
-        "8 entrées gratuites au tirage iPhone 17 Pro",
-        "800 points bonus (= 8 tickets futurs)",
-        "Essai Premium 14 jours — bibliothèque complète, points ×2, AI builder",
-        "Renouvellement auto à €9,99/mois après l'essai · annulable à tout moment",
+        "800 points bonus — convertis-les en entrées au tirage in-app, à ton rythme",
+        "14 jours d'accès complet à l'app Libo — toutes les fonctionnalités Pro et Elite débloquées",
+        "Paiement unique · sans abonnement, sans renouvellement",
         "Accès prioritaire à la révélation du tirage du mois prochain"
       ],
       "gold": [
-        "30 entrées gratuites au tirage iPhone 17 Pro",
-        "3 000 points bonus (= 30 tickets futurs)",
-        "Essai Premium 30 jours — bibliothèque complète, points ×2, AI builder, analyses avancées",
-        "Renouvellement auto à €9,99/mois après l'essai · annulable à tout moment",
+        "3 000 points bonus — convertis-les en entrées au tirage in-app, à ton rythme",
+        "30 jours d'accès complet à l'app Libo — toutes les fonctionnalités Pro et Elite débloquées",
+        "Paiement unique · sans abonnement, sans renouvellement",
         "Accès prioritaire à la révélation du tirage du mois prochain",
         "Accès en avant-première aux prochaines révélations de prix"
       ]
@@ -855,29 +852,29 @@
       "entry": {
         "name": "Entry",
         "price": "€5",
-        "priceSubline": "+ Premium se renouvelle après l'essai",
-        "entries": "1",
+        "priceSubline": "Paiement unique · sans renouvellement",
+        "entries": "7",
         "points": "100",
         "trial": "7j",
-        "heroSummary": "1 entrée gratuite + 100 points bonus + essai Premium 7 jours. Premium se renouvelle ensuite automatiquement à €9,99/mois — annulable à tout moment dans l'app Libo."
+        "heroSummary": "7 jours d'accès complet à l'app Libo + 100 points bonus convertibles en entrées au tirage in-app. Paiement unique — sans abonnement, sans renouvellement."
       },
       "silver": {
         "name": "Silver",
         "price": "€25",
-        "priceSubline": "+ Premium se renouvelle après l'essai",
-        "entries": "8",
+        "priceSubline": "Paiement unique · sans renouvellement",
+        "entries": "14",
         "points": "800",
         "trial": "14j",
-        "heroSummary": "8 entrées gratuites + 800 points bonus + essai Premium 14 jours. Premium se renouvelle ensuite automatiquement à €9,99/mois — annulable à tout moment dans l'app Libo."
+        "heroSummary": "14 jours d'accès complet à l'app Libo + 800 points bonus convertibles en entrées au tirage in-app. Paiement unique — sans abonnement, sans renouvellement."
       },
       "gold": {
         "name": "Gold",
         "price": "€75",
-        "priceSubline": "+ Premium se renouvelle après l'essai",
+        "priceSubline": "Paiement unique · sans renouvellement",
         "entries": "30",
         "points": "3 000",
         "trial": "30j",
-        "heroSummary": "30 entrées gratuites + 3 000 points bonus + essai Premium 30 jours. Premium se renouvelle ensuite automatiquement à €9,99/mois — annulable à tout moment dans l'app Libo."
+        "heroSummary": "30 jours d'accès complet à l'app Libo + 3 000 points bonus convertibles en entrées au tirage in-app. Paiement unique — sans abonnement, sans renouvellement."
       }
     },
     "trust1": "Sécurisé & fiable",

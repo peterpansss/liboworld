@@ -165,6 +165,11 @@
     "headline": "JOIN A COMMUNITY THAT TRAINS WITH YOU.",
     "body": "Real people training together. Logging reps, hitting streaks, splitting cash challenges. No coaches selling courses. No fitness influencers. Just members showing up every day."
   },
+  "betaReviews": {
+    "eyebrow": "BETA PROGRAM",
+    "headline": "EARLY REVIEWS.",
+    "subhead": "Honest feedback from our first beta testers."
+  },
   "faq": {
     "eyebrow": "FAQ",
     "headline": "Frequently\nasked.",
@@ -716,8 +721,6 @@
     "title": "Workouts",
     "subtitle": "{{count}} guided workouts. Preview a selection — unlock the full library in the app.",
     "subtitleAll": "{{count}} guided workouts. Pick by goal, by time, or just browse.",
-    "subtitleFiltered": "{{count}} of {{total}} workouts",
-    "appCta": "Track all {{count}} workouts in the Libo app",
     "searchPlaceholder": "Search workouts...",
     "searchAria": "Search workouts",
     "viewAll": "View all",
@@ -748,8 +751,7 @@
       "home": "Home",
       "cardio": "Cardio",
       "stretching": "Stretching",
-      "morningRoutine": "Morning Routine",
-      "eveningRoutine": "Evening Routine"
+      "morningRoutine": "Morning Routine"
     },
     "resultsCountPrefix": "Showing",
     "resultsCountOf": "of",
