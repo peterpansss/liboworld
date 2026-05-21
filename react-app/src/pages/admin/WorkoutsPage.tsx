@@ -25,7 +25,7 @@ import { colors } from '../../theme';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
-type WorkoutStep = { exercise: string; sets: string; reps: string };
+type WorkoutStep = { exercise_id?: string | null; exercise_name: string; sets: string; reps: string };
 
 type Workout = {
   id: string;
@@ -375,10 +375,10 @@ export function WorkoutsPage() {
     const toCreateBlocks = (steps: WorkoutStep[] | undefined): CreateBlockEntry[] => {
       const cloned: WorkoutStep[] = structuredClone(steps ?? []);
       return cloned.map((s) => {
-        const match = exByName.get((s.exercise ?? '').toLowerCase());
+        const match = exByName.get((s.exercise_name ?? '').toLowerCase());
         return {
           exercise_id: match?.id ?? null,
-          exercise_name: s.exercise ?? '',
+          exercise_name: s.exercise_name ?? '',
           sets: s.sets ?? '',
           reps: s.reps ?? '',
         };
@@ -1193,7 +1193,7 @@ function PhaseSection({
   onChange: (rows: WorkoutStep[]) => void;
   datalistId: string;
 }) {
-  const addRow = () => onChange([...rows, { exercise: '', sets: '', reps: '' }]);
+  const addRow = () => onChange([...rows, { exercise_id: null, exercise_name: '', sets: '', reps: '' }]);
   const removeRow = (i: number) => onChange(rows.filter((_, idx) => idx !== i));
   const updateRow = (i: number, patch: Partial<WorkoutStep>) =>
     onChange(rows.map((r, idx) => (idx === i ? { ...r, ...patch } : r)));
@@ -1259,8 +1259,8 @@ function PhaseSection({
                 <TextInput
                   list={datalistId}
                   placeholder="Exercise name"
-                  value={row.exercise}
-                  onChange={(e) => updateRow(i, { exercise: e.target.value })}
+                  value={row.exercise_name}
+                  onChange={(e) => updateRow(i, { exercise_name: e.target.value })}
                 />
               </div>
               <TextInput
