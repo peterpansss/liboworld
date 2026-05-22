@@ -99,7 +99,7 @@ export function exerciseSupportsAnimation(ex: Exercise): boolean {
 // asset-404 rule prevents future occurrences, but doesn't help URLs
 // Cloudflare cached as index.html in earlier deploys). v=4 marks the
 // 1440x1080 WebP+JPEG quality regen.
-const THUMB_CACHE_BUST = 'v=4';
+const THUMB_CACHE_BUST = 'v=5';
 
 /**
  * Two-variant thumbnail set for <picture> rendering: WebP primary (~97% of
