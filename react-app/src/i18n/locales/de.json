@@ -773,6 +773,7 @@
       "subtitle": "Passe deine Suche an oder setz die Filter zurück",
       "tryRemove": "Try removing a filter →"
     },
+    "previewFallback": "No exact match in the preview — full library available in the app.",
     "card": {
       "minutes": "{{count}} Min"
     },

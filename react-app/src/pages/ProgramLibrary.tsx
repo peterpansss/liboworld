@@ -9,8 +9,7 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
 import WorkoutsAppCTA from '../components/WorkoutsAppCTA';
-import { Hourglass, Search, ICON_STROKE } from '../utils/icons';
-import { useDebouncedValue } from '../utils/useDebouncedValue';
+import { Hourglass } from '../utils/icons';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
 
@@ -130,15 +129,10 @@ export default function ProgramLibrary() {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  // First visit this session: pop the dropdown open so users discover the
-  // Goal/Duration filters. After they collapse it once, the flag persists for
-  // the rest of the session. URL-driven active filters always force it open.
   const [filtersOpen, setFiltersOpen] = useState(() => {
     const g = searchParams.get('goal') || 'All';
     const d = searchParams.get('dur') || 'Any';
-    const hasSeen = typeof window !== 'undefined'
-      && window.sessionStorage.getItem('wk-filters-seen') === '1';
-    return g !== 'All' || d !== 'Any' || !hasSeen;
+    return g !== 'All' || d !== 'Any';
   });
 
   const search = searchParams.get('q') || '';
@@ -207,15 +201,21 @@ export default function ProgramLibrary() {
   const activeFilterCount =
     (goal !== 'All' ? 1 : 0) + (duration !== 'Any' ? 1 : 0) + (cat ? 1 : 0);
 
-  // Group the FILTERED workouts so the Goal/Duration/Cat chips narrow each
-  // section in place rather than swapping to a flat paginated list.
+  // Preview-fallback: when active filters yield zero matches, fall back to the
+  // unfiltered catalog rather than an empty state. The library is App-only —
+  // showing the marketing preview is better than a dead end.
+  const noMatches = !loading && filtered.length === 0 && filtersActive;
+  const displayWorkouts = noMatches ? workouts : filtered;
+
+  // Group the workouts so the Goal/Duration/Cat chips narrow each section in
+  // place rather than swapping to a flat paginated list.
   const groupedByGoal = useMemo(() => {
     const groups: Record<Exclude<GoalKey, 'All'>, Workout[]> = {
       Strength: [], Cardio: [], Mobility: [], Stretching: [], Recovery: [], Morning: [], Evening: [],
     };
-    filtered.forEach((w) => groups[classifyGoal(w)].push(w));
+    displayWorkouts.forEach((w) => groups[classifyGoal(w)].push(w));
     return groups;
-  }, [filtered]);
+  }, [displayWorkouts]);
 
   const updateParam = useCallback((key: string, value: string) => {
     setSearchParams(prev => {
@@ -236,36 +236,8 @@ export default function ProgramLibrary() {
   }, [setSearchParams]);
 
   function clearAll() {
-    setSearchInput('');
     setSearchParams({}, { replace: true });
   }
-
-  const toggleFilters = useCallback(() => {
-    setFiltersOpen((o) => {
-      const next = !o;
-      // Sticky-collapse: once the user closes the panel, don't auto-open it
-      // again this session.
-      if (!next && typeof window !== 'undefined') {
-        window.sessionStorage.setItem('wk-filters-seen', '1');
-      }
-      return next;
-    });
-  }, []);
-
-  // Search input: local state debounced 200ms into the URL ?q= param.
-  const [searchInput, setSearchInput] = useState(search);
-  const debouncedSearch = useDebouncedValue(searchInput, 200);
-
-  useEffect(() => {
-    if (debouncedSearch !== search) {
-      updateParam('q', debouncedSearch);
-    }
-  }, [debouncedSearch, search, updateParam]);
-
-  useEffect(() => {
-    // External clear (Clear filters button, URL nav) needs to flush the input.
-    if (search === '' && searchInput !== '') setSearchInput('');
-  }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function renderCard(w: Workout) {
     const heroThumb = workoutHeroThumbSet(w, nameToSlug, exercises);
@@ -324,20 +296,8 @@ export default function ProgramLibrary() {
             </p>
           </div>
 
-          <div className="el-primary-bar wk-primary-bar">
-            <div className="el-search-wrap">
-              <Search className="el-search-icon" strokeWidth={ICON_STROKE} aria-hidden />
-              <input
-                type="search"
-                className="el-search"
-                placeholder={t('programLibrary.searchPlaceholder')}
-                aria-label={t('programLibrary.searchAria')}
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-              />
-            </div>
-
-            <div className="el-filter-row el-filter-row--primary wk-cat-row">
+          <div className="el-primary-bar">
+            <div className="el-filter-row el-filter-row--primary">
               <div className="el-chips">
                 {CAT_KEYS.map((c: CatKey) => {
                   const isAll = c === 'All';
@@ -362,10 +322,10 @@ export default function ProgramLibrary() {
 
             <button
               type="button"
-              className="el-filters-toggle wk-filters-toggle"
+              className="el-filters-toggle"
               aria-expanded={filtersOpen}
               aria-controls="el-filters"
-              onClick={toggleFilters}
+              onClick={() => setFiltersOpen(o => !o)}
             >
               <span>
                 {t('exerciseLibrary.filtersToggle', { defaultValue: 'Filters' })}
@@ -434,34 +394,30 @@ export default function ProgramLibrary() {
             </div>
           )}
 
-          {!loading && filtered.length === 0 && (
-            <div className="wk-empty-inline">
-              <p className="wk-empty-text">
-                {t('programLibrary.empty.title')}{' '}
-                <button type="button" className="wk-empty-link" onClick={clearAll}>
-                  {t('programLibrary.empty.tryRemove')}
-                </button>
-              </p>
-            </div>
-          )}
-
-          {!loading && filtered.length > 0 && (
-            <div className="wk-groups">
-              {(Object.keys(groupedByGoal) as Array<keyof typeof groupedByGoal>).map((g) => {
-                const items = groupedByGoal[g];
-                if (items.length === 0) return null;
-                return (
-                  <section key={g} className="wk-group" aria-labelledby={`wk-group-${g}`}>
-                    <header className="wk-group-header">
-                      <h2 id={`wk-group-${g}`} className="wk-group-title font-display">{goalLabel(g)}</h2>
-                    </header>
-                    <div className="wk-group-grid">
-                      {items.slice(0, 3).map(renderCard)}
-                    </div>
-                  </section>
-                );
-              })}
-            </div>
+          {!loading && (
+            <>
+              {noMatches && (
+                <div className="wk-preview-fallback" role="status">
+                  {t('programLibrary.previewFallback')}
+                </div>
+              )}
+              <div className="wk-groups">
+                {(Object.keys(groupedByGoal) as Array<keyof typeof groupedByGoal>).map((g) => {
+                  const items = groupedByGoal[g];
+                  if (items.length === 0) return null;
+                  return (
+                    <section key={g} className="wk-group" aria-labelledby={`wk-group-${g}`}>
+                      <header className="wk-group-header">
+                        <h2 id={`wk-group-${g}`} className="wk-group-title font-display">{goalLabel(g)}</h2>
+                      </header>
+                      <div className="wk-group-grid">
+                        {items.slice(0, 3).map(renderCard)}
+                      </div>
+                    </section>
+                  );
+                })}
+              </div>
+            </>
           )}
         </div>
       </main>
