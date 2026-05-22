@@ -776,9 +776,11 @@
     "resultsCountSuffix": "workouts",
     "loading": "Loading workouts...",
     "empty": {
-      "title": "No workouts match your filters",
-      "subtitle": "Try adjusting your search or clearing filters"
+      "title": "No workouts match these filters.",
+      "subtitle": "Try adjusting your search or clearing filters",
+      "tryRemove": "Try removing a filter →"
     },
+    "previewFallback": "No exact match in the preview — full library available in the app.",
     "card": {
       "minutes": "{{count}} min"
     },

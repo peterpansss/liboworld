@@ -494,9 +494,11 @@
     "resultsCountSuffix": "entrenamientos",
     "loading": "Cargando entrenamientos...",
     "empty": {
-      "title": "Ningún entrenamiento coincide con tus filtros",
-      "subtitle": "Ajusta tu búsqueda o quita los filtros"
+      "title": "Ningún entrenamiento coincide con tus filtros.",
+      "subtitle": "Ajusta tu búsqueda o quita los filtros",
+      "tryRemove": "Try removing a filter →"
     },
+    "previewFallback": "No exact match in the preview — full library available in the app.",
     "card": {
       "minutes": "{{count}} min"
     },

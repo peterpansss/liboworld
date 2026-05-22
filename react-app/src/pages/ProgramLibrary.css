@@ -126,6 +126,37 @@
   }
 }
 
+/* ── Soft-active variant for the "All" / "Any" chip when it's the default
+       selection. Keeps the loud lime fill reserved for explicit picks so the
+       row doesn't look like everything is selected at once. */
+.el-chip.active.el-chip--soft {
+  background: var(--bg3);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.el-chip.active.el-chip--soft:hover {
+  background: rgba(202, 255, 0, 0.08);
+  color: var(--accent);
+}
+
+/* ── Soft banner shown above the workout grid when active filters yield
+       zero matches. We fall back to the unfiltered preview rather than
+       leaving the page empty (full library is App-only — empty here looks
+       broken on a marketing surface). ── */
+.wk-preview-fallback {
+  margin: 0 0 24px;
+  padding: 14px 18px;
+  background: rgba(202, 255, 0, 0.06);
+  border: 1px solid rgba(202, 255, 0, 0.18);
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-align: center;
+}
+
 /* ── Clear filters (inside the el-filters block, only when filters active) ── */
 .wk-clear-filters {
   align-self: flex-start;

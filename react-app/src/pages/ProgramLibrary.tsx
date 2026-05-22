@@ -9,7 +9,7 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
 import WorkoutsAppCTA from '../components/WorkoutsAppCTA';
-import { Hourglass, Frown } from '../utils/icons';
+import { Hourglass } from '../utils/icons';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
 
@@ -201,15 +201,21 @@ export default function ProgramLibrary() {
   const activeFilterCount =
     (goal !== 'All' ? 1 : 0) + (duration !== 'Any' ? 1 : 0) + (cat ? 1 : 0);
 
-  // Group the FILTERED workouts so the Goal/Duration/Cat chips narrow each
-  // section in place rather than swapping to a flat paginated list.
+  // Preview-fallback: when active filters yield zero matches, fall back to the
+  // unfiltered catalog rather than an empty state. The library is App-only —
+  // showing the marketing preview is better than a dead end.
+  const noMatches = !loading && filtered.length === 0 && filtersActive;
+  const displayWorkouts = noMatches ? workouts : filtered;
+
+  // Group the workouts so the Goal/Duration/Cat chips narrow each section in
+  // place rather than swapping to a flat paginated list.
   const groupedByGoal = useMemo(() => {
     const groups: Record<Exclude<GoalKey, 'All'>, Workout[]> = {
       Strength: [], Cardio: [], Mobility: [], Stretching: [], Recovery: [], Morning: [], Evening: [],
     };
-    filtered.forEach((w) => groups[classifyGoal(w)].push(w));
+    displayWorkouts.forEach((w) => groups[classifyGoal(w)].push(w));
     return groups;
-  }, [filtered]);
+  }, [displayWorkouts]);
 
   const updateParam = useCallback((key: string, value: string) => {
     setSearchParams(prev => {
@@ -294,16 +300,18 @@ export default function ProgramLibrary() {
             <div className="el-filter-row el-filter-row--primary">
               <div className="el-chips">
                 {CAT_KEYS.map((c: CatKey) => {
+                  const isAll = c === 'All';
                   const isActive = (cat || 'All') === c;
+                  const softActive = isActive && isAll;
                   return (
                     <button
                       key={c}
                       type="button"
-                      className={`el-chip ${isActive ? 'active' : ''}`}
+                      className={`el-chip ${isActive ? 'active' : ''}${softActive ? ' el-chip--soft' : ''}`}
                       aria-pressed={isActive}
-                      onClick={() => updateParam('cat', c === 'All' ? '' : c)}
+                      onClick={() => updateParam('cat', isAll ? '' : c)}
                     >
-                      {c === 'All'
+                      {isAll
                         ? t('programLibrary.filters.catAll', { defaultValue: 'All' })
                         : categoryBadgeLabel(c)}
                     </button>
@@ -331,35 +339,43 @@ export default function ProgramLibrary() {
             </button>
           </div>
 
-          <div id="el-filters" className={`el-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
+          <div id="el-filters" className={`el-filters wk-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
             <div className="el-filter-row">
               <span className="el-filter-label">{t('programLibrary.filters.goal', { defaultValue: 'Goal' })}</span>
               <div className="el-chips">
-                {GOAL_KEYS.map((g) => (
-                  <button
-                    key={g}
-                    className={`el-chip ${goal === g ? 'active' : ''}`}
-                    aria-pressed={goal === g}
-                    onClick={() => updateParam('goal', goal === g ? 'All' : g)}
-                  >
-                    {goalLabel(g)}
-                  </button>
-                ))}
+                {GOAL_KEYS.map((g) => {
+                  const isActive = goal === g;
+                  const softActive = isActive && g === 'All';
+                  return (
+                    <button
+                      key={g}
+                      className={`el-chip ${isActive ? 'active' : ''}${softActive ? ' el-chip--soft' : ''}`}
+                      aria-pressed={isActive}
+                      onClick={() => updateParam('goal', isActive ? 'All' : g)}
+                    >
+                      {goalLabel(g)}
+                    </button>
+                  );
+                })}
               </div>
             </div>
             <div className="el-filter-row">
               <span className="el-filter-label">{t('programLibrary.filters.duration', { defaultValue: 'Duration' })}</span>
               <div className="el-chips">
-                {DURATION_KEYS.map((d) => (
-                  <button
-                    key={d}
-                    className={`el-chip ${duration === d ? 'active' : ''}`}
-                    aria-pressed={duration === d}
-                    onClick={() => updateParam('dur', duration === d ? 'Any' : d)}
-                  >
-                    {durationLabel(d)}
-                  </button>
-                ))}
+                {DURATION_KEYS.map((d) => {
+                  const isActive = duration === d;
+                  const softActive = isActive && d === 'Any';
+                  return (
+                    <button
+                      key={d}
+                      className={`el-chip ${isActive ? 'active' : ''}${softActive ? ' el-chip--soft' : ''}`}
+                      aria-pressed={isActive}
+                      onClick={() => updateParam('dur', isActive ? 'Any' : d)}
+                    >
+                      {durationLabel(d)}
+                    </button>
+                  );
+                })}
               </div>
             </div>
             {filtersActive && (
@@ -378,36 +394,30 @@ export default function ProgramLibrary() {
             </div>
           )}
 
-          {!loading && filtered.length === 0 && (
-            <div className="el-empty">
-              <div className="el-empty-icon" aria-hidden="true">
-                <EmojiIcon icon={Frown} size={40} />
+          {!loading && (
+            <>
+              {noMatches && (
+                <div className="wk-preview-fallback" role="status">
+                  {t('programLibrary.previewFallback')}
+                </div>
+              )}
+              <div className="wk-groups">
+                {(Object.keys(groupedByGoal) as Array<keyof typeof groupedByGoal>).map((g) => {
+                  const items = groupedByGoal[g];
+                  if (items.length === 0) return null;
+                  return (
+                    <section key={g} className="wk-group" aria-labelledby={`wk-group-${g}`}>
+                      <header className="wk-group-header">
+                        <h2 id={`wk-group-${g}`} className="wk-group-title font-display">{goalLabel(g)}</h2>
+                      </header>
+                      <div className="wk-group-grid">
+                        {items.slice(0, 3).map(renderCard)}
+                      </div>
+                    </section>
+                  );
+                })}
               </div>
-              <p className="el-empty-text">{t('programLibrary.empty.title')}</p>
-              <p className="el-empty-sub">{t('programLibrary.empty.subtitle')}</p>
-              <button className="el-empty-clear" onClick={clearAll}>
-                {t('common.clearFilters', { defaultValue: 'Clear filters' })}
-              </button>
-            </div>
-          )}
-
-          {!loading && filtered.length > 0 && (
-            <div className="wk-groups">
-              {(Object.keys(groupedByGoal) as Array<keyof typeof groupedByGoal>).map((g) => {
-                const items = groupedByGoal[g];
-                if (items.length === 0) return null;
-                return (
-                  <section key={g} className="wk-group" aria-labelledby={`wk-group-${g}`}>
-                    <header className="wk-group-header">
-                      <h2 id={`wk-group-${g}`} className="wk-group-title font-display">{goalLabel(g)}</h2>
-                    </header>
-                    <div className="wk-group-grid">
-                      {items.slice(0, 3).map(renderCard)}
-                    </div>
-                  </section>
-                );
-              })}
-            </div>
+            </>
           )}
         </div>
       </main>
