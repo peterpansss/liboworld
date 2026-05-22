@@ -186,7 +186,10 @@ function workoutHeroExercise(
   // Parent canonical with no own video — fall back to a child variant's
   // thumbnail (the same pattern ExerciseLibrary uses for grid cards).
   if (exercises) {
-    const childWithVideo = exercises.find(e => e.parentId === ex.id && e.videoUrl);
+    const childWithVideo = exercises.find(e =>
+      (e.parentId === ex.id || (e.parentName && e.parentName === ex.name))
+      && e.videoUrl
+    );
     if (childWithVideo) return childWithVideo;
   }
   return ex;

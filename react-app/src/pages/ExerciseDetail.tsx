@@ -253,7 +253,12 @@ export default function ExerciseDetail() {
   const videoSource = useMemo(() => {
     if (!exercise) return null;
     if (exercise.videoUrl) return exercise;
-    const child = exercises.find(e => e.parentId === exercise.id && e.videoUrl);
+    // Some bundled rows carry stale parent ids that don't link in this snapshot;
+    // parentName is the reliable link.
+    const child = exercises.find(e =>
+      (e.parentId === exercise.id || (e.parentName && e.parentName === exercise.name))
+      && e.videoUrl
+    );
     return child ?? exercise;
   }, [exercise, exercises]);
 
