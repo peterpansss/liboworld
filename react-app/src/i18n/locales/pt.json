@@ -494,8 +494,9 @@
     "resultsCountSuffix": "treinos",
     "loading": "Carregando treinos...",
     "empty": {
-      "title": "Nenhum treino combina com seus filtros",
-      "subtitle": "Ajuste sua busca ou limpe os filtros"
+      "title": "Nenhum treino combina com seus filtros.",
+      "subtitle": "Ajuste sua busca ou limpe os filtros",
+      "tryRemove": "Try removing a filter →"
     },
     "card": {
       "minutes": "{{count}} min"

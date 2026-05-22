@@ -9,7 +9,8 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { EmojiIcon } from '../components/EmojiIcon';
 import WorkoutsAppCTA from '../components/WorkoutsAppCTA';
-import { Hourglass, Frown } from '../utils/icons';
+import { Hourglass, Search, ICON_STROKE } from '../utils/icons';
+import { useDebouncedValue } from '../utils/useDebouncedValue';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
 
@@ -129,10 +130,15 @@ export default function ProgramLibrary() {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
+  // First visit this session: pop the dropdown open so users discover the
+  // Goal/Duration filters. After they collapse it once, the flag persists for
+  // the rest of the session. URL-driven active filters always force it open.
   const [filtersOpen, setFiltersOpen] = useState(() => {
     const g = searchParams.get('goal') || 'All';
     const d = searchParams.get('dur') || 'Any';
-    return g !== 'All' || d !== 'Any';
+    const hasSeen = typeof window !== 'undefined'
+      && window.sessionStorage.getItem('wk-filters-seen') === '1';
+    return g !== 'All' || d !== 'Any' || !hasSeen;
   });
 
   const search = searchParams.get('q') || '';
@@ -230,8 +236,36 @@ export default function ProgramLibrary() {
   }, [setSearchParams]);
 
   function clearAll() {
+    setSearchInput('');
     setSearchParams({}, { replace: true });
   }
+
+  const toggleFilters = useCallback(() => {
+    setFiltersOpen((o) => {
+      const next = !o;
+      // Sticky-collapse: once the user closes the panel, don't auto-open it
+      // again this session.
+      if (!next && typeof window !== 'undefined') {
+        window.sessionStorage.setItem('wk-filters-seen', '1');
+      }
+      return next;
+    });
+  }, []);
+
+  // Search input: local state debounced 200ms into the URL ?q= param.
+  const [searchInput, setSearchInput] = useState(search);
+  const debouncedSearch = useDebouncedValue(searchInput, 200);
+
+  useEffect(() => {
+    if (debouncedSearch !== search) {
+      updateParam('q', debouncedSearch);
+    }
+  }, [debouncedSearch, search, updateParam]);
+
+  useEffect(() => {
+    // External clear (Clear filters button, URL nav) needs to flush the input.
+    if (search === '' && searchInput !== '') setSearchInput('');
+  }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function renderCard(w: Workout) {
     const heroThumb = workoutHeroThumbSet(w, nameToSlug, exercises);
@@ -290,20 +324,34 @@ export default function ProgramLibrary() {
             </p>
           </div>
 
-          <div className="el-primary-bar">
-            <div className="el-filter-row el-filter-row--primary">
+          <div className="el-primary-bar wk-primary-bar">
+            <div className="el-search-wrap">
+              <Search className="el-search-icon" strokeWidth={ICON_STROKE} aria-hidden />
+              <input
+                type="search"
+                className="el-search"
+                placeholder={t('programLibrary.searchPlaceholder')}
+                aria-label={t('programLibrary.searchAria')}
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+            </div>
+
+            <div className="el-filter-row el-filter-row--primary wk-cat-row">
               <div className="el-chips">
                 {CAT_KEYS.map((c: CatKey) => {
+                  const isAll = c === 'All';
                   const isActive = (cat || 'All') === c;
+                  const softActive = isActive && isAll;
                   return (
                     <button
                       key={c}
                       type="button"
-                      className={`el-chip ${isActive ? 'active' : ''}`}
+                      className={`el-chip ${isActive ? 'active' : ''}${softActive ? ' el-chip--soft' : ''}`}
                       aria-pressed={isActive}
-                      onClick={() => updateParam('cat', c === 'All' ? '' : c)}
+                      onClick={() => updateParam('cat', isAll ? '' : c)}
                     >
-                      {c === 'All'
+                      {isAll
                         ? t('programLibrary.filters.catAll', { defaultValue: 'All' })
                         : categoryBadgeLabel(c)}
                     </button>
@@ -314,10 +362,10 @@ export default function ProgramLibrary() {
 
             <button
               type="button"
-              className="el-filters-toggle"
+              className="el-filters-toggle wk-filters-toggle"
               aria-expanded={filtersOpen}
               aria-controls="el-filters"
-              onClick={() => setFiltersOpen(o => !o)}
+              onClick={toggleFilters}
             >
               <span>
                 {t('exerciseLibrary.filtersToggle', { defaultValue: 'Filters' })}
@@ -331,35 +379,43 @@ export default function ProgramLibrary() {
             </button>
           </div>
 
-          <div id="el-filters" className={`el-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
+          <div id="el-filters" className={`el-filters wk-filters ${filtersOpen ? 'el-filters--open' : ''}`}>
             <div className="el-filter-row">
               <span className="el-filter-label">{t('programLibrary.filters.goal', { defaultValue: 'Goal' })}</span>
               <div className="el-chips">
-                {GOAL_KEYS.map((g) => (
-                  <button
-                    key={g}
-                    className={`el-chip ${goal === g ? 'active' : ''}`}
-                    aria-pressed={goal === g}
-                    onClick={() => updateParam('goal', goal === g ? 'All' : g)}
-                  >
-                    {goalLabel(g)}
-                  </button>
-                ))}
+                {GOAL_KEYS.map((g) => {
+                  const isActive = goal === g;
+                  const softActive = isActive && g === 'All';
+                  return (
+                    <button
+                      key={g}
+                      className={`el-chip ${isActive ? 'active' : ''}${softActive ? ' el-chip--soft' : ''}`}
+                      aria-pressed={isActive}
+                      onClick={() => updateParam('goal', isActive ? 'All' : g)}
+                    >
+                      {goalLabel(g)}
+                    </button>
+                  );
+                })}
               </div>
             </div>
             <div className="el-filter-row">
               <span className="el-filter-label">{t('programLibrary.filters.duration', { defaultValue: 'Duration' })}</span>
               <div className="el-chips">
-                {DURATION_KEYS.map((d) => (
-                  <button
-                    key={d}
-                    className={`el-chip ${duration === d ? 'active' : ''}`}
-                    aria-pressed={duration === d}
-                    onClick={() => updateParam('dur', duration === d ? 'Any' : d)}
-                  >
-                    {durationLabel(d)}
-                  </button>
-                ))}
+                {DURATION_KEYS.map((d) => {
+                  const isActive = duration === d;
+                  const softActive = isActive && d === 'Any';
+                  return (
+                    <button
+                      key={d}
+                      className={`el-chip ${isActive ? 'active' : ''}${softActive ? ' el-chip--soft' : ''}`}
+                      aria-pressed={isActive}
+                      onClick={() => updateParam('dur', isActive ? 'Any' : d)}
+                    >
+                      {durationLabel(d)}
+                    </button>
+                  );
+                })}
               </div>
             </div>
             {filtersActive && (
@@ -379,15 +435,13 @@ export default function ProgramLibrary() {
           )}
 
           {!loading && filtered.length === 0 && (
-            <div className="el-empty">
-              <div className="el-empty-icon" aria-hidden="true">
-                <EmojiIcon icon={Frown} size={40} />
-              </div>
-              <p className="el-empty-text">{t('programLibrary.empty.title')}</p>
-              <p className="el-empty-sub">{t('programLibrary.empty.subtitle')}</p>
-              <button className="el-empty-clear" onClick={clearAll}>
-                {t('common.clearFilters', { defaultValue: 'Clear filters' })}
-              </button>
+            <div className="wk-empty-inline">
+              <p className="wk-empty-text">
+                {t('programLibrary.empty.title')}{' '}
+                <button type="button" className="wk-empty-link" onClick={clearAll}>
+                  {t('programLibrary.empty.tryRemove')}
+                </button>
+              </p>
             </div>
           )}
 

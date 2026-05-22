@@ -494,8 +494,9 @@
     "resultsCountSuffix": "entrenamientos",
     "loading": "Cargando entrenamientos...",
     "empty": {
-      "title": "Ningún entrenamiento coincide con tus filtros",
-      "subtitle": "Ajusta tu búsqueda o quita los filtros"
+      "title": "Ningún entrenamiento coincide con tus filtros.",
+      "subtitle": "Ajusta tu búsqueda o quita los filtros",
+      "tryRemove": "Try removing a filter →"
     },
     "card": {
       "minutes": "{{count}} min"

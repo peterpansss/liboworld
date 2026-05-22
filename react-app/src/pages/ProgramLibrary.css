@@ -126,6 +126,74 @@
   }
 }
 
+/* ── Primary bar layout: search input + Equipment chips + Filters toggle.
+       Search takes the top row on its own; Equipment chips + dropdown sit on
+       the second row. Use grid so the dropdown trigger snaps to the right edge. */
+.wk-primary-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "search search"
+    "cats   toggle";
+  align-items: center;
+  row-gap: 12px;
+  column-gap: 16px;
+}
+.wk-primary-bar .el-search-wrap { grid-area: search; flex: none; width: 100%; min-width: 0; }
+.wk-primary-bar .wk-cat-row     { grid-area: cats; min-width: 0; }
+.wk-primary-bar .wk-filters-toggle { grid-area: toggle; }
+
+/* ── Desktop ≥1024px: pop the Goal/Duration filters out of the dropdown into
+       always-visible rows below the primary bar. The toggle button is hidden
+       — discovery is the whole point. */
+@media (min-width: 1024px) {
+  .wk-filters-toggle { display: none; }
+  .wk-filters { display: flex; }
+}
+
+/* ── Soft-active variant for the "All" / "Any" chip when it's the default
+       selection. Keeps the loud lime fill reserved for explicit picks so the
+       row doesn't look like everything is selected at once. */
+.el-chip.active.el-chip--soft {
+  background: var(--bg3);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.el-chip.active.el-chip--soft:hover {
+  background: rgba(202, 255, 0, 0.08);
+  color: var(--accent);
+}
+
+/* ── Inline empty state — one sentence with a clickable suffix. ── */
+.wk-empty-inline {
+  padding: 60px 16px;
+  text-align: center;
+}
+.wk-empty-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+.wk-empty-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.wk-empty-link:hover { opacity: 0.85; }
+.wk-empty-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* ── Clear filters (inside the el-filters block, only when filters active) ── */
 .wk-clear-filters {
   align-self: flex-start;

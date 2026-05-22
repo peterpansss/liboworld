@@ -769,8 +769,9 @@
     "resultsCountSuffix": "Workouts",
     "loading": "Workouts werden geladen...",
     "empty": {
-      "title": "Keine Workouts passen zu deinen Filtern",
-      "subtitle": "Passe deine Suche an oder setz die Filter zurück"
+      "title": "Keine Workouts passen zu deinen Filtern.",
+      "subtitle": "Passe deine Suche an oder setz die Filter zurück",
+      "tryRemove": "Try removing a filter →"
     },
     "card": {
       "minutes": "{{count}} Min"
