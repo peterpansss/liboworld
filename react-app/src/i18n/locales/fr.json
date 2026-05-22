@@ -565,7 +565,25 @@
     "q7": "Puis-je suivre des programmes structurés ?",
     "a7": "Oui. Libo inclut des programmes sur plusieurs semaines conçus pour des objectifs précis — prise de muscle, perte de gras, mobilité et plus encore. Suis le plan, enregistre ta progression et vois de vrais résultats.",
     "q8": "Libo suit-il ma progression ?",
-    "a8": "Chaque série, rep et poids est enregistré. Libo suit ton historique d'entraînement, tes records personnels, tes séries et affiche ta progression dans le temps avec des graphiques clairs."
+    "a8": "Chaque série, rep et poids est enregistré. Libo suit ton historique d'entraînement, tes records personnels, tes séries et affiche ta progression dans le temps avec des graphiques clairs.",
+    "androidAnswerPrelaunch": "Libo will launch on iOS first. Android support is on our roadmap — we'll announce a date once it's locked. Sign up for the waitlist above to be notified when iOS launches."
+  },
+  "waitlist": {
+    "buttonLabel": "JOIN THE WAITLIST",
+    "modalHeading": "JOIN THE WAITLIST",
+    "modalSubhead": "Get early access when Libo launches. We'll email you when it's ready.",
+    "emailPlaceholder": "Your email",
+    "submitLabel": "GET EARLY ACCESS",
+    "disclosure": "We won't spam you. Unsubscribe any time.",
+    "successHeading": "YOU'RE IN.",
+    "successBody": "We'll email you when Libo launches. Follow @libo for sneak peeks.",
+    "duplicateMessage": "You're already on the waitlist!",
+    "errorMessage": "Something went wrong. Please try again.",
+    "heroComingSoonEyebrow": "COMING SOON",
+    "heroIosFirstLabel": "iOS first. Free forever tier.",
+    "qrCloserEyebrow": "GET EARLY ACCESS",
+    "qrCloserHeading": "BE FIRST.",
+    "qrCloserDisclosure": "We email you when the app launches. No spam."
   },
   "blogPreview": {
     "eyebrow": "Depuis le blog",

@@ -10,6 +10,9 @@ import CommunityConstellation from '../components/CommunityConstellation';
 import BetaReviews from '../components/BetaReviews';
 import AppStoreBadge from '../components/AppStoreBadge';
 import { EmojiIcon } from '../components/EmojiIcon';
+import WaitlistButton from '../components/WaitlistButton';
+import WaitlistInlineForm from '../components/WaitlistInlineForm';
+import { isPrelaunch } from '../config/launchMode';
 import './Landing.css';
 
 // ── Helpers ──
@@ -159,7 +162,7 @@ export default function Landing() {
 
   const FAQ_ITEMS = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
     q: t(`faq.q${n}`),
-    a: t(`faq.a${n}`),
+    a: n === 5 && isPrelaunch() ? t('faq.androidAnswerPrelaunch') : t(`faq.a${n}`),
   }));
 
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(false);
@@ -445,6 +448,9 @@ export default function Landing() {
       <section className="hero">
         <div className="hero-content">
           <div className="hero-text">
+            {isPrelaunch() && (
+              <div className="hero-coming-soon-eyebrow">{t('waitlist.heroComingSoonEyebrow')}</div>
+            )}
             <h1 className="hero-headline display display-xl">
               <span className={`line-1 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.2s' }}>{t('hero.headline1')}</span>
               <span className={`line-2 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.35s' }}>{t('hero.headline2')}</span>
@@ -491,6 +497,12 @@ export default function Landing() {
               </div>
             </div>
           </div>
+          {isPrelaunch() && (
+            <div className="hero-cta-row">
+              <WaitlistButton variant="hero" />
+              <p className="hero-cta-disclosure">{t('waitlist.heroIosFirstLabel')}</p>
+            </div>
+          )}
         </div>
 
         <div className={`scroll-indicator${scrollIndicatorVisible ? ' visible' : ''}`}>
@@ -753,24 +765,38 @@ export default function Landing() {
       {/* ── QR + APP STORE CLOSER ── */}
       <section className="qr-closer" id="get-the-app">
         <div className="qr-closer-inner reveal">
-          <div className="label qr-closer-eyebrow">{t('qrCloser.eyebrow')}</div>
-          <h2 className="display display-lg font-display qr-closer-headline">{t('qrCloser.headline')}</h2>
-          <p className="qr-closer-sub">{t('qrCloser.subline')}</p>
-          <div className="qr-closer-row">
-            <div className="qr-closer-qr">
-              <img
-                src="/images/qr-app-store.svg"
-                alt={t('qrCloser.qrAlt')}
-                width={120}
-                height={120}
-              />
-              <span className="qr-closer-caption">{t('qrCloser.scanCaption')}</span>
-            </div>
-            <div className="qr-closer-badge">
-              <AppStoreBadge className="qr-closer-badge-link" />
-              <span className="qr-closer-caption">{t('qrCloser.platformNote')}</span>
-            </div>
-          </div>
+          {isPrelaunch() ? (
+            <>
+              <div className="label qr-closer-eyebrow">{t('waitlist.qrCloserEyebrow')}</div>
+              <h2 className="display display-lg font-display qr-closer-headline">{t('waitlist.qrCloserHeading')}</h2>
+              <p className="qr-closer-sub">{t('qrCloser.subline')}</p>
+              <div className="qr-closer-waitlist">
+                <WaitlistInlineForm />
+                <p className="qr-closer-caption qr-closer-waitlist-note">{t('waitlist.qrCloserDisclosure')}</p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="label qr-closer-eyebrow">{t('qrCloser.eyebrow')}</div>
+              <h2 className="display display-lg font-display qr-closer-headline">{t('qrCloser.headline')}</h2>
+              <p className="qr-closer-sub">{t('qrCloser.subline')}</p>
+              <div className="qr-closer-row">
+                <div className="qr-closer-qr">
+                  <img
+                    src="/images/qr-app-store.svg"
+                    alt={t('qrCloser.qrAlt')}
+                    width={120}
+                    height={120}
+                  />
+                  <span className="qr-closer-caption">{t('qrCloser.scanCaption')}</span>
+                </div>
+                <div className="qr-closer-badge">
+                  <AppStoreBadge className="qr-closer-badge-link" />
+                  <span className="qr-closer-caption">{t('qrCloser.platformNote')}</span>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

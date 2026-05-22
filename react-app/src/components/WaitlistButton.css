@@ -1,0 +1,31 @@
+.waitlist-button {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--accent-text);
+  border: none;
+  border-radius: 100px;
+  padding: 14px 28px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.waitlist-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.waitlist-button:active {
+  transform: scale(0.97);
+}
+
+.waitlist-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
