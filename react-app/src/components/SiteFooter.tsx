@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import LiboLogo from './LiboLogo';
+import { isPrelaunch } from '../config/launchMode';
 import './SiteFooter.css';
 
 export default function SiteFooter() {
@@ -35,9 +36,9 @@ export default function SiteFooter() {
             <div className="site-footer__col-links">
               <Link to="/pricing">{t('footer.pricing')}</Link>
               <Link to="/#features">{t('footer.features')}</Link>
-              <Link to="/#rewards">{t('footer.rewardsLink')}</Link>
-              <Link to="/giveaway">{t('footer.giveaways')}</Link>
-              <Link to="/cash-challenge">{t('footer.cashChallenges')}</Link>
+              {!isPrelaunch() && (<Link to="/#rewards">{t('footer.rewardsLink')}</Link>)}
+              {!isPrelaunch() && (<Link to="/giveaway">{t('footer.giveaways')}</Link>)}
+              {!isPrelaunch() && (<Link to="/cash-challenge">{t('footer.cashChallenges')}</Link>)}
               <Link to="/affiliate">{t('footer.affiliate', { defaultValue: 'Affiliate Program' })}</Link>
             </div>
           </div>

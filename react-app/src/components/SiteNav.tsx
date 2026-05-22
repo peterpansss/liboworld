@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LiboLogo from './LiboLogo';
+import { isPrelaunch } from '../config/launchMode';
 import './SiteNav.css';
 
 // Top-level desktop nav items. Reward Club is the only parent that
@@ -123,43 +124,45 @@ export default function SiteNav() {
             ))}
 
             {/* Reward Club dropdown */}
-            <li
-              ref={rewardWrapRef}
-              className={`site-nav__dropdown${rewardOpen ? ' site-nav__dropdown--open' : ''}`}
-              onMouseEnter={() => setRewardOpen(true)}
-              onMouseLeave={() => setRewardOpen(false)}
-            >
-              <button
-                type="button"
-                className={`site-nav__link site-nav__dropdown-trigger${
-                  REWARD_CLUB_CHILDREN.some((c) => isActive(c.to)) ? ' site-nav__link--active' : ''
-                }`}
-                aria-haspopup="menu"
-                aria-expanded={rewardOpen}
-                onClick={() => setRewardOpen((o) => !o)}
+            {!isPrelaunch() && (
+              <li
+                ref={rewardWrapRef}
+                className={`site-nav__dropdown${rewardOpen ? ' site-nav__dropdown--open' : ''}`}
+                onMouseEnter={() => setRewardOpen(true)}
+                onMouseLeave={() => setRewardOpen(false)}
               >
-                {t('nav.rewardClub', { defaultValue: 'Reward Club' })}
-                <span className="site-nav__dropdown-caret" aria-hidden>▾</span>
-              </button>
-              <ul className="site-nav__dropdown-menu site-nav__dropdown-menu--mega" role="menu">
-                {REWARD_CLUB_CHILDREN.map(({ labelKey, defaultLabel, descriptionKey, defaultDescription, to }) => (
-                  <li key={to} role="none">
-                    <Link
-                      to={to}
-                      role="menuitem"
-                      className={`site-nav__dropdown-item site-nav__dropdown-item--mega${isActive(to) ? ' site-nav__dropdown-item--active' : ''}`}
-                      aria-current={isActive(to) ? 'page' : undefined}
-                      onClick={() => setRewardOpen(false)}
-                    >
-                      <span className="site-nav__dropdown-item-text">
-                        <span className="site-nav__dropdown-item-title">{t(labelKey, { defaultValue: defaultLabel })}</span>
-                        <span className="site-nav__dropdown-item-desc">{t(descriptionKey, { defaultValue: defaultDescription })}</span>
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
+                <button
+                  type="button"
+                  className={`site-nav__link site-nav__dropdown-trigger${
+                    REWARD_CLUB_CHILDREN.some((c) => isActive(c.to)) ? ' site-nav__link--active' : ''
+                  }`}
+                  aria-haspopup="menu"
+                  aria-expanded={rewardOpen}
+                  onClick={() => setRewardOpen((o) => !o)}
+                >
+                  {t('nav.rewardClub', { defaultValue: 'Reward Club' })}
+                  <span className="site-nav__dropdown-caret" aria-hidden>▾</span>
+                </button>
+                <ul className="site-nav__dropdown-menu site-nav__dropdown-menu--mega" role="menu">
+                  {REWARD_CLUB_CHILDREN.map(({ labelKey, defaultLabel, descriptionKey, defaultDescription, to }) => (
+                    <li key={to} role="none">
+                      <Link
+                        to={to}
+                        role="menuitem"
+                        className={`site-nav__dropdown-item site-nav__dropdown-item--mega${isActive(to) ? ' site-nav__dropdown-item--active' : ''}`}
+                        aria-current={isActive(to) ? 'page' : undefined}
+                        onClick={() => setRewardOpen(false)}
+                      >
+                        <span className="site-nav__dropdown-item-text">
+                          <span className="site-nav__dropdown-item-title">{t(labelKey, { defaultValue: defaultLabel })}</span>
+                          <span className="site-nav__dropdown-item-desc">{t(descriptionKey, { defaultValue: defaultDescription })}</span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            )}
 
             {/* Blog (plain link — replaces former Articles dropdown) */}
             <li>
@@ -231,7 +234,7 @@ export default function SiteNav() {
         <div className="site-nav__drawer-links">
           {[
             ...NAV_LINKS.slice(0, 2),
-            ...REWARD_CLUB_CHILDREN,
+            ...(isPrelaunch() ? [] : REWARD_CLUB_CHILDREN),
             { labelKey: 'nav.blog', defaultLabel: 'Blog', to: '/blog' },
             ...NAV_LINKS.slice(2),
           ].map(({ labelKey, defaultLabel, to }) => (
