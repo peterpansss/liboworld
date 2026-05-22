@@ -13,6 +13,7 @@ function ScrollToTop() {
 // Marketing pages
 import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
+import { isPrelaunch } from './config/launchMode';
 
 // Content pages — lazy loaded
 const Careers = lazy(() => import('./pages/Careers'));
@@ -61,8 +62,8 @@ export default function App() {
         <Route path="/privacy" element={<Suspense fallback={darkFallback}><Privacy /></Suspense>} />
         <Route path="/terms" element={<Suspense fallback={darkFallback}><Terms /></Suspense>} />
         <Route path="/auth/callback" element={<Suspense fallback={darkFallback}><AuthCallback /></Suspense>} />
-        <Route path="/giveaway" element={<Suspense fallback={darkFallback}><Giveaway /></Suspense>} />
-        <Route path="/cash-challenge" element={<Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
+        <Route path="/giveaway" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><Giveaway /></Suspense>} />
+        <Route path="/cash-challenge" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
         <Route path="/get-app" element={<Suspense fallback={darkFallback}><GetApp /></Suspense>} />
         <Route path="/founder" element={<Suspense fallback={darkFallback}><Founder /></Suspense>} />
         <Route path="/affiliate" element={<Suspense fallback={darkFallback}><Affiliate /></Suspense>} />

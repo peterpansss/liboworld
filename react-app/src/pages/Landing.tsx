@@ -557,6 +557,7 @@ export default function Landing() {
       </section>
 
       {/* ── REWARDS ── */}
+      {!isPrelaunch() && (
       <section className="rewards-section" id="rewards">
         <div className="rewards-inner">
           <div className="rewards-left reveal">
@@ -610,6 +611,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── COMMUNITY CONSTELLATION ── */}
       <CommunityConstellation />

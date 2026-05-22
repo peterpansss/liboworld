@@ -8,8 +8,10 @@
  * (modal mounting, step transitions, form validation).
  */
 import { test, expect } from '@playwright/test';
+import { isPrelaunch } from '../src/config/launchMode';
 
 test.describe('Giveaway checkout', () => {
+  test.skip(isPrelaunch(), 'Giveaway funnel is gated behind LAUNCH_MODE');
   test.beforeEach(async ({ page }) => {
     await page.route('**/rest/v1/giveaways*', (route) =>
       route.fulfill({
