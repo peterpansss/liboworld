@@ -590,18 +590,18 @@
   "challengeWaitlist": {
     "buttonLabel": "RESERVE MY SLOT",
     "modalHeading": "RESERVE YOUR CHALLENGE SLOT",
-    "modalSubhead": "The first 50 signups get a guaranteed spot in cycle #1 of the 30-day Consistency Challenge that pays cash. Hit daily reps. Don't break the chain. Get paid.",
+    "modalSubhead": "When Libo launches you've got 30 minutes head-start to download. The first 50 reservation holders through the door lock in cycle #1. Miss the window? Your reservation rolls to cycle #2 — still ahead of the public.",
     "emailPlaceholder": "Your email",
     "submitLabel": "HOLD MY SLOT",
     "disclosure": "We won't spam you. Unsubscribe any time.",
     "successHeading": "YOU'RE RESERVED.",
-    "successBody": "Slot held for cycle #1. We'll email you the moment the app drops.",
-    "duplicateMessage": "You're already reserved for the first cycle!",
+    "successBody": "We'll email you when Libo launches. First 50 to download lock in cycle #1; the rest roll to cycle #2.",
+    "duplicateMessage": "You're already reserved!",
     "errorMessage": "Something went wrong. Please try again.",
-    "cardEyebrow": "CASH CHALLENGE — RESERVED SLOTS",
-    "cardHeadline": "First 50 signups get cycle #1.",
+    "cardEyebrow": "CASH CHALLENGE — EARLY ACCESS",
+    "cardHeadline": "30-min head-start at launch.",
     "cardDisclosure": "30-day Consistency Challenge that pays cash. iOS first.",
-    "spotsPrelaunch": "First 50 signups get a guaranteed slot in cycle #1."
+    "spotsPrelaunch": "Reserve now — first 50 to download at launch lock in cycle #1. Miss the window? Front-of-line for cycle #2."
   },
   "blogPreview": {
     "eyebrow": "Do Blog",
