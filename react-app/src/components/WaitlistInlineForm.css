@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+/* Challenge variant — placeholder hook for future styling. */
+.waitlist-inline--challenge {
+  /* no overrides yet */
+}
+
 .waitlist-inline-form {
   display: flex;
   flex-direction: column;

@@ -5,7 +5,9 @@ import { supabase } from '../lib/supabase';
 
 export type WaitlistStatus = 'idle' | 'submitting' | 'success' | 'duplicate' | 'error';
 
-export function useWaitlistSubmit(): {
+export type WaitlistSource = 'homepage_waitlist' | 'challenge_waitlist';
+
+export function useWaitlistSubmit(source: WaitlistSource = 'homepage_waitlist'): {
   email: string;
   setEmail: (v: string) => void;
   status: WaitlistStatus;
@@ -31,7 +33,7 @@ export function useWaitlistSubmit(): {
         .from('waitlist')
         .insert({
           email: trimmed.toLowerCase(),
-          source: 'homepage_waitlist',
+          source,
         });
 
       if (!error) {
@@ -46,7 +48,7 @@ export function useWaitlistSubmit(): {
       setStatus('error');
       setErrorMessage(t('waitlist.errorMessage'));
     }
-  }, [email, t]);
+  }, [email, t, source]);
 
   const reset = useCallback(() => {
     setStatus('idle');
