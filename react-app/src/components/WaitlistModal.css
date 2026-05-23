@@ -11,6 +11,11 @@
   animation: waitlist-fade-in 0.2s ease-out;
 }
 
+/* Challenge variant — placeholder hook for future styling. */
+.waitlist-modal--challenge {
+  /* no overrides yet */
+}
+
 .waitlist-modal-sheet {
   position: relative;
   z-index: 1001;

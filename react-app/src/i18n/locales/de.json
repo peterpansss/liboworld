@@ -215,6 +215,22 @@
     "qrCloserHeading": "BE FIRST.",
     "qrCloserDisclosure": "We email you when the app launches. No spam."
   },
+  "challengeWaitlist": {
+    "buttonLabel": "RESERVE MY SLOT",
+    "modalHeading": "RESERVE YOUR CHALLENGE SLOT",
+    "modalSubhead": "The first 50 signups get a guaranteed spot in cycle #1 of the 30-day Consistency Challenge that pays cash. Hit daily reps. Don't break the chain. Get paid.",
+    "emailPlaceholder": "Your email",
+    "submitLabel": "HOLD MY SLOT",
+    "disclosure": "We won't spam you. Unsubscribe any time.",
+    "successHeading": "YOU'RE RESERVED.",
+    "successBody": "Slot held for cycle #1. We'll email you the moment the app drops.",
+    "duplicateMessage": "You're already reserved for the first cycle!",
+    "errorMessage": "Something went wrong. Please try again.",
+    "cardEyebrow": "CASH CHALLENGE — RESERVED SLOTS",
+    "cardHeadline": "First 50 signups get cycle #1.",
+    "cardDisclosure": "30-day Consistency Challenge that pays cash. iOS first.",
+    "spotsPrelaunch": "First 50 signups get a guaranteed slot in cycle #1."
+  },
   "blogPreview": {
     "eyebrow": "Aus dem Blog",
     "headline": "Guides & Insights.",

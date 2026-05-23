@@ -5,15 +5,24 @@ import WaitlistModal from './WaitlistModal';
 import './WaitlistButton.css';
 
 type Props = {
-  variant?: 'hero' | 'inline';
+  size?: 'hero' | 'inline';
+  variant?: 'generic' | 'challenge';
   className?: string;
 };
 
-export default function WaitlistButton({ variant = 'hero', className }: Props) {
+export default function WaitlistButton({
+  size = 'hero',
+  variant = 'generic',
+  className,
+}: Props) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
-  const classes = ['waitlist-button', `waitlist-button--${variant}`];
+  const labelKey =
+    variant === 'challenge' ? 'challengeWaitlist.buttonLabel' : 'waitlist.buttonLabel';
+
+  const classes = ['waitlist-button', `waitlist-button--${size}`];
+  if (variant === 'challenge') classes.push('waitlist-button--challenge');
   if (className) classes.push(className);
 
   return (
@@ -23,10 +32,10 @@ export default function WaitlistButton({ variant = 'hero', className }: Props) {
         className={classes.join(' ')}
         onClick={() => setOpen(true)}
       >
-        {t('waitlist.buttonLabel')} →
+        {t(labelKey)} →
       </button>
       {createPortal(
-        <WaitlistModal open={open} onClose={() => setOpen(false)} />,
+        <WaitlistModal open={open} onClose={() => setOpen(false)} variant={variant} />,
         document.body,
       )}
     </>

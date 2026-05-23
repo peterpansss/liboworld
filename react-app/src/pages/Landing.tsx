@@ -499,7 +499,7 @@ export default function Landing() {
           </div>
           {isPrelaunch() && (
             <div className="hero-cta-row">
-              <WaitlistButton variant="hero" />
+              <WaitlistButton size="hero" />
               <p className="hero-cta-disclosure">{t('waitlist.heroIosFirstLabel')}</p>
             </div>
           )}
@@ -557,7 +557,6 @@ export default function Landing() {
       </section>
 
       {/* ── REWARDS ── */}
-      {!isPrelaunch() && (
       <section className="rewards-section" id="rewards">
         <div className="rewards-inner">
           <div className="rewards-left reveal">
@@ -605,13 +604,20 @@ export default function Landing() {
               </div>
               <div className="rewards-spots">
                 <span className="rewards-spots-dot" />
-                {t('rewards.spots')}
+                {isPrelaunch() ? t('challengeWaitlist.spotsPrelaunch') : t('rewards.spots')}
               </div>
+              {isPrelaunch() && (
+                <div className="rewards-cta-cluster">
+                  <div className="rewards-cta-eyebrow">{t('challengeWaitlist.cardEyebrow')}</div>
+                  <div className="rewards-cta-headline">{t('challengeWaitlist.cardHeadline')}</div>
+                  <WaitlistButton variant="challenge" size="inline" className="rewards-cta-button" />
+                  <p className="rewards-cta-disclosure">{t('challengeWaitlist.cardDisclosure')}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </section>
-      )}
 
       {/* ── COMMUNITY CONSTELLATION ── */}
       <CommunityConstellation />
