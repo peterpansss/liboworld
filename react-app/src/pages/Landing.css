@@ -140,6 +140,28 @@ button:focus-visible {
   margin: 0;
   letter-spacing: 0.2px;
 }
+.hero-discovery-link {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.hero-discovery-link:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+.hero-discovery-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
 
 .qr-closer-waitlist {
   margin-top: 32px;

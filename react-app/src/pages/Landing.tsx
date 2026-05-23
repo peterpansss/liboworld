@@ -501,6 +501,16 @@ export default function Landing() {
             <div className="hero-cta-row">
               <WaitlistButton size="hero" />
               <p className="hero-cta-disclosure">{t('waitlist.heroIosFirstLabel')}</p>
+              <a
+                href="#rewards"
+                className="hero-discovery-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToId('rewards');
+                }}
+              >
+                {t('challengeWaitlist.heroDiscoveryLink')}
+              </a>
             </div>
           )}
         </div>
@@ -522,6 +532,69 @@ export default function Landing() {
 
       {/* ── FOUNDER BTS CARD ── */}
       <FounderCard />
+
+      {/* ── REWARDS ── */}
+      <section className="rewards-section" id="rewards">
+        <div className="rewards-inner">
+          <div className="rewards-left reveal">
+            <div className="label label-spaced">{t('rewards.eyebrow')}</div>
+            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>
+              {t('rewards.headline')}
+            </h2>
+            <p className="body-md text-narrow" style={{ marginTop: 28, lineHeight: 1.7 }}>
+              {t('rewards.description')}
+            </p>
+            <div className="rewards-chips">
+              <span className="rewards-chip">{t('rewards.chip1')}</span>
+              <span className="rewards-chip">{t('rewards.chip2')}</span>
+              <span className="rewards-chip">{t('rewards.chip3')}</span>
+            </div>
+          </div>
+          <div className="rewards-right reveal reveal-delay-1">
+            <div className="rewards-gradient-card">
+              <div className="rewards-glass-badge">{t('rewards.badge')}</div>
+              <div className="rewards-big-stat" ref={rewardsStatView.ref}>
+                &euro;{rewardsStat}
+              </div>
+              <div className="rewards-challenge-name font-display">{t('rewards.challengeName')}</div>
+              <div className="rewards-challenge-sub">{t('rewards.challengeSubtitle')}</div>
+              <div className="rewards-flow">
+                <div className="rewards-flow-step">
+                  <div className="rewards-flow-icon"><EmojiIcon emoji={'💪'} size={24} /></div>
+                  <div className="rewards-flow-label">{t('rewards.flowStep1')}</div>
+                </div>
+                <div className="rewards-flow-arrow">&rarr;</div>
+                <div className="rewards-flow-step">
+                  <div className="rewards-flow-icon"><EmojiIcon emoji={'📹'} size={24} /></div>
+                  <div className="rewards-flow-label">{t('rewards.flowStep2')}</div>
+                </div>
+                <div className="rewards-flow-arrow">&rarr;</div>
+                <div className="rewards-flow-step">
+                  <div className="rewards-flow-icon"><EmojiIcon emoji={'📲'} size={24} /></div>
+                  <div className="rewards-flow-label">{t('rewards.flowStep3')}</div>
+                </div>
+                <div className="rewards-flow-arrow">&rarr;</div>
+                <div className="rewards-flow-step">
+                  <div className="rewards-flow-icon accent-glow"><EmojiIcon emoji={'💰'} size={24} color="#CAFF00" /></div>
+                  <div className="rewards-flow-label accent-label">{t('rewards.flowStep4')}</div>
+                </div>
+              </div>
+              <div className="rewards-spots">
+                <span className="rewards-spots-dot" />
+                {isPrelaunch() ? t('challengeWaitlist.spotsPrelaunch') : t('rewards.spots')}
+              </div>
+              {isPrelaunch() && (
+                <div className="rewards-cta-cluster">
+                  <div className="rewards-cta-eyebrow">{t('challengeWaitlist.cardEyebrow')}</div>
+                  <div className="rewards-cta-headline">{t('challengeWaitlist.cardHeadline')}</div>
+                  <WaitlistButton variant="challenge" size="inline" className="rewards-cta-button" />
+                  <p className="rewards-cta-disclosure">{t('challengeWaitlist.cardDisclosure')}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── COMBINED STATEMENT + FEATURES ── */}
       <section className="combined-section" id="features">
@@ -552,69 +625,6 @@ export default function Landing() {
                 <p className="combined-card-desc">{f.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── REWARDS ── */}
-      <section className="rewards-section" id="rewards">
-        <div className="rewards-inner">
-          <div className="rewards-left reveal">
-            <div className="label label-spaced">{t('rewards.eyebrow')}</div>
-            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>
-              {t('rewards.headline')}
-            </h2>
-            <p className="body-md text-narrow" style={{ marginTop: 28, lineHeight: 1.7 }}>
-              {t('rewards.description')}
-            </p>
-            <div className="rewards-chips">
-              <span className="rewards-chip">{t('rewards.chip1')}</span>
-              <span className="rewards-chip">{t('rewards.chip2')}</span>
-              <span className="rewards-chip">{t('rewards.chip3')}</span>
-            </div>
-          </div>
-          <div className="rewards-right reveal reveal-delay-1">
-            <div className="rewards-gradient-card">
-              <div className="rewards-glass-badge">{t('rewards.badge')}</div>
-              <div className="rewards-big-stat" ref={rewardsStatView.ref}>
-                &euro;{rewardsStat}
-              </div>
-              <div className="rewards-challenge-name font-display">{t('rewards.challengeName')}</div>
-              <div className="rewards-challenge-sub">{t('rewards.challengeSubtitle')}</div>
-              <div className="rewards-flow">
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon"><EmojiIcon emoji={'\uD83D\uDCAA'} size={24} /></div>
-                  <div className="rewards-flow-label">{t('rewards.flowStep1')}</div>
-                </div>
-                <div className="rewards-flow-arrow">&rarr;</div>
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon"><EmojiIcon emoji={'\uD83D\uDCF9'} size={24} /></div>
-                  <div className="rewards-flow-label">{t('rewards.flowStep2')}</div>
-                </div>
-                <div className="rewards-flow-arrow">&rarr;</div>
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon"><EmojiIcon emoji={'\uD83D\uDCF2'} size={24} /></div>
-                  <div className="rewards-flow-label">{t('rewards.flowStep3')}</div>
-                </div>
-                <div className="rewards-flow-arrow">&rarr;</div>
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon accent-glow"><EmojiIcon emoji={'\uD83D\uDCB0'} size={24} color="#CAFF00" /></div>
-                  <div className="rewards-flow-label accent-label">{t('rewards.flowStep4')}</div>
-                </div>
-              </div>
-              <div className="rewards-spots">
-                <span className="rewards-spots-dot" />
-                {isPrelaunch() ? t('challengeWaitlist.spotsPrelaunch') : t('rewards.spots')}
-              </div>
-              {isPrelaunch() && (
-                <div className="rewards-cta-cluster">
-                  <div className="rewards-cta-eyebrow">{t('challengeWaitlist.cardEyebrow')}</div>
-                  <div className="rewards-cta-headline">{t('challengeWaitlist.cardHeadline')}</div>
-                  <WaitlistButton variant="challenge" size="inline" className="rewards-cta-button" />
-                  <p className="rewards-cta-disclosure">{t('challengeWaitlist.cardDisclosure')}</p>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </section>
