@@ -5,6 +5,7 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import {
   TIERS,
+  YEARLY_PRICE,
   YEARLY_DISCOUNT,
   TRIAL_DAYS,
   buildHref,
@@ -90,6 +91,11 @@ export default function Pricing() {
                   <div className="pricing-card__price-block">
                     <div className="pricing-card__price font-display">{priceLabel}</div>
                     <div className="pricing-card__price-sub">{priceSubline}</div>
+                    {cycle === 'yearly' && (tier.id === 'premium' || tier.id === 'elite') && (
+                      <div className="pricing-card__price-equivalent">
+                        ≈ €{(YEARLY_PRICE[tier.id] / 12).toFixed(2)}/month, billed annually
+                      </div>
+                    )}
                   </div>
 
                   {tier.id === 'free' ? (

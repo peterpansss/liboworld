@@ -207,6 +207,13 @@
   opacity: 0.7;
 }
 
+.pricing-card__price-equivalent {
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 4px;
+  opacity: 0.55;
+}
+
 .pricing-card__lede {
   font-size: 14px;
   line-height: 1.55;

@@ -26,7 +26,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { colors, webExtras } from '../theme';
-import { TIERS, YEARLY_DISCOUNT, TRIAL_DAYS, buildHref, type Tier, type BillingCycle } from '../data/tiers';
+import { TIERS, YEARLY_PRICE, YEARLY_DISCOUNT, TRIAL_DAYS, buildHref, type Tier, type BillingCycle } from '../data/tiers';
 
 // ── Styles ──
 const sectionStyle: React.CSSProperties = {
@@ -291,6 +291,11 @@ export default function PricingSection() {
                   </span>
                   <span style={{ fontSize: 14, color: colors.muted }}>{priceSub}</span>
                 </div>
+                {cycle === 'yearly' && (tier.id === 'premium' || tier.id === 'elite') && (
+                  <div style={{ fontSize: 12, color: colors.muted, opacity: 0.8, marginBottom: 6 }}>
+                    ≈ €{(YEARLY_PRICE[tier.id] / 12).toFixed(2)}/month, billed annually
+                  </div>
+                )}
 
                 {/* Trial line — only on paid tiers */}
                 <div
