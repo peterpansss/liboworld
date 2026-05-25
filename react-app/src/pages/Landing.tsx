@@ -550,11 +550,13 @@ export default function Landing() {
           <div className="rewards-right reveal reveal-delay-1">
             <div className="rewards-gradient-card">
               <div className="rewards-glass-badge">{t('rewards.badge')}</div>
-              <div className="rewards-big-stat" ref={rewardsStatView.ref}>
-                &euro;{rewardsStat}
+              <div className="rewards-prize">
+                <div className="rewards-big-stat" ref={rewardsStatView.ref}>
+                  &euro;{rewardsStat}
+                </div>
+                <div className="rewards-challenge-name font-display">{t('rewards.challengeName')}</div>
+                <div className="rewards-challenge-sub">{t('rewards.challengeSubtitle')}</div>
               </div>
-              <div className="rewards-challenge-name font-display">{t('rewards.challengeName')}</div>
-              <div className="rewards-challenge-sub">{t('rewards.challengeSubtitle')}</div>
               <div className="rewards-flow">
                 <div className="rewards-flow-step">
                   <div className="rewards-flow-icon"><EmojiIcon emoji={'💪'} size={24} /></div>
@@ -576,16 +578,16 @@ export default function Landing() {
                   <div className="rewards-flow-label accent-label">{t('rewards.flowStep4')}</div>
                 </div>
               </div>
-              <div className="rewards-spots">
-                <span className="rewards-spots-dot" />
-                {isPrelaunch() ? t('challengeWaitlist.spotsPrelaunch') : t('rewards.spots')}
-              </div>
-              {isPrelaunch() && (
-                <div className="rewards-cta-cluster">
-                  <div className="rewards-cta-eyebrow">{t('challengeWaitlist.cardEyebrow')}</div>
-                  <div className="rewards-cta-headline">{t('challengeWaitlist.cardHeadline')}</div>
+              {isPrelaunch() ? (
+                <div className="rewards-reserve">
+                  <p className="rewards-reserve-copy">{t('challengeWaitlist.bodyParagraph')}</p>
                   <WaitlistButton variant="challenge" size="inline" className="rewards-cta-button" />
                   <p className="rewards-cta-disclosure">{t('challengeWaitlist.cardDisclosure')}</p>
+                </div>
+              ) : (
+                <div className="rewards-spots">
+                  <span className="rewards-spots-dot" />
+                  {t('rewards.spots')}
                 </div>
               )}
             </div>

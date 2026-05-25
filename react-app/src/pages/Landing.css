@@ -750,6 +750,9 @@ button:focus-visible {
 }
 .rewards-gradient-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   background: linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 50%, #111 100%);
   border-radius: 24px;
   padding: 48px 40px;
@@ -785,10 +788,14 @@ button:focus-visible {
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
 }
+.rewards-prize {
+  display: flex;
+  flex-direction: column;
+}
 .rewards-challenge-name {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 900;
   color: var(--white);
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -801,9 +808,7 @@ button:focus-visible {
   font-weight: 500;
 }
 .rewards-glass-badge {
-  position: absolute;
-  top: 24px;
-  right: 24px;
+  align-self: flex-start;
   padding: 6px 14px;
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(12px);
@@ -820,8 +825,7 @@ button:focus-visible {
   display: flex;
   align-items: center;
   gap: 0;
-  margin-top: 40px;
-  padding-top: 32px;
+  padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 .rewards-flow-step {
@@ -866,9 +870,9 @@ button:focus-visible {
 }
 .rewards-spots {
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   gap: 8px;
-  margin-top: 32px;
   padding: 10px 18px;
   background: rgba(202, 255, 0, 0.06);
   border: 1px solid rgba(202, 255, 0, 0.15);
@@ -891,39 +895,28 @@ button:focus-visible {
   50% { opacity: 0.3; }
 }
 
-.rewards-cta-cluster {
-  margin-top: 24px;
+.rewards-reserve {
   padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   text-align: center;
 }
 
-.rewards-cta-eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 12px;
-  color: var(--accent);
-}
-
-.rewards-cta-headline {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  font-size: clamp(20px, 3vw, 24px);
-  color: var(--text);
-  line-height: 1.1;
+.rewards-reserve-copy {
   margin: 0;
+  max-width: 360px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
 }
 
 .rewards-cta-button {
-  margin-top: 4px;
+  margin-top: 0;
 }
 
 .rewards-cta-disclosure {
@@ -1916,9 +1909,9 @@ button:focus-visible {
 
   .rewards-left { padding: 32px 16px; }
   .rewards-right { padding: 0 16px 32px; }
-  .rewards-gradient-card { padding: 32px 24px; border-radius: 18px; }
-  .rewards-big-stat { font-size: 64px; }
-  .rewards-challenge-name { font-size: 18px; }
+  .rewards-gradient-card { padding: 24px; border-radius: 18px; gap: 24px; }
+  .rewards-big-stat { font-size: 72px; }
+  .rewards-challenge-name { font-size: 20px; }
   .rewards-flow-icon { width: 38px; height: 38px; font-size: 16px; border-radius: 10px; }
   .rewards-flow-arrow { font-size: 14px; }
 

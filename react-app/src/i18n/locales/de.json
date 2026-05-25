@@ -226,10 +226,8 @@
     "successBody": "We'll email you when Libo launches. First 50 to download lock in cycle #1; the rest roll to cycle #2.",
     "duplicateMessage": "You're already reserved!",
     "errorMessage": "Something went wrong. Please try again.",
-    "cardEyebrow": "CASH CHALLENGE — EARLY ACCESS",
-    "cardHeadline": "30-min head-start at launch.",
     "cardDisclosure": "30-day Consistency Challenge that pays cash. iOS first.",
-    "spotsPrelaunch": "Reserve now — first 50 to download at launch lock in cycle #1. Miss the window? Front-of-line for cycle #2.",
+    "bodyParagraph": "Reserve your slot to lock in cycle #1 at launch. Only 50 spots per cycle — miss this one and you're front-of-line for cycle #2.",
     "heroDiscoveryLink": "🔥 Cash payouts? Reserve cycle #1 →"
   },
   "blogPreview": {
