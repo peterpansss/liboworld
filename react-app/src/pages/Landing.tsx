@@ -530,9 +530,6 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* ── FOUNDER BTS CARD ── */}
-      <FounderCard />
-
       {/* ── REWARDS ── */}
       <section className="rewards-section" id="rewards">
         <div className="rewards-inner">
@@ -595,6 +592,9 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      {/* ── FOUNDER BTS CARD ── */}
+      <FounderCard />
 
       {/* ── COMBINED STATEMENT + FEATURES ── */}
       <section className="combined-section" id="features">
