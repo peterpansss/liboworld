@@ -125,6 +125,7 @@ type FormState = {
   sort_order: string;
   starts_at: string;
   ends_at: string;
+  image_url: string;
 };
 
 const EMPTY_FORM: FormState = {
@@ -143,6 +144,7 @@ const EMPTY_FORM: FormState = {
   sort_order: '0',
   starts_at: '',
   ends_at: '',
+  image_url: '',
 };
 
 function toLocalDT(iso: string | null | undefined): string {
@@ -176,6 +178,7 @@ function rowToForm(row: MoneyChallenge): FormState {
     sort_order: String(row.sort_order),
     starts_at: toLocalDT(row.starts_at),
     ends_at: toLocalDT(row.ends_at),
+    image_url: row.image_url ?? '',
   };
 }
 
@@ -196,6 +199,7 @@ function formToInput(f: FormState): MoneyChallengeInput {
     sort_order: Number(f.sort_order) || 0,
     starts_at: fromLocalDT(f.starts_at),
     ends_at: fromLocalDT(f.ends_at),
+    image_url: f.image_url.trim() || null,
   };
 }
 
@@ -540,6 +544,14 @@ export function ChallengesPage() {
               onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
               rows={3}
               required
+            />
+          </Field>
+
+          <Field label="Hero image URL (optional)">
+            <TextInput
+              value={form.image_url}
+              onChange={(e) => setForm((f) => ({ ...f, image_url: e.target.value }))}
+              placeholder="https://… — blank shows the gradient fallback in the app"
             />
           </Field>
 

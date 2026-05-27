@@ -738,6 +738,7 @@ export type MoneyChallenge = {
   sort_order: number;
   starts_at: string | null;
   ends_at: string | null;
+  image_url: string | null;
   current_active: number;
   total_ever: number;
   created_at: string;
@@ -760,6 +761,7 @@ export type MoneyChallengeInput = {
   sort_order: number;
   starts_at?: string | null;
   ends_at?: string | null;
+  image_url?: string | null;
 };
 
 export async function listMoneyChallenges(): Promise<MoneyChallenge[]> {
