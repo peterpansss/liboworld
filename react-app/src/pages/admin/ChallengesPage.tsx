@@ -696,6 +696,18 @@ export function ChallengesPage() {
             </Field>
           </div>
 
+          <Field
+            label="Image URL (optional)"
+            hint="Square JPG preferred. Card swaps to photographic mode when set."
+          >
+            <TextInput
+              type="text"
+              placeholder="https://… (leave empty for gradient fallback)"
+              value={form.image_url}
+              onChange={(e) => setForm((f) => ({ ...f, image_url: e.target.value }))}
+            />
+          </Field>
+
           <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 12 }}>
             <Button type="button" variant="ghost" onClick={closeModal} disabled={saving}>
               Cancel
