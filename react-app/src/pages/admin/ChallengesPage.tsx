@@ -125,6 +125,7 @@ type FormState = {
   sort_order: string;
   starts_at: string;
   ends_at: string;
+  image_url: string;
 };
 
 const EMPTY_FORM: FormState = {
@@ -143,6 +144,7 @@ const EMPTY_FORM: FormState = {
   sort_order: '0',
   starts_at: '',
   ends_at: '',
+  image_url: '',
 };
 
 function toLocalDT(iso: string | null | undefined): string {
@@ -176,6 +178,7 @@ function rowToForm(row: MoneyChallenge): FormState {
     sort_order: String(row.sort_order),
     starts_at: toLocalDT(row.starts_at),
     ends_at: toLocalDT(row.ends_at),
+    image_url: row.image_url ?? '',
   };
 }
 
@@ -196,6 +199,7 @@ function formToInput(f: FormState): MoneyChallengeInput {
     sort_order: Number(f.sort_order) || 0,
     starts_at: fromLocalDT(f.starts_at),
     ends_at: fromLocalDT(f.ends_at),
+    image_url: f.image_url.trim() || null,
   };
 }
 
@@ -543,6 +547,14 @@ export function ChallengesPage() {
             />
           </Field>
 
+          <Field label="Hero image URL (optional)">
+            <TextInput
+              value={form.image_url}
+              onChange={(e) => setForm((f) => ({ ...f, image_url: e.target.value }))}
+              placeholder="https://… — blank shows the gradient fallback in the app"
+            />
+          </Field>
+
           <Field label="Exercise options (users pick one per session)">
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
               {EXERCISE_OPTION_CATALOG.map((opt) => {
@@ -683,6 +695,18 @@ export function ChallengesPage() {
               />
             </Field>
           </div>
+
+          <Field
+            label="Image URL (optional)"
+            hint="Square JPG preferred. Card swaps to photographic mode when set."
+          >
+            <TextInput
+              type="text"
+              placeholder="https://… (leave empty for gradient fallback)"
+              value={form.image_url}
+              onChange={(e) => setForm((f) => ({ ...f, image_url: e.target.value }))}
+            />
+          </Field>
 
           <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 12 }}>
             <Button type="button" variant="ghost" onClick={closeModal} disabled={saving}>
