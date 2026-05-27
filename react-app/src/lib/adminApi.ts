@@ -535,6 +535,10 @@ export type ExerciseRow = {
   variation: string;
   emoji: string;
   setup_notes: string;
+  // Whether the exercise is rep-based (default) or a timed static hold.
+  // Backed by `tracking_type text not null default 'reps'`. May be absent on
+  // rows read before the column migration lands — treat undefined as 'reps'.
+  tracking_type?: 'reps' | 'duration';
   // Phase 3: per-language translations of setup_notes. Columns are
   // populated asynchronously by the `translate-exercise` Edge Function
   // (fire-and-forget on EN save). NULL until first translation run for

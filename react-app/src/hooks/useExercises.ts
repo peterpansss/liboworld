@@ -45,6 +45,9 @@ export type ExerciseDisplay = {
   videoUrlAlt?: string;
   thumbnailUrl?: string;
   voiceoverUrl?: string;
+  // Whether the exercise is rep-based (default) or a timed static hold.
+  // Undefined means rep-based — downstream consumers must treat absent as 'reps'.
+  trackingType?: 'reps' | 'duration';
 };
 
 type StaticExerciseRow = {
@@ -117,6 +120,7 @@ function fromSupabase(row: ExerciseRow): ExerciseDisplay {
     videoUrlAlt: row.video_url_alt ?? undefined,
     thumbnailUrl: row.thumbnail_url ?? undefined,
     voiceoverUrl: row.voiceover_url ?? undefined,
+    trackingType: row.tracking_type ?? undefined,
   };
 }
 

@@ -41,6 +41,7 @@ type Exercise = {
   environment?: string;
   diff?: string;
   emoji?: string;
+  trackingType?: string;
   setupNotes?: string;
   // Phase 3 multilingual setup_notes mirrors. Each maps to the matching
   // `setup_notes_{lang}` column on the canonical row. Empty string when
@@ -74,6 +75,7 @@ type EditableKey =
   | 'environment'
   | 'diff'
   | 'emoji'
+  | 'trackingType'
   | 'videoUrl'
   | 'videoUrlAlt'
   | 'animationUrl'
@@ -94,6 +96,7 @@ const EDITABLE_KEYS: EditableKey[] = [
   'environment',
   'diff',
   'emoji',
+  'trackingType',
   'videoUrl',
   'videoUrlAlt',
   'animationUrl',
@@ -697,6 +700,7 @@ export function ExercisesPage() {
       environment: r.environment ?? '',
       diff: r.diff ?? '',
       emoji: r.emoji ?? '',
+      trackingType: r.tracking_type ?? 'reps',
       setupNotes: r.setup_notes ?? '',
       setupNotesDe: r.setup_notes_de ?? '',
       setupNotesEs: r.setup_notes_es ?? '',
@@ -1299,6 +1303,9 @@ export function ExercisesPage() {
     setIfChanged('environment', f.environment, row.environment);
     setIfChanged('diff', f.diff, row.diff);
     setIfChanged('emoji', f.emoji, row.emoji);
+    // tracking_type defaults to 'reps' server-side; treat a missing column as
+    // 'reps' so an untouched legacy row doesn't register a phantom diff.
+    setIfChanged('tracking_type', f.trackingType, row.tracking_type ?? 'reps');
     setIfChanged('video_url', f.videoUrl, row.video_url);
     setIfChanged('video_url_alt', f.videoUrlAlt, row.video_url_alt);
     setIfChanged('thumbnail_url', f.thumbnailUrl, row.thumbnail_url);
@@ -3221,6 +3228,19 @@ function EditForm({
               <TextInput value={form.emoji} onChange={(e) => update('emoji', e.target.value)} />
             </Field>
           </div>
+
+          <Field
+            label="Tracking type"
+            hint="How a set is logged. Reps = countable repetitions (default). Timed hold = a static hold tracked by duration (e.g. Hollow Body Hold, Plank)."
+          >
+            <Select
+              value={form.trackingType || 'reps'}
+              onChange={(e) => update('trackingType', e.target.value)}
+            >
+              <option value="reps">Reps</option>
+              <option value="duration">Timed hold</option>
+            </Select>
+          </Field>
 
           <Field
             label="Visibility"
