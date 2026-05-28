@@ -759,8 +759,6 @@ export type MoneyChallengeInput = {
   required_tier: MoneyChallengeTier;
   is_active: boolean;
   sort_order: number;
-  starts_at?: string | null;
-  ends_at?: string | null;
   image_url?: string | null;
 };
 

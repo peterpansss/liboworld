@@ -123,8 +123,6 @@ type FormState = {
   required_tier: MoneyChallengeTier;
   is_active: boolean;
   sort_order: string;
-  starts_at: string;
-  ends_at: string;
   image_url: string;
 };
 
@@ -142,24 +140,8 @@ const EMPTY_FORM: FormState = {
   required_tier: 'free',
   is_active: true,
   sort_order: '0',
-  starts_at: '',
-  ends_at: '',
   image_url: '',
 };
-
-function toLocalDT(iso: string | null | undefined): string {
-  if (!iso) return '';
-  const d = new Date(iso);
-  if (isNaN(d.getTime())) return '';
-  const pad = (n: number) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
-
-function fromLocalDT(value: string): string | null {
-  if (!value) return null;
-  const d = new Date(value);
-  return isNaN(d.getTime()) ? null : d.toISOString();
-}
 
 function rowToForm(row: MoneyChallenge): FormState {
   return {
@@ -176,8 +158,6 @@ function rowToForm(row: MoneyChallenge): FormState {
     required_tier: row.required_tier,
     is_active: row.is_active,
     sort_order: String(row.sort_order),
-    starts_at: toLocalDT(row.starts_at),
-    ends_at: toLocalDT(row.ends_at),
     image_url: row.image_url ?? '',
   };
 }
@@ -197,8 +177,6 @@ function formToInput(f: FormState): MoneyChallengeInput {
     required_tier: f.required_tier,
     is_active: f.is_active,
     sort_order: Number(f.sort_order) || 0,
-    starts_at: fromLocalDT(f.starts_at),
-    ends_at: fromLocalDT(f.ends_at),
     image_url: f.image_url.trim() || null,
   };
 }
@@ -311,9 +289,9 @@ export function ChallengesPage() {
   /**
    * Open the "New challenge" modal pre-filled with the source row's fields.
    * The ID is cleared (admin must pick a new unique slug — `id` is the PK and
-   * can't be auto-generated), schedule windows are cleared, and the duplicate
-   * starts Inactive so a live challenge isn't accidentally cloned into another
-   * live one. editingId=null so handleSave hits createMoneyChallenge.
+   * can't be auto-generated) and the duplicate starts Inactive so a live
+   * challenge isn't accidentally cloned into another live one. editingId=null
+   * so handleSave hits createMoneyChallenge.
    */
   const handleDuplicate = (row: MoneyChallenge, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -325,8 +303,6 @@ export function ChallengesPage() {
       title: `${row.title} (copy)`,
       is_active: false, // never auto-go-live on duplicate
       sort_order: String(maxSort + 1), // park at the end
-      starts_at: '',
-      ends_at: '',
     });
     setFormErr(null);
     setModalOpen(true);
@@ -478,6 +454,9 @@ export function ChallengesPage() {
       <div style={headerRowStyle}>
         <div>
           <h1 style={h1Style}>Money Challenges</h1>
+          <div style={statsStyle}>
+            Reusable challenge templates — schedule actual runs under Cycles.
+          </div>
           <div style={statsStyle}>
             {loading ? 'Loading…' : `${rows.length} total · ${activeCount} active`}
           </div>
@@ -676,23 +655,6 @@ export function ChallengesPage() {
                 <option value="true">Active</option>
                 <option value="false">Inactive</option>
               </Select>
-            </Field>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-            <Field label="Starts at (optional)">
-              <TextInput
-                type="datetime-local"
-                value={form.starts_at}
-                onChange={(e) => setForm((f) => ({ ...f, starts_at: e.target.value }))}
-              />
-            </Field>
-            <Field label="Ends at (optional)">
-              <TextInput
-                type="datetime-local"
-                value={form.ends_at}
-                onChange={(e) => setForm((f) => ({ ...f, ends_at: e.target.value }))}
-              />
             </Field>
           </div>
 

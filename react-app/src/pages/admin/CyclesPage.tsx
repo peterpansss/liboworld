@@ -432,6 +432,9 @@ export function CyclesPage() {
         <div>
           <h1 style={h1Style}>Cycles</h1>
           <div style={statsStyle}>
+            Individual timed runs of a challenge (sets the start date, window &amp; spots).
+          </div>
+          <div style={statsStyle}>
             {loading
               ? 'Loading…'
               : `${totalCount} total · ${enrollmentOpenCount} enrollment_open · ${runningCount} running · ${completedCount} completed`}
