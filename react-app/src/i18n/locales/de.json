@@ -70,7 +70,7 @@
     "customBuilder": "Eigene Workouts",
     "customBuilderDesc": "Bau dir dein eigenes Workout aus der gesamten Übungsbibliothek. Reihenfolge, Sätze, Pausenzeit — speichern und wiederverwenden.",
     "moneyChallenges": "Geld-Challenges",
-    "moneyChallengesDesc": "Nimm an 30-Tage-Challenges teil, mach deine täglichen Reps, poste in Stories — und verdien echtes Geld. 50 Liegestütze am Tag für 30 Tage? Das sind €15 in deiner Tasche."
+    "moneyChallengesDesc": "Nimm an 30-Tage-Challenges teil, mach deine täglichen Reps, poste in Stories — und verdien echtes Geld. 100 Reps am Tag für 30 Tage? Das sind €10 in deiner Tasche."
   },
   "photoBreak1": {
     "eyebrow": "641 Übungen",
@@ -84,7 +84,7 @@
     "chip2": "30-Tage-Streaks",
     "chip3": "Begrenzte Plätze",
     "badge": "30-Tage-Challenge",
-    "challengeName": "50 Liegestütze x 30 Tage",
+    "challengeName": "100 Reps x 30 Tage",
     "challengeSubtitle": "Mach deine täglichen Reps, nimm dich auf, teile in Stories",
     "flowStep1": "Mach die Reps",
     "flowStep2": "Aufnehmen",
@@ -185,7 +185,7 @@
     "q2": "Welches Equipment brauche ich?",
     "a2": "Keins — oder alles. Libo hat 295 Home-Übungen (meist ohne Equipment), 313 Gym-Übungen und 33 Mobility-Moves. Filtere nach dem, was du hast.",
     "q3": "Wie funktionieren die Geld-Challenges?",
-    "a3": "Tritt einer 30-Tage-Challenge bei (z.B. 50 Liegestütze pro Tag), nimm dich täglich beim Machen auf, teile das in deinen Stories und lass dir am Ende echtes Geld auszahlen. Die Plätze pro Challenge sind begrenzt.",
+    "a3": "Tritt einer 30-Tage-Challenge bei (z.B. 100 Reps pro Tag), nimm dich täglich beim Machen auf, teile das in deinen Stories und lass dir am Ende echtes Geld auszahlen. Die Plätze pro Challenge sind begrenzt.",
     "q4": "Kann ich meine eigenen Workouts bauen?",
     "a4": "Ja. Mit dem Custom Builder wählst du aus 634 Übungen, legst Sätze, Wiederholungen und Pausenzeiten selbst fest und speicherst deine Workouts zur Wiederverwendung.",
     "q5": "Gibt es Libo für Android?",
@@ -1014,7 +1014,7 @@
   },
   "cashChallengeFunnel": {
     "seoTitle": "Verdien €250 fürs Trainieren · Libo Cash Challenge",
-    "seoDescription": "Mach 30 Tage am Stück deine Reps in der Libo-App und verdien echtes Geld. €15 / €50 / €250 Stufen — begrenzte Plätze pro Zyklus.",
+    "seoDescription": "Mach 30 Tage am Stück deine Reps in der Libo-App und verdien echtes Geld. €10 / €50 / €250 Stufen — begrenzte Plätze pro Zyklus.",
     "countdownLabel": "Nächster Zyklus startet in",
     "eyebrow": "Cash Challenge",
     "headline1": "Trainier 30 Tage.",
@@ -1035,12 +1035,12 @@
       "rewardHeroLabel": "Cash-Belohnung",
       "starter": {
         "name": "Starter",
-        "reward": "€15",
+        "reward": "€10",
         "reps": "100",
         "days": "30",
         "freeze": "0",
         "gating": "Free-Stufe · kein Abo",
-        "heroSummary": "30 Tage × 100 Reps = €15 Cash-Auszahlung. Free-Stufe, offen für alle. Ein verpasster Tag und du bist raus — strikt, aber echt."
+        "heroSummary": "30 Tage × 100 Reps = €10 Cash-Auszahlung. Free-Stufe, offen für alle. Ein verpasster Tag und du bist raus — strikt, aber echt."
       },
       "pro_pool": {
         "name": "Pro Pool",
@@ -1073,7 +1073,7 @@
     "step3Title": "Reiß die Kette nicht ab",
     "step3Body": "Jeden Tag, keine Lücken. Pro/Elite bekommen 1/3 Freeze-Tokens für verpasste Tage. Free-Stufe ist strikt — ein verpasster Tag und du fliegst raus.",
     "step4Title": "Werd bezahlt",
-    "step4Body": "Schaffst du alle 30 aktiven Tage, landet das Geld innerhalb von 48 Stunden nach Zyklusende auf deinem verknüpften Konto. €15, €50 oder €250 — deine Wahl.",
+    "step4Body": "Schaffst du alle 30 aktiven Tage, landet das Geld innerhalb von 48 Stunden nach Zyklusende auf deinem verknüpften Konto. €10, €50 oder €250 — deine Wahl.",
     "repeatCtaTitle": "Sei beim nächsten Zyklus dabei, bevor er voll ist",
     "statsTitle": "Echte Auszahlungen, echte Konsistenz",
     "statsSub": "Live-Zahlen aus Libos Cash-Challenge-Ledger",

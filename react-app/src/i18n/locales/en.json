@@ -72,7 +72,7 @@
     "customBuilder": "Custom Builder",
     "customBuilderDesc": "Build your own workout from the full exercise library. Set your sequence, sets, rest time — save and reuse.",
     "moneyChallenges": "Money Challenges",
-    "moneyChallengesDesc": "Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 50 pushups a day for 30 days? That's €15 in your pocket."
+    "moneyChallengesDesc": "Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 100 reps a day for 30 days? That's €10 in your pocket."
   },
   "photoBreak1": {
     "eyebrow": "641 Exercises",
@@ -86,7 +86,7 @@
     "chip2": "30-Day Streaks",
     "chip3": "Limited Spots",
     "badge": "30-Day Challenge",
-    "challengeName": "50 Pushups x 30 Days",
+    "challengeName": "100 Reps x 30 Days",
     "challengeSubtitle": "Complete daily reps, record yourself, share to stories",
     "flowStep1": "Do Reps",
     "flowStep2": "Record",
@@ -136,7 +136,7 @@
   "proof": {
     "eyebrow": "Early Feedback",
     "headline": "People love\ntraining with Libo.",
-    "card1Quote": "\"I did the 50 pushups challenge and actually got paid. The daily recording keeps you honest — no way to cheat it. Best motivation I've ever had.\"",
+    "card1Quote": "\"I did the 100-rep challenge and actually got paid. The daily recording keeps you honest — no way to cheat it. Best motivation I've ever had.\"",
     "card1Author": "Marco T.",
     "card1Meta": "Challenge completed · Berlin",
     "card2Quote": "\"The morning routines are a game changer. 15 minutes before work and I feel completely different for the whole day.\"",
@@ -179,7 +179,7 @@
     "q2": "What equipment do I need?",
     "a2": "None — or everything. Libo has 295 home exercises (most need no equipment), 313 gym exercises, and 33 mobility moves. Filter by what you have available.",
     "q3": "How do the money challenges work?",
-    "a3": "Join a 30-day challenge (e.g., 50 pushups daily), record yourself completing the reps each day, share to your stories, and cash out real money when you finish. Limited spots per challenge.",
+    "a3": "Join a 30-day challenge (e.g., 100 reps daily), record yourself completing the reps each day, share to your stories, and cash out real money when you finish. Limited spots per challenge.",
     "q4": "Can I build my own workouts?",
     "a4": "Yes. The Custom Builder lets you pick from 634 exercises, set your own sets, reps, and rest times, then save and reuse your workouts anytime.",
     "q5": "Is Libo available on Android?",
@@ -1008,7 +1008,7 @@
   },
   "cashChallengeFunnel": {
     "seoTitle": "Get Paid €250 to Work Out · Libo Cash Challenge",
-    "seoDescription": "Complete 30 consecutive days of reps in the Libo app and earn real cash. €15 / €50 / €250 tiers — limited spots per cycle.",
+    "seoDescription": "Complete 30 consecutive days of reps in the Libo app and earn real cash. €10 / €50 / €250 tiers — limited spots per cycle.",
     "countdownLabel": "Next cycle starts in",
     "eyebrow": "Cash Challenge",
     "headline1": "Train 30 days.",
@@ -1029,12 +1029,12 @@
       "rewardHeroLabel": "Cash Reward",
       "starter": {
         "name": "Starter",
-        "reward": "€15",
+        "reward": "€10",
         "reps": "100",
         "days": "30",
         "freeze": "0",
         "gating": "Free tier · no subscription",
-        "heroSummary": "30 days × 100 reps = €15 cash payout. Free tier, open to all. One miss and you're out — strict but real."
+        "heroSummary": "30 days × 100 reps = €10 cash payout. Free tier, open to all. One miss and you're out — strict but real."
       },
       "pro_pool": {
         "name": "Pro Pool",
@@ -1067,7 +1067,7 @@
     "step3Title": "Don't break the chain",
     "step3Body": "Every day, no gaps. Pro/Elite get 1/3 freeze tokens for missed days. Free tier is strict — one miss and you're ejected.",
     "step4Title": "Get paid",
-    "step4Body": "Finish all 30 active days and the cash hits your linked account within 48 hours of cycle end. €15, €50, or €250 — your choice.",
+    "step4Body": "Finish all 30 active days and the cash hits your linked account within 48 hours of cycle end. €10, €50, or €250 — your choice.",
     "repeatCtaTitle": "Join the next cycle before it fills",
     "statsTitle": "Real payouts, real consistency",
     "statsSub": "Live numbers from Libo's cash-challenge ledger",

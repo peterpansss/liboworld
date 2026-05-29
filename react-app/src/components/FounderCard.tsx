@@ -59,7 +59,7 @@ export default function FounderCard() {
               <div className="founder-phone__screen">
                 <img
                   src="/mockups/founder-rewards.png?v=20260512"
-                  alt="Libo rewards screen: 436 points, money challenge for 100 reps over 30 days, €15 reward"
+                  alt="Libo rewards screen: 436 points, money challenge for 100 reps over 30 days, €10 reward"
                   loading="lazy"
                 />
               </div>

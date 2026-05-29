@@ -190,7 +190,7 @@ export default function Landing() {
   const rewardsStatView = useInView(0.5);
 
   // CountUp values
-  const rewardsStat = useCountUp(15, rewardsStatView.inView, 1200);
+  const rewardsStat = useCountUp(10, rewardsStatView.inView, 1200);
 
   // ── Feature detection ──
   const isDesktop = useRef(

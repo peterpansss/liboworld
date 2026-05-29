@@ -70,7 +70,7 @@
     "customBuilder": "Créateur Personnalisé",
     "customBuilderDesc": "Construis ton propre entraînement à partir de la bibliothèque complète. Définis la séquence, les séries, le repos — sauvegarde et réutilise.",
     "moneyChallenges": "Défis Cash",
-    "moneyChallengesDesc": "Rejoins des défis de 30 jours, fais tes répétitions quotidiennes, partage en stories — et gagne du vrai argent. 50 pompes par jour pendant 30 jours ? C'est €15 dans ta poche."
+    "moneyChallengesDesc": "Rejoins des défis de 30 jours, fais tes répétitions quotidiennes, partage en stories — et gagne du vrai argent. 100 reps par jour pendant 30 jours ? C'est €10 dans ta poche."
   },
   "photoBreak1": {
     "eyebrow": "641 Exercices",
@@ -84,7 +84,7 @@
     "chip2": "Séries de 30 Jours",
     "chip3": "Places Limitées",
     "badge": "Défi 30 Jours",
-    "challengeName": "50 Pompes x 30 Jours",
+    "challengeName": "100 Reps x 30 Jours",
     "challengeSubtitle": "Fais tes répétitions quotidiennes, filme-toi, partage en stories",
     "flowStep1": "Fais les Reps",
     "flowStep2": "Filme",
@@ -134,7 +134,7 @@
   "proof": {
     "eyebrow": "Premiers Retours",
     "headline": "Les gens adorent\ns'entraîner avec Libo.",
-    "card1Quote": "\"J'ai fait le défi 50 pompes et j'ai vraiment été payé. Filmer chaque jour te garde honnête — impossible de tricher. La meilleure motivation que j'aie jamais eue.\"",
+    "card1Quote": "\"J'ai fait le défi 100 reps et j'ai vraiment été payé. Filmer chaque jour te garde honnête — impossible de tricher. La meilleure motivation que j'aie jamais eue.\"",
     "card1Author": "Marco T.",
     "card1Meta": "Défi terminé · Berlin",
     "card2Quote": "\"Les routines matinales changent tout. 15 minutes avant le travail et je me sens complètement différent toute la journée.\"",
@@ -557,7 +557,7 @@
     "q2": "De quel équipement ai-je besoin ?",
     "a2": "Aucun — ou tout. Libo propose 295 exercices à la maison (la plupart sans équipement), 313 exercices en salle et 33 mouvements de mobilité. Filtre selon ce que tu as à disposition.",
     "q3": "Comment fonctionnent les défis cash ?",
-    "a3": "Rejoins un défi de 30 jours (ex. 50 pompes par jour), enregistre-toi en train de faire les reps chaque jour, partage en story, et encaisse de l'argent réel à la fin. Places limitées par défi.",
+    "a3": "Rejoins un défi de 30 jours (ex. 100 reps par jour), enregistre-toi en train de faire les reps chaque jour, partage en story, et encaisse de l'argent réel à la fin. Places limitées par défi.",
     "q4": "Puis-je créer mes propres entraînements ?",
     "a4": "Oui. Le Custom Builder te permet de choisir parmi 634 exercices, définir tes séries, reps et temps de repos, puis sauvegarder et réutiliser tes entraînements à tout moment.",
     "q5": "Libo est-il disponible sur Android ?",
@@ -1014,7 +1014,7 @@
   },
   "cashChallengeFunnel": {
     "seoTitle": "Gagne €250 en t'entraînant · Défi Cash Libo",
-    "seoDescription": "Fais 30 jours consécutifs de répétitions dans l'app Libo et gagne du vrai cash. Paliers €15 / €50 / €250 — places limitées par cycle.",
+    "seoDescription": "Fais 30 jours consécutifs de répétitions dans l'app Libo et gagne du vrai cash. Paliers €10 / €50 / €250 — places limitées par cycle.",
     "countdownLabel": "Le prochain cycle commence dans",
     "eyebrow": "Défi Cash",
     "headline1": "Entraîne-toi 30 jours.",
@@ -1035,12 +1035,12 @@
       "rewardHeroLabel": "Récompense Cash",
       "starter": {
         "name": "Starter",
-        "reward": "€15",
+        "reward": "€10",
         "reps": "100",
         "days": "30",
         "freeze": "0",
         "gating": "Niveau Free · sans abonnement",
-        "heroSummary": "30 jours × 100 reps = €15 cash. Niveau Free, ouvert à tous. Un jour manqué et tu es éliminé — strict mais réel."
+        "heroSummary": "30 jours × 100 reps = €10 cash. Niveau Free, ouvert à tous. Un jour manqué et tu es éliminé — strict mais réel."
       },
       "pro_pool": {
         "name": "Pro Pool",
@@ -1073,7 +1073,7 @@
     "step3Title": "Ne casse pas la chaîne",
     "step3Body": "Chaque jour, sans interruption. Pro/Elite reçoivent 1/3 jetons freeze pour les jours manqués. Le niveau Free est strict — un jour manqué et tu es éjecté.",
     "step4Title": "Reçois ton paiement",
-    "step4Body": "Termine les 30 jours actifs et le cash arrive sur ton compte lié dans les 48 heures suivant la fin du cycle. €15, €50 ou €250 — à toi de choisir.",
+    "step4Body": "Termine les 30 jours actifs et le cash arrive sur ton compte lié dans les 48 heures suivant la fin du cycle. €10, €50 ou €250 — à toi de choisir.",
     "repeatCtaTitle": "Rejoins le prochain cycle avant qu'il ne soit complet",
     "statsTitle": "Vrais paiements, vraie régularité",
     "statsSub": "Chiffres en direct du registre cash-challenge de Libo",

@@ -70,7 +70,7 @@
     "customBuilder": "Creador Personalizado",
     "customBuilderDesc": "Arma tu propio entrenamiento desde la biblioteca completa. Define la secuencia, series, descanso — guarda y reutiliza.",
     "moneyChallenges": "Retos con Dinero",
-    "moneyChallengesDesc": "Únete a retos de 30 días, cumple tus repeticiones diarias, comparte en stories — y gana dinero real. ¿50 flexiones al día por 30 días? Son €15 en tu bolsillo."
+    "moneyChallengesDesc": "Únete a retos de 30 días, cumple tus repeticiones diarias, comparte en stories — y gana dinero real. ¿100 reps al día por 30 días? Son €10 en tu bolsillo."
   },
   "photoBreak1": {
     "eyebrow": "641 Ejercicios",
@@ -84,7 +84,7 @@
     "chip2": "Rachas de 30 Días",
     "chip3": "Cupos Limitados",
     "badge": "Reto de 30 Días",
-    "challengeName": "50 Flexiones x 30 Días",
+    "challengeName": "100 Reps x 30 Días",
     "challengeSubtitle": "Completa tus repeticiones diarias, grábate y comparte en stories",
     "flowStep1": "Haz las Reps",
     "flowStep2": "Graba",
@@ -134,7 +134,7 @@
   "proof": {
     "eyebrow": "Primeras Opiniones",
     "headline": "La gente ama\nentrenar con Libo.",
-    "card1Quote": "\"Hice el reto de 50 flexiones y realmente me pagaron. Grabarte cada día te mantiene honesto — no hay forma de hacer trampa. La mejor motivación que he tenido.\"",
+    "card1Quote": "\"Hice el reto de 100 reps y realmente me pagaron. Grabarte cada día te mantiene honesto — no hay forma de hacer trampa. La mejor motivación que he tenido.\"",
     "card1Author": "Marco T.",
     "card1Meta": "Reto completado · Berlin",
     "card2Quote": "\"Las rutinas matutinas son un cambio total. 15 minutos antes del trabajo y me siento completamente diferente todo el día.\"",
@@ -557,7 +557,7 @@
     "q2": "¿Qué equipamiento necesito?",
     "a2": "Nada — o todo. Libo tiene 295 ejercicios en casa (la mayoría sin equipamiento), 313 ejercicios de gimnasio y 33 ejercicios de movilidad. Filtra según lo que tengas disponible.",
     "q3": "¿Cómo funcionan los retos con dinero?",
-    "a3": "Únete a un reto de 30 días (por ejemplo, 50 flexiones al día), grábate completando las repeticiones cada día, compártelo en tus historias y cobra dinero real cuando termines. Plazas limitadas por reto.",
+    "a3": "Únete a un reto de 30 días (por ejemplo, 100 reps al día), grábate completando las repeticiones cada día, compártelo en tus historias y cobra dinero real cuando termines. Plazas limitadas por reto.",
     "q4": "¿Puedo crear mis propios entrenamientos?",
     "a4": "Sí. El Creador Personalizado te permite elegir entre 634 ejercicios, establecer tus propias series, repeticiones y tiempos de descanso, y luego guardar y reutilizar tus entrenamientos cuando quieras.",
     "q5": "¿Libo está disponible en Android?",
@@ -1014,7 +1014,7 @@
   },
   "cashChallengeFunnel": {
     "seoTitle": "Gana €250 por entrenar · Reto Cash Libo",
-    "seoDescription": "Completa 30 días seguidos de repeticiones en la app Libo y gana cash real. Niveles €15 / €50 / €250 — plazas limitadas por ciclo.",
+    "seoDescription": "Completa 30 días seguidos de repeticiones en la app Libo y gana cash real. Niveles €10 / €50 / €250 — plazas limitadas por ciclo.",
     "countdownLabel": "El próximo ciclo empieza en",
     "eyebrow": "Reto Cash",
     "headline1": "Entrena 30 días.",
@@ -1035,12 +1035,12 @@
       "rewardHeroLabel": "Recompensa Cash",
       "starter": {
         "name": "Starter",
-        "reward": "€15",
+        "reward": "€10",
         "reps": "100",
         "days": "30",
         "freeze": "0",
         "gating": "Nivel Free · sin suscripción",
-        "heroSummary": "30 días × 100 reps = €15 cash. Nivel Free, abierto a todos. Un fallo y estás fuera — estricto pero real."
+        "heroSummary": "30 días × 100 reps = €10 cash. Nivel Free, abierto a todos. Un fallo y estás fuera — estricto pero real."
       },
       "pro_pool": {
         "name": "Pro Pool",
@@ -1073,7 +1073,7 @@
     "step3Title": "No rompas la cadena",
     "step3Body": "Cada día, sin huecos. Pro/Elite reciben 1/3 tokens freeze para días perdidos. El nivel Free es estricto — un fallo y quedas eliminado.",
     "step4Title": "Cobra",
-    "step4Body": "Termina los 30 días activos y el cash llega a tu cuenta vinculada en 48 horas tras el fin del ciclo. €15, €50 o €250 — tú eliges.",
+    "step4Body": "Termina los 30 días activos y el cash llega a tu cuenta vinculada en 48 horas tras el fin del ciclo. €10, €50 o €250 — tú eliges.",
     "repeatCtaTitle": "Únete al próximo ciclo antes de que se llene",
     "statsTitle": "Pagos reales, consistencia real",
     "statsSub": "Cifras en vivo del registro de retos cash de Libo",
