@@ -16,6 +16,8 @@ import {
   adjustPointsWithReauth as adjustPoints,
   setSubscriptionTierWithReauth as setSubscriptionTier,
   setUserAdminFlagWithReauth as setUserAdminFlag,
+  deleteUserWithReauth as deleteUser,
+  setUserBannedWithReauth as setUserBanned,
   fetchLeaderboard,
   listUserEnrollments,
   resetEnrollment,
@@ -66,6 +68,13 @@ function tierStyle(tier: Tier | null | undefined): React.CSSProperties {
     return { background: colors.warningDim, color: colors.warning, border: `1px solid ${colors.warning}` };
   }
   return { background: colors.bg3, color: colors.muted, border: `1px solid ${colors.border}` };
+}
+
+function isDeactivated(user: { banned_until: string | null }): boolean {
+  if (!user.banned_until) return false;
+  const t = new Date(user.banned_until).getTime();
+  // 'infinity' from Postgres parses to a huge/NaN value; treat NaN OR future as banned.
+  return Number.isNaN(t) || t > Date.now();
 }
 
 function TierChip({ tier }: { tier: Tier | null | undefined }) {
@@ -562,6 +571,37 @@ function UserDetailModal({
     });
   };
 
+  const handleToggleBan = () => {
+    if (!user) return;
+    const deactivated = isDeactivated(user);
+    const ok = window.confirm(
+      deactivated
+        ? `Reactivate ${user.email ?? 'this user'}? They will be able to log in again.`
+        : `Deactivate ${user.email ?? 'this user'}? They will be blocked from logging in until reactivated. Their data is kept.`
+    );
+    if (!ok) return;
+    void wrap('ban', async () => {
+      await setUserBanned(userId!, !deactivated);
+    });
+  };
+
+  const handleDeleteUser = () => {
+    if (!user) return;
+    const email = user.email ?? 'this user';
+    const ok = window.confirm(
+      `PERMANENTLY DELETE ${email}?\n\n` +
+      `This removes the account and ALL their data (workouts, points, tickets, ` +
+      `challenge history) and frees the email so it can be used to sign up again.\n\n` +
+      `This cannot be undone.`
+    );
+    if (!ok) return;
+    void wrap('delete', async () => {
+      await deleteUser(userId!);
+      // User no longer exists — close the modal; onMutated() (called by wrap) refreshes the list.
+      onClose();
+    });
+  };
+
   return (
     <Modal open={user !== null} onClose={onClose} title={user?.name ?? user?.email ?? 'User'} width={720}>
       {user && (
@@ -585,6 +625,22 @@ function UserDetailModal({
                   }}
                 >
                   ADMIN
+                </span>
+              )}
+              {isDeactivated(user) && (
+                <span
+                  style={{
+                    padding: '3px 10px',
+                    borderRadius: 8,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: 0.5,
+                    background: colors.errorDim,
+                    color: colors.error,
+                    border: `1px solid ${colors.error}`,
+                  }}
+                >
+                  DISABLED
                 </span>
               )}
               <span style={{ fontSize: 12, color: colors.dim }}>
@@ -894,6 +950,70 @@ function UserDetailModal({
                 </table>
               </div>
             )}
+          </Section>
+
+          {/* Danger zone */}
+          <Section title="Danger zone">
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 16,
+              }}
+            >
+              {/* Deactivate / Reactivate */}
+              <div
+                style={{
+                  background: colors.bg3,
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: 12,
+                  padding: 14,
+                }}
+              >
+                <div style={{ fontSize: 12, fontWeight: 700, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 10 }}>
+                  Account access
+                </div>
+                <div style={{ fontSize: 13, color: colors.text, marginBottom: 12 }}>
+                  Currently:{' '}
+                  <strong>{isDeactivated(user) ? 'Disabled (login blocked)' : 'Active'}</strong>
+                </div>
+                <Button
+                  variant={isDeactivated(user) ? 'secondary' : 'warning'}
+                  onClick={handleToggleBan}
+                  disabled={savingAction === 'ban'}
+                >
+                  {savingAction === 'ban'
+                    ? 'Saving…'
+                    : isDeactivated(user)
+                    ? 'Reactivate'
+                    : 'Deactivate'}
+                </Button>
+              </div>
+
+              {/* Delete user */}
+              <div
+                style={{
+                  background: colors.bg3,
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: 12,
+                  padding: 14,
+                }}
+              >
+                <div style={{ fontSize: 12, fontWeight: 700, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 10 }}>
+                  Delete user
+                </div>
+                <div style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
+                  Permanently removes the account and all data. Frees the email for re-signup. Cannot be undone.
+                </div>
+                <Button
+                  variant="danger"
+                  onClick={handleDeleteUser}
+                  disabled={savingAction === 'delete'}
+                >
+                  {savingAction === 'delete' ? 'Deleting…' : 'Delete user'}
+                </Button>
+              </div>
+            </div>
           </Section>
         </div>
       )}

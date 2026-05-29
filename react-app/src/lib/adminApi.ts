@@ -28,6 +28,7 @@ export type AdminUserRow = {
   tickets: number;
   workout_count: number;
   last_workout_at: string | null;
+  banned_until: string | null;
 };
 
 export type DashboardKpis = {
@@ -231,6 +232,29 @@ export async function setUserAdminFlag_unsafe(userId: string, isAdmin: boolean) 
   const { data, error } = await supabase.rpc('admin_set_user_admin_flag', {
     p_user_id: userId,
     p_is_admin: isAdmin,
+  });
+  if (error) throw error;
+  if (!(data as { ok: boolean }).ok) throw new Error((data as { error: string }).error);
+}
+
+/** UNGATED — see {@link grantTickets_unsafe} comment. Use {@link setUserBannedWithReauth} from UI. */
+export async function setUserBanned_unsafe(userId: string, banned: boolean) {
+  const { data, error } = await supabase.rpc('admin_set_user_banned', {
+    p_user_id: userId,
+    p_banned: banned,
+  });
+  if (error) throw error;
+  if (!(data as { ok: boolean }).ok) throw new Error((data as { error: string }).error);
+}
+
+/**
+ * UNGATED — see {@link grantTickets_unsafe} comment. Use {@link deleteUserWithReauth} from UI.
+ * Hard-deletes the user from auth.users; all their data cascades away and the
+ * email is freed for re-signup. Irreversible.
+ */
+export async function deleteUser_unsafe(userId: string) {
+  const { data, error } = await supabase.rpc('admin_delete_user', {
+    p_user_id: userId,
   });
   if (error) throw error;
   if (!(data as { ok: boolean }).ok) throw new Error((data as { error: string }).error);
@@ -1599,6 +1623,14 @@ export async function setSubscriptionTierWithReauth(
 
 export async function setUserAdminFlagWithReauth(userId: string, isAdmin: boolean) {
   return withRecentAuth(() => setUserAdminFlag_unsafe(userId, isAdmin));
+}
+
+export async function setUserBannedWithReauth(userId: string, banned: boolean) {
+  return withRecentAuth(() => setUserBanned_unsafe(userId, banned));
+}
+
+export async function deleteUserWithReauth(userId: string) {
+  return withRecentAuth(() => deleteUser_unsafe(userId));
 }
 
 export async function markPayoutPaidWithReauth(payoutId: string, input: MarkPayoutPaidInput) {
