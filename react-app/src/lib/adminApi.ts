@@ -709,18 +709,27 @@ export async function deleteProgram_unsafe(
 
 export type MoneyChallengeTier = 'free' | 'pro' | 'elite';
 
-export type ExerciseOptionId =
-  | 'pushups'
-  | 'squats'
-  | 'mountain_climbers'
-  | 'pull_ups';
-
-export const EXERCISE_OPTION_CATALOG: { id: ExerciseOptionId; name: string; emoji: string }[] = [
+// Abstract movement-category catalog for money challenges (NOT exercise-library
+// slugs). Users pick one per session; challenges are rep-based, so this is
+// curated to rep-countable bodyweight movements.
+// ⚠️ KEEP IN SYNC with the mobile copy in
+//    libo-app-v2/src/store/exerciseOptionCatalog.ts — the two repos can't
+//    share a module, so adding/renaming an option here must be mirrored there.
+export const EXERCISE_OPTION_CATALOG = [
   { id: 'pushups', name: 'Pushups', emoji: '💪' },
   { id: 'squats', name: 'Squats', emoji: '🦵' },
-  { id: 'mountain_climbers', name: 'Mountain Climbers', emoji: '⛰️' },
   { id: 'pull_ups', name: 'Pull-ups', emoji: '🆙' },
-];
+  { id: 'dips', name: 'Dips', emoji: '🔻' },
+  { id: 'burpees', name: 'Burpees', emoji: '🔥' },
+  { id: 'sit_ups', name: 'Sit-ups', emoji: '🧎' },
+  { id: 'crunches', name: 'Crunches', emoji: '🤸' },
+  { id: 'mountain_climbers', name: 'Mountain Climbers', emoji: '⛰️' },
+  { id: 'jumping_jacks', name: 'Jumping Jacks', emoji: '🌟' },
+  { id: 'leg_raises', name: 'Leg Raises', emoji: '🦵' },
+  { id: 'high_knees', name: 'High Knees', emoji: '🏃' },
+] as const;
+
+export type ExerciseOptionId = (typeof EXERCISE_OPTION_CATALOG)[number]['id'];
 
 export type MoneyChallenge = {
   id: string;
