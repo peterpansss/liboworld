@@ -1041,6 +1041,13 @@ export type ChallengeCycleRow = {
   start_date: string;
   end_date: string;
   max_participants: number;
+  // Cosmetic phantom slots. `max_participants` is the REAL payable cap; the
+  // public-facing headline total = max_participants + display_seed, and the
+  // public active count = active_count + display_seed. Seed never creates
+  // real enrollments, and the cycle locks full when active_count = max.
+  // May be absent on rows read before the column migration lands — treat
+  // undefined as 0.
+  display_seed?: number;
   filled_at: string | null;
   active_count: number;
   completed_count: number;
@@ -1097,6 +1104,7 @@ export type SetCycleMaxResult = {
   ok: boolean;
   cycle_id: string;
   max_participants: number;
+  display_seed: number;
   active_count: number;
   status: ChallengeCycleStatus;
   error?: string;
@@ -1105,10 +1113,12 @@ export type SetCycleMaxResult = {
 export async function setCycleMaxParticipants(
   cycleId: string,
   newMax: number,
+  displaySeed = 0,
 ): Promise<SetCycleMaxResult> {
   const { data, error } = await supabase.rpc('admin_set_cycle_max_participants', {
     p_cycle_id: cycleId,
     p_new_max: newMax,
+    p_display_seed: displaySeed,
   });
   if (error) throw error;
   const r = data as SetCycleMaxResult;

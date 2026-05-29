@@ -48,6 +48,7 @@ const cycle = (o: Partial<any> = {}) => ({
   start_date: '2025-04-15',
   end_date: '2025-05-15',
   max_participants: 50,
+  display_seed: 0,
   filled_at: null,
   active_count: 10,
   completed_count: 0,
@@ -127,6 +128,32 @@ describe('CyclesPage', () => {
     expect(screen.getByText(/1 total · 1 enrollment_open · 0 running · 0 completed/)).toBeInTheDocument();
   });
 
+  it('Slots column shows seeded display (active+seed / max+seed) with a real-cap note', async () => {
+    listChallengeCyclesMock.mockResolvedValue([
+      cycle({ status: 'enrollment_open', max_participants: 30, display_seed: 20, active_count: 3 }),
+    ]);
+    listMoneyChallengesMock.mockResolvedValue([]);
+    render(<CyclesPage />);
+    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
+    // displayActive = 3 + 20 = 23, displayTotal = 30 + 20 = 50
+    expect(screen.getByText('23')).toBeInTheDocument();
+    expect(screen.getByText('/ 50')).toBeInTheDocument();
+    // real-cap note only when seed > 0
+    expect(screen.getByText('pays 30')).toBeInTheDocument();
+  });
+
+  it('Slots column with seed 0 shows plain active / max (no pays note)', async () => {
+    listChallengeCyclesMock.mockResolvedValue([
+      cycle({ status: 'enrollment_open', max_participants: 50, display_seed: 0, active_count: 10 }),
+    ]);
+    listMoneyChallengesMock.mockResolvedValue([]);
+    render(<CyclesPage />);
+    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
+    expect(screen.getByText('10')).toBeInTheDocument();
+    expect(screen.getByText('/ 50')).toBeInTheDocument();
+    expect(screen.queryByText(/^pays /)).not.toBeInTheDocument();
+  });
+
   it('list cycles error surfaces', async () => {
     listChallengeCyclesMock.mockRejectedValue(new Error('cyc_failed'));
     listMoneyChallengesMock.mockResolvedValue([]);
@@ -186,7 +213,7 @@ describe('CyclesPage', () => {
     const numInput = document.querySelector('input[type="number"]') as HTMLInputElement;
     fireEvent.change(numInput, { target: { value: '0' } });
     fireEvent.click(screen.getByRole('button', { name: 'Open cycle' }));
-    await waitFor(() => expect(screen.getByText('Max participants must be greater than 0.')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Headline total must be greater than 0.')).toBeInTheDocument());
   });
 
   it('successful open cycle dispatches openNextCycle and shows success banner', async () => {
@@ -201,8 +228,70 @@ describe('CyclesPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Open cycle' }));
     await waitFor(() => expect(openNextCycleMock).toHaveBeenCalledTimes(1));
     expect(openNextCycleMock.mock.calls[0][0]).toBe('ch-1');
+    // Default seed is 0, so real cap == headline (50).
     expect(openNextCycleMock.mock.calls[0][2]).toBe(50);
-    await waitFor(() => expect(screen.getByText(/promoted from waitlist/)).toBeInTheDocument());
+    // seed=0 means no second-step setCycleMaxParticipants call.
+    expect(setCycleMaxParticipantsMock).not.toHaveBeenCalled();
+    await waitFor(() => expect(screen.getByText(/shows 50 · pays 50/)).toBeInTheDocument());
+  });
+
+  it('open cycle WITH seed: real cap = headline − seed, then setCycleMaxParticipants sets the seed', async () => {
+    listChallengeCyclesMock.mockResolvedValue([]);
+    listMoneyChallengesMock.mockResolvedValue([ch()]);
+    openNextCycleMock.mockResolvedValue({ cycle_id: 'seededCyc123', promoted_from_waitlist: 0 });
+    setCycleMaxParticipantsMock.mockResolvedValue({
+      ok: true,
+      cycle_id: 'seededCyc123',
+      max_participants: 30,
+      display_seed: 20,
+      active_count: 0,
+      status: 'enrollment_open',
+    });
+    render(<CyclesPage />);
+    await waitFor(() => expect(listMoneyChallengesMock).toHaveBeenCalled());
+    fireEvent.click(screen.getByRole('button', { name: '+ Open new cycle' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Open cycle' })).toBeInTheDocument());
+
+    const numInputs = Array.from(
+      document.querySelectorAll('input[type="number"]'),
+    ) as HTMLInputElement[];
+    // [0] = headline total, [1] = seed
+    fireEvent.change(numInputs[0], { target: { value: '50' } });
+    fireEvent.change(numInputs[1], { target: { value: '20' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Open cycle' }));
+
+    // Step 1: open with the REAL cap (50 − 20 = 30).
+    await waitFor(() => expect(openNextCycleMock).toHaveBeenCalledTimes(1));
+    expect(openNextCycleMock.mock.calls[0][0]).toBe('ch-1');
+    expect(openNextCycleMock.mock.calls[0][2]).toBe(30);
+    // Step 2: apply the seed against the returned cycle id.
+    await waitFor(() =>
+      expect(setCycleMaxParticipantsMock).toHaveBeenCalledWith('seededCyc123', 30, 20),
+    );
+    await waitFor(() => expect(screen.getByText(/shows 50 · pays 30/)).toBeInTheDocument());
+  });
+
+  it('open cycle: seed >= headline fails validation', async () => {
+    listChallengeCyclesMock.mockResolvedValue([]);
+    listMoneyChallengesMock.mockResolvedValue([ch()]);
+    render(<CyclesPage />);
+    await waitFor(() => expect(listMoneyChallengesMock).toHaveBeenCalled());
+    fireEvent.click(screen.getByRole('button', { name: '+ Open new cycle' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Open cycle' })).toBeInTheDocument());
+    document.querySelectorAll('input[min]').forEach((el) => el.removeAttribute('min'));
+
+    const numInputs = Array.from(
+      document.querySelectorAll('input[type="number"]'),
+    ) as HTMLInputElement[];
+    fireEvent.change(numInputs[0], { target: { value: '20' } });
+    fireEvent.change(numInputs[1], { target: { value: '20' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Open cycle' }));
+    await waitFor(() =>
+      expect(
+        screen.getByText('Seed must be 0 or more and less than the headline total.'),
+      ).toBeInTheDocument(),
+    );
+    expect(openNextCycleMock).not.toHaveBeenCalled();
   });
 
   it('open cycle error surfaces in form', async () => {
@@ -277,6 +366,7 @@ describe('CyclesPage', () => {
       ok: true,
       cycle_id: 'cyc-1abc999',
       max_participants: 80,
+      display_seed: 0,
       active_count: 10,
       status: 'running',
     });
@@ -285,12 +375,46 @@ describe('CyclesPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Edit slots' }));
     await waitFor(() => expect(screen.getByRole('button', { name: 'Save slots' })).toBeInTheDocument());
 
+    // First number input is the headline total; seed defaults to 0.
     const numInput = document.querySelector('input[type="number"]') as HTMLInputElement;
     fireEvent.change(numInput, { target: { value: '80' } });
     fireEvent.click(screen.getByRole('button', { name: 'Save slots' }));
 
-    await waitFor(() => expect(setCycleMaxParticipantsMock).toHaveBeenCalledWith('cyc-1', 80));
-    await waitFor(() => expect(screen.getByText(/max now 80 · 10 active/)).toBeInTheDocument());
+    // headline 80 − seed 0 = real cap 80.
+    await waitFor(() => expect(setCycleMaxParticipantsMock).toHaveBeenCalledWith('cyc-1', 80, 0));
+    await waitFor(() => expect(screen.getByText(/shows 80 · pays 80 · 10 active/)).toBeInTheDocument());
+  });
+
+  it('Edit slots WITH seed: headline − seed sets real cap, banner shows displayed + real', async () => {
+    listChallengeCyclesMock.mockResolvedValue([
+      cycle({ status: 'running', max_participants: 30, display_seed: 20, active_count: 10 }),
+    ]);
+    listMoneyChallengesMock.mockResolvedValue([]);
+    setCycleMaxParticipantsMock.mockResolvedValue({
+      ok: true,
+      cycle_id: 'cyc-1abc999',
+      max_participants: 40,
+      display_seed: 20,
+      active_count: 10,
+      status: 'running',
+    });
+    render(<CyclesPage />);
+    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Edit slots' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Save slots' })).toBeInTheDocument());
+
+    const numInputs = Array.from(
+      document.querySelectorAll('input[type="number"]'),
+    ) as HTMLInputElement[];
+    // Modal prefills headline = max + seed = 50, seed = 20. Bump headline to 60.
+    expect(numInputs[0].value).toBe('50');
+    expect(numInputs[1].value).toBe('20');
+    fireEvent.change(numInputs[0], { target: { value: '60' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save slots' }));
+
+    // headline 60 − seed 20 = real cap 40.
+    await waitFor(() => expect(setCycleMaxParticipantsMock).toHaveBeenCalledWith('cyc-1', 40, 20));
+    await waitFor(() => expect(screen.getByText(/shows 60 · pays 40 · 10 active/)).toBeInTheDocument());
   });
 
   it('Edit slots: below_active_count maps to a friendly error', async () => {

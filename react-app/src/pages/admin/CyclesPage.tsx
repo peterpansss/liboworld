@@ -179,6 +179,8 @@ function friendlyCycleError(raw: string, ctx?: { activeCount?: number }): string
         : "Can't set below the number already enrolled.";
     case 'cycle_full':
       return 'Cycle is full — raise the max participants first.';
+    case 'invalid_seed':
+      return 'Seed must be 0 or more and less than the headline total.';
     case 'already_enrolled':
       return 'That user is already enrolled in this cycle.';
     case 'cycle_not_joinable':
@@ -188,18 +190,37 @@ function friendlyCycleError(raw: string, ctx?: { activeCount?: number }): string
   }
 }
 
+// ── seed helpers ──────────────────────────────────────────────────────────
+// `max_participants` is the REAL payable cap; `display_seed` is cosmetic
+// phantom slots. The admin works in terms of HEADLINE (what users see) and
+// SEED, where realCap = headline − seed.
+
+/** Phantom slots for a row, defaulting missing/undefined to 0. */
+function seedOf(r: ChallengeCycleRow): number {
+  return r.display_seed ?? 0;
+}
+
+/** User-facing headline total = real cap + seed. */
+function headlineTotalOf(r: ChallengeCycleRow): number {
+  return r.max_participants + seedOf(r);
+}
+
 // ── form state ────────────────────────────────────────────────────────────
 
 type OpenForm = {
   challenge_id: string;
   start_date: string;
-  max_participants: string;
+  // Headline total shown to users; real cap = headline − seed.
+  headline_total: string;
+  // Cosmetic phantom slots.
+  seed: string;
 };
 
 const EMPTY_OPEN_FORM: OpenForm = {
   challenge_id: '',
   start_date: todayISO(),
-  max_participants: '50',
+  headline_total: '50',
+  seed: '0',
 };
 
 const STATUS_OPTIONS: ('all' | ChallengeCycleStatus)[] = ['all', 'enrollment_open', 'running', 'completed'];
@@ -242,7 +263,8 @@ export function CyclesPage() {
 
   // Edit-slots modal
   const [editRow, setEditRow] = useState<ChallengeCycleRow | null>(null);
-  const [editMax, setEditMax] = useState('');
+  const [editHeadline, setEditHeadline] = useState('');
+  const [editSeed, setEditSeed] = useState('');
   const [editErr, setEditErr] = useState<string | null>(null);
   const [editSaving, setEditSaving] = useState(false);
 
@@ -317,27 +339,38 @@ export function CyclesPage() {
       setOpenFormErr('Challenge is required.');
       return;
     }
-    const maxN = Number(openForm.max_participants);
-    if (!Number.isFinite(maxN) || maxN <= 0) {
-      setOpenFormErr('Max participants must be greater than 0.');
+    const headlineN = Number(openForm.headline_total);
+    if (!Number.isFinite(headlineN) || headlineN <= 0) {
+      setOpenFormErr('Headline total must be greater than 0.');
       return;
     }
+    const seedN = Number(openForm.seed);
+    if (!Number.isInteger(seedN) || seedN < 0 || seedN >= headlineN) {
+      setOpenFormErr('Seed must be 0 or more and less than the headline total.');
+      return;
+    }
+    const realCap = headlineN - seedN;
     setOpening(true);
     setOpenFormErr(null);
     try {
       const result = await openNextCycle(
         openForm.challenge_id,
         openForm.start_date || null,
-        maxN,
+        realCap,
       );
+      // Seed is set in a second step: openNextCycle has no seed param.
+      if (seedN > 0) {
+        await setCycleMaxParticipants(result.cycle_id, realCap, seedN);
+      }
       setSuccessMsg(
-        `Opened cycle ${result.cycle_id.slice(0, 8)} · ${result.promoted_from_waitlist} promoted from waitlist`,
+        `Opened cycle ${result.cycle_id.slice(0, 8)} · shows ${headlineN} · pays ${realCap}`,
       );
       setOpenModalOpen(false);
       setOpenForm(EMPTY_OPEN_FORM);
       await refresh(challengeFilter === 'all' ? null : challengeFilter);
     } catch (e2) {
-      setOpenFormErr(e2 instanceof Error ? e2.message : 'Failed to open cycle');
+      const raw = e2 instanceof Error ? e2.message : 'Failed to open cycle';
+      setOpenFormErr(friendlyCycleError(raw));
     } finally {
       setOpening(false);
     }
@@ -369,34 +402,44 @@ export function CyclesPage() {
 
   const openEditModal = (row: ChallengeCycleRow) => {
     setEditRow(row);
-    setEditMax(String(row.max_participants));
+    setEditHeadline(String(headlineTotalOf(row)));
+    setEditSeed(String(seedOf(row)));
     setEditErr(null);
   };
 
   const closeEditModal = () => {
     if (editSaving) return;
     setEditRow(null);
-    setEditMax('');
+    setEditHeadline('');
+    setEditSeed('');
     setEditErr(null);
   };
 
   const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editRow) return;
-    const maxN = Number(editMax);
-    if (!Number.isFinite(maxN) || maxN <= 0) {
-      setEditErr('Max participants must be greater than 0.');
+    const headlineN = Number(editHeadline);
+    if (!Number.isFinite(headlineN) || headlineN <= 0) {
+      setEditErr('Headline total must be greater than 0.');
       return;
     }
+    const seedN = Number(editSeed);
+    if (!Number.isInteger(seedN) || seedN < 0 || seedN >= headlineN) {
+      setEditErr('Seed must be 0 or more and less than the headline total.');
+      return;
+    }
+    const realCap = headlineN - seedN;
     setEditSaving(true);
     setEditErr(null);
     try {
-      const result = await setCycleMaxParticipants(editRow.id, maxN);
+      const result = await setCycleMaxParticipants(editRow.id, realCap, seedN);
+      const shows = result.max_participants + result.display_seed;
       setSuccessMsg(
-        `Cycle ${result.cycle_id.slice(0, 8)} · max now ${result.max_participants} · ${result.active_count} active`,
+        `Cycle ${result.cycle_id.slice(0, 8)} · shows ${shows} · pays ${result.max_participants} · ${result.active_count} active`,
       );
       setEditRow(null);
-      setEditMax('');
+      setEditHeadline('');
+      setEditSeed('');
       await refresh(challengeFilter === 'all' ? null : challengeFilter);
     } catch (e2) {
       const raw = e2 instanceof Error ? e2.message : 'Failed to update slots';
@@ -513,12 +556,23 @@ export function CyclesPage() {
         key: 'slots',
         header: 'Slots',
         align: 'right',
-        render: (r) => (
-          <span style={{ color: colors.text, fontFamily: 'Barlow Condensed, sans-serif', fontSize: 16, fontWeight: 700, letterSpacing: 0.4 }}>
-            {r.active_count} <span style={{ color: colors.dim, fontSize: 12 }}>/ {r.max_participants}</span>
-          </span>
-        ),
-        sort: (a, b) => a.active_count - b.active_count,
+        render: (r) => {
+          const seed = seedOf(r);
+          const displayActive = r.active_count + seed;
+          const displayTotal = headlineTotalOf(r);
+          return (
+            <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-end', gap: 1 }}>
+              <span style={{ color: colors.text, fontFamily: 'Barlow Condensed, sans-serif', fontSize: 16, fontWeight: 700, letterSpacing: 0.4 }}>
+                {displayActive} <span style={{ color: colors.dim, fontSize: 12 }}>/ {displayTotal}</span>
+              </span>
+              {seed > 0 && (
+                <span style={{ color: colors.dim, fontSize: 11 }}>pays {r.max_participants}</span>
+              )}
+            </span>
+          );
+        },
+        // Sort by the user-facing active count (real + seed).
+        sort: (a, b) => (a.active_count + seedOf(a)) - (b.active_count + seedOf(b)),
       },
       {
         key: 'completed',
@@ -729,20 +783,37 @@ export function CyclesPage() {
             </Select>
           </Field>
 
+          <Field label="Start date">
+            <TextInput
+              type="date"
+              value={openForm.start_date}
+              onChange={(e) => setOpenForm((f) => ({ ...f, start_date: e.target.value }))}
+            />
+          </Field>
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-            <Field label="Start date">
-              <TextInput
-                type="date"
-                value={openForm.start_date}
-                onChange={(e) => setOpenForm((f) => ({ ...f, start_date: e.target.value }))}
-              />
-            </Field>
-            <Field label="Max participants">
+            <Field label="Headline total (shown to users)">
               <TextInput
                 type="number"
                 min={1}
-                value={openForm.max_participants}
-                onChange={(e) => setOpenForm((f) => ({ ...f, max_participants: e.target.value }))}
+                value={openForm.headline_total}
+                onChange={(e) => setOpenForm((f) => ({ ...f, headline_total: e.target.value }))}
+                required
+              />
+            </Field>
+            <Field
+              label="Seed (phantom slots)"
+              hint={`Real payable cap = ${(() => {
+                const h = Number(openForm.headline_total);
+                const s = Number(openForm.seed);
+                return Number.isFinite(h) && Number.isFinite(s) ? Math.max(0, h - s) : '—';
+              })()}.`}
+            >
+              <TextInput
+                type="number"
+                min={0}
+                value={openForm.seed}
+                onChange={(e) => setOpenForm((f) => ({ ...f, seed: e.target.value }))}
                 required
               />
             </Field>
@@ -898,23 +969,47 @@ export function CyclesPage() {
               <span>{formatWindow(editRow.start_date, editRow.end_date)}</span>
               <span>·</span>
               <span>
-                {editRow.active_count} / {editRow.max_participants} active
+                shows {editRow.active_count + seedOf(editRow)} / {headlineTotalOf(editRow)}
+              </span>
+              <span>·</span>
+              <span>
+                real cap {editRow.max_participants} · seed {seedOf(editRow)} · {editRow.active_count} active
               </span>
             </div>
 
-            <Field
-              label="Max participants"
-              hint={`Cannot go below the ${editRow.active_count} currently enrolled.`}
-            >
-              <TextInput
-                type="number"
-                min={1}
-                value={editMax}
-                onChange={(e) => setEditMax(e.target.value)}
-                required
-                autoFocus
-              />
-            </Field>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <Field
+                label="Headline total (shown to users)"
+                hint={(() => {
+                  const h = Number(editHeadline);
+                  const s = Number(editSeed);
+                  return Number.isFinite(h) && Number.isFinite(s)
+                    ? `Real payable cap = ${Math.max(0, h - s)}.`
+                    : ' ';
+                })()}
+              >
+                <TextInput
+                  type="number"
+                  min={1}
+                  value={editHeadline}
+                  onChange={(e) => setEditHeadline(e.target.value)}
+                  required
+                  autoFocus
+                />
+              </Field>
+              <Field
+                label="Seed (phantom slots)"
+                hint={`Cannot set real cap below the ${editRow.active_count} currently enrolled.`}
+              >
+                <TextInput
+                  type="number"
+                  min={0}
+                  value={editSeed}
+                  onChange={(e) => setEditSeed(e.target.value)}
+                  required
+                />
+              </Field>
+            </div>
 
             <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 12 }}>
               <Button type="button" variant="ghost" onClick={closeEditModal} disabled={editSaving}>
