@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { colors } from '../../theme';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, TextArea, Select, Button } from '../../components/admin/FormField';
 import { Modal } from '../../components/admin/Modal';
+import { safeUrl } from '../../utils/safeUrl';
 import {
   listMoneyChallenges,
   createMoneyChallenge,
@@ -10,6 +11,7 @@ import {
   // Destructive op goes through the *WithReauth wrapper so
   // requireRecentAuth() can challenge the operator before delete.
   deleteMoneyChallengeWithReauth as deleteMoneyChallenge,
+  uploadGiveawayImage,
   EXERCISE_OPTION_CATALOG,
   type MoneyChallenge,
   type MoneyChallengeInput,
@@ -193,6 +195,25 @@ export function ChallengesPage() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [formErr, setFormErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Upload a JPG/PNG directly instead of pasting a URL. The file is resized,
+  // pushed to Supabase Storage, and the resulting public URL is written into
+  // the same image_url field the manual input edits.
+  const handleUpload = async (file: File) => {
+    setUploading(true);
+    setFormErr(null);
+    try {
+      const url = await uploadGiveawayImage(file);
+      setForm((f) => ({ ...f, image_url: url }));
+    } catch (e) {
+      setFormErr(e instanceof Error ? e.message : 'Upload failed');
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
 
   const refresh = async () => {
     setLoading(true);
@@ -226,7 +247,7 @@ export function ChallengesPage() {
   };
 
   const closeModal = () => {
-    if (saving) return;
+    if (saving || uploading) return;
     setModalOpen(false);
     setEditingId(null);
     setForm(EMPTY_FORM);
@@ -526,14 +547,6 @@ export function ChallengesPage() {
             />
           </Field>
 
-          <Field label="Hero image URL (optional)">
-            <TextInput
-              value={form.image_url}
-              onChange={(e) => setForm((f) => ({ ...f, image_url: e.target.value }))}
-              placeholder="https://… — blank shows the gradient fallback in the app"
-            />
-          </Field>
-
           <Field label="Exercise options (users pick one per session)">
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
               {EXERCISE_OPTION_CATALOG.map((opt) => {
@@ -659,22 +672,87 @@ export function ChallengesPage() {
           </div>
 
           <Field
-            label="Image URL (optional)"
-            hint="Square JPG preferred. Card swaps to photographic mode when set."
+            label="Hero image (optional)"
+            hint="Upload a JPG/PNG or paste a URL. Square preferred — card swaps to photographic mode when set. Blank shows the gradient fallback."
           >
-            <TextInput
-              type="text"
-              placeholder="https://… (leave empty for gradient fallback)"
-              value={form.image_url}
-              onChange={(e) => setForm((f) => ({ ...f, image_url: e.target.value }))}
-            />
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+              {safeUrl(form.image_url) ? (
+                <img
+                  src={safeUrl(form.image_url) as string}
+                  alt="preview"
+                  style={{
+                    width: 96,
+                    height: 96,
+                    borderRadius: 10,
+                    objectFit: 'cover',
+                    background: colors.bg3,
+                    border: `1px solid ${colors.border}`,
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: 96,
+                    height: 96,
+                    borderRadius: 10,
+                    background: colors.bg3,
+                    border: `1px solid ${colors.border}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: colors.muted,
+                    fontSize: 11,
+                  }}
+                >
+                  No image
+                </div>
+              )}
+              <div style={{ flex: 1 }}>
+                <TextInput
+                  type="text"
+                  placeholder="https://… (leave empty for gradient fallback)"
+                  value={form.image_url}
+                  onChange={(e) => setForm((f) => ({ ...f, image_url: e.target.value }))}
+                />
+                <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/png,image/jpeg,image/jpg,image/webp,image/gif"
+                    style={{ display: 'none' }}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) void handleUpload(f);
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                  >
+                    {uploading ? 'Uploading…' : 'Upload image'}
+                  </Button>
+                  {form.image_url && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => setForm((f) => ({ ...f, image_url: '' }))}
+                      disabled={uploading}
+                    >
+                      Clear
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
           </Field>
 
           <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 12 }}>
-            <Button type="button" variant="ghost" onClick={closeModal} disabled={saving}>
+            <Button type="button" variant="ghost" onClick={closeModal} disabled={saving || uploading}>
               Cancel
             </Button>
-            <Button type="submit" variant="primary" disabled={saving}>
+            <Button type="submit" variant="primary" disabled={saving || uploading}>
               {saving ? 'Saving…' : editingId ? 'Save changes' : 'Create challenge'}
             </Button>
           </div>
