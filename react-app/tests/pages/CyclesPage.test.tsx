@@ -19,12 +19,18 @@ const listChallengeCyclesMock = vi.fn();
 const openNextCycleMock = vi.fn();
 const listCycleWinnersMock = vi.fn();
 const listMoneyChallengesMock = vi.fn();
+const setCycleMaxParticipantsMock = vi.fn();
+const addEnrollmentMock = vi.fn();
+const listUsersMock = vi.fn();
 
 vi.mock('../../src/lib/adminApi', () => ({
   listChallengeCycles: (...a: unknown[]) => listChallengeCyclesMock(...a),
   openNextCycle: (...a: unknown[]) => openNextCycleMock(...a),
   listCycleWinners: (...a: unknown[]) => listCycleWinnersMock(...a),
   listMoneyChallenges: () => listMoneyChallengesMock(),
+  setCycleMaxParticipants: (...a: unknown[]) => setCycleMaxParticipantsMock(...a),
+  addEnrollment: (...a: unknown[]) => addEnrollmentMock(...a),
+  listUsers: (...a: unknown[]) => listUsersMock(...a),
 }));
 
 import { CyclesPage } from '../../src/pages/admin/CyclesPage';
@@ -77,11 +83,37 @@ const ch = (o: Partial<any> = {}) => ({
   ...o,
 });
 
+const adminUser = (o: Partial<any> = {}) => ({
+  id: 'u1',
+  email: 'a@x.com',
+  signup_at: null,
+  last_sign_in_at: null,
+  name: 'Alice',
+  goal: null,
+  activity_level: null,
+  experience: null,
+  days_per_week: null,
+  is_admin: false,
+  profile_created_at: null,
+  profile_updated_at: null,
+  tier: 'free',
+  subscription_status: null,
+  subscription_expires_at: null,
+  points: 0,
+  tickets: 0,
+  workout_count: 0,
+  last_workout_at: null,
+  ...o,
+});
+
 beforeEach(() => {
   listChallengeCyclesMock.mockReset();
   openNextCycleMock.mockReset();
   listCycleWinnersMock.mockReset();
   listMoneyChallengesMock.mockReset();
+  setCycleMaxParticipantsMock.mockReset();
+  addEnrollmentMock.mockReset();
+  listUsersMock.mockReset();
 });
 
 describe('CyclesPage', () => {
@@ -227,5 +259,96 @@ describe('CyclesPage', () => {
     await waitFor(() => expect(listChallengeCyclesMock).toHaveBeenCalledTimes(2));
     fireEvent.click(screen.getByRole('button', { name: /Refresh/ }));
     await waitFor(() => expect(listChallengeCyclesMock).toHaveBeenCalledTimes(3));
+  });
+
+  it('completed cycles show no row actions', async () => {
+    listChallengeCyclesMock.mockResolvedValue([cycle({ status: 'completed' })]);
+    listMoneyChallengesMock.mockResolvedValue([]);
+    render(<CyclesPage />);
+    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
+    expect(screen.queryByRole('button', { name: 'Edit slots' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Add participant' })).not.toBeInTheDocument();
+  });
+
+  it('Edit slots: submit calls setCycleMaxParticipants and shows success banner', async () => {
+    listChallengeCyclesMock.mockResolvedValue([cycle({ status: 'running', max_participants: 50, active_count: 10 })]);
+    listMoneyChallengesMock.mockResolvedValue([]);
+    setCycleMaxParticipantsMock.mockResolvedValue({
+      ok: true,
+      cycle_id: 'cyc-1abc999',
+      max_participants: 80,
+      active_count: 10,
+      status: 'running',
+    });
+    render(<CyclesPage />);
+    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Edit slots' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Save slots' })).toBeInTheDocument());
+
+    const numInput = document.querySelector('input[type="number"]') as HTMLInputElement;
+    fireEvent.change(numInput, { target: { value: '80' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save slots' }));
+
+    await waitFor(() => expect(setCycleMaxParticipantsMock).toHaveBeenCalledWith('cyc-1', 80));
+    await waitFor(() => expect(screen.getByText(/max now 80 · 10 active/)).toBeInTheDocument());
+  });
+
+  it('Edit slots: below_active_count maps to a friendly error', async () => {
+    listChallengeCyclesMock.mockResolvedValue([cycle({ status: 'running', max_participants: 50, active_count: 12 })]);
+    listMoneyChallengesMock.mockResolvedValue([]);
+    setCycleMaxParticipantsMock.mockRejectedValue(new Error('below_active_count'));
+    render(<CyclesPage />);
+    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Edit slots' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Save slots' })).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Save slots' }));
+    await waitFor(() => expect(screen.getByText("Can't set below 12 already enrolled.")).toBeInTheDocument());
+  });
+
+  it('Add participant: search lists users, pick + submit calls addEnrollment', async () => {
+    listChallengeCyclesMock.mockResolvedValue([cycle({ status: 'enrollment_open' })]);
+    listMoneyChallengesMock.mockResolvedValue([]);
+    listUsersMock.mockResolvedValue([adminUser()]);
+    addEnrollmentMock.mockResolvedValue({
+      ok: true,
+      enrollment_id: 'enr-1',
+      cycle_id: 'cyc-1abc999',
+      user_id: 'u1',
+      active_count: 11,
+      status: 'enrollment_open',
+    });
+    render(<CyclesPage />);
+    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Add participant' }));
+    await waitFor(() => expect(listUsersMock).toHaveBeenCalled());
+    await waitFor(() => expect(screen.getByText('a@x.com')).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText('a@x.com'));
+    const submitBtn = Array.from(document.querySelectorAll('button[type="submit"]')).find(
+      (b) => /Add participant/.test(b.textContent ?? ''),
+    ) as HTMLButtonElement;
+    fireEvent.click(submitBtn);
+
+    await waitFor(() => expect(addEnrollmentMock).toHaveBeenCalledWith('cyc-1', 'u1'));
+    await waitFor(() => expect(screen.getByText(/Enrolled a@x.com/)).toBeInTheDocument());
+  });
+
+  it('Add participant: cycle_full maps to a friendly error', async () => {
+    listChallengeCyclesMock.mockResolvedValue([cycle({ status: 'enrollment_open' })]);
+    listMoneyChallengesMock.mockResolvedValue([]);
+    listUsersMock.mockResolvedValue([adminUser()]);
+    addEnrollmentMock.mockRejectedValue(new Error('cycle_full'));
+    render(<CyclesPage />);
+    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Add participant' }));
+    await waitFor(() => expect(screen.getByText('a@x.com')).toBeInTheDocument());
+    fireEvent.click(screen.getByText('a@x.com'));
+    const submitBtn = Array.from(document.querySelectorAll('button[type="submit"]')).find(
+      (b) => /Add participant/.test(b.textContent ?? ''),
+    ) as HTMLButtonElement;
+    fireEvent.click(submitBtn);
+    await waitFor(() =>
+      expect(screen.getByText('Cycle is full — raise the max participants first.')).toBeInTheDocument(),
+    );
   });
 });

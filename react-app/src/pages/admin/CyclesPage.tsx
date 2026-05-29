@@ -8,10 +8,14 @@ import {
   openNextCycle,
   listCycleWinners,
   listMoneyChallenges,
+  setCycleMaxParticipants,
+  addEnrollment,
+  listUsers,
   type ChallengeCycleRow,
   type ChallengeCycleStatus,
   type CycleWinnerRow,
   type MoneyChallenge,
+  type AdminUserRow,
 } from '../../lib/adminApi';
 
 // ── styles ────────────────────────────────────────────────────────────────
@@ -162,6 +166,28 @@ function todayISO(): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
+/** Map raw RPC error codes to friendly admin-facing copy. */
+function friendlyCycleError(raw: string, ctx?: { activeCount?: number }): string {
+  switch (raw) {
+    case 'forbidden':
+      return 'You do not have permission to do that.';
+    case 'cycle_not_found':
+      return 'Cycle not found — it may have been removed.';
+    case 'below_active_count':
+      return ctx?.activeCount != null
+        ? `Can't set below ${ctx.activeCount} already enrolled.`
+        : "Can't set below the number already enrolled.";
+    case 'cycle_full':
+      return 'Cycle is full — raise the max participants first.';
+    case 'already_enrolled':
+      return 'That user is already enrolled in this cycle.';
+    case 'cycle_not_joinable':
+      return 'This cycle is not open for new enrollments.';
+    default:
+      return raw;
+  }
+}
+
 // ── form state ────────────────────────────────────────────────────────────
 
 type OpenForm = {
@@ -177,6 +203,18 @@ const EMPTY_OPEN_FORM: OpenForm = {
 };
 
 const STATUS_OPTIONS: ('all' | ChallengeCycleStatus)[] = ['all', 'enrollment_open', 'running', 'completed'];
+
+const tableActionBtnStyle: React.CSSProperties = {
+  background: colors.bg3,
+  color: colors.text,
+  border: `1px solid ${colors.border}`,
+  borderRadius: 8,
+  padding: '5px 10px',
+  fontSize: 12,
+  fontWeight: 600,
+  cursor: 'pointer',
+  whiteSpace: 'nowrap',
+};
 
 // ── page ──────────────────────────────────────────────────────────────────
 
@@ -201,6 +239,22 @@ export function CyclesPage() {
   const [winners, setWinners] = useState<CycleWinnerRow[] | null>(null);
   const [winnersLoading, setWinnersLoading] = useState(false);
   const [winnersErr, setWinnersErr] = useState<string | null>(null);
+
+  // Edit-slots modal
+  const [editRow, setEditRow] = useState<ChallengeCycleRow | null>(null);
+  const [editMax, setEditMax] = useState('');
+  const [editErr, setEditErr] = useState<string | null>(null);
+  const [editSaving, setEditSaving] = useState(false);
+
+  // Add-participant modal
+  const [addRow, setAddRow] = useState<ChallengeCycleRow | null>(null);
+  const [addSearch, setAddSearch] = useState('');
+  const [addDebounced, setAddDebounced] = useState('');
+  const [addUsers, setAddUsers] = useState<AdminUserRow[]>([]);
+  const [addUsersLoading, setAddUsersLoading] = useState(false);
+  const [addSelectedUser, setAddSelectedUser] = useState<AdminUserRow | null>(null);
+  const [addErr, setAddErr] = useState<string | null>(null);
+  const [addSaving, setAddSaving] = useState(false);
 
   const refresh = async (challengeId: string | null = challengeFilter === 'all' ? null : challengeFilter) => {
     setLoading(true);
@@ -311,6 +365,121 @@ export function CyclesPage() {
     setWinnersErr(null);
   };
 
+  // ── Edit slots ────────────────────────────────────────────────────────────
+
+  const openEditModal = (row: ChallengeCycleRow) => {
+    setEditRow(row);
+    setEditMax(String(row.max_participants));
+    setEditErr(null);
+  };
+
+  const closeEditModal = () => {
+    if (editSaving) return;
+    setEditRow(null);
+    setEditMax('');
+    setEditErr(null);
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editRow) return;
+    const maxN = Number(editMax);
+    if (!Number.isFinite(maxN) || maxN <= 0) {
+      setEditErr('Max participants must be greater than 0.');
+      return;
+    }
+    setEditSaving(true);
+    setEditErr(null);
+    try {
+      const result = await setCycleMaxParticipants(editRow.id, maxN);
+      setSuccessMsg(
+        `Cycle ${result.cycle_id.slice(0, 8)} · max now ${result.max_participants} · ${result.active_count} active`,
+      );
+      setEditRow(null);
+      setEditMax('');
+      await refresh(challengeFilter === 'all' ? null : challengeFilter);
+    } catch (e2) {
+      const raw = e2 instanceof Error ? e2.message : 'Failed to update slots';
+      setEditErr(friendlyCycleError(raw, { activeCount: editRow.active_count }));
+    } finally {
+      setEditSaving(false);
+    }
+  };
+
+  // ── Add participant ───────────────────────────────────────────────────────
+
+  const openAddModal = (row: ChallengeCycleRow) => {
+    setAddRow(row);
+    setAddSearch('');
+    setAddDebounced('');
+    setAddUsers([]);
+    setAddSelectedUser(null);
+    setAddErr(null);
+  };
+
+  const closeAddModal = () => {
+    if (addSaving) return;
+    setAddRow(null);
+    setAddSearch('');
+    setAddDebounced('');
+    setAddUsers([]);
+    setAddSelectedUser(null);
+    setAddErr(null);
+  };
+
+  // Debounce the participant search input.
+  useEffect(() => {
+    if (!addRow) return;
+    const t = setTimeout(() => setAddDebounced(addSearch.trim()), 250);
+    return () => clearTimeout(t);
+  }, [addSearch, addRow]);
+
+  // Fetch matching users whenever the (debounced) search changes while the modal is open.
+  useEffect(() => {
+    if (!addRow) return;
+    let cancelled = false;
+    setAddUsersLoading(true);
+    void (async () => {
+      try {
+        const list = await listUsers(addDebounced.length > 0 ? addDebounced : null, 25, 0);
+        if (!cancelled) setAddUsers(list);
+      } catch {
+        if (!cancelled) setAddUsers([]);
+      } finally {
+        if (!cancelled) setAddUsersLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [addDebounced, addRow]);
+
+  const handleAddSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!addRow) return;
+    if (!addSelectedUser) {
+      setAddErr('Pick a user to enroll.');
+      return;
+    }
+    setAddSaving(true);
+    setAddErr(null);
+    try {
+      const result = await addEnrollment(addRow.id, addSelectedUser.id);
+      const who = addSelectedUser.email ?? addSelectedUser.id.slice(0, 8);
+      setSuccessMsg(
+        `Enrolled ${who} · cycle ${result.cycle_id.slice(0, 8)} · ${result.active_count} active`,
+      );
+      setAddRow(null);
+      setAddSelectedUser(null);
+      await refresh(challengeFilter === 'all' ? null : challengeFilter);
+    } catch (e2) {
+      const raw = e2 instanceof Error ? e2.message : 'Failed to add participant';
+      setAddErr(friendlyCycleError(raw));
+    } finally {
+      setAddSaving(false);
+    }
+  };
+
   const columns: Column<ChallengeCycleRow>[] = useMemo(
     () => [
       {
@@ -416,6 +585,37 @@ export function CyclesPage() {
             <span style={{ color: colors.dim, fontSize: 12 }}>—</span>
           ),
         sort: (a, b) => a.total_owed - b.total_owed,
+      },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (r) =>
+          r.status === 'completed' ? (
+            <span style={{ color: colors.dim, fontSize: 12 }}>—</span>
+          ) : (
+            <span style={{ display: 'inline-flex', gap: 6 }}>
+              <button
+                type="button"
+                style={tableActionBtnStyle}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openEditModal(r);
+                }}
+              >
+                Edit slots
+              </button>
+              <button
+                type="button"
+                style={tableActionBtnStyle}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openAddModal(r);
+                }}
+              >
+                Add participant
+              </button>
+            </span>
+          ),
       },
     ],
     [],
@@ -669,6 +869,170 @@ export function CyclesPage() {
               </Button>
             </div>
           </div>
+        )}
+      </Modal>
+
+      {/* Edit slots modal */}
+      <Modal
+        open={!!editRow}
+        onClose={closeEditModal}
+        title={editRow ? `Edit slots — ${editRow.challenge_title}` : 'Edit slots'}
+        width={480}
+      >
+        {editRow && (
+          <form onSubmit={handleEditSubmit}>
+            {editErr && <div style={errorBannerStyle}><span>{editErr}</span></div>}
+
+            <div
+              style={{
+                fontSize: 12,
+                color: colors.muted,
+                marginBottom: 14,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                flexWrap: 'wrap',
+              }}
+            >
+              <span style={statusChipStyle(editRow.status)}>{editRow.status}</span>
+              <span>{formatWindow(editRow.start_date, editRow.end_date)}</span>
+              <span>·</span>
+              <span>
+                {editRow.active_count} / {editRow.max_participants} active
+              </span>
+            </div>
+
+            <Field
+              label="Max participants"
+              hint={`Cannot go below the ${editRow.active_count} currently enrolled.`}
+            >
+              <TextInput
+                type="number"
+                min={1}
+                value={editMax}
+                onChange={(e) => setEditMax(e.target.value)}
+                required
+                autoFocus
+              />
+            </Field>
+
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 12 }}>
+              <Button type="button" variant="ghost" onClick={closeEditModal} disabled={editSaving}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="primary" disabled={editSaving}>
+                {editSaving ? 'Saving…' : 'Save slots'}
+              </Button>
+            </div>
+          </form>
+        )}
+      </Modal>
+
+      {/* Add participant modal */}
+      <Modal
+        open={!!addRow}
+        onClose={closeAddModal}
+        title={addRow ? `Add participant — ${addRow.challenge_title}` : 'Add participant'}
+        width={560}
+      >
+        {addRow && (
+          <form onSubmit={handleAddSubmit}>
+            {addErr && <div style={errorBannerStyle}><span>{addErr}</span></div>}
+
+            <div
+              style={{
+                fontSize: 12,
+                color: colors.muted,
+                marginBottom: 14,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                flexWrap: 'wrap',
+              }}
+            >
+              <span style={statusChipStyle(addRow.status)}>{addRow.status}</span>
+              <span>
+                {addRow.active_count} / {addRow.max_participants} active
+              </span>
+            </div>
+
+            <Field label="Search user" hint="Search by email or name.">
+              <TextInput
+                type="text"
+                value={addSearch}
+                onChange={(e) => {
+                  setAddSearch(e.target.value);
+                  setAddSelectedUser(null);
+                }}
+                placeholder="email@example.com"
+                autoFocus
+              />
+            </Field>
+
+            <div
+              style={{
+                background: colors.bg,
+                border: `1px solid ${colors.border}`,
+                borderRadius: 10,
+                maxHeight: 260,
+                overflow: 'auto',
+                marginBottom: 12,
+              }}
+            >
+              {addUsersLoading ? (
+                <div style={{ padding: 12, color: colors.muted, fontSize: 13 }}>Searching…</div>
+              ) : addUsers.length === 0 ? (
+                <div style={{ padding: 12, color: colors.muted, fontSize: 13 }}>No users match.</div>
+              ) : (
+                addUsers.map((u) => {
+                  const selected = addSelectedUser?.id === u.id;
+                  return (
+                    <button
+                      key={u.id}
+                      type="button"
+                      onClick={() => setAddSelectedUser(u)}
+                      style={{
+                        display: 'flex',
+                        width: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 10,
+                        padding: '9px 12px',
+                        background: selected ? colors.successDim : 'transparent',
+                        border: 'none',
+                        borderBottom: `1px solid ${colors.border}`,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        color: colors.text,
+                        fontSize: 13,
+                      }}
+                    >
+                      <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                        <span style={{ fontWeight: 600 }}>
+                          {u.email ?? <span style={{ color: colors.dim }}>(no email)</span>}
+                        </span>
+                        <span style={{ color: colors.dim, fontSize: 11 }}>
+                          {u.name ?? u.id}
+                        </span>
+                      </span>
+                      {selected && (
+                        <span style={{ color: colors.success, fontWeight: 700, fontSize: 12 }}>✓ selected</span>
+                      )}
+                    </button>
+                  );
+                })
+              )}
+            </div>
+
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 4 }}>
+              <Button type="button" variant="ghost" onClick={closeAddModal} disabled={addSaving}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="primary" disabled={addSaving || !addSelectedUser}>
+                {addSaving ? 'Enrolling…' : 'Add participant'}
+              </Button>
+            </div>
+          </form>
         )}
       </Modal>
     </div>

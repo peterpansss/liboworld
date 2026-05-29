@@ -1093,6 +1093,53 @@ export async function listCycleWinners(cycleId: string): Promise<CycleWinnerRow[
   return (data ?? []) as CycleWinnerRow[];
 }
 
+export type SetCycleMaxResult = {
+  ok: boolean;
+  cycle_id: string;
+  max_participants: number;
+  active_count: number;
+  status: ChallengeCycleStatus;
+  error?: string;
+};
+
+export async function setCycleMaxParticipants(
+  cycleId: string,
+  newMax: number,
+): Promise<SetCycleMaxResult> {
+  const { data, error } = await supabase.rpc('admin_set_cycle_max_participants', {
+    p_cycle_id: cycleId,
+    p_new_max: newMax,
+  });
+  if (error) throw error;
+  const r = data as SetCycleMaxResult;
+  if (!r?.ok) throw new Error(r?.error ?? 'set_max_failed');
+  return r;
+}
+
+export type AddEnrollmentResult = {
+  ok: boolean;
+  enrollment_id: string;
+  cycle_id: string;
+  user_id: string;
+  active_count: number;
+  status: ChallengeCycleStatus;
+  error?: string;
+};
+
+export async function addEnrollment(
+  cycleId: string,
+  userId: string,
+): Promise<AddEnrollmentResult> {
+  const { data, error } = await supabase.rpc('admin_add_enrollment', {
+    p_cycle_id: cycleId,
+    p_user_id: userId,
+  });
+  if (error) throw error;
+  const r = data as AddEnrollmentResult;
+  if (!r?.ok) throw new Error(r?.error ?? 'add_enrollment_failed');
+  return r;
+}
+
 // ── Challenge payouts (admin) ────────────────────────────────────────────────
 
 export type ChallengePayoutStatus = 'pending' | 'processing' | 'paid' | 'failed' | 'cancelled';
