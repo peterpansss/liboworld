@@ -14,6 +14,13 @@
   # after the asset is actually deployed.
   RewriteRule ^(images|assets|videos|fonts|audio|founder)/ - [L,R=404]
 
+  # Shared-routine deep links (/w/:id) → the branded share-OG stub at
+  # dist/w/index.html, so crawlers/unfurlers see a Libo "Shared workout" card
+  # instead of the generic homepage. The stub is still the SPA shell, so React
+  # boots and renders the real routine for human visitors. (/w/ alone is a real
+  # dir, already served by the -d check above.)
+  RewriteRule ^w/.+ /w/index.html [L]
+
   # Everything else → index.html (React Router handles routing client-side)
   RewriteRule ^ index.html [L]
 </IfModule>
