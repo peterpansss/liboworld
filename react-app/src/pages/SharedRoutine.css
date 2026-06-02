@@ -1,0 +1,441 @@
+/* /w/:id — public shared routine page. Two-column on desktop (wide main +
+   ~340px sidebar), single column on mobile with the sidebar dropping below
+   the main content. Mirrors the dark, condensed-display brand of /pricing. */
+
+.sr-page {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 0 40px;
+}
+
+.sr-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 0 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ── Brand row ── */
+.sr-brand {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+
+/* ── Main column ── */
+.sr-main {
+  min-width: 0;
+}
+
+.sr-title {
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+.sr-subline {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+
+.sr-subline__kind {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── Meta chips ── */
+.sr-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.sr-chip {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--text);
+}
+
+/* ── Sessions ── */
+.sr-sessions {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.sr-session__head {
+  margin-bottom: 14px;
+}
+
+.sr-session__label {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0 0 2px;
+}
+
+.sr-session__meta {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.sr-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Exercise row ── */
+.sr-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.sr-row__thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--bg3);
+}
+
+.sr-row__thumb--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+.sr-row__thumb-initial {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--muted);
+}
+
+.sr-row__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.sr-row__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.sr-row__sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.sr-row__right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.sr-row__setsreps {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--text);
+}
+
+.sr-row__rest {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── Sidebar ── */
+.sr-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 24px;
+}
+
+.sr-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.sr-card__title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+
+.sr-card--app .sr-card__title {
+  margin-bottom: 6px;
+}
+
+.sr-card__body {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.sr-card__badge {
+  display: inline-block;
+}
+
+.sr-card__badge img,
+.sr-notfound__badge img {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+/* ── Summary stats ── */
+.sr-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.sr-stat {
+  text-align: center;
+  background: var(--bg3);
+  border-radius: 12px;
+  padding: 14px 6px;
+}
+
+.sr-stat__value {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: var(--text);
+  line-height: 1;
+}
+
+.sr-stat__label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 6px;
+  letter-spacing: 0.2px;
+}
+
+/* ── Muscle volume bars ── */
+.sr-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sr-bar-row {
+  display: grid;
+  grid-template-columns: 84px 1fr 28px;
+  align-items: center;
+  gap: 10px;
+}
+
+.sr-bar-row__name {
+  font-size: 12px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sr-bar-row__track {
+  height: 8px;
+  border-radius: 100px;
+  background: var(--bg3);
+  overflow: hidden;
+}
+
+.sr-bar-row__fill {
+  height: 100%;
+  border-radius: 100px;
+  background: var(--accent);
+  min-width: 4px;
+}
+
+.sr-bar-row__count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* ── Anatomy card ── */
+.sr-card--anatomy {
+  display: flex;
+  justify-content: center;
+}
+
+.sr-card--anatomy .anatomy__svg {
+  width: 100%;
+  height: auto;
+  max-width: 320px;
+  color: var(--text);
+}
+
+.sr-card--anatomy .anatomy__muscle {
+  fill: var(--bg3);
+  transition: fill 0.2s;
+}
+
+.sr-card--anatomy .anatomy__muscle[data-state='primary'] {
+  fill: var(--accent);
+}
+
+.sr-card--anatomy .anatomy__muscle[data-state='secondary'] {
+  fill: rgba(202, 255, 0, 0.4);
+}
+
+.sr-card--anatomy .anatomy__view-label {
+  fill: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* ── Page states (loading / not found) ── */
+.sr-state {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.sr-spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  animation: sr-spin 0.8s linear infinite;
+}
+
+@keyframes sr-spin {
+  to { transform: rotate(360deg); }
+}
+
+.sr-notfound {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 32px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sr-notfound .sr-brand {
+  margin-bottom: 20px;
+}
+
+.sr-notfound__title {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.sr-notfound__body {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.sr-notfound__badge {
+  margin-bottom: 20px;
+}
+
+.sr-notfound__home {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.sr-notfound__home:hover {
+  text-decoration: underline;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .sr-grid {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sr-page {
+    padding: 0 24px;
+  }
+  .sr-grid {
+    grid-template-columns: 1fr;
+    padding: 32px 0 64px;
+    gap: 32px;
+  }
+  /* Sidebar drops below the main content on mobile. */
+  .sr-main {
+    order: 1;
+  }
+  .sr-sidebar {
+    order: 2;
+    position: static;
+  }
+  .sr-card--anatomy .anatomy__svg {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sr-page {
+    padding: 0 16px;
+  }
+  .sr-row__thumb {
+    width: 48px;
+    height: 48px;
+  }
+}

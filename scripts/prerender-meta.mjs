@@ -350,6 +350,33 @@ function main() {
     ensureParentIndex(path.join(DIST, 'best-workouts'), template);
   }
 
+  // Shared-routine links (/w/:id) are user-generated, so the ids aren't
+  // enumerable at build time and the host is static (no SSR). Emit ONE
+  // share-flavored, branded OG stub at dist/w/index.html — the Apache SPA
+  // fallback serves it for any /w/<id>, so a crawler/unfurler sees a Libo card
+  // (not the generic homepage). Per-share dynamic OG (unique title/image per
+  // workout) needs an edge function — see the shared-routine notes. Visitors
+  // still get the real routine + correct per-workout runtime <SeoHead>.
+  {
+    const sharedInjection = buildHeadInjection({
+      title: 'Shared workout · Libo',
+      description:
+        'A workout shared on Libo — exercises, sets & reps. Open to view it, or get the app to train it. Made with Libo.',
+      canonical: `${SITE_URL}/w/`,
+      ogImage: DEFAULT_OG_IMAGE,
+      ogType: 'article',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Shared workout · Libo',
+        url: `${SITE_URL}/w/`,
+      },
+    });
+    const sharedDir = path.join(DIST, 'w');
+    fs.mkdirSync(sharedDir, { recursive: true });
+    fs.writeFileSync(path.join(sharedDir, 'index.html'), injectHead(template, sharedInjection));
+    console.log('prerender-meta: wrote shared-routine OG stub into dist/w/index.html');
+  }
 }
 
 main();

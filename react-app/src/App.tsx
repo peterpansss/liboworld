@@ -37,6 +37,7 @@ const AffiliateApply = lazy(() => import('./pages/AffiliateApply'));
 const AffiliateApplySent = lazy(() => import('./pages/AffiliateApplySent'));
 const Press = lazy(() => import('./pages/Press'));
 const PressSent = lazy(() => import('./pages/PressSent'));
+const SharedRoutine = lazy(() => import('./pages/SharedRoutine'));
 
 // Admin area — lazy, never loads for public visitors, not linked from public pages.
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
@@ -57,6 +58,8 @@ export default function App() {
         <Route path="/workouts" element={<Suspense fallback={darkFallback}><ProgramLibrary /></Suspense>} />
         <Route path="/workouts/:id" element={<Suspense fallback={darkFallback}><ProgramDetail /></Suspense>} />
         <Route path="/best-workouts/:facet" element={<Suspense fallback={darkFallback}><BestWorkouts /></Suspense>} />
+        {/* Public shared-routine page (liboworld.com/w/{id}) — opened from app share links. */}
+        <Route path="/w/:id" element={<Suspense fallback={darkFallback}><SharedRoutine /></Suspense>} />
         <Route path="/blog" element={<Suspense fallback={darkFallback}><Blog /></Suspense>} />
         <Route path="/blog/:slug" element={<Suspense fallback={darkFallback}><BlogPost /></Suspense>} />
         <Route path="/privacy" element={<Suspense fallback={darkFallback}><Privacy /></Suspense>} />
