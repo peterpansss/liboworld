@@ -295,40 +295,6 @@
   text-align: right;
 }
 
-/* ── Anatomy card ── */
-.sr-card--anatomy {
-  display: flex;
-  justify-content: center;
-}
-
-.sr-card--anatomy .anatomy__svg {
-  width: 100%;
-  height: auto;
-  max-width: 320px;
-  color: var(--text);
-}
-
-.sr-card--anatomy .anatomy__muscle {
-  fill: var(--bg3);
-  transition: fill 0.2s;
-}
-
-.sr-card--anatomy .anatomy__muscle[data-state='primary'] {
-  fill: var(--accent);
-}
-
-.sr-card--anatomy .anatomy__muscle[data-state='secondary'] {
-  fill: rgba(202, 255, 0, 0.4);
-}
-
-.sr-card--anatomy .anatomy__view-label {
-  fill: var(--muted);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-}
-
 /* ── Page states (loading / not found) ── */
 .sr-state {
   background: var(--bg);
@@ -424,9 +390,6 @@
   .sr-sidebar {
     order: 2;
     position: static;
-  }
-  .sr-card--anatomy .anatomy__svg {
-    max-width: 280px;
   }
 }
 

@@ -4,7 +4,6 @@ import { Dumbbell } from 'lucide-react';
 import { SeoHead } from '../components/SeoHead';
 import SiteFooter from '../components/SiteFooter';
 import AppStoreBadge from '../components/AppStoreBadge';
-import { BodyAnatomy } from '../components/BodyAnatomy';
 import { useSharedWorkout } from '../hooks/useSharedWorkout';
 import { useExercises, type ExerciseDisplay } from '../hooks/useExercises';
 import { exerciseThumb } from '../utils/thumbnails';
@@ -13,57 +12,6 @@ import type {
   SharedMuscleSummaryEntry,
 } from '../types/sharedWorkout';
 import './SharedRoutine.css';
-
-/**
- * Maps a `muscleSummary` muscle name (free-text, possibly compound "X / Y") to
- * the discrete BodyAnatomy muscle keys it should light up. Lookups are
- * case-insensitive; compound names are split on "/" and each part resolved.
- */
-const MUSCLE_KEY_MAP: Record<string, string[]> = {
-  chest: ['Chest'],
-  back: ['Back', 'Lats'],
-  lats: ['Lats'],
-  shoulders: ['Shoulders', 'Front Delts', 'Side Delts', 'Rear Delts'],
-  biceps: ['Biceps'],
-  triceps: ['Triceps'],
-  forearms: ['Forearms'],
-  abs: ['Abs'],
-  core: ['Core', 'Abs', 'Obliques'],
-  obliques: ['Obliques'],
-  glutes: ['Glutes'],
-  hamstrings: ['Hamstrings'],
-  quads: ['Quads'],
-  calves: ['Calves'],
-  legs: ['Quads', 'Hamstrings', 'Glutes', 'Calves'],
-  traps: ['Traps'],
-  'full body': ['Chest', 'Back', 'Lats', 'Shoulders', 'Quads', 'Hamstrings', 'Glutes', 'Core'],
-  'lower back': ['Lower Back'],
-  'hip flexors': ['Hip Flexors'],
-};
-
-// Every distinct muscle key BodyAnatomy can render — used for the fallback
-// direct case-insensitive match when a summary name isn't in MUSCLE_KEY_MAP.
-const ANATOMY_KEYS = [
-  'Front Delts', 'Side Delts', 'Rear Delts', 'Traps', 'Chest', 'Biceps',
-  'Forearms', 'Abs', 'Obliques', 'Hip Flexors', 'Quads', 'Calves', 'Core',
-  'Shoulders', 'Rhomboids', 'Lats', 'Back', 'Triceps', 'Lower Back',
-  'Glutes', 'Hamstrings',
-];
-
-function resolveMuscleKeys(name: string): string[] {
-  const parts = name.split('/').map((p) => p.trim()).filter(Boolean);
-  const keys: string[] = [];
-  for (const part of parts) {
-    const mapped = MUSCLE_KEY_MAP[part.toLowerCase()];
-    if (mapped) {
-      keys.push(...mapped);
-      continue;
-    }
-    const direct = ANATOMY_KEYS.find((k) => k.toLowerCase() === part.toLowerCase());
-    if (direct) keys.push(direct);
-  }
-  return keys;
-}
 
 function capitalize(s: string): string {
   return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
@@ -129,14 +77,6 @@ export default function SharedRoutine() {
   const estDuration = workout.meta.durationMin != null
     ? `${workout.meta.durationMin} min`
     : `~${Math.max(1, Math.round(totalSets * 3))}m`;
-
-  // Worked muscle keys for the silhouette.
-  const workedKeys = new Set<string>();
-  for (const entry of workout.muscleSummary) {
-    for (const key of resolveMuscleKeys(entry.muscle)) workedKeys.add(key);
-  }
-  const stateFor = (muscle: string): 'primary' | 'secondary' | 'off' =>
-    workedKeys.has(muscle) ? 'primary' : 'off';
 
   // Defensive desc sort of the muscle summary for the volume bars.
   const sortedMuscles: SharedMuscleSummaryEntry[] = [...workout.muscleSummary].sort(
@@ -275,10 +215,6 @@ export default function SharedRoutine() {
                 </div>
               </div>
             )}
-
-            <div className="sr-card sr-card--anatomy">
-              <BodyAnatomy stateFor={stateFor} />
-            </div>
           </aside>
         </div>
       </main>
