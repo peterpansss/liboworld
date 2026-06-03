@@ -1124,6 +1124,27 @@ export async function listCycleWinners(cycleId: string): Promise<CycleWinnerRow[
   return (data ?? []) as CycleWinnerRow[];
 }
 
+export type CycleEnrollmentRow = {
+  enrollment_id: string;
+  user_id: string;
+  email: string | null;
+  status: string;
+  joined_at: string;
+  enrolled_at: string;
+  tier_at_enrollment: MoneyChallengeTier;
+  completed_days: number;
+  last_active_at: string | null;
+  removed_reason: string | null;
+  freeze_tokens_remaining: number | null;
+  effective_end_date: string | null;
+};
+
+export async function listCycleEnrollments(cycleId: string): Promise<CycleEnrollmentRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_cycle_enrollments', { p_cycle_id: cycleId });
+  if (error) throw error;
+  return (data ?? []) as CycleEnrollmentRow[];
+}
+
 export type SetCycleMaxResult = {
   ok: boolean;
   cycle_id: string;

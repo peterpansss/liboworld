@@ -7,6 +7,7 @@ import {
   listChallengeCycles,
   openNextCycle,
   listCycleWinners,
+  listCycleEnrollments,
   listMoneyChallenges,
   setCycleMaxParticipants,
   addEnrollment,
@@ -15,6 +16,7 @@ import {
   type ChallengeCycleRow,
   type ChallengeCycleStatus,
   type CycleWinnerRow,
+  type CycleEnrollmentRow,
   type MoneyChallenge,
   type AdminUserRow,
 } from '../../lib/adminApi';
@@ -97,6 +99,29 @@ function statusChipStyle(status: ChallengeCycleStatus): React.CSSProperties {
     bg = colors.successDim;
     fg = colors.success;
   } else if (status === 'running') {
+    bg = colors.warningDim;
+    fg = colors.warning;
+  }
+  return {
+    display: 'inline-block',
+    padding: '3px 10px',
+    borderRadius: 8,
+    background: bg,
+    color: fg,
+    fontSize: 11,
+    fontWeight: 700,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  };
+}
+
+function enrollmentStatusChipStyle(status: string): React.CSSProperties {
+  let bg: string = colors.bg3;
+  let fg: string = colors.muted;
+  if (status === 'active') {
+    bg = colors.successDim;
+    fg = colors.success;
+  } else if (status === 'completed') {
     bg = colors.warningDim;
     fg = colors.warning;
   }
@@ -261,6 +286,12 @@ export function CyclesPage() {
   const [winners, setWinners] = useState<CycleWinnerRow[] | null>(null);
   const [winnersLoading, setWinnersLoading] = useState(false);
   const [winnersErr, setWinnersErr] = useState<string | null>(null);
+
+  // Participants (enrollments) modal
+  const [participantsRow, setParticipantsRow] = useState<ChallengeCycleRow | null>(null);
+  const [participants, setParticipants] = useState<CycleEnrollmentRow[] | null>(null);
+  const [participantsLoading, setParticipantsLoading] = useState(false);
+  const [participantsErr, setParticipantsErr] = useState<string | null>(null);
 
   // Edit-slots modal
   const [editRow, setEditRow] = useState<ChallengeCycleRow | null>(null);
@@ -427,6 +458,27 @@ export function CyclesPage() {
     setDetailsRow(null);
     setWinners(null);
     setWinnersErr(null);
+  };
+
+  const openParticipants = async (row: ChallengeCycleRow) => {
+    setParticipantsRow(row);
+    setParticipants(null);
+    setParticipantsErr(null);
+    setParticipantsLoading(true);
+    try {
+      const list = await listCycleEnrollments(row.id);
+      setParticipants(list);
+    } catch (e) {
+      setParticipantsErr(e instanceof Error ? e.message : 'Failed to load participants');
+    } finally {
+      setParticipantsLoading(false);
+    }
+  };
+
+  const closeParticipants = () => {
+    setParticipantsRow(null);
+    setParticipants(null);
+    setParticipantsErr(null);
   };
 
   // ── Edit slots ────────────────────────────────────────────────────────────
@@ -676,9 +728,30 @@ export function CyclesPage() {
         header: 'Actions',
         render: (r) =>
           r.status === 'completed' ? (
-            <span style={{ color: colors.dim, fontSize: 12 }}>—</span>
+            <span style={{ display: 'inline-flex', gap: 6 }}>
+              <button
+                type="button"
+                style={tableActionBtnStyle}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  void openParticipants(r);
+                }}
+              >
+                Participants
+              </button>
+            </span>
           ) : (
             <span style={{ display: 'inline-flex', gap: 6 }}>
+              <button
+                type="button"
+                style={tableActionBtnStyle}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  void openParticipants(r);
+                }}
+              >
+                Participants
+              </button>
               {r.status === 'running' && (
                 <button
                   type="button"
@@ -998,6 +1071,108 @@ export function CyclesPage() {
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16 }}>
               <Button type="button" variant="ghost" onClick={closeDetails}>
+                Close
+              </Button>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Participants (enrollments) modal */}
+      <Modal
+        open={!!participantsRow}
+        onClose={closeParticipants}
+        title={participantsRow ? `Participants — ${participantsRow.challenge_title}` : 'Participants'}
+        width={860}
+      >
+        {participantsRow && (
+          <div>
+            <div
+              style={{
+                fontSize: 12,
+                color: colors.muted,
+                marginBottom: 14,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                flexWrap: 'wrap',
+              }}
+            >
+              <span style={statusChipStyle(participantsRow.status)}>{participantsRow.status}</span>
+              <span>{formatWindow(participantsRow.start_date, participantsRow.end_date)}</span>
+              <span>·</span>
+              <span>
+                {participantsRow.active_count} / {participantsRow.max_participants} active
+              </span>
+              <span>·</span>
+              <span>{participantsRow.completed_count} completed</span>
+            </div>
+
+            {participantsLoading ? (
+              <div style={{ color: colors.muted, padding: 12 }}>Loading…</div>
+            ) : participantsErr ? (
+              <div style={errorBannerStyle}><span>{participantsErr}</span></div>
+            ) : !participants || participants.length === 0 ? (
+              <div
+                style={{
+                  padding: 16,
+                  borderRadius: 10,
+                  background: colors.bg3,
+                  border: `1px solid ${colors.border}`,
+                  color: colors.muted,
+                  fontSize: 13,
+                }}
+              >
+                No participants yet.
+              </div>
+            ) : (
+              <div
+                style={{
+                  background: colors.bg,
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: 12,
+                  overflow: 'auto',
+                }}
+              >
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                  <thead>
+                    <tr style={{ background: colors.bg3, borderBottom: `1px solid ${colors.border}` }}>
+                      <th style={thStyle}>Email</th>
+                      <th style={thStyle}>Status</th>
+                      <th style={thStyle}>Tier</th>
+                      <th style={{ ...thStyle, textAlign: 'right' }}>Days</th>
+                      <th style={{ ...thStyle, textAlign: 'right' }}>Freeze</th>
+                      <th style={thStyle}>Joined</th>
+                      <th style={thStyle}>Last active</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {participants.map((p) => (
+                      <tr key={p.enrollment_id} style={{ borderBottom: `1px solid ${colors.border}`, color: colors.text }}>
+                        <td style={tdStyle}>{p.email ?? <span style={{ color: colors.dim }}>—</span>}</td>
+                        <td style={tdStyle}>
+                          <span style={enrollmentStatusChipStyle(p.status)}>{p.status}</span>
+                        </td>
+                        <td style={tdStyle}>{p.tier_at_enrollment}</td>
+                        <td style={{ ...tdStyle, textAlign: 'right' }}>{p.completed_days}</td>
+                        <td style={{ ...tdStyle, textAlign: 'right' }}>
+                          {p.freeze_tokens_remaining != null ? p.freeze_tokens_remaining : <span style={{ color: colors.dim }}>—</span>}
+                        </td>
+                        <td style={{ ...tdStyle, color: colors.muted, fontSize: 12 }}>
+                          {formatDateTime(p.joined_at)}
+                        </td>
+                        <td style={{ ...tdStyle, color: colors.muted, fontSize: 12 }}>
+                          {formatDateTime(p.last_active_at)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16 }}>
+              <Button type="button" variant="ghost" onClick={closeParticipants}>
                 Close
               </Button>
             </div>
