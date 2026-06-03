@@ -1012,8 +1012,11 @@ export async function listReferralCodes(filters: ReferralCodeFilters = {}): Prom
   return (data ?? []) as ReferralCode[];
 }
 
+// referral_codes has RLS with SELECT-only policies (mutations are forbidden
+// directly by design). All writes go through admin_* SECURITY DEFINER RPCs
+// (is_admin()-gated) — see supabase-migration-admin-referral-code-rpcs.sql.
 export async function createReferralCode(input: ReferralCodeInput): Promise<ReferralCode> {
-  const { data, error } = await supabase.from('referral_codes').insert(input).select().single();
+  const { data, error } = await supabase.rpc('admin_create_referral_code', { p_input: input });
   if (error) throw error;
   return data as ReferralCode;
 }
@@ -1022,19 +1025,19 @@ export async function updateReferralCode(
   id: string,
   input: Partial<ReferralCodeInput>
 ): Promise<ReferralCode> {
-  const { data, error } = await supabase
-    .from('referral_codes')
-    .update(input)
-    .eq('id', id)
-    .select()
-    .single();
+  // Partial patch: keys present in `input` are applied, absent keys keep their
+  // value — supports both the full edit form and the active-toggle.
+  const { data, error } = await supabase.rpc('admin_update_referral_code', {
+    p_id: id,
+    p_patch: input,
+  });
   if (error) throw error;
   return data as ReferralCode;
 }
 
 /** UNGATED — UI callers must use {@link deleteReferralCodeWithReauth}. */
 export async function deleteReferralCode_unsafe(id: string) {
-  const { error } = await supabase.from('referral_codes').delete().eq('id', id);
+  const { error } = await supabase.rpc('admin_delete_referral_code', { p_id: id });
   if (error) throw error;
 }
 
