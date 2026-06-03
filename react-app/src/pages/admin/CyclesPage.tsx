@@ -10,6 +10,7 @@ import {
   listMoneyChallenges,
   setCycleMaxParticipants,
   addEnrollment,
+  setCycleStatus,
   listUsers,
   type ChallengeCycleRow,
   type ChallengeCycleStatus,
@@ -277,6 +278,36 @@ export function CyclesPage() {
   const [addSelectedUser, setAddSelectedUser] = useState<AdminUserRow | null>(null);
   const [addErr, setAddErr] = useState<string | null>(null);
   const [addSaving, setAddSaving] = useState(false);
+
+  // Inline status toggle (reopen / start) — tracks which cycle is updating.
+  const [statusSavingId, setStatusSavingId] = useState<string | null>(null);
+
+  const handleSetStatus = async (
+    row: ChallengeCycleRow,
+    newStatus: 'enrollment_open' | 'running',
+  ) => {
+    const verb =
+      newStatus === 'enrollment_open'
+        ? 'Reopen enrollment for'
+        : 'Close enrollment (start now) for';
+    if (!confirm(`${verb} "${row.challenge_title}"?`)) return;
+    setStatusSavingId(row.id);
+    setErr(null);
+    setSuccessMsg(null);
+    try {
+      await setCycleStatus(row.id, newStatus);
+      setSuccessMsg(
+        newStatus === 'enrollment_open'
+          ? 'Enrollment reopened — users can join again.'
+          : 'Enrollment closed — the cycle is now running.',
+      );
+      await refresh();
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : 'Failed to update cycle status');
+    } finally {
+      setStatusSavingId(null);
+    }
+  };
 
   const refresh = async (challengeId: string | null = challengeFilter === 'all' ? null : challengeFilter) => {
     setLoading(true);
@@ -648,6 +679,34 @@ export function CyclesPage() {
             <span style={{ color: colors.dim, fontSize: 12 }}>—</span>
           ) : (
             <span style={{ display: 'inline-flex', gap: 6 }}>
+              {r.status === 'running' && (
+                <button
+                  type="button"
+                  style={tableActionBtnStyle}
+                  disabled={statusSavingId === r.id}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    void handleSetStatus(r, 'enrollment_open');
+                  }}
+                  title="Let users join again (date window stays open so they can also record)"
+                >
+                  {statusSavingId === r.id ? '…' : 'Reopen'}
+                </button>
+              )}
+              {r.status === 'enrollment_open' && (
+                <button
+                  type="button"
+                  style={tableActionBtnStyle}
+                  disabled={statusSavingId === r.id}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    void handleSetStatus(r, 'running');
+                  }}
+                  title="Close enrollment and start the cycle now"
+                >
+                  {statusSavingId === r.id ? '…' : 'Start now'}
+                </button>
+              )}
               <button
                 type="button"
                 style={tableActionBtnStyle}
@@ -672,7 +731,10 @@ export function CyclesPage() {
           ),
       },
     ],
-    [],
+    // Recompute when a status toggle is in-flight so the Reopen/Start buttons
+    // reflect the saving state (and capture the current handleSetStatus).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [statusSavingId],
   );
 
   const totalCount = rows.length;

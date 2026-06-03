@@ -1174,6 +1174,34 @@ export async function addEnrollment(
   return r;
 }
 
+export type SetCycleStatusResult = {
+  ok: boolean;
+  cycle_id: string;
+  status: ChallengeCycleStatus;
+  previous_status: ChallengeCycleStatus;
+  error?: string;
+};
+
+/**
+ * Manually flip a cycle between 'enrollment_open' and 'running'. Main use:
+ * reopen enrollment on a cycle that auto-started (closing joining) so new users
+ * can join while the date window is still open. 'completed' is rejected
+ * server-side — that state is terminal.
+ */
+export async function setCycleStatus(
+  cycleId: string,
+  status: Extract<ChallengeCycleStatus, 'enrollment_open' | 'running'>,
+): Promise<SetCycleStatusResult> {
+  const { data, error } = await supabase.rpc('admin_set_cycle_status', {
+    p_cycle_id: cycleId,
+    p_status: status,
+  });
+  if (error) throw error;
+  const r = data as SetCycleStatusResult;
+  if (!r?.ok) throw new Error(r?.error ?? 'set_cycle_status_failed');
+  return r;
+}
+
 // ── Challenge payouts (admin) ────────────────────────────────────────────────
 
 export type ChallengePayoutStatus = 'pending' | 'processing' | 'paid' | 'failed' | 'cancelled';
