@@ -334,7 +334,7 @@ export function CyclesPage() {
       );
       await refresh();
     } catch (e) {
-      setErr(e instanceof Error ? e.message : 'Failed to update cycle status');
+      setErr(errMessage(e));
     } finally {
       setStatusSavingId(null);
     }
@@ -347,7 +347,7 @@ export function CyclesPage() {
       const list = await listChallengeCycles(challengeId);
       setRows(list);
     } catch (e) {
-      setErr(e instanceof Error ? e.message : 'Failed to load cycles');
+      setErr(errMessage(e));
     } finally {
       setLoading(false);
     }
@@ -358,7 +358,7 @@ export function CyclesPage() {
       const list = await listMoneyChallenges();
       setChallenges(list);
     } catch (e) {
-      setErr(e instanceof Error ? e.message : 'Failed to load challenges');
+      setErr(errMessage(e));
     }
   };
 
@@ -431,7 +431,7 @@ export function CyclesPage() {
       setOpenForm(EMPTY_OPEN_FORM);
       await refresh(challengeFilter === 'all' ? null : challengeFilter);
     } catch (e2) {
-      const raw = e2 instanceof Error ? e2.message : 'Failed to open cycle';
+      const raw = errMessage(e2);
       setOpenFormErr(friendlyCycleError(raw));
     } finally {
       setOpening(false);
@@ -448,7 +448,7 @@ export function CyclesPage() {
       const list = await listCycleWinners(row.id);
       setWinners(list);
     } catch (e) {
-      setWinnersErr(e instanceof Error ? e.message : 'Failed to load winners');
+      setWinnersErr(errMessage(e));
     } finally {
       setWinnersLoading(false);
     }
@@ -469,7 +469,7 @@ export function CyclesPage() {
       const list = await listCycleEnrollments(row.id);
       setParticipants(list);
     } catch (e) {
-      setParticipantsErr(e instanceof Error ? e.message : 'Failed to load participants');
+      setParticipantsErr(errMessage(e));
     } finally {
       setParticipantsLoading(false);
     }
@@ -525,7 +525,7 @@ export function CyclesPage() {
       setEditSeed('');
       await refresh(challengeFilter === 'all' ? null : challengeFilter);
     } catch (e2) {
-      const raw = e2 instanceof Error ? e2.message : 'Failed to update slots';
+      const raw = errMessage(e2);
       setEditErr(friendlyCycleError(raw, { activeCount: editRow.active_count }));
     } finally {
       setEditSaving(false);
@@ -599,7 +599,7 @@ export function CyclesPage() {
       setAddSelectedUser(null);
       await refresh(challengeFilter === 'all' ? null : challengeFilter);
     } catch (e2) {
-      const raw = e2 instanceof Error ? e2.message : 'Failed to add participant';
+      const raw = errMessage(e2);
       setAddErr(friendlyCycleError(raw));
     } finally {
       setAddSaving(false);
