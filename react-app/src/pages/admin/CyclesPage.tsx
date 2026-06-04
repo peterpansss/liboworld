@@ -20,6 +20,7 @@ import {
   type MoneyChallenge,
   type AdminUserRow,
 } from '../../lib/adminApi';
+import { errMessage } from '../../lib/errors';
 
 // ── styles ────────────────────────────────────────────────────────────────
 
