@@ -786,6 +786,14 @@ export function ExercisesPage() {
   const overrideCount = overridesById.size;
   const publishedCount = canonicalRows.filter((r) => r.status === 'published').length;
   const draftCount = canonicalRows.filter((r) => r.status === 'draft').length;
+  // Header count reflects the live merged dataset (Supabase canonical + bundled),
+  // NOT the bundled file alone — `base.length` was a separate, smaller number
+  // and read as if exercises were missing. When a search/filter is active we
+  // show "Showing X of Y" so an empty result reads as "0 of N matched" rather
+  // than looking like data loss.
+  const isFiltered = Boolean(
+    search || fStatus || fBodyFocus || fEquipment || fEnvironment || fDiff || fHasOverride,
+  );
 
   // Open edit modal: use BASE for the exercise (so diff is computed against base) but
   // prefill the form with merged (base + override) values so admin sees current state.
@@ -1895,7 +1903,9 @@ export function ExercisesPage() {
           <div style={statsStyle}>
             {loading
               ? 'Loading…'
-              : `${base.length} exercises · ${publishedCount} published · ${draftCount} draft · ${overrideCount} with overrides`}
+              : isFiltered
+                ? `Showing ${rows.length} of ${merged.length} · ${publishedCount} published · ${draftCount} draft · ${overrideCount} with overrides`
+                : `${merged.length} exercises · ${publishedCount} published · ${draftCount} draft · ${overrideCount} with overrides`}
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
