@@ -1148,6 +1148,21 @@ export async function listCycleEnrollments(cycleId: string): Promise<CycleEnroll
   return (data ?? []) as CycleEnrollmentRow[];
 }
 
+// Per-participant real training minutes for a cycle, from workout_sessions
+// (independent of challenge_completions / completed_days). Audit signal.
+export type CycleSessionSummaryRow = {
+  user_id: string;
+  email: string | null;
+  sessions: number;
+  total_minutes: number;
+};
+
+export async function cycleSessionSummary(cycleId: string): Promise<CycleSessionSummaryRow[]> {
+  const { data, error } = await supabase.rpc('admin_cycle_session_summary', { p_cycle_id: cycleId });
+  if (error) throw error;
+  return (data ?? []) as CycleSessionSummaryRow[];
+}
+
 export type SetCycleMaxResult = {
   ok: boolean;
   cycle_id: string;

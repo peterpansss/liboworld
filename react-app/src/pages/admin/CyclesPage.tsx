@@ -8,6 +8,7 @@ import {
   openNextCycle,
   listCycleWinners,
   listCycleEnrollments,
+  cycleSessionSummary,
   listMoneyChallenges,
   setCycleMaxParticipants,
   addEnrollment,
@@ -293,6 +294,8 @@ export function CyclesPage() {
   const [participants, setParticipants] = useState<CycleEnrollmentRow[] | null>(null);
   const [participantsLoading, setParticipantsLoading] = useState(false);
   const [participantsErr, setParticipantsErr] = useState<string | null>(null);
+  // user_id -> real training minutes/sessions for this cycle (best-effort audit signal)
+  const [sessionMins, setSessionMins] = useState<Record<string, { sessions: number; minutes: number }>>({});
 
   // Edit-slots modal
   const [editRow, setEditRow] = useState<ChallengeCycleRow | null>(null);
@@ -469,6 +472,16 @@ export function CyclesPage() {
     try {
       const list = await listCycleEnrollments(row.id);
       setParticipants(list);
+      // Real training minutes are a best-effort audit signal — don't fail the
+      // participants view if the session summary can't load.
+      try {
+        const summary = await cycleSessionSummary(row.id);
+        const m: Record<string, { sessions: number; minutes: number }> = {};
+        for (const s of summary) m[s.user_id] = { sessions: s.sessions, minutes: s.total_minutes };
+        setSessionMins(m);
+      } catch {
+        setSessionMins({});
+      }
     } catch (e) {
       setParticipantsErr(errMessage(e));
     } finally {
@@ -480,6 +493,7 @@ export function CyclesPage() {
     setParticipantsRow(null);
     setParticipants(null);
     setParticipantsErr(null);
+    setSessionMins({});
   };
 
   // ── Edit slots ────────────────────────────────────────────────────────────
@@ -1142,6 +1156,7 @@ export function CyclesPage() {
                       <th style={thStyle}>Status</th>
                       <th style={thStyle}>Tier</th>
                       <th style={{ ...thStyle, textAlign: 'right' }}>Days</th>
+                      <th style={{ ...thStyle, textAlign: 'right' }}>Minutes</th>
                       <th style={{ ...thStyle, textAlign: 'right' }}>Freeze</th>
                       <th style={thStyle}>Joined</th>
                       <th style={thStyle}>Last active</th>
@@ -1156,6 +1171,16 @@ export function CyclesPage() {
                         </td>
                         <td style={tdStyle}>{p.tier_at_enrollment}</td>
                         <td style={{ ...tdStyle, textAlign: 'right' }}>{p.completed_days}</td>
+                        <td style={{ ...tdStyle, textAlign: 'right' }}>
+                          {sessionMins[p.user_id] ? (
+                            <span title={`${sessionMins[p.user_id].sessions} session(s)`}>
+                              {sessionMins[p.user_id].minutes}
+                              <span style={{ color: colors.dim, fontSize: 11 }}> ({sessionMins[p.user_id].sessions})</span>
+                            </span>
+                          ) : (
+                            <span style={{ color: colors.dim }}>—</span>
+                          )}
+                        </td>
                         <td style={{ ...tdStyle, textAlign: 'right' }}>
                           {p.freeze_tokens_remaining != null ? p.freeze_tokens_remaining : <span style={{ color: colors.dim }}>—</span>}
                         </td>
