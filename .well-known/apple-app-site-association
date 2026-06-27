@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["69WP8B2BRM.com.liboworld.app"],
+        "components": [
+          {
+            "/": "/auth/confirm",
+            "comment": "Email confirmation / magic-link opens the Libo app directly (Associated Domains)."
+          }
+        ]
+      }
+    ]
+  }
+}
