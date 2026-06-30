@@ -70,7 +70,7 @@
     "customBuilder": "Creador Personalizado",
     "customBuilderDesc": "Arma tu propio entrenamiento desde la biblioteca completa. Define la secuencia, series, descanso — guarda y reutiliza.",
     "moneyChallenges": "Retos con Dinero",
-    "moneyChallengesDesc": "Únete a retos de 30 días, cumple tus repeticiones diarias, comparte en stories — y gana dinero real. ¿100 reps al día por 30 días? Son €10 en tu bolsillo."
+    "moneyChallengesDesc": "Únete a retos de 30 días, cumple tus repeticiones diarias, comparte en stories — y gana dinero real. ¿100 reps al día por 30 días? Son €50 en tu bolsillo."
   },
   "photoBreak1": {
     "eyebrow": "641 Ejercicios",
@@ -1035,21 +1035,21 @@
       "rewardHeroLabel": "Recompensa Cash",
       "starter": {
         "name": "Starter",
-        "reward": "€10",
-        "reps": "100",
+        "reward": "€5",
+        "reps": "30",
         "days": "30",
         "freeze": "0",
         "gating": "Nivel Free · sin suscripción",
-        "heroSummary": "30 días × 100 reps = €10 cash. Nivel Free, abierto a todos. Un fallo y estás fuera — estricto pero real."
+        "heroSummary": "30 días × 30 reps = €5 cash. Nivel Free, abierto a todos. Un fallo y estás fuera — estricto pero real."
       },
       "pro_pool": {
         "name": "Pro Pool",
         "reward": "€50",
-        "reps": "200",
+        "reps": "100",
         "days": "30",
         "freeze": "1",
-        "gating": "Suscripción Pro · €9/mes",
-        "heroSummary": "30 días × 200 reps = €50 cash. 1 token freeze para días de gracia. Requiere suscripción Pro en la app."
+        "gating": "Suscripción Pro · €9,99/mes",
+        "heroSummary": "30 días × 100 reps = €50 cash. 1 token freeze para días de gracia. Requiere suscripción Pro en la app."
       },
       "elite_pool": {
         "name": "Elite Pool",
@@ -1069,11 +1069,11 @@
     "step1Title": "Descarga & únete a tu nivel",
     "step1Body": "Elige tu nivel dentro de la app. Cada ciclo está limitado a 50, por orden de llegada — el reloj arranca en la fecha fija O cuando se llenen las 50, lo que ocurra primero.",
     "step2Title": "Repeticiones diarias en la app",
-    "step2Body": "100/200/300 reps por día según el nivel. Las flexiones se cuentan automáticamente por cámara. Sentadillas y dominadas con contador tap. Divisible en varias sesiones.",
+    "step2Body": "30/50/100 reps por día según el nivel. Las flexiones se cuentan automáticamente por cámara. Sentadillas y dominadas con contador tap. Divisible en varias sesiones.",
     "step3Title": "No rompas la cadena",
-    "step3Body": "Cada día, sin huecos. Pro/Elite reciben 1/3 tokens freeze para días perdidos. El nivel Free es estricto — un fallo y quedas eliminado.",
+    "step3Body": "Cada día, sin huecos. Los miembros Pro reciben tokens freeze para días perdidos. El nivel Free es estricto — un fallo y quedas eliminado.",
     "step4Title": "Cobra",
-    "step4Body": "Termina los 30 días activos y el cash llega a tu cuenta vinculada en 48 horas tras el fin del ciclo. €10, €20 o €90 — tú eliges.",
+    "step4Body": "Termina los 30 días activos y el cash llega a tu cuenta vinculada en 48 horas tras el fin del ciclo. €5, €10 o €50 — tú eliges.",
     "repeatCtaTitle": "Únete al próximo ciclo antes de que se llene",
     "statsTitle": "Pagos reales, consistencia real",
     "statsSub": "Cifras en vivo del registro de retos cash de Libo",
@@ -1091,7 +1091,7 @@
       "q2": "¿Qué cuenta como día completado?",
       "a2": "Alcanzar el número de reps diario de tu nivel para ese día, registrado en la app Libo. Las reps se pueden dividir en varias sesiones. Las flexiones se cuentan auto por cámara; sentadillas y dominadas con contador tap.",
       "q3": "¿Qué pasa si fallo un día?",
-      "a3": "Nivel Free: un fallo y estás fuera de ese ciclo. Pro: 1 token freeze cubre 1 día perdido, la fecha de fin se desplaza +1. Elite: hasta 3 tokens freeze.",
+      "a3": "Nivel Free: un fallo y estás fuera de ese ciclo. Pro: los tokens freeze cubren días perdidos — cada token desplaza tu fecha de fin +1.",
       "q4": "¿Cuándo cobro?",
       "a4": "En 48 horas tras completar tu día activo número 30. El pago va a la cuenta vinculada en el archivo — Stripe / SEPA / PayPal según la región.",
       "q5": "¿Puedo entrar en varios niveles a la vez?",
@@ -1099,7 +1099,7 @@
       "q6": "¿Por qué plazas limitadas?",
       "a6": "La recompensa es un coste real para Libo. Limitar las plazas hace presupuestable el pago y crea una verdadera sensación de cohorte — todos corren el reloj juntos.",
       "q7": "¿Necesito una suscripción a Libo?",
-      "a7": "Nivel Free Starter — no. Pro Pool necesita Pro (€9/mes). Elite Pool necesita Elite (€19/mes). Suscríbete en la app cuando te unas a tu nivel.",
+      "a7": "Nivel Free Starter — no. Los pools Pro (recompensas de €10 y €50) necesitan Pro (€9,99/mes). Suscríbete en la app cuando te unas a tu nivel.",
       "q8": "¿Y si soy principiante?",
       "a8": "Empieza con Starter (100 reps/día) — son unos 5 minutos de trabajo, divisibles a lo largo del día. El número de reps es alcanzable; la disciplina es el verdadero reto."
     },
@@ -1113,6 +1113,6 @@
       "googlePlaySmall": "Disponible en",
       "closeLabel": "Cerrar"
     },
-    "disclaimer": "La participación en el reto cash requiere una cuenta Libo y (para los niveles Pro/Elite) una suscripción activa. Los pagos están sujetos a verificación de identidad. Ver Términos completos para elegibilidad, calendario de pago y responsabilidades fiscales por región."
+    "disclaimer": "La participación en el reto cash requiere una cuenta Libo y (para el nivel Pro) una suscripción activa. Los pagos están sujetos a verificación de identidad. Ver Términos completos para elegibilidad, calendario de pago y responsabilidades fiscales por región."
   }
 }

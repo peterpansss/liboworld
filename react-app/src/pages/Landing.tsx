@@ -189,8 +189,9 @@ export default function Landing() {
   // InView triggers
   const rewardsStatView = useInView(0.5);
 
-  // CountUp values
-  const rewardsStat = useCountUp(10, rewardsStatView.inView, 1200);
+  // CountUp values — hero money-challenge reward (€50 / 100 reps, the flagship
+  // Pro challenge). Keep in sync with rewards.challengeName in the locale files.
+  const rewardsStat = useCountUp(50, rewardsStatView.inView, 1200);
 
   // ── Feature detection ──
   const isDesktop = useRef(

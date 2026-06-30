@@ -70,7 +70,7 @@
     "customBuilder": "Eigene Workouts",
     "customBuilderDesc": "Bau dir dein eigenes Workout aus der gesamten Übungsbibliothek. Reihenfolge, Sätze, Pausenzeit — speichern und wiederverwenden.",
     "moneyChallenges": "Geld-Challenges",
-    "moneyChallengesDesc": "Nimm an 30-Tage-Challenges teil, mach deine täglichen Reps, poste in Stories — und verdien echtes Geld. 100 Reps am Tag für 30 Tage? Das sind €10 in deiner Tasche."
+    "moneyChallengesDesc": "Nimm an 30-Tage-Challenges teil, mach deine täglichen Reps, poste in Stories — und verdien echtes Geld. 100 Reps am Tag für 30 Tage? Das sind €50 in deiner Tasche."
   },
   "photoBreak1": {
     "eyebrow": "641 Übungen",
@@ -1035,21 +1035,21 @@
       "rewardHeroLabel": "Cash-Belohnung",
       "starter": {
         "name": "Starter",
-        "reward": "€10",
-        "reps": "100",
+        "reward": "€5",
+        "reps": "30",
         "days": "30",
         "freeze": "0",
         "gating": "Free-Stufe · kein Abo",
-        "heroSummary": "30 Tage × 100 Reps = €10 Cash-Auszahlung. Free-Stufe, offen für alle. Ein verpasster Tag und du bist raus — strikt, aber echt."
+        "heroSummary": "30 Tage × 30 Reps = €5 Cash-Auszahlung. Free-Stufe, offen für alle. Ein verpasster Tag und du bist raus — strikt, aber echt."
       },
       "pro_pool": {
         "name": "Pro Pool",
         "reward": "€50",
-        "reps": "200",
+        "reps": "100",
         "days": "30",
         "freeze": "1",
-        "gating": "Pro-Abo · €9/Monat",
-        "heroSummary": "30 Tage × 200 Reps = €50 Cash-Auszahlung. 1 Freeze-Token für Schon-Tage. Pro-Abo in-app erforderlich."
+        "gating": "Pro-Abo · €9,99/Monat",
+        "heroSummary": "30 Tage × 100 Reps = €50 Cash-Auszahlung. 1 Freeze-Token für Schon-Tage. Pro-Abo in-app erforderlich."
       },
       "elite_pool": {
         "name": "Elite Pool",
@@ -1069,11 +1069,11 @@
     "step1Title": "App laden & deine Stufe wählen",
     "step1Body": "Wähl deine Stufe in der App. Jeder Zyklus ist auf 50 begrenzt, first-come-first-served — die Uhr läuft am festen Datum ODER wenn 50 dabei sind, was zuerst eintritt.",
     "step2Title": "Tägliche Reps in der App",
-    "step2Body": "100/200/300 Reps pro Tag je nach Stufe. Liegestütze werden per Kamera automatisch gezählt. Kniebeugen und Klimmzüge per Tap-Counter. Auf mehrere Sessions aufteilbar.",
+    "step2Body": "30/50/100 Reps pro Tag je nach Stufe. Liegestütze werden per Kamera automatisch gezählt. Kniebeugen und Klimmzüge per Tap-Counter. Auf mehrere Sessions aufteilbar.",
     "step3Title": "Reiß die Kette nicht ab",
-    "step3Body": "Jeden Tag, keine Lücken. Pro/Elite bekommen 1/3 Freeze-Tokens für verpasste Tage. Free-Stufe ist strikt — ein verpasster Tag und du fliegst raus.",
+    "step3Body": "Jeden Tag, keine Lücken. Pro-Mitglieder bekommen Freeze-Tokens für verpasste Tage. Free-Stufe ist strikt — ein verpasster Tag und du fliegst raus.",
     "step4Title": "Werd bezahlt",
-    "step4Body": "Schaffst du alle 30 aktiven Tage, landet das Geld innerhalb von 48 Stunden nach Zyklusende auf deinem verknüpften Konto. €10, €20 oder €90 — deine Wahl.",
+    "step4Body": "Schaffst du alle 30 aktiven Tage, landet das Geld innerhalb von 48 Stunden nach Zyklusende auf deinem verknüpften Konto. €5, €10 oder €50 — deine Wahl.",
     "repeatCtaTitle": "Sei beim nächsten Zyklus dabei, bevor er voll ist",
     "statsTitle": "Echte Auszahlungen, echte Konsistenz",
     "statsSub": "Live-Zahlen aus Libos Cash-Challenge-Ledger",
@@ -1091,7 +1091,7 @@
       "q2": "Was zählt als abgeschlossener Tag?",
       "a2": "Die tägliche Rep-Anzahl deiner Stufe für diesen Tag, geloggt in der Libo-App. Reps können auf mehrere Sessions aufgeteilt werden. Liegestütze werden per Kamera gezählt; Kniebeugen und Klimmzüge per Tap-Counter.",
       "q3": "Was passiert, wenn ich einen Tag verpasse?",
-      "a3": "Free-Stufe: ein verpasster Tag und du bist für diesen Zyklus raus. Pro: 1 Freeze-Token deckt 1 verpassten Tag, Enddatum verschiebt sich um +1. Elite: bis zu 3 Freeze-Tokens.",
+      "a3": "Free-Stufe: ein verpasster Tag und du bist für diesen Zyklus raus. Pro: Freeze-Tokens decken verpasste Tage — jedes Token verschiebt das Enddatum um +1.",
       "q4": "Wann werde ich bezahlt?",
       "a4": "Innerhalb von 48 Stunden nach Abschluss deines 30. aktiven Tages. Auszahlung erfolgt auf das hinterlegte Konto — Stripe / SEPA / PayPal je nach Region.",
       "q5": "Kann ich mehrere Stufen gleichzeitig machen?",
@@ -1099,7 +1099,7 @@
       "q6": "Warum sind die Plätze begrenzt?",
       "a6": "Die Belohnung ist ein echter Kostenfaktor für Libo. Begrenzte Plätze machen die Auszahlung kalkulierbar und schaffen ein echtes Cohort-Gefühl — alle laufen die Uhr gemeinsam.",
       "q7": "Brauche ich ein Libo-Abo?",
-      "a7": "Free Starter-Stufe — nein. Pro Pool braucht Pro (€9/Monat). Elite Pool braucht Elite (€19/Monat). Abonniere in der App, wenn du deiner Stufe beitrittst.",
+      "a7": "Free Starter-Stufe — nein. Die Pro-Pools (€10- und €50-Belohnung) brauchen Pro (€9,99/Monat). Abonniere in der App, wenn du deiner Stufe beitrittst.",
       "q8": "Was, wenn ich Anfänger bin?",
       "a8": "Fang mit Starter an (100 Reps/Tag) — das sind etwa 5 Minuten Arbeit, auf den Tag aufteilbar. Die Rep-Zahl ist machbar; die Disziplin ist die eigentliche Herausforderung."
     },
@@ -1113,6 +1113,6 @@
       "googlePlaySmall": "Jetzt bei",
       "closeLabel": "Schließen"
     },
-    "disclaimer": "Die Teilnahme an der Cash Challenge erfordert ein Libo-Konto und (für Pro/Elite-Stufen) ein aktives Abo. Auszahlungen unterliegen einer Identitätsprüfung. Vollständige AGB für Berechtigung, Auszahlungsplan und steuerliche Pflichten je Region beachten."
+    "disclaimer": "Die Teilnahme an der Cash Challenge erfordert ein Libo-Konto und (für die Pro-Stufe) ein aktives Abo. Auszahlungen unterliegen einer Identitätsprüfung. Vollständige AGB für Berechtigung, Auszahlungsplan und steuerliche Pflichten je Region beachten."
   }
 }
