@@ -38,10 +38,13 @@ type ChallengeDef = {
   badgeKey?: string;
 };
 
+// Elite is deferred at launch (mirrors VISIBLE_TIER_IDS in data/tiers.ts), so
+// the public funnel shows the Free + Pro pools only. The €50/100 pool lives on
+// in-app as a second Pro challenge; the Elite-branded marketing pool returns
+// when the Elite tier relaunches — restore the entry below to bring it back.
 const CHALLENGES: ChallengeDef[] = [
   { slug: 'starter',    highlight: 'starter' },
   { slug: 'pro_pool',   highlight: 'pro',     badgeKey: 'mostPopular' },
-  { slug: 'elite_pool', highlight: 'elite',   badgeKey: 'biggestPayout' },
 ];
 
 const FALLBACK_HERO_BG = '/images/marketing/cash-challenge-hero.jpg';
