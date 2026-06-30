@@ -72,7 +72,7 @@
     "customBuilder": "Custom Builder",
     "customBuilderDesc": "Build your own workout from the full exercise library. Set your sequence, sets, rest time — save and reuse.",
     "moneyChallenges": "Money Challenges",
-    "moneyChallengesDesc": "Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 100 reps a day for 30 days? That's €10 in your pocket."
+    "moneyChallengesDesc": "Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 100 reps a day for 30 days? That's €50 in your pocket."
   },
   "photoBreak1": {
     "eyebrow": "641 Exercises",
@@ -1008,7 +1008,7 @@
   },
   "cashChallengeFunnel": {
     "seoTitle": "Get Paid €250 to Work Out · Libo Cash Challenge",
-    "seoDescription": "Complete 30 consecutive days of reps in the Libo app and earn real cash. €10 / €20 / €90 tiers — limited spots per cycle.",
+    "seoDescription": "Complete 30 consecutive days of reps in the Libo app and earn real cash. €5 / €10 / €50 tiers — limited spots per cycle.",
     "countdownLabel": "Next cycle starts in",
     "eyebrow": "Cash Challenge",
     "headline1": "Train 30 days.",
@@ -1029,21 +1029,21 @@
       "rewardHeroLabel": "Cash Reward",
       "starter": {
         "name": "Starter",
-        "reward": "€10",
-        "reps": "100",
+        "reward": "€5",
+        "reps": "30",
         "days": "30",
         "freeze": "0",
         "gating": "Free tier · no subscription",
-        "heroSummary": "30 days × 100 reps = €10 cash payout. Free tier, open to all. One miss and you're out — strict but real."
+        "heroSummary": "30 days × 30 reps = €5 cash payout. Free tier, open to all. One miss and you're out — strict but real."
       },
       "pro_pool": {
         "name": "Pro Pool",
         "reward": "€50",
-        "reps": "200",
+        "reps": "100",
         "days": "30",
         "freeze": "1",
-        "gating": "Pro subscription · €9/mo",
-        "heroSummary": "30 days × 200 reps = €50 cash payout. 1 freeze token for grace days. Requires Pro subscription in-app."
+        "gating": "Pro subscription · €9.99/mo",
+        "heroSummary": "30 days × 100 reps = €50 cash payout. 1 freeze token for grace days. Requires Pro subscription in-app."
       },
       "elite_pool": {
         "name": "Elite Pool",
@@ -1063,11 +1063,11 @@
     "step1Title": "Download & join your tier",
     "step1Body": "Pick your tier inside the app. Each cycle is capped at 50, first-come-first-served — the clock starts on the fixed date OR when 50 join, whichever comes first.",
     "step2Title": "Daily reps in the app",
-    "step2Body": "100/200/300 reps per day by tier. Push-ups auto-count via camera. Squats and pull-ups use a tap counter. Splittable across sessions.",
+    "step2Body": "30/50/100 reps per day by tier. Push-ups auto-count via camera. Squats and pull-ups use a tap counter. Splittable across sessions.",
     "step3Title": "Don't break the chain",
     "step3Body": "Every day, no gaps. Pro members get freeze tokens to cover missed days. Free tier is strict — one miss and you're ejected.",
     "step4Title": "Get paid",
-    "step4Body": "Finish all 30 active days and the cash hits your linked account within 48 hours of cycle end. €10, €20, or €90 — your choice.",
+    "step4Body": "Finish all 30 active days and the cash hits your linked account within 48 hours of cycle end. €5, €10, or €50 — your choice.",
     "repeatCtaTitle": "Join the next cycle before it fills",
     "statsTitle": "Real payouts, real consistency",
     "statsSub": "Live numbers from Libo's cash-challenge ledger",
