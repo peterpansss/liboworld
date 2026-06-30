@@ -13,6 +13,9 @@ import {
   setCycleMaxParticipants,
   addEnrollment,
   setCycleStatus,
+  cancelCycle,
+  setCycleWindow,
+  withRecentAuth,
   listUsers,
   type ChallengeCycleRow,
   type ChallengeCycleStatus,
@@ -103,6 +106,9 @@ function statusChipStyle(status: ChallengeCycleStatus): React.CSSProperties {
   } else if (status === 'running') {
     bg = colors.warningDim;
     fg = colors.warning;
+  } else if (status === 'cancelled') {
+    bg = colors.errorDim;
+    fg = colors.error;
   }
   return {
     display: 'inline-block',
@@ -194,6 +200,13 @@ function todayISO(): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
+/** ISO timestamp → 'YYYY-MM-DDTHH:mm' for a <input type="datetime-local">. */
+function toLocalInput(iso: string): string {
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 /** Map raw RPC error codes to friendly admin-facing copy. */
 function friendlyCycleError(raw: string, ctx?: { activeCount?: number }): string {
   switch (raw) {
@@ -213,6 +226,14 @@ function friendlyCycleError(raw: string, ctx?: { activeCount?: number }): string
       return 'That user is already enrolled in this cycle.';
     case 'cycle_not_joinable':
       return 'This cycle is not open for new enrollments.';
+    case 'cycle_completed':
+      return 'This cycle is already completed — payouts are finalized, so it can’t be cancelled or edited.';
+    case 'cycle_has_payouts':
+      return 'This cycle already has payouts — it can’t be cancelled.';
+    case 'already_cancelled':
+      return 'This cycle is already cancelled.';
+    case 'window_invalid':
+      return 'Start date must be on or before the end date.';
     default:
       return raw;
   }
@@ -341,6 +362,70 @@ export function CyclesPage() {
       setErr(errMessage(e));
     } finally {
       setStatusSavingId(null);
+    }
+  };
+
+  // Cancel / interrupt a running or open cycle (soft-cancel). Destructive →
+  // step-up reauth, then a confirm. Refused server-side for completed/paid cycles.
+  const [cancelSavingId, setCancelSavingId] = useState<string | null>(null);
+  const handleCancelCycle = async (row: ChallengeCycleRow) => {
+    if (
+      !confirm(
+        `Cancel the cycle for "${row.challenge_title}"?\n\nThis ends the cycle now and releases its ${row.active_count} active participant(s). No payouts are made. This cannot be undone.`,
+      )
+    )
+      return;
+    setCancelSavingId(row.id);
+    setErr(null);
+    setSuccessMsg(null);
+    try {
+      const r = await withRecentAuth(() => cancelCycle(row.id));
+      setSuccessMsg(`Cycle cancelled — ${r.removed_enrollments ?? 0} participant(s) released.`);
+      await refresh();
+    } catch (e) {
+      setErr(friendlyCycleError(errMessage(e)));
+    } finally {
+      setCancelSavingId(null);
+    }
+  };
+
+  // Edit enrollment window (enrollment_opens_at / start / end) modal.
+  const [windowRow, setWindowRow] = useState<ChallengeCycleRow | null>(null);
+  const [windowForm, setWindowForm] = useState({ opensAt: '', startDate: '', endDate: '' });
+  const [windowErr, setWindowErr] = useState<string | null>(null);
+  const [windowSaving, setWindowSaving] = useState(false);
+  const openWindowModal = (row: ChallengeCycleRow) => {
+    setWindowRow(row);
+    setWindowErr(null);
+    setWindowForm({
+      opensAt: row.enrollment_opens_at ? toLocalInput(row.enrollment_opens_at) : '',
+      startDate: row.start_date,
+      endDate: row.end_date,
+    });
+  };
+  const handleWindowSubmit = async () => {
+    if (!windowRow) return;
+    if (windowForm.startDate && windowForm.endDate && windowForm.startDate > windowForm.endDate) {
+      setWindowErr('Start date must be on or before the end date.');
+      return;
+    }
+    setWindowSaving(true);
+    setWindowErr(null);
+    try {
+      const r = await setCycleWindow(windowRow.id, {
+        enrollmentOpensAt: windowForm.opensAt ? new Date(windowForm.opensAt).toISOString() : null,
+        startDate: windowForm.startDate || null,
+        endDate: windowForm.endDate || null,
+      });
+      setWindowRow(null);
+      setSuccessMsg(
+        `Window updated${r.shifted_enrollments ? ` — ${r.shifted_enrollments} active participant(s) shifted` : ''}.`,
+      );
+      await refresh();
+    } catch (e) {
+      setWindowErr(friendlyCycleError(errMessage(e)));
+    } finally {
+      setWindowSaving(false);
     }
   };
 
@@ -742,7 +827,7 @@ export function CyclesPage() {
         key: 'actions',
         header: 'Actions',
         render: (r) =>
-          r.status === 'completed' ? (
+          r.status === 'completed' || r.status === 'cancelled' ? (
             <span style={{ display: 'inline-flex', gap: 6 }}>
               <button
                 type="button"
@@ -814,6 +899,29 @@ export function CyclesPage() {
                 }}
               >
                 Add participant
+              </button>
+              <button
+                type="button"
+                style={tableActionBtnStyle}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openWindowModal(r);
+                }}
+                title="Edit the enrollment-open time, start date and end date"
+              >
+                Edit window
+              </button>
+              <button
+                type="button"
+                style={{ ...tableActionBtnStyle, color: colors.error, borderColor: colors.error }}
+                disabled={cancelSavingId === r.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  void handleCancelCycle(r);
+                }}
+                title="Interrupt this cycle now and release participants (no payouts)"
+              >
+                {cancelSavingId === r.id ? '…' : 'Cancel'}
               </button>
             </span>
           ),
@@ -1388,6 +1496,73 @@ export function CyclesPage() {
               </Button>
               <Button type="submit" variant="primary" disabled={addSaving || !addSelectedUser}>
                 {addSaving ? 'Enrolling…' : 'Add participant'}
+              </Button>
+            </div>
+          </form>
+        )}
+      </Modal>
+
+      {/* Edit enrollment window modal */}
+      <Modal
+        open={!!windowRow}
+        onClose={() => setWindowRow(null)}
+        title={windowRow ? `Edit window — ${windowRow.challenge_title}` : 'Edit window'}
+        width={520}
+      >
+        {windowRow && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              void handleWindowSubmit();
+            }}
+          >
+            {windowErr && <div style={errorBannerStyle}><span>{windowErr}</span></div>}
+
+            <div style={{ fontSize: 12, color: colors.muted, marginBottom: 14, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+              <span style={statusChipStyle(windowRow.status)}>{windowRow.status}</span>
+              <span>{formatWindow(windowRow.start_date, windowRow.end_date)}</span>
+              <span>·</span>
+              <span>{windowRow.active_count} active</span>
+            </div>
+
+            <Field
+              label="Enrollment opens"
+              hint="When users can start joining this cycle."
+            >
+              <TextInput
+                type="datetime-local"
+                value={windowForm.opensAt}
+                onChange={(e) => setWindowForm((f) => ({ ...f, opensAt: e.target.value }))}
+              />
+            </Field>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <Field label="Start date">
+                <TextInput
+                  type="date"
+                  value={windowForm.startDate}
+                  onChange={(e) => setWindowForm((f) => ({ ...f, startDate: e.target.value }))}
+                  required
+                />
+              </Field>
+              <Field
+                label="End date"
+                hint="Moving this shifts active participants' deadlines by the same amount."
+              >
+                <TextInput
+                  type="date"
+                  value={windowForm.endDate}
+                  onChange={(e) => setWindowForm((f) => ({ ...f, endDate: e.target.value }))}
+                  required
+                />
+              </Field>
+            </div>
+
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 12 }}>
+              <Button type="button" variant="ghost" onClick={() => setWindowRow(null)} disabled={windowSaving}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="primary" disabled={windowSaving}>
+                {windowSaving ? 'Saving…' : 'Save window'}
               </Button>
             </div>
           </form>

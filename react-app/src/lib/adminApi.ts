@@ -1060,7 +1060,7 @@ export async function listConversionsForCode(code: string): Promise<ReferralConv
 
 // ── Challenge cycles (admin) ─────────────────────────────────────────────────
 
-export type ChallengeCycleStatus = 'enrollment_open' | 'running' | 'completed';
+export type ChallengeCycleStatus = 'enrollment_open' | 'running' | 'completed' | 'cancelled';
 
 export type ChallengeCycleRow = {
   id: string;
@@ -1245,6 +1245,43 @@ export async function setCycleStatus(
   if (error) throw error;
   const r = data as SetCycleStatusResult;
   if (!r?.ok) throw new Error(r?.error ?? 'set_cycle_status_failed');
+  return r;
+}
+
+export type CancelCycleResult = { ok: boolean; cycle_id?: string; removed_enrollments?: number; error?: string };
+
+/** Soft-cancel a running/open cycle: status → 'cancelled', active enrollments
+ *  released. Refused for completed cycles or any cycle that already has payouts.
+ *  Destructive — call via cancelCycleWithReauth from the UI. */
+export async function cancelCycle(cycleId: string): Promise<CancelCycleResult> {
+  const { data, error } = await supabase.rpc('admin_cancel_cycle', { p_cycle_id: cycleId });
+  if (error) throw error;
+  const r = data as CancelCycleResult;
+  if (!r?.ok) throw new Error(r?.error ?? 'cancel_cycle_failed');
+  return r;
+}
+
+export type SetCycleWindowResult = {
+  ok: boolean; cycle_id?: string;
+  enrollment_opens_at?: string; start_date?: string; end_date?: string;
+  shifted_enrollments?: number; error?: string;
+};
+
+/** Edit a cycle's enrollment window. Pass only the fields to change (others stay).
+ *  enrollmentOpensAt is an ISO timestamp; start/end are 'YYYY-MM-DD'. */
+export async function setCycleWindow(
+  cycleId: string,
+  window: { enrollmentOpensAt?: string | null; startDate?: string | null; endDate?: string | null },
+): Promise<SetCycleWindowResult> {
+  const { data, error } = await supabase.rpc('admin_set_cycle_window', {
+    p_cycle_id: cycleId,
+    p_enrollment_opens_at: window.enrollmentOpensAt ?? null,
+    p_start_date: window.startDate ?? null,
+    p_end_date: window.endDate ?? null,
+  });
+  if (error) throw error;
+  const r = data as SetCycleWindowResult;
+  if (!r?.ok) throw new Error(r?.error ?? 'set_cycle_window_failed');
   return r;
 }
 
