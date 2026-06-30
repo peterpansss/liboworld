@@ -94,12 +94,16 @@ afterEach(() => {
 });
 
 describe('CashChallenge', () => {
-  it('renders three challenge tier cards by name', () => {
+  it('renders the two launch challenge tier cards by name (Elite pool deferred)', () => {
     renderPage();
     // Names come back as i18n keys with the mocked t()
     expect(screen.getByRole('heading', { name: 'cashChallengeFunnel.tiers.starter.name' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'cashChallengeFunnel.tiers.pro_pool.name' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'cashChallengeFunnel.tiers.elite_pool.name' })).toBeInTheDocument();
+    // Elite is deferred at launch — the €50/100 pool lives in-app as a 2nd Pro
+    // challenge, so the Elite-branded funnel card must not render.
+    expect(
+      screen.queryByRole('heading', { name: 'cashChallengeFunnel.tiers.elite_pool.name' })
+    ).not.toBeInTheDocument();
   });
 
   it('opens the desktop QR overlay when RESERVE is clicked on desktop', async () => {
@@ -127,7 +131,7 @@ describe('CashChallenge', () => {
     detectPlatformMock.mockReturnValue('android');
     renderPage();
 
-    await user.click(screen.getAllByRole('button', { name: 'cashChallengeFunnel.ctaReserve' })[2]); // elite_pool
+    await user.click(screen.getAllByRole('button', { name: 'cashChallengeFunnel.ctaReserve' })[1]); // pro_pool
     expect(redirectToStoreMock).toHaveBeenCalledWith('android');
   });
 

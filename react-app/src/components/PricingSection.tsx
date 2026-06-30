@@ -1,11 +1,12 @@
 /**
  * Pricing section for the public landing page.
  *
- * Three-card grid: Free / Premium (highlighted) / Elite. Monthly/Yearly toggle
- * at the top of the section. Copy mirrors the mobile paywall in libo-app-v2:
+ * Card grid over VISIBLE_TIERS: Free / Premium (highlighted) at launch. Elite
+ * is deferred (see VISIBLE_TIER_IDS in data/tiers.ts) but its data is kept for
+ * relaunch. Monthly/Yearly toggle at the top. Copy mirrors the mobile paywall:
  *   - Premium: €9.99/mo or €79/yr (34% off), 1 freeze token, 2x points, €50 pools
- *   - Elite:   €19.99/mo or €149/yr (37% off), 3 freeze tokens, 3x points, €100 pools
- * Both paid tiers: 7-day free trial.
+ *   - Elite (deferred): €19.99/mo or €149/yr, 3 freeze tokens, 3x points
+ * Premium: 7-day free trial.
  *
  * Tier-by-feature policy (PARTNERSHIP-FINANCE-MODEL.md, Y1):
  *   - Cash challenges run on ALL tiers; stakes scale by tier
@@ -26,7 +27,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { colors, webExtras } from '../theme';
-import { TIERS, YEARLY_PRICE, YEARLY_DISCOUNT, TRIAL_DAYS, buildHref, type Tier, type BillingCycle } from '../data/tiers';
+import { VISIBLE_TIERS, YEARLY_PRICE, YEARLY_DISCOUNT, TRIAL_DAYS, buildHref, type Tier, type BillingCycle } from '../data/tiers';
 
 // ── Styles ──
 const sectionStyle: React.CSSProperties = {
@@ -187,7 +188,7 @@ export default function PricingSection() {
           </h2>
           <p style={subStyle}>
             Start free. Upgrade when you want the full library, smarter tools, and bigger
-            challenges. {TRIAL_DAYS}-day free trial on Premium and Elite.
+            challenges. {TRIAL_DAYS}-day free trial on Premium.
           </p>
         </header>
 
@@ -226,14 +227,14 @@ export default function PricingSection() {
                     cycle === 'yearly' ? colors.accent : webExtras.accentText,
                 }}
               >
-                Save up to {YEARLY_DISCOUNT.elite}%
+                Save up to {YEARLY_DISCOUNT.premium}%
               </span>
             </button>
           </div>
         </div>
 
         <div className="pricing-grid">
-          {TIERS.map((tier) => {
+          {VISIBLE_TIERS.map((tier) => {
             const priceLabel =
               cycle === 'monthly' ? tier.monthlyLabel : tier.yearlyLabel;
             const priceSub =
@@ -379,7 +380,7 @@ export default function PricingSection() {
             color: colors.muted,
           }}
         >
-          {TRIAL_DAYS}-day free trial on Premium and Elite. Cancel anytime. No ads, ever.
+          {TRIAL_DAYS}-day free trial on Premium. Cancel anytime. No ads, ever.
         </p>
       </div>
     </section>

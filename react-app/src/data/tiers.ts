@@ -8,7 +8,7 @@
  * mobile app, update this file too.
  *
  * Tier-by-feature policy (see Brand-Management/Project-Structure/PARTNERSHIP-FINANCE-MODEL.md, Y1):
- *   - Cash challenges run on ALL tiers; stakes scale by tier.
+ *   - Cash challenges run on ALL tiers; rewards + daily reps scale by tier.
  *   - Common product giveaways: all tiers.
  *   - Premium + Special giveaways: Premium AND Elite.
  *   - "Elite-exclusive" framing reserved for genuinely rare campaigns (€5k+).
@@ -21,6 +21,17 @@ export const TRIAL_DAYS = 7;
 
 export type TierId = 'free' | 'premium' | 'elite';
 export type BillingCycle = 'monthly' | 'yearly';
+
+/**
+ * Tiers shown to users at launch. Elite is deferred until signed partner
+ * discounts justify a higher tier (mirrors LAUNCH_TIERS in
+ * libo-app-v2/src/constants/tierFeatures.ts). The full TIERS array and
+ * COMPARISON_GROUPS below keep their Elite data intact and dormant — to
+ * relaunch Elite, add 'elite' here. Render sites map over VISIBLE_TIERS and
+ * VISIBLE_COMPARISON_TIERS, never the raw arrays.
+ */
+export const VISIBLE_TIER_IDS: readonly TierId[] = ['free', 'premium'] as const;
+export const isTierVisible = (id: TierId): boolean => VISIBLE_TIER_IDS.includes(id);
 
 export type Tier = {
   id: TierId;
@@ -52,7 +63,7 @@ export const TIERS: Tier[] = [
       'Basic progress charts',
       'Rewards program (1× points)',
       'Common product giveaways',
-      'Cash challenges (€5–15 stakes)',
+      'Cash challenges (€5 reward · 30 reps/day)',
     ],
     cta: 'Get started',
     href: '/onboarding',
@@ -76,7 +87,7 @@ export const TIERS: Tier[] = [
       '2× rewards points',
       '1 freeze token per challenge cycle',
       'Premium giveaways + Special prize draws (e.g. iPhone-class items)',
-      'Cash challenges (€15–50 stakes)',
+      'Cash challenges (€10 reward · 50 reps/day)',
     ],
     cta: `Start ${TRIAL_DAYS}-day free trial`,
     href: '/onboarding?tier=premium',
@@ -96,7 +107,7 @@ export const TIERS: Tier[] = [
       'Exclusive seasonal workouts',
       '3× rewards points',
       '3 freeze tokens per challenge cycle',
-      'Highest cash-challenge stakes (€50–250+)',
+      'Top cash reward (€50 · 100 reps/day)',
       'Priority on rare Elite-exclusive campaigns',
       'Creator perks',
       'Early access to new features',
@@ -106,6 +117,9 @@ export const TIERS: Tier[] = [
     highlight: 'warning',
   },
 ];
+
+/** Tier cards currently shown to users (Free + Premium at launch). */
+export const VISIBLE_TIERS: Tier[] = TIERS.filter((t) => isTierVisible(t.id));
 
 export function buildHref(base: string, id: TierId, cycle: BillingCycle): string {
   if (id === 'free') return base;
@@ -123,6 +137,31 @@ export type ComparisonRow = {
   elite: string | boolean;
   group?: string;
 };
+
+/** Read a row's value for a given tier column. */
+export const comparisonValue = (row: ComparisonRow, id: TierId): string | boolean =>
+  id === 'free' ? row.free : id === 'premium' ? row.premium : row.elite;
+
+/**
+ * Comparison-table columns currently rendered, with their display headers.
+ * Drops the Elite column while Elite is deferred.
+ */
+export const VISIBLE_COMPARISON_TIERS: Array<{ id: TierId; label: string }> = [
+  { id: 'free', label: 'Free' },
+  { id: 'premium', label: 'Premium' },
+  ...(isTierVisible('elite') ? [{ id: 'elite' as TierId, label: 'Elite' }] : []),
+];
+
+/**
+ * Rows worth showing for the visible columns. A row whose only "yes" is in a
+ * hidden tier (e.g. an Elite-only perk) would render as all-empty across the
+ * visible columns, so we drop it.
+ */
+export function visibleComparisonRows(rows: ComparisonRow[]): ComparisonRow[] {
+  return rows.filter((row) =>
+    VISIBLE_COMPARISON_TIERS.some(({ id }) => comparisonValue(row, id) !== false)
+  );
+}
 
 export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> = [
   {
@@ -147,7 +186,8 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
     title: 'Rewards & challenges',
     rows: [
       { label: 'Rewards points', free: '1×', premium: '2×', elite: '3×' },
-      { label: 'Cash-challenge stakes', free: '€5–15', premium: '€15–50', elite: '€50–250+' },
+      { label: 'Cash-challenge reward', free: '€5', premium: '€10', elite: '€50' },
+      { label: 'Reps per day', free: '30', premium: '50', elite: '100' },
       { label: 'Freeze tokens per cycle', free: '0', premium: '1', elite: '3' },
       { label: 'Common product giveaways', free: true, premium: true, elite: true },
       { label: 'Premium + Special giveaways', free: false, premium: true, elite: true },

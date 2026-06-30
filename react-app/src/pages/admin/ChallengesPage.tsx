@@ -122,7 +122,7 @@ type FormState = {
   reward_amount: string;
   reward_currency: string;
   max_participants: string; // '' = unlimited
-  required_tier: MoneyChallengeTier;
+  required_tier: MoneyChallengeTier; // the tier band: free = Free-only, paid = that tier and up
   is_active: boolean;
   sort_order: string;
   image_url: string;
@@ -157,7 +157,8 @@ function rowToForm(row: MoneyChallenge): FormState {
     reward_amount: String(row.reward_amount),
     reward_currency: row.reward_currency,
     max_participants: row.max_participants == null ? '' : String(row.max_participants),
-    required_tier: row.required_tier,
+    // Prefer the gate column (min_tier); fall back to legacy required_tier.
+    required_tier: row.min_tier ?? row.required_tier,
     is_active: row.is_active,
     sort_order: String(row.sort_order),
     image_url: row.image_url ?? '',
@@ -176,7 +177,14 @@ function formToInput(f: FormState): MoneyChallengeInput {
     reward_amount: Number(f.reward_amount) || 0,
     reward_currency: f.reward_currency.trim() || 'EUR',
     max_participants: f.max_participants.trim() ? Number(f.max_participants) : null,
+    // The single tier selector makes the challenge EXCLUSIVE to that one tier
+    // (min = max = selected). Elite isn't live, so a Pro challenge is Pro-only,
+    // not "Pro and up". When Elite relaunches, an Elite challenge is Elite-only
+    // (which equals "Elite and up" since it's the top tier). Server gates on
+    // min_tier; max_tier enforces the upper bound.
     required_tier: f.required_tier,
+    min_tier: f.required_tier,
+    max_tier: f.required_tier,
     is_active: f.is_active,
     sort_order: Number(f.sort_order) || 0,
     image_url: f.image_url.trim() || null,
@@ -643,7 +651,10 @@ export function ChallengesPage() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
-            <Field label="Required tier">
+            <Field
+              label="Required tier"
+              hint="Challenge is exclusive to this tier — free = Free members only, pro = Pro members only."
+            >
               <Select
                 value={form.required_tier}
                 onChange={(e) => setForm((f) => ({ ...f, required_tier: e.target.value as MoneyChallengeTier }))}

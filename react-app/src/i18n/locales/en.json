@@ -175,7 +175,7 @@
     "headline": "Frequently\nasked.",
     "description": "Everything you need to know about Libo before you join.",
     "q1": "Is Libo free?",
-    "a1": "Libo offers a free tier with access to workouts, exercises, basic tracking, common product giveaways, and entry-level cash challenges. Premium and Elite unlock the full library, advanced analytics, larger cash-challenge stakes, and Premium / Special prize giveaways.",
+    "a1": "Libo offers a free tier with access to workouts, exercises, basic tracking, common product giveaways, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, larger cash rewards (up to €50), and Premium / Special prize giveaways.",
     "q2": "What equipment do I need?",
     "a2": "None — or everything. Libo has 295 home exercises (most need no equipment), 313 gym exercises, and 33 mobility moves. Filter by what you have available.",
     "q3": "How do the money challenges work?",
@@ -1015,7 +1015,7 @@
     "headline2": "Earn €250 cash.",
     "heroSub": "Real money for real consistency. Hit your daily reps for 30 days and we wire you the reward — guaranteed payout, no lottery.",
     "heroCta": "Get the app",
-    "tiersTitle": "Pick your stake",
+    "tiersTitle": "Pick your tier",
     "tiersSub": "Three tiers, three guaranteed payouts. Same 30-day mechanic. Pick what matches your subscription level — every completer gets paid in full.",
     "ctaReserve": "Get the app",
     "ctaError": "Something went wrong — try again",
@@ -1065,7 +1065,7 @@
     "step2Title": "Daily reps in the app",
     "step2Body": "100/200/300 reps per day by tier. Push-ups auto-count via camera. Squats and pull-ups use a tap counter. Splittable across sessions.",
     "step3Title": "Don't break the chain",
-    "step3Body": "Every day, no gaps. Pro/Elite get 1/3 freeze tokens for missed days. Free tier is strict — one miss and you're ejected.",
+    "step3Body": "Every day, no gaps. Pro members get freeze tokens to cover missed days. Free tier is strict — one miss and you're ejected.",
     "step4Title": "Get paid",
     "step4Body": "Finish all 30 active days and the cash hits your linked account within 48 hours of cycle end. €10, €20, or €90 — your choice.",
     "repeatCtaTitle": "Join the next cycle before it fills",
@@ -1085,7 +1085,7 @@
       "q2": "What counts as a completed day?",
       "a2": "Hitting your tier's daily rep count for that day, logged in the Libo app. Reps can be split across multiple sessions. Push-ups auto-count via camera; squats and pull-ups use a tap counter.",
       "q3": "What happens if I miss a day?",
-      "a3": "Free tier: one miss and you're out for that cycle. Pro: 1 freeze token covers 1 missed day, end date pushes by +1. Elite: up to 3 freeze tokens.",
+      "a3": "Free tier: one miss and you're out for that cycle. Pro: freeze tokens cover missed days — each token pushes your end date by +1.",
       "q4": "When do I get paid?",
       "a4": "Within 14 days of completing your 30th active day, after identity and anti-fraud checks pass. Payout is to the linked account on file — Stripe / SEPA / Wise depending on region. Payout providers require winners to be 18+; if you're 16–17, you can use a parent-linked verified payment account, otherwise the reward is converted to equivalent in-app credit (extra tickets or a Premium month) within 14 days.",
       "q5": "Can I enter multiple tiers at once?",
@@ -1093,7 +1093,7 @@
       "q6": "Why limited spots?",
       "a6": "The reward is a real cost to Libo. Capping spots makes the payout budgetable and creates a real cohort feel — everyone runs the clock together.",
       "q7": "Do I need a Libo subscription?",
-      "a7": "Free Starter tier — no. Pro Pool needs Pro (€9/mo). Elite Pool needs Elite (€19/mo). Subscribe in the app when you join your tier.",
+      "a7": "Free Starter tier — no. The Pro pools (€10 and €50 rewards) need Pro (€9.99/mo). Subscribe in the app when you join your tier.",
       "q8": "What if I'm a beginner?",
       "a8": "Start with Starter (100 reps/day) — that's about 5 minutes of work, splittable across the day. The rep count is achievable; the discipline is the challenge."
     },
@@ -1107,6 +1107,6 @@
       "googlePlaySmall": "Get it on",
       "closeLabel": "Close"
     },
-    "disclaimer": "Cash challenge entry is open to all tiers (Free, Premium, Elite) for users aged 16 and over. Stake size varies by tier (Free €5–15 / Premium €15–50 / Elite €50–250+). Cash payouts via Stripe / Wise / SEPA require winners to be 18 or over; winners aged 16–17 may use a parent-linked verified payment account, otherwise the prize is converted to in-app credit (extra tickets or a Premium month). Void where prohibited by local law — see Terms (Section 16) for the launch-time geo-block list. All payouts are subject to identity verification."
+    "disclaimer": "Cash challenge entry is open to all tiers (Free, Premium) for users aged 16 and over, and is free — there is no entry fee or stake. The cash reward you earn on completion varies by tier and pool (Free €5 / Premium €10, plus a higher €50 Premium pool), as does the daily target (30 / 50 / 100 reps); Libo funds the payout. Cash payouts via Stripe / Wise / SEPA require winners to be 18 or over; winners aged 16–17 may use a parent-linked verified payment account, otherwise the prize is converted to in-app credit (extra tickets or a Premium month). Void where prohibited by local law — see Terms (Section 16) for the launch-time geo-block list. All payouts are subject to identity verification."
   }
 }

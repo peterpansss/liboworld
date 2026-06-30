@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import {
-  TIERS,
+  VISIBLE_TIERS,
   YEARLY_PRICE,
   YEARLY_DISCOUNT,
   TRIAL_DAYS,
@@ -40,7 +40,7 @@ export default function Pricing() {
               {t('pricing.sub', { defaultValue: 'Train serious without spending serious.' })}
             </p>
             <p className="pricing-hero__lead">
-              {t('pricing.lead', { defaultValue: 'Three plans, one library, the same {{days}}-day free trial on every paid tier.', days: TRIAL_DAYS })}
+              {t('pricing.lead', { defaultValue: 'Two plans, one library, a {{days}}-day free trial on Premium.', days: TRIAL_DAYS })}
             </p>
 
             {/* Billing toggle — kept compact under the hero, not the headline */}
@@ -63,7 +63,7 @@ export default function Pricing() {
               >
                 {t('pricing.yearly', { defaultValue: 'Yearly' })}
                 <span className="pricing-cycle__save">
-                  −{YEARLY_DISCOUNT.elite}%
+                  −{YEARLY_DISCOUNT.premium}%
                 </span>
               </button>
             </div>
@@ -73,7 +73,7 @@ export default function Pricing() {
         {/* Cards — no comparison table. Each card carries its own story. */}
         <section className="pricing-cards">
           <div className="pricing-cards__inner">
-            {TIERS.map((tier) => {
+            {VISIBLE_TIERS.map((tier) => {
               const priceLabel = cycle === 'yearly' ? tier.yearlyLabel : tier.monthlyLabel;
               const priceSubline = cycle === 'yearly' ? tier.yearlySubline : tier.monthlySubline;
               const variant =
@@ -200,7 +200,7 @@ function pricingFaqDefaultQ(key: string): string {
 
 function pricingFaqDefaultA(key: string): string {
   const map: Record<string, string> = {
-    card: "No card needed for the Free plan. For Premium and Elite, we don't ask for payment info until after the 7-day trial ends — you can train the whole week and decide nothing.",
+    card: "No card needed for the Free plan. For Premium, we don't ask for payment info until after the 7-day trial ends — you can train the whole week and decide nothing.",
     cancel: 'Yes. Cancel any time from the app or by emailing hello@liboworld.com. Cancel during the trial and pay nothing. Cancel later and you keep access until the end of the billing period.',
     free: 'Free covers 20 curated workouts, the full 600+ exercise library, basic tracking, common product giveaways, and entry-level cash challenges (€5–15 stakes). Use it forever, no card on file.',
     switching: "Yes — upgrade or downgrade any time. Upgrades pro-rate immediately. Downgrades take effect at the next renewal so you don't lose what you paid for.",

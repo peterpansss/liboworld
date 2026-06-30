@@ -1,13 +1,15 @@
 /**
  * Tests for src/components/PricingSection.tsx.
  *
- * Three-card pricing grid with a Monthly/Yearly toggle. Covers:
- *   - heading + tier names
+ * Two-card pricing grid (Free / Premium) with a Monthly/Yearly toggle. Elite is
+ * deferred at launch (VISIBLE_TIER_IDS in data/tiers.ts), so it must NOT render.
+ * Covers:
+ *   - heading + tier names (Free + Premium only, no Elite)
  *   - cycle toggle aria-selected wiring + tab role
  *   - price + subline switch when cycle changes
- *   - badge rendering ("Most popular", "Elite")
+ *   - badge rendering ("Most popular"; no "Elite" badge)
  *   - feature list (Free's first vs Premium's "Everything in Free")
- *   - CTA href construction (?cycle=… for paid tiers, plain for Free)
+ *   - CTA href construction (?cycle=… for Premium, plain for Free)
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
@@ -28,21 +30,19 @@ function renderSection() {
 }
 
 describe('PricingSection', () => {
-  it('renders the heading and the three tier cards', () => {
+  it('renders the heading and the two tier cards (Free + Premium, no Elite)', () => {
     renderSection();
     expect(screen.getByRole('heading', { name: /Simple pricing\. Real rewards\./i })).toBeInTheDocument();
     expect(screen.getByText('Free')).toBeInTheDocument();
     expect(screen.getByText('Premium')).toBeInTheDocument();
-    // "Elite" appears as both tier name and badge — ensure both render.
-    expect(screen.getAllByText('Elite').length).toBeGreaterThanOrEqual(2);
+    // Elite is deferred — it must not appear as a tier name or badge.
+    expect(screen.queryByText('Elite')).not.toBeInTheDocument();
   });
 
-  it('renders both badges ("Most popular" and "Elite")', () => {
+  it('renders the "Most popular" badge and no "Elite" badge', () => {
     renderSection();
     expect(screen.getByText('Most popular')).toBeInTheDocument();
-    // The "Elite" tier name is also rendered, but the badge is inside its own span.
-    // Two "Elite" matches in the DOM is fine — getAllByText asserts presence.
-    expect(screen.getAllByText('Elite').length).toBeGreaterThanOrEqual(2);
+    expect(screen.queryByText('Elite')).not.toBeInTheDocument();
   });
 
   it('starts on the yearly cycle by default and exposes tab roles', () => {
@@ -51,9 +51,9 @@ describe('PricingSection', () => {
     const yearly = screen.getByRole('tab', { name: /Yearly/ });
     expect(monthly).toHaveAttribute('aria-selected', 'false');
     expect(yearly).toHaveAttribute('aria-selected', 'true');
-    // Yearly default → premium price label is "€79", elite "€149"
+    // Yearly default → premium price label is "€79". Elite's "€149" is gone.
     expect(screen.getByText('€79')).toBeInTheDocument();
-    expect(screen.getByText('€149')).toBeInTheDocument();
+    expect(screen.queryByText('€149')).not.toBeInTheDocument();
   });
 
   it('switches to monthly prices when the Monthly tab is clicked', async () => {
@@ -61,20 +61,20 @@ describe('PricingSection', () => {
     renderSection();
     await user.click(screen.getByRole('tab', { name: /Monthly/ }));
     expect(screen.getByText('€9.99')).toBeInTheDocument();
-    expect(screen.getByText('€19.99')).toBeInTheDocument();
-    // Sublines too
+    // Elite's monthly price is no longer rendered.
+    expect(screen.queryByText('€19.99')).not.toBeInTheDocument();
     expect(screen.getAllByText('/month').length).toBeGreaterThan(0);
   });
 
-  it('builds CTA hrefs with the cycle query param for paid tiers', () => {
+  it('builds CTA hrefs with the cycle query param for the paid tier', () => {
     const { container } = renderSection();
     const ctas = Array.from(container.querySelectorAll<HTMLAnchorElement>('a.pricing-cta'));
     const hrefs = ctas.map((a) => a.getAttribute('href'));
     // Free tier: plain /onboarding
     expect(hrefs).toContain('/onboarding');
-    // Default cycle yearly → ?cycle=yearly appended
+    // Default cycle yearly → ?cycle=yearly appended for Premium; no Elite CTA.
     expect(hrefs).toContain('/onboarding?tier=premium&cycle=yearly');
-    expect(hrefs).toContain('/onboarding?tier=elite&cycle=yearly');
+    expect(hrefs).not.toContain('/onboarding?tier=elite&cycle=yearly');
   });
 
   it('updates CTA hrefs when the cycle toggles to monthly', async () => {
@@ -84,31 +84,30 @@ describe('PricingSection', () => {
     const hrefs = Array.from(container.querySelectorAll<HTMLAnchorElement>('a.pricing-cta'))
       .map((a) => a.getAttribute('href'));
     expect(hrefs).toContain('/onboarding?tier=premium&cycle=monthly');
-    expect(hrefs).toContain('/onboarding?tier=elite&cycle=monthly');
+    expect(hrefs).not.toContain('/onboarding?tier=elite&cycle=monthly');
   });
 
-  it('renders feature lists per tier (Free starts the list, paid tiers reuse)', () => {
+  it('renders feature lists per tier (Free starts the list, Premium reuses)', () => {
     renderSection();
     // Free tier markers
     expect(screen.getByText('20 curated workouts')).toBeInTheDocument();
     expect(screen.getByText('Reps & kg tracking')).toBeInTheDocument();
     // Premium "Everything in Free"
     expect(screen.getByText('Everything in Free')).toBeInTheDocument();
-    // Elite "Everything in Premium"
-    expect(screen.getByText('Everything in Premium')).toBeInTheDocument();
+    // Elite's "Everything in Premium" bullet must be gone.
+    expect(screen.queryByText('Everything in Premium')).not.toBeInTheDocument();
   });
 
-  it('uses CTA copy "Get started" for free, "Start 7-day free trial" for paid tiers', () => {
+  it('uses CTA copy "Get started" for free, "Start 7-day free trial" for the paid tier', () => {
     renderSection();
     expect(screen.getByText('Get started')).toBeInTheDocument();
-    // Both paid tiers share the trial CTA — getAllByText returns 2.
-    expect(screen.getAllByText('Start 7-day free trial')).toHaveLength(2);
+    // Only Premium remains, so the trial CTA appears exactly once.
+    expect(screen.getAllByText('Start 7-day free trial')).toHaveLength(1);
   });
 
   it('mentions the trial duration in the legal blurb', () => {
     renderSection();
-    // The 7-day trial copy appears both in the section header subtitle
-    // and in the bottom-most legal blurb. We just need one match to pass.
-    expect(screen.getAllByText(/7-day free trial on Premium and Elite/i).length).toBeGreaterThan(0);
+    // 7-day trial copy appears in the subtitle and the bottom legal blurb.
+    expect(screen.getAllByText(/7-day free trial on Premium/i).length).toBeGreaterThan(0);
   });
 });

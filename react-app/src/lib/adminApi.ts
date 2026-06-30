@@ -767,6 +767,11 @@ export type MoneyChallenge = {
   reward_currency: string;
   max_participants: number | null;
   required_tier: MoneyChallengeTier;
+  /** Minimum tier required to join (server gate column). */
+  min_tier: MoneyChallengeTier;
+  /** Optional upper cap — null = no cap. Set both = min for a tier-EXCLUSIVE
+   *  challenge (e.g. the free €5 challenge: min_tier='free', max_tier='free'). */
+  max_tier: MoneyChallengeTier | null;
   is_active: boolean;
   sort_order: number;
   starts_at: string | null;
@@ -790,6 +795,8 @@ export type MoneyChallengeInput = {
   reward_currency: string;
   max_participants: number | null;
   required_tier: MoneyChallengeTier;
+  min_tier: MoneyChallengeTier;
+  max_tier: MoneyChallengeTier | null;
   is_active: boolean;
   sort_order: number;
   image_url?: string | null;
