@@ -849,30 +849,30 @@
     "heroCta": "Clique pour gagner",
     "fallbackPrize": "des prix incroyables",
     "packagesTitle": "Sélectionne un pack",
-    "packagesSub": "Achète un pack et débloque toute l'app Libo, plus des points bonus que tu convertis en entrées au tirage in-app, à ton rythme. Paiement unique, sans abonnement, sans renouvellement.",
+    "packagesSub": "Achète un pack et débloque toute l'app Libo, plus des Libo bonus que tu convertis en entrées au tirage in-app, à ton rythme. Paiement unique, sans abonnement, sans renouvellement.",
     "ctaSelect": "Sélectionner",
     "ctaError": "Quelque chose a mal tourné — réessaie",
     "emailPlaceholder": "ton@email.com",
     "entriesLabel": "Jours d'accès complet",
-    "amoeLine": "Aucun achat requis — télécharge Libo et gagne des points en t'entraînant. Les points se convertissent en entrées au tirage in-app. Voir Conditions.",
-    "eligibilityLine": "Ouvert à tous — nouveaux visiteurs, utilisateurs Free, abonnés Pro et Elite. Les points et l'accès de chaque pack s'ajoutent à ton compte Libo.",
-    "premiumDisclosure": "Paiement unique. Sans abonnement, sans renouvellement — tu paies une fois et c'est tout. Les abonnés Pro ou Elite existants peuvent quand même acheter des packs ; ton abonnement reste intact, et les points et jours d'accès du pack s'ajoutent à ce que tu as déjà.",
+    "amoeLine": "Aucun achat requis — télécharge Libo et gagne des Libo en t'entraînant. Les Libo se convertissent en entrées au tirage in-app. Voir Conditions.",
+    "eligibilityLine": "Ouvert à tous — nouveaux visiteurs, utilisateurs Free, abonnés Pro et Elite. Les Libo et l'accès de chaque pack s'ajoutent à ton compte Libo.",
+    "premiumDisclosure": "Paiement unique. Sans abonnement, sans renouvellement — tu paies une fois et c'est tout. Les abonnés Pro ou Elite existants peuvent quand même acheter des packs ; ton abonnement reste intact, et les Libo et jours d'accès du pack s'ajoutent à ce que tu as déjà.",
     "inclusionsShow": "Voir tout ce qui est inclus",
     "inclusionsHide": "Masquer les détails",
     "inclusions": {
       "entry": [
-        "100 points bonus — convertis-les en entrées au tirage in-app, à ton rythme",
+        "100 Libo bonus — convertis-les en entrées au tirage in-app, à ton rythme",
         "7 jours d'accès complet à l'app Libo — toutes les fonctionnalités Pro et Elite débloquées",
         "Paiement unique · sans abonnement, sans renouvellement"
       ],
       "silver": [
-        "800 points bonus — convertis-les en entrées au tirage in-app, à ton rythme",
+        "800 Libo bonus — convertis-les en entrées au tirage in-app, à ton rythme",
         "14 jours d'accès complet à l'app Libo — toutes les fonctionnalités Pro et Elite débloquées",
         "Paiement unique · sans abonnement, sans renouvellement",
         "Accès prioritaire à la révélation du tirage du mois prochain"
       ],
       "gold": [
-        "3 000 points bonus — convertis-les en entrées au tirage in-app, à ton rythme",
+        "3 000 Libo bonus — convertis-les en entrées au tirage in-app, à ton rythme",
         "30 jours d'accès complet à l'app Libo — toutes les fonctionnalités Pro et Elite débloquées",
         "Paiement unique · sans abonnement, sans renouvellement",
         "Accès prioritaire à la révélation du tirage du mois prochain",
@@ -891,7 +891,7 @@
         "entries": "7",
         "points": "100",
         "trial": "7j",
-        "heroSummary": "7 jours d'accès complet à l'app Libo + 100 points bonus convertibles en entrées au tirage in-app. Paiement unique — sans abonnement, sans renouvellement."
+        "heroSummary": "7 jours d'accès complet à l'app Libo + 100 Libo bonus convertibles en entrées au tirage in-app. Paiement unique — sans abonnement, sans renouvellement."
       },
       "silver": {
         "name": "Silver",
@@ -900,7 +900,7 @@
         "entries": "14",
         "points": "800",
         "trial": "14j",
-        "heroSummary": "14 jours d'accès complet à l'app Libo + 800 points bonus convertibles en entrées au tirage in-app. Paiement unique — sans abonnement, sans renouvellement."
+        "heroSummary": "14 jours d'accès complet à l'app Libo + 800 Libo bonus convertibles en entrées au tirage in-app. Paiement unique — sans abonnement, sans renouvellement."
       },
       "gold": {
         "name": "Gold",
@@ -909,7 +909,7 @@
         "entries": "30",
         "points": "3 000",
         "trial": "30j",
-        "heroSummary": "30 jours d'accès complet à l'app Libo + 3 000 points bonus convertibles en entrées au tirage in-app. Paiement unique — sans abonnement, sans renouvellement."
+        "heroSummary": "30 jours d'accès complet à l'app Libo + 3 000 Libo bonus convertibles en entrées au tirage in-app. Paiement unique — sans abonnement, sans renouvellement."
       }
     },
     "trust1": "Sécurisé & fiable",
@@ -976,9 +976,9 @@
       "q7": "Où puis-je regarder le tirage en direct ?",
       "a7": "Sur l'Instagram de Libo (@liboworld) et TikTok (@libo.world). Le tirage complet est archivé pour le replay. Tu n'as pas besoin d'être en direct — les gagnants sont contactés directement par email lié à leurs entrées dans les 24 heures.",
       "q8": "Je suis déjà abonné Pro / Elite — que se passe-t-il ?",
-      "a8": "Tu gardes ton abonnement existant, intact. L'essai Premium du pack est sauté — on crédite juste les entrées et les points bonus sur ton compte Libo. Pas de double facturation, pas de rétrogradation. Achète autant de packs que tu veux, ils s'additionnent tous.",
+      "a8": "Tu gardes ton abonnement existant, intact. L'essai Premium du pack est sauté — on crédite juste les entrées et les Libo bonus sur ton compte Libo. Pas de double facturation, pas de rétrogradation. Achète autant de packs que tu veux, ils s'additionnent tous.",
       "q9": "Puis-je acheter plusieurs packs ? Les entrées s'additionnent ?",
-      "a9": "Oui — chaque pack s'ajoute à ce que tu as déjà sur ton compte. Achète Entry aujourd'hui et Gold la semaine prochaine et tu as 31 entrées au total, plus 3 100 points bonus. On utilise l'email que tu nous donnes pour trouver ton compte ou en créer un nouveau.",
+      "a9": "Oui — chaque pack s'ajoute à ce que tu as déjà sur ton compte. Achète Entry aujourd'hui et Gold la semaine prochaine et tu as 31 entrées au total, plus 3 100 Libo bonus. On utilise l'email que tu nous donnes pour trouver ton compte ou en créer un nouveau.",
       "q10": "Ai-je besoin d'un compte Libo avant d'acheter ?",
       "a10": "Non. On en crée un automatiquement avec l'email que tu fournis au paiement et on t'envoie un magic-link pour te connecter. Les utilisateurs Libo existants (toute personne qui s'est déjà inscrite) reçoivent les entrées sur leur compte existant — même email = même compte."
     },
