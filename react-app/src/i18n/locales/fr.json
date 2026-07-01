@@ -1044,12 +1044,12 @@
       },
       "pro_pool": {
         "name": "Pro Pool",
-        "reward": "€50",
-        "reps": "100",
+        "reward": "€10",
+        "reps": "50",
         "days": "30",
-        "freeze": "1",
+        "freeze": "2",
         "gating": "Abonnement Pro · €9,99/mois",
-        "heroSummary": "30 jours × 100 reps = €50 cash. 1 jeton freeze pour les jours de grâce. Abonnement Pro requis dans l'app."
+        "heroSummary": "30 jours × 50 reps = €10 cash. 2 jetons freeze pour les jours de grâce. Abonnement Pro requis dans l'app."
       },
       "elite_pool": {
         "name": "Elite Pool",

@@ -1044,12 +1044,12 @@
       },
       "pro_pool": {
         "name": "Pro Pool",
-        "reward": "€50",
-        "reps": "100",
+        "reward": "€10",
+        "reps": "50",
         "days": "30",
-        "freeze": "1",
+        "freeze": "2",
         "gating": "Pro-Abo · €9,99/Monat",
-        "heroSummary": "30 Tage × 100 Reps = €50 Cash-Auszahlung. 1 Freeze-Token für Schon-Tage. Pro-Abo in-app erforderlich."
+        "heroSummary": "30 Tage × 50 Reps = €10 Cash-Auszahlung. 2 Freeze-Tokens für Schon-Tage. Pro-Abo in-app erforderlich."
       },
       "elite_pool": {
         "name": "Elite Pool",
