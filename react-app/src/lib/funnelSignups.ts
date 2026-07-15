@@ -58,11 +58,14 @@
  */
 import { supabase } from './supabase';
 
-export type FunnelKind = 'giveaway' | 'cash_challenge';
+export type FunnelKind = 'giveaway' | 'cash_challenge' | 'early_access';
 
 export type GiveawayTierSlug = 'entry' | 'bronze' | 'silver' | 'gold' | 'platinum';
 export type ChallengeTierSlug = 'starter' | 'pro_pool' | 'elite_pool';
-export type FunnelTierSlug = GiveawayTierSlug | ChallengeTierSlug;
+// Founding Member early-access pre-purchase (one-time €39.50 = 50% off the
+// first year of Premium). Flows through the same Stripe pipeline as giveaway.
+export type EarlyAccessTierSlug = 'founding';
+export type FunnelTierSlug = GiveawayTierSlug | ChallengeTierSlug | EarlyAccessTierSlug;
 
 export type FunnelSubmitResult =
   | { ok: true; duplicate: boolean }
@@ -79,7 +82,7 @@ export type FunnelSubmitInput = {
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
 
-function readUtm(): Record<string, string | null> {
+export function readUtm(): Record<string, string | null> {
   if (typeof window === 'undefined') return {};
   const params = new URLSearchParams(window.location.search);
   const out: Record<string, string | null> = {};

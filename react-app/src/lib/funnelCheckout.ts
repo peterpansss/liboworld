@@ -67,7 +67,23 @@ export async function createPaymentIntent(
         terms_acknowledged: input.termsAcknowledged,
       },
     });
-    if (error) return { ok: false, error: error.message ?? 'create_payment_intent failed' };
+    if (error) {
+      // Non-2xx responses (e.g. early-access 409 already_purchased, 410
+      // offer_ended) surface as a FunctionsHttpError whose `.context` is the
+      // raw Response. supabase-js does NOT parse the body, so the specific
+      // error slug is lost unless we read it back here. Fall back to the
+      // generic message when the body can't be parsed.
+      const httpErr = error as { context?: Response };
+      if (httpErr.context && typeof httpErr.context.json === 'function') {
+        try {
+          const body = (await httpErr.context.json()) as { error?: string };
+          if (body?.error) return { ok: false, error: body.error };
+        } catch {
+          // fall through to generic message
+        }
+      }
+      return { ok: false, error: error.message ?? 'create_payment_intent failed' };
+    }
     const r = data as {
       ok: boolean;
       error?: string;

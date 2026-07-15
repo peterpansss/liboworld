@@ -53,6 +53,7 @@ export default function Terms() {
               <li><a href="#s16">Changes to Terms</a></li>
               <li><a href="#s17">Governing Law</a></li>
               <li><a href="#s18">Contact</a></li>
+              <li><a href="#early-access">Early Access (Founding Member) Purchases</a></li>
             </ol>
           </div>
 
@@ -299,6 +300,28 @@ export default function Terms() {
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
               <li><strong>Company:</strong> Libo World, Germany</li>
             </ul>
+          </section>
+
+          {/* 19 */}
+          <section className="legal-section" id="early-access">
+            <div className="legal-section-num">19</div>
+            <h2>Early Access (Founding Member) Purchases</h2>
+            <p>This section sets out the specific terms that apply when you buy the pre-launch <strong>Founding Member</strong> early-access offer, before the Libo mobile app is publicly available. It supplements Sections 5 (Subscription Plans), 6 (Billing &amp; Payment) and 7 (Cancellation &amp; Refunds).</p>
+
+            <h3>One-Time Purchase, No Auto-Renewal</h3>
+            <p>The Founding Member offer is a <strong>single one-time payment</strong> of &euro;39.50 — 50% off the standard &euro;79 first-year price of Premium. It is <strong>not</strong> a subscription and does <strong>not</strong> auto-renew. You are charged once and no further charges are made. After your first year ends, Premium does not renew automatically; you may choose to subscribe at the then-current standard price if you wish to continue.</p>
+
+            <h3>What You Receive</h3>
+            <p>You receive <strong>12 months of Premium</strong> (the full Libo app, all Premium features, no limits). Because the app is not yet publicly launched at the time of purchase, <strong>your 12-month entitlement begins on the day Libo launches</strong>, not on the day you pay — so you do not lose any of your paid year while waiting. As an early-access bonus, Premium is unlocked on your account immediately on liboworld.com and any pre-launch (e.g. TestFlight) access we provide, at no additional charge and without shortening your 12 months.</p>
+
+            <h3>Pre-Launch Right of Withdrawal &amp; Refunds</h3>
+            <p>Unlike points packs, no digital content is delivered <em>at the moment of purchase</em> as your paid entitlement year; it begins at launch. Accordingly, <strong>your 14-day right of withdrawal under Article 16(m) of Directive 2011/83/EU applies</strong>, and beyond that statutory period we will honour a <strong>full refund at any time before launch</strong>, for any reason, on request. To withdraw or request a refund, email <a href="mailto:support@liboworld.com">support@liboworld.com</a> from the address you purchased with.</p>
+
+            <h3>If We Do Not Launch</h3>
+            <p>If Libo does not launch, or if we discontinue the Founding Member entitlement before your 12 months begin, you are entitled to a <strong>full refund</strong> of the amount you paid. Founding Member access is tied to the email address used at checkout; please use the same email when the app launches.</p>
+
+            <h3>Offer Availability</h3>
+            <p>The Founding Member offer is available only during the pre-launch period and closes on launch day. Pricing and availability may be changed or withdrawn for future buyers at any time before purchase; any change does not affect a purchase already completed.</p>
           </section>
         </div>
       </main>

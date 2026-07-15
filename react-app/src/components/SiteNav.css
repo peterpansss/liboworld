@@ -244,6 +244,12 @@
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+  /* Button reset — the CTA renders as <button> in prelaunch (waitlist)
+     and <a> in launched mode (Get Started). */
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .site-nav__cta:hover {
@@ -364,6 +370,7 @@
 
 .site-nav__drawer-cta {
   display: block;
+  width: 100%;
   text-align: center;
   background: var(--accent);
   color: var(--accent-text);
@@ -373,16 +380,88 @@
   font-weight: 600;
   border-radius: 14px;
   transition: background 0.2s;
+  /* Button reset — renders as <button> in prelaunch, <a> in launched. */
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .site-nav__drawer-cta:hover {
   background: var(--accent2);
 }
 
+/* ── Founding savings bar ── */
+/* Loud lime strip above the nav advertising the 50%-off founding deal. Sits
+   above the fixed nav (z 101 > 100); the nav + spacer get pushed down by the
+   bar height via the --with-announce modifiers. */
+.site-announce {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 101;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--accent-text);
+}
+.site-announce__msg {
+  appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 0 44px; /* symmetric room so text stays centered vs. dismiss X */
+  color: inherit;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.site-announce__spark { font-size: 14px; flex-shrink: 0; }
+.site-announce__text { overflow: hidden; text-overflow: ellipsis; }
+.site-announce__arrow { font-weight: 800; flex-shrink: 0; transition: transform 0.15s ease; }
+.site-announce__msg:hover .site-announce__arrow { transform: translateX(3px); }
+.site-announce__dismiss {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--accent-text);
+  font-size: 20px;
+  line-height: 1;
+  padding: 4px 8px;
+  opacity: 0.65;
+}
+.site-announce__dismiss:hover { opacity: 1; }
+.site-announce__msg:focus-visible,
+.site-announce__dismiss:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+/* Push the fixed nav down by the bar height when the bar is shown. Two-class
+   selector to outrank the base `.site-nav { top: 0 }`. */
+.site-nav.site-nav--with-announce { top: 40px; }
+
 /* Spacer to push content below fixed nav */
 .site-nav-spacer {
   height: 64px;
 }
+.site-nav-spacer--with-announce { height: 104px; } /* 64 nav + 40 bar */
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
@@ -413,6 +492,12 @@
   .site-nav-spacer {
     height: 56px;
   }
+
+  /* Compact bar on mobile; keep nav/spacer offsets in sync. */
+  .site-announce { height: 36px; }
+  .site-announce__msg { font-size: 12px; padding: 0 38px; gap: 6px; }
+  .site-nav.site-nav--with-announce { top: 36px; }
+  .site-nav-spacer--with-announce { height: 92px; } /* 56 nav + 36 bar */
 
   .site-nav__logo img,
   .site-nav__logo svg {

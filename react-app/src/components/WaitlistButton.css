@@ -30,7 +30,16 @@
   outline-offset: 3px;
 }
 
-/* Challenge variant — placeholder hook for future styling. */
+/* Challenge variant — SECONDARY treatment (Ticket 14): the cash-challenge
+   "Reserve my slot" must not be a visual peer of the primary solid-lime
+   waitlist CTA. Outlined lime on dark instead of a filled pill. */
 .waitlist-button--challenge {
-  /* no overrides yet */
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+
+.waitlist-button--challenge:hover {
+  filter: none;
+  background: rgba(202, 255, 0, 0.1);
 }

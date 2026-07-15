@@ -12,6 +12,7 @@ import AppStoreBadge from '../components/AppStoreBadge';
 import { EmojiIcon } from '../components/EmojiIcon';
 import WaitlistButton from '../components/WaitlistButton';
 import WaitlistInlineForm from '../components/WaitlistInlineForm';
+import EarlyAccessSection from '../components/funnel/EarlyAccessSection';
 import { isPrelaunch } from '../config/launchMode';
 import './Landing.css';
 
@@ -531,71 +532,6 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* ── REWARDS ── */}
-      <section className="rewards-section" id="rewards">
-        <div className="rewards-inner">
-          <div className="rewards-left reveal">
-            <div className="label label-spaced">{t('rewards.eyebrow')}</div>
-            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>
-              {t('rewards.headline')}
-            </h2>
-            <p className="body-md text-narrow" style={{ marginTop: 28, lineHeight: 1.7 }}>
-              {t('rewards.description')}
-            </p>
-            <div className="rewards-chips">
-              <span className="rewards-chip">{t('rewards.chip1')}</span>
-              <span className="rewards-chip">{t('rewards.chip2')}</span>
-              <span className="rewards-chip">{t('rewards.chip3')}</span>
-            </div>
-          </div>
-          <div className="rewards-right reveal reveal-delay-1">
-            <div className="rewards-gradient-card">
-              <div className="rewards-glass-badge">{t('rewards.badge')}</div>
-              <div className="rewards-prize">
-                <div className="rewards-big-stat" ref={rewardsStatView.ref}>
-                  &euro;{rewardsStat}
-                </div>
-                <div className="rewards-challenge-name font-display">{t('rewards.challengeName')}</div>
-                <div className="rewards-challenge-sub">{t('rewards.challengeSubtitle')}</div>
-              </div>
-              <div className="rewards-flow">
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon"><EmojiIcon emoji={'💪'} size={24} /></div>
-                  <div className="rewards-flow-label">{t('rewards.flowStep1')}</div>
-                </div>
-                <div className="rewards-flow-arrow">&rarr;</div>
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon"><EmojiIcon emoji={'📹'} size={24} /></div>
-                  <div className="rewards-flow-label">{t('rewards.flowStep2')}</div>
-                </div>
-                <div className="rewards-flow-arrow">&rarr;</div>
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon"><EmojiIcon emoji={'📲'} size={24} /></div>
-                  <div className="rewards-flow-label">{t('rewards.flowStep3')}</div>
-                </div>
-                <div className="rewards-flow-arrow">&rarr;</div>
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon accent-glow"><EmojiIcon emoji={'💰'} size={24} color="#CAFF00" /></div>
-                  <div className="rewards-flow-label accent-label">{t('rewards.flowStep4')}</div>
-                </div>
-              </div>
-              {isPrelaunch() ? (
-                <div className="rewards-reserve">
-                  <p className="rewards-reserve-copy">{t('challengeWaitlist.bodyParagraph')}</p>
-                  <WaitlistButton variant="challenge" size="inline" className="rewards-cta-button" />
-                  <p className="rewards-cta-disclosure">{t('challengeWaitlist.cardDisclosure')}</p>
-                </div>
-              ) : (
-                <div className="rewards-spots">
-                  <span className="rewards-spots-dot" />
-                  {t('rewards.spots')}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── FOUNDER BTS CARD ── */}
       <FounderCard />
 
@@ -782,6 +718,74 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      {/* ── CASH-CHALLENGE HOOK ── */}
+      <section className="rewards-section" id="rewards">
+        <div className="rewards-inner">
+          <div className="rewards-left reveal">
+            <div className="label label-spaced">{t('rewards.eyebrow')}</div>
+            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>
+              {t('rewards.headline')}
+            </h2>
+            <p className="body-md text-narrow" style={{ marginTop: 28, lineHeight: 1.7 }}>
+              {t('rewards.description')}
+            </p>
+            <div className="rewards-chips">
+              <span className="rewards-chip">{t('rewards.chip1')}</span>
+              <span className="rewards-chip">{t('rewards.chip2')}</span>
+              <span className="rewards-chip">{t('rewards.chip3')}</span>
+            </div>
+          </div>
+          <div className="rewards-right reveal reveal-delay-1">
+            <div className="rewards-gradient-card">
+              <div className="rewards-glass-badge">{t('rewards.badge')}</div>
+              <div className="rewards-prize">
+                <div className="rewards-big-stat" ref={rewardsStatView.ref}>
+                  &euro;{rewardsStat}
+                </div>
+                <div className="rewards-challenge-name font-display">{t('rewards.challengeName')}</div>
+                <div className="rewards-challenge-sub">{t('rewards.challengeSubtitle')}</div>
+              </div>
+              <div className="rewards-flow">
+                <div className="rewards-flow-step">
+                  <div className="rewards-flow-icon"><EmojiIcon emoji={'💪'} size={24} /></div>
+                  <div className="rewards-flow-label">{t('rewards.flowStep1')}</div>
+                </div>
+                <div className="rewards-flow-arrow">&rarr;</div>
+                <div className="rewards-flow-step">
+                  <div className="rewards-flow-icon"><EmojiIcon emoji={'📹'} size={24} /></div>
+                  <div className="rewards-flow-label">{t('rewards.flowStep2')}</div>
+                </div>
+                <div className="rewards-flow-arrow">&rarr;</div>
+                <div className="rewards-flow-step">
+                  <div className="rewards-flow-icon"><EmojiIcon emoji={'📲'} size={24} /></div>
+                  <div className="rewards-flow-label">{t('rewards.flowStep3')}</div>
+                </div>
+                <div className="rewards-flow-arrow">&rarr;</div>
+                <div className="rewards-flow-step">
+                  <div className="rewards-flow-icon accent-glow"><EmojiIcon emoji={'💰'} size={24} color="#CAFF00" /></div>
+                  <div className="rewards-flow-label accent-label">{t('rewards.flowStep4')}</div>
+                </div>
+              </div>
+              {isPrelaunch() ? (
+                <div className="rewards-reserve">
+                  <p className="rewards-reserve-copy">{t('challengeWaitlist.bodyParagraph')}</p>
+                  <WaitlistButton variant="challenge" size="inline" className="rewards-cta-button" />
+                  <p className="rewards-cta-disclosure">{t('challengeWaitlist.cardDisclosure')}</p>
+                </div>
+              ) : (
+                <div className="rewards-spots">
+                  <span className="rewards-spots-dot" />
+                  {t('rewards.spots')}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── EARLY ACCESS (FOUNDING MEMBER) — prelaunch only, secondary offer ── */}
+      {isPrelaunch() && <EarlyAccessSection />}
 
       {/* ── QR + APP STORE CLOSER ── */}
       <section className="qr-closer" id="get-the-app">

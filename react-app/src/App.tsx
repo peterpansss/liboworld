@@ -14,6 +14,7 @@ function ScrollToTop() {
 import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
 import { isPrelaunch } from './config/launchMode';
+import FoundingCheckoutProvider from './components/funnel/FoundingCheckoutProvider';
 
 // Content pages — lazy loaded
 const Careers = lazy(() => import('./pages/Careers'));
@@ -49,6 +50,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <FoundingCheckoutProvider>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/careers" element={<Suspense fallback={darkFallback}><Careers /></Suspense>} />
@@ -79,6 +81,7 @@ export default function App() {
         <Route path="/admin/*" element={<Suspense fallback={darkFallback}><AdminLayout /></Suspense>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </FoundingCheckoutProvider>
     </BrowserRouter>
   );
 }

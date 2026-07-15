@@ -2,6 +2,8 @@ import { useEffect, useId } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import type { WaitlistSource } from '../hooks/useWaitlistSubmit';
+import { useFoundingCheckout } from './funnel/FoundingCheckoutProvider';
+import { isStripeConfigured } from '../lib/stripe';
 import './WaitlistModal.css';
 
 type Props = {
@@ -16,12 +18,33 @@ export default function WaitlistModal({ open, onClose, variant = 'generic' }: Pr
   const source: WaitlistSource =
     variant === 'challenge' ? 'challenge_waitlist' : 'homepage_waitlist';
   const { email, setEmail, status, errorMessage, submit, reset } = useWaitlistSubmit(source);
+  const { openFoundingCheckout } = useFoundingCheckout();
   const headingId = useId();
 
   const handleClose = () => {
     reset();
     onClose();
   };
+
+  // Warm-audience upsell: right after a visitor joins (or is already on) the
+  // waitlist, offer the €39.50 Founding deal. Tagged so we can attribute
+  // post-waitlist conversions vs. the on-page section. Only shown when Stripe
+  // is live (else there's nothing to buy). Closes this modal and hands off to
+  // the shared founding checkout.
+  const foundingSource = variant === 'challenge' ? 'post_waitlist_challenge' : 'post_waitlist';
+  const handleUpsell = () => {
+    openFoundingCheckout(foundingSource);
+    handleClose();
+  };
+  const upsell = isStripeConfigured() ? (
+    <div className="waitlist-modal-upsell">
+      <p className="waitlist-modal-upsell-heading font-display">{t('waitlist.upsellHeading')}</p>
+      <p className="waitlist-modal-upsell-body">{t('waitlist.upsellBody')}</p>
+      <button type="button" className="waitlist-modal-upsell-cta" onClick={handleUpsell}>
+        {t('waitlist.upsellCta')}
+      </button>
+    </div>
+  ) : null;
 
   useEffect(() => {
     if (!open) return;
@@ -110,6 +133,7 @@ export default function WaitlistModal({ open, onClose, variant = 'generic' }: Pr
               {t(`${ns}.successHeading`)}
             </h2>
             <p className="waitlist-modal-success-body">{t(`${ns}.successBody`)}</p>
+            {upsell}
           </>
         )}
 
@@ -119,6 +143,7 @@ export default function WaitlistModal({ open, onClose, variant = 'generic' }: Pr
               {t(`${ns}.modalHeading`)}
             </h2>
             <p className="waitlist-modal-success-body">{t(`${ns}.duplicateMessage`)}</p>
+            {upsell}
           </>
         )}
       </div>

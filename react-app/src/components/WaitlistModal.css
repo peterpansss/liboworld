@@ -163,6 +163,59 @@
   margin: 8px 0 0;
 }
 
+/* Post-waitlist upsell — the Founding Member offer to a just-warmed lead.
+   Set off from the confirmation copy by a divider; CTA is a solid-lime pill
+   (this IS the primary action at this moment — they've already joined). */
+.waitlist-modal-upsell {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.waitlist-modal-upsell-heading {
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  margin: 0 0 6px;
+}
+.waitlist-modal-upsell-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+.waitlist-modal-upsell-cta {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 14px 24px;
+  border-radius: 100px;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.waitlist-modal-upsell-cta:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+.waitlist-modal-upsell-cta:active {
+  transform: scale(0.98);
+}
+.waitlist-modal-upsell-cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 @keyframes waitlist-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }

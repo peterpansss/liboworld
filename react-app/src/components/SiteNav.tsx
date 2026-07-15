@@ -1,9 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LiboLogo from './LiboLogo';
+import WaitlistModal from './WaitlistModal';
+import { isStripeConfigured } from '../lib/stripe';
 import { isPrelaunch } from '../config/launchMode';
 import './SiteNav.css';
+
+const ANNOUNCE_DISMISS_KEY = 'ea_announce_dismissed';
 
 // Top-level desktop nav items. Reward Club is the only parent that
 // expands into a dropdown (REWARD_CLUB_CHILDREN below).
@@ -42,6 +46,21 @@ export default function SiteNav() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [rewardOpen, setRewardOpen] = useState(false);
+  // Prelaunch: the nav CTA opens the waitlist (single primary action
+  // site-wide, per Ticket 14). Launched: it reverts to Get Started →
+  // /onboarding.
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+  const navigate = useNavigate();
+  // Top savings bar — advertises the founding deal loudly + early without a
+  // cold paid wall at the top of the page. Dismissible for the session.
+  const [announceDismissed, setAnnounceDismissed] = useState(
+    () => typeof window !== 'undefined' && sessionStorage.getItem(ANNOUNCE_DISMISS_KEY) === '1',
+  );
+  const showAnnounce = isPrelaunch() && isStripeConfigured() && !announceDismissed;
+  const dismissAnnounce = () => {
+    setAnnounceDismissed(true);
+    try { sessionStorage.setItem(ANNOUNCE_DISMISS_KEY, '1'); } catch { /* ignore */ }
+  };
   const location = useLocation();
   const closeRef = useRef<HTMLButtonElement>(null);
   const rewardWrapRef = useRef<HTMLLIElement>(null);
@@ -99,8 +118,29 @@ export default function SiteNav() {
   return (
     <>
       <a href="#main-content" className="skip-link">{t('nav.skipToMain')}</a>
+      {showAnnounce && (
+        <div className="site-announce">
+          <button
+            type="button"
+            className="site-announce__msg"
+            onClick={() => navigate('/#early-access')}
+          >
+            <span className="site-announce__spark" aria-hidden="true">⚡</span>
+            <span className="site-announce__text">{t('earlyAccess.announceText')}</span>
+            <span className="site-announce__arrow" aria-hidden="true">→</span>
+          </button>
+          <button
+            type="button"
+            className="site-announce__dismiss"
+            aria-label={t('earlyAccess.announceDismiss')}
+            onClick={dismissAnnounce}
+          >
+            ×
+          </button>
+        </div>
+      )}
       <nav
-        className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}${isSubpage ? ' site-nav--subpage' : ''}`}
+        className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}${isSubpage ? ' site-nav--subpage' : ''}${showAnnounce ? ' site-nav--with-announce' : ''}`}
         aria-label={t('nav.mainNavigation')}
       >
         <div className="site-nav__inner">
@@ -190,9 +230,19 @@ export default function SiteNav() {
 
           {/* Right section */}
           <div className="site-nav__right">
-            <Link to="/onboarding" className="site-nav__cta">
-              {t('nav.getStarted')}
-            </Link>
+            {isPrelaunch() ? (
+              <button
+                type="button"
+                className="site-nav__cta"
+                onClick={() => setWaitlistOpen(true)}
+              >
+                {t('waitlist.buttonLabel')}
+              </button>
+            ) : (
+              <Link to="/onboarding" className="site-nav__cta">
+                {t('nav.getStarted')}
+              </Link>
+            )}
             <button
               className="site-nav__hamburger"
               onClick={() => setDrawerOpen(true)}
@@ -244,17 +294,32 @@ export default function SiteNav() {
           ))}
         </div>
         <div className="site-nav__drawer-bottom">
-          <Link
-            to="/onboarding"
-            className="site-nav__drawer-cta"
-            onClick={() => setDrawerOpen(false)}
-          >
-            {t('nav.getStarted')}
-          </Link>
+          {isPrelaunch() ? (
+            <button
+              type="button"
+              className="site-nav__drawer-cta"
+              onClick={() => {
+                setDrawerOpen(false);
+                setWaitlistOpen(true);
+              }}
+            >
+              {t('waitlist.buttonLabel')}
+            </button>
+          ) : (
+            <Link
+              to="/onboarding"
+              className="site-nav__drawer-cta"
+              onClick={() => setDrawerOpen(false)}
+            >
+              {t('nav.getStarted')}
+            </Link>
+          )}
         </div>
       </div>
 
-      <div className="site-nav-spacer" />
+      <WaitlistModal open={waitlistOpen} onClose={() => setWaitlistOpen(false)} />
+
+      <div className={`site-nav-spacer${showAnnounce ? ' site-nav-spacer--with-announce' : ''}`} />
     </>
   );
 }

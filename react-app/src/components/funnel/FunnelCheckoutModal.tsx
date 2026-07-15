@@ -34,6 +34,39 @@ import { colors } from '../../theme';
 import { getStripe, isStripeConfigured } from '../../lib/stripe';
 import { STORE_URLS } from '../../utils/storeRedirect';
 
+// ── Accent theme ────────────────────────────────────────────────────────
+// The modal is shared between the giveaway funnel (orange) and the founding
+// early-access checkout (Libo lime). Callers pass the accent; giveaway keeps
+// the default orange so nothing changes there.
+export type AccentTheme = {
+  solid: string;    // brand accent for solid fills / borders / stripe primary
+  light: string;    // lighter tint for asterisks, links, order-total text
+  gradA: string;    // filled-button gradient start (lighter)
+  gradB: string;    // filled-button gradient end (darker)
+  glowRgb: string;  // "r,g,b" for rgba() glow shadows
+  onAccent: string; // text/icon color on a solid/gradient accent fill
+};
+
+export const ORANGE_ACCENT: AccentTheme = {
+  solid: '#FF6A1A',
+  light: '#FF8A4A',
+  gradA: '#FF8A4A',
+  gradB: '#FF6A1A',
+  glowRgb: '255,106,26',
+  onAccent: '#fff',
+};
+
+// Lime on near-black — matches the Libo brand system (--accent #CAFF00,
+// --accent2 #9BC800, --accent-text #080B10). Dark text on lime for contrast.
+export const LIME_ACCENT: AccentTheme = {
+  solid: '#CAFF00',
+  light: '#CAFF00',
+  gradA: '#CAFF00',
+  gradB: '#9BC800',
+  glowRgb: '202,255,0',
+  onAccent: '#080B10',
+};
+
 // Public QR generator — matches the pattern used by StoreRedirectOverlay on
 // /cash-challenge. The QR target is liboworld.com/get-app, which client-side
 // UA-routes phones to App Store / Play Store. No per-platform QR variants
@@ -137,6 +170,10 @@ type Props = {
     secureCheckout: string;    // "100% Guaranteed Secure & Safe Checkout"
     orderItem: string;         // "{tier} Package | {entries} entries"
     orderTotal: string;        // "Order Total"
+    /** Order-summary line item. Defaults to "{selected.name} Package"
+     *  (giveaway); early access passes a bespoke label since "Founding
+     *  Member Package" reads awkwardly. */
+    orderSummaryItem?: string;
     legalNote: string;
     successTitle: string;
     successBody: string;
@@ -152,6 +189,15 @@ type Props = {
   /** Submission */
   onSubmit: (args: FunnelModalSubmitArgs) => Promise<{ ok: boolean; duplicate?: boolean; error?: string }>;
   onClose: () => void;
+  /** Where the Step-1 consent link points. Defaults to the points-pack
+   *  section; early access passes '/terms#early-access'. */
+  consentHref?: string;
+  /** Whether the success screen shows the scan-to-download QR + App Store
+   *  badge. True for giveaway packs (app is live for buyers); false for
+   *  early access (app isn't out yet — nothing to download). */
+  showGetAppCta?: boolean;
+  /** Accent theme. Defaults to orange (giveaway). Founding passes LIME_ACCENT. */
+  accent?: AccentTheme;
 };
 
 type ModalState = 'idle' | 'submitting' | 'success' | 'duplicate' | 'error';
@@ -165,6 +211,9 @@ export default function FunnelCheckoutModal({
   copy,
   onSubmit,
   onClose,
+  consentHref = '/terms#points-packs',
+  showGetAppCta = true,
+  accent = ORANGE_ACCENT,
 }: Props) {
   const [step, setStep] = useState<Step>(1);
   const [fullName, setFullName] = useState('');
@@ -470,7 +519,7 @@ export default function FunnelCheckoutModal({
       alignItems: 'flex-start',
       gap: 12,
       paddingBottom: 8,
-      borderBottom: '2px solid ' + (active ? '#FF6A1A' : 'rgba(255,255,255,0.08)'),
+      borderBottom: '2px solid ' + (active ? accent.solid : 'rgba(255,255,255,0.08)'),
       opacity: active ? 1 : 0.55,
       transition: 'opacity 0.2s, border-color 0.2s',
     };
@@ -482,8 +531,8 @@ export default function FunnelCheckoutModal({
       width: 26,
       height: 26,
       borderRadius: '50%',
-      background: active ? '#FF6A1A' : 'rgba(255,255,255,0.1)',
-      color: '#fff',
+      background: active ? accent.solid : 'rgba(255,255,255,0.1)',
+      color: active ? accent.onAccent : '#fff',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -547,15 +596,15 @@ export default function FunnelCheckoutModal({
     padding: '16px',
     borderRadius: 12,
     border: 'none',
-    background: 'linear-gradient(90deg, #FF8A4A 0%, #FF6A1A 100%)',
-    color: '#fff',
+    background: `linear-gradient(90deg, ${accent.gradA} 0%, ${accent.gradB} 100%)`,
+    color: accent.onAccent,
     fontFamily: 'inherit',
     fontSize: 14,
     fontWeight: 900,
     letterSpacing: 1.5,
     textTransform: 'uppercase',
     cursor: 'pointer',
-    boxShadow: '0 8px 24px rgba(255,106,26,0.3)',
+    boxShadow: `0 8px 24px rgba(${accent.glowRgb},0.3)`,
     marginTop: 8,
   };
 
@@ -665,13 +714,13 @@ export default function FunnelCheckoutModal({
             {/* BODY */}
             <div style={body}>
               <div style={{ fontSize: 11, color: colors.muted, marginBottom: 14, letterSpacing: 0.3 }}>
-                <span style={{ color: '#FF8A4A' }}>*</span> {copy.mandatoryNote}
+                <span style={{ color: accent.light }}>*</span> {copy.mandatoryNote}
               </div>
 
               {step === 1 && (
                 <form onSubmit={handleStep1} noValidate>
                   <label htmlFor="fm-name" style={fieldLabel}>
-                    <span style={{ color: '#FF8A4A' }}>*</span> {copy.fullNameLabel}
+                    <span style={{ color: accent.light }}>*</span> {copy.fullNameLabel}
                   </label>
                   <input
                     id="fm-name"
@@ -695,7 +744,7 @@ export default function FunnelCheckoutModal({
                   )}
 
                   <label htmlFor="fm-email" style={fieldLabel}>
-                    <span style={{ color: '#FF8A4A' }}>*</span> {copy.emailLabel}
+                    <span style={{ color: accent.light }}>*</span> {copy.emailLabel}
                   </label>
                   <input
                     id="fm-email"
@@ -719,7 +768,7 @@ export default function FunnelCheckoutModal({
                   )}
 
                   <label htmlFor="fm-phone" style={fieldLabel}>
-                    <span style={{ color: '#FF8A4A' }}>*</span> {copy.phoneLabel}
+                    <span style={{ color: accent.light }}>*</span> {copy.phoneLabel}
                   </label>
                   <input
                     id="fm-phone"
@@ -777,18 +826,18 @@ export default function FunnelCheckoutModal({
                         marginTop: 2,
                         width: 14,
                         height: 14,
-                        accentColor: '#FF6A1A',
+                        accentColor: accent.solid,
                         cursor: 'pointer',
                       }}
                     />
                     <span>
                       {copy.consentLabel}{' '}
                       <a
-                        href="/terms#points-packs"
+                        href={consentHref}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        style={{ color: '#FF8A4A', textDecoration: 'underline' }}
+                        style={{ color: accent.light, textDecoration: 'underline' }}
                       >
                         {copy.consentLinkLabel}
                       </a>
@@ -822,13 +871,14 @@ export default function FunnelCheckoutModal({
                   stripe={stripePromise}
                   options={{
                     clientSecret,
-                    appearance: stripeAppearance,
+                    appearance: makeStripeAppearance(accent),
                   } as StripeElementsOptions}
                 >
                   <Step2Stripe
                     selected={selected}
                     currency={currency}
                     copy={copy}
+                    accent={accent}
                     paymentIntentId={paymentIntentId}
                     onPaid={handleStripePaymentSuccess}
                     onBack={() => setStep(1)}
@@ -870,7 +920,7 @@ export default function FunnelCheckoutModal({
 
                   {/* Card field — placeholder for Stripe Elements */}
                   <label htmlFor="fm-card" style={fieldLabel}>
-                    <span style={{ color: '#FF8A4A' }}>*</span> {copy.cardLabel}
+                    <span style={{ color: accent.light }}>*</span> {copy.cardLabel}
                   </label>
                   <div style={{ position: 'relative' }}>
                     <input
@@ -913,7 +963,7 @@ export default function FunnelCheckoutModal({
                     }}
                   >
                     <div style={{ color: colors.muted }}>
-                      {selected.name} Package
+                      {copy.orderSummaryItem ?? `${selected.name} Package`}
                     </div>
                     <div style={{ textAlign: 'right', color: colors.text, fontWeight: 700 }}>
                       {currency}{selected.amount.toFixed(2)}
@@ -921,7 +971,7 @@ export default function FunnelCheckoutModal({
                     <div style={{ color: colors.text, fontWeight: 800, fontSize: 16, paddingTop: 6, borderTop: '1px solid ' + colors.border }}>
                       {copy.orderTotal}
                     </div>
-                    <div style={{ textAlign: 'right', color: '#FF8A4A', fontWeight: 900, fontSize: 18, paddingTop: 6, borderTop: '1px solid ' + colors.border }}>
+                    <div style={{ textAlign: 'right', color: accent.light, fontWeight: 900, fontSize: 18, paddingTop: 6, borderTop: '1px solid ' + colors.border }}>
                       {currency}{selected.amount.toFixed(2)}
                     </div>
                   </div>
@@ -982,14 +1032,14 @@ export default function FunnelCheckoutModal({
                 width: 64,
                 height: 64,
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #FF8A4A 0%, #FF6A1A 100%)',
+                background: `linear-gradient(135deg, ${accent.gradA} 0%, ${accent.gradB} 100%)`,
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: '0 auto 22px',
                 fontSize: 32,
-                color: '#fff',
-                boxShadow: '0 12px 32px rgba(255,106,26,0.4)',
+                color: accent.onAccent,
+                boxShadow: `0 12px 32px rgba(${accent.glowRgb},0.4)`,
               }}
               aria-hidden="true"
             >
@@ -1004,8 +1054,9 @@ export default function FunnelCheckoutModal({
 
             {/* Scan-to-download — same /get-app routing pattern as
                 /cash-challenge. Phones tapping the App Store badge get
-                routed; desktops scan the QR with their phone. */}
-            {selected && (
+                routed; desktops scan the QR with their phone. Hidden for
+                early access (showGetAppCta=false) — the app isn't out yet. */}
+            {showGetAppCta && selected && (
               <>
                 <div
                   style={{
@@ -1080,36 +1131,38 @@ export default function FunnelCheckoutModal({
 
 // ── Stripe Elements appearance — matches the Libo dark theme ─────────────
 
-const stripeAppearance: Appearance = {
-  theme: 'night',
-  variables: {
-    colorPrimary: '#FF6A1A',
-    colorBackground: colors.bg3,
-    colorText: colors.text,
-    colorDanger: colors.error,
-    fontFamily: 'inherit',
-    borderRadius: '10px',
-    spacingUnit: '4px',
-  },
-  rules: {
-    '.Input': {
-      backgroundColor: colors.bg3,
-      borderColor: colors.border,
-      color: colors.text,
+function makeStripeAppearance(accent: AccentTheme): Appearance {
+  return {
+    theme: 'night',
+    variables: {
+      colorPrimary: accent.solid,
+      colorBackground: colors.bg3,
+      colorText: colors.text,
+      colorDanger: colors.error,
+      fontFamily: 'inherit',
+      borderRadius: '10px',
+      spacingUnit: '4px',
     },
-    '.Input:focus': {
-      borderColor: '#FF6A1A',
-      boxShadow: '0 0 0 1px #FF6A1A',
+    rules: {
+      '.Input': {
+        backgroundColor: colors.bg3,
+        borderColor: colors.border,
+        color: colors.text,
+      },
+      '.Input:focus': {
+        borderColor: accent.solid,
+        boxShadow: '0 0 0 1px ' + accent.solid,
+      },
+      '.Tab': {
+        backgroundColor: colors.bg3,
+        borderColor: colors.border,
+      },
+      '.Tab--selected': {
+        borderColor: accent.solid,
+      },
     },
-    '.Tab': {
-      backgroundColor: colors.bg3,
-      borderColor: colors.border,
-    },
-    '.Tab--selected': {
-      borderColor: '#FF6A1A',
-    },
-  },
-};
+  };
+}
 
 // ── Step 2 (Stripe-powered): real <PaymentElement /> ─────────────────────
 
@@ -1117,13 +1170,14 @@ type Step2StripeProps = {
   selected: ModalSelectedTier;
   currency: string;
   copy: Props['copy'];
+  accent: AccentTheme;
   paymentIntentId: string | null;
   onPaid: (paymentIntentId: string) => void;
   onBack: () => void;
   submitting: boolean;
 };
 
-function Step2Stripe({ selected, currency, copy, paymentIntentId, onPaid, onBack, submitting }: Step2StripeProps) {
+function Step2Stripe({ selected, currency, copy, accent, paymentIntentId, onPaid, onBack, submitting }: Step2StripeProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [paying, setPaying] = useState(false);
@@ -1210,14 +1264,14 @@ function Step2Stripe({ selected, currency, copy, paymentIntentId, onPaid, onBack
           gap: 8,
         }}
       >
-        <div style={{ color: colors.muted }}>{selected.name} Package</div>
+        <div style={{ color: colors.muted }}>{copy.orderSummaryItem ?? `${selected.name} Package`}</div>
         <div style={{ textAlign: 'right', color: colors.text, fontWeight: 700 }}>
           {currency}{selected.amount.toFixed(2)}
         </div>
         <div style={{ color: colors.text, fontWeight: 800, fontSize: 16, paddingTop: 6, borderTop: '1px solid ' + colors.border }}>
           {copy.orderTotal}
         </div>
-        <div style={{ textAlign: 'right', color: '#FF8A4A', fontWeight: 900, fontSize: 18, paddingTop: 6, borderTop: '1px solid ' + colors.border }}>
+        <div style={{ textAlign: 'right', color: accent.light, fontWeight: 900, fontSize: 18, paddingTop: 6, borderTop: '1px solid ' + colors.border }}>
           {currency}{selected.amount.toFixed(2)}
         </div>
       </div>
@@ -1230,15 +1284,15 @@ function Step2Stripe({ selected, currency, copy, paymentIntentId, onPaid, onBack
           padding: '16px',
           borderRadius: 12,
           border: 'none',
-          background: 'linear-gradient(90deg, #FF8A4A 0%, #FF6A1A 100%)',
-          color: '#fff',
+          background: `linear-gradient(90deg, ${accent.gradA} 0%, ${accent.gradB} 100%)`,
+          color: accent.onAccent,
           fontFamily: 'inherit',
           fontSize: 14,
           fontWeight: 900,
           letterSpacing: 1.5,
           textTransform: 'uppercase',
           cursor: isBusy ? 'not-allowed' : 'pointer',
-          boxShadow: '0 8px 24px rgba(255,106,26,0.3)',
+          boxShadow: `0 8px 24px rgba(${accent.glowRgb},0.3)`,
           opacity: isBusy ? 0.7 : 1,
         }}
       >
