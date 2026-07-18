@@ -93,7 +93,7 @@ export default function Pricing() {
                     <div className="pricing-card__price-sub">{priceSubline}</div>
                     {cycle === 'yearly' && (tier.id === 'premium' || tier.id === 'elite') && (
                       <div className="pricing-card__price-equivalent">
-                        ≈ €{(YEARLY_PRICE[tier.id] / 12).toFixed(2)}/month, billed annually
+                        €{YEARLY_PRICE[tier.id].toFixed(2)}/year · save {YEARLY_DISCOUNT[tier.id]}%
                       </div>
                     )}
                   </div>

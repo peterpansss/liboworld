@@ -14,9 +14,13 @@
  *   - "Elite-exclusive" framing reserved for genuinely rare campaigns (€5k+).
  */
 
-export const MONTHLY_PRICE = { premium: 9.99, elite: 19.99 } as const;
-export const YEARLY_PRICE = { premium: 79, elite: 149 } as const;
-export const YEARLY_DISCOUNT = { premium: 34, elite: 37 } as const;
+// YEARLY_PRICE is the annual TOTAL (per-month equivalent = /12). Premium is
+// shown to users as €6.67/mo billed annually (= €79.99/yr, 49% off €12.99/mo).
+// Launch/introductory pricing — competitive with training apps (Alpha, Liftoff
+// €79.99/yr); to be raised as rewards/partner-discounts/features land (Dec/Jan).
+export const MONTHLY_PRICE = { premium: 12.99, elite: 19.99 } as const;
+export const YEARLY_PRICE = { premium: 79.99, elite: 149 } as const;
+export const YEARLY_DISCOUNT = { premium: 49, elite: 37 } as const;
 export const TRIAL_DAYS = 7;
 
 export type TierId = 'free' | 'premium' | 'elite';
@@ -74,9 +78,9 @@ export const TIERS: Tier[] = [
     name: 'Premium',
     tagline: 'Everything you need to train harder.',
     monthlyLabel: `€${MONTHLY_PRICE.premium.toFixed(2)}`,
-    yearlyLabel: `€${YEARLY_PRICE.premium}`,
+    yearlyLabel: `€${(YEARLY_PRICE.premium / 12).toFixed(2)}`,
     monthlySubline: '/month',
-    yearlySubline: `/year — save ${YEARLY_DISCOUNT.premium}%`,
+    yearlySubline: '/mo billed annually',
     badge: 'Most popular',
     features: [
       'Everything in Free',
@@ -98,9 +102,9 @@ export const TIERS: Tier[] = [
     name: 'Elite',
     tagline: 'The full experience, biggest prizes.',
     monthlyLabel: `€${MONTHLY_PRICE.elite.toFixed(2)}`,
-    yearlyLabel: `€${YEARLY_PRICE.elite}`,
+    yearlyLabel: `€${(YEARLY_PRICE.elite / 12).toFixed(2)}`,
     monthlySubline: '/month',
-    yearlySubline: `/year — save ${YEARLY_DISCOUNT.elite}%`,
+    yearlySubline: '/mo billed annually',
     badge: 'Elite',
     features: [
       'Everything in Premium',

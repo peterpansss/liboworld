@@ -29,8 +29,9 @@ import { createPaymentIntent } from '../../lib/funnelCheckout';
 import { readUtm } from '../../lib/funnelSignups';
 import { isStripeConfigured } from '../../lib/stripe';
 
-// One-time founding price. Mirrors EARLY_ACCESS_TIERS.founding.amountCents
-// (3950) in libo-app-v2/supabase/functions/_shared/tiers.ts — keep in sync.
+// One-time founding price = 50% off the €79.99 first-year price of Premium.
+// Mirrors EARLY_ACCESS_TIERS.founding.amountCents (3950) in
+// libo-app-v2/supabase/functions/_shared/tiers.ts — keep in sync.
 export const EARLY_ACCESS_PRICE = 39.5;
 
 // Known entry points, for reference / type help at call sites.

@@ -194,7 +194,7 @@
   },
   "waitlist": {
     "upsellHeading": "Skip the line",
-    "upsellBody": "Founding Members skip the waitlist and lock in 50% off their first year — €39.50 instead of €79. Only until we launch.",
+    "upsellBody": "Founding Members skip the waitlist and lock in 50% off their first year — €39.50 instead of €79.99. Only until we launch.",
     "upsellCta": "Lock in 50% off →",
     "buttonLabel": "JOIN THE WAITLIST",
     "modalHeading": "JOIN THE WAITLIST",
@@ -1120,7 +1120,7 @@
     "description": "You found us early. Become a Founding Member and get your first full year of Premium — every workout, every feature — at half the price. Your 12 months start the day we launch, so you don't lose a single day waiting.",
     "bullet1": "12 months of Premium — the full app, no limits",
     "bullet2": "Your year starts on launch day, not today",
-    "bullet3": "Founding price locked in — €39.50 instead of €79",
+    "bullet3": "Founding price locked in — €39.50 instead of €79.99",
     "reassurance": "Change your mind before launch? We'll refund you in full — no questions asked.",
     "badge": "50% OFF · FIRST YEAR",
     "priceNote": "One-time payment · 12 months of Premium",

@@ -4,7 +4,7 @@
  * Card grid over VISIBLE_TIERS: Free / Premium (highlighted) at launch. Elite
  * is deferred (see VISIBLE_TIER_IDS in data/tiers.ts) but its data is kept for
  * relaunch. Monthly/Yearly toggle at the top. Copy mirrors the mobile paywall:
- *   - Premium: €9.99/mo or €79/yr (34% off), 1 freeze token, 2x points, €50 pools
+ *   - Premium: €12.99/mo or €6.67/mo billed annually (€79.99/yr, 49% off), 1 freeze token, 2x points, €50 pools
  *   - Elite (deferred): €19.99/mo or €149/yr, 3 freeze tokens, 3x points
  * Premium: 7-day free trial.
  *
@@ -294,7 +294,7 @@ export default function PricingSection() {
                 </div>
                 {cycle === 'yearly' && (tier.id === 'premium' || tier.id === 'elite') && (
                   <div style={{ fontSize: 12, color: colors.muted, opacity: 0.8, marginBottom: 6 }}>
-                    ≈ €{(YEARLY_PRICE[tier.id] / 12).toFixed(2)}/month, billed annually
+                    €{YEARLY_PRICE[tier.id].toFixed(2)}/year · save {YEARLY_DISCOUNT[tier.id]}%
                   </div>
                 )}
 
