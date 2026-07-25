@@ -3,14 +3,14 @@
 // elements use the page's @fontsource Barlow Condensed / Inter. Loaded
 // as an <img>, the SVG runs in an isolated document with no access to
 // the host's fonts, falls back to system sans-serif on iOS, and "LIBO"
-// renders wide enough to cover the start of "HEALTH CLUB".
+// renders wide enough to cover the start of "TRAINING CLUB".
 
 type Props = {
   className?: string;
   ariaLabel?: string;
 };
 
-export default function LiboLogo({ className, ariaLabel = 'LIBO Health Club' }: Props) {
+export default function LiboLogo({ className, ariaLabel = 'Libo World · Training Club' }: Props) {
   return (
     <svg
       className={className}
@@ -43,7 +43,7 @@ export default function LiboLogo({ className, ariaLabel = 'LIBO Health Club' }: 
         letterSpacing="3"
         fillOpacity={0.7}
       >
-        HEALTH CLUB
+        TRAINING CLUB
       </text>
     </svg>
   );

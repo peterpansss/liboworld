@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 140" fill="none" role="img" aria-label="LIBO Health Club">
-  <circle cx="146" cy="42" r="4" fill="#CAFF00"/>
-  <circle cx="166" cy="30" r="6.5" fill="#CAFF00"/>
-  <circle cx="192" cy="18" r="10" fill="#CAFF00"/>
-  <text x="108" y="122" font-family="'Barlow Condensed', 'Arial Narrow', sans-serif" font-weight="900" font-size="92" fill="#080B10" letter-spacing="2">LIBO</text>
-  <text x="304" y="118" font-family="'Inter', 'Helvetica Neue', sans-serif" font-weight="600" font-size="12" fill="#080B10" letter-spacing="3" fill-opacity="0.7">HEALTH CLUB</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 140" fill="none" role="img" aria-label="Libo World · Training Club">
+  <circle cx="146" cy="42" r="4" fill="#CAFF00"></circle>
+  <circle cx="166" cy="30" r="6.5" fill="#CAFF00"></circle>
+  <circle cx="192" cy="18" r="10" fill="#CAFF00"></circle>
+  <text x="108" y="122" font-family="&#39;Barlow Condensed&#39;, &#39;Arial Narrow&#39;, sans-serif" font-weight="900" font-size="92" fill="#080B10" letter-spacing="2">LIBO</text>
+  <text x="304" y="118" font-family="&#39;Inter&#39;, &#39;Helvetica Neue&#39;, sans-serif" font-weight="600" font-size="12" fill="#080B10" letter-spacing="3" fill-opacity="0.7">TRAINING CLUB</text>
 </svg>
