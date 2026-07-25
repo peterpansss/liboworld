@@ -51,7 +51,7 @@ export default function Founder() {
         <div className="fp-why-media">
           <img
             className="fp-why-img"
-            src="/noah-photo-2.jpg"
+            src="/noah-founder.jpg"
             alt={t('relaunchFounder.why.imgAlt')}
           />
           <div className="fp-photo-badge">

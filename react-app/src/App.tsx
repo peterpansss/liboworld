@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, type ReactNode } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 // Scroll to top on route change — or smooth-scroll to a #hash target when the
@@ -30,6 +30,7 @@ import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
 import { isPrelaunch } from './config/launchMode';
 import FoundingCheckoutProvider from './components/funnel/FoundingCheckoutProvider';
+import CursorFollower from './components/CursorFollower';
 
 // Content pages — lazy loaded
 const Careers = lazy(() => import('./pages/Careers'));
@@ -62,11 +63,24 @@ const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
 
 const darkFallback = <div style={{ background: '#080808', height: '100vh' }} />;
 
+// Re-keys on pathname change so the page fades/rises in on every navigation —
+// makes clicking a link feel smoother. Honors prefers-reduced-motion via CSS.
+function PageTransition({ children }: { children: ReactNode }) {
+  const { pathname } = useLocation();
+  return (
+    <div className="route-transition" key={pathname}>
+      {children}
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <CursorFollower />
       <FoundingCheckoutProvider>
+      <PageTransition>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/careers" element={<Suspense fallback={darkFallback}><Careers /></Suspense>} />
@@ -98,6 +112,7 @@ export default function App() {
         <Route path="/admin/*" element={<Suspense fallback={darkFallback}><AdminLayout /></Suspense>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </PageTransition>
       </FoundingCheckoutProvider>
     </BrowserRouter>
   );

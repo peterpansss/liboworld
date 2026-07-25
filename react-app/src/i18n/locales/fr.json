@@ -1110,6 +1110,7 @@
   },
   "earlyAccess": {
     "announceText": "Founding Members: 50% off your first year — only until we launch",
+    "announceTextShort": "Founding Members: 50% off →",
     "announceDismiss": "Dismiss",
     "eyebrow": "FOUNDING MEMBER",
     "headline": "Lock in Libo before we launch",
@@ -1162,7 +1163,7 @@
   "relaunchHome": {
     "hero": {
       "badgeComingSoon": "Coming soon",
-      "badgeIos": "iOS first",
+      "badgeIos": "iOS & Android",
       "badgeFree": "Free forever",
       "h1Line1": "Your reps pay",
       "h1Accent": "real cash.",
@@ -1289,7 +1290,12 @@
         {
           "photo": "beta-paul.png",
           "name": "Tony",
-          "meta": "@tony · 47, mobility plans"
+          "meta": "@tony · 63, mobility plans"
+        },
+        {
+          "photo": "beta-tao.png",
+          "name": "Thao",
+          "meta": "@redtao_ · 25, yoga + bodyweight"
         }
       ]
     },
@@ -1316,7 +1322,7 @@
         {
           "photo": "beta-mike.png",
           "handle": "@noah",
-          "quote": "tested libo for the last 8 weeks. legit the only fitness app i've stuck with past month 2. cash challenge thing got me actually doing reps for once"
+          "quote": "not really a review — i built libo. 15 yrs of leistungssport, then years off. the cash challenge is the only thing that got me back to daily reps. on it every morning."
         },
         {
           "photo": "beta-sarah.png",
@@ -1336,7 +1342,12 @@
         {
           "photo": "beta-paul.png",
           "handle": "@tony",
-          "quote": "47 and skeptical about gym-bro apps. picked up libo in the beta and... the mobility plans are unreal. rewards thing is dumb fun. 2 months in"
+          "quote": "63 and skeptical about gym-bro apps. picked up libo in the beta and... the mobility plans are unreal. rewards thing is dumb fun. 2 months in"
+        },
+        {
+          "photo": "beta-tao.png",
+          "handle": "@redtao_",
+          "quote": "not a gym person at all. came for the yoga + bodyweight flows, stayed for the streaks. finally an app that doesn't shove barbells at me — my mobility's the best it's ever been."
         }
       ]
     },
@@ -1353,7 +1364,7 @@
       "q5": "Can I build my own workouts?",
       "a5": "Yes. The Custom Builder lets you pick from the full exercise library, set your own sets, reps, and rest times, then save and reuse your workouts anytime.",
       "q6": "Is Libo available on Android?",
-      "a6": "Libo will launch on iOS first. Android support is on our roadmap — we'll announce a date once it's locked. Join the waitlist to be notified when iOS launches.",
+      "a6": "Yes — Libo launches on iOS and Android at the same time. Join the waitlist and we'll tell you the moment it's live on both.",
       "q7": "Can I follow structured programs?",
       "a7": "Yes. Libo includes multi-week programs designed for specific goals — muscle building, fat loss, mobility, and more. Follow the plan, log your progress, and see real results.",
       "q8": "Does Libo track my progress?",
@@ -1387,6 +1398,30 @@
           "cat": "Nutrition",
           "title": "Simple High-Protein Meals in 15 Minutes",
           "meta": "5 min read"
+        }
+      ]
+    },
+    "affiliate": {
+      "eyebrow": "CREATORS & PARTNERS",
+      "h2Line1": "Your audience trains.",
+      "h2Accent": "You earn 25% for life.",
+      "body": "Every member you bring pays you 25% of their subscription — for as long as they stay. For creators with 5K+ followers who actually train.",
+      "cta": "Become a partner →",
+      "cards": [
+        {
+          "value": "25%",
+          "label": "Lifetime commission",
+          "desc": "On every subscription payment your members make — not just the first one."
+        },
+        {
+          "value": "60d",
+          "label": "Cookie window",
+          "desc": "A click today still counts when they subscribe two months from now."
+        },
+        {
+          "value": "€",
+          "label": "Live calculator",
+          "desc": "See what your audience size earns before you sign up."
         }
       ]
     }
@@ -1649,7 +1684,7 @@
       },
       {
         "label": "Platform",
-        "value": "iOS first"
+        "value": "iOS & Android"
       },
       {
         "label": "Stage",
@@ -1679,7 +1714,7 @@
     "boilerplate": {
       "title": "About Libo",
       "titleTag": "· boilerplate",
-      "body": "Libo is a training club that pays members real cash for consistency. Alongside a library of 641 exercises, 140 workouts, and AI-built training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, share it publicly, and cash out €5–€50 at the end of the cycle. Libo launches iOS-first with a free-forever tier and a Premium subscription at €79.99/year.",
+      "body": "Libo is a training club that pays members real cash for consistency. Alongside a library of 641 exercises, 140 workouts, and AI-built training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, share it publicly, and cash out €5–€50 at the end of the cycle. Libo launches on iOS and Android with a free-forever tier and a Premium subscription at €79.99/year.",
       "founderTitle": "Noah F.",
       "founderTag": "· founder",
       "founderBio": "Noah comes from German high-performance sport — years of Regionalliga football, with selections for the DFB Stützpunkt and the Westfalenauswahl with Bonner SC. He is also the designer behind the fashion label Mieuxnoir and founder of Manufactnow, a fashion production and consulting company. His bet with Libo: real stakes beat motivation, so the club puts real money on member consistency. He writes about the psychology behind it on the Libo blog (\"30 Days, One Habit, Real Money\").",

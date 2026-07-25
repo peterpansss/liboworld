@@ -176,6 +176,25 @@
   }
 }
 
+/* ── C10: guarantee ≥44px tap targets on small phones ──
+   Scoped to ≤430px so the compact desktop link spacing is untouched. */
+@media (max-width: 430px) {
+  .site-footer__col-links a,
+  .site-footer__legal a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    /* Full-row width so the whole row is tappable, not just the text. */
+    align-self: stretch;
+    padding: 6px 0;
+  }
+
+  .site-footer__legal {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
 @media (max-width: 480px) {
   .site-footer {
     padding: 32px 16px 0;

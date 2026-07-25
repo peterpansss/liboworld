@@ -13,7 +13,7 @@ export default function SiteFooter() {
         {/* Top section: logo + social */}
         <div className="site-footer__top">
           <Link to="/" className="site-footer__logo" aria-label="Libo home">
-            <LiboLogo />
+            <LiboLogo compact />
           </Link>
           <div className="site-footer__social">
             <a href="https://www.instagram.com/liboworld/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">

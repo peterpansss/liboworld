@@ -8,16 +8,24 @@
 type Props = {
   className?: string;
   ariaLabel?: string;
+  // When true, render only the dots + "LIBO" wordmark (omit "TRAINING CLUB"
+  // subtext) with a tightened viewBox. Use at small render heights (≲28px)
+  // where the subtext is illegible.
+  compact?: boolean;
 };
 
-export default function LiboLogo({ className, ariaLabel = 'Libo World · Training Club' }: Props) {
+export default function LiboLogo({
+  className,
+  ariaLabel = 'Libo World · Training Club',
+  compact = false,
+}: Props) {
   return (
     <svg
       className={className}
-      viewBox="0 0 460 140"
+      viewBox={compact ? '0 0 300 140' : '0 0 460 140'}
       fill="none"
       role="img"
-      aria-label={ariaLabel}
+      aria-label={compact ? 'Libo World' : ariaLabel}
     >
       <circle cx="146" cy="42" r="4" fill="#CAFF00" />
       <circle cx="166" cy="30" r="6.5" fill="#CAFF00" />
@@ -33,18 +41,20 @@ export default function LiboLogo({ className, ariaLabel = 'Libo World · Trainin
       >
         LIBO
       </text>
-      <text
-        x="304"
-        y="118"
-        fontFamily="'Inter', 'Helvetica Neue', sans-serif"
-        fontWeight={600}
-        fontSize={12}
-        fill="#FFFFFF"
-        letterSpacing="3"
-        fillOpacity={0.7}
-      >
-        TRAINING CLUB
-      </text>
+      {!compact && (
+        <text
+          x="304"
+          y="118"
+          fontFamily="'Inter', 'Helvetica Neue', sans-serif"
+          fontWeight={600}
+          fontSize={12}
+          fill="#FFFFFF"
+          letterSpacing="3"
+          fillOpacity={0.7}
+        >
+          TRAINING CLUB
+        </text>
+      )}
     </svg>
   );
 }

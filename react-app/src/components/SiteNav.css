@@ -38,6 +38,13 @@
   display: block;
 }
 
+/* Full lockup on desktop; compact mark on the mobile nav bar. Flipped in the
+   ≤768px media query below. Selectors are scoped under .site-nav__logo so they
+   outrank `.site-nav__logo svg { display: block }`. */
+.site-nav__logo .site-nav__logo-compact {
+  display: none;
+}
+
 /* ── Center links ── */
 .site-nav__links {
   display: flex;
@@ -429,6 +436,14 @@
 }
 .site-announce__spark { font-size: 14px; flex-shrink: 0; }
 .site-announce__text { overflow: hidden; text-overflow: ellipsis; }
+/* Copy variant (not truncation): full sentence by default, terse at ≤430px. */
+.site-announce__text--short { display: none; }
+@media (max-width: 430px) {
+  .site-announce__text--full { display: none; }
+  .site-announce__text--short { display: inline; }
+  /* The short copy carries its own trailing →, so drop the standalone arrow. */
+  .site-announce__arrow { display: none; }
+}
 .site-announce__arrow { font-weight: 800; flex-shrink: 0; transition: transform 0.15s ease; }
 .site-announce__msg:hover .site-announce__arrow { transform: translateX(3px); }
 .site-announce__dismiss {
@@ -502,6 +517,14 @@
   .site-nav__logo img,
   .site-nav__logo svg {
     height: 32px;
+  }
+
+  /* Swap the full lockup for the compact mark on the mobile nav bar. */
+  .site-nav__logo .site-nav__logo-full {
+    display: none;
+  }
+  .site-nav__logo .site-nav__logo-compact {
+    display: block;
   }
 }
 

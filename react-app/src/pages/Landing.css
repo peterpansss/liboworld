@@ -490,12 +490,20 @@
   gap: 40px;
 }
 .rh-reviews-inner .rh-eyebrow { margin-bottom: 12px; }
+/* 5 reviews in a 3-up grid leaves a dead 6th slot; use a centered flex row
+   so the trailing two cards center under the first three. */
 .rh-reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
 }
-.rh-review { display: flex; flex-direction: column; gap: 14px; }
+.rh-review {
+  flex: 0 1 calc((100% - 32px) / 3);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 .rh-review-head { display: flex; align-items: center; gap: 12px; }
 .rh-review-photo {
   width: 44px;
@@ -520,6 +528,7 @@
 .rh-faq-item { border-bottom: 1px solid var(--libo-bg-3); }
 .rh-faq-q {
   width: 100%;
+  min-height: 44px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -535,7 +544,18 @@
   cursor: pointer;
   transition: color 0.15s ease;
 }
-.rh-faq-q:hover { color: var(--libo-accent); }
+/* Lime = OPEN only. Hover tints lime but must not stick on touch devices,
+   so gate it behind a real hover pointer. Keyboard focus is a distinct
+   outline (not a lime fill) so it can't be confused with the open state. */
+@media (hover: hover) {
+  .rh-faq-q:hover { color: var(--libo-accent); }
+}
+.rh-faq-item.open .rh-faq-q { color: var(--libo-accent); }
+.rh-faq-q:focus-visible {
+  outline: 2px solid var(--libo-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
 .rh-faq-icon { color: var(--libo-accent); font-size: 20px; }
 .rh-faq-a {
   font-size: 14px;
@@ -554,7 +574,7 @@
 .rh-final-inner {
   max-width: 800px;
   margin: 0 auto;
-  padding: 110px 64px;
+  padding: 96px 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -604,7 +624,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
-.rh-blog-card { display: flex; flex-direction: column; gap: 10px; min-height: 150px; transition: border-color 0.15s ease; }
+.rh-blog-card { display: flex; flex-direction: column; gap: 10px; transition: border-color 0.15s ease; }
 .rh-blog-card:hover { border-color: var(--libo-accent); }
 .rh-blog-cat {
   font-size: 11px;
@@ -626,14 +646,73 @@
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+/* ── AFFILIATE / CREATORS & PARTNERS ── */
+.rh-affiliate { padding: 96px 64px; }
+.rh-affiliate-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 64px;
+  align-items: center;
+}
+/* Link-based primary CTAs are <a>, so `.relaunch-home a` (white) was beating
+   rh-btn--primary's dark text → washed-out white-on-lime. Restore dark text. */
+.relaunch-home .rh-btn--primary { color: #080808; }
+.rh-affiliate-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.rh-affiliate-copy .rh-eyebrow { margin-bottom: 4px; }
+.rh-affiliate-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--libo-muted);
+  max-width: 440px;
+  margin: 0;
+  text-wrap: pretty;
+}
+.rh-affiliate-cta { margin-top: 4px; }
+.rh-affiliate-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  gap: 16px;
+}
+/* Flex-column + grid stretch → all three cards match the tallest regardless
+   of copy length. The value glyph (incl. a lone "€") shares one class/size,
+   so nothing shrinks it relative to "25%"/"60d". */
+.rh-affiliate-card { display: flex; flex-direction: column; gap: 8px; height: 100%; }
+.rh-affiliate-card-value { display: block; }
+.rh-affiliate-card-value {
+  font-family: var(--libo-font-display);
+  font-weight: 800;
+  font-size: 44px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--libo-accent);
+}
+.rh-affiliate-card-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: #fff;
+}
+.rh-affiliate-card-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--libo-muted);
+  margin: 0;
+}
+
 @media (max-width: 900px) {
   .rh-hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 32px; }
+  .rh-affiliate { padding: 64px 32px; }
+  .rh-affiliate-inner { grid-template-columns: 1fr; gap: 40px; }
   .rh-hero-phones { height: auto; }
   .rh-mechanism,
   .rh-offer { grid-template-columns: 1fr; gap: 40px; }
   .rh-features,
-  .rh-reviews-grid,
   .rh-blog-grid { grid-template-columns: repeat(2, 1fr); }
+  .rh-reviews-grid .rh-review { flex-basis: calc((100% - 16px) / 2); }
   .rh-members { grid-template-columns: repeat(3, 1fr); }
   .rh-library-head,
   .rh-community-head { flex-direction: column; align-items: flex-start; gap: 16px; }
@@ -654,6 +733,19 @@
   .rh-hero-ctas { flex-direction: column; align-items: stretch; }
   .rh-btn { justify-content: center; }
   .rh-hero-phones { transform: scale(0.88); transform-origin: center top; }
+  /* Soften the hard bottom edge where the phone collage meets the section
+     boundary on narrow screens. */
+  .rh-hero-phones::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 96px;
+    background: linear-gradient(to bottom, transparent, var(--libo-bg));
+    pointer-events: none;
+    z-index: 3;
+  }
 
   .rh-h2 { font-size: 34px; }
   .rh-final-h2 { font-size: 40px; }
@@ -672,8 +764,9 @@
 
   .rh-steps,
   .rh-features,
-  .rh-reviews-grid,
   .rh-blog-grid { grid-template-columns: 1fr; }
+  .rh-reviews-grid .rh-review { flex-basis: 100%; }
+  .rh-affiliate-cards { grid-template-columns: 1fr; }
   .rh-members { grid-template-columns: repeat(2, 1fr); }
 
   .rh-founder-inner { flex-direction: column; align-items: flex-start; padding: 40px 20px; }

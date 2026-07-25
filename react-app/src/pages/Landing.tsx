@@ -20,6 +20,7 @@ type Feature = { num: string; name: string; desc: string };
 type Member = { photo: string; name: string; meta: string };
 type Review = { photo: string; handle: string; quote: string };
 type Post = { cat: string; title: string; meta: string };
+type AffiliateCard = { value: string; label: string; desc: string };
 
 // ── Smooth scroll to an in-page anchor (offset for the sticky nav) ──
 function scrollToId(id: string) {
@@ -84,6 +85,7 @@ export default function Landing() {
   const members = t('relaunchHome.community.members', { returnObjects: true }) as Member[];
   const perks = t('relaunchHome.offer.perks', { returnObjects: true }) as string[];
   const reviews = t('relaunchHome.reviews.items', { returnObjects: true }) as Review[];
+  const affiliateCards = t('relaunchHome.affiliate.cards', { returnObjects: true }) as AffiliateCard[];
   const posts = t('relaunchHome.blogTeaser.posts', { returnObjects: true }) as Post[];
 
   const proofStats = [
@@ -189,7 +191,7 @@ export default function Landing() {
         {/* ── FOUNDER STRIP ── */}
         <section className="rh-founder-strip">
           <div className="rh-founder-inner">
-            <img className="rh-founder-photo" src="/noah-photo-2.jpg" alt={t('relaunchHome.founderStrip.imgAlt')} loading="lazy" />
+            <img className="rh-founder-photo" src="/noah-founder.jpg" alt={t('relaunchHome.founderStrip.imgAlt')} loading="lazy" />
             <div className="rh-founder-text">
               <p className="rh-founder-quote">&ldquo;{t('relaunchHome.founderStrip.quote')}&rdquo;</p>
               <span className="rh-founder-name">{t('relaunchHome.founderStrip.name')}</span>
@@ -285,6 +287,32 @@ export default function Landing() {
                     <span className="rh-review-handle">{r.handle}</span>
                   </div>
                   <p className="rh-review-quote">&ldquo;{r.quote}&rdquo;</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── AFFILIATE / CREATORS & PARTNERS ── */}
+        <section className="rh-affiliate">
+          <div className="rh-affiliate-inner">
+            <div className="rh-affiliate-copy">
+              <div className="rh-eyebrow">{t('relaunchHome.affiliate.eyebrow')}</div>
+              <h2 className="rh-h2">
+                {t('relaunchHome.affiliate.h2Line1')}<br />
+                <span className="rh-accent">{t('relaunchHome.affiliate.h2Accent')}</span>
+              </h2>
+              <p className="rh-affiliate-body">{t('relaunchHome.affiliate.body')}</p>
+              <Link to="/affiliate" className="rh-btn rh-btn--primary rh-affiliate-cta">
+                {t('relaunchHome.affiliate.cta')}
+              </Link>
+            </div>
+            <div className="rh-affiliate-cards">
+              {affiliateCards.map((c, i) => (
+                <div className="rh-card rh-affiliate-card" key={i}>
+                  <span className="rh-affiliate-card-value">{c.value}</span>
+                  <span className="rh-affiliate-card-label">{c.label}</span>
+                  <p className="rh-affiliate-card-desc">{c.desc}</p>
                 </div>
               ))}
             </div>

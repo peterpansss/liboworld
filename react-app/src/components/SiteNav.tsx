@@ -54,6 +54,10 @@ export default function SiteNav() {
       if (el) {
         e.preventDefault();
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Focus the email field so the CTA visibly "does something" even when
+        // the capture is already at the top of the viewport.
+        const input = el.querySelector<HTMLInputElement>('input[type="email"], input');
+        input?.focus({ preventScroll: true });
       }
     }
     setDrawerOpen(false);
@@ -91,10 +95,15 @@ export default function SiteNav() {
           <button
             type="button"
             className="site-announce__msg"
-            onClick={() => navigate('/#early-access')}
+            onClick={() => navigate('/pricing')}
           >
             <span className="site-announce__spark" aria-hidden="true">⚡</span>
-            <span className="site-announce__text">{t('earlyAccess.announceText')}</span>
+            <span className="site-announce__text">
+              {/* Copy variant, not CSS truncation: full sentence on wider
+                  viewports, a terse version at ≤430px so nothing clips. */}
+              <span className="site-announce__text--full">{t('earlyAccess.announceText')}</span>
+              <span className="site-announce__text--short">{t('earlyAccess.announceTextShort')}</span>
+            </span>
             <span className="site-announce__arrow" aria-hidden="true">→</span>
           </button>
           <button
@@ -114,7 +123,10 @@ export default function SiteNav() {
         <div className="site-nav__inner">
           {/* Logo */}
           <Link to="/" className="site-nav__logo" aria-label="Libo home">
-            <LiboLogo />
+            {/* Desktop shows the full lockup; the mobile nav bar uses the
+                compact mark (dots + "LIBO") — toggled via CSS at ≤768px. */}
+            <LiboLogo className="site-nav__logo-full" />
+            <LiboLogo compact className="site-nav__logo-compact" />
           </Link>
 
           {/* Center links */}
@@ -168,7 +180,7 @@ export default function SiteNav() {
       >
         <div className="site-nav__drawer-header">
           <Link to="/" className="site-nav__logo" aria-label="Libo home" onClick={() => setDrawerOpen(false)}>
-            <LiboLogo />
+            <LiboLogo compact />
           </Link>
           <button
             ref={closeRef}

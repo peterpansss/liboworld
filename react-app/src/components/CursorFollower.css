@@ -1,0 +1,33 @@
+/* ─────────────────────────────
+   CURSOR FOLLOWER (the "libo dot")
+   Ported from the original landing page so the relaunch keeps the same
+   signature interaction — now global across all routes. Desktop-only.
+───────────────────────────── */
+.cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.cursor-follower.visible {
+  opacity: 1;
+}
+.cursor-follower.hover {
+  width: 40px;
+  height: 40px;
+  background: rgba(202, 255, 0, 0.3);
+}
+
+/* Never show on touch / coarse pointers */
+@media (hover: none), (pointer: coarse) {
+  .cursor-follower { display: none !important; }
+}
