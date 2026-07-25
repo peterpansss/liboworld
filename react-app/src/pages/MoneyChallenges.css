@@ -1,0 +1,484 @@
+/* Money Challenges — /money-challenges
+   Ported from designs/Money Challenges.dc.html (pixel-for-pixel).
+   Design tokens map: --libo-bg-2→--bg2, --libo-bg-3→--bg3, --libo-bg-4→--bg4,
+   --libo-accent→--accent, --libo-accent-2→--accent2, --libo-muted→--muted,
+   --libo-dim→--dim. Button radius 14px, card radius 16px. */
+
+.mc-page {
+  background: var(--bg, #080808);
+  color: var(--text, #fff);
+  min-height: 100vh;
+}
+
+.mc-accent {
+  color: var(--accent);
+}
+
+/* ── Shared primitives ─────────────────────────────────── */
+.mc-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+}
+.mc-badge--accent {
+  background: var(--accent);
+  color: #080808;
+}
+.mc-badge--default {
+  background: var(--bg3);
+  color: var(--muted);
+}
+
+.mc-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #080808;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.mc-btn:hover {
+  background: var(--accent2);
+  color: #080808;
+}
+.mc-btn--xl {
+  font-size: 17px;
+  padding: 14px 28px;
+}
+
+.mc-card {
+  background: var(--card, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--bg4);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.mc-h2 {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 54px;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+.mc-section {
+  padding: 96px 0;
+}
+.mc-section--band {
+  background: var(--bg2);
+  border-top: 1px solid var(--bg3);
+  border-bottom: 1px solid var(--bg3);
+  padding: 88px 0;
+}
+.mc-section__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 64px;
+}
+
+/* ── Hero ──────────────────────────────────────────────── */
+.mc-hero {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 88px 64px 72px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.mc-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mc-hero__badges {
+  display: flex;
+  gap: 8px;
+}
+.mc-hero__title {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 80px;
+  line-height: 0.92;
+  letter-spacing: -1px;
+  margin: 0;
+}
+.mc-hero__sub {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0;
+  text-wrap: pretty;
+}
+.mc-hero__media {
+  display: flex;
+  justify-content: center;
+}
+.mc-hero__phone {
+  width: 320px;
+  max-width: 100%;
+  border-radius: 28px;
+  border: 1px solid var(--bg4);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* ── How it works ──────────────────────────────────────── */
+.mc-how {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.mc-how__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.mc-step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 190px;
+}
+.mc-step__num {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--dim);
+}
+.mc-step__name {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 26px;
+  line-height: 1;
+}
+.mc-step__desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.mc-quote {
+  margin: 0;
+  padding-left: 20px;
+  border-left: 3px solid var(--accent);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--text);
+  font-style: italic;
+  max-width: 640px;
+}
+.mc-quote__author {
+  font-style: normal;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ── Pick your tier ────────────────────────────────────── */
+.mc-tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.mc-tiers__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}
+.mc-tiers__desc {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 400px;
+  margin: 0;
+  text-wrap: pretty;
+}
+.mc-tiers__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.mc-tier {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 300px;
+}
+/* "Flagship" is elevated via a subtle raise (lighter fill + soft shadow), not a
+   lime ring — matches the design screenshot, where the accent badge + accent
+   €50 price carry the emphasis and the card chrome stays consistent. */
+.mc-tier--elevated {
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+.mc-tier__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mc-tier__spots {
+  font-size: 12px;
+  color: var(--dim);
+}
+.mc-tier__payout {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 1;
+}
+.mc-tier__name {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 24px;
+  line-height: 1;
+}
+.mc-tier__desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+  flex: 1;
+}
+.mc-tier__meter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mc-tier__meter-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+}
+.mc-tier__daily {
+  color: var(--text);
+  font-weight: 600;
+}
+.mc-progress {
+  height: 8px;
+  border-radius: 100px;
+  background: var(--bg4);
+  overflow: hidden;
+}
+.mc-progress__fill {
+  height: 100%;
+  border-radius: 100px;
+  background: var(--accent);
+}
+
+/* ── Real rules ────────────────────────────────────────── */
+.mc-rules {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 64px;
+}
+.mc-rules__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mc-rule {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--bg3);
+  padding-bottom: 20px;
+}
+.mc-rule__check {
+  color: var(--accent);
+  font-size: 18px;
+  line-height: 1.3;
+}
+.mc-rule__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mc-rule__title {
+  font-weight: 600;
+  font-size: 15px;
+}
+.mc-rule__body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── Reserve ───────────────────────────────────────────── */
+.mc-reserve {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 110px 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+.mc-reserve__title {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 68px;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  margin: 0;
+}
+.mc-reserve__body {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0;
+  text-wrap: pretty;
+}
+.mc-reserve__form {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 480px;
+}
+.mc-reserve__input {
+  flex: 1;
+  background: var(--bg2);
+  border: 1px solid var(--bg4);
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+}
+.mc-reserve__input::placeholder {
+  color: var(--dim);
+}
+.mc-reserve__input:focus {
+  border-color: var(--accent);
+}
+.mc-reserve__submit {
+  font-size: 16px;
+  padding: 14px 24px;
+  white-space: nowrap;
+}
+.mc-reserve__confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg2);
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  padding: 14px 24px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 18px;
+  color: var(--accent);
+}
+.mc-reserve__note {
+  font-size: 12px;
+  color: var(--dim);
+  margin: 0;
+}
+
+/* ── Responsive (<=430px) ──────────────────────────────── */
+@media (max-width: 900px) {
+  .mc-hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 56px 24px 48px;
+  }
+  .mc-hero__title {
+    font-size: 56px;
+  }
+  .mc-section__inner,
+  .mc-reserve {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .mc-how__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mc-tiers__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .mc-tiers__grid {
+    grid-template-columns: 1fr;
+  }
+  .mc-rules {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 430px) {
+  .mc-section {
+    padding: 64px 0;
+  }
+  .mc-section--band {
+    padding: 56px 0;
+  }
+  .mc-hero {
+    padding: 40px 20px 40px;
+  }
+  .mc-hero__title {
+    font-size: 46px;
+  }
+  .mc-hero__sub {
+    font-size: 15px;
+  }
+  .mc-hero__phone {
+    width: 260px;
+  }
+  .mc-h2 {
+    font-size: 40px;
+  }
+  .mc-section__inner,
+  .mc-reserve {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .mc-how__grid {
+    grid-template-columns: 1fr;
+  }
+  .mc-step {
+    min-height: 0;
+  }
+  .mc-reserve {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+  .mc-reserve__title {
+    font-size: 44px;
+  }
+  .mc-reserve__form {
+    flex-direction: column;
+  }
+  .mc-reserve__submit {
+    width: 100%;
+    justify-content: center;
+  }
+}

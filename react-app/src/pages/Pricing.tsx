@@ -1,211 +1,153 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
-import {
-  VISIBLE_TIERS,
-  YEARLY_PRICE,
-  YEARLY_DISCOUNT,
-  TRIAL_DAYS,
-  buildHref,
-  type BillingCycle,
-} from '../data/tiers';
+import { SeoHead } from '../components/SeoHead';
+import { PRICING_FAQ } from '../data/faq';
 import './Pricing.css';
 
-const FAQ_KEYS = ['card', 'cancel', 'free', 'switching', 'refund', 'trial'] as const;
+/** i18n copy shape for each plan (relaunchPricing.plans[]) */
+interface PlanCopy {
+  name: string;
+  badge: string;
+  price: string;
+  per: string;
+  strike: string;
+  strikeNote: string;
+  blurb: string;
+  perks: string[];
+  cta: string;
+}
+
+/** Non-copy, structural config per plan (design values), merged by index. */
+const PLAN_CONFIG = [
+  { variant: 'default', priceAccent: false, href: '/#hero-capture', cta: 'default' },
+  { variant: 'elevated', priceAccent: true, href: '/money-challenges', cta: 'accent' },
+  { variant: 'default', priceAccent: false, href: '/pricing', cta: 'muted' },
+] as const;
 
 export default function Pricing() {
   const { t } = useTranslation();
-  const [cycle, setCycle] = useState<BillingCycle>('yearly');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  useEffect(() => {
-    document.title = `${t('pricing.documentTitle', { defaultValue: 'Pricing' })} | Libo`;
-    return () => { document.title = 'Libo'; };
-  }, [t]);
+  const plans = t('relaunchPricing.plans', { returnObjects: true }) as PlanCopy[];
 
   return (
     <>
+      <SeoHead
+        title="Pricing | Libo — Training Club"
+        description="Free forever, or €6.67/mo for everything. No card to start. 7 days of Premium on us either way."
+        canonical="https://liboworld.com/pricing"
+        ogImage="https://liboworld.com/brand/og-image.png"
+      />
       <SiteNav />
 
-      <main className="pricing-page">
-        {/* Hero — minimal, all-caps, single CTA pill */}
-        <section className="pricing-hero">
-          <div className="pricing-hero__inner">
-            <h1 className="pricing-hero__headline font-display">
-              {t('pricing.headline', { defaultValue: 'Libo pricing plans' })}
-            </h1>
-            <p className="pricing-hero__sub font-display">
-              {t('pricing.sub', { defaultValue: 'Train serious without spending serious.' })}
-            </p>
-            <p className="pricing-hero__lead">
-              {t('pricing.lead', { defaultValue: 'Two plans, one library, a {{days}}-day free trial on Premium.', days: TRIAL_DAYS })}
-            </p>
+      <main className="pr-page">
+        {/* ── Hero ── */}
+        <header className="pr-hero">
+          <span className="pr-badge">{t('relaunchPricing.hero.badge')}</span>
+          <h1 className="pr-hero__h1">
+            {t('relaunchPricing.hero.h1Pre')}
+            <span className="pr-accent">{t('relaunchPricing.hero.h1Accent')}</span>
+            {t('relaunchPricing.hero.h1Post')}
+          </h1>
+          <p className="pr-hero__sub">
+            {t('relaunchPricing.hero.sub')}
+          </p>
+        </header>
 
-            {/* Billing toggle — kept compact under the hero, not the headline */}
-            <div className="pricing-cycle" role="tablist" aria-label={t('pricing.cycleAria', { defaultValue: 'Billing cycle' })}>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={cycle === 'monthly'}
-                className={`pricing-cycle__btn ${cycle === 'monthly' ? 'active' : ''}`}
-                onClick={() => setCycle('monthly')}
+        {/* ── Plans ── */}
+        <section className="pr-plans" aria-label="Plans">
+          {plans.map((p, i) => {
+            const cfg = PLAN_CONFIG[i] ?? PLAN_CONFIG[0];
+            return (
+              <article
+                key={p.name}
+                className={`pr-card pr-card--${cfg.variant}`}
               >
-                {t('pricing.monthly', { defaultValue: 'Monthly' })}
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={cycle === 'yearly'}
-                className={`pricing-cycle__btn ${cycle === 'yearly' ? 'active' : ''}`}
-                onClick={() => setCycle('yearly')}
-              >
-                {t('pricing.yearly', { defaultValue: 'Yearly' })}
-                <span className="pricing-cycle__save">
-                  −{YEARLY_DISCOUNT.premium}%
-                </span>
-              </button>
-            </div>
+                <div className="pr-card__head">
+                  <span className="pr-card__name">{p.name}</span>
+                  {p.badge ? <span className="pr-card__badge">{p.badge}</span> : null}
+                </div>
+
+                <div className="pr-card__price-row">
+                  <span className={`pr-card__price${cfg.priceAccent ? ' pr-accent' : ''}`}>
+                    {p.price}
+                  </span>
+                  <span className="pr-card__per">{p.per}</span>
+                </div>
+
+                {p.strike ? (
+                  <span className="pr-card__strike">
+                    <span className="pr-card__strike-through">{p.strike}</span> · {p.strikeNote}
+                  </span>
+                ) : null}
+
+                <p className="pr-card__blurb">{p.blurb}</p>
+
+                <div className="pr-card__perks">
+                  {p.perks.map((perk, pi) => (
+                    <span key={pi} className="pr-card__perk">
+                      <span className="pr-card__check" aria-hidden>✓</span> {perk}
+                    </span>
+                  ))}
+                </div>
+
+                <Link to={cfg.href} className={`pr-card__cta pr-card__cta--${cfg.cta}`}>
+                  {p.cta}
+                </Link>
+              </article>
+            );
+          })}
+        </section>
+
+        {/* ── Guarantee strip ── */}
+        <section className="pr-guarantee" aria-label="Guarantees">
+          <div className="pr-guarantee__inner">
+            {(t('relaunchPricing.guarantee', { returnObjects: true }) as { title: string; body: string }[]).map(
+              (g, i) => (
+                <div key={i} className="pr-guarantee__item">
+                  <span className="pr-guarantee__title">{g.title}</span>
+                  <span className="pr-guarantee__body">{g.body}</span>
+                </div>
+              ),
+            )}
           </div>
         </section>
 
-        {/* Cards — no comparison table. Each card carries its own story. */}
-        <section className="pricing-cards">
-          <div className="pricing-cards__inner">
-            {VISIBLE_TIERS.map((tier) => {
-              const priceLabel = cycle === 'yearly' ? tier.yearlyLabel : tier.monthlyLabel;
-              const priceSubline = cycle === 'yearly' ? tier.yearlySubline : tier.monthlySubline;
-              const variant =
-                tier.id === 'free' ? 'light' : tier.id === 'premium' ? 'mid' : 'dark';
+        {/* ── FAQ ── */}
+        <section className="pr-faq" aria-label="Frequently asked questions">
+          <div className="pr-faq__head">
+            <h2 className="pr-faq__h2">{t('relaunchPricing.faq.headline')}</h2>
+            <p className="pr-faq__subhead">
+              {t('relaunchPricing.faq.subhead')}
+            </p>
+          </div>
+
+          <div className="pr-faq__list">
+            {PRICING_FAQ.map((item, i) => {
+              const isOpen = openFaq === i;
               return (
-                <article
-                  key={tier.id}
-                  className={`pricing-card pricing-card--${variant}`}
-                >
-                  <div className="pricing-card__head">
-                    <div className="pricing-card__name font-display">{tier.name}</div>
-                    {tier.badge && <div className="pricing-card__badge">{tier.badge}</div>}
-                  </div>
-
-                  <div className="pricing-card__price-block">
-                    <div className="pricing-card__price font-display">{priceLabel}</div>
-                    <div className="pricing-card__price-sub">{priceSubline}</div>
-                    {cycle === 'yearly' && (tier.id === 'premium' || tier.id === 'elite') && (
-                      <div className="pricing-card__price-equivalent">
-                        €{YEARLY_PRICE[tier.id].toFixed(2)}/year · save {YEARLY_DISCOUNT[tier.id]}%
-                      </div>
-                    )}
-                  </div>
-
-                  {tier.id === 'free' ? (
-                    <p className="pricing-card__lede">
-                      {t('pricing.freeLede', { defaultValue: 'No payment info, no card. Use Libo as long as you want.' })}
-                    </p>
-                  ) : (
-                    <p className="pricing-card__lede">
-                      {t('pricing.paidLede', { defaultValue: '{{days}} days free. No payment info collected until AFTER your trial ends.', days: TRIAL_DAYS })}
-                    </p>
-                  )}
-
-                  <ul className="pricing-card__features">
-                    {tier.features.map((f, i) => (
-                      <li key={i}>
-                        <span className="pricing-card__check" aria-hidden>✓</span>
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    to={buildHref(tier.href, tier.id, cycle)}
-                    className="pricing-card__cta"
+                <div key={item.id} className="pr-faq__item">
+                  <button
+                    type="button"
+                    className="pr-faq__q"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenFaq(isOpen ? null : i)}
                   >
-                    {tier.cta}
-                  </Link>
-                </article>
+                    <span>{t(item.qKey)}</span>
+                    <span className="pr-faq__icon" aria-hidden>{isOpen ? '−' : '+'}</span>
+                  </button>
+                  {isOpen ? <p className="pr-faq__a">{t(item.aKey)}</p> : null}
+                </div>
               );
             })}
           </div>
         </section>
-
-        {/* FAQ — light trust band, Ladder-style, on the otherwise dark page */}
-        <section className="pricing-faq pricing-faq--light">
-          <div className="pricing-faq__inner">
-            <h2 className="pricing-faq__headline font-display">
-              {t('pricing.faqHeadline', { defaultValue: 'Still have questions?' })}
-            </h2>
-            <div className="pricing-faq__list">
-              {FAQ_KEYS.map((key, i) => {
-                const isOpen = openFaq === i;
-                return (
-                  <div key={key} className={`pricing-faq__item ${isOpen ? 'open' : ''}`}>
-                    <button
-                      type="button"
-                      className="pricing-faq__question"
-                      onClick={() => setOpenFaq(isOpen ? null : i)}
-                      aria-expanded={isOpen}
-                    >
-                      <span>{t(`pricing.faq.${key}.q`, { defaultValue: pricingFaqDefaultQ(key) })}</span>
-                      <span className="pricing-faq__chev" aria-hidden>{isOpen ? '−' : '⌄'}</span>
-                    </button>
-                    {isOpen && (
-                      <div className="pricing-faq__answer">
-                        <p>{t(`pricing.faq.${key}.a`, { defaultValue: pricingFaqDefaultA(key) })}</p>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Final CTA */}
-        <section className="pricing-final-cta">
-          <div className="pricing-final-cta__inner">
-            <h2 className="pricing-final-cta__headline font-display">
-              {t('pricing.finalCtaHeadline', { defaultValue: 'Try Libo free for {{days}} days.', days: TRIAL_DAYS })}
-            </h2>
-            <Link to="/onboarding?tier=premium" className="pricing-final-cta__primary">
-              {t('pricing.finalCtaPrimary', { defaultValue: 'Find your plan' })}
-            </Link>
-          </div>
-        </section>
-
-        {/* Sticky mobile CTA */}
-        <div className="pricing-sticky-cta">
-          <Link to="/onboarding?tier=premium" className="pricing-sticky-cta__btn">
-            {t('pricing.stickyCta', { defaultValue: 'Start {{days}}-day free trial', days: TRIAL_DAYS })}
-          </Link>
-        </div>
       </main>
 
       <SiteFooter />
     </>
   );
-}
-
-function pricingFaqDefaultQ(key: string): string {
-  const map: Record<string, string> = {
-    card: 'Do I need a credit card to start a trial?',
-    cancel: 'Can I cancel any time?',
-    free: "What's actually included in the Free plan?",
-    switching: 'Can I switch plans after I subscribe?',
-    refund: 'Do you offer refunds?',
-    trial: 'How does the free trial work?',
-  };
-  return map[key] ?? key;
-}
-
-function pricingFaqDefaultA(key: string): string {
-  const map: Record<string, string> = {
-    card: "No card needed for the Free plan. For Premium, we don't ask for payment info until after the 7-day trial ends — you can train the whole week and decide nothing.",
-    cancel: 'Yes. Cancel any time from the app or by emailing hello@liboworld.com. Cancel during the trial and pay nothing. Cancel later and you keep access until the end of the billing period.',
-    free: 'Free covers 20 curated workouts, the full 600+ exercise library, basic tracking, common product giveaways, and entry-level cash challenges (€5–15 stakes). Use it forever, no card on file.',
-    switching: "Yes — upgrade or downgrade any time. Upgrades pro-rate immediately. Downgrades take effect at the next renewal so you don't lose what you paid for.",
-    refund: "Within 14 days of a paid subscription starting we'll refund any unused days, no questions asked. After that we honor refunds case-by-case — just write us.",
-    trial: "You get 7 days of full Libo Premium when you start the trial. No charge during the trial — and we'll email you 48 hours before the first bill so you can cancel without any drama.",
-  };
-  return map[key] ?? '';
 }

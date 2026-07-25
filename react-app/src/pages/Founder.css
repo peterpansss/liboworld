@@ -1,48 +1,453 @@
 /* ─────────────────────────────
    FOUNDER / ABOUT US PAGE — Founder.css
-   Minimal layout: a single centered media card with the intro video.
+   Ported pixel-for-pixel from design_handoff_site_relaunch/designs/Founder.dc.html
+   Design tokens (--libo-*) mapped onto the project tokens in src/index.css:
+     --libo-bg    → --bg      #080808
+     --libo-bg-2  → --bg2     #0E0E0E
+     --libo-bg-3  → --bg3     #141414
+     --libo-bg-4  → --bg4     #1A1A1A
+     --libo-accent   → --accent   #CAFF00
+     --libo-accent-2 → --accent2  #9BC800
+     --libo-text  → --text    #FFFFFF
+     --libo-muted → --muted   #8A9BB0
+     --libo-dim   → --dim     #4A5568
+     --libo-r-button 14px · --libo-r-card 16px
+   Display font = Barlow Condensed (uppercase, weight 800). Body = Inter.
    ───────────────────────────── */
 
 .founder-page {
-  min-height: 100vh;
   background: var(--bg);
   color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Hero ─────────────────────────── */
+.fp-hero {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 96px 64px 64px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-}
-
-.fp-intro-main {
-  flex: 1;
-  display: flex;
+  gap: 18px;
   align-items: center;
-  justify-content: center;
-  padding: 80px 40px;
 }
 
-.fp-intro-card {
-  width: 100%;
-  max-width: 1000px;
-  aspect-ratio: 16 / 9;
-  border-radius: 24px;
-  overflow: hidden;
-  background: #000;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+.fp-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(202, 255, 0, 0.25);
+  border-radius: 999px;
+  padding: 5px 14px;
 }
 
-.fp-intro-card video {
+.fp-hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 80px;
+  line-height: 0.92;
+  margin: 0;
+}
+
+.fp-accent {
+  color: var(--accent);
+}
+
+.fp-hero-sub {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 620px;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ── Why we're building this ──────── */
+.fp-why {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 64px 96px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.fp-why-media {
+  position: relative;
+}
+
+.fp-why-img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  max-width: 440px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 25%;
+  border-radius: 16px;
+  border: 1px solid var(--bg4);
   display: block;
-  background: #000;
 }
 
-@media (max-width: 768px) {
-  .fp-intro-main {
-    padding: 40px 16px;
+.fp-photo-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(8, 8, 8, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 12px 18px;
+}
+
+.fp-photo-badge-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.fp-photo-badge-role {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.fp-why-body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.fp-why-body h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 48px;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.fp-pillar {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.fp-pillar-num {
+  color: var(--accent);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1.2;
+  min-width: 34px;
+}
+
+.fp-pillar-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fp-pillar-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.fp-pillar-body {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 560px;
+  text-wrap: pretty;
+}
+
+/* ── Pull quote ───────────────────── */
+.fp-pull {
+  background: var(--bg2);
+  border-top: 1px solid var(--bg3);
+  border-bottom: 1px solid var(--bg3);
+}
+
+.fp-pull-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 110px 64px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.fp-pull-quote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 52px;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.fp-pull-attrib {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fp-pull-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.fp-pull-source {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.fp-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  padding: 12px 26px;
+  border-radius: 14px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.fp-btn-outline:hover {
+  background: var(--accent);
+  color: #080808;
+}
+
+/* ── Vision ───────────────────────── */
+.fp-vision {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 96px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.fp-vision-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.fp-vision-head h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 54px;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.fp-vision-desc {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 420px;
+  margin: 0;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.fp-vision-card {
+  border: 1px solid var(--bg4);
+  border-radius: 16px;
+  background: var(--bg);
+  padding: 20px 24px;
+}
+
+.fp-vision-card p {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 34px;
+  line-height: 1.05;
+  margin: 0;
+  padding: 8px;
+}
+
+/* ── Join CTA ─────────────────────── */
+.fp-join {
+  border-top: 1px solid var(--bg3);
+  background: var(--bg2);
+}
+
+.fp-join-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 96px 64px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.fp-join-inner h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.fp-join-body {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+.fp-join-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.fp-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent);
+  color: #080808;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  padding: 14px 28px;
+  border-radius: 14px;
+  transition: background 0.15s ease;
+}
+
+.fp-btn-primary:hover {
+  background: var(--accent2);
+  color: #080808;
+}
+
+.fp-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text);
+  border: 1px solid var(--bg4);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.fp-btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Responsive ───────────────────── */
+@media (max-width: 900px) {
+  .fp-why {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 24px 32px 72px;
   }
-  .fp-intro-card {
-    border-radius: 16px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  .fp-why-media {
+    display: flex;
+    justify-content: center;
+  }
+  .fp-vision-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .fp-vision-desc {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .fp-hero {
+    padding: 64px 24px 40px;
+    gap: 16px;
+  }
+  .fp-hero h1 {
+    font-size: 44px;
+  }
+  .fp-hero-sub {
+    font-size: 16px;
+  }
+  .fp-why {
+    padding: 16px 24px 56px;
+    gap: 32px;
+  }
+  .fp-why-body {
+    gap: 22px;
+  }
+  .fp-why-body h2 {
+    font-size: 34px;
+  }
+  .fp-pillar-title {
+    font-size: 20px;
+  }
+  .fp-pull-inner {
+    padding: 64px 24px;
+    gap: 20px;
+  }
+  .fp-pull-quote {
+    font-size: 32px;
+  }
+  .fp-vision {
+    padding: 56px 24px;
+    gap: 28px;
+  }
+  .fp-vision-head h2 {
+    font-size: 38px;
+  }
+  .fp-vision-card p {
+    font-size: 24px;
+  }
+  .fp-join-inner {
+    padding: 56px 24px;
+  }
+  .fp-join-inner h2 {
+    font-size: 40px;
+  }
+  .fp-join-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .fp-btn-primary,
+  .fp-btn-secondary {
+    justify-content: center;
   }
 }

@@ -1,829 +1,356 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { FormEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { blogArticles } from '../data/blog';
-import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
-import FounderCard from '../components/FounderCard';
-import FreeTrialCta from '../components/FreeTrialCta';
-import CommunityConstellation from '../components/CommunityConstellation';
-import BetaReviews from '../components/BetaReviews';
-import AppStoreBadge from '../components/AppStoreBadge';
-import { EmojiIcon } from '../components/EmojiIcon';
-import WaitlistButton from '../components/WaitlistButton';
-import WaitlistInlineForm from '../components/WaitlistInlineForm';
-import EarlyAccessSection from '../components/funnel/EarlyAccessSection';
-import { isPrelaunch } from '../config/launchMode';
+import SiteFooter from '../components/SiteFooter';
+import { SeoHead } from '../components/SeoHead';
+import { HOME_FAQ } from '../data/faq';
+import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import './Landing.css';
 
-// ── Helpers ──
-function easeOutExpo(t: number) {
-  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-}
-function easeInOutCubic(t: number) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
+// Urgency: how many of the 50 cycle-#1 spots are already reserved.
+// Mirrors the design's `spotsTaken` prop (default 37).
+const SPOTS_TAKEN = 37;
+const SPOTS_TOTAL = 50;
+const SPOTS_LEFT = SPOTS_TOTAL - SPOTS_TAKEN;
 
-// ── Static config ──
-// CATEGORY_KEYS order: homeWorkouts, gymTraining, mobilityStretch, functional,
-// morningRoutines, eveningWindDown — keep these aligned 1:1 with that array.
-// JSX adds the leading slash via `/${cat.img}`, so no leading slash here.
-const CATEGORY_IMAGES = [
-  'images/landing/category-home-workouts-v3.jpg',
-  'images/landing/category-gym-training-v3.jpg',
-  'images/landing/category-mobility-stretch.jpg',
-  'images/landing/category-functional-v3.jpg',
-  'images/landing/category-morning-routines.jpg',
-  'images/landing/category-evening-wind-down.jpg',
-];
+type Step = { num: string; name: string; desc: string };
+type Feature = { num: string; name: string; desc: string };
+type Member = { photo: string; name: string; meta: string };
+type Review = { photo: string; handle: string; quote: string };
+type Post = { cat: string; title: string; meta: string };
 
-const GOAL_PARAMS = ['lose-weight', 'build-muscle', 'improve-mobility', 'stay-active', 'reduce-stress'];
-const GOAL_ICONS = ['\uD83D\uDD25', '\uD83D\uDCAA', '\uD83E\uDDD8', '\u26A1', '\uD83E\uDEC1'];
-const GOAL_KEYS = ['loseWeight', 'buildMuscle', 'improveMobility', 'stayActive', 'reduceStress'] as const;
-
-const FEATURE_ICONS = ['\uD83C\uDFC6', '\uD83D\uDCDA', '\uD83C\uDFCB\uFE0F', '\uD83D\uDCC5', '\uD83D\uDCCA', '\u270F\uFE0F'];
-const FEATURE_KEYS = ['moneyChallenges', 'exerciseLibrary', 'workoutLibrary', 'programs', 'progressTracking', 'customBuilder'] as const;
-
-const CATEGORY_KEYS = ['homeWorkouts', 'gymTraining', 'mobilityStretch', 'functional', 'morningRoutines', 'eveningWindDown'] as const;
-
-
-// ── Smooth scroll to anchor ──
+// ── Smooth scroll to an in-page anchor (offset for the sticky nav) ──
 function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
-  const startY = window.scrollY;
-  const targetY = el.getBoundingClientRect().top + startY - 64;
-  const distance = targetY - startY;
-  const duration = Math.min(600, Math.max(250, Math.abs(distance) * 0.2));
-  const startTime = performance.now();
+  const y = el.getBoundingClientRect().top + window.scrollY - 72;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
 
-  function step(now: number) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    window.scrollTo(0, startY + distance * easeInOutCubic(progress));
-    if (progress < 1) requestAnimationFrame(step);
+// ── Inline email capture (hero + final) wired to the real waitlist ──
+function CaptureForm({
+  variant,
+  confirm,
+  placeholder,
+  button,
+}: {
+  variant: 'hero' | 'final';
+  confirm: string;
+  placeholder: string;
+  button: string;
+}) {
+  const source = variant === 'hero' ? 'homepage_waitlist' : 'challenge_waitlist';
+  const { email, setEmail, status, submit } = useWaitlistSubmit(source);
+  const joined = status === 'success' || status === 'duplicate';
+
+  if (joined) {
+    return <div className={`rh-capture-confirm rh-capture-confirm--${variant}`}>{confirm}</div>;
   }
-  requestAnimationFrame(step);
+
+  return (
+    <form className={`rh-capture-form rh-capture-form--${variant}`} onSubmit={submit as (e: FormEvent) => void}>
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder={placeholder}
+        className="rh-capture-input"
+        disabled={status === 'submitting'}
+      />
+      <button type="submit" className="rh-capture-button" disabled={status === 'submitting'}>
+        {status === 'submitting' ? '…' : button}
+      </button>
+    </form>
+  );
 }
 
-// ── CountUp hook ──
-function useCountUp(target: number, trigger: boolean, duration = 1500) {
-  const [value, setValue] = useState(0);
-  const counted = useRef(false);
-
-  useEffect(() => {
-    if (!trigger || counted.current) return;
-    counted.current = true;
-    const start = performance.now();
-    function tick(now: number) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      setValue(Math.round(easeOutExpo(progress) * target));
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }, [trigger, target, duration]);
-
-  return value;
-}
-
-// ── IntersectionObserver hook ──
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setInView(true);
-        observer.unobserve(el);
-      }
-    }, { threshold });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, inView };
-}
-
-// ═══════════════════════════════════════
-// COMPONENT
-// ═══════════════════════════════════════
 export default function Landing() {
   const { t } = useTranslation();
   const location = useLocation();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Scroll to #section when arriving with a hash (e.g. footer "Features" /
-  // "Rewards" links, which use react-router <Link to="/#features">). React
-  // Router updates the URL but doesn't trigger native hash scrolling, so we
-  // do it here. Re-runs on hash change so clicking the same hash twice still
-  // scrolls. Two animation frames give content time to mount before measuring.
+  // Honor #hash arrivals (e.g. nav "Join the club" → /#hero-capture).
   useEffect(() => {
     if (!location.hash) return;
     const id = location.hash.slice(1);
     requestAnimationFrame(() => requestAnimationFrame(() => scrollToId(id)));
   }, [location.hash, location.key]);
 
-  // ── Derive data from translations ──
-  const MARQUEE_ITEMS = [
-    t('marquee.bodyweight'),
-    t('marquee.gymTraining'),
-    t('marquee.mobility'),
-    t('marquee.breathing'),
-    t('marquee.morningRoutines'),
-    t('marquee.programs'),
-    t('marquee.progressTracking'),
-    t('marquee.customWorkouts'),
+  const steps = t('relaunchHome.mechanism.steps', { returnObjects: true }) as Step[];
+  const features = t('relaunchHome.library.features', { returnObjects: true }) as Feature[];
+  const members = t('relaunchHome.community.members', { returnObjects: true }) as Member[];
+  const perks = t('relaunchHome.offer.perks', { returnObjects: true }) as string[];
+  const reviews = t('relaunchHome.reviews.items', { returnObjects: true }) as Review[];
+  const posts = t('relaunchHome.blogTeaser.posts', { returnObjects: true }) as Post[];
+
+  const proofStats = [
+    { n: t('relaunchHome.proof.exercisesValue'), label: t('relaunchHome.proof.exercisesLabel') },
+    { n: t('relaunchHome.proof.workoutsValue'), label: t('relaunchHome.proof.workoutsLabel') },
+    { n: t('relaunchHome.proof.payoutValue'), label: t('relaunchHome.proof.payoutLabel') },
+    { n: String(SPOTS_LEFT), label: t('relaunchHome.proof.spotsLabel') },
   ];
-
-  const FEATURES = FEATURE_KEYS.map((key, i) => ({
-    num: String(i + 1).padStart(2, '0'),
-    icon: FEATURE_ICONS[i],
-    name: t(`features.${key}`),
-    desc: t(`features.${key}Desc`),
-  }));
-
-  const CATEGORIES = CATEGORY_KEYS.map((key, i) => ({
-    name: t(`categories.${key}`),
-    desc: t(`categories.${key}Desc`),
-    img: CATEGORY_IMAGES[i],
-  }));
-
-  const GOALS = GOAL_KEYS.map((key, i) => ({
-    icon: GOAL_ICONS[i],
-    title: t(`goals.${key}`),
-    desc: t(`goals.${key}Desc`),
-    goalParam: GOAL_PARAMS[i],
-  }));
-
-  const FAQ_ITEMS = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
-    q: t(`faq.q${n}`),
-    a: n === 5 && isPrelaunch() ? t('faq.androidAnswerPrelaunch') : t(`faq.a${n}`),
-  }));
-
-  const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [heroRevealed, setHeroRevealed] = useState(false);
-
-  // Refs
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-
-  // FAQ state
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  // Blog preview — featured articles (curated)
-  const FEATURED_SLUGS = [
-    '30-days-one-habit-real-money',
-    'how-to-lose-fat-and-stay-lean',
-    'simple-high-protein-meals-in-15-minutes',
-  ] as const;
-  const blogPreview = FEATURED_SLUGS
-    .map((slug) => blogArticles.find((a) => a.slug === slug))
-    .filter((a): a is typeof blogArticles[number] => a !== undefined);
-
-  // InView triggers
-  const rewardsStatView = useInView(0.5);
-
-  // CountUp values — hero money-challenge reward (€50 / 100 reps, the flagship
-  // Pro challenge). Keep in sync with rewards.challengeName in the locale files.
-  const rewardsStat = useCountUp(50, rewardsStatView.inView, 1200);
-
-  // ── Feature detection ──
-  const isDesktop = useRef(
-    typeof window !== 'undefined' &&
-    window.matchMedia('(hover: hover) and (pointer: fine)').matches
-  );
-  const prefersReducedMotion = useRef(
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  );
-
-  // ── Scroll handler ──
-  useEffect(() => {
-    function onScroll() {
-      const sy = window.scrollY;
-
-      // Scroll progress
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (max > 0) setScrollProgress(sy / max);
-
-      // Scroll indicator
-      if (sy > 100) setScrollIndicatorVisible(false);
-
-      // Parallax (desktop only)
-      if (isDesktop.current && !prefersReducedMotion.current) {
-        const heroPhones = document.querySelector('.hero-phones') as HTMLElement | null;
-        if (heroPhones && sy < window.innerHeight) {
-          heroPhones.style.transform = `translateY(${sy * 0.08}px)`;
-        }
-        document.querySelectorAll<HTMLElement>('.photo-break img').forEach((img) => {
-          const rect = img.parentElement!.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-            img.style.transform = `translateY(${(progress - 0.5) * 60}px) scale(1.1)`;
-          }
-        });
-      }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // ── Page load orchestration ──
-  useEffect(() => {
-    if (prefersReducedMotion.current) {
-      setHeroRevealed(true);
-      setScrollIndicatorVisible(true);
-      return;
-    }
-
-    // Stagger the load sequence
-    setTimeout(() => setHeroRevealed(true), 200);
-    setTimeout(() => setScrollIndicatorVisible(true), 1400);
-  }, []);
-
-  // ── Force-start the hero loop ──
-  // Some browsers (esp. iOS Safari in low-power mode, Chrome on Android with
-  // strict autoplay policies) ignore the `autoPlay` attribute on initial paint.
-  // Calling play() explicitly after mount works because the video is muted +
-  // playsInline + offscreen-safe. We also retry on tab visibility flips so the
-  // loop resumes when the user switches back to the tab.
-  useEffect(() => {
-    const v = heroVideoRef.current;
-    if (!v) return;
-    // Safari desktop decides autoplay eligibility at the moment .play() is
-    // invoked, not when the element is created. React's `muted` JSX prop only
-    // seeds initial state, so set both `defaultMuted` (the DOM attribute
-    // Safari actually consults for autoplay policy) and `muted` imperatively
-    // before every play attempt.
-    try { v.defaultMuted = true; v.muted = true; } catch {}
-    const tryPlay = () => {
-      try { v.muted = true; } catch {}
-      const p = v.play();
-      if (p && typeof p.catch === 'function') p.catch(() => {});
-    };
-    tryPlay();
-    // Safari sometimes drops the very first play() call when the asset is still
-    // preloading; a second attempt once metadata is ready reliably recovers.
-    const onLoaded = () => tryPlay();
-    v.addEventListener('loadedmetadata', onLoaded);
-    const onVisible = () => { if (document.visibilityState === 'visible') tryPlay(); };
-    document.addEventListener('visibilitychange', onVisible);
-    return () => {
-      v.removeEventListener('loadedmetadata', onLoaded);
-      document.removeEventListener('visibilitychange', onVisible);
-    };
-  }, []);
-
-  // ── Cursor follower (desktop) ──
-  useEffect(() => {
-    if (!isDesktop.current || prefersReducedMotion.current) return;
-    const cursor = cursorRef.current;
-    if (!cursor) return;
-
-    let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
-    let visible = false;
-    let raf: number;
-
-    function onMove(e: MouseEvent) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (!visible) {
-        visible = true;
-        cursor!.classList.add('visible');
-      }
-    }
-    function onLeave() {
-      visible = false;
-      cursor!.classList.remove('visible');
-    }
-
-    const hoverables = 'a, button, .combined-card, .cat-item, .goal-row, .proof-card, input';
-    function onOver(e: MouseEvent) {
-      if ((e.target as Element).closest(hoverables)) cursor!.classList.add('hover');
-    }
-    function onOut(e: MouseEvent) {
-      if ((e.target as Element).closest(hoverables)) cursor!.classList.remove('hover');
-    }
-
-    function update() {
-      cursorX = lerp(cursorX, mouseX, 0.15);
-      cursorY = lerp(cursorY, mouseY, 0.15);
-      cursor!.style.left = `${cursorX}px`;
-      cursor!.style.top = `${cursorY}px`;
-      raf = requestAnimationFrame(update);
-    }
-
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseleave', onLeave);
-    document.addEventListener('mouseover', onOver);
-    document.addEventListener('mouseout', onOut);
-    raf = requestAnimationFrame(update);
-
-    return () => {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseleave', onLeave);
-      document.removeEventListener('mouseover', onOver);
-      document.removeEventListener('mouseout', onOut);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  // ── Reveal observer for data-reveal elements ──
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            const el = e.target as HTMLElement;
-            const delay = parseFloat(el.dataset.delay || '0') * 1000;
-            setTimeout(() => {
-              el.classList.add('revealed');
-              // Star bounce
-              el.querySelectorAll<HTMLElement>('.star-animate').forEach((star, i) => {
-                setTimeout(() => star.classList.add('bounced'), i * 100);
-              });
-              // Icon bounce
-              const icon = el.querySelector('.combined-card-icon');
-              if (icon) setTimeout(() => icon.classList.add('icon-bounce'), 200);
-            }, delay);
-            observer.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -5% 0px' }
-    );
-
-    document.querySelectorAll('[data-reveal]').forEach((el) => {
-      const htmlEl = el as HTMLElement;
-      if (htmlEl.dataset.delay) {
-        htmlEl.style.transitionDelay = `${htmlEl.dataset.delay}s`;
-      }
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  // ── Reveal observer for .reveal elements ──
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            e.target.classList.add('up');
-            observer.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
-    );
-
-    document.querySelectorAll('.reveal, .reveal-card').forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  // ── Feature card 3D tilt (desktop) ──
-  useEffect(() => {
-    if (!isDesktop.current || prefersReducedMotion.current) return;
-
-    const cards = document.querySelectorAll<HTMLElement>('.combined-card');
-    const handlers = new Map<HTMLElement, { move: (e: MouseEvent) => void; leave: () => void }>();
-
-    cards.forEach((card) => {
-      const xOffset = getComputedStyle(card).getPropertyValue('--x-offset').trim() || '0px';
-      const move = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `perspective(800px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translate3d(${xOffset}, -3px, 0) scale(1.01)`;
-        card.style.setProperty('--spot-x', `${((e.clientX - rect.left) / rect.width) * 100}%`);
-        card.style.setProperty('--spot-y', `${((e.clientY - rect.top) / rect.height) * 100}%`);
-      };
-      const leave = () => { card.style.transform = ''; };
-      card.addEventListener('mousemove', move);
-      card.addEventListener('mouseleave', leave);
-      handlers.set(card, { move, leave });
-    });
-
-    return () => {
-      handlers.forEach(({ move, leave }, card) => {
-        card.removeEventListener('mousemove', move);
-        card.removeEventListener('mouseleave', leave);
-      });
-    };
-  }, []);
-
-  // ── Render helpers ──
-  function renderMarqueeItems(items: string[]) {
-    // Double for seamless loop
-    return [...items, ...items].map((item, i) => (
-      <span key={i}>
-        <span className="marquee-item">{item}</span>
-        <span className="marquee-item marquee-sep">&middot;</span>
-      </span>
-    ));
-  }
 
   return (
     <>
-    <SiteNav />
-    <main className="landing" id="main-content">
-      {/* Scroll progress bar */}
-      <div
-        className="scroll-progress"
-        style={{ transform: `scaleX(${scrollProgress})` }}
+      <SeoHead
+        title="Libo — Your reps pay real cash."
+        description={t('relaunchHome.hero.sub')}
+        canonical="https://liboworld.com/"
+        ogImage="https://liboworld.com/brand/og-image.png"
       />
+      <SiteNav />
+      <main className="relaunch-home" id="main-content">
 
-      {/* Cursor follower (desktop only) */}
-      <div className="cursor-follower" ref={cursorRef} />
-
-      {/* ── HERO ── */}
-      <section className="hero">
-        <div className="hero-content">
-          <div className="hero-text">
-            {isPrelaunch() && (
-              <div className="hero-coming-soon-eyebrow">{t('waitlist.heroComingSoonEyebrow')}</div>
-            )}
-            <h1 className="hero-headline display display-xl">
-              <span className={`line-1 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.2s' }}>{t('hero.headline1')}</span>
-              <span className={`line-2 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.35s' }}>{t('hero.headline2')}</span>
-              <span className={`line-3 clip-reveal${heroRevealed ? ' revealed' : ''}`} style={{ transitionDelay: '0.5s' }}>{t('hero.headline3')}</span>
+        {/* ── HERO ── */}
+        <section className="rh-hero">
+          <div className="rh-hero-text">
+            <div className="rh-badges">
+              <span className="rh-badge rh-badge--accent">{t('relaunchHome.hero.badgeComingSoon')}</span>
+              <span className="rh-badge">{t('relaunchHome.hero.badgeIos')}</span>
+              <span className="rh-badge">{t('relaunchHome.hero.badgeFree')}</span>
+            </div>
+            <h1 className="rh-hero-h1">
+              {t('relaunchHome.hero.h1Line1')}<br />
+              <span className="rh-accent">{t('relaunchHome.hero.h1Accent')}</span>
             </h1>
-          </div>
-          <div className={`hero-phones hero-image-reveal${heroRevealed ? ' revealed' : ''}`}>
-            <div className="hero-phone hero-phone--left">
-              <div className="hero-phone__frame">
-                <div className="hero-phone__screen">
-                  <img src="/mockups/hero-left.png?v=20260512" alt="Libo Explore tab with Build Your Own, AI Generate, and My Workouts cards above the workout grid" loading="eager" />
-                </div>
-              </div>
-            </div>
-            <div className="hero-phone hero-phone--center">
-              <div className="hero-phone__frame">
-                <div className="hero-phone__screen">
-                  <video
-                    ref={heroVideoRef}
-                    className="hero-phone__video"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    poster="/mockups/hero-poster.jpg?v=20260512"
-                    aria-label="Libo app in action: home tab with streak, today's workout, and rewards"
-                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
-                    disablePictureInPicture
-                    disableRemotePlayback
-                  >
-                    <source src="/mockups/hero-video.webm?v=20260512" type="video/webm" />
-                    <source src="/mockups/hero-video.mp4?v=20260512" type="video/mp4" />
-                    <img src="/mockups/hero-center.png?v=20260512" alt="Libo Home tab with streak counter, today's workout, and progress stats" />
-                  </video>
-                </div>
-              </div>
-            </div>
-            <div className="hero-phone hero-phone--right">
-              <div className="hero-phone__frame">
-                <div className="hero-phone__screen">
-                  <img src="/mockups/hero-right.png?v=20260512" alt="Libo Rewards tab showing 436 points and an Apple Watch Ultra 3 giveaway" loading="eager" />
-                </div>
-              </div>
-            </div>
-          </div>
-          {isPrelaunch() && (
-            <div className="hero-cta-row">
-              <WaitlistButton size="hero" />
-              <p className="hero-cta-disclosure">{t('waitlist.heroIosFirstLabel')}</p>
+            <p className="rh-hero-sub">{t('relaunchHome.hero.sub')}</p>
+            <div className="rh-hero-ctas">
+              <Link to="/money-challenges" className="rh-btn rh-btn--primary">
+                {t('relaunchHome.hero.ctaPrimary')}
+              </Link>
               <a
-                href="#rewards"
-                className="hero-discovery-link"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToId('rewards');
-                }}
+                href="#mechanism"
+                className="rh-btn rh-btn--ghost"
+                onClick={(e) => { e.preventDefault(); scrollToId('mechanism'); }}
               >
-                {t('challengeWaitlist.heroDiscoveryLink')}
+                {t('relaunchHome.hero.ctaSecondary')}
               </a>
             </div>
-          )}
-        </div>
-
-        <div className={`scroll-indicator${scrollIndicatorVisible ? ' visible' : ''}`}>
-          <span>{t('hero.scrollIndicator')}</span>
-          <div className="chevron" />
-        </div>
-      </section>
-
-      <hr className="rule" />
-
-      {/* ── MARQUEE ── */}
-      <div className="marquee-wrap">
-        <div className="marquee-track">
-          {renderMarqueeItems(MARQUEE_ITEMS)}
-        </div>
-      </div>
-
-      {/* ── FOUNDER BTS CARD ── */}
-      <FounderCard />
-
-      {/* ── COMBINED STATEMENT + FEATURES ── */}
-      <section className="combined-section" id="features">
-        <div className="combined-section-inner">
-          <div className="combined-left">
-            <p className="statement-text">
-              <span className="dim" data-reveal="fade-up" data-delay="0">{t('statement.line1')}</span><br />
-              <span className="bright" data-reveal="fade-up" data-delay="0.15" style={{ display: 'inline-block' }}>{t('statement.line2')}</span><br />
-              <span className="dim" data-reveal="fade-up" data-delay="0.3" style={{ display: 'inline-block' }}>{t('statement.line3')}</span><br />
-              <span className="accent highlight-swipe" data-reveal="fade-up" data-delay="0.45" style={{ display: 'inline-block' }}>{t('statement.line4')}</span>
-            </p>
-            <p className="body-lg statement-body" data-reveal="fade-up" data-delay="0.6">
-              {t('statement.description')}
-            </p>
+            <div id="hero-capture" className="rh-hero-capture">
+              <CaptureForm
+                variant="hero"
+                confirm={t('relaunchHome.hero.captureConfirm')}
+                placeholder={t('relaunchHome.hero.emailPlaceholder')}
+                button={t('relaunchHome.hero.captureButton')}
+              />
+              <p className="rh-capture-note">{t('relaunchHome.hero.captureNote')}</p>
+            </div>
           </div>
-          <div className="combined-right">
-            {FEATURES.map((f, i) => (
-              <div
-                key={f.num}
-                className={`combined-card combined-card-${i + 1}`}
-                data-reveal="fade-up"
-              >
-                <div className="combined-card-num">{f.num}</div>
-                <span className="combined-card-icon">
-                  <EmojiIcon emoji={f.icon} size={36} />
-                </span>
-                <div className="combined-card-name font-display">{f.name}</div>
-                <p className="combined-card-desc">{f.desc}</p>
+          <div className="rh-hero-phones">
+            <img className="rh-phone rh-phone--left" src="/hero-left.png" alt={t('relaunchHome.hero.imgAltLeft')} loading="eager" />
+            <img className="rh-phone rh-phone--center" src="/hero-center.png" alt={t('relaunchHome.hero.imgAltCenter')} loading="eager" />
+            <img className="rh-phone rh-phone--right" src="/hero-right.png" alt={t('relaunchHome.hero.imgAltRight')} loading="eager" />
+          </div>
+        </section>
+
+        {/* ── PROOF BAR ── */}
+        <section className="rh-proof">
+          <div className="rh-proof-inner">
+            {proofStats.map((s, i) => (
+              <div className="rh-proof-cell" key={i}>
+                <span className="rh-proof-num">{s.n}</span>
+                <span className="rh-proof-label">{s.label}</span>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── COMMUNITY CONSTELLATION ── */}
-      <CommunityConstellation />
-
-      {/* ── WORKOUT CATEGORIES ── */}
-      <section id="workouts">
-        <div className="categories-section">
-          <div className="categories-header reveal">
-            <div>
-              <div className="label label-spaced">{t('categories.eyebrow')}</div>
-              <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('categories.headline')}</h2>
-            </div>
-            <p className="body-md text-narrow">
-              {t('categories.description')}
-            </p>
-          </div>
-          <div className="categories-grid">
-            {CATEGORIES.map((cat, i) => (
-              <Link
-                key={cat.name}
-                to="/onboarding"
-                className={`cat-item reveal${i % 4 === 1 ? ' reveal-delay-1' : i % 4 === 2 ? ' reveal-delay-2' : i % 4 === 3 ? ' reveal-delay-3' : ''}`}
-              >
-                <div className="cat-img">
-                  <img src={`/${cat.img}`} alt={cat.name} loading="lazy" />
-                </div>
-                <div className="cat-name font-display">{cat.name}</div>
-                <p className="cat-desc">{cat.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── GOALS ── */}
-      <section className="goals-section" id="goals">
-        <div className="goals-inner">
-          <div className="goals-header reveal">
-            <div className="label">{t('goals.eyebrow')}</div>
-            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>
-              {t('goals.headline')}
+        {/* ── MECHANISM ── */}
+        <section className="rh-mechanism" id="mechanism">
+          <div className="rh-mechanism-copy">
+            <div className="rh-eyebrow">{t('relaunchHome.mechanism.eyebrow')}</div>
+            <h2 className="rh-h2">
+              {t('relaunchHome.mechanism.h2Line1')}<br />
+              <span className="rh-accent">{t('relaunchHome.mechanism.h2Accent')}</span>
             </h2>
-            <p className="goals-body">
-              {t('goals.description')}
-            </p>
+            <p className="rh-body">{t('relaunchHome.mechanism.body')}</p>
+            <blockquote className="rh-quote">
+              &ldquo;{t('relaunchHome.mechanism.quote')}&rdquo;
+              <footer className="rh-quote-footer">
+                {t('relaunchHome.mechanism.quoteAuthor')} —{' '}
+                <Link to="/founder" className="rh-accent-link">{t('relaunchHome.mechanism.quoteSource')}</Link>
+              </footer>
+            </blockquote>
           </div>
-          <div className="goal-list reveal reveal-delay-1">
-            {GOALS.map((goal) => (
-              <Link key={goal.title} to={`/onboarding?goal=${goal.goalParam}`} className="goal-row">
-                <span className="goal-row-icon">
-                  <EmojiIcon emoji={goal.icon} size={28} />
-                </span>
-                <div className="goal-row-text">
-                  <h4>{goal.title}</h4>
-                  <p>{goal.desc}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PHOTO BREAK 2 ── */}
-      <div className="photo-break-minimal">
-        <p className="photo-break-minimal__text display display-lg font-display">
-          {t('photoBreak2Full.line1')}<br /><span className="photo-break-minimal__accent">{t('photoBreak2Full.line2')}</span>
-        </p>
-      </div>
-
-      {/* ── TRIAL CTA (light island) ── */}
-      <div className="light-band">
-        <FreeTrialCta variant="light" />
-      </div>
-
-      {/* ── BETA REVIEWS ── */}
-      <BetaReviews />
-
-      {/* ── FAQ (dark) ── */}
-      <section className="faq-section" id="faq">
-        <div className="faq-inner">
-          <div className="faq-header reveal">
-            <div>
-              <div className="label label-spaced">{t('faq.eyebrow')}</div>
-              <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>{t('faq.headline')}</h2>
-            </div>
-            <p className="body-md text-narrow">
-              {t('faq.description')}
-            </p>
-          </div>
-          <div className="faq-list">
-            {FAQ_ITEMS.map((item, i) => (
-              <div
-                key={i}
-                className={`faq-item${openFaq === i ? ' open' : ''}`}
-              >
-                <button
-                  className="faq-question"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  aria-expanded={openFaq === i}
-                >
-                  <span>{item.q}</span>
-                  <span className="faq-icon" aria-hidden="true">{openFaq === i ? '\u2212' : '+'}</span>
-                </button>
-                <div className="faq-answer">
-                  <p>{item.a}</p>
-                </div>
+          <div className="rh-steps">
+            {steps.map((st, i) => (
+              <div className="rh-card rh-step" key={st.num}>
+                <span className={`rh-step-num${i === steps.length - 1 ? ' rh-step-num--accent' : ''}`}>{st.num}</span>
+                <span className="rh-step-name">{st.name}</span>
+                <span className="rh-step-desc">{st.desc}</span>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── BLOG PREVIEW ── */}
-      <section className="blog-preview-section">
-        <div className="blog-preview-inner">
-          <div className="blog-preview-header reveal">
-            <div>
-              <div className="label label-spaced">{t('blogPreview.eyebrow')}</div>
-              <h2 className="display display-sm font-display">{t('blogPreview.headline')}</h2>
+        {/* ── FOUNDER STRIP ── */}
+        <section className="rh-founder-strip">
+          <div className="rh-founder-inner">
+            <img className="rh-founder-photo" src="/noah-photo-2.jpg" alt={t('relaunchHome.founderStrip.imgAlt')} loading="lazy" />
+            <div className="rh-founder-text">
+              <p className="rh-founder-quote">&ldquo;{t('relaunchHome.founderStrip.quote')}&rdquo;</p>
+              <span className="rh-founder-name">{t('relaunchHome.founderStrip.name')}</span>
             </div>
-            <Link to="/blog" className="blog-preview-link">
-              {t('blogPreview.seeAll')}
+            <Link to="/founder" className="rh-founder-link">{t('relaunchHome.founderStrip.link')}</Link>
+          </div>
+        </section>
+
+        {/* ── LIBRARY ── */}
+        <section className="rh-library" id="library">
+          <div className="rh-library-head">
+            <h2 className="rh-h2">
+              {t('relaunchHome.library.h2Line1')}<br />{t('relaunchHome.library.h2Line2')}
+            </h2>
+            <p className="rh-library-desc">{t('relaunchHome.library.desc')}</p>
+          </div>
+          <div className="rh-features">
+            {features.map((f, i) => (
+              <div className={`rh-card rh-feature${i === 0 ? ' rh-card--elevated' : ''}`} key={f.num}>
+                <span className="rh-feature-num">{f.num}</span>
+                <span className="rh-feature-name">{f.name}</span>
+                <span className="rh-feature-desc">{f.desc}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── COMMUNITY ── */}
+        <section className="rh-community">
+          <div className="rh-community-inner">
+            <div className="rh-community-head">
+              <div>
+                <div className="rh-eyebrow">{t('relaunchHome.community.eyebrow')}</div>
+                <h2 className="rh-h2">
+                  {t('relaunchHome.community.h2Line1')}<br />{t('relaunchHome.community.h2Line2')}
+                </h2>
+              </div>
+              <p className="rh-community-desc">{t('relaunchHome.community.desc')}</p>
+            </div>
+            <div className="rh-members">
+              {members.map((m) => (
+                <div className="rh-member" key={m.name}>
+                  <img className="rh-member-photo" src={`/${m.photo}`} alt={m.name} loading="lazy" />
+                  <div className="rh-member-meta">
+                    <span className="rh-member-name">{m.name}</span>
+                    <span className="rh-member-sub">{m.meta}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── FOUNDING MEMBER OFFER ── */}
+        <section className="rh-offer">
+          <div className="rh-offer-copy">
+            <div className="rh-eyebrow">{t('relaunchHome.offer.eyebrow')}</div>
+            <h2 className="rh-h2">
+              {t('relaunchHome.offer.h2Line1')}<br />{t('relaunchHome.offer.h2Line2')}
+            </h2>
+            <p className="rh-body">{t('relaunchHome.offer.body')}</p>
+            <Link to="/pricing" className="rh-btn rh-btn--primary rh-offer-cta">
+              {t('relaunchHome.offer.cta')}
             </Link>
           </div>
-          <div className="blog-preview-grid">
-            {blogPreview.map((article, i) => (
-              <Link
-                key={article.slug}
-                to={`/blog/${article.slug}`}
-                className="blog-preview-card"
-                data-reveal="fade-up"
-                data-delay={String(i * 0.12)}
-              >
-                {article.heroImage ? (
-                  <div className="blog-preview-img">
-                    <img src={article.heroImage} alt={article.title} loading="lazy" />
+          <div className="rh-card rh-card--elevated rh-offer-card">
+            <span className="rh-badge rh-badge--accent">{t('relaunchHome.offer.cardBadge')}</span>
+            <div className="rh-offer-price-row">
+              <span className="rh-offer-price">{t('relaunchHome.offer.price')}</span>
+              <span className="rh-offer-strike">{t('relaunchHome.offer.priceStrike')}</span>
+            </div>
+            <span className="rh-offer-card-sub">{t('relaunchHome.offer.cardSub')}</span>
+            <div className="rh-offer-perks">
+              {perks.map((p, i) => (
+                <span className="rh-offer-perk" key={i}>&#10003; {p}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── BETA REVIEWS ── */}
+        <section className="rh-reviews">
+          <div className="rh-reviews-inner">
+            <div>
+              <div className="rh-eyebrow">{t('relaunchHome.reviews.eyebrow')}</div>
+              <h2 className="rh-h2">{t('relaunchHome.reviews.h2')}</h2>
+            </div>
+            <div className="rh-reviews-grid">
+              {reviews.map((r) => (
+                <div className="rh-card rh-review" key={r.handle}>
+                  <div className="rh-review-head">
+                    <img className="rh-review-photo" src={`/${r.photo}`} alt={r.handle} loading="lazy" />
+                    <span className="rh-review-handle">{r.handle}</span>
                   </div>
-                ) : (
-                  <div className="blog-preview-emoji" aria-hidden="true">
-                    <EmojiIcon emoji={article.heroEmoji} size={40} />
-                  </div>
-                )}
-                <div className="blog-preview-cat">{article.category}</div>
-                <h3 className="blog-preview-title">{article.title}</h3>
-                <p className="blog-preview-excerpt">{article.excerpt}</p>
-                <div className="blog-preview-meta">{article.readTime} {t('blogPreview.minRead')}</div>
+                  <p className="rh-review-quote">&ldquo;{r.quote}&rdquo;</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── FAQ ── */}
+        <section className="rh-faq" id="faq">
+          <h2 className="rh-h2">{t('relaunchHome.faq.headline')}</h2>
+          <div className="rh-faq-list">
+            {HOME_FAQ.map((item, i) => {
+              const open = openFaq === i;
+              return (
+                <div className={`rh-faq-item${open ? ' open' : ''}`} key={item.id}>
+                  <button
+                    className="rh-faq-q"
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    aria-expanded={open}
+                  >
+                    <span>{t(item.qKey)}</span>
+                    <span className="rh-faq-icon" aria-hidden="true">{open ? '−' : '+'}</span>
+                  </button>
+                  {open && <p className="rh-faq-a">{t(item.aKey)}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── FINAL CAPTURE ── */}
+        <section className="rh-final">
+          <div className="rh-final-inner">
+            <h2 className="rh-final-h2">
+              {t('relaunchHome.finalCapture.h2Line1')}<br />
+              <span className="rh-accent">{t('relaunchHome.finalCapture.h2Accent')}</span>
+            </h2>
+            <p className="rh-final-body">
+              {t('relaunchHome.finalCapture.body')}{' '}
+              {t('relaunchHome.finalCapture.spotsLabel', { count: SPOTS_TAKEN })}
+            </p>
+            <CaptureForm
+              variant="final"
+              confirm={t('relaunchHome.finalCapture.confirm')}
+              placeholder={t('relaunchHome.finalCapture.emailPlaceholder')}
+              button={t('relaunchHome.finalCapture.button')}
+            />
+            <p className="rh-capture-note">{t('relaunchHome.finalCapture.note')}</p>
+          </div>
+        </section>
+
+        {/* ── BLOG TEASER ── */}
+        <section className="rh-blog">
+          <div className="rh-blog-head">
+            <h2 className="rh-blog-h2">{t('relaunchHome.blogTeaser.h2')}</h2>
+            <Link to="/blog" className="rh-blog-seeall">{t('relaunchHome.blogTeaser.seeAll')}</Link>
+          </div>
+          <div className="rh-blog-grid">
+            {posts.map((p, i) => (
+              <Link to="/blog" className="rh-card rh-card--outlined rh-blog-card" key={i}>
+                <span className="rh-blog-cat">{p.cat}</span>
+                <span className="rh-blog-title">{p.title}</span>
+                <span className="rh-blog-meta">{p.meta}</span>
               </Link>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── CASH-CHALLENGE HOOK ── */}
-      <section className="rewards-section" id="rewards">
-        <div className="rewards-inner">
-          <div className="rewards-left reveal">
-            <div className="label label-spaced">{t('rewards.eyebrow')}</div>
-            <h2 className="display display-md font-display" style={{ whiteSpace: 'pre-line' }}>
-              {t('rewards.headline')}
-            </h2>
-            <p className="body-md text-narrow" style={{ marginTop: 28, lineHeight: 1.7 }}>
-              {t('rewards.description')}
-            </p>
-            <div className="rewards-chips">
-              <span className="rewards-chip">{t('rewards.chip1')}</span>
-              <span className="rewards-chip">{t('rewards.chip2')}</span>
-              <span className="rewards-chip">{t('rewards.chip3')}</span>
-            </div>
-          </div>
-          <div className="rewards-right reveal reveal-delay-1">
-            <div className="rewards-gradient-card">
-              <div className="rewards-glass-badge">{t('rewards.badge')}</div>
-              <div className="rewards-prize">
-                <div className="rewards-big-stat" ref={rewardsStatView.ref}>
-                  &euro;{rewardsStat}
-                </div>
-                <div className="rewards-challenge-name font-display">{t('rewards.challengeName')}</div>
-                <div className="rewards-challenge-sub">{t('rewards.challengeSubtitle')}</div>
-              </div>
-              <div className="rewards-flow">
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon"><EmojiIcon emoji={'💪'} size={24} /></div>
-                  <div className="rewards-flow-label">{t('rewards.flowStep1')}</div>
-                </div>
-                <div className="rewards-flow-arrow">&rarr;</div>
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon"><EmojiIcon emoji={'📹'} size={24} /></div>
-                  <div className="rewards-flow-label">{t('rewards.flowStep2')}</div>
-                </div>
-                <div className="rewards-flow-arrow">&rarr;</div>
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon"><EmojiIcon emoji={'📲'} size={24} /></div>
-                  <div className="rewards-flow-label">{t('rewards.flowStep3')}</div>
-                </div>
-                <div className="rewards-flow-arrow">&rarr;</div>
-                <div className="rewards-flow-step">
-                  <div className="rewards-flow-icon accent-glow"><EmojiIcon emoji={'💰'} size={24} color="#CAFF00" /></div>
-                  <div className="rewards-flow-label accent-label">{t('rewards.flowStep4')}</div>
-                </div>
-              </div>
-              {isPrelaunch() ? (
-                <div className="rewards-reserve">
-                  <p className="rewards-reserve-copy">{t('challengeWaitlist.bodyParagraph')}</p>
-                  <WaitlistButton variant="challenge" size="inline" className="rewards-cta-button" />
-                  <p className="rewards-cta-disclosure">{t('challengeWaitlist.cardDisclosure')}</p>
-                </div>
-              ) : (
-                <div className="rewards-spots">
-                  <span className="rewards-spots-dot" />
-                  {t('rewards.spots')}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── EARLY ACCESS (FOUNDING MEMBER) — prelaunch only, secondary offer ── */}
-      {isPrelaunch() && <EarlyAccessSection />}
-
-      {/* ── QR + APP STORE CLOSER ── */}
-      <section className="qr-closer" id="get-the-app">
-        <div className="qr-closer-inner reveal">
-          {isPrelaunch() ? (
-            <>
-              <div className="label qr-closer-eyebrow">{t('waitlist.qrCloserEyebrow')}</div>
-              <h2 className="display display-lg font-display qr-closer-headline">{t('waitlist.qrCloserHeading')}</h2>
-              <p className="qr-closer-sub">{t('qrCloser.subline')}</p>
-              <div className="qr-closer-waitlist">
-                <WaitlistInlineForm />
-                <p className="qr-closer-caption qr-closer-waitlist-note">{t('waitlist.qrCloserDisclosure')}</p>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="label qr-closer-eyebrow">{t('qrCloser.eyebrow')}</div>
-              <h2 className="display display-lg font-display qr-closer-headline">{t('qrCloser.headline')}</h2>
-              <p className="qr-closer-sub">{t('qrCloser.subline')}</p>
-              <div className="qr-closer-row">
-                <div className="qr-closer-qr">
-                  <img
-                    src="/images/qr-app-store.svg"
-                    alt={t('qrCloser.qrAlt')}
-                    width={120}
-                    height={120}
-                  />
-                  <span className="qr-closer-caption">{t('qrCloser.scanCaption')}</span>
-                </div>
-                <div className="qr-closer-badge">
-                  <AppStoreBadge className="qr-closer-badge-link" />
-                  <span className="qr-closer-caption">{t('qrCloser.platformNote')}</span>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      </section>
+        </section>
 
       </main>
       <SiteFooter />

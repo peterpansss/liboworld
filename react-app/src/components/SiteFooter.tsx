@@ -34,6 +34,7 @@ export default function SiteFooter() {
           <div className="site-footer__col">
             <h2 className="site-footer__col-title">{t('footer.productTitle')}</h2>
             <div className="site-footer__col-links">
+              <Link to="/money-challenges">{t('footer.moneyChallenges', { defaultValue: 'Money Challenges' })}</Link>
               <Link to="/pricing">{t('footer.pricing')}</Link>
               <Link to="/#features">{t('footer.features')}</Link>
               {!isPrelaunch() && (<Link to="/#rewards">{t('footer.rewardsLink')}</Link>)}
@@ -47,6 +48,8 @@ export default function SiteFooter() {
           <div className="site-footer__col">
             <h2 className="site-footer__col-title">{t('footer.companyTitle')}</h2>
             <div className="site-footer__col-links">
+              <Link to="/founder">{t('footer.founder', { defaultValue: 'Founder' })}</Link>
+              <Link to="/press">{t('footer.pressKit', { defaultValue: 'Press kit' })}</Link>
               <Link to="/careers">{t('footer.careers', { defaultValue: 'Careers' })}</Link>
               <a href="mailto:hello@liboworld.com">{t('footer.contactUs')}</a>
             </div>
@@ -81,7 +84,7 @@ export default function SiteFooter() {
         {/* Bottom bar */}
         <div className="site-footer__bottom">
           <span className="site-footer__copy">
-            &copy; {new Date().getFullYear()} Libo World. {t('footer.allRightsReserved')}
+            {t('footer.copyrightTrainingClub', { defaultValue: '© 2026 Libo World · Training Club' })}
           </span>
           <div className="site-footer__bottom-right">
             <div className="site-footer__legal">

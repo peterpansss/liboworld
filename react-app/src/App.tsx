@@ -1,12 +1,27 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
-// Scroll to top on route change
+// Scroll to top on route change — or smooth-scroll to a #hash target when the
+// URL carries one (e.g. the nav CTA links to "/#hero-capture", the money
+// challenge page uses "#reserve"). rAF gives lazy pages a frame to render the
+// anchor before we look for it; falls back to top if the element isn't there.
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      const id = decodeURIComponent(hash.slice(1));
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+        window.scrollTo(0, 0);
+      });
+      return;
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 
@@ -34,6 +49,7 @@ const Giveaway = lazy(() => import('./pages/Giveaway'));
 const CashChallenge = lazy(() => import('./pages/CashChallenge'));
 const GetApp = lazy(() => import('./pages/GetApp'));
 const Founder = lazy(() => import('./pages/Founder'));
+const MoneyChallenges = lazy(() => import('./pages/MoneyChallenges'));
 const Affiliate = lazy(() => import('./pages/Affiliate'));
 const AffiliateApply = lazy(() => import('./pages/AffiliateApply'));
 const AffiliateApplySent = lazy(() => import('./pages/AffiliateApplySent'));
@@ -73,6 +89,7 @@ export default function App() {
         <Route path="/cash-challenge" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
         <Route path="/get-app" element={<Suspense fallback={darkFallback}><GetApp /></Suspense>} />
         <Route path="/founder" element={<Suspense fallback={darkFallback}><Founder /></Suspense>} />
+        <Route path="/money-challenges" element={<Suspense fallback={darkFallback}><MoneyChallenges /></Suspense>} />
         <Route path="/affiliate" element={<Suspense fallback={darkFallback}><Affiliate /></Suspense>} />
         <Route path="/affiliate/apply" element={<Suspense fallback={darkFallback}><AffiliateApply /></Suspense>} />
         <Route path="/affiliate/apply/sent" element={<Suspense fallback={darkFallback}><AffiliateApplySent /></Suspense>} />
