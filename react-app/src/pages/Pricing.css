@@ -381,3 +381,12 @@
     gap: 16px;
   }
 }
+
+/* Founding Member CTA is a <button> (opens Stripe checkout) — reset native chrome so it matches the link CTAs. */
+button.pr-card__cta {
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+}

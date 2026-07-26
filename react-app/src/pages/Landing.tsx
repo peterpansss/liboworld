@@ -7,6 +7,7 @@ import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
 import { HOME_FAQ } from '../data/faq';
 import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
+import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvider';
 import './Landing.css';
 
 // Urgency: how many of the 50 cycle-#1 spots are already reserved.
@@ -86,6 +87,7 @@ export default function Landing() {
   const perks = t('relaunchHome.offer.perks', { returnObjects: true }) as string[];
   const reviews = t('relaunchHome.reviews.items', { returnObjects: true }) as Review[];
   const affiliateCards = t('relaunchHome.affiliate.cards', { returnObjects: true }) as AffiliateCard[];
+  const { openFoundingCheckout } = useFoundingCheckout();
   const posts = t('relaunchHome.blogTeaser.posts', { returnObjects: true }) as Post[];
 
   const proofStats = [
@@ -253,9 +255,13 @@ export default function Landing() {
               {t('relaunchHome.offer.h2Line1')}<br />{t('relaunchHome.offer.h2Line2')}
             </h2>
             <p className="rh-body">{t('relaunchHome.offer.body')}</p>
-            <Link to="/pricing" className="rh-btn rh-btn--primary rh-offer-cta">
+            <button
+              type="button"
+              className="rh-btn rh-btn--primary rh-offer-cta"
+              onClick={() => openFoundingCheckout('home_offer')}
+            >
               {t('relaunchHome.offer.cta')}
-            </Link>
+            </button>
           </div>
           <div className="rh-card rh-card--elevated rh-offer-card">
             <span className="rh-badge rh-badge--accent">{t('relaunchHome.offer.cardBadge')}</span>

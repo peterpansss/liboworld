@@ -5,6 +5,7 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
 import { PRICING_FAQ } from '../data/faq';
+import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvider';
 import './Pricing.css';
 
 /** i18n copy shape for each plan (relaunchPricing.plans[]) */
@@ -22,9 +23,10 @@ interface PlanCopy {
 
 /** Non-copy, structural config per plan (design values), merged by index. */
 const PLAN_CONFIG = [
-  { variant: 'default', priceAccent: false, href: '/#hero-capture', cta: 'default' },
-  { variant: 'elevated', priceAccent: true, href: '/money-challenges', cta: 'accent' },
-  { variant: 'default', priceAccent: false, href: '/pricing', cta: 'muted' },
+  { variant: 'default', priceAccent: false, href: '/#hero-capture', cta: 'default', founding: false },
+  // Founding Member card: opens the Stripe founding checkout, not a nav link.
+  { variant: 'elevated', priceAccent: true, href: '/money-challenges', cta: 'accent', founding: true },
+  { variant: 'default', priceAccent: false, href: '/pricing', cta: 'muted', founding: false },
 ] as const;
 
 export default function Pricing() {
@@ -32,6 +34,7 @@ export default function Pricing() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const plans = t('relaunchPricing.plans', { returnObjects: true }) as PlanCopy[];
+  const { openFoundingCheckout } = useFoundingCheckout();
 
   return (
     <>
@@ -94,9 +97,19 @@ export default function Pricing() {
                   ))}
                 </div>
 
-                <Link to={cfg.href} className={`pr-card__cta pr-card__cta--${cfg.cta}`}>
-                  {p.cta}
-                </Link>
+                {cfg.founding ? (
+                  <button
+                    type="button"
+                    className={`pr-card__cta pr-card__cta--${cfg.cta}`}
+                    onClick={() => openFoundingCheckout('pricing_card')}
+                  >
+                    {p.cta}
+                  </button>
+                ) : (
+                  <Link to={cfg.href} className={`pr-card__cta pr-card__cta--${cfg.cta}`}>
+                    {p.cta}
+                  </Link>
+                )}
               </article>
             );
           })}
