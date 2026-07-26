@@ -1414,18 +1414,18 @@
       "eyebrow": "CREADORES Y PARTNERS",
       "h2Line1": "Tu audiencia entrena.",
       "h2Accent": "Tú ganas el 25% de por vida.",
-      "body": "Cada miembro que traigas te paga el 25% de su suscripción — mientras siga contigo. Para creadores con más de 5K seguidores que de verdad entrenan.",
+      "body": "Trae gente a Libo y te pagamos un 25% de comisión sobre su suscripción — mientras sigan siendo miembros y tú también. Para creadores con 5K+ seguidores que de verdad entrenan.",
       "cta": "Hazte partner →",
       "cards": [
         {
           "value": "25%",
-          "label": "De cada pago",
-          "desc": "Cada renovación de tus miembros, no solo el primer mes."
+          "label": "Comisión que pagamos",
+          "desc": "En cada pago de suscripción de tus miembros, no solo el primero."
         },
         {
           "value": "∞",
-          "label": "Pagos de por vida",
-          "desc": "Sigues ganando mientras tu miembro entrene con Libo."
+          "label": "Recurrente",
+          "desc": "Ganas cada mes que tu miembro siga suscrito."
         }
       ]
     }

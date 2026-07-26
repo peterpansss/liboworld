@@ -1414,18 +1414,18 @@
       "eyebrow": "CREATORS & PARTNERS",
       "h2Line1": "Your audience trains.",
       "h2Accent": "You earn 25% for life.",
-      "body": "Every member you bring pays you 25% of their subscription — for as long as they stay. For creators with 5K+ followers who actually train.",
+      "body": "Refer people to Libo and we pay you a 25% commission on their subscription — for as long as they stay members and you stay one too. Built for creators with 5K+ followers who actually train.",
       "cta": "Become a partner →",
       "cards": [
         {
           "value": "25%",
-          "label": "Of every payment",
-          "desc": "Every renewal your members make — not just their first month."
+          "label": "Commission we pay",
+          "desc": "On every subscription payment your members make — not just the first."
         },
         {
           "value": "∞",
-          "label": "Lifetime payouts",
-          "desc": "You keep earning as long as your member trains with Libo."
+          "label": "Recurring",
+          "desc": "You earn every month your member stays subscribed."
         }
       ]
     }

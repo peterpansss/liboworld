@@ -1414,18 +1414,18 @@
       "eyebrow": "CREATOR & PARTNER",
       "h2Line1": "Deine Audience trainiert.",
       "h2Accent": "Du verdienst 25% — auf Lebenszeit.",
-      "body": "Jedes Mitglied, das du bringst, zahlt dir 25% seines Abos — solange es bleibt. Für Creator mit 5K+ Followern, die wirklich trainieren.",
+      "body": "Bring Leute zu Libo und wir zahlen dir 25% Provision auf ihr Abo — solange sie Mitglied bleiben und du auch. Für Creator mit 5K+ Followern, die wirklich trainieren.",
       "cta": "Partner werden →",
       "cards": [
         {
           "value": "25%",
-          "label": "Auf jede Zahlung",
-          "desc": "Jede Verlängerung deiner Mitglieder — nicht nur der erste Monat."
+          "label": "Provision von uns",
+          "desc": "Auf jede Abo-Zahlung deiner Mitglieder — nicht nur die erste."
         },
         {
           "value": "∞",
-          "label": "Lifetime-Auszahlungen",
-          "desc": "Du verdienst weiter, solange dein Mitglied mit Libo trainiert."
+          "label": "Wiederkehrend",
+          "desc": "Du verdienst jeden Monat, den dein Mitglied Abonnent bleibt."
         }
       ]
     }

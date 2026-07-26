@@ -1396,18 +1396,18 @@
       "eyebrow": "CRÉATEURS & PARTENAIRES",
       "h2Line1": "Ton audience s'entraîne.",
       "h2Accent": "Tu gagnes 25% à vie.",
-      "body": "Chaque membre que tu amènes te reverse 25% de son abonnement — tant qu'il reste. Pour les créateurs avec 5K+ abonnés qui s'entraînent vraiment.",
+      "body": "Amène des gens sur Libo et on te verse 25% de commission sur leur abonnement — tant qu'ils restent membres et toi aussi. Pour les créateurs avec 5K+ abonnés qui s'entraînent vraiment.",
       "cta": "Devenir partenaire →",
       "cards": [
         {
           "value": "25%",
-          "label": "Sur chaque paiement",
-          "desc": "Chaque renouvellement de tes membres — pas seulement le premier mois."
+          "label": "Commission de notre part",
+          "desc": "Sur chaque paiement d'abonnement de tes membres — pas seulement le premier."
         },
         {
           "value": "∞",
-          "label": "Paiements à vie",
-          "desc": "Tu continues de gagner tant que ton membre s'entraîne avec Libo."
+          "label": "Récurrent",
+          "desc": "Tu gagnes chaque mois où ton membre reste abonné."
         }
       ]
     },

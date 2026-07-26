@@ -1414,18 +1414,18 @@
       "eyebrow": "CRIADORES E PARCEIROS",
       "h2Line1": "Sua audiência treina.",
       "h2Accent": "Você ganha 25% pra sempre.",
-      "body": "Cada membro que você traz te paga 25% da assinatura — enquanto ele ficar. Pra criadores com mais de 5 mil seguidores que treinam de verdade.",
+      "body": "Traga pessoas para a Libo e pagamos 25% de comissão sobre a assinatura delas — enquanto continuarem membros e você também. Para criadores com 5K+ seguidores que treinam de verdade.",
       "cta": "Virar parceiro →",
       "cards": [
         {
           "value": "25%",
-          "label": "De cada pagamento",
-          "desc": "Cada renovação dos seus membros — não só o primeiro mês."
+          "label": "Comissão que pagamos",
+          "desc": "Em cada pagamento de assinatura dos seus membros — não só o primeiro."
         },
         {
           "value": "∞",
-          "label": "Pagamentos vitalícios",
-          "desc": "Você continua ganhando enquanto seu membro treina com a Libo."
+          "label": "Recorrente",
+          "desc": "Você ganha todo mês que seu membro continuar assinante."
         }
       ]
     }
