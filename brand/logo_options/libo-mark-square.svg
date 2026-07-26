@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" role="img" aria-label="LIBO">
-  <rect width="400" height="400" rx="88" fill="#080808"/>
-  <circle cx="128" cy="190" r="22" fill="#CAFF00"/>
-  <circle cx="186" cy="158" r="32" fill="#CAFF00"/>
-  <circle cx="262" cy="120" r="45" fill="#CAFF00"/>
-  <text x="200" y="335" text-anchor="middle" font-family="'Barlow Condensed', 'Arial Narrow', sans-serif" font-weight="900" font-size="118" fill="#FFFFFF" letter-spacing="2">LIBO</text>
-</svg>
