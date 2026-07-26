@@ -27,6 +27,12 @@
   white-space: pre-line;
   margin: 0 0 24px;
 }
+/* `.font-display` sets letter-spacing:-1px which makes this large uppercase
+   Barlow Condensed headline's letters touch. Open it up (scoped selector wins
+   over .font-display). */
+.trial-cta-section .trial-cta-headline {
+  letter-spacing: 0.5px;
+}
 
 .trial-cta-body {
   font-size: 17px;
