@@ -15,7 +15,6 @@ const NAV_LINKS = [
   { labelKey: 'nav.moneyChallenges', defaultLabel: 'Money Challenges', to: '/money-challenges' },
   { labelKey: 'nav.library', defaultLabel: 'Library', to: '/exercises' },
   { labelKey: 'nav.pricing', defaultLabel: 'Pricing', to: '/pricing' },
-  { labelKey: 'nav.founder', defaultLabel: 'Founder', to: '/founder' },
   { labelKey: 'nav.press', defaultLabel: 'Press', to: '/press' },
 ] as const;
 

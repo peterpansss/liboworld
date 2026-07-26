@@ -177,8 +177,7 @@ export default function Landing() {
             <blockquote className="rh-quote">
               &ldquo;{t('relaunchHome.mechanism.quote')}&rdquo;
               <footer className="rh-quote-footer">
-                {t('relaunchHome.mechanism.quoteAuthor')} —{' '}
-                <Link to="/founder" viewTransition className="rh-accent-link">{t('relaunchHome.mechanism.quoteSource')}</Link>
+                {t('relaunchHome.mechanism.quoteAuthor')} — {t('relaunchHome.mechanism.quoteSource')}
               </footer>
             </blockquote>
           </div>
@@ -190,18 +189,6 @@ export default function Landing() {
                 <span className="rh-step-desc">{st.desc}</span>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* ── FOUNDER STRIP ── */}
-        <section className="rh-founder-strip">
-          <div className="rh-founder-inner">
-            <img className="rh-founder-photo" src="/noah-founder.jpg" alt={t('relaunchHome.founderStrip.imgAlt')} loading="lazy" />
-            <div className="rh-founder-text">
-              <p className="rh-founder-quote">&ldquo;{t('relaunchHome.founderStrip.quote')}&rdquo;</p>
-              <span className="rh-founder-name">{t('relaunchHome.founderStrip.name')}</span>
-            </div>
-            <Link to="/founder" viewTransition className="rh-founder-link">{t('relaunchHome.founderStrip.link')}</Link>
           </div>
         </section>
 
