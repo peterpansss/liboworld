@@ -407,3 +407,85 @@
     padding: 56px 20px;
   }
 }
+
+/* ── Estimated-earnings info tooltip (Hevy-style hover) ── */
+.aff-calc-label--earnings {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.aff-calc-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+  outline: none;
+}
+.aff-calc-info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 1;
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+}
+.aff-calc-info:hover .aff-calc-info-icon,
+.aff-calc-info:focus-visible .aff-calc-info-icon,
+.aff-calc-info:focus-within .aff-calc-info-icon {
+  opacity: 1;
+}
+.aff-calc-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  width: max-content;
+  max-width: 260px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #2e2e2e;
+  border-radius: 12px;
+  padding: 11px 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 12.5px;
+  line-height: 1.45;
+  text-transform: none;
+  letter-spacing: normal;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 30;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.aff-calc-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1a1a1a;
+}
+.aff-calc-info:hover .aff-calc-tooltip,
+.aff-calc-info:focus-visible .aff-calc-tooltip,
+.aff-calc-info:focus-within .aff-calc-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+@media (max-width: 430px) {
+  .aff-calc-tooltip { max-width: 220px; }
+}

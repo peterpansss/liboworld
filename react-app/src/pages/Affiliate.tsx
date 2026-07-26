@@ -9,10 +9,9 @@ import './Affiliate.css';
 // The "Apply" button now routes to the in-app application form at
 // /affiliate/apply (which submits via mailto for v1).
 
-// Slider math: assume €10 of commission per paid user per year (≈ €3.33/mo
-// average ARPU × 25% commission × 12 months). Update this when the real
-// pricing/commission settles.
-const COMMISSION_PER_USER_PER_YEAR_EUR = 10;
+// Slider math: 25% commission on the €79.99 standard annual subscription
+// → ≈ €20 of commission per paid user per year.
+const COMMISSION_PER_USER_PER_YEAR_EUR = 20;
 const MIN_USERS = 0;
 const MAX_USERS = 500;
 const DEFAULT_USERS = 100;
@@ -115,6 +114,12 @@ export default function Affiliate() {
           <div className="aff-calc-divider" aria-hidden />
           <div className="aff-calc-label aff-calc-label--earnings">
             {t('affiliate.calcEarningsLabel', { defaultValue: 'Estimated yearly earnings' })}
+            <span className="aff-calc-info" tabIndex={0} role="note" aria-label="How this estimate is calculated">
+              <span className="aff-calc-info-icon" aria-hidden>i</span>
+              <span className="aff-calc-tooltip" role="tooltip">
+                {t('affiliate.calcTooltip', { defaultValue: 'Estimated as a 25% commission on the €79.99 annual subscription. Real earnings depend on the plan and how long members stay.' })}
+              </span>
+            </span>
           </div>
           <div className="aff-calc-earnings font-display">{formattedEarnings}</div>
         </div>
