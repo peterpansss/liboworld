@@ -1287,9 +1287,9 @@
       "desc": "Gente real, caras reales. Registrando reps, manteniendo rachas, repartiendo retos de dinero. Sin coaches ni influencers vendiendo cursos. Solo miembros que aparecen cada día.",
       "members": [
         {
-          "photo": "beta-mike.png",
-          "name": "Noah",
-          "meta": "@noah · 8 semanas en beta"
+          "photo": "beta-tao.png",
+          "name": "Thao",
+          "meta": "@redtao_ · 25, yoga + peso corporal"
         },
         {
           "photo": "beta-sarah.png",
@@ -1310,11 +1310,6 @@
           "photo": "beta-paul.png",
           "name": "Tony",
           "meta": "@tony · 63, planes de movilidad"
-        },
-        {
-          "photo": "beta-tao.png",
-          "name": "Thao",
-          "meta": "@redtao_ · 25, yoga + peso corporal"
         }
       ]
     },
@@ -1339,9 +1334,9 @@
       "h2": "Primeras reseñas.",
       "items": [
         {
-          "photo": "beta-mike.png",
-          "handle": "@noah",
-          "quote": "not really a review — i built libo. 15 yrs of leistungssport, then years off. the cash challenge is the only thing that got me back to daily reps. on it every morning."
+          "photo": "beta-tao.png",
+          "handle": "@redtao_",
+          "quote": "not a gym person at all. came for the yoga + bodyweight flows, stayed for the streaks. finally an app that doesn't shove barbells at me — my mobility's the best it's ever been."
         },
         {
           "photo": "beta-sarah.png",
@@ -1362,11 +1357,6 @@
           "photo": "beta-paul.png",
           "handle": "@tony",
           "quote": "63 and skeptical about gym-bro apps. picked up libo in the beta and... the mobility plans are unreal. rewards thing is dumb fun. 2 months in"
-        },
-        {
-          "photo": "beta-tao.png",
-          "handle": "@redtao_",
-          "quote": "not a gym person at all. came for the yoga + bodyweight flows, stayed for the streaks. finally an app that doesn't shove barbells at me — my mobility's the best it's ever been."
         }
       ]
     },
