@@ -1401,18 +1401,13 @@
       "cards": [
         {
           "value": "25%",
-          "label": "Commission à vie",
-          "desc": "Sur chaque paiement d'abonnement de tes membres — pas seulement le premier."
+          "label": "Sur chaque paiement",
+          "desc": "Chaque renouvellement de tes membres — pas seulement le premier mois."
         },
         {
-          "value": "60 j",
-          "label": "Fenêtre cookie",
-          "desc": "Un clic aujourd'hui compte encore quand il s'abonne deux mois plus tard."
-        },
-        {
-          "value": "€",
-          "label": "Calculateur en direct",
-          "desc": "Vois ce que la taille de ton audience rapporte avant même de t'inscrire."
+          "value": "∞",
+          "label": "Paiements à vie",
+          "desc": "Tu continues de gagner tant que ton membre s'entraîne avec Libo."
         }
       ]
     },

@@ -1419,18 +1419,13 @@
       "cards": [
         {
           "value": "25%",
-          "label": "Lifetime-Provision",
-          "desc": "Auf jede Abo-Zahlung deiner Mitglieder — nicht nur die erste."
+          "label": "Auf jede Zahlung",
+          "desc": "Jede Verlängerung deiner Mitglieder — nicht nur der erste Monat."
         },
         {
-          "value": "60d",
-          "label": "Cookie-Fenster",
-          "desc": "Ein Klick heute zählt noch, wenn sie in zwei Monaten abschließen."
-        },
-        {
-          "value": "€",
-          "label": "Live-Rechner",
-          "desc": "Sieh, was deine Audience-Größe einbringt, bevor du dich anmeldest."
+          "value": "∞",
+          "label": "Lifetime-Auszahlungen",
+          "desc": "Du verdienst weiter, solange dein Mitglied mit Libo trainiert."
         }
       ]
     }

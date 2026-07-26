@@ -1419,18 +1419,13 @@
       "cards": [
         {
           "value": "25%",
-          "label": "Comissão vitalícia",
-          "desc": "Em cada pagamento de assinatura dos seus membros — não só o primeiro."
+          "label": "De cada pagamento",
+          "desc": "Cada renovação dos seus membros — não só o primeiro mês."
         },
         {
-          "value": "60d",
-          "label": "Janela de cookie",
-          "desc": "Um clique hoje ainda conta quando a pessoa assinar dois meses depois."
-        },
-        {
-          "value": "€",
-          "label": "Calculadora ao vivo",
-          "desc": "Veja quanto o tamanho da sua audiência rende antes de se cadastrar."
+          "value": "∞",
+          "label": "Pagamentos vitalícios",
+          "desc": "Você continua ganhando enquanto seu membro treina com a Libo."
         }
       ]
     }

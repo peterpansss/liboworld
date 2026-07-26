@@ -1419,18 +1419,13 @@
       "cards": [
         {
           "value": "25%",
-          "label": "Lifetime commission",
-          "desc": "On every subscription payment your members make — not just the first one."
+          "label": "Of every payment",
+          "desc": "Every renewal your members make — not just their first month."
         },
         {
-          "value": "60d",
-          "label": "Cookie window",
-          "desc": "A click today still counts when they subscribe two months from now."
-        },
-        {
-          "value": "€",
-          "label": "Live calculator",
-          "desc": "See what your audience size earns before you sign up."
+          "value": "∞",
+          "label": "Lifetime payouts",
+          "desc": "You keep earning as long as your member trains with Libo."
         }
       ]
     }

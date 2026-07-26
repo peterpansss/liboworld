@@ -672,7 +672,7 @@
 .rh-affiliate-cta { margin-top: 4px; }
 .rh-affiliate-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   align-items: stretch;
   gap: 16px;
 }

@@ -1419,18 +1419,13 @@
       "cards": [
         {
           "value": "25%",
-          "label": "Comisión de por vida",
-          "desc": "Sobre cada pago de suscripción que hagan tus miembros — no solo el primero."
+          "label": "De cada pago",
+          "desc": "Cada renovación de tus miembros, no solo el primer mes."
         },
         {
-          "value": "60d",
-          "label": "Ventana de cookie",
-          "desc": "Un clic hoy sigue contando cuando se suscriban dentro de dos meses."
-        },
-        {
-          "value": "€",
-          "label": "Calculadora en vivo",
-          "desc": "Mira lo que gana tu audiencia antes de registrarte."
+          "value": "∞",
+          "label": "Pagos de por vida",
+          "desc": "Sigues ganando mientras tu miembro entrene con Libo."
         }
       ]
     }
