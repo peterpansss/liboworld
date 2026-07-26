@@ -162,7 +162,17 @@ export default function Landing() {
           <div className="rh-hero-phones">
             <img className="rh-phone rh-phone--left" src="/hero-left.png" alt={t('relaunchHome.hero.imgAltLeft')} loading="eager" />
             <img className="rh-phone rh-phone--center" src="/hero-center.png" alt={t('relaunchHome.hero.imgAltCenter')} loading="eager" />
-            <img className="rh-phone rh-phone--right" src="/hero-right.png" alt={t('relaunchHome.hero.imgAltRight')} loading="eager" />
+            <video
+              className="rh-phone rh-phone--right"
+              src="/hero-right.mp4"
+              poster="/hero-right-poster.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-label={t('relaunchHome.hero.imgAltRight')}
+            />
           </div>
         </section>
 

@@ -228,6 +228,13 @@
   border: 1px solid var(--libo-bg-4);
   display: block;
 }
+/* Right phone is a live app screen-recording — keep it clipped to the same
+   rounded corners as the still phones, no letterboxing during load. */
+video.rh-phone {
+  object-fit: cover;
+  background: #000;
+  overflow: hidden;
+}
 .rh-phone--left  { width: 220px; transform: rotate(-6deg) translateY(24px); position: relative; z-index: 1; }
 .rh-phone--center{ width: 260px; position: relative; z-index: 2; margin: 0 -28px; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
 .rh-phone--right { width: 220px; transform: rotate(6deg) translateY(24px); position: relative; z-index: 1; }
