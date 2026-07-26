@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import LiboLogo from './LiboLogo';
 import { isStripeConfigured } from '../lib/stripe';
 import { isPrelaunch } from '../config/launchMode';
+import { prefetchRoute } from '../lib/routePrefetch';
 import './SiteNav.css';
 
 const ANNOUNCE_DISMISS_KEY = 'ea_announce_dismissed';
@@ -53,7 +54,10 @@ export default function SiteNav() {
       const el = document.getElementById('hero-capture');
       if (el) {
         e.preventDefault();
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          block: 'start',
+        });
         // Focus the email field so the CTA visibly "does something" even when
         // the capture is already at the top of the viewport.
         const input = el.querySelector<HTMLInputElement>('input[type="email"], input');
@@ -122,7 +126,7 @@ export default function SiteNav() {
       >
         <div className="site-nav__inner">
           {/* Logo */}
-          <Link to="/" className="site-nav__logo" aria-label="Libo home">
+          <Link to="/" className="site-nav__logo" aria-label="Libo home" viewTransition>
             {/* Desktop shows the full lockup; the mobile nav bar uses the
                 compact mark (dots + "LIBO") — toggled via CSS at ≤768px. */}
             <LiboLogo className="site-nav__logo-full" />
@@ -137,6 +141,9 @@ export default function SiteNav() {
                   to={to}
                   className={`site-nav__link${isActive(to) ? ' site-nav__link--active' : ''}`}
                   aria-current={isActive(to) ? 'page' : undefined}
+                  viewTransition
+                  onMouseEnter={() => prefetchRoute(to)}
+                  onFocus={() => prefetchRoute(to)}
                 >
                   {t(labelKey, { defaultValue: defaultLabel })}
                 </Link>
@@ -179,7 +186,7 @@ export default function SiteNav() {
         className={`site-nav__drawer${drawerOpen ? ' site-nav__drawer--open' : ''}`}
       >
         <div className="site-nav__drawer-header">
-          <Link to="/" className="site-nav__logo" aria-label="Libo home" onClick={() => setDrawerOpen(false)}>
+          <Link to="/" className="site-nav__logo" aria-label="Libo home" viewTransition onClick={() => setDrawerOpen(false)}>
             <LiboLogo compact />
           </Link>
           <button
@@ -193,7 +200,7 @@ export default function SiteNav() {
         </div>
         <div className="site-nav__drawer-links">
           {NAV_LINKS.map(({ labelKey, defaultLabel, to }) => (
-            <Link key={to} to={to} className={isActive(to) ? 'site-nav__drawer-link--active' : ''} aria-current={isActive(to) ? 'page' : undefined} onClick={() => setDrawerOpen(false)}>
+            <Link key={to} to={to} className={isActive(to) ? 'site-nav__drawer-link--active' : ''} aria-current={isActive(to) ? 'page' : undefined} viewTransition onMouseEnter={() => prefetchRoute(to)} onFocus={() => prefetchRoute(to)} onClick={() => setDrawerOpen(false)}>
               {t(labelKey, { defaultValue: defaultLabel })}
             </Link>
           ))}

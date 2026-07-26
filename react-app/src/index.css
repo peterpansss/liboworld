@@ -40,6 +40,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  /* Offset anchor targets so they clear the 64px fixed nav (scrollIntoView respects this). */
+  scroll-padding-top: 76px;
+}
+
 html,
 body {
   height: 100%;
@@ -78,15 +83,16 @@ body {
   display: none;
 }
 
-/* ── Smooth page transition on route change (honors reduced motion) ── */
-@keyframes routeFadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: none; }
-}
-.route-transition {
-  animation: routeFadeIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
-  will-change: opacity, transform;
+/* ── View Transitions cross-fade on route change (nav <Link>s opt in via viewTransition) ── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.28s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 @media (prefers-reduced-motion: reduce) {
-  .route-transition { animation: none; }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

@@ -28,7 +28,10 @@ function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   const y = el.getBoundingClientRect().top + window.scrollY - 72;
-  window.scrollTo({ top: y, behavior: 'smooth' });
+  window.scrollTo({
+    top: y,
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+  });
 }
 
 // ── Inline email capture (hero + final) wired to the real waitlist ──
@@ -122,7 +125,7 @@ export default function Landing() {
             </h1>
             <p className="rh-hero-sub">{t('relaunchHome.hero.sub')}</p>
             <div className="rh-hero-ctas">
-              <Link to="/money-challenges" className="rh-btn rh-btn--primary">
+              <Link to="/money-challenges" viewTransition className="rh-btn rh-btn--primary">
                 {t('relaunchHome.hero.ctaPrimary')}
               </Link>
               <a
@@ -175,7 +178,7 @@ export default function Landing() {
               &ldquo;{t('relaunchHome.mechanism.quote')}&rdquo;
               <footer className="rh-quote-footer">
                 {t('relaunchHome.mechanism.quoteAuthor')} —{' '}
-                <Link to="/founder" className="rh-accent-link">{t('relaunchHome.mechanism.quoteSource')}</Link>
+                <Link to="/founder" viewTransition className="rh-accent-link">{t('relaunchHome.mechanism.quoteSource')}</Link>
               </footer>
             </blockquote>
           </div>
@@ -198,7 +201,7 @@ export default function Landing() {
               <p className="rh-founder-quote">&ldquo;{t('relaunchHome.founderStrip.quote')}&rdquo;</p>
               <span className="rh-founder-name">{t('relaunchHome.founderStrip.name')}</span>
             </div>
-            <Link to="/founder" className="rh-founder-link">{t('relaunchHome.founderStrip.link')}</Link>
+            <Link to="/founder" viewTransition className="rh-founder-link">{t('relaunchHome.founderStrip.link')}</Link>
           </div>
         </section>
 
@@ -309,7 +312,7 @@ export default function Landing() {
                 <span className="rh-accent">{t('relaunchHome.affiliate.h2Accent')}</span>
               </h2>
               <p className="rh-affiliate-body">{t('relaunchHome.affiliate.body')}</p>
-              <Link to="/affiliate" className="rh-btn rh-btn--primary rh-affiliate-cta">
+              <Link to="/affiliate" viewTransition className="rh-btn rh-btn--primary rh-affiliate-cta">
                 {t('relaunchHome.affiliate.cta')}
               </Link>
             </div>
@@ -373,11 +376,11 @@ export default function Landing() {
         <section className="rh-blog">
           <div className="rh-blog-head">
             <h2 className="rh-blog-h2">{t('relaunchHome.blogTeaser.h2')}</h2>
-            <Link to="/blog" className="rh-blog-seeall">{t('relaunchHome.blogTeaser.seeAll')}</Link>
+            <Link to="/blog" viewTransition className="rh-blog-seeall">{t('relaunchHome.blogTeaser.seeAll')}</Link>
           </div>
           <div className="rh-blog-grid">
             {posts.map((p, i) => (
-              <Link to="/blog" className="rh-card rh-card--outlined rh-blog-card" key={i}>
+              <Link to="/blog" viewTransition className="rh-card rh-card--outlined rh-blog-card" key={i}>
                 <span className="rh-blog-cat">{p.cat}</span>
                 <span className="rh-blog-title">{p.title}</span>
                 <span className="rh-blog-meta">{p.meta}</span>
