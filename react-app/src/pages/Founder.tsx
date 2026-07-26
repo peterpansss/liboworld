@@ -28,7 +28,7 @@ export default function Founder() {
   return (
     <div className="founder-page">
       <SeoHead
-        title="Founder — Libo World · Training Club"
+        title={t('relaunchFounder.seo.title')}
         description={t('relaunchFounder.hero.sub')}
         canonical="https://liboworld.com/founder"
         ogImage="https://liboworld.com/brand/og-image.png"

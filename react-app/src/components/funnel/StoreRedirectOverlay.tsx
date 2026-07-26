@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { colors } from '../../theme';
 import { STORE_URLS } from '../../utils/storeRedirect';
 
@@ -39,6 +40,8 @@ function qrSrc(target: string): string {
 }
 
 export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: Props) {
+  const { t } = useTranslation();
+
   // Esc to close
   useEffect(() => {
     if (!open) return;
@@ -160,9 +163,9 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
             target="_blank"
             rel="noopener noreferrer"
             style={badgeImgLink}
-            aria-label="Download on the App Store"
+            aria-label={t('store.downloadAppStore')}
           >
-            <img src="/store-badges/app-store.svg" alt="Download on the App Store" style={badgeImg} />
+            <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} style={badgeImg} />
           </a>
         </div>
       </div>

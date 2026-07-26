@@ -31,6 +31,7 @@ export default function LanguageSwitcher({ variant = 'nav' }: Props) {
 
   const pick = (code: LanguageCode) => {
     i18n.changeLanguage(code);
+    try { localStorage.setItem('libo-lang', code); } catch { /* SSR / private mode */ }
     setOpen(false);
   };
 

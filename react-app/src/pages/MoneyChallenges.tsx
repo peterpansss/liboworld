@@ -28,8 +28,8 @@ export default function MoneyChallenges() {
     <div className="mc-page">
       <SiteNav />
       <SeoHead
-        title="Money Challenges — Train 30 Days, Earn Real Cash | Libo"
-        description="30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just real money. Limited spots per cycle keep it honest."
+        title={t('relaunchChallenges.seo.title')}
+        description={t('relaunchChallenges.seo.description')}
         canonical="/money-challenges"
         ogImage="/brand/og-image.png"
       />

@@ -103,7 +103,7 @@ export default function Landing() {
   return (
     <>
       <SeoHead
-        title="Libo — Your reps pay real cash."
+        title={t('relaunchHome.seo.title')}
         description={t('relaunchHome.hero.sub')}
         canonical="https://liboworld.com/"
         ogImage="https://liboworld.com/brand/og-image.png"

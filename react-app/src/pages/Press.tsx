@@ -75,7 +75,7 @@ export default function Press() {
     <div className="press-page">
       <SiteNav />
       <SeoHead
-        title="Press Kit — Libo"
+        title={t('relaunchPress.seo.title')}
         description={t('relaunchPress.boilerplate.body')}
         canonical="/press"
         ogImage="https://liboworld.com/brand/og-image.png"
@@ -99,7 +99,7 @@ export default function Press() {
         </header>
 
         {/* ── Fact sheet ─────────────────────────── */}
-        <section className="press-facts" aria-label="Fact sheet">
+        <section className="press-facts" aria-label={t('relaunchPress.aria.factSheet')}>
           <div className="press-facts-grid">
             {factList.map((f, i) => (
               <div className="press-fact-card" key={i}>
@@ -180,7 +180,7 @@ export default function Press() {
                 <img src={`/${s.img}`} alt={s.label} className="press-shot-img" loading="lazy" />
                 <div className="press-shot-meta">
                   <span className="press-muted-12">{s.label}</span>
-                  <a href={`/${s.img}`} download className="press-link" aria-label={`Download ${s.label}`}>
+                  <a href={`/${s.img}`} download className="press-link" aria-label={t('relaunchPress.aria.download', { label: s.label })}>
                     ↓
                   </a>
                 </div>

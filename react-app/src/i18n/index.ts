@@ -17,7 +17,17 @@ export const SUPPORTED_LANGUAGES = {
 
 export type LanguageCode = keyof typeof SUPPORTED_LANGUAGES;
 
-try { localStorage.removeItem('libo-lang'); } catch { /* SSR / private mode */ }
+// Restore the visitor's saved language choice (set by LanguageSwitcher).
+// Falls back to 'en' when nothing valid is stored or storage is unavailable.
+const readStoredLanguage = (): LanguageCode => {
+  try {
+    const stored = localStorage.getItem('libo-lang');
+    if (stored && stored in SUPPORTED_LANGUAGES) return stored as LanguageCode;
+  } catch { /* SSR / private mode */ }
+  return 'en';
+};
+
+const initialLanguage = readStoredLanguage();
 
 // Surface missing translations during development so future drift is obvious.
 // In production we stay silent and rely on fallbackLng: 'en'.
@@ -39,7 +49,7 @@ i18n
       es: { translation: es },
       pt: { translation: pt },
     },
-    lng: 'en',
+    lng: initialLanguage,
     fallbackLng: 'en',
     supportedLngs: ['en', 'de', 'fr', 'es', 'pt'],
     interpolation: { escapeValue: false },

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { colors } from '../../theme';
 
 // Inline sr-only style — visually hidden, still announced by screen readers.
@@ -12,13 +13,17 @@ const srOnly: React.CSSProperties = {
   whiteSpace: 'nowrap',
 };
 
-function partsToSentence(label: string, parts: { days: number; hours: number; minutes: number; seconds: number }) {
+function partsToSentence(
+  label: string,
+  parts: { days: number; hours: number; minutes: number; seconds: number },
+  remaining: string,
+) {
   const segs: string[] = [];
   if (parts.days > 0) segs.push(parts.days === 1 ? '1 day' : parts.days + ' days');
   if (parts.hours > 0) segs.push(parts.hours === 1 ? '1 hour' : parts.hours + ' hours');
   if (parts.minutes > 0) segs.push(parts.minutes === 1 ? '1 minute' : parts.minutes + ' minutes');
   if (parts.seconds > 0 || segs.length === 0) segs.push(parts.seconds === 1 ? '1 second' : parts.seconds + ' seconds');
-  return label + ' ' + segs.join(', ') + ' remaining';
+  return label + ' ' + segs.join(', ') + ' ' + remaining;
 }
 
 type Props = {
@@ -55,6 +60,7 @@ function diffParts(target: number, now: number) {
 }
 
 export default function CountdownBanner({ endsAt, label, closedLabel, urgentBelowSeconds = 3600 }: Props) {
+  const { t } = useTranslation();
   const [now, setNow] = useState(() => Date.now());
   const target = new Date(endsAt).getTime();
   const parts = diffParts(target, now);
@@ -84,22 +90,22 @@ export default function CountdownBanner({ endsAt, label, closedLabel, urgentBelo
   useEffect(() => {
     if (ended && !lastEndedRef.current) {
       lastEndedRef.current = true;
-      setAnnouncement(label.replace(/IN$/i, '').trim() + ' closed');
+      setAnnouncement(label.replace(/IN$/i, '').trim() + ' ' + t('countdown.closed'));
       return;
     }
     if (!ended) {
       const subMinute = parts.totalSec > 0 && parts.totalSec < 60;
       if (subMinute && !lastSubMinuteRef.current) {
         lastSubMinuteRef.current = true;
-        setAnnouncement('Less than 1 minute remaining');
+        setAnnouncement(t('countdown.lessThanMinute'));
         return;
       }
       if (urgent && !lastUrgentRef.current) {
         lastUrgentRef.current = true;
-        setAnnouncement('Less than 1 hour remaining');
+        setAnnouncement(t('countdown.lessThanHour'));
       }
     }
-  }, [ended, urgent, parts.totalSec, label]);
+  }, [ended, urgent, parts.totalSec, label, t]);
   /* eslint-enable react-hooks/set-state-in-effect */
 
   const bg = urgent
@@ -130,7 +136,7 @@ export default function CountdownBanner({ endsAt, label, closedLabel, urgentBelo
         // Otherwise fall back to the legacy English-only behaviour: strip a
         // trailing "IN" off the prefix and append "CLOSED" — kept for
         // backwards compatibility with the existing English call sites.
-        <span>{closedLabel ?? `${label.replace(/IN$/i, '').trimEnd()} CLOSED`}</span>
+        <span>{closedLabel ?? `${label.replace(/IN$/i, '').trimEnd()} ${t('countdown.closedLabel')}`}</span>
       ) : (
         <>
           <span style={{ marginRight: 12 }} aria-hidden="true">{label}</span>
@@ -154,7 +160,7 @@ export default function CountdownBanner({ endsAt, label, closedLabel, urgentBelo
           </span>
           {/* Visually hidden full-sentence label so AT users get context
               if they navigate onto the banner directly (not a live region). */}
-          <span style={srOnly}>{partsToSentence(label, parts)}</span>
+          <span style={srOnly}>{partsToSentence(label, parts, t('countdown.remaining'))}</span>
         </>
       )}
 

@@ -39,8 +39,8 @@ export default function Pricing() {
   return (
     <>
       <SeoHead
-        title="Pricing | Libo — Training Club"
-        description="Free forever, or €6.67/mo for everything. No card to start. 7 days of Premium on us either way."
+        title={t('relaunchPricing.seo.title')}
+        description={t('relaunchPricing.seo.description')}
         canonical="https://liboworld.com/pricing"
         ogImage="https://liboworld.com/brand/og-image.png"
       />
@@ -61,7 +61,7 @@ export default function Pricing() {
         </header>
 
         {/* ── Plans ── */}
-        <section className="pr-plans" aria-label="Plans">
+        <section className="pr-plans" aria-label={t('relaunchPricing.aria.plans')}>
           {plans.map((p, i) => {
             const cfg = PLAN_CONFIG[i] ?? PLAN_CONFIG[0];
             return (
@@ -116,7 +116,7 @@ export default function Pricing() {
         </section>
 
         {/* ── Guarantee strip ── */}
-        <section className="pr-guarantee" aria-label="Guarantees">
+        <section className="pr-guarantee" aria-label={t('relaunchPricing.aria.guarantees')}>
           <div className="pr-guarantee__inner">
             {(t('relaunchPricing.guarantee', { returnObjects: true }) as { title: string; body: string }[]).map(
               (g, i) => (
@@ -130,7 +130,7 @@ export default function Pricing() {
         </section>
 
         {/* ── FAQ ── */}
-        <section className="pr-faq" aria-label="Frequently asked questions">
+        <section className="pr-faq" aria-label={t('relaunchPricing.aria.faq')}>
           <div className="pr-faq__head">
             <h2 className="pr-faq__h2">{t('relaunchPricing.faq.headline')}</h2>
             <p className="pr-faq__subhead">

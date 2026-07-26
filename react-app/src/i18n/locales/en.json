@@ -165,6 +165,13 @@
     "googlePlay": "Google Play",
     "downloadAppStore": "Download on App Store"
   },
+  "countdown": {
+    "closed": "closed",
+    "closedLabel": "CLOSED",
+    "lessThanMinute": "Less than 1 minute remaining",
+    "lessThanHour": "Less than 1 hour remaining",
+    "remaining": "remaining"
+  },
   "community": {
     "eyebrow": "THE LIBO COMMUNITY",
     "headline": "JOIN A COMMUNITY THAT TRAINS WITH YOU.",
@@ -1170,6 +1177,9 @@
     }
   },
   "relaunchHome": {
+    "seo": {
+      "title": "Libo — Your reps pay real cash."
+    },
     "hero": {
       "badgeComingSoon": "Coming soon",
       "badgeIos": "iOS & Android",
@@ -1436,6 +1446,15 @@
     }
   },
   "relaunchPricing": {
+    "seo": {
+      "title": "Pricing | Libo — Training Club",
+      "description": "Free forever, or €6.67/mo for everything. No card to start. 7 days of Premium on us either way."
+    },
+    "aria": {
+      "plans": "Plans",
+      "guarantees": "Guarantees",
+      "faq": "Frequently asked questions"
+    },
     "hero": {
       "badge": "Pricing",
       "h1Pre": "Free forever. Or ",
@@ -1520,6 +1539,9 @@
     }
   },
   "relaunchFounder": {
+    "seo": {
+      "title": "Founder — Libo World · Training Club"
+    },
     "hero": {
       "badge": "About Libo",
       "h1Line1": "The club that pays",
@@ -1578,6 +1600,10 @@
     }
   },
   "relaunchChallenges": {
+    "seo": {
+      "title": "Money Challenges — Train 30 Days, Earn Real Cash | Libo",
+      "description": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just real money. Limited spots per cycle keep it honest."
+    },
     "hero": {
       "badge1": "30-day challenge",
       "badge2": "Cycle #1 · 50 spots",
@@ -1679,6 +1705,13 @@
     }
   },
   "relaunchPress": {
+    "seo": {
+      "title": "Press Kit — Libo"
+    },
+    "aria": {
+      "factSheet": "Fact sheet",
+      "download": "Download {{label}}"
+    },
     "hero": {
       "badge": "Press kit",
       "h1Line1": "Everything you need",
