@@ -20,7 +20,7 @@ const DEFAULT_USERS = 100;
 const FAQS = [
   {
     q: 'How much will I be paid?',
-    a: 'You earn a 25% commission on every paying subscriber you refer — for as long as they stay subscribed. Most active creators earn between €100 and €1,500 per month.',
+    a: 'We pay commission based on the sales. We do not pay commissions for driving traffic to our app. Our standard commission rate is 25% per transaction (on new subscriptions and renewals).',
   },
   {
     q: 'When and how do I get paid?',

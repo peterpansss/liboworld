@@ -40,15 +40,23 @@ function CaptureForm({
   confirm,
   placeholder,
   button,
+  onJoined,
 }: {
   variant: 'hero' | 'final';
   confirm: string;
   placeholder: string;
   button: string;
+  onJoined?: () => void;
 }) {
   const source = variant === 'hero' ? 'homepage_waitlist' : 'challenge_waitlist';
   const { email, setEmail, status, submit } = useWaitlistSubmit(source);
   const joined = status === 'success' || status === 'duplicate';
+
+  // Email captured → pop the Founding-Member payment gate (dismissible).
+  useEffect(() => {
+    if (joined) onJoined?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [joined]);
 
   if (joined) {
     return <div className={`rh-capture-confirm rh-capture-confirm--${variant}`}>{confirm}</div>;
@@ -125,9 +133,13 @@ export default function Landing() {
             </h1>
             <p className="rh-hero-sub">{t('relaunchHome.hero.sub')}</p>
             <div className="rh-hero-ctas">
-              <Link to="/money-challenges" viewTransition className="rh-btn rh-btn--primary">
+              <button
+                type="button"
+                className="rh-btn rh-btn--primary"
+                onClick={() => openFoundingCheckout('hero_reserve')}
+              >
                 {t('relaunchHome.hero.ctaPrimary')}
-              </Link>
+              </button>
               <a
                 href="#mechanism"
                 className="rh-btn rh-btn--ghost"
@@ -142,6 +154,7 @@ export default function Landing() {
                 confirm={t('relaunchHome.hero.captureConfirm')}
                 placeholder={t('relaunchHome.hero.emailPlaceholder')}
                 button={t('relaunchHome.hero.captureButton')}
+                onJoined={() => openFoundingCheckout('post_waitlist')}
               />
               <p className="rh-capture-note">{t('relaunchHome.hero.captureNote')}</p>
             </div>
