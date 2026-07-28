@@ -177,14 +177,23 @@ function formToInput(f: FormState): MoneyChallengeInput {
     reward_amount: Number(f.reward_amount) || 0,
     reward_currency: f.reward_currency.trim() || 'EUR',
     max_participants: f.max_participants.trim() ? Number(f.max_participants) : null,
-    // The single tier selector makes the challenge EXCLUSIVE to that one tier
-    // (min = max = selected). Elite isn't live, so a Pro challenge is Pro-only,
-    // not "Pro and up". When Elite relaunches, an Elite challenge is Elite-only
-    // (which equals "Elite and up" since it's the top tier). Server gates on
-    // min_tier; max_tier enforces the upper bound.
+    // The tier selector sets a MINIMUM tier only — never a maximum.
+    // A paying member must always see everything a free member sees, plus
+    // more; capping the band made Premium feel like *less* than Free (a Pro
+    // member was locked out of the free challenge). See canon
+    // REWARDS-ECONOMY-RULES.md §7.4.
+    //
+    // max_tier stays NULL. It is deliberately not written here: this function
+    // previously set max_tier = required_tier, so any save — even an unrelated
+    // one like a title tweak — silently re-locked the challenge to a single
+    // tier. The column still exists and the server still honours a non-null
+    // value; it is simply never set from the admin panel.
+    //
+    // Slot crowding (paying members consuming free seats) is handled by sizing
+    // max_participants for the combined population, not by exclusion.
     required_tier: f.required_tier,
     min_tier: f.required_tier,
-    max_tier: f.required_tier,
+    max_tier: null,
     is_active: f.is_active,
     sort_order: Number(f.sort_order) || 0,
     image_url: f.image_url.trim() || null,
