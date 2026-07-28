@@ -3,6 +3,8 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
 import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
+import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvider';
+import { isStripeConfigured } from '../lib/stripe';
 import './MoneyChallenges.css';
 
 // /money-challenges — 30-day cash-challenge landing page.
@@ -177,6 +179,7 @@ export default function MoneyChallenges() {
 // relaunchChallenges.reserve copy. Persists to the `challenge_waitlist` source.
 function ReserveSection() {
   const { t } = useTranslation();
+  const { openFoundingCheckout } = useFoundingCheckout();
   const { email, setEmail, status, submit } = useWaitlistSubmit('challenge_waitlist');
   const done = status === 'success' || status === 'duplicate';
 
@@ -190,8 +193,25 @@ function ReserveSection() {
       <p className="mc-reserve__body">{t('relaunchChallenges.reserve.body')}</p>
 
       {done ? (
-        <div className="mc-reserve__confirm font-display">
-          {t('relaunchChallenges.reserve.confirm')}
+        // Step 1 is complete and the lead is saved. The Founding Member card
+        // below is an OPTIONAL second step — the only path into payment.
+        <div className="mc-reserve__joined">
+          <div className="mc-reserve__confirm font-display">
+            {t('relaunchChallenges.reserve.confirm')}
+          </div>
+          {isStripeConfigured() && (
+            <div className="mc-reserve__upsell">
+              <p className="mc-reserve__upsell-heading font-display">{t('waitlist.upsellHeading')}</p>
+              <p className="mc-reserve__upsell-body">{t('waitlist.upsellBody')}</p>
+              <button
+                type="button"
+                className="mc-btn mc-reserve__upsell-cta"
+                onClick={() => openFoundingCheckout('post_waitlist_challenge', { email })}
+              >
+                {t('waitlist.upsellCta')}
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <form className="mc-reserve__form" onSubmit={submit}>

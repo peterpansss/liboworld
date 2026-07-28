@@ -142,6 +142,9 @@ export type CreateIntentFn = (args: {
 
 type Props = {
   open: boolean;
+  /** Seed the step-1 email field — e.g. the address the user already gave a
+   *  waitlist capture, so the founding-member upsell doesn't ask twice. */
+  initialEmail?: string;
   selected: ModalSelectedTier | null;
   /** Currency symbol for order summary, defaults to "€" */
   currency?: string;
@@ -205,6 +208,7 @@ type Step = 1 | 2;
 
 export default function FunnelCheckoutModal({
   open,
+  initialEmail = '',
   selected,
   currency = '€',
   createIntent,
@@ -267,6 +271,13 @@ export default function FunnelCheckoutModal({
       }, 200);
     }
   }, [open]);
+
+  // Prefill the email the user already gave upstream (waitlist capture), so
+  // the founding-member step doesn't ask for it a second time. Runs on open;
+  // the close handler above clears it again.
+  useEffect(() => {
+    if (open && initialEmail) setEmail(initialEmail);
+  }, [open, initialEmail]);
 
   // Esc to close (always allowed — same convention as native <dialog>).
   useEffect(() => {

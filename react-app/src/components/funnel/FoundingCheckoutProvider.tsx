@@ -41,8 +41,14 @@ export type FoundingSource =
   | 'post_waitlist_challenge'
   | string;
 
+/** Optional context carried in from the entry point (e.g. an email the user
+ *  already typed into a waitlist capture, so they don't retype it). */
+export type FoundingCheckoutOptions = {
+  email?: string;
+};
+
 type FoundingCheckoutContextValue = {
-  openFoundingCheckout: (source: FoundingSource) => void;
+  openFoundingCheckout: (source: FoundingSource, options?: FoundingCheckoutOptions) => void;
 };
 
 const FoundingCheckoutContext = createContext<FoundingCheckoutContextValue>({
@@ -58,13 +64,18 @@ export default function FoundingCheckoutProvider({ children }: { children: React
   const { t } = useTranslation();
   // `source` doubles as the open flag: null = closed.
   const [source, setSource] = useState<FoundingSource | null>(null);
+  const [initialEmail, setInitialEmail] = useState('');
   const open = source !== null;
 
-  const openFoundingCheckout = useCallback((src: FoundingSource) => {
-    // Never open a checkout that can't take money.
-    if (!isStripeConfigured()) return;
-    setSource(src);
-  }, []);
+  const openFoundingCheckout = useCallback(
+    (src: FoundingSource, options?: FoundingCheckoutOptions) => {
+      // Never open a checkout that can't take money.
+      if (!isStripeConfigured()) return;
+      setInitialEmail(options?.email?.trim() ?? '');
+      setSource(src);
+    },
+    [],
+  );
 
   const stripeReady = isStripeConfigured();
 
@@ -88,6 +99,7 @@ export default function FoundingCheckoutProvider({ children }: { children: React
       {stripeReady && (
         <FunnelCheckoutModal
           open={open}
+          initialEmail={initialEmail}
           selected={open ? selectedTier : null}
           currency="€"
           consentHref="/terms#early-access"

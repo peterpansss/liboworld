@@ -784,3 +784,61 @@ video.rh-phone {
   .rh-capture-form { flex-direction: column; }
   .rh-capture-button { width: 100%; }
 }
+
+/* ── Post-capture Founding Member upsell (step 2) ──────────────────────────
+   The confirmation is step 1 and stands alone. This card is the ONLY path
+   into payment from a capture form — a free-labelled ask never opens
+   checkout. Price is shown here so it is visible before the modal opens. */
+.rh-capture-joined {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 480px;
+}
+
+.rh-capture-upsell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--libo-bg-2);
+  border: 1px solid var(--libo-bg-4);
+  border-radius: var(--libo-r-card, 16px);
+  padding: 18px 20px;
+}
+
+.rh-capture-upsell-heading {
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: var(--libo-text);
+  margin: 0;
+}
+
+.rh-capture-upsell-body {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--libo-muted);
+  margin: 0;
+}
+
+.rh-capture-upsell-cta {
+  align-self: flex-start;
+  margin-top: 4px;
+  background: var(--libo-accent);
+  color: #080808;
+  border: none;
+  font-family: var(--libo-font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  padding: 12px 22px;
+  border-radius: var(--libo-r-button);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.rh-capture-upsell-cta:hover {
+  background: var(--libo-accent-2, var(--libo-accent));
+}

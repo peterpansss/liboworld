@@ -8,6 +8,7 @@ import { SeoHead } from '../components/SeoHead';
 import { HOME_FAQ } from '../data/faq';
 import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvider';
+import { isStripeConfigured } from '../lib/stripe';
 import './Landing.css';
 
 // Urgency: how many of the 50 cycle-#1 spots are already reserved.
@@ -35,31 +36,52 @@ function scrollToId(id: string) {
 }
 
 // ── Inline email capture (hero + final) wired to the real waitlist ──
+//
+// TWO STEPS, STRICTLY ORDERED. Submitting an email is a FREE ask and must
+// always end in a confirmation — it must never open payment. The Founding
+// Member purchase is a separate, explicit second click, rendered below the
+// confirmation as an optional upgrade with the price visible up front.
+//
+// This previously auto-opened the checkout modal via an `onJoined` effect, so
+// a free-labelled ask ("Get early access") dropped the user straight into a
+// paywall. The lead is saved either way — see useWaitlistSubmit — so nothing
+// is lost by letting them stop at step one.
 function CaptureForm({
   variant,
   confirm,
   placeholder,
   button,
-  onJoined,
 }: {
   variant: 'hero' | 'final';
   confirm: string;
   placeholder: string;
   button: string;
-  onJoined?: () => void;
 }) {
+  const { t } = useTranslation();
+  const { openFoundingCheckout } = useFoundingCheckout();
   const source = variant === 'hero' ? 'homepage_waitlist' : 'challenge_waitlist';
   const { email, setEmail, status, submit } = useWaitlistSubmit(source);
   const joined = status === 'success' || status === 'duplicate';
 
-  // Email captured → pop the Founding-Member payment gate (dismissible).
-  useEffect(() => {
-    if (joined) onJoined?.();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [joined]);
-
   if (joined) {
-    return <div className={`rh-capture-confirm rh-capture-confirm--${variant}`}>{confirm}</div>;
+    return (
+      <div className="rh-capture-joined">
+        <div className={`rh-capture-confirm rh-capture-confirm--${variant}`}>{confirm}</div>
+        {isStripeConfigured() && (
+          <div className="rh-capture-upsell">
+            <p className="rh-capture-upsell-heading font-display">{t('waitlist.upsellHeading')}</p>
+            <p className="rh-capture-upsell-body">{t('waitlist.upsellBody')}</p>
+            <button
+              type="button"
+              className="rh-capture-upsell-cta"
+              onClick={() => openFoundingCheckout('post_waitlist', { email })}
+            >
+              {t('waitlist.upsellCta')}
+            </button>
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
@@ -154,7 +176,6 @@ export default function Landing() {
                 confirm={t('relaunchHome.hero.captureConfirm')}
                 placeholder={t('relaunchHome.hero.emailPlaceholder')}
                 button={t('relaunchHome.hero.captureButton')}
-                onJoined={() => openFoundingCheckout('post_waitlist')}
               />
               <p className="rh-capture-note">{t('relaunchHome.hero.captureNote')}</p>
             </div>

@@ -482,3 +482,45 @@
     justify-content: center;
   }
 }
+
+/* ── Post-reserve Founding Member upsell (step 2) ──────────────────────────
+   Mirrors .rh-capture-upsell on the home page. The reserve confirmation is
+   step 1; this card is the only route into checkout. */
+.mc-reserve__joined {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.mc-reserve__upsell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 480px;
+  background: var(--bg-2, #101010);
+  border: 1px solid var(--bg-4, #262626);
+  border-radius: 16px;
+  padding: 18px 20px;
+  text-align: center;
+}
+
+.mc-reserve__upsell-heading {
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.mc-reserve__upsell-body {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted, #9a9a9a);
+  margin: 0;
+}
+
+.mc-reserve__upsell-cta {
+  margin-top: 4px;
+}

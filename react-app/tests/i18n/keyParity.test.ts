@@ -40,8 +40,23 @@ function flatten(obj: Json, prefix = '', out: Record<string, string> = {}): Reco
   return out;
 }
 
+/**
+ * Namespaces that are deliberately English-only. Their keys are expected to be
+ * absent from every non-en locale and are served in English via
+ * `fallbackLng: 'en'`.
+ *
+ * `relaunchFounder` — the /founder page is founder-voice copy written in
+ * Noah's own register (2026-07-28). Translating it flattens the voice and
+ * creates revision debt every time the story changes, so it ships in English
+ * for all languages by design. Do NOT "fix" this by adding translations.
+ */
+const EN_ONLY_NAMESPACES = ['relaunchFounder'];
+
+const isEnOnly = (key: string) =>
+  EN_ONLY_NAMESPACES.some((ns) => key === ns || key.startsWith(`${ns}.`));
+
 const enFlat = flatten(en as Json);
-const enKeys = Object.keys(enFlat).sort();
+const enKeys = Object.keys(enFlat).sort().filter((k) => !isEnOnly(k));
 
 const LOCALES: Array<readonly [string, Json]> = [
   ['de', de as Json],
