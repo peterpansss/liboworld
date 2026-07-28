@@ -1508,67 +1508,6 @@
       "faq": "Questions fréquentes"
     }
   },
-  "relaunchFounder": {
-    "hero": {
-      "badge": "À propos de Libo",
-      "h1Line1": "Le club qui paie",
-      "h1Accent": "ta facture de régularité.",
-      "sub": "Libo n'est pas l'app de fitness d'un seul fondateur. C'est un training club bâti autour d'un pari simple : les gens n'échouent pas par manque d'entraînements — ils échouent parce que rien ne se passe quand ils abandonnent."
-    },
-    "why": {
-      "imgAlt": "Noah F., fondateur de Libo, portant deux amis sur ses bras",
-      "badgeName": "Noah F.",
-      "badgeRole": "Fondateur",
-      "h2": "Pourquoi on construit ça",
-      "pillars": [
-        {
-          "num": "01",
-          "title": "Forgé dans le Leistungssport",
-          "body": "Noah vient du sport de haut niveau : des années de football en Regionalliga en Allemagne, sélectionné pour le DFB Stützpunkt et la Westfalenauswahl avec le Bonner SC. La discipline tenait parce qu'il y avait toujours un vrai enjeu — une équipe, une sélection, une saison. Libo reconstruit ces enjeux pour tous les autres."
-        },
-        {
-          "num": "02",
-          "title": "Un pas en arrière, deux pas en avant",
-          "body": "En dehors du terrain, Noah a bâti deux entreprises à succès — la marque de mode Mieuxnoir et la société de production de mode Manufactnow. Mais la vie l'a fait reculer d'un pas plus d'une fois : mauvais choix, redémarrages difficiles. À chaque fois, il est revenu avec deux pas d'avance. C'est le schéma que Libo récompense — pas la perfection, le comeback."
-        },
-        {
-          "num": "03",
-          "title": "L'enjeu réel bat la motivation",
-          "body": "L'aversion à la perte est plus forte que la volonté : les gens se battent plus dur pour ne pas perdre €15 que pour gagner un badge. Les cash challenges de 30 jours de Libo mettent du vrai argent sur ta régularité — fais les reps, poste la preuve, encaisse. Abandonne, et ça t'a coûté quelque chose."
-        },
-        {
-          "num": "04",
-          "title": "Un club, pas une audience",
-          "body": "Pas de coachs ni d'influenceurs qui vendent des formations — quiconque rejoint le club plus tard, les membres accèdent à tout via Premium. Les cash challenges tournent en petits cycles de 50, les séries sont publiques, et les membres se tiennent mutuellement responsables. Le produit, ce sont les gens présents — l'app ne fait que tenir le score."
-        }
-      ]
-    },
-    "pullQuote": {
-      "line1": "Tu n'as pas perdu €15 —",
-      "line2Pre": "tu t'es offert ",
-      "line2Accent": "un corps pour €0.",
-      "name": "Noah F.",
-      "source": "extrait de « 30 Days, One Habit, Real Money »",
-      "cta": "Lire l'article complet →"
-    },
-    "vision": {
-      "h2Line1": "Où tout ça",
-      "h2Line2": "va.",
-      "desc": "La vision de Noah, c'est un club — un écosystème où la présence compose : entraînement, challenges, communauté et récompenses qui se nourrissent les uns les autres. On préfère livrer la suite que l'annoncer.",
-      "cardPre": "L'app, c'est le chapitre un. Ce qui vient ensuite reste dans le club — ",
-      "cardAccent": "ce qui ne change jamais, c'est que la régularité paie."
-    },
-    "joinCta": {
-      "h2Line1": "Fais partie du",
-      "h2Accent": "chapitre un.",
-      "body": "50 places dans le cycle #1 du challenge. Un prix Founding Member qui se termine au lancement. Voilà tout le pitch.",
-      "ctaPrimary": "Réserve le cycle #1 →",
-      "ctaSecondary": "Voir les tarifs"
-    },
-    "seo": {
-      "title": "Fondateur — Libo World · Training Club"
-    }
-  },
   "relaunchChallenges": {
     "hero": {
       "badge1": "Challenge de 30 jours",

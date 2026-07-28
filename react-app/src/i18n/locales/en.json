@@ -1529,9 +1529,9 @@
     },
     "hero": {
       "badge": "About Libo",
-      "h1Line1": "The club that pays",
-      "h1Accent": "your consistency bill.",
-      "sub": "Libo isn't one founder's fitness app. It's a training club built around a simple bet: people don't fail because they lack workouts — they fail because nothing happens when they quit."
+      "h1Line1": "Built on showing up.",
+      "h1Accent": "Every single day.",
+      "sub": "Libo isn't one founder's fitness app. It's a training club built on a simple belief: people don't fail because they lack workouts — they fail because nothing is on the line when they quit."
     },
     "why": {
       "imgAlt": "Noah F., founder of Libo, carrying two friends on his arms",
@@ -1551,22 +1551,22 @@
         },
         {
           "num": "03",
-          "title": "Skin in the game beats motivation",
-          "body": "Loss aversion is stronger than willpower: people fight harder to not lose €15 than to win a badge. Libo's 30-day cash challenges put real money on your consistency — do the reps, post the proof, cash out. Quit, and it cost you something."
+          "title": "Standards beat motivation",
+          "body": "Willpower fades; standards hold. Libo turns training into a commitment you keep in front of others: public streaks, small cohorts, a club that notices when you don't show up."
         },
         {
           "num": "04",
           "title": "A club, not an audience",
-          "body": "No coaches or influencers selling courses — whoever joins the club later, members access everything through Premium. Cash challenges run in small cycles of 50, streaks are public, and members hold each other to it. The product is the people showing up — the app just keeps score."
+          "body": "No coaches or influencers selling courses — whoever joins the club later, members get everything through Premium. Cohorts stay small, streaks are public, and members hold each other to it. The product is the people showing up — the app just keeps score."
         }
       ]
     },
     "pullQuote": {
-      "line1": "You didn't lose €15 —",
-      "line2Pre": "you bought yourself ",
-      "line2Accent": "a body for €0.",
+      "line1": "“Motivation gets you to day three.",
+      "line2Pre": "",
+      "line2Accent": "Standards get you to day thirty.”",
       "name": "Noah F.",
-      "source": "from \"30 Days, One Habit, Real Money\"",
+      "source": "from “30 Days, One Habit”",
       "cta": "Read the full post →"
     },
     "vision": {

@@ -1523,67 +1523,6 @@
       "aRefund": "Reembolso total a qualquer momento antes do lançamento, sem perguntas. E seus 12 meses começam no dia do lançamento, então você não perde nem um dia esperando."
     }
   },
-  "relaunchFounder": {
-    "seo": {
-      "title": "Fundador — Libo World · Training Club"
-    },
-    "hero": {
-      "badge": "Sobre a Libo",
-      "h1Line1": "O clube que paga",
-      "h1Accent": "a conta da sua consistência.",
-      "sub": "A Libo não é o app de fitness de um fundador. É um Training Club construído em torno de uma aposta simples: as pessoas não falham por falta de treino — falham porque nada acontece quando desistem."
-    },
-    "why": {
-      "imgAlt": "Noah F., fundador da Libo, carregando dois amigos nos braços",
-      "badgeName": "Noah F.",
-      "badgeRole": "Fundador",
-      "h2": "Por que estamos construindo isso",
-      "pillars": [
-        {
-          "num": "01",
-          "title": "Forjado no Leistungssport",
-          "body": "Noah vem do esporte de alto rendimento: anos de futebol na Regionalliga na Alemanha, convocado para o DFB Stützpunkt e a Westfalenauswahl pelo Bonner SC. A disciplina se manteve porque sempre havia algo real em jogo — um elenco, uma convocação, uma temporada. A Libo recria esses riscos pra todo mundo."
-        },
-        {
-          "num": "02",
-          "title": "Um passo pra trás, dois passos à frente",
-          "body": "Fora de campo, Noah construiu duas empresas de sucesso — a marca de moda Mieuxnoir e a produtora de moda Manufactnow. Mas a vida o fez recuar mais de uma vez: escolhas erradas, recomeços difíceis. Toda vez, ele voltou dois passos à frente. É esse o padrão que a Libo recompensa — não a perfeição, a volta por cima."
-        },
-        {
-          "num": "03",
-          "title": "Ter algo em jogo vence a motivação",
-          "body": "A aversão à perda é mais forte que a força de vontade: as pessoas lutam mais pra não perder €15 do que pra ganhar um selo. Os Cash Challenges de 30 dias da Libo colocam dinheiro de verdade na sua consistência — faça as reps, poste a prova, saque. Desista, e isso te custa algo."
-        },
-        {
-          "num": "04",
-          "title": "Um clube, não uma audiência",
-          "body": "Nada de coaches ou influenciadores vendendo curso — quem entrar no clube depois, os membros acessam tudo pelo Premium. Os Cash Challenges rolam em ciclos pequenos de 50, as sequências são públicas e os membros cobram uns aos outros. O produto são as pessoas aparecendo — o app só marca o placar."
-        }
-      ]
-    },
-    "pullQuote": {
-      "line1": "Você não perdeu €15 —",
-      "line2Pre": "você comprou ",
-      "line2Accent": "um corpo por €0.",
-      "name": "Noah F.",
-      "source": "de \"30 Days, One Habit, Real Money\"",
-      "cta": "Ler o post completo →"
-    },
-    "vision": {
-      "h2Line1": "Pra onde isso",
-      "h2Line2": "está indo.",
-      "desc": "A visão de Noah é um clube — um ecossistema onde aparecer se acumula: treino, desafios, comunidade e recompensas se alimentando uns aos outros. A gente prefere entregar o que vem a seguir do que anunciar.",
-      "cardPre": "O app é o capítulo um. O que vem depois fica dentro do clube — ",
-      "cardAccent": "o que nunca muda é que a consistência paga."
-    },
-    "joinCta": {
-      "h2Line1": "Faça parte do",
-      "h2Accent": "capítulo um.",
-      "body": "50 vagas no ciclo #1 do desafio. Um preço de Founding Member que acaba no lançamento. É esse o pitch inteiro.",
-      "ctaPrimary": "Reservar ciclo #1 →",
-      "ctaSecondary": "Ver preços"
-    }
-  },
   "relaunchChallenges": {
     "seo": {
       "title": "Money Challenges — Treine 30 Dias, Ganhe Dinheiro de Verdade | Libo",
