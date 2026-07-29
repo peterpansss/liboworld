@@ -30,9 +30,16 @@ const WORKOUTS_JSON = path.join(REPO_ROOT, 'react-app', 'public', 'workouts.json
 const FACETS_JSON = path.join(REPO_ROOT, 'react-app', 'public', 'workout-facets.json');
 const BLOG_TS = path.join(REPO_ROOT, 'react-app', 'src', 'data', 'blog.ts');
 
+// NOTE the third path. This script runs as `postbuild`, i.e. AFTER Vite has
+// already copied `public/` into `dist/` — so writing only to `public/` leaves
+// `dist/sitemap.xml` holding the PREVIOUS build's output, and `dist/` is what
+// gets deployed. The result was a deployed sitemap permanently one build
+// behind (two builds in a row were needed for a change to ship). Writing
+// `dist/` directly closes that gap.
 const OUTPUTS = [
   path.join(REPO_ROOT, 'sitemap.xml'),
   path.join(REPO_ROOT, 'react-app', 'public', 'sitemap.xml'),
+  path.join(REPO_ROOT, 'react-app', 'dist', 'sitemap.xml'),
 ];
 
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -81,8 +88,11 @@ function main() {
   entries.push(urlEntry(`${SITE_URL}/workouts`, 0.9, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/blog`, 0.8, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/onboarding`, 0.6, 'monthly'));
-  entries.push(urlEntry(`${SITE_URL}/giveaway`, 0.8, 'daily'));
-  entries.push(urlEntry(`${SITE_URL}/cash-challenge`, 0.8, 'daily'));
+  // /giveaway and /cash-challenge are NOT listed. Both redirect to `/` while
+  // LAUNCH_MODE is 'prelaunch' (see react-app/src/App.tsx), so advertising them
+  // asks Google to crawl URLs that serve no content — soft-404s that dilute the
+  // pages that do. Re-add them in the same commit that flips LAUNCH_MODE to
+  // 'launched', not before.
   entries.push(urlEntry(`${SITE_URL}/get-app`, 0.5, 'monthly'));
   entries.push(urlEntry(`${SITE_URL}/privacy`, 0.3, 'yearly'));
   entries.push(urlEntry(`${SITE_URL}/terms`, 0.3, 'yearly'));
