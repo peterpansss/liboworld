@@ -2,9 +2,15 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
+import { GIVEAWAYS_ENABLED } from '../config/featureFlags';
 import './Legal.css';
 
 export default function Terms() {
+  // Section numbers are derived at render time instead of hardcoded, so gating a
+  // section off (GIVEAWAYS_ENABLED) renumbers the rest rather than leaving a gap
+  // in the sequence. Reset per render; JSX evaluates in source order.
+  let sectionNo = 0;
+  const n = () => String(++sectionNo).padStart(2, '0');
   useEffect(() => {
     document.title = 'Terms & Conditions | Libo';
     return () => { document.title = 'Libo'; };
@@ -42,7 +48,9 @@ export default function Terms() {
               <li><a href="#s5">Subscription Plans &amp; Free Trial</a></li>
               <li><a href="#s6">Billing &amp; Payment</a></li>
               <li><a href="#s7">Cancellation &amp; Refunds</a></li>
-              <li><a href="#points-packs">Points Packs and Digital Content</a></li>
+              {GIVEAWAYS_ENABLED && (
+                <li><a href="#points-packs">Points Packs and Digital Content</a></li>
+              )}
               <li><a href="#s9">Free Tier</a></li>
               <li><a href="#s10">User Obligations</a></li>
               <li><a href="#s11">Health &amp; Fitness Disclaimer</a></li>
@@ -59,7 +67,7 @@ export default function Terms() {
 
           {/* 1 */}
           <section className="legal-section" id="s1">
-            <div className="legal-section-num">01</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Acceptance of Terms</h2>
             <p>By downloading, installing, accessing, or using the Libo application or website (collectively, the <strong>"Service"</strong>), you agree to be bound by these Terms and Conditions (<strong>"Terms"</strong>). If you do not agree to these Terms, do not use the Service.</p>
             <p>These Terms constitute a legally binding agreement between you and <strong>Libo World</strong> (<strong>"Libo"</strong>, <strong>"we"</strong>, <strong>"us"</strong>, or <strong>"our"</strong>). By creating an account, you confirm that you have read, understood, and agreed to these Terms and our <Link to="/privacy">Privacy Policy</Link>.</p>
@@ -67,7 +75,7 @@ export default function Terms() {
 
           {/* 2 */}
           <section className="legal-section" id="s2">
-            <div className="legal-section-num">02</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>About Libo</h2>
             <p>Libo is a digital health and fitness platform that provides users with workout programs, exercise libraries, mobility content, breathing exercises, morning and evening routines, and progress tracking tools — accessible via mobile application and web.</p>
             <p>Libo is operated by <strong>Libo World</strong>, based in Germany. For any questions, contact us at <a href="mailto:hello@liboworld.com">hello@liboworld.com</a>.</p>
@@ -75,7 +83,7 @@ export default function Terms() {
 
           {/* 3 */}
           <section className="legal-section" id="s3">
-            <div className="legal-section-num">03</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Eligibility</h2>
             <p>Libo applies layered age requirements depending on what you use the Service for. By using Libo, you represent and warrant that you meet the relevant minimum age below for each activity.</p>
             <ul>
@@ -88,7 +96,7 @@ export default function Terms() {
 
           {/* 4 */}
           <section className="legal-section" id="s4">
-            <div className="legal-section-num">04</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Account Registration</h2>
             <p>To access the full functionality of Libo, you must create an account by providing accurate and complete information. You are responsible for:</p>
             <ul>
@@ -101,7 +109,7 @@ export default function Terms() {
 
           {/* 5 */}
           <section className="legal-section" id="s5">
-            <div className="legal-section-num">05</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Subscription Plans &amp; Free Trial</h2>
 
             <h3>Free Tier</h3>
@@ -127,7 +135,7 @@ export default function Terms() {
 
           {/* 6 */}
           <section className="legal-section" id="s6">
-            <div className="legal-section-num">06</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Billing &amp; Payment</h2>
             <p>All prices are listed in EUR and include applicable taxes where required by law. Payments are processed by our third-party payment providers.</p>
             <p>We reserve the right to change subscription prices. Any price changes will be communicated at least <strong>30 days in advance</strong> via email or in-app notification.</p>
@@ -135,7 +143,7 @@ export default function Terms() {
 
           {/* 7 */}
           <section className="legal-section" id="s7">
-            <div className="legal-section-num">07</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Cancellation &amp; Refunds</h2>
 
             <h3>Cancellation</h3>
@@ -155,19 +163,21 @@ export default function Terms() {
             <h3>EU Consumer Rights</h3>
             <p>EU residents have the right to withdraw from a digital service contract within <strong>14 days</strong> of purchase without providing a reason, in accordance with EU Directive 2011/83/EU — unless you have already begun using the service and explicitly waived your right of withdrawal.</p>
 
+            {GIVEAWAYS_ENABLED && (<>
             <h3>Points Packs &amp; Giveaway Tickets</h3>
             <p>Points packs are <strong>one-time purchases</strong>. They are <strong>not</strong> auto-renewing subscriptions — you are charged once per pack and never recurringly. Points are converted by the user into giveaway tickets at the standard in-app rate.</p>
-            <p>If a giveaway cycle is voided (for example, the minimum participation threshold for that cycle is not met), tickets are treated <strong>asymmetrically depending on their source</strong>:</p>
-            <ul>
-              <li><strong>Tickets derived from earned points</strong> (points acquired through fitness activity, then converted) are <strong>refunded to your in-app balance</strong> at original ticket cost. No cash refund.</li>
-              <li><strong>Tickets derived from purchased points</strong> (points acquired via a real-money points pack) are <strong>consumed at the moment of conversion to tickets</strong> and are non-refundable, including where the cycle is later voided. By purchasing a points pack and converting points to tickets you expressly consent to loss of your right of withdrawal in respect of the converted points, in accordance with EU Directive 2011/83/EU Art. 16(m).</li>
-            </ul>
-            <p>This asymmetry exists to prevent purchase-then-refund arbitrage and to keep the giveaway economics defensible for all participants. The free in-app earn path remains available to all eligible users.</p>
+            <p><strong>A giveaway is never cancelled for low participation.</strong> A draw goes ahead on its published closing date regardless of how many entries it received, and there is no minimum-entry threshold. We may only cancel or suspend a draw where its integrity has been compromised — for example a technical failure, a bug, tampering or fraud — or where an event outside our reasonable control prevents it from running. In either case the draw is rescheduled and <strong>all valid entries already received are carried forward into the rescheduled draw</strong>; where that is not possible, tickets are restored to your in-app balance at their original ticket cost.</p>
+            <p>Where tickets are restored following a cancelled draw, they are returned as tickets or points to your in-app balance. <strong>Restoration is to your in-app balance only — it is not a cash refund</strong>, and points converted into tickets are not reconverted into money. By purchasing a points pack and converting points into tickets you expressly consent to immediate provision of that digital content and waive your right of withdrawal in respect of the converted points, in accordance with EU Directive 2011/83/EU Art. 16(m).</p>
+            <p>The free in-app earn path remains available to all eligible users.</p>
+            </>)}
           </section>
 
-          {/* 8 */}
+          {/* 8 — gated with giveaways: describes buying points packs and
+              converting them to giveaway tickets, none of which is purchasable
+              at launch. Kept in place so it returns by flipping the flag. */}
+          {GIVEAWAYS_ENABLED && (
           <section className="legal-section" id="points-packs">
-            <div className="legal-section-num">08</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Points Packs and Digital Content</h2>
             <p>This section sets out the specific terms that apply when you purchase a <strong>points pack</strong> through Libo. It supplements, and where applicable expands on, the refund language in Section 7.</p>
 
@@ -183,23 +193,24 @@ export default function Terms() {
 
             <h3>Non-Refundability After Conversion to Tickets</h3>
             <p>Before you convert them, purchased points sit in your balance and remain available for any other points utility. Once you choose to convert purchased points into giveaway tickets, that conversion is final.</p>
-            <p><em>"Purchased points are non-refundable once converted to giveaway tickets in-app. Tickets derived from purchased points are not refunded even if a giveaway cycle is voided."</em></p>
-            <p>This rule exists to keep giveaway economics defensible for all participants and to prevent purchase-then-refund arbitrage. The asymmetric treatment of earned-points tickets versus purchased-points tickets is described in more detail in Section 7.</p>
+            <p><em>"Purchased points are non-refundable in cash once converted to giveaway tickets in-app. Where a draw is cancelled for an integrity failure or an event outside our reasonable control, entries are carried forward to the rescheduled draw, or the tickets are restored to your in-app balance."</em></p>
+            <p>Restoration is always to your in-app balance rather than to your original payment method. Draws are <strong>not</strong> cancelled for low participation — see Section 7.</p>
 
             <h3>Failure to Deliver and Support</h3>
             <p>If a points pack purchase is charged but your account is not credited, or if you believe a transaction was made in error, contact <a href="mailto:support@liboworld.com">support@liboworld.com</a>. Disputes and refund requests relating to non-converted points, or to a failure on our side to deliver the points you paid for, will be handled on a case-by-case basis through Libo support.</p>
           </section>
+          )}
 
           {/* 9 */}
           <section className="legal-section" id="s9">
-            <div className="legal-section-num">09</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Free Tier</h2>
             <p>The free tier of Libo is provided "as is" with no guarantees of continued availability. We reserve the right to modify, limit, or discontinue free tier features at any time without notice.</p>
           </section>
 
           {/* 10 */}
           <section className="legal-section" id="s10">
-            <div className="legal-section-num">10</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>User Obligations</h2>
             <p>By using Libo, you agree not to:</p>
             <ul>
@@ -215,7 +226,7 @@ export default function Terms() {
 
           {/* 11 */}
           <section className="legal-section" id="s11">
-            <div className="legal-section-num">11</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Health &amp; Fitness Disclaimer</h2>
             <div className="legal-highlight">
               <p><strong>Important:</strong> Libo is a fitness and wellness platform intended for informational and motivational purposes only. The content provided does not constitute medical advice, diagnosis, or treatment.</p>
@@ -232,7 +243,7 @@ export default function Terms() {
 
           {/* 12 */}
           <section className="legal-section" id="s12">
-            <div className="legal-section-num">12</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Intellectual Property</h2>
             <p>All content within the Libo Service is the exclusive property of Libo World or its licensors and is protected by applicable intellectual property laws.</p>
             <p>You are granted a limited, non-exclusive, non-transferable, revocable licence to access and use the Service for personal, non-commercial purposes. This licence does not permit you to:</p>
@@ -245,14 +256,14 @@ export default function Terms() {
 
           {/* 13 */}
           <section className="legal-section" id="s13">
-            <div className="legal-section-num">13</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>User-Generated Content</h2>
             <p>If the Service allows you to submit content (e.g. profile information, workout logs, feedback), you retain ownership but grant Libo a worldwide, royalty-free, non-exclusive licence to use, reproduce, and display it solely for providing and improving the Service.</p>
           </section>
 
           {/* 14 */}
           <section className="legal-section" id="s14">
-            <div className="legal-section-num">14</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Limitation of Liability</h2>
             <p>To the maximum extent permitted by applicable law, Libo World shall not be liable for:</p>
             <ul>
@@ -267,7 +278,7 @@ export default function Terms() {
 
           {/* 15 */}
           <section className="legal-section" id="s15">
-            <div className="legal-section-num">15</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Termination</h2>
             <p>We reserve the right to suspend or terminate your account at any time if we reasonably believe you have violated these Terms or engaged in harmful conduct.</p>
             <p>Upon termination, your right to use the Service ceases immediately. Provisions that by their nature should survive termination will continue to apply.</p>
@@ -275,7 +286,7 @@ export default function Terms() {
 
           {/* 16 */}
           <section className="legal-section" id="s16">
-            <div className="legal-section-num">16</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Changes to Terms</h2>
             <p>We may update these Terms from time to time. Material changes will be notified at least <strong>14 days before</strong> taking effect.</p>
             <p>The current version is always available at <a href="https://www.liboworld.com/terms">www.liboworld.com/terms</a>.</p>
@@ -283,7 +294,7 @@ export default function Terms() {
 
           {/* 17 */}
           <section className="legal-section" id="s17">
-            <div className="legal-section-num">17</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Governing Law &amp; Geographic Availability</h2>
             <p>These Terms are governed by the laws of the <strong>Federal Republic of Germany</strong>. Disputes shall be subject to the exclusive jurisdiction of the courts of Germany. EU consumers may also bring claims in the courts of their country of residence.</p>
             <p>You may also use the EU Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
@@ -292,7 +303,7 @@ export default function Terms() {
 
           {/* 18 */}
           <section className="legal-section" id="s18">
-            <div className="legal-section-num">18</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Contact</h2>
             <p>If you have any questions about these Terms:</p>
             <ul>
@@ -304,7 +315,7 @@ export default function Terms() {
 
           {/* 19 */}
           <section className="legal-section" id="early-access">
-            <div className="legal-section-num">19</div>
+            <div className="legal-section-num">{n()}</div>
             <h2>Early Access (Founding Member) Purchases</h2>
             <p>This section sets out the specific terms that apply when you buy the pre-launch <strong>Founding Member</strong> early-access offer, before the Libo mobile app is publicly available. It supplements Sections 5 (Subscription Plans), 6 (Billing &amp; Payment) and 7 (Cancellation &amp; Refunds).</p>
 
