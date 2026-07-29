@@ -111,7 +111,10 @@
   margin: 0 auto;
   padding: 72px 64px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* Single column since the founder bio was removed. Capped rather than 1fr so
+     the boilerplate paragraph keeps a readable measure instead of stretching
+     the full 1200px. */
+  grid-template-columns: minmax(0, 760px);
   gap: 64px;
 }
 

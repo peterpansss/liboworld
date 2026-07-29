@@ -4,8 +4,9 @@ import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
 import './Press.css';
 
-// /press — relaunch press kit: fact sheet, boilerplate + founder bio,
-// downloadable logos, product shots, and a press contact CTA.
+// /press — relaunch press kit: fact sheet, boilerplate, downloadable logos,
+// product shots, and a press contact CTA. (Founder bio removed 2026-07-29 —
+// it lives on /founder; the press kit doesn't need to duplicate it.)
 // All copy is driven by the "relaunchPress" i18n namespace.
 
 type Fact = { label: string; value: string };
@@ -110,7 +111,7 @@ export default function Press() {
           </div>
         </section>
 
-        {/* ── Boilerplate + founder ──────────────── */}
+        {/* ── Boilerplate ────────────────────────── */}
         <section className="press-boilerplate">
           <div className="press-boilerplate-inner">
             <div className="press-boilerplate-col">
@@ -119,24 +120,6 @@ export default function Press() {
                 <span className="press-h2-tag">{t('relaunchPress.boilerplate.titleTag')}</span>
               </h2>
               <p className="press-body">{t('relaunchPress.boilerplate.body')}</p>
-            </div>
-            <div className="press-founder">
-              <img
-                src="/noah-photo-2.jpg"
-                alt={t('relaunchPress.boilerplate.founderImgAlt')}
-                className="press-founder-photo"
-                loading="lazy"
-              />
-              <div className="press-founder-copy">
-                <h2 className="press-h2 font-display">
-                  {t('relaunchPress.boilerplate.founderTitle')}{' '}
-                  <span className="press-h2-tag">{t('relaunchPress.boilerplate.founderTag')}</span>
-                </h2>
-                <p className="press-body press-body-sm">{t('relaunchPress.boilerplate.founderBio')}</p>
-                <a href="/founder" className="press-link press-founder-link">
-                  {t('relaunchPress.boilerplate.founderLink')}
-                </a>
-              </div>
             </div>
           </div>
         </section>

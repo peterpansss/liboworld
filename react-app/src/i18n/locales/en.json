@@ -203,19 +203,19 @@
     "qrCloserDisclosure": "We email you when the app launches. No spam."
   },
   "challengeWaitlist": {
-    "buttonLabel": "RESERVE MY SLOT",
-    "modalHeading": "RESERVE YOUR CHALLENGE SLOT",
-    "modalSubhead": "When Libo launches you've got 30 minutes head-start to download. The first 50 reservation holders through the door lock in cycle #1. Miss the window? Your reservation rolls to cycle #2 — still ahead of the public.",
+    "buttonLabel": "NOTIFY ME AT LAUNCH",
+    "modalHeading": "GET THE LAUNCH NOTICE",
+    "modalSubhead": "50 people train at once. When someone finishes or drops, the next person in line gets their spot. Your 30 days start the moment you're in — no waiting for a cycle.",
     "emailPlaceholder": "Your email",
-    "submitLabel": "HOLD MY SLOT",
+    "submitLabel": "NOTIFY ME AT LAUNCH",
     "disclosure": "We won't spam you. Unsubscribe any time.",
-    "successHeading": "YOU'RE RESERVED.",
-    "successBody": "We'll email you when Libo launches. First 50 to download lock in cycle #1; the rest roll to cycle #2.",
-    "duplicateMessage": "You're already reserved!",
+    "successHeading": "YOU'RE ON THE LIST.",
+    "successBody": "You're on the list. We'll email you the moment Libo launches.",
+    "duplicateMessage": "You're already on the list!",
     "errorMessage": "Something went wrong. Please try again.",
     "cardDisclosure": "30-day Consistency Challenge that pays cash. iOS first.",
-    "bodyParagraph": "Reserve your slot to lock in cycle #1 at launch. Only 50 spots per cycle — miss this one and you're front-of-line for cycle #2.",
-    "heroDiscoveryLink": "🔥 Cash payouts? Reserve cycle #1 →"
+    "bodyParagraph": "50 people train at once. When someone finishes or drops, the next person in line gets their spot.",
+    "heroDiscoveryLink": "Cash payouts? See how it works →"
   },
   "blogPreview": {
     "eyebrow": "From the Blog",
@@ -1023,7 +1023,7 @@
   },
   "cashChallengeFunnel": {
     "seoTitle": "Get Paid €250 to Work Out · Libo Cash Challenge",
-    "seoDescription": "Complete 30 consecutive days of reps in the Libo app and earn real cash. €5 / €10 / €50 tiers — limited spots per cycle.",
+    "seoDescription": "Complete 30 consecutive days of reps in the Libo app and earn real cash. €5 / €10 / €50 tiers — 50 spots at a time.",
     "countdownLabel": "Next cycle starts in",
     "eyebrow": "Cash Challenge",
     "headline1": "Train 30 days.",
@@ -1088,7 +1088,7 @@
     "statsSub": "Live numbers from Libo's cash-challenge ledger",
     "statCompleters": "30-day completers",
     "statPaidOut": "Paid out so far",
-    "statSlotsPerCycle": "Slots per cycle",
+    "statSlotsPerCycle": "Spots at a time",
     "appTitle": "Get the Libo app",
     "appSub": "Track your reps, monitor your cycle, and watch the chain build day by day.",
     "appStoreSmall": "Download on the",
@@ -1187,7 +1187,7 @@
       "h1Line1": "Your reps pay",
       "h1Accent": "real cash.",
       "sub": "641 exercises. AI-built plans. 30-day cash challenges. The only training club that pays you to show up.",
-      "ctaPrimary": "Reserve cycle #1 →",
+      "ctaPrimary": "Get the launch notice →",
       "ctaSecondary": "See how it works ↓",
       "captureConfirm": "You're in. We email you at launch.",
       "emailPlaceholder": "Your email",
@@ -1204,13 +1204,13 @@
       "workoutsLabel": "Workouts",
       "payoutValue": "€50",
       "payoutLabel": "Top challenge payout",
-      "spotsLabel": "Cycle #1 spots left"
+      "spotsLabel": "Spots at a time"
     },
     "mechanism": {
       "eyebrow": "How Libo is different",
       "h2Line1": "Most apps promise motivation.",
       "h2Accent": "Libo pays it.",
-      "body": "Join a 30-day challenge, hit your daily reps, post the proof, and cash out real money. No points, no gift cards — just money in your pocket. Limited spots per cycle keep it honest.",
+      "body": "Join a 30-day challenge, hit your daily reps, post the proof, and cash out real money. No points, no gift cards — just money in your pocket. 50 spots at a time keeps it honest.",
       "quote": "You didn't lose €15 — you bought yourself a body for €0.",
       "quoteAuthor": "Noah F.",
       "quoteSource": "30 Days, One Habit, Real Money",
@@ -1233,7 +1233,7 @@
         {
           "num": "04",
           "name": "Cash out",
-          "desc": "30 days done = real money in your pocket. €5 to €50 per cycle."
+          "desc": "30 days done = real money in your pocket. €5 to €50 per challenge."
         }
       ]
     },
@@ -1325,7 +1325,7 @@
       "cardSub": "12 months of Premium · 50% off · fully refundable until launch",
       "perks": [
         "Full library — 641 exercises, 140 workouts",
-        "Cash challenges up to €50 per cycle",
+        "Cash challenges up to €50",
         "Year starts on launch day, not today"
       ]
     },
@@ -1380,14 +1380,14 @@
       "a8": "Every set, rep, and weight is logged. Libo tracks your workout history, personal records, streaks, and shows your progress over time with clear charts."
     },
     "finalCapture": {
-      "h2Line1": "50 spots. One cycle.",
-      "h2Accent": "Get in line.",
-      "body": "Reserve cycle #1 of the cash challenge and be first through the door on launch day.",
-      "spotsLabel": "{{count}} of 50 spots already reserved.",
-      "confirm": "You're reserved.",
+      "h2Line1": "50 spots.",
+      "h2Accent": "Start the day you join.",
+      "body": "50 people train at once. When someone finishes or drops, the next person in line gets their spot.",
+      "spotsLabel": "{{count}} on the launch list.",
+      "confirm": "You're on the list.",
       "emailPlaceholder": "Your email",
-      "button": "Reserve my slot",
-      "note": "Miss cycle #1? Your reservation rolls to cycle #2 — still ahead of the public."
+      "button": "Notify me at launch",
+      "note": "Your 30 days start the moment you join — no waiting for a cycle."
     },
     "blogTeaser": {
       "h2": "Guides & insights.",
@@ -1478,7 +1478,7 @@
           "Year starts on launch day",
           "Fully refundable until launch",
           "Founding Member badge",
-          "Priority access to cycle #1"
+          "Priority access at launch"
         ],
         "cta": "Become a Founding Member →"
       },
@@ -1579,23 +1579,23 @@
     "joinCta": {
       "h2Line1": "Be part of",
       "h2Accent": "chapter one.",
-      "body": "50 spots in challenge cycle #1. A Founding Member price that ends at launch. That's the whole pitch.",
-      "ctaPrimary": "Reserve cycle #1 →",
+      "body": "50 spots at a time in the cash challenge. A Founding Member price that ends at launch. That’s the whole pitch.",
+      "ctaPrimary": "Get the launch notice →",
       "ctaSecondary": "See pricing"
     }
   },
   "relaunchChallenges": {
     "seo": {
       "title": "Money Challenges — Train 30 Days, Earn Real Cash | Libo",
-      "description": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just real money. Limited spots per cycle keep it honest."
+      "description": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just real money. 50 spots at a time keeps it honest."
     },
     "hero": {
       "badge1": "30-day challenge",
-      "badge2": "Cycle #1 · 50 spots",
+      "badge2": "50 spots at a time",
       "h1Line1": "Train 30 days.",
       "h1Accent": "Earn real cash.",
-      "sub": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just money in your pocket. Limited spots per cycle keep it honest.",
-      "cta": "Reserve cycle #1 →",
+      "sub": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just money in your pocket. 50 spots at a time keeps it honest.",
+      "cta": "Get the launch notice →",
       "imgAlt": "Libo rewards screen: money challenge, 100 reps over 30 days, cash reward"
     },
     "howItWorks": {
@@ -1675,17 +1675,17 @@
         },
         {
           "title": "The deadline is really the launch",
-          "body": "Cycle #1 starts on launch day. The only countdown on this page is the one we can't fake."
+          "body": "Your 30 days start the moment you join. The only countdown on this page is the one we can’t fake."
         }
       ]
     },
     "reserve": {
-      "h2Line1": "50 spots. One cycle.",
-      "h2Accent": "Get in line.",
-      "body": "When Libo launches you get a 30-minute head start to download. The first 50 reservation holders through the door lock in cycle #1. Miss the window? You roll to cycle #2 — still ahead of the public.",
-      "confirm": "You're reserved.",
+      "h2Line1": "50 spots.",
+      "h2Accent": "Start the day you join.",
+      "body": "50 people train at once. When someone finishes or drops, the next person in line gets their spot. Your 30 days start the moment you're in — no waiting for a cycle.",
+      "confirm": "You're on the list.",
       "emailPlaceholder": "Your email",
-      "button": "Hold my slot",
+      "button": "Notify me at launch",
       "note": "We won't spam you. Unsubscribe any time."
     }
   },
