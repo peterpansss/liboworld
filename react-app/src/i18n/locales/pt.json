@@ -203,19 +203,19 @@
     "qrCloserDisclosure": "A gente te avisa por e-mail quando o app lançar. Sem spam."
   },
   "challengeWaitlist": {
-    "buttonLabel": "RESERVAR MINHA VAGA",
-    "modalHeading": "RESERVE SUA VAGA NO DESAFIO",
-    "modalSubhead": "Quando a Libo lançar, você tem 30 minutos de vantagem pra baixar. As primeiras 50 reservas a entrar garantem o ciclo #1. Perdeu a janela? Sua reserva passa pro ciclo #2 — ainda na frente do público.",
+    "buttonLabel": "ME AVISA NO LANÇAMENTO",
+    "modalHeading": "AVISO DE LANÇAMENTO",
+    "modalSubhead": "50 pessoas treinam ao mesmo tempo. Quando alguém termina ou desiste, a próxima pessoa da fila assume a vaga. Seus 30 dias começam no momento em que você entra — sem espera.",
     "emailPlaceholder": "Seu e-mail",
-    "submitLabel": "GARANTIR MINHA VAGA",
+    "submitLabel": "ME AVISA",
     "disclosure": "Nada de spam. Cancele quando quiser.",
-    "successHeading": "VAGA RESERVADA.",
-    "successBody": "A gente te avisa por e-mail quando a Libo lançar. Os primeiros 50 a baixar garantem o ciclo #1; o resto passa pro ciclo #2.",
-    "duplicateMessage": "Você já tem vaga reservada!",
+    "successHeading": "VOCÊ ESTÁ NA LISTA.",
+    "successBody": "Você está na lista. A gente te avisa por e-mail assim que a Libo lançar.",
+    "duplicateMessage": "Você já está na lista!",
     "errorMessage": "Algo deu errado. Tente de novo.",
     "cardDisclosure": "Desafio de Consistência de 30 dias que paga em dinheiro. iOS primeiro.",
-    "bodyParagraph": "Reserve sua vaga pra garantir o ciclo #1 no lançamento. Só 50 vagas por ciclo — perdeu essa e você fica na frente da fila do ciclo #2.",
-    "heroDiscoveryLink": "🔥 Pagamento em dinheiro? Reserve o ciclo #1 →"
+    "bodyParagraph": "50 pessoas treinam ao mesmo tempo. Quando alguém termina ou desiste, a próxima pessoa da fila assume a vaga.",
+    "heroDiscoveryLink": "Pagamento em dinheiro? Veja como funciona →"
   },
   "blogPreview": {
     "eyebrow": "Do Blog",
@@ -1023,7 +1023,7 @@
   },
   "cashChallengeFunnel": {
     "seoTitle": "Ganhe €250 para treinar · Desafio Cash Libo",
-    "seoDescription": "Complete 30 dias consecutivos de repetições no app Libo e ganhe dinheiro real. Níveis €10 / €20 / €90 — vagas limitadas por ciclo.",
+    "seoDescription": "Complete 30 dias consecutivos de repetições no app Libo e ganhe dinheiro real. Níveis €10 / €20 / €90 — 50 vagas por vez..",
     "countdownLabel": "O próximo ciclo começa em",
     "eyebrow": "Desafio Cash",
     "headline1": "Treine 30 dias.",
@@ -1088,7 +1088,7 @@
     "statsSub": "Números ao vivo do registro de desafios cash da Libo",
     "statCompleters": "Finalistas de 30 dias",
     "statPaidOut": "Pago até agora",
-    "statSlotsPerCycle": "Vagas por ciclo",
+    "statSlotsPerCycle": "Vagas por vez",
     "appTitle": "Baixe o app Libo",
     "appSub": "Acompanhe suas reps, monitore seu ciclo e veja a corrente crescer dia após dia.",
     "appStoreSmall": "Baixar na",
@@ -1187,7 +1187,7 @@
       "h1Line1": "Suas reps pagam",
       "h1Accent": "dinheiro de verdade.",
       "sub": "641 exercícios. Planos feitos por IA. Cash Challenges de 30 dias. O único Training Club que te paga pra aparecer.",
-      "ctaPrimary": "Reservar ciclo #1 →",
+      "ctaPrimary": "Quero o aviso de lançamento →",
       "ctaSecondary": "Veja como funciona ↓",
       "captureConfirm": "Você está dentro. A gente te avisa por e-mail no lançamento.",
       "emailPlaceholder": "Seu e-mail",
@@ -1204,13 +1204,13 @@
       "workoutsLabel": "Treinos",
       "payoutValue": "€50",
       "payoutLabel": "Maior prêmio de desafio",
-      "spotsLabel": "Vagas restantes no ciclo #1"
+      "spotsLabel": "Vagas por vez"
     },
     "mechanism": {
       "eyebrow": "Por que a Libo é diferente",
       "h2Line1": "A maioria dos apps promete motivação.",
       "h2Accent": "A Libo paga por ela.",
-      "body": "Entre num desafio de 30 dias, bata suas reps diárias, poste a prova e saque dinheiro de verdade. Nada de pontos, nada de vale-presente — só dinheiro no seu bolso. Vagas limitadas por ciclo pra manter tudo honesto.",
+      "body": "Entre num desafio de 30 dias, bata suas reps diárias, poste a prova e saque dinheiro de verdade. Nada de pontos, nada de vale-presente — só dinheiro no seu bolso. As 50 vagas simultâneas mantêm tudo honesto.",
       "quote": "Você não perdeu €15 — você comprou um corpo por €0.",
       "quoteAuthor": "Noah F.",
       "quoteSource": "30 Days, One Habit, Real Money",
@@ -1233,7 +1233,7 @@
         {
           "num": "04",
           "name": "Saque",
-          "desc": "30 dias concluídos = dinheiro de verdade no bolso. De €5 a €50 por ciclo."
+          "desc": "30 dias concluídos = dinheiro real no bolso. De €5 a €50 por desafio."
         }
       ]
     },
@@ -1325,7 +1325,7 @@
       "cardSub": "12 meses de Premium · 50% off · reembolso total até o lançamento",
       "perks": [
         "Biblioteca completa — 641 exercícios, 140 treinos",
-        "Cash Challenges de até €50 por ciclo",
+        "Desafios em dinheiro de até €50",
         "O ano começa no dia do lançamento, não hoje"
       ]
     },
@@ -1380,14 +1380,14 @@
       "a8": "Cada série, rep e peso é registrado. A Libo acompanha seu histórico de treinos, recordes pessoais, sequências e mostra seu progresso ao longo do tempo com gráficos claros."
     },
     "finalCapture": {
-      "h2Line1": "50 vagas. Um ciclo.",
-      "h2Accent": "Entre na fila.",
-      "body": "Reserve o ciclo #1 do Cash Challenge e seja o primeiro a entrar no dia do lançamento.",
-      "spotsLabel": "{{count}} de 50 vagas já reservadas.",
-      "confirm": "Vaga reservada.",
+      "h2Line1": "50 vagas.",
+      "h2Accent": "Comece no dia em que entrar.",
+      "body": "50 pessoas treinam ao mesmo tempo. Quando alguém termina ou desiste, a próxima pessoa da fila assume a vaga.",
+      "spotsLabel": "{{count}} na lista de lançamento.",
+      "confirm": "Você está na lista.",
       "emailPlaceholder": "Seu e-mail",
-      "button": "Reservar minha vaga",
-      "note": "Perdeu o ciclo #1? Sua reserva passa pro ciclo #2 — ainda na frente do público."
+      "button": "Me avisa no lançamento",
+      "note": "Seus 30 dias começam no momento em que você entra — sem espera."
     },
     "blogTeaser": {
       "h2": "Guias e insights.",
@@ -1478,7 +1478,7 @@
           "O ano começa no dia do lançamento",
           "Reembolso total até o lançamento",
           "Selo de Founding Member",
-          "Acesso prioritário ao ciclo #1"
+          "Acesso prioritário no lançamento"
         ],
         "cta": "Virar Founding Member →"
       },
@@ -1526,15 +1526,15 @@
   "relaunchChallenges": {
     "seo": {
       "title": "Money Challenges — Treine 30 Dias, Ganhe Dinheiro de Verdade | Libo",
-      "description": "30 dias. Reps diárias. Poste a prova. Saque. Nada de pontos, nada de vale-presente — só dinheiro de verdade. Vagas limitadas por ciclo pra manter tudo honesto."
+      "description": "30 dias. Reps diárias. Poste a prova. Saque. Nada de pontos, nada de vale-presente — só dinheiro de verdade. As 50 vagas simultâneas mantêm tudo honesto."
     },
     "hero": {
       "badge1": "Desafio de 30 dias",
-      "badge2": "Ciclo #1 · 50 vagas",
+      "badge2": "50 vagas por vez",
       "h1Line1": "Treine 30 dias.",
       "h1Accent": "Ganhe dinheiro de verdade.",
-      "sub": "30 dias. Reps diárias. Poste a prova. Saque. Nada de pontos, nada de vale-presente — só dinheiro no seu bolso. Vagas limitadas por ciclo pra manter tudo honesto.",
-      "cta": "Reservar ciclo #1 →",
+      "sub": "30 dias. Reps diárias. Poste a prova. Saque. Nada de pontos, nada de vale-presente — só dinheiro no seu bolso. As 50 vagas simultâneas mantêm tudo honesto.",
+      "cta": "Quero o aviso de lançamento →",
       "imgAlt": "Tela de recompensas da Libo: money challenge, 100 reps em 30 dias, prêmio em dinheiro"
     },
     "howItWorks": {
@@ -1610,21 +1610,21 @@
         },
         {
           "title": "O dinheiro é realmente dinheiro",
-          "body": "Pagamentos em dinheiro de €5 a €50 por ciclo concluído, dependendo do seu nível. Nada de pontos, nada de vale-presente, nada de crédito na loja."
+          "body": "Pagamentos em dinheiro de €5 a €50 por desafio concluído, dependendo do seu nível. Nada de pontos, nada de vale-presente, nada de crédito na loja."
         },
         {
           "title": "O prazo é realmente o lançamento",
-          "body": "O ciclo #1 começa no dia do lançamento. A única contagem regressiva nesta página é a que a gente não tem como forjar."
+          "body": "Seus 30 dias começam no momento em que você entra. A única contagem regressiva desta página é a que a gente não consegue falsear."
         }
       ]
     },
     "reserve": {
-      "h2Line1": "50 vagas. Um ciclo.",
-      "h2Accent": "Entre na fila.",
-      "body": "Quando a Libo lançar, você ganha 30 minutos de vantagem pra baixar. As primeiras 50 reservas a entrar garantem o ciclo #1. Perdeu a janela? Você passa pro ciclo #2 — ainda na frente do público.",
-      "confirm": "Vaga reservada.",
+      "h2Line1": "50 vagas.",
+      "h2Accent": "Comece no dia em que entrar.",
+      "body": "50 pessoas treinam ao mesmo tempo. Quando alguém termina ou desiste, a próxima pessoa da fila assume a vaga. Seus 30 dias começam no momento em que você entra — sem espera.",
+      "confirm": "Você está na lista.",
       "emailPlaceholder": "Seu e-mail",
-      "button": "Garantir minha vaga",
+      "button": "Me avisa",
       "note": "Nada de spam. Cancele quando quiser."
     }
   },
