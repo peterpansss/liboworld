@@ -11,11 +11,15 @@ import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvid
 import { isStripeConfigured } from '../lib/stripe';
 import './Landing.css';
 
-// Urgency: how many of the 50 cycle-#1 spots are already reserved.
-// Mirrors the design's `spotsTaken` prop (default 37).
-const SPOTS_TAKEN = 37;
+// Concurrent participants in a cash challenge. A real, published constant — not
+// a live count.
+//
+// This replaces `SPOTS_TAKEN = 37` / `SPOTS_LEFT = 13`, which were hardcoded and
+// rendered as "13 spots left" and "37 on the launch list". Both were invented:
+// nothing counted anything. Removed 2026-07-30 — the site cannot state occupancy
+// it doesn't measure. Same rule as the rest of this page: state the mechanic,
+// never the state.
 const SPOTS_TOTAL = 50;
-const SPOTS_LEFT = SPOTS_TOTAL - SPOTS_TAKEN;
 
 type Step = { num: string; name: string; desc: string };
 type Feature = { num: string; name: string; desc: string };
@@ -127,7 +131,7 @@ export default function Landing() {
     { n: t('relaunchHome.proof.exercisesValue'), label: t('relaunchHome.proof.exercisesLabel') },
     { n: t('relaunchHome.proof.workoutsValue'), label: t('relaunchHome.proof.workoutsLabel') },
     { n: t('relaunchHome.proof.payoutValue'), label: t('relaunchHome.proof.payoutLabel') },
-    { n: String(SPOTS_LEFT), label: t('relaunchHome.proof.spotsLabel') },
+    { n: String(SPOTS_TOTAL), label: t('relaunchHome.proof.spotsLabel') },
   ];
 
   return (
@@ -389,10 +393,7 @@ export default function Landing() {
               {t('relaunchHome.finalCapture.h2Line1')}<br />
               <span className="rh-accent">{t('relaunchHome.finalCapture.h2Accent')}</span>
             </h2>
-            <p className="rh-final-body">
-              {t('relaunchHome.finalCapture.body')}{' '}
-              {t('relaunchHome.finalCapture.spotsLabel', { count: SPOTS_TAKEN })}
-            </p>
+            <p className="rh-final-body">{t('relaunchHome.finalCapture.body')}</p>
             <CaptureForm
               variant="final"
               confirm={t('relaunchHome.finalCapture.confirm')}

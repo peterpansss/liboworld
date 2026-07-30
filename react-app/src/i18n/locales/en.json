@@ -1383,7 +1383,6 @@
       "h2Line1": "50 spots.",
       "h2Accent": "Start the day you join.",
       "body": "50 people train at once. When someone finishes or drops, the next person in line gets their spot.",
-      "spotsLabel": "{{count}} on the launch list.",
       "confirm": "You're on the list.",
       "emailPlaceholder": "Your email",
       "button": "Notify me at launch",

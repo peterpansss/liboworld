@@ -1365,7 +1365,6 @@
       "h2Line1": "50 places.",
       "h2Accent": "Commence le jour où tu entres.",
       "body": "50 personnes s'entraînent en même temps. Quand quelqu'un termine ou abandonne, la personne suivante dans la file prend sa place.",
-      "spotsLabel": "{{count}} sur la liste de lancement.",
       "confirm": "Tu es sur la liste.",
       "emailPlaceholder": "Ton email",
       "button": "Préviens-moi au lancement",
