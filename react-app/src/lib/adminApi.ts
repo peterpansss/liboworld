@@ -603,6 +603,13 @@ export type WorkoutRow = {
   main: WorkoutBlockEntry[];
   cooldown: WorkoutBlockEntry[];
   status: ContentStatus;
+  /**
+   * True = openable by Free members (canon REWARDS-ECONOMY-RULES.md §3.2).
+   * Defaults false, i.e. Premium — a newly created workout must not silently
+   * join the free slice. Optional here because rows fetched before the column
+   * existed won't carry it; treat undefined as false.
+   */
+  free_tier?: boolean;
   origin: string;
   created_at: string;
   updated_at: string;

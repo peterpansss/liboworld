@@ -86,6 +86,9 @@ type CreateCat =
 
 type CreateDiff = 'beginner' | 'intermediate' | 'advanced';
 type CreateStatus = 'draft' | 'published';
+// New workouts are Premium unless explicitly marked Free — see canon §3.2.
+// The safe failure mode is forgetting to free one, not leaking the paid library.
+type CreateAccess = 'premium' | 'free';
 
 type CreateBlockEntry = {
   exercise_id: string | null;
@@ -104,6 +107,7 @@ type CreateFormState = {
   diff: CreateDiff;
   emoji: string;
   status: CreateStatus;
+  access: CreateAccess;
   warmup: CreateBlockEntry[];
   main: CreateBlockEntry[];
   cooldown: CreateBlockEntry[];
@@ -119,6 +123,7 @@ const EMPTY_CREATE_FORM: CreateFormState = {
   diff: 'beginner',
   emoji: '🏋️',
   status: 'draft',
+  access: 'premium',
   warmup: [],
   main: [],
   cooldown: [],
@@ -157,6 +162,7 @@ function createFormToPayload(f: CreateFormState): Partial<WorkoutRow> {
     main: toBlockEntries(f.main),
     cooldown: toBlockEntries(f.cooldown),
     status: f.status,
+    free_tier: f.access === 'free',
   };
 }
 
@@ -879,6 +885,20 @@ export function WorkoutsPage() {
                 <option value="published">Published</option>
               </Select>
             </Field>
+            <Field label="Access">
+              <Select
+                value={createForm.access}
+                onChange={(e) =>
+                  setCreateForm((f) => ({
+                    ...f,
+                    access: e.target.value as CreateAccess,
+                  }))
+                }
+              >
+                <option value="premium">Premium</option>
+                <option value="free">Free</option>
+              </Select>
+            </Field>
           </div>
 
           <CreateBlockSection
@@ -973,6 +993,11 @@ function EditWorkoutModal({
 }) {
   const [form, setForm] = useState<Workout>(initial);
   const [status, setStatus] = useState<ContentStatus>(canonical?.status ?? 'published');
+  // Free/Premium split (canon REWARDS-ECONOMY-RULES.md §3.2). Kept OUT of
+  // `form` because form drives computeDiff, which writes a workout OVERRIDE —
+  // overrides patch content (name, blocks, duration), while free_tier is a
+  // canonical column that has to go through updateWorkout, exactly like status.
+  const [freeTier, setFreeTier] = useState<boolean>(canonical?.free_tier ?? false);
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -980,6 +1005,7 @@ function EditWorkoutModal({
   useEffect(() => {
     setForm(initial);
     setStatus(canonical?.status ?? 'published');
+    setFreeTier(canonical?.free_tier ?? false);
     setErr(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initial.id]);
@@ -997,14 +1023,20 @@ function EditWorkoutModal({
       const diff = computeDiff(base, form);
       const overrideHasChanges = Object.keys(diff).length > 0;
       const statusChanged = canonical !== null && status !== canonical.status;
+      const freeTierChanged = canonical !== null && freeTier !== (canonical.free_tier ?? false);
 
       if (overrideHasChanges) {
         await replaceWorkoutOverride(base.id, diff);
       }
-      if (statusChanged && canonical) {
-        const res = await updateWorkout(canonical.id, { status });
+      // One call for both canonical fields — two sequential updateWorkout
+      // calls would leave the row half-saved if the second failed.
+      if ((statusChanged || freeTierChanged) && canonical) {
+        const res = await updateWorkout(canonical.id, {
+          ...(statusChanged ? { status } : {}),
+          ...(freeTierChanged ? { free_tier: freeTier } : {}),
+        });
         if (!res.ok) {
-          setErr(res.error ?? 'Status update failed');
+          setErr(res.error ?? 'Update failed');
           return;
         }
       }
@@ -1123,6 +1155,23 @@ function EditWorkoutModal({
               <option value="draft">Draft</option>
               <option value="published">Published</option>
               <option value="archived">Archived</option>
+            </Select>
+          </Field>
+          <Field
+            label="Access"
+            hint={
+              canonical
+                ? 'Free members can open Free workouts. Premium ones show a padlock in the app and open the paywall.'
+                : 'Bundled-only — save another change first to make it editable.'
+            }
+          >
+            <Select
+              value={freeTier ? 'free' : 'premium'}
+              onChange={(e) => setFreeTier(e.target.value === 'free')}
+              disabled={!canonical}
+            >
+              <option value="premium">Premium</option>
+              <option value="free">Free</option>
             </Select>
           </Field>
         </div>
