@@ -9,62 +9,54 @@ import './SiteNav.css';
 
 const ANNOUNCE_DISMISS_KEY = 'ea_announce_dismissed';
 
-// Relaunch nav — five plain links, no dropdowns. Order + targets are fixed by
-// the site-relaunch designs. "Library" points at the exercise library.
+// Relaunch nav — five plain links, no dropdowns. MASTER-HANDOFF §21 specifies
+// Cash Challenges · Membership · Press · Careers; the designs render Library in
+// Membership's slot. We carry both rather than drop either (decision, 2026-08-05).
 const NAV_LINKS = [
-  { labelKey: 'nav.moneyChallenges', defaultLabel: 'Money Challenges', to: '/money-challenges' },
+  { labelKey: 'nav.cashChallenges', defaultLabel: 'Cash Challenges', to: '/cash-challenges' },
   { labelKey: 'nav.library', defaultLabel: 'Library', to: '/exercises' },
-  { labelKey: 'nav.pricing', defaultLabel: 'Pricing', to: '/pricing' },
+  { labelKey: 'nav.membership', defaultLabel: 'Membership', to: '/membership' },
   { labelKey: 'nav.press', defaultLabel: 'Press', to: '/press' },
+  { labelKey: 'nav.careers', defaultLabel: 'Careers', to: '/careers' },
 ] as const;
 
-// The primary CTA converts at the HERO email capture (#hero-capture on the
-// home route), never the footer form. Cross-route it navigates home first;
-// ScrollToTop in App.tsx honors the hash and smooth-scrolls to the anchor.
-const HERO_CAPTURE_TARGET = '/#hero-capture';
+// "Enter the club →" goes to the Founding Member funnel, which is the single
+// paid conversion surface. It deliberately does NOT point at an email capture:
+// the only waitlist field on the site now lives at the bottom of the homepage,
+// and a free-labelled ask must never land on a paywall (ONBOARDING-FLOW-TICKET).
+const ENTER_CLUB_TARGET = '/join';
 
 export default function SiteNav() {
   const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   // Top savings bar — advertises the founding deal loudly + early without a
   // cold paid wall at the top of the page. Dismissible for the session.
   const [announceDismissed, setAnnounceDismissed] = useState(
     () => typeof window !== 'undefined' && sessionStorage.getItem(ANNOUNCE_DISMISS_KEY) === '1',
   );
-  const showAnnounce = isPrelaunch() && isStripeConfigured() && !announceDismissed;
+  // Careers and Press aren't sales surfaces — the lime offer bar competes with
+  // their content, so it's suppressed there (HANDOFF-V2-COMPLEMENT §C).
+  const NO_ANNOUNCE_ROUTES = ['/careers', '/press'];
+  const announceAllowedHere = !NO_ANNOUNCE_ROUTES.some((p) => location.pathname.startsWith(p));
+  const showAnnounce =
+    isPrelaunch() && isStripeConfigured() && !announceDismissed && announceAllowedHere;
   const dismissAnnounce = () => {
     setAnnounceDismissed(true);
     try { sessionStorage.setItem(ANNOUNCE_DISMISS_KEY, '1'); } catch { /* ignore */ }
   };
-  const location = useLocation();
+
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const isActive = (to: string) =>
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
   const isSubpage = location.pathname !== '/';
 
-  // "Join the club" → hero capture. If we're already on the home route, the
-  // Link's hash won't always re-fire the router effect, so scroll manually.
-  const joinClubLabel = t('nav.joinClub', { defaultValue: 'Join the club →' });
-  const handleJoinClub = (e: React.MouseEvent) => {
-    if (location.pathname === '/') {
-      const el = document.getElementById('hero-capture');
-      if (el) {
-        e.preventDefault();
-        el.scrollIntoView({
-          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-          block: 'start',
-        });
-        // Focus the email field so the CTA visibly "does something" even when
-        // the capture is already at the top of the viewport.
-        const input = el.querySelector<HTMLInputElement>('input[type="email"], input');
-        input?.focus({ preventScroll: true });
-      }
-    }
-    setDrawerOpen(false);
-  };
+  // Plain route navigation to the FM funnel — no hash, no scroll handling.
+  const joinClubLabel = t('nav.enterTheClub', { defaultValue: 'Enter the club →' });
+  const handleJoinClub = () => setDrawerOpen(false);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -98,7 +90,7 @@ export default function SiteNav() {
           <button
             type="button"
             className="site-announce__msg"
-            onClick={() => navigate('/pricing')}
+            onClick={() => navigate('/membership')}
           >
             <span className="site-announce__spark" aria-hidden="true">⚡</span>
             <span className="site-announce__text">
@@ -153,7 +145,7 @@ export default function SiteNav() {
           {/* Right section */}
           <div className="site-nav__right">
             <Link
-              to={HERO_CAPTURE_TARGET}
+              to={ENTER_CLUB_TARGET}
               className="site-nav__cta"
               onClick={handleJoinClub}
             >
@@ -206,7 +198,7 @@ export default function SiteNav() {
         </div>
         <div className="site-nav__drawer-bottom">
           <Link
-            to={HERO_CAPTURE_TARGET}
+            to={ENTER_CLUB_TARGET}
             className="site-nav__drawer-cta"
             onClick={handleJoinClub}
           >

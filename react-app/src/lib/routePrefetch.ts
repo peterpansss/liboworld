@@ -8,10 +8,12 @@
 // Map a nav path to a loader that pulls in its page module. Keep the import
 // specifiers identical to App.tsx's lazy() calls so the chunks dedupe.
 const loaders: Record<string, () => Promise<unknown>> = {
-  '/money-challenges': () => import('../pages/MoneyChallenges'),
-  '/pricing': () => import('../pages/Pricing'),
+  '/cash-challenges': () => import('../pages/CashChallenges'),
+  '/join': () => import('../pages/JoinFunnel'),
+  '/membership': () => import('../pages/Pricing'),
   '/founder': () => import('../pages/Founder'),
   '/press': () => import('../pages/Press'),
+  '/careers': () => import('../pages/Careers'),
   '/exercises': () => import('../pages/ExerciseLibrary'),
 };
 

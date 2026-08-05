@@ -1,0 +1,145 @@
+/* Funnel chrome — lime context bar, unlinked centred logo, legal-only footer,
+   mobile sticky CTA. Tokens come from :root in index.css; no hardcoded hex. */
+
+.funnel-context-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px 16px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.funnel-context-bar__spark {
+  flex: none;
+}
+
+/* ── Logo-only nav ───────────────────────────────────────────────────────── */
+
+.funnel-nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 0 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Unlinked by design — kill the affordance so it doesn't read as clickable. */
+.funnel-nav__logo {
+  cursor: default;
+  user-select: none;
+}
+
+.funnel-nav__back {
+  position: absolute;
+  left: 16px;
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: none;
+  /* ≥44px hit area at mobile widths */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.funnel-nav__back:hover { color: var(--accent); }
+
+.funnel-nav__back-inner { white-space: nowrap; }
+
+@media (max-width: 560px) {
+  /* Back link would collide with the centred logo — drop it under the nav. */
+  .funnel-nav { justify-content: center; }
+  .funnel-nav__back { position: static; order: -1; }
+}
+
+/* ── Minimal footer ──────────────────────────────────────────────────────── */
+
+.funnel-footer {
+  padding: 40px 16px 32px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.funnel-footer__inner {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--dim);
+}
+
+.funnel-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.funnel-footer__legal a {
+  color: var(--muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.funnel-footer__legal a:hover { color: var(--accent); }
+
+@media (max-width: 560px) {
+  .funnel-footer__inner { justify-content: center; text-align: center; }
+}
+
+/* ── Sticky mobile CTA ───────────────────────────────────────────────────── */
+
+.funnel-sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+}
+
+.funnel-sticky__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  border: none;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.funnel-sticky__btn:hover { background: var(--accent2); }
+
+/* Desktop keeps the in-flow CTAs; the sticky bar is a mobile affordance only. */
+@media (min-width: 768px) {
+  .funnel-sticky { display: none; }
+}

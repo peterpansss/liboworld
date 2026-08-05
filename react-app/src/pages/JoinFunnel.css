@@ -1,0 +1,764 @@
+/* ============================================================
+   /join — Founding Member funnel.
+
+   Only the hero exists in the design canvases (06 desktop /
+   17 mobile); everything below is built from the written spec.
+
+   Canvas bugs deliberately NOT reproduced:
+   - the lime glow band that bleeds over the hero CTA (the bloom
+     is a clipped background layer here, never a box-shadow on
+     the button)
+   - "THE TRAINING CLUB" overflowing its eyebrow pill on mobile
+   - the context bar wrapping to two ragged lines at 390px
+     (a shorter mobile string is swapped in instead)
+   ============================================================ */
+
+.jf-page {
+  --jf-r-button: 14px;
+  --jf-r-card: 16px;
+  --jf-r-pill: 100px;
+  --jf-font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --jf-font-body: 'Inter', 'Helvetica Neue', sans-serif;
+  --jf-gutter: 24px;
+  --jf-max: 1200px;
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--jf-font-body);
+  overflow-x: clip;
+}
+
+/* ── Context bar: one string for wide, a shorter one for 390px ───────────── */
+.jf-bar__short { display: none; }
+
+@media (max-width: 560px) {
+  .jf-bar__full { display: none; }
+  .jf-bar__short { display: inline; }
+}
+
+/* ── Shared primitives ───────────────────────────────────────────────────── */
+
+.jf-eyebrow {
+  display: inline-block;
+  /* nowrap + a mobile letter-spacing step is what keeps the label inside the
+     pill at 390px, which the canvas render fails to do. */
+  white-space: nowrap;
+  padding: 8px 16px;
+  border-radius: var(--jf-r-pill);
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.jf-line {
+  display: block;
+}
+
+/* ScrollRevealText mixes each glyph from --muted toward --text; re-point --text
+   at the accent so the lime line still sweeps instead of flipping on. */
+.jf-line--accent {
+  --text: var(--accent);
+  color: var(--accent);
+}
+
+.jf-h2 {
+  font-family: var(--jf-font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(38px, 6vw, 72px);
+  line-height: 0.92;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+
+.jf-h2--sm {
+  font-size: clamp(32px, 4.4vw, 52px);
+}
+
+.jf-lede {
+  max-width: 58ch;
+  margin: 0 auto 32px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.jf-lede--left {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Buttons — one lime CTA per screen. No outer glow: the canvas glow band is a
+   background bloom on the hero, not a shadow on the control. */
+.jf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 28px;
+  border: none;
+  border-radius: var(--jf-r-button);
+  font-family: var(--jf-font-display);
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.jf-btn--primary {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.jf-btn--primary:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+}
+
+.jf-btn--block {
+  display: flex;
+  width: 100%;
+}
+
+.jf-section {
+  position: relative;
+  max-width: var(--jf-max);
+  margin: 0 auto;
+  padding: 88px var(--jf-gutter);
+  text-align: center;
+}
+
+.jf-ctabar {
+  margin-top: 44px;
+}
+
+/* ── Pop-in cards (usePopIn adds .popped, and removes it on the way out) ──── */
+.jf-page [data-popin] {
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.jf-page [data-popin].popped {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── 1. Hero ─────────────────────────────────────────────────────────────── */
+
+.jf-hero {
+  position: relative;
+  /* Clips the bloom so it can never wash across the sections below. */
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* The soft lime bloom sits behind the headline on its own layer. It is
+   deliberately bounded (fixed box + radial falloff + clip) so it can't spill
+   onto the CTA the way the canvas render does. */
+.jf-hero__bloom {
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  width: min(900px, 120%);
+  height: 620px;
+  transform: translateX(-62%);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--accent) 16%, transparent),
+    transparent 72%
+  );
+  filter: blur(30px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.jf-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--jf-max);
+  margin: 0 auto;
+  padding: 72px var(--jf-gutter) 96px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 56px;
+}
+
+.jf-hero__copy {
+  min-width: 0;
+}
+
+.jf-hero__title {
+  font-family: var(--jf-font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(54px, 7.4vw, 108px);
+  line-height: 0.92;
+  letter-spacing: -1px;
+  margin: 26px 0 24px;
+}
+
+.jf-hero__body {
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.jf-hero__actions {
+  margin-top: 34px;
+}
+
+.jf-hero__footnote {
+  margin-top: 14px;
+  color: var(--dim);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Hero photo card with the "inside the club" caption on a gradient scrim. */
+.jf-hero__media {
+  min-width: 0;
+}
+
+.jf-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  aspect-ratio: 4 / 5;
+  background: var(--bg2);
+}
+
+.jf-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% center;
+  display: block;
+}
+
+.jf-photo__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 72px 24px 22px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  font-family: var(--jf-font-display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+/* ── 2. Framed real screens + capability pills ───────────────────────────── */
+
+.jf-phones {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.jf-phone {
+  min-width: 0;
+}
+
+.jf-phone__frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--bg2);
+  padding: 6px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+}
+
+.jf-phone__frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+}
+
+.jf-phone__frame--lg {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.jf-phone__caption {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.jf-pills {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 48px auto 0;
+  max-width: 900px;
+}
+
+.jf-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--jf-r-pill);
+  background: var(--card);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.35;
+  text-align: left;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.jf-pill:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  transform: translateY(-2px);
+}
+
+.jf-pill__dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ── 3. Stats ────────────────────────────────────────────────────────────── */
+
+.jf-stats-section {
+  padding-top: 0;
+}
+
+.jf-stats {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.jf-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 132px;
+  padding: 24px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--jf-r-card);
+  background: var(--card);
+  transition: border-color 0.2s ease;
+}
+
+.jf-stat:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.jf-stat__value {
+  /* No nowrap/ellipsis anywhere here — "Free tier" truncating to "Free" on
+     mobile is one of the canvas bugs we are not reproducing. */
+  font-family: var(--jf-font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(26px, 3.2vw, 40px);
+  line-height: 1;
+  letter-spacing: -0.5px;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+.jf-stat__label {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* ── 4. Pocket ───────────────────────────────────────────────────────────── */
+
+.jf-pocket__inner {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  align-items: center;
+  gap: 56px;
+  text-align: left;
+}
+
+.jf-pocket__copy {
+  min-width: 0;
+}
+
+.jf-pocket__media {
+  min-width: 0;
+}
+
+/* ── 5. Founding Member card ─────────────────────────────────────────────── */
+
+.jf-membership {
+  scroll-margin-top: 24px;
+}
+
+.jf-offer {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 34px 28px 30px;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  border-radius: var(--jf-r-card);
+  background: linear-gradient(180deg, var(--bg3), var(--bg2));
+  text-align: left;
+}
+
+.jf-offer__badge {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: var(--jf-r-pill);
+  background: var(--accent);
+  color: var(--accent-text);
+  font-family: var(--jf-font-display);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.jf-offer__price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.jf-offer__was {
+  color: var(--dim);
+  font-size: 20px;
+  text-decoration: line-through;
+}
+
+.jf-offer__now {
+  font-family: var(--jf-font-display);
+  font-weight: 900;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.jf-offer__per {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.jf-offer__note {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.jf-offer__list {
+  list-style: none;
+  margin: 24px 0 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jf-offer__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.jf-offer__tick {
+  flex: none;
+  color: var(--accent);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.jf-offer__unavailable {
+  padding: 16px;
+  border: 1px dashed var(--border);
+  border-radius: var(--jf-r-button);
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.jf-offer__fine {
+  margin-top: 14px;
+  color: var(--dim);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ── 6. FAQ ──────────────────────────────────────────────────────────────── */
+
+.jf-faq {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.jf-faq__item {
+  border-bottom: 1px solid var(--border);
+}
+
+.jf-faq__item:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.jf-faq__h {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.jf-faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 56px;
+  padding: 18px 4px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Lime ONLY when the row is open — not on hover, not on focus. */
+.jf-faq__sign {
+  flex: none;
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.jf-faq__item.is-open .jf-faq__q { color: var(--accent); }
+.jf-faq__item.is-open .jf-faq__sign { color: var(--accent); }
+
+.jf-faq__a {
+  padding: 0 4px 22px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 62ch;
+}
+
+/* ── 7. Close ────────────────────────────────────────────────────────────── */
+
+.jf-close__card {
+  padding: 56px 32px 48px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: linear-gradient(180deg, var(--bg2), var(--bg));
+}
+
+.jf-close__alt {
+  margin-top: 22px;
+  font-size: 14px;
+}
+
+.jf-close__alt a {
+  color: var(--muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.jf-close__alt a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .jf-hero__inner,
+  .jf-pocket__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .jf-hero__inner {
+    padding-top: 48px;
+    padding-bottom: 64px;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .jf-hero__body,
+  .jf-hero__title {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .jf-hero__body {
+    max-width: 42ch;
+  }
+
+  .jf-hero__media {
+    width: 100%;
+    max-width: 460px;
+  }
+
+  .jf-pocket__inner {
+    text-align: center;
+    justify-items: center;
+  }
+
+  .jf-pocket__copy .jf-lede--left {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .jf-phones {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .jf-phone__caption {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 640px) {
+  .jf-page {
+    --jf-gutter: 16px;
+    /* Clear the mobile sticky CTA. */
+    padding-bottom: 88px;
+  }
+
+  .jf-section {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .jf-eyebrow {
+    letter-spacing: 1.4px;
+    padding: 8px 14px;
+  }
+
+  .jf-hero__bloom {
+    top: -140px;
+    height: 460px;
+    transform: translateX(-50%);
+  }
+
+  /* Full-width CTAs on mobile, minimum 44px tap target already exceeded. */
+  .jf-btn {
+    display: flex;
+    width: 100%;
+    font-size: 17px;
+    padding: 0 16px;
+  }
+
+  .jf-hero__body {
+    font-size: 17px;
+  }
+
+  /* Two screens side by side reads as a strip at 390px; keep all three but let
+     them shrink and drop the frame padding so nothing overflows. */
+  .jf-phones {
+    gap: 8px;
+  }
+
+  .jf-phone__frame {
+    padding: 3px;
+    border-radius: 14px;
+  }
+
+  .jf-phone__frame img {
+    border-radius: 11px;
+  }
+
+  .jf-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .jf-stat {
+    min-height: 116px;
+    padding: 20px 12px;
+  }
+
+  .jf-pills {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 36px;
+  }
+
+  .jf-pill {
+    justify-content: flex-start;
+  }
+
+  .jf-offer {
+    padding: 26px 20px 24px;
+  }
+
+  .jf-offer__now {
+    font-size: 46px;
+  }
+
+  .jf-close__card {
+    padding: 40px 20px 36px;
+  }
+
+  .jf-photo__caption {
+    font-size: 18px;
+    padding: 60px 18px 18px;
+  }
+}
+
+/* ── Reduced motion: everything inert ────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .jf-page [data-popin],
+  .jf-page [data-popin].popped {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .jf-btn,
+  .jf-pill,
+  .jf-stat {
+    transition: none;
+  }
+
+  .jf-btn--primary:hover,
+  .jf-pill:hover {
+    transform: none;
+  }
+}

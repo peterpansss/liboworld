@@ -34,6 +34,20 @@ export const darkColors = {
   overlayLight: 'rgba(255,255,255,0.2)',
 } as const;
 
+/**
+ * ⚠️ NOT RENDERED. liboworld.com is DARK-ONLY by decision (Noah, 2026-08-04).
+ *
+ * Nothing imports this map: Tailwind is fed by `tailwindColors`, which is built
+ * entirely from `darkColors`, and the site has no `prefers-color-scheme`, no
+ * `dark:` variants and no theme toggle. Kept because it costs nothing and the
+ * dark/light key-parity test is worth having.
+ *
+ * ⚠️ DO NOT ADOPT THESE VALUES if a web light theme is ever built. They are the
+ * pre-2026-07-31 palette that the Phase 1 design handoff REJECTED — `#7A9900`
+ * on `#F5F5F5` failed contrast. The current, approved light palette lives in
+ * `libo-app-v2/src/utils/colors.ts` (bg #FFFFFF, accent #8FBF00, plus the
+ * `onAccent` ink token this map doesn't have). Start there, not here.
+ */
 export const lightColors = {
   bg: '#F5F5F5',
   bg2: '#EEEEEE',

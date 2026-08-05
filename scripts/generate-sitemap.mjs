@@ -93,6 +93,14 @@ function main() {
   // asks Google to crawl URLs that serve no content — soft-404s that dilute the
   // pages that do. Re-add them in the same commit that flips LAUNCH_MODE to
   // 'launched', not before.
+  // Brand pages from the site relaunch. The funnels they feed (/join and
+  // /cash-challenges/<tier>) are deliberately NOT listed — they're conversion
+  // surfaces with one action and no standalone search intent, and indexing them
+  // would compete with the catalogue page that should rank.
+  // /pricing, /money-challenges and /affiliate are not listed either: they are
+  // now <Navigate> redirects to the routes below.
+  entries.push(urlEntry(`${SITE_URL}/cash-challenges`, 0.8, 'weekly'));
+  entries.push(urlEntry(`${SITE_URL}/membership`, 0.7, 'monthly'));
   entries.push(urlEntry(`${SITE_URL}/get-app`, 0.5, 'monthly'));
   entries.push(urlEntry(`${SITE_URL}/privacy`, 0.3, 'yearly'));
   entries.push(urlEntry(`${SITE_URL}/terms`, 0.3, 'yearly'));

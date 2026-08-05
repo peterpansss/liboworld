@@ -1,17 +1,31 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
+import ScrollRevealText from '../components/ScrollRevealText';
+import { usePopIn } from '../utils/funnelAnimations';
 import './Press.css';
 
-// /press — relaunch press kit: fact sheet, boilerplate, downloadable logos,
-// product shots, and a press contact CTA. (Founder bio removed 2026-07-29 —
-// it lives on /founder; the press kit doesn't need to duplicate it.)
-// All copy is driven by the "relaunchPress" i18n namespace.
+// /press — the press kit: fact sheet, boilerplate, founder bio, downloadable
+// logos, real product shots and a press contact CTA. Stays a BRAND page
+// (SiteNav + SiteFooter) — journalists arrive here from outside and must be
+// able to reach the rest of the site.
+//
+// Copy notes:
+// - The eyebrow reads "Press", not "Press kit" (MASTER-HANDOFF §19). The canvas
+//   render still shows the old label.
+// - The H1 is three lines and, unlike the canvas, line 3 gets the lime
+//   treatment so the page matches the site-wide headline pattern.
+// - Product shots are REAL in-app captures only (HANDOFF-V2-COMPLEMENT §C). The
+//   old mocked frames (hero-*.png, app-workout.png, app-rewards.png) are gone
+//   from this grid; the files themselves are untouched.
+// - Strings live in the `pressKit` namespace via defaultValue. The older
+//   `relaunchPress` keys are still referenced for the blocks whose English is
+//   unchanged (logo tiles, contact band, aria labels) so their translations
+//   survive.
 
-type Fact = { label: string; value: string };
 type LogoItem = { label: string; file: string };
-type Shot = { img: string; label: string };
 
 // Wordmark logo tile — rendered inline so <text> nodes pick up the page's
 // self-hosted Barlow Condensed / Inter fonts. `dark` toggles lime-on-dark
@@ -64,37 +78,70 @@ function LogoMark() {
 export default function Press() {
   const { t } = useTranslation();
 
-  const facts = t('relaunchPress.facts', { returnObjects: true }) as Fact[];
-  const logos = t('relaunchPress.logos.items', { returnObjects: true }) as LogoItem[];
-  const shots = t('relaunchPress.shots.items', { returnObjects: true }) as Shot[];
+  // Fact tiles / product shots are authored here rather than pulled from the
+  // locale bundle so the wording stays in step with the canon: "free tier",
+  // named payout tiers, real captures only.
+  const facts = [
+    { label: t('pressKit.facts.whatLabel', { defaultValue: 'What' }), value: t('pressKit.facts.whatValue', { defaultValue: 'Training club that pays cash' }) },
+    { label: t('pressKit.facts.platformLabel', { defaultValue: 'Platform' }), value: t('pressKit.facts.platformValue', { defaultValue: 'iOS & Android' }) },
+    { label: t('pressKit.facts.stageLabel', { defaultValue: 'Stage' }), value: t('pressKit.facts.stageValue', { defaultValue: 'Pre-launch · waitlist open' }) },
+    { label: t('pressKit.facts.pricingLabel', { defaultValue: 'Pricing' }), value: t('pressKit.facts.pricingValue', { defaultValue: 'Free tier + €79.99/yr' }) },
+    { label: t('pressKit.facts.exercisesLabel', { defaultValue: 'Exercises' }), value: t('pressKit.facts.exercisesValue', { defaultValue: '641' }) },
+    { label: t('pressKit.facts.workoutsLabel', { defaultValue: 'Workouts' }), value: t('pressKit.facts.workoutsValue', { defaultValue: '140' }) },
+    { label: t('pressKit.facts.payoutLabel', { defaultValue: 'Challenge payouts' }), value: t('pressKit.facts.payoutValue', { defaultValue: '€5 · €15 · €50' }) },
+    { label: t('pressKit.facts.cohortLabel', { defaultValue: 'Challenge spots' }), value: t('pressKit.facts.cohortValue', { defaultValue: '50 at a time · 30 days' }) },
+  ];
 
-  const factList = Array.isArray(facts) ? facts : [];
+  // Real in-app captures, mapped by CONTENT — the filenames are not reliable.
+  const shots = [
+    { img: 'app-real-streak.png', label: t('pressKit.shots.streak', { defaultValue: 'Streak & freezes' }) },
+    { img: 'app-real-goal.png', label: t('pressKit.shots.goal', { defaultValue: 'Streak goals' }) },
+    { img: 'app-real-calendar.png', label: t('pressKit.shots.calendar', { defaultValue: 'Streak calendar' }) },
+    { img: 'app-real-rewards.png', label: t('pressKit.shots.rewards', { defaultValue: 'Rewards' }) },
+    { img: 'app-real-summary.png', label: t('pressKit.shots.summary', { defaultValue: 'Workout summary' }) },
+    { img: 'app-real-share.png', label: t('pressKit.shots.share', { defaultValue: 'Share card' }) },
+  ];
+
+  const logos = t('relaunchPress.logos.items', { returnObjects: true }) as LogoItem[];
   const logoList = Array.isArray(logos) ? logos : [];
-  const shotList = Array.isArray(shots) ? shots : [];
+
+  const boilerplate = t('pressKit.boilerplate.body', {
+    defaultValue:
+      'Libo is a training club that pays members real cash for consistency. Alongside a library of 641 exercises, 140 guided workouts and AI-built training plans, Libo runs 30-day Cash Challenges: members hit a daily rep target, record the proof, share it publicly, and are paid €5, €15 or €50 when they finish. The payout is set aside in cash the moment a member joins — funded by Libo, never dependent on other members failing. Libo launches on iOS and Android with a free tier and a Premium subscription at €79.99 a year.',
+  });
+
+  usePopIn();
 
   return (
     <div className="press-page">
       <SiteNav />
       <SeoHead
-        title={t('relaunchPress.seo.title')}
-        description={t('relaunchPress.boilerplate.body')}
+        title={t('pressKit.seo.title', { defaultValue: 'Press — Libo' })}
+        description={boilerplate}
         canonical="/press"
         ogImage="https://liboworld.com/brand/og-image.png"
       />
 
       <main id="main-content">
-        {/* ── Hero ───────────────────────────────── */}
+        {/* ── Hero ───────────────────────────────────
+            Three separate block lines with real leading — the canvas render
+            overprints line 3 onto the paragraph; this cannot. */}
         <header className="press-hero">
-          <span className="press-badge">{t('relaunchPress.hero.badge')}</span>
+          <span className="press-badge">{t('pressKit.hero.badge', { defaultValue: 'Press' })}</span>
           <h1 className="press-h1 font-display">
-            {t('relaunchPress.hero.h1Line1')}
-            <br />
-            {t('relaunchPress.hero.h1Line2')}
+            <span className="press-h1-line">{t('pressKit.hero.h1Line1', { defaultValue: 'Everything you' })}</span>
+            <span className="press-h1-line">{t('pressKit.hero.h1Line2', { defaultValue: 'need' })}</span>
+            <span className="press-h1-line press-h1-line--accent">
+              {t('pressKit.hero.h1Line3', { defaultValue: 'to cover Libo.' })}
+            </span>
           </h1>
           <p className="press-hero-sub">
-            {t('relaunchPress.hero.subPre')}
+            {t('pressKit.hero.subPre', {
+              defaultValue:
+                'Logos, screenshots, founder bio and the facts — all ready to use. For interviews, beta access, or anything else: ',
+            })}
             <a href="mailto:press@liboworld.com" className="press-link">
-              {t('relaunchPress.hero.email')}
+              press@liboworld.com
             </a>
           </p>
         </header>
@@ -102,8 +149,8 @@ export default function Press() {
         {/* ── Fact sheet ─────────────────────────── */}
         <section className="press-facts" aria-label={t('relaunchPress.aria.factSheet')}>
           <div className="press-facts-grid">
-            {factList.map((f, i) => (
-              <div className="press-fact-card" key={i}>
+            {facts.map((f, i) => (
+              <div className="press-fact-card" key={i} data-popin>
                 <span className="press-fact-label">{f.label}</span>
                 <span className="press-fact-value font-display">{f.value}</span>
               </div>
@@ -111,15 +158,41 @@ export default function Press() {
           </div>
         </section>
 
-        {/* ── Boilerplate ────────────────────────── */}
+        {/* ── Boilerplate + founder bio ──────────── */}
         <section className="press-boilerplate">
           <div className="press-boilerplate-inner">
             <div className="press-boilerplate-col">
               <h2 className="press-h2 font-display">
-                {t('relaunchPress.boilerplate.title')}{' '}
-                <span className="press-h2-tag">{t('relaunchPress.boilerplate.titleTag')}</span>
+                {t('pressKit.boilerplate.title', { defaultValue: 'About Libo' })}{' '}
+                <span className="press-h2-tag">{t('pressKit.boilerplate.titleTag', { defaultValue: '· boilerplate' })}</span>
               </h2>
-              <p className="press-body">{t('relaunchPress.boilerplate.body')}</p>
+              <p className="press-body">{boilerplate}</p>
+            </div>
+
+            <div className="press-boilerplate-col">
+              <h2 className="press-h2 font-display">
+                {t('pressKit.founder.title', { defaultValue: 'Noah F.' })}{' '}
+                <span className="press-h2-tag">{t('pressKit.founder.titleTag', { defaultValue: '· founder' })}</span>
+              </h2>
+              <div className="press-founder">
+                <img
+                  src="/noah-photo-real.png"
+                  alt={t('pressKit.founder.imgAlt', { defaultValue: 'Noah F., founder of Libo' })}
+                  className="press-founder-photo"
+                  loading="lazy"
+                />
+                <div className="press-founder-copy">
+                  <p className="press-body press-body-sm">
+                    {t('pressKit.founder.bio', {
+                      defaultValue:
+                        'Noah comes from German high-performance sport — years of Regionalliga football, with selections for the DFB Stützpunkt and the Westfalenauswahl with Bonner SC. He is also the designer behind the fashion label Mieuxnoir and founder of Manufactnow, a fashion production and consulting company. His bet with Libo: real stakes beat motivation, so the club puts real money on member consistency.',
+                    })}
+                  </p>
+                  <Link to="/founder" className="press-link press-founder-link">
+                    {t('pressKit.founder.link', { defaultValue: 'Full founder story →' })}
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -127,7 +200,9 @@ export default function Press() {
         {/* ── Logos ──────────────────────────────── */}
         <section className="press-logos">
           <div className="press-section-head">
-            <h2 className="press-h2-lg font-display">{t('relaunchPress.logos.h2')}</h2>
+            <ScrollRevealText as="h2" className="press-h2-lg font-display">
+              {t('relaunchPress.logos.h2')}
+            </ScrollRevealText>
             <span className="press-section-note">{t('relaunchPress.logos.note')}</span>
           </div>
           <div className="press-logos-grid">
@@ -135,7 +210,7 @@ export default function Press() {
               const light = i === 1;
               const mark = i === 2;
               return (
-                <div className="press-logo-tile" key={i}>
+                <div className="press-logo-tile" key={i} data-popin>
                   <div className={`press-logo-preview${light ? ' is-light' : ''}`}>
                     {mark ? <LogoMark /> : <LogoWordmark dark={!light} />}
                   </div>
@@ -151,19 +226,28 @@ export default function Press() {
           </div>
         </section>
 
-        {/* ── Product shots ──────────────────────── */}
+        {/* ── Product shots — real captures only ─── */}
         <section className="press-shots">
           <div className="press-section-head">
-            <h2 className="press-h2-lg font-display">{t('relaunchPress.shots.h2')}</h2>
-            <span className="press-section-note">{t('relaunchPress.shots.note')}</span>
+            <ScrollRevealText as="h2" className="press-h2-lg font-display">
+              {t('pressKit.shots.h2', { defaultValue: 'Product shots.' })}
+            </ScrollRevealText>
+            <span className="press-section-note">
+              {t('pressKit.shots.note', { defaultValue: 'Real in-app captures · PNG · no mock-ups' })}
+            </span>
           </div>
           <div className="press-shots-grid">
-            {shotList.map((s, i) => (
-              <div className="press-shot" key={i}>
+            {shots.map((s, i) => (
+              <div className="press-shot" key={i} data-popin>
                 <img src={`/${s.img}`} alt={s.label} className="press-shot-img" loading="lazy" />
                 <div className="press-shot-meta">
                   <span className="press-muted-12">{s.label}</span>
-                  <a href={`/${s.img}`} download className="press-link" aria-label={t('relaunchPress.aria.download', { label: s.label })}>
+                  <a
+                    href={`/${s.img}`}
+                    download
+                    className="press-link press-shot-dl"
+                    aria-label={t('relaunchPress.aria.download', { label: s.label })}
+                  >
                     ↓
                   </a>
                 </div>
@@ -175,7 +259,9 @@ export default function Press() {
         {/* ── Contact CTA ────────────────────────── */}
         <section className="press-contact">
           <div className="press-contact-inner">
-            <h2 className="press-contact-h2 font-display">{t('relaunchPress.contact.h2')}</h2>
+            <ScrollRevealText as="h2" className="press-contact-h2 font-display">
+              {t('relaunchPress.contact.h2')}
+            </ScrollRevealText>
             <p className="press-contact-body">{t('relaunchPress.contact.body')}</p>
             <a href="mailto:press@liboworld.com" className="press-contact-cta font-display">
               {t('relaunchPress.contact.cta')}

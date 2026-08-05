@@ -34,13 +34,12 @@ export default function SiteFooter() {
           <div className="site-footer__col">
             <h2 className="site-footer__col-title">{t('footer.productTitle')}</h2>
             <div className="site-footer__col-links">
-              <Link to="/money-challenges">{t('footer.moneyChallenges', { defaultValue: 'Money Challenges' })}</Link>
-              <Link to="/pricing">{t('footer.pricing')}</Link>
+              <Link to="/cash-challenges">{t('footer.cashChallengesLink', { defaultValue: 'Cash Challenges' })}</Link>
+              <Link to="/membership">{t('footer.membership', { defaultValue: 'Membership' })}</Link>
               <Link to="/#features">{t('footer.features')}</Link>
               {!isPrelaunch() && (<Link to="/#rewards">{t('footer.rewardsLink')}</Link>)}
               {!isPrelaunch() && (<Link to="/giveaway">{t('footer.giveaways')}</Link>)}
-              {!isPrelaunch() && (<Link to="/cash-challenge">{t('footer.cashChallenges')}</Link>)}
-              <Link to="/affiliate">{t('footer.affiliate', { defaultValue: 'Affiliate Program' })}</Link>
+              <Link to="/creator-program">{t('footer.creatorProgram', { defaultValue: 'Creator Program' })}</Link>
             </div>
           </div>
 
@@ -48,8 +47,10 @@ export default function SiteFooter() {
           <div className="site-footer__col">
             <h2 className="site-footer__col-title">{t('footer.companyTitle')}</h2>
             <div className="site-footer__col-links">
-              <Link to="/founder">{t('footer.founder', { defaultValue: 'Founder' })}</Link>
-              <Link to="/press">{t('footer.pressKit', { defaultValue: 'Press kit' })}</Link>
+              {/* "About" (not "Founder") — the founder story is footer-only now;
+                  it is deliberately not in the header and not on the homepage. */}
+              <Link to="/founder">{t('footer.about', { defaultValue: 'About' })}</Link>
+              <Link to="/press">{t('footer.press', { defaultValue: 'Press' })}</Link>
               <Link to="/careers">{t('footer.careers', { defaultValue: 'Careers' })}</Link>
               <a href="mailto:hello@liboworld.com">{t('footer.contactUs')}</a>
             </div>

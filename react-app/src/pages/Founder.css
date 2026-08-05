@@ -61,6 +61,18 @@
   color: var(--accent);
 }
 
+/* Each display-headline line is its own block, so a two-tone headline can
+   never overprint the paragraph beneath it. ScrollRevealText renders these. */
+.fp-line {
+  display: block;
+}
+
+/* ScrollRevealText paints characters from --muted → --text; retargeting --text
+   keeps a lime line lime for the whole sweep instead of ramping to white. */
+.fp-line--accent {
+  --text: var(--accent);
+}
+
 .fp-hero-sub {
   font-size: 18px;
   color: var(--muted);
@@ -85,42 +97,18 @@
   position: relative;
 }
 
+/* /noah-photo-real.png is 880×1100 — exactly 4:5, so nothing is cropped.
+   The name-plate overlay that used to sit here was removed (HANDOFF-V2 §B6). */
 .fp-why-img {
   width: 100%;
   max-width: 440px;
+  height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 16px;
   border: 1px solid var(--bg4);
   display: block;
-}
-
-.fp-photo-badge {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  background: rgba(8, 8, 8, 0.82);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 12px;
-  padding: 12px 18px;
-}
-
-.fp-photo-badge-name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 22px;
-  line-height: 1;
-}
-
-.fp-photo-badge-role {
-  font-size: 12px;
-  color: var(--muted);
 }
 
 .fp-why-body {

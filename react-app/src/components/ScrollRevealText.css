@@ -1,0 +1,41 @@
+/* Scroll-scrubbed text reveal — see design_handoff_scroll_text_reveal/SPEC.md.
+   Registered so --p animates as a number and calc() can lean on it. Initial 1
+   means "fully revealed": crawlers, prerender and no-JS all get white text. */
+@property --p {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+.scroll-reveal {
+  --n: 1;
+  /* Soft edge width, in glyphs. ~3 keeps 2–4 chars mid-ramp at any instant so
+     the boundary reads as a gradient sweeping the line, not an on/off switch. */
+  --ramp: 3;
+  color: var(--text);
+}
+
+/* Per-character splitting must not break line wrapping mid-word. */
+.scroll-reveal__word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.scroll-reveal__char {
+  /* Reveal fraction for this glyph: 0 before the sweep reaches it, 1 after,
+     ramping across --ramp characters in between. */
+  --r: clamp(0, calc((var(--p) * var(--n) - var(--i)) / var(--ramp)), 1);
+  color: color-mix(in srgb, var(--text) calc(var(--r) * 100%), var(--muted));
+}
+
+/* Reduced motion, no-JS, and prerender: every glyph at full strength, and the
+   hook never attaches a listener. */
+.scroll-reveal--static .scroll-reveal__char {
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal__char {
+    color: var(--text);
+  }
+}

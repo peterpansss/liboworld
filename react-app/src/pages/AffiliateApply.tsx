@@ -1,30 +1,45 @@
 import { useState, type FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import SiteNav from '../components/SiteNav';
-import SiteFooter from '../components/SiteFooter';
+import { SeoHead } from '../components/SeoHead';
+import ScrollRevealText from '../components/ScrollRevealText';
+import {
+  FunnelContextBar,
+  FunnelLogoNav,
+  FunnelMinimalFooter,
+} from '../components/funnel/FunnelChrome';
 import { supabase } from '../lib/supabase';
 import './AffiliateApply.css';
 
-// /affiliate/apply — application form modeled after Hevy/Everflow but
-// hosted on liboworld.com.
-//
-// Submission backend: Supabase Edge Function `affiliate_apply` which calls
-// Resend to email the application to AFFILIATE_TO_EMAIL.
-// Setup (one-time):
-//   1. supabase secrets set RESEND_API_KEY=re_...
-//   2. supabase secrets set AFFILIATE_FROM_EMAIL="Libo Affiliates <noreply@liboworld.com>"
-//      (use a domain verified in Resend)
-//   3. supabase secrets set AFFILIATE_TO_EMAIL=affiliates@liboworld.com
-//   4. cd libo-app-v2 && supabase functions deploy affiliate_apply
-//
-// Fallback: if the function call fails the form surfaces an inline error
-// pointing the user at affiliates@liboworld.com so applications are never
-// silently lost.
+/**
+ * /creator-program/apply — the Creator Program application (was
+ * /affiliate/apply, which now redirects here).
+ *
+ * FUNNEL page: lime context bar, unlinked centred logo, legal-only footer. The
+ * only exits are the back link and the submit button — no sticky CTA, because
+ * the form's own submit is the CTA.
+ *
+ * Submission backend: Supabase Edge Function `affiliate_apply` which calls
+ * Resend to email the application to AFFILIATE_TO_EMAIL. Wiring unchanged.
+ * Setup (one-time):
+ *   1. supabase secrets set RESEND_API_KEY=re_...
+ *   2. supabase secrets set AFFILIATE_FROM_EMAIL="Libo Creators <noreply@liboworld.com>"
+ *      (use a domain verified in Resend)
+ *   3. supabase secrets set AFFILIATE_TO_EMAIL=affiliates@liboworld.com
+ *   4. cd libo-app-v2 && supabase functions deploy affiliate_apply
+ *
+ * Success is now an INLINE state rather than a redirect to
+ * /creator-program/apply/sent — a funnel should never hand the user a fresh
+ * page to bounce from. That route still exists but is no longer reached from
+ * here.
+ *
+ * Fallback: if the function call fails the form surfaces an inline error
+ * pointing at affiliates@liboworld.com so applications are never silently lost.
+ */
 
-const TERMS_TEXT = `1. These Terms and Conditions apply to the Affiliate Programme of Libo World, S.L. (hereafter, "Libo").
+const TERMS_TEXT = `1. These Terms and Conditions apply to the Creator Program of Libo World, S.L. (hereafter, "Libo").
 
-2. Libo must confirm the publisher's participation in this Affiliate Programme ("confirmed publisher"). Upon confirmation of participation in the Libo Affiliate Programme, the publisher declares their agreement with these Terms and Conditions. Libo can change these Terms and Conditions or terminate the Libo Affiliate Programme at any time.
+2. Libo must confirm the publisher's participation in this Creator Program ("confirmed publisher"). Upon confirmation of participation in the Libo Creator Program, the publisher declares their agreement with these Terms and Conditions. Libo can change these Terms and Conditions or terminate the Libo Creator Program at any time.
 
 3. The publisher must have their own website or social media. Pure email registrations shall not be accepted or confirmed.
 
@@ -36,7 +51,7 @@ const TERMS_TEXT = `1. These Terms and Conditions apply to the Affiliate Program
 
 7. Payments are made monthly. The publisher must reach a minimum balance of €50 before payout. Payments are made via bank transfer or PayPal at the publisher's choice.
 
-8. The publisher must not bid on Libo branded keywords in paid search advertising. Doing so is grounds for immediate termination from the Programme without payout of pending balance.
+8. The publisher must not bid on Libo branded keywords in paid search advertising. Doing so is grounds for immediate termination from the Creator Program without payout of pending balance.
 
 9. Cookie window: 60 days from last click on the publisher's referral link.
 
@@ -68,10 +83,10 @@ const INITIAL: FormState = {
 
 export default function AffiliateApply() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [form, setForm] = useState<FormState>(INITIAL);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [sent, setSent] = useState(false);
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -115,10 +130,9 @@ export default function AffiliateApply() {
       if (fnError) throw fnError;
       const result = data as { ok: boolean; error?: string };
       if (!result?.ok) throw new Error(result?.error || 'submission_failed');
-      navigate('/affiliate/apply/sent');
+      setSent(true);
     } catch (submitErr) {
-      // eslint-disable-next-line no-console
-      console.error('Affiliate application submission failed', submitErr);
+      console.error('Creator Program application submission failed', submitErr);
       setError(
         t('affiliateApply.errSubmit', {
           defaultValue:
@@ -131,14 +145,40 @@ export default function AffiliateApply() {
 
   return (
     <div className="aa-page">
-      <SiteNav />
+      <SeoHead
+        title={t('affiliateApply.seoTitle', { defaultValue: 'Apply to the Libo Creator Program' })}
+        description={t('affiliateApply.seoDescription', {
+          defaultValue:
+            'Apply to the Libo Creator Program and earn 25% commission on every subscription payment your audience makes.',
+        })}
+        canonical="https://liboworld.com/creator-program/apply"
+      />
+
+      <FunnelContextBar>
+        <span className="aa-bar-full">
+          {t('affiliateApply.contextBar', {
+            defaultValue: '25% lifetime commission — on every payment, not just the first',
+          })}
+        </span>
+        <span className="aa-bar-short">
+          {t('affiliateApply.contextBarShort', { defaultValue: '25% lifetime commission' })}
+        </span>
+      </FunnelContextBar>
+
+      <FunnelLogoNav />
 
       <section className="aa-hero">
-        <Link to="/affiliate" className="aa-back">
+        {/* nowrap — the canvas render breaks this onto two lines. */}
+        <Link to="/creator-program" className="aa-back">
           ← {t('affiliateApply.back', { defaultValue: 'Back to program' })}
         </Link>
         <h1 className="aa-headline font-display">
-          {t('affiliateApply.headline', { defaultValue: 'Apply to the Libo Affiliate Programme' })}
+          <ScrollRevealText as="span" className="aa-line">
+            {t('affiliateApply.headlineLine1', { defaultValue: 'Apply to the Libo' })}
+          </ScrollRevealText>
+          <ScrollRevealText as="span" className="aa-line aa-line--accent">
+            {t('affiliateApply.headlineLine2', { defaultValue: 'Creator Program.' })}
+          </ScrollRevealText>
         </h1>
         <p className="aa-sub">
           {t('affiliateApply.sub', {
@@ -147,6 +187,21 @@ export default function AffiliateApply() {
         </p>
       </section>
 
+      {sent ? (
+        /* Inline success — no redirect. The funnel ends here. */
+        <div className="aa-form aa-form--sent" role="status" aria-live="polite">
+          <div className="aa-sent-icon" aria-hidden>✓</div>
+          <h2 className="aa-sent-title font-display">
+            {t('affiliateApply.sentTitle', { defaultValue: 'Application received ✓' })}
+          </h2>
+          <p className="aa-sent-body">
+            {t('affiliateApply.sentBody', {
+              defaultValue:
+                "We read every application. If you're a fit, we'll be in touch within 5 working days at the address you gave us.",
+            })}
+          </p>
+        </div>
+      ) : (
       <form className="aa-form" onSubmit={onSubmit} noValidate>
         <p className="aa-hint">
           {t('affiliateApply.hint', { defaultValue: 'Fields with an asterisk (*) are required.' })}
@@ -252,8 +307,8 @@ export default function AffiliateApply() {
         {/* Terms */}
         <fieldset className="aa-section">
           <legend className="aa-legend">{t('affiliateApply.termsTitle', { defaultValue: 'Terms and Conditions' })}</legend>
-          <span className="aa-label">{t('affiliateApply.termsSubtitle', { defaultValue: 'Libo Affiliate Programme Terms of Service' })} *</span>
-          <div className="aa-terms-box" tabIndex={0} aria-label={t('affiliateApply.termsBoxAria', { defaultValue: 'Affiliate programme terms' })}>
+          <span className="aa-label">{t('affiliateApply.termsSubtitle', { defaultValue: 'Libo Creator Program Terms of Service' })} *</span>
+          <div className="aa-terms-box" tabIndex={0} aria-label={t('affiliateApply.termsBoxAria', { defaultValue: 'Creator Program terms' })}>
             <pre>{TERMS_TEXT}</pre>
           </div>
           <label className="aa-checkbox">
@@ -271,15 +326,18 @@ export default function AffiliateApply() {
         )}
 
         <div className="aa-actions">
-          <button type="submit" className="aa-submit" disabled={submitting}>
+          {/* Disabled until the terms are ticked — the button state is the
+              affordance, the validator still catches keyboard submits. */}
+          <button type="submit" className="aa-submit font-display" disabled={submitting || !form.agreed}>
             {submitting
               ? t('affiliateApply.submitting', { defaultValue: 'Submitting…' })
-              : t('affiliateApply.submit', { defaultValue: 'Apply' })}
+              : t('affiliateApply.submit', { defaultValue: 'Apply to the program →' })}
           </button>
         </div>
       </form>
+      )}
 
-      <SiteFooter />
+      <FunnelMinimalFooter />
     </div>
   );
 }

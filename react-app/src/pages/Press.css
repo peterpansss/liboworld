@@ -1,12 +1,29 @@
 /* ─────────────────────────────────────────────
-   PRESS KIT — Press.css (site relaunch)
-   Ported 1:1 from designs/Press.dc.html.
+   PRESS — Press.css (site relaunch)
+
+   Canvas bugs deliberately NOT reproduced:
+   - H1 line 3 ("TO COVER LIBO") overprinting the body paragraph. The headline
+     is a flex column of block lines, so the paragraph always clears it.
+   - the eyebrow reading "PRESS KIT" (the label is "Press").
+   Deliberate deviation: line 3 of the H1 is lime, matching every other page.
    ───────────────────────────────────────────── */
 
 .press-page {
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
+}
+
+/* ── Pop-in cards (usePopIn toggles .popped in both scroll directions) ── */
+.press-page [data-popin] {
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.press-page [data-popin].popped {
+  opacity: 1;
+  transform: none;
 }
 
 .press-link {
@@ -44,11 +61,25 @@
 }
 
 .press-h1 {
+  display: flex;
+  flex-direction: column;
   font-weight: 800;
   font-size: 76px;
   line-height: 0.92;
   letter-spacing: -1px;
   margin: 0;
+  /* Guarantees clearance between the last headline line and the paragraph even
+     if the display font's descenders sit low. */
+  padding-bottom: 6px;
+}
+
+.press-h1-line {
+  display: block;
+}
+
+/* Site-wide headline pattern: the closing line is lime, period included. */
+.press-h1-line--accent {
+  color: var(--accent);
 }
 
 .press-hero-sub {
@@ -111,10 +142,9 @@
   margin: 0 auto;
   padding: 72px 64px;
   display: grid;
-  /* Single column since the founder bio was removed. Capped rather than 1fr so
-     the boilerplate paragraph keeps a readable measure instead of stretching
-     the full 1200px. */
-  grid-template-columns: minmax(0, 760px);
+  /* Boilerplate | founder bio. Both columns are capped rather than 1fr so the
+     paragraphs keep a readable measure instead of stretching to 1200px. */
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: 64px;
 }
 
@@ -269,9 +299,10 @@
   gap: 32px;
 }
 
+/* Six real captures in one clean row on wide screens — no ragged orphan tile. */
 .press-shots-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 16px;
 }
 
@@ -294,6 +325,23 @@
   align-items: center;
   gap: 8px;
   font-size: 12px;
+}
+
+/* Icon-only download link — needs a real tap target on touch screens. */
+.press-shot-dl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 8px;
+}
+
+@media (pointer: coarse) {
+  .press-shot-dl {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 /* ── Contact CTA ── */
@@ -348,6 +396,12 @@
 }
 
 /* ── Responsive ── */
+@media (max-width: 1100px) {
+  .press-shots-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 900px) {
   .press-hero {
     padding: 64px 24px 40px;
@@ -427,5 +481,15 @@
   }
   .press-contact-h2 {
     font-size: 36px;
+  }
+}
+
+/* ── Reduced motion: the pop-in is decoration, never a content gate ── */
+@media (prefers-reduced-motion: reduce) {
+  .press-page [data-popin],
+  .press-page [data-popin].popped {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

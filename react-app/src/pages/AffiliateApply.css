@@ -1,12 +1,27 @@
 /* ─────────────────────────────
-   AFFILIATE APPLICATION FORM — AffiliateApply.css
-   Hevy/Everflow-style application, dark Libo styling.
+   CREATOR PROGRAM APPLICATION — AffiliateApply.css
+   Funnel page: context bar → logo nav → back link → headline → form card.
+
+   Canvas bug deliberately NOT reproduced (11-creator-apply-funnel-desktop):
+   "← Back to program" wrapping onto two lines.
+
+   NOTE: AffiliateApplySent.tsx (the now-orphaned /creator-program/apply/sent
+   route) also consumes .aa-hero / .aa-headline / .aa-sub / .aa-sent-icon /
+   .aa-submit from this file — keep those selectors.
    ───────────────────────────── */
 
 .aa-page {
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
+}
+
+/* Context bar: full string on wide screens, short one at 390px. */
+.aa-bar-short { display: none; }
+
+@media (max-width: 560px) {
+  .aa-bar-full { display: none; }
+  .aa-bar-short { display: inline; }
 }
 
 /* ── Hero ── */
@@ -33,25 +48,43 @@
 }
 
 .aa-back {
-  display: inline-block;
+  /* nowrap + a real tap target: the canvas breaks this label across two lines
+     and gives it a 17px hit box. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  white-space: nowrap;
   font-size: 13px;
   color: var(--muted);
   text-decoration: none;
   letter-spacing: 0.04em;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   transition: color 0.2s;
 }
 
 .aa-back:hover {
-  color: var(--text);
+  color: var(--accent);
 }
 
 .aa-headline {
+  display: flex;
+  flex-direction: column;
   font-size: clamp(32px, 5vw, 52px);
   line-height: 1;
   letter-spacing: -1px;
   color: var(--text);
   margin: 0 0 16px;
+}
+
+.aa-line {
+  display: block;
+}
+
+/* ScrollRevealText sweeps each glyph from --muted toward --text; re-point
+   --text at the accent so the lime line sweeps instead of flipping on. */
+.aa-line--accent {
+  --text: var(--accent);
+  color: var(--accent);
 }
 
 .aa-sub {
@@ -70,6 +103,28 @@
   background: var(--bg2);
   border: 1px solid var(--border);
   border-radius: 20px;
+}
+
+/* Inline success state — replaces the form, no redirect. */
+.aa-form--sent {
+  text-align: center;
+  padding: 48px 32px 56px;
+}
+
+.aa-sent-title {
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1;
+  letter-spacing: -1px;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+
+.aa-sent-body {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 .aa-hint {
@@ -225,16 +280,18 @@
 .aa-submit {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   background: var(--accent);
   color: var(--accent-text);
   border: 0;
   padding: 14px 36px;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
+  letter-spacing: 0.03em;
   border-radius: 14px;
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
-  min-height: 44px;
+  min-height: 52px;
 }
 
 .aa-submit:hover:not(:disabled) {
@@ -266,5 +323,21 @@
   }
   .aa-grid {
     grid-template-columns: 1fr;
+  }
+  .aa-form--sent {
+    padding: 40px 20px 48px;
+  }
+  .aa-submit {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aa-submit,
+  .aa-back {
+    transition: none;
+  }
+  .aa-submit:hover:not(:disabled) {
+    transform: none;
   }
 }

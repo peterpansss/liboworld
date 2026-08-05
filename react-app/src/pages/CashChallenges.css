@@ -1,0 +1,160 @@
+/* /cash-challenges — catalogue page. Brand chrome, three identical cards. */
+
+.cc-page {
+  --cc-r-card: 16px;
+  background: var(--bg);
+  color: var(--text);
+  padding-bottom: 96px;
+}
+
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+
+.cc-hero {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 96px 24px 56px;
+  text-align: center;
+}
+
+.cc-eyebrow {
+  display: inline-block;
+  /* Pill must grow with its label — the canvas render overflows here. */
+  max-width: 100%;
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.cc-hero__title {
+  margin: 24px 0 0;
+  font-size: clamp(44px, 7vw, 62px);
+  line-height: 0.92;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.cc-hero__line--accent { color: var(--accent); }
+
+.cc-hero__sub {
+  max-width: 560px;
+  margin: 24px auto 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ── Card grid ───────────────────────────────────────────────────────────── */
+
+.cc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.cc-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--cc-r-card);
+  text-decoration: none;
+  color: var(--text);
+  /* Pop-in: usePopIn toggles .popped in both scroll directions. */
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .5s cubic-bezier(.22,1,.36,1),
+              transform .5s cubic-bezier(.22,1,.36,1),
+              border-color .2s ease;
+}
+
+.cc-card.popped { opacity: 1; transform: none; }
+
+.cc-card:hover { border-color: var(--accent); }
+
+.cc-card__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cc-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.55) 55%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+}
+
+.cc-card__body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 24px;
+}
+
+.cc-card__payout {
+  color: var(--accent);
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.cc-card__name {
+  font-size: 22px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.cc-card__meta {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.cc-card__cta {
+  margin-top: 12px;
+  color: var(--accent);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  /* ≥44px tap target at mobile widths */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* ── Mobile: 1-column stack (not a scroll rail) ──────────────────────────── */
+
+@media (max-width: 900px) {
+  .cc-grid { grid-template-columns: 1fr; max-width: 460px; }
+}
+
+@media (max-width: 560px) {
+  .cc-hero { padding: 64px 20px 40px; }
+  .cc-grid { padding: 0 20px; gap: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-card { opacity: 1; transform: none; transition: none; }
+}

@@ -51,13 +51,17 @@ const Giveaway = lazy(() => import('./pages/Giveaway'));
 const CashChallenge = lazy(() => import('./pages/CashChallenge'));
 const GetApp = lazy(() => import('./pages/GetApp'));
 const Founder = lazy(() => import('./pages/Founder'));
-const MoneyChallenges = lazy(() => import('./pages/MoneyChallenges'));
 const Affiliate = lazy(() => import('./pages/Affiliate'));
 const AffiliateApply = lazy(() => import('./pages/AffiliateApply'));
 const AffiliateApplySent = lazy(() => import('./pages/AffiliateApplySent'));
 const Press = lazy(() => import('./pages/Press'));
 const PressSent = lazy(() => import('./pages/PressSent'));
 const SharedRoutine = lazy(() => import('./pages/SharedRoutine'));
+
+// Site-relaunch pages
+const CashChallenges = lazy(() => import('./pages/CashChallenges'));
+const ChallengeFunnel = lazy(() => import('./pages/ChallengeFunnel'));
+const JoinFunnel = lazy(() => import('./pages/JoinFunnel'));
 
 // Admin area — lazy, never loads for public visitors, not linked from public pages.
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
@@ -73,7 +77,29 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/careers" element={<Suspense fallback={darkFallback}><Careers /></Suspense>} />
-        <Route path="/pricing" element={<Suspense fallback={darkFallback}><Pricing /></Suspense>} />
+
+        {/* ── Site relaunch ─────────────────────────────────────────────────
+            "Pricing" is now "Membership", "Money Challenges" is now "Cash
+            Challenges", and "Affiliate" is now "Creator Program". The old
+            paths stay alive as redirects — .htaccess is a pure SPA fallback
+            with no route rewrites, so redirects have to live here, and the
+            handoff's "complement, never destroy" rule means no URL 404s. */}
+        <Route path="/membership" element={<Suspense fallback={darkFallback}><Pricing /></Suspense>} />
+        <Route path="/pricing" element={<Navigate to="/membership" replace />} />
+
+        <Route path="/cash-challenges" element={<Suspense fallback={darkFallback}><CashChallenges /></Suspense>} />
+        <Route path="/cash-challenges/:tier" element={<Suspense fallback={darkFallback}><ChallengeFunnel /></Suspense>} />
+        <Route path="/money-challenges" element={<Navigate to="/cash-challenges" replace />} />
+
+        {/* Founding Member funnel — the single paid conversion surface. */}
+        <Route path="/join" element={<Suspense fallback={darkFallback}><JoinFunnel /></Suspense>} />
+
+        <Route path="/creator-program" element={<Suspense fallback={darkFallback}><Affiliate /></Suspense>} />
+        <Route path="/creator-program/apply" element={<Suspense fallback={darkFallback}><AffiliateApply /></Suspense>} />
+        <Route path="/creator-program/apply/sent" element={<Suspense fallback={darkFallback}><AffiliateApplySent /></Suspense>} />
+        <Route path="/affiliate" element={<Navigate to="/creator-program" replace />} />
+        <Route path="/affiliate/apply" element={<Navigate to="/creator-program/apply" replace />} />
+        <Route path="/affiliate/apply/sent" element={<Navigate to="/creator-program/apply/sent" replace />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/exercises" element={<Suspense fallback={darkFallback}><ExerciseLibrary /></Suspense>} />
         <Route path="/exercises/:slug" element={<Suspense fallback={darkFallback}><ExerciseDetail /></Suspense>} />
@@ -92,10 +118,6 @@ export default function App() {
         <Route path="/cash-challenge" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
         <Route path="/get-app" element={<Suspense fallback={darkFallback}><GetApp /></Suspense>} />
         <Route path="/founder" element={<Suspense fallback={darkFallback}><Founder /></Suspense>} />
-        <Route path="/money-challenges" element={<Suspense fallback={darkFallback}><MoneyChallenges /></Suspense>} />
-        <Route path="/affiliate" element={<Suspense fallback={darkFallback}><Affiliate /></Suspense>} />
-        <Route path="/affiliate/apply" element={<Suspense fallback={darkFallback}><AffiliateApply /></Suspense>} />
-        <Route path="/affiliate/apply/sent" element={<Suspense fallback={darkFallback}><AffiliateApplySent /></Suspense>} />
         <Route path="/press" element={<Suspense fallback={darkFallback}><Press /></Suspense>} />
         <Route path="/press/sent" element={<Suspense fallback={darkFallback}><PressSent /></Suspense>} />
         <Route path="/admin/*" element={<Suspense fallback={darkFallback}><AdminLayout /></Suspense>} />
