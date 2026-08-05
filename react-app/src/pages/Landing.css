@@ -1279,3 +1279,45 @@ video.rh-phone {
    horizontal overflow on the page. */
 .rh-different-copy,
 .rh-creators-copy { min-width: 0; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE CORRECTIONS (≤640px)
+   The hero was inheriting the desktop treatment: left-aligned, the H1 broken
+   across four lines, and the three-phone fan (644px wide) bleeding off both
+   edges. Design 12 centres the hero, sets the H1 in two lines, and shows the
+   phone whole. POLISH-TICKET item 8 sanctions dropping to a single phone.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .rh-hero { text-align: center; }
+
+  /* Groups stay block (one per line), but the segments inside them go back to
+     inline so each group wraps naturally: "THE END OF" / "STARTING OVER."
+     instead of four stacked words. */
+  .rh-hero-h1-line { display: inline; }
+
+  .rh-badges { justify-content: center; }
+  .rh-hero-sub { margin-left: auto; margin-right: auto; }
+  .rh-hero-ctas { align-items: stretch; }
+
+  /* One phone, whole, centred — no scale() hack and nothing cropped by the
+     viewport edge. The other two are decorative depth on desktop only. */
+  .rh-hero-phones {
+    height: auto;
+    transform: none;
+    padding-top: 8px;
+  }
+  .rh-phone--left,
+  .rh-phone--right { display: none; }
+  .rh-phone--center {
+    width: min(260px, 68vw);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Two columns at 390px left ~150px of usable width per card, so body copy
+     wrapped to one or two words a line. Stack them. */
+  .rh-different-cards,
+  .rh-creator-cards { grid-template-columns: 1fr; }
+}

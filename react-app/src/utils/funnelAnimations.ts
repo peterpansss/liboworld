@@ -93,6 +93,42 @@ const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /**
+ * Run `cb` whenever the page jumps to an in-page anchor.
+ *
+ * Both reveal effects below are driven by approach — scroll position, or an
+ * intersection callback. An anchor jump is a teleport: the user presses a CTA
+ * and lands mid-page having never scrolled toward the destination, so
+ * "reveal as it comes into view" has nothing to react to and the destination
+ * can sit in its hidden pre-reveal state. This is what made the Founding
+ * Member card invisible after pressing "Become a Founding Member".
+ *
+ * Fires on hashchange, and again once the scroll settles — a smooth jump is
+ * still animating when hashchange fires, so measuring immediately reads the
+ * old position. `scrollend` where supported, a short timeout otherwise.
+ */
+function onAnchorJump(cb: () => void): () => void {
+  if (typeof window === 'undefined') return () => {};
+  let timer: ReturnType<typeof setTimeout> | undefined;
+
+  const settle = () => {
+    cb();
+    if ('onscrollend' in window) {
+      window.addEventListener('scrollend', cb, { once: true });
+    } else {
+      clearTimeout(timer);
+      timer = setTimeout(cb, 400);
+    }
+  };
+
+  window.addEventListener('hashchange', settle);
+  return () => {
+    window.removeEventListener('hashchange', settle);
+    window.removeEventListener('scrollend', cb);
+    clearTimeout(timer);
+  };
+}
+
+/**
  * Continuous 0→1 scroll progress for an element, derived from its position
  * rather than accumulated from events — so scrolling back up walks the value
  * backwards for free. This is what `useInView` above cannot do: it calls
@@ -133,10 +169,13 @@ export function useScrollProgress<T extends HTMLElement = HTMLElement>(
     measure();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
+    // A CTA that jumps to an anchor produces no approach to measure.
+    const stopAnchor = onAnchorJump(onScroll);
     return () => {
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
+      stopAnchor();
     };
   }, [enabled, start, end]);
 
@@ -190,6 +229,29 @@ export function usePopIn(selector = '[data-popin]', stagger = 110) {
       { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
     );
     targets.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+
+    // On an anchor jump, pop everything from the top of the document down to
+    // the bottom of the destination outright. The observer alone isn't enough:
+    // the stagger delay would drip the destination card in after the user is
+    // already looking at it, and anything skipped over stays hidden if they
+    // then scroll UP from the landing point.
+    const stopAnchor = onAnchorJump(() => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      const cutoff = target.getBoundingClientRect().bottom + window.scrollY;
+      targets.forEach((el) => {
+        if (el.getBoundingClientRect().top + window.scrollY <= cutoff) {
+          el.style.transitionDelay = '0s';
+          el.classList.add('popped');
+        }
+      });
+    });
+
+    return () => {
+      observer.disconnect();
+      stopAnchor();
+    };
   }, [selector, stagger]);
 }
