@@ -24,43 +24,23 @@
 
 /* ── Logo-only nav ───────────────────────────────────────────────────────── */
 
+/* Not a bar — just a centred logo sitting on the page. No background fill and
+   no bottom rule: against the dark page both read as a hairline frame across
+   the top of the hero media directly below, which looked like a border on the
+   card rather than chrome. */
 .funnel-nav {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 64px;
   padding: 0 16px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
+  background: transparent;
 }
 
 /* Unlinked by design — kill the affordance so it doesn't read as clickable. */
 .funnel-nav__logo {
   cursor: default;
   user-select: none;
-}
-
-.funnel-nav__back {
-  position: absolute;
-  left: 16px;
-  color: var(--muted);
-  font-size: 14px;
-  text-decoration: none;
-  /* ≥44px hit area at mobile widths */
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-}
-
-.funnel-nav__back:hover { color: var(--accent); }
-
-.funnel-nav__back-inner { white-space: nowrap; }
-
-@media (max-width: 560px) {
-  /* Back link would collide with the centred logo — drop it under the nav. */
-  .funnel-nav { justify-content: center; }
-  .funnel-nav__back { position: static; order: -1; }
 }
 
 /* ── Minimal footer ──────────────────────────────────────────────────────── */

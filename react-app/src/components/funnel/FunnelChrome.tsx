@@ -25,19 +25,16 @@ export function FunnelContextBar({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * Logo-only nav. The logo is intentionally unlinked (HANDOFF-V2 §B7). An
- * optional back link returns to the brand site — the only way out other than
- * converting.
+ * Logo-only nav. The logo is intentionally unlinked (HANDOFF-V2 §B7), and there
+ * is deliberately NO back link: a funnel has one exit and it's the CTA. Leaving
+ * is the browser's back button, not an on-page control.
+ *
+ * Renders as a bare centred logo, not a bar — no background fill and no bottom
+ * rule, both of which read as a frame around whatever media the hero opens with.
  */
-export function FunnelLogoNav({ backTo, backLabel }: { backTo?: string; backLabel?: string }) {
+export function FunnelLogoNav() {
   return (
     <div className="funnel-nav">
-      {backTo && (
-        <Link to={backTo} className="funnel-nav__back">
-          {/* nowrap so "← Back to program" can't wrap onto two lines */}
-          <span className="funnel-nav__back-inner">← {backLabel}</span>
-        </Link>
-      )}
       <div className="funnel-nav__logo" aria-label="Libo">
         <LiboLogo />
       </div>

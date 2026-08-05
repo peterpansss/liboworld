@@ -583,10 +583,6 @@
   background: linear-gradient(180deg, var(--bg2), var(--bg));
 }
 
-.jf-close__alt {
-  margin-top: 22px;
-  font-size: 14px;
-}
 
 .jf-close__alt a {
   color: var(--muted);

@@ -135,10 +135,9 @@ export default function ChallengeFunnel() {
         </span>
       </FunnelContextBar>
 
-      <FunnelLogoNav
-        backTo="/cash-challenges"
-        backLabel={t('challengeFunnel.back', { defaultValue: 'Back to challenges' })}
-      />
+      {/* Logo only, unlinked, no back link — a funnel has one exit and it's the
+          CTA. Returning is the browser's back button, not an on-page control. */}
+      <FunnelLogoNav />
 
       <main id="main-content">
         {/* ── Hero ────────────────────────────────────────────────────────── */}

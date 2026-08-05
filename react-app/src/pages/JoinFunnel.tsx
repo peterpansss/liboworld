@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { SeoHead } from '../components/SeoHead';
@@ -465,15 +464,6 @@ export default function JoinFunnel() {
           <a className="jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
             {ctaLabel}
           </a>
-          {/* The one exit for people who aren't ready to pay — the homepage
-              waitlist is the site's single email capture, and it lives there. */}
-          <p className="jf-close__alt">
-            <Link to="/#waitlist">
-              {t('joinFunnel.close.waitlistLink', {
-                defaultValue: 'Not ready? Join the free waitlist →',
-              })}
-            </Link>
-          </p>
         </div>
       </section>
 
