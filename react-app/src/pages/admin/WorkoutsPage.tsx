@@ -420,6 +420,10 @@ export function WorkoutsPage() {
       dur: row.dur != null ? String(row.dur) : '',
       diff: safeDiff,
       emoji: row.emoji || '🏋️',
+      // The list row doesn't carry free_tier, so a clone can't inherit access.
+      // Default to 'premium' (same as a fresh form) — the safe direction, and
+      // the clone lands as a draft the admin must review before publishing.
+      access: 'premium',
       status: 'draft', // never clone into 'published' — user must publish explicitly
       warmup: toCreateBlocks(row.warmup),
       main: toCreateBlocks(row.main),
