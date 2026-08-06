@@ -47,7 +47,10 @@ public/mockups/ScreenRecording_*
 **/* -2.jpg
 **/*  -2.jpg
 public/images/categories/ *
-/Images/   # anchored: unanchored "Images/" also matched public/images/
+# Leading slash anchors this to react-app/Images/. Unanchored "Images/" also
+# matched public/images/ (git matches case-insensitively on macOS), silently
+# ignoring every NEW file added there.
+/Images/
 Fitbod Generate Workout Example /
 ReferenceImagesReal/
 scripts/_logs/
@@ -67,7 +70,10 @@ public/mockups/ScreenRecording_*
 **/* -2.jpg
 **/*  -2.jpg
 public/images/categories/ *
-/Images/   # anchored: unanchored "Images/" also matched public/images/
+# Leading slash anchors this to react-app/Images/. Unanchored "Images/" also
+# matched public/images/ (git matches case-insensitively on macOS), silently
+# ignoring every NEW file added there.
+/Images/
 Fitbod Generate Workout Example /
 ReferenceImagesReal/
 scripts/_logs/
