@@ -747,7 +747,13 @@ export default function Landing() {
         {/* ── 10. FINAL CTA + WAITLIST ────────────────────────────── */}
         {/* `hero-capture` keeps its name: /membership still deep-links to
             "/#hero-capture", and this is now the site's only capture. */}
-        <section className="rh-final" id="hero-capture">
+        {/* Two ids on purpose. "waitlist" is what the funnels link to (the
+            capture now lives here, at the bottom of the page). "hero-capture"
+            is the legacy id from when it sat in the hero — Pricing.tsx and any
+            shared links still point at it, so it stays as a back-compat anchor
+            rather than silently dropping people at the top of the page. */}
+        <span id="hero-capture" aria-hidden="true" />
+        <section className="rh-final" id="waitlist">
           <div className="rh-final-inner">
             <h2 className="rh-h2 rh-h2--center rh-h2--lg">
               <ScrollRevealText as="span" className="rh-h2-line">

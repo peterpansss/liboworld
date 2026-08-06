@@ -46,7 +46,7 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     spots: 50,
     name: 'Starter',
     requiresPremium: false,
-    image: '/images/landing/category-home-workouts-v3.jpg',
+    image: '/images/marketing/cash-challenge-starter-ai.jpg',
   },
   {
     slug: 'committed',
@@ -56,7 +56,7 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     spots: 50,
     name: 'Committed',
     requiresPremium: true,
-    image: '/images/landing/category-functional-v3.jpg',
+    image: '/images/marketing/cash-challenge-committed-ai.jpg',
   },
   {
     slug: 'flagship',
@@ -66,7 +66,7 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     spots: 50,
     name: 'Flagship',
     requiresPremium: true,
-    image: '/images/marketing/cash-challenge-hero.jpg',
+    image: '/images/marketing/cash-challenge-flagship-ai.jpg',
   },
 ] as const;
 

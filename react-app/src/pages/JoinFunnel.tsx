@@ -37,7 +37,7 @@ const WAS_PRICE = '€79.99';
 const MEMBERSHIP_HREF = '#membership';
 
 /** Photo slot for the hero card — placeholder until "inside the club" photography lands. */
-const HERO_PHOTO = '/images/marketing/cash-challenge-hero.jpg';
+const HERO_PHOTO = '/images/marketing/cash-challenge-flagship-ai.jpg';
 
 type Screen = { src: string; alt: string; caption: string };
 

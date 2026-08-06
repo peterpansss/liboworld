@@ -47,7 +47,7 @@ const CHALLENGES: ChallengeDef[] = [
   { slug: 'pro_pool',   highlight: 'pro',     badgeKey: 'mostPopular' },
 ];
 
-const FALLBACK_HERO_BG = '/images/marketing/cash-challenge-hero.jpg';
+const FALLBACK_HERO_BG = '/images/marketing/cash-challenge-flagship-ai.jpg';
 
 export default function CashChallengePage() {
   const { t } = useTranslation();

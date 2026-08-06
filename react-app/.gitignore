@@ -47,7 +47,7 @@ public/mockups/ScreenRecording_*
 **/* -2.jpg
 **/*  -2.jpg
 public/images/categories/ *
-Images/
+/Images/   # anchored: unanchored "Images/" also matched public/images/
 Fitbod Generate Workout Example /
 ReferenceImagesReal/
 scripts/_logs/
@@ -67,7 +67,7 @@ public/mockups/ScreenRecording_*
 **/* -2.jpg
 **/*  -2.jpg
 public/images/categories/ *
-Images/
+/Images/   # anchored: unanchored "Images/" also matched public/images/
 Fitbod Generate Workout Example /
 ReferenceImagesReal/
 scripts/_logs/

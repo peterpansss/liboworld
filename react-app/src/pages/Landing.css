@@ -1173,6 +1173,11 @@ video.rh-phone {
   flex-wrap: wrap;
   gap: 12px;
   justify-content: center;
+  /* The form is a flex child of a centring container, so without width:100%
+     it shrink-wraps to ~424px — narrow enough that the input's 260px basis
+     plus the button no longer fit on one row, and the button wrapped under
+     the field on DESKTOP too. */
+  width: 100%;
   max-width: 520px;
   margin: 28px auto 0;
 }
@@ -1262,7 +1267,17 @@ video.rh-phone {
 
   .rh-challenge-grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
   .rh-guides-grid { grid-template-columns: 1fr; }
-  .rh-wl-form { flex-direction: column; }
+  /* Stacking the form flips the main axis, so the input's `flex: 1 1 260px`
+     basis started applying to HEIGHT — a 260px-tall email field. Reset the
+     flex shorthand and size on the cross axis explicitly. */
+  /* The form is a flex child of a centring container, so it shrink-wrapped to
+     its content instead of filling the column. */
+  .rh-wl-form { flex-direction: column; align-items: stretch; width: 100%; }
+  .rh-wl-input {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 52px;
+  }
   .rh-wl-button { width: 100%; }
 }
 
