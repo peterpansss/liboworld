@@ -56,7 +56,8 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     spots: 50,
     name: 'Committed',
     requiresPremium: true,
-    image: '/images/marketing/cash-challenge-committed-ai.jpg',
+    // Tier photo (Noah, 2026-08-07) — new filename to sidestep the CF asset cache.
+    image: '/challenge-committed.jpg',
   },
   {
     slug: 'flagship',
