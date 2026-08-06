@@ -10,7 +10,8 @@
 }
 
 @media (max-width: 767px) {
-  .cf-page { padding-bottom: 108px; }
+  /* Sticky bar (~77px) + safe-area inset on notched phones. */
+  .cf-page { padding-bottom: calc(108px + env(safe-area-inset-bottom)); }
 }
 
 /* Context-bar copy variants — a short mobile string, not CSS truncation. */

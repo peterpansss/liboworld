@@ -527,3 +527,13 @@
   }
   .press-boilerplate-inner { grid-template-columns: 1fr; }
 }
+
+
+/* V3.1 §9 — mobile hero reflow: lines 1+2 join ("EVERYTHING YOU NEED"),
+   line 3 goes lime. Desktop keeps three white lines. */
+@media (max-width: 640px) {
+  .press-h1-line--a { display: inline; }
+  .press-h1-line--b { display: inline; }
+  .press-h1-line--a::after { content: ' '; }
+  .press-h1-line--c { display: block; color: var(--accent); }
+}

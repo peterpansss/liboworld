@@ -126,9 +126,11 @@ export default function Press() {
         <header className="press-hero">
           <span className="press-badge">{t('pressKit.hero.badge', { defaultValue: 'Press kit' })}</span>
           <h1 className="press-h1 font-display">
-            <span className="press-h1-line">{t('pressKit.hero.h1Line1', { defaultValue: 'Everything you' })}</span>
-            <span className="press-h1-line">{t('pressKit.hero.h1Line2', { defaultValue: 'need' })}</span>
-            <span className="press-h1-line">
+            {/* Desktop: three white lines. Mobile (V3.1 §9): two lines —
+                "EVERYTHING YOU NEED" / "TO COVER LIBO." with line 2 lime. */}
+            <span className="press-h1-line press-h1-line--a">{t('pressKit.hero.h1Line1', { defaultValue: 'Everything you' })}</span>
+            <span className="press-h1-line press-h1-line--b">{t('pressKit.hero.h1Line2', { defaultValue: 'need' })}</span>
+            <span className="press-h1-line press-h1-line--c">
               {t('pressKit.hero.h1Line3', { defaultValue: 'to cover Libo.' })}
             </span>
           </h1>
