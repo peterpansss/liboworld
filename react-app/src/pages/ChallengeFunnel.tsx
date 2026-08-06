@@ -40,7 +40,9 @@ const OFFER_HREF = '#offer';
 /** The app screens for "Inside the challenge" fan. Mapped by content, not filename. */
 const INSIDE_SCREENS = [
   { src: '/app-real-rewards.png', key: 'rewards' },
-  { src: '/app-real-live.png', key: 'summary' }, // centre: the "NICE WORK!" share screen
+  // Centre: the "NICE WORK!" share screen — v2 capture (member photo,
+  // 330 reps, Noah's request 2026-08-07). v1 stays on disk unused.
+  { src: '/app-real-live-v2.png', key: 'summary' },
   { src: '/app-real-run.png', key: 'run' },
 ] as const;
 
