@@ -1300,19 +1300,20 @@ video.rh-phone {
   .rh-hero-sub { margin-left: auto; margin-right: auto; }
   .rh-hero-ctas { align-items: stretch; }
 
-  /* One phone, whole, centred — no scale() hack and nothing cropped by the
-     viewport edge. The other two are decorative depth on desktop only. */
+  /* All three phones stay, scaled down as a group so the whole composition
+     fits — bottom edges visible, nothing cropped by the section edge
+     (FIX-TICKET-V3 §4). Scaling the group beats hiding the outer two: the
+     overlap is the composition. */
   .rh-hero-phones {
     height: auto;
-    transform: none;
     padding-top: 8px;
+    transform: scale(0.56);
+    transform-origin: top center;
+    /* scale() doesn't reclaim layout box, so pull the empty space back. */
+    margin-bottom: -230px;
   }
-  .rh-phone--left,
-  .rh-phone--right { display: none; }
-  .rh-phone--center {
-    width: min(260px, 68vw);
-    margin: 0 auto;
-  }
+  .rh-phone--left  { transform: rotate(-5deg) translateY(10px); }
+  .rh-phone--right { transform: rotate(5deg) translateY(10px); }
 }
 
 @media (max-width: 560px) {

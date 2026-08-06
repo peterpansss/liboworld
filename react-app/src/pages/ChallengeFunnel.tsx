@@ -48,12 +48,18 @@ const INSIDE_SCREENS = [
   { src: '/app-real-live.png', key: 'summary' },
 ] as const;
 
-type Winner = { photo: string; name: string; amount: number; handle: string };
+type Winner = { photo: string; name: string; handle: string };
 
+/**
+ * Finishers shown on every funnel. The payout is NOT baked in here — it comes
+ * from the tier being viewed, because these people finished the challenge the
+ * visitor is currently looking at. Hardcoding amounts put "earned €50" on the
+ * €15 Committed page (FIX-TICKET-V3 §6).
+ */
 const WINNERS: Winner[] = [
-  { photo: '/beta-sarah.png', name: 'Somin', amount: 50, handle: '@somin' },
-  { photo: '/beta-marco.png', name: 'Gabriel', amount: 15, handle: '@gabriel' },
-  { photo: '/beta-paul.png', name: 'Tony', amount: 5, handle: '@tony' },
+  { photo: '/beta-sarah.png', name: 'Somin', handle: '@somin' },
+  { photo: '/beta-marco.png', name: 'Gabriel', handle: '@gabriel' },
+  { photo: '/beta-paul.png', name: 'Tony', handle: '@tony' },
 ];
 
 export default function ChallengeFunnel() {
@@ -259,12 +265,13 @@ export default function ChallengeFunnel() {
             {WINNERS.map((w) => (
               <li className="cf-winner" key={w.name} data-popin>
                 <img className="cf-winner__photo" src={w.photo} alt="" loading="lazy" />
-                <span className="cf-winner__badge font-display">€{w.amount}</span>
+                {/* Payout follows the tier on screen, never a baked-in number. */}
+                <span className="cf-winner__badge font-display">€{tier.payout}</span>
                 <span className="cf-winner__name">{w.name}</span>
                 <span className="cf-winner__meta">
                   {t('challengeFunnel.winners.earned', {
                     defaultValue: 'earned €{{amount}} · 30 days',
-                    amount: w.amount,
+                    amount: tier.payout,
                   })}
                 </span>
               </li>

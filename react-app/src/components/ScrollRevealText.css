@@ -1,6 +1,6 @@
-/* Scroll-scrubbed text reveal — see design_handoff_scroll_text_reveal/SPEC.md.
-   Registered so --p animates as a number and calc() can lean on it. Initial 1
-   means "fully revealed": crawlers, prerender and no-JS all get white text. */
+/* Scroll-scrubbed reveal for display headings.
+   Registered so --p is a real number in calc(). Initial 1 = fully revealed, so
+   crawlers, prerender, no-JS and reduced-motion all get final-state text. */
 @property --p {
   syntax: '<number>';
   inherits: true;
@@ -9,33 +9,34 @@
 
 .scroll-reveal {
   --n: 1;
-  /* Soft edge width, in glyphs. ~3 keeps 2–4 chars mid-ramp at any instant so
-     the boundary reads as a gradient sweeping the line, not an on/off switch. */
-  --ramp: 3;
+  /* Ramp width in WORDS. ~1.5 keeps one word mid-tone at a time, so the sweep
+     reads as motion without ever leaving a word looking half-painted. */
+  --ramp: 1.5;
   color: var(--text);
 }
 
-/* Per-character splitting must not break line wrapping mid-word. */
+/* The atom is the word — never a character. A word is one unit and cannot be
+   half-revealed (FIX-TICKET-V3 §1). nowrap keeps wrapping at spaces. */
 .scroll-reveal__word {
   display: inline-block;
   white-space: nowrap;
-}
-
-.scroll-reveal__char {
-  /* Reveal fraction for this glyph: 0 before the sweep reaches it, 1 after,
-     ramping across --ramp characters in between. */
-  --r: clamp(0, calc((var(--p) * var(--n) - var(--i)) / var(--ramp)), 1);
+  /* Reveal fraction for this word: 0 before the sweep reaches it, 1 after.
+     The sweep runs to (n + ramp), not n. Running it only to n meant that at
+     full progress the LAST word still computed to 1/ramp ≈ 0.67 and stayed
+     permanently half-toned — which is what left headings looking two-coloured
+     at rest. Overshooting by one ramp width guarantees every word lands. */
+  --r: clamp(0, calc((var(--p) * (var(--n) + var(--ramp)) - var(--i)) / var(--ramp)), 1);
   color: color-mix(in srgb, var(--text) calc(var(--r) * 100%), var(--muted));
 }
 
-/* Reduced motion, no-JS, and prerender: every glyph at full strength, and the
-   hook never attaches a listener. */
-.scroll-reveal--static .scroll-reveal__char {
+/* Reduced motion, no-JS, prerender: every word at full strength, and the hook
+   never attaches a listener. */
+.scroll-reveal--static .scroll-reveal__word {
   color: var(--text);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-reveal__char {
+  .scroll-reveal__word {
     color: var(--text);
   }
 }

@@ -34,7 +34,7 @@
 
 .cc-hero__title {
   margin: 24px 0 0;
-  font-size: clamp(44px, 7vw, 62px);
+  font-size: clamp(44px, 7vw, 80px);
   line-height: 0.92;
   letter-spacing: -1px;
   text-transform: uppercase;

@@ -126,7 +126,7 @@
 
 .cf-hero__title {
   margin: 0;
-  font-size: clamp(38px, 6.4vw, 62px);
+  font-size: clamp(38px, 6.4vw, 80px);
   line-height: 0.94;
   letter-spacing: -1px;
   text-transform: uppercase;
@@ -410,4 +410,12 @@
   .cf-offer { opacity: 1; transform: none; transition: none; }
   .cf-btn:hover,
   .cf-step:hover { transform: none; }
+}
+
+
+/* §7 — the sticky bottom bar already carries the primary action on mobile, so
+   the inline close-section button rendered as two identical CTAs stacked on
+   top of each other. Desktop has no sticky bar, so it keeps the inline one. */
+@media (max-width: 767px) {
+  .cf-close .cf-btn--lg { display: none; }
 }

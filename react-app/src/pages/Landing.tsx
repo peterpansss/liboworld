@@ -426,12 +426,14 @@ export default function Landing() {
             </h2>
             {/* The one body paragraph the reveal spec allows (the "mission"
                 paragraph). Everything else on this page stays a plain <p>. */}
-            <ScrollRevealText as="p" className="rh-loop-body">
+            {/* Static: the reveal is scoped to display headings. Dimmed body
+                copy reads as disabled text, not as an effect (FIX-TICKET-V3 §1). */}
+            <p className="rh-loop-body">
               {t('relaunchHome.loop.body', {
                 defaultValue:
                   "It's not a discipline problem. Every restart forces a hundred small decisions — what to train, when, whether today counts. Decisions drain. Libo removes them: the day's session is picked, a bad week sets your streak back — never to zero — and when you want real stakes, the cash challenge is waiting.",
               })}
-            </ScrollRevealText>
+            </p>
           </div>
         </section>
 

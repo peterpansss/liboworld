@@ -5,12 +5,11 @@ import './ScrollRevealText.css';
 type Props = {
   /** The full string to reveal. Kept intact in aria-label for AT + crawlers. */
   children: string;
-  /** Element to render as. Headlines pass 'h1'/'h2'; the mission block passes 'p'. */
-  as?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div';
+  /** Display headings only — h1/h2, or a span inside one. Never body copy. */
+  as?: 'h1' | 'h2' | 'h3' | 'span' | 'div';
   className?: string;
   /**
    * Viewport band the sweep maps to, as fractions of viewport height.
-   * Defaults follow SPEC: ~0% when the block's top sits at 85%, ~100% by 40%.
    * Founder's "Why we're building this" overrides to a wider 1.0 → 0.55 band.
    */
   start?: number;
@@ -18,17 +17,20 @@ type Props = {
 };
 
 /**
- * Scroll-SCRUBBED text reveal — progress is derived from scroll position, not
- * fired once on intersection, so scrolling back up un-reveals it frame for
- * frame. Characters ramp from --muted to --text across a ~3-glyph soft edge.
+ * Scroll-scrubbed text reveal for DISPLAY HEADINGS.
  *
- * Implementation notes that matter (see design_handoff_scroll_text_reveal/SPEC.md):
- * - One style write per frame: we set --p on the container and let each span
- *   compute its own color in CSS. React never re-renders per character.
- * - Words are wrapped so per-character splitting can't break line wrapping
- *   mid-word.
- * - Default --p is 1 (fully white), so no-JS, prerender and reduced-motion all
- *   render legible text without running anything.
+ * Two rules learned the hard way (FIX-TICKET-V3 §1):
+ *
+ * 1. WORD is the atom, not the character. Splitting per glyph left words
+ *    two-toned mid-word — "WHERE THI/S IS GOIN/G." — which reads as a
+ *    rendering fault, not an effect.
+ * 2. It must always finish. `useScrollProgress` force-completes once the
+ *    element's top passes the middle of the viewport, so nothing can be left
+ *    sitting in the dim rest colour and look like disabled text.
+ *
+ * Scope it to h1/h2. Body paragraphs, card copy, step descriptions and
+ * captions stay static — the restraint is what makes it land, and dimmed body
+ * copy just looks broken.
  */
 export default function ScrollRevealText({
   children,
@@ -39,18 +41,20 @@ export default function ScrollRevealText({
 }: Props) {
   const { ref, progress, enabled } = useScrollProgress<HTMLElement>({ start, end });
 
-  // Split into words (kept nowrap) then characters, numbering characters
-  // continuously across the whole string so the sweep runs in reading order.
-  const words = useMemo(() => {
-    const parts = children.split(/(\s+)/);
+  // Split on whitespace, keeping the separators so spacing survives. Only the
+  // non-space tokens get an index — the sweep advances a word at a time.
+  const tokens = useMemo(() => {
     let index = 0;
-    return parts.map((part) => {
-      const chars = Array.from(part).map((ch) => ({ ch, i: index++ }));
-      return { part, chars, isSpace: /^\s+$/.test(part) };
+    return children.split(/(\s+)/).map((part) => {
+      const isSpace = /^\s+$/.test(part) || part === '';
+      return { part, isSpace, i: isSpace ? -1 : index++ };
     });
   }, [children]);
 
-  const total = useMemo(() => Array.from(children).length, [children]);
+  const total = useMemo(
+    () => tokens.filter((t) => !t.isSpace).length || 1,
+    [tokens],
+  );
 
   return (
     <Tag
@@ -60,20 +64,16 @@ export default function ScrollRevealText({
       style={{ '--p': enabled ? progress : 1, '--n': total } as React.CSSProperties}
     >
       <span aria-hidden="true">
-        {words.map(({ part, chars, isSpace }, w) =>
+        {tokens.map(({ part, isSpace, i }, k) =>
           isSpace ? (
-            <span key={w}>{part}</span>
+            <span key={k}>{part}</span>
           ) : (
-            <span className="scroll-reveal__word" key={w}>
-              {chars.map(({ ch, i }) => (
-                <span
-                  className="scroll-reveal__char"
-                  key={i}
-                  style={{ '--i': i } as React.CSSProperties}
-                >
-                  {ch}
-                </span>
-              ))}
+            <span
+              className="scroll-reveal__word"
+              key={k}
+              style={{ '--i': i } as React.CSSProperties}
+            >
+              {part}
             </span>
           ),
         )}

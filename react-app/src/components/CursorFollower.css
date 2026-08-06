@@ -12,7 +12,10 @@
   background: var(--accent);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
+  /* Sits UNDER page content: at 9999 the lime blob painted on top of the
+     blog hero image and the Founder pull-quote and read as an artifact.
+     It is decoration — it must never occlude media or copy. */
+  z-index: 1;
   mix-blend-mode: difference;
   transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, background 0.3s ease;
   transform: translate(-50%, -50%);

@@ -157,6 +157,17 @@ export function useScrollProgress<T extends HTMLElement = HTMLElement>(
       frame = 0;
       const vh = window.innerHeight || 1;
       const top = el.getBoundingClientRect().top / vh;
+
+      // Completion guard: once the element's top has passed the middle of the
+      // viewport it is settled, full stop. Without this, any band the scroll
+      // math didn't finish — a short page, a jump, a heading that entered from
+      // below — leaves text parked in the dim rest colour, where it reads as
+      // disabled rather than as an effect. Nothing may stay grey at rest.
+      if (top <= 0.5) {
+        setProgress(1);
+        return;
+      }
+
       // Above `start` → 0; below `end` → 1; linear in between.
       const raw = (start - top) / (start - end);
       setProgress(Math.min(1, Math.max(0, raw)));
