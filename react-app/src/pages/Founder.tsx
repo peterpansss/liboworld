@@ -31,21 +31,35 @@ export default function Founder() {
   const pillars = t('relaunchFounder.why.pillars', { returnObjects: true }) as Pillar[];
   const basePillars = Array.isArray(pillars) ? pillars : [];
 
-  // Pillars 03 and 04 are rewritten by the ticket (03 dropped its loss-aversion
-  // / €15 framing, 04 dropped the cohort-size mechanic). 01 and 02 are Noah's
-  // bio and stay exactly as they are.
+  // All four pillars are rewritten by the target canvas (DECISIONS-V3 confirms
+  // it is current): 01/02 replace the football CV and setback story with the
+  // competition + companies framing; 03/04 carry the standards/club copy.
   const pillarOverride: Record<string, Partial<Pillar>> = {
+    '01': {
+      title: t('founderV2.pillars.01.title', { defaultValue: 'Rooted in competition' }),
+      body: t('founderV2.pillars.01.body', {
+        defaultValue:
+          "Libo's DNA is competition and self-improvement — becoming the best version of yourself, in training and everywhere else. Consistency is what carries you there, and it holds when something real is on the line. Libo builds those stakes into everyday training.",
+      }),
+    },
+    '02': {
+      title: t('founderV2.pillars.02.title', { defaultValue: 'Built to finish' }),
+      body: t('founderV2.pillars.02.body', {
+        defaultValue:
+          'Off the pitch, Noah built two successful companies — the fashion label Mieuxnoir and the fashion production company Manufactnow. Every venture demanded the same thing sport did: showing up daily, holding the standard, finishing what he started. That’s the pattern Libo rewards — consistency that compounds.',
+      }),
+    },
     '03': {
-      title: t('founderV2.pillars.03.title', { defaultValue: 'Stakes beat motivation' }),
+      title: t('founderV2.pillars.03.title', { defaultValue: 'Standards beat motivation' }),
       body: t('founderV2.pillars.03.body', {
         defaultValue:
-          'Willpower fades; commitment holds. In sport, discipline stuck because something real was always on the line — a squad, a nomination, a season. Libo rebuilds that: public streaks, real commitment, a club that notices when you don’t show up.',
+          'Willpower fades; standards hold. Libo turns training into a commitment with real stakes: a streak that never resets to zero, and cash challenges where finishing is worth real money.',
       }),
     },
     '04': {
       body: t('founderV2.pillars.04.body', {
         defaultValue:
-          'No coaches or influencers selling courses — whoever joins the club later, members get everything through Premium. Cohorts stay small, streaks are public, and members hold each other to it. The product is the people showing up — the app just keeps score.',
+          'No coaches or influencers selling courses — members get everything through membership. The product is the people showing up, day after day — the app just keeps score and pays the receipts.',
       }),
     },
   };
@@ -68,7 +82,7 @@ export default function Founder() {
           defaultValue: 'About Libo — Libo World · Training Club',
         })}
         description={t('relaunchFounder.hero.sub')}
-        canonical="https://liboworld.com/founder"
+        canonical="https://liboworld.com/about"
         ogImage="https://liboworld.com/brand/og-image.png"
       />
       <SiteNav />
@@ -156,7 +170,7 @@ export default function Founder() {
           <p className="fp-vision-desc">
             {t('founderV2.vision.desc', {
               defaultValue:
-                'Noah’s vision is a club — an ecosystem where showing up compounds: training, challenges, community and progress feeding each other. We’d rather ship what’s next than announce it.',
+                'Noah’s vision is a club — an ecosystem where showing up compounds: training, challenges, community, and rewards feeding each other. We’d rather ship what’s next than announce it.',
             })}
           </p>
         </div>
@@ -167,7 +181,7 @@ export default function Founder() {
             })}
             <span className="fp-accent">
               {t('founderV2.vision.cardAccent', {
-                defaultValue: 'what never changes is that showing up is the whole standard.',
+                defaultValue: 'what never changes is that showing up counts.',
               })}
             </span>
           </p>
@@ -187,14 +201,14 @@ export default function Founder() {
           </h2>
           <p className="fp-join-body">
             {t('founderV2.joinCta.body', {
-              defaultValue: 'Founding Members are first through the door at launch.',
+              defaultValue: 'Cash challenges open on launch day — your 30 days start the moment you join. Founding Members are first through the door.',
             })}
           </p>
           <div className="fp-join-actions">
             {/* The old challenge + pricing paths are redirects now — link the
                 live routes (/join, /membership) directly. */}
             <Link to="/join" className="fp-btn-primary">
-              {t('founderV2.joinCta.ctaPrimary', { defaultValue: 'Join the club →' })}
+              {t('founderV2.joinCta.ctaPrimary', { defaultValue: 'Become a Founding Member →' })}
             </Link>
             <Link to="/membership" className="fp-btn-secondary">
               {t('founderV2.joinCta.ctaSecondary', { defaultValue: 'See membership' })}

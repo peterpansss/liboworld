@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { SeoHead } from '../components/SeoHead';
@@ -11,25 +12,24 @@ import {
 } from '../components/funnel/FunnelChrome';
 import { useFoundingCheckout, EARLY_ACCESS_PRICE } from '../components/funnel/FoundingCheckoutProvider';
 import { isStripeConfigured } from '../lib/stripe';
+import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import { usePopIn } from '../utils/funnelAnimations';
 import './JoinFunnel.css';
 
 /**
- * /join — the Founding Member funnel.
+ * /join — waitlist + Founding Member funnel.
  *
- * Sells exactly ONE thing: Founding Member, €39.50 (was €79.99), refundable
- * until launch, year starts at launch.
+ * Two conversion events, strictly ordered (ONBOARDING-FLOW-TICKET +
+ * DECISIONS-V3): the free ask is an email capture in the hero — submitting
+ * confirms inline and NEVER opens payment. The paid ask is the single
+ * Founding Member card (#membership); only its button opens Stripe, price
+ * always on screen first.
  *
- * Hard rules (MASTER-HANDOFF §16 / HANDOFF-V2-COMPLEMENT §81):
- * - ZERO email inputs on this page. No waitlist, no capture of any kind. People
- *   who aren't ready to pay get a text link back to the homepage waitlist.
- * - Every CTA anchors to the single Founding Member card (#membership). Only
- *   that card's button opens Stripe, so the price is always on screen at the
- *   moment of commitment.
- * - No free-member card, no Home/Pricing links in the footer, never "cycle #1".
- *
- * Only the hero was captured in the design canvases (06 desktop / 17 mobile);
- * everything below it is built from the written spec.
+ * The target canvas renders no form — DECISIONS-V3 calls that a canvas
+ * regression and mandates the capture ("/join is the free-waitlist page; an
+ * email capture is its entire purpose"). Layout below otherwise follows the
+ * canvas: proof strip → stats → why-the-club-holds → pocket fan → pricing →
+ * FAQ → close.
  */
 
 const PRICE = `€${EARLY_ACCESS_PRICE.toFixed(2)}`; // €39.50
@@ -37,117 +37,130 @@ const WAS_PRICE = '€79.99';
 const MEMBERSHIP_HREF = '#membership';
 
 /** Photo slot for the hero card — placeholder until "inside the club" photography lands. */
-const HERO_PHOTO = '/images/marketing/cash-challenge-flagship-ai.jpg';
+const HERO_PHOTO = '/images/marketing/cash-challenge-hero.jpg';
 
-type Screen = { src: string; alt: string; caption: string };
+type Member = { photo: string; name: string; meta: string };
 
 export default function JoinFunnel() {
   const { t } = useTranslation();
   const { openFoundingCheckout } = useFoundingCheckout();
   const stripeReady = isStripeConfigured();
-
-  // Pop-in cards (benefit pills, stats, offer card). Replays both directions.
   usePopIn();
 
-  // Accordion: one open at a time, first open on load.
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  // FAQ: all rows collapsed by default, lime "+" always (target).
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const ctaLabel = t('joinFunnel.cta.primary', {
     defaultValue: 'Become a Founding Member — {{price}} →',
     price: PRICE,
   });
+  const ctaUnpriced = t('joinFunnel.cta.unpriced', {
+    defaultValue: 'Become a Founding Member →',
+  });
 
-  const screens: Screen[] = [
+  const members: Member[] = [
     {
-      src: '/app-real-home.png',
-      alt: t('joinFunnel.screens.home.alt', {
-        defaultValue: 'Libo home screen showing the active plan and today’s workout',
-      }),
-      caption: t('joinFunnel.screens.home.caption', { defaultValue: 'Today’s workout' }),
+      photo: '/beta-thao.png',
+      name: t('joinFunnel.proof.m1Name', { defaultValue: 'Thao' }),
+      meta: t('joinFunnel.proof.m1Meta', { defaultValue: '@redtao_ · yoga + bodyweight' }),
     },
     {
-      src: '/app-real-run.png',
-      alt: t('joinFunnel.screens.run.alt', {
-        defaultValue: 'A cash challenge day screen with the 30-day tracker',
-      }),
-      caption: t('joinFunnel.screens.run.caption', { defaultValue: 'Challenge day' }),
+      photo: '/beta-sarah.png',
+      name: t('joinFunnel.proof.m2Name', { defaultValue: 'Somin' }),
+      meta: t('joinFunnel.proof.m2Meta', { defaultValue: '@somin · earned €15, kept the streak' }),
     },
     {
-      src: '/app-real-rewards.png',
-      alt: t('joinFunnel.screens.rewards.alt', {
-        defaultValue: 'The rewards tab showing points, streak and open challenges',
-      }),
-      caption: t('joinFunnel.screens.rewards.caption', { defaultValue: 'Streak & rewards' }),
+      photo: '/beta-danny.png',
+      name: t('joinFunnel.proof.m3Name', { defaultValue: 'Guilherme' }),
+      meta: t('joinFunnel.proof.m3Meta', { defaultValue: '@guilherme · 30 min + dumbbells' }),
     },
-  ];
-
-  const capabilities = [
-    t('joinFunnel.pills.session', { defaultValue: 'The day’s session, picked for you' }),
-    t('joinFunnel.pills.streak', { defaultValue: 'A streak that survives a bad week' }),
-    t('joinFunnel.pills.cash', { defaultValue: 'Cash challenges with real money on the line' }),
+    {
+      photo: '/beta-paul.png',
+      name: t('joinFunnel.proof.m4Name', { defaultValue: 'Tony' }),
+      meta: t('joinFunnel.proof.m4Meta', { defaultValue: '@tony · 47, mobility plans' }),
+    },
   ];
 
   const stats = [
+    { value: '641', label: t('joinFunnel.stats.s1', { defaultValue: 'Exercises' }) },
+    { value: '140', label: t('joinFunnel.stats.s2', { defaultValue: 'Workouts' }) },
     {
-      value: t('joinFunnel.stats.exercises.value', { defaultValue: '641' }),
-      label: t('joinFunnel.stats.exercises.label', { defaultValue: 'Exercises' }),
+      value: '3',
+      label: t('joinFunnel.stats.s3', { defaultValue: 'Cash challenge tiers' }),
+      labelMobile: t('joinFunnel.stats.s3Mobile', { defaultValue: 'Challenge tiers' }),
+    },
+    { value: '€0', label: t('joinFunnel.stats.s4', { defaultValue: 'Free tier' }) },
+  ];
+
+  const holds = [
+    {
+      num: '01',
+      title: t('joinFunnel.holds.c1Title', { defaultValue: 'Decision removed' }),
+      body: t('joinFunnel.holds.c1Body', {
+        defaultValue:
+          "Open the app — today's session is already picked for your goal, time, and equipment. No planning stress, ever.",
+      }),
     },
     {
-      value: t('joinFunnel.stats.workouts.value', { defaultValue: '140' }),
-      label: t('joinFunnel.stats.workouts.label', { defaultValue: 'Guided workouts' }),
+      num: '02',
+      title: t('joinFunnel.holds.c2Title', { defaultValue: 'Progress accumulates' }),
+      body: t('joinFunnel.holds.c2Body', {
+        defaultValue:
+          'The streak never resets to zero — a missed day subtracts a day, and freeze tokens cover real life.',
+      }),
     },
     {
-      value: t('joinFunnel.stats.platforms.value', { defaultValue: 'iOS & Android' }),
-      label: t('joinFunnel.stats.platforms.label', { defaultValue: 'Both stores at launch' }),
-    },
-    {
-      value: t('joinFunnel.stats.freeTier.value', { defaultValue: 'Free tier' }),
-      label: t('joinFunnel.stats.freeTier.label', { defaultValue: 'No card needed to start' }),
+      num: '03',
+      title: t('joinFunnel.holds.c3Title', { defaultValue: 'Real money, real rules' }),
+      body: t('joinFunnel.holds.c3Body', {
+        defaultValue:
+          'Cash challenges pay real money for 30 verified days. No draw, no luck — complete the work, get paid.',
+      }),
     },
   ];
 
   const benefits = [
-    t('joinFunnel.offer.benefit1', { defaultValue: '12 months of Premium' }),
-    t('joinFunnel.offer.benefit2', { defaultValue: 'First through the door at launch' }),
-    t('joinFunnel.offer.benefit3', { defaultValue: 'Every cash-challenge tier unlocked' }),
-    t('joinFunnel.offer.benefit4', { defaultValue: '2 freeze tokens per challenge' }),
-    t('joinFunnel.offer.benefit5', { defaultValue: 'Fully refundable until launch' }),
+    t('joinFunnel.offer.tick1', { defaultValue: 'Everything in Free, plus the full library' }),
+    t('joinFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier — first come, first served' }),
+    t('joinFunnel.offer.tick3', { defaultValue: '2 freeze tokens per challenge' }),
+    t('joinFunnel.offer.tick4', { defaultValue: 'Founding Member badge · first through the door at launch' }),
+    t('joinFunnel.offer.tick5', { defaultValue: 'Year starts on launch day · fully refundable until launch' }),
   ];
 
   const faqs = [
     {
-      q: t('joinFunnel.faq.q1', { defaultValue: 'What do I actually get?' }),
+      q: t('joinFunnel.faq.q1', { defaultValue: 'What is Libo?' }),
       a: t('joinFunnel.faq.a1', {
         defaultValue:
-          'Twelve months of Libo Premium for half price: the day’s training picked for you, a streak that never resets to zero, every cash-challenge tier unlocked, and 2 freeze tokens per challenge.',
+          'A training club: 641 exercises, 140 workouts, AI-built plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.',
       }),
     },
     {
-      q: t('joinFunnel.faq.q2', { defaultValue: 'When does my year start?' }),
+      q: t('joinFunnel.faq.q2', { defaultValue: 'What does membership cost?' }),
       a: t('joinFunnel.faq.a2', {
         defaultValue:
-          'At launch, not today. The 12 months begin the day the app goes live, so joining early costs you nothing but the wait.',
+          'There is a free tier — no card needed. Premium is €79.99 a year (about €6.67/mo) or €12.99 month-to-month. Founding Members lock the first year at €39.50.',
       }),
     },
     {
-      q: t('joinFunnel.faq.q3', { defaultValue: 'Can I get my money back?' }),
+      q: t('joinFunnel.faq.q3', { defaultValue: 'What is a Founding Member?' }),
       a: t('joinFunnel.faq.a3', {
         defaultValue:
-          'Yes. Your payment is fully refundable until launch day — email us any time before then and we send it back in full.',
+          'The pre-launch offer: 12 months of Premium at 50% off, first through the door on launch day, every challenge tier unlocked — and fully refundable until launch.',
       }),
     },
     {
-      q: t('joinFunnel.faq.q4', { defaultValue: 'What happens on launch day?' }),
+      q: t('joinFunnel.faq.q4', { defaultValue: 'When does the app launch?' }),
       a: t('joinFunnel.faq.a4', {
         defaultValue:
-          'You are first through the door. We email your download link before general release, your Premium year starts, and every cash-challenge tier is already unlocked on your account.',
+          'Soon — iOS and Android at the same time. Waitlist members get one email the moment the doors open; Founding Members get their download link before general release.',
       }),
     },
     {
-      q: t('joinFunnel.faq.q5', { defaultValue: 'Is there a free option?' }),
+      q: t('joinFunnel.faq.q5', { defaultValue: 'How do cash challenges work?' }),
       a: t('joinFunnel.faq.a5', {
         defaultValue:
-          'Yes — Libo has a free tier, and you can join it at launch without paying anything. Founding Member is for people who want Premium at half price and to be in on day one.',
+          '30 days of daily reps, recorded and verified in-app, paid out as real cash when you finish — €5, €15 or €50 depending on the tier. No draw, no luck.',
       }),
     },
   ];
@@ -165,7 +178,6 @@ export default function JoinFunnel() {
         canonical="https://liboworld.com/join"
       />
 
-      {/* ── Context bar. Two strings so the long one can't wrap awkwardly at 390px. */}
       <FunnelContextBar>
         <span className="jf-bar__full">
           {t('joinFunnel.contextBar', {
@@ -173,309 +185,334 @@ export default function JoinFunnel() {
           })}
         </span>
         <span className="jf-bar__short">
-          {t('joinFunnel.contextBarShort', {
-            defaultValue: '50% off the first year · refundable',
-          })}
+          {t('joinFunnel.contextBarShort', { defaultValue: '50% off the first year · refundable' })}
         </span>
       </FunnelContextBar>
 
       {/* Logo only, centred, unlinked — a funnel has one exit and it's the CTA. */}
       <FunnelLogoNav />
 
-      {/* ── 1. Hero ─────────────────────────────────────────────────────────── */}
-      <section className="jf-hero">
-        {/* Soft lime bloom. Sits on its own layer behind the copy and is clipped
-            to the headline band, so it can never wash over the CTA the way the
-            canvas render does. */}
-        <div className="jf-hero__bloom" aria-hidden="true" />
-
-        <div className="jf-hero__inner">
+      <main id="main-content">
+        {/* ── 1. Hero ─────────────────────────────────────────────────────── */}
+        <section className="jf-hero">
           <div className="jf-hero__copy">
             <span className="jf-eyebrow">
               {t('joinFunnel.hero.eyebrow', { defaultValue: 'The Training Club' })}
             </span>
-
-            <h1 className="jf-hero__title font-display">
-              <ScrollRevealText as="span" className="jf-line">
-                {t('joinFunnel.hero.titleLine1', { defaultValue: 'Enter' })}
-              </ScrollRevealText>
-              <ScrollRevealText as="span" className="jf-line jf-line--accent">
-                {t('joinFunnel.hero.titleLine2', { defaultValue: 'the club.' })}
-              </ScrollRevealText>
+            <h1 className="jf-h1 font-display">
+              <span className="jf-line">{t('joinFunnel.hero.h1a', { defaultValue: 'Enter' })}</span>
+              <span className="jf-line jf-line--accent">
+                {t('joinFunnel.hero.h1b', { defaultValue: 'the club.' })}
+              </span>
             </h1>
-
             <p className="jf-hero__body">
               {t('joinFunnel.hero.body', {
                 defaultValue:
-                  'The day’s training handed to you, a streak that never resets to zero, and cash challenges with real money on the line.',
+                  "The day's training handed to you, a streak that never resets to zero, and cash challenges with real money on the line. Leave your email and you're in on launch day.",
               })}
             </p>
 
-            <div className="jf-hero__actions">
-              <a className="jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
-                {ctaLabel}
-              </a>
-              <p className="jf-hero__footnote">
-                {t('joinFunnel.hero.footnote', {
-                  defaultValue: '50% off the first year · fully refundable until launch',
-                })}
-              </p>
+            {/* The free ask the hero copy promises — inline confirm, never payment. */}
+            <HeroCapture t={t} />
+
+            <a className="jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
+              {ctaLabel}
+            </a>
+            <p className="jf-hero__footnote">
+              {t('joinFunnel.hero.footnote', {
+                defaultValue: '50% off the first year · fully refundable until launch',
+              })}
+            </p>
+
+            {/* Store badges — desktop only per target (mobile drops them). */}
+            <div className="jf-stores">
+              <span className="jf-store">
+                {t('joinFunnel.stores.ios', { defaultValue: 'Coming to the App Store' })}
+              </span>
+              <span className="jf-store">
+                {t('joinFunnel.stores.android', { defaultValue: 'Coming to Google Play' })}
+              </span>
             </div>
           </div>
 
           <div className="jf-hero__media">
-            <figure className="jf-photo">
-              <img
-                src={HERO_PHOTO}
-                alt={t('joinFunnel.hero.photoAlt', {
-                  defaultValue: 'A Libo member mid-session',
-                })}
-                loading="eager"
-                decoding="async"
-              />
-              <figcaption className="jf-photo__caption">
-                {t('joinFunnel.hero.photoCaption', { defaultValue: 'Inside the club' })}
+            <figure className="jf-hero__photo">
+              <img src={HERO_PHOTO} alt="" loading="eager" />
+              <figcaption className="jf-hero__caption font-display">
+                {t('joinFunnel.hero.caption', { defaultValue: 'Inside the club' })}
               </figcaption>
             </figure>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── 2. Framed real screens + capability pills ────────────────────────── */}
-      <section className="jf-section jf-screens">
-        <h2 className="jf-h2 font-display">
-          <ScrollRevealText as="span" className="jf-line">
-            {t('joinFunnel.screens.titleLine1', { defaultValue: 'This is' })}
-          </ScrollRevealText>
-          <ScrollRevealText as="span" className="jf-line jf-line--accent">
-            {t('joinFunnel.screens.titleLine2', { defaultValue: 'the app.' })}
-          </ScrollRevealText>
-        </h2>
-        <p className="jf-lede">
-          {t('joinFunnel.screens.lede', {
-            defaultValue: 'Real screens from the build. Nothing here is a mock-up.',
-          })}
-        </p>
-
-        <div className="jf-phones">
-          {screens.map((s) => (
-            <figure className="jf-phone" key={s.src}>
-              <div className="jf-phone__frame">
-                <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
-              </div>
-              <figcaption className="jf-phone__caption">{s.caption}</figcaption>
-            </figure>
-          ))}
-        </div>
-
-        <ul className="jf-pills">
-          {capabilities.map((c) => (
-            <li className="jf-pill" key={c} data-popin>
-              <span className="jf-pill__dot" aria-hidden="true" />
-              {c}
-            </li>
-          ))}
-        </ul>
-
-        <div className="jf-ctabar">
-          <a className="jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
-            {ctaLabel}
-          </a>
-        </div>
-      </section>
-
-      {/* ── 3. Stats row (2×2 on mobile) ─────────────────────────────────────── */}
-      <section className="jf-section jf-stats-section">
-        <ul className="jf-stats">
-          {stats.map((s) => (
-            <li className="jf-stat" key={s.label} data-popin>
-              <span className="jf-stat__value font-display">{s.value}</span>
-              <span className="jf-stat__label">{s.label}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* ── 4. Your whole club in your pocket ────────────────────────────────── */}
-      <section className="jf-section jf-pocket">
-        <div className="jf-pocket__inner">
-          <div className="jf-pocket__copy">
-            <h2 className="jf-h2 font-display">
-              <ScrollRevealText as="span" className="jf-line">
-                {t('joinFunnel.pocket.titleLine1', { defaultValue: 'Your whole club' })}
-              </ScrollRevealText>
-              <ScrollRevealText as="span" className="jf-line jf-line--accent">
-                {t('joinFunnel.pocket.titleLine2', { defaultValue: 'in your pocket.' })}
-              </ScrollRevealText>
-            </h2>
-            <p className="jf-lede jf-lede--left">
-              {t('joinFunnel.pocket.body', {
-                defaultValue:
-                  'Plans, guided sessions, streaks, cash challenges and rewards — one app, on iOS and Android, from launch day.',
-              })}
-            </p>
-            <a className="jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
-              {ctaLabel}
-            </a>
-          </div>
-
-          <figure className="jf-pocket__media">
-            <div className="jf-phone__frame jf-phone__frame--lg">
-              <img
-                src="/app-real-live.png"
-                alt={t('joinFunnel.pocket.photoAlt', {
-                  defaultValue: 'A finished Libo session summary ready to share',
-                })}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </figure>
-        </div>
-      </section>
-
-      {/* ── 5. The single Founding Member card ───────────────────────────────── */}
-      <section className="jf-section jf-membership" id="membership">
-        <h2 className="jf-h2 font-display">
-          <ScrollRevealText as="span" className="jf-line">
-            {t('joinFunnel.offer.titleLine1', { defaultValue: 'One offer.' })}
-          </ScrollRevealText>
-          <ScrollRevealText as="span" className="jf-line jf-line--accent">
-            {t('joinFunnel.offer.titleLine2', { defaultValue: 'One price.' })}
-          </ScrollRevealText>
-        </h2>
-
-        <article className="jf-offer" data-popin>
-          <span className="jf-offer__badge">
-            {t('joinFunnel.offer.badge', { defaultValue: 'Founding Member' })}
-          </span>
-
-          <div className="jf-offer__price">
-            <s className="jf-offer__was">{WAS_PRICE}</s>
-            <span className="jf-offer__now font-display">{PRICE}</span>
-            <span className="jf-offer__per">
-              {t('joinFunnel.offer.per', { defaultValue: 'for the first year' })}
-            </span>
-          </div>
-
-          <p className="jf-offer__note">
-            {t('joinFunnel.offer.note', {
-              defaultValue: 'Your year starts at launch, not the day you pay.',
-            })}
+        {/* ── 2. Real members from the beta ───────────────────────────────── */}
+        <section className="jf-proof">
+          <p className="jf-proof__label">
+            <span className="jf-proof__check" aria-hidden="true">✓</span>
+            {t('joinFunnel.proof.label', { defaultValue: 'Real members from the beta' })}
           </p>
+          <div className="jf-proof__rail">
+            {members.map((m) => (
+              <figure className="jf-proof__card" data-popin key={m.name}>
+                <img src={m.photo} alt={m.name} loading="lazy" />
+                <figcaption>
+                  <span className="jf-proof__name font-display">{m.name}</span>
+                  <span className="jf-proof__meta">{m.meta}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
 
-          <ul className="jf-offer__list">
-            {benefits.map((b) => (
-              <li key={b}>
-                <span className="jf-offer__tick" aria-hidden="true">
-                  ✓
+        {/* ── 3. Stats — borderless full-bleed band ───────────────────────── */}
+        <section className="jf-stats" aria-label={t('joinFunnel.stats.label', { defaultValue: 'Libo in numbers' })}>
+          <ul className="jf-stats__row">
+            {stats.map((s) => (
+              <li className="jf-stat" key={s.label}>
+                <span className="jf-stat__value font-display">{s.value}</span>
+                <span className="jf-stat__label">
+                  {s.labelMobile ? (
+                    <>
+                      <span className="jf-copy--desktop">{s.label}</span>
+                      <span className="jf-copy--mobile">{s.labelMobile}</span>
+                    </>
+                  ) : (
+                    s.label
+                  )}
                 </span>
-                {b}
               </li>
             ))}
           </ul>
+        </section>
 
-          {/* The ONLY checkout entry point on this page. Hidden — not disabled
-              into a dead button — when Stripe isn't configured, because the
-              provider no-ops and we never show a checkout that can't charge. */}
-          {stripeReady ? (
-            <button
-              type="button"
-              className="jf-btn jf-btn--primary jf-btn--block"
-              onClick={() => openFoundingCheckout('fm_funnel')}
-            >
-              {ctaLabel}
-            </button>
-          ) : (
-            <p className="jf-offer__unavailable">
-              {t('joinFunnel.offer.unavailable', {
-                defaultValue: 'Founding Member checkout opens shortly — check back in a moment.',
-              })}
+        {/* ── 4. Why the club holds ───────────────────────────────────────── */}
+        <section className="jf-section jf-holds">
+          <h2 className="jf-h2 jf-h2--left font-display">
+            <span className="jf-line">{t('joinFunnel.holds.h2a', { defaultValue: 'Why the club' })}</span>
+            <span className="jf-line jf-line--accent">
+              {t('joinFunnel.holds.h2b', { defaultValue: 'holds.' })}
+            </span>
+          </h2>
+          <div className="jf-holds__grid">
+            {holds.map((c) => (
+              <article className="jf-hold" data-popin key={c.num}>
+                <span className="jf-hold__num font-display">{c.num}</span>
+                <h3 className="jf-hold__title font-display">{c.title}</h3>
+                <p className="jf-hold__body">{c.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 5. Your whole club, in your pocket ──────────────────────────── */}
+        <section className="jf-section jf-pocket">
+          <h2 className="jf-h2 font-display">
+            <span className="jf-line">
+              {t('joinFunnel.pocket.h2a', { defaultValue: 'Your whole club,' })}
+            </span>
+            <span className="jf-line jf-line--accent">
+              {t('joinFunnel.pocket.h2b', { defaultValue: 'in your pocket.' })}
+            </span>
+          </h2>
+          <p className="jf-lede">
+            {t('joinFunnel.pocket.lede', {
+              defaultValue:
+                'Everything lives in one app — your session, your streak, your challenges, your progress. One tap away, every day.',
+            })}
+          </p>
+          {/* Fanned trio: centre phone larger + raised, flanks tucked behind.
+              Mobile shows the centre phone only. */}
+          <div className="jf-fan">
+            <div className="jf-fan__frame jf-fan__frame--0" data-popin>
+              <img src="/app-real-run.png" alt="" loading="lazy" />
+            </div>
+            <div className="jf-fan__frame jf-fan__frame--1" data-popin>
+              <img
+                src="/app-real-home.png"
+                alt={t('joinFunnel.pocket.alt', {
+                  defaultValue: "Libo home screen showing the active plan and today's workout",
+                })}
+                loading="lazy"
+              />
+            </div>
+            <div className="jf-fan__frame jf-fan__frame--2" data-popin>
+              <img src="/app-real-rewards.png" alt="" loading="lazy" />
+            </div>
+          </div>
+          <ul className="jf-pills">
+            <li className="jf-pill">{t('joinFunnel.pocket.pill1', { defaultValue: "Today's workout" })}</li>
+            <li className="jf-pill">{t('joinFunnel.pocket.pill2', { defaultValue: 'Streak & freezes' })}</li>
+            <li className="jf-pill">{t('joinFunnel.pocket.pill3', { defaultValue: 'Progress tracking' })}</li>
+          </ul>
+          <a className="jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
+            {ctaUnpriced}
+          </a>
+        </section>
+
+        {/* ── 6. Pricing ──────────────────────────────────────────────────── */}
+        <section className="jf-section jf-membership" id="membership">
+          <span className="jf-eyebrow">
+            {t('joinFunnel.offer.eyebrow', { defaultValue: 'Pre-sale · ends at launch' })}
+          </span>
+          {/* Both lines white — no lime in this headline (target). */}
+          <h2 className="jf-h2 font-display">
+            <span className="jf-line">
+              {t('joinFunnel.offer.h2a', { defaultValue: 'Lock in the year' })}
+            </span>
+            <span className="jf-line">
+              {t('joinFunnel.offer.h2b', { defaultValue: 'before we launch.' })}
+            </span>
+          </h2>
+
+          <article className="jf-offer" data-popin>
+            {/* Badge notched into the card's top border. */}
+            <span className="jf-offer__badge font-display">
+              <span className="jf-copy--desktop">
+                {t('joinFunnel.offer.badge', { defaultValue: 'Pre-launch only' })}
+              </span>
+              <span className="jf-copy--mobile">
+                {t('joinFunnel.offer.badgeMobile', { defaultValue: 'Pre-launch' })}
+              </span>
+            </span>
+            <h3 className="jf-offer__title font-display">
+              {t('joinFunnel.offer.title', { defaultValue: 'Founding Member' })}
+            </h3>
+            {/* New price FIRST, was-price after. */}
+            <p className="jf-offer__price">
+              <span className="jf-offer__now font-display">{PRICE}</span>
+              <s className="jf-offer__was">{WAS_PRICE}</s>
+              <span className="jf-offer__per">
+                {t('joinFunnel.offer.per', { defaultValue: 'first year' })}
+              </span>
             </p>
-          )}
+            <ul className="jf-offer__ticks">
+              {benefits.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
+            </ul>
+            {stripeReady && (
+              <button
+                type="button"
+                className="jf-btn jf-btn--primary jf-btn--block"
+                onClick={() => openFoundingCheckout('fm_funnel')}
+              >
+                {ctaLabel}
+              </button>
+            )}
+          </article>
 
           <p className="jf-offer__fine">
             {t('joinFunnel.offer.fine', {
-              defaultValue: 'Secure card payment · fully refundable until launch',
+              defaultValue:
+                'Checkout opens from this card only — price always shown first. Just want launch news? The waitlist lives on the ',
             })}
+            <Link to="/#waitlist" className="jf-inline-link">
+              {t('joinFunnel.offer.fineLink', { defaultValue: 'homepage' })}
+            </Link>
+            .
           </p>
-        </article>
-      </section>
+        </section>
 
-      {/* ── 6. FAQ ───────────────────────────────────────────────────────────── */}
-      <section className="jf-section jf-faq-section">
-        <h2 className="jf-h2 jf-h2--sm font-display">
-          <ScrollRevealText as="span" className="jf-line">
-            {t('joinFunnel.faq.titleLine1', { defaultValue: 'Before you' })}
+        {/* ── 7. FAQ ──────────────────────────────────────────────────────── */}
+        <section className="jf-section">
+          <ScrollRevealText as="h2" className="jf-h2 font-display">
+            {t('joinFunnel.faq.title', { defaultValue: 'Any questions?' })}
           </ScrollRevealText>
-          <ScrollRevealText as="span" className="jf-line jf-line--accent">
-            {t('joinFunnel.faq.titleLine2', { defaultValue: 'join.' })}
-          </ScrollRevealText>
-        </h2>
-
-        <div className="jf-faq">
-          {faqs.map((item, i) => {
-            const isOpen = openFaq === i;
-            return (
-              <div className={`jf-faq__item${isOpen ? ' is-open' : ''}`} key={item.q}>
-                <h3 className="jf-faq__h">
+          <ul className="jf-faq">
+            {faqs.map((faq, i) => {
+              const open = openFaq === i;
+              return (
+                <li className={`jf-faq__row${open ? ' jf-faq__row--open' : ''}`} key={faq.q}>
                   <button
                     type="button"
                     className="jf-faq__q"
-                    aria-expanded={isOpen}
-                    aria-controls={`jf-faq-a-${i}`}
-                    id={`jf-faq-q-${i}`}
-                    onClick={() => setOpenFaq(isOpen ? null : i)}
+                    aria-expanded={open}
+                    onClick={() => setOpenFaq(open ? null : i)}
                   >
-                    <span>{item.q}</span>
-                    <span className="jf-faq__sign" aria-hidden="true">
-                      {isOpen ? '−' : '+'}
-                    </span>
+                    <span>{faq.q}</span>
+                    <span className="jf-faq__sign" aria-hidden="true">{open ? '−' : '+'}</span>
                   </button>
-                </h3>
-                {isOpen && (
-                  <div className="jf-faq__a" id={`jf-faq-a-${i}`} role="region" aria-labelledby={`jf-faq-q-${i}`}>
-                    {item.a}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ── 7. Close ─────────────────────────────────────────────────────────── */}
-      <section className="jf-section jf-close">
-        <div className="jf-close__card">
-          <h2 className="jf-h2 font-display">
-            <ScrollRevealText as="span" className="jf-line">
-              {t('joinFunnel.close.titleLine1', { defaultValue: 'Start today.' })}
-            </ScrollRevealText>
-            <ScrollRevealText as="span" className="jf-line jf-line--accent">
-              {t('joinFunnel.close.titleLine2', { defaultValue: 'Not someday.' })}
-            </ScrollRevealText>
-          </h2>
-          <p className="jf-lede">
-            {t('joinFunnel.close.body', {
-              defaultValue:
-                '50% off the first year, refundable until launch. The only thing you lose by waiting is the discount.',
+                  {open && <p className="jf-faq__a">{faq.a}</p>}
+                </li>
+              );
             })}
-          </p>
-          <a className="jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
-            {ctaLabel}
-          </a>
-        </div>
-      </section>
+          </ul>
+        </section>
+
+        {/* ── 8. Close ────────────────────────────────────────────────────── */}
+        <section className="jf-section jf-close">
+          <div className="jf-close__card" data-popin>
+            <h2 className="jf-h2 font-display">
+              <span className="jf-line">{t('joinFunnel.close.h2a', { defaultValue: 'Start today.' })}</span>
+              <span className="jf-line jf-line--accent">
+                {t('joinFunnel.close.h2b', { defaultValue: 'Not someday.' })}
+              </span>
+            </h2>
+            <a className="jf-btn jf-btn--primary jf-close__cta" href={MEMBERSHIP_HREF}>
+              {ctaLabel}
+            </a>
+            <p className="jf-close__fine">
+              <span className="jf-copy--desktop">
+                {t('joinFunnel.close.fine', {
+                  defaultValue: '50% off the first year · year starts on launch day · fully refundable until launch',
+                })}
+              </span>
+              <span className="jf-copy--mobile">
+                {t('joinFunnel.close.fineMobile', {
+                  defaultValue: '50% off the first year · year starts on launch day · refundable until launch',
+                })}
+              </span>
+            </p>
+          </div>
+        </section>
+      </main>
 
       <FunnelMinimalFooter />
 
-      {/* Mobile sticky: no price (it lives on the inline + card buttons) and it
-          anchors to the card rather than opening checkout, so the price is
-          always on screen before Stripe appears. */}
-      <FunnelStickyCta
-        href={MEMBERSHIP_HREF}
-        label={t('joinFunnel.cta.sticky', { defaultValue: 'Become a Founding Member →' })}
-      />
+      {/* Sticky mobile CTA — unpriced (the price lives on the inline + card
+          buttons); anchors to the card, never opens checkout directly. */}
+      <FunnelStickyCta label={ctaUnpriced} href={MEMBERSHIP_HREF} />
     </div>
+  );
+}
+
+type TFn = (key: string, opts?: Record<string, unknown>) => string;
+
+/** Hero waitlist capture — inline confirm, payment never opens from submit. */
+function HeroCapture({ t }: { t: TFn }) {
+  const { email, setEmail, status, submit, errorMessage } = useWaitlistSubmit('homepage_waitlist');
+  const done = status === 'success' || status === 'duplicate';
+
+  if (done) {
+    return (
+      <p className="jf-capture__confirm font-display" role="status">
+        {t('joinFunnel.capture.confirm', { defaultValue: "You're on the list ✓" })}
+      </p>
+    );
+  }
+
+  return (
+    <form className="jf-capture" onSubmit={submit as (e: FormEvent) => void}>
+      <label className="jf-capture__label" htmlFor="jf-capture-email">
+        {t('joinFunnel.capture.aria', { defaultValue: 'Email address' })}
+      </label>
+      <input
+        id="jf-capture-email"
+        className="jf-capture__input"
+        type="email"
+        required
+        placeholder={t('joinFunnel.capture.placeholder', { defaultValue: 'Your email' })}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        disabled={status === 'submitting'}
+        autoComplete="email"
+      />
+      <button type="submit" className="jf-btn jf-capture__btn" disabled={status === 'submitting'}>
+        {t('joinFunnel.capture.btn', { defaultValue: 'Join the waitlist' })}
+      </button>
+      {status === 'error' && (
+        <p className="jf-capture__error" role="alert">{errorMessage}</p>
+      )}
+    </form>
   );
 }

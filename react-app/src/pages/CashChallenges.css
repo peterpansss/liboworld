@@ -40,6 +40,9 @@
   text-transform: uppercase;
 }
 
+/* Block lines: without this the two headline spans render inline and
+   "PICK YOUR CHALLENGE." collapses onto one line. */
+.cc-hero__line { display: block; }
 .cc-hero__line--accent { color: var(--accent); }
 
 .cc-hero__sub {
@@ -56,7 +59,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  max-width: 1180px;
+  max-width: 1275px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -64,7 +67,7 @@
 .cc-card {
   position: relative;
   display: block;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1.07;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--cc-r-card);
@@ -114,13 +117,13 @@
 
 .cc-card__payout {
   color: var(--accent);
-  font-size: 52px;
+  font-size: 58px;
   line-height: 1;
   letter-spacing: -1px;
 }
 
 .cc-card__name {
-  font-size: 22px;
+  font-size: 26px;
   line-height: 1.1;
   text-transform: uppercase;
 }
@@ -131,23 +134,32 @@
 }
 
 .cc-card__cta {
-  margin-top: 12px;
-  color: var(--accent);
+  /* Filled pill button, not a text link — target renders a full-width lime
+     pill inside the scrim on every card. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 14px;
+  border-radius: 100px;
+  background: var(--accent);
+  color: var(--accent-text);
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 800;
+  font-size: 17px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  /* ≥44px tap target at mobile widths */
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
+  transition: background .2s ease;
 }
+.cc-card:hover .cc-card__cta { background: var(--accent2); }
 
 /* ── Mobile: 1-column stack (not a scroll rail) ──────────────────────────── */
 
 @media (max-width: 900px) {
-  .cc-grid { grid-template-columns: 1fr; max-width: 460px; }
+  /* Full gutter width, and wider/shorter cards than desktop (target ~0.81). */
+  .cc-grid { grid-template-columns: 1fr; }
+  .cc-card { aspect-ratio: 1 / 0.96; }
 }
 
 @media (max-width: 560px) {

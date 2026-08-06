@@ -42,21 +42,29 @@ export function FunnelLogoNav() {
   );
 }
 
-/** Legal-only footer. Never the brand footer, never an email capture. */
+/**
+ * Legal-only footer. Never the brand footer, never an email capture.
+ * Target layout: logo left · legal links centre · copyright right
+ * (stacked and centred on mobile). `note` is appended to the copyright —
+ * e.g. "© 2026 Libo World · Challenge terms apply".
+ */
 export function FunnelMinimalFooter({ note }: { note?: string }) {
   const { t } = useTranslation();
+  const copyright = t('footer.copyrightShort', { defaultValue: '© 2026 Libo World' });
   return (
     <footer className="funnel-footer">
       <div className="funnel-footer__inner">
-        <span className="funnel-footer__copy">
-          {t('footer.copyrightTrainingClub', { defaultValue: '© 2026 Libo World · Training Club' })}
+        <span className="funnel-footer__logo" aria-hidden="true">
+          <LiboLogo compact />
         </span>
         <div className="funnel-footer__legal">
           {/* Existing live legal routes — no new legal copy is created here. */}
           <Link to="/terms">{t('footer.termsAndConditions')}</Link>
           <Link to="/privacy">{t('footer.privacy')}</Link>
-          {note && <span className="funnel-footer__note">{note}</span>}
         </div>
+        <span className="funnel-footer__copy">
+          {note ? `${copyright} · ${note}` : copyright}
+        </span>
       </div>
     </footer>
   );

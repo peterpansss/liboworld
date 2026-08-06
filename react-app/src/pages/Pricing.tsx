@@ -65,7 +65,7 @@ export default function Pricing() {
       name: t('membershipV2.plans.free.name', { defaultValue: 'Free' }),
       badge: '',
       price: t('membershipV2.plans.free.price', { defaultValue: '€0' }),
-      per: t('membershipV2.plans.free.per', { defaultValue: 'free tier' }),
+      per: t('membershipV2.plans.free.per', { defaultValue: 'forever' }),
       monthly: '',
       strike: '',
       strikeNote: '',
@@ -75,8 +75,8 @@ export default function Pricing() {
       perks: [
         t('membershipV2.plans.free.perk1', { defaultValue: 'Core workout & exercise library' }),
         t('membershipV2.plans.free.perk2', { defaultValue: 'Basic progress tracking' }),
-        t('membershipV2.plans.free.perk3', { defaultValue: 'Activity streak & points' }),
-        t('membershipV2.plans.free.perk4', { defaultValue: 'Entry-level cash challenge (€5)' }),
+        t('membershipV2.plans.free.perk3', { defaultValue: 'Entry-level cash challenge (€5)' }),
+        t('membershipV2.plans.free.perk4', { defaultValue: 'Activity streak & points' }),
         t('membershipV2.plans.free.perk5', { defaultValue: 'AI generator — 3 plans/mo' }),
       ],
       ctaLabel: t('membershipV2.plans.free.cta', { defaultValue: 'Start free' }),
@@ -136,8 +136,8 @@ export default function Pricing() {
           defaultValue: 'Full library — 641 exercises, 140 workouts',
         }),
         t('membershipV2.plans.premium.perk2', { defaultValue: 'Cash challenges up to €50' }),
-        t('membershipV2.plans.premium.perk3', { defaultValue: '2 freeze tokens per challenge' }),
-        t('membershipV2.plans.premium.perk4', { defaultValue: 'Advanced analytics & PRs' }),
+        t('membershipV2.plans.premium.perk3', { defaultValue: 'Advanced analytics & PRs' }),
+        t('membershipV2.plans.premium.perk4', { defaultValue: '2 freeze tokens per challenge' }),
         t('membershipV2.plans.premium.perk5', { defaultValue: 'Unlimited AI generator' }),
       ],
       ctaLabel: t('membershipV2.plans.premium.cta', { defaultValue: 'Available at launch' }),
@@ -150,7 +150,7 @@ export default function Pricing() {
     {
       title: t('membershipV2.guarantee.g1.title', { defaultValue: 'No card to start' }),
       body: t('membershipV2.guarantee.g1.body', {
-        defaultValue: 'The free tier is a real tier, not a trial. Nothing expires on you.',
+        defaultValue: 'The free tier is genuinely free — not a trial.',
       }),
     },
     {
@@ -313,7 +313,7 @@ export default function Pricing() {
             <h2 className="pr-faq__h2">{t('relaunchPricing.faq.headline')}</h2>
             <p className="pr-faq__subhead">
               {t('membershipV2.faq.subhead', {
-                defaultValue: 'Straight answers on what you pay and what you get.',
+                defaultValue: 'Same answers as the home page — one source of truth.',
               })}
             </p>
           </div>

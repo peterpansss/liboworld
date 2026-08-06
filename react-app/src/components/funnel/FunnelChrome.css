@@ -63,6 +63,8 @@
   color: var(--dim);
 }
 
+.funnel-footer__logo { display: inline-flex; align-items: center; opacity: 0.8; }
+
 .funnel-footer__legal {
   display: flex;
   flex-wrap: wrap;

@@ -453,3 +453,16 @@ button.pr-card__cta {
   appearance: none;
   -webkit-appearance: none;
 }
+
+
+/* Target mobile: the PRE-SALE badge notches onto the elevated card's top
+   border instead of sitting inline beside the plan name. */
+@media (max-width: 640px) {
+  .pr-card--elevated { position: relative; margin-top: 14px; }
+  .pr-card--elevated .pr-card__badge {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    margin: 0;
+  }
+}

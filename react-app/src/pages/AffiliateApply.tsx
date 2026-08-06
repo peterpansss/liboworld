@@ -37,23 +37,23 @@ import './AffiliateApply.css';
  * pointing at affiliates@liboworld.com so applications are never silently lost.
  */
 
-const TERMS_TEXT = `1. These Terms and Conditions apply to the Creator Program of Libo World, S.L. (hereafter, "Libo").
+const TERMS_TEXT = `1. These Terms and Conditions apply to the Affiliate Programme of Libo World, S.L. (hereafter, "Libo").
 
-2. Libo must confirm the publisher's participation in this Creator Program ("confirmed publisher"). Upon confirmation of participation in the Libo Creator Program, the publisher declares their agreement with these Terms and Conditions. Libo can change these Terms and Conditions or terminate the Libo Creator Program at any time.
+2. Libo must confirm the publisher's participation in this Affiliate Programme ("confirmed publisher"). Upon confirmation of participation in the Libo Affiliate Programme, the publisher declares their agreement with these Terms and Conditions. Libo can change these Terms and Conditions or terminate the Libo Affiliate Programme at any time.
 
-3. The publisher must have their own website or social media. Pure email registrations shall not be accepted or confirmed.
+3. The publisher must have their own website or social media. Pure email registrations shall not be permitted.
 
-4. Sites which include content of the following type are not allowed to participate: sites that promote violence, pornographic and discrimination based on race, sex, religion, nationality, disability, sexual orientation and/or age.
+4. Commission is paid on completed subscription transactions (new subscriptions and renewals) attributed to the publisher's unique link within the 60-day attribution window. No commission is paid for traffic alone.
 
-5. The website of the publisher must contain full legal company information including name, and, if applicable, company address and contact details (telephone, email), as well as fulfil all other legal requirements related to its country of establishment.
+5. Payouts are made monthly. Libo reserves the right to withhold commissions on refunded, fraudulent, or self-referred transactions.
 
-6. Libo pays a 25% commission on every paying subscriber referred by the confirmed publisher's unique link, on every renewal, for the lifetime of the subscription.
+6. Sites which include content of the following type are not allowed to participate: sites that promote violence, pornographic and discrimination based on race, sex, religion, nationality, disability, sexual orientation and/or age.
 
-7. Payments are made monthly. The publisher must reach a minimum balance of €50 before payout. Payments are made via bank transfer or PayPal at the publisher's choice.
+7. The website of the publisher must contain full legal company information including name, and, if applicable, company address and contact details (telephone, email), as well as fulfil all other legal requirements related to its country of establishment.
 
-8. The publisher must not bid on Libo branded keywords in paid search advertising. Doing so is grounds for immediate termination from the Creator Program without payout of pending balance.
+8. The publisher must reach a minimum balance of €50 before payout. Payments are made via bank transfer or PayPal at the publisher's choice.
 
-9. Cookie window: 60 days from last click on the publisher's referral link.
+9. The publisher must not bid on Libo branded keywords in paid search advertising. Doing so is grounds for immediate termination from the programme without payout of pending balance.
 
 10. Libo reserves the right to reject any application without explanation.`;
 
@@ -307,7 +307,7 @@ export default function AffiliateApply() {
         {/* Terms */}
         <fieldset className="aa-section">
           <legend className="aa-legend">{t('affiliateApply.termsTitle', { defaultValue: 'Terms and Conditions' })}</legend>
-          <span className="aa-label">{t('affiliateApply.termsSubtitle', { defaultValue: 'Libo Creator Program Terms of Service' })} *</span>
+          <span className="aa-label">{t('affiliateApply.termsSubtitle', { defaultValue: 'Libo Affiliate Programme Terms of Service' })} *</span>
           <div className="aa-terms-box" tabIndex={0} aria-label={t('affiliateApply.termsBoxAria', { defaultValue: 'Creator Program terms' })}>
             <pre>{TERMS_TEXT}</pre>
           </div>
@@ -331,7 +331,7 @@ export default function AffiliateApply() {
           <button type="submit" className="aa-submit font-display" disabled={submitting || !form.agreed}>
             {submitting
               ? t('affiliateApply.submitting', { defaultValue: 'Submitting…' })
-              : t('affiliateApply.submit', { defaultValue: 'Apply to the program →' })}
+              : t('affiliateApply.submit', { defaultValue: 'Apply' })}
           </button>
         </div>
       </form>

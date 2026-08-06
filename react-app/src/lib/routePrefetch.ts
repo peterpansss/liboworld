@@ -11,7 +11,7 @@ const loaders: Record<string, () => Promise<unknown>> = {
   '/cash-challenges': () => import('../pages/CashChallenges'),
   '/join': () => import('../pages/JoinFunnel'),
   '/membership': () => import('../pages/Pricing'),
-  '/founder': () => import('../pages/Founder'),
+  '/about': () => import('../pages/Founder'),
   '/press': () => import('../pages/Press'),
   '/careers': () => import('../pages/Careers'),
   '/exercises': () => import('../pages/ExerciseLibrary'),

@@ -551,3 +551,86 @@
     transform: none;
   }
 }
+
+
+/* Target alignment (2026-08-06) */
+
+/* Stats: ONE wide rounded container holding four centred columns. */
+.aff-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  max-width: 880px;
+  margin-inline: auto;
+  padding: 26px 12px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: var(--card);
+}
+
+.aff-stat { border: none; background: none; padding: 0 12px; }
+
+/* Lime only on "25%"; the rest render white. */
+.aff-stat-num { color: var(--text); }
+.aff-stat-num--accent { color: var(--accent); }
+
+.aff-copy--mobile { display: none; }
+
+@media (max-width: 640px) {
+  /* 2×2 inside the same single card; the pill radius relaxes so it wraps. */
+  .aff-stats { grid-template-columns: repeat(2, 1fr); row-gap: 22px; border-radius: 24px; }
+  .aff-copy--desktop { display: none; }
+  .aff-copy--mobile { display: inline; }
+}
+
+/* How-it-works: 3-column card row, centred — not a vertical list. */
+.aff-how-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.aff-how-step {
+  display: block;
+  padding: 28px 22px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  text-align: center;
+}
+
+.aff-how-num {
+  display: block;
+  width: auto;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: var(--accent);
+  font-size: 34px;
+  line-height: 1;
+  margin: 0 0 12px;
+}
+
+.aff-how-title {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 21px;
+  letter-spacing: -0.3px;
+}
+
+@media (max-width: 767px) {
+  .aff-how-list { grid-template-columns: 1fr; }
+}
+
+/* Calculator caption replaces the info tooltip. */
+.aff-calc-caption { margin: 10px 0 0; color: var(--dim); font-size: 13px; }
+
+/* CTA band: enough clearance that the headline can never collide with the
+   sub (the canvas render overlaps them — render bug, not design). */
+.aff-cta-sub { margin-top: 20px; }

@@ -82,17 +82,17 @@ function WaitlistCapture() {
             : t('relaunchHome.waitlist.button', { defaultValue: 'Join the waitlist' })}
         </button>
       </form>
-      <p className="rh-wl-note">
-        {t('relaunchHome.waitlist.note', { defaultValue: 'We email you at launch. No spam.' })}
-      </p>
       {status === 'error' && (
         <p className="rh-wl-error" role="alert">{errorMessage}</p>
       )}
-      <p className="rh-wl-footnote">
-        <Link to="/join" viewTransition className="rh-accent-link">
-          {t('relaunchHome.waitlist.fmFootnote', {
-            defaultValue: 'Want in before launch? Become a Founding Member →',
-          })}
+      {/* One line, not two — the target merges the note and the FM pointer,
+          with the link inline and underlined. */}
+      <p className="rh-wl-note">
+        {t('relaunchHome.waitlist.noteMerged', {
+          defaultValue: "No spam. One email at launch, that's it. Want in first? ",
+        })}
+        <Link to="/join" viewTransition className="rh-wl-inline-link">
+          {t('relaunchHome.waitlist.fmInline', { defaultValue: 'Become a Founding Member →' })}
         </Link>
       </p>
     </>
@@ -124,31 +124,109 @@ export default function Landing() {
       name: t('relaunchHome.different.card1Name', { defaultValue: 'Decision removed' }),
       desc: t('relaunchHome.different.card1Desc', {
         defaultValue:
-          "The day's session is already picked when you open the app. Nothing to plan, nothing to scroll, nothing to negotiate with yourself.",
+          "Open the app — today's session is already picked for your goal, time, and equipment.",
       }),
     },
     {
       num: '02',
-      name: t('relaunchHome.different.card2Name', { defaultValue: 'A streak that bends' }),
+      name: t('relaunchHome.different.card2Name', { defaultValue: 'Streak protected' }),
       desc: t('relaunchHome.different.card2Desc', {
         defaultValue:
-          'A bad week sets your streak back — never to zero. Freeze tokens cover a missed day so one slip never costs you the whole run.',
+          'A missed day subtracts one day — your streak never resets to zero. Freeze tokens cover the days life gets in the way.',
       }),
     },
     {
       num: '03',
-      name: t('relaunchHome.different.card3Name', { defaultValue: 'Receipts, not promises' }),
+      name: t('relaunchHome.different.card3Name', { defaultValue: 'Cash challenge' }),
       desc: t('relaunchHome.different.card3Desc', {
         defaultValue:
-          'Every session is logged and every challenge rep is recorded in-app. Your consistency becomes a record you can point at.',
+          "Opt in when you're ready: 30 days of daily reps, verified in-app, real money when you finish. No draw, no luck.",
+      }),
+    },
+  ];
+
+  // ── "Everything you get" cards — desktop + shorter mobile copy.
+  const libraryCards = [
+    {
+      num: '01',
+      name: t('relaunchHome.library.c1Name', { defaultValue: 'Exercise library' }),
+      desc: t('relaunchHome.library.c1Desc', {
+        defaultValue: '641 exercises — 313 gym, 295 home, 33 mobility. Every one with equipment notes and form cues.',
+      }),
+      descMobile: t('relaunchHome.library.c1DescMobile', {
+        defaultValue: '641 exercises with equipment notes and form cues.',
+      }),
+    },
+    {
+      num: '02',
+      name: t('relaunchHome.library.c2Name', { defaultValue: 'Workout library' }),
+      desc: t('relaunchHome.library.c2Desc', {
+        defaultValue: '140 pre-built sessions — gym, home, cardio, stretching, morning routines. 5 to 60 minutes.',
+      }),
+      descMobile: t('relaunchHome.library.c2DescMobile', {
+        defaultValue: '140 pre-built sessions, 5 to 60 minutes.',
+      }),
+    },
+    {
+      num: '03',
+      name: t('relaunchHome.library.c3Name', { defaultValue: 'AI generator' }),
+      desc: t('relaunchHome.library.c3Desc', {
+        defaultValue: 'Tell Libo your time and equipment. It builds a real session around your goal and level.',
+      }),
+      descMobile: t('relaunchHome.library.c3DescMobile', {
+        defaultValue: 'Tell Libo your time and equipment — it builds the session.',
       }),
     },
     {
       num: '04',
-      name: t('relaunchHome.different.card4Name', { defaultValue: 'Real stakes, when you want them' }),
-      desc: t('relaunchHome.different.card4Desc', {
-        defaultValue:
-          'Ready for pressure? A cash challenge pays €5, €15 or €50 for 30 days straight — funded by Libo, set aside the moment you join.',
+      name: t('relaunchHome.library.c4Name', { defaultValue: 'Progress tracking' }),
+      desc: t('relaunchHome.library.c4Desc', {
+        defaultValue: 'Every set, rep, and weight logged. History, PRs, and streaks in clear charts.',
+      }),
+      descMobile: t('relaunchHome.library.c4DescMobile', {
+        defaultValue: 'Every set, rep, and weight logged. PRs and streaks.',
+      }),
+    },
+    {
+      num: '05',
+      name: t('relaunchHome.library.c5Name', { defaultValue: 'Custom builder' }),
+      desc: t('relaunchHome.library.c5Desc', {
+        defaultValue: 'Build your own workout from the full library. Set sequence, sets, rest — save and reuse.',
+      }),
+      descMobile: t('relaunchHome.library.c5DescMobile', {
+        defaultValue: 'Build your own workout from the full library.',
+      }),
+    },
+    {
+      num: '06',
+      name: t('relaunchHome.library.c6Name', { defaultValue: 'Cash challenges' }),
+      desc: t('relaunchHome.library.c6Desc', {
+        defaultValue: '30 days of daily reps with real money as the proof of consistency. Details on the challenge page.',
+      }),
+      descMobile: t('relaunchHome.library.c6DescMobile', {
+        defaultValue: '30 days of daily reps with real money as the proof.',
+      }),
+    },
+  ];
+
+  // ── "From one rep to a habit" ladder — desktop only.
+  const habitSteps = [
+    {
+      name: t('relaunchHome.habit.s1Name', { defaultValue: 'Show up' }),
+      desc: t('relaunchHome.habit.s1Desc', {
+        defaultValue: "One session, handed to you. No planning, no decisions — just today's work.",
+      }),
+    },
+    {
+      name: t('relaunchHome.habit.s2Name', { defaultValue: 'Hold the streak' }),
+      desc: t('relaunchHome.habit.s2Desc', {
+        defaultValue: 'Day by day the streak grows — protected by freeze tokens, and never reset to zero.',
+      }),
+    },
+    {
+      name: t('relaunchHome.habit.s3Name', { defaultValue: 'Become someone who trains' }),
+      desc: t('relaunchHome.habit.s3Desc', {
+        defaultValue: "After 30 days it isn't a challenge anymore. It's who you are. That's the product.",
       }),
     },
   ];
@@ -189,7 +267,7 @@ export default function Landing() {
     {
       photo: 'beta-sarah.png',
       name: t('relaunchHome.community.m2Name', { defaultValue: 'Somin' }),
-      meta: t('relaunchHome.community.m2Meta', { defaultValue: '@somin · earned €15, kept the streak' }),
+      meta: t('relaunchHome.community.m2Meta', { defaultValue: '@somin · kept the streak' }),
     },
     {
       photo: 'beta-danny.png',
@@ -204,7 +282,7 @@ export default function Landing() {
     {
       photo: 'beta-paul.png',
       name: t('relaunchHome.community.m5Name', { defaultValue: 'Tony' }),
-      meta: t('relaunchHome.community.m5Meta', { defaultValue: '@tony · 63, mobility plans' }),
+      meta: t('relaunchHome.community.m5Meta', { defaultValue: '@tony · 47, mobility plans' }),
     },
   ];
 
@@ -255,29 +333,6 @@ export default function Landing() {
   ];
 
   // ── Creator Program stats (pop-in). Mirrors the live /creator-program page.
-  const creatorCards = [
-    {
-      value: t('relaunchHome.creators.c1Value', { defaultValue: '25%' }),
-      label: t('relaunchHome.creators.c1Label', { defaultValue: 'Lifetime commission' }),
-      desc: t('relaunchHome.creators.c1Desc', {
-        defaultValue: 'On every subscription payment your members make — not just the first one.',
-      }),
-    },
-    {
-      value: t('relaunchHome.creators.c2Value', { defaultValue: '∞' }),
-      label: t('relaunchHome.creators.c2Label', { defaultValue: 'Recurring' }),
-      desc: t('relaunchHome.creators.c2Desc', {
-        defaultValue: 'You earn every month your member stays subscribed. No cap, no expiry.',
-      }),
-    },
-    {
-      value: t('relaunchHome.creators.c3Value', { defaultValue: '60d' }),
-      label: t('relaunchHome.creators.c3Label', { defaultValue: 'Cookie window' }),
-      desc: t('relaunchHome.creators.c3Desc', {
-        defaultValue: 'Two months for a click to turn into a member. You still get credited.',
-      }),
-    },
-  ];
 
   // ── Guides teaser (pop-in). Cards hug their content — no fixed height.
   const posts = [
@@ -454,9 +509,12 @@ export default function Landing() {
             <p className="rh-body">
               {t('relaunchHome.different.body', {
                 defaultValue:
-                  'Most apps sell motivation and leave the hard part to you. Libo is built around the only thing that decides results — coming back tomorrow. Every mechanic below exists to protect the run, and every day you train leaves a receipt.',
+                  "Training on Libo is one loop: open the app, do the session, keep the streak — a missed day subtracts a day, never resets you to zero. The cash challenge is separate, and opt-in: 30 days of verified daily reps for a real payout. Money is the receipt, not the reason.",
               })}
             </p>
+            <Link to="/cash-challenges" viewTransition className="rh-accent-link rh-different-link">
+              {t('relaunchHome.different.link', { defaultValue: 'How the cash challenge works →' })}
+            </Link>
           </div>
           <div className="rh-different-cards">
             {differentCards.map((c) => (
@@ -533,10 +591,26 @@ export default function Landing() {
               </div>
 
               <div className="rh-inside-caps rh-inside-caps--right">
-                {appCaptions.slice(2).map((c) => (
-                  <div className="rh-inside-cap" key={c.title}>
+                {/* Mobile folds caption 4 into caption 3's sub (target shows
+                    3 captions at 390px): cap 4 hides, cap 3 swaps its sub. */}
+                {appCaptions.slice(2).map((c, i) => (
+                  <div
+                    className={`rh-inside-cap${i === 1 ? ' rh-inside-cap--desktop' : ''}`}
+                    key={c.title}
+                  >
                     <span className={`rh-inside-cap-title${c.accent ? ' rh-accent' : ''}`}>{c.title}</span>
-                    <span className="rh-inside-cap-sub">{c.sub}</span>
+                    {i === 0 ? (
+                      <>
+                        <span className="rh-inside-cap-sub rh-inside-cap-sub--desktop">{c.sub}</span>
+                        <span className="rh-inside-cap-sub rh-inside-cap-sub--mobile">
+                          {t('relaunchHome.insideApp.cap3SubMobile', {
+                            defaultValue: 'one rep target · every day · freeze tokens cover a miss',
+                          })}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="rh-inside-cap-sub">{c.sub}</span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -550,6 +624,7 @@ export default function Landing() {
         <section className="rh-challenges" id="cash-challenges">
           <div className="rh-challenges-inner">
             <div className="rh-challenges-head">
+              <div className="rh-challenges-heading">
               <p className="rh-eyebrow">
                 {t('relaunchHome.challenges.eyebrow', { defaultValue: 'Cash challenges' })}
               </p>
@@ -561,6 +636,15 @@ export default function Landing() {
                   {t('relaunchHome.challenges.h2b', { defaultValue: 'challenge.' })}
                 </ScrollRevealText>
               </h2>
+              </div>
+              <Link to="/cash-challenges" viewTransition className="rh-challenges-all rh-accent-link">
+                <span className="rh-challenges-all--full">
+                  {t('relaunchHome.challenges.allCta', { defaultValue: 'All challenges →' })}
+                </span>
+                <span className="rh-challenges-all--short">
+                  {t('relaunchHome.challenges.allCtaShort', { defaultValue: 'All →' })}
+                </span>
+              </Link>
             </div>
 
             {/* All three cards are visually IDENTICAL — no tier pills, no
@@ -599,9 +683,69 @@ export default function Landing() {
               ))}
             </div>
 
-            <Link to="/cash-challenges" viewTransition className="rh-challenges-all rh-accent-link">
-              {t('relaunchHome.challenges.allCta', { defaultValue: 'All challenges →' })}
-            </Link>
+          </div>
+        </section>
+
+        {/* ── 5b. EVERYTHING YOU GET ──────────────────────────────── */}
+        <section className="rh-library">
+          <div className="rh-library-inner">
+            <div className="rh-library-head">
+              <h2 className="rh-h2">
+                <ScrollRevealText as="span" className="rh-h2-line">
+                  {t('relaunchHome.library.h2a', { defaultValue: 'Everything' })}
+                </ScrollRevealText>
+                <ScrollRevealText as="span" className="rh-h2-line">
+                  {t('relaunchHome.library.h2b', { defaultValue: 'you get.' })}
+                </ScrollRevealText>
+              </h2>
+              <p className="rh-library-desc">
+                <span className="rh-copy--desktop">
+                  {t('relaunchHome.library.desc', {
+                    defaultValue:
+                      '641 exercises — 313 gym, 295 home, 33 mobility. 140 workouts. AI-built plans. Every format from barbell strength to morning routines.',
+                  })}
+                </span>
+                <span className="rh-copy--mobile">
+                  {t('relaunchHome.library.descMobile', {
+                    defaultValue: '641 exercises — 313 gym, 295 home, 33 mobility. 140 workouts. AI-built plans.',
+                  })}
+                </span>
+              </p>
+            </div>
+            <div className="rh-features">
+              {libraryCards.map((c) => (
+                <article className="rh-feature" data-popin key={c.num}>
+                  <span className="rh-feature-num">{c.num}</span>
+                  <h3 className="rh-feature-name">{c.name}</h3>
+                  <p className="rh-feature-desc">
+                    <span className="rh-copy--desktop">{c.desc}</span>
+                    <span className="rh-copy--mobile">{c.descMobile}</span>
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 5c. FROM ONE REP TO A HABIT — desktop only (target hides it
+            below 768px entirely). ─────────────────────────────────────── */}
+        <section className="rh-habit">
+          <h2 className="rh-h2 rh-h2--center">
+            <ScrollRevealText as="span" className="rh-h2-line">
+              {t('relaunchHome.habit.h2a', { defaultValue: 'From one rep to a' })}
+            </ScrollRevealText>
+            <ScrollRevealText as="span" className="rh-h2-line">
+              {t('relaunchHome.habit.h2b', { defaultValue: 'habit.' })}
+            </ScrollRevealText>
+          </h2>
+          <div className="rh-habit-steps">
+            {habitSteps.map((step, i) => (
+              <div className="rh-habit-step" data-popin key={step.name}>
+                <span className="rh-habit-circle font-display">{i + 1}</span>
+                <h3 className="rh-habit-name">{step.name}</h3>
+                <p className="rh-habit-desc">{step.desc}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -628,7 +772,7 @@ export default function Landing() {
               <p className="rh-community-desc">
                 {t('relaunchHome.community.descV2', {
                   defaultValue:
-                    'Real people, real faces. Logging reps, hitting streaks. No coaches or influencers selling courses. Just members showing up every day.',
+                    'Real people, real faces. Logging reps, holding streaks. No coaches or influencers selling courses. Just members showing up every day.',
                 })}
               </p>
             </div>
@@ -665,8 +809,8 @@ export default function Landing() {
               </h2>
             </div>
             <div className="rh-reviews-grid">
-              {reviews.map((r) => (
-                <div className="rh-card rh-review" key={r.handle}>
+              {reviews.map((r, i) => (
+                <div className={`rh-review${i >= 3 ? ' rh-review--desktop' : ''}`} key={r.handle}>
                   <div className="rh-review-head">
                     <img className="rh-review-photo" src={`/${r.photo}`} alt="" aria-hidden="true" loading="lazy" />
                     <span className="rh-review-handle">{r.handle}</span>
@@ -683,7 +827,7 @@ export default function Landing() {
           <div className="rh-creators-inner">
             <div className="rh-creators-copy">
               <p className="rh-eyebrow">
-                {t('relaunchHome.creators.eyebrow', { defaultValue: 'Creator Program' })}
+                {t('relaunchHome.creators.eyebrow', { defaultValue: 'Creators & partners' })}
               </p>
               <h2 className="rh-h2">
                 <ScrollRevealText as="span" className="rh-h2-line">
@@ -696,21 +840,12 @@ export default function Landing() {
               <p className="rh-body">
                 {t('relaunchHome.creators.body', {
                   defaultValue:
-                    'Every member you bring pays you 25% of their subscription — for as long as they stay. Built for creators with 5K+ followers who actually train.',
+                    'Refer people to Libo and we pay you a 25% commission on their subscription — for as long as they stay members and you stay one too. Built for creators with 5K+ followers who actually train.',
                 })}
               </p>
               <Link to="/creator-program" viewTransition className="rh-btn rh-btn--primary">
-                {t('relaunchHome.creators.cta', { defaultValue: 'See the Creator Program →' })}
+                {t('relaunchHome.creators.cta', { defaultValue: 'Become a partner →' })}
               </Link>
-            </div>
-            <div className="rh-creator-cards">
-              {creatorCards.map((c) => (
-                <article className="rh-card rh-creator-card" data-popin key={c.label}>
-                  <span className="rh-creator-value">{c.value}</span>
-                  <span className="rh-creator-label">{c.label}</span>
-                  <p className="rh-creator-desc">{c.desc}</p>
-                </article>
-              ))}
             </div>
           </div>
         </section>
@@ -757,16 +892,16 @@ export default function Landing() {
           <div className="rh-final-inner">
             <h2 className="rh-h2 rh-h2--center rh-h2--lg">
               <ScrollRevealText as="span" className="rh-h2-line">
-                {t('relaunchHome.final.h2a', { defaultValue: 'Your 30 days' })}
+                {t('relaunchHome.final.h2a', { defaultValue: 'Enter' })}
               </ScrollRevealText>
               <ScrollRevealText as="span" className="rh-h2-line rh-reveal--accent">
-                {t('relaunchHome.final.h2b', { defaultValue: 'start here.' })}
+                {t('relaunchHome.final.h2b', { defaultValue: 'the club.' })}
               </ScrollRevealText>
             </h2>
             <p className="rh-final-body">
               {t('relaunchHome.final.body', {
                 defaultValue:
-                  "Libo launches on iOS and Android. Leave your email and we'll tell you the moment the doors open.",
+                  "Be in on launch day — the app, the club, and the streak you've never held.",
               })}
             </p>
             <WaitlistCapture />

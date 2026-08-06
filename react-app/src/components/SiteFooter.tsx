@@ -49,7 +49,7 @@ export default function SiteFooter() {
             <div className="site-footer__col-links">
               {/* "About" (not "Founder") — the founder story is footer-only now;
                   it is deliberately not in the header and not on the homepage. */}
-              <Link to="/founder">{t('footer.about', { defaultValue: 'About' })}</Link>
+              <Link to="/about">{t('footer.about', { defaultValue: 'About' })}</Link>
               <Link to="/press">{t('footer.press', { defaultValue: 'Press' })}</Link>
               <Link to="/careers">{t('footer.careers', { defaultValue: 'Careers' })}</Link>
               <a href="mailto:hello@liboworld.com">{t('footer.contactUs')}</a>

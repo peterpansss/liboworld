@@ -117,7 +117,10 @@ export default function App() {
         <Route path="/giveaway" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><Giveaway /></Suspense>} />
         <Route path="/cash-challenge" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
         <Route path="/get-app" element={<Suspense fallback={darkFallback}><GetApp /></Suspense>} />
-        <Route path="/founder" element={<Suspense fallback={darkFallback}><Founder /></Suspense>} />
+        {/* Founder page lives at /about (SOURCE-OF-TRUTH.md); /founder stays as
+            a redirect so the URL that's been live since the v1 port never 404s. */}
+        <Route path="/about" element={<Suspense fallback={darkFallback}><Founder /></Suspense>} />
+        <Route path="/founder" element={<Navigate to="/about" replace />} />
         <Route path="/press" element={<Suspense fallback={darkFallback}><Press /></Suspense>} />
         <Route path="/press/sent" element={<Suspense fallback={darkFallback}><PressSent /></Suspense>} />
         <Route path="/admin/*" element={<Suspense fallback={darkFallback}><AdminLayout /></Suspense>} />

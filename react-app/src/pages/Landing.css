@@ -300,27 +300,7 @@ video.rh-phone {
   color: var(--libo-muted);
   margin-top: 8px;
 }
-.rh-steps {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
 .rh-step { display: flex; flex-direction: column; gap: 10px; min-height: 160px; }
-.rh-step-num {
-  font-family: var(--libo-font-display);
-  font-weight: 800;
-  font-size: 30px;
-  color: var(--libo-dim);
-}
-.rh-step-num--accent { color: var(--libo-accent); }
-.rh-step-name {
-  font-family: var(--libo-font-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 24px;
-  line-height: 1;
-}
-.rh-step-desc { font-size: 13px; color: var(--libo-muted); line-height: 1.5; }
 
 /* ── FOUNDER STRIP ───────────────────────────────────────── */
 .rh-founder-strip {
@@ -367,36 +347,7 @@ video.rh-phone {
 }
 
 /* ── LIBRARY ─────────────────────────────────────────────── */
-.rh-library { max-width: 1400px; margin: 0 auto; padding: 96px 64px; }
-.rh-library-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 32px;
-  margin-bottom: 40px;
-}
-.rh-library-desc {
-  font-size: 15px;
-  color: var(--libo-muted);
-  max-width: 380px;
-  margin: 0;
-  text-wrap: pretty;
-}
-.rh-features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
 .rh-feature { display: flex; flex-direction: column; gap: 10px; min-height: 180px; }
-.rh-feature-num { font-size: 12px; color: var(--libo-dim); font-weight: 700; }
-.rh-feature-name {
-  font-family: var(--libo-font-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 26px;
-  line-height: 1;
-}
-.rh-feature-desc { font-size: 13px; color: var(--libo-muted); line-height: 1.55; }
 
 /* ── COMMUNITY ───────────────────────────────────────────── */
 .rh-community {
@@ -717,13 +668,9 @@ video.rh-phone {
   .rh-hero-phones { height: auto; }
   .rh-mechanism,
   .rh-offer { grid-template-columns: 1fr; gap: 40px; }
-  .rh-features,
-  .rh-blog-grid { grid-template-columns: repeat(2, 1fr); }
-  .rh-reviews-grid .rh-review { flex-basis: calc((100% - 16px) / 2); }
+    .rh-reviews-grid .rh-review { flex-basis: calc((100% - 16px) / 2); }
   .rh-members { grid-template-columns: repeat(3, 1fr); }
-  .rh-library-head,
-  .rh-community-head { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .rh-founder-inner { flex-wrap: wrap; gap: 24px; }
+    .rh-founder-inner { flex-wrap: wrap; gap: 24px; }
   .rh-mechanism,
   .rh-library,
   .rh-community-inner,
@@ -769,11 +716,7 @@ video.rh-phone {
   .rh-faq { padding: 56px 20px; }
   .rh-final-inner { padding: 72px 20px; }
 
-  .rh-steps,
-  .rh-features,
-  .rh-blog-grid { grid-template-columns: 1fr; }
-  .rh-reviews-grid .rh-review { flex-basis: 100%; }
-  .rh-affiliate-cards { grid-template-columns: 1fr; }
+    .rh-affiliate-cards { grid-template-columns: 1fr; }
   .rh-members { grid-template-columns: repeat(2, 1fr); }
 
   .rh-founder-inner { flex-direction: column; align-items: flex-start; padding: 40px 20px; }
@@ -1084,32 +1027,10 @@ video.rh-phone {
   margin: 0 auto;
 }
 
-.rh-creator-cards {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  /* Equal heights — the live affiliate tiles render ragged. */
-  align-items: stretch;
-}
 
-.rh-creator-card { display: flex; flex-direction: column; padding: 26px; }
 
-.rh-creator-value {
-  color: var(--accent);
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 900;
-  font-size: 42px;
-  line-height: 1;
-}
 
-.rh-creator-label {
-  margin-top: 8px;
-  font-size: 13px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
 
-.rh-creator-desc { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
 
 /* 9. GUIDES ──────────────────────────────────────────────────────────────── */
 
@@ -1282,8 +1203,7 @@ video.rh-phone {
 }
 
 @media (max-width: 560px) {
-  .rh-different-cards,
-  .rh-creator-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rh-different-cards { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1332,8 +1252,223 @@ video.rh-phone {
 }
 
 @media (max-width: 560px) {
-  /* Two columns at 390px left ~150px of usable width per card, so body copy
-     wrapped to one or two words a line. Stack them. */
-  .rh-different-cards,
-  .rh-creator-cards { grid-template-columns: 1fr; }
+  /* Stack the mechanism cards — two columns at 390px left ~150px per card. */
+  .rh-different-cards { grid-template-columns: 1fr; }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TARGET-CANVAS ALIGNMENT (2026-08-06)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Copy variants: full string on desktop, shorter one at ≤767px. */
+.rh-copy--mobile { display: none; }
+@media (max-width: 767px) {
+  .rh-copy--desktop { display: none; }
+  .rh-copy--mobile { display: inline; }
+}
+
+/* How-different: 3 stacked cards in the right rail, muted numbers, link. */
+.rh-different-cards { grid-template-columns: 1fr; }
+.rh-diff-card { border: none; }
+.rh-diff-num { color: var(--muted); }
+.rh-different-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 18px;
+  font-size: 15px;
+}
+
+/* ── EVERYTHING YOU GET ──────────────────────────────────────────────────── */
+
+.rh-library { padding: 96px 24px; background: var(--bg); }
+.rh-library-inner { max-width: 1180px; margin: 0 auto; }
+
+.rh-library-head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 44px;
+}
+
+.rh-library-desc { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
+
+.rh-features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.rh-feature {
+  padding: 26px;
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.rh-feature-num {
+  display: block;
+  color: var(--muted);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: .1em;
+}
+
+.rh-feature-name {
+  margin: 10px 0 8px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: -.3px;
+}
+
+.rh-feature-desc { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+@media (max-width: 767px) {
+  .rh-library { padding: 64px 20px; }
+  .rh-library-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+  /* Target mobile: 2 columns, cards as plain text blocks (no fill). */
+  .rh-features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rh-feature { padding: 0; background: none; border-radius: 0; }
+}
+
+/* ── FROM ONE REP TO A HABIT — desktop only ──────────────────────────────── */
+
+.rh-habit {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 96px 24px;
+  text-align: center;
+}
+
+.rh-habit-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 48px;
+}
+
+.rh-habit-step { max-width: 330px; margin: 0 auto; }
+
+.rh-habit-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 2px solid var(--accent);
+  border-radius: 100px;
+  color: var(--accent);
+  font-size: 20px;
+}
+
+.rh-habit-name {
+  margin: 16px 0 8px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: -.3px;
+}
+
+.rh-habit-desc { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+@media (max-width: 767px) {
+  /* Deliberately absent from the mobile target. */
+  .rh-habit { display: none; }
+}
+
+/* ── Cash challenges: head-row link, squarer cards, pill CTA ─────────────── */
+
+.rh-challenges-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.rh-challenges-all { margin-top: 0; }
+.rh-challenges-all--short { display: none; }
+@media (max-width: 560px) {
+  .rh-challenges-all--full { display: none; }
+  .rh-challenges-all--short { display: inline; }
+}
+
+.rh-cc-card { aspect-ratio: 1 / 1.07; }
+
+.rh-cc-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  border-radius: 100px;
+  background: var(--accent);
+  color: var(--accent-text);
+  transition: background .2s ease;
+}
+
+.rh-cc-card:hover .rh-cc-cta { background: var(--accent2); }
+
+@media (max-width: 767px) {
+  /* Fill the gutter; wider/shorter cards than desktop. */
+  .rh-challenge-grid { max-width: none; }
+  .rh-cc-card { aspect-ratio: 1 / 0.96; }
+}
+
+/* ── Inside the app: mobile caption arrangement ──────────────────────────── */
+
+.rh-inside-cap-sub--mobile { display: none; }
+
+@media (max-width: 767px) {
+  .rh-inside-cap--desktop { display: none; }
+  .rh-inside-cap-sub--desktop { display: none; }
+  .rh-inside-cap-sub--mobile { display: inline; }
+  /* Caption 1 (+2) above the phone full-width; captions 3 stays below. */
+  .rh-inside-caps--right {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+/* ── Early reviews: no card chrome, left-aligned trailing row ────────────── */
+
+.rh-review { padding: 0; background: none; border: none; }
+
+.rh-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  justify-content: start;
+}
+
+@media (max-width: 767px) {
+  .rh-reviews-grid { grid-template-columns: 1fr; }
+  /* Target mobile shows 3 reviews. */
+  .rh-review--desktop { display: none; }
+}
+
+/* ── Creators: copy-only, left column, right half empty ──────────────────── */
+
+.rh-creators-inner { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+
+@media (max-width: 767px) {
+  .rh-creators-inner { grid-template-columns: 1fr; }
+  .rh-creators .rh-btn { width: 100%; }
+  /* Guides is absent from the mobile target. */
+  .rh-guides { display: none; }
+}
+
+/* ── Waitlist: merged note with inline underlined link ───────────────────── */
+
+.rh-wl-inline-link {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rh-wl-inline-link:hover { color: var(--accent); }

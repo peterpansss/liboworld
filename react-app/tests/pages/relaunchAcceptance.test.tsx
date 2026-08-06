@@ -84,20 +84,11 @@ describe('relaunch acceptance — banned vocabulary', () => {
 });
 
 describe('relaunch acceptance — Founding Member funnel', () => {
-  it('contains ZERO email inputs', () => {
-    // The single hardest rule on the page: a free-labelled ask must never
-    // appear here, and checkout must be the only action.
+  it('carries the hero waitlist capture (DECISIONS-V3: /join is the free-waitlist page)', () => {
     const { container } = render(<MemoryRouter><JoinFunnel /></MemoryRouter>);
-    expect(container.querySelectorAll('input[type="email"]')).toHaveLength(0);
-    expect(container.querySelectorAll('input')).toHaveLength(0);
-    expect(container.querySelector('form')).toBeNull();
-  });
-
-  it('does not promise an email capture in the hero copy', () => {
-    // The desktop canvas ends the hero paragraph with this sentence; it
-    // contradicts the no-capture rule, so it was cut.
-    const { container } = render(<MemoryRouter><JoinFunnel /></MemoryRouter>);
-    expect(pageText(container)).not.toContain('leave your email');
+    expect(container.querySelectorAll('input[type="email"]')).toHaveLength(1);
+    // The hero copy promises the capture the page now has.
+    expect(pageText(container)).toContain('leave your email');
   });
 
   it('shows the price before checkout', () => {
@@ -110,7 +101,7 @@ describe('relaunch acceptance — challenge funnel CTAs', () => {
   it.each([
     ['flagship', 50, 100],
     ['committed', 15, 60],
-  ])('%s uses one action phrase and carries the price only on checkout', (slug, payout, reps) => {
+  ])('%s: one action phrase, price ONLY on the close button', (slug, payout, reps) => {
     const { container } = renderTier(slug);
     const text = container.textContent || '';
 
@@ -121,34 +112,32 @@ describe('relaunch acceptance — challenge funnel CTAs', () => {
     const labels = Array.from(container.querySelectorAll('a.cf-btn, button.cf-btn'))
       .map((el) => (el.textContent || '').trim());
     expect(labels.length).toBeGreaterThan(0);
-
-    // Every button is "Click to Enter", with or without the price suffix.
     for (const label of labels) {
       expect(label).toMatch(/^Click to Enter( — €39\.50\/yr)? →$/);
     }
-    // ...and at least one carries the price at the moment of commitment.
-    expect(labels.some((l) => l.includes('€39.50/yr'))).toBe(true);
+    // Exactly the close-section button + the sticky bar carry the price.
+    expect(labels.filter((l) => l.includes('€39.50/yr')).length).toBeGreaterThan(0);
+    // The offer-card CTA (directly after the card) is unpriced.
+    const offer = container.querySelector('#offer .cf-btn--offer');
+    expect((offer?.textContent || '').trim()).toBe('Click to Enter →');
+    // Paid tiers have no email capture.
+    expect(container.querySelectorAll('input')).toHaveLength(0);
   });
 
-  it('starter inverts to the free ask and never opens checkout', () => {
+  it('starter uses the free ask, carries the close capture, never opens checkout', () => {
     const { container } = renderTier('starter');
     const labels = Array.from(container.querySelectorAll('a.cf-btn, button.cf-btn'))
       .map((el) => (el.textContent || '').trim());
 
     expect(labels.length).toBeGreaterThan(0);
-    for (const label of labels) expect(label).toBe('Join free at launch →');
-    // No priced label anywhere, and the Premium upsell stays a text link.
+    for (const label of labels) {
+      expect(label).toMatch(/^(Join free at launch →|Join free →)$/);
+    }
     expect(labels.some((l) => l.includes('€39.50'))).toBe(false);
+    // DECISIONS-V3 §1: the free tier's conversion event IS joining free.
+    expect(container.querySelectorAll('input[type="email"]')).toHaveLength(1);
     expect(container.querySelector('.cf-textlink')?.textContent).toMatch(/Get Premium/);
   });
-
-  it.each(['flagship', 'starter', 'committed'])(
-    '%s funnel has no email capture',
-    (slug) => {
-      const { container } = renderTier(slug);
-      expect(container.querySelectorAll('input')).toHaveLength(0);
-    },
-  );
 
   it('redirects an unknown tier to the catalogue', () => {
     renderTier('platinum');

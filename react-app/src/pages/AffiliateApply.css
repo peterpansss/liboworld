@@ -316,9 +316,7 @@
   }
   .aa-form {
     padding: 24px 20px;
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0;
+    border-radius: 16px;
     margin: 16px 0 60px;
   }
   .aa-grid {
@@ -327,8 +325,12 @@
   .aa-form--sent {
     padding: 40px 20px 48px;
   }
+  /* Target: submit stays a compact centred pill on mobile, and the card
+     keeps its side gutters + radius (no full-bleed). */
   .aa-submit {
-    width: 100%;
+    width: auto;
+    margin-inline: auto;
+    display: block;
   }
 }
 

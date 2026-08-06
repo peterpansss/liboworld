@@ -36,7 +36,7 @@ import './Affiliate.css';
 // → ≈ €20 of commission per paid member per year.
 const COMMISSION_PER_USER_PER_YEAR_EUR = 20;
 const MIN_USERS = 0;
-const MAX_USERS = 500;
+const MAX_USERS = 1000;
 const DEFAULT_USERS = 100;
 
 const APPLY_PATH = '/creator-program/apply';
@@ -59,7 +59,7 @@ const FAQS = [
     a: "Yes — once approved, you'll get a real-time dashboard showing clicks, signups, conversions and earnings. No black box.",
   },
   {
-    q: 'Where can I place my personal and unique link?',
+    q: 'Where can I place my personal link?',
     a: 'Anywhere your audience is — Instagram bio, TikTok captions, YouTube descriptions, blog posts, newsletters, link-in-bio tools. The only restriction: no paid search ads on Libo branded keywords.',
   },
 ];
@@ -68,7 +68,7 @@ export default function Affiliate() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [users, setUsers] = useState(DEFAULT_USERS);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   usePopIn();
 
@@ -86,17 +86,25 @@ export default function Affiliate() {
     {
       value: '25%',
       label: t('affiliate.trustCommission', { defaultValue: 'Lifetime commission' }),
+      accent: true,
     },
     {
       value: '5K+',
-      label: t('affiliate.trustFollowers', { defaultValue: 'Minimum audience' }),
+      label: t('affiliate.trustFollowers', { defaultValue: 'Min. follower count' }),
+      labelMobile: t('affiliate.trustFollowersMobile', { defaultValue: 'Min. followers' }),
+      accent: false,
     },
     {
       value: '60d',
       label: t('affiliate.trustCookie', { defaultValue: 'Cookie window' }),
+      accent: false,
+    },
+    {
+      value: t('affiliate.trustPayoutValue', { defaultValue: 'Monthly' }),
+      label: t('affiliate.trustPayout', { defaultValue: 'Payouts' }),
+      accent: false,
     },
   ];
-
   return (
     <div className="aff-page">
       <SeoHead
@@ -115,7 +123,7 @@ export default function Affiliate() {
           })}
         </span>
         <span className="aff-bar-short">
-          {t('affiliate.contextBarShort', { defaultValue: '25% lifetime commission' })}
+          {t('affiliate.contextBarShort', { defaultValue: '25% lifetime commission — on every payment' })}
         </span>
       </FunnelContextBar>
 
@@ -147,8 +155,17 @@ export default function Affiliate() {
         <div className="aff-stats">
           {stats.map((s) => (
             <div className="aff-stat" key={s.value} data-popin>
-              <span className="aff-stat-num font-display">{s.value}</span>
-              <span className="aff-stat-label">{s.label}</span>
+              <span className={`aff-stat-num font-display${s.accent ? ' aff-stat-num--accent' : ''}`}>{s.value}</span>
+              <span className="aff-stat-label">
+                {'labelMobile' in s && s.labelMobile ? (
+                  <>
+                    <span className="aff-copy--desktop">{s.label}</span>
+                    <span className="aff-copy--mobile">{s.labelMobile}</span>
+                  </>
+                ) : (
+                  s.label
+                )}
+              </span>
             </div>
           ))}
         </div>
@@ -157,18 +174,12 @@ export default function Affiliate() {
       {/* ── Earnings calculator ── */}
       <section className="aff-calc">
         <ScrollRevealText as="h2" className="aff-section-heading font-display">
-          {t('affiliate.calcHeading', { defaultValue: 'Grow your income with Libo.' })}
+          {t('affiliate.calcHeading', { defaultValue: "What's it worth?" })}
         </ScrollRevealText>
-        <p className="aff-section-sub">
-          {t('affiliate.calcSub', {
-            defaultValue:
-              'Turn your dedication into a source of income that rewards both your effort and your influence.',
-          })}
-        </p>
 
         <div className="aff-calc-card" data-popin>
           <div className="aff-calc-label">
-            {t('affiliate.calcUsersLabel', { defaultValue: 'Paid members you can bring' })}
+            {t('affiliate.calcUsersLabel', { defaultValue: 'Paid members you bring' })}
           </div>
           <div className="aff-calc-users">{users}</div>
           <input
@@ -178,47 +189,44 @@ export default function Affiliate() {
             value={users}
             onChange={(e) => setUsers(Number(e.target.value))}
             className="aff-calc-slider"
-            aria-label={t('affiliate.calcUsersLabel', { defaultValue: 'Paid members you can bring' })}
+            aria-label={t('affiliate.calcUsersLabel', { defaultValue: 'Paid members you bring' })}
           />
           <div className="aff-calc-divider" aria-hidden />
           <div className="aff-calc-label aff-calc-label--earnings">
             {t('affiliate.calcEarningsLabel', { defaultValue: 'Estimated yearly earnings' })}
-            <span className="aff-calc-info" tabIndex={0} role="note" aria-label="How this estimate is calculated">
-              <span className="aff-calc-info-icon" aria-hidden>i</span>
-              <span className="aff-calc-tooltip" role="tooltip">
-                {t('affiliate.calcTooltip', { defaultValue: 'Estimated as a 25% commission on the €79.99 annual subscription. Real earnings depend on the plan and how long members stay.' })}
-              </span>
-            </span>
           </div>
           <div className="aff-calc-earnings font-display">{formattedEarnings}</div>
+          <p className="aff-calc-caption">
+            {t('affiliate.calcCaption', { defaultValue: '25% of €79.99/yr per member, every year they renew.' })}
+          </p>
         </div>
       </section>
 
       {/* ── How it works ── */}
       <section className="aff-how">
         <ScrollRevealText as="h2" className="aff-section-heading font-display">
-          {t('affiliate.howHeading', { defaultValue: 'How it works' })}
+          {t('affiliate.howHeading', { defaultValue: 'Link → members → payout.' })}
         </ScrollRevealText>
         <ol className="aff-how-list">
           <li className="aff-how-step" data-popin>
-            <span className="aff-how-num font-display">1</span>
+            <span className="aff-how-num font-display">01</span>
             <div>
-              <h3 className="aff-how-title">{t('affiliate.step1Title', { defaultValue: 'Apply' })}</h3>
-              <p>{t('affiliate.step1Body', { defaultValue: 'If you have 5K+ followers on a social platform, blog or newsletter, apply to the Creator Program in under 2 minutes.' })}</p>
+              <h3 className="aff-how-title">{t('affiliate.step1Title', { defaultValue: 'Sign up' })}</h3>
+              <p>{t('affiliate.step1Body', { defaultValue: '5K+ followers on a social platform, blog, or newsletter? Apply in under 2 minutes.' })}</p>
             </div>
           </li>
           <li className="aff-how-step" data-popin>
-            <span className="aff-how-num font-display">2</span>
+            <span className="aff-how-num font-display">02</span>
             <div>
               <h3 className="aff-how-title">{t('affiliate.step2Title', { defaultValue: 'Share your link' })}</h3>
-              <p>{t('affiliate.step2Body', { defaultValue: 'Get your unique referral link and share it with your audience anywhere — bio, captions, descriptions, newsletter.' })}</p>
+              <p>{t('affiliate.step2Body', { defaultValue: 'Your unique referral link, anywhere — bio, captions, descriptions, newsletter.' })}</p>
             </div>
           </li>
           <li className="aff-how-step" data-popin>
-            <span className="aff-how-num font-display">3</span>
+            <span className="aff-how-num font-display">03</span>
             <div>
               <h3 className="aff-how-title">{t('affiliate.step3Title', { defaultValue: 'Earn monthly' })}</h3>
-              <p>{t('affiliate.step3Body', { defaultValue: 'Receive a 25% commission on every new subscription and every renewal. Paid out monthly.' })}</p>
+              <p>{t('affiliate.step3Body', { defaultValue: '25% on every new subscription and every renewal. Paid out monthly.' })}</p>
             </div>
           </li>
         </ol>
@@ -257,11 +265,11 @@ export default function Affiliate() {
       {/* ── Final CTA ── */}
       <section className="aff-cta-band">
         <ScrollRevealText as="h2" className="aff-cta-headline font-display">
-          {t('affiliate.ctaHeadline', { defaultValue: 'Ready to join the Creator Program?' })}
+          {t('affiliate.ctaHeadline', { defaultValue: 'Ready to earn from day one?' })}
         </ScrollRevealText>
         <p className="aff-cta-sub">
           {t('affiliate.ctaSub', {
-            defaultValue: 'Apply once. Share your link. Get paid every month your members stay.',
+            defaultValue: 'Apply now and your link is live before we launch — every Founding Member you bring counts from their first payment.',
           })}
         </p>
         <Link to={APPLY_PATH} className="aff-cta-btn font-display">

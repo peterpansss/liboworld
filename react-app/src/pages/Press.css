@@ -493,3 +493,37 @@
     transition: none;
   }
 }
+
+
+/* Target alignment (2026-08-06) */
+
+/* Boilerplate: one left-aligned ~2/3 column, right half empty. */
+.press-boilerplate-inner { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+
+/* Product shots: horizontal rail on BOTH breakpoints, not a wrapping grid. */
+.press-shots-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 220px;
+  grid-template-columns: none;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 12px;
+}
+.press-shots-grid > * { scroll-snap-align: start; }
+
+/* Fact grid keeps 2-up at phone widths (was collapsing to 1). */
+@media (max-width: 430px) {
+  .press-facts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .press-contact-cta {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    border-radius: 100px;
+    background: var(--accent);
+    color: var(--accent-text);
+  }
+  .press-boilerplate-inner { grid-template-columns: 1fr; }
+}

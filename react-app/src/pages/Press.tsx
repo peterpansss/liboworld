@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -88,26 +87,24 @@ export default function Press() {
     { label: t('pressKit.facts.pricingLabel', { defaultValue: 'Pricing' }), value: t('pressKit.facts.pricingValue', { defaultValue: 'Free tier + €79.99/yr' }) },
     { label: t('pressKit.facts.exercisesLabel', { defaultValue: 'Exercises' }), value: t('pressKit.facts.exercisesValue', { defaultValue: '641' }) },
     { label: t('pressKit.facts.workoutsLabel', { defaultValue: 'Workouts' }), value: t('pressKit.facts.workoutsValue', { defaultValue: '140' }) },
-    { label: t('pressKit.facts.payoutLabel', { defaultValue: 'Challenge payouts' }), value: t('pressKit.facts.payoutValue', { defaultValue: '€5 · €15 · €50' }) },
-    { label: t('pressKit.facts.cohortLabel', { defaultValue: 'Challenge spots' }), value: t('pressKit.facts.cohortValue', { defaultValue: '50 at a time · 30 days' }) },
+    { label: t('pressKit.facts.payoutLabel', { defaultValue: 'Challenge payouts' }), value: t('pressKit.facts.payoutValue', { defaultValue: '€5–€50 / cycle' }) },
+    { label: t('pressKit.facts.cohortLabel', { defaultValue: 'Challenge cohorts' }), value: t('pressKit.facts.cohortValue', { defaultValue: '50 spots / 30 days' }) },
   ];
 
   // Real in-app captures, mapped by CONTENT — the filenames are not reliable.
   const shots = [
-    { img: 'app-real-streak.png', label: t('pressKit.shots.streak', { defaultValue: 'Streak & freezes' }) },
-    { img: 'app-real-goal.png', label: t('pressKit.shots.goal', { defaultValue: 'Streak goals' }) },
-    { img: 'app-real-calendar.png', label: t('pressKit.shots.calendar', { defaultValue: 'Streak calendar' }) },
-    { img: 'app-real-rewards.png', label: t('pressKit.shots.rewards', { defaultValue: 'Rewards' }) },
-    { img: 'app-real-summary.png', label: t('pressKit.shots.summary', { defaultValue: 'Workout summary' }) },
-    { img: 'app-real-share.png', label: t('pressKit.shots.share', { defaultValue: 'Share card' }) },
+    { img: 'app-real-home.png', label: t('pressKit.shots.home', { defaultValue: "Home · today's workout" }) },
+    { img: 'app-real-rewards.png', label: t('pressKit.shots.rewards', { defaultValue: 'Cash challenges' }) },
+    { img: 'app-real-run.png', label: t('pressKit.shots.run', { defaultValue: 'Challenge day 2' }) },
+    { img: 'app-real-streak.png', label: t('pressKit.shots.streak', { defaultValue: 'Streak started' }) },
+    { img: 'app-real-share.png', label: t('pressKit.shots.share', { defaultValue: 'Share to story' }) },
   ];
-
   const logos = t('relaunchPress.logos.items', { returnObjects: true }) as LogoItem[];
   const logoList = Array.isArray(logos) ? logos : [];
 
   const boilerplate = t('pressKit.boilerplate.body', {
     defaultValue:
-      'Libo is a training club that pays members real cash for consistency. Alongside a library of 641 exercises, 140 guided workouts and AI-built training plans, Libo runs 30-day Cash Challenges: members hit a daily rep target, record the proof, share it publicly, and are paid €5, €15 or €50 when they finish. The payout is set aside in cash the moment a member joins — funded by Libo, never dependent on other members failing. Libo launches on iOS and Android with a free tier and a Premium subscription at €79.99 a year.',
+      'Libo is a training club that pays members real cash for consistency. Alongside a library of 641 exercises, 140 workouts, and AI-built training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, share it publicly, and cash out €5–€50 at the end of the cycle. Libo launches on iOS and Android with a free tier and a Premium subscription at €79.99/year.',
   });
 
   usePopIn();
@@ -127,18 +124,18 @@ export default function Press() {
             Three separate block lines with real leading — the canvas render
             overprints line 3 onto the paragraph; this cannot. */}
         <header className="press-hero">
-          <span className="press-badge">{t('pressKit.hero.badge', { defaultValue: 'Press' })}</span>
+          <span className="press-badge">{t('pressKit.hero.badge', { defaultValue: 'Press kit' })}</span>
           <h1 className="press-h1 font-display">
             <span className="press-h1-line">{t('pressKit.hero.h1Line1', { defaultValue: 'Everything you' })}</span>
             <span className="press-h1-line">{t('pressKit.hero.h1Line2', { defaultValue: 'need' })}</span>
-            <span className="press-h1-line press-h1-line--accent">
+            <span className="press-h1-line">
               {t('pressKit.hero.h1Line3', { defaultValue: 'to cover Libo.' })}
             </span>
           </h1>
           <p className="press-hero-sub">
             {t('pressKit.hero.subPre', {
               defaultValue:
-                'Logos, screenshots, founder bio and the facts — all ready to use. For interviews, beta access, or anything else: ',
+                'Logos, screenshots, founder bio, and the facts — ready to use. For interviews, beta access, or anything else: ',
             })}
             <a href="mailto:press@liboworld.com" className="press-link">
               press@liboworld.com
@@ -169,31 +166,6 @@ export default function Press() {
               <p className="press-body">{boilerplate}</p>
             </div>
 
-            <div className="press-boilerplate-col">
-              <h2 className="press-h2 font-display">
-                {t('pressKit.founder.title', { defaultValue: 'Noah F.' })}{' '}
-                <span className="press-h2-tag">{t('pressKit.founder.titleTag', { defaultValue: '· founder' })}</span>
-              </h2>
-              <div className="press-founder">
-                <img
-                  src="/noah-photo-real.png"
-                  alt={t('pressKit.founder.imgAlt', { defaultValue: 'Noah F., founder of Libo' })}
-                  className="press-founder-photo"
-                  loading="lazy"
-                />
-                <div className="press-founder-copy">
-                  <p className="press-body press-body-sm">
-                    {t('pressKit.founder.bio', {
-                      defaultValue:
-                        'Noah comes from German high-performance sport — years of Regionalliga football, with selections for the DFB Stützpunkt and the Westfalenauswahl with Bonner SC. He is also the designer behind the fashion label Mieuxnoir and founder of Manufactnow, a fashion production and consulting company. His bet with Libo: real stakes beat motivation, so the club puts real money on member consistency.',
-                    })}
-                  </p>
-                  <Link to="/founder" className="press-link press-founder-link">
-                    {t('pressKit.founder.link', { defaultValue: 'Full founder story →' })}
-                  </Link>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
