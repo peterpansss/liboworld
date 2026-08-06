@@ -371,7 +371,11 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin: 32px 0 0;
+  /* auto centres the row — `32px 0 0` was overriding the section's
+     margin-inline auto, leaving the 880px row stuck left in the full-bleed
+     band. 64px top clears the flank phones, which translate ~28px below the
+     fan's layout box. */
+  margin: 64px auto 0;
   padding: 0;
   list-style: none;
 }
