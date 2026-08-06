@@ -12,9 +12,13 @@ function formatDate(dateStr: string, locale: string) {
   return d.toLocaleDateString(locale, { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
+/** Exercise and program ids are snake_case ('flat_barbell_bench_press').
+ *  This split only on '-', so it never split at all and rendered the raw slug
+ *  with its underscores intact. Handle both separators. */
 function formatId(id: string) {
   return id
-    .split('-')
+    .split(/[-_]/)
+    .filter(Boolean)
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
 }
@@ -109,7 +113,7 @@ export default function BlogPost() {
               </Link>
             ))}
             {article.relatedPrograms?.map((id) => (
-              <Link key={id} to={`/programs/${id}`} className="blogpost-related-card">
+              <Link key={id} to={`/workouts/${id}`} className="blogpost-related-card">
                 <span className="blogpost-related-card-type">{t('blogPost.relatedProgramLabel')}</span>
                 {formatId(id)}
               </Link>
