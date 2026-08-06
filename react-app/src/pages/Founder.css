@@ -97,15 +97,16 @@
   position: relative;
 }
 
-/* /noah-photo-real.png is 880×1100 — exactly 4:5, so nothing is cropped.
-   The name-plate overlay that used to sit here was removed (HANDOFF-V2 §B6). */
+/* /noah-founder-v2.jpg is 1050×1400 (3:4) in a 4:5 slot — object-fit: cover
+   trims a sliver top/bottom, keeping the face centred. The name-plate overlay
+   that used to sit here was removed (HANDOFF-V2 §B6). */
 .fp-why-img {
   width: 100%;
   max-width: 440px;
   height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: 50% 50%;
+  object-position: 50% 32%;
   border-radius: 16px;
   border: 1px solid var(--bg4);
   display: block;

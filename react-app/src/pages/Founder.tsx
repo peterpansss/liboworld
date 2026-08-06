@@ -101,14 +101,17 @@ export default function Founder() {
       {/* ── Why we're building this ── */}
       <section className="fp-why" aria-label={whyHeading}>
         <div className="fp-why-media">
-          {/* Real founder photo, 880×1100. No name-plate overlay — the badge
-              that used to sit on this image was removed per HANDOFF-V2 §B6. */}
+          {/* Founder photo v2 (Noah, 2026-08-07) — 1050×1400 = 3:4 in a 4:5
+              slot, so object-fit crops a sliver top/bottom; the face stays
+              centred. New filename on purpose: Cloudflare caches asset URLs,
+              so overwriting the old path would serve the stale photo for
+              hours. No name-plate overlay (HANDOFF-V2 §B6). */}
           <img
             className="fp-why-img"
-            src="/noah-photo-real.png"
+            src="/noah-founder-v2.jpg"
             alt={t('relaunchFounder.why.imgAlt')}
-            width={880}
-            height={1100}
+            width={1050}
+            height={1400}
             loading="lazy"
           />
         </div>
