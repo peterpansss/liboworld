@@ -460,38 +460,6 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 2. THE LOOP ─────────────────────────────────────────── */}
-        <section className="rh-loop" id="the-loop">
-          <div className="rh-loop-inner">
-            <p className="rh-eyebrow rh-eyebrow--center">
-              {t('relaunchHome.loop.eyebrow', { defaultValue: 'The loop' })}
-            </p>
-            <h2 className="rh-h2 rh-h2--center">
-              <ScrollRevealText as="span" className="rh-h2-line">
-                {t('relaunchHome.loop.h2a', { defaultValue: 'Motivated in week' })}
-              </ScrollRevealText>
-              <ScrollRevealText as="span" className="rh-h2-line">
-                {t('relaunchHome.loop.h2b', { defaultValue: 'one.' })}
-              </ScrollRevealText>
-              {/* Third line lands on --muted, not lime: it is the failure half
-                  of the sentence. Lime is reserved for what Libo does. */}
-              <ScrollRevealText as="span" className="rh-h2-line rh-reveal--muted">
-                {t('relaunchHome.loop.h2c', { defaultValue: 'Gone by week four.' })}
-              </ScrollRevealText>
-            </h2>
-            {/* The one body paragraph the reveal spec allows (the "mission"
-                paragraph). Everything else on this page stays a plain <p>. */}
-            {/* Static: the reveal is scoped to display headings. Dimmed body
-                copy reads as disabled text, not as an effect (FIX-TICKET-V3 §1). */}
-            <p className="rh-loop-body">
-              {t('relaunchHome.loop.body', {
-                defaultValue:
-                  "It's not a discipline problem. Every restart forces a hundred small decisions — what to train, when, whether today counts. Decisions drain. Libo removes them: the day's session is picked, a bad week sets your streak back — never to zero — and when you want real stakes, the cash challenge is waiting.",
-              })}
-            </p>
-          </div>
-        </section>
-
         {/* ── 3. HOW LIBO IS DIFFERENT ────────────────────────────── */}
         <section className="rh-different">
           <div className="rh-different-copy">

@@ -813,19 +813,8 @@ video.rh-phone {
 
 /* 2. THE LOOP ────────────────────────────────────────────────────────────── */
 
-.rh-loop { padding: 96px 24px; background: var(--bg); }
 
-.rh-loop-inner { max-width: 820px; margin: 0 auto; text-align: center; }
 
-.rh-loop-body {
-  display: block;
-  max-width: 720px;
-  /* Generous top margin — the canvas drops the third headline line onto this
-     paragraph, which is a layout fault, not a design. */
-  margin: 32px auto 0;
-  font-size: 17px;
-  line-height: 1.7;
-}
 
 /* 3. HOW LIBO IS DIFFERENT ───────────────────────────────────────────────── */
 
@@ -1173,12 +1162,6 @@ video.rh-phone {
 }
 
 @media (max-width: 767px) {
-  .rh-loop,
-  .rh-different,
-  .rh-inside,
-  .rh-challenges,
-  .rh-creators,
-  .rh-guides { padding-inline: 20px; padding-block: 64px; }
 
   /* Captions stack under the phone rather than squeezing either side. */
   .rh-inside-stage { grid-template-columns: 1fr; gap: 32px; justify-items: center; }
