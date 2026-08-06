@@ -124,16 +124,22 @@ describe('relaunch acceptance — challenge funnel CTAs', () => {
     expect(container.querySelectorAll('input')).toHaveLength(0);
   });
 
-  it('starter uses the free ask, carries the close capture, never opens checkout', () => {
+  it('starter: free ask everywhere, one paid Get Premium under the offer card (defect 18)', () => {
     const { container } = renderTier('starter');
     const labels = Array.from(container.querySelectorAll('a.cf-btn, button.cf-btn'))
       .map((el) => (el.textContent || '').trim());
 
     expect(labels.length).toBeGreaterThan(0);
     for (const label of labels) {
-      expect(label).toMatch(/^(Join free at launch →|Join free →)$/);
+      expect(label).toMatch(/^(Join free at launch →|Join free →|Get Premium — €39\.50\/yr →)$/);
     }
-    expect(labels.some((l) => l.includes('€39.50'))).toBe(false);
+    // Exactly ONE paid CTA — under the offer card, price visible, opens
+    // checkout directly (FIX-TICKET-V3.1 §18).
+    expect(labels.filter((l) => l.startsWith('Get Premium')).length).toBe(1);
+    expect((container.querySelector('#offer .cf-btn--offer')?.textContent || '').trim())
+      .toBe('Get Premium — €39.50/yr →');
+    // Starter's own headline sells the unlock.
+    expect(container.textContent).toContain('Unlock the €15 and €50 challenges.');
     // DECISIONS-V3 §1: the free tier's conversion event IS joining free.
     expect(container.querySelectorAll('input[type="email"]')).toHaveLength(1);
     expect(container.querySelector('.cf-textlink')?.textContent).toMatch(/Get Premium/);

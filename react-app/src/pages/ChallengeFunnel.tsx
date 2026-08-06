@@ -323,15 +323,26 @@ export default function ChallengeFunnel() {
 
         {/* ── 7. Offer ────────────────────────────────────────────────────── */}
         <section className="cf-section" id="offer">
+          <span className="cf-eyebrow">
+            {isFree
+              ? t('challengeFunnel.offer.eyebrowFree', { defaultValue: 'Optional upgrade · 50% off until launch' })
+              : t('challengeFunnel.offer.eyebrow', { defaultValue: 'Premium · 50% off until launch' })}
+          </span>
+          <h2 className="cf-h2 font-display">
+            {isFree
+              ? t('challengeFunnel.offer.titleFree', { defaultValue: 'Unlock the €15 and €50 challenges.' })
+              : t('challengeFunnel.offer.title', { defaultValue: 'Lock in the year before we launch.' })}
+          </h2>
+          {isFree && (
+            <p className="cf-body">
+              {t('challengeFunnel.offer.ledeFree', {
+                defaultValue:
+                  'The €5 Starter is free for every member. Premium opens the higher-payout tiers — and right now the first year is half price.',
+              })}
+            </p>
+          )}
+
           <div className="cf-offer" data-popin>
-            <span className="cf-eyebrow">
-              {isFree
-                ? t('challengeFunnel.offer.eyebrowFree', { defaultValue: 'Optional upgrade · 50% off until launch' })
-                : t('challengeFunnel.offer.eyebrow', { defaultValue: 'Premium · 50% off until launch' })}
-            </span>
-            <h2 className="cf-offer__title font-display">
-              {t('challengeFunnel.offer.title', { defaultValue: 'Lock in the year before we launch.' })}
-            </h2>
             <p className="cf-offer__price">
               <span className="cf-offer__now font-display">{PRICE}</span>
               <s className="cf-offer__was">€79.99</s>
@@ -342,22 +353,31 @@ export default function ChallengeFunnel() {
               })}
             </p>
             <ul className="cf-offer__ticks">
+              {/* Starter leads with the unlock (defect 18). */}
+              {isFree && (
+                <li>{t('challengeFunnel.offer.tickUnlock', { defaultValue: 'Every challenge tier unlocked — €15 and €50' })}</li>
+              )}
               <li>{t('challengeFunnel.offer.tick1', { defaultValue: 'Full library — 641 exercises, 140 workouts' })}</li>
-              <li>{t('challengeFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier — first come, first served' })}</li>
+              {isFree ? (
+                <li>{t('challengeFunnel.offer.tickFreeze', { defaultValue: '2 freeze tokens per challenge' })}</li>
+              ) : (
+                <li>{t('challengeFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier — first come, first served' })}</li>
+              )}
               <li>{t('challengeFunnel.offer.tick3', { defaultValue: 'Year starts on launch day, not today' })}</li>
             </ul>
           </div>
-          {/* The button sits OUTSIDE the card and is unpriced — the price
-              appears once, on the close-section button. */}
-          {isFree ? (
-            <a className="cf-btn cf-btn--lg cf-btn--offer" href="#join-free" onClick={track}>
-              {ctaLabel}
-            </a>
-          ) : stripeReady ? (
+
+          {/* CTA under the card. A paid offer card never funnels into a free
+              ask (defect 18): Starter's button is the paid checkout with the
+              price visible — same handler as every other paid CTA — and it
+              renders on mobile too. */}
+          {stripeReady && (
             <button type="button" className="cf-btn cf-btn--lg cf-btn--offer" onClick={handleCheckout}>
-              {ctaLabel}
+              {isFree
+                ? t('challengeFunnel.offer.ctaFree', { defaultValue: 'Get Premium — {{price}}/yr →', price: PRICE })
+                : ctaLabel}
             </button>
-          ) : null}
+          )}
         </section>
 
         {/* ── 8. FAQ ──────────────────────────────────────────────────────── */}

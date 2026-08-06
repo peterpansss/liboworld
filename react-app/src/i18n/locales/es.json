@@ -2004,7 +2004,12 @@
       "sub": "First year of Premium · 50% off · fully refundable until launch",
       "tick1": "Full library — 641 exercises, 140 workouts",
       "tick2": "Eligible for every challenge tier — first come, first served",
-      "tick3": "Year starts on launch day, not today"
+      "tick3": "Year starts on launch day, not today",
+      "titleFree": "Unlock the €15 and €50 challenges.",
+      "ledeFree": "The €5 Starter is free for every member. Premium opens the higher-payout tiers — and right now the first year is half price.",
+      "tickUnlock": "Every challenge tier unlocked — €15 and €50",
+      "tickFreeze": "2 freeze tokens per challenge",
+      "ctaFree": "Get Premium — {{price}}/yr →"
     },
     "faq": {
       "title": "Any questions?",
