@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -110,6 +110,38 @@ export default function Landing() {
   // "Everything you get": which feature the phone shows. Default 04 Progress
   // Tracking — a real capture (HOME-RESTRUCTURE-V4 §3).
   const [activeFeature, setActiveFeature] = useState(3);
+
+  // "From one rep to a habit" on mobile: one pinned phone, steps crossfade as
+  // the visitor scrolls through the tall scene wrapper (same Cal-AI treatment
+  // as "Everything you get", but scroll-driven instead of tap-driven).
+  const [activeHabit, setActiveHabit] = useState(0);
+  const habitSceneRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scene = habitSceneRef.current;
+    if (!scene) return;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        // Progress 0→1 while the pinned viewport travels the scene.
+        const rect = scene.getBoundingClientRect();
+        const travel = rect.height - window.innerHeight;
+        if (travel <= 0) return;
+        const p = Math.min(1, Math.max(0, -rect.top / travel));
+        setActiveHabit(Math.min(2, Math.floor(p * 3)));
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   // Honor #hash arrivals (e.g. /membership → "/#hero-capture").
   useEffect(() => {
@@ -793,8 +825,9 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 5c. FROM ONE REP TO A HABIT — desktop only (target hides it
-            below 768px entirely). ─────────────────────────────────────── */}
+        {/* ── 5c. FROM ONE REP TO A HABIT — desktop: three framed screens
+            across; mobile: one pinned phone, scroll-driven (Noah, 2026-08-07,
+            supersedes the V4 target's mobile omission). ─────────────────── */}
         <section className="rh-habit">
           <h2 className="rh-h2 rh-h2--center">
             <ScrollRevealText as="span" className="rh-h2-line">
@@ -819,6 +852,45 @@ export default function Landing() {
                 <p className="rh-habit-desc">{step.desc}</p>
               </div>
             ))}
+          </div>
+
+          {/* Mobile pinned scene (hidden ≥768px). All three captions render;
+              the inactive ones are opacity-0 + aria-hidden so screen readers
+              and tests see exactly one copy of each step at a time. */}
+          <div className="rh-habit-scene" ref={habitSceneRef}>
+            <div className="rh-habit-pin">
+              <div className="rh-habit-phone">
+                <img
+                  src={habitSteps[activeHabit].screen}
+                  alt={habitSteps[activeHabit].name}
+                  width={1206}
+                  height={2622}
+                />
+              </div>
+              <div className="rh-habit-dots" aria-hidden="true">
+                {habitSteps.map((step, i) => (
+                  <span
+                    key={step.name}
+                    className={`rh-habit-dot${i === activeHabit ? ' rh-habit-dot--active' : ''}`}
+                  />
+                ))}
+              </div>
+              <div className="rh-habit-captions">
+                {habitSteps.map((step, i) => (
+                  <div
+                    key={step.name}
+                    className={`rh-habit-caption${i === activeHabit ? ' rh-habit-caption--active' : ''}`}
+                    aria-hidden={i !== activeHabit}
+                  >
+                    <h3 className="rh-habit-name">
+                      <span className="rh-habit-circle font-display">{i + 1}</span>
+                      {step.name}
+                    </h3>
+                    <p className="rh-habit-desc">{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
