@@ -8,6 +8,9 @@ import ScrollRevealText from '../components/ScrollRevealText';
 import { usePopIn } from '../utils/funnelAnimations';
 import { CHALLENGE_TIERS } from '../data/challengeTiers';
 import './CashChallenges.css';
+// Shared funnel primitives (.funnel-eyebrow etc.) — this page has no
+// FunnelChrome component, so pull the stylesheet in directly.
+import '../components/funnel/FunnelChrome.css';
 
 /**
  * /cash-challenges — the challenge catalogue.
@@ -40,7 +43,7 @@ export default function CashChallenges() {
       <SiteNav />
       <main id="main-content" className="cc-page">
         <section className="cc-hero">
-          <span className="cc-eyebrow">
+          <span className="funnel-eyebrow cc-eyebrow">
             {t('cashChallenges.eyebrow', { defaultValue: 'Cash Challenges' })}
           </span>
           <h1 className="cc-hero__title font-display">

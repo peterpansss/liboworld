@@ -515,8 +515,8 @@ export default function Landing() {
 
             <div className="rh-inside-stage">
               <div className="rh-inside-caps rh-inside-caps--left">
-                {appCaptions.slice(0, 2).map((c) => (
-                  <div className="rh-inside-cap" key={c.title}>
+                {appCaptions.slice(0, 2).map((c, i) => (
+                  <div className={`rh-inside-cap rh-inside-cap--${i}`} key={c.title}>
                     <span className={`rh-inside-cap-title${c.accent ? ' rh-accent' : ''}`}>{c.title}</span>
                     <span className="rh-inside-cap-sub">{c.sub}</span>
                   </div>
@@ -563,7 +563,7 @@ export default function Landing() {
                     3 captions at 390px): cap 4 hides, cap 3 swaps its sub. */}
                 {appCaptions.slice(2).map((c, i) => (
                   <div
-                    className={`rh-inside-cap${i === 1 ? ' rh-inside-cap--desktop' : ''}`}
+                    className={`rh-inside-cap rh-inside-cap--${i + 2}${i === 1 ? ' rh-inside-cap--desktop' : ''}`}
                     key={c.title}
                   >
                     <span className={`rh-inside-cap-title${c.accent ? ' rh-accent' : ''}`}>{c.title}</span>

@@ -314,7 +314,7 @@
 
 .press-shot-img {
   width: 100%;
-  border-radius: 18px;
+  border-radius: 16px;
   border: 1px solid var(--bg4);
   display: block;
 }

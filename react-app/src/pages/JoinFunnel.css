@@ -44,7 +44,7 @@
 
 .jf-h1 {
   margin: 0;
-  font-size: clamp(48px, 6vw, 86px);
+  font-size: clamp(48px, 6vw, 80px);
   line-height: 0.92;
   letter-spacing: -1px;
   text-transform: uppercase;
@@ -71,43 +71,11 @@
   line-height: 1.65;
 }
 
-.jf-eyebrow {
-  display: inline-block;
-  max-width: 100%;
-  padding: 7px 16px;
-  margin-bottom: 20px;
-  border-radius: 100px;
-  background: var(--accent-dim);
-  color: var(--accent);
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  line-height: 1.3;
-}
+/* Base pill/button come from the shared .funnel-eyebrow / .funnel-btn
+   (FunnelChrome.css); below are this page's extensions only. */
 
-.jf-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 52px;
-  padding: 0 28px;
-  border: none;
-  border-radius: 14px;
-  background: var(--accent);
-  color: var(--accent-text);
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background .2s ease, transform .2s ease;
-}
+.jf-eyebrow { margin-bottom: 20px; }
 
-.jf-btn:hover { background: var(--accent2); transform: translateY(-1px); }
 .jf-btn--block { width: 100%; }
 
 .jf-inline-link {
@@ -246,6 +214,8 @@
 .jf-capture__input::placeholder { color: var(--dim); }
 .jf-capture__input:focus-visible { border-color: var(--accent); }
 
+/* Variant: quiet dark button — deliberately overrides the shared .funnel-btn
+   lime background/colour (JoinFunnel.css loads after FunnelChrome.css). */
 .jf-capture__btn { flex: 0 0 auto; background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
 .jf-capture__btn:hover { background: var(--bg4); color: var(--accent); border-color: var(--accent); }
 
@@ -403,7 +373,7 @@
   justify-content: center;
   min-width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--accent-dim);
   color: var(--accent);
   font-size: 15px;
@@ -566,44 +536,9 @@
   line-height: 1.6;
 }
 
-/* ── 7. FAQ: card rows, all collapsed, lime + always ─────────────────────── */
+/* ── 7. FAQ: shared .funnel-faq set (FunnelChrome.css); extension only ───── */
 
-.jf-faq { max-width: 840px; margin: 36px auto 0; padding: 0; list-style: none; text-align: left; }
-
-.jf-faq__row {
-  margin-bottom: 12px;
-  padding: 0 22px;
-  border-radius: 14px;
-  background: var(--card);
-}
-
-.jf-faq__q {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  width: 100%;
-  min-height: 64px;
-  padding: 14px 0;
-  border: none;
-  background: none;
-  color: var(--text);
-  font-size: 16px;
-  font-weight: 600;
-  text-align: left;
-  cursor: pointer;
-}
-
-.jf-faq__row--open .jf-faq__q { color: var(--accent); }
-.jf-faq__sign { flex: none; color: var(--accent); font-size: 22px; line-height: 1; }
-
-.jf-faq__a {
-  margin: 0;
-  padding: 0 0 22px;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.7;
-}
+.jf-faq { max-width: 840px; margin: 36px auto 0; }
 
 /* ── 8. Close ────────────────────────────────────────────────────────────── */
 
@@ -643,5 +578,4 @@
   .jf-fan__frame--0 { transform: rotate(-7deg) translateY(28px); }
   .jf-fan__frame--1 { transform: translateY(-30px); }
   .jf-fan__frame--2 { transform: rotate(7deg) translateY(28px); }
-  .jf-btn:hover { transform: none; }
 }

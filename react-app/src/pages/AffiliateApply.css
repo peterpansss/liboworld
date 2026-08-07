@@ -185,7 +185,7 @@
   width: 100%;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 12px 14px;
   color: var(--text);
   font-size: 15px;
@@ -220,7 +220,7 @@
 .aa-terms-box {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 16px;
   max-height: 180px;
   overflow-y: auto;
@@ -265,7 +265,7 @@
   padding: 12px 14px;
   background: rgba(255, 51, 51, 0.08);
   border: 1px solid rgba(255, 51, 51, 0.3);
-  border-radius: 10px;
+  border-radius: 12px;
   color: #ff7a7a;
   font-size: 14px;
 }

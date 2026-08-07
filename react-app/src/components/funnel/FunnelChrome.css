@@ -125,3 +125,89 @@
 @media (min-width: 768px) {
   .funnel-sticky { display: none; }
 }
+
+
+/* ── Shared funnel primitives ────────────────────────────────────────────────
+   One source of truth for the pieces every funnel page was re-implementing
+   byte-for-byte (.cc-/.cf-/.jf- eyebrow, FAQ row, lime button). Page CSS may
+   extend these; it must not fork them — the pills-centring bug happened
+   because a fix couldn't propagate across per-page copies. */
+
+.funnel-eyebrow {
+  display: inline-block;
+  max-width: 100%;
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.funnel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.funnel-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+.funnel-faq { padding: 0; list-style: none; text-align: left; }
+
+.funnel-faq__row {
+  margin-bottom: 12px;
+  padding: 0 22px;
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.funnel-faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 64px;
+  padding: 14px 0;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Lime = open. Hover/focus never recolour the question. */
+.funnel-faq__row--open .funnel-faq__q { color: var(--accent); }
+.funnel-faq__sign { flex: none; color: var(--accent); font-size: 22px; line-height: 1; }
+
+.funnel-faq__a {
+  margin: 0;
+  padding: 0 0 22px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-btn:hover { transform: none; }
+}

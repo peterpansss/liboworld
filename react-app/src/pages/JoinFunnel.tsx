@@ -196,7 +196,7 @@ export default function JoinFunnel() {
         {/* ── 1. Hero ─────────────────────────────────────────────────────── */}
         <section className="jf-hero">
           <div className="jf-hero__copy">
-            <span className="jf-eyebrow">
+            <span className="funnel-eyebrow jf-eyebrow">
               {t('joinFunnel.hero.eyebrow', { defaultValue: 'The Training Club' })}
             </span>
             <h1 className="jf-h1 font-display">
@@ -215,7 +215,7 @@ export default function JoinFunnel() {
             {/* The free ask the hero copy promises — inline confirm, never payment. */}
             <HeroCapture t={t} />
 
-            <a className="jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
+            <a className="funnel-btn jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
               {ctaLabel}
             </a>
             <p className="jf-hero__footnote">
@@ -344,14 +344,14 @@ export default function JoinFunnel() {
             <li className="jf-pill">{t('joinFunnel.pocket.pill2', { defaultValue: 'Streak & freezes' })}</li>
             <li className="jf-pill">{t('joinFunnel.pocket.pill3', { defaultValue: 'Progress tracking' })}</li>
           </ul>
-          <a className="jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
+          <a className="funnel-btn jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
             {ctaUnpriced}
           </a>
         </section>
 
         {/* ── 6. Pricing ──────────────────────────────────────────────────── */}
         <section className="jf-section jf-membership" id="membership">
-          <span className="jf-eyebrow">
+          <span className="funnel-eyebrow jf-eyebrow">
             {t('joinFunnel.offer.eyebrow', { defaultValue: 'Pre-sale · ends at launch' })}
           </span>
           {/* Both lines white — no lime in this headline (target). */}
@@ -393,7 +393,7 @@ export default function JoinFunnel() {
             {stripeReady && (
               <button
                 type="button"
-                className="jf-btn jf-btn--primary jf-btn--block"
+                className="funnel-btn jf-btn jf-btn--primary jf-btn--block"
                 onClick={() => openFoundingCheckout('fm_funnel')}
               >
                 {ctaLabel}
@@ -418,21 +418,24 @@ export default function JoinFunnel() {
           <ScrollRevealText as="h2" className="jf-h2 font-display">
             {t('joinFunnel.faq.title', { defaultValue: 'Any questions?' })}
           </ScrollRevealText>
-          <ul className="jf-faq">
+          <ul className="funnel-faq jf-faq">
             {faqs.map((faq, i) => {
               const open = openFaq === i;
               return (
-                <li className={`jf-faq__row${open ? ' jf-faq__row--open' : ''}`} key={faq.q}>
+                <li
+                  className={`funnel-faq__row jf-faq__row${open ? ' funnel-faq__row--open jf-faq__row--open' : ''}`}
+                  key={faq.q}
+                >
                   <button
                     type="button"
-                    className="jf-faq__q"
+                    className="funnel-faq__q jf-faq__q"
                     aria-expanded={open}
                     onClick={() => setOpenFaq(open ? null : i)}
                   >
                     <span>{faq.q}</span>
-                    <span className="jf-faq__sign" aria-hidden="true">{open ? '−' : '+'}</span>
+                    <span className="funnel-faq__sign jf-faq__sign" aria-hidden="true">{open ? '−' : '+'}</span>
                   </button>
-                  {open && <p className="jf-faq__a">{faq.a}</p>}
+                  {open && <p className="funnel-faq__a jf-faq__a">{faq.a}</p>}
                 </li>
               );
             })}
@@ -448,7 +451,7 @@ export default function JoinFunnel() {
                 {t('joinFunnel.close.h2b', { defaultValue: 'Not someday.' })}
               </span>
             </h2>
-            <a className="jf-btn jf-btn--primary jf-close__cta" href={MEMBERSHIP_HREF}>
+            <a className="funnel-btn jf-btn jf-btn--primary jf-close__cta" href={MEMBERSHIP_HREF}>
               {ctaLabel}
             </a>
             <p className="jf-close__fine">
@@ -507,7 +510,7 @@ function HeroCapture({ t }: { t: TFn }) {
         disabled={status === 'submitting'}
         autoComplete="email"
       />
-      <button type="submit" className="jf-btn jf-capture__btn" disabled={status === 'submitting'}>
+      <button type="submit" className="funnel-btn jf-btn jf-capture__btn" disabled={status === 'submitting'}>
         {t('joinFunnel.capture.btn', { defaultValue: 'Join the waitlist' })}
       </button>
       {status === 'error' && (

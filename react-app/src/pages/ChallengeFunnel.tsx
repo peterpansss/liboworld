@@ -116,7 +116,7 @@ export default function ChallengeFunnel() {
      capture). Hidden on mobile between steps and the video per target. */
   const CtaBar = ({ mobileHidden = false }: { mobileHidden?: boolean }) => (
     <div className={`cf-ctabar${mobileHidden ? ' cf-ctabar--desktop-only' : ''}`}>
-      <a className="cf-btn" href={isFree ? '#join-free' : OFFER_HREF} onClick={track}>
+      <a className="funnel-btn cf-btn" href={isFree ? '#join-free' : OFFER_HREF} onClick={track}>
         {ctaLabel}
       </a>
     </div>
@@ -275,7 +275,7 @@ export default function ChallengeFunnel() {
 
         {/* ── 5. Inside the challenge ─────────────────────────────────────── */}
         <section className="cf-section cf-inside">
-          <span className="cf-eyebrow">
+          <span className="funnel-eyebrow cf-eyebrow">
             {t('challengeFunnel.inside.eyebrow', { defaultValue: 'Inside the challenge' })}
           </span>
           <h2 className="cf-h2 font-display">
@@ -291,7 +291,19 @@ export default function ChallengeFunnel() {
           <div className="cf-fan">
             {INSIDE_SCREENS.map(({ src, key }, i) => (
               <div className={`cf-fan__frame cf-fan__frame--${i}`} key={key} data-popin>
-                <img src={src} alt="" loading="lazy" />
+                {/* Only the centre screen is visible on mobile and carries the
+                    meaning — flanks stay decorative (empty alt). */}
+                <img
+                  src={src}
+                  alt={
+                    i === 1
+                      ? t('challengeFunnel.inside.altSummary', {
+                          defaultValue: 'Post-workout summary in the Libo app',
+                        })
+                      : ''
+                  }
+                  loading="lazy"
+                />
               </div>
             ))}
           </div>
@@ -323,7 +335,7 @@ export default function ChallengeFunnel() {
 
         {/* ── 7. Offer ────────────────────────────────────────────────────── */}
         <section className="cf-section" id="offer">
-          <span className="cf-eyebrow">
+          <span className="funnel-eyebrow cf-eyebrow">
             {isFree
               ? t('challengeFunnel.offer.eyebrowFree', { defaultValue: 'Optional upgrade · 50% off until launch' })
               : t('challengeFunnel.offer.eyebrow', { defaultValue: 'Premium · 50% off until launch' })}
@@ -372,7 +384,7 @@ export default function ChallengeFunnel() {
               price visible — same handler as every other paid CTA — and it
               renders on mobile too. */}
           {stripeReady && (
-            <button type="button" className="cf-btn cf-btn--lg cf-btn--offer" onClick={handleCheckout}>
+            <button type="button" className="funnel-btn cf-btn cf-btn--lg cf-btn--offer" onClick={handleCheckout}>
               {isFree
                 ? t('challengeFunnel.offer.ctaFree', { defaultValue: 'Get Premium — {{price}}/yr →', price: PRICE })
                 : ctaLabel}
@@ -385,21 +397,24 @@ export default function ChallengeFunnel() {
           <ScrollRevealText as="h2" className="cf-h2 font-display">
             {t('challengeFunnel.faq.title', { defaultValue: 'Any questions?' })}
           </ScrollRevealText>
-          <ul className="cf-faq">
+          <ul className="funnel-faq cf-faq">
             {faqs.map((faq, i) => {
               const open = openFaq === i;
               return (
-                <li className={`cf-faq__row${open ? ' cf-faq__row--open' : ''}`} key={faq.q}>
+                <li
+                  className={`funnel-faq__row cf-faq__row${open ? ' funnel-faq__row--open cf-faq__row--open' : ''}`}
+                  key={faq.q}
+                >
                   <button
                     type="button"
-                    className="cf-faq__q"
+                    className="funnel-faq__q cf-faq__q"
                     aria-expanded={open}
                     onClick={() => setOpenFaq(open ? null : i)}
                   >
                     <span>{faq.q}</span>
-                    <span className="cf-faq__sign" aria-hidden="true">{open ? '−' : '+'}</span>
+                    <span className="funnel-faq__sign cf-faq__sign" aria-hidden="true">{open ? '−' : '+'}</span>
                   </button>
-                  {open && <p className="cf-faq__a">{faq.a}</p>}
+                  {open && <p className="funnel-faq__a cf-faq__a">{faq.a}</p>}
                 </li>
               );
             })}
@@ -443,7 +458,7 @@ export default function ChallengeFunnel() {
                 })}
               </p>
               {stripeReady && (
-                <button type="button" className="cf-btn cf-btn--lg cf-close__cta" onClick={handleCheckout}>
+                <button type="button" className="funnel-btn cf-btn cf-btn--lg cf-close__cta" onClick={handleCheckout}>
                   {ctaPricedLabel}
                 </button>
               )}
@@ -513,7 +528,7 @@ function StarterCapture({ t, onTrack }: { t: TFn; onTrack: () => void }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button type="submit" className="cf-btn cf-capture__btn" disabled={status === 'submitting'}>
+      <button type="submit" className="funnel-btn cf-btn cf-capture__btn" disabled={status === 'submitting'}>
         {t('challengeFunnel.capture.btn', { defaultValue: 'Join free →' })}
       </button>
       {status === 'error' && (

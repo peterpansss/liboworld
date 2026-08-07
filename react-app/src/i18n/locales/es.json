@@ -1985,7 +1985,8 @@
       "pill1": "Live rep counter",
       "pill2": "Camera verification",
       "pill3": "Real cash payout",
-      "bridge": "In the app, challenges live in the Rewards tab."
+      "bridge": "In the app, challenges live in the Rewards tab.",
+      "altSummary": "Post-workout summary in the Libo app"
     },
     "winners": {
       "title": "They finished. They got paid.",

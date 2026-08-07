@@ -33,6 +33,7 @@
 .rh-accent-link { color: var(--libo-accent); }
 .rh-accent-link:hover { text-decoration: underline; }
 
+/* Deliberately NOT the funnel pill: home eyebrows are plain lime letterspaced text per the canvas. Don't "unify" this with .funnel-eyebrow. */
 .rh-eyebrow {
   font-size: 12px;
   text-transform: uppercase;
@@ -112,6 +113,8 @@
   color: #080808;
   padding: 14px 28px;
   border: none;
+  min-height: 52px;
+  font-size: 18px;
 }
 .rh-btn--primary:hover { background: var(--libo-accent-2); color: #080808; }
 .rh-btn--ghost {
@@ -512,7 +515,7 @@ video.rh-phone {
 .rh-faq-q:focus-visible {
   outline: 2px solid var(--libo-accent);
   outline-offset: 2px;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 .rh-faq-icon { color: var(--libo-accent); font-size: 20px; }
 .rh-faq-a {
@@ -1410,12 +1413,20 @@ video.rh-phone {
   .rh-inside-cap--desktop { display: none; }
   .rh-inside-cap-sub--desktop { display: none; }
   .rh-inside-cap-sub--mobile { display: inline; }
-  /* Caption 1 (+2) above the phone full-width; captions 3 stays below. */
-  .rh-inside-caps--right {
-    display: grid;
+  /* Canvas mobile order: REP VERIFICATION above the phone, then REAL CASH +
+     30 DAYS STRAIGHT side-by-side BELOW it. The desktop DOM groups captions
+     into left/right columns, so on mobile the containers dissolve
+     (display: contents) and each caption is placed by order in one grid. */
+  .rh-inside-stage {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    gap: 24px;
   }
+  .rh-inside-caps--left,
+  .rh-inside-caps--right { display: contents; }
+  .rh-inside-cap--0 { order: 0; grid-column: 1 / -1; text-align: center; }
+  .rh-inside-phone-wrap { order: 1; grid-column: 1 / -1; justify-self: center; }
+  .rh-inside-cap--1 { order: 2; text-align: center; }
+  .rh-inside-cap--2 { order: 3; text-align: center; }
 }
 
 /* ── Early reviews: no card chrome, left-aligned trailing row ────────────── */
