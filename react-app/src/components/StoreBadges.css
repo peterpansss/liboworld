@@ -1,0 +1,28 @@
+/* App Store / Google Play pill pair — canvas-style text pills.
+   TODO(launch): swap for official Apple/Google badge art. */
+
+.store-badges {
+  display: flex;
+  gap: 10px;
+}
+
+.store-badges__pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text);
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color .2s ease, color .2s ease;
+}
+
+.store-badges__pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}

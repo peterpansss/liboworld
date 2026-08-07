@@ -164,7 +164,10 @@
     "comingSoonOn": "Próximamente en",
     "appStore": "App Store",
     "googlePlay": "Google Play",
-    "downloadAppStore": "Descargar en App Store"
+    "downloadAppStore": "Download on the App Store",
+    "appStoreShort": "App Store",
+    "downloadGooglePlay": "Get it on Google Play",
+    "googlePlayShort": "Google Play"
   },
   "countdown": {
     "closed": "cerrado",
@@ -282,7 +285,9 @@
     "bestDumbbell": "Dumbbell",
     "best30Minute": "30-Minute",
     "bestHome": "Home Workouts",
-    "copyrightShort": "© 2026 Libo World"
+    "copyrightShort": "© 2026 Libo World",
+    "tagline": "The training club that pays your consistency. iOS & Android, coming soon.",
+    "popularLabel": "Popular:"
   },
   "onboarding": {
     "topBar": {

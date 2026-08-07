@@ -216,3 +216,63 @@
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+
+/* ── HEADER-FOOTER-TICKET §3/§4 ─────────────────────────────────────────── */
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: 340px;
+}
+
+.site-footer__tagline {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.site-footer__badges { width: 100%; }
+
+/* Popular row: dot-separated inline SEO links, desktop only. */
+.site-footer__popular {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.site-footer__popular-label {
+  color: var(--dim);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-right: 10px;
+}
+
+.site-footer__popular a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-footer__popular a:hover { color: var(--accent); }
+
+.site-footer__popular a + a::before {
+  content: '·';
+  color: var(--dim);
+  margin: 0 10px;
+}
+
+@media (max-width: 767px) {
+  /* §4: columns 2-up, Popular row desktop-only, badges full-width. */
+  .site-footer__columns { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .site-footer__popular { display: none; }
+  .site-footer__brand { max-width: none; }
+}

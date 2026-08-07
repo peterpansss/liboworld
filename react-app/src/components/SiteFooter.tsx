@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import LiboLogo from './LiboLogo';
+import StoreBadges from './StoreBadges';
 import { isPrelaunch } from '../config/launchMode';
 import './SiteFooter.css';
 
@@ -12,9 +13,17 @@ export default function SiteFooter() {
       <div className="site-footer__inner">
         {/* Top section: logo + social */}
         <div className="site-footer__top">
-          <Link to="/" className="site-footer__logo" aria-label="Libo home">
-            <LiboLogo compact />
-          </Link>
+          <div className="site-footer__brand">
+            <Link to="/" className="site-footer__logo" aria-label="Libo home">
+              <LiboLogo compact />
+            </Link>
+            <p className="site-footer__tagline">
+              {t('footer.tagline', {
+                defaultValue: 'The training club that pays your consistency. iOS & Android, coming soon.',
+              })}
+            </p>
+            <StoreBadges className="site-footer__badges" />
+          </div>
           <div className="site-footer__social">
             <a href="https://www.instagram.com/liboworld/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
@@ -36,7 +45,6 @@ export default function SiteFooter() {
             <div className="site-footer__col-links">
               <Link to="/cash-challenges">{t('footer.cashChallengesLink', { defaultValue: 'Cash Challenges' })}</Link>
               <Link to="/membership">{t('footer.membership', { defaultValue: 'Membership' })}</Link>
-              <Link to="/#features">{t('footer.features')}</Link>
               {!isPrelaunch() && (<Link to="/#rewards">{t('footer.rewardsLink')}</Link>)}
               {!isPrelaunch() && (<Link to="/giveaway">{t('footer.giveaways')}</Link>)}
               <Link to="/creator-program">{t('footer.creatorProgram', { defaultValue: 'Creator Program' })}</Link>
@@ -66,21 +74,21 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          {/* Best Workouts — programmatic SEO hubs at /best-workouts/<facet>.
-              Plain English with defaultValue: v1 of these pages is English-only,
-              and the hardcoded labels match the H1 keyword pattern. */}
-          <div className="site-footer__col">
-            <h2 className="site-footer__col-title">{t('footer.bestWorkoutsTitle', { defaultValue: 'Best Workouts' })}</h2>
-            <div className="site-footer__col-links">
-              <Link to="/best-workouts/upper-body">{t('footer.bestUpperBody', { defaultValue: 'Upper Body' })}</Link>
-              <Link to="/best-workouts/lower-body">{t('footer.bestLowerBody', { defaultValue: 'Lower Body' })}</Link>
-              <Link to="/best-workouts/bodyweight">{t('footer.bestBodyweight', { defaultValue: 'Bodyweight' })}</Link>
-              <Link to="/best-workouts/dumbbell">{t('footer.bestDumbbell', { defaultValue: 'Dumbbell' })}</Link>
-              <Link to="/best-workouts/30-minute">{t('footer.best30Minute', { defaultValue: '30-Minute' })}</Link>
-              <Link to="/best-workouts/home">{t('footer.bestHome', { defaultValue: 'Home Workouts' })}</Link>
-            </div>
-          </div>
         </nav>
+
+        {/* Popular — the SEO hub links folded to one inline row (desktop only;
+            HEADER-FOOTER-TICKET §3). Same /best-workouts/* hrefs, SEO intact. */}
+        <div className="site-footer__popular">
+          <span className="site-footer__popular-label">
+            {t('footer.popularLabel', { defaultValue: 'Popular:' })}
+          </span>
+          <Link to="/best-workouts/upper-body">{t('footer.bestUpperBody', { defaultValue: 'Upper Body' })}</Link>
+          <Link to="/best-workouts/lower-body">{t('footer.bestLowerBody', { defaultValue: 'Lower Body' })}</Link>
+          <Link to="/best-workouts/bodyweight">{t('footer.bestBodyweight', { defaultValue: 'Bodyweight' })}</Link>
+          <Link to="/best-workouts/dumbbell">{t('footer.bestDumbbell', { defaultValue: 'Dumbbell' })}</Link>
+          <Link to="/best-workouts/30-minute">{t('footer.best30Minute', { defaultValue: '30-Minute' })}</Link>
+          <Link to="/best-workouts/home">{t('footer.bestHome', { defaultValue: 'Home Workouts' })}</Link>
+        </div>
 
         {/* Bottom bar */}
         <div className="site-footer__bottom">

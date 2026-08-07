@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LiboLogo from './LiboLogo';
+import LanguageSwitcher from './LanguageSwitcher';
+import StoreBadges from './StoreBadges';
 import { isStripeConfigured } from '../lib/stripe';
 import { isPrelaunch } from '../config/launchMode';
 import { prefetchRoute } from '../lib/routePrefetch';
@@ -196,7 +198,10 @@ export default function SiteNav() {
             </Link>
           ))}
         </div>
+        {/* Pinned to the drawer's bottom: store badges, the one lime CTA,
+            then the language switcher (HEADER-FOOTER-TICKET §2). */}
         <div className="site-nav__drawer-bottom">
+          <StoreBadges className="site-nav__drawer-badges" />
           <Link
             to={ENTER_CLUB_TARGET}
             className="site-nav__drawer-cta"
@@ -204,6 +209,9 @@ export default function SiteNav() {
           >
             {joinClubLabel}
           </Link>
+          <div className="site-nav__drawer-lang">
+            <LanguageSwitcher variant="drawer" />
+          </div>
         </div>
       </div>
 
