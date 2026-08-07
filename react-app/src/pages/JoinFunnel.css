@@ -8,6 +8,10 @@
   background: var(--bg);
   color: var(--text);
   padding-bottom: 96px;
+  /* Decorative absolutes (the hero's lime bloom: left 10% + 420px = 460px on
+     a 400px viewport) must never widen the page. Same pattern as
+     .relaunch-home. */
+  overflow-x: clip;
 }
 
 @media (max-width: 767px) {
