@@ -1324,9 +1324,11 @@
       "c6Name": "Cash challenges",
       "c6Desc": "30 days of daily reps with real money as the proof of consistency. Details on the challenge page.",
       "c6DescMobile": "30 days of daily reps with real money as the proof.",
-      "h2a": "Everything",
-      "h2b": "you get.",
-      "descMobile": "641 exercises — 313 gym, 295 home, 33 mobility. 140 workouts. AI-built plans."
+      "h2a": "Everything you get",
+      "h2b": "with Libo World.",
+      "descMobile": "641 exercises — 313 gym, 295 home, 33 mobility. 140 workouts. AI-built plans.",
+      "phoneAlt": "{{feature}} in the Libo app",
+      "dotsLabel": "App features"
     },
     "community": {
       "eyebrow": "A comunidade Libo",
@@ -1371,8 +1373,8 @@
       "m5Name": "Tony",
       "m5Meta": "@tony · 47, mobility plans",
       "eyebrowV2": "The Libo community",
-      "h2a": "A club that",
-      "h2b": "trains",
+      "h2a": "Your community,",
+      "h2b": "already on Libo.",
       "h2c": "with you.",
       "descV2": "Real people, real faces. Logging reps, holding streaks. No coaches or influencers selling courses. Just members showing up every day.",
       "railLabel": "Libo members"
@@ -1513,17 +1515,17 @@
     },
     "different": {
       "card1Name": "Decision removed",
-      "card1Desc": "Open the app — today's session is already picked for your goal, time, and equipment.",
+      "card1Desc": "Today's session is picked for you.",
       "card2Name": "Streak protected",
-      "card2Desc": "A missed day subtracts one day — your streak never resets to zero. Freeze tokens cover the days life gets in the way.",
+      "card2Desc": "A miss subtracts a day — never back to zero.",
       "card3Name": "Cash challenge",
-      "card3Desc": "Opt in when you're ready: 30 days of daily reps, verified in-app, real money when you finish. No draw, no luck.",
+      "card3Desc": "30 verified days. Real money. No draw, no luck.",
       "card4Name": "Real stakes, when you want them",
       "card4Desc": "Ready for pressure? A cash challenge pays €5, €15 or €50 for 30 days straight — funded by Libo, set aside the moment you join.",
       "eyebrow": "How Libo is different",
       "h2a": "Consistency,",
       "h2b": "with receipts.",
-      "body": "Training on Libo is one loop: open the app, do the session, keep the streak — a missed day subtracts a day, never resets you to zero. The cash challenge is separate, and opt-in: 30 days of verified daily reps for a real payout. Money is the receipt, not the reason.",
+      "body": "One loop: open the app, do the session, keep the streak. The cash challenge is opt-in — money is the receipt, not the reason.",
       "link": "How the cash challenge works →"
     },
     "insideApp": {

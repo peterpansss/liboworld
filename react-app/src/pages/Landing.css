@@ -1271,15 +1271,7 @@ video.rh-phone {
 .rh-library { padding: 96px 24px; background: var(--bg); }
 .rh-library-inner { max-width: 1180px; margin: 0 auto; }
 
-.rh-library-head {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-  gap: 40px;
-  align-items: start;
-  margin-bottom: 44px;
-}
 
-.rh-library-desc { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
 
 .rh-features {
   display: grid;
@@ -1315,8 +1307,7 @@ video.rh-phone {
 
 @media (max-width: 767px) {
   .rh-library { padding: 64px 20px; }
-  .rh-library-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
-  /* Target mobile: 2 columns, cards as plain text blocks (no fill). */
+    /* Target mobile: 2 columns, cards as plain text blocks (no fill). */
   .rh-features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .rh-feature { padding: 0; background: none; border-radius: 0; }
 }
@@ -1468,3 +1459,159 @@ video.rh-phone {
 }
 
 .rh-wl-inline-link:hover { color: var(--accent); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HOME v4 (HOME-RESTRUCTURE-V4-TICKET)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── §3 Everything you get: interactive phone + card list ────────────────── */
+
+.rh-library-h2 { margin-bottom: 44px; }
+
+.rh-library-stage {
+  display: grid;
+  grid-template-columns: 400px minmax(0, 1fr);
+  gap: 72px;
+  align-items: start;
+}
+
+.rh-library-device {
+  /* Phone stays put while the card list scrolls (Cal-AI). */
+  position: sticky;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.rh-library-phone {
+  width: 300px;
+  height: 630px;
+  padding: 10px;
+  border-radius: 40px;
+  background: #161616; /* device frame — deliberate hex per canvas spec */
+  border: 1px solid var(--libo-bg-4);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), 0 0 70px rgba(202, 255, 0, 0.06);
+  overflow: hidden;
+}
+
+.rh-library-phone img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 32px;
+  display: block;
+}
+
+.rh-library-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.rh-library-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 100px;
+  background: var(--libo-bg-4);
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.rh-library-dot:hover { transform: scale(1.2); }
+.rh-library-dot--active { background: var(--libo-accent); }
+
+/* Feature cards are now buttons: single-column list per canvas (gap 14). */
+.rh-features {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rh-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid transparent;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.rh-feature .rh-feature-num { color: var(--libo-dim); font-size: 12px; font-weight: 700; }
+.rh-feature .rh-feature-name { margin: 0; font-size: 26px; line-height: 1; }
+.rh-feature .rh-feature-desc { margin: 0; font-size: 13px; line-height: 1.55; }
+
+.rh-feature:hover { background: rgba(255, 255, 255, 0.05); }
+.rh-feature--active { border-color: var(--libo-accent); }
+
+/* ── §2 Mechanism, mobile: compact horizontal rows ───────────────────────── */
+
+@media (max-width: 767px) {
+  .rh-diff-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 14px;
+    align-items: start;
+    padding: 16px 18px;
+  }
+  .rh-diff-num { grid-row: 1 / span 2; font-size: 18px; padding-top: 2px; }
+  .rh-diff-name { margin: 0; font-size: 19px; }
+  .rh-diff-desc { margin: 2px 0 0; font-size: 14px; }
+}
+
+/* ── §4 Habit steps: framed screen above, badge inline beside the title ──── */
+
+.rh-habit-screen {
+  width: 180px;
+  margin: 0 auto 18px;
+  padding: 6px;
+  border-radius: 24px;
+  background: #161616;
+  border: 1px solid var(--libo-bg-4);
+  overflow: hidden;
+}
+
+.rh-habit-screen img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  display: block;
+}
+
+.rh-habit-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.rh-habit-circle {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  flex: none;
+}
+
+/* ── §3 mobile: phone centred on top (220×462), dots, stacked cards ──────── */
+
+@media (max-width: 767px) {
+  .rh-library-stage { grid-template-columns: 1fr; gap: 28px; justify-items: center; }
+  .rh-library-device { position: static; }
+  .rh-library-phone { width: 220px; height: 462px; }
+  .rh-features { grid-template-columns: 1fr; width: 100%; }
+  .rh-feature { background: var(--rh-card-bg, rgba(255,255,255,0.03)); border: 1px solid transparent; padding: 16px 18px; border-radius: 16px; }
+  .rh-feature--active { border-color: var(--libo-accent); }
+  .rh-library-h2 { margin-bottom: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-library-dot:hover { transform: none; }
+}

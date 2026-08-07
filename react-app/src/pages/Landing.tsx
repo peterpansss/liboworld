@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -107,6 +107,10 @@ export default function Landing() {
   // `data-popin` is picked up — "How Libo is different", creator stats, guides.
   usePopIn();
 
+  // "Everything you get": which feature the phone shows. Default 04 Progress
+  // Tracking — a real capture (HOME-RESTRUCTURE-V4 §3).
+  const [activeFeature, setActiveFeature] = useState(3);
+
   // Honor #hash arrivals (e.g. /membership → "/#hero-capture").
   useEffect(() => {
     if (!location.hash) return;
@@ -123,29 +127,30 @@ export default function Landing() {
       num: '01',
       name: t('relaunchHome.different.card1Name', { defaultValue: 'Decision removed' }),
       desc: t('relaunchHome.different.card1Desc', {
-        defaultValue:
-          "Open the app — today's session is already picked for your goal, time, and equipment.",
+        defaultValue: "Today's session is picked for you.",
       }),
     },
     {
       num: '02',
       name: t('relaunchHome.different.card2Name', { defaultValue: 'Streak protected' }),
       desc: t('relaunchHome.different.card2Desc', {
-        defaultValue:
-          'A missed day subtracts one day — your streak never resets to zero. Freeze tokens cover the days life gets in the way.',
+        defaultValue: 'A miss subtracts a day — never back to zero.',
       }),
     },
     {
       num: '03',
       name: t('relaunchHome.different.card3Name', { defaultValue: 'Cash challenge' }),
       desc: t('relaunchHome.different.card3Desc', {
-        defaultValue:
-          "Opt in when you're ready: 30 days of daily reps, verified in-app, real money when you finish. No draw, no luck.",
+        defaultValue: '30 verified days. Real money. No draw, no luck.',
       }),
     },
   ];
 
-  // ── "Everything you get" cards — desktop + shorter mobile copy.
+  // ── "Everything you get" — Cal-AI-style interactive phone + card list.
+  // `screen` is the capture the phone shows for that feature.
+  // ⚠ TODO(Noah): four features still need CURRENT production captures
+  // (marked `fallback: true`); until they land we show the nearest REAL
+  // screen — never a mock (HOME-RESTRUCTURE-V4 §3).
   const libraryCards = [
     {
       num: '01',
@@ -156,6 +161,8 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c1DescMobile', {
         defaultValue: '641 exercises with equipment notes and form cues.',
       }),
+      screen: '/app-real-run.png', // fallback: movement picker is the nearest real screen
+      fallback: true,
     },
     {
       num: '02',
@@ -166,6 +173,8 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c2DescMobile', {
         defaultValue: '140 pre-built sessions, 5 to 60 minutes.',
       }),
+      screen: '/app-real-home.png', // fallback: today's-session card is the nearest real screen
+      fallback: true,
     },
     {
       num: '03',
@@ -176,6 +185,8 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c3DescMobile', {
         defaultValue: 'Tell Libo your time and equipment — it builds the session.',
       }),
+      screen: '/app-real-home.png', // fallback: the "Not feeling it?" swap is the AI surface
+      fallback: true,
     },
     {
       num: '04',
@@ -186,6 +197,8 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c4DescMobile', {
         defaultValue: 'Every set, rep, and weight logged. PRs and streaks.',
       }),
+      screen: '/app-real-summary.png',
+      fallback: false,
     },
     {
       num: '05',
@@ -196,6 +209,8 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c5DescMobile', {
         defaultValue: 'Build your own workout from the full library.',
       }),
+      screen: '/app-real-run.png', // fallback
+      fallback: true,
     },
     {
       num: '06',
@@ -206,6 +221,8 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c6DescMobile', {
         defaultValue: '30 days of daily reps with real money as the proof.',
       }),
+      screen: '/app-real-rewards.png',
+      fallback: false,
     },
   ];
 
@@ -216,18 +233,21 @@ export default function Landing() {
       desc: t('relaunchHome.habit.s1Desc', {
         defaultValue: "One session, handed to you. No planning, no decisions — just today's work.",
       }),
+      screen: '/app-real-home.png',
     },
     {
       name: t('relaunchHome.habit.s2Name', { defaultValue: 'Hold the streak' }),
       desc: t('relaunchHome.habit.s2Desc', {
         defaultValue: 'Day by day the streak grows — protected by freeze tokens, and never reset to zero.',
       }),
+      screen: '/app-real-streak.png',
     },
     {
       name: t('relaunchHome.habit.s3Name', { defaultValue: 'Become someone who trains' }),
       desc: t('relaunchHome.habit.s3Desc', {
         defaultValue: "After 30 days it isn't a challenge anymore. It's who you are. That's the product.",
       }),
+      screen: '/app-real-summary.png',
     },
   ];
 
@@ -460,41 +480,6 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 3. HOW LIBO IS DIFFERENT ────────────────────────────── */}
-        <section className="rh-different">
-          <div className="rh-different-copy">
-            <p className="rh-eyebrow">
-              {t('relaunchHome.different.eyebrow', { defaultValue: 'How Libo is different' })}
-            </p>
-            <h2 className="rh-h2">
-              <ScrollRevealText as="span" className="rh-h2-line">
-                {t('relaunchHome.different.h2a', { defaultValue: 'Consistency,' })}
-              </ScrollRevealText>
-              <ScrollRevealText as="span" className="rh-h2-line rh-reveal--accent">
-                {t('relaunchHome.different.h2b', { defaultValue: 'with receipts.' })}
-              </ScrollRevealText>
-            </h2>
-            <p className="rh-body">
-              {t('relaunchHome.different.body', {
-                defaultValue:
-                  "Training on Libo is one loop: open the app, do the session, keep the streak — a missed day subtracts a day, never resets you to zero. The cash challenge is separate, and opt-in: 30 days of verified daily reps for a real payout. Money is the receipt, not the reason.",
-              })}
-            </p>
-            <Link to="/cash-challenges" viewTransition className="rh-accent-link rh-different-link">
-              {t('relaunchHome.different.link', { defaultValue: 'How the cash challenge works →' })}
-            </Link>
-          </div>
-          <div className="rh-different-cards">
-            {differentCards.map((c) => (
-              <article className="rh-card rh-diff-card" data-popin key={c.num}>
-                <span className="rh-diff-num">{c.num}</span>
-                <h3 className="rh-diff-name">{c.name}</h3>
-                <p className="rh-diff-desc">{c.desc}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
         {/* ── 4. INSIDE THE APP ───────────────────────────────────── */}
         <section className="rh-inside">
           <div className="rh-inside-inner">
@@ -586,6 +571,84 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* ── 6. THE LIBO COMMUNITY ───────────────────────────────── */}
+        <section className="rh-community">
+          <div className="rh-community-inner">
+            <div className="rh-community-head">
+              <div className="rh-community-heading">
+                <p className="rh-eyebrow">
+                  {t('relaunchHome.community.eyebrowV2', { defaultValue: 'The Libo community' })}
+                </p>
+                <h2 className="rh-h2">
+                  <ScrollRevealText as="span" className="rh-h2-line">
+                    {t('relaunchHome.community.h2a', { defaultValue: 'Your community,' })}
+                  </ScrollRevealText>
+                  <ScrollRevealText as="span" className="rh-h2-line rh-reveal--accent">
+                    {t('relaunchHome.community.h2b', { defaultValue: 'already on Libo.' })}
+                  </ScrollRevealText>
+                </h2>
+              </div>
+              <p className="rh-community-desc">
+                {t('relaunchHome.community.descV2', {
+                  defaultValue:
+                    'Real people, real faces. Logging reps, holding streaks. No coaches or influencers selling courses. Just members showing up every day.',
+                })}
+              </p>
+            </div>
+
+            <div
+              className="rh-member-rail"
+              role="group"
+              aria-label={t('relaunchHome.community.railLabel', { defaultValue: 'Libo members' })}
+            >
+              {members.map((m) => (
+                <figure className="rh-member" key={m.name}>
+                  <img className="rh-member-photo" src={`/${m.photo}`} alt={m.name} loading="lazy" />
+                  <figcaption className="rh-member-meta">
+                    <span className="rh-member-name">{m.name}</span>
+                    <span className="rh-member-sub">{m.meta}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 3. HOW LIBO IS DIFFERENT ────────────────────────────── */}
+        <section className="rh-different">
+          <div className="rh-different-copy">
+            <p className="rh-eyebrow">
+              {t('relaunchHome.different.eyebrow', { defaultValue: 'How Libo is different' })}
+            </p>
+            <h2 className="rh-h2">
+              <ScrollRevealText as="span" className="rh-h2-line">
+                {t('relaunchHome.different.h2a', { defaultValue: 'Consistency,' })}
+              </ScrollRevealText>
+              <ScrollRevealText as="span" className="rh-h2-line rh-reveal--accent">
+                {t('relaunchHome.different.h2b', { defaultValue: 'with receipts.' })}
+              </ScrollRevealText>
+            </h2>
+            <p className="rh-body">
+              {t('relaunchHome.different.body', {
+                defaultValue:
+                  'One loop: open the app, do the session, keep the streak. The cash challenge is opt-in — money is the receipt, not the reason.',
+              })}
+            </p>
+            <Link to="/cash-challenges" viewTransition className="rh-accent-link rh-different-link">
+              {t('relaunchHome.different.link', { defaultValue: 'How the cash challenge works →' })}
+            </Link>
+          </div>
+          <div className="rh-different-cards">
+            {differentCards.map((c) => (
+              <article className="rh-card rh-diff-card" data-popin key={c.num}>
+                <span className="rh-diff-num">{c.num}</span>
+                <h3 className="rh-diff-name">{c.name}</h3>
+                <p className="rh-diff-desc">{c.desc}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
         {/* ── 5. CASH CHALLENGES ──────────────────────────────────── */}
         {/* Critical on mobile: the challenges must be reachable from home
             without opening the nav (HANDOFF-V2 §B9). */}
@@ -654,43 +717,67 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 5b. EVERYTHING YOU GET ──────────────────────────────── */}
+        {/* ── 5b. EVERYTHING YOU GET — interactive phone + card list ── */}
         <section className="rh-library">
           <div className="rh-library-inner">
-            <div className="rh-library-head">
-              <h2 className="rh-h2">
-                <ScrollRevealText as="span" className="rh-h2-line">
-                  {t('relaunchHome.library.h2a', { defaultValue: 'Everything' })}
-                </ScrollRevealText>
-                <ScrollRevealText as="span" className="rh-h2-line">
-                  {t('relaunchHome.library.h2b', { defaultValue: 'you get.' })}
-                </ScrollRevealText>
-              </h2>
-              <p className="rh-library-desc">
-                <span className="rh-copy--desktop">
-                  {t('relaunchHome.library.desc', {
-                    defaultValue:
-                      '641 exercises — 313 gym, 295 home, 33 mobility. 140 workouts. AI-built plans. Every format from barbell strength to morning routines.',
-                  })}
-                </span>
-                <span className="rh-copy--mobile">
-                  {t('relaunchHome.library.descMobile', {
-                    defaultValue: '641 exercises — 313 gym, 295 home, 33 mobility. 140 workouts. AI-built plans.',
-                  })}
-                </span>
-              </p>
-            </div>
-            <div className="rh-features">
-              {libraryCards.map((c) => (
-                <article className="rh-feature" data-popin key={c.num}>
-                  <span className="rh-feature-num">{c.num}</span>
-                  <h3 className="rh-feature-name">{c.name}</h3>
-                  <p className="rh-feature-desc">
-                    <span className="rh-copy--desktop">{c.desc}</span>
-                    <span className="rh-copy--mobile">{c.descMobile}</span>
-                  </p>
-                </article>
-              ))}
+            <h2 className="rh-h2 rh-h2--center rh-library-h2">
+              <ScrollRevealText as="span" className="rh-h2-line">
+                {t('relaunchHome.library.h2a', { defaultValue: 'Everything you get' })}
+              </ScrollRevealText>
+              <ScrollRevealText as="span" className="rh-h2-line rh-reveal--accent">
+                {t('relaunchHome.library.h2b', { defaultValue: 'with Libo World.' })}
+              </ScrollRevealText>
+            </h2>
+
+            <div className="rh-library-stage">
+              <div className="rh-library-device">
+                <div className="rh-library-phone">
+                  <img
+                    src={libraryCards[activeFeature].screen}
+                    alt={t('relaunchHome.library.phoneAlt', {
+                      defaultValue: '{{feature}} in the Libo app',
+                      feature: libraryCards[activeFeature].name,
+                    })}
+                    width={1206}
+                    height={2622}
+                  />
+                </div>
+                {/* Pager dots (Cal-AI style): click switches the feature. */}
+                <div className="rh-library-dots" role="tablist"
+                  aria-label={t('relaunchHome.library.dotsLabel', { defaultValue: 'App features' })}>
+                  {libraryCards.map((c, i) => (
+                    <button
+                      key={c.num}
+                      type="button"
+                      role="tab"
+                      aria-selected={i === activeFeature}
+                      aria-label={c.name}
+                      className={`rh-library-dot${i === activeFeature ? ' rh-library-dot--active' : ''}`}
+                      onClick={() => setActiveFeature(i)}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div className="rh-features">
+                {libraryCards.map((c, i) => (
+                  <button
+                    type="button"
+                    className={`rh-feature${i === activeFeature ? ' rh-feature--active' : ''}`}
+                    data-popin
+                    key={c.num}
+                    onClick={() => setActiveFeature(i)}
+                    aria-pressed={i === activeFeature}
+                  >
+                    <span className="rh-feature-num">{c.num}</span>
+                    <h3 className="rh-feature-name">{c.name}</h3>
+                    <p className="rh-feature-desc">
+                      <span className="rh-copy--desktop">{c.desc}</span>
+                      <span className="rh-copy--mobile">{c.descMobile}</span>
+                    </p>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -709,57 +796,18 @@ export default function Landing() {
           <div className="rh-habit-steps">
             {habitSteps.map((step, i) => (
               <div className="rh-habit-step" data-popin key={step.name}>
-                <span className="rh-habit-circle font-display">{i + 1}</span>
-                <h3 className="rh-habit-name">{step.name}</h3>
+                {/* Framed app capture above the caption (V4 §4). */}
+                <div className="rh-habit-screen">
+                  <img src={step.screen} alt="" loading="lazy" width={1206} height={2622} />
+                </div>
+                {/* Number badge inline BESIDE the title, not above it. */}
+                <h3 className="rh-habit-name">
+                  <span className="rh-habit-circle font-display">{i + 1}</span>
+                  {step.name}
+                </h3>
                 <p className="rh-habit-desc">{step.desc}</p>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* ── 6. THE LIBO COMMUNITY ───────────────────────────────── */}
-        <section className="rh-community">
-          <div className="rh-community-inner">
-            <div className="rh-community-head">
-              <div className="rh-community-heading">
-                <p className="rh-eyebrow">
-                  {t('relaunchHome.community.eyebrowV2', { defaultValue: 'The Libo community' })}
-                </p>
-                <h2 className="rh-h2">
-                  <ScrollRevealText as="span" className="rh-h2-line">
-                    {t('relaunchHome.community.h2a', { defaultValue: 'A club that' })}
-                  </ScrollRevealText>
-                  <ScrollRevealText as="span" className="rh-h2-line">
-                    {t('relaunchHome.community.h2b', { defaultValue: 'trains' })}
-                  </ScrollRevealText>
-                  <ScrollRevealText as="span" className="rh-h2-line">
-                    {t('relaunchHome.community.h2c', { defaultValue: 'with you.' })}
-                  </ScrollRevealText>
-                </h2>
-              </div>
-              <p className="rh-community-desc">
-                {t('relaunchHome.community.descV2', {
-                  defaultValue:
-                    'Real people, real faces. Logging reps, holding streaks. No coaches or influencers selling courses. Just members showing up every day.',
-                })}
-              </p>
-            </div>
-
-            <div
-              className="rh-member-rail"
-              role="group"
-              aria-label={t('relaunchHome.community.railLabel', { defaultValue: 'Libo members' })}
-            >
-              {members.map((m) => (
-                <figure className="rh-member" key={m.name}>
-                  <img className="rh-member-photo" src={`/${m.photo}`} alt={m.name} loading="lazy" />
-                  <figcaption className="rh-member-meta">
-                    <span className="rh-member-name">{m.name}</span>
-                    <span className="rh-member-sub">{m.meta}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
           </div>
         </section>
 
