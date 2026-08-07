@@ -1425,8 +1425,10 @@ video.rh-phone {
   .rh-inside-caps--right { display: contents; }
   .rh-inside-cap--0 { order: 0; grid-column: 1 / -1; text-align: center; }
   .rh-inside-phone-wrap { order: 1; grid-column: 1 / -1; justify-self: center; }
-  .rh-inside-cap--1 { order: 2; text-align: center; }
-  .rh-inside-cap--2 { order: 3; text-align: center; }
+  /* align-self start: the stage centres items vertically, which staggered
+     these two against each other's heights (23px in practice). */
+  .rh-inside-cap--1 { order: 2; text-align: center; align-self: start; }
+  .rh-inside-cap--2 { order: 3; text-align: center; align-self: start; }
 }
 
 /* ── Early reviews: no card chrome, left-aligned trailing row ────────────── */
