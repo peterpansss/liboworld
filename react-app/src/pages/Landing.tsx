@@ -147,10 +147,8 @@ export default function Landing() {
   ];
 
   // ── "Everything you get" — Cal-AI-style interactive phone + card list.
-  // `screen` is the capture the phone shows for that feature.
-  // ⚠ TODO(Noah): four features still need CURRENT production captures
-  // (marked `fallback: true`); until they land we show the nearest REAL
-  // screen — never a mock (HOME-RESTRUCTURE-V4 §3).
+  // All six screens are CURRENT production captures (Noah, 2026-08-07).
+  // Progress Tracking plays a screen recording; the rest are stills.
   const libraryCards = [
     {
       num: '01',
@@ -161,8 +159,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c1DescMobile', {
         defaultValue: '641 exercises with equipment notes and form cues.',
       }),
-      screen: '/app-real-run.png', // fallback: movement picker is the nearest real screen
-      fallback: true,
+      screen: '/feature-exercise-library.png', // real capture (Noah, 2026-08-07)
     },
     {
       num: '02',
@@ -173,8 +170,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c2DescMobile', {
         defaultValue: '140 pre-built sessions, 5 to 60 minutes.',
       }),
-      screen: '/app-real-home.png', // fallback: today's-session card is the nearest real screen
-      fallback: true,
+      screen: '/feature-workout-library.png', // real capture (Noah, 2026-08-07)
     },
     {
       num: '03',
@@ -185,8 +181,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c3DescMobile', {
         defaultValue: 'Tell Libo your time and equipment — it builds the session.',
       }),
-      screen: '/app-real-home.png', // fallback: the "Not feeling it?" swap is the AI surface
-      fallback: true,
+      screen: '/feature-ai-generator.png', // real capture (Noah, 2026-08-07)
     },
     {
       num: '04',
@@ -197,8 +192,9 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c4DescMobile', {
         defaultValue: 'Every set, rep, and weight logged. PRs and streaks.',
       }),
-      screen: '/app-real-summary.png',
-      fallback: false,
+      screen: '/feature-progress-poster.png',
+      // Screen recording of the Progress flow — plays in the phone when active.
+      video: '/feature-progress.mp4',
     },
     {
       num: '05',
@@ -209,8 +205,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c5DescMobile', {
         defaultValue: 'Build your own workout from the full library.',
       }),
-      screen: '/app-real-run.png', // fallback
-      fallback: true,
+      screen: '/feature-custom-builder.png', // real capture (Noah, 2026-08-07)
     },
     {
       num: '06',
@@ -222,7 +217,6 @@ export default function Landing() {
         defaultValue: '30 days of daily reps with real money as the proof.',
       }),
       screen: '/app-real-rewards.png',
-      fallback: false,
     },
   ];
 
@@ -732,15 +726,32 @@ export default function Landing() {
             <div className="rh-library-stage">
               <div className="rh-library-device">
                 <div className="rh-library-phone">
-                  <img
-                    src={libraryCards[activeFeature].screen}
-                    alt={t('relaunchHome.library.phoneAlt', {
-                      defaultValue: '{{feature}} in the Libo app',
-                      feature: libraryCards[activeFeature].name,
-                    })}
-                    width={1206}
-                    height={2622}
-                  />
+                  {'video' in libraryCards[activeFeature] && libraryCards[activeFeature].video ? (
+                    <video
+                      key={libraryCards[activeFeature].video}
+                      src={libraryCards[activeFeature].video}
+                      poster={libraryCards[activeFeature].screen}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      aria-label={t('relaunchHome.library.phoneAlt', {
+                        defaultValue: '{{feature}} in the Libo app',
+                        feature: libraryCards[activeFeature].name,
+                      })}
+                    />
+                  ) : (
+                    <img
+                      src={libraryCards[activeFeature].screen}
+                      alt={t('relaunchHome.library.phoneAlt', {
+                        defaultValue: '{{feature}} in the Libo app',
+                        feature: libraryCards[activeFeature].name,
+                      })}
+                      width={1206}
+                      height={2622}
+                    />
+                  )}
                 </div>
                 {/* Pager dots (Cal-AI style): click switches the feature. */}
                 <div className="rh-library-dots" role="tablist"

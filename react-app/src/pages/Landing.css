@@ -22,7 +22,9 @@
   background: var(--libo-bg);
   color: var(--libo-text);
   font-family: var(--libo-font-body);
-  overflow-x: hidden;
+  /* clip, not hidden: an overflow-hidden ancestor silently disables
+     position: sticky (the feature phone pins while its cards scroll). */
+  overflow-x: clip;
 }
 
 .relaunch-home a { color: var(--libo-text); text-decoration: none; }
@@ -1497,7 +1499,8 @@ video.rh-phone {
   overflow: hidden;
 }
 
-.rh-library-phone img {
+.rh-library-phone img,
+.rh-library-phone video {
   width: 100%;
   height: 100%;
   object-fit: cover;
