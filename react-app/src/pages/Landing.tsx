@@ -241,7 +241,7 @@ export default function Landing() {
       desc: t('relaunchHome.habit.s3Desc', {
         defaultValue: "After 30 days it isn't a challenge anymore. It's who you are. That's the product.",
       }),
-      screen: '/app-real-summary.png',
+      screen: '/app-real-nicework.png',
     },
   ];
 

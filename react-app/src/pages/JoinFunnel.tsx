@@ -31,8 +31,8 @@ const PRICE = `€${EARLY_ACCESS_PRICE.toFixed(2)}`; // €39.50
 const WAS_PRICE = '€79.99';
 const MEMBERSHIP_HREF = '#membership';
 
-/** Photo slot for the hero card — placeholder until "inside the club" photography lands. */
-const HERO_PHOTO = '/images/marketing/cash-challenge-hero.jpg';
+/** Hero card photo. New filename on every swap — Cloudflare caches asset URLs. */
+const HERO_PHOTO = '/images/marketing/join-hero-club.jpg';
 
 type Member = { photo: string; name: string; meta: string };
 
