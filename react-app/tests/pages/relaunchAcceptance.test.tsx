@@ -84,11 +84,12 @@ describe('relaunch acceptance — banned vocabulary', () => {
 });
 
 describe('relaunch acceptance — Founding Member funnel', () => {
-  it('carries the hero waitlist capture (DECISIONS-V3: /join is the free-waitlist page)', () => {
+  it('contains ZERO email inputs — /join sells one thing (Noah 2026-08-07)', () => {
     const { container } = render(<MemoryRouter><JoinFunnel /></MemoryRouter>);
-    expect(container.querySelectorAll('input[type="email"]')).toHaveLength(1);
-    // The hero copy promises the capture the page now has.
-    expect(pageText(container)).toContain('leave your email');
+    expect(container.querySelectorAll('input')).toHaveLength(0);
+    expect(container.querySelector('form')).toBeNull();
+    // ...and the copy no longer promises a capture that isn't there.
+    expect(pageText(container)).not.toContain('leave your email');
   });
 
   it('shows the price before checkout', () => {

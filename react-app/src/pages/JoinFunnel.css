@@ -182,57 +182,17 @@
   .jf-stores { display: none; }
 }
 
-/* Hero capture — the free ask. */
-.jf-capture {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  width: 100%;
-  max-width: 440px;
-}
 
-.jf-capture__label {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
 
-.jf-capture__input {
-  flex: 1 1 220px;
-  min-height: 52px;
-  padding: 0 18px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--card);
-  color: var(--text);
-  font-size: 16px;
-}
 
-.jf-capture__input::placeholder { color: var(--dim); }
-.jf-capture__input:focus-visible { border-color: var(--accent); }
 
 /* Variant: quiet dark button — deliberately overrides the shared .funnel-btn
    lime background/colour (JoinFunnel.css loads after FunnelChrome.css). */
-.jf-capture__btn { flex: 0 0 auto; background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
-.jf-capture__btn:hover { background: var(--bg4); color: var(--accent); border-color: var(--accent); }
 
-.jf-capture__confirm {
-  margin: 0;
-  color: var(--accent);
-  font-size: 26px;
-  text-transform: uppercase;
-}
 
-.jf-capture__error { flex-basis: 100%; margin: 0; color: var(--error); font-size: 14px; }
 
 @media (max-width: 560px) {
-  .jf-capture { flex-direction: column; align-items: stretch; max-width: none; }
-  .jf-capture__input { flex: 0 0 auto; width: 100%; height: 52px; }
-  .jf-capture__btn { width: 100%; }
-  .jf-hero__copy .jf-btn--primary { width: 100%; }
+        .jf-hero__copy .jf-btn--primary { width: 100%; }
 }
 
 /* ── 2. Beta proof strip ─────────────────────────────────────────────────── */

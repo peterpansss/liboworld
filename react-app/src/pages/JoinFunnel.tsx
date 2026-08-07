@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -12,24 +12,19 @@ import {
 } from '../components/funnel/FunnelChrome';
 import { useFoundingCheckout, EARLY_ACCESS_PRICE } from '../components/funnel/FoundingCheckoutProvider';
 import { isStripeConfigured } from '../lib/stripe';
-import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import { usePopIn } from '../utils/funnelAnimations';
 import './JoinFunnel.css';
 
 /**
- * /join — waitlist + Founding Member funnel.
+ * /join — the Founding Member funnel. Sells ONE thing.
  *
- * Two conversion events, strictly ordered (ONBOARDING-FLOW-TICKET +
- * DECISIONS-V3): the free ask is an email capture in the hero — submitting
- * confirms inline and NEVER opens payment. The paid ask is the single
- * Founding Member card (#membership); only its button opens Stripe, price
- * always on screen first.
- *
- * The target canvas renders no form — DECISIONS-V3 calls that a canvas
- * regression and mandates the capture ("/join is the free-waitlist page; an
- * email capture is its entire purpose"). Layout below otherwise follows the
- * canvas: proof strip → stats → why-the-club-holds → pocket fan → pricing →
- * FAQ → close.
+ * ZERO email capture on this page (Noah, 2026-08-07 — supersedes
+ * DECISIONS-V3, which had mandated a hero form; the canvas never had one).
+ * A free ask above a €39.50 card splits the page's conversion goal: the
+ * not-ready path is the fine-print link to the homepage waitlist under the
+ * pricing card, nothing more. Every CTA anchors to the single Founding
+ * Member card (#membership); only its button opens Stripe, price always on
+ * screen first.
  */
 
 const PRICE = `€${EARLY_ACCESS_PRICE.toFixed(2)}`; // €39.50
@@ -208,12 +203,9 @@ export default function JoinFunnel() {
             <p className="jf-hero__body">
               {t('joinFunnel.hero.body', {
                 defaultValue:
-                  "The day's training handed to you, a streak that never resets to zero, and cash challenges with real money on the line. Leave your email and you're in on launch day.",
+                  "The day's training handed to you, a streak that never resets to zero, and cash challenges with real money on the line.",
               })}
             </p>
-
-            {/* The free ask the hero copy promises — inline confirm, never payment. */}
-            <HeroCapture t={t} />
 
             <a className="funnel-btn jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
               {ctaLabel}
@@ -476,46 +468,5 @@ export default function JoinFunnel() {
           buttons); anchors to the card, never opens checkout directly. */}
       <FunnelStickyCta label={ctaUnpriced} href={MEMBERSHIP_HREF} />
     </div>
-  );
-}
-
-type TFn = (key: string, opts?: Record<string, unknown>) => string;
-
-/** Hero waitlist capture — inline confirm, payment never opens from submit. */
-function HeroCapture({ t }: { t: TFn }) {
-  const { email, setEmail, status, submit, errorMessage } = useWaitlistSubmit('homepage_waitlist');
-  const done = status === 'success' || status === 'duplicate';
-
-  if (done) {
-    return (
-      <p className="jf-capture__confirm font-display" role="status">
-        {t('joinFunnel.capture.confirm', { defaultValue: "You're on the list ✓" })}
-      </p>
-    );
-  }
-
-  return (
-    <form className="jf-capture" onSubmit={submit as (e: FormEvent) => void}>
-      <label className="jf-capture__label" htmlFor="jf-capture-email">
-        {t('joinFunnel.capture.aria', { defaultValue: 'Email address' })}
-      </label>
-      <input
-        id="jf-capture-email"
-        className="jf-capture__input"
-        type="email"
-        required
-        placeholder={t('joinFunnel.capture.placeholder', { defaultValue: 'Your email' })}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        disabled={status === 'submitting'}
-        autoComplete="email"
-      />
-      <button type="submit" className="funnel-btn jf-btn jf-capture__btn" disabled={status === 'submitting'}>
-        {t('joinFunnel.capture.btn', { defaultValue: 'Join the waitlist' })}
-      </button>
-      {status === 'error' && (
-        <p className="jf-capture__error" role="alert">{errorMessage}</p>
-      )}
-    </form>
   );
 }
