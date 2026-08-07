@@ -1355,84 +1355,9 @@ video.rh-phone {
 
 .rh-habit-desc { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
 
-/* Mobile pinned scene — desktop gets the three-across grid instead. */
-.rh-habit-scene { display: none; }
-
 @media (max-width: 767px) {
-  .rh-habit { padding: 64px 20px 0; }
-  .rh-habit-steps { display: none; }
-
-  /* Tall wrapper provides the scroll distance; the pin fills the viewport
-     and stays put while progress drives the screen + caption swap. */
-  .rh-habit-scene {
-    display: block;
-    height: 260vh;
-  }
-
-  .rh-habit-pin {
-    position: sticky;
-    top: 0;
-    height: 100vh; /* fallback where dvh is unsupported */
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding-top: 64px; /* clear the sticky nav */
-  }
-
-  .rh-habit-phone {
-    flex: 0 1 auto;
-    min-height: 0;
-    height: clamp(300px, calc(100dvh - 330px), 460px);
-    aspect-ratio: 320 / 650;
-    padding: 8px;
-    border-radius: 36px;
-    background: #161616; /* device frame — matches .rh-library-phone */
-    border: 1px solid var(--libo-bg-4);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(202, 255, 0, 0.06);
-    overflow: hidden;
-  }
-
-  .rh-habit-phone img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    border-radius: 28px;
-    display: block;
-  }
-
-  .rh-habit-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .rh-habit-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 100px;
-    background: var(--libo-bg-4);
-    transition: background 0.2s ease;
-  }
-
-  .rh-habit-dot--active { background: var(--libo-accent); }
-
-  /* All captions stack in one grid cell; the active one fades in. */
-  .rh-habit-captions {
-    display: grid;
-    max-width: 340px;
-  }
-
-  .rh-habit-caption {
-    grid-area: 1 / 1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .rh-habit-caption--active { opacity: 1; }
+  /* Deliberately absent from the mobile target. */
+  .rh-habit { display: none; }
 }
 
 /* ── Cash challenges: head-row link, squarer cards, pill CTA ─────────────── */
@@ -1692,5 +1617,4 @@ video.rh-phone {
 
 @media (prefers-reduced-motion: reduce) {
   .rh-library-dot:hover { transform: none; }
-  .rh-habit-caption { transition: none; }
 }
