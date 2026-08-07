@@ -7,6 +7,12 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 // anchor before we look for it; falls back to top if the element isn't there.
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
+  // SPA PageView (Meta-Pixel-Setup Step 2): without this the pixel counts one
+  // page per session and the five-locale funnel collapses in every report.
+  // No-ops until consent is granted; guarded against the init double-fire.
+  useEffect(() => {
+    trackPageView(pathname);
+  }, [pathname]);
   useEffect(() => {
     if (hash) {
       const id = decodeURIComponent(hash.slice(1));
@@ -32,6 +38,11 @@ import Onboarding from './pages/Onboarding';
 import { isPrelaunch } from './config/launchMode';
 import FoundingCheckoutProvider from './components/funnel/FoundingCheckoutProvider';
 import CursorFollower from './components/CursorFollower';
+import ConsentBanner from './components/ConsentBanner';
+import { initConsent, trackPageView } from './lib/consent';
+
+// If the visitor accepted on a previous visit, load GA4 + pixel immediately.
+initConsent();
 
 // Content pages — lazy loaded
 const Careers = lazy(() => import('./pages/Careers'));
@@ -73,6 +84,7 @@ export default function App() {
     <BrowserRouter>
       <ScrollToTop />
       <CursorFollower />
+      <ConsentBanner />
       <FoundingCheckoutProvider>
       <Routes>
         <Route path="/" element={<Landing />} />

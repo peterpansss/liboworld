@@ -1,0 +1,83 @@
+/* Cookie consent banner — bottom sheet, dark theme, equal-weight actions. */
+
+.consent {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 300; /* above the nav (200) and funnel sticky bars (60) */
+  padding: 16px;
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+}
+
+.consent__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.consent__text {
+  flex: 1 1 420px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.consent__link {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.consent__actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Equal size and prominence — only the fill differs. */
+.consent__btn {
+  min-height: 44px;
+  min-width: 110px;
+  padding: 0 22px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg3);
+  color: var(--text);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.consent__btn:hover {
+  border-color: var(--accent);
+}
+
+.consent__btn--accept {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.consent__btn--accept:hover {
+  background: var(--accent2);
+}
+
+@media (max-width: 560px) {
+  .consent__actions {
+    width: 100%;
+  }
+  .consent__btn {
+    flex: 1 1 0;
+  }
+}

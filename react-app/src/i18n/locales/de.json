@@ -287,7 +287,8 @@
     "bestHome": "Home Workouts",
     "copyrightShort": "© 2026 Libo World",
     "tagline": "The training club that pays your consistency. iOS & Android, coming soon.",
-    "popularLabel": "Popular:"
+    "popularLabel": "Popular:",
+    "cookieSettings": "Cookie settings"
   },
   "onboarding": {
     "topBar": {
@@ -2531,5 +2532,12 @@
     "agree": "I agree to Libo's Terms of Service",
     "submitting": "Submitting…",
     "submit": "Apply"
+  },
+  "consent": {
+    "aria": "Cookie consent",
+    "text": "We use cookies for analytics and marketing — only if you agree. You can change your choice any time via \"Cookie settings\" in the footer.",
+    "privacyLink": "Privacy Policy",
+    "reject": "Reject",
+    "accept": "Accept"
   }
 }

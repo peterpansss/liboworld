@@ -12,8 +12,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <!-- Fonts (Inter + Barlow Condensed) self-hosted via @fontsource; imported in src/main.tsx -->
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R05YQ1CH2N"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R05YQ1CH2N');</script>
+    <!-- GA4 + Meta Pixel are consent-gated: they load from src/lib/consent.ts
+         only after the visitor accepts the cookie banner (Meta-Pixel-Setup
+         Step 0). Do not re-add unconditional tracking scripts here. -->
   </head>
   <body>
     <div id="root"></div>

@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import type { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { trackLead } from '../lib/consent';
 import { supabase } from '../lib/supabase';
 
 export type WaitlistStatus = 'idle' | 'submitting' | 'success' | 'duplicate' | 'error';
@@ -38,6 +39,9 @@ export function useWaitlistSubmit(source: WaitlistSource = 'homepage_waitlist'):
 
       if (!error) {
         setStatus('success');
+      // Meta Lead — fires ONLY on confirmed insert (not click, not duplicate:
+      // a duplicate is someone who already converted). No-op without consent.
+      trackLead();
       } else if (error.code === '23505') {
         setStatus('duplicate');
       } else {

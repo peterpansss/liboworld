@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import LiboLogo from './LiboLogo';
 import StoreBadges from './StoreBadges';
+import { resetConsent } from '../lib/consent';
 import { isPrelaunch } from '../config/launchMode';
 import './SiteFooter.css';
 
@@ -99,6 +100,10 @@ export default function SiteFooter() {
             <div className="site-footer__legal">
               <Link to="/terms">{t('footer.termsAndConditions')}</Link>
               <Link to="/privacy">{t('footer.privacy')}</Link>
+              {/* Re-opens the consent banner — the choice must stay revocable. */}
+              <button type="button" className="site-footer__consent" onClick={resetConsent}>
+                {t('footer.cookieSettings', { defaultValue: 'Cookie settings' })}
+              </button>
             </div>
             <LanguageSwitcher variant="footer" />
           </div>

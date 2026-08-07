@@ -276,3 +276,15 @@
   .site-footer__popular { display: none; }
   .site-footer__brand { max-width: none; }
 }
+
+
+/* Cookie settings — styled like the sibling legal links. */
+.site-footer__consent {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.site-footer__consent:hover { color: var(--accent); }
