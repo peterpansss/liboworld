@@ -75,8 +75,11 @@ export function loadTrackers(): void {
 
   // ── GA4 (was unconditional in index.html; consent-gated now) ──
   window.dataLayer = window.dataLayer || [];
-  function gtag(...args: unknown[]) {
-    window.dataLayer!.push(args);
+  // gtag.js ONLY processes `arguments` objects pushed onto the dataLayer —
+  // plain arrays are silently ignored, which kills all measurement.
+  function gtag(..._args: unknown[]) {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer!.push(arguments);
   }
   window.gtag = gtag;
   gtag('js', new Date());
