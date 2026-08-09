@@ -7,7 +7,17 @@ import { colors } from '../../theme';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+// workout_logs.duration is MINUTES (the app rounds before syncing);
+// duration_seconds is the real elapsed time from workout_sessions when the
+// feed RPC provides it. Show second precision when we have it, honest
+// minute precision when we don't — never format minutes as M:SS again.
+const durationSeconds = (r: Pick<WorkoutLogRow, 'duration' | 'duration_seconds'>) =>
+  r.duration_seconds ?? r.duration * 60;
+const fmtDuration = (r: Pick<WorkoutLogRow, 'duration' | 'duration_seconds'>) => {
+  if (r.duration_seconds == null) return `${r.duration} min`;
+  const s = r.duration_seconds;
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+};
 
 const fmtDateTime = (iso: string) => {
   const d = new Date(iso);
@@ -104,7 +114,7 @@ export function ActivityPage() {
   };
 
   const exportCsv = () => {
-    const header = ['time', 'user_name', 'user_email', 'workout_name', 'emoji', 'duration_seconds', 'duration_formatted', 'exercise_count', 'user_id', 'workout_id'];
+    const header = ['time', 'user_name', 'user_email', 'workout_name', 'emoji', 'duration_minutes', 'duration_seconds', 'duration_formatted', 'exercise_count', 'user_id', 'workout_id'];
     const lines = [header.join(',')];
     for (const r of rows) {
       lines.push([
@@ -114,7 +124,8 @@ export function ActivityPage() {
         r.workout_name,
         r.emoji ?? '',
         r.duration,
-        fmt(r.duration),
+        r.duration_seconds ?? '',
+        fmtDuration(r),
         r.exercise_count,
         r.user_id,
         r.workout_id,
@@ -171,10 +182,10 @@ export function ActivityPage() {
       align: 'right',
       render: (r) => (
         <span style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: 16, color: colors.text }}>
-          {fmt(r.duration)}
+          {fmtDuration(r)}
         </span>
       ),
-      sort: (a, b) => a.duration - b.duration,
+      sort: (a, b) => durationSeconds(a) - durationSeconds(b),
     },
     {
       key: 'exercises',

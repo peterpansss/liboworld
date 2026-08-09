@@ -75,7 +75,11 @@ export type WorkoutLogRow = {
   user_email: string | null;
   workout_id: string;
   workout_name: string;
+  /** MINUTES — the mobile app rounds before syncing to workout_logs. */
   duration: number;
+  /** Real elapsed seconds from workout_sessions; absent until the
+      activity-feed-duration-seconds migration runs, NULL for old logs. */
+  duration_seconds?: number | null;
   exercise_count: number;
   emoji: string | null;
   date: string;
