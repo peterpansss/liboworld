@@ -98,7 +98,7 @@
     "flowStep2": "Filme",
     "flowStep3": "Partage",
     "flowStep4": "Encaisse",
-    "spots": "37 places sur 50 prises"
+    "spots": "Places limitées"
   },
   "categories": {
     "eyebrow": "Formats d'Entraînement",
@@ -600,7 +600,7 @@
   "challengeWaitlist": {
     "buttonLabel": "PRÉVIENS-MOI AU LANCEMENT",
     "modalHeading": "REÇOIS L’INFO DU LANCEMENT",
-    "modalSubhead": "50 personnes s'entraînent en même temps. Quand quelqu'un termine ou abandonne, la personne suivante dans la file prend sa place. Tes 30 jours démarrent dès que tu entres — aucune attente.",
+    "modalSubhead": "Les places sont limitées. Quand quelqu'un termine ou abandonne, sa place se libère — tout le monde en attente est prévenu au même instant, et le premier à la prendre entre. Tes 30 jours démarrent dès que tu entres — aucune attente.",
     "emailPlaceholder": "Ton email",
     "submitLabel": "PRÉVIENS-MOI",
     "disclosure": "On ne te spamme pas. Désabonne-toi quand tu veux.",
@@ -609,7 +609,7 @@
     "duplicateMessage": "Tu es déjà sur la liste !",
     "errorMessage": "Un problème est survenu. Réessaie.",
     "cardDisclosure": "Challenge de régularité de 30 jours qui paie en cash. iOS d'abord.",
-    "bodyParagraph": "50 personnes s'entraînent en même temps. Quand quelqu'un termine ou abandonne, la personne suivante dans la file prend sa place.",
+    "bodyParagraph": "Les places sont limitées. Quand quelqu'un termine ou abandonne, sa place se libère — tout le monde en attente est prévenu au même instant, et le premier à la prendre entre.",
     "heroDiscoveryLink": "Des gains en cash ? Voir comment ça marche →"
   },
   "blogPreview": {
@@ -1027,7 +1027,7 @@
   },
   "cashChallengeFunnel": {
     "seoTitle": "Gagne €250 en t'entraînant · Défi Cash Libo",
-    "seoDescription": "Fais 30 jours consécutifs de répétitions dans l'app Libo et gagne du vrai cash. Paliers €10 / €20 / €90 — 50 places en simultané..",
+    "seoDescription": "Fais 30 jours consécutifs de répétitions dans l'app Libo et gagne du vrai cash. Paliers €10 / €20 / €90 — places limitées.",
     "countdownLabel": "Le prochain cycle commence dans",
     "eyebrow": "Défi Cash",
     "headline1": "Entraîne-toi 30 jours.",
@@ -1039,7 +1039,7 @@
     "ctaReserve": "Télécharger l'app",
     "ctaError": "Quelque chose a mal tourné — réessaie",
     "emailPlaceholder": "ton@email.com",
-    "scarcityLine": "Chaque cycle est limité à 50 challengers, inscription in-app premier arrivé premier servi. Le compte à rebours commence à la date fixe OU quand 50 ont rejoint — selon ce qui arrive en premier.",
+    "scarcityLine": "Les places sont limitées et les inscriptions sont continues — tes 30 jours commencent le jour où tu t'inscris. Quand quelqu'un termine ou abandonne, sa place se libère et le premier à la prendre entre.",
     "badges": {
       "mostPopular": "Le plus populaire",
       "biggestPayout": "Plus gros gain"
@@ -1080,7 +1080,7 @@
     "howItWorksTitle": "Comment fonctionne le défi cash",
     "howItWorksSub": "Format cohorte — tous les participants courent le compte à rebours de 30 jours ensemble. Manque un jour sans jeton freeze, tu es éliminé. Termine, tu es payé.",
     "step1Title": "Télécharge & rejoins ton palier",
-    "step1Body": "Choisis ton palier dans l'app. Chaque cycle est limité à 50, premier arrivé premier servi — le compte à rebours commence à la date fixe OU quand 50 ont rejoint, selon ce qui arrive en premier.",
+    "step1Body": "Choisis ton palier dans l'app. Les places sont limitées et c'est premier arrivé, premier servi — et tes 30 jours commencent le jour où tu t'inscris.",
     "step2Title": "Reps quotidiennes dans l'app",
     "step2Body": "30/50/100 reps par jour selon le palier. Les pompes sont comptées automatiquement par caméra. Squats et tractions au compteur tap. Fractionnable sur plusieurs sessions.",
     "step3Title": "Ne casse pas la chaîne",
@@ -1116,7 +1116,7 @@
       "q8": "Et si je suis débutant ?",
       "a8": "Commence avec Starter (100 reps/jour) — c'est environ 5 minutes de travail, fractionnables sur la journée. Le nombre de reps est atteignable ; la discipline est le vrai défi."
     },
-    "finalCtaTitle": "Rejoins le prochain cycle — 50 places, premier arrivé premier servi",
+    "finalCtaTitle": "Lance tes 30 jours — places limitées, premier arrivé premier servi",
     "finalCta": "Télécharger l'app",
     "storeOverlay": {
       "title": "Télécharge l'app Libo",
@@ -1223,7 +1223,7 @@
       "eyebrow": "Ce qui rend Libo différent",
       "h2Line1": "La plupart des apps promettent la motivation.",
       "h2Accent": "Libo la paie.",
-      "body": "Rejoins un challenge de 30 jours, atteins tes reps quotidiennes, poste la preuve, et encaisse du vrai argent. Pas de points, pas de cartes cadeaux — juste de l'argent dans ta poche. 50 places en simultané gardent tout ça honnête.",
+      "body": "Rejoins un challenge de 30 jours, atteins tes reps quotidiennes, poste la preuve, et encaisse du vrai argent. Pas de points, pas de cartes cadeaux — juste de l'argent dans ta poche. Les places limitées gardent tout ça honnête.",
       "quote": "Tu n'as pas perdu €15 — tu t'es offert un corps pour €0.",
       "quoteAuthor": "Noah F.",
       "quoteSource": "30 Days, One Habit, Real Money",
@@ -1424,7 +1424,7 @@
       "q1": "En quoi Libo est différent des autres apps de fitness ?",
       "a1": "Libo réunit une immense bibliothèque d'exercices, des programmes structurés, le suivi de progression et de vrais cash challenges dans une seule app — avec une interface sombre premium qui ne te gêne jamais. Pas de pubs, pas de fouillis. La plupart des apps promettent la motivation ; Libo paie littéralement en cash la régularité.",
       "q2": "Comment fonctionnent les Cash Challenges ?",
-      "a2": "Rejoins un challenge de 30 jours (ex. 100 reps par jour), filme-toi en train de finir tes reps chaque jour, partage dans tes stories, et encaisse du vrai argent une fois terminé. Places limitées par challenge.",
+      "a2": "Rejoins un challenge de 30 jours (ex. 100 reps par jour), filme-toi en train de finir tes reps chaque jour, partage dans tes stories, et encaisse du vrai argent une fois terminé. Les places sont limitées, et tes 30 jours commencent dès que tu t'inscris.",
       "q3": "Libo est-il gratuit ?",
       "a3": "Libo propose une offre gratuite avec accès aux entraînements, aux exercices, au suivi de base, aux concours de produits courants, et à un cash challenge d'entrée de gamme. Premium débloque la bibliothèque complète, des analyses avancées, des récompenses en cash plus élevées (jusqu'à €50) et les concours Premium.",
       "q4": "De quel matériel ai-je besoin ?",
@@ -1439,9 +1439,9 @@
       "a8": "Chaque série, rep et charge est enregistrée. Libo suit ton historique d'entraînement, tes records perso, tes séries, et montre ta progression dans le temps avec des graphiques clairs."
     },
     "finalCapture": {
-      "h2Line1": "50 places.",
+      "h2Line1": "Places limitées.",
       "h2Accent": "Commence le jour où tu entres.",
-      "body": "50 personnes s'entraînent en même temps. Quand quelqu'un termine ou abandonne, la personne suivante dans la file prend sa place.",
+      "body": "Les places sont limitées. Quand quelqu'un termine ou abandonne, sa place se libère — tout le monde en attente est prévenu au même instant, et le premier à la prendre entre.",
       "confirm": "Tu es sur la liste.",
       "emailPlaceholder": "Ton email",
       "button": "Préviens-moi au lancement",
@@ -1692,10 +1692,10 @@
   "relaunchChallenges": {
     "hero": {
       "badge1": "Challenge de 30 jours",
-      "badge2": "50 places en simultané",
+      "badge2": "Places limitées",
       "h1Line1": "Entraîne-toi 30 jours.",
       "h1Accent": "Gagne du vrai cash.",
-      "sub": "30 jours. Des reps quotidiennes. Poste la preuve. Encaisse. Pas de points, pas de cartes cadeaux — juste de l'argent dans ta poche. 50 places en simultané gardent tout ça honnête.",
+      "sub": "30 jours. Des reps quotidiennes. Poste la preuve. Encaisse. Pas de points, pas de cartes cadeaux — juste de l'argent dans ta poche. Les places limitées gardent tout ça honnête.",
       "cta": "Reçois l’info du lancement →",
       "imgAlt": "Écran des récompenses Libo : money challenge, 100 reps sur 30 jours, récompense en cash"
     },
@@ -1737,7 +1737,7 @@
           "name": "Starter",
           "desc": "Le challenge d'entrée de gamme, ouvert à tous les membres. Prouve l'habitude avant de monter les enjeux.",
           "daily": "30 reps / jour",
-          "spots": "50 places / cycle"
+          "spots": "Places limitées"
         },
         {
           "plan": "Premium",
@@ -1745,7 +1745,7 @@
           "name": "Committed",
           "desc": "Le palier intermédiaire pour les membres qui tiennent déjà une série et veulent de vrais enjeux dessus.",
           "daily": "60 reps / jour",
-          "spots": "50 places / cycle"
+          "spots": "Places limitées"
         },
         {
           "plan": "Premium",
@@ -1753,7 +1753,7 @@
           "name": "Flagship",
           "desc": "100 reps par jour, chaque jour, pendant 30 jours. Le challenge que tout le club regarde.",
           "daily": "100 reps / jour",
-          "spots": "50 places / cycle"
+          "spots": "Places limitées"
         }
       ]
     },
@@ -1764,7 +1764,7 @@
       "items": [
         {
           "title": "Les places sont vraiment limitées",
-          "body": "Chaque cycle est plafonné à 50 participants. Pas un compteur marketing — la cagnotte est du vrai argent, donc le groupe a une vraie taille."
+          "body": "Les places sont limitées. Pas un compteur marketing — la cagnotte est du vrai argent, donc la limite est réelle."
         },
         {
           "title": "La preuve est vraiment obligatoire",
@@ -1781,9 +1781,9 @@
       ]
     },
     "reserve": {
-      "h2Line1": "50 places.",
+      "h2Line1": "Places limitées.",
       "h2Accent": "Commence le jour où tu entres.",
-      "body": "50 personnes s'entraînent en même temps. Quand quelqu'un termine ou abandonne, la personne suivante dans la file prend sa place. Tes 30 jours démarrent dès que tu entres — aucune attente.",
+      "body": "Les places sont limitées. Quand quelqu'un termine ou abandonne, sa place se libère — tout le monde en attente est prévenu au même instant, et le premier à la prendre entre. Tes 30 jours démarrent dès que tu entres — aucune attente.",
       "confirm": "Tu es sur la liste.",
       "emailPlaceholder": "Ton email",
       "button": "Préviens-moi",
@@ -1791,7 +1791,7 @@
     },
     "seo": {
       "title": "Money Challenges — Entraîne-toi 30 jours, gagne du vrai cash | Libo",
-      "description": "30 jours. Des reps quotidiennes. Poste la preuve. Encaisse. Pas de points, pas de cartes cadeaux — juste du vrai argent. 50 places en simultané gardent tout ça honnête."
+      "description": "30 jours. Des reps quotidiennes. Poste la preuve. Encaisse. Pas de points, pas de cartes cadeaux — juste du vrai argent. Les places limitées gardent tout ça honnête."
     }
   },
   "relaunchPress": {
@@ -1833,7 +1833,7 @@
       },
       {
         "label": "Groupes de challenge",
-        "value": "50 places / 30 jours"
+        "value": "Places limitées / 30 jours"
       }
     ],
     "boilerplate": {
@@ -1944,8 +1944,8 @@
       "checkout": "Clique pour entrer — {{price}}/an →"
     },
     "bar": {
-      "full": "⚡ 50 places par challenge — tes 30 jours commencent dès que tu t'inscris ⚡",
-      "short": "⚡ 50 places — tes 30 jours commencent dès que tu t'inscris ⚡"
+      "full": "⚡ Places limitées — tes 30 jours commencent dès que tu t'inscris ⚡",
+      "short": "⚡ Places limitées — tes 30 jours commencent dès que tu t'inscris ⚡"
     },
     "back": "Retour aux challenges",
     "hero": {
@@ -2006,7 +2006,7 @@
       "upsell": "Tu veux les paliers €15 et €50 ? Passe à Premium — -50% →",
       "title": "Bloque l'année avant le lancement.",
       "per": "/ an",
-      "body": "Premium débloque ce palier — il ne réserve pas de place. Premier arrivé, premier servi, 50 places à la fois. Si le challenge est complet, demande à rejoindre et tu es prévenu à la seconde où une place se libère.",
+      "body": "Premium débloque ce palier — il ne réserve pas de place. Les places sont limitées et c'est premier arrivé, premier servi. Si le challenge est complet, demande à rejoindre et tu es prévenu à la seconde où une place se libère.",
       "note": "Intégralement remboursable jusqu'au lancement.",
       "eyebrowFree": "Upgrade optionnel · -50% jusqu'au lancement",
       "eyebrow": "Premium · -50% jusqu'au lancement",
@@ -2047,9 +2047,9 @@
       }
     },
     "close": {
-      "line1": "50 places.",
+      "line1": "Places limitées.",
       "line2": "Commence le jour où tu t'inscris.",
-      "sub": "Premium débloque ce palier — l'entrée est premier arrivé, premier servi, 50 places à la fois. Si c'est complet, tu es prévenu à la seconde où une place se libère. Première année à -50% jusqu'au lancement, intégralement remboursable.",
+      "sub": "Premium débloque ce palier — l'entrée est premier arrivé, premier servi, et les places sont limitées. Si c'est complet, tu es prévenu à la seconde où une place se libère. Première année à -50% jusqu'au lancement, intégralement remboursable.",
       "waitlist": "Rejoins plutôt la liste d'attente gratuite",
       "subFree": "Le challenge Starter à €5 est gratuit pour chaque membre — laisse ton e-mail et tu es là le jour du lancement. Premier arrivé, premier servi.",
       "upsell": "Tu veux les paliers €15 et €50 ? Passe à Premium — -50% →"
@@ -2304,7 +2304,7 @@
       },
       "challenges": {
         "q": "Comment marchent les cash challenges ?",
-        "a": "Choisis un challenge et atteins son objectif de reps quotidien pendant 30 jours. Tu enregistres chaque séance dans l'app, donc le run est vérifié — impossible de tricher. Tes 30 jours commencent dès que tu t'inscris, et finir paie en vrai cash. Premium débloque les paliers plus gros ; les places sont premier arrivé, premier servi, 50 à la fois."
+        "a": "Choisis un challenge et atteins son objectif de reps quotidien pendant 30 jours. Tu enregistres chaque séance dans l'app, donc le run est vérifié — impossible de tricher. Tes 30 jours commencent dès que tu t'inscris, et finir paie en vrai cash. Premium débloque les paliers plus gros ; les places sont limitées et c'est premier arrivé, premier servi."
       },
       "monthlyPrice": {
         "q": "Ça veut dire quoi, €6.67/mois ?",
@@ -2373,7 +2373,7 @@
     "joinCta": {
       "h2Line1": "Fais partie du",
       "h2Accent": "chapitre un.",
-      "body": "50 places à la fois dans le cash challenge. Un prix Founding Member qui se termine au lancement. C'est tout le pitch.",
+      "body": "Places limitées dans le cash challenge. Un prix Founding Member qui se termine au lancement. C'est tout le pitch.",
       "ctaPrimary": "Recevoir l'annonce du lancement →",
       "ctaSecondary": "Voir les prix"
     }
@@ -2426,7 +2426,7 @@
       "payoutLabel": "Gains des challenges",
       "payoutValue": "€5–€50 / cycle",
       "cohortLabel": "Cohortes de challenge",
-      "cohortValue": "50 places / 30 jours"
+      "cohortValue": "Places limitées / 30 jours"
     },
     "shots": {
       "streak": "Série lancée",

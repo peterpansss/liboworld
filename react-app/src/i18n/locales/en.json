@@ -209,7 +209,7 @@
   "challengeWaitlist": {
     "buttonLabel": "NOTIFY ME AT LAUNCH",
     "modalHeading": "GET THE LAUNCH NOTICE",
-    "modalSubhead": "50 people train at once. When someone finishes or drops, the next person in line gets their spot. Your 30 days start the moment you're in — no waiting for a cycle.",
+    "modalSubhead": "Spots are limited. When someone finishes or drops out, their spot opens — everyone waiting is alerted at the same moment, and the first to take it gets in. Your 30 days start the moment you're in — no waiting for a cycle.",
     "emailPlaceholder": "Your email",
     "submitLabel": "NOTIFY ME AT LAUNCH",
     "disclosure": "We won't spam you. Unsubscribe any time.",
@@ -218,7 +218,7 @@
     "duplicateMessage": "You're already on the list!",
     "errorMessage": "Something went wrong. Please try again.",
     "cardDisclosure": "30-day Consistency Challenge that pays cash. iOS first.",
-    "bodyParagraph": "50 people train at once. When someone finishes or drops, the next person in line gets their spot.",
+    "bodyParagraph": "Spots are limited. When someone finishes or drops out, their spot opens — everyone waiting is alerted at the same moment, and the first to take it gets in.",
     "heroDiscoveryLink": "Cash payouts? See how it works →"
   },
   "blogPreview": {
@@ -1095,7 +1095,7 @@
     "howItWorksTitle": "How the cash challenge works",
     "howItWorksSub": "Cohort-based — all participants run the 30-day clock together. Miss a day with no freeze tokens, you're out. Finish, you get paid.",
     "step1Title": "Download & join your tier",
-    "step1Body": "Pick your tier inside the app. Each cycle is capped at 50, first-come-first-served — the clock starts on the fixed date OR when 50 join, whichever comes first.",
+    "step1Body": "Pick your tier inside the app. Spots are limited and first come, first served — and your 30 days start the day you join.",
     "step2Title": "Daily reps in the app",
     "step2Body": "30/50/100 reps per day by tier. Push-ups auto-count via camera. Squats and pull-ups use a tap counter. Splittable across sessions.",
     "step3Title": "Don't break the chain",
@@ -1461,7 +1461,7 @@
     "finalCapture": {
       "h2Line1": "Limited spots.",
       "h2Accent": "Start the day you join.",
-      "body": "50 people train at once. When someone finishes or drops, the next person in line gets their spot.",
+      "body": "Spots are limited. When someone finishes or drops out, their spot opens — everyone waiting is alerted at the same moment, and the first to take it gets in.",
       "confirm": "You're on the list.",
       "emailPlaceholder": "Your email",
       "button": "Notify me at launch",
@@ -1844,7 +1844,7 @@
       "items": [
         {
           "title": "The spots are really limited",
-          "body": "Each cycle caps at 50 participants. Not a marketing counter — the payout pool is real money, so the cohort has a real size."
+          "body": "Spots are limited. Not a marketing counter — the payout pool is real money, so the cap is real too."
         },
         {
           "title": "The proof is really required",
@@ -1863,7 +1863,7 @@
     "reserve": {
       "h2Line1": "Limited spots.",
       "h2Accent": "Start the day you join.",
-      "body": "50 people train at once. When someone finishes or drops, the next person in line gets their spot. Your 30 days start the moment you're in — no waiting for a cycle.",
+      "body": "Spots are limited. When someone finishes or drops out, their spot opens — everyone waiting is alerted at the same moment, and the first to take it gets in. Your 30 days start the moment you're in — no waiting for a cycle.",
       "confirm": "You're on the list.",
       "emailPlaceholder": "Your email",
       "button": "Notify me at launch",
@@ -2067,7 +2067,7 @@
       "upsell": "Want the €15 and €50 tiers? Get Premium — 50% off →",
       "title": "Lock in the year before we launch.",
       "per": "/ year",
-      "body": "Premium unlocks this tier — it does not reserve a place. Spots are first come, first served, 50 at a time. If the challenge is full, request to join and you are notified the second a spot frees.",
+      "body": "Premium unlocks this tier — it does not reserve a place. Spots are limited and first come, first served. If the challenge is full, request to join and you are notified the second a spot frees.",
       "note": "Fully refundable until launch.",
       "eyebrowFree": "Optional upgrade · 50% off until launch",
       "eyebrow": "Premium · 50% off until launch",
@@ -2365,7 +2365,7 @@
       },
       "challenges": {
         "q": "How do the cash challenges work?",
-        "a": "Pick a challenge and hit its daily rep target for 30 days. You record each session in the app, so the run is verified — there is no way to fake it. Your 30 days start the moment you join, and finishing pays out in real cash. Premium unlocks the bigger tiers; spots are first come, first served, 50 at a time."
+        "a": "Pick a challenge and hit its daily rep target for 30 days. You record each session in the app, so the run is verified — there is no way to fake it. Your 30 days start the moment you join, and finishing pays out in real cash. Premium unlocks the bigger tiers; spots are limited and first come, first served."
       },
       "monthlyPrice": {
         "q": "What does €6.67/mo mean?",
