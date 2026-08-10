@@ -98,7 +98,7 @@
     "flowStep2": "Record",
     "flowStep3": "Share",
     "flowStep4": "Cash Out",
-    "spots": "37 of 50 spots taken"
+    "spots": "Limited spots"
   },
   "categories": {
     "eyebrow": "Training Formats",
@@ -1042,7 +1042,7 @@
   },
   "cashChallengeFunnel": {
     "seoTitle": "Get Paid €250 to Work Out · Libo Cash Challenge",
-    "seoDescription": "Complete 30 consecutive days of reps in the Libo app and earn real cash. €5 / €10 / €50 tiers — 50 spots at a time.",
+    "seoDescription": "Complete 30 consecutive days of reps in the Libo app and earn real cash. €5 / €10 / €50 tiers — limited spots.",
     "countdownLabel": "Next cycle starts in",
     "eyebrow": "Cash Challenge",
     "headline1": "Train 30 days.",
@@ -1054,7 +1054,7 @@
     "ctaReserve": "Get the app",
     "ctaError": "Something went wrong — try again",
     "emailPlaceholder": "your@email.com",
-    "scarcityLine": "Each cycle is capped at 50 challengers, joined in-app first-come-first-served. The clock starts on the fixed date OR when 50 join — whichever comes first.",
+    "scarcityLine": "Spots are limited and enrolment is rolling — your 30 days start the day you join. When someone finishes or drops out, their spot opens and the first to take it gets in.",
     "badges": {
       "mostPopular": "Most popular",
       "biggestPayout": "Biggest payout"
@@ -1131,7 +1131,7 @@
       "q8": "What if I'm a beginner?",
       "a8": "Start with Starter (100 reps/day) — that's about 5 minutes of work, splittable across the day. The rep count is achievable; the discipline is the challenge."
     },
-    "finalCtaTitle": "Join the next cycle — 50 spots, first-come-first-served",
+    "finalCtaTitle": "Start your 30 days — limited spots, first come, first served",
     "finalCta": "Get the app",
     "storeOverlay": {
       "title": "Get the Libo app",
@@ -1243,7 +1243,7 @@
       "eyebrow": "How Libo is different",
       "h2Line1": "Most apps promise motivation.",
       "h2Accent": "Libo pays it.",
-      "body": "Join a 30-day challenge, hit your daily reps, post the proof, and cash out real money. No points, no gift cards — just money in your pocket. 50 spots at a time keeps it honest.",
+      "body": "Join a 30-day challenge, hit your daily reps, post the proof, and cash out real money. No points, no gift cards — just money in your pocket. Limited spots keeps it honest.",
       "quote": "You didn't lose €15 — you bought yourself a body for €0.",
       "quoteAuthor": "Noah F.",
       "quoteSource": "30 Days, One Habit, Real Money",
@@ -1444,7 +1444,7 @@
       "q1": "How is Libo different from other fitness apps?",
       "a1": "Libo combines a massive exercise library, structured programs, progress tracking, and real cash challenges in one app — with a premium dark UI that stays out of your way. No ads, no clutter. Most apps promise motivation; Libo literally pays cash for consistency.",
       "q2": "How do the Cash Challenges work?",
-      "a2": "Join a 30-day challenge (e.g. 100 reps daily), record yourself completing the reps each day — verified in-app, no way to cheat it — and cash out real money when you finish. 50 spots at a time, and your 30 days start the moment you join.",
+      "a2": "Join a 30-day challenge (e.g. 100 reps daily), record yourself completing the reps each day — verified in-app, no way to cheat it — and cash out real money when you finish. Spots are limited, and your 30 days start the moment you join.",
       "q3": "Is Libo free?",
       "a3": "Libo offers a free tier with access to workouts, exercises, basic tracking, an activity streak and points, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, 2 freeze tokens per challenge, and the €15 and €50 challenge tiers.",
       "q4": "What equipment do I need?",
@@ -1459,7 +1459,7 @@
       "a8": "Every set, rep, and weight is logged. Libo tracks your workout history, personal records, streaks, and shows your progress over time with clear charts."
     },
     "finalCapture": {
-      "h2Line1": "50 spots.",
+      "h2Line1": "Limited spots.",
       "h2Accent": "Start the day you join.",
       "body": "50 people train at once. When someone finishes or drops, the next person in line gets their spot.",
       "confirm": "You're on the list.",
@@ -1760,7 +1760,7 @@
     "joinCta": {
       "h2Line1": "Be part of",
       "h2Accent": "chapter one.",
-      "body": "50 spots at a time in the cash challenge. A Founding Member price that ends at launch. That’s the whole pitch.",
+      "body": "Limited spots in the cash challenge. A Founding Member price that ends at launch. That’s the whole pitch.",
       "ctaPrimary": "Get the launch notice →",
       "ctaSecondary": "See pricing"
     }
@@ -1768,14 +1768,14 @@
   "relaunchChallenges": {
     "seo": {
       "title": "Money Challenges — Train 30 Days, Earn Real Cash | Libo",
-      "description": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just real money. 50 spots at a time keeps it honest."
+      "description": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just real money. Limited spots keeps it honest."
     },
     "hero": {
       "badge1": "30-day challenge",
-      "badge2": "50 spots at a time",
+      "badge2": "Limited spots",
       "h1Line1": "Train 30 days.",
       "h1Accent": "Earn real cash.",
-      "sub": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just money in your pocket. 50 spots at a time keeps it honest.",
+      "sub": "30 days. Daily reps. Post the proof. Cash out. No points, no gift cards — just money in your pocket. Limited spots keeps it honest.",
       "cta": "Get the launch notice →",
       "imgAlt": "Libo rewards screen: money challenge, 100 reps over 30 days, cash reward"
     },
@@ -1817,7 +1817,7 @@
           "name": "Starter",
           "desc": "The entry-level challenge, open to every member. Prove the habit before you raise the stakes.",
           "daily": "30 reps / day",
-          "spots": "50 spots / cycle"
+          "spots": "Limited spots"
         },
         {
           "plan": "Premium",
@@ -1825,7 +1825,7 @@
           "name": "Committed",
           "desc": "The middle tier for members who already hold a streak and want real stakes on it.",
           "daily": "60 reps / day",
-          "spots": "50 spots / cycle"
+          "spots": "Limited spots"
         },
         {
           "plan": "Premium",
@@ -1833,7 +1833,7 @@
           "name": "Flagship",
           "desc": "100 reps a day, every day, for 30 days. The challenge the whole club watches.",
           "daily": "100 reps / day",
-          "spots": "50 spots / cycle"
+          "spots": "Limited spots"
         }
       ]
     },
@@ -1861,7 +1861,7 @@
       ]
     },
     "reserve": {
-      "h2Line1": "50 spots.",
+      "h2Line1": "Limited spots.",
       "h2Accent": "Start the day you join.",
       "body": "50 people train at once. When someone finishes or drops, the next person in line gets their spot. Your 30 days start the moment you're in — no waiting for a cycle.",
       "confirm": "You're on the list.",
@@ -1916,7 +1916,7 @@
       },
       {
         "label": "Challenge cohorts",
-        "value": "50 spots / 30 days"
+        "value": "Limited spots / 30 days"
       }
     ],
     "boilerplate": {
@@ -2005,8 +2005,8 @@
       "checkout": "Click to Enter — {{price}}/yr →"
     },
     "bar": {
-      "full": "⚡ 50 spots per challenge — your 30 days start the moment you join ⚡",
-      "short": "⚡ 50 spots — your 30 days start the moment you join ⚡"
+      "full": "⚡ Limited spots — your 30 days start the moment you join ⚡",
+      "short": "⚡ Limited spots — your 30 days start the moment you join ⚡"
     },
     "back": "Back to challenges",
     "hero": {
@@ -2108,9 +2108,9 @@
       }
     },
     "close": {
-      "line1": "50 spots.",
+      "line1": "Limited spots.",
       "line2": "Start the day you join.",
-      "sub": "Premium unlocks this tier — entry is first come, first served, 50 spots at a time. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
+      "sub": "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
       "waitlist": "Join the free waitlist instead",
       "subFree": "The €5 Starter challenge is free for every member — leave your email and you're in on launch day. Spots are first come, first served.",
       "upsell": "Want the €15 and €50 tiers? Get Premium — 50% off →"
@@ -2426,7 +2426,7 @@
       "payoutLabel": "Challenge payouts",
       "payoutValue": "€5–€50 / cycle",
       "cohortLabel": "Challenge cohorts",
-      "cohortValue": "50 spots / 30 days"
+      "cohortValue": "Limited spots / 30 days"
     },
     "shots": {
       "streak": "Streak started",

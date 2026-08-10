@@ -141,13 +141,13 @@ export default function ChallengeFunnel() {
       <FunnelContextBar>
         <span className="cf-bar__full">
           {t('challengeFunnel.bar.full', {
-            defaultValue: '⚡ 50 spots per challenge — your 30 days start the moment you join ⚡',
+            defaultValue: '⚡ Limited spots — your 30 days start the moment you join ⚡',
           })}
         </span>
         {/* Copy variant, not CSS truncation — matches the announcement-bar pattern. */}
         <span className="cf-bar__short">
           {t('challengeFunnel.bar.short', {
-            defaultValue: '⚡ 50 spots — your 30 days start the moment you join ⚡',
+            defaultValue: '⚡ Limited spots — your 30 days start the moment you join ⚡',
           })}
         </span>
       </FunnelContextBar>
@@ -425,7 +425,7 @@ export default function ChallengeFunnel() {
         <section className="cf-section cf-close" id="join-free">
           <h2 className="cf-h2 font-display">
             <span className="cf-h2__line">
-              {t('challengeFunnel.close.line1', { defaultValue: '50 spots.' })}
+              {t('challengeFunnel.close.line1', { defaultValue: 'Limited spots.' })}
             </span>
             <span className="cf-h2__line cf-h2__line--accent">
               {t('challengeFunnel.close.line2', { defaultValue: 'Start the day you join.' })}
@@ -454,7 +454,7 @@ export default function ChallengeFunnel() {
               <p className="cf-body">
                 {t('challengeFunnel.close.sub', {
                   defaultValue:
-                    "Premium unlocks this tier — entry is first come, first served, 50 spots at a time. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
+                    "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
                 })}
               </p>
               {stripeReady && (

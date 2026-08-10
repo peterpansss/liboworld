@@ -88,7 +88,7 @@ export default function Press() {
     { label: t('pressKit.facts.exercisesLabel', { defaultValue: 'Exercises' }), value: t('pressKit.facts.exercisesValue', { defaultValue: '641' }) },
     { label: t('pressKit.facts.workoutsLabel', { defaultValue: 'Workouts' }), value: t('pressKit.facts.workoutsValue', { defaultValue: '140' }) },
     { label: t('pressKit.facts.payoutLabel', { defaultValue: 'Challenge payouts' }), value: t('pressKit.facts.payoutValue', { defaultValue: '€5–€50 / cycle' }) },
-    { label: t('pressKit.facts.cohortLabel', { defaultValue: 'Challenge cohorts' }), value: t('pressKit.facts.cohortValue', { defaultValue: '50 spots / 30 days' }) },
+    { label: t('pressKit.facts.cohortLabel', { defaultValue: 'Challenge cohorts' }), value: t('pressKit.facts.cohortValue', { defaultValue: 'Limited spots / 30 days' }) },
   ];
 
   // Real in-app captures, mapped by CONTENT — the filenames are not reliable.
