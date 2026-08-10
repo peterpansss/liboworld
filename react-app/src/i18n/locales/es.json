@@ -1041,12 +1041,12 @@
     "disclaimer": "Sin compra necesaria. Entrada gratuita disponible vía la app Libo — ver Términos. Nulo donde esté prohibido. Abierto a participantes mayores de 18. Libo es el único patrocinador; Apple, Google, Instagram y cualquier marca asociada no están afiliadas a este sorteo."
   },
   "cashChallengeFunnel": {
-    "seoTitle": "Gana €250 por entrenar · Reto Cash Libo",
-    "seoDescription": "Completa 30 días seguidos de repeticiones en la app Libo y gana cash real. Niveles €10 / €20 / €90 — plazas limitadas.",
+    "seoTitle": "Termina 30 días y cobra hasta €50 · Reto Cash Libo",
+    "seoDescription": "Completa 30 días seguidos de repeticiones en la app Libo y gana cash real. Niveles €5 / €15 / €50 — plazas limitadas.",
     "countdownLabel": "El próximo ciclo empieza en",
     "eyebrow": "Reto Cash",
     "headline1": "Entrena 30 días.",
-    "headline2": "Gana €250 cash.",
+    "headline2": "Gana hasta €50 cash.",
     "heroSub": "Dinero real por consistencia real. Cumple tus repeticiones diarias durante 30 días y te transferimos la recompensa — pago garantizado, no es lotería.",
     "heroCta": "Descargar la app",
     "tiersTitle": "Elige tu apuesta",
@@ -1072,21 +1072,21 @@
       },
       "pro_pool": {
         "name": "Pro Pool",
-        "reward": "€10",
+        "reward": "€15",
         "reps": "50",
         "days": "30",
         "freeze": "2",
-        "gating": "Suscripción Pro · €9,99/mes",
-        "heroSummary": "30 días × 50 reps = €10 cash. 2 tokens freeze para días de gracia. Requiere suscripción Pro en la app."
+        "gating": "Suscripción Premium",
+        "heroSummary": "30 días × 50 reps = €15 cash. 2 tokens freeze para días de gracia. Requiere Premium en la app."
       },
       "elite_pool": {
         "name": "Elite Pool",
-        "reward": "€250",
+        "reward": "€50",
         "reps": "300",
         "days": "30",
         "freeze": "3",
-        "gating": "Suscripción Elite · €19/mes",
-        "heroSummary": "30 días × 300 reps = €250 cash. Hasta 3 tokens freeze. Requiere suscripción Elite en la app."
+        "gating": "Suscripción Premium",
+        "heroSummary": "30 días × 300 reps = €50 cash. Hasta 3 tokens freeze. Requiere Premium en la app."
       }
     },
     "trust1": "Pago garantizado a todos los que terminen",
@@ -1099,9 +1099,9 @@
     "step2Title": "Repeticiones diarias en la app",
     "step2Body": "30/50/100 reps por día según el nivel. Las flexiones se cuentan automáticamente por cámara. Sentadillas y dominadas con contador tap. Divisible en varias sesiones.",
     "step3Title": "No rompas la cadena",
-    "step3Body": "Cada día, sin huecos. Los miembros Pro reciben tokens freeze para días perdidos. El nivel Free es estricto — un fallo y quedas eliminado.",
+    "step3Body": "Cada día, sin huecos. Los miembros Premium reciben tokens freeze para días perdidos. El nivel Free es estricto — un fallo y quedas eliminado.",
     "step4Title": "Cobra",
-    "step4Body": "Termina los 30 días activos y el cash llega a tu cuenta vinculada en 48 horas tras el fin del ciclo. €5, €10 o €50 — tú eliges.",
+    "step4Body": "Termina los 30 días activos y el cash llega a tu cuenta vinculada en 48 horas tras el fin del ciclo. €5, €15 o €50 — tú eliges.",
     "repeatCtaTitle": "Únete al próximo ciclo antes de que se llene",
     "statsTitle": "Pagos reales, consistencia real",
     "statsSub": "Cifras en vivo del registro de retos cash de Libo",
@@ -1119,7 +1119,7 @@
       "q2": "¿Qué cuenta como día completado?",
       "a2": "Alcanzar el número de reps diario de tu nivel para ese día, registrado en la app Libo. Las reps se pueden dividir en varias sesiones. Las flexiones se cuentan auto por cámara; sentadillas y dominadas con contador tap.",
       "q3": "¿Qué pasa si fallo un día?",
-      "a3": "Nivel Free: un fallo y estás fuera de ese ciclo. Pro: los tokens freeze cubren días perdidos — cada token desplaza tu fecha de fin +1.",
+      "a3": "Nivel Free: un fallo y estás fuera de ese ciclo. Premium: los tokens freeze cubren días perdidos — cada token desplaza tu fecha de fin +1.",
       "q4": "¿Cuándo cobro?",
       "a4": "En 48 horas tras completar tu día activo número 30. El pago va a la cuenta vinculada en el archivo — Stripe / SEPA / PayPal según la región.",
       "q5": "¿Puedo entrar en varios niveles a la vez?",
@@ -1127,7 +1127,7 @@
       "q6": "¿Por qué plazas limitadas?",
       "a6": "La recompensa es un coste real para Libo. Limitar las plazas hace presupuestable el pago y crea una verdadera sensación de cohorte — todos corren el reloj juntos.",
       "q7": "¿Necesito una suscripción a Libo?",
-      "a7": "Nivel Free Starter — no. Los pools Pro (recompensas de €10 y €50) necesitan Pro (€9,99/mes). Suscríbete en la app cuando te unas a tu nivel.",
+      "a7": "El reto Starter de €5 es gratis — sin suscripción. Los retos de €15 y €50 necesitan Premium. Suscríbete en la app cuando te unas a tu nivel.",
       "q8": "¿Y si soy principiante?",
       "a8": "Empieza con Starter (100 reps/día) — son unos 5 minutos de trabajo, divisibles a lo largo del día. El número de reps es alcanzable; la disciplina es el verdadero reto."
     },
@@ -1141,7 +1141,7 @@
       "googlePlaySmall": "Disponible en",
       "closeLabel": "Cerrar"
     },
-    "disclaimer": "La participación en el reto cash requiere una cuenta Libo y (para el nivel Pro) una suscripción activa. Los pagos están sujetos a verificación de identidad. Ver Términos completos para elegibilidad, calendario de pago y responsabilidades fiscales por región."
+    "disclaimer": "La participación en el reto cash está abierta a todos los planes (Free, Premium) para usuarios de 16 años en adelante, y es gratuita — no hay cuota de inscripción ni dinero en juego. La recompensa en efectivo que ganas al completarlo varía según el plan y el pool (Free €5 / Premium €15, más un pool Premium mayor de €50), igual que la meta diaria (30 / 50 / 100 reps); Libo financia el pago. Los pagos en efectivo vía Stripe / Wise / SEPA requieren que los ganadores tengan 18 años o más; los ganadores de 16–17 años pueden usar una cuenta de pago verificada vinculada a un padre o tutor; si no, el premio se convierte en crédito dentro de la app (tickets extra o un mes de Premium). Nulo donde lo prohíba la ley local — consulta los Términos (Sección 16) para la lista de regiones bloqueadas en el lanzamiento. Todos los pagos están sujetos a verificación de identidad."
   },
   "earlyAccess": {
     "announceText": "Founding Members: 50% de descuento en tu primer año — solo hasta que lancemos",
@@ -1350,7 +1350,7 @@
         {
           "photo": "beta-sarah.png",
           "name": "Somin",
-          "meta": "@somin · ganó €10, mantuvo la racha"
+          "meta": "@somin · ganó €15, mantuvo la racha"
         },
         {
           "photo": "beta-danny.png",
@@ -1413,7 +1413,7 @@
         {
           "photo": "beta-sarah.png",
           "handle": "@somin",
-          "quote": "BETA TESTING LIBO FOR 6 WEEKS AND IM HOOKED. my form on squats is so much better. won €10 on the cash challenge but the streak is what got me"
+          "quote": "BETA TESTING LIBO FOR 6 WEEKS AND IM HOOKED. my form on squats is so much better. earned €15 on the cash challenge but the streak is what got me"
         },
         {
           "photo": "beta-danny.png",
@@ -1760,7 +1760,7 @@
         },
         {
           "plan": "Premium",
-          "payout": "€10",
+          "payout": "€15",
           "name": "Committed",
           "desc": "El nivel intermedio para miembros que ya mantienen una racha y quieren apostar de verdad por ella.",
           "daily": "60 reps / día",

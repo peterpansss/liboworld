@@ -1026,12 +1026,12 @@
     "disclaimer": "Aucun achat requis. Participation gratuite via l'app Libo — voir Conditions. Nul là où interdit. Ouvert aux participants de 18+ ans. Libo est l'unique sponsor ; Apple, Google, Instagram et toutes marques partenaires ne sont pas affiliées à ce tirage."
   },
   "cashChallengeFunnel": {
-    "seoTitle": "Gagne €250 en t'entraînant · Défi Cash Libo",
-    "seoDescription": "Fais 30 jours consécutifs de répétitions dans l'app Libo et gagne du vrai cash. Paliers €10 / €20 / €90 — places limitées.",
+    "seoTitle": "Termine 30 jours, gagne jusqu'à €50 · Défi Cash Libo",
+    "seoDescription": "Fais 30 jours consécutifs de répétitions dans l'app Libo et gagne du vrai cash. Paliers €5 / €15 / €50 — places limitées.",
     "countdownLabel": "Le prochain cycle commence dans",
     "eyebrow": "Défi Cash",
     "headline1": "Entraîne-toi 30 jours.",
-    "headline2": "Gagne €250 cash.",
+    "headline2": "Gagne jusqu'à €50 cash.",
     "heroSub": "Du vrai argent pour de la vraie régularité. Atteins tes répétitions quotidiennes pendant 30 jours et on te vire la récompense — paiement garanti, pas de loterie.",
     "heroCta": "Télécharger l'app",
     "tiersTitle": "Choisis ta mise",
@@ -1057,21 +1057,21 @@
       },
       "pro_pool": {
         "name": "Pro Pool",
-        "reward": "€10",
+        "reward": "€15",
         "reps": "50",
         "days": "30",
         "freeze": "2",
-        "gating": "Abonnement Pro · €9,99/mois",
-        "heroSummary": "30 jours × 50 reps = €10 cash. 2 jetons freeze pour les jours de grâce. Abonnement Pro requis dans l'app."
+        "gating": "Abonnement Premium",
+        "heroSummary": "30 jours × 50 reps = €15 cash. 2 jetons freeze pour les jours de grâce. Abonnement Premium requis dans l'app."
       },
       "elite_pool": {
         "name": "Elite Pool",
-        "reward": "€250",
+        "reward": "€50",
         "reps": "300",
         "days": "30",
         "freeze": "3",
-        "gating": "Abonnement Elite · €19/mois",
-        "heroSummary": "30 jours × 300 reps = €250 cash. Jusqu'à 3 jetons freeze. Abonnement Elite requis dans l'app."
+        "gating": "Abonnement Premium",
+        "heroSummary": "30 jours × 300 reps = €50 cash. Jusqu'à 3 jetons freeze. Abonnement Premium requis dans l'app."
       }
     },
     "trust1": "Paiement garanti à tous les finisseurs",
@@ -1084,9 +1084,9 @@
     "step2Title": "Reps quotidiennes dans l'app",
     "step2Body": "30/50/100 reps par jour selon le palier. Les pompes sont comptées automatiquement par caméra. Squats et tractions au compteur tap. Fractionnable sur plusieurs sessions.",
     "step3Title": "Ne casse pas la chaîne",
-    "step3Body": "Chaque jour, sans interruption. Les membres Pro reçoivent des jetons freeze pour les jours manqués. Le niveau Free est strict — un jour manqué et tu es éjecté.",
+    "step3Body": "Chaque jour, sans interruption. Les membres Premium reçoivent des jetons freeze pour les jours manqués. Le niveau Free est strict — un jour manqué et tu es éjecté.",
     "step4Title": "Reçois ton paiement",
-    "step4Body": "Termine les 30 jours actifs et le cash arrive sur ton compte lié dans les 48 heures suivant la fin du cycle. €5, €10 ou €50 — à toi de choisir.",
+    "step4Body": "Termine les 30 jours actifs et le cash arrive sur ton compte lié dans les 48 heures suivant la fin du cycle. €5, €15 ou €50 — à toi de choisir.",
     "repeatCtaTitle": "Rejoins le prochain cycle avant qu'il ne soit complet",
     "statsTitle": "Vrais paiements, vraie régularité",
     "statsSub": "Chiffres en direct du registre cash-challenge de Libo",
@@ -1104,7 +1104,7 @@
       "q2": "Qu'est-ce qui compte comme jour terminé ?",
       "a2": "Atteindre le nombre de reps quotidien de ton palier pour ce jour, loggé dans l'app Libo. Les reps peuvent être fractionnées sur plusieurs sessions. Les pompes sont auto-comptées par caméra ; squats et tractions au compteur tap.",
       "q3": "Que se passe-t-il si je manque un jour ?",
-      "a3": "Niveau Free : un jour manqué et tu es éliminé pour ce cycle. Pro : les jetons freeze couvrent les jours manqués — chaque jeton recule la date de fin de +1.",
+      "a3": "Niveau Free : un jour manqué et tu es éliminé pour ce cycle. Premium : les jetons freeze couvrent les jours manqués — chaque jeton recule la date de fin de +1.",
       "q4": "Quand suis-je payé ?",
       "a4": "Dans les 48 heures suivant la fin de ton 30e jour actif. Paiement sur le compte lié au dossier — Stripe / SEPA / PayPal selon la région.",
       "q5": "Puis-je participer à plusieurs paliers en même temps ?",
@@ -1112,7 +1112,7 @@
       "q6": "Pourquoi des places limitées ?",
       "a6": "La récompense est un coût réel pour Libo. Limiter les places permet de budgéter le paiement et de créer un vrai esprit de cohorte — tout le monde court ensemble.",
       "q7": "Faut-il un abonnement Libo ?",
-      "a7": "Niveau Free Starter — non. Les pools Pro (récompenses de €10 et €50) nécessitent Pro (€9,99/mois). Abonne-toi dans l'app quand tu rejoins ton palier.",
+      "a7": "Le challenge Starter à €5 est gratuit — sans abonnement. Les challenges €15 et €50 nécessitent Premium. Abonne-toi dans l'app quand tu rejoins ton palier.",
       "q8": "Et si je suis débutant ?",
       "a8": "Commence avec Starter (100 reps/jour) — c'est environ 5 minutes de travail, fractionnables sur la journée. Le nombre de reps est atteignable ; la discipline est le vrai défi."
     },
@@ -1126,7 +1126,7 @@
       "googlePlaySmall": "Disponible sur",
       "closeLabel": "Fermer"
     },
-    "disclaimer": "La participation au défi cash nécessite un compte Libo et (pour le palier Pro) un abonnement actif. Les paiements sont soumis à vérification d'identité. Voir les Conditions complètes pour l'éligibilité, le calendrier de paiement et les responsabilités fiscales par région."
+    "disclaimer": "La participation au cash challenge est ouverte à tous les niveaux (Free, Premium) pour les utilisateurs de 16 ans et plus, et elle est gratuite — aucun frais d'inscription, aucune mise. La récompense en cash versée à l'arrivée varie selon le niveau et le pool (Free €5 / Premium €15, auquel s'ajoute un pool Premium plus élevé à €50), tout comme l'objectif quotidien (30 / 50 / 100 reps) ; c'est Libo qui finance le paiement. Les paiements en cash via Stripe / Wise / SEPA exigent que les gagnants aient 18 ans ou plus ; les gagnants de 16–17 ans peuvent utiliser un compte de paiement vérifié lié à un parent, sinon le prix est converti en crédit in-app (tickets supplémentaires ou un mois de Premium). Nul là où la loi locale l'interdit — voir les Conditions (Section 16) pour la liste des géo-blocages au lancement. Tous les paiements sont soumis à vérification d'identité."
   },
   "earlyAccess": {
     "announceText": "Founding Members : -50% sur ta première année — seulement jusqu'au lancement",
@@ -1330,7 +1330,7 @@
         {
           "photo": "beta-sarah.png",
           "name": "Somin",
-          "meta": "@somin · a gagné €10, a gardé la série"
+          "meta": "@somin · a gagné €15, a gardé la série"
         },
         {
           "photo": "beta-danny.png",
@@ -1393,7 +1393,7 @@
         {
           "photo": "beta-sarah.png",
           "handle": "@somin",
-          "quote": "BETA TESTING LIBO FOR 6 WEEKS AND IM HOOKED. my form on squats is so much better. won €10 on the cash challenge but the streak is what got me"
+          "quote": "BETA TESTING LIBO FOR 6 WEEKS AND IM HOOKED. my form on squats is so much better. earned €15 on the cash challenge but the streak is what got me"
         },
         {
           "photo": "beta-danny.png",
@@ -1741,7 +1741,7 @@
         },
         {
           "plan": "Premium",
-          "payout": "€10",
+          "payout": "€15",
           "name": "Committed",
           "desc": "Le palier intermédiaire pour les membres qui tiennent déjà une série et veulent de vrais enjeux dessus.",
           "daily": "60 reps / jour",

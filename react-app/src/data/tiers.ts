@@ -91,7 +91,7 @@ export const TIERS: Tier[] = [
       '2× Libo',
       '2 freeze tokens per challenge cycle',
       'Premium giveaways + Special prize draws (e.g. iPhone-class items)',
-      'Cash challenges (€10 reward · 50 reps/day)',
+      'Cash challenges (€15 reward · 50 reps/day)',
     ],
     cta: `Start ${TRIAL_DAYS}-day free trial`,
     href: '/onboarding?tier=premium',
@@ -190,7 +190,7 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
     title: 'Rewards & challenges',
     rows: [
       { label: 'Rewards Libo', free: '1×', premium: '2×', elite: '3×' },
-      { label: 'Cash-challenge reward', free: '€5', premium: '€10', elite: '€50' },
+      { label: 'Cash-challenge reward', free: '€5', premium: '€15', elite: '€50' },
       { label: 'Reps per day', free: '30', premium: '50', elite: '100' },
       { label: 'Freeze tokens per cycle', free: '0 (earn 1 · train 60 of 90 days)', premium: '2', elite: '3' },
       { label: 'Common product giveaways', free: true, premium: true, elite: true },

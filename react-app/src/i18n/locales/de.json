@@ -1041,12 +1041,12 @@
     "disclaimer": "Kein Kauf nötig. Kostenlose Teilnahme über die Libo-App — siehe AGB. Ungültig wo gesetzlich verboten. Offen für Teilnehmer ab 18. Libo ist alleiniger Sponsor; Apple, Google, Instagram und alle Partnermarken sind nicht mit diesem Giveaway verbunden."
   },
   "cashChallengeFunnel": {
-    "seoTitle": "Verdien €250 fürs Trainieren · Libo Cash Challenge",
-    "seoDescription": "Mach 30 Tage am Stück deine Reps in der Libo-App und verdien echtes Geld. €10 / €20 / €90 Stufen — begrenzte Plätze.",
+    "seoTitle": "30 Tage durchziehen, bis zu €50 kassieren · Libo Cash Challenge",
+    "seoDescription": "Mach 30 Tage am Stück deine Reps in der Libo-App und verdien echtes Geld. €5 / €15 / €50 Stufen — begrenzte Plätze.",
     "countdownLabel": "Nächster Zyklus startet in",
     "eyebrow": "Cash Challenge",
     "headline1": "Trainier 30 Tage.",
-    "headline2": "Verdien €250 cash.",
+    "headline2": "Verdien bis zu €50 cash.",
     "heroSub": "Echtes Geld für echte Konsistenz. Schaff deine täglichen Reps für 30 Tage und wir überweisen dir die Belohnung — garantierte Auszahlung, keine Lotterie.",
     "heroCta": "App holen",
     "tiersTitle": "Wähl deinen Einsatz",
@@ -1072,21 +1072,21 @@
       },
       "pro_pool": {
         "name": "Pro Pool",
-        "reward": "€10",
+        "reward": "€15",
         "reps": "50",
         "days": "30",
         "freeze": "2",
-        "gating": "Pro-Abo · €9,99/Monat",
-        "heroSummary": "30 Tage × 50 Reps = €10 Cash-Auszahlung. 2 Freeze-Tokens für Schon-Tage. Pro-Abo in-app erforderlich."
+        "gating": "Premium-Abo",
+        "heroSummary": "30 Tage × 50 Reps = €15 Cash-Auszahlung. 2 Freeze-Tokens für Schon-Tage. Premium in-app erforderlich."
       },
       "elite_pool": {
         "name": "Elite Pool",
-        "reward": "€250",
+        "reward": "€50",
         "reps": "300",
         "days": "30",
         "freeze": "3",
-        "gating": "Elite-Abo · €19/Monat",
-        "heroSummary": "30 Tage × 300 Reps = €250 Cash-Auszahlung. Bis zu 3 Freeze-Tokens. Elite-Abo in-app erforderlich."
+        "gating": "Premium-Abo",
+        "heroSummary": "30 Tage × 300 Reps = €50 Cash-Auszahlung. Bis zu 3 Freeze-Tokens. Premium in-app erforderlich."
       }
     },
     "trust1": "Garantierte Auszahlung an alle, die durchziehen",
@@ -1099,9 +1099,9 @@
     "step2Title": "Tägliche Reps in der App",
     "step2Body": "30/50/100 Reps pro Tag je nach Stufe. Liegestütze werden per Kamera automatisch gezählt. Kniebeugen und Klimmzüge per Tap-Counter. Auf mehrere Sessions aufteilbar.",
     "step3Title": "Reiß die Kette nicht ab",
-    "step3Body": "Jeden Tag, keine Lücken. Pro-Mitglieder bekommen Freeze-Tokens für verpasste Tage. Free-Stufe ist strikt — ein verpasster Tag und du fliegst raus.",
+    "step3Body": "Jeden Tag, keine Lücken. Premium-Mitglieder bekommen Freeze-Tokens für verpasste Tage. Free-Stufe ist strikt — ein verpasster Tag und du fliegst raus.",
     "step4Title": "Werd bezahlt",
-    "step4Body": "Schaffst du alle 30 aktiven Tage, landet das Geld innerhalb von 48 Stunden nach Zyklusende auf deinem verknüpften Konto. €5, €10 oder €50 — deine Wahl.",
+    "step4Body": "Schaffst du alle 30 aktiven Tage, landet das Geld innerhalb von 48 Stunden nach Zyklusende auf deinem verknüpften Konto. €5, €15 oder €50 — deine Wahl.",
     "repeatCtaTitle": "Sei beim nächsten Zyklus dabei, bevor er voll ist",
     "statsTitle": "Echte Auszahlungen, echte Konsistenz",
     "statsSub": "Live-Zahlen aus Libos Cash-Challenge-Ledger",
@@ -1119,7 +1119,7 @@
       "q2": "Was zählt als abgeschlossener Tag?",
       "a2": "Die tägliche Rep-Anzahl deiner Stufe für diesen Tag, geloggt in der Libo-App. Reps können auf mehrere Sessions aufgeteilt werden. Liegestütze werden per Kamera gezählt; Kniebeugen und Klimmzüge per Tap-Counter.",
       "q3": "Was passiert, wenn ich einen Tag verpasse?",
-      "a3": "Free-Stufe: ein verpasster Tag und du bist für diesen Zyklus raus. Pro: Freeze-Tokens decken verpasste Tage — jedes Token verschiebt das Enddatum um +1.",
+      "a3": "Free-Stufe: ein verpasster Tag und du bist für diesen Zyklus raus. Premium: Freeze-Tokens decken verpasste Tage — jedes Token verschiebt das Enddatum um +1.",
       "q4": "Wann werde ich bezahlt?",
       "a4": "Innerhalb von 48 Stunden nach Abschluss deines 30. aktiven Tages. Auszahlung erfolgt auf das hinterlegte Konto — Stripe / SEPA / PayPal je nach Region.",
       "q5": "Kann ich mehrere Stufen gleichzeitig machen?",
@@ -1127,7 +1127,7 @@
       "q6": "Warum sind die Plätze begrenzt?",
       "a6": "Die Belohnung ist ein echter Kostenfaktor für Libo. Begrenzte Plätze machen die Auszahlung kalkulierbar und schaffen ein echtes Cohort-Gefühl — alle laufen die Uhr gemeinsam.",
       "q7": "Brauche ich ein Libo-Abo?",
-      "a7": "Free Starter-Stufe — nein. Die Pro-Pools (€10- und €50-Belohnung) brauchen Pro (€9,99/Monat). Abonniere in der App, wenn du deiner Stufe beitrittst.",
+      "a7": "Die €5 Starter Challenge ist gratis — kein Abo nötig. Die €15- und €50-Challenges brauchen Premium. Abonniere in der App, wenn du deiner Stufe beitrittst.",
       "q8": "Was, wenn ich Anfänger bin?",
       "a8": "Fang mit Starter an (100 Reps/Tag) — das sind etwa 5 Minuten Arbeit, auf den Tag aufteilbar. Die Rep-Zahl ist machbar; die Disziplin ist die eigentliche Herausforderung."
     },
@@ -1141,7 +1141,7 @@
       "googlePlaySmall": "Jetzt bei",
       "closeLabel": "Schließen"
     },
-    "disclaimer": "Die Teilnahme an der Cash Challenge erfordert ein Libo-Konto und (für die Pro-Stufe) ein aktives Abo. Auszahlungen unterliegen einer Identitätsprüfung. Vollständige AGB für Berechtigung, Auszahlungsplan und steuerliche Pflichten je Region beachten."
+    "disclaimer": "Die Teilnahme an der Cash Challenge steht allen Stufen (Free, Premium) ab 16 Jahren offen und ist kostenlos — es gibt keine Teilnahmegebühr und keinen Einsatz. Die Cash-Belohnung bei Abschluss hängt von Stufe und Pool ab (Free €5 / Premium €15, dazu ein höherer €50-Premium-Pool), ebenso das Tagesziel (30 / 50 / 100 Reps); Libo finanziert die Auszahlung. Cash-Auszahlungen über Stripe / Wise / SEPA setzen voraus, dass Gewinner mindestens 18 Jahre alt sind; Gewinner zwischen 16 und 17 können ein elternverknüpftes, verifiziertes Zahlungskonto nutzen, andernfalls wird der Gewinn in In-App-Guthaben umgewandelt (zusätzliche Tickets oder ein Premium-Monat). Ungültig, wo nach lokalem Recht untersagt — die zum Launch geltende Geo-Sperrliste steht in den AGB (Abschnitt 16). Alle Auszahlungen unterliegen einer Identitätsprüfung."
   },
   "earlyAccess": {
     "announceText": "Founding Members: 50% Rabatt aufs erste Jahr — nur bis zum Launch",
@@ -1350,7 +1350,7 @@
         {
           "photo": "beta-sarah.png",
           "name": "Somin",
-          "meta": "@somin · €10 gewonnen, Streak gehalten"
+          "meta": "@somin · €15 verdient, Streak gehalten"
         },
         {
           "photo": "beta-danny.png",
@@ -1413,7 +1413,7 @@
         {
           "photo": "beta-sarah.png",
           "handle": "@somin",
-          "quote": "BETA TESTING LIBO FOR 6 WEEKS AND IM HOOKED. my form on squats is so much better. won €10 on the cash challenge but the streak is what got me"
+          "quote": "BETA TESTING LIBO FOR 6 WEEKS AND IM HOOKED. my form on squats is so much better. earned €15 on the cash challenge but the streak is what got me"
         },
         {
           "photo": "beta-danny.png",
@@ -1760,7 +1760,7 @@
         },
         {
           "plan": "Premium",
-          "payout": "€10",
+          "payout": "€15",
           "name": "Committed",
           "desc": "Das mittlere Tier für Members, die schon einen Streak halten und echten Einsatz draufsetzen wollen.",
           "daily": "60 Reps / Tag",
