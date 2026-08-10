@@ -1,11 +1,12 @@
 /**
- * Consent gate for analytics + marketing scripts (GA4, Meta Pixel).
+ * Consent gate for the Meta Pixel (Meta-Pixel-Setup-2026-08-05 Step 0,
+ * option 1 — "load on accept"). The pixel does not exist in the page until
+ * the visitor accepts; reject keeps it permanently absent for that visitor.
  *
- * Approach: "load on accept" (Meta-Pixel-Setup-2026-08-05 Step 0, option 1 —
- * simplest to audit). NEITHER script exists in the page until the visitor
- * accepts; reject keeps the page permanently script-free for that visitor.
- * GA4 used to load unconditionally from index.html — it now lives here,
- * behind the same gate as the pixel.
+ * GA4 is NOT gated here: it loads unconditionally from index.html — the
+ * pre-Aug-7 behavior, restored on Noah's explicit call (2026-08-10) because
+ * consent-gated GA reduced pre-launch data to a trickle. Revisit before a
+ * serious EU compliance review.
  *
  * The choice persists in localStorage and is changeable via the footer's
  * "Cookie settings" link (regulatory requirement: revocable at any time).
@@ -14,7 +15,6 @@
 export type ConsentChoice = 'granted' | 'denied';
 
 const STORAGE_KEY = 'libo-consent';
-const GA4_ID = 'G-R05YQ1CH2N';
 /** Meta dataset "libo world web" — client-side ID, safe to commit (per doc). */
 export const META_PIXEL_ID = '1582491946914169';
 
@@ -68,26 +68,11 @@ declare global {
 
 let loaded = false;
 
-/** Idempotent: injects GA4 + Meta Pixel once. Called only after accept. */
+/** Idempotent: injects the Meta Pixel once. Called only after accept.
+    (GA4 loads unconditionally from index.html — see the header comment.) */
 export function loadTrackers(): void {
   if (loaded || typeof window === 'undefined') return;
   loaded = true;
-
-  // ── GA4 (was unconditional in index.html; consent-gated now) ──
-  window.dataLayer = window.dataLayer || [];
-  // gtag.js ONLY processes `arguments` objects pushed onto the dataLayer —
-  // plain arrays are silently ignored, which kills all measurement.
-  function gtag(..._args: unknown[]) {
-    // eslint-disable-next-line prefer-rest-params
-    window.dataLayer!.push(arguments);
-  }
-  window.gtag = gtag;
-  gtag('js', new Date());
-  gtag('config', GA4_ID);
-  const ga = document.createElement('script');
-  ga.async = true;
-  ga.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
-  document.head.appendChild(ga);
 
   // ── Meta Pixel base code (doc Step 1) ──
   // The doc's <noscript> beacon is DELIBERATELY omitted: a noscript <img>
