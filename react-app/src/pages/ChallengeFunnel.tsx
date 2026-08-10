@@ -199,7 +199,7 @@ export default function ChallengeFunnel() {
             <Stat value={`€${tier.payout}`} label={t('challengeFunnel.stats.payout', { defaultValue: 'Cash reward' })} />
             <Stat value={String(tier.reps)} label={t('challengeFunnel.stats.reps', { defaultValue: 'Reps per day' })} />
             <Stat value={String(tier.days)} label={t('challengeFunnel.stats.days', { defaultValue: 'Days straight' })} />
-            <Stat value={String(tier.spots)} label={t('challengeFunnel.stats.spots', { defaultValue: 'Spots at once' })} />
+            <Stat value={t('challengeFunnel.stats.spotsValue', { defaultValue: 'Limited' })} label={t('challengeFunnel.stats.spots', { defaultValue: 'Spots at once' })} />
           </ul>
         </section>
 

@@ -1590,7 +1590,7 @@
       "eyebrow": "Cash challenges",
       "h2a": "Elige tu",
       "h2b": "reto.",
-      "meta": "{{reps}} reps / día · {{days}} días · {{spots}} plazas",
+      "meta": "{{reps}} reps / día · {{days}} días",
       "cardCta": "Ver reto →",
       "allCta": "Todos los retos →",
       "allCtaShort": "Todos →"
@@ -1933,7 +1933,7 @@
     },
     "gridLabel": "Niveles del reto",
     "card": {
-      "meta": "{{reps}} reps / día · {{days}} días · {{spots}} plazas",
+      "meta": "{{reps}} reps / día · {{days}} días",
       "cta": "Ver reto →"
     }
   },
@@ -1958,7 +1958,8 @@
       "payout": "Recompensa en cash",
       "reps": "Reps por día",
       "days": "Días seguidos",
-      "spots": "Plazas a la vez"
+      "spots": "Plazas a la vez",
+      "spotsValue": "Limitadas"
     },
     "pain": {
       "title": "Nunca te faltó un plan. Te faltó una razón para terminarlo.",

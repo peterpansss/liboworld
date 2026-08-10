@@ -1590,7 +1590,7 @@
       "eyebrow": "Cash Challenges",
       "h2a": "Escolha seu",
       "h2b": "desafio.",
-      "meta": "{{reps}} reps / dia · {{days}} dias · {{spots}} vagas",
+      "meta": "{{reps}} reps / dia · {{days}} dias",
       "cardCta": "Ver desafio →",
       "allCta": "Todos os desafios →",
       "allCtaShort": "Todos →"
@@ -1933,7 +1933,7 @@
     },
     "gridLabel": "Níveis do desafio",
     "card": {
-      "meta": "{{reps}} reps / dia · {{days}} dias · {{spots}} vagas",
+      "meta": "{{reps}} reps / dia · {{days}} dias",
       "cta": "Ver desafio →"
     }
   },
@@ -1958,7 +1958,8 @@
       "payout": "Recompensa em cash",
       "reps": "Reps por dia",
       "days": "Dias seguidos",
-      "spots": "Vagas por vez"
+      "spots": "Vagas por vez",
+      "spotsValue": "Limitadas"
     },
     "pain": {
       "title": "Você nunca precisou de um plano. Precisava de um motivo pra terminar um.",

@@ -697,7 +697,6 @@ export default function Landing() {
                         defaultValue: '{{reps}} reps / day · {{days}} days · {{spots}} spots',
                         reps: tier.reps,
                         days: tier.days,
-                        spots: tier.spots,
                       })}
                     </span>
                     <span className="rh-cc-cta">

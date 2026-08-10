@@ -1590,7 +1590,7 @@
       "eyebrow": "Cash Challenges",
       "h2a": "Wähl deine",
       "h2b": "Challenge.",
-      "meta": "{{reps}} Reps / Tag · {{days}} Tage · {{spots}} Plätze",
+      "meta": "{{reps}} Reps / Tag · {{days}} Tage",
       "cardCta": "Zur Challenge →",
       "allCta": "Alle Challenges →",
       "allCtaShort": "Alle →"
@@ -1933,7 +1933,7 @@
     },
     "gridLabel": "Challenge-Stufen",
     "card": {
-      "meta": "{{reps}} Reps / Tag · {{days}} Tage · {{spots}} Plätze",
+      "meta": "{{reps}} Reps / Tag · {{days}} Tage",
       "cta": "Zur Challenge →"
     }
   },
@@ -1958,7 +1958,8 @@
       "payout": "Cash-Belohnung",
       "reps": "Reps pro Tag",
       "days": "Tage am Stück",
-      "spots": "Plätze gleichzeitig"
+      "spots": "Plätze gleichzeitig",
+      "spotsValue": "Begrenzt"
     },
     "pain": {
       "title": "Du hast nie einen Plan gebraucht. Du hast einen Grund gebraucht, einen durchzuziehen.",

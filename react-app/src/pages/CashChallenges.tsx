@@ -81,7 +81,6 @@ export default function CashChallenges() {
                     defaultValue: '{{reps}} reps / day · {{days}} days · {{spots}} spots',
                     reps: tier.reps,
                     days: tier.days,
-                    spots: tier.spots,
                   })}
                 </span>
                 <span className="cc-card__cta">

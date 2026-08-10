@@ -1590,7 +1590,7 @@
       "eyebrow": "Cash challenges",
       "h2a": "Pick your",
       "h2b": "challenge.",
-      "meta": "{{reps}} reps / day · {{days}} days · {{spots}} spots",
+      "meta": "{{reps}} reps / day · {{days}} days",
       "cardCta": "View challenge →",
       "allCta": "All challenges →",
       "allCtaShort": "All →"
@@ -1994,7 +1994,7 @@
     },
     "gridLabel": "Challenge tiers",
     "card": {
-      "meta": "{{reps}} reps / day · {{days}} days · {{spots}} spots",
+      "meta": "{{reps}} reps / day · {{days}} days",
       "cta": "View challenge →"
     }
   },
@@ -2019,7 +2019,8 @@
       "payout": "Cash reward",
       "reps": "Reps per day",
       "days": "Days straight",
-      "spots": "Spots at once"
+      "spots": "Spots at once",
+      "spotsValue": "Limited"
     },
     "pain": {
       "title": "You never needed a plan. You needed a reason to finish one.",

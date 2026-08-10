@@ -1575,7 +1575,7 @@
       "eyebrow": "Cash challenges",
       "h2a": "Choisis ton",
       "h2b": "challenge.",
-      "meta": "{{reps}} reps / jour · {{days}} jours · {{spots}} places",
+      "meta": "{{reps}} reps / jour · {{days}} jours",
       "cardCta": "Voir le challenge →",
       "allCta": "Tous les challenges →",
       "allCtaShort": "Tous →"
@@ -1933,7 +1933,7 @@
     },
     "gridLabel": "Paliers de challenge",
     "card": {
-      "meta": "{{reps}} reps / jour · {{days}} jours · {{spots}} places",
+      "meta": "{{reps}} reps / jour · {{days}} jours",
       "cta": "Voir le challenge →"
     }
   },
@@ -1958,7 +1958,8 @@
       "payout": "Récompense cash",
       "reps": "Reps par jour",
       "days": "Jours d'affilée",
-      "spots": "Places à la fois"
+      "spots": "Places à la fois",
+      "spotsValue": "Limitées"
     },
     "pain": {
       "title": "Tu n'as jamais eu besoin d'un plan. Tu avais besoin d'une raison d'en finir un.",
