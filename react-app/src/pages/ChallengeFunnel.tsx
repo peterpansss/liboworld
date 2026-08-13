@@ -216,7 +216,7 @@ export default function ChallengeFunnel() {
           <p className="cf-body">
             {t('challengeFunnel.pain.body', {
               defaultValue:
-                'The first week always works. The problem is day 19 — when nobody notices whether you show up. In the challenge, somebody does: 49 other people, and your own money.',
+                'The first week always works. The problem is day 19 — when nobody notices whether you show up. In the challenge, somebody does: everyone else in it, and your own money.',
             })}
           </p>
         </section>
