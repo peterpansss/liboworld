@@ -128,7 +128,10 @@ export default function App() {
         <Route path="/auth/confirm" element={<Suspense fallback={darkFallback}><AuthConfirm /></Suspense>} />
         <Route path="/giveaway" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><Giveaway /></Suspense>} />
         <Route path="/cash-challenge" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
-        <Route path="/get-app" element={<Suspense fallback={darkFallback}><GetApp /></Suspense>} />
+        {/* /get-app UA-routes to the App Store, but there is no listing yet — it
+            would dump visitors on apps.apple.com's homepage. Send them home until
+            launch; flipping LAUNCH_MODE to 'launched' restores the real endpoint. */}
+        <Route path="/get-app" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><GetApp /></Suspense>} />
         {/* Founder page lives at /about (SOURCE-OF-TRUTH.md); /founder stays as
             a redirect so the URL that's been live since the v1 port never 404s. */}
         <Route path="/about" element={<Suspense fallback={darkFallback}><Founder /></Suspense>} />
