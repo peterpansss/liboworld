@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T16:44:20.419Z",
+  "generatedAt": "2026-08-13T21:01:55.846Z",
   "totalWorkouts": 140,
   "facets": {
     "core": {
@@ -385,7 +385,6 @@
         "wk_home_40_min_dumbbell_push_pull",
         "wk_home_45_min_upper_lower_split_a",
         "wk_home_50_min_bodyweight_challenge",
-        "wk_home_60_min_dumbbell_total_body",
         "wk_home_advanced_push_variations",
         "wk_home_arms_blaster",
         "wk_home_back_biceps_pull_day",
@@ -407,7 +406,6 @@
         "wk_pull_day_back_biceps_rear_delts",
         "wk_push_day_chest_shoulders_triceps",
         "wk_quick_gym_25_min_express_full_body",
-        "wk_quick_gym_30_min_strength_circuit",
         "wk_stretch_upper_body_shoulder_mobility",
         "wk_superset_biceps_triceps",
         "wk_superset_chest_back",
@@ -447,6 +445,7 @@
         "wk_cardio_5_min_quick_burst",
         "wk_evening_routine_legs_hips_release",
         "wk_evening_routine_wind_down",
+        "wk_full_body_functional_strength",
         "wk_home_balance_coordination",
         "wk_home_beginner_full_body_1",
         "wk_home_beginner_full_body_2",
@@ -457,6 +456,8 @@
         "wk_home_dumbbell_lower_body",
         "wk_home_endurance_builder",
         "wk_home_full_body_bodyweight_a",
+        "wk_home_full_body_dumbbell_a",
+        "wk_home_full_body_kettlebell",
         "wk_home_glute_activation_burn",
         "wk_home_hiit_beginner_friendly",
         "wk_home_hiit_tabata_20_10",
@@ -504,6 +505,7 @@
         "wk_cardio_10_min_morning_burst",
         "wk_cardio_5_min_quick_burst",
         "wk_evening_routine_legs_hips_release",
+        "wk_full_body_functional_strength",
         "wk_home_balance_coordination",
         "wk_home_beginner_full_body_1",
         "wk_home_beginner_full_body_2",
@@ -512,6 +514,8 @@
         "wk_home_dumbbell_leg_day",
         "wk_home_dumbbell_lower_body",
         "wk_home_full_body_bodyweight_a",
+        "wk_home_full_body_dumbbell_a",
+        "wk_home_full_body_kettlebell",
         "wk_home_hiit_beginner_friendly",
         "wk_home_hiit_tabata_20_10",
         "wk_home_legs_booty_band_edition",
@@ -546,6 +550,7 @@
         "wk_home_arms_blaster",
         "wk_home_chest_triceps_push_day",
         "wk_home_dumbbell_arms_isolation",
+        "wk_home_dumbbell_upper_body",
         "wk_superset_biceps_triceps"
       ]
     },
@@ -567,7 +572,6 @@
         "wk_home_dumbbell_upper_body",
         "wk_home_full_body_dumbbell_a",
         "wk_home_full_body_dumbbell_b",
-        "wk_home_push_pull_legs_mini",
         "wk_legs_unilateral_single_leg",
         "wk_push_day_chest_shoulders_triceps",
         "wk_quick_gym_25_min_express_full_body",
@@ -744,6 +748,7 @@
       "workoutIds": [
         "wk_cardio_20_min_hiit_intervals",
         "wk_cardio_rowing_intervals",
+        "wk_home_full_body_kettlebell",
         "wk_olympic_lifting_introduction",
         "wk_power_explosiveness"
       ]
@@ -796,6 +801,8 @@
       "label": "Shoulder",
       "axis": "muscle",
       "workoutIds": [
+        "wk_home_dumbbell_upper_body",
+        "wk_home_full_body_dumbbell_a",
         "wk_home_posture_rehab",
         "wk_home_shoulder_posture",
         "wk_home_upper_body_band_only",
