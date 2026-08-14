@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run prebuild:facets && tsc -b && vite build && npm run postbuild:seo",
-    "prebuild:facets": "node ../scripts/generate-workout-facets.mjs",
+    "prebuild:facets": "node ../scripts/generate-workout-facets.mjs && node ../scripts/generate-faq-json.mjs",
     "postbuild:seo": "node ../scripts/generate-sitemap.mjs && node ../scripts/prerender-meta.mjs",
     "lint": "eslint .",
     "preview": "vite preview",

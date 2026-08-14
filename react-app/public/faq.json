@@ -1,0 +1,242 @@
+{
+  "generatedAt": "2026-08-14T12:34:11.542Z",
+  "langs": [
+    "en",
+    "es",
+    "pt",
+    "de",
+    "fr"
+  ],
+  "items": [
+    {
+      "id": "different",
+      "en": {
+        "q": "How is Libo different from other fitness apps?",
+        "a": "Libo combines a massive exercise library, structured programs, progress tracking, and real cash challenges in one app — with a premium dark UI that stays out of your way. No ads, no clutter. Most apps promise motivation; Libo literally pays cash for consistency."
+      },
+      "es": {
+        "q": "¿En qué se diferencia Libo de otras apps de fitness?",
+        "a": "Libo combina una enorme biblioteca de ejercicios, programas estructurados, seguimiento de progreso y retos de dinero real en una sola app — con una interfaz oscura premium que no te estorba. Sin anuncios, sin desorden. La mayoría de apps prometen motivación; Libo literalmente paga en efectivo por la constancia."
+      },
+      "pt": {
+        "q": "Como a Libo é diferente de outros apps de fitness?",
+        "a": "A Libo junta uma biblioteca gigante de exercícios, programas estruturados, acompanhamento de progresso e Cash Challenges de verdade num app só — com uma interface dark premium que não fica no seu caminho. Sem anúncios, sem bagunça. A maioria dos apps promete motivação; a Libo literalmente paga em dinheiro pela consistência."
+      },
+      "de": {
+        "q": "Wie unterscheidet sich Libo von anderen Fitness-Apps?",
+        "a": "Libo vereint eine riesige Übungsbibliothek, strukturierte Programme, Progress Tracking und echte Cash-Challenges in einer App — mit einem edlen dunklen UI, das dir nicht im Weg steht. Keine Werbung, kein Chaos. Die meisten Apps versprechen Motivation; Libo zahlt buchstäblich Cash für Konsistenz."
+      },
+      "fr": {
+        "q": "En quoi Libo est différent des autres apps de fitness ?",
+        "a": "Libo réunit une immense bibliothèque d'exercices, des programmes structurés, le suivi de progression et de vrais cash challenges dans une seule app — avec une interface sombre premium qui ne te gêne jamais. Pas de pubs, pas de fouillis. La plupart des apps promettent la motivation ; Libo paie littéralement en cash la régularité."
+      }
+    },
+    {
+      "id": "challenges",
+      "en": {
+        "q": "How do the Cash Challenges work?",
+        "a": "Join a 30-day challenge (e.g. 100 reps daily), record yourself completing the reps each day — verified in-app, no way to cheat it — and cash out real money when you finish. Spots are limited, and your 30 days start the moment you join."
+      },
+      "es": {
+        "q": "¿Cómo funcionan los Cash Challenges?",
+        "a": "Únete a un reto de 30 días (por ejemplo, 100 reps al día), grábate completando las reps cada día, compártelo en tus stories y cobra dinero real cuando termines. Las plazas son limitadas, y tus 30 días empiezan en el momento en que entras."
+      },
+      "pt": {
+        "q": "Como funcionam os Cash Challenges?",
+        "a": "Entre num desafio de 30 dias (por exemplo, 100 reps por dia), se grave completando as reps todo dia, compartilhe nos seus stories e saque dinheiro de verdade quando terminar. As vagas são limitadas, e seus 30 dias começam no momento em que você entra."
+      },
+      "de": {
+        "q": "Wie funktionieren die Cash Challenges?",
+        "a": "Tritt einer 30-Tage-Challenge bei (z.B. 100 Reps täglich), nimm dich jeden Tag beim Absolvieren der Reps auf, teile es in deinen Stories und cash echtes Geld aus, wenn du fertig bist. Die Plätze sind begrenzt, und deine 30 Tage starten in dem Moment, in dem du einsteigst."
+      },
+      "fr": {
+        "q": "Comment fonctionnent les Cash Challenges ?",
+        "a": "Rejoins un challenge de 30 jours (ex. 100 reps par jour), filme-toi en train de finir tes reps chaque jour, partage dans tes stories, et encaisse du vrai argent une fois terminé. Les places sont limitées, et tes 30 jours commencent dès que tu t'inscris."
+      }
+    },
+    {
+      "id": "free",
+      "en": {
+        "q": "Is Libo free?",
+        "a": "Libo offers a free tier with access to workouts, exercises, basic tracking, an activity streak and points, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, 2 freeze tokens per challenge, and the €15 and €50 challenge tiers."
+      },
+      "es": {
+        "q": "¿Libo es gratis?",
+        "a": "Libo ofrece un plan gratuito con acceso a entrenamientos, ejercicios, seguimiento básico, una racha de actividad con puntos y un reto de dinero de nivel inicial. Premium desbloquea la biblioteca completa, analíticas avanzadas, 2 fichas de congelación por reto y los niveles de €15 y €50."
+      },
+      "pt": {
+        "q": "A Libo é grátis?",
+        "a": "A Libo oferece um plano gratuito com acesso a treinos, exercícios, acompanhamento básico, uma sequência de atividade com pontos e um desafio de dinheiro inicial. O Premium libera a biblioteca completa, análises avançadas, 2 fichas de congelamento por desafio e os níveis de €15 e €50."
+      },
+      "de": {
+        "q": "Ist Libo kostenlos?",
+        "a": "Libo bietet eine kostenlose Stufe mit Zugriff auf Workouts, Übungen, einfaches Tracking, eine Aktivitäts-Streak samt Punkten und eine Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Analysen, 2 Freeze-Tokens pro Challenge und die €15- und €50-Stufen."
+      },
+      "fr": {
+        "q": "Libo est-il gratuit ?",
+        "a": "Libo propose une offre gratuite avec accès aux entraînements, aux exercices, au suivi de base, aux concours de produits courants, et à un cash challenge d'entrée de gamme. Premium débloque la bibliothèque complète, des analyses avancées, des récompenses en cash plus élevées (jusqu'à €50) et les concours Premium."
+      }
+    },
+    {
+      "id": "equipment",
+      "en": {
+        "q": "What equipment do I need?",
+        "a": "None — or everything. Libo has 295 home exercises (most need no equipment), 313 gym exercises, and 33 mobility moves. Filter by what you have available."
+      },
+      "es": {
+        "q": "¿Qué equipo necesito?",
+        "a": "Ninguno — o todo. Libo tiene 295 ejercicios para casa (la mayoría sin equipo), 313 de gimnasio y 33 de movilidad. Filtra por lo que tengas disponible."
+      },
+      "pt": {
+        "q": "De que equipamento eu preciso?",
+        "a": "Nenhum — ou todos. A Libo tem 295 exercícios em casa (a maioria sem equipamento), 313 de academia e 33 de mobilidade. Filtre pelo que você tem à disposição."
+      },
+      "de": {
+        "q": "Welches Equipment brauche ich?",
+        "a": "Keins — oder alles. Libo hat 295 Home-Übungen (die meisten ohne Equipment), 313 Gym-Übungen und 33 Mobility-Moves. Filter nach dem, was du hast."
+      },
+      "fr": {
+        "q": "De quel matériel ai-je besoin ?",
+        "a": "Aucun — ou tout. Libo compte 295 exercices à la maison (la plupart sans matériel), 313 exercices en salle et 33 mouvements de mobilité. Filtre selon ce que tu as sous la main."
+      }
+    },
+    {
+      "id": "builder",
+      "en": {
+        "q": "Can I build my own workouts?",
+        "a": "Yes. The Custom Builder lets you pick from the full exercise library, set your own sets, reps, and rest times, then save and reuse your workouts anytime."
+      },
+      "es": {
+        "q": "¿Puedo crear mis propios entrenamientos?",
+        "a": "Sí. El Custom Builder te deja elegir de la biblioteca completa de ejercicios, definir tus series, reps y descansos, y luego guardar y reutilizar tus entrenamientos cuando quieras."
+      },
+      "pt": {
+        "q": "Posso montar meus próprios treinos?",
+        "a": "Pode. O Custom Builder deixa você escolher da biblioteca completa de exercícios, definir suas séries, reps e tempos de descanso, e salvar e reutilizar seus treinos quando quiser."
+      },
+      "de": {
+        "q": "Kann ich meine eigenen Workouts bauen?",
+        "a": "Ja. Mit dem Custom Builder wählst du aus der vollen Übungsbibliothek, legst deine eigenen Sätze, Reps und Pausenzeiten fest und speicherst und wiederverwendest deine Workouts jederzeit."
+      },
+      "fr": {
+        "q": "Puis-je créer mes propres entraînements ?",
+        "a": "Oui. Le Custom Builder te permet de piocher dans toute la bibliothèque d'exercices, de définir tes séries, reps et temps de repos, puis d'enregistrer et de réutiliser tes entraînements quand tu veux."
+      }
+    },
+    {
+      "id": "android",
+      "en": {
+        "q": "Is Libo available on Android?",
+        "a": "Yes — Libo launches on iOS and Android at the same time. Join the waitlist and we'll tell you the moment it's live on both."
+      },
+      "es": {
+        "q": "¿Libo está disponible en Android?",
+        "a": "Sí — Libo se lanza en iOS y Android al mismo tiempo. Únete a la lista de espera y te avisamos en cuanto esté disponible en ambos."
+      },
+      "pt": {
+        "q": "A Libo está disponível no Android?",
+        "a": "Sim — a Libo lança no iOS e no Android ao mesmo tempo. Entre na lista de espera e a gente te avisa na hora que estiver no ar nos dois."
+      },
+      "de": {
+        "q": "Gibt es Libo für Android?",
+        "a": "Ja — Libo startet gleichzeitig auf iOS und Android. Trag dich in die Warteliste ein und wir sagen dir Bescheid, sobald es auf beiden live ist."
+      },
+      "fr": {
+        "q": "Libo est-il disponible sur Android ?",
+        "a": "Oui — Libo se lance sur iOS et Android en même temps. Rejoins la liste d'attente et on te préviendra dès que c'est en ligne sur les deux."
+      }
+    },
+    {
+      "id": "programs",
+      "en": {
+        "q": "Can I follow structured programs?",
+        "a": "Yes. Libo includes multi-week programs designed for specific goals — muscle building, fat loss, mobility, and more. Follow the plan, log your progress, and see real results."
+      },
+      "es": {
+        "q": "¿Puedo seguir programas estructurados?",
+        "a": "Sí. Libo incluye programas de varias semanas diseñados para objetivos concretos — ganar músculo, perder grasa, movilidad y más. Sigue el plan, registra tu progreso y ve resultados reales."
+      },
+      "pt": {
+        "q": "Posso seguir programas estruturados?",
+        "a": "Sim. A Libo tem programas de várias semanas feitos pra objetivos específicos — ganho de músculo, perda de gordura, mobilidade e mais. Siga o plano, registre seu progresso e veja resultados de verdade."
+      },
+      "de": {
+        "q": "Kann ich strukturierten Programmen folgen?",
+        "a": "Ja. Libo enthält mehrwöchige Programme für konkrete Ziele — Muskelaufbau, Fettabbau, Mobility und mehr. Folge dem Plan, tracke deinen Fortschritt und sieh echte Ergebnisse."
+      },
+      "fr": {
+        "q": "Puis-je suivre des programmes structurés ?",
+        "a": "Oui. Libo inclut des programmes de plusieurs semaines conçus pour des objectifs précis — prise de muscle, perte de gras, mobilité, et plus. Suis le plan, note ta progression, et vois de vrais résultats."
+      }
+    },
+    {
+      "id": "progress",
+      "en": {
+        "q": "Does Libo track my progress?",
+        "a": "Every set, rep, and weight is logged. Libo tracks your workout history, personal records, streaks, and shows your progress over time with clear charts."
+      },
+      "es": {
+        "q": "¿Libo hace seguimiento de mi progreso?",
+        "a": "Cada serie, rep y peso queda registrado. Libo hace seguimiento de tu historial de entrenamiento, récords personales y rachas, y te muestra tu progreso con el tiempo mediante gráficos claros."
+      },
+      "pt": {
+        "q": "A Libo acompanha meu progresso?",
+        "a": "Cada série, rep e peso é registrado. A Libo acompanha seu histórico de treinos, recordes pessoais, sequências e mostra seu progresso ao longo do tempo com gráficos claros."
+      },
+      "de": {
+        "q": "Trackt Libo meinen Fortschritt?",
+        "a": "Jeder Satz, jede Rep und jedes Gewicht wird geloggt. Libo trackt deine Workout-History, persönliche Rekorde, Streaks und zeigt deinen Fortschritt über die Zeit mit klaren Charts."
+      },
+      "fr": {
+        "q": "Libo suit-il ma progression ?",
+        "a": "Chaque série, rep et charge est enregistrée. Libo suit ton historique d'entraînement, tes records perso, tes séries, et montre ta progression dans le temps avec des graphiques clairs."
+      }
+    },
+    {
+      "id": "monthlyPrice",
+      "en": {
+        "q": "What does €6.67/mo mean?",
+        "a": "Premium is billed yearly at €79.99, which works out to €6.67 per month. Founding Members lock the first year at €39.50 — about €3.29/mo."
+      },
+      "es": {
+        "q": "¿Qué significa €6.67/mes?",
+        "a": "Premium se factura anualmente a €79.99, lo que equivale a €6.67 al mes. Los Founding Members aseguran el primer año a €39.50 — unos €3.29/mes."
+      },
+      "pt": {
+        "q": "O que significa €6.67/mês?",
+        "a": "O Premium é cobrado anualmente a €79.99, o que dá €6.67 por mês. Founding Members garantem o primeiro ano a €39.50 — cerca de €3.29/mês."
+      },
+      "de": {
+        "q": "Was bedeutet €6.67/Monat?",
+        "a": "Premium wird jährlich mit €79.99 abgerechnet, das sind €6.67 pro Monat. Founding Members sichern sich das erste Jahr für €39.50 — etwa €3.29/Monat."
+      },
+      "fr": {
+        "q": "Que veut dire €6.67/mois ?",
+        "a": "Premium est facturé chaque année à €79.99, soit €6.67 par mois. Les Founding Members bloquent la première année à €39.50 — environ €3.29/mois."
+      }
+    },
+    {
+      "id": "refundable",
+      "en": {
+        "q": "Is the Founding Member offer really refundable?",
+        "a": "Fully refundable any time before launch, no questions asked. And your 12 months start the day we launch, so you don't lose a single day waiting."
+      },
+      "es": {
+        "q": "¿La oferta de Founding Member es de verdad reembolsable?",
+        "a": "Totalmente reembolsable en cualquier momento antes del lanzamiento, sin preguntas. Y tus 12 meses empiezan el día que lancemos, así que no pierdes ni un solo día esperando."
+      },
+      "pt": {
+        "q": "A oferta de Founding Member tem reembolso mesmo?",
+        "a": "Reembolso total a qualquer momento antes do lançamento, sem perguntas. E seus 12 meses começam no dia do lançamento, então você não perde nem um dia esperando."
+      },
+      "de": {
+        "q": "Ist das Founding-Member-Angebot wirklich erstattbar?",
+        "a": "Jederzeit vor dem Launch voll erstattbar, ohne Wenn und Aber. Und deine 12 Monate starten am Launch-Tag, du verlierst also keinen einzigen Tag mit Warten."
+      },
+      "fr": {
+        "q": "L'offre Founding Member est-elle vraiment remboursable ?",
+        "a": "Entièrement remboursable à tout moment avant le lancement, sans poser de questions. Et tes 12 mois commencent le jour du lancement, donc tu ne perds pas un seul jour à attendre."
+      }
+    }
+  ]
+}
