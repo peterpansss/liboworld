@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T12:34:11.542Z",
+  "generatedAt": "2026-08-20T23:45:11.235Z",
   "langs": [
     "en",
     "es",
@@ -127,23 +127,23 @@
       "id": "android",
       "en": {
         "q": "Is Libo available on Android?",
-        "a": "Yes — Libo launches on iOS and Android at the same time. Join the waitlist and we'll tell you the moment it's live on both."
+        "a": "Not at launch. Libo opens on iOS on 3 September 2026; Android is on the roadmap with no date yet. Join the waitlist and we’ll tell you the moment it lands."
       },
       "es": {
         "q": "¿Libo está disponible en Android?",
-        "a": "Sí — Libo se lanza en iOS y Android al mismo tiempo. Únete a la lista de espera y te avisamos en cuanto esté disponible en ambos."
+        "a": "En el lanzamiento no. Libo sale en iOS el 3 de septiembre de 2026; Android está en la hoja de ruta, todavía sin fecha. Únete a la lista de espera y te avisamos en cuanto llegue."
       },
       "pt": {
         "q": "A Libo está disponível no Android?",
-        "a": "Sim — a Libo lança no iOS e no Android ao mesmo tempo. Entre na lista de espera e a gente te avisa na hora que estiver no ar nos dois."
+        "a": "No lançamento, não. A Libo chega ao iOS em 3 de setembro de 2026; o Android está no roadmap, ainda sem data. Entre na lista de espera e a gente te avisa assim que sair."
       },
       "de": {
         "q": "Gibt es Libo für Android?",
-        "a": "Ja — Libo startet gleichzeitig auf iOS und Android. Trag dich in die Warteliste ein und wir sagen dir Bescheid, sobald es auf beiden live ist."
+        "a": "Zum Launch nicht. Libo startet am 3. September 2026 auf iOS; Android steht auf der Roadmap, aber noch ohne Datum. Trag dich in die Warteliste ein und wir sagen dir Bescheid, sobald es so weit ist."
       },
       "fr": {
         "q": "Libo est-il disponible sur Android ?",
-        "a": "Oui — Libo se lance sur iOS et Android en même temps. Rejoins la liste d'attente et on te préviendra dès que c'est en ligne sur les deux."
+        "a": "Pas au lancement. Libo sort sur iOS le 3 septembre 2026 ; Android est au programme, sans date pour l’instant. Rejoins la liste d’attente et on te préviendra dès que c’est disponible."
       }
     },
     {

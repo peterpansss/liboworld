@@ -5,7 +5,7 @@ import LiboLogo from './LiboLogo';
 import LanguageSwitcher from './LanguageSwitcher';
 import StoreBadges from './StoreBadges';
 import { isStripeConfigured } from '../lib/stripe';
-import { isPrelaunch } from '../config/launchMode';
+import { isPrelaunch, isFoundingOpen } from '../config/launchMode';
 import { prefetchRoute } from '../lib/routePrefetch';
 import './SiteNav.css';
 
@@ -22,11 +22,12 @@ const NAV_LINKS = [
   { labelKey: 'nav.careers', defaultLabel: 'Careers', to: '/careers' },
 ] as const;
 
-// "Enter the club →" goes to the Founding Member funnel, which is the single
-// paid conversion surface. It deliberately does NOT point at an email capture:
-// the only waitlist field on the site now lives at the bottom of the homepage,
-// and a free-labelled ask must never land on a paywall (ONBOARDING-FLOW-TICKET).
-const ENTER_CLUB_TARGET = '/join';
+// "Join the waitlist" points at the homepage hero's free email field. The rule
+// it obeys is unchanged — a free-labelled ask must never land on a paywall
+// (ONBOARDING-FLOW-TICKET) — but the hero IS the capture now, so the free label
+// lands on a free field instead of merely avoiding the paid funnel. The paid
+// 50%-off ask lives only on /membership and /join, which this never links to.
+const WAITLIST_TARGET = '/#hero-capture';
 
 export default function SiteNav() {
   const { t } = useTranslation();
@@ -34,17 +35,25 @@ export default function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  // Top savings bar — advertises the founding deal loudly + early without a
-  // cold paid wall at the top of the page. Dismissible for the session.
+  // Top bar — one strip, two variants. Dismissible for the session.
   const [announceDismissed, setAnnounceDismissed] = useState(
     () => typeof window !== 'undefined' && sessionStorage.getItem(ANNOUNCE_DISMISS_KEY) === '1',
   );
-  // Careers and Press aren't sales surfaces — the lime offer bar competes with
-  // their content, so it's suppressed there (HANDOFF-V2-COMPLEMENT §C).
+  // Careers and Press aren't sales surfaces — the bar competes with their
+  // content, so it's suppressed there (HANDOFF-V2-COMPLEMENT §C).
   const NO_ANNOUNCE_ROUTES = ['/careers', '/press'];
   const announceAllowedHere = !NO_ANNOUNCE_ROUTES.some((p) => location.pathname.startsWith(p));
-  const showAnnounce =
-    isPrelaunch() && isStripeConfigured() && !announceDismissed && announceAllowedHere;
+  // The paid 50%-off ask is confined to the page that sells it: shouting a
+  // discount from the Library or the blog reads as a sale, not as news. Every
+  // other page gets the free waitlist bar, which is gated on prelaunch ALONE —
+  // an email capture has nothing to do with whether Stripe is wired up.
+  const onMembership = location.pathname.startsWith('/membership');
+  const showOffer = isPrelaunch() && isStripeConfigured() && isFoundingOpen() && onMembership;
+  // Fallback, not "everywhere except /membership": once the founding offer
+  // closes on LAUNCH_DATE, /membership would otherwise be the one page with no
+  // bar at all. The waitlist bar takes over there too.
+  const showWaitlist = isPrelaunch() && !showOffer;
+  const showAnnounce = (showOffer || showWaitlist) && !announceDismissed && announceAllowedHere;
   const dismissAnnounce = () => {
     setAnnounceDismissed(true);
     try { sessionStorage.setItem(ANNOUNCE_DISMISS_KEY, '1'); } catch { /* ignore */ }
@@ -56,9 +65,18 @@ export default function SiteNav() {
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
   const isSubpage = location.pathname !== '/';
 
-  // Plain route navigation to the FM funnel — no hash, no scroll handling.
-  const joinClubLabel = t('nav.enterTheClub', { defaultValue: 'Enter the club →' });
-  const handleJoinClub = () => setDrawerOpen(false);
+  const waitlistLabel = t('nav.joinWaitlist', { defaultValue: 'Join the waitlist' });
+  const handleWaitlistClick = () => setDrawerOpen(false);
+
+  // The ⚡ and → are markup (site-announce__spark / __arrow), so the copy must
+  // not repeat them — except the short variant, which carries its own trailing
+  // → because CSS hides the standalone arrow at ≤430px.
+  const announceFull = showWaitlist
+    ? t('relaunchHome.waitlistBar.full', { defaultValue: 'Cash challenges open 3 September — join the waitlist' })
+    : t('earlyAccess.announceText', { defaultValue: 'Founding Members: 50% off — until we launch on 3 September' });
+  const announceShort = showWaitlist
+    ? t('relaunchHome.waitlistBar.short', { defaultValue: 'Cash challenges open 3 Sept →' })
+    : t('earlyAccess.announceTextShort', { defaultValue: 'Founding Members: 50% off until 3 Sept →' });
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -88,18 +106,18 @@ export default function SiteNav() {
     <>
       <a href="#main-content" className="skip-link">{t('nav.skipToMain')}</a>
       {showAnnounce && (
-        <div className="site-announce">
+        <div className={`site-announce${showWaitlist ? ' site-announce--waitlist' : ''}`}>
           <button
             type="button"
             className="site-announce__msg"
-            onClick={() => navigate('/membership')}
+            onClick={() => navigate(showWaitlist ? WAITLIST_TARGET : '/membership')}
           >
             <span className="site-announce__spark" aria-hidden="true">⚡</span>
             <span className="site-announce__text">
               {/* Copy variant, not CSS truncation: full sentence on wider
                   viewports, a terse version at ≤430px so nothing clips. */}
-              <span className="site-announce__text--full">{t('earlyAccess.announceText')}</span>
-              <span className="site-announce__text--short">{t('earlyAccess.announceTextShort')}</span>
+              <span className="site-announce__text--full">{announceFull}</span>
+              <span className="site-announce__text--short">{announceShort}</span>
             </span>
             <span className="site-announce__arrow" aria-hidden="true">→</span>
           </button>
@@ -147,11 +165,11 @@ export default function SiteNav() {
           {/* Right section */}
           <div className="site-nav__right">
             <Link
-              to={ENTER_CLUB_TARGET}
+              to={WAITLIST_TARGET}
               className="site-nav__cta"
-              onClick={handleJoinClub}
+              onClick={handleWaitlistClick}
             >
-              {joinClubLabel}
+              {waitlistLabel}
             </Link>
             <button
               className="site-nav__hamburger"
@@ -203,11 +221,11 @@ export default function SiteNav() {
         <div className="site-nav__drawer-bottom">
           <StoreBadges className="site-nav__drawer-badges" />
           <Link
-            to={ENTER_CLUB_TARGET}
+            to={WAITLIST_TARGET}
             className="site-nav__drawer-cta"
-            onClick={handleJoinClub}
+            onClick={handleWaitlistClick}
           >
-            {joinClubLabel}
+            {waitlistLabel}
           </Link>
           <div className="site-nav__drawer-lang">
             <LanguageSwitcher variant="drawer" />

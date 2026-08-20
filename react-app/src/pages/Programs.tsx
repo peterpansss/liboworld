@@ -103,7 +103,7 @@ export default function Programs() {
               {loading
                 ? 'Loading programs…'
                 : sorted.length === 0
-                  ? 'New multi-day programs coming soon.'
+                  ? 'New multi-day programs are in production.'
                   : `${sorted.length} multi-day plan${sorted.length === 1 ? '' : 's'}`}
             </p>
           </div>
@@ -124,7 +124,7 @@ export default function Programs() {
               <p className="el-empty-sub">
                 {error
                   ? "We couldn't reach the program library right now. Try again in a moment."
-                  : 'Multi-day programs are on their way. Check back soon.'}
+                  : 'Multi-day programs are in production. They land here as they ship.'}
               </p>
             </div>
           ) : (

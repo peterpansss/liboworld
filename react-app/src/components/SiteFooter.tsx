@@ -20,7 +20,7 @@ export default function SiteFooter() {
             </Link>
             <p className="site-footer__tagline">
               {t('footer.tagline', {
-                defaultValue: 'The training club that pays your consistency. iOS & Android, coming soon.',
+                defaultValue: 'The training club that pays you to finish 30 days.',
               })}
             </p>
             <StoreBadges className="site-footer__badges" />

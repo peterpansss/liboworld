@@ -27,6 +27,15 @@
   overflow-x: clip;
 }
 
+@media (max-width: 767px) {
+  /* Clear HomeStickyWaitlist (~77px) + safe-area inset so nothing is trapped
+     under the bar (same idiom as `.cf-page` in ChallengeFunnel.css). The
+     footer is a sibling of <main>, so it needs the padding too — the sibling
+     selector keeps this scoped to the home page rather than editing
+     SiteFooter.css, which the funnels share. */
+  .relaunch-home ~ .site-footer { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+}
+
 .relaunch-home a { color: var(--libo-text); text-decoration: none; }
 .relaunch-home input::placeholder { color: var(--libo-dim); }
 
@@ -205,7 +214,11 @@
   font-family: var(--libo-font-display);
   font-weight: 800;
   text-transform: uppercase;
-  font-size: 88px;
+  /* Was a flat 88px, which fit "THE END OF / STARTING OVER." exactly. The v3
+     headline is 24 characters, so between 900px and the 1400px max-width the
+     hero column is too narrow for it and "FINISH 30 DAYS" broke mid-phrase.
+     The clamp still resolves to 88px at the design width. */
+  font-size: clamp(52px, 6.4vw, 88px);
   line-height: 0.92;
   letter-spacing: -1px;
   margin: 0;
@@ -219,7 +232,31 @@
   text-wrap: pretty;
 }
 .rh-hero-ctas { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-.rh-hero-capture { display: flex; flex-direction: column; gap: 8px; max-width: 480px; }
+
+/* Hero email capture. `.rh-hero-capture` is the original hero-field rule from
+   before the capture was moved to the bottom of the page — it comes back
+   rather than being rewritten, and now also has to undo the centring the
+   bottom block's `.rh-wl-*` rules apply. */
+.rh-hero-capture-anchor { width: 100%; scroll-margin-top: 88px; }
+.rh-hero-capture {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 480px;   /* matches .rh-hero-sub, so the column edge is one line */
+}
+.rh-hero-capture .rh-wl-form,
+.rh-hero-capture .rh-wl-joined { margin: 0; max-width: none; }
+.rh-hero-capture .rh-wl-note,
+.rh-hero-capture .rh-wl-challenge,
+.rh-hero-capture .rh-wl-error { margin-top: 0; }
+
+@media (min-width: 768px) {
+  /* Field + button on one row. 480px is too tight for the shared
+     `flex: 1 1 260px` basis plus the button, and the wrap looked accidental
+     next to the phones. */
+  .rh-hero-capture .rh-wl-form { flex-wrap: nowrap; justify-content: flex-start; }
+  .rh-hero-capture .rh-wl-input { flex: 1 1 200px; min-width: 0; }
+}
 
 .rh-hero-phones {
   display: flex;
@@ -1081,7 +1118,12 @@ video.rh-phone {
 
 .rh-guide-meta { margin-top: auto; color: var(--muted); font-size: 13px; }
 
-/* 10. WAITLIST — the ONLY email capture on the site ──────────────────────── */
+/* 10. WAITLIST — rendered twice on this page (hero + bottom block) ───────── */
+
+/* The component root. It's a flex child of centring containers in both
+   variants, so without width:100% it shrink-wraps and drags the form in with
+   it — the same failure the `.rh-wl-form` note below describes. */
+.rh-wl { width: 100%; }
 
 .rh-wl-form {
   display: flex;
@@ -1152,6 +1194,8 @@ video.rh-phone {
 }
 
 .rh-wl-note { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+/* The waitlist copy never names the payout mechanic; this is the route to it. */
+.rh-wl-challenge { margin: 10px 0 0; font-size: 14px; }
 .rh-wl-error { margin: 10px 0 0; color: var(--error); font-size: 14px; }
 
 .rh-wl-footnote { margin: 20px 0 0; color: var(--dim); font-size: 13px; }
@@ -1222,6 +1266,7 @@ video.rh-phone {
   .rh-badges { justify-content: center; }
   .rh-hero-sub { margin-left: auto; margin-right: auto; }
   .rh-hero-ctas { align-items: stretch; }
+  .rh-hero-capture { margin-left: auto; margin-right: auto; max-width: 420px; }
 
   /* All three phones stay, scaled down as a group so the whole composition
      fits — bottom edges visible, nothing cropped by the section edge

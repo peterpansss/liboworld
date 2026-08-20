@@ -5,7 +5,7 @@
  * and the redirect navigation helper.
  */
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
-import { detectPlatform, storeUrlFor, redirectToStore, STORE_URLS } from '../../src/utils/storeRedirect';
+import { detectPlatform, storeUrlFor, redirectToStore, STORE_URLS, WAITLIST_URL, ANDROID_AVAILABLE } from '../../src/utils/storeRedirect';
 
 const ORIG_NAV = global.navigator;
 const ORIG_LOC = global.window?.location;
@@ -76,16 +76,19 @@ describe('detectPlatform', () => {
 });
 
 describe('storeUrlFor', () => {
-  it('returns the Android URL for android', () => {
-    expect(storeUrlFor('android')).toBe(STORE_URLS.android);
-  });
-
   it('returns the iOS URL for ios', () => {
     expect(storeUrlFor('ios')).toBe(STORE_URLS.ios);
   });
 
-  it('desktop falls through to iOS (largest base)', () => {
-    expect(storeUrlFor('desktop')).toBe(STORE_URLS.ios);
+  // Launch is iOS-only: nothing but iOS may be handed a store link, or an
+  // Android visitor lands on the Play Store homepage with nothing to install.
+  it('sends android to the waitlist while ANDROID_AVAILABLE is off', () => {
+    expect(ANDROID_AVAILABLE).toBe(false);
+    expect(storeUrlFor('android')).toBe(WAITLIST_URL);
+  });
+
+  it('sends desktop to the waitlist, not to a store', () => {
+    expect(storeUrlFor('desktop')).toBe(WAITLIST_URL);
   });
 });
 
@@ -105,9 +108,9 @@ describe('redirectToStore', () => {
     expect((window.location.assign as any).mock.calls[0][0]).toBe(STORE_URLS.ios);
   });
 
-  it('navigates to the Android URL for android platform', () => {
+  it('navigates android to the waitlist, not the Play Store', () => {
     redirectToStore('android');
-    expect((window.location.assign as any).mock.calls[0][0]).toBe(STORE_URLS.android);
+    expect((window.location.assign as any).mock.calls[0][0]).toBe(WAITLIST_URL);
   });
 });
 

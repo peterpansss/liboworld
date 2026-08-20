@@ -7,7 +7,8 @@
  * On click, the RESERVE MY SLOT button:
  *   - Logs an anonymous click into funnel_signups (tier + UTM + UA)
  *   - Fires a Google Analytics event for conversion tracking
- *   - On mobile: UA-routes directly to App Store (iOS) or Play Store (Android)
+ *   - On mobile: UA-routes iOS straight to the App Store. Launch is iOS-only,
+ *     so Android and desktop go to the waitlist instead (see storeRedirect.ts).
  *   - On desktop: opens a QR-code overlay so the visitor can scan with
  *     their phone — see StoreRedirectOverlay component.
  *

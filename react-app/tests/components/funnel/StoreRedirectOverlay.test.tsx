@@ -3,8 +3,8 @@
  *
  * Covers: open=false short-circuit, dialog labelling, QR src construction
  * (with + without tier slug), close button, ESC handling, body scroll
- * lock + restore, click-on-overlay-vs-modal, and external store badges
- * with rel="noopener noreferrer".
+ * lock + restore, click-on-overlay-vs-modal, the external App Store badge
+ * with rel="noopener noreferrer", and the iOS-only Android waitlist fallback.
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
@@ -122,16 +122,24 @@ describe('StoreRedirectOverlay', () => {
     expect(onClose).not.toHaveBeenCalled();
   });
 
-  it('renders both store badges as external links with safe rel attrs', () => {
+  it('renders the App Store badge as an external link with safe rel attrs', () => {
     render(
       <StoreRedirectOverlay open={true} tierSlug={null} copy={baseCopy} onClose={() => {}} />,
     );
-    const ios = screen.getByLabelText('Download on the App Store');
-    const android = screen.getByLabelText('Get it on Google Play');
-    [ios, android].forEach((el) => {
-      expect(el.getAttribute('target')).toBe('_blank');
-      expect(el.getAttribute('rel')).toContain('noopener');
-      expect(el.getAttribute('rel')).toContain('noreferrer');
-    });
+    const ios = screen.getByLabelText('store.downloadAppStore');
+    expect(ios.getAttribute('target')).toBe('_blank');
+    expect(ios.getAttribute('rel')).toContain('noopener');
+    expect(ios.getAttribute('rel')).toContain('noreferrer');
+  });
+
+  // Launch is iOS-only — a Play Store badge here would promise an install
+  // that doesn't exist. The waitlist link is the honest fallback.
+  it('offers no Play Store badge, only a waitlist link for Android', () => {
+    const { container } = render(
+      <StoreRedirectOverlay open={true} tierSlug={null} copy={baseCopy} onClose={() => {}} />,
+    );
+    expect(screen.queryByLabelText('store.downloadGooglePlay')).toBeNull();
+    // Match on href, not copy — the note's wording is translated.
+    expect(container.querySelector('a[href="/#hero-capture"]')).not.toBeNull();
   });
 });

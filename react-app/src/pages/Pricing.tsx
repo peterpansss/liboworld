@@ -8,6 +8,8 @@ import ScrollRevealText from '../components/ScrollRevealText';
 import { usePopIn } from '../utils/funnelAnimations';
 import { PRICING_FAQ } from '../data/faq';
 import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvider';
+import LaunchCountdown from '../components/LaunchCountdown';
+import { isFoundingOpen } from '../config/launchMode';
 import './Pricing.css';
 
 // /membership (route /pricing redirects here) — the Membership page.
@@ -57,7 +59,13 @@ export default function Pricing() {
 
   usePopIn();
 
-  const plans: Plan[] = [
+  // Read at render, not at module load: the pre-sale has to close itself on
+  // the launch date without a deploy (see config/launchMode.ts). Once it's
+  // shut, the Founding card comes out of the array entirely — Premium already
+  // carries the €79.99/yr price, so there's nothing to replace it with.
+  const foundingOpen = isFoundingOpen();
+
+  const allPlans: Plan[] = [
     {
       id: 'free',
       variant: 'default',
@@ -146,6 +154,8 @@ export default function Pricing() {
     },
   ];
 
+  const plans = allPlans.filter((p) => foundingOpen || p.id !== 'founding');
+
   const guarantees = [
     {
       title: t('membershipV2.guarantee.g1.title', { defaultValue: 'No card to start' }),
@@ -159,12 +169,18 @@ export default function Pricing() {
         defaultValue: 'Every new member starts with the full experience.',
       }),
     },
-    {
-      title: t('membershipV2.guarantee.g3.title', { defaultValue: 'Refundable pre-sale' }),
-      body: t('membershipV2.guarantee.g3.body', {
-        defaultValue: 'Founding Member is fully refundable until launch day.',
-      }),
-    },
+    // Only meaningful while the pre-sale is open — with the Founding card gone
+    // this would be a promise about a card that isn't on the page.
+    ...(foundingOpen
+      ? [
+          {
+            title: t('membershipV2.guarantee.g3.title', { defaultValue: 'Refundable pre-sale' }),
+            body: t('membershipV2.guarantee.g3.body', {
+              defaultValue: 'Founding Member is fully refundable until launch day.',
+            }),
+          },
+        ]
+      : []),
   ];
 
   // The FAQ structure is shared (src/data/faq.ts) and so are three of its
@@ -236,6 +252,7 @@ export default function Pricing() {
         <section className="pr-plans" aria-label={t('relaunchPricing.aria.plans')}>
           {plans.map((p) => (
             <article key={p.id} className={`pr-card pr-card--${p.variant}`} data-popin>
+              {p.id === 'founding' ? <LaunchCountdown /> : null}
               <div className="pr-card__head">
                 <h2 className="pr-card__name">{p.name}</h2>
                 {p.badge ? <span className="pr-card__badge">{p.badge}</span> : null}
@@ -269,7 +286,7 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              {p.founding ? (
+              {p.founding && foundingOpen ? (
                 <button
                   type="button"
                   className={`pr-card__cta pr-card__cta--${p.ctaStyle}`}
@@ -319,7 +336,10 @@ export default function Pricing() {
           </div>
 
           <div className="pr-faq__list">
-            {PRICING_FAQ.map((item, i) => {
+            {/* The refundable question is about the founding pre-sale; once that
+                closes it answers a question nobody can act on. faq.ts stays the
+                single source — this only filters what /membership renders. */}
+            {PRICING_FAQ.filter((item) => foundingOpen || item.id !== 'refundable').map((item, i) => {
               const isOpen = openFaq === i;
               const override = faqOverride[item.id];
               const question = override ? override.q : t(item.qKey);

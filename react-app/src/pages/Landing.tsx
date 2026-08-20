@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
-import type { FormEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
 import ScrollRevealText from '../components/ScrollRevealText';
+import WaitlistCapture from '../components/WaitlistCapture';
+import HomeStickyWaitlist from '../components/HomeStickyWaitlist';
 import { usePopIn } from '../utils/funnelAnimations';
-import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import { CHALLENGE_TIERS } from '../data/challengeTiers';
 import './Landing.css';
 
 // ── Smooth scroll to an in-page anchor (offset for the sticky nav) ──
 //
-// Still needed: /membership links to "/#hero-capture", and that id now lives on
-// the one and only email capture at the bottom of this page.
+// Two live targets on this page: "#hero-capture" (the email field in the hero —
+// the site header and /membership link straight to it) and "#waitlist" (the
+// bottom block, linked from the funnels).
 function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -23,80 +24,6 @@ function scrollToId(id: string) {
     top: y,
     behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
   });
-}
-
-/**
- * The site's ONLY email capture (MASTER-HANDOFF §14, HANDOFF-V2 "Funnel vs.
- * waitlist split"). Submitting is a FREE ask and always ends in a plain inline
- * confirmation — it must NEVER open payment. The Founding Member funnel is a
- * separate, explicitly-labelled link rendered below the confirmed state.
- *
- * `duplicate` is treated as success: the address is on the list either way and
- * telling someone "you already signed up" is a worse outcome than confirming.
- */
-function WaitlistCapture() {
-  const { t } = useTranslation();
-  const { email, setEmail, status, errorMessage, submit } = useWaitlistSubmit('homepage_waitlist');
-  const joined = status === 'success' || status === 'duplicate';
-
-  if (joined) {
-    return (
-      <div className="rh-wl-joined">
-        <p className="rh-wl-confirm">
-          {t('relaunchHome.waitlist.confirm', { defaultValue: "You're on the list ✓" })}
-        </p>
-        <p className="rh-wl-note">
-          {t('relaunchHome.waitlist.confirmNote', { defaultValue: 'We email you at launch. No spam.' })}
-        </p>
-        <p className="rh-wl-footnote">
-          <Link to="/join" viewTransition className="rh-accent-link">
-            {t('relaunchHome.waitlist.fmFootnote', {
-              defaultValue: 'Want in before launch? Become a Founding Member →',
-            })}
-          </Link>
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <form className="rh-wl-form" onSubmit={submit as (e: FormEvent) => void}>
-        <label className="rh-wl-label" htmlFor="rh-waitlist-email">
-          {t('relaunchHome.waitlist.label', { defaultValue: 'Email address' })}
-        </label>
-        <input
-          id="rh-waitlist-email"
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder={t('relaunchHome.waitlist.placeholder', { defaultValue: 'Your email' })}
-          className="rh-wl-input"
-          disabled={status === 'submitting'}
-          autoComplete="email"
-        />
-        <button type="submit" className="rh-wl-button" disabled={status === 'submitting'}>
-          {status === 'submitting'
-            ? t('relaunchHome.waitlist.buttonBusy', { defaultValue: 'Sending…' })
-            : t('relaunchHome.waitlist.button', { defaultValue: 'Join the waitlist' })}
-        </button>
-      </form>
-      {status === 'error' && (
-        <p className="rh-wl-error" role="alert">{errorMessage}</p>
-      )}
-      {/* One line, not two — the target merges the note and the FM pointer,
-          with the link inline and underlined. */}
-      <p className="rh-wl-note">
-        {t('relaunchHome.waitlist.noteMerged', {
-          defaultValue: "No spam. One email at launch, that's it. Want in first? ",
-        })}
-        <Link to="/join" viewTransition className="rh-wl-inline-link">
-          {t('relaunchHome.waitlist.fmInline', { defaultValue: 'Become a Founding Member →' })}
-        </Link>
-      </p>
-    </>
-  );
 }
 
 export default function Landing() {
@@ -375,7 +302,9 @@ export default function Landing() {
   return (
     <>
       <SeoHead
-        title={t('relaunchHome.seo.titleV2', { defaultValue: 'Libo — The end of starting over.' })}
+        title={t('relaunchHome.seo.titleV2', {
+          defaultValue: 'Libo — Finish 30 days straight. We pay you up to €50.',
+        })}
         description={seoDescription}
         canonical="https://liboworld.com/"
         ogImage="https://liboworld.com/brand/og-image.png"
@@ -388,10 +317,10 @@ export default function Landing() {
           <div className="rh-hero-text">
             <div className="rh-badges">
               <span className="rh-badge rh-badge--accent">
-                {t('relaunchHome.hero.pillSoon', { defaultValue: 'Coming soon' })}
+                {t('relaunchHome.hero.pillSoon', { defaultValue: 'Launching 3 September' })}
               </span>
               <span className="rh-badge">
-                {t('relaunchHome.hero.pillPlatforms', { defaultValue: 'iOS & Android' })}
+                {t('relaunchHome.hero.pillPlatforms', { defaultValue: 'iOS' })}
               </span>
               <span className="rh-badge">
                 {t('relaunchHome.hero.pillTier', { defaultValue: 'Free tier' })}
@@ -399,22 +328,24 @@ export default function Landing() {
             </div>
 
             {/* Four display lines on desktop; the two groups collapse to two
-                lines at ≤700px ("THE END OF" / "STARTING OVER."). */}
+                lines at ≤700px ("FINISH 30 DAYS STRAIGHT." / "WE PAY YOU UP TO
+                €50."). The promise is split so the payout — the accent group —
+                is the half that survives the collapse intact. */}
             <h1 className="rh-hero-h1">
               <span className="rh-hero-h1-group">
                 <span className="rh-hero-h1-line">
-                  {t('relaunchHome.hero.h1a', { defaultValue: 'The end' })}
+                  {t('relaunchHome.hero.h1a', { defaultValue: 'Finish 30 days' })}
                 </span>{' '}
                 <span className="rh-hero-h1-line">
-                  {t('relaunchHome.hero.h1b', { defaultValue: 'of' })}
+                  {t('relaunchHome.hero.h1b', { defaultValue: 'straight.' })}
                 </span>
               </span>
               <span className="rh-hero-h1-group rh-accent">
                 <span className="rh-hero-h1-line">
-                  {t('relaunchHome.hero.h1c', { defaultValue: 'Starting' })}
+                  {t('relaunchHome.hero.h1c', { defaultValue: 'We pay you' })}
                 </span>{' '}
                 <span className="rh-hero-h1-line">
-                  {t('relaunchHome.hero.h1d', { defaultValue: 'over.' })}
+                  {t('relaunchHome.hero.h1d', { defaultValue: 'up to €50.' })}
                 </span>
               </span>
             </h1>
@@ -422,14 +353,16 @@ export default function Landing() {
             <p className="rh-hero-sub">
               {t('relaunchHome.hero.body', {
                 defaultValue:
-                  "You've restarted 10, 15 times. Libo gets you 30 days straight — the day's training handed to you, a streak that never resets to zero, and when you're ready, a cash challenge with real money on the line.",
+                  'Pick a challenge. Hit your daily reps for 30 days, filmed and verified in the app. Finish and we pay you €5, €15 or €50 in real cash — funded by Libo, no draw, no luck. Miss a day and a freeze token covers you. Entry is free.',
               })}
             </p>
 
-            <div className="rh-hero-ctas">
-              <Link to="/join" viewTransition className="rh-btn rh-btn--primary">
-                {t('relaunchHome.hero.cta', { defaultValue: 'Enter the club →' })}
-              </Link>
+            {/* The hero ask is now FREE. It used to be the paid Founding
+                Member funnel, which met a cold visitor with a paywall before
+                anything had been explained. "hero-capture" finally means what
+                it says — Pricing.tsx and the site header deep-link here. */}
+            <div id="hero-capture" className="rh-hero-capture-anchor">
+              <WaitlistCapture variant="hero" />
             </div>
           </div>
 
@@ -906,35 +839,32 @@ export default function Landing() {
         </section>
 
         {/* ── 10. FINAL CTA + WAITLIST ────────────────────────────── */}
-        {/* `hero-capture` keeps its name: /membership still deep-links to
-            "/#hero-capture", and this is now the site's only capture. */}
-        {/* Two ids on purpose. "waitlist" is what the funnels link to (the
-            capture now lives here, at the bottom of the page). "hero-capture"
-            is the legacy id from when it sat in the hero — Pricing.tsx and any
-            shared links still point at it, so it stays as a back-compat anchor
-            rather than silently dropping people at the top of the page. */}
-        <span id="hero-capture" aria-hidden="true" />
+        {/* The second of the page's two captures — same free ask as the hero,
+            for anyone who read the whole page before deciding. "waitlist" is
+            the id the funnels link to (JoinFunnel → "/#waitlist"); the hero
+            owns "hero-capture". */}
         <section className="rh-final" id="waitlist">
           <div className="rh-final-inner">
             <h2 className="rh-h2 rh-h2--center rh-h2--lg">
               <ScrollRevealText as="span" className="rh-h2-line">
-                {t('relaunchHome.final.h2a', { defaultValue: 'Enter' })}
+                {t('relaunchHome.final.h2a', { defaultValue: 'Your first challenge' })}
               </ScrollRevealText>
               <ScrollRevealText as="span" className="rh-h2-line rh-reveal--accent">
-                {t('relaunchHome.final.h2b', { defaultValue: 'the club.' })}
+                {t('relaunchHome.final.h2b', { defaultValue: 'opens 3 September.' })}
               </ScrollRevealText>
             </h2>
             <p className="rh-final-body">
               {t('relaunchHome.final.body', {
                 defaultValue:
-                  "Be in on launch day — the app, the club, and the streak you've never held.",
+                  'One email, that day, with your download link and your first cash challenge already open. Nothing before it.',
               })}
             </p>
-            <WaitlistCapture />
+            <WaitlistCapture variant="final" />
           </div>
         </section>
 
       </main>
+      <HomeStickyWaitlist />
       <SiteFooter />
     </>
   );

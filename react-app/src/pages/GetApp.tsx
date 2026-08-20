@@ -14,7 +14,8 @@ declare global {
  *   1. Reads ?tier= query param (for analytics)
  *   2. Logs an anonymous click to funnel_signups
  *   3. Fires a Google Analytics event
- *   4. UA-detects iOS vs Android vs desktop
+ *   4. UA-detects iOS vs Android vs desktop — only iOS reaches a store while
+ *      ANDROID_AVAILABLE is false; the rest land on the waitlist
  *   5. Redirects to the right store URL
  *
  * Direct hits (someone typing the URL) get the same treatment plus a

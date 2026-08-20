@@ -82,7 +82,7 @@ export default function Press() {
   // named payout tiers, real captures only.
   const facts = [
     { label: t('pressKit.facts.whatLabel', { defaultValue: 'What' }), value: t('pressKit.facts.whatValue', { defaultValue: 'Training club that pays cash' }) },
-    { label: t('pressKit.facts.platformLabel', { defaultValue: 'Platform' }), value: t('pressKit.facts.platformValue', { defaultValue: 'iOS & Android' }) },
+    { label: t('pressKit.facts.platformLabel', { defaultValue: 'Platform' }), value: t('pressKit.facts.platformValue', { defaultValue: 'iOS (Android to follow)' }) },
     { label: t('pressKit.facts.stageLabel', { defaultValue: 'Stage' }), value: t('pressKit.facts.stageValue', { defaultValue: 'Pre-launch · waitlist open' }) },
     { label: t('pressKit.facts.pricingLabel', { defaultValue: 'Pricing' }), value: t('pressKit.facts.pricingValue', { defaultValue: 'Free tier + €79.99/yr' }) },
     { label: t('pressKit.facts.exercisesLabel', { defaultValue: 'Exercises' }), value: t('pressKit.facts.exercisesValue', { defaultValue: '641' }) },
@@ -104,7 +104,7 @@ export default function Press() {
 
   const boilerplate = t('pressKit.boilerplate.body', {
     defaultValue:
-      'Libo is a training club that pays members real cash for consistency. Alongside a library of 641 exercises, 140 workouts, and AI-built training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, share it publicly, and cash out €5–€50 at the end of the cycle. Libo launches on iOS and Android with a free tier and a Premium subscription at €79.99/year.',
+      'Libo is a training club that pays members real cash for consistency. Alongside a library of 641 exercises, 140 workouts, and AI-built training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, share it publicly, and cash out €5–€50 at the end of the cycle. Libo launches on iOS with a free tier and a Premium subscription at €79.99/year.',
   });
 
   usePopIn();

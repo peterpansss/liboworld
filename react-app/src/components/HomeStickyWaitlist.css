@@ -1,0 +1,90 @@
+/* Home mobile sticky waitlist bar (PRELAUNCH-WAITLIST).
+   Same chrome as `.funnel-sticky` in funnel/FunnelChrome.css — deliberately a
+   copy rather than an import: that class is the funnel's single-CTA bar and
+   this one carries a form. Keep the two visually in step. */
+
+.home-sticky-wl {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Ladder documented in ConsentBanner.css: consent (300) > nav (200) >
+     sticky bars (60). */
+  z-index: 60;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  transform: translateY(110%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform .28s ease, opacity .28s ease, visibility .28s;
+}
+
+.home-sticky-wl.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.home-sticky-wl__form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.home-sticky-wl__label {
+  /* Visible to AT, not to sighted users — the placeholder carries the label. */
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.home-sticky-wl__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 16px; /* ≥16px so iOS doesn't zoom on focus */
+}
+
+.home-sticky-wl__input::placeholder { color: var(--dim); }
+.home-sticky-wl__input:focus-visible { border-color: var(--accent); }
+
+.home-sticky-wl__btn {
+  flex: 0 0 auto;
+  min-height: 52px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.home-sticky-wl__btn:hover:not(:disabled) { background: var(--accent2); }
+.home-sticky-wl__btn:disabled { opacity: .6; cursor: default; }
+
+.home-sticky-wl__error { margin: 8px 0 0; color: var(--error); font-size: 13px; }
+
+/* Desktop has the hero field in view for most of the fold; the bar is a phone
+   affordance only. */
+@media (min-width: 768px) {
+  .home-sticky-wl { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-sticky-wl { transition: none; }
+}

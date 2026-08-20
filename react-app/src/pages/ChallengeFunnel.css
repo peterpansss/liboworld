@@ -563,3 +563,10 @@
   .cf-fan__frame--2 { transform: rotate(8deg) translateY(26px); }
   .cf-step:hover { transform: none; }
 }
+
+/* Countdown block at the top of the Premium upsell card — the card has no
+   flex gap, so it carries its own bottom margin. */
+.cf-offer .launch-countdown {
+  max-width: 420px;
+  margin: 0 auto 20px;
+}

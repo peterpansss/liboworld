@@ -12,6 +12,8 @@ import {
 } from '../components/funnel/FunnelChrome';
 import { useFoundingCheckout, EARLY_ACCESS_PRICE } from '../components/funnel/FoundingCheckoutProvider';
 import { isStripeConfigured } from '../lib/stripe';
+import LaunchCountdown from '../components/LaunchCountdown';
+import { isFoundingOpen } from '../config/launchMode';
 import { usePopIn } from '../utils/funnelAnimations';
 import './JoinFunnel.css';
 
@@ -40,18 +42,26 @@ export default function JoinFunnel() {
   const { t } = useTranslation();
   const { openFoundingCheckout } = useFoundingCheckout();
   const stripeReady = isStripeConfigured();
+  // Called at render, never captured at module load — the pre-sale closes
+  // itself on LAUNCH_DATE with no deploy (config/launchMode.ts).
+  const foundingOpen = isFoundingOpen();
   usePopIn();
 
   // FAQ: all rows collapsed by default, lime "+" always (target).
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const ctaLabel = t('joinFunnel.cta.primary', {
-    defaultValue: 'Become a Founding Member — {{price}} →',
-    price: PRICE,
-  });
-  const ctaUnpriced = t('joinFunnel.cta.unpriced', {
-    defaultValue: 'Become a Founding Member →',
-  });
+  // Every CTA on the page reads off these two consts, so gating them here is
+  // enough to stop the €39.50 founding price being advertised after LAUNCH_DATE
+  // — the anchors still scroll to the card, which now sells Premium at list.
+  const ctaLabel = foundingOpen
+    ? t('joinFunnel.cta.primary', {
+        defaultValue: 'Become a Founding Member — {{price}} →',
+        price: PRICE,
+      })
+    : t('membershipV2.plans.premium.cta', { defaultValue: 'Available at launch' });
+  const ctaUnpriced = foundingOpen
+    ? t('joinFunnel.cta.unpriced', { defaultValue: 'Become a Founding Member →' })
+    : t('membershipV2.plans.premium.cta', { defaultValue: 'Available at launch' });
 
   const members: Member[] = [
     {
@@ -114,12 +124,22 @@ export default function JoinFunnel() {
     },
   ];
 
+  // Ticks 4 and 5 are founding-only promises (badge, refundable pre-sale), so
+  // they come off the card once the pre-sale has closed.
   const benefits = [
     t('joinFunnel.offer.tick1', { defaultValue: 'Everything in Free, plus the full library' }),
     t('joinFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier — first come, first served' }),
     t('joinFunnel.offer.tick3', { defaultValue: '2 freeze tokens per challenge' }),
-    t('joinFunnel.offer.tick4', { defaultValue: 'Founding Member badge · first through the door at launch' }),
-    t('joinFunnel.offer.tick5', { defaultValue: 'Year starts on launch day · fully refundable until launch' }),
+    ...(foundingOpen
+      ? [
+          t('joinFunnel.offer.tick4', {
+            defaultValue: 'Founding Member badge · first through the door at launch',
+          }),
+          t('joinFunnel.offer.tick5', {
+            defaultValue: 'Year starts on launch day · fully refundable until launch',
+          }),
+        ]
+      : []),
   ];
 
   const faqs = [
@@ -137,18 +157,21 @@ export default function JoinFunnel() {
           'There is a free tier — no card needed. Premium is €79.99 a year (about €6.67/mo) or €12.99 month-to-month. Founding Members lock the first year at €39.50.',
       }),
     },
-    {
-      q: t('joinFunnel.faq.q3', { defaultValue: 'What is a Founding Member?' }),
-      a: t('joinFunnel.faq.a3', {
-        defaultValue:
-          'The pre-launch offer: 12 months of Premium at 50% off, first through the door on launch day, every challenge tier unlocked — and fully refundable until launch.',
-      }),
-    },
+    // Describes the pre-sale itself, so it goes with the pre-sale.
+    ...(foundingOpen
+      ? [{
+          q: t('joinFunnel.faq.q3', { defaultValue: 'What is a Founding Member?' }),
+          a: t('joinFunnel.faq.a3', {
+            defaultValue:
+              'The pre-launch offer: 12 months of Premium at 50% off, first through the door on launch day, every challenge tier unlocked — and fully refundable until launch.',
+          }),
+        }]
+      : []),
     {
       q: t('joinFunnel.faq.q4', { defaultValue: 'When does the app launch?' }),
       a: t('joinFunnel.faq.a4', {
         defaultValue:
-          'Soon — iOS and Android at the same time. Waitlist members get one email the moment the doors open; Founding Members get their download link before general release.',
+          '3 September 2026 — iOS first. Waitlist members get one email the moment the doors open; Founding Members get their download link before general release.',
       }),
     },
     {
@@ -174,14 +197,20 @@ export default function JoinFunnel() {
       />
 
       <FunnelContextBar>
-        <span className="jf-bar__full">
-          {t('joinFunnel.contextBar', {
-            defaultValue: 'Pre-launch offer · 50% off the first year · refundable until launch',
-          })}
-        </span>
-        <span className="jf-bar__short">
-          {t('joinFunnel.contextBarShort', { defaultValue: '50% off the first year · refundable' })}
-        </span>
+        {foundingOpen ? (
+          <>
+            <span className="jf-bar__full">
+              {t('joinFunnel.contextBar', {
+                defaultValue: 'Pre-launch offer · 50% off the first year · refundable until launch',
+              })}
+            </span>
+            <span className="jf-bar__short">
+              {t('joinFunnel.contextBarShort', { defaultValue: '50% off the first year · refundable' })}
+            </span>
+          </>
+        ) : (
+          <span>{t('earlyAccess.offerEnded')}</span>
+        )}
       </FunnelContextBar>
 
       {/* Logo only, centred, unlinked — a funnel has one exit and it's the CTA. */}
@@ -211,18 +240,21 @@ export default function JoinFunnel() {
               {ctaLabel}
             </a>
             <p className="jf-hero__footnote">
-              {t('joinFunnel.hero.footnote', {
-                defaultValue: '50% off the first year · fully refundable until launch',
-              })}
+              {foundingOpen
+                ? t('joinFunnel.hero.footnote', {
+                    defaultValue: '50% off the first year · fully refundable until launch',
+                  })
+                : t('joinFunnel.hero.footnoteClosed', {
+                    defaultValue: 'A full year of Premium · available at launch',
+                  })}
             </p>
 
-            {/* Store badges — desktop only per target (mobile drops them). */}
+            {/* Store badges — desktop only per target (mobile drops them).
+                Google Play is omitted: launch is iOS-only (Noah, 2026-08-21).
+                Restore the second badge when Android ships. */}
             <div className="jf-stores">
               <span className="jf-store">
-                {t('joinFunnel.stores.ios', { defaultValue: 'Coming to the App Store' })}
-              </span>
-              <span className="jf-store">
-                {t('joinFunnel.stores.android', { defaultValue: 'Coming to Google Play' })}
+                {t('joinFunnel.stores.ios', { defaultValue: 'On the App Store 3 September' })}
               </span>
             </div>
           </div>
@@ -357,24 +389,37 @@ export default function JoinFunnel() {
           </h2>
 
           <article className="jf-offer" data-popin>
-            {/* Badge notched into the card's top border. */}
+            {/* Badge notched into the card's top border — the countdown has to
+                sit BELOW it, or it collides with the negative top offset. */}
             <span className="jf-offer__badge font-display">
-              <span className="jf-copy--desktop">
-                {t('joinFunnel.offer.badge', { defaultValue: 'Pre-launch only' })}
-              </span>
-              <span className="jf-copy--mobile">
-                {t('joinFunnel.offer.badgeMobile', { defaultValue: 'Pre-launch' })}
-              </span>
+              {foundingOpen ? (
+                <>
+                  <span className="jf-copy--desktop">
+                    {t('joinFunnel.offer.badge', { defaultValue: 'Pre-launch only' })}
+                  </span>
+                  <span className="jf-copy--mobile">
+                    {t('joinFunnel.offer.badgeMobile', { defaultValue: 'Pre-launch' })}
+                  </span>
+                </>
+              ) : (
+                t('membershipV2.plans.premium.name', { defaultValue: 'Premium' })
+              )}
             </span>
+            <LaunchCountdown />
             <h3 className="jf-offer__title font-display">
-              {t('joinFunnel.offer.title', { defaultValue: 'Founding Member' })}
+              {foundingOpen
+                ? t('joinFunnel.offer.title', { defaultValue: 'Founding Member' })
+                : t('membershipV2.plans.premium.name', { defaultValue: 'Premium' })}
             </h3>
-            {/* New price FIRST, was-price after. */}
+            {/* New price FIRST, was-price after — once the pre-sale closes
+                there is no "was", just the standing €79.99 list price. */}
             <p className="jf-offer__price">
-              <span className="jf-offer__now font-display">{PRICE}</span>
-              <s className="jf-offer__was">{WAS_PRICE}</s>
+              <span className="jf-offer__now font-display">{foundingOpen ? PRICE : WAS_PRICE}</span>
+              {foundingOpen && <s className="jf-offer__was">{WAS_PRICE}</s>}
               <span className="jf-offer__per">
-                {t('joinFunnel.offer.per', { defaultValue: 'first year' })}
+                {foundingOpen
+                  ? t('joinFunnel.offer.per', { defaultValue: 'first year' })
+                  : t('membershipV2.plans.premium.per', { defaultValue: '/year · €6.67/mo' })}
               </span>
             </p>
             <ul className="jf-offer__ticks">
@@ -382,7 +427,7 @@ export default function JoinFunnel() {
                 <li key={b}>{b}</li>
               ))}
             </ul>
-            {stripeReady && (
+            {stripeReady && foundingOpen && (
               <button
                 type="button"
                 className="funnel-btn jf-btn jf-btn--primary jf-btn--block"
@@ -391,6 +436,7 @@ export default function JoinFunnel() {
                 {ctaLabel}
               </button>
             )}
+            {!foundingOpen && <p className="jf-offer__closed">{t('earlyAccess.offerEnded')}</p>}
           </article>
 
           <p className="jf-offer__fine">

@@ -24,7 +24,7 @@
     "press": "Presse",
     "joinClub": "Rejoins le club →",
     "careers": "Carrières",
-    "enterTheClub": "Entre dans le club →"
+    "joinWaitlist": "Rejoindre la liste"
   },
   "common": {
     "clearAll": "Tout effacer",
@@ -153,13 +153,14 @@
     "card3Meta": "Suit un programme · São Paulo"
   },
   "store": {
-    "comingSoonOn": "Bientôt sur",
     "appStore": "App Store",
     "googlePlay": "Google Play",
     "downloadAppStore": "Télécharger dans l'App Store",
     "appStoreShort": "App Store",
     "downloadGooglePlay": "Disponible sur Google Play",
-    "googlePlayShort": "Google Play"
+    "googlePlayShort": "Google Play",
+    "iosFirstNote": "iPhone uniquement au lancement — Android suivra plus tard.",
+    "androidWaitlistLink": "Sur Android ? Rejoins la liste →"
   },
   "community": {
     "eyebrow": "LA COMMUNAUTÉ LIBO",
@@ -220,7 +221,7 @@
     "best30Minute": "30 minutes",
     "bestHome": "Entraînements maison",
     "copyrightShort": "© 2026 Libo World",
-    "tagline": "Le club d'entraînement qui paie ta régularité. iOS & Android, bientôt disponible.",
+    "tagline": "Le club d’entraînement qui te paie pour aller au bout de 30 jours.",
     "popularLabel": "Populaire :",
     "cookieSettings": "Paramètres des cookies"
   },
@@ -591,7 +592,6 @@
     "successBody": "On t'enverra un mail au lancement de Libo. Suis @libo pour les avant-premières.",
     "duplicateMessage": "Tu es déjà sur la liste d'attente !",
     "errorMessage": "Un problème est survenu. Réessaie.",
-    "heroComingSoonEyebrow": "BIENTÔT DISPONIBLE",
     "heroIosFirstLabel": "iOS d'abord. Offre gratuite pour toujours.",
     "qrCloserEyebrow": "ACCÈS ANTICIPÉ",
     "qrCloserHeading": "SOIS LE PREMIER.",
@@ -1129,8 +1129,8 @@
     "disclaimer": "La participation au cash challenge est ouverte à tous les niveaux (Free, Premium) pour les utilisateurs de 16 ans et plus, et elle est gratuite — aucun frais d'inscription, aucune mise. La récompense en cash versée à l'arrivée varie selon le niveau et le pool (Free €5 / Premium €15, auquel s'ajoute un pool Premium plus élevé à €50), tout comme l'objectif quotidien (30 / 50 / 100 reps) ; c'est Libo qui finance le paiement. Les paiements en cash via Stripe / Wise / SEPA exigent que les gagnants aient 18 ans ou plus ; les gagnants de 16–17 ans peuvent utiliser un compte de paiement vérifié lié à un parent, sinon le prix est converti en crédit in-app (tickets supplémentaires ou un mois de Premium). Nul là où la loi locale l'interdit — voir les Conditions (Section 16) pour la liste des géo-blocages au lancement. Tous les paiements sont soumis à vérification d'identité."
   },
   "earlyAccess": {
-    "announceText": "Founding Members : -50% sur ta première année — seulement jusqu'au lancement",
-    "announceTextShort": "Founding Members : -50% →",
+    "announceText": "Founding Members : -50% — seulement jusqu’au lancement le 3 septembre",
+    "announceTextShort": "Founding Members : -50% jusqu’au 3 sept →",
     "announceDismiss": "Fermer",
     "eyebrow": "FOUNDING MEMBER",
     "headline": "Bloque Libo avant le lancement",
@@ -1182,8 +1182,6 @@
   },
   "relaunchHome": {
     "hero": {
-      "badgeComingSoon": "Bientôt disponible",
-      "badgeIos": "iOS & Android",
       "badgeFree": "Offre gratuite",
       "h1Line1": "Tes reps te paient",
       "h1Accent": "en vrai cash.",
@@ -1197,15 +1195,14 @@
       "imgAltLeft": "Onglet Explorer de Libo",
       "imgAltCenter": "Onglet Accueil de Libo avec la série et l'entraînement du jour",
       "imgAltRight": "Onglet Récompenses de Libo avec 436 points",
-      "pillSoon": "Bientôt disponible",
-      "pillPlatforms": "iOS & Android",
+      "pillSoon": "Lancement le 3 septembre",
+      "pillPlatforms": "iOS",
       "pillTier": "Niveau Free",
-      "h1a": "Fini",
-      "h1b": "de",
-      "h1c": "tout",
-      "h1d": "recommencer.",
-      "body": "Tu as recommencé 10, 15 fois. Libo t'emmène jusqu'à 30 jours d'affilée — l'entraînement du jour est prêt pour toi, une série qui ne retombe jamais à zéro, et quand tu es prêt, un cash challenge avec du vrai argent en jeu.",
-      "cta": "Entre dans le club →",
+      "h1a": "Va au bout de",
+      "h1b": "30 jours.",
+      "h1c": "On te paie",
+      "h1d": "jusqu’à €50.",
+      "body": "Choisis un challenge. Fais tes répétitions quotidiennes pendant 30 jours, filmées et vérifiées dans l’app. Va au bout et on te paie €5, €15 ou €50 en argent réel — financé par Libo, sans tirage au sort, sans chance. Si tu rates un jour, un freeze token te couvre. La participation est gratuite.",
       "altLeft": "Onglet Récompenses de Libo — points, série et challenges à rejoindre",
       "altCenter": "Écran d'accueil de Libo — challenge du jour, plan actif et entraînement du jour",
       "altRight": "Capture vidéo d'un jour de challenge Libo dans l'app"
@@ -1432,7 +1429,7 @@
       "q5": "Puis-je créer mes propres entraînements ?",
       "a5": "Oui. Le Custom Builder te permet de piocher dans toute la bibliothèque d'exercices, de définir tes séries, reps et temps de repos, puis d'enregistrer et de réutiliser tes entraînements quand tu veux.",
       "q6": "Libo est-il disponible sur Android ?",
-      "a6": "Oui — Libo se lance sur iOS et Android en même temps. Rejoins la liste d'attente et on te préviendra dès que c'est en ligne sur les deux.",
+      "a6": "Pas au lancement. Libo sort sur iOS le 3 septembre 2026 ; Android est au programme, sans date pour l’instant. Rejoins la liste d’attente et on te préviendra dès que c’est disponible.",
       "q7": "Puis-je suivre des programmes structurés ?",
       "a7": "Oui. Libo inclut des programmes de plusieurs semaines conçus pour des objectifs précis — prise de muscle, perte de gras, mobilité, et plus. Suis le plan, note ta progression, et vois de vrais résultats.",
       "q8": "Libo suit-il ma progression ?",
@@ -1490,7 +1487,7 @@
     "seo": {
       "title": "Libo — Tes reps te paient en vrai cash.",
       "descriptionV2": "Libo est un club d'entraînement fait pour la régularité. La séance du jour est prête pour toi, ta série ne retombe jamais à zéro, et un cash challenge paie €5, €15 ou €50 pour 30 jours d'affilée.",
-      "titleV2": "Libo — Fini de tout recommencer."
+      "titleV2": "Libo — Va au bout de 30 jours. On te paie jusqu’à €50."
     },
     "waitlist": {
       "confirm": "Tu es sur la liste ✓",
@@ -1502,7 +1499,9 @@
       "button": "Rejoindre la liste d'attente",
       "note": "On t'envoie un mail au lancement. Pas de spam.",
       "noteMerged": "Pas de spam. Un mail au lancement, c'est tout. Tu veux entrer en premier ? ",
-      "fmInline": "Deviens Founding Member →"
+      "fmInline": "Deviens Founding Member →",
+      "challengeLink": "Voir comment marche le Cash Challenge →",
+      "stickyButton": "Rejoindre"
     },
     "different": {
       "card1Name": "Zéro décision",
@@ -1581,9 +1580,9 @@
       "allCtaShort": "Tous →"
     },
     "final": {
-      "h2a": "Entre dans",
-      "h2b": "le club.",
-      "body": "Sois là le jour du lancement — l'app, le club, et la série que tu n'as jamais tenue."
+      "h2a": "Ton premier Challenge",
+      "h2b": "ouvre le 3 septembre.",
+      "body": "Un e-mail, ce jour-là, avec ton lien de téléchargement et ton premier cash challenge déjà ouvert. Rien avant."
     },
     "habit": {
       "s1Name": "Pointe-toi",
@@ -1594,6 +1593,10 @@
       "s3Desc": "Après 30 jours, ce n'est plus un challenge. C'est qui tu es. C'est ça, le produit.",
       "h2a": "D'une rep à une",
       "h2b": "habitude."
+    },
+    "waitlistBar": {
+      "full": "Les Cash Challenges ouvrent le 3 septembre — rejoins la liste d’attente",
+      "short": "Cash Challenges le 3 sept →"
     }
   },
   "relaunchPricing": {
@@ -1918,7 +1921,12 @@
     "closedLabel": "TERMINÉ",
     "lessThanMinute": "Moins d'1 minute restante",
     "lessThanHour": "Moins d'1 heure restante",
-    "remaining": "restant"
+    "remaining": "restant",
+    "founderLabel": "Le prix fondateur se termine au lancement — 3 septembre",
+    "unitDays": "JOURS",
+    "unitHours": "H",
+    "unitMinutes": "MIN",
+    "foundingClosed": "Founding terminé — Premium à €79.99/an"
   },
   "cashChallenges": {
     "seo": {
@@ -2019,7 +2027,9 @@
       "ledeFree": "Le Starter à €5 est gratuit pour chaque membre. Premium ouvre les paliers plus élevés — et là, la première année est à moitié prix.",
       "tickUnlock": "Tous les paliers de challenge débloqués — €15 et €50",
       "tickFreeze": "2 jetons freeze par challenge",
-      "ctaFree": "Passe à Premium — {{price}}/an →"
+      "ctaFree": "Passe à Premium — {{price}}/an →",
+      "eyebrowClosed": "Premium · disponible au lancement",
+      "titleClosed": "Prends Premium au lancement."
     },
     "faq": {
       "title": "Des questions ?",
@@ -2053,7 +2063,9 @@
       "sub": "Premium débloque ce palier — l'entrée est premier arrivé, premier servi, et les places sont limitées. Si c'est complet, tu es prévenu à la seconde où une place se libère. Première année à -50% jusqu'au lancement, intégralement remboursable.",
       "waitlist": "Rejoins plutôt la liste d'attente gratuite",
       "subFree": "Le challenge Starter à €5 est gratuit pour chaque membre — laisse ton e-mail et tu es là le jour du lancement. Premier arrivé, premier servi.",
-      "upsell": "Tu veux les paliers €15 et €50 ? Passe à Premium — -50% →"
+      "upsell": "Tu veux les paliers €15 et €50 ? Passe à Premium — -50% →",
+      "upsellClosed": "Tu veux les paliers €15 et €50 ? Prends Premium →",
+      "subClosed": "Premium débloque ce palier — premier arrivé, premier servi, et les places sont limitées. Si c’est complet, tu es prévenu dès qu’une place se libère."
     },
     "footerNote": "Les conditions du challenge s'appliquent",
     "seo": {
@@ -2156,7 +2168,7 @@
       "q3": "C'est quoi un Founding Member ?",
       "a3": "L'offre pré-lancement : 12 mois de Premium à -50%, premier à entrer le jour du lancement, tous les paliers de challenge débloqués — et intégralement remboursable jusqu'au lancement.",
       "q4": "Quand l'app sort-elle ?",
-      "a4": "Bientôt — iOS et Android en même temps. Les membres de la liste d'attente reçoivent un mail dès que les portes s'ouvrent ; les Founding Members reçoivent leur lien de téléchargement avant la sortie officielle.",
+      "a4": "3 septembre 2026 — iOS d’abord. Les inscrits à la liste d’attente reçoivent un e-mail dès l’ouverture ; les Founding Members reçoivent leur lien de téléchargement avant la sortie générale.",
       "q5": "Comment marchent les cash challenges ?",
       "a5": "30 jours de reps quotidiennes, enregistrées et vérifiées dans l'app, payées en vrai cash à l'arrivée — €5, €15 ou €50 selon le palier. Pas de tirage, pas de chance.",
       "titleLine1": "Avant de",
@@ -2167,8 +2179,8 @@
       "title": "Deviens Founding Member — Libo Training Club",
       "description": "Rejoins Libo comme Founding Member pour €39.50 — -50% sur la première année, intégralement remboursable jusqu'au lancement. Ton année commence le jour où l'app est en ligne."
     },
-    "contextBar": "Offre pré-lancement · -50% sur la première année · remboursable jusqu'au lancement",
-    "contextBarShort": "-50% sur la première année · remboursable",
+    "contextBar": "Offre pré-lancement · -50% sur la première année · jusqu’au lancement le 3 septembre",
+    "contextBarShort": "-50% sur la première année · jusqu’au 3 sept",
     "hero": {
       "eyebrow": "Le Training Club",
       "titleLine1": "Entre dans",
@@ -2179,7 +2191,8 @@
       "photoCaption": "Dans le club",
       "h1a": "Entre dans",
       "h1b": "le club.",
-      "caption": "Dans le club"
+      "caption": "Dans le club",
+      "footnoteClosed": "Une année complète de Premium · disponible au lancement"
     },
     "pocket": {
       "titleLine1": "Tout ton club",
@@ -2231,8 +2244,7 @@
       "h2b": "tient."
     },
     "stores": {
-      "ios": "Bientôt sur l'App Store",
-      "android": "Bientôt sur Google Play"
+      "ios": "Sur l’App Store le 3 septembre"
     },
     "capture": {
       "confirm": "Tu es sur la liste ✓",
@@ -2259,7 +2271,7 @@
         "name": "Founding Member",
         "badge": "Prévente · -50%",
         "price": "€39.50",
-        "per": "12 mois",
+        "per": "12 mois · tarif Founding jusqu’au 3 septembre",
         "strike": "€79.99",
         "strikeNote": "remboursable jusqu'au lancement",
         "blurb": "Bloque une année complète de Premium avant le lancement. Ton année commence le jour du lancement, pas aujourd'hui.",
@@ -2415,7 +2427,7 @@
       "whatLabel": "Quoi",
       "whatValue": "Club d'entraînement qui paie en cash",
       "platformLabel": "Plateforme",
-      "platformValue": "iOS & Android",
+      "platformValue": "iOS (Android à suivre)",
       "stageLabel": "Phase",
       "stageValue": "Pré-lancement · liste d'attente ouverte",
       "pricingLabel": "Prix",

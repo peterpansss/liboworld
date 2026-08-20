@@ -12,6 +12,8 @@ import {
 } from '../components/funnel/FunnelChrome';
 import { useFoundingCheckout, EARLY_ACCESS_PRICE } from '../components/funnel/FoundingCheckoutProvider';
 import { isStripeConfigured } from '../lib/stripe';
+import LaunchCountdown from '../components/LaunchCountdown';
+import { isFoundingOpen } from '../config/launchMode';
 import { logFunnelClick } from '../lib/funnelSignups';
 import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import { usePopIn } from '../utils/funnelAnimations';
@@ -83,6 +85,10 @@ export default function ChallengeFunnel() {
   const { t } = useTranslation();
   const { openFoundingCheckout } = useFoundingCheckout();
   const stripeReady = isStripeConfigured();
+  // Read at render so the upsell closes itself on LAUNCH_DATE without a deploy
+  // (config/launchMode.ts). Only the Premium upsell is gated — the challenge
+  // itself, including the free €5 Starter, is unaffected.
+  const foundingOpen = isFoundingOpen();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   usePopIn();
 
@@ -96,12 +102,15 @@ export default function ChallengeFunnel() {
     : t('challengeFunnel.cta.enter', { defaultValue: 'Click to Enter →' });
 
   // The ONE priced label on the page: the paid tiers' close button + sticky bar.
-  const ctaPricedLabel = isFree
-    ? ctaLabel
-    : t('challengeFunnel.cta.checkout', {
-        defaultValue: 'Click to Enter — {{price}}/yr →',
-        price: PRICE,
-      });
+  // Once the pre-sale closes it drops back to the unpriced label — the €39.50
+  // founding price must not be advertised past LAUNCH_DATE.
+  const ctaPricedLabel =
+    isFree || !foundingOpen
+      ? ctaLabel
+      : t('challengeFunnel.cta.checkout', {
+          defaultValue: 'Click to Enter — {{price}}/yr →',
+          price: PRICE,
+        });
 
   const track = () => {
     void logFunnelClick({ funnel: 'cash_challenge', tierSlug: FUNNEL_TIER_SLUG[tier.slug] });
@@ -336,14 +345,18 @@ export default function ChallengeFunnel() {
         {/* ── 7. Offer ────────────────────────────────────────────────────── */}
         <section className="cf-section" id="offer">
           <span className="funnel-eyebrow cf-eyebrow">
-            {isFree
-              ? t('challengeFunnel.offer.eyebrowFree', { defaultValue: 'Optional upgrade · 50% off until launch' })
-              : t('challengeFunnel.offer.eyebrow', { defaultValue: 'Premium · 50% off until launch' })}
+            {!foundingOpen
+              ? t('challengeFunnel.offer.eyebrowClosed', { defaultValue: 'Premium · available at launch' })
+              : isFree
+                ? t('challengeFunnel.offer.eyebrowFree', { defaultValue: 'Optional upgrade · 50% off until launch' })
+                : t('challengeFunnel.offer.eyebrow', { defaultValue: 'Premium · 50% off until launch' })}
           </span>
           <h2 className="cf-h2 font-display">
             {isFree
               ? t('challengeFunnel.offer.titleFree', { defaultValue: 'Unlock the €15 and €50 challenges.' })
-              : t('challengeFunnel.offer.title', { defaultValue: 'Lock in the year before we launch.' })}
+              : foundingOpen
+                ? t('challengeFunnel.offer.title', { defaultValue: 'Lock in the year before we launch.' })
+                : t('challengeFunnel.offer.titleClosed', { defaultValue: 'Get Premium when we launch.' })}
           </h2>
           {isFree && (
             <p className="cf-body">
@@ -355,14 +368,17 @@ export default function ChallengeFunnel() {
           )}
 
           <div className="cf-offer" data-popin>
+            <LaunchCountdown />
             <p className="cf-offer__price">
-              <span className="cf-offer__now font-display">{PRICE}</span>
-              <s className="cf-offer__was">€79.99</s>
+              <span className="cf-offer__now font-display">{foundingOpen ? PRICE : '€79.99'}</span>
+              {foundingOpen && <s className="cf-offer__was">€79.99</s>}
             </p>
             <p className="cf-offer__sub">
-              {t('challengeFunnel.offer.sub', {
-                defaultValue: 'First year of Premium · 50% off · fully refundable until launch',
-              })}
+              {foundingOpen
+                ? t('challengeFunnel.offer.sub', {
+                    defaultValue: 'First year of Premium · 50% off · fully refundable until launch',
+                  })
+                : t('earlyAccess.offerEnded')}
             </p>
             <ul className="cf-offer__ticks">
               {/* Starter leads with the unlock (defect 18). */}
@@ -383,7 +399,7 @@ export default function ChallengeFunnel() {
               ask (defect 18): Starter's button is the paid checkout with the
               price visible — same handler as every other paid CTA — and it
               renders on mobile too. */}
-          {stripeReady && (
+          {stripeReady && foundingOpen && (
             <button type="button" className="funnel-btn cf-btn cf-btn--lg cf-btn--offer" onClick={handleCheckout}>
               {isFree
                 ? t('challengeFunnel.offer.ctaFree', { defaultValue: 'Get Premium — {{price}}/yr →', price: PRICE })
@@ -444,20 +460,29 @@ export default function ChallengeFunnel() {
                 e.preventDefault();
                 document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}>
-                {t('challengeFunnel.close.upsell', {
-                  defaultValue: 'Want the €15 and €50 tiers? Get Premium — 50% off →',
-                })}
+                {foundingOpen
+                  ? t('challengeFunnel.close.upsell', {
+                      defaultValue: 'Want the €15 and €50 tiers? Get Premium — 50% off →',
+                    })
+                  : t('challengeFunnel.close.upsellClosed', {
+                      defaultValue: 'Want the €15 and €50 tiers? Get Premium →',
+                    })}
               </Link>
             </>
           ) : (
             <>
               <p className="cf-body">
-                {t('challengeFunnel.close.sub', {
-                  defaultValue:
-                    "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
-                })}
+                {foundingOpen
+                  ? t('challengeFunnel.close.sub', {
+                      defaultValue:
+                        "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
+                    })
+                  : t('challengeFunnel.close.subClosed', {
+                      defaultValue:
+                        "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
+                    })}
               </p>
-              {stripeReady && (
+              {stripeReady && foundingOpen && (
                 <button type="button" className="funnel-btn cf-btn cf-btn--lg cf-close__cta" onClick={handleCheckout}>
                   {ctaPricedLabel}
                 </button>

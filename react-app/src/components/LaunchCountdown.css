@@ -1,0 +1,75 @@
+/*
+ * LaunchCountdown — an inline block, not a bar. It lives at the top of a
+ * pricing card, so it is deliberately quiet: one tint panel, small caps
+ * label, three condensed numbers. It must never out-shout the price
+ * underneath it.
+ *
+ * Colours come from tokens only (--accent / --border / --bg / --text), so the
+ * block follows whatever palette :root is carrying.
+ */
+
+.launch-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px; /* badge radius — this reads as a badge, not a card */
+  background: var(--accent-dim, transparent);
+  text-align: center;
+}
+
+.launch-countdown__label {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.launch-countdown__units {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.launch-countdown__unit {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 34px;
+}
+
+.launch-countdown__num {
+  /* .font-display supplies Barlow Condensed / 900 / uppercase. */
+  color: var(--accent);
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.launch-countdown__cap {
+  color: var(--dim);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Closed state: the offer is gone, so drop the accent tint with it. */
+.launch-countdown--closed {
+  background: transparent;
+  border-color: var(--border);
+}
+
+.launch-countdown--closed .launch-countdown__label {
+  color: var(--text);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}

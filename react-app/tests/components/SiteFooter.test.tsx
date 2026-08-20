@@ -13,7 +13,10 @@ import { MemoryRouter } from 'react-router-dom';
 void React;
 
 vi.mock('react-i18next', () => ({
-  useTranslation: () => ({ t: (key: string) => key, i18n: {} }),
+  useTranslation: () => ({
+    t: (key: string, opts?: { defaultValue?: string }) => opts?.defaultValue ?? key,
+    i18n: {},
+  }),
   initReactI18next: { type: '3rdParty', init: () => {} },
 }));
 
@@ -48,7 +51,7 @@ describe('SiteFooter', () => {
     expect(homeLinks.length).toBeGreaterThan(0);
   });
 
-  it('renders the four product/company/resources/workouts column titles', () => {
+  it('renders the product/company/resources column titles', () => {
     render(
       <MemoryRouter>
         <SiteFooter />
@@ -57,7 +60,28 @@ describe('SiteFooter', () => {
     expect(screen.getByText('footer.productTitle')).toBeInTheDocument();
     expect(screen.getByText('footer.companyTitle')).toBeInTheDocument();
     expect(screen.getByText('footer.resourcesTitle')).toBeInTheDocument();
-    expect(screen.getByText('footer.workoutsTitle')).toBeInTheDocument();
+  });
+
+  // Launch is iOS-only and dated — the tagline must promise neither Android
+  // nor a vague "coming soon".
+  it('renders a tagline free of "coming soon" and the Android promise', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <SiteFooter />
+      </MemoryRouter>,
+    );
+    const tagline = container.querySelector('.site-footer__tagline');
+    expect(tagline?.textContent).toBe('The training club that pays you to finish 30 days.');
+  });
+
+  it('offers no Google Play badge while Android is unshipped', () => {
+    render(
+      <MemoryRouter>
+        <SiteFooter />
+      </MemoryRouter>,
+    );
+    expect(screen.getByText('App Store')).toBeInTheDocument();
+    expect(screen.queryByText('Google Play')).toBeNull();
   });
 
   it('exposes external social links with rel=noopener noreferrer', () => {
@@ -84,15 +108,15 @@ describe('SiteFooter', () => {
     expect(container.querySelector('a[href="mailto:hello@liboworld.com"]')).not.toBeNull();
   });
 
-  it('renders the current year in the copyright bar', () => {
-    render(
+  it('renders the copyright bar', () => {
+    const { container } = render(
       <MemoryRouter>
         <SiteFooter />
       </MemoryRouter>,
     );
-    const year = String(new Date().getFullYear());
-    const copy = screen.getByText(new RegExp(`© ${year} Libo World`));
-    expect(copy).toBeInTheDocument();
+    // The year is authored into the locale string, not computed — asserting on
+    // "Libo World" keeps this from failing every 1 January.
+    expect(container.querySelector('.site-footer__copy')?.textContent).toContain('Libo World');
   });
 
   it('links to legal pages (terms + privacy)', () => {
@@ -105,15 +129,14 @@ describe('SiteFooter', () => {
     expect(container.querySelector('a[href="/privacy"]')).not.toBeNull();
   });
 
-  it('links to filtered workout categories via query string', () => {
+  it('keeps the /best-workouts SEO hub links in the Popular row', () => {
     const { container } = render(
       <MemoryRouter>
         <SiteFooter />
       </MemoryRouter>,
     );
-    ['Gym', 'Home', 'Stretching', 'Cardio'].forEach((cat) => {
-      const link = container.querySelector(`a[href="/workouts?cat=${cat}"]`);
-      expect(link).not.toBeNull();
+    ['upper-body', 'lower-body', 'bodyweight', 'dumbbell', '30-minute', 'home'].forEach((slug) => {
+      expect(container.querySelector(`a[href="/best-workouts/${slug}"]`)).not.toBeNull();
     });
   });
 });

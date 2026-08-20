@@ -539,3 +539,18 @@
   .jf-fan__frame--1 { transform: translateY(-30px); }
   .jf-fan__frame--2 { transform: rotate(7deg) translateY(28px); }
 }
+
+/* Countdown block — sits under the notched badge and above the title, so it
+   needs its own bottom gap (the card has no flex gap of its own). */
+.jf-offer .launch-countdown {
+  max-width: 420px;
+  margin: 0 auto 18px;
+}
+
+/* Replaces the checkout button once the pre-sale has closed. */
+.jf-offer__closed {
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}

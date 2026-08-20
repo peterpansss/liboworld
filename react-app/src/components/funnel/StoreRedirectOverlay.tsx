@@ -1,18 +1,20 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { colors } from '../../theme';
-import { STORE_URLS } from '../../utils/storeRedirect';
+import { STORE_URLS, WAITLIST_URL } from '../../utils/storeRedirect';
 
 /**
  * Desktop fallback overlay for the /cash-challenge "Reserve my slot" flow.
  *
- * Mobile visitors get UA-routed straight to the App Store / Play Store.
+ * Mobile visitors get UA-routed straight to the App Store.
  * Desktop visitors see this overlay instead — a QR code (so they can scan
- * with their phone) plus App Store + Play Store badges as fallback.
+ * with their phone) plus the App Store badge as fallback.
  *
  * The QR points at /get-app on liboworld.com — that page client-side
- * UA-detects and redirects, so a Pixel scanning the QR lands on Play Store
- * and an iPhone lands on App Store. No per-platform QR variants needed.
+ * UA-detects and redirects. Launch is iOS-only, so an iPhone scanning the QR
+ * lands on the App Store and a Pixel lands on the waitlist (storeRedirect.ts
+ * §ANDROID_AVAILABLE); the note under the badge says so rather than letting an
+ * Android visitor scan, wait, and find nothing to install.
  */
 
 type Props = {
@@ -131,6 +133,13 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
     display: 'block',
   };
 
+  const iosNote: React.CSSProperties = {
+    fontSize: 12,
+    color: colors.muted,
+    lineHeight: 1.5,
+    margin: '14px 0 0',
+  };
+
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="store-overlay-title" onClick={onClose} style={overlay}>
       <div onClick={(e) => e.stopPropagation()} style={modal}>
@@ -168,6 +177,15 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
             <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} style={badgeImg} />
           </a>
         </div>
+
+        {/* No Play Store badge on purpose — there is nothing to install on
+            Android yet, so the honest answer is the waitlist. */}
+        <p style={iosNote}>
+          {t('store.iosFirstNote', { defaultValue: 'iPhone only at launch — Android follows later.' })}{' '}
+          <a href={WAITLIST_URL} style={{ color: colors.accent, textDecoration: 'underline' }}>
+            {t('store.androidWaitlistLink', { defaultValue: 'On Android? Join the waitlist →' })}
+          </a>
+        </p>
       </div>
 
       <style>{`

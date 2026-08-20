@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { colors } from '../../theme';
+import { diffParts, pad2 } from '../../utils/countdown';
 
 // Inline sr-only style — visually hidden, still announced by screen readers.
 // Mirrors the pattern used in src/pages/Landing.tsx.
@@ -44,20 +45,6 @@ type Props = {
   /** Switch to a more urgent visual style in the final hour */
   urgentBelowSeconds?: number;
 };
-
-function pad2(n: number) { return n < 10 ? '0' + n : String(n); }
-
-function diffParts(target: number, now: number) {
-  const diff = Math.max(0, target - now);
-  const sec = Math.floor(diff / 1000);
-  return {
-    totalSec: sec,
-    days: Math.floor(sec / 86400),
-    hours: Math.floor((sec % 86400) / 3600),
-    minutes: Math.floor((sec % 3600) / 60),
-    seconds: sec % 60,
-  };
-}
 
 export default function CountdownBanner({ endsAt, label, closedLabel, urgentBelowSeconds = 3600 }: Props) {
   const { t } = useTranslation();
