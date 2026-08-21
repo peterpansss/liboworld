@@ -359,75 +359,10 @@ describe('CyclesPage', () => {
     expect(screen.queryByRole('button', { name: 'Add participant' })).not.toBeInTheDocument();
   });
 
-  it('Edit slots: submit calls setCycleMaxParticipants and shows success banner', async () => {
-    listChallengeCyclesMock.mockResolvedValue([cycle({ status: 'running', max_participants: 50, active_count: 10 })]);
-    listMoneyChallengesMock.mockResolvedValue([]);
-    setCycleMaxParticipantsMock.mockResolvedValue({
-      ok: true,
-      cycle_id: 'cyc-1abc999',
-      max_participants: 80,
-      display_seed: 0,
-      active_count: 10,
-      status: 'running',
-    });
-    render(<CyclesPage />);
-    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
-    fireEvent.click(screen.getByRole('button', { name: 'Edit slots' }));
-    await waitFor(() => expect(screen.getByRole('button', { name: 'Save slots' })).toBeInTheDocument());
-
-    // First number input is the headline total; seed defaults to 0.
-    const numInput = document.querySelector('input[type="number"]') as HTMLInputElement;
-    fireEvent.change(numInput, { target: { value: '80' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Save slots' }));
-
-    // headline 80 − seed 0 = real cap 80.
-    await waitFor(() => expect(setCycleMaxParticipantsMock).toHaveBeenCalledWith('cyc-1', 80, 0));
-    await waitFor(() => expect(screen.getByText(/shows 80 · pays 80 · 10 active/)).toBeInTheDocument());
-  });
-
-  it('Edit slots WITH seed: headline − seed sets real cap, banner shows displayed + real', async () => {
-    listChallengeCyclesMock.mockResolvedValue([
-      cycle({ status: 'running', max_participants: 30, display_seed: 20, active_count: 10 }),
-    ]);
-    listMoneyChallengesMock.mockResolvedValue([]);
-    setCycleMaxParticipantsMock.mockResolvedValue({
-      ok: true,
-      cycle_id: 'cyc-1abc999',
-      max_participants: 40,
-      display_seed: 20,
-      active_count: 10,
-      status: 'running',
-    });
-    render(<CyclesPage />);
-    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
-    fireEvent.click(screen.getByRole('button', { name: 'Edit slots' }));
-    await waitFor(() => expect(screen.getByRole('button', { name: 'Save slots' })).toBeInTheDocument());
-
-    const numInputs = Array.from(
-      document.querySelectorAll('input[type="number"]'),
-    ) as HTMLInputElement[];
-    // Modal prefills headline = max + seed = 50, seed = 20. Bump headline to 60.
-    expect(numInputs[0].value).toBe('50');
-    expect(numInputs[1].value).toBe('20');
-    fireEvent.change(numInputs[0], { target: { value: '60' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Save slots' }));
-
-    // headline 60 − seed 20 = real cap 40.
-    await waitFor(() => expect(setCycleMaxParticipantsMock).toHaveBeenCalledWith('cyc-1', 40, 20));
-    await waitFor(() => expect(screen.getByText(/shows 60 · pays 40 · 10 active/)).toBeInTheDocument());
-  });
-
-  it('Edit slots: below_active_count maps to a friendly error', async () => {
-    listChallengeCyclesMock.mockResolvedValue([cycle({ status: 'running', max_participants: 50, active_count: 12 })]);
-    listMoneyChallengesMock.mockResolvedValue([]);
-    setCycleMaxParticipantsMock.mockRejectedValue(new Error('below_active_count'));
-    render(<CyclesPage />);
-    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
-    fireEvent.click(screen.getByRole('button', { name: 'Edit slots' }));
-    await waitFor(() => expect(screen.getByRole('button', { name: 'Save slots' })).toBeInTheDocument());
-    fireEvent.click(screen.getByRole('button', { name: 'Save slots' }));
-    await waitFor(() => expect(screen.getByText("Can't set below 12 already enrolled.")).toBeInTheDocument());
-  });
+  // The three 'Edit slots' tests that stood here were removed with the control
+  // itself (39d61be): it wrote challenge_cycles.max_participants + display_seed,
+  // neither of which is read any more. 'completed cycles show no row actions'
+  // above still asserts the button is gone.
 
   it('Add participant: search lists users, pick + submit calls addEnrollment', async () => {
     listChallengeCyclesMock.mockResolvedValue([cycle({ status: 'enrollment_open' })]);
