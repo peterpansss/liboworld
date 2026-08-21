@@ -11,12 +11,39 @@
  *   - aria-live=assertive companion fires only on threshold transitions,
  *     NOT on the per-second tick (a11y polish)
  *   - visually-hidden full-sentence label is present for context
+ *
+ * react-i18next is mocked (repo pattern — see SiteNav.test.tsx), but here the
+ * mock resolves keys against the real en.json rather than echoing them. Four
+ * of the assertions below check shipped English ("CLOSED", "Less than 1 hour
+ * remaining", "…45 seconds remaining"), and CountdownBanner calls those keys
+ * WITHOUT a defaultValue — so a key-echoing mock makes them fail on copy the
+ * component renders correctly in the browser. Resolving from en.json means
+ * these tests also catch someone deleting or renaming a countdown.* string.
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, act } from '@testing-library/react';
 import CountdownBanner from '../../../src/components/funnel/CountdownBanner';
+
+vi.mock('react-i18next', async () => {
+  const en = (await import('../../../src/i18n/locales/en.json')).default as Record<string, unknown>;
+  const lookup = (key: string) =>
+    key.split('.').reduce<unknown>(
+      (node, part) => (node as Record<string, unknown> | undefined)?.[part],
+      en,
+    );
+  return {
+    useTranslation: () => ({
+      t: (key: string, opts?: { defaultValue?: string }) => {
+        const hit = lookup(key);
+        return typeof hit === 'string' ? hit : opts?.defaultValue ?? key;
+      },
+      i18n: {},
+    }),
+    initReactI18next: { type: '3rdParty', init: () => {} },
+  };
+});
 
 void React;
 
