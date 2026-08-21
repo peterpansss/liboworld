@@ -1160,6 +1160,33 @@ export type CycleEnrollmentRow = {
   effective_end_date: string | null;
 };
 
+/**
+ * Everyone on a CHALLENGE, across all their cycles.
+ *
+ * Rolling enrolment made cycles single-tenant (one row per user), so
+ * `listCycleEnrollments` returns exactly one participant and cannot answer
+ * "who is on this challenge". This can. `status: 'active'` gives the live
+ * roster — the set measured against `money_challenges.max_participants`.
+ *
+ * Requires supabase-migration-admin-challenge-enrollments.sql.
+ */
+export type ChallengeEnrollmentRow = CycleEnrollmentRow & {
+  cycle_id: string | null;
+  removed_at: string | null;
+};
+
+export async function listChallengeEnrollments(
+  challengeId: string,
+  status: string | null = null,
+): Promise<ChallengeEnrollmentRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_challenge_enrollments', {
+    p_challenge_id: challengeId,
+    p_status: status,
+  });
+  if (error) throw error;
+  return (data ?? []) as ChallengeEnrollmentRow[];
+}
+
 export async function listCycleEnrollments(cycleId: string): Promise<CycleEnrollmentRow[]> {
   const { data, error } = await supabase.rpc('admin_list_cycle_enrollments', { p_cycle_id: cycleId });
   if (error) throw error;

@@ -5,6 +5,8 @@ import { Field, TextInput, TextArea, Select, Button } from '../../components/adm
 import { Modal } from '../../components/admin/Modal';
 import { safeUrl } from '../../utils/safeUrl';
 import {
+  listChallengeEnrollments,
+  type ChallengeEnrollmentRow,
   listMoneyChallenges,
   createMoneyChallenge,
   updateMoneyChallenge,
@@ -207,6 +209,13 @@ export function ChallengesPage() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
 
+  // Participants (who is on this challenge, across all their cycles)
+  const [partRow, setPartRow] = useState<MoneyChallenge | null>(null);
+  const [parts, setParts] = useState<ChallengeEnrollmentRow[] | null>(null);
+  const [partsLoading, setPartsLoading] = useState(false);
+  const [partsErr, setPartsErr] = useState<string | null>(null);
+  const [partsActiveOnly, setPartsActiveOnly] = useState(true);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
@@ -346,6 +355,21 @@ export function ChallengesPage() {
     setModalOpen(true);
   };
 
+  const openParticipants = async (row: MoneyChallenge, activeOnly = true) => {
+    setPartRow(row);
+    setParts(null);
+    setPartsErr(null);
+    setPartsActiveOnly(activeOnly);
+    setPartsLoading(true);
+    try {
+      setParts(await listChallengeEnrollments(row.id, activeOnly ? 'active' : null));
+    } catch (e) {
+      setPartsErr(e instanceof Error ? e.message : 'Failed to load participants');
+    } finally {
+      setPartsLoading(false);
+    }
+  };
+
   const columns: Column<MoneyChallenge>[] = useMemo(
     () => [
       {
@@ -432,9 +456,37 @@ export function ChallengesPage() {
       {
         key: 'actions',
         header: '',
-        width: 84,
+        width: 116,
         render: (r) => (
           <div style={{ display: 'inline-flex', gap: 4 }}>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                void openParticipants(r);
+              }}
+              aria-label={`Participants in ${r.title}`}
+              title="Who is enrolled"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: colors.muted,
+                cursor: 'pointer',
+                fontSize: 14,
+                padding: '4px 6px',
+                borderRadius: 6,
+                lineHeight: 1,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.accent;
+                (e.currentTarget as HTMLButtonElement).style.background = colors.accentDim;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = colors.muted;
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+              }}
+            >
+              &#9679;&#9679;&#9679;
+            </button>
             <button
               onClick={(e) => handleDuplicate(r, e)}
               aria-label={`Duplicate ${r.title}`}
@@ -518,6 +570,92 @@ export function ChallengesPage() {
         onRowClick={openEdit}
         emptyLabel={loading ? 'Loading…' : 'No challenges yet — create one.'}
       />
+
+      <Modal
+        open={!!partRow}
+        onClose={() => setPartRow(null)}
+        title={partRow ? `Participants — ${partRow.title}` : 'Participants'}
+        width={860}
+      >
+        {partRow && (
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
+              <span style={{ color: colors.muted, fontSize: 13 }}>
+                {partsLoading
+                  ? 'Loading…'
+                  : `${parts?.length ?? 0} ${partsActiveOnly ? 'active' : 'total'} · cap ${partRow.max_participants ?? 'unlimited'}`}
+              </span>
+              <button
+                type="button"
+                onClick={() => void openParticipants(partRow, !partsActiveOnly)}
+                style={{
+                  background: 'transparent',
+                  border: `1px solid ${colors.border}`,
+                  color: colors.text,
+                  borderRadius: 6,
+                  padding: '4px 10px',
+                  fontSize: 12,
+                  cursor: 'pointer',
+                }}
+              >
+                {partsActiveOnly ? 'Show all statuses' : 'Show active only'}
+              </button>
+            </div>
+
+            {partsErr && <div style={{ color: colors.danger, fontSize: 13, marginBottom: 10 }}>{partsErr}</div>}
+
+            {!partsLoading && parts && parts.length === 0 && (
+              <div style={{ color: colors.dim, fontSize: 13, padding: '18px 0' }}>
+                Nobody is enrolled{partsActiveOnly ? ' right now' : ''}.
+              </div>
+            )}
+
+            {parts && parts.length > 0 && (
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                  <thead>
+                    <tr style={{ color: colors.muted, textAlign: 'left' }}>
+                      <th style={{ padding: '6px 8px' }}>Email</th>
+                      <th style={{ padding: '6px 8px' }}>Status</th>
+                      <th style={{ padding: '6px 8px' }}>Tier at enrol</th>
+                      <th style={{ padding: '6px 8px', textAlign: 'right' }}>Days</th>
+                      <th style={{ padding: '6px 8px', textAlign: 'right' }}>Freezes</th>
+                      <th style={{ padding: '6px 8px' }}>Enrolled</th>
+                      <th style={{ padding: '6px 8px' }}>Ends</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {parts.map((p) => (
+                      <tr key={p.enrollment_id} style={{ borderTop: `1px solid ${colors.border}` }}>
+                        <td style={{ padding: '6px 8px', color: colors.text }}>
+                          {p.email ?? p.user_id.slice(0, 8)}
+                        </td>
+                        <td style={{ padding: '6px 8px', color: colors.muted }}>
+                          {p.status}
+                          {p.removed_reason ? ` (${p.removed_reason})` : ''}
+                        </td>
+                        <td style={{ padding: '6px 8px', color: colors.muted }}>{p.tier_at_enrollment}</td>
+                        <td style={{ padding: '6px 8px', textAlign: 'right', color: colors.text }}>
+                          {p.completed_days}
+                        </td>
+                        <td style={{ padding: '6px 8px', textAlign: 'right', color: colors.muted }}>
+                          {p.freeze_tokens_remaining ?? 0}
+                        </td>
+                        <td style={{ padding: '6px 8px', color: colors.muted }}>
+                          {p.enrolled_at ? new Date(p.enrolled_at).toISOString().slice(0, 10) : '—'}
+                        </td>
+                        <td style={{ padding: '6px 8px', color: colors.muted }}>
+                          {p.effective_end_date ?? '—'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+      </Modal>
 
       <Modal
         open={modalOpen}
