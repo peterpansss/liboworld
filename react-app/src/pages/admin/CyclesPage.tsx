@@ -11,6 +11,13 @@
  * survives as a copy stamped on each row; nothing reads it to decide who may
  * enrol.
  *
+ * "Open new cycle" was REMOVED 2026-08-21 too. Cycles are created automatically
+ * by enrolment — enroll_in_challenge inserts one with status 'running' and never
+ * looks for an 'enrollment_open' cycle to join. A hand-opened cycle was therefore
+ * unjoinable: it sat empty, then cycle_tick marched it running -> completed on its
+ * dates and fired the payout finaliser on nothing. There is no manual create path
+ * because there is nothing for a manual cycle to do.
+ *
  * The "Edit slots" control was REMOVED 2026-08-21: it wrote that dead column
  * plus `display_seed`, a cosmetic inflator for a spot count the app no longer
  * renders at all (canon REWARDS-ECONOMY-RULES §7.1c — the cap is a rule, not
@@ -24,12 +31,10 @@ import { Field, TextInput, Select, Button } from '../../components/admin/FormFie
 import { Modal } from '../../components/admin/Modal';
 import {
   listChallengeCycles,
-  openNextCycle,
   listCycleWinners,
   listCycleEnrollments,
   cycleSessionSummary,
   listMoneyChallenges,
-  setCycleMaxParticipants,
   addEnrollment,
   setCycleStatus,
   cancelCycle,
@@ -213,11 +218,6 @@ function formatDateTime(iso: string | null | undefined): string {
   });
 }
 
-function todayISO(): string {
-  const d = new Date();
-  const pad = (n: number) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-}
 
 /** ISO timestamp → 'YYYY-MM-DDTHH:mm' for a <input type="datetime-local">. */
 function toLocalInput(iso: string): string {
@@ -275,21 +275,6 @@ function headlineTotalOf(r: ChallengeCycleRow): number {
 
 // ── form state ────────────────────────────────────────────────────────────
 
-type OpenForm = {
-  challenge_id: string;
-  start_date: string;
-  // Headline total shown to users; real cap = headline − seed.
-  headline_total: string;
-  // Cosmetic phantom slots.
-  seed: string;
-};
-
-const EMPTY_OPEN_FORM: OpenForm = {
-  challenge_id: '',
-  start_date: todayISO(),
-  headline_total: '50',
-  seed: '0',
-};
 
 const STATUS_OPTIONS: ('all' | ChallengeCycleStatus)[] = ['all', 'enrollment_open', 'running', 'completed'];
 
@@ -318,10 +303,6 @@ export function CyclesPage() {
   const [statusFilter, setStatusFilter] = useState<'all' | ChallengeCycleStatus>('all');
 
   // Open-new-cycle modal
-  const [openModalOpen, setOpenModalOpen] = useState(false);
-  const [openForm, setOpenForm] = useState<OpenForm>(EMPTY_OPEN_FORM);
-  const [openFormErr, setOpenFormErr] = useState<string | null>(null);
-  const [opening, setOpening] = useState(false);
 
   // Winners details modal
   const [detailsRow, setDetailsRow] = useState<ChallengeCycleRow | null>(null);
@@ -479,65 +460,6 @@ export function CyclesPage() {
     if (statusFilter === 'all') return rows;
     return rows.filter((r) => r.status === statusFilter);
   }, [rows, statusFilter]);
-
-  const openCreateModal = () => {
-    setOpenForm({
-      ...EMPTY_OPEN_FORM,
-      challenge_id: challengeFilter !== 'all' ? challengeFilter : (challenges[0]?.id ?? ''),
-    });
-    setOpenFormErr(null);
-    setOpenModalOpen(true);
-  };
-
-  const closeOpenModal = () => {
-    if (opening) return;
-    setOpenModalOpen(false);
-    setOpenForm(EMPTY_OPEN_FORM);
-    setOpenFormErr(null);
-  };
-
-  const handleOpenSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!openForm.challenge_id) {
-      setOpenFormErr('Challenge is required.');
-      return;
-    }
-    const headlineN = Number(openForm.headline_total);
-    if (!Number.isFinite(headlineN) || headlineN <= 0) {
-      setOpenFormErr('Headline total must be greater than 0.');
-      return;
-    }
-    const seedN = Number(openForm.seed);
-    if (!Number.isInteger(seedN) || seedN < 0 || seedN >= headlineN) {
-      setOpenFormErr('Seed must be 0 or more and less than the headline total.');
-      return;
-    }
-    const realCap = headlineN - seedN;
-    setOpening(true);
-    setOpenFormErr(null);
-    try {
-      const result = await openNextCycle(
-        openForm.challenge_id,
-        openForm.start_date || null,
-        realCap,
-      );
-      // Seed is set in a second step: openNextCycle has no seed param.
-      if (seedN > 0) {
-        await setCycleMaxParticipants(result.cycle_id, realCap, seedN);
-      }
-      setSuccessMsg(
-        `Opened cycle ${result.cycle_id.slice(0, 8)} · shows ${headlineN} · pays ${realCap}`,
-      );
-      setOpenModalOpen(false);
-      setOpenForm(EMPTY_OPEN_FORM);
-      await refresh(challengeFilter === 'all' ? null : challengeFilter);
-    } catch (e2) {
-      const raw = errMessage(e2);
-      setOpenFormErr(friendlyCycleError(raw));
-    } finally {
-      setOpening(false);
-    }
-  };
 
   const openDetails = async (row: ChallengeCycleRow) => {
     setDetailsRow(row);
@@ -914,9 +836,6 @@ export function CyclesPage() {
           >
             {loading ? 'Refreshing…' : 'Refresh'}
           </Button>
-          <Button variant="primary" onClick={openCreateModal}>
-            + Open new cycle
-          </Button>
         </div>
       </div>
 
@@ -976,72 +895,6 @@ export function CyclesPage() {
       />
 
       {/* Open new cycle modal */}
-      <Modal open={openModalOpen} onClose={closeOpenModal} title="Open new cycle" width={520}>
-        <form onSubmit={handleOpenSubmit}>
-          {openFormErr && <div style={errorBannerStyle}><span>{openFormErr}</span></div>}
-
-          <Field label="Challenge">
-            <Select
-              value={openForm.challenge_id}
-              onChange={(e) => setOpenForm((f) => ({ ...f, challenge_id: e.target.value }))}
-              required
-            >
-              <option value="">Select a challenge…</option>
-              {challenges.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.title}
-                </option>
-              ))}
-            </Select>
-          </Field>
-
-          <Field label="Start date">
-            <TextInput
-              type="date"
-              value={openForm.start_date}
-              onChange={(e) => setOpenForm((f) => ({ ...f, start_date: e.target.value }))}
-            />
-          </Field>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-            <Field label="Headline total (shown to users)">
-              <TextInput
-                type="number"
-                min={1}
-                value={openForm.headline_total}
-                onChange={(e) => setOpenForm((f) => ({ ...f, headline_total: e.target.value }))}
-                required
-              />
-            </Field>
-            <Field
-              label="Seed (phantom slots)"
-              hint={`Real payable cap = ${(() => {
-                const h = Number(openForm.headline_total);
-                const s = Number(openForm.seed);
-                return Number.isFinite(h) && Number.isFinite(s) ? Math.max(0, h - s) : '—';
-              })()}.`}
-            >
-              <TextInput
-                type="number"
-                min={0}
-                value={openForm.seed}
-                onChange={(e) => setOpenForm((f) => ({ ...f, seed: e.target.value }))}
-                required
-              />
-            </Field>
-          </div>
-
-          <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 12 }}>
-            <Button type="button" variant="ghost" onClick={closeOpenModal} disabled={opening}>
-              Cancel
-            </Button>
-            <Button type="submit" variant="primary" disabled={opening}>
-              {opening ? 'Opening…' : 'Open cycle'}
-            </Button>
-          </div>
-        </form>
-      </Modal>
-
       {/* Winners / details modal */}
       <Modal
         open={!!detailsRow}
