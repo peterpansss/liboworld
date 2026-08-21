@@ -856,7 +856,7 @@ export default function Landing() {
             <p className="rh-final-body">
               {t('relaunchHome.final.body', {
                 defaultValue:
-                  'One email, that day, with your download link and your first cash challenge already open. Nothing before it.',
+                  'A confirmation email now, then one on 3 September with your download link and your first cash challenge already open. Nothing in between.',
               })}
             </p>
             <WaitlistCapture variant="final" />

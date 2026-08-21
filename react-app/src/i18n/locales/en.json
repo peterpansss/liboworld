@@ -1511,14 +1511,14 @@
     },
     "waitlist": {
       "confirm": "You're on the list ✓",
-      "confirmNote": "We email you at launch. No spam.",
+      "confirmNote": "Check your inbox — then nothing until launch day.",
       "fmFootnote": "Want in before launch? Become a Founding Member →",
       "label": "Email address",
       "placeholder": "Your email",
       "buttonBusy": "Sending…",
       "button": "Join the waitlist",
       "note": "We email you at launch. No spam.",
-      "noteMerged": "No spam. One email at launch, that's it. Want in first? ",
+      "noteMerged": "No spam. One email to confirm, then one at launch. Want in first? ",
       "fmInline": "Become a Founding Member →",
       "challengeLink": "See how the cash challenge works →",
       "stickyButton": "Join"
@@ -1602,7 +1602,7 @@
     "final": {
       "h2a": "Your first challenge",
       "h2b": "opens 3 September.",
-      "body": "One email, that day, with your download link and your first cash challenge already open. Nothing before it."
+      "body": "A confirmation email now, then one on 3 September with your download link and your first cash challenge already open. Nothing in between."
     },
     "habit": {
       "s1Name": "Show up",

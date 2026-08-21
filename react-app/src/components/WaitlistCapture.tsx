@@ -45,7 +45,7 @@ export default function WaitlistCapture({
             {t('relaunchHome.waitlist.confirm', { defaultValue: "You're on the list ✓" })}
           </p>
           <p className="rh-wl-note">
-            {t('relaunchHome.waitlist.confirmNote', { defaultValue: 'We email you at launch. No spam.' })}
+            {t('relaunchHome.waitlist.confirmNote', { defaultValue: 'Check your inbox — then nothing until launch day.' })}
           </p>
           <p className="rh-wl-footnote">
             <Link to="/join" viewTransition className="rh-accent-link">
@@ -89,7 +89,7 @@ export default function WaitlistCapture({
           with the link inline and underlined. */}
       <p className="rh-wl-note">
         {t('relaunchHome.waitlist.noteMerged', {
-          defaultValue: "No spam. One email at launch, that's it. Want in first? ",
+          defaultValue: 'No spam. One email to confirm, then one at launch. Want in first? ',
         })}
         <Link to="/join" viewTransition className="rh-wl-inline-link">
           {t('relaunchHome.waitlist.fmInline', { defaultValue: 'Become a Founding Member →' })}

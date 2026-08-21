@@ -1511,14 +1511,14 @@
     },
     "waitlist": {
       "confirm": "Estás en la lista ✓",
-      "confirmNote": "Te escribimos al lanzar. Sin spam.",
+      "confirmNote": "Revisa tu bandeja — después nada hasta el lanzamiento.",
       "fmFootnote": "¿Quieres entrar antes del lanzamiento? Hazte Founding Member →",
       "label": "Correo electrónico",
       "placeholder": "Tu email",
       "buttonBusy": "Enviando…",
       "button": "Únete a la lista de espera",
       "note": "Te escribimos al lanzar. Sin spam.",
-      "noteMerged": "Sin spam. Un email al lanzar y ya. ¿Quieres entrar primero? ",
+      "noteMerged": "Sin spam. Un email de confirmación y otro al lanzar. ¿Quieres entrar primero? ",
       "fmInline": "Hazte Founding Member →",
       "challengeLink": "Mira cómo funciona la Cash Challenge →",
       "stickyButton": "Unirme"
@@ -1602,7 +1602,7 @@
     "final": {
       "h2a": "Tu primera Challenge",
       "h2b": "abre el 3 de septiembre.",
-      "body": "Un email, ese día, con tu enlace de descarga y tu primera cash challenge ya abierta. Nada antes."
+      "body": "Un email de confirmación ahora y otro el 3 de septiembre con tu enlace de descarga y tu primera cash challenge ya abierta. Nada en medio."
     },
     "habit": {
       "s1Name": "Aparece",
