@@ -1,3 +1,22 @@
+/**
+ * Admin — challenge cycles.
+ *
+ * ⚠️ The enforced concurrency cap is `money_challenges.max_participants`,
+ * edited on the CHALLENGES page. It is checked against COUNT(*) of ACTIVE
+ * `challenge_enrollments` for the whole challenge.
+ *
+ * `challenge_cycles.max_participants` is a leftover from the cohort model.
+ * Rolling enrolment (2026-08) made cycles single-tenant — enroll_in_challenge
+ * creates one cycle per user — and moved the cap to the challenge. The column
+ * survives as a copy stamped on each row; nothing reads it to decide who may
+ * enrol.
+ *
+ * The "Edit slots" control was REMOVED 2026-08-21: it wrote that dead column
+ * plus `display_seed`, a cosmetic inflator for a spot count the app no longer
+ * renders at all (canon REWARDS-ECONOMY-RULES §7.1c — the cap is a rule, not
+ * an advertisement). It reported success and changed nothing an enrolling user
+ * would experience. Change the cap on the Challenges page instead.
+ */
 import { useEffect, useMemo, useState } from 'react';
 import { colors } from '../../theme';
 import { DataTable, type Column } from '../../components/admin/DataTable';
@@ -318,13 +337,6 @@ export function CyclesPage() {
   // user_id -> real training minutes/sessions for this cycle (best-effort audit signal)
   const [sessionMins, setSessionMins] = useState<Record<string, { sessions: number; minutes: number }>>({});
 
-  // Edit-slots modal
-  const [editRow, setEditRow] = useState<ChallengeCycleRow | null>(null);
-  const [editHeadline, setEditHeadline] = useState('');
-  const [editSeed, setEditSeed] = useState('');
-  const [editErr, setEditErr] = useState<string | null>(null);
-  const [editSaving, setEditSaving] = useState(false);
-
   // Add-participant modal
   const [addRow, setAddRow] = useState<ChallengeCycleRow | null>(null);
   const [addSearch, setAddSearch] = useState('');
@@ -581,57 +593,6 @@ export function CyclesPage() {
     setSessionMins({});
   };
 
-  // ── Edit slots ────────────────────────────────────────────────────────────
-
-  const openEditModal = (row: ChallengeCycleRow) => {
-    setEditRow(row);
-    setEditHeadline(String(headlineTotalOf(row)));
-    setEditSeed(String(seedOf(row)));
-    setEditErr(null);
-  };
-
-  const closeEditModal = () => {
-    if (editSaving) return;
-    setEditRow(null);
-    setEditHeadline('');
-    setEditSeed('');
-    setEditErr(null);
-  };
-
-  const handleEditSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!editRow) return;
-    const headlineN = Number(editHeadline);
-    if (!Number.isFinite(headlineN) || headlineN <= 0) {
-      setEditErr('Headline total must be greater than 0.');
-      return;
-    }
-    const seedN = Number(editSeed);
-    if (!Number.isInteger(seedN) || seedN < 0 || seedN >= headlineN) {
-      setEditErr('Seed must be 0 or more and less than the headline total.');
-      return;
-    }
-    const realCap = headlineN - seedN;
-    setEditSaving(true);
-    setEditErr(null);
-    try {
-      const result = await setCycleMaxParticipants(editRow.id, realCap, seedN);
-      const shows = result.max_participants + result.display_seed;
-      setSuccessMsg(
-        `Cycle ${result.cycle_id.slice(0, 8)} · shows ${shows} · pays ${result.max_participants} · ${result.active_count} active`,
-      );
-      setEditRow(null);
-      setEditHeadline('');
-      setEditSeed('');
-      await refresh(challengeFilter === 'all' ? null : challengeFilter);
-    } catch (e2) {
-      const raw = errMessage(e2);
-      setEditErr(friendlyCycleError(raw, { activeCount: editRow.active_count }));
-    } finally {
-      setEditSaving(false);
-    }
-  };
-
   // ── Add participant ───────────────────────────────────────────────────────
 
   const openAddModal = (row: ChallengeCycleRow) => {
@@ -885,16 +846,6 @@ export function CyclesPage() {
                 style={tableActionBtnStyle}
                 onClick={(e) => {
                   e.stopPropagation();
-                  openEditModal(r);
-                }}
-              >
-                Edit slots
-              </button>
-              <button
-                type="button"
-                style={tableActionBtnStyle}
-                onClick={(e) => {
-                  e.stopPropagation();
                   openAddModal(r);
                 }}
               >
@@ -944,7 +895,10 @@ export function CyclesPage() {
         <div>
           <h1 style={h1Style}>Cycles</h1>
           <div style={statsStyle}>
-            Individual timed runs of a challenge (sets the start date, window &amp; spots).
+            Individual timed runs of a challenge (sets the start date &amp; window).
+          </div>
+          <div style={{ ...statsStyle, color: colors.dim }}>
+            Spots are capped per challenge, not per cycle — edit the cap on the Challenges page.
           </div>
           <div style={statsStyle}>
             {loading
@@ -1311,86 +1265,6 @@ export function CyclesPage() {
               </Button>
             </div>
           </div>
-        )}
-      </Modal>
-
-      {/* Edit slots modal */}
-      <Modal
-        open={!!editRow}
-        onClose={closeEditModal}
-        title={editRow ? `Edit slots — ${editRow.challenge_title}` : 'Edit slots'}
-        width={480}
-      >
-        {editRow && (
-          <form onSubmit={handleEditSubmit}>
-            {editErr && <div style={errorBannerStyle}><span>{editErr}</span></div>}
-
-            <div
-              style={{
-                fontSize: 12,
-                color: colors.muted,
-                marginBottom: 14,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                flexWrap: 'wrap',
-              }}
-            >
-              <span style={statusChipStyle(editRow.status)}>{editRow.status}</span>
-              <span>{formatWindow(editRow.start_date, editRow.end_date)}</span>
-              <span>·</span>
-              <span>
-                shows {editRow.active_count + seedOf(editRow)} / {headlineTotalOf(editRow)}
-              </span>
-              <span>·</span>
-              <span>
-                real cap {editRow.max_participants} · seed {seedOf(editRow)} · {editRow.active_count} active
-              </span>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-              <Field
-                label="Headline total (shown to users)"
-                hint={(() => {
-                  const h = Number(editHeadline);
-                  const s = Number(editSeed);
-                  return Number.isFinite(h) && Number.isFinite(s)
-                    ? `Real payable cap = ${Math.max(0, h - s)}.`
-                    : ' ';
-                })()}
-              >
-                <TextInput
-                  type="number"
-                  min={1}
-                  value={editHeadline}
-                  onChange={(e) => setEditHeadline(e.target.value)}
-                  required
-                  autoFocus
-                />
-              </Field>
-              <Field
-                label="Seed (phantom slots)"
-                hint={`Cannot set real cap below the ${editRow.active_count} currently enrolled.`}
-              >
-                <TextInput
-                  type="number"
-                  min={0}
-                  value={editSeed}
-                  onChange={(e) => setEditSeed(e.target.value)}
-                  required
-                />
-              </Field>
-            </div>
-
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 12 }}>
-              <Button type="button" variant="ghost" onClick={closeEditModal} disabled={editSaving}>
-                Cancel
-              </Button>
-              <Button type="submit" variant="primary" disabled={editSaving}>
-                {editSaving ? 'Saving…' : 'Save slots'}
-              </Button>
-            </div>
-          </form>
         )}
       </Modal>
 
