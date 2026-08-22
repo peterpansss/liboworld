@@ -66,9 +66,9 @@
   "features": {
     "eyebrow": "O Que Tem Dentro",
     "headline": "Tudo o que\nvocê precisa.",
-    "description": "641 exercícios · 140 treinos · 4 programas de desafio. Todo formato de treino, de força com barra até respiração e rotinas matinais.",
+    "description": "880+ exercícios · 140 treinos · 4 programas de desafio. Todo formato de treino, de força com barra até respiração e rotinas matinais.",
     "exerciseLibrary": "Biblioteca de Exercícios",
-    "exerciseLibraryDesc": "641 exercícios — 313 academia, 295 casa, 33 mobilidade. Todos com notas de equipamento, músculos trabalhados e dicas de execução.",
+    "exerciseLibraryDesc": "880+ exercícios — 468 academia, 415 casa. Todos com notas de equipamento, músculos trabalhados e dicas de execução.",
     "workoutLibrary": "Biblioteca de Treinos",
     "workoutLibraryDesc": "140 sessões prontas — academia, casa, cardio, alongamento, rotinas matinais e programas de desafio. De 5 a 60 minutos.",
     "programs": "Programas",
@@ -81,7 +81,7 @@
     "moneyChallengesDesc": "Entre em desafios de 30 dias, faça suas repetições diárias, compartilhe nos stories — e ganhe dinheiro de verdade. 100 reps por dia durante 30 dias? São €50 no seu bolso."
   },
   "photoBreak1": {
-    "eyebrow": "641 Exercícios",
+    "eyebrow": "880+ Exercícios",
     "headline": "Cada movimento.\nCada músculo.\nUm app."
   },
   "rewards": {
@@ -760,7 +760,7 @@
     "relatedExerciseLabel": "Exercício",
     "relatedProgramLabel": "Programa",
     "ctaTitle": "Comece a Treinar com Libo",
-    "ctaBody": "641 exercícios. 140 treinos guiados. Programas estruturados. Grátis para começar.",
+    "ctaBody": "880+ exercícios. 140 treinos guiados. Programas estruturados. Grátis para começar.",
     "ctaButton": "Começar",
     "navAria": "Navegação do artigo",
     "previous": "Anterior",
@@ -1210,7 +1210,7 @@
       "badgeFree": "Plano gratuito",
       "h1Line1": "Suas reps pagam",
       "h1Accent": "dinheiro de verdade.",
-      "sub": "641 exercícios. Planos feitos por IA. Cash Challenges de 30 dias. O único Training Club que te paga pra aparecer.",
+      "sub": "880+ exercícios. Planos feitos por IA. Cash Challenges de 30 dias. O único Training Club que te paga pra aparecer.",
       "ctaPrimary": "Vire Founding Member →",
       "ctaSecondary": "Veja como funciona ↓",
       "captureConfirm": "Você está dentro. A gente te avisa por e-mail no lançamento.",
@@ -1233,7 +1233,7 @@
       "altRight": "Gravação de tela de um dia de desafio da Libo no app"
     },
     "proof": {
-      "exercisesValue": "641",
+      "exercisesValue": "880+",
       "exercisesLabel": "Exercícios",
       "workoutsValue": "140",
       "workoutsLabel": "Treinos",
@@ -1281,7 +1281,7 @@
     "library": {
       "h2Line1": "Tudo",
       "h2Line2": "que você precisa.",
-      "desc": "641 exercícios — 313 de academia, 295 em casa, 33 de mobilidade. 140 treinos. Planos feitos por IA. Todos os formatos, da força com barra às rotinas matinais.",
+      "desc": "880+ exercícios — 468 de academia, 415 em casa. 140 treinos. Planos feitos por IA. Todos os formatos, da força com barra às rotinas matinais.",
       "features": [
         {
           "num": "01",
@@ -1291,7 +1291,7 @@
         {
           "num": "02",
           "name": "Exercise Library",
-          "desc": "641 exercícios — 313 de academia, 295 em casa, 33 de mobilidade. Cada um com notas de equipamento e dicas de execução."
+          "desc": "880+ exercícios — 468 de academia, 415 em casa. Cada um com notas de equipamento e dicas de execução."
         },
         {
           "num": "03",
@@ -1315,8 +1315,8 @@
         }
       ],
       "c1Name": "Biblioteca de exercícios",
-      "c1Desc": "641 exercícios — 313 de academia, 295 em casa, 33 de mobilidade. Cada um com notas de equipamento e dicas de execução.",
-      "c1DescMobile": "641 exercícios com notas de equipamento e dicas de execução.",
+      "c1Desc": "880+ exercícios — 468 de academia, 415 em casa. Cada um com notas de equipamento e dicas de execução.",
+      "c1DescMobile": "880+ exercícios com notas de equipamento e dicas de execução.",
       "c2Name": "Biblioteca de treinos",
       "c2Desc": "140 sessões prontas — academia, casa, cardio, alongamento, rotinas matinais. De 5 a 60 minutos.",
       "c2DescMobile": "140 sessões prontas, de 5 a 60 minutos.",
@@ -1334,7 +1334,7 @@
       "c6DescMobile": "30 dias de reps diárias com dinheiro de verdade como prova.",
       "h2a": "Tudo o que você ganha",
       "h2b": "com a Libo World.",
-      "descMobile": "641 exercícios — 313 de academia, 295 em casa, 33 de mobilidade. 140 treinos. Planos feitos por IA.",
+      "descMobile": "880+ exercícios — 468 de academia, 415 em casa. 140 treinos. Planos feitos por IA.",
       "phoneAlt": "{{feature}} no app Libo",
       "dotsLabel": "Recursos do app"
     },
@@ -1398,7 +1398,7 @@
       "priceStrike": "€79.99",
       "cardSub": "12 meses de Premium · 50% off · reembolso total até o lançamento",
       "perks": [
-        "Biblioteca completa — 641 exercícios, 140 treinos",
+        "Biblioteca completa — 880+ exercícios, 140 treinos",
         "Desafios em dinheiro de até €50",
         "O ano começa no dia do lançamento, não hoje"
       ]
@@ -1450,7 +1450,7 @@
       "q3": "A Libo é grátis?",
       "a3": "A Libo oferece um plano gratuito com acesso a treinos, exercícios, acompanhamento básico, uma sequência de atividade com pontos e um desafio de dinheiro inicial. O Premium libera a biblioteca completa, análises avançadas, 2 fichas de congelamento por desafio e os níveis de €15 e €50.",
       "q4": "De que equipamento eu preciso?",
-      "a4": "Nenhum — ou todos. A Libo tem 295 exercícios em casa (a maioria sem equipamento), 313 de academia e 33 de mobilidade. Filtre pelo que você tem à disposição.",
+      "a4": "Nenhum — ou todos. A Libo tem 415 exercícios em casa (a maioria sem equipamento) e 468 de academia, incluindo 53 de mobilidade. Filtre pelo que você tem à disposição.",
       "q5": "Posso montar meus próprios treinos?",
       "a5": "Pode. O Custom Builder deixa você escolher da biblioteca completa de exercícios, definir suas séries, reps e tempos de descanso, e salvar e reutilizar seus treinos quando quiser.",
       "q6": "A Libo está disponível no Android?",
@@ -1680,7 +1680,7 @@
         "strikeNote": "",
         "blurb": "A experiência Libo completa quando lançarmos — todo formato, todo nível de desafio.",
         "perks": [
-          "Biblioteca completa — 641 exercícios, 140 treinos",
+          "Biblioteca completa — 880+ exercícios, 140 treinos",
           "Cash Challenges de até €50",
           "Análises avançadas e recordes",
           "Sorteios Premium e especiais",
@@ -1851,7 +1851,7 @@
       },
       {
         "label": "Exercícios",
-        "value": "641"
+        "value": "880+"
       },
       {
         "label": "Treinos",
@@ -1869,7 +1869,7 @@
     "boilerplate": {
       "title": "Sobre a Libo",
       "titleTag": "· texto padrão",
-      "body": "A Libo é um Training Club que paga aos membros dinheiro de verdade pela consistência. Além de uma biblioteca de 641 exercícios, 140 treinos e planos de treino feitos por IA, a Libo realiza Money Challenges de 30 dias: os membros batem uma meta diária de reps, gravam a prova, compartilham publicamente e sacam €5–€50 no fim do ciclo. A Libo lança no iOS e no Android com um plano gratuito e uma assinatura Premium a €79.99/ano.",
+      "body": "A Libo é um Training Club que paga aos membros dinheiro de verdade pela consistência. Além de uma biblioteca de 880+ exercícios, 140 treinos e planos de treino feitos por IA, a Libo realiza Money Challenges de 30 dias: os membros batem uma meta diária de reps, gravam a prova, compartilham publicamente e sacam €5–€50 no fim do ciclo. A Libo lança no iOS e no Android com um plano gratuito e uma assinatura Premium a €79.99/ano.",
       "founderTitle": "Noah F.",
       "founderTag": "· fundador",
       "founderBio": "Noah vem do esporte alemão de alto rendimento — anos de futebol na Regionalliga, com convocações para o DFB Stützpunkt e a Westfalenauswahl pelo Bonner SC. Ele também é o designer por trás da marca de moda Mieuxnoir e fundador da Manufactnow, uma empresa de produção e consultoria de moda. Sua aposta com a Libo: riscos reais vencem a motivação, então o clube coloca dinheiro de verdade na consistência dos membros. Ele escreve sobre a psicologia por trás disso no blog da Libo (\"30 Days, One Habit, Real Money\").",
@@ -2020,7 +2020,7 @@
       "eyebrowFree": "Upgrade opcional · 50% off até o lançamento",
       "eyebrow": "Premium · 50% off até o lançamento",
       "sub": "Primeiro ano de Premium · 50% off · reembolso total até o lançamento",
-      "tick1": "Biblioteca completa — 641 exercícios, 140 treinos",
+      "tick1": "Biblioteca completa — 880+ exercícios, 140 treinos",
       "tick2": "Elegível pra todos os níveis de desafio — por ordem de chegada",
       "tick3": "O ano começa no dia do lançamento, não hoje",
       "titleFree": "Desbloqueie os desafios de €15 e €50.",
@@ -2113,7 +2113,7 @@
     },
     "stats": {
       "exercises": {
-        "value": "641",
+        "value": "880+",
         "label": "Exercícios"
       },
       "workouts": {
@@ -2162,7 +2162,7 @@
     },
     "faq": {
       "q1": "O que é a Libo?",
-      "a1": "Um clube de treino: 641 exercícios, 140 treinos, planos feitos por IA, uma sequência que nunca volta a zero — e Cash Challenges de 30 dias que pagam dinheiro de verdade pela consistência.",
+      "a1": "Um clube de treino: 880+ exercícios, 140 treinos, planos feitos por IA, uma sequência que nunca volta a zero — e Cash Challenges de 30 dias que pagam dinheiro de verdade pela consistência.",
       "q2": "Quanto custa a assinatura?",
       "a2": "Existe um plano gratuito — sem cartão. O Premium custa €79.99 por ano (cerca de €6.67/mês) ou €12.99 no mês a mês. Founding Members garantem o primeiro ano por €39.50.",
       "q3": "O que é um Founding Member?",
@@ -2288,7 +2288,7 @@
         "per": "/ano · €6.67/mês",
         "monthly": "ou €12.99/mês no mês a mês — cancele quando quiser",
         "blurb": "A experiência Libo completa a partir do lançamento — todos os formatos, todos os níveis de desafio.",
-        "perk1": "Biblioteca completa — 641 exercícios, 140 treinos",
+        "perk1": "Biblioteca completa — 880+ exercícios, 140 treinos",
         "perk2": "Cash Challenges de até €50",
         "perk3": "Análises avançadas e PRs",
         "perk4": "2 tokens freeze por desafio",
@@ -2433,7 +2433,7 @@
       "pricingLabel": "Preços",
       "pricingValue": "Plano gratuito + €79.99/ano",
       "exercisesLabel": "Exercícios",
-      "exercisesValue": "641",
+      "exercisesValue": "880+",
       "workoutsLabel": "Treinos",
       "workoutsValue": "140",
       "payoutLabel": "Pagamentos dos desafios",

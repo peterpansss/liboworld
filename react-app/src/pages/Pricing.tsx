@@ -141,7 +141,7 @@ export default function Pricing() {
       }),
       perks: [
         t('membershipV2.plans.premium.perk1', {
-          defaultValue: 'Full library — 641 exercises, 140 workouts',
+          defaultValue: 'Full library — 880+ exercises, 140 workouts',
         }),
         t('membershipV2.plans.premium.perk2', { defaultValue: 'Cash challenges up to €50' }),
         t('membershipV2.plans.premium.perk3', { defaultValue: 'Advanced analytics & PRs' }),

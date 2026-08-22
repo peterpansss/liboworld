@@ -894,7 +894,6 @@ export function CyclesPage() {
         emptyLabel={loading ? 'Loading…' : 'No cycles match these filters.'}
       />
 
-      {/* Open new cycle modal */}
       {/* Winners / details modal */}
       <Modal
         open={!!detailsRow}

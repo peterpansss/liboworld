@@ -602,7 +602,7 @@ export function ChallengesPage() {
               </button>
             </div>
 
-            {partsErr && <div style={{ color: colors.danger, fontSize: 13, marginBottom: 10 }}>{partsErr}</div>}
+            {partsErr && <div style={{ color: colors.error, fontSize: 13, marginBottom: 10 }}>{partsErr}</div>}
 
             {!partsLoading && parts && parts.length === 0 && (
               <div style={{ color: colors.dim, fontSize: 13, padding: '18px 0' }}>
