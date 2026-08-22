@@ -66,9 +66,9 @@
   "features": {
     "eyebrow": "What's Inside",
     "headline": "Everything\nyou need.",
-    "description": "880+ exercises · 140 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.",
+    "description": "820+ exercises · 140 workouts · 4 challenge programs. Every training format, from barbell strength to breathing and morning routines.",
     "exerciseLibrary": "Exercise Library",
-    "exerciseLibraryDesc": "880+ exercises — 468 gym, 415 home. Every one with equipment notes, muscle targeting, and form cues.",
+    "exerciseLibraryDesc": "820+ exercises — 432 gym, 396 home. Every one with equipment notes, muscle targeting, and form cues.",
     "workoutLibrary": "Workout Library",
     "workoutLibraryDesc": "140 pre-built sessions — gym, home, cardio, stretching, morning routines, and challenge programs. 5 to 60 minutes.",
     "programs": "Programs",
@@ -81,7 +81,7 @@
     "moneyChallengesDesc": "Join 30-day challenges, hit your daily reps, share to stories — and win real cash. 100 reps a day for 30 days? That's €50 in your pocket."
   },
   "photoBreak1": {
-    "eyebrow": "880+ Exercises",
+    "eyebrow": "820+ Exercises",
     "headline": "Every movement.\nEvery muscle.\nOne app."
   },
   "rewards": {
@@ -760,7 +760,7 @@
     "relatedExerciseLabel": "Exercise",
     "relatedProgramLabel": "Program",
     "ctaTitle": "Start Training with Libo",
-    "ctaBody": "880+ exercises. 140 guided workouts. Structured programs. All free to start.",
+    "ctaBody": "820+ exercises. 140 guided workouts. Structured programs. All free to start.",
     "ctaButton": "Get Started",
     "navAria": "Article navigation",
     "previous": "Previous",
@@ -1210,7 +1210,7 @@
       "badgeFree": "Free tier",
       "h1Line1": "Your reps pay",
       "h1Accent": "real cash.",
-      "sub": "880+ exercises. AI-built plans. 30-day cash challenges. The only training club that pays you to show up.",
+      "sub": "820+ exercises. AI-built plans. 30-day cash challenges. The only training club that pays you to show up.",
       "ctaPrimary": "Become a Founding Member →",
       "ctaSecondary": "See how it works ↓",
       "captureConfirm": "You're in. We email you at launch.",
@@ -1233,7 +1233,7 @@
       "altRight": "Screen recording of a Libo challenge day in the app"
     },
     "proof": {
-      "exercisesValue": "880+",
+      "exercisesValue": "820+",
       "exercisesLabel": "Exercises",
       "workoutsValue": "140",
       "workoutsLabel": "Workouts",
@@ -1281,7 +1281,7 @@
     "library": {
       "h2Line1": "Everything",
       "h2Line2": "you need.",
-      "desc": "880+ exercises — 468 gym, 415 home. 140 workouts. AI-built plans. Every format from barbell strength to morning routines.",
+      "desc": "820+ exercises — 432 gym, 396 home. 140 workouts. AI-built plans. Every format from barbell strength to morning routines.",
       "features": [
         {
           "num": "01",
@@ -1291,7 +1291,7 @@
         {
           "num": "02",
           "name": "Exercise Library",
-          "desc": "880+ exercises — 468 gym, 415 home. Every one with equipment notes and form cues."
+          "desc": "820+ exercises — 432 gym, 396 home. Every one with equipment notes and form cues."
         },
         {
           "num": "03",
@@ -1315,8 +1315,8 @@
         }
       ],
       "c1Name": "Exercise library",
-      "c1Desc": "880+ exercises — 468 gym, 415 home. Every one with equipment notes and form cues.",
-      "c1DescMobile": "880+ exercises with equipment notes and form cues.",
+      "c1Desc": "820+ exercises — 432 gym, 396 home. Every one with equipment notes and form cues.",
+      "c1DescMobile": "820+ exercises with equipment notes and form cues.",
       "c2Name": "Workout library",
       "c2Desc": "140 pre-built sessions — gym, home, cardio, stretching, morning routines. 5 to 60 minutes.",
       "c2DescMobile": "140 pre-built sessions, 5 to 60 minutes.",
@@ -1334,7 +1334,7 @@
       "c6DescMobile": "30 days of daily reps with real money as the proof.",
       "h2a": "Everything you get",
       "h2b": "with Libo World.",
-      "descMobile": "880+ exercises — 468 gym, 415 home. 140 workouts. AI-built plans.",
+      "descMobile": "820+ exercises — 432 gym, 396 home. 140 workouts. AI-built plans.",
       "phoneAlt": "{{feature}} in the Libo app",
       "dotsLabel": "App features"
     },
@@ -1398,7 +1398,7 @@
       "priceStrike": "€79.99",
       "cardSub": "12 months of Premium · 50% off · fully refundable until launch",
       "perks": [
-        "Full library — 880+ exercises, 140 workouts",
+        "Full library — 820+ exercises, 140 workouts",
         "Cash challenges up to €50",
         "Year starts on launch day, not today"
       ]
@@ -1450,7 +1450,7 @@
       "q3": "Is Libo free?",
       "a3": "Libo offers a free tier with access to workouts, exercises, basic tracking, an activity streak and points, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, 2 freeze tokens per challenge, and the €15 and €50 challenge tiers.",
       "q4": "What equipment do I need?",
-      "a4": "None — or everything. Libo has 415 home exercises (most need no equipment) and 468 gym exercises, including 53 mobility moves. Filter by what you have available.",
+      "a4": "None — or everything. Libo has 396 home exercises (most need no equipment) and 432 gym exercises, including 50 mobility moves. Filter by what you have available.",
       "q5": "Can I build my own workouts?",
       "a5": "Yes. The Custom Builder lets you pick from the full exercise library, set your own sets, reps, and rest times, then save and reuse your workouts anytime.",
       "q6": "Is Libo available on Android?",
@@ -1680,7 +1680,7 @@
         "strikeNote": "",
         "blurb": "The full Libo experience once we launch — every format, every challenge tier.",
         "perks": [
-          "Full library — 880+ exercises, 140 workouts",
+          "Full library — 820+ exercises, 140 workouts",
           "Cash challenges up to €50",
           "Advanced analytics & PRs",
           "Premium & special giveaways",
@@ -1912,7 +1912,7 @@
       },
       {
         "label": "Exercises",
-        "value": "880+"
+        "value": "820+"
       },
       {
         "label": "Workouts",
@@ -1930,7 +1930,7 @@
     "boilerplate": {
       "title": "About Libo",
       "titleTag": "· boilerplate",
-      "body": "Libo is a training club that pays members real cash for consistency. Alongside a library of 880+ exercises, 140 workouts, and AI-built training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, share it publicly, and cash out €5–€50 at the end of the cycle. Libo launches on iOS and Android with a free-forever tier and a Premium subscription at €79.99/year.",
+      "body": "Libo is a training club that pays members real cash for consistency. Alongside a library of 820+ exercises, 140 workouts, and AI-built training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, share it publicly, and cash out €5–€50 at the end of the cycle. Libo launches on iOS and Android with a free-forever tier and a Premium subscription at €79.99/year.",
       "founderTitle": "Noah F.",
       "founderTag": "· founder",
       "founderBio": "Noah comes from German high-performance sport — years of Regionalliga football, with selections for the DFB Stützpunkt and the Westfalenauswahl with Bonner SC. He is also the designer behind the fashion label Mieuxnoir and founder of Manufactnow, a fashion production and consulting company. His bet with Libo: real stakes beat motivation, so the club puts real money on member consistency. He writes about the psychology behind it on the Libo blog (\"30 Days, One Habit, Real Money\").",
@@ -2081,7 +2081,7 @@
       "eyebrowFree": "Optional upgrade · 50% off until launch",
       "eyebrow": "Premium · 50% off until launch",
       "sub": "First year of Premium · 50% off · fully refundable until launch",
-      "tick1": "Full library — 880+ exercises, 140 workouts",
+      "tick1": "Full library — 820+ exercises, 140 workouts",
       "tick2": "Eligible for every challenge tier — first come, first served",
       "tick3": "Year starts on launch day, not today",
       "titleFree": "Unlock the €15 and €50 challenges.",
@@ -2174,7 +2174,7 @@
     },
     "stats": {
       "exercises": {
-        "value": "880+",
+        "value": "820+",
         "label": "Exercises"
       },
       "workouts": {
@@ -2223,7 +2223,7 @@
     },
     "faq": {
       "q1": "What is Libo?",
-      "a1": "A training club: 880+ exercises, 140 workouts, AI-built plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.",
+      "a1": "A training club: 820+ exercises, 140 workouts, AI-built plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.",
       "q2": "What does membership cost?",
       "a2": "There is a free tier — no card needed. Premium is €79.99 a year (about €6.67/mo) or €12.99 month-to-month. Founding Members lock the first year at €39.50.",
       "q3": "What is a Founding Member?",
@@ -2349,7 +2349,7 @@
         "per": "/year · €6.67/mo",
         "monthly": "or €12.99/mo month-to-month — cancel any time",
         "blurb": "The full Libo experience once we launch — every format, every challenge tier.",
-        "perk1": "Full library — 880+ exercises, 140 workouts",
+        "perk1": "Full library — 820+ exercises, 140 workouts",
         "perk2": "Cash challenges up to €50",
         "perk3": "Advanced analytics & PRs",
         "perk4": "2 freeze tokens per challenge",
@@ -2433,7 +2433,7 @@
       "pricingLabel": "Pricing",
       "pricingValue": "Free tier + €79.99/yr",
       "exercisesLabel": "Exercises",
-      "exercisesValue": "880+",
+      "exercisesValue": "820+",
       "workoutsLabel": "Workouts",
       "workoutsValue": "140",
       "payoutLabel": "Challenge payouts",

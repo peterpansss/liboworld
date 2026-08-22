@@ -57,7 +57,7 @@ export default function CashChallengePage() {
   // Big-stats count-up on scroll
   const statsView = useInView<HTMLElement>(0.4);
   const statCompleters = useCountUp(312, statsView.inView);
-  const statPaidOut = useCountUp(4680, statsView.inView);
+  const statPaidOut = useCountUp(4320, statsView.inView);
   const statSlots = useCountUp(50, statsView.inView);
 
   // Reveal-on-scroll for [data-reveal]

@@ -81,10 +81,10 @@ export default function Landing() {
       num: '01',
       name: t('relaunchHome.library.c1Name', { defaultValue: 'Exercise library' }),
       desc: t('relaunchHome.library.c1Desc', {
-        defaultValue: '880+ exercises — 468 gym, 415 home. Every one with equipment notes and form cues.',
+        defaultValue: '820+ exercises — 432 gym, 396 home. Every one with equipment notes and form cues.',
       }),
       descMobile: t('relaunchHome.library.c1DescMobile', {
-        defaultValue: '880+ exercises with equipment notes and form cues.',
+        defaultValue: '820+ exercises with equipment notes and form cues.',
       }),
       screen: '/feature-exercise-library.png', // real capture (Noah, 2026-08-07)
     },

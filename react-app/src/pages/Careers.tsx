@@ -29,7 +29,7 @@ const ROLES: Role[] = [
     type: 'Contract',
     applyHref: 'mailto:careers@liboworld.com?subject=Application%20%E2%80%94%20Mobile%20Engineer',
     description:
-      "Own the Libo mobile app end-to-end — a premium, NTC-inspired fitness product with 880+ exercises and 140 guided workouts. You'll ship features that feel fast and quiet, from the workout player to offline sync, on a small team where craft is the bar.",
+      "Own the Libo mobile app end-to-end — a premium, NTC-inspired fitness product with 820+ exercises and 140 guided workouts. You'll ship features that feel fast and quiet, from the workout player to offline sync, on a small team where craft is the bar.",
     whatYouDo: [
       'Ship the workout player with synced voiceovers and rest-timer haptics',
       'Build offline-first exercise sync over expo-sqlite and MMKV',

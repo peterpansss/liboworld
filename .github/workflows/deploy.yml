@@ -84,3 +84,46 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: react-app/dist/
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
+
+      # ── Shout when it breaks ──
+      # A red deploy is otherwise silent: 51e0a7e failed the type-check on
+      # 2026-08-21 and nothing shipped for a day before anyone noticed, with
+      # three later commits queued behind it. Failure-only on purpose — a ping
+      # for every green build is noise, and noise is what gets muted.
+      #
+      # Needs a DISCORD_DEPLOY_WEBHOOK secret. Without it the step no-ops
+      # rather than failing, so a missing secret can never be the reason a
+      # deploy looks broken.
+      - name: Alert Discord on failure
+        if: failure()
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_DEPLOY_WEBHOOK }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then
+            echo "DISCORD_DEPLOY_WEBHOOK not set — skipping alert."
+            exit 0
+          fi
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          # jq -Rs handles quotes, newlines and backticks in the commit subject,
+          # which a hand-rolled JSON string would break on.
+          PAYLOAD=$(jq -n \
+            --arg desc "$(git log -1 --pretty=%s | jq -Rs . | sed 's/^"//;s/"$//')" \
+            --arg author "$(git log -1 --pretty=%an)" \
+            --arg sha "$(git rev-parse --short HEAD)" \
+            --arg url "$RUN_URL" \
+            '{
+              username: "Libo Deploy",
+              embeds: [{
+                title: "🔴 liboworld.com deploy failed",
+                description: ("**" + $desc + "**\n`" + $sha + "` by " + $author),
+                color: 15548997,
+                fields: [{
+                  name: "The site is now stale",
+                  value: "Nothing shipped. This commit and anything pushed after it stay unbuilt until the failure is fixed.",
+                  inline: false
+                }],
+                url: $url
+              }]
+            }')
+          curl -sS -H "Content-Type: application/json" -d "$PAYLOAD" "$WEBHOOK" \
+            && echo "Alert sent." || echo "Alert failed to send (not failing the run)."

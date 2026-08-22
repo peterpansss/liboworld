@@ -385,7 +385,7 @@ export default function ChallengeFunnel() {
               {isFree && (
                 <li>{t('challengeFunnel.offer.tickUnlock', { defaultValue: 'Every challenge tier unlocked — €15 and €50' })}</li>
               )}
-              <li>{t('challengeFunnel.offer.tick1', { defaultValue: 'Full library — 880+ exercises, 140 workouts' })}</li>
+              <li>{t('challengeFunnel.offer.tick1', { defaultValue: 'Full library — 820+ exercises, 140 workouts' })}</li>
               {isFree ? (
                 <li>{t('challengeFunnel.offer.tickFreeze', { defaultValue: '2 freeze tokens per challenge' })}</li>
               ) : (

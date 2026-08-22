@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T14:06:08.488Z",
+  "generatedAt": "2026-08-22T14:44:18.257Z",
   "langs": [
     "en",
     "es",
@@ -81,23 +81,23 @@
       "id": "equipment",
       "en": {
         "q": "What equipment do I need?",
-        "a": "None — or everything. Libo has 415 home exercises (most need no equipment) and 468 gym exercises, including 53 mobility moves. Filter by what you have available."
+        "a": "None — or everything. Libo has 396 home exercises (most need no equipment) and 432 gym exercises, including 50 mobility moves. Filter by what you have available."
       },
       "es": {
         "q": "¿Qué equipo necesito?",
-        "a": "Ninguno — o todo. Libo tiene 415 ejercicios para casa (la mayoría sin equipo) y 468 de gimnasio, incluidos 53 de movilidad. Filtra por lo que tengas disponible."
+        "a": "Ninguno — o todo. Libo tiene 396 ejercicios para casa (la mayoría sin equipo) y 432 de gimnasio, incluidos 50 de movilidad. Filtra por lo que tengas disponible."
       },
       "pt": {
         "q": "De que equipamento eu preciso?",
-        "a": "Nenhum — ou todos. A Libo tem 415 exercícios em casa (a maioria sem equipamento) e 468 de academia, incluindo 53 de mobilidade. Filtre pelo que você tem à disposição."
+        "a": "Nenhum — ou todos. A Libo tem 396 exercícios em casa (a maioria sem equipamento) e 432 de academia, incluindo 50 de mobilidade. Filtre pelo que você tem à disposição."
       },
       "de": {
         "q": "Welches Equipment brauche ich?",
-        "a": "Keins — oder alles. Libo hat 415 Home-Übungen (die meisten ohne Equipment) und 468 Gym-Übungen, darunter 53 Mobility-Moves. Filter nach dem, was du hast."
+        "a": "Keins — oder alles. Libo hat 396 Home-Übungen (die meisten ohne Equipment) und 432 Gym-Übungen, darunter 50 Mobility-Moves. Filter nach dem, was du hast."
       },
       "fr": {
         "q": "De quel matériel ai-je besoin ?",
-        "a": "Aucun — ou tout. Libo compte 415 exercices à la maison (la plupart sans matériel) et 468 exercices en salle, dont 53 mouvements de mobilité. Filtre selon ce que tu as sous la main."
+        "a": "Aucun — ou tout. Libo compte 396 exercices à la maison (la plupart sans matériel) et 432 exercices en salle, dont 50 mouvements de mobilité. Filtre selon ce que tu as sous la main."
       }
     },
     {

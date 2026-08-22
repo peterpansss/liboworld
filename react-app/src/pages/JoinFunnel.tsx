@@ -87,7 +87,7 @@ export default function JoinFunnel() {
   ];
 
   const stats = [
-    { value: '880+', label: t('joinFunnel.stats.s1', { defaultValue: 'Exercises' }) },
+    { value: '820+', label: t('joinFunnel.stats.s1', { defaultValue: 'Exercises' }) },
     { value: '140', label: t('joinFunnel.stats.s2', { defaultValue: 'Workouts' }) },
     {
       value: '3',
@@ -147,7 +147,7 @@ export default function JoinFunnel() {
       q: t('joinFunnel.faq.q1', { defaultValue: 'What is Libo?' }),
       a: t('joinFunnel.faq.a1', {
         defaultValue:
-          'A training club: 880+ exercises, 140 workouts, AI-built plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.',
+          'A training club: 820+ exercises, 140 workouts, AI-built plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.',
       }),
     },
     {
