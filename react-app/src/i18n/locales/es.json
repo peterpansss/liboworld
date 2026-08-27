@@ -2074,9 +2074,10 @@
     },
     "video": {
       "title": "Mira cómo funciona.",
-      "playLabel": "Reproducir: el cash challenge, 3 minutos",
-      "caption": "El cash challenge — 3 min",
-      "note": "Vídeo en producción — placeholder"
+      "playLabel": "Reproducir: el cash challenge, 2 minutos 24 segundos",
+      "caption": "El cash challenge — 2:24 · en inglés",
+      "rulesLink": "Leer las reglas completas",
+      "schemaDescription": "Cómo funciona el cash challenge de Libo: elige un reto, registra tus reps en la app durante 30 días, envía tu prueba y cobra al terminar."
     },
     "social": {
       "title": "Gente que cobró de verdad."
@@ -2192,7 +2193,11 @@
       "h1a": "Entra",
       "h1b": "al club.",
       "caption": "Dentro del club",
-      "footnoteClosed": "Un año completo de Premium · disponible en el lanzamiento"
+      "footnoteClosed": "Un año completo de Premium · disponible en el lanzamiento",
+      "videoPlayLabel": "Reproducir: hazte Founding Member, 2 minutos 44 segundos",
+      "videoCaption": "Inside the club — 2:44 · en inglés",
+      "rulesLink": "Leer los términos completos",
+      "videoSchemaDescription": "Noah, el fundador de Libo, explica qué es la oferta Founding Member, qué desbloquea Premium y por qué solo existe antes del lanzamiento."
     },
     "pocket": {
       "titleLine1": "Todo tu club",

@@ -119,6 +119,17 @@ export function trackLead(): void {
   window.fbq('track', 'Lead', {}, { eventID: crypto.randomUUID() });
 }
 
+/**
+ * Funnel film play — custom event, fired once per mount on the first press of
+ * the play button, never on load. The point is to see what share of /join and
+ * /cash-challenges traffic actually starts the film; a fire-on-render event
+ * would just re-count pageviews.
+ */
+export function trackVideoPlay(name: string): void {
+  if (getConsent() !== 'granted' || !window.fbq) return;
+  window.fbq('trackCustom', 'FunnelVideoPlay', { video: name });
+}
+
 /** Boot: if the visitor accepted on a previous visit, load immediately. */
 export function initConsent(): void {
   if (getConsent() === 'granted') loadTrackers();

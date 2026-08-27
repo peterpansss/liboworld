@@ -18,6 +18,8 @@ import { logFunnelClick } from '../lib/funnelSignups';
 import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import { usePopIn } from '../utils/funnelAnimations';
 import { getChallengeTier, FUNNEL_TIER_SLUG, type ChallengeTier } from '../data/challengeTiers';
+import FunnelVideo from '../components/funnel/FunnelVideo';
+import { CASH_CHALLENGE_VIDEO, buildFunnelVideoSchema } from '../data/funnelVideos';
 import './ChallengeFunnel.css';
 
 /**
@@ -145,6 +147,13 @@ export default function ChallengeFunnel() {
           reps: tier.reps,
         })}
         canonical={`/cash-challenges/${tier.slug}`}
+        jsonLd={buildFunnelVideoSchema(
+          CASH_CHALLENGE_VIDEO,
+          t('challengeFunnel.video.schemaDescription', {
+            defaultValue:
+              'How the Libo cash challenge works: pick a challenge, log your reps in the app for 30 days, submit your proof, and get paid when you finish.',
+          })
+        )}
       />
 
       <FunnelContextBar>
@@ -261,24 +270,25 @@ export default function ChallengeFunnel() {
           <ScrollRevealText as="h2" className="cf-h2 font-display">
             {t('challengeFunnel.video.title', { defaultValue: 'Watch how it works.' })}
           </ScrollRevealText>
-          {/* TODO(video): swap the placeholder panel for the real <video> once
-              the challenge film lands — keep the 16:9 frame and the caption. */}
-          <div className="cf-video" data-popin>
-            <button
-              type="button"
-              className="cf-video__play"
-              aria-label={t('challengeFunnel.video.playLabel', {
-                defaultValue: 'Play: the cash challenge, 3 minutes',
-              })}
-            >
-              <span className="cf-video__triangle" aria-hidden="true" />
-            </button>
-            <span className="cf-video__caption font-display">
-              {t('challengeFunnel.video.caption', { defaultValue: 'The cash challenge — 3 min' })}
-            </span>
-          </div>
+          <FunnelVideo
+            className="cf-video"
+            video={CASH_CHALLENGE_VIDEO}
+            analyticsName="cash_challenge"
+            playLabel={t('challengeFunnel.video.playLabel', {
+              defaultValue: 'Play: the cash challenge, 2 minutes 24 seconds',
+            })}
+            caption={t('challengeFunnel.video.caption', {
+              defaultValue: 'The cash challenge — 2:24',
+            })}
+          />
+          {/* The film closes on "click the button below the video ... the rules
+              are linked to the button below". Both have to actually be there,
+              on every breakpoint — so this CtaBar is NOT desktop-only. */}
+          <CtaBar />
           <p className="cf-note">
-            {t('challengeFunnel.video.note', { defaultValue: 'Film in production — placeholder' })}
+            <Link to="/terms" className="cf-inline-link">
+              {t('challengeFunnel.video.rulesLink', { defaultValue: 'Read the full rules' })}
+            </Link>
           </p>
         </section>
 

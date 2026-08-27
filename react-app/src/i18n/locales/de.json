@@ -2074,9 +2074,10 @@
     },
     "video": {
       "title": "Schau, wie es funktioniert.",
-      "playLabel": "Abspielen: die Cash Challenge in 3 Minuten",
-      "caption": "Die Cash Challenge — 3 Min.",
-      "note": "Film in Produktion — Platzhalter"
+      "playLabel": "Abspielen: die Cash Challenge, 2 Minuten 24 Sekunden",
+      "caption": "Die Cash Challenge — 2:24 · auf Englisch",
+      "rulesLink": "Die vollständigen Regeln lesen",
+      "schemaDescription": "So funktioniert die Libo Cash Challenge: Challenge wählen, 30 Tage lang die Reps in der App loggen, Nachweis einreichen und nach dem Abschluss ausgezahlt werden."
     },
     "social": {
       "title": "Leute, die wirklich bezahlt wurden."
@@ -2192,7 +2193,11 @@
       "h1a": "Rein in",
       "h1b": "den Club.",
       "caption": "Im Club",
-      "footnoteClosed": "Ein volles Jahr Premium · ab dem Launch verfügbar"
+      "footnoteClosed": "Ein volles Jahr Premium · ab dem Launch verfügbar",
+      "videoPlayLabel": "Abspielen: Founding Member werden, 2 Minuten 44 Sekunden",
+      "videoCaption": "Inside the club — 2:44 · auf Englisch",
+      "rulesLink": "Die vollständigen Bedingungen lesen",
+      "videoSchemaDescription": "Noah, der Gründer von Libo, erklärt das Founding-Member-Angebot, was Premium freischaltet und warum es das nur vor dem Launch gibt."
     },
     "pocket": {
       "titleLine1": "Dein ganzer Club",

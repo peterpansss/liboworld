@@ -143,42 +143,35 @@
 
 .jf-hero__media { position: relative; }
 
-.jf-hero__photo {
-  position: relative;
-  margin: 0;
+/* The founding film replaced the 4:3 hero still (27 Aug). It is 16:9 and must
+   not be cropped — the burned-in subtitles sit low in frame and a 4:3 crop
+   would eat them. The hero grid is align-items:center, so the shorter media
+   column simply re-centres against the copy. */
+.jf-hero__film {
+  aspect-ratio: 16 / 9;
   border-radius: 16px;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
 }
 
-.jf-hero__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-.jf-hero__caption {
-  position: absolute;
-  left: 20px;
-  bottom: 16px;
-  padding: 4px 0;
-  color: var(--text);
-  font-size: 18px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+/* The CTA the film's closing line points at ("the button is below the video"). */
+.jf-hero__film-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.jf-hero__photo::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 55%, rgba(0, 0, 0, 0.65) 100%);
-}
+.jf-hero__film-cta .jf-hero__footnote { margin: 0; }
 
-.jf-hero__caption { z-index: 1; }
+.jf-hero__rules { font-size: 14px; }
 
 @media (max-width: 900px) {
   .jf-hero { grid-template-columns: 1fr; padding: 48px 20px 56px; }
   .jf-hero__copy { align-items: center; text-align: center; }
   .jf-hero__body { max-width: 44ch; }
-  /* Photo below the CTA + footnote; store badges dropped on mobile. */
+  /* Stack reads headline → body → film → CTA, so the film's "button below the
+     video" line still describes what is on screen. */
+  .jf-hero__film-cta { align-items: center; text-align: center; }
   .jf-stores { display: none; }
 }
 

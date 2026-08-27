@@ -229,13 +229,9 @@
 
 /* ── Watch how it works ──────────────────────────────────────────────────── */
 
+/* Frame only — the play button, poster and caption now come from FunnelVideo. */
 .cf-video {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
   margin-top: 36px;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--border);
@@ -246,44 +242,15 @@
   transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
 }
 
+.cf-inline-link {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cf-inline-link:hover { color: var(--accent); }
+
 .cf-video.popped { opacity: 1; transform: none; }
-
-.cf-video__play {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-  border: none;
-  border-radius: 100px;
-  background: var(--accent);
-  box-shadow: 0 0 48px 6px var(--accent-dim);
-  cursor: pointer;
-  transition: transform .2s ease, background .2s ease;
-}
-
-.cf-video__play:hover { background: var(--accent2); transform: scale(1.05); }
-
-.cf-video__triangle {
-  width: 0;
-  height: 0;
-  margin-left: 5px;
-  border-style: solid;
-  border-width: 13px 0 13px 22px;
-  border-color: transparent transparent transparent var(--accent-text);
-}
-
-.cf-video__caption {
-  font-size: 22px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text);
-}
-
-@media (max-width: 560px) {
-  .cf-video__play { width: 56px; height: 56px; }
-  .cf-video__caption { font-size: 17px; }
-}
 
 /* ── Inside the challenge: overlapping fan ───────────────────────────────── */
 

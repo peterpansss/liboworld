@@ -98,6 +98,62 @@ describe('relaunch acceptance — Founding Member funnel', () => {
   });
 });
 
+describe('relaunch acceptance — the funnel films', () => {
+  // Both films close on "the button is below the video ... the rules are linked
+  // to the button below". That makes the CTA and the rules link part of the
+  // film's own claim, not decoration — if they drift, the voiceover starts
+  // describing controls that aren't on screen.
+  it('challenge funnel plays the real film, with no placeholder left behind', () => {
+    const { container } = renderTier('committed');
+    expect(pageText(container)).not.toContain('film in production');
+    expect(pageText(container)).not.toContain('placeholder');
+
+    const frame = container.querySelector('.cf-video');
+    expect(frame).not.toBeNull();
+    expect(frame!.querySelector('img.fv__still')).not.toBeNull();
+  });
+
+  it('challenge funnel puts a CTA and a rules link under the film', () => {
+    const { container } = renderTier('committed');
+    const frame = container.querySelector('.cf-video')!;
+    const section = frame.closest('section')!;
+
+    // Not desktop-only: the film says "click the button below the video" on
+    // every device.
+    const cta = section.querySelector('.cf-ctabar');
+    expect(cta).not.toBeNull();
+    expect(cta!.classList.contains('cf-ctabar--desktop-only')).toBe(false);
+    expect(section.querySelector('a.cf-inline-link')).not.toBeNull();
+  });
+
+  it('join funnel hero is the film, and the CTA sits under it', () => {
+    const { container } = render(<MemoryRouter><JoinFunnel /></MemoryRouter>);
+
+    // The 4:3 still it replaced is gone for good.
+    expect(container.querySelector('.jf-hero__photo')).toBeNull();
+
+    const media = container.querySelector('.jf-hero__media')!;
+    const film = media.querySelector('.jf-hero__film');
+    expect(film).not.toBeNull();
+
+    // The CTA must live in the media column, AFTER the film — in the copy
+    // column it lands above the video once the hero stacks on mobile.
+    const cta = media.querySelector('.jf-hero__film-cta');
+    expect(cta).not.toBeNull();
+    expect(film!.compareDocumentPosition(cta!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(cta!.querySelector('a.funnel-btn')).not.toBeNull();
+    expect(cta!.querySelector('a.jf-inline-link')).not.toBeNull();
+  });
+
+  it('neither funnel ships a <video> before the visitor asks for it', () => {
+    // ~50 MB at 1080p on the two paid conversion surfaces.
+    expect(renderTier('committed').container.querySelector('video')).toBeNull();
+    expect(
+      render(<MemoryRouter><JoinFunnel /></MemoryRouter>).container.querySelector('video'),
+    ).toBeNull();
+  });
+});
+
 describe('relaunch acceptance — challenge funnel CTAs', () => {
   it.each([
     ['flagship', 50, 100],

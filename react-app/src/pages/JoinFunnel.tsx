@@ -15,6 +15,8 @@ import { isStripeConfigured } from '../lib/stripe';
 import LaunchCountdown from '../components/LaunchCountdown';
 import { isFoundingOpen } from '../config/launchMode';
 import { usePopIn } from '../utils/funnelAnimations';
+import FunnelVideo from '../components/funnel/FunnelVideo';
+import { FOUNDING_MEMBER_VIDEO, buildFunnelVideoSchema } from '../data/funnelVideos';
 import './JoinFunnel.css';
 
 /**
@@ -32,9 +34,6 @@ import './JoinFunnel.css';
 const PRICE = `€${EARLY_ACCESS_PRICE.toFixed(2)}`; // €39.50
 const WAS_PRICE = '€79.99';
 const MEMBERSHIP_HREF = '#membership';
-
-/** Hero card photo. New filename on every swap — Cloudflare caches asset URLs. */
-const HERO_PHOTO = '/images/marketing/join-hero-club.jpg';
 
 type Member = { photo: string; name: string; meta: string };
 
@@ -194,6 +193,13 @@ export default function JoinFunnel() {
             'Join Libo as a Founding Member for €39.50 — 50% off the first year, fully refundable until launch. Your year starts the day the app goes live.',
         })}
         canonical="https://liboworld.com/join"
+        jsonLd={buildFunnelVideoSchema(
+          FOUNDING_MEMBER_VIDEO,
+          t('joinFunnel.hero.videoSchemaDescription', {
+            defaultValue:
+              'Noah, the founder of Libo, on what the Founding Member offer is, what Premium unlocks, and why it only exists before launch.',
+          })
+        )}
       />
 
       <FunnelContextBar>
@@ -236,19 +242,6 @@ export default function JoinFunnel() {
               })}
             </p>
 
-            <a className="funnel-btn jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
-              {ctaLabel}
-            </a>
-            <p className="jf-hero__footnote">
-              {foundingOpen
-                ? t('joinFunnel.hero.footnote', {
-                    defaultValue: '50% off the first year · fully refundable until launch',
-                  })
-                : t('joinFunnel.hero.footnoteClosed', {
-                    defaultValue: 'A full year of Premium · available at launch',
-                  })}
-            </p>
-
             {/* Store badges — desktop only per target (mobile drops them).
                 Google Play is omitted: launch is iOS-only (Noah, 2026-08-21).
                 Restore the second badge when Android ships. */}
@@ -260,12 +253,38 @@ export default function JoinFunnel() {
           </div>
 
           <div className="jf-hero__media">
-            <figure className="jf-hero__photo">
-              <img src={HERO_PHOTO} alt="" loading="eager" />
-              <figcaption className="jf-hero__caption font-display">
-                {t('joinFunnel.hero.caption', { defaultValue: 'Inside the club' })}
-              </figcaption>
-            </figure>
+            <FunnelVideo
+              className="jf-hero__film"
+              video={FOUNDING_MEMBER_VIDEO}
+              analyticsName="founding_member"
+              playLabel={t('joinFunnel.hero.videoPlayLabel', {
+                defaultValue: 'Play: become a Founding Member, 2 minutes 44 seconds',
+              })}
+              caption={t('joinFunnel.hero.videoCaption', {
+                defaultValue: 'Inside the club — 2:44',
+              })}
+            />
+            {/* The film ends on "the button is below the video ... the rules are
+                linked to the button below", so the hero's one CTA lives HERE
+                rather than in the copy column — otherwise the mobile stack puts
+                it above the film and the voiceover is describing nothing. */}
+            <div className="jf-hero__film-cta">
+              <a className="funnel-btn jf-btn jf-btn--primary" href={MEMBERSHIP_HREF}>
+                {ctaLabel}
+              </a>
+              <p className="jf-hero__footnote">
+                {foundingOpen
+                  ? t('joinFunnel.hero.footnote', {
+                      defaultValue: '50% off the first year · fully refundable until launch',
+                    })
+                  : t('joinFunnel.hero.footnoteClosed', {
+                      defaultValue: 'A full year of Premium · available at launch',
+                    })}
+              </p>
+              <Link to="/terms" className="jf-inline-link jf-hero__rules">
+                {t('joinFunnel.hero.rulesLink', { defaultValue: 'Read the full terms' })}
+              </Link>
+            </div>
           </div>
         </section>
 

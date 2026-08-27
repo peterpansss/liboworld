@@ -7,6 +7,8 @@
   "scripts": {
     "upload-videos": "node upload-videos.mjs",
     "upload-videos:dry": "node upload-videos.mjs --dry-run",
+    "upload-marketing-video": "node upload-marketing-video.mjs",
+    "upload-marketing-video:dry": "node upload-marketing-video.mjs --dry-run",
     "sync-video-urls": "node sync-video-urls.mjs",
     "generate-exercise-content": "node generate-exercise-content.mjs",
     "generate-exercise-content:all": "node generate-exercise-content.mjs --all",

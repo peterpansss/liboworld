@@ -2135,9 +2135,10 @@
     },
     "video": {
       "title": "Watch how it works.",
-      "playLabel": "Play: the cash challenge, 3 minutes",
-      "caption": "The cash challenge — 3 min",
-      "note": "Film in production — placeholder"
+      "playLabel": "Play: the cash challenge, 2 minutes 24 seconds",
+      "caption": "The cash challenge — 2:24",
+      "rulesLink": "Read the full rules",
+      "schemaDescription": "How the Libo cash challenge works: pick a challenge, log your reps in the app for 30 days, submit your proof, and get paid when you finish."
     },
     "social": {
       "title": "People who actually got paid."
@@ -2253,7 +2254,11 @@
       "h1a": "Enter",
       "h1b": "the club.",
       "caption": "Inside the club",
-      "footnoteClosed": "A full year of Premium · available at launch"
+      "footnoteClosed": "A full year of Premium · available at launch",
+      "videoPlayLabel": "Play: become a Founding Member, 2 minutes 44 seconds",
+      "videoCaption": "Inside the club — 2:44",
+      "rulesLink": "Read the full terms",
+      "videoSchemaDescription": "Noah, the founder of Libo, on what the Founding Member offer is, what Premium unlocks, and why it only exists before launch."
     },
     "pocket": {
       "titleLine1": "Your whole club",

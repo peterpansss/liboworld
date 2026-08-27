@@ -2074,9 +2074,10 @@
     },
     "video": {
       "title": "Veja como funciona.",
-      "playLabel": "Reproduzir: o desafio cash, 3 minutos",
-      "caption": "O desafio cash — 3 min",
-      "note": "Filme em produção — placeholder"
+      "playLabel": "Reproduzir: o desafio cash, 2 minutos e 24 segundos",
+      "caption": "O desafio cash — 2:24 · em inglês",
+      "rulesLink": "Ler as regras completas",
+      "schemaDescription": "Como funciona o desafio cash da Libo: escolhe um desafio, regista as tuas reps na app durante 30 dias, envia a tua prova e recebe quando terminares."
     },
     "social": {
       "title": "Gente que recebeu de verdade."
@@ -2192,7 +2193,11 @@
       "h1a": "Entre",
       "h1b": "no clube.",
       "caption": "Dentro do clube",
-      "footnoteClosed": "Um ano completo de Premium · disponível no lançamento"
+      "footnoteClosed": "Um ano completo de Premium · disponível no lançamento",
+      "videoPlayLabel": "Reproduzir: torna-te Founding Member, 2 minutos e 44 segundos",
+      "videoCaption": "Inside the club — 2:44 · em inglês",
+      "rulesLink": "Ler os termos completos",
+      "videoSchemaDescription": "Noah, o fundador da Libo, explica o que é a oferta Founding Member, o que o Premium desbloqueia e porque só existe antes do lançamento."
     },
     "pocket": {
       "titleLine1": "Seu clube inteiro",
