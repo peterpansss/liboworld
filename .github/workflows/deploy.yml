@@ -103,7 +103,13 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
-          security: strict
+          # Netcup's shared-hosting FTPS cert does not list the connect hostname/IP,
+          # so `security: strict` fails with ERR_TLS_CERT_ALTNAME_INVALID. `loose`
+          # keeps the transport ENCRYPTED (the credential is no longer sent in
+          # cleartext — the actual LIBO-06 win) but skips cert-name validation.
+          # Full strict validation / SFTP needs Netcup's cert or an SSH key sorted
+          # out — tracked as a follow-up, not a launch-week blocker.
+          security: loose
           local-dir: react-app/dist/
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
 
