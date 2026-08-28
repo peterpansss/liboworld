@@ -32,7 +32,11 @@ describe('Terms', () => {
     renderPage();
     expect(screen.getByRole('heading', { level: 1, name: /Terms & Conditions/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: /Acceptance of Terms/ })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: /Subscription Plans & Free Trial/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: /Subscription Plans/ })).toBeInTheDocument();
+    // The trial entitlement was deleted on 2026-08-28: no introductory offer
+    // exists on either ASC product and TIER_TRIAL_DAYS is 0, so promising one
+    // in the Terms was a contractual claim we could not honour. Guard it.
+    expect(document.body.textContent).not.toMatch(/free trial of Libo|7-day free trial/i);
     expect(screen.getByRole('heading', { level: 2, name: /Health & Fitness Disclaimer/ })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: /Governing Law/ })).toBeInTheDocument();
   });

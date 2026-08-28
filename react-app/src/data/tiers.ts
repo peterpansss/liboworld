@@ -35,7 +35,13 @@
 export const MONTHLY_PRICE = { premium: 12.99, elite: 19.99 } as const;
 export const YEARLY_PRICE = { premium: 79.99, elite: 149 } as const;
 export const YEARLY_DISCOUNT = { premium: 49, elite: 37 } as const;
-export const TRIAL_DAYS = 7;
+// NOTE: there is deliberately no TRIAL_DAYS export. App Store Connect carries
+// no introductory offer on either subscription product
+// (com.liboworld.app.premium.monthly / .yearly), and the mobile app has shipped
+// TIER_TRIAL_DAYS = {free: 0, pro: 0, elite: 0} since 2026-08-22 — a user who
+// subscribes is charged immediately. The free tier is the try-before-you-buy
+// story; nothing on this site may promise a trial period. If a real
+// introductory offer is ever configured in ASC, add the constant back then.
 
 export type TierId = 'free' | 'premium' | 'elite';
 export type BillingCycle = 'monthly' | 'yearly';
@@ -122,7 +128,7 @@ export const TIERS: Tier[] = [
       // reachable on Premium; it is not held back for Elite.
       'Cash challenges up to €50 (€15 · 60 reps/day, €50 · 100 reps/day)',
     ],
-    cta: `Start ${TRIAL_DAYS}-day free trial`,
+    cta: 'Get Premium',
     href: '/onboarding?tier=premium',
     highlight: 'accent',
   },
@@ -152,7 +158,7 @@ export const TIERS: Tier[] = [
       'Creator perks',
       'Early access to new features',
     ],
-    cta: `Start ${TRIAL_DAYS}-day free trial`,
+    cta: 'Get Elite',
     href: '/onboarding?tier=elite',
     highlight: 'warning',
   },

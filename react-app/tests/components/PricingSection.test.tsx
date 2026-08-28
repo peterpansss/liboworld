@@ -10,6 +10,7 @@
  *   - badge rendering ("Most popular"; no "Elite" badge)
  *   - feature list (Free's first vs Premium's "Everything in Free")
  *   - CTA href construction (?cycle=… for Premium, plain for Free)
+ *   - no trial promise anywhere (there is no ASC introductory offer)
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
@@ -98,16 +99,22 @@ describe('PricingSection', () => {
     expect(screen.queryByText('Everything in Premium')).not.toBeInTheDocument();
   });
 
-  it('uses CTA copy "Get started" for free, "Start 7-day free trial" for the paid tier', () => {
+  it('uses CTA copy "Get started" for free, "Get Premium" for the paid tier', () => {
     renderSection();
     expect(screen.getByText('Get started')).toBeInTheDocument();
-    // Only Premium remains, so the trial CTA appears exactly once.
-    expect(screen.getAllByText('Start 7-day free trial')).toHaveLength(1);
+    // Only Premium remains, so the paid CTA appears exactly once.
+    expect(screen.getAllByText('Get Premium')).toHaveLength(1);
   });
 
-  it('mentions the trial duration in the legal blurb', () => {
-    renderSection();
-    // 7-day trial copy appears in the subtitle and the bottom legal blurb.
-    expect(screen.getAllByText(/7-day free trial on Premium/i).length).toBeGreaterThan(0);
+  it('promises no trial anywhere', () => {
+    // There is no introductory offer on either App Store subscription product
+    // and the app ships TIER_TRIAL_DAYS = 0 — a subscriber is charged
+    // immediately. Nothing here may imply a free trial period.
+    const { container } = renderSection();
+    expect(container.textContent).not.toMatch(/trial/i);
+    expect(container.textContent).not.toMatch(/7[- ]day/i);
+    // The honest version of the same promise: the free tier, and cancellation.
+    expect(screen.getByText(/The free tier has no time limit/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/cancel ?anytime/i).length).toBeGreaterThan(0);
   });
 });

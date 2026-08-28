@@ -6,7 +6,9 @@
  * relaunch. Monthly/Yearly toggle at the top. Copy mirrors the mobile paywall:
  *   - Premium: €12.99/mo or €6.67/mo billed annually (€79.99/yr, 49% off), 1 freeze token, 2x points, €50 pools
  *   - Elite (deferred): €19.99/mo or €149/yr, 3 freeze tokens, 3x points
- * Premium: 7-day free trial.
+ * No trial on any tier: App Store Connect carries no introductory offer on
+ * either subscription product and the app ships TIER_TRIAL_DAYS = 0, so a
+ * subscriber is charged immediately. The free tier is the try-before-you-buy.
  *
  * Tier-by-feature policy (PARTNERSHIP-FINANCE-MODEL.md, Y1):
  *   - Cash challenges run on ALL tiers; stakes scale by tier
@@ -27,7 +29,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { colors, webExtras } from '../theme';
-import { VISIBLE_TIERS, YEARLY_PRICE, YEARLY_DISCOUNT, TRIAL_DAYS, buildHref, type Tier, type BillingCycle } from '../data/tiers';
+import { VISIBLE_TIERS, YEARLY_PRICE, YEARLY_DISCOUNT, buildHref, type Tier, type BillingCycle } from '../data/tiers';
 
 // ── Styles ──
 const sectionStyle: React.CSSProperties = {
@@ -188,7 +190,7 @@ export default function PricingSection() {
           </h2>
           <p style={subStyle}>
             Start free. Upgrade when you want the full library, smarter tools, and bigger
-            challenges. {TRIAL_DAYS}-day free trial on Premium.
+            challenges. The free tier has no time limit.
           </p>
         </header>
 
@@ -298,7 +300,10 @@ export default function PricingSection() {
                   </div>
                 )}
 
-                {/* Trial line — only on paid tiers */}
+                {/* Billing line — only on paid tiers. Was a "7 days free"
+                    trial line; there is no trial (no ASC introductory offer,
+                    app ships TIER_TRIAL_DAYS = 0), so it states the one thing
+                    that is true of a paid tier: it cancels any time. */}
                 <div
                   style={{
                     fontSize: 13,
@@ -313,7 +318,7 @@ export default function PricingSection() {
                     marginBottom: 24,
                   }}
                 >
-                  {tier.id === 'free' ? '—' : `${TRIAL_DAYS} days free, cancel anytime`}
+                  {tier.id === 'free' ? '—' : 'Cancel anytime'}
                 </div>
 
                 <ul
@@ -380,7 +385,7 @@ export default function PricingSection() {
             color: colors.muted,
           }}
         >
-          {TRIAL_DAYS}-day free trial on Premium. Cancel anytime. No ads, ever.
+          No countdown on the free tier. Cancel anytime. No ads, ever.
         </p>
       </div>
     </section>

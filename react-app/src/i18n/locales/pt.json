@@ -1343,7 +1343,7 @@
   "relaunchPricing": {
     "seo": {
       "title": "Preços | Libo — Training Club",
-      "description": "Um plano gratuito, ou €6.67/mês por tudo. Sem cartão pra começar. 7 dias de Premium por nossa conta de qualquer jeito."
+      "description": "Um plano gratuito, ou €6.67/mês por tudo. Sem cartão pra começar, e o plano gratuito é grátis de verdade — não é um trial."
     },
     "aria": {
       "plans": "Planos",
@@ -1355,7 +1355,7 @@
       "h1Pre": "Plano gratuito. Ou ",
       "h1Accent": "€6.67/mês",
       "h1Post": " por tudo.",
-      "sub": "Sem cartão pra começar. 7 dias de Premium por nossa conta de qualquer jeito — ou mês a mês por €12.99."
+      "sub": "Sem cartão pra começar. Treine de graça o tempo que você quiser — ou vá de Premium, mês a mês por €12.99."
     },
     "guarantee": [
       {
@@ -1363,8 +1363,8 @@
         "body": "O plano grátis é grátis pra sempre — não é teste."
       },
       {
-        "title": "7 dias de Premium por nossa conta",
-        "body": "Todo novo membro começa com a experiência completa."
+        "title": "Faça o upgrade quando quiser",
+        "body": "Sem contagem regressiva te pressionando. Treine de graça o tempo que você quiser."
       },
       {
         "title": "Pré-venda com reembolso",
@@ -1976,8 +1976,8 @@
         "body": "O plano gratuito é grátis de verdade — não é um trial."
       },
       "g2": {
-        "title": "7 dias de Premium por nossa conta",
-        "body": "Todo novo membro começa com a experiência completa."
+        "title": "Faça o upgrade quando quiser",
+        "body": "Sem contagem regressiva te pressionando. Treine de graça o tempo que você quiser."
       },
       "g3": {
         "title": "Pré-venda reembolsável",
@@ -2001,7 +2001,7 @@
     },
     "seo": {
       "title": "Assinatura | Libo — Training Club",
-      "description": "Um plano gratuito, ou €6.67/mês por tudo — ou mês a mês a €12.99. Sem cartão pra começar. 7 dias de Premium por nossa conta em qualquer caso."
+      "description": "Um plano gratuito, ou €6.67/mês por tudo — ou mês a mês a €12.99. Sem cartão pra começar, e o plano gratuito é grátis de verdade — não é um trial."
     }
   },
   "relaunchFounder": {

@@ -1343,7 +1343,7 @@
   "relaunchPricing": {
     "seo": {
       "title": "Pricing | Libo — Training Club",
-      "description": "A free tier, or €6.67/mo for everything. No card to start. 7 days of Premium on us either way."
+      "description": "A free tier, or €6.67/mo for everything. No card to start, and the free tier is genuinely free — not a trial."
     },
     "aria": {
       "plans": "Plans",
@@ -1355,7 +1355,7 @@
       "h1Pre": "Free tier. Or ",
       "h1Accent": "€6.67/mo",
       "h1Post": " for everything.",
-      "sub": "No card to start. 7 days of Premium on us either way — or month-to-month at €12.99."
+      "sub": "No card to start. Train free for as long as you like — or go Premium, month-to-month at €12.99."
     },
     "guarantee": [
       {
@@ -1363,8 +1363,8 @@
         "body": "The free tier is free forever — not a trial."
       },
       {
-        "title": "7 days of Premium on us",
-        "body": "Every new member starts with the full experience."
+        "title": "Upgrade when you're ready",
+        "body": "No countdown pushing you to decide. Train free as long as you like."
       },
       {
         "title": "Refundable pre-sale",
@@ -2037,8 +2037,8 @@
         "body": "The free tier is genuinely free — not a trial."
       },
       "g2": {
-        "title": "7 days of Premium on us",
-        "body": "Every new member starts with the full experience."
+        "title": "Upgrade when you're ready",
+        "body": "No countdown pushing you to decide. Train free as long as you like."
       },
       "g3": {
         "title": "Refundable pre-sale",
@@ -2062,7 +2062,7 @@
     },
     "seo": {
       "title": "Membership | Libo — Training Club",
-      "description": "A free tier, or €6.67/mo for everything — or month-to-month at €12.99. No card to start. 7 days of Premium on us either way."
+      "description": "A free tier, or €6.67/mo for everything — or month-to-month at €12.99. No card to start, and the free tier is genuinely free — not a trial."
     }
   },
   "founderV2": {

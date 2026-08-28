@@ -1343,7 +1343,7 @@
   "relaunchPricing": {
     "seo": {
       "title": "Preise | Libo — Training Club",
-      "description": "Eine kostenlose Stufe oder €6.67/Monat für alles. Keine Karte zum Start. 7 Tage Premium gehen so oder so auf uns."
+      "description": "Eine kostenlose Stufe oder €6.67/Monat für alles. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — kein Test-Abo."
     },
     "aria": {
       "plans": "Tarife",
@@ -1355,7 +1355,7 @@
       "h1Pre": "Kostenlose Stufe. Oder ",
       "h1Accent": "€6.67/Monat",
       "h1Post": " für alles.",
-      "sub": "Keine Karte zum Start. 7 Tage Premium gehen so oder so auf uns — oder monatlich für €12.99."
+      "sub": "Keine Karte zum Start. Trainiere gratis, so lange du willst — oder hol dir Premium, monatlich für €12.99."
     },
     "guarantee": [
       {
@@ -1363,8 +1363,8 @@
         "body": "Der kostenlose Tarif ist für immer gratis — kein Trial."
       },
       {
-        "title": "7 Tage Premium auf uns",
-        "body": "Jedes neue Mitglied startet mit dem vollen Erlebnis."
+        "title": "Upgrade, wenn du so weit bist",
+        "body": "Kein Countdown, der dich zur Entscheidung drängt. Trainiere gratis, so lange du willst."
       },
       {
         "title": "Erstattbarer Vorverkauf",
@@ -1976,8 +1976,8 @@
         "body": "Die Gratis-Version ist wirklich gratis — kein Test-Abo."
       },
       "g2": {
-        "title": "7 Tage Premium von uns",
-        "body": "Jeder neue Member startet mit dem vollen Erlebnis."
+        "title": "Upgrade, wenn du so weit bist",
+        "body": "Kein Countdown, der dich zur Entscheidung drängt. Trainiere gratis, so lange du willst."
       },
       "g3": {
         "title": "Erstattbarer Pre-Sale",
@@ -2001,7 +2001,7 @@
     },
     "seo": {
       "title": "Mitgliedschaft | Libo — Training Club",
-      "description": "Eine Gratis-Version, oder €6.67/Monat für alles — oder monatlich für €12.99. Keine Karte zum Start. 7 Tage Premium von uns, so oder so."
+      "description": "Eine Gratis-Version, oder €6.67/Monat für alles — oder monatlich für €12.99. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — kein Test-Abo."
     }
   },
   "relaunchFounder": {

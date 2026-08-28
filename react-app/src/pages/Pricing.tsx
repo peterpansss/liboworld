@@ -21,8 +21,16 @@ import './Pricing.css';
 //   • the free plan is a "free tier", never described as permanent
 //   • the €12.99 month-to-month option is visible in the plan cards, not just
 //     in the hero subhead
-// The hero keys (relaunchPricing.hero.*) are already correct in en.json and are
-// reused as-is. Everything that had to change is authored under the page-local
+//   • NO TRIAL, anywhere. App Store Connect has no introductory offer on
+//     com.liboworld.app.premium.monthly or the yearly product, and the app
+//     ships TIER_TRIAL_DAYS = 0 — subscribing charges immediately. The free
+//     tier is the try-before-you-buy story. (2026-08-27: the guarantee strip's
+//     second item, the hero subhead and the meta description all used to
+//     promise "7 days of Premium on us"; all three were rewritten, here and in
+//     all five locale files.)
+// relaunchPricing.hero.sub was rewritten in every locale for the same reason;
+// the rest of relaunchPricing.hero.* is reused as-is. Everything else that had
+// to change is authored under the page-local
 // `membershipV2` namespace as t(key, { defaultValue }) so a later harvest pass
 // can lift the English into the locale files without five agents fighting over
 // the same JSON.
@@ -164,9 +172,14 @@ export default function Pricing() {
       }),
     },
     {
-      title: t('membershipV2.guarantee.g2.title', { defaultValue: '7 days of Premium on us' }),
+      // Was "7 days of Premium on us" — there is no trial. App Store Connect
+      // carries no introductory offer on either subscription product and the
+      // app ships TIER_TRIAL_DAYS = 0, so subscribing bills immediately. The
+      // free tier is the try-before-you-buy story, which is what g1 and this
+      // item now say together instead of contradicting each other.
+      title: t('membershipV2.guarantee.g2.title', { defaultValue: 'Upgrade when you\'re ready' }),
       body: t('membershipV2.guarantee.g2.body', {
-        defaultValue: 'Every new member starts with the full experience.',
+        defaultValue: 'No countdown pushing you to decide. Train free as long as you like.',
       }),
     },
     // Only meaningful while the pre-sale is open — with the Founding card gone
@@ -220,7 +233,7 @@ export default function Pricing() {
         })}
         description={t('membershipV2.seo.description', {
           defaultValue:
-            'A free tier, or €6.67/mo for everything — or month-to-month at €12.99. No card to start. 7 days of Premium on us either way.',
+            'A free tier, or €6.67/mo for everything — or month-to-month at €12.99. No card to start, and the free tier is genuinely free — not a trial.',
         })}
         canonical="https://liboworld.com/membership"
         ogImage="https://liboworld.com/brand/og-image.png"

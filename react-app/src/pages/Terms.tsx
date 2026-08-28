@@ -45,7 +45,7 @@ export default function Terms() {
               <li><a href="#s2">About Libo</a></li>
               <li><a href="#s3">Eligibility</a></li>
               <li><a href="#s4">Account Registration</a></li>
-              <li><a href="#s5">Subscription Plans &amp; Free Trial</a></li>
+              <li><a href="#s5">Subscription Plans</a></li>
               <li><a href="#s6">Billing &amp; Payment</a></li>
               <li><a href="#s7">Cancellation &amp; Refunds</a></li>
               {GIVEAWAYS_ENABLED && (
@@ -111,7 +111,7 @@ export default function Terms() {
           {/* 5 */}
           <section className="legal-section" id="s5">
             <div className="legal-section-num">{n()}</div>
-            <h2>Subscription Plans &amp; Free Trial</h2>
+            <h2>Subscription Plans</h2>
 
             <h3>Free Tier</h3>
             <p>Libo offers a free base version with access to a limited selection of features including basic exercises, select workouts, and core app functionality. No payment information is required for the free tier.</p>
@@ -123,12 +123,10 @@ export default function Terms() {
               <li><strong>Monthly</strong> — billed every 30 days</li>
               <li><strong>Annual</strong> — billed once per year (best value)</li>
             </ul>
-
-            <h3>7-Day Free Trial</h3>
-            <div className="legal-highlight">
-              <p>New users who have not previously held a Premium subscription are eligible for a <strong>7-day free trial</strong> of Libo Premium. You will not be charged during the trial period. If you do not cancel before the trial ends, your selected subscription will automatically activate and your payment method will be charged.</p>
-            </div>
-            <p>The free trial is limited to one per user and one per payment method. We reserve the right to modify or withdraw free trial eligibility at any time.</p>
+            {/* No introductory offer is configured on either product in App
+                Store Connect, and every tier ships with trial days set to 0.
+                Stated plainly so a reader is not left inferring one. */}
+            <p>Libo Premium does not include a free trial: your subscription begins and your payment method is charged as soon as you subscribe.</p>
 
             <h3>Auto-Renewal</h3>
             {/* "All" used to read as absolute, which is wrong for the Founding
@@ -164,7 +162,6 @@ export default function Terms() {
                   "no" to a buyer the specific section answers "yes" to. */}
               <li>Subscriptions older than 14 days from the first charge — <em>except</em> Founding Member purchases, which remain fully refundable at any time before launch (see <a href="#early-access">Early Access</a>)</li>
               <li>Partial billing periods following cancellation</li>
-              <li>Free trial periods</li>
               <li>Users who have previously received a refund for Libo</li>
             </ul>
             <p>If you purchased through Apple App Store or Google Play, refunds are handled by Apple or Google under their respective policies.</p>

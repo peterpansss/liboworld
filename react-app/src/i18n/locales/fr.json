@@ -1325,7 +1325,7 @@
       "h1Pre": "Offre gratuite. Ou ",
       "h1Accent": "€6.67/mois",
       "h1Post": " pour tout.",
-      "sub": "Aucune carte pour commencer. 7 jours de Premium offerts dans tous les cas — ou au mois à €12.99."
+      "sub": "Aucune carte pour commencer. Entraîne-toi gratuitement aussi longtemps que tu veux — ou passe à Premium, au mois à €12.99."
     },
     "guarantee": [
       {
@@ -1333,8 +1333,8 @@
         "body": "L'offre gratuite est gratuite pour toujours — pas un essai."
       },
       {
-        "title": "7 jours de Premium offerts",
-        "body": "Chaque nouveau membre démarre avec l'expérience complète."
+        "title": "Passe à Premium quand tu veux",
+        "body": "Aucun compte à rebours pour te presser. Entraîne-toi gratuitement aussi longtemps que tu veux."
       },
       {
         "title": "Prévente remboursable",
@@ -1351,7 +1351,7 @@
     },
     "seo": {
       "title": "Tarifs | Libo — Training Club",
-      "description": "Une offre gratuite, ou €6.67/mois pour tout. Aucune carte pour commencer. 7 jours de Premium offerts dans tous les cas."
+      "description": "Une offre gratuite, ou €6.67/mois pour tout. Aucune carte pour commencer, et le niveau Free est vraiment gratuit — pas un essai."
     },
     "aria": {
       "plans": "Offres",
@@ -1976,8 +1976,8 @@
         "body": "Le niveau Free est vraiment gratuit — pas un essai."
       },
       "g2": {
-        "title": "7 jours de Premium offerts",
-        "body": "Chaque nouveau membre démarre avec l'expérience complète."
+        "title": "Passe à Premium quand tu veux",
+        "body": "Aucun compte à rebours pour te presser. Entraîne-toi gratuitement aussi longtemps que tu veux."
       },
       "g3": {
         "title": "Prévente remboursable",
@@ -2001,7 +2001,7 @@
     },
     "seo": {
       "title": "Adhésion | Libo — Training Club",
-      "description": "Un niveau Free, ou €6.67/mois pour tout — ou €12.99 au mois. Pas de carte pour commencer. 7 jours de Premium offerts dans tous les cas."
+      "description": "Un niveau Free, ou €6.67/mois pour tout — ou €12.99 au mois. Pas de carte pour commencer, et le niveau Free est vraiment gratuit — pas un essai."
     }
   },
   "relaunchFounder": {
