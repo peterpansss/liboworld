@@ -1,0 +1,47 @@
+name: Verify (lint + type-check + tests)
+
+# LIBO-12 (Dimitri audit): the deploy pipeline type-checks and builds but runs
+# NO lint and NO tests before shipping to production. This job runs them on every
+# push and PR so a regression is visible before it reaches users.
+#
+# ⚠️ NOT YET A BLOCKING GATE. The website suite is currently red (≈87 failing
+# across 20 files — stale mocks + product-drift assertions, being repaired on a
+# separate track) and lint has a backlog, so making this a required check today
+# would freeze all deploys during launch week. It therefore reports status only.
+#
+# TO TURN IT INTO THE GATE once the suite is green (this is the whole point):
+#   1. add `needs: verify` to the deploy job in deploy.yml, and
+#   2. in GitHub → Settings → Branches → protect `main`: require this check +
+#      require PRs (no direct pushes). Then "no code reaches production when
+#      required tests are failing" is actually enforced, per the brief.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: react-app/package-lock.json
+      - run: npm install --no-audit --no-fund
+        working-directory: react-app
+      - name: Type-check
+        run: npx tsc --noEmit -p tsconfig.app.json
+        working-directory: react-app
+      - name: Lint
+        run: npm run lint
+        working-directory: react-app
+      - name: Tests
+        run: npm run test:run
+        working-directory: react-app

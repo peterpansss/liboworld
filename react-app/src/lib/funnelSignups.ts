@@ -2,7 +2,9 @@
  * Funnel signup capture for /giveaway and /cash-challenge landing pages.
  *
  * v1 (current): writes (email + funnel + tier_slug + UTM params) into
- * Supabase `funnel_signups`. RLS allows anon insert, no read. Duplicate
+ * Supabase `funnel_signups` via the capture_funnel_signup RPC (LIBO-01 — the
+ * RPC hard-nulls every Stripe column so a client cannot forge a paid row; direct
+ * anon insert is revoked). No read. Duplicate
  * rows per (email, funnel, tier_slug, giveaway_id) are blocked at the DB
  * level via a unique index — we surface that as a friendly "already on
  * the list" state, mirroring how Landing.tsx handles `waitlist`.
@@ -179,23 +181,26 @@ export async function logFunnelClick(args: {
   giveawayId?: string | null;
 }): Promise<void> {
   const utm = readUtm();
-  const row = {
-    email: null,
-    full_name: null,
-    phone: null,
-    funnel: args.funnel,
-    tier_slug: args.tierSlug,
-    giveaway_id: args.giveawayId ?? null,
-    utm_source: sanitizeUtm(utm.utm_source),
-    utm_medium: sanitizeUtm(utm.utm_medium),
-    utm_campaign: sanitizeUtm(utm.utm_campaign),
-    utm_content: sanitizeUtm(utm.utm_content),
-    utm_term: sanitizeUtm(utm.utm_term),
-    referrer: sanitizeLongText(readReferrer()),
-    user_agent: sanitizeLongText(readUserAgent()),
-  };
+  // LIBO-01: write via the capture_funnel_signup RPC, never a direct table
+  // insert. The RPC hard-nulls every Stripe/payment column, so a client can no
+  // longer forge a `succeeded` buyer-registry row. Direct anon INSERT is revoked
+  // server-side (supabase-migration-funnel-signups-revoke.sql).
   try {
-    await supabase.from('funnel_signups').insert(row);
+    await supabase.rpc('capture_funnel_signup', {
+      p_email: null,
+      p_full_name: null,
+      p_phone: null,
+      p_funnel: args.funnel,
+      p_tier_slug: args.tierSlug,
+      p_giveaway_id: args.giveawayId ?? null,
+      p_utm_source: sanitizeUtm(utm.utm_source),
+      p_utm_medium: sanitizeUtm(utm.utm_medium),
+      p_utm_campaign: sanitizeUtm(utm.utm_campaign),
+      p_utm_content: sanitizeUtm(utm.utm_content),
+      p_utm_term: sanitizeUtm(utm.utm_term),
+      p_referrer: sanitizeLongText(readReferrer()),
+      p_user_agent: sanitizeLongText(readUserAgent()),
+    });
   } catch {
     // Swallow — never block navigation on analytics
   }
@@ -206,27 +211,28 @@ export async function submitFunnelInterest(input: FunnelSubmitInput): Promise<Fu
   if (!isValidEmail(email)) return { ok: false, error: 'invalid_email' };
 
   const utm = readUtm();
-  const row = {
-    email,
-    full_name: sanitizeFullName(input.fullName),
-    phone: sanitizePhone(input.phone),
-    funnel: input.funnel,
-    tier_slug: input.tierSlug,
-    giveaway_id: input.giveawayId ?? null,
-    utm_source: sanitizeUtm(utm.utm_source),
-    utm_medium: sanitizeUtm(utm.utm_medium),
-    utm_campaign: sanitizeUtm(utm.utm_campaign),
-    utm_content: sanitizeUtm(utm.utm_content),
-    utm_term: sanitizeUtm(utm.utm_term),
-    referrer: sanitizeLongText(readReferrer()),
-    user_agent: sanitizeLongText(readUserAgent()),
-  };
-
+  // LIBO-01: capture via RPC, not a direct insert. The RPC returns
+  // {ok, duplicate} so the "already on the list" UX is preserved without the
+  // client ever reading or writing the payment columns.
   try {
-    const { error } = await supabase.from('funnel_signups').insert(row);
-    if (!error) return { ok: true, duplicate: false };
-    if (error.code === '23505') return { ok: true, duplicate: true };
-    return { ok: false, error: 'unknown' };
+    const { data, error } = await supabase.rpc('capture_funnel_signup', {
+      p_email: email,
+      p_full_name: sanitizeFullName(input.fullName),
+      p_phone: sanitizePhone(input.phone),
+      p_funnel: input.funnel,
+      p_tier_slug: input.tierSlug,
+      p_giveaway_id: input.giveawayId ?? null,
+      p_utm_source: sanitizeUtm(utm.utm_source),
+      p_utm_medium: sanitizeUtm(utm.utm_medium),
+      p_utm_campaign: sanitizeUtm(utm.utm_campaign),
+      p_utm_content: sanitizeUtm(utm.utm_content),
+      p_utm_term: sanitizeUtm(utm.utm_term),
+      p_referrer: sanitizeLongText(readReferrer()),
+      p_user_agent: sanitizeLongText(readUserAgent()),
+    });
+    if (error) return { ok: false, error: 'unknown' };
+    const duplicate = !!(data && typeof data === 'object' && (data as { duplicate?: boolean }).duplicate);
+    return { ok: true, duplicate };
   } catch {
     return { ok: false, error: 'network' };
   }

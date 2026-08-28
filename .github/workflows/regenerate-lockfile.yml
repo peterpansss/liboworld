@@ -19,12 +19,12 @@ jobs:
   regenerate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           # Persist the default GITHUB_TOKEN so the later push works.
           persist-credentials: true
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 20
 
@@ -34,14 +34,21 @@ jobs:
           rm -f package-lock.json
           npm install --no-audit --no-fund
 
-      - name: Commit + push if changed
+      # LIBO-12: a lockfile regenerated from the network is a dependency change
+      # and must be reviewed, not pushed straight to main. Push it to a dedicated
+      # branch and open a PR for a human to merge.
+      - name: Push regenerated lockfile to a review branch
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add react-app/package-lock.json
           if git diff --staged --quiet; then
             echo "No lockfile changes — nothing to commit."
-          else
-            git commit -m "chore(ci): regenerate package-lock.json on Linux"
-            git push
+            exit 0
           fi
+          BRANCH="ci/lockfile-regen-${GITHUB_RUN_ID}"
+          git checkout -b "$BRANCH"
+          git commit -m "chore(ci): regenerate package-lock.json on Linux"
+          git push origin "$BRANCH"
+          echo "Pushed $BRANCH — open a PR to review the dependency change:"
+          echo "  $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/compare/main...$BRANCH?expand=1"
