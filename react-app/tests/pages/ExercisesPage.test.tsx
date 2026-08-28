@@ -31,6 +31,15 @@ vi.mock('../../src/lib/adminApi', () => ({
   deleteExerciseOverrideWithReauth: (...a: unknown[]) => deleteExerciseOverrideMock(...a),
   uploadExerciseVideo: (...a: unknown[]) => uploadExerciseVideoMock(...a),
   uploadExerciseThumbnail: (...a: unknown[]) => uploadExerciseThumbnailMock(...a),
+  // The page grew to call these on mount / in edit flows after this mock was
+  // first written. Benign stubs keep the module mock complete (vitest throws on
+  // any imported-but-unmocked export). listExercises drives refreshCanonical.
+  listExercises: () => Promise.resolve([]),
+  createExercise: (...a: unknown[]) => Promise.resolve({ id: 'ex_new', ...(a as object) }),
+  deleteExerciseWithReauth: () => Promise.resolve(),
+  updateExercise: () => Promise.resolve(),
+  uploadExerciseVideoRaw: () => Promise.resolve({ ok: true }),
+  createMediaJob: () => Promise.resolve({ id: 'job_1' }),
 }));
 
 import { ExercisesPage } from '../../src/pages/admin/ExercisesPage';
@@ -92,7 +101,7 @@ describe('ExercisesPage', () => {
     await waitFor(() => expect(screen.getByText('Pushups')).toBeInTheDocument());
     expect(screen.getByText('Squats')).toBeInTheDocument();
     expect(screen.getByText('Bench Press')).toBeInTheDocument();
-    expect(screen.getByText(/3 exercises, 0 with overrides/)).toBeInTheDocument();
+    expect(screen.getByText(/3 exercises .* 0 with overrides/)).toBeInTheDocument();
   });
 
   it('exercise.json fetch failure surfaces page error', async () => {
@@ -109,7 +118,7 @@ describe('ExercisesPage', () => {
     render(<ExercisesPage />);
     await waitFor(() => expect(screen.getByText('Tricep Pushups')).toBeInTheDocument());
     expect(screen.getByText('Edited')).toBeInTheDocument();
-    expect(screen.getByText(/3 exercises, 1 with overrides/)).toBeInTheDocument();
+    expect(screen.getByText(/3 exercises .* 1 with overrides/)).toBeInTheDocument();
   });
 
   it('filters by body focus', async () => {
@@ -245,11 +254,12 @@ describe('ExercisesPage', () => {
     fireEvent.click(screen.getByText('Pushups'));
     await waitFor(() => expect(screen.getByText('Edit · Pushups')).toBeInTheDocument());
 
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    expect(fileInputs.length).toBe(2);
+    const videoInputs = document.querySelectorAll('input[type="file"][accept="video/*"]');
+    expect(videoInputs.length).toBeGreaterThanOrEqual(1);
+    const primaryVideoInput = videoInputs[0] as HTMLInputElement;
     const f = new File(['x'], 'v.mp4', { type: 'video/mp4' });
-    Object.defineProperty(fileInputs[0], 'files', { value: [f] });
-    fireEvent.change(fileInputs[0]);
+    Object.defineProperty(primaryVideoInput, 'files', { value: [f] });
+    fireEvent.change(primaryVideoInput);
 
     await waitFor(() => expect(uploadExerciseVideoMock).toHaveBeenCalledWith(f));
     await waitFor(() => {
@@ -267,10 +277,13 @@ describe('ExercisesPage', () => {
     fireEvent.click(screen.getByText('Pushups'));
     await waitFor(() => expect(screen.getByText('Edit · Pushups')).toBeInTheDocument());
 
-    const fileInputs = document.querySelectorAll('input[type="file"]');
+    // The modal now has multiple video inputs; the thumbnail is the only
+    // image/* one, so select it by accept type rather than a brittle index.
+    const thumbInput = document.querySelector('input[type="file"][accept="image/*"]') as HTMLInputElement;
+    expect(thumbInput).toBeTruthy();
     const f = new File(['x'], 't.jpg', { type: 'image/jpeg' });
-    Object.defineProperty(fileInputs[1], 'files', { value: [f] });
-    fireEvent.change(fileInputs[1]);
+    Object.defineProperty(thumbInput, 'files', { value: [f] });
+    fireEvent.change(thumbInput);
 
     await waitFor(() => expect(uploadExerciseThumbnailMock).toHaveBeenCalledWith(f));
   });
@@ -283,9 +296,9 @@ describe('ExercisesPage', () => {
     fireEvent.click(screen.getByText('Pushups'));
     await waitFor(() => expect(screen.getByText('Edit · Pushups')).toBeInTheDocument());
 
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    Object.defineProperty(fileInputs[0], 'files', { value: [new File(['x'], 'v.mp4', { type: 'video/mp4' })] });
-    fireEvent.change(fileInputs[0]);
+    const primaryVideoInput = document.querySelector('input[type="file"][accept="video/*"]') as HTMLInputElement;
+    Object.defineProperty(primaryVideoInput, 'files', { value: [new File(['x'], 'v.mp4', { type: 'video/mp4' })] });
+    fireEvent.change(primaryVideoInput);
     await waitFor(() => expect(screen.getByText('upload_failed')).toBeInTheDocument());
   });
 
