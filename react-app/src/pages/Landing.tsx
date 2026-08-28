@@ -627,7 +627,7 @@ export default function Landing() {
                     <span className="rh-cc-name">{tier.name}</span>
                     <span className="rh-cc-meta">
                       {t('relaunchHome.challenges.meta', {
-                        defaultValue: '{{reps}} reps / day · {{days}} days · {{spots}} spots',
+                        defaultValue: '{{reps}} reps / day · {{days}} days · Limited spots',
                         reps: tier.reps,
                         days: tier.days,
                       })}

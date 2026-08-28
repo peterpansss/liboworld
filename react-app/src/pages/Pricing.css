@@ -466,3 +466,11 @@ button.pr-card__cta {
     margin: 0;
   }
 }
+
+/* The founding card carries the LaunchCountdown block. It lives inside the
+   card's 26px padding and the 16px flex gap, so it overrides the component's
+   own 420px cap and adds no margin of its own. */
+.pr-card .launch-countdown {
+  max-width: 100%;
+  margin: 0;
+}

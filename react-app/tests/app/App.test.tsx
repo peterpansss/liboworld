@@ -41,6 +41,7 @@ vi.mock('../../src/pages/BlogPost', () => ({
 }));
 vi.mock('../../src/pages/Privacy', () => ({ default: () => <div data-testid="page-privacy" /> }));
 vi.mock('../../src/pages/Terms', () => ({ default: () => <div data-testid="page-terms" /> }));
+vi.mock('../../src/pages/Rules', () => ({ default: () => <div data-testid="page-rules" /> }));
 vi.mock('../../src/pages/AuthCallback', () => ({
   default: () => <div data-testid="page-auth-cb" />,
 }));
@@ -95,6 +96,7 @@ describe('Lazy-loaded routes', () => {
     ['/blog/welcome', 'page-blog-post'],
     ['/privacy', 'page-privacy'],
     ['/terms', 'page-terms'],
+    ['/rules', 'page-rules'],
     ['/auth/callback', 'page-auth-cb'],
     ['/giveaway', 'page-giveaway'],
     ['/cash-challenge', 'page-cash-challenge'],

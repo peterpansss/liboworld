@@ -74,10 +74,23 @@ describe('SiteNav', () => {
     expect(screen.getByRole('navigation', { name: 'nav.mainNavigation' })).toBeInTheDocument();
     // The drawer renders the same links (always in the DOM, hidden by CSS),
     // so each label appears twice.
-    ['Cash Challenges', 'Library', 'Membership', 'Press', 'Careers'].forEach((label) => {
+    ['Cash Challenges', 'Library', 'Founding Member', 'Press', 'Careers'].forEach((label) => {
       expect(screen.getAllByText(label).length).toBeGreaterThanOrEqual(1);
     });
     expect(screen.getAllByText('Join the waitlist').length).toBe(2);
+    // Membership left the header on 2026-08-27; it lives in the footer as
+    // "Pricing" now, and the freed slot carries the founding offer.
+    expect(screen.queryByText('Membership')).toBeNull();
+  });
+
+  it('drops the Founding Member link once the founding offer closes', () => {
+    // Same date-driven switch as the countdown and the /membership founding
+    // card: the header has to stop advertising /join on launch day without a
+    // deploy.
+    foundingOpen.mockReturnValue(false);
+    renderAt('/');
+    expect(screen.queryByText('Founding Member')).toBeNull();
+    expect(screen.getAllByText('Cash Challenges').length).toBeGreaterThanOrEqual(1);
   });
 
   it('points both waitlist CTAs at the homepage hero capture, not the paid funnel', () => {

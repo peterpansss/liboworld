@@ -78,7 +78,7 @@ export default function CashChallenges() {
                 <span className="cc-card__name font-display">{tier.name}</span>
                 <span className="cc-card__meta">
                   {t('cashChallenges.card.meta', {
-                    defaultValue: '{{reps}} reps / day · {{days}} days · {{spots}} spots',
+                    defaultValue: '{{reps}} reps / day · {{days}} days · Limited spots',
                     reps: tier.reps,
                     days: tier.days,
                   })}

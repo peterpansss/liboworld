@@ -8,10 +8,24 @@
  * mobile app, update this file too.
  *
  * Tier-by-feature policy (see Brand-Management/Project-Structure/PARTNERSHIP-FINANCE-MODEL.md, Y1):
- *   - Cash challenges run on ALL tiers; rewards + daily reps scale by tier.
- *   - Common product giveaways: all tiers.
- *   - Premium + Special giveaways: Premium AND Elite.
- *   - "Elite-exclusive" framing reserved for genuinely rare campaigns (€5k+).
+ *   - Cash challenges run on ALL tiers. A tier does NOT scale the reward — it
+ *     raises the CEILING of which challenges you can enter. Canon
+ *     REWARDS-ECONOMY-RULES.md §7.4: "a challenge may have a minimum tier,
+ *     never a maximum" — Premium sees every challenge a Free user sees, plus
+ *     the gated ones. So Premium reaches the €50 / 100-rep Flagship challenge;
+ *     it is not an Elite perk. Elite (Phase 2) unlocks no higher payout.
+ *   - Challenge numbers (payout · reps/day) are duplicated from
+ *     src/data/challengeTiers.ts — that file is the source of truth for
+ *     /cash-challenges and the funnels. Change them THERE first, then mirror.
+ *   - Freeze tokens: the per-tier number is the GRANT, not the ceiling. Every
+ *     tier can earn +1 more by training 60 of the last 90 days (canon §5.2).
+ *     Premium's grant was cut 2 → 1 on 2026-08-10 (migration deployed to
+ *     staging + production). User-facing framing across all five locales is
+ *     "1 freeze token per challenge, +1 you can earn" — match it here.
+ *   - Giveaways of every kind are Phase 2 — see the note on the Free tier below
+ *     and canon REWARDS-ECONOMY-RULES.md §8 "Phase 2 — NOT FOR LAUNCH".
+ *   - "Elite-exclusive" framing reserved for genuinely rare campaigns (€5k+),
+ *     and only once Elite itself returns in Phase 2.
  */
 
 // YEARLY_PRICE is the annual TOTAL (per-month equivalent = /12). Premium is
@@ -66,7 +80,16 @@ export const TIERS: Tier[] = [
       'Reps & kg tracking',
       'Basic progress charts',
       'Rewards program (1× Libo)',
-      'Common product giveaways',
+      // No giveaway bullet here. Giveaways (common, premium, special, prize
+      // draws, entry allocation) are Phase 2 — canon
+      // Brand-Management/Project-Structure/canon/REWARDS-ECONOMY-RULES.md §8
+      // "Phase 2 — NOT FOR LAUNCH"; §3 launches Free + Premium only.
+      // NOTE: VISIBLE_TIER_IDS / isTierVisible do NOT protect us here — they
+      // only hide Elite. A giveaway promise written onto Free or Premium ships
+      // the moment anything renders these tiers. Same applies to the Premium
+      // features below and to the COMPARISON_GROUPS rows.
+      // Starter challenge — src/data/challengeTiers.ts ('starter': €5, 30 reps,
+      // requiresPremium: false). Source of truth for these numbers.
       'Cash challenges (€5 reward · 30 reps/day)',
     ],
     cta: 'Get started',
@@ -89,9 +112,15 @@ export const TIERS: Tier[] = [
       'AI workout generator',
       'Advanced analytics',
       '2× Libo',
-      '2 freeze tokens per challenge cycle',
-      'Premium giveaways + Special prize draws (e.g. iPhone-class items)',
-      'Cash challenges (€15 reward · 50 reps/day)',
+      // GRANT, not ceiling. Canon §5.2: Premium is granted 1 and can earn a
+      // second (train 60 of the last 90 days). Cut 2 → 1 on 2026-08-10.
+      '1 freeze token per challenge, +1 you can earn',
+      // Giveaway / prize-draw bullet removed — Phase 2, see the Free tier note above.
+      // Premium unlocks BOTH gated challenges in src/data/challengeTiers.ts:
+      // 'committed' (€15 · 60 reps) and 'flagship' (€50 · 100 reps), both
+      // requiresPremium: true. Canon §7.4 — no maximum tier, so the €50 run is
+      // reachable on Premium; it is not held back for Elite.
+      'Cash challenges up to €50 (€15 · 60 reps/day, €50 · 100 reps/day)',
     ],
     cta: `Start ${TRIAL_DAYS}-day free trial`,
     href: '/onboarding?tier=premium',
@@ -100,7 +129,10 @@ export const TIERS: Tier[] = [
   {
     id: 'elite',
     name: 'Elite',
-    tagline: 'The full experience, biggest prizes.',
+    // Tagline no longer claims "biggest prizes": Elite unlocks no challenge
+    // above Premium's €50 (canon §7.4 — minimum tier only, never a maximum),
+    // and "prizes" is prize-draw wording that was deliberately cut from this file.
+    tagline: 'The full experience.',
     monthlyLabel: `€${MONTHLY_PRICE.elite.toFixed(2)}`,
     yearlyLabel: `€${(YEARLY_PRICE.elite / 12).toFixed(2)}`,
     monthlySubline: '/month',
@@ -110,8 +142,12 @@ export const TIERS: Tier[] = [
       'Everything in Premium',
       'Exclusive seasonal workouts',
       '3× Libo',
-      '3 freeze tokens per challenge cycle',
-      'Top cash reward (€50 · 100 reps/day)',
+      // Canon §5.2: Elite grant stays 3, plus the same universal +1 earn path.
+      '3 freeze tokens per challenge, +1 you can earn',
+      // NOT a bigger payout than Premium — challengeTiers.ts tops out at the
+      // €50 / 100-rep 'flagship', which Premium already unlocks. Elite's edge
+      // here is the freeze grant above, not a higher cash ceiling.
+      'Cash challenges up to €50 (100 reps/day)',
       'Priority on rare Elite-exclusive campaigns',
       'Creator perks',
       'Early access to new features',
@@ -190,11 +226,24 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
     title: 'Rewards & challenges',
     rows: [
       { label: 'Rewards Libo', free: '1×', premium: '2×', elite: '3×' },
-      { label: 'Cash-challenge reward', free: '€5', premium: '€15', elite: '€50' },
-      { label: 'Reps per day', free: '30', premium: '50', elite: '100' },
-      { label: 'Freeze tokens per cycle', free: '0 (earn 1 · train 60 of 90 days)', premium: '2', elite: '3' },
-      { label: 'Common product giveaways', free: true, premium: true, elite: true },
-      { label: 'Premium + Special giveaways', free: false, premium: true, elite: true },
+      // Reward + reps mirror src/data/challengeTiers.ts (starter €5/30,
+      // committed €15/60, flagship €50/100) — that file is the source of truth.
+      // A paid tier raises the CEILING, it does not scale a single reward:
+      // canon §7.4 gives challenges a minimum tier and never a maximum, so
+      // Premium (and Elite) reach the €50 / 100-rep flagship. Hence "up to".
+      { label: 'Cash-challenge reward', free: '€5', premium: 'up to €50', elite: 'up to €50' },
+      { label: 'Reps per day', free: '30', premium: 'up to 100', elite: 'up to 100' },
+      // Granted, then the universal earn path (canon §5.2) — same shape in all
+      // three columns. Premium's grant is 1, not 2; 2 is its max per challenge.
+      {
+        label: 'Freeze tokens per cycle',
+        free: '0 (earn 1 · train 60 of 90 days)',
+        premium: '1 (earn 1 · train 60 of 90 days)',
+        elite: '3 (earn 1 · train 60 of 90 days)',
+      },
+      // Giveaway rows removed — Phase 2 (canon REWARDS-ECONOMY-RULES.md §8).
+      // They were truthy on Free/Premium, so visibleComparisonRows() kept them:
+      // that filter only drops rows whose sole "yes" is the hidden Elite column.
       { label: 'Elite-exclusive campaigns', free: false, premium: false, elite: true },
     ],
   },

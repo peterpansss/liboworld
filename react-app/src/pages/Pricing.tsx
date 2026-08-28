@@ -252,11 +252,16 @@ export default function Pricing() {
         <section className="pr-plans" aria-label={t('relaunchPricing.aria.plans')}>
           {plans.map((p) => (
             <article key={p.id} className={`pr-card pr-card--${p.variant}`} data-popin>
-              {p.id === 'founding' ? <LaunchCountdown /> : null}
               <div className="pr-card__head">
                 <h2 className="pr-card__name">{p.name}</h2>
                 {p.badge ? <span className="pr-card__badge">{p.badge}</span> : null}
               </div>
+              {/* Countdown sits BELOW the head, not above it. At <=640px the
+                  PRE-SALE badge is absolutely positioned against the card
+                  (Pricing.css, top:-12px), so anything inserted ahead of the
+                  head pushes the plan name away from the badge labelling it —
+                  the same collision JoinFunnel.tsx already guards against. */}
+              {p.id === 'founding' ? <LaunchCountdown /> : null}
 
               <div className="pr-card__price-row">
                 <span className={`pr-card__price${p.priceAccent ? ' pr-accent' : ''}`}>

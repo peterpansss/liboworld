@@ -29,6 +29,17 @@ vi.mock('../../src/components/SiteFooter', () => ({
   default: () => <footer data-testid="site-footer" />,
 }));
 vi.mock('../../src/components/SeoHead', () => ({ SeoHead: () => null }));
+
+// The Phase-2 copy (`cashChallengeFunnel.*`) ships as a lazily-fetched chunk
+// (src/i18n/loadPhase2.ts), and the page deliberately withholds render until it
+// has merged — otherwise it would flash raw i18n keys. Under vitest the dynamic
+// import never resolves inside a synchronous render, so we declare the bundle
+// present. Asserting the loading state is the loader's own job, not this file's.
+vi.mock('../../src/i18n/loadPhase2', () => ({
+  usePhase2Translations: () => true,
+  isPhase2Loaded: () => true,
+  loadPhase2: async () => {},
+}));
 vi.mock('../../src/components/funnel/FunnelHeader', () => ({
   default: () => <header data-testid="funnel-header" />,
 }));

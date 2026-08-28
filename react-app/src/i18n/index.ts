@@ -1,6 +1,14 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+// These five bundles are inlined into the main chunk — everything here ships
+// to every visitor on first paint.
+//
+// Unreleased (Phase-2) copy must NOT live in them. `giveawayFunnel.*` and
+// `cashChallengeFunnel.*` were moved out to `./phase2/{lng}.json` and are
+// dynamic-imported on demand by `./loadPhase2.ts`, because both routes
+// redirect away while `isPrelaunch()` yet their strings were still readable
+// in the production bundle. Keep new Phase-2 namespaces there, not here.
 import en from './locales/en.json';
 import de from './locales/de.json';
 import fr from './locales/fr.json';

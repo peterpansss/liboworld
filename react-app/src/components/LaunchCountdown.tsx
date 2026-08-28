@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LAUNCH_DATE } from '../config/launchMode';
-import { diffParts } from '../utils/countdown';
+import { diffParts, pad2 } from '../utils/countdown';
 import './LaunchCountdown.css';
 
 /**
@@ -9,8 +9,11 @@ import './LaunchCountdown.css';
  * (/membership, /join, /cash-challenges/:tier) rather than as a sticky bar —
  * see CountdownBanner for that one.
  *
- * Days/hours/minutes only, ticking every 30s: seconds on a card three weeks
- * out are noise, and a 1s interval on three mounted cards is pure churn.
+ * Days/hours/minutes/seconds, ticking every second. The seconds digit is the
+ * point: this block sits next to copy calling it the one countdown we can't
+ * fake, and a clock that only moves twice a minute reads as a static image.
+ * All four units are zero-padded (as CountdownBanner already does) so the
+ * digits don't jitter as values roll over.
  * At zero the whole block collapses to the closed-state line, which is what
  * makes the founding offer visibly expire without a deploy.
  */
@@ -26,7 +29,7 @@ const srOnly: React.CSSProperties = {
   whiteSpace: 'nowrap',
 };
 
-const TICK_MS = 30_000;
+const TICK_MS = 1_000;
 
 type Props = {
   /** Extra class for per-page spacing; the block owns its own look. */
@@ -65,13 +68,14 @@ export default function LaunchCountdown({ className }: Props) {
   }, [closed, closedLabel]);
 
   const units = [
-    { key: 'd', value: parts.days, cap: t('countdown.unitDays', { defaultValue: 'DAYS' }) },
-    { key: 'h', value: parts.hours, cap: t('countdown.unitHours', { defaultValue: 'HRS' }) },
-    { key: 'm', value: parts.minutes, cap: t('countdown.unitMinutes', { defaultValue: 'MIN' }) },
+    { key: 'd', value: pad2(parts.days), cap: t('countdown.unitDays', { defaultValue: 'DAYS' }) },
+    { key: 'h', value: pad2(parts.hours), cap: t('countdown.unitHours', { defaultValue: 'HRS' }) },
+    { key: 'm', value: pad2(parts.minutes), cap: t('countdown.unitMinutes', { defaultValue: 'MIN' }) },
+    { key: 's', value: pad2(parts.seconds), cap: t('countdown.unitSeconds', { defaultValue: 'SEC' }) },
   ];
 
   const label = t('countdown.founderLabel', {
-    defaultValue: 'Founder pricing ends when we launch — 3 September',
+    defaultValue: 'Founder pricing ends 3 September',
   });
 
   return (
@@ -106,7 +110,9 @@ export default function LaunchCountdown({ className }: Props) {
       )}
 
       {/* Off-screen, aria-live=polite — fires only on the transition to closed.
-          Empty otherwise so the 30s tick stays silent. */}
+          Empty otherwise so the per-second tick stays silent. The digits above
+          are aria-hidden for the same reason: announcing them once a second is
+          hostile, and the sr-only sentence already carries the content. */}
       <span aria-live="polite" aria-atomic="true" style={srOnly}>
         {announcement}
       </span>

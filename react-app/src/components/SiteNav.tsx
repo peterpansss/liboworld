@@ -14,13 +14,23 @@ const ANNOUNCE_DISMISS_KEY = 'ea_announce_dismissed';
 // Relaunch nav — five plain links, no dropdowns. MASTER-HANDOFF §21 specifies
 // Cash Challenges · Membership · Press · Careers; the designs render Library in
 // Membership's slot. We carry both rather than drop either (decision, 2026-08-05).
+//
+// Membership left the header on 2026-08-27 (Noah): the header slot now carries
+// the founding offer, because /join was reachable only from the homepage
+// waitlist card. Pricing keeps its footer link (footer.pricing → /membership).
 const NAV_LINKS = [
   { labelKey: 'nav.cashChallenges', defaultLabel: 'Cash Challenges', to: '/cash-challenges' },
   { labelKey: 'nav.library', defaultLabel: 'Library', to: '/exercises' },
-  { labelKey: 'nav.membership', defaultLabel: 'Membership', to: '/membership' },
+  { labelKey: 'nav.foundingMember', defaultLabel: 'Founding Member', to: '/join' },
   { labelKey: 'nav.press', defaultLabel: 'Press', to: '/press' },
   { labelKey: 'nav.careers', defaultLabel: 'Careers', to: '/careers' },
 ] as const;
+
+// Filtered at RENDER time, never at module load — the founding item has to
+// remove itself when the clock passes LAUNCH_DATE, without a deploy, exactly
+// as the countdown and the /membership founding card already do.
+const visibleNavLinks = () =>
+  NAV_LINKS.filter((l) => l.to !== '/join' || isFoundingOpen());
 
 // "Join the waitlist" points at the homepage hero's free email field. The rule
 // it obeys is unchanged — a free-labelled ask must never land on a paywall
@@ -65,6 +75,7 @@ export default function SiteNav() {
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
   const isSubpage = location.pathname !== '/';
 
+  const navLinks = visibleNavLinks();
   const waitlistLabel = t('nav.joinWaitlist', { defaultValue: 'Join the waitlist' });
   const handleWaitlistClick = () => setDrawerOpen(false);
 
@@ -146,7 +157,7 @@ export default function SiteNav() {
 
           {/* Center links */}
           <ul className="site-nav__links">
-            {NAV_LINKS.map(({ labelKey, defaultLabel, to }) => (
+            {navLinks.map(({ labelKey, defaultLabel, to }) => (
               <li key={to}>
                 <Link
                   to={to}
@@ -210,7 +221,7 @@ export default function SiteNav() {
           </button>
         </div>
         <div className="site-nav__drawer-links">
-          {NAV_LINKS.map(({ labelKey, defaultLabel, to }) => (
+          {navLinks.map(({ labelKey, defaultLabel, to }) => (
             <Link key={to} to={to} className={isActive(to) ? 'site-nav__drawer-link--active' : ''} aria-current={isActive(to) ? 'page' : undefined} viewTransition onMouseEnter={() => prefetchRoute(to)} onFocus={() => prefetchRoute(to)} onClick={() => setDrawerOpen(false)}>
               {t(labelKey, { defaultValue: defaultLabel })}
             </Link>

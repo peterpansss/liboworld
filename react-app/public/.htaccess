@@ -26,6 +26,18 @@
   # dir, already served by the -d check above.)
   RewriteRule ^w/.+ /w/index.html [L]
 
+  # Legacy legal pages. dist/terms.html and dist/privacy.html were real files
+  # copied out of public/, so the -f check at the top matched them and Apache
+  # served them in preference to the React /terms and /privacy routes. They
+  # still carried stale pre-flag legal text (a "Points Packs & Giveaway
+  # Tickets" section, an EU Art. 16(m) withdrawal waiver for converting bought
+  # points into draw tickets), so they were deleted on 2026-08-27. These 301s
+  # keep old inbound links and crawler-indexed URLs landing on the live pages
+  # instead of being swallowed by the catch-all below and dumped on the
+  # homepage. Must stay above that catch-all.
+  RewriteRule ^terms\.html$ /terms [R=301,L]
+  RewriteRule ^privacy\.html$ /privacy [R=301,L]
+
   # Everything else → index.html (React Router handles routing client-side)
   RewriteRule ^ index.html [L]
 </IfModule>

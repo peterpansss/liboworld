@@ -635,29 +635,29 @@ export const blogArticles: BlogArticle[] = [
 <h2>Day 4 Is When Most People Quit</h2>
 <p>Open your phone right now and count how many fitness apps are sitting there from "this is the year I finally do it." Three? Five? <strong>Day one you crushed it. Day four you ignored the notification. By day ten the app is dead to you.</strong></p>
 <p>This isn't a willpower problem. It's a brain problem. Your nervous system is wired to chase novelty — and on day four, the novelty is gone. There's no fireworks for opening an app. There's no consequence for skipping. So your brain does what brains do: it moves on to the next shiny thing.</p>
-<p>I built Libo because I lived this loop for years. Same gym memberships, same January reset, same March drop-off. And I noticed something — the only times I actually stayed consistent were when I had <strong>real skin in the game</strong>. Not points. Not streaks. Money on the line.</p>
+<p>I built Libo because I lived this loop for years. Same gym memberships, same January reset, same March drop-off. And I noticed something — the only times I actually stayed consistent were when something real was waiting for me at the end of it. Not points. Not streaks. <strong>Actual money, with my name already on it.</strong></p>
 
 <h2>Why I Bet on Cash Challenges</h2>
 <p>Most fitness apps reward you with badges. A digital sticker. A "well done!" pop-up. <strong>Your brain figures out within a week that none of it is real.</strong> There's no cost to ignoring it.</p>
-<p>Cash challenges flip that. You put down a small stake — €5, €15, €50, your choice. You commit to a 30-day routine. You finish, you get your money back <em>and</em> a slice of the prize pool from everyone who didn't. You quit on day 12? Your stake is gone. That's it.</p>
-<p>People hear "you can lose money" and panic. That's the point. <strong>Loss aversion is the most powerful psychological lever we have</strong> — we'd rather avoid losing €15 than gain it. Once your money is in the game, your brain stops treating the workout like an optional notification. It treats it like rent. And rent gets paid.</p>
-<blockquote>If "I don't want to lose €15" is what finally gets you to the gym five times a week, you didn't lose €15 — you bought yourself a body for €0. That's the math nobody talks about.</blockquote>
+<p>Cash challenges flip that. Entry is free — you never put a penny in, so there's nothing to lose and no way to lose it. You just pick a tier and commit to 30 days: <strong>€5 for 30 reps a day, €15 for 60, €50 for 100.</strong> The day you enrol we set that money aside with your name on it. Finish all 30 days and it's yours, in full. Miss a day with no freeze token left and the run ends and the money goes back to us. That's the whole thing. No draw, no luck, and not a cent of it comes out of anyone else's pocket.</p>
+<p>People assume free entry means it can't bite. It bites harder than you'd think. <strong>The money is sitting there with your name on it from day one</strong> — so by day nine it doesn't feel like something you might get, it feels like something you already own. And your brain will fight far harder to keep what it thinks is already yours than to go out and earn something new. Miss a day and you're not out of pocket. You just watch €15 you'd already spent in your head walk out the door. Turns out that's worse. Once that's real, your brain stops treating the workout like an optional notification. It treats it like a shift it's getting paid for. And you turn up for shifts.</p>
+<blockquote>If "I'm not letting that €15 go" is what finally gets you to the gym five times a week, then you didn't buy anything — you got the body for free and we paid you for the trouble. That's the math nobody talks about.</blockquote>
 
 <h2>What 30 Days Actually Does To You</h2>
 <p>Here's what happens when you stack 30 days of forced consistency:</p>
 <ul>
-<li><strong>Days 1–7: friction.</strong> Every session feels like a chore. You're sore. You don't want to. You go anyway because the money's on the line. <em>That's the entire point — the cash is doing the work your motivation can't.</em></li>
+<li><strong>Days 1–7: friction.</strong> Every session feels like a chore. You're sore. You don't want to. You go anyway because there's money with your name on it and you're not handing it back on day six. <em>That's the entire point — the cash is doing the work your motivation can't.</em></li>
 <li><strong>Days 8–14: routine kicks in.</strong> Your alarm goes off and you don't argue with it for ten minutes anymore. You pack your bag the night before. The friction is still there, but it's quieter.</li>
 <li><strong>Days 15–21: identity shift.</strong> You start saying "I train" instead of "I'm trying to get in shape." Small thing. Massive consequence. Your brain is rewriting who you are.</li>
 <li><strong>Days 22–30: the flip.</strong> Missing a day starts to feel <em>wrong</em>. Not virtuous — wrong. Like skipping a shower. Your body has learned what "active" feels like and it's quietly demanding it back.</li>
 </ul>
-<p>By day 30 you've done three things at once: <strong>improved your body, won money (if you finished), and rewired your brain</strong> to default toward movement instead of away from it. That last one is the real prize. The cash is just what got you there.</p>
+<p>By day 30 you've done three things at once: <strong>improved your body, earned money (if you finished), and rewired your brain</strong> to default toward movement instead of away from it. That last one is the bit that actually matters. The cash is just what got you there.</p>
 
 <h2>Why This Outlasts Libo</h2>
-<p>Here's the part most people don't get until they live it. <strong>After 30 days of forced daily training, your body and your mind get used to it.</strong> You don't have to keep paying us. You don't have to keep logging in.</p>
+<p>Here's the part most people don't get until they live it. <strong>After 30 days of forced daily training, your body and your mind get used to it.</strong> You don't have to keep coming back to us. You don't have to keep logging in.</p>
 <p>If you stopped using Libo tomorrow — uninstalled it, never opened it again — your body would still ask you, every day, <em>"why aren't we moving?"</em> That question doesn't go away. We installed it. You can't uninstall it.</p>
-<p>That's why this is the cheapest investment you'll ever make. Not because €15 is cheap, but because the habit you take home is worth ten thousand times that for the rest of your life. <strong>Consistency is a skill that transfers.</strong> Once you've proven to yourself you can show up for 30 days straight, that muscle carries into your work, your sleep, your money, your relationships. It's not a fitness habit. It's a self-respect habit.</p>
-<blockquote>You're not buying workouts. You're buying the version of yourself who can keep promises.</blockquote>
+<p>That's why this is the cheapest thing you'll ever do for yourself. Not because it costs nothing — though it does — but because the habit you take home is worth ten thousand times the €15 we hand you, for the rest of your life. <strong>Consistency is a skill that transfers.</strong> Once you've proven to yourself you can show up for 30 days straight, that muscle carries into your work, your sleep, your money, your relationships. It's not a fitness habit. It's a self-respect habit.</p>
+<blockquote>You're not here for the workouts. You're here for the version of yourself who can keep promises.</blockquote>
 
 <h2>The Mental Side Nobody Markets</h2>
 <p>I'm going to be honest — the physical changes after 30 days are real, but they're not what hits hardest. The mental shift is.</p>
@@ -665,14 +665,14 @@ export const blogArticles: BlogArticle[] = [
 <p>For most of our users — guys between 16 and 35, trying to figure out money, career, body, all at once — that mental clarity is the real unlock. <strong>You can't build a business, save money, or have a serious relationship on a brain that hasn't moved in three days.</strong> Training is the cheapest mental health tool that exists. We just made it impossible to skip.</p>
 
 <h2>Start Small. Start This Week.</h2>
-<p>If this resonates, don't go big. Don't put €100 on the line. <strong>Start with a €5 challenge.</strong> 30 days. One simple routine. Whatever you can actually do every day.</p>
+<p>If this resonates, don't go big. Don't sign up for 100 reps a day because €50 sounds nice. <strong>Start with the €5 one — 30 reps a day.</strong> 30 days. One simple routine. Whatever you can actually do every day.</p>
 <p>You'll either:</p>
 <ul>
-<li>Finish, get your stake back, win a slice of the pool, and walk away with a body and brain that work better than they did a month ago, or</li>
-<li>Quit early, lose €5, and learn — at a price you can afford — that this stuff is harder than you thought. Either way you've moved.</li>
+<li>Finish, take the €5, and walk away with a body and brain that work better than they did a month ago, or</li>
+<li>Miss a day, get nothing, and learn — without it costing you a penny — that this stuff is harder than you thought. Either way you've moved.</li>
 </ul>
-<p>Most people choose the comfortable lie: "I'll start next month." I'd rather you spend €5 to find out who you actually are.</p>
-<p>30 days. One habit. Real money. Pick your stake.</p>
+<p>Most people choose the comfortable lie: "I'll start next month." I'd rather you spend 30 days finding out who you actually are. It costs you nothing but the effort, and the effort was always the only hard part.</p>
+<p>30 days. One habit. Real money. Pick your challenge.</p>
 `,
   },
 ];

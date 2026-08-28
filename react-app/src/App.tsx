@@ -3,8 +3,22 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 
 // Scroll to top on route change — or smooth-scroll to a #hash target when the
 // URL carries one (e.g. the nav CTA links to "/#hero-capture", the money
-// challenge page uses "#reserve"). rAF gives lazy pages a frame to render the
-// anchor before we look for it; falls back to top if the element isn't there.
+// challenge page uses "#reserve").
+//
+// The anchor hunt retries across frames rather than looking exactly once. A
+// single rAF was enough for eager routes but never for a lazy one: at that
+// moment the Suspense fallback is still mounted, the target does not exist,
+// and the effect silently fell back to the top of the page. That made every
+// deep link into a lazily-loaded page — /terms#early-access from the founding
+// funnel and the checkout consent line, /rules#payout — land at the top,
+// which is the exact behaviour the deep link exists to avoid.
+// Gives up after HASH_SCROLL_TIMEOUT_MS and scrolls to top, so a stale or
+// misspelled anchor still leaves the reader somewhere sensible.
+// How long to keep looking for a #hash target before giving up and going to
+// the top. Long enough for a lazy chunk to arrive on a slow connection, short
+// enough that a bad anchor doesn't leave the page feeling stuck.
+const HASH_SCROLL_TIMEOUT_MS = 3_000;
+
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
   // SPA PageView (Meta-Pixel-Setup Step 2): without this the pixel counts one
@@ -14,20 +28,30 @@ function ScrollToTop() {
     trackPageView(pathname);
   }, [pathname]);
   useEffect(() => {
-    if (hash) {
-      const id = decodeURIComponent(hash.slice(1));
-      requestAnimationFrame(() => {
-        const el = document.getElementById(id);
-        if (el) {
-          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-          return;
-        }
-        window.scrollTo(0, 0);
-      });
+    if (!hash) {
+      window.scrollTo(0, 0);
       return;
     }
-    window.scrollTo(0, 0);
+    const id = decodeURIComponent(hash.slice(1));
+    const deadline = Date.now() + HASH_SCROLL_TIMEOUT_MS;
+    let frame = 0;
+    const hunt = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        return;
+      }
+      if (Date.now() < deadline) {
+        frame = requestAnimationFrame(hunt);
+        return;
+      }
+      window.scrollTo(0, 0);
+    };
+    frame = requestAnimationFrame(hunt);
+    // Cancelled on unmount and on any further navigation, so a hunt for a
+    // never-arriving anchor cannot outlive the route that started it.
+    return () => cancelAnimationFrame(frame);
   }, [pathname, hash]);
   return null;
 }
@@ -56,6 +80,7 @@ const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
+const Rules = lazy(() => import('./pages/Rules'));
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthConfirm = lazy(() => import('./pages/AuthConfirm'));
 const Giveaway = lazy(() => import('./pages/Giveaway'));
@@ -124,6 +149,7 @@ export default function App() {
         <Route path="/blog/:slug" element={<Suspense fallback={darkFallback}><BlogPost /></Suspense>} />
         <Route path="/privacy" element={<Suspense fallback={darkFallback}><Privacy /></Suspense>} />
         <Route path="/terms" element={<Suspense fallback={darkFallback}><Terms /></Suspense>} />
+        <Route path="/rules" element={<Suspense fallback={darkFallback}><Rules /></Suspense>} />
         <Route path="/auth/callback" element={<Suspense fallback={darkFallback}><AuthCallback /></Suspense>} />
         <Route path="/auth/confirm" element={<Suspense fallback={darkFallback}><AuthConfirm /></Suspense>} />
         <Route path="/giveaway" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><Giveaway /></Suspense>} />

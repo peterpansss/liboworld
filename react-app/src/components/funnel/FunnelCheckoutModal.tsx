@@ -215,7 +215,9 @@ export default function FunnelCheckoutModal({
   copy,
   onSubmit,
   onClose,
-  consentHref = '/terms#points-packs',
+  // #points-packs is gated off by GIVEAWAYS_ENABLED and does not render, so
+  // the old default silently dumped the reader at the top of /terms.
+  consentHref = '/terms#early-access',
   showGetAppCta = true,
   accent = ORANGE_ACCENT,
 }: Props) {

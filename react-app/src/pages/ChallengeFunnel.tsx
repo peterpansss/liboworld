@@ -286,7 +286,10 @@ export default function ChallengeFunnel() {
               on every breakpoint — so this CtaBar is NOT desktop-only. */}
           <CtaBar />
           <p className="cf-note">
-            <Link to="/terms" className="cf-inline-link">
+            {/* /rules, not /terms: the label promises the rules and the film
+                says they are published. It pointed at /terms only because
+                /rules did not exist. */}
+            <Link to="/rules" className="cf-inline-link">
               {t('challengeFunnel.video.rulesLink', { defaultValue: 'Read the full rules' })}
             </Link>
           </p>

@@ -2,11 +2,11 @@
  * Tests for src/components/LaunchCountdown.tsx.
  *
  * This is the block that makes the founding pre-sale expire on its own, so the
- * behaviour worth pinning is the boundary: three units before LAUNCH_DATE, the
- * closed line after it, and the flip happening on the 30s tick without a
- * reload. Getting that wrong means either a countdown reading "closed" above a
- * live Buy button, or a 3 a.m. deploy on launch morning — the two outcomes the
- * date-driven design exists to prevent.
+ * behaviour worth pinning is the boundary: four zero-padded units before
+ * LAUNCH_DATE, the closed line after it, and the flip happening on the 1s tick
+ * without a reload. Getting that wrong means either a countdown reading
+ * "closed" above a live Buy button, or a 3 a.m. deploy on launch morning — the
+ * two outcomes the date-driven design exists to prevent.
  *
  * launchMode is mocked so the suite doesn't depend on the real launch date
  * still being in the future. react-i18next resolves against the real en.json
@@ -57,21 +57,32 @@ afterEach(() => { vi.useRealTimers(); });
 const at = (ms: number) => vi.setSystemTime(new Date(new Date(LAUNCH).getTime() - ms));
 
 describe('LaunchCountdown', () => {
-  it('renders days, hours and minutes — and never seconds', () => {
+  it('renders days, hours, minutes and seconds, all zero-padded', () => {
     at(2 * 86400_000 + 3 * 3600_000 + 4 * 60_000 + 30_000); // 2d 3h 4m 30s out
     const { container } = render(<LaunchCountdown />);
-    expect(container.querySelectorAll('.launch-countdown__unit')).toHaveLength(3);
+    expect(container.querySelectorAll('.launch-countdown__unit')).toHaveLength(4);
     const caps = Array.from(container.querySelectorAll('.launch-countdown__cap')).map((n) => n.textContent);
-    expect(caps).toEqual(['DAYS', 'HRS', 'MIN']);
+    expect(caps).toEqual(['DAYS', 'HRS', 'MIN', 'SEC']);
     const nums = Array.from(container.querySelectorAll('.launch-countdown__num')).map((n) => n.textContent);
-    expect(nums).toEqual(['2', '3', '4']); // the 30 leftover seconds are not shown
+    // Padded, as CountdownBanner already does — unpadded digits change width
+    // as they roll over, which makes a per-second clock visibly jitter.
+    expect(nums).toEqual(['02', '03', '04', '30']);
+  });
+
+  it('ticks every second, so the block is visibly alive', () => {
+    at(2 * 86400_000 + 3 * 3600_000 + 4 * 60_000 + 30_000);
+    const { container } = render(<LaunchCountdown />);
+    const secs = () => container.querySelectorAll('.launch-countdown__num')[3]?.textContent;
+    expect(secs()).toBe('30');
+    act(() => { vi.advanceTimersByTime(1_000); });
+    expect(secs()).toBe('29');
   });
 
   it('shows the dated founder label while the offer is open', () => {
     at(10 * 86400_000);
     render(<LaunchCountdown />);
     expect(
-      screen.getAllByText(/Founder pricing ends when we launch — 3 September/).length,
+      screen.getAllByText(/Founder pricing ends 3 September/).length,
     ).toBeGreaterThan(0);
     expect(screen.queryByText(/Founding closed/)).toBeNull();
   });
@@ -85,10 +96,10 @@ describe('LaunchCountdown', () => {
   });
 
   it('flips itself on the tick — a tab left open crosses over without a reload', () => {
-    at(20_000); // 20s before launch
+    at(2_000); // 2s before launch
     const { container } = render(<LaunchCountdown />);
-    expect(container.querySelectorAll('.launch-countdown__unit')).toHaveLength(3);
-    act(() => { vi.advanceTimersByTime(30_000); }); // one tick, now past launch
+    expect(container.querySelectorAll('.launch-countdown__unit')).toHaveLength(4);
+    act(() => { vi.advanceTimersByTime(3_000); }); // three ticks, now past launch
     // getAllByText, not getByText: crossing over live also fills the aria-live
     // span, so the closed line is legitimately present twice.
     expect(screen.getAllByText('Founding closed — Premium is €79.99/yr').length).toBeGreaterThan(0);
@@ -96,11 +107,11 @@ describe('LaunchCountdown', () => {
   });
 
   it('announces the close once, and stays silent while merely ticking', () => {
-    at(20_000);
+    at(2_000);
     const { container } = render(<LaunchCountdown />);
     const live = container.querySelector('[aria-live="polite"]') as HTMLElement;
     expect(live.textContent).toBe('');
-    act(() => { vi.advanceTimersByTime(30_000); });
+    act(() => { vi.advanceTimersByTime(3_000); });
     expect(live.textContent).toMatch(/Founding closed/);
   });
 

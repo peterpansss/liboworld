@@ -281,7 +281,10 @@ export default function JoinFunnel() {
                       defaultValue: 'A full year of Premium · available at launch',
                     })}
               </p>
-              <Link to="/terms" className="jf-inline-link jf-hero__rules">
+              {/* Deep-linked: this is the founding funnel, and §Early Access is
+              the section that governs it. Landing at the top of an 18-section
+              document is not "the terms for this offer". */}
+          <Link to="/terms#early-access" className="jf-inline-link jf-hero__rules">
                 {t('joinFunnel.hero.rulesLink', { defaultValue: 'Read the full terms' })}
               </Link>
             </div>

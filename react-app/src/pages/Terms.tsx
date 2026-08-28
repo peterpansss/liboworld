@@ -62,6 +62,7 @@ export default function Terms() {
               <li><a href="#s17">Governing Law</a></li>
               <li><a href="#s18">Contact</a></li>
               <li><a href="#early-access">Early Access (Founding Member) Purchases</a></li>
+              <li><a href="#challenge-rules">Cash Challenges</a></li>
             </ol>
           </div>
 
@@ -87,9 +88,9 @@ export default function Terms() {
             <h2>Eligibility</h2>
             <p>Libo applies layered age requirements depending on what you use the Service for. By using Libo, you represent and warrant that you meet the relevant minimum age below for each activity.</p>
             <ul>
-              <li><strong>13+ — App, account, points and Common product giveaways.</strong> The minimum age to create an account, train in the app, earn rewards points, and enter Common product giveaways is <strong>13</strong>. If you are under <strong>16</strong>, you may only use the Service with verified parental consent — typically provided through your platform's family controls (Apple Family Sharing or Google Family Link).</li>
-              <li><strong>16+ — Premium and Special giveaways, and entry into cash challenges.</strong> Premium and Special giveaways (including high-value items such as smartphones), and enrolment in any cash challenge, are restricted to users aged <strong>16 and over</strong>.</li>
-              <li><strong>18+ — Direct cash payouts.</strong> Cash payouts via Stripe, Wise, Revolut or any equivalent payment provider are restricted to users aged <strong>18 and over</strong>, in line with our payment partners' requirements. Cash-challenge winners aged 16 or 17 may, where permitted by local law, receive payout through a parent-linked verified payment account; if no such account is provided within <strong>14 days</strong> of winner verification, the prize will be converted to in-app credit (e.g. additional tickets or a Pro subscription month) of equivalent value.</li>
+              <li><strong>13+ — App, account, points{GIVEAWAYS_ENABLED && ' and Common product giveaways'}.</strong> The minimum age to create an account, train in the app{GIVEAWAYS_ENABLED ? ', earn rewards points, and enter Common product giveaways' : ', and earn rewards points'} is <strong>13</strong>. If you are under <strong>16</strong>, you may only use the Service with verified parental consent — typically provided through your platform's family controls (Apple Family Sharing or Google Family Link).</li>
+              <li><strong>16+ — {GIVEAWAYS_ENABLED ? 'Premium and Special giveaways, and entry' : 'Entry'} into cash challenges.</strong> {GIVEAWAYS_ENABLED ? 'Premium and Special giveaways (including high-value items such as smartphones), and enrolment in any cash challenge, are' : 'Enrolment in any cash challenge is'} restricted to users aged <strong>16 and over</strong>.</li>
+              <li><strong>18+ — Direct cash payouts.</strong> Cash payouts via Stripe, Wise, Revolut or any equivalent payment provider are restricted to users aged <strong>18 and over</strong>, in line with our payment partners' requirements. Cash-challenge participants aged 16 or 17 who complete a challenge may, where permitted by local law, receive payout through a parent-linked verified payment account; if no such account is provided within <strong>14 days</strong> of completion being verified, the reward will be converted to in-app credit of equivalent value.</li>
             </ul>
             <p>Where local law requires a higher minimum age for any of the above activities, that local law applies. Libo may also restrict or block participation by jurisdiction (see Section 17, Governing Law) — entry is <em>void where prohibited by local law</em>.</p>
           </section>
@@ -115,9 +116,9 @@ export default function Terms() {
             <h3>Free Tier</h3>
             <p>Libo offers a free base version with access to a limited selection of features including basic exercises, select workouts, and core app functionality. No payment information is required for the free tier.</p>
 
-            <h3>Pro Subscription</h3>
-            <p>Libo Pro unlocks the full feature set including the complete exercise library, all workout programs, multi-week challenges, advanced progress tracking, custom workout builder, the exercise alternative scanner, and priority support.</p>
-            <p>Pro subscriptions are available on the following billing cycles:</p>
+            <h3>Premium Subscription</h3>
+            <p>Libo Premium unlocks the full feature set including the complete exercise library, all workout programs, multi-week challenges, advanced progress tracking, custom workout builder, and priority support.</p>
+            <p>Premium subscriptions are available on the following billing cycles:</p>
             <ul>
               <li><strong>Monthly</strong> — billed every 30 days</li>
               <li><strong>Annual</strong> — billed once per year (best value)</li>
@@ -125,12 +126,16 @@ export default function Terms() {
 
             <h3>7-Day Free Trial</h3>
             <div className="legal-highlight">
-              <p>New users who have not previously held a Pro subscription are eligible for a <strong>7-day free trial</strong> of Libo Pro. You will not be charged during the trial period. If you do not cancel before the trial ends, your selected subscription will automatically activate and your payment method will be charged.</p>
+              <p>New users who have not previously held a Premium subscription are eligible for a <strong>7-day free trial</strong> of Libo Premium. You will not be charged during the trial period. If you do not cancel before the trial ends, your selected subscription will automatically activate and your payment method will be charged.</p>
             </div>
             <p>The free trial is limited to one per user and one per payment method. We reserve the right to modify or withdraw free trial eligibility at any time.</p>
 
             <h3>Auto-Renewal</h3>
-            <p>All paid subscriptions automatically renew at the end of each billing period unless cancelled at least <strong>24 hours before</strong> the renewal date.</p>
+            {/* "All" used to read as absolute, which is wrong for the Founding
+                Member offer (§Early Access) — a one-time payment that never
+                renews. A reader who stops at this section otherwise walks away
+                believing they will be charged again next year. */}
+            <p>All <strong>recurring</strong> paid subscriptions automatically renew at the end of each billing period unless cancelled at least <strong>24 hours before</strong> the renewal date. One-time purchases do not renew: see <a href="#early-access">Early Access (Founding Member) Purchases</a>{GIVEAWAYS_ENABLED ? <> and <a href="#points-packs">Points Packs and Digital Content</a></> : null}.</p>
           </section>
 
           {/* 6 */}
@@ -150,10 +155,14 @@ export default function Terms() {
             <p>You may cancel your subscription at any time through your account settings or by contacting <a href="mailto:hello@liboworld.com">hello@liboworld.com</a>. Cancellation takes effect at the end of your current billing period.</p>
 
             <h3>Refund Policy</h3>
-            <p>We offer a <strong>14-day money-back guarantee</strong> for new Pro subscribers. Contact us within 14 days of your first charge for a full refund — no questions asked.</p>
+            <p>We offer a <strong>14-day money-back guarantee</strong> for new Premium subscribers. Contact us within 14 days of your first charge for a full refund — no questions asked.</p>
             <p>Refunds are not available for:</p>
             <ul>
-              <li>Subscriptions older than 14 days from the first charge</li>
+              {/* Carve-out, not a contradiction: §Early Access promises Founding
+                  Members a full refund at any time before launch, which is well
+                  past 14 days. Without this line the general rule here answers
+                  "no" to a buyer the specific section answers "yes" to. */}
+              <li>Subscriptions older than 14 days from the first charge — <em>except</em> Founding Member purchases, which remain fully refundable at any time before launch (see <a href="#early-access">Early Access</a>)</li>
               <li>Partial billing periods following cancellation</li>
               <li>Free trial periods</li>
               <li>Users who have previously received a refund for Libo</li>
@@ -298,7 +307,7 @@ export default function Terms() {
             <h2>Governing Law &amp; Geographic Availability</h2>
             <p>These Terms are governed by the laws of the <strong>Federal Republic of Germany</strong>. Disputes shall be subject to the exclusive jurisdiction of the courts of Germany. EU consumers may also bring claims in the courts of their country of residence.</p>
             <p>You may also use the EU Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
-            <p><strong>Geographic availability.</strong> Libo's giveaways and cash challenges are open globally <strong>except where prohibited by local law</strong>. At launch, the following jurisdictions are excluded from all paid-entry promotions, giveaways and cash challenges: <strong>Quebec (Canada), Brazil, mainland China, and any country or region subject to OFAC or comparable EU/UN sanctions</strong>. Libo may add or remove jurisdictions at any time in response to local regulatory contact or legal review. Where a jurisdiction is excluded after a cycle has started, in-flight cycles for already-enrolled users in that geography will be honoured to completion.</p>
+            <p><strong>Geographic availability.</strong> Libo's {GIVEAWAYS_ENABLED ? 'giveaways and cash challenges are' : 'cash challenges are'} open globally <strong>except where prohibited by local law</strong>. At launch, the following jurisdictions are excluded from {GIVEAWAYS_ENABLED ? 'all paid-entry promotions, giveaways and cash challenges' : 'all cash challenges'}: <strong>Quebec (Canada), Brazil, mainland China, and any country or region subject to OFAC or comparable EU/UN sanctions</strong>. Libo may add or remove jurisdictions at any time in response to local regulatory contact or legal review. Where a jurisdiction is excluded after a cycle has started, in-flight cycles for already-enrolled users in that geography will be honoured to completion.</p>
           </section>
 
           {/* 18 */}
@@ -326,13 +335,25 @@ export default function Terms() {
             <p>You receive <strong>12 months of Premium</strong> (the full Libo app, all Premium features, no limits). Because the app is not yet publicly launched at the time of purchase, <strong>your 12-month entitlement begins on the day Libo launches</strong>, not on the day you pay — so you do not lose any of your paid year while waiting. As an early-access bonus, Premium is unlocked on your account immediately on liboworld.com and any pre-launch (e.g. TestFlight) access we provide, at no additional charge and without shortening your 12 months.</p>
 
             <h3>Pre-Launch Right of Withdrawal &amp; Refunds</h3>
-            <p>Unlike points packs, no digital content is delivered <em>at the moment of purchase</em> as your paid entitlement year; it begins at launch. Accordingly, <strong>your 14-day right of withdrawal under Article 16(m) of Directive 2011/83/EU applies</strong>, and beyond that statutory period we will honour a <strong>full refund at any time before launch</strong>, for any reason, on request. To withdraw or request a refund, email <a href="mailto:support@liboworld.com">support@liboworld.com</a> from the address you purchased with.</p>
+            <p>{GIVEAWAYS_ENABLED ? 'Unlike points packs, no' : 'No'} digital content is delivered <em>at the moment of purchase</em> as your paid entitlement year; it begins at launch. Accordingly, <strong>your 14-day right of withdrawal under Article 16(m) of Directive 2011/83/EU applies</strong>, and beyond that statutory period we will honour a <strong>full refund at any time before launch</strong>, for any reason, on request. To withdraw or request a refund, email <a href="mailto:support@liboworld.com">support@liboworld.com</a> from the address you purchased with.</p>
 
             <h3>If We Do Not Launch</h3>
             <p>If Libo does not launch, or if we discontinue the Founding Member entitlement before your 12 months begin, you are entitled to a <strong>full refund</strong> of the amount you paid. Founding Member access is tied to the email address used at checkout; please use the same email when the app launches.</p>
 
             <h3>Offer Availability</h3>
             <p>The Founding Member offer is available only during the pre-launch period and closes on launch day. Pricing and availability may be changed or withdrawn for future buyers at any time before purchase; any change does not affect a purchase already completed.</p>
+          </section>
+
+          {/* Appended, never inserted: sections auto-number, and earlier
+              sections are referenced by number in prose here and in
+              Privacy.tsx. Adding at the end leaves all of those intact. */}
+          <section className="legal-section" id="challenge-rules">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Cash Challenges</h2>
+            <p>A Libo <strong>cash challenge</strong> is skill-based: you complete a published amount of work on each of a fixed number of days and receive a fixed cash payout for finishing. <strong>There is no draw, no ballot and no element of chance</strong>, and there is <strong>no entry fee</strong> &mdash; the payout is funded by Libo and set aside when you enrol, never funded by other participants.</p>
+            <p>Enrolment, daily windows, proof requirements, freeze tokens, forfeiture and payout are governed by the <strong>Cash Challenge Rules</strong> published at <Link to="/rules">liboworld.com/rules</Link>, which are <strong>incorporated into these Terms by reference</strong> and form part of your agreement with us.</p>
+            <p>Sections 3 (Eligibility &mdash; 16+ to enter, 18+ for a cash payout), 11 (Health &amp; Fitness Disclaimer) and 17 (Governing Law &amp; Geographic Availability) apply in full to challenge participation. Identity verification is required before any payout is released. Where the Cash Challenge Rules conflict with these Terms, these Terms govern.</p>
+            <p>We may amend the Cash Challenge Rules for <strong>future</strong> enrolments. The rules in force on the day you enrolled govern your run.</p>
           </section>
         </div>
       </main>

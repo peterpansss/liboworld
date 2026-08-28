@@ -27,6 +27,7 @@ import StoreRedirectOverlay from '../components/funnel/StoreRedirectOverlay';
 import { logFunnelClick, type ChallengeTierSlug } from '../lib/funnelSignups';
 import { detectPlatform, redirectToStore } from '../utils/storeRedirect';
 import { useInView, useCountUp, useRevealOnScroll } from '../utils/funnelAnimations';
+import { usePhase2Translations } from '../i18n/loadPhase2';
 import './Giveaway.css';
 
 declare global {
@@ -52,6 +53,9 @@ const FALLBACK_HERO_BG = '/images/marketing/cash-challenge-flagship-ai.jpg';
 
 export default function CashChallengePage() {
   const { t } = useTranslation();
+  // `cashChallengeFunnel.*` ships as a lazily-fetched chunk (see
+  // i18n/loadPhase2.ts), so gate the render until it has merged.
+  const phase2Ready = usePhase2Translations();
   const [overlayTier, setOverlayTier] = useState<string | null>(null);
 
   // Big-stats count-up on scroll
@@ -82,6 +86,12 @@ export default function CashChallengePage() {
     } else {
       redirectToStore(platform);
     }
+  }
+
+  // Same dark placeholder the route-level <Suspense fallback> uses in App.tsx.
+  // Must stay below every hook call above.
+  if (!phase2Ready) {
+    return <div style={{ background: '#080808', height: '100vh' }} />;
   }
 
   return (

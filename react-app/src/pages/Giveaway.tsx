@@ -27,6 +27,7 @@ import { isStripeConfigured } from '../lib/stripe';
 import { supabase } from '../lib/supabase';
 import { safeUrl } from '../utils/safeUrl';
 import { useInView, useCountUp, useRevealOnScroll } from '../utils/funnelAnimations';
+import { usePhase2Translations } from '../i18n/loadPhase2';
 import './Giveaway.css';
 
 /**
@@ -83,6 +84,10 @@ const PACKAGES: PackageDef[] = [
 
 export default function GiveawayPage() {
   const { t } = useTranslation();
+  // `giveawayFunnel.*` ships as a lazily-fetched chunk (see i18n/loadPhase2.ts),
+  // so the copy is not in memory on first render. Gate the page on this flag or
+  // the visitor sees raw dotted key strings for a frame.
+  const phase2Ready = usePhase2Translations();
   const [active, setActive] = useState<ActiveGiveaway | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [modalTier, setModalTier] = useState<(PackageDef & { tier: ModalSelectedTier }) | null>(null);
@@ -146,6 +151,13 @@ export default function GiveawayPage() {
       amount: TIER_AMOUNTS[p.slug],
     };
     setModalTier({ ...p, tier });
+  }
+
+  // Same dark placeholder the route-level <Suspense fallback> uses in App.tsx —
+  // the page swaps straight from the chunk-loading screen to real copy with no
+  // flash of untranslated keys. Must stay below every hook call above.
+  if (!phase2Ready) {
+    return <div style={{ background: '#080808', height: '100vh' }} />;
   }
 
   return (

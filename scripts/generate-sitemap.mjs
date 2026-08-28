@@ -2,7 +2,7 @@
 /**
  * Generate sitemap.xml covering every public route on liboworld.com:
  *   /, /exercises, /exercises/<slug>, /workouts, /workouts/<id>,
- *   /blog, /blog/<slug>, /privacy, /terms.
+ *   /blog, /blog/<slug>, /privacy, /terms, /rules.
  *
  * Reads source data:
  *   - react-app/public/exercises.json  (680 exercises)
@@ -104,6 +104,10 @@ function main() {
   entries.push(urlEntry(`${SITE_URL}/get-app`, 0.5, 'monthly'));
   entries.push(urlEntry(`${SITE_URL}/privacy`, 0.3, 'yearly'));
   entries.push(urlEntry(`${SITE_URL}/terms`, 0.3, 'yearly'));
+  // /rules — the public Cash Challenge Rules. Indexed on purpose, unlike the
+  // funnels: the launch films name liboworld.com/rules out loud, so people
+  // will search for it.
+  entries.push(urlEntry(`${SITE_URL}/rules`, 0.4, 'monthly'));
 
   // Exercise detail pages — slug-first, id fallback (route is /exercises/:slug)
   for (const ex of exercises) {

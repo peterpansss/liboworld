@@ -19,13 +19,19 @@ export type ChallengeTier = {
   /** Daily rep target. */
   reps: number;
   days: number;
-  spots: number;
+  /**
+   * No participant cap here on purpose. Canon (REWARDS-ECONOMY-RULES §7.1c)
+   * makes the cap an internal operational parameter that must never reach
+   * public copy — the site says "Limited spots" with no number. The real cap
+   * lives per challenge in Supabase `money_challenges.max_participants` and is
+   * set in admin; do not mirror it into front-end data.
+   */
   /** Uppercase tier name for cards and funnel headings. */
   name: string;
   /**
    * Free tier entrants join at launch; the paid tiers are unlocked by Premium.
    * Eligibility wording rule: Premium UNLOCKS a tier, it never guarantees
-   * entry — spots are first come, first served, 50 at a time.
+   * entry — spots are first come, first served.
    */
   requiresPremium: boolean;
   /**
@@ -43,7 +49,6 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     payout: 5,
     reps: 30,
     days: 30,
-    spots: 50,
     name: 'Starter',
     requiresPremium: false,
     image: '/images/marketing/cash-challenge-starter-ai.jpg',
@@ -53,7 +58,6 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     payout: 15,
     reps: 60,
     days: 30,
-    spots: 50,
     name: 'Committed',
     requiresPremium: true,
     // Tier photo (Noah, 2026-08-07) — new filename to sidestep the CF asset cache.
@@ -64,7 +68,6 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     payout: 50,
     reps: 100,
     days: 30,
-    spots: 50,
     name: 'Flagship',
     requiresPremium: true,
     image: '/images/marketing/cash-challenge-flagship-ai.jpg',

@@ -45,7 +45,7 @@ export default function SiteFooter() {
             <h2 className="site-footer__col-title">{t('footer.productTitle')}</h2>
             <div className="site-footer__col-links">
               <Link to="/cash-challenges">{t('footer.cashChallengesLink', { defaultValue: 'Cash Challenges' })}</Link>
-              <Link to="/membership">{t('footer.membership', { defaultValue: 'Membership' })}</Link>
+              <Link to="/membership">{t('footer.pricing', { defaultValue: 'Pricing' })}</Link>
               {!isPrelaunch() && (<Link to="/#rewards">{t('footer.rewardsLink')}</Link>)}
               {!isPrelaunch() && (<Link to="/giveaway">{t('footer.giveaways')}</Link>)}
               <Link to="/creator-program">{t('footer.creatorProgram', { defaultValue: 'Creator Program' })}</Link>

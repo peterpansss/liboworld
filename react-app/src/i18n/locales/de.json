@@ -7,7 +7,6 @@
     "cta": "Frühen Zugang sichern",
     "home": "Start",
     "exercises": "Übungen",
-    "pricing": "Preise",
     "blog": "Blog",
     "careers": "Karriere",
     "cashChallenges": "Cash Challenges",
@@ -24,6 +23,7 @@
     "founder": "Gründer",
     "press": "Presse",
     "joinClub": "Werde Teil des Clubs →",
+    "foundingMember": "Founding Member",
     "joinWaitlist": "Auf die Warteliste"
   },
   "common": {
@@ -176,10 +176,11 @@
     "lessThanMinute": "Weniger als 1 Minute übrig",
     "lessThanHour": "Weniger als 1 Stunde übrig",
     "remaining": "übrig",
-    "founderLabel": "Founding-Preis endet mit dem Launch — 3. September",
+    "founderLabel": "Founding-Preis endet am 3. September",
     "unitDays": "TAGE",
     "unitHours": "STD",
     "unitMinutes": "MIN",
+    "unitSeconds": "SEK",
     "foundingClosed": "Founding geschlossen — Premium kostet €79.99/Jahr"
   },
   "community": {
@@ -280,7 +281,6 @@
     "careers": "Karriere",
     "affiliate": "Affiliate-Programm",
     "cashChallengesLink": "Cash Challenges",
-    "membership": "Mitgliedschaft",
     "creatorProgram": "Creator-Programm",
     "press": "Presse",
     "bestWorkoutsTitle": "Top-Workouts",
@@ -868,286 +868,6 @@
       "cardMeta": "{{duration}} Min · {{difficulty}} · {{count}} Übungen"
     }
   },
-  "giveawayFunnel": {
-    "seoTitle": "Gewinne {{prize}} · Libo Giveaway",
-    "seoDescription": "Wähl ein Paket und du bist dabei. Gewinne {{prize}} mit Libo. Kostenlose Teilnahme über die App möglich — kein Kauf nötig.",
-    "countdownLabel": "Giveaway endet in",
-    "eyebrow": "Live-Giveaway",
-    "headline1": "Gewinne {{prize}}",
-    "cashAmount": "oder €1.200",
-    "heroSub": "Wähl ein Paket und du bist automatisch dabei. Ein Gewinner bekommt den Preis — oder den Geldwert.",
-    "heroCta": "Klick zum Gewinnen",
-    "fallbackPrize": "tolle Preise",
-    "packagesTitle": "Wähl ein Paket",
-    "packagesSub": "Kauf ein Paket und schalte die komplette Libo-App frei, plus Bonus-Libo, die du in der App im eigenen Tempo in Giveaway-Lose umwandelst. Einmalzahlung, kein Abo, keine Verlängerung.",
-    "ctaSelect": "Auswählen",
-    "ctaError": "Etwas ist schiefgelaufen — versuch es nochmal",
-    "emailPlaceholder": "deine@email.com",
-    "entriesLabel": "Tage Vollzugriff",
-    "amoeLine": "Kein Kauf nötig — lade Libo herunter und sammle Libo durch Workouts. Libo werden in der App in Giveaway-Lose umgewandelt. Siehe AGB.",
-    "eligibilityLine": "Offen für alle — neue Besucher, Free-Nutzer, Pro- und Elite-Abonnenten. Libo und Zugriffstage aus jedem Paket werden zu deinem Libo-Konto dazugerechnet.",
-    "premiumDisclosure": "Einmalzahlung. Kein Abo, keine Verlängerung — du zahlst einmal und das war's. Bestehende Pro- oder Elite-Abonnenten können trotzdem Pakete kaufen; dein Abo bleibt unangetastet, und die Libo und Zugriffstage des Pakets werden zu deinem Konto dazugerechnet.",
-    "inclusionsShow": "Klick für alle Leistungen",
-    "inclusionsHide": "Leistungen ausblenden",
-    "inclusions": {
-      "entry": [
-        "100 Bonuspunkte — wandle sie in der App im eigenen Tempo in Giveaway-Lose um",
-        "7 Tage Vollzugriff auf die Libo-App — alle Pro- und Elite-Features freigeschaltet",
-        "Einmalzahlung · kein Abo, keine Verlängerung"
-      ],
-      "silver": [
-        "800 Bonuspunkte — wandle sie in der App im eigenen Tempo in Giveaway-Lose um",
-        "14 Tage Vollzugriff auf die Libo-App — alle Pro- und Elite-Features freigeschaltet",
-        "Einmalzahlung · kein Abo, keine Verlängerung",
-        "Vorrangiger Zugang zum nächsten Giveaway-Reveal"
-      ],
-      "gold": [
-        "3.000 Bonuspunkte — wandle sie in der App im eigenen Tempo in Giveaway-Lose um",
-        "30 Tage Vollzugriff auf die Libo-App — alle Pro- und Elite-Features freigeschaltet",
-        "Einmalzahlung · kein Abo, keine Verlängerung",
-        "Vorrangiger Zugang zum nächsten Giveaway-Reveal",
-        "First-Look-Zugang zu kommenden Preis-Reveals"
-      ]
-    },
-    "badges": {
-      "mostPopular": "Am beliebtesten",
-      "bestValue": "Bestes Angebot"
-    },
-    "packages": {
-      "entry": {
-        "name": "Entry",
-        "price": "€5",
-        "priceSubline": "Einmalzahlung · keine Verlängerung",
-        "entries": "7",
-        "points": "100",
-        "trial": "7T",
-        "heroSummary": "7 Tage Vollzugriff auf die Libo-App + 100 Bonuspunkte, die du in der App in Giveaway-Lose umwandeln kannst. Einmalzahlung — kein Abo, keine Verlängerung."
-      },
-      "silver": {
-        "name": "Silver",
-        "price": "€25",
-        "priceSubline": "Einmalzahlung · keine Verlängerung",
-        "entries": "14",
-        "points": "800",
-        "trial": "14T",
-        "heroSummary": "14 Tage Vollzugriff auf die Libo-App + 800 Bonuspunkte, die du in der App in Giveaway-Lose umwandeln kannst. Einmalzahlung — kein Abo, keine Verlängerung."
-      },
-      "gold": {
-        "name": "Gold",
-        "price": "€75",
-        "priceSubline": "Einmalzahlung · keine Verlängerung",
-        "entries": "30",
-        "points": "3.000",
-        "trial": "30T",
-        "heroSummary": "30 Tage Vollzugriff auf die Libo-App + 3.000 Bonuspunkte, die du in der App in Giveaway-Lose umwandeln kannst. Einmalzahlung — kein Abo, keine Verlängerung."
-      }
-    },
-    "trust1": "Sicher & vertrauenswürdig",
-    "trust2": "Jeden Tag echte Gewinner",
-    "trust3": "Live-Ziehung auf Instagram",
-    "prizeDetailTitle": "Giveaway-Details",
-    "firstPrize": "Hauptpreis",
-    "orCashAlt": "oder €1.200 steuerfreie Auszahlung",
-    "entriesClose": "Teilnahmeschluss",
-    "liveDraw": "Live-Ziehung",
-    "liveDrawSub": "Per Instagram Live",
-    "tba": "Wird bekannt gegeben",
-    "orYouCanTake": "Oder du nimmst",
-    "notificationTitle": "Wise · vor 1 Min.",
-    "notificationBody": "Du hast €1.200,00 von Libo World erhalten.",
-    "repeatCta1Title": "Wähl dein Paket — du bist automatisch dabei",
-    "statsTitle": "Die Zahlen lügen nicht",
-    "statsSub": "Echte Lose · Echte Gewinner · Echtes Geld",
-    "statEntries": "Lose insgesamt",
-    "statGivenAway": "Bereits ausgezahlt",
-    "statWinners": "Gewinner gezogen",
-    "winnersTitle": "Letzte Gewinner",
-    "winnersSub": "Echte Libo-Mitglieder, die ein Paket gewählt und mit Cash nach Hause gegangen sind.",
-    "winners": {
-      "w1": {
-        "prize": "iPhone 16 Pro gewonnen",
-        "quote": "Konnte es kaum glauben, als der Anruf kam. Hab das Silver-Paket spontan in der Mittagspause gekauft.",
-        "name": "Marco T."
-      },
-      "w2": {
-        "prize": "AirPods Pro 2 gewonnen",
-        "quote": "Hatte ehrlich gesagt vergessen, dass ich teilgenommen hatte, bis die E-Mail kam. Beste vergessenen €25 meines Lebens.",
-        "name": "Sofia R."
-      },
-      "w3": {
-        "prize": "Apple Watch gewonnen",
-        "quote": "Ich trainiere sowieso, also war der Free-Entry-Weg ein No-Brainer. Beim dritten Giveaway gewonnen.",
-        "name": "Tom W."
-      },
-      "w4": {
-        "prize": "Whoop 5.0 gewonnen",
-        "quote": "Hab Gold genommen, weil die Chancen besser waren. Beste kleine Wette des Jahres.",
-        "name": "Jana K."
-      }
-    },
-    "appTitle": "Hol dir die Libo-App",
-    "appSub": "Tracke deine Lose, schau Live-Ziehungen und verdien dir mit jedem Workout kostenlose Tickets.",
-    "appStoreSmall": "Laden im",
-    "googlePlaySmall": "Jetzt bei",
-    "faqTitle": "Hast du Fragen?",
-    "faq": {
-      "q1": "Ist dieses Giveaway in meinem Land verfügbar?",
-      "a1": "Weltweit verfügbar, wo lokale Sweepstake-Gesetze bezahlte Teilnahmen erlauben. Der kostenlose Weg (App laden + Workout machen) ist überall offen.",
-      "q2": "Ist das eine wiederkehrende Zahlung?",
-      "a2": "Nein. Jedes Paket ist eine einmalige Zahlung. Keine Abos, keine wiederkehrenden Gebühren. Du kaufst Lose, du bist drin, fertig.",
-      "q3": "Bekomme ich die Lose sofort?",
-      "a3": "Ja. Sobald dein Paketkauf abgeschlossen ist, werden deine Lose deinem Libo-Konto gutgeschrieben und du bist bei der nächsten Ziehung dabei.",
-      "q4": "Bekomme ich das iPhone oder das Geld?",
-      "a4": "Deine Wahl. Wir schicken dir das iPhone 17 Pro oder überweisen die €1.200 in bar — was du lieber hast. Du entscheidest nach der Ziehung.",
-      "q5": "Ist der Preis steuerfrei?",
-      "a5": "Libo zahlt den vollen Preis ohne Steuerabzug aus. Deine persönlichen Steuerpflichten hängen von deinem Wohnsitzland ab — bitte prüfe die lokalen Regeln.",
-      "q6": "Was passiert mit dem Premium-Trial nach Ablauf?",
-      "a6": "Er verlängert sich automatisch für €9,99/Monat, damit du nicht mitten im Workout den Zugriff verlierst. Jederzeit in der Libo-App kündbar — Einstellungen → Abo verwalten. Vor Ende des Trials kündigen, und dir wird nichts berechnet. Wir erinnern dich 3 Tage vorher per E-Mail.",
-      "q7": "Wo kann ich die Live-Ziehung schauen?",
-      "a7": "Auf Libos Instagram (@liboworld) und TikTok (@libo.world). Die volle Ziehung wird zum Nachschauen archiviert. Du musst nicht live dabei sein — Gewinner werden innerhalb von 24 Stunden direkt per E-Mail kontaktiert.",
-      "q8": "Ich bin bereits Pro-/Elite-Abonnent — was passiert dann?",
-      "a8": "Du behältst dein bestehendes Abo, unverändert. Der Premium-Trial des Pakets wird übersprungen — wir schreiben dir nur die Lose und Bonuspunkte gut. Keine doppelte Abrechnung, kein Plan-Downgrade. Kauf so viele Pakete, wie du willst; sie stapeln sich alle.",
-      "q9": "Kann ich mehrere Pakete kaufen? Stapeln sich die Lose?",
-      "a9": "Ja — jedes Paket kommt zu dem dazu, was schon auf deinem Konto ist. Kauf heute Entry und nächste Woche Gold und du hast 31 Lose insgesamt, plus 3.100 Bonuspunkte. Wir nutzen die E-Mail, die du angibst, um dein bestehendes Konto zu finden oder ein neues zu erstellen.",
-      "q10": "Brauche ich vor dem Kauf ein Libo-Konto?",
-      "a10": "Nein. Wir erstellen automatisch eins mit der E-Mail, die du beim Checkout angibst, und schicken dir einen Magic-Link zum Login. Bestehende Libo-Nutzer (jeder, der sich schon mal registriert hat) bekommen die Lose ihrem bestehenden Konto gutgeschrieben — gleiche E-Mail = gleiches Konto."
-    },
-    "finalCtaTitle": "Letzte Chance — Teilnahmeschluss naht",
-    "finalCta": "Klick zum Teilnehmen",
-    "modal": {
-      "step1Label": "Daten",
-      "step1Subtitle": "Wo wir dich erreichen",
-      "step2Label": "Deine Infos",
-      "step2Subtitle": "Deine Zahlungsdaten",
-      "mandatoryNote": "Pflichtfelder gekennzeichnet",
-      "fullNameLabel": "Vollständiger Name",
-      "fullNamePlaceholder": "Vollständiger Name…",
-      "emailLabel": "E-Mail",
-      "emailPlaceholder": "E-Mail-Adresse…",
-      "phoneLabel": "Telefonnummer",
-      "phonePlaceholder": "Telefonnummer…",
-      "cardLabel": "Kreditkartennummer",
-      "cardPlaceholder": "1234 5678 9012 3456",
-      "continueCta": "Weiter zur Zahlung",
-      "submitCta": "Jetzt teilnehmen",
-      "secureCheckout": "100% garantiert sicherer Checkout",
-      "orderItem": "{tier} Paket · {summary}",
-      "orderTotal": "Gesamtbetrag",
-      "backLabel": "Zurück zu den Daten",
-      "consentLabel": "Ich bestätige, dass gekaufte Libo nicht erstattbar sind, sobald sie in der App in Giveaway-Tickets umgewandelt wurden, und ich verzichte auf mein 14-tägiges Widerrufsrecht gemäß EU-Richtlinie 2011/83/EU.",
-      "consentLinkLabel": "Vollständige Bedingungen lesen",
-      "consentRequired": "Bitte bestätige die obigen Bedingungen, um fortzufahren."
-    },
-    "modalSuccessTitle": "Du bist dabei",
-    "modalSuccessBody": "Deine Lose sind gutgeschrieben und eine Bestätigung kommt gleich per E-Mail. Lade die Libo-App und logge dich mit der gleichen E-Mail ein — deine Lose warten auf dich.",
-    "modalDuplicateTitle": "Schon auf der Liste",
-    "modalDuplicateBody": "Wir haben deine Daten für diese Stufe. Schau in dein Postfach für die Bestätigung oder wähl ein anderes Paket, um mehr Lose dazuzunehmen.",
-    "modalLegal": "Mit dem Klick auf Teilnehmen stimmst du Libos AGB und Datenschutzbestimmungen zu. Der im Paket enthaltene Premium-Trial verlängert sich nach Ablauf automatisch für €9,99/Monat — jederzeit in der App kündbar. Kein Kauf nötig — siehe AGB für den Free-Entry-Weg. Offen für Teilnehmer ab 18.",
-    "disclaimer": "Kein Kauf nötig. Kostenlose Teilnahme über die Libo-App — siehe AGB. Ungültig wo gesetzlich verboten. Offen für Teilnehmer ab 18. Libo ist alleiniger Sponsor; Apple, Google, Instagram und alle Partnermarken sind nicht mit diesem Giveaway verbunden."
-  },
-  "cashChallengeFunnel": {
-    "seoTitle": "30 Tage durchziehen, bis zu €50 kassieren · Libo Cash Challenge",
-    "seoDescription": "Mach 30 Tage am Stück deine Reps in der Libo-App und verdien echtes Geld. €5 / €15 / €50 Stufen — begrenzte Plätze.",
-    "countdownLabel": "Nächster Zyklus startet in",
-    "eyebrow": "Cash Challenge",
-    "headline1": "Trainier 30 Tage.",
-    "headline2": "Verdien bis zu €50 cash.",
-    "heroSub": "Echtes Geld für echte Konsistenz. Schaff deine täglichen Reps für 30 Tage und wir überweisen dir die Belohnung — garantierte Auszahlung, keine Lotterie.",
-    "heroCta": "App holen",
-    "tiersTitle": "Wähl deinen Einsatz",
-    "tiersSub": "Drei Stufen, drei garantierte Auszahlungen. Gleiche 30-Tage-Mechanik. Wähl die, die zu deinem Abo passt — jeder, der durchzieht, wird voll bezahlt.",
-    "ctaReserve": "App holen",
-    "ctaError": "Etwas ist schiefgelaufen — versuch es nochmal",
-    "emailPlaceholder": "deine@email.com",
-    "scarcityLine": "Die Plätze sind begrenzt und der Einstieg läuft rollierend — deine 30 Tage starten an dem Tag, an dem du einsteigst. Wird jemand fertig oder steigt aus, wird sein Platz frei und wer zuerst zugreift, ist drin.",
-    "badges": {
-      "mostPopular": "Am beliebtesten",
-      "biggestPayout": "Höchste Auszahlung"
-    },
-    "tiers": {
-      "rewardHeroLabel": "Cash-Belohnung",
-      "starter": {
-        "name": "Starter",
-        "reward": "€5",
-        "reps": "30",
-        "days": "30",
-        "freeze": "0",
-        "gating": "Free-Stufe · kein Abo",
-        "heroSummary": "30 Tage × 30 Reps = €5 Cash-Auszahlung. Free-Stufe, offen für alle. Ein verpasster Tag und du bist raus — strikt, aber echt."
-      },
-      "pro_pool": {
-        "name": "Pro Pool",
-        "reward": "€15",
-        "reps": "50",
-        "days": "30",
-        "freeze": "2",
-        "gating": "Premium-Abo",
-        "heroSummary": "30 Tage × 50 Reps = €15 Cash-Auszahlung. 2 Freeze-Tokens für Schon-Tage. Premium in-app erforderlich."
-      },
-      "elite_pool": {
-        "name": "Elite Pool",
-        "reward": "€50",
-        "reps": "300",
-        "days": "30",
-        "freeze": "3",
-        "gating": "Premium-Abo",
-        "heroSummary": "30 Tage × 300 Reps = €50 Cash-Auszahlung. Bis zu 3 Freeze-Tokens. Premium in-app erforderlich."
-      }
-    },
-    "trust1": "Garantierte Auszahlung an alle, die durchziehen",
-    "trust2": "Auszahlung in 48h via Wise oder SEPA",
-    "trust3": "300+ Teilnehmer bisher bezahlt",
-    "howItWorksTitle": "So funktioniert die Cash Challenge",
-    "howItWorksSub": "Cohort-basiert — alle Teilnehmer laufen die 30 Tage gemeinsam. Verpasse einen Tag ohne Freeze-Token und du bist raus. Schaffst du es, wirst du bezahlt.",
-    "step1Title": "App laden & deine Stufe wählen",
-    "step1Body": "Wähl deine Stufe in der App. Die Plätze sind begrenzt und first come, first served — und deine 30 Tage starten an dem Tag, an dem du einsteigst.",
-    "step2Title": "Tägliche Reps in der App",
-    "step2Body": "30/50/100 Reps pro Tag je nach Stufe. Liegestütze werden per Kamera automatisch gezählt. Kniebeugen und Klimmzüge per Tap-Counter. Auf mehrere Sessions aufteilbar.",
-    "step3Title": "Reiß die Kette nicht ab",
-    "step3Body": "Jeden Tag, keine Lücken. Premium-Mitglieder bekommen Freeze-Tokens für verpasste Tage. Free-Stufe ist strikt — ein verpasster Tag und du fliegst raus.",
-    "step4Title": "Werd bezahlt",
-    "step4Body": "Schaffst du alle 30 aktiven Tage, landet das Geld innerhalb von 48 Stunden nach Zyklusende auf deinem verknüpften Konto. €5, €15 oder €50 — deine Wahl.",
-    "repeatCtaTitle": "Sei beim nächsten Zyklus dabei, bevor er voll ist",
-    "statsTitle": "Echte Auszahlungen, echte Konsistenz",
-    "statsSub": "Live-Zahlen aus Libos Cash-Challenge-Ledger",
-    "statCompleters": "30-Tage-Finisher",
-    "statPaidOut": "Bisher ausgezahlt",
-    "statSlotsPerCycle": "Plätze gleichzeitig",
-    "appTitle": "Hol dir die Libo-App",
-    "appSub": "Tracke deine Reps, behalte deinen Zyklus im Blick und sieh die Kette Tag für Tag wachsen.",
-    "appStoreSmall": "Laden im",
-    "googlePlaySmall": "Jetzt bei",
-    "faqTitle": "Hast du Fragen?",
-    "faq": {
-      "q1": "Ist das eine Lotterie?",
-      "a1": "Nein. Jeder Einzelne, der 30 aktive Tage abschließt, wird bezahlt. Es ist eine garantierte Auszahlung für Konsistenz, keine Ziehung.",
-      "q2": "Was zählt als abgeschlossener Tag?",
-      "a2": "Die tägliche Rep-Anzahl deiner Stufe für diesen Tag, geloggt in der Libo-App. Reps können auf mehrere Sessions aufgeteilt werden. Liegestütze werden per Kamera gezählt; Kniebeugen und Klimmzüge per Tap-Counter.",
-      "q3": "Was passiert, wenn ich einen Tag verpasse?",
-      "a3": "Free-Stufe: ein verpasster Tag und du bist für diesen Zyklus raus. Premium: Freeze-Tokens decken verpasste Tage — jedes Token verschiebt das Enddatum um +1.",
-      "q4": "Wann werde ich bezahlt?",
-      "a4": "Innerhalb von 48 Stunden nach Abschluss deines 30. aktiven Tages. Auszahlung erfolgt auf das hinterlegte Konto — Stripe / SEPA / PayPal je nach Region.",
-      "q5": "Kann ich mehrere Stufen gleichzeitig machen?",
-      "a5": "Nein — eine aktive Anmeldung gleichzeitig. Du kannst dich für die Stufe des nächsten Zyklus anmelden, sobald deine aktuelle endet.",
-      "q6": "Warum sind die Plätze begrenzt?",
-      "a6": "Die Belohnung ist ein echter Kostenfaktor für Libo. Begrenzte Plätze machen die Auszahlung kalkulierbar und schaffen ein echtes Cohort-Gefühl — alle laufen die Uhr gemeinsam.",
-      "q7": "Brauche ich ein Libo-Abo?",
-      "a7": "Die €5 Starter Challenge ist gratis — kein Abo nötig. Die €15- und €50-Challenges brauchen Premium. Abonniere in der App, wenn du deiner Stufe beitrittst.",
-      "q8": "Was, wenn ich Anfänger bin?",
-      "a8": "Fang mit Starter an (100 Reps/Tag) — das sind etwa 5 Minuten Arbeit, auf den Tag aufteilbar. Die Rep-Zahl ist machbar; die Disziplin ist die eigentliche Herausforderung."
-    },
-    "finalCtaTitle": "Starte deine 30 Tage — begrenzte Plätze, first come, first served",
-    "finalCta": "App holen",
-    "storeOverlay": {
-      "title": "Hol dir die Libo-App",
-      "subtitle": "Mit dem Handy scannen zum Laden. Dann wähl deine Stufe in der App.",
-      "qrAlt": "QR-Code zum Libo App-Store-Eintrag",
-      "appStoreSmall": "Laden im",
-      "googlePlaySmall": "Jetzt bei",
-      "closeLabel": "Schließen"
-    },
-    "disclaimer": "Die Teilnahme an der Cash Challenge steht allen Stufen (Free, Premium) ab 16 Jahren offen und ist kostenlos — es gibt keine Teilnahmegebühr und keinen Einsatz. Die Cash-Belohnung bei Abschluss hängt von Stufe und Pool ab (Free €5 / Premium €15, dazu ein höherer €50-Premium-Pool), ebenso das Tagesziel (30 / 50 / 100 Reps); Libo finanziert die Auszahlung. Cash-Auszahlungen über Stripe / Wise / SEPA setzen voraus, dass Gewinner mindestens 18 Jahre alt sind; Gewinner zwischen 16 und 17 können ein elternverknüpftes, verifiziertes Zahlungskonto nutzen, andernfalls wird der Gewinn in In-App-Guthaben umgewandelt (zusätzliche Tickets oder ein Premium-Monat). Ungültig, wo nach lokalem Recht untersagt — die zum Launch geltende Geo-Sperrliste steht in den AGB (Abschnitt 16). Alle Auszahlungen unterliegen einer Identitätsprüfung."
-  },
   "earlyAccess": {
     "announceText": "Founding Members: 50% Rabatt — nur bis zum Launch am 3. September",
     "announceTextShort": "Founding Members: 50% Rabatt bis 3. Sept. →",
@@ -1448,7 +1168,7 @@
       "q2": "Wie funktionieren die Cash Challenges?",
       "a2": "Tritt einer 30-Tage-Challenge bei (z.B. 100 Reps täglich), nimm dich jeden Tag beim Absolvieren der Reps auf, teile es in deinen Stories und cash echtes Geld aus, wenn du fertig bist. Die Plätze sind begrenzt, und deine 30 Tage starten in dem Moment, in dem du einsteigst.",
       "q3": "Ist Libo kostenlos?",
-      "a3": "Libo bietet eine kostenlose Stufe mit Zugriff auf Workouts, Übungen, einfaches Tracking, eine Aktivitäts-Streak samt Punkten und eine Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Analysen, 2 Freeze-Tokens pro Challenge und die €15- und €50-Stufen.",
+      "a3": "Libo bietet eine kostenlose Stufe mit Zugriff auf Workouts, Übungen, einfaches Tracking, eine Aktivitäts-Streak samt Punkten und eine Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Analysen, ein Freeze-Token pro Challenge und die €15- und €50-Stufen.",
       "q4": "Welches Equipment brauche ich?",
       "a4": "Keins — oder alles. Libo hat 396 Home-Übungen (die meisten ohne Equipment) und 432 Gym-Übungen, darunter 50 Mobility-Moves. Filter nach dem, was du hast.",
       "q5": "Kann ich meine eigenen Workouts bauen?",
@@ -1636,59 +1356,6 @@
       "h1Post": " für alles.",
       "sub": "Keine Karte zum Start. 7 Tage Premium gehen so oder so auf uns — oder monatlich für €12.99."
     },
-    "plans": [
-      {
-        "name": "Free",
-        "badge": "",
-        "price": "€0",
-        "per": "für immer",
-        "strike": "",
-        "strikeNote": "",
-        "blurb": "Alles, was du zum Starten brauchst — keine Karte, keine Trial-Uhr.",
-        "perks": [
-          "Kern-Workout- & Übungsbibliothek",
-          "Basis-Progress-Tracking",
-          "Einstiegs-Cash-Challenge (€5)",
-          "Gängige Produkt-Giveaways",
-          "AI Generator — 3 Pläne/Monat"
-        ],
-        "cta": "Kostenlos starten"
-      },
-      {
-        "name": "Founding Member",
-        "badge": "Vorverkauf · 50% Rabatt",
-        "price": "€39.50",
-        "per": "12 Monate",
-        "strike": "€79.99",
-        "strikeNote": "erstattbar bis zum Launch",
-        "blurb": "Sichere dir ein volles Jahr Premium vor dem Launch. Dein Jahr startet am Launch-Tag, nicht heute.",
-        "perks": [
-          "Alles aus Premium, 50% Rabatt",
-          "Jahr startet am Launch-Tag",
-          "Voll erstattbar bis zum Launch",
-          "Founding-Member-Badge",
-          "Prioritätszugang zum Launch"
-        ],
-        "cta": "Founding Member werden →"
-      },
-      {
-        "name": "Premium",
-        "badge": "",
-        "price": "€79.99",
-        "per": "/Jahr · €6.67/Monat",
-        "strike": "",
-        "strikeNote": "",
-        "blurb": "Das volle Libo-Erlebnis ab Launch — jedes Format, jedes Challenge-Tier.",
-        "perks": [
-          "Volle Bibliothek — 820+ Übungen, 140 Workouts",
-          "Cash-Challenges bis zu €50",
-          "Erweiterte Analytics & PRs",
-          "Premium- & Special-Giveaways",
-          "Unbegrenzter AI Generator"
-        ],
-        "cta": "Verfügbar zum Launch"
-      }
-    ],
     "guarantee": [
       {
         "title": "Keine Karte zum Start",
@@ -2026,7 +1693,7 @@
       "titleFree": "Schalte die €15- und €50-Challenges frei.",
       "ledeFree": "Die €5 Starter Challenge ist für jeden Member gratis. Premium öffnet die höheren Stufen — und gerade ist das erste Jahr zum halben Preis.",
       "tickUnlock": "Jede Challenge-Stufe freigeschaltet — €15 und €50",
-      "tickFreeze": "2 Freeze-Tokens pro Challenge",
+      "tickFreeze": "1 Freeze-Token pro Challenge, +1 kannst du dir verdienen",
       "ctaFree": "Hol dir Premium — {{price}}/Jahr →",
       "eyebrowClosed": "Premium · ab dem Launch verfügbar",
       "titleClosed": "Hol dir Premium zum Launch."
@@ -2046,7 +1713,7 @@
       },
       "miss": {
         "q": "Was passiert, wenn ich einen Tag verpasse?",
-        "a": "Ein Freeze-Token deckt ihn ab — Premium bringt 2 pro Challenge mit, und jeder kann sich einen durch konstantes Training verdienen. Ohne Tokens beendet ein verpasster Tag den Run — genau das macht das Durchziehen Geld wert. Du kannst wieder einsteigen, sobald ein Platz frei wird."
+        "a": "Ein Freeze-Token deckt ihn ab — Premium enthält 1 pro Challenge, und jeder, ob gratis oder zahlend, kann sich ein zweites durch Training an 60 der letzten 90 Tage verdienen. Ohne Tokens beendet ein verpasster Tag den Run — genau das macht das Durchziehen Geld wert. Du kannst wieder einsteigen, sobald ein Platz frei wird."
       },
       "equipment": {
         "q": "Brauche ich Equipment?",
@@ -2140,7 +1807,7 @@
       "benefit1": "12 Monate Premium",
       "benefit2": "Zuerst durch die Tür am Launch-Tag",
       "benefit3": "Jede Cash-Challenge-Stufe freigeschaltet",
-      "benefit4": "2 Freeze-Tokens pro Challenge",
+      "benefit4": "1 Freeze-Token pro Challenge, +1 kannst du dir verdienen",
       "benefit5": "Bis zum Launch voll erstattbar",
       "titleLine1": "Ein Angebot.",
       "titleLine2": "Ein Preis.",
@@ -2151,7 +1818,7 @@
       "fine": "Der Checkout öffnet nur über diese Karte — der Preis steht immer zuerst. Nur Launch-News? Die Warteliste findest du auf der ",
       "tick1": "Alles aus Free, plus die komplette Bibliothek",
       "tick2": "Zugang zu jeder Challenge-Stufe — first come, first served",
-      "tick3": "2 Freeze-Tokens pro Challenge",
+      "tick3": "1 Freeze-Token pro Challenge, +1 kannst du dir verdienen",
       "tick4": "Founding-Member-Badge · zuerst durch die Tür am Launch-Tag",
       "tick5": "Jahr startet am Launch-Tag · bis zum Launch voll erstattbar",
       "eyebrow": "Pre-Sale · endet zum Launch",
@@ -2296,7 +1963,7 @@
         "perk1": "Komplette Bibliothek — 820+ Übungen, 140 Workouts",
         "perk2": "Cash Challenges bis €50",
         "perk3": "Erweiterte Statistiken & PRs",
-        "perk4": "2 Freeze-Tokens pro Challenge",
+        "perk4": "1 Freeze-Token pro Challenge, +1 kannst du dir verdienen",
         "perk5": "Unbegrenzter KI-Generator",
         "cta": "Verfügbar zum Launch"
       }
@@ -2318,7 +1985,7 @@
     "faq": {
       "free": {
         "q": "Ist Libo gratis?",
-        "a": "Ja — die Gratis-Version bringt dir die Basis-Workout- und Übungsbibliothek, Basis-Fortschritts-Tracking, deinen Aktivitäts-Streak samt Punkten und die €5 Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Statistiken, Cash Challenges bis €50 und 2 Freeze-Tokens pro Challenge."
+        "a": "Ja — die Gratis-Version bringt dir die Basis-Workout- und Übungsbibliothek, Basis-Fortschritts-Tracking, deinen Aktivitäts-Streak samt Punkten und die €5 Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Statistiken, Cash Challenges bis €50 und ein Freeze-Token pro Challenge."
       },
       "challenges": {
         "q": "Wie funktionieren die Cash Challenges?",
