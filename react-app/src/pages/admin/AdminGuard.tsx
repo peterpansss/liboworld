@@ -72,14 +72,18 @@ export function AdminGuard({ children }: { children: ReactNode }) {
           const mfa = await getAdminMfaStatus();
           setMustEnrol(mfa.must_enrol === true);
         } catch (e) {
-          // Mirror the fail-open pattern used by checkAdminLoginAllowed: a
-          // missing RPC means the MFA migration isn't deployed yet. Log
-          // loudly so an operator notices, but don't lock the admin out.
-          console.warn(
-            '[AdminGuard] getAdminMfaStatus failed — MFA enforcement skipped:',
+          // FAIL CLOSED (LIBO-02): if the MFA-status RPC is unavailable or
+          // errors, we cannot prove the admin is exempt from enrolment, so we
+          // must NOT wave them through. Force the enrolment redirect instead of
+          // skipping the MFA gate. The /admin/mfa route itself stays reachable
+          // (see the mustEnrol redirect below), so an admin can still enrol.
+          // Note: the real authorization control is now the database
+          // (is_admin_aal2()); this guard is defense-in-depth for the UX.
+          console.error(
+            '[AdminGuard] getAdminMfaStatus failed — failing CLOSED (enrolment required):',
             e instanceof Error ? e.message : e,
           );
-          setMustEnrol(false);
+          setMustEnrol(true);
         }
       } else {
         setMustEnrol(false);
