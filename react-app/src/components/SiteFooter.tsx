@@ -99,6 +99,11 @@ export default function SiteFooter() {
           <div className="site-footer__bottom-right">
             <div className="site-footer__legal">
               <Link to="/terms">{t('footer.termsAndConditions')}</Link>
+              {/* The cash-challenge rules are incorporated into the Terms by
+                  reference, so they belong beside them. Before this they were
+                  reachable only from the funnel CTA and from deep inside
+                  /terms — nowhere a person looking for "the rules" would go. */}
+              <Link to="/rules">{t('footer.rules', { defaultValue: 'Cash Challenge Rules' })}</Link>
               <Link to="/privacy">{t('footer.privacy')}</Link>
               {/* Re-opens the consent banner — the choice must stay revocable. */}
               <button type="button" className="site-footer__consent" onClick={resetConsent}>

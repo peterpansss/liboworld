@@ -246,6 +246,7 @@
   "footer": {
     "copyright": "© 2026 Libo World",
     "privacy": "Política de Privacidade",
+    "rules": "Regras dos desafios",
     "terms": "Termos",
     "contact": "Contato",
     "instagram": "Instagram",
@@ -1607,6 +1608,7 @@
       "sub": "Três níveis, uma regra: 30 dias de reps diárias, prova na câmera, cash de verdade quando você termina. Sem ciclos, sem espera — seus 30 dias começam no momento em que você entra."
     },
     "gridLabel": "Níveis do desafio",
+    "rulesLink": "Ler as regras completas →",
     "card": {
       "meta": "{{reps}} reps / dia · {{days}} dias",
       "cta": "Ver desafio →"

@@ -156,3 +156,26 @@
 @media (prefers-reduced-motion: reduce) {
   .cc-card { opacity: 1; transform: none; transition: none; }
 }
+
+/* Rules link under the tier grid. Deliberately quiet — it is a reference for
+   someone already weighing the tiers, not a second call to action competing
+   with the cards above it. */
+.cc-rules {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 64px 0;
+  text-align: center;
+}
+
+.cc-rules a {
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cc-rules a:hover { color: var(--text); }
+
+@media (max-width: 700px) {
+  .cc-rules { padding: 24px 20px 0; }
+}

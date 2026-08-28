@@ -175,6 +175,7 @@
   "footer": {
     "copyright": "© 2026 Libo World",
     "privacy": "Politique de Confidentialité",
+    "rules": "Règlement des challenges",
     "terms": "Conditions",
     "contact": "Contact",
     "instagram": "Instagram",
@@ -1607,6 +1608,7 @@
       "sub": "Trois paliers, une règle : 30 jours de reps quotidiennes, la preuve à la caméra, du vrai cash à l'arrivée. Pas de cycles, pas d'attente — tes 30 jours commencent dès que tu t'inscris."
     },
     "gridLabel": "Paliers de challenge",
+    "rulesLink": "Lire le règlement complet →",
     "card": {
       "meta": "{{reps}} reps / jour · {{days}} jours",
       "cta": "Voir le challenge →"

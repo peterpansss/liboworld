@@ -246,6 +246,7 @@
   "footer": {
     "copyright": "© 2026 Libo World",
     "privacy": "Datenschutz",
+    "rules": "Cash-Challenge-Regeln",
     "terms": "AGB",
     "contact": "Kontakt",
     "instagram": "Instagram",
@@ -1607,6 +1608,7 @@
       "sub": "Drei Stufen, eine Regel: 30 Tage tägliche Reps, Beweis per Kamera, echtes Geld am Ende. Keine Zyklen, kein Warten — deine 30 Tage starten in dem Moment, in dem du beitrittst."
     },
     "gridLabel": "Challenge-Stufen",
+    "rulesLink": "Alle Regeln lesen →",
     "card": {
       "meta": "{{reps}} Reps / Tag · {{days}} Tage",
       "cta": "Zur Challenge →"

@@ -246,6 +246,7 @@
   "footer": {
     "copyright": "© 2026 Libo World",
     "privacy": "Privacy Policy",
+    "rules": "Cash Challenge Rules",
     "terms": "Terms",
     "contact": "Contact",
     "instagram": "Instagram",
@@ -1668,6 +1669,7 @@
       "sub": "Three tiers, one rule: 30 days of daily reps, proof on camera, real cash when you finish. No cycles, no waiting — your 30 days start the moment you join."
     },
     "gridLabel": "Challenge tiers",
+    "rulesLink": "Read the full rules →",
     "card": {
       "meta": "{{reps}} reps / day · {{days}} days",
       "cta": "View challenge →"

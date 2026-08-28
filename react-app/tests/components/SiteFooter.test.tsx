@@ -119,7 +119,7 @@ describe('SiteFooter', () => {
     expect(container.querySelector('.site-footer__copy')?.textContent).toContain('Libo World');
   });
 
-  it('links to legal pages (terms + privacy)', () => {
+  it('links to legal pages (terms + rules + privacy)', () => {
     const { container } = render(
       <MemoryRouter>
         <SiteFooter />
@@ -127,6 +127,11 @@ describe('SiteFooter', () => {
     );
     expect(container.querySelector('a[href="/terms"]')).not.toBeNull();
     expect(container.querySelector('a[href="/privacy"]')).not.toBeNull();
+    // /rules is incorporated into the Terms by reference and is the only
+    // published description of how a paid challenge actually works. The footer
+    // is the one place it appears on every page — losing this link would put it
+    // back to being reachable only from inside a funnel.
+    expect(container.querySelector('a[href="/rules"]')).not.toBeNull();
   });
 
   it('keeps the /best-workouts SEO hub links in the Popular row', () => {

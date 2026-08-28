@@ -90,6 +90,15 @@ export default function CashChallenges() {
             </Link>
           ))}
         </section>
+
+        {/* Someone comparing €5 / €15 / €50 is exactly the person asking what
+            the rules actually are. Until this link existed they had to enter a
+            funnel to find out. */}
+        <p className="cc-rules">
+          <Link to="/rules">
+            {t('cashChallenges.rulesLink', { defaultValue: 'Read the full rules →' })}
+          </Link>
+        </p>
       </main>
       <SiteFooter />
     </>
