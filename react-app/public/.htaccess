@@ -47,3 +47,41 @@
     Order Allow,Deny
     Deny from all
 </Files>
+
+# ── Security headers (LIBO-10, Dimitri audit 2026-08-24) ────────────────────
+# The site had none of these. Marketing, auth callbacks, checkout and the admin
+# panel share one origin, so any XSS or compromised dependency could reach the
+# Supabase session persisted in localStorage. These are the baseline.
+#
+# The five below are safe to enforce immediately. CSP is shipped Report-Only
+# first (see the block after) because a wrong policy breaks the whole app, and
+# launch week is the wrong time to discover a missing allowed origin.
+<IfModule mod_headers.c>
+  # Force HTTPS for two years, include subdomains. The site is already HTTPS-only
+  # behind Cloudflare, so this only hardens against a downgrade.
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+
+  # Don't let the browser MIME-sniff a response into an executable type.
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Send the origin but not the path/query on cross-origin navigations —
+  # keeps auth-callback URLs and UTM-tagged paths out of third-party referers.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Drop ambient access to powerful features the app never uses.
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()"
+
+  # Clickjacking protection for /admin. Nothing on the site is legitimately
+  # framed, so deny framing outright (belt: X-Frame-Options for old browsers,
+  # braces: CSP frame-ancestors for modern ones).
+  Header always set X-Frame-Options "DENY"
+  Header always set Content-Security-Policy "frame-ancestors 'none'"
+
+  # ── CSP in Report-Only (does NOT block; only reports) ─────────────────────
+  # Enumerated from what the app actually loads: Supabase (REST + realtime WS),
+  # Stripe Elements, Google Fonts, the R2 video CDN, and Meta Pixel (behind the
+  # consent gate). Watch the browser console / report endpoint under this policy,
+  # widen anything it wrongly flags, THEN promote to an enforcing
+  # Content-Security-Policy header. Do not enforce before launch without a review.
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; frame-src https://js.stripe.com https://hooks.stripe.com; connect-src 'self' https://oaftqweofrifoiuwntce.supabase.co wss://oaftqweofrifoiuwntce.supabase.co https://api.stripe.com https://www.facebook.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+</IfModule>

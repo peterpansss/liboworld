@@ -76,12 +76,29 @@ jobs:
           cp libo-data.js react-app/dist/libo-data.js 2>/dev/null || true
 
       # ── Deploy everything ──
-      - name: Deploy via FTP to Netcup
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      # LIBO-06 (Dimitri audit): deploy over encrypted FTPS, not plaintext FTP.
+      # The action defaults to protocol: ftp, which sends the FTP credential and
+      # the whole site in cleartext — an on-path attacker can capture the login
+      # or rewrite the bundle. Netcup shared hosting supports explicit FTPS on
+      # port 21; `security: strict` enforces certificate validation.
+      #
+      # SFTP would be preferable, but this action only speaks ftp/ftps — moving
+      # to SFTP means a different action and an SSH deploy key, which is Phase 3.
+      # The action is pinned to the full commit SHA of v4.3.5 (mutable tags are a
+      # supply-chain vector for a job that holds production deploy credentials).
+      #
+      # ⚠️ After this merges, the FIRST deploy must be watched: if Netcup rejects
+      # explicit FTPS the deploy fails (and the Discord alert fires). Rotate the
+      # FTP_PASSWORD secret once FTPS is confirmed working — the old one was sent
+      # in cleartext and should be considered exposed.
+      - name: Deploy via FTPS to Netcup
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: strict
           local-dir: react-app/dist/
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
 
