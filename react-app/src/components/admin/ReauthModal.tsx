@@ -3,23 +3,28 @@ import { registerReauthPrompt } from '../../lib/adminApi';
 import { Field, TextInput, Button } from '../../components/admin/FormField';
 import { colors } from '../../theme';
 
-// Mounted once at the AdminLayout level. When a sensitive RPC wrapper calls
-// requireRecentAuth(), this modal opens and asks for the password. On
-// submit, requireRecentAuth handles the actual signInWithPassword call.
+// Mounted inside the admin tree. When a sensitive RPC wrapper calls
+// requireRecentAuth() — or AdminGuard needs to elevate the session on entry —
+// this modal opens and asks for the 6-digit code from the admin's authenticator
+// app. On submit it resolves the pending prompt with the entered code; the lib
+// runs the AAL2 challenge/verify. It NEVER handles a password.
+
+// TOTP codes are exactly six digits.
+const CODE_LENGTH = 6;
 
 export function ReauthModal() {
   const [open, setOpen] = useState(false);
-  const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   // The resolver fn the lib hands us when it wants to prompt. We invoke it
-  // with the password (or null if cancelled) to unblock the sensitive op.
-  const resolveRef = useRef<((password: string | null) => void) | null>(null);
+  // with the code (or null if cancelled) to unblock the sensitive op / step-up.
+  const resolveRef = useRef<((code: string | null) => void) | null>(null);
 
   useEffect(() => {
     const unregister = registerReauthPrompt((resolve) => {
       resolveRef.current = resolve;
-      setPassword('');
+      setCode('');
       setError(null);
       setOpen(true);
     });
@@ -36,21 +41,21 @@ export function ReauthModal() {
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (busy) return;
-    if (!password) {
-      setError('Password is required.');
+    const trimmed = code.trim();
+    if (!/^\d{6}$/.test(trimmed)) {
+      setError('Enter the 6-digit code from your authenticator app.');
       return;
     }
     setBusy(true);
     setError(null);
-    // The resolver triggers a signInWithPassword inside the lib; we don't
-    // know if it succeeded until requireRecentAuth returns. The lib will
-    // throw on failure, which the *caller* surfaces. Since this modal
-    // closes optimistically, we let the caller's error path show the
-    // result. Cleaner UX, but it does mean the modal may close even when
-    // the password was wrong -- the wrapped op will then error out, and
-    // the page-level toast surfaces "re-authentication failed". Acceptable
-    // for an admin tool (no novice users).
-    resolveRef.current?.(password);
+    // The resolver drives the AAL2 challenge/verify inside the lib; we don't
+    // know if it succeeded until the awaiting caller returns. The lib throws
+    // (sensitive op) or reports false (AdminGuard step-up) on a bad code.
+    // Since this modal closes optimistically, the caller's error path surfaces
+    // the result. If the code was wrong, the wrapped op errors out and the
+    // page-level toast (or the AdminGuard block screen) shows the failure —
+    // acceptable for an admin tool.
+    resolveRef.current?.(trimmed);
     resolveRef.current = null;
     setOpen(false);
     setBusy(false);
@@ -94,20 +99,26 @@ export function ReauthModal() {
             letterSpacing: 0.4,
           }}
         >
-          Confirm with password
+          Confirm with authenticator
         </h2>
         <p style={{ margin: '0 0 20px 0', color: colors.muted, fontSize: 13 }}>
-          This action requires recent authentication.
+          This action requires two-factor verification. Enter the 6-digit code
+          from your authenticator app.
         </p>
 
-        <Field label="Password" error={error}>
+        <Field label="Authentication code" error={error}>
           <TextInput
-            type="password"
-            autoComplete="current-password"
+            type="text"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            pattern="\d{6}"
+            maxLength={CODE_LENGTH}
+            placeholder="123456"
             autoFocus
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={code}
+            onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, CODE_LENGTH))}
             required
+            style={{ letterSpacing: 4, fontSize: 18 }}
           />
         </Field>
 
