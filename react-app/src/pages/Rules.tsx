@@ -171,8 +171,17 @@ export default function Rules() {
           <section className="legal-section" id="proof">
             <div className="legal-section-num">{n()}</div>
             <h2>What Counts as a Completed Day</h2>
-            <p>A day counts when you complete the challenge&rsquo;s prescribed work inside that day&rsquo;s window and record it in the app. The recording is the basis on which we pay, so it has to actually show the work.</p>
-            <p><strong>Recordings are reviewed by the Libo team.</strong> Review is manual, not automated, and it is what lets us pay out on proof rather than on an honour system.</p>
+            <p>A day counts when you complete the challenge&rsquo;s prescribed work inside that day&rsquo;s window and record it in the app.</p>
+            {/* Corrected 2026-08-29. This previously read "Recordings are reviewed
+                by the Libo team — review is manual, not automated". That is not
+                what the app does: CameraScreen persists the clip to the device's
+                documentDirectory with no network call, and record_challenge_reps
+                takes only a rep count, so no footage ever reaches Libo. Saying
+                otherwise was a false statement about data handling in a document
+                the Terms incorporate by reference, and it contradicted the App
+                Review notes (which correctly tell Apple the footage never leaves
+                the device) on a page those notes link to. */}
+            <p><strong>Your recording is your proof. It stays on your device &mdash; we don&rsquo;t upload it.</strong> If a payout is ever queried, we may ask you to produce the recordings for the days in question.</p>
             <div className="legal-highlight">
               <p>
                 <strong>You are never required to post publicly.</strong> Sharing a session to
@@ -220,7 +229,7 @@ export default function Rules() {
           <section className="legal-section" id="fair-play">
             <div className="legal-section-num">{n()}</div>
             <h2>Fair Play</h2>
-            <p>Real money is involved, so a run can be voided and a payout refused where we find, on review:</p>
+            <p>Real money is involved, so a run can be voided and a payout refused where we find:</p>
             <ul>
               <li>Recordings that are falsified, edited to misrepresent the work, or re-used from another day or another challenge</li>
               <li>Someone other than the enrolled participant performing the work</li>
