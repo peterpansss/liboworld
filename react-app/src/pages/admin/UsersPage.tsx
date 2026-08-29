@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { effectiveTier } from '../../lib/entitlement';
 import { colors } from '../../theme';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, Select, Button } from '../../components/admin/FormField';
@@ -92,6 +93,37 @@ function TierChip({ tier }: { tier: Tier | null | undefined }) {
       }}
     >
       {label}
+    </span>
+  );
+}
+
+/**
+ * The tier badge for a user row. Shows what the user can USE — i.e. what the
+ * phone shows them — not the raw `subscriptions.tier` column.
+ *
+ * The distinction is not cosmetic. `admin_users_view` reads `tier` with no
+ * expiry check, so a member whose subscription lapsed keeps reading 'pro'
+ * here forever while the app has already dropped them to free and padlocked
+ * the gym workouts. Rendering the raw column made this panel report the
+ * opposite of the user's reality, which is how a lapsed member gets told
+ * "you're Pro on our side" while staring at a paywall.
+ *
+ * When the two disagree we show the effective tier AND the lapse, because the
+ * operator's next question is always "since when".
+ */
+function EntitlementChip({ user }: { user: AdminUserRow }) {
+  const effective = effectiveTier(user);
+  const purchased = user.tier ?? 'free';
+  const lapsed = purchased !== 'free' && effective === 'free';
+
+  if (!lapsed) return <TierChip tier={effective} />;
+
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+      <TierChip tier="free" />
+      <span style={{ fontSize: 11, color: colors.muted, whiteSpace: 'nowrap' }}>
+        {purchased} lapsed {formatDate(user.subscription_expires_at)}
+      </span>
     </span>
   );
 }
@@ -211,8 +243,11 @@ export function UsersPage() {
       {
         key: 'tier',
         header: 'Tier',
-        render: (r) => <TierChip tier={r.tier} />,
-        sort: (a, b) => (a.tier ?? 'free').localeCompare(b.tier ?? 'free'),
+        render: (r) => <EntitlementChip user={r} />,
+        // Sort on the effective tier so the column orders by what the badge
+        // says. Sorting on the raw column would file lapsed members under
+        // "pro" while they display as free.
+        sort: (a, b) => effectiveTier(a).localeCompare(effectiveTier(b)),
       },
       {
         key: 'points',
@@ -610,7 +645,7 @@ function UserDetailModal({
           <div style={{ marginBottom: 20 }}>
             <div style={{ color: colors.muted, fontSize: 13, marginBottom: 8 }}>{user.email ?? '—'}</div>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
-              <TierChip tier={user.tier} />
+              <EntitlementChip user={user} />
               {user.is_admin && (
                 <span
                   style={{
@@ -775,6 +810,26 @@ function UserDetailModal({
                     <option value="elite">Elite</option>
                   </Select>
                 </Field>
+                {/* The dropdown above deliberately shows the PURCHASED tier —
+                    that is what you are editing. This line shows why it may
+                    not be what the user actually has: without it the operator
+                    sees "Pro" selected and has no way to tell the window
+                    closed. Setting a tier from here writes expires_at = NULL,
+                    i.e. an indefinite grant. */}
+                <div style={{ fontSize: 12, color: colors.muted, marginTop: 4 }}>
+                  Status: <strong style={{ color: colors.text }}>{user.subscription_status ?? 'no row'}</strong>
+                  {' · '}
+                  {user.subscription_expires_at
+                    ? `${effectiveTier(user) === 'free' && (user.tier ?? 'free') !== 'free' ? 'expired' : 'expires'} ${formatDate(user.subscription_expires_at)}`
+                    : 'no expiry'}
+                </div>
+                {effectiveTier(user) === 'free' && (user.tier ?? 'free') !== 'free' && (
+                  <div style={{ fontSize: 12, color: colors.warning, marginTop: 6 }}>
+                    Subscription window has closed — the app is showing this user
+                    as Free and gating paid content. Re-select the tier above to
+                    grant it again indefinitely.
+                  </div>
+                )}
                 {savingAction === 'tier' && (
                   <div style={{ fontSize: 12, color: colors.muted }}>Updating…</div>
                 )}

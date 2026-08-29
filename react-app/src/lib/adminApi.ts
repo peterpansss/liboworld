@@ -21,6 +21,18 @@ export type AdminUserRow = {
   is_admin: boolean;
   profile_created_at: string | null;
   profile_updated_at: string | null;
+  /**
+   * The tier the user PURCHASED. `admin_users_view` selects this straight out
+   * of `subscriptions.tier` with no expiry or status check, so a lapsed row
+   * still reads 'pro' here — on purpose: it is what the webhooks re-activate
+   * against, and it is the right default for the "Set tier" control.
+   *
+   * NEVER render this as the user's current plan. The app gates on
+   * `isEntitled()` (libo-app-v2/src/types/index.ts), so a row whose
+   * `subscription_expires_at` has passed is FREE on the phone while this
+   * field still says 'pro'. Use {@link effectiveTier} for anything the
+   * operator will read as "what this user has right now".
+   */
   tier: 'free' | 'pro' | 'elite' | null;
   subscription_status: string | null;
   subscription_expires_at: string | null;
@@ -30,6 +42,21 @@ export type AdminUserRow = {
   last_workout_at: string | null;
   banned_until: string | null;
 };
+
+/**
+ * PORT of `isEntitled()` in libo-app-v2/src/types/index.ts — keep byte-for-byte
+ * equivalent in behaviour. This is the predicate the mobile app gates on, and
+ * the whole point of having it here is that the admin panel answers the same
+ * question the phone answers. If you change one, change both.
+ *
+ * Rules: an expiry in the past never grants access whatever the status says;
+ * 'cancelled' needs a non-null FUTURE expiry; 'active'/'trialing' with a null
+ * expiry are entitled (founding/comped grants legitimately have no expiry);
+ * 'expired' is never entitled. An unparseable timestamp counts as "no expiry",
+ * never as "expired" — a malformed field must not revoke a paying member.
+ */
+export { isEntitledSubscription, effectiveTier } from './entitlement';
+export type { AdminTier } from './entitlement';
 
 export type DashboardKpis = {
   total_users: number;
