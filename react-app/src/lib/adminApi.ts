@@ -1552,7 +1552,8 @@ export function validatePasswordPolicy(password: string): PasswordPolicyResult {
 // ── Re-auth for sensitive ops ─────────────────────────────────────────────
 // Spec part 6: wrap markPayoutPaid, setSubscriptionTier, setUserAdminFlag,
 // grantTickets, adjustPoints with a "require recent re-auth" check. If the
-// session is older than 30 min, prompt for password before proceeding.
+// session is older than 30 min, prompt for a 6-digit TOTP code and step the
+// session up to AAL2 before proceeding (never signInWithPassword).
 //
 // We track recent-re-auth in module-scoped memory only -- a full reload
 // resets it (which is a feature: an admin walking away from their machine
@@ -1562,15 +1563,15 @@ const REAUTH_VALIDITY_MS = 30 * 60 * 1000;
 let lastReauthAt: number | null = null;
 
 /**
- * The React layer registers a callback that will SHOW a password prompt
+ * The React layer registers a callback that will SHOW a 6-digit TOTP prompt
  * (modal). The wrapper functions below call requireRecentAuth(), which
  * either returns immediately (re-auth still valid) or awaits the prompt.
  */
-export function registerReauthPrompt(prompt: (resolve: (password: string | null) => void) => void): () => void {
+export function registerReauthPrompt(prompt: (resolve: (code: string | null) => void) => void): () => void {
   // The prompt callback receives a `resolve` it must invoke with either
-  // the entered password or null (cancelled). requireRecentAuth() awaits
+  // the entered 6-digit code or null (cancelled). requireRecentAuth() awaits
   // the prompt via reauthPromptHandler below.
-  const adapted = (resolve: (password: string | null) => void) => {
+  const adapted = (resolve: (code: string | null) => void) => {
     prompt(resolve);
   };
   // Stash the adapted version where requireRecentAuth() reaches it.
@@ -1580,7 +1581,7 @@ export function registerReauthPrompt(prompt: (resolve: (password: string | null)
   };
 }
 
-let reauthPromptHandler: ((resolve: (password: string | null) => void) => void) | null = null;
+let reauthPromptHandler: ((resolve: (code: string | null) => void) => void) | null = null;
 
 function isRecentlyAuthenticated(): boolean {
   return lastReauthAt !== null && (Date.now() - lastReauthAt) < REAUTH_VALIDITY_MS;
@@ -1600,11 +1601,14 @@ async function getSessionAgeMs(): Promise<number | null> {
 
 /**
  * Verifies that the session has been re-authenticated within the last 30 min.
- * If not, prompts the user via the registered ReauthPrompt and re-validates
- * the password by calling supabase.auth.signInWithPassword (which Supabase
- * uses as the canonical reauthentication primitive).
+ * If not, prompts the user via the registered ReauthPrompt for a 6-digit TOTP
+ * code and elevates the session to AAL2 (see {@link stepUpToAal2}).
  *
- * Throws if reauth fails or is cancelled.
+ * CRITICAL: this NEVER calls supabase.auth.signInWithPassword. That primitive
+ * yields an AAL1 session and, worse, RESETS an already-AAL2 session down to
+ * AAL1 — which is incompatible with the DB's is_admin_aal2() enforcement.
+ *
+ * Throws if the step-up fails or is cancelled.
  */
 export async function requireRecentAuth(): Promise<void> {
   if (isRecentlyAuthenticated()) return;
@@ -1623,23 +1627,22 @@ export async function requireRecentAuth(): Promise<void> {
   }
 
   const { data: sessionData } = await supabase.auth.getSession();
-  const email = sessionData.session?.user.email;
-  if (!email) {
+  if (!sessionData.session?.user) {
     throw new Error('Not signed in.');
   }
 
-  const password = await new Promise<string | null>((resolve) => {
-    reauthPromptHandler!(resolve);
-  });
-  if (!password) {
-    throw new Error('Re-authentication cancelled.');
-  }
-
-  // Use signInWithPassword to validate. This refreshes the session so
-  // the session-age heuristic above also resets.
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) {
-    throw new Error('Password incorrect. Re-authentication failed.');
+  // Elevate to AAL2 via the TOTP challenge/verify path. If the session is
+  // already AAL2 this returns true immediately without prompting (AAL2
+  // persists across token refreshes, so this typically prompts once per
+  // sign-in). Cancel or a bad code returns false.
+  const elevated = await stepUpToAal2(
+    () =>
+      new Promise<string | null>((resolve) => {
+        reauthPromptHandler!(resolve);
+      }),
+  );
+  if (!elevated) {
+    throw new Error('Re-authentication failed. A valid 6-digit code is required.');
   }
   lastReauthAt = Date.now();
 }
@@ -1721,11 +1724,15 @@ export async function getAdminMfaStatus(): Promise<AdminMfaStatus> {
 }
 
 /**
- * If the panel session is currently aal1 but the admin has aal2 factors
- * enrolled, this prompts for a TOTP code and elevates the session to aal2.
- * Returns true if elevated, false if no factors exist or if cancelled.
+ * Shared AAL2 step-up primitive. If the session is already aal2, resolves true
+ * immediately (no prompt). Otherwise, if the admin has a verified TOTP factor,
+ * it asks `promptCode` for a 6-digit code and elevates the session via
+ * challenge + verify. Returns true on success, false if there is no verified
+ * factor, the prompt is cancelled, or the code is wrong.
+ *
+ * NEVER calls signInWithPassword — that would drop the session to aal1.
  */
-export async function ensureAal2(promptCode: () => Promise<string | null>): Promise<boolean> {
+async function stepUpToAal2(promptCode: () => Promise<string | null>): Promise<boolean> {
   const { data: aalData, error: aalErr } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
   if (aalErr) return false;
   if (aalData?.currentLevel === 'aal2') return true;
@@ -1745,6 +1752,75 @@ export async function ensureAal2(promptCode: () => Promise<string | null>): Prom
     code,
   });
   return !verErr;
+}
+
+/**
+ * If the panel session is currently aal1 but the admin has aal2 factors
+ * enrolled, this prompts for a TOTP code and elevates the session to aal2.
+ * Returns true if elevated, false if no factors exist or if cancelled.
+ */
+export async function ensureAal2(promptCode: () => Promise<string | null>): Promise<boolean> {
+  return stepUpToAal2(promptCode);
+}
+
+export type SessionAalInfo = {
+  // Current assurance level, or null when it could NOT be determined (error).
+  level: 'aal1' | 'aal2' | null;
+  hasVerifiedFactor: boolean;
+  // True when getAuthenticatorAssuranceLevel / listFactors threw or errored.
+  // Callers must fail CLOSED on this: treat as not-verified, never wave through.
+  error: boolean;
+};
+
+/**
+ * Reads the current session's AAL and whether a verified TOTP factor exists.
+ * Used by AdminGuard to decide between "allow", "step up", and "enrol". On any
+ * failure it reports `error: true` with `level: null` so the guard fails CLOSED.
+ */
+export async function getSessionAal(): Promise<SessionAalInfo> {
+  try {
+    const { data, error } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (error || !data) {
+      return { level: null, hasVerifiedFactor: false, error: true };
+    }
+    let hasVerifiedFactor = false;
+    try {
+      const { data: factors, error: factorsErr } = await supabase.auth.mfa.listFactors();
+      if (factorsErr) {
+        return { level: null, hasVerifiedFactor: false, error: true };
+      }
+      hasVerifiedFactor = Boolean(factors?.totp?.some((f) => f.status === 'verified'));
+    } catch {
+      return { level: null, hasVerifiedFactor: false, error: true };
+    }
+    return {
+      level: (data.currentLevel as 'aal1' | 'aal2' | null) ?? null,
+      hasVerifiedFactor,
+      error: false,
+    };
+  } catch {
+    return { level: null, hasVerifiedFactor: false, error: true };
+  }
+}
+
+/**
+ * Elevate the current admin session to aal2 by prompting for a TOTP code via
+ * the registered ReauthModal. Used by AdminGuard on panel entry. Returns true
+ * if the session is (now) aal2, false if there is no prompt handler, no
+ * verified factor, or the user cancelled / entered a bad code. On success it
+ * also refreshes the recent-auth window so sensitive ops aren't re-prompted
+ * immediately. NEVER uses signInWithPassword.
+ */
+export async function stepUpAdminSessionToAal2(): Promise<boolean> {
+  if (!reauthPromptHandler) return false;
+  const elevated = await stepUpToAal2(
+    () =>
+      new Promise<string | null>((resolve) => {
+        reauthPromptHandler!(resolve);
+      }),
+  );
+  if (elevated) lastReauthAt = Date.now();
+  return elevated;
 }
 
 // ── Wrapped sensitive admin ops ────────────────────────────────────────────
