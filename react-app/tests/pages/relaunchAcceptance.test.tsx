@@ -34,6 +34,7 @@ vi.mock('../../src/components/funnel/FoundingCheckoutProvider', () => ({
 // uninitialised fallback, which returns defaultValue with {{placeholders}} raw.
 import '../../src/i18n';
 
+import { CHALLENGE_TIERS } from '../../src/data/challengeTiers';
 import ChallengeFunnel from '../../src/pages/ChallengeFunnel';
 import CashChallenges from '../../src/pages/CashChallenges';
 import JoinFunnel from '../../src/pages/JoinFunnel';
@@ -155,10 +156,14 @@ describe('relaunch acceptance — the funnel films', () => {
 });
 
 describe('relaunch acceptance — challenge funnel CTAs', () => {
-  it.each([
-    ['flagship', 50, 100],
-    ['committed', 15, 60],
-  ])('%s: one action phrase, price ONLY on the close button', (slug, payout, reps) => {
+  // Derived from CHALLENGE_TIERS, not retyped here. These literals had drifted:
+  // the table said committed = 60 reps while challengeTiers.ts (and production
+  // `money_challenges.reps_per_day`) say 50, so the test was pinning a number
+  // the product does not use. Reading the data makes that impossible.
+  it.each(
+    CHALLENGE_TIERS.filter((t) => t.slug !== 'starter')
+      .map((t) => [t.slug, t.payout, t.reps] as const),
+  )('%s: one action phrase, price ONLY on the close button', (slug, payout, reps) => {
     const { container } = renderTier(slug);
     const text = container.textContent || '';
 

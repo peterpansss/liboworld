@@ -1500,7 +1500,7 @@
           "payout": "€15",
           "name": "Committed",
           "desc": "The middle tier for members who already hold a streak and want real stakes on it.",
-          "daily": "60 reps / day",
+          "daily": "50 reps / day",
           "spots": "Limited spots"
         },
         {

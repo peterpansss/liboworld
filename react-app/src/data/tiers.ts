@@ -123,10 +123,10 @@ export const TIERS: Tier[] = [
       '1 freeze token per challenge, +1 you can earn',
       // Giveaway / prize-draw bullet removed — Phase 2, see the Free tier note above.
       // Premium unlocks BOTH gated challenges in src/data/challengeTiers.ts:
-      // 'committed' (€15 · 60 reps) and 'flagship' (€50 · 100 reps), both
+      // 'committed' (€15 · 50 reps) and 'flagship' (€50 · 100 reps), both
       // requiresPremium: true. Canon §7.4 — no maximum tier, so the €50 run is
       // reachable on Premium; it is not held back for Elite.
-      'Cash challenges up to €50 (€15 · 60 reps/day, €50 · 100 reps/day)',
+      'Cash challenges up to €50 (€15 · 50 reps/day, €50 · 100 reps/day)',
     ],
     cta: 'Get Premium',
     href: '/onboarding?tier=premium',

@@ -56,7 +56,12 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
   {
     slug: 'committed',
     payout: 15,
-    reps: 60,
+    // 50, not 60. Verified against production `money_challenges` 2026-08-29:
+    // reps_50_30d_pro_v1 is reps_per_day = 50, reward 15.00 EUR. The site had
+    // published 60, which told people to do more work than the challenge they
+    // would actually enrol in requires. The database is the source of truth
+    // here — this file mirrors it.
+    reps: 50,
     days: 30,
     name: 'Committed',
     requiresPremium: true,
