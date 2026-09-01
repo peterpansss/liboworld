@@ -54,7 +54,7 @@ export default function Rules() {
             <div className="legal-label">Rules</div>
             <h1 className="font-display">Cash Challenge Rules</h1>
             <p className="legal-meta">
-              Last updated: <span>August 2026</span> &middot; Applies to: <span>all cash challenges</span>
+              Last updated: <span>September 2026</span> &middot; Applies to: <span>all cash challenges</span>
             </p>
           </div>
 
@@ -238,6 +238,19 @@ export default function Rules() {
               <li>Any other attempt to obtain a payout without doing the work</li>
             </ul>
             <p>These decisions are made by people reviewing the evidence, not by an automated flag, and we will tell you the reason. If you think we got it wrong, email <a href="mailto:support@liboworld.com">support@liboworld.com</a> and we will look again.</p>
+            {/* Added 2026-09-01. This is an anti-fraud floor, deliberately
+                placed here and NOT in §5, because it does not change what
+                completing a day means — it stops a token clip standing in for a
+                session at all. Half a second per prescribed rep is below any
+                human rep rate on the exercises these challenges offer, so it
+                cannot refuse honest work; and it is measured over the day's
+                total precisely because §4 promises a day may be split across
+                sessions. The app enforces it and states the number as you
+                record. See docs/TICKET-session-verification.md for the
+                rep-detection work this is a stop-gap for. */}
+            <h3>A minimum amount of footage</h3>
+            <p>Because a recording is what stands in for the work, a day needs a realistic amount of it: <strong>at least half a second of footage per rep your challenge prescribes</strong>, added up across that day&rsquo;s recordings. That is 15 seconds on a 30-rep challenge, 25 seconds at 50 reps, and 50 seconds at 100.</p>
+            <p>This is a floor, not a target. It is set far below the pace anyone actually trains at, so doing the work will always clear it &mdash; it exists only so a two-second clip cannot stand in for a session. It applies to the day&rsquo;s recordings <em>together</em>, never to any single one, so splitting a day across sessions costs you nothing. The app tells you if a day is still short.</p>
           </section>
 
           {/* 10 */}
