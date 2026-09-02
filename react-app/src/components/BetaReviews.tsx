@@ -25,7 +25,7 @@ const REVIEWS: { handle: string; initials: string; gradient: AvatarGradient; quo
     handle: '@gemma.lifts',
     initials: 'GL',
     gradient: 'd',
-    quote: '"joined the libo beta with low expectations. the AI workout generator is goated lol. better than my old PT 🫡"',
+    quote: '"joined the libo beta with low expectations. the workout generator is goated lol. better than my old PT 🫡"',
   },
   {
     handle: '@paul_n_4',

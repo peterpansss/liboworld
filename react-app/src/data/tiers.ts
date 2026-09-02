@@ -115,7 +115,7 @@ export const TIERS: Tier[] = [
       'Everything in Free',
       'Full 140-workout library',
       'Custom workout builder',
-      'AI workout generator',
+      'Workout generator',
       'Advanced analytics',
       '2× Libo',
       // GRANT, not ceiling. Canon §5.2: Premium is granted 1 and can earn a
@@ -216,7 +216,7 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
       { label: 'Curated workouts', free: '20', premium: '140+', elite: '140+ exclusives' },
       { label: 'Exercise library (600+)', free: true, premium: true, elite: true },
       { label: 'Custom workout builder', free: false, premium: true, elite: true },
-      { label: 'AI workout generator', free: false, premium: true, elite: true },
+      { label: 'Workout generator', free: false, premium: true, elite: true },
       { label: 'Seasonal exclusive workouts', free: false, premium: false, elite: true },
     ],
   },

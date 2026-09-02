@@ -905,7 +905,7 @@
       "badgeFree": "Offre gratuite",
       "h1Line1": "Tes reps te paient",
       "h1Accent": "en vrai cash.",
-      "sub": "820+ exercices. Des plans conçus par l'IA. Des cash challenges de 30 jours. Le seul training club qui te paie pour être au rendez-vous.",
+      "sub": "820+ exercices. Des plans générés. Des cash challenges de 30 jours. Le seul training club qui te paie pour être au rendez-vous.",
       "ctaPrimary": "Devenir Founding Member →",
       "ctaSecondary": "Voir comment ça marche ↓",
       "captureConfirm": "C'est bon, t'es dedans. On t'écrit au lancement.",
@@ -976,7 +976,7 @@
     "library": {
       "h2Line1": "Tout",
       "h2Line2": "ce qu'il te faut.",
-      "desc": "820+ exercices — 432 en salle, 396 à la maison. 140 entraînements. Des plans générés par IA. Tous les formats, de la force à la barre aux routines du matin.",
+      "desc": "820+ exercices — 432 en salle, 396 à la maison. 140 entraînements. Des plans générés. Tous les formats, de la force à la barre aux routines du matin.",
       "features": [
         {
           "num": "01",
@@ -995,7 +995,7 @@
         },
         {
           "num": "04",
-          "name": "AI Generator",
+          "name": "Générateur de séances",
           "desc": "Dis à Libo ton temps et ton matériel. Il te construit une vraie séance autour de ton objectif et de ton niveau."
         },
         {
@@ -1015,7 +1015,7 @@
       "c2Name": "Bibliothèque d'entraînements",
       "c2Desc": "140 séances prêtes à l'emploi — salle, maison, cardio, étirements, routines du matin. De 5 à 60 minutes.",
       "c2DescMobile": "140 séances prêtes à l'emploi, de 5 à 60 minutes.",
-      "c3Name": "Générateur IA",
+      "c3Name": "Générateur de séances",
       "c3Desc": "Dis à Libo ton temps et ton matériel. Il te construit une vraie séance autour de ton objectif et de ton niveau.",
       "c3DescMobile": "Dis à Libo ton temps et ton matériel — il construit la séance.",
       "c4Name": "Suivi de progression",
@@ -1029,7 +1029,7 @@
       "c6DescMobile": "30 jours de reps quotidiennes avec du vrai argent comme preuve.",
       "h2a": "Tout ce que tu reçois",
       "h2b": "avec Libo World.",
-      "descMobile": "820+ exercices — 432 en salle, 396 à la maison. 140 entraînements. Des plans générés par IA.",
+      "descMobile": "820+ exercices — 432 en salle, 396 à la maison. 140 entraînements. Des plans générés.",
       "phoneAlt": "{{feature}} dans l'app Libo",
       "dotsLabel": "Fonctionnalités de l'app"
     },
@@ -1057,7 +1057,7 @@
         {
           "photo": "beta-marco.png",
           "name": "Gabriel",
-          "meta": "@gabriel · les plans IA convertissent"
+          "meta": "@gabriel · les plans générés convertissent"
         },
         {
           "photo": "beta-paul.png",
@@ -1072,7 +1072,7 @@
       "m3Name": "Guilherme",
       "m3Meta": "@guilherme · 30 min + haltères",
       "m4Name": "Gabriel",
-      "m4Meta": "@gabriel · les plans IA convertissent",
+      "m4Meta": "@gabriel · les plans générés convertissent",
       "m5Name": "Tony",
       "m5Meta": "@tony · 47 ans, plans de mobilité",
       "eyebrowV2": "La communauté Libo",
@@ -1120,7 +1120,7 @@
         {
           "photo": "beta-marco.png",
           "handle": "@gabriel",
-          "quote": "joined the libo beta with low expectations. the AI workout generator is better than my old PT, not even close"
+          "quote": "joined the libo beta with low expectations. the workout generator is better than my old PT, not even close"
         },
         {
           "photo": "beta-paul.png",
@@ -1131,7 +1131,7 @@
       "q1": "vraiment pas le genre salle de sport. venue pour les flows yoga + poids du corps, restée pour les séries. enfin une app qui ne me balance pas des barres à la figure — ma mobilité n'a jamais été aussi bonne.",
       "q2": "JE TESTE LIBO EN BÊTA DEPUIS 6 SEMAINES ET JE SUIS ACCRO. ma technique au squat est tellement meilleure. j'ai gagné €15 sur le cash challenge mais c'est la série qui m'a eue",
       "q3": "d'habitude je suis nul avec les apps mais les plans libo ont vraiment du sens. je lui ai dit que j'avais 30 min et des haltères et il m'a construit un vrai truc. zéro blabla.",
-      "q4": "j'ai rejoint la bêta libo sans trop y croire. le générateur d'entraînements IA est meilleur que mon ancien coach, et de loin",
+      "q4": "j'ai rejoint la bêta libo sans trop y croire. le générateur d'entraînements est meilleur que mon ancien coach, et de loin",
       "q5": "63 ans et méfiant envers les apps de gym bros. j'ai testé libo pendant la bêta et... les plans de mobilité sont irréels. le truc des récompenses est bêtement fun. 2 mois que j'y suis",
       "eyebrowV2": "Programme bêta",
       "h2V2": "Premiers avis."
@@ -1479,7 +1479,7 @@
       },
       {
         "label": "Plateforme",
-        "value": "iOS & Android"
+        "value": "iOS"
       },
       {
         "label": "Étape",
@@ -1509,7 +1509,7 @@
     "boilerplate": {
       "title": "À propos de Libo",
       "titleTag": "· texte de présentation",
-      "body": "Libo est un training club qui paie ses membres en vrai cash pour leur régularité. En plus d'une bibliothèque de 820+ exercices, 140 entraînements et de plans d'entraînement conçus par l'IA, Libo propose des money challenges de 30 jours : les membres atteignent un objectif de reps quotidien, enregistrent la preuve, la partagent publiquement, et encaissent €5 à €50 à la fin du cycle. Libo se lance sur iOS et Android avec une offre gratuite et un abonnement Premium à €79.99/an.",
+      "body": "Libo est un training club qui paie ses membres en vrai cash pour leur régularité. En plus d'une bibliothèque de 820+ exercices, 140 entraînements et de plans d'entraînement générés, Libo propose des money challenges de 30 jours : les membres atteignent un objectif de reps quotidien, enregistrent la preuve, et encaissent €5 à €50 à la fin du cycle. L'enregistrement reste sur ton appareil et le partage est toujours facultatif — ce n'est jamais une condition pour être payé. Libo se lance sur iOS avec une offre gratuite et un abonnement Premium à €79.99/an.",
       "founderTitle": "Noah F.",
       "founderTag": "· fondateur",
       "founderBio": "Noah vient du sport allemand de haut niveau — des années de football en Regionalliga, avec des sélections pour le DFB Stützpunkt et la Westfalenauswahl avec le Bonner SC. Il est aussi le designer derrière la marque de mode Mieuxnoir et le fondateur de Manufactnow, une société de production et de conseil dans la mode. Son pari avec Libo : de vrais enjeux battent la motivation, alors le club met du vrai argent sur la régularité de ses membres. Il écrit sur la psychologie derrière tout ça sur le blog de Libo (« 30 Days, One Habit, Real Money »).",
@@ -1545,7 +1545,7 @@
         },
         {
           "img": "hero-left.png",
-          "label": "Explorer & génération IA"
+          "label": "Explorer & générer"
         },
         {
           "img": "hero-right.png",
@@ -1791,7 +1791,7 @@
         "label": "Entraînements guidés"
       },
       "platforms": {
-        "value": "iOS & Android",
+        "value": "iOS",
         "label": "Les deux stores au lancement"
       },
       "freeTier": {
@@ -1832,7 +1832,7 @@
     },
     "faq": {
       "q1": "C'est quoi Libo ?",
-      "a1": "Un club d'entraînement : 820+ exercices, 140 entraînements, des plans générés par IA, une série qui ne retombe jamais à zéro — et des cash challenges de 30 jours qui paient du vrai argent pour ta régularité.",
+      "a1": "Un club d'entraînement : 820+ exercices, 140 entraînements, des plans générés, une série qui ne retombe jamais à zéro — et des cash challenges de 30 jours qui paient du vrai argent pour ta régularité.",
       "q2": "Combien coûte l'adhésion ?",
       "a2": "Il y a un niveau Free — pas de carte nécessaire. Premium coûte €79.99 par an (environ €6.67/mois) ou €12.99 au mois. Les Founding Members bloquent la première année à €39.50.",
       "q3": "C'est quoi un Founding Member ?",
@@ -1871,7 +1871,7 @@
     "pocket": {
       "titleLine1": "Tout ton club",
       "titleLine2": "dans ta poche.",
-      "body": "Plans, séances guidées, séries, cash challenges et récompenses — une seule app, sur iOS et Android, dès le jour du lancement.",
+      "body": "Plans, séances guidées, séries, cash challenges et récompenses — une seule app, sur iOS, dès le jour du lancement.",
       "photoAlt": "Un résumé de séance Libo terminé, prêt à partager",
       "h2a": "Tout ton club,",
       "h2b": "dans ta poche.",
@@ -1938,7 +1938,7 @@
         "perk2": "Suivi de progression de base",
         "perk3": "Cash challenge d'entrée (€5)",
         "perk4": "Série d'activité & points",
-        "perk5": "Générateur IA — 3 plans/mois",
+        "perk5": "Générateur de plans — 3 plans/mois",
         "cta": "Commencer gratuitement"
       },
       "founding": {
@@ -1966,7 +1966,7 @@
         "perk2": "Cash challenges jusqu'à €50",
         "perk3": "Statistiques avancées & records",
         "perk4": "1 jeton freeze par challenge, +1 à gagner",
-        "perk5": "Générateur IA illimité",
+        "perk5": "Générateur de plans illimité",
         "cta": "Disponible au lancement"
       }
     },

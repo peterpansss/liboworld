@@ -931,7 +931,7 @@
       "badgeFree": "Kostenlose Stufe",
       "h1Line1": "Deine Reps zahlen",
       "h1Accent": "echtes Cash.",
-      "sub": "820+ Übungen. KI-erstellte Pläne. 30-Tage-Cash-Challenges. Der einzige Training Club, der dich fürs Auftauchen bezahlt.",
+      "sub": "820+ Übungen. Generierte Pläne. 30-Tage-Cash-Challenges. Der einzige Training Club, der dich fürs Auftauchen bezahlt.",
       "ctaPrimary": "Founding Member werden →",
       "ctaSecondary": "So funktioniert's ↓",
       "captureConfirm": "Du bist dabei. Wir mailen dir zum Launch.",
@@ -1002,7 +1002,7 @@
     "library": {
       "h2Line1": "Alles,",
       "h2Line2": "was du brauchst.",
-      "desc": "820+ Übungen — 432 Gym, 396 Home. 140 Workouts. KI-erstellte Pläne. Jedes Format, von Langhantel-Kraft bis Morgenroutine.",
+      "desc": "820+ Übungen — 432 Gym, 396 Home. 140 Workouts. Generierte Pläne. Jedes Format, von Langhantel-Kraft bis Morgenroutine.",
       "features": [
         {
           "num": "01",
@@ -1021,7 +1021,7 @@
         },
         {
           "num": "04",
-          "name": "AI Generator",
+          "name": "Workout-Generator",
           "desc": "Sag Libo deine Zeit und dein Equipment. Es baut eine echte Session um dein Ziel und dein Level."
         },
         {
@@ -1041,7 +1041,7 @@
       "c2Name": "Workout-Bibliothek",
       "c2Desc": "140 fertige Sessions — Gym, Home, Cardio, Stretching, Morgenroutinen. 5 bis 60 Minuten.",
       "c2DescMobile": "140 fertige Sessions, 5 bis 60 Minuten.",
-      "c3Name": "KI-Generator",
+      "c3Name": "Workout-Generator",
       "c3Desc": "Sag Libo deine Zeit und dein Equipment. Daraus wird eine echte Session für dein Ziel und Level.",
       "c3DescMobile": "Sag Libo deine Zeit und dein Equipment — Libo baut die Session.",
       "c4Name": "Fortschritts-Tracking",
@@ -1055,7 +1055,7 @@
       "c6DescMobile": "30 Tage tägliche Reps mit echtem Geld als Beweis.",
       "h2a": "Alles, was du bekommst",
       "h2b": "mit Libo World.",
-      "descMobile": "820+ Übungen — 432 Gym, 396 Home. 140 Workouts. KI-erstellte Pläne.",
+      "descMobile": "820+ Übungen — 432 Gym, 396 Home. 140 Workouts. Generierte Pläne.",
       "phoneAlt": "{{feature}} in der Libo App",
       "dotsLabel": "App-Features"
     },
@@ -1083,7 +1083,7 @@
         {
           "photo": "beta-marco.png",
           "name": "Gabriel",
-          "meta": "@gabriel · KI-Pläne liefern"
+          "meta": "@gabriel · generierte Pläne liefern"
         },
         {
           "photo": "beta-paul.png",
@@ -1098,7 +1098,7 @@
       "m3Name": "Guilherme",
       "m3Meta": "@guilherme · 30 min + Kurzhanteln",
       "m4Name": "Gabriel",
-      "m4Meta": "@gabriel · KI-Pläne liefern",
+      "m4Meta": "@gabriel · generierte Pläne liefern",
       "m5Name": "Tony",
       "m5Meta": "@tony · 47, Mobility-Pläne",
       "eyebrowV2": "Die Libo Community",
@@ -1146,7 +1146,7 @@
         {
           "photo": "beta-marco.png",
           "handle": "@gabriel",
-          "quote": "joined the libo beta with low expectations. the AI workout generator is better than my old PT, not even close"
+          "quote": "joined the libo beta with low expectations. the workout generator is better than my old PT, not even close"
         },
         {
           "photo": "beta-paul.png",
@@ -1157,7 +1157,7 @@
       "q1": "überhaupt kein gym-mensch. kam für die yoga- + bodyweight-flows, geblieben wegen der streaks. endlich eine app, die mir keine langhanteln aufdrängt — meine mobility war noch nie so gut.",
       "q2": "TESTE LIBO SEIT 6 WOCHEN IN DER BETA UND BIN SÜCHTIG. meine technik bei squats ist so viel besser. hab €15 mit der cash challenge verdient, aber der streak hat mich gepackt",
       "q3": "ich bin normalerweise so schlecht mit apps, aber libos pläne ergeben tatsächlich sinn. hab gesagt ich hab 30 min und kurzhanteln und es hat mir was echtes gebaut. kein blabla.",
-      "q4": "bin mit niedrigen erwartungen in die libo beta. der ki-workout-generator ist besser als mein alter pt, nicht mal knapp",
+      "q4": "bin mit niedrigen erwartungen in die libo beta. der workout-generator ist besser als mein alter pt, nicht mal knapp",
       "q5": "63 und skeptisch bei gym-bro-apps. hab libo in der beta ausprobiert und... die mobility-pläne sind unfassbar. das rewards-ding macht dumm spaß. 2 monate dabei",
       "eyebrowV2": "Beta-Programm",
       "h2V2": "Erste Reviews."
@@ -1507,7 +1507,7 @@
       },
       {
         "label": "Plattform",
-        "value": "iOS & Android"
+        "value": "iOS"
       },
       {
         "label": "Phase",
@@ -1537,7 +1537,7 @@
     "boilerplate": {
       "title": "Über Libo",
       "titleTag": "· Boilerplate",
-      "body": "Libo ist ein Training Club, der Mitglieder für Konsistenz mit echtem Cash bezahlt. Neben einer Bibliothek aus 820+ Übungen, 140 Workouts und KI-erstellten Trainingsplänen laufen bei Libo 30-tägige Money Challenges: Members erreichen ein tägliches Rep-Ziel, nehmen den Beweis auf, teilen ihn öffentlich und cashen am Ende des Cycles €5–€50 aus. Libo startet auf iOS und Android mit einem für-immer-kostenlosen Tarif und einem Premium-Abo für €79.99/Jahr.",
+      "body": "Libo ist ein Training Club, der Mitglieder für Konsistenz mit echtem Cash bezahlt. Neben einer Bibliothek aus 820+ Übungen, 140 Workouts und generierten Trainingsplänen laufen bei Libo 30-tägige Money Challenges: Members erreichen ein tägliches Rep-Ziel, nehmen den Beweis auf und cashen am Ende des Cycles €5–€50 aus. Die Aufnahme bleibt auf deinem Gerät und Teilen ist immer freiwillig — es ist nie Bedingung für die Auszahlung. Libo startet auf iOS mit einem kostenlosen Tarif und einem Premium-Abo für €79.99/Jahr.",
       "founderTitle": "Noah F.",
       "founderTag": "· Gründer",
       "founderBio": "Noah kommt aus dem deutschen Leistungssport — jahrelang Regionalliga-Fußball, mit Berufungen in den DFB Stützpunkt und die Westfalenauswahl mit dem Bonner SC. Er ist außerdem der Designer hinter dem Modelabel Mieuxnoir und Gründer von Manufactnow, einer Modeproduktions- und Beratungsfirma. Seine Wette mit Libo: Echter Einsatz schlägt Motivation, also setzt der Club echtes Geld auf die Konsistenz seiner Mitglieder. Über die Psychologie dahinter schreibt er im Libo-Blog (\"30 Days, One Habit, Real Money\").",
@@ -1573,7 +1573,7 @@
         },
         {
           "img": "hero-left.png",
-          "label": "Explore & AI-Generieren"
+          "label": "Explore & Generieren"
         },
         {
           "img": "hero-right.png",
@@ -1791,7 +1791,7 @@
         "label": "Geführte Workouts"
       },
       "platforms": {
-        "value": "iOS & Android",
+        "value": "iOS",
         "label": "Beide Stores zum Launch"
       },
       "freeTier": {
@@ -1832,7 +1832,7 @@
     },
     "faq": {
       "q1": "Was ist Libo?",
-      "a1": "Ein Trainingsclub: 820+ Übungen, 140 Workouts, KI-erstellte Pläne, ein Streak, der nie auf null fällt — und 30-Tage-Cash-Challenges, die echtes Geld für Konstanz zahlen.",
+      "a1": "Ein Trainingsclub: 820+ Übungen, 140 Workouts, generierte Pläne, ein Streak, der nie auf null fällt — und 30-Tage-Cash-Challenges, die echtes Geld für Konstanz zahlen.",
       "q2": "Was kostet die Mitgliedschaft?",
       "a2": "Es gibt eine Gratis-Version — keine Karte nötig. Premium kostet €79.99 im Jahr (etwa €6.67/Monat) oder €12.99 monatlich. Founding Members sichern sich das erste Jahr für €39.50.",
       "q3": "Was ist ein Founding Member?",
@@ -1871,7 +1871,7 @@
     "pocket": {
       "titleLine1": "Dein ganzer Club",
       "titleLine2": "in deiner Tasche.",
-      "body": "Pläne, geführte Sessions, Streaks, Cash Challenges und Rewards — eine App, auf iOS und Android, ab Launch-Tag.",
+      "body": "Pläne, geführte Sessions, Streaks, Cash Challenges und Rewards — eine App, auf iOS, ab Launch-Tag.",
       "photoAlt": "Eine fertige Libo Session-Zusammenfassung, bereit zum Teilen",
       "h2a": "Dein ganzer Club,",
       "h2b": "in deiner Tasche.",
@@ -1938,7 +1938,7 @@
         "perk2": "Basis-Fortschritts-Tracking",
         "perk3": "Einsteiger-Cash-Challenge (€5)",
         "perk4": "Aktivitäts-Streak & Punkte",
-        "perk5": "KI-Generator — 3 Pläne/Monat",
+        "perk5": "Plan-Generator — 3 Pläne/Monat",
         "cta": "Gratis starten"
       },
       "founding": {
@@ -1966,7 +1966,7 @@
         "perk2": "Cash Challenges bis €50",
         "perk3": "Erweiterte Statistiken & PRs",
         "perk4": "1 Freeze-Token pro Challenge, +1 kannst du dir verdienen",
-        "perk5": "Unbegrenzter KI-Generator",
+        "perk5": "Unbegrenzter Plan-Generator",
         "cta": "Verfügbar zum Launch"
       }
     },

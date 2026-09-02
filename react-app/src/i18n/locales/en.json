@@ -931,7 +931,7 @@
       "badgeFree": "Free tier",
       "h1Line1": "Your reps pay",
       "h1Accent": "real cash.",
-      "sub": "820+ exercises. AI-built plans. 30-day cash challenges. The only training club that pays you to show up.",
+      "sub": "820+ exercises. Generated plans. 30-day cash challenges. The only training club that pays you to show up.",
       "ctaPrimary": "Become a Founding Member →",
       "ctaSecondary": "See how it works ↓",
       "captureConfirm": "You're in. We email you at launch.",
@@ -1002,7 +1002,7 @@
     "library": {
       "h2Line1": "Everything",
       "h2Line2": "you need.",
-      "desc": "820+ exercises — 432 gym, 396 home. 140 workouts. AI-built plans. Every format from barbell strength to morning routines.",
+      "desc": "820+ exercises — 432 gym, 396 home. 140 workouts. Generated plans. Every format from barbell strength to morning routines.",
       "features": [
         {
           "num": "01",
@@ -1021,7 +1021,7 @@
         },
         {
           "num": "04",
-          "name": "AI Generator",
+          "name": "Workout Generator",
           "desc": "Tell Libo your time and equipment. It builds a real session around your goal and level."
         },
         {
@@ -1041,7 +1041,7 @@
       "c2Name": "Workout library",
       "c2Desc": "140 pre-built sessions — gym, home, cardio, stretching, morning routines. 5 to 60 minutes.",
       "c2DescMobile": "140 pre-built sessions, 5 to 60 minutes.",
-      "c3Name": "AI generator",
+      "c3Name": "Workout generator",
       "c3Desc": "Tell Libo your time and equipment. It builds a real session around your goal and level.",
       "c3DescMobile": "Tell Libo your time and equipment — it builds the session.",
       "c4Name": "Progress tracking",
@@ -1055,7 +1055,7 @@
       "c6DescMobile": "30 days of daily reps with real money as the proof.",
       "h2a": "Everything you get",
       "h2b": "with Libo World.",
-      "descMobile": "820+ exercises — 432 gym, 396 home. 140 workouts. AI-built plans.",
+      "descMobile": "820+ exercises — 432 gym, 396 home. 140 workouts. Generated plans.",
       "phoneAlt": "{{feature}} in the Libo app",
       "dotsLabel": "App features"
     },
@@ -1083,7 +1083,7 @@
         {
           "photo": "beta-marco.png",
           "name": "Gabriel",
-          "meta": "@gabriel · AI plans convert"
+          "meta": "@gabriel · generated plans convert"
         },
         {
           "photo": "beta-paul.png",
@@ -1098,7 +1098,7 @@
       "m3Name": "Guilherme",
       "m3Meta": "@guilherme · 30 min + dumbbells",
       "m4Name": "Gabriel",
-      "m4Meta": "@gabriel · AI plans convert",
+      "m4Meta": "@gabriel · generated plans convert",
       "m5Name": "Tony",
       "m5Meta": "@tony · 47, mobility plans",
       "eyebrowV2": "The Libo community",
@@ -1146,7 +1146,7 @@
         {
           "photo": "beta-marco.png",
           "handle": "@gabriel",
-          "quote": "joined the libo beta with low expectations. the AI workout generator is better than my old PT, not even close"
+          "quote": "joined the libo beta with low expectations. the workout generator is better than my old PT, not even close"
         },
         {
           "photo": "beta-paul.png",
@@ -1157,7 +1157,7 @@
       "q1": "not a gym person at all. came for the yoga + bodyweight flows, stayed for the streaks. finally an app that doesn't shove barbells at me — my mobility's the best it's ever been.",
       "q2": "BETA TESTING LIBO FOR 6 WEEKS AND IM HOOKED. my form on squats is so much better. earned €15 on the cash challenge but the streak is what got me",
       "q3": "im usually so bad with apps but libo's plans actually make sense. told it i have 30 min and dumbbells and it built me something real. no fluff.",
-      "q4": "joined the libo beta with low expectations. the AI workout generator is better than my old PT, not even close",
+      "q4": "joined the libo beta with low expectations. the workout generator is better than my old PT, not even close",
       "q5": "63 and skeptical about gym-bro apps. picked up libo in the beta and... the mobility plans are unreal. rewards thing is dumb fun. 2 months in",
       "eyebrowV2": "Beta program",
       "h2V2": "Early reviews."
@@ -1568,7 +1568,7 @@
       },
       {
         "label": "Platform",
-        "value": "iOS & Android"
+        "value": "iOS"
       },
       {
         "label": "Stage",
@@ -1598,7 +1598,7 @@
     "boilerplate": {
       "title": "About Libo",
       "titleTag": "· boilerplate",
-      "body": "Libo is a training club that pays members real cash for consistency. Alongside a library of 820+ exercises, 140 workouts, and AI-built training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, share it publicly, and cash out €5–€50 at the end of the cycle. Libo launches on iOS and Android with a free-forever tier and a Premium subscription at €79.99/year.",
+      "body": "Libo is a training club that pays members real cash for consistency. Alongside a library of 820+ exercises, 140 workouts, and generated training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, and cash out €5–€50 at the end of the cycle. The recording stays on your device and sharing is always optional — it is never a condition of being paid. Libo launches on iOS with a free tier and a Premium subscription at €79.99/year.",
       "founderTitle": "Noah F.",
       "founderTag": "· founder",
       "founderBio": "Noah comes from German high-performance sport — years of Regionalliga football, with selections for the DFB Stützpunkt and the Westfalenauswahl with Bonner SC. He is also the designer behind the fashion label Mieuxnoir and founder of Manufactnow, a fashion production and consulting company. His bet with Libo: real stakes beat motivation, so the club puts real money on member consistency. He writes about the psychology behind it on the Libo blog (\"30 Days, One Habit, Real Money\").",
@@ -1634,7 +1634,7 @@
         },
         {
           "img": "hero-left.png",
-          "label": "Explore & AI generate"
+          "label": "Explore & generate"
         },
         {
           "img": "hero-right.png",
@@ -1852,7 +1852,7 @@
         "label": "Guided workouts"
       },
       "platforms": {
-        "value": "iOS & Android",
+        "value": "iOS",
         "label": "Both stores at launch"
       },
       "freeTier": {
@@ -1893,7 +1893,7 @@
     },
     "faq": {
       "q1": "What is Libo?",
-      "a1": "A training club: 820+ exercises, 140 workouts, AI-built plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.",
+      "a1": "A training club: 820+ exercises, 140 workouts, generated plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.",
       "q2": "What does membership cost?",
       "a2": "There is a free tier — no card needed. Premium is €79.99 a year (about €6.67/mo) or €12.99 month-to-month. Founding Members lock the first year at €39.50.",
       "q3": "What is a Founding Member?",
@@ -1932,7 +1932,7 @@
     "pocket": {
       "titleLine1": "Your whole club",
       "titleLine2": "in your pocket.",
-      "body": "Plans, guided sessions, streaks, cash challenges and rewards — one app, on iOS and Android, from launch day.",
+      "body": "Plans, guided sessions, streaks, cash challenges and rewards — one app, on iOS, from launch day.",
       "photoAlt": "A finished Libo session summary ready to share",
       "h2a": "Your whole club,",
       "h2b": "in your pocket.",
@@ -1999,7 +1999,7 @@
         "perk2": "Basic progress tracking",
         "perk3": "Entry-level cash challenge (€5)",
         "perk4": "Activity streak & points",
-        "perk5": "AI generator — 3 plans/mo",
+        "perk5": "Plan generator — 3 plans/mo",
         "cta": "Start free"
       },
       "founding": {
@@ -2027,7 +2027,7 @@
         "perk2": "Cash challenges up to €50",
         "perk3": "Advanced analytics & PRs",
         "perk4": "1 freeze token per challenge, +1 you can earn",
-        "perk5": "Unlimited AI generator",
+        "perk5": "Unlimited plan generator",
         "cta": "Available at launch"
       }
     },

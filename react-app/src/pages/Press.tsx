@@ -104,7 +104,7 @@ export default function Press() {
 
   const boilerplate = t('pressKit.boilerplate.body', {
     defaultValue:
-      'Libo is a training club that pays members real cash for consistency. Alongside a library of 820+ exercises, 140 workouts, and AI-built training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, share it publicly, and cash out €5–€50 at the end of the cycle. Libo launches on iOS with a free tier and a Premium subscription at €79.99/year.',
+      'Libo is a training club that pays members real cash for consistency. Alongside a library of 820+ exercises, 140 workouts, and generated training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, and cash out €5–€50 at the end of the cycle. The recording stays on your device and sharing is always optional — it is never a condition of being paid. Libo launches on iOS with a free tier and a Premium subscription at €79.99/year.',
   });
 
   usePopIn();

@@ -101,7 +101,7 @@ export default function Landing() {
     },
     {
       num: '03',
-      name: t('relaunchHome.library.c3Name', { defaultValue: 'AI generator' }),
+      name: t('relaunchHome.library.c3Name', { defaultValue: 'Workout generator' }),
       desc: t('relaunchHome.library.c3Desc', {
         defaultValue: 'Tell Libo your time and equipment. It builds a real session around your goal and level.',
       }),
@@ -218,7 +218,7 @@ export default function Landing() {
     {
       photo: 'beta-marco.png',
       name: t('relaunchHome.community.m4Name', { defaultValue: 'Gabriel' }),
-      meta: t('relaunchHome.community.m4Meta', { defaultValue: '@gabriel · AI plans convert' }),
+      meta: t('relaunchHome.community.m4Meta', { defaultValue: '@gabriel · generated plans convert' }),
     },
     {
       photo: 'beta-paul.png',
@@ -260,7 +260,7 @@ export default function Landing() {
       handle: '@gabriel',
       quote: t('relaunchHome.reviews.q4', {
         defaultValue:
-          'joined the libo beta with low expectations. the AI workout generator is better than my old PT, not even close',
+          'joined the libo beta with low expectations. the workout generator is better than my old PT, not even close',
       }),
     },
     {

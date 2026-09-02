@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T14:44:18.257Z",
+  "generatedAt": "2026-09-02T09:32:34.422Z",
   "langs": [
     "en",
     "es",
@@ -58,23 +58,23 @@
       "id": "free",
       "en": {
         "q": "Is Libo free?",
-        "a": "Libo offers a free tier with access to workouts, exercises, basic tracking, an activity streak and points, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, 2 freeze tokens per challenge, and the €15 and €50 challenge tiers."
+        "a": "Libo offers a free tier with access to workouts, exercises, basic tracking, an activity streak and points, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, a freeze token for every challenge, and the €15 and €50 challenge tiers."
       },
       "es": {
         "q": "¿Libo es gratis?",
-        "a": "Libo ofrece un plan gratuito con acceso a entrenamientos, ejercicios, seguimiento básico, una racha de actividad con puntos y un reto de dinero de nivel inicial. Premium desbloquea la biblioteca completa, analíticas avanzadas, 2 fichas de congelación por reto y los niveles de €15 y €50."
+        "a": "Libo ofrece un plan gratuito con acceso a entrenamientos, ejercicios, seguimiento básico, una racha de actividad con puntos y un reto de dinero de nivel inicial. Premium desbloquea la biblioteca completa, analíticas avanzadas, una ficha de congelación en cada reto y los niveles de €15 y €50."
       },
       "pt": {
         "q": "A Libo é grátis?",
-        "a": "A Libo oferece um plano gratuito com acesso a treinos, exercícios, acompanhamento básico, uma sequência de atividade com pontos e um desafio de dinheiro inicial. O Premium libera a biblioteca completa, análises avançadas, 2 fichas de congelamento por desafio e os níveis de €15 e €50."
+        "a": "A Libo oferece um plano gratuito com acesso a treinos, exercícios, acompanhamento básico, uma sequência de atividade com pontos e um desafio de dinheiro inicial. O Premium libera a biblioteca completa, análises avançadas, uma ficha de congelamento em cada desafio e os níveis de €15 e €50."
       },
       "de": {
         "q": "Ist Libo kostenlos?",
-        "a": "Libo bietet eine kostenlose Stufe mit Zugriff auf Workouts, Übungen, einfaches Tracking, eine Aktivitäts-Streak samt Punkten und eine Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Analysen, 2 Freeze-Tokens pro Challenge und die €15- und €50-Stufen."
+        "a": "Libo bietet eine kostenlose Stufe mit Zugriff auf Workouts, Übungen, einfaches Tracking, eine Aktivitäts-Streak samt Punkten und eine Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Analysen, ein Freeze-Token pro Challenge und die €15- und €50-Stufen."
       },
       "fr": {
         "q": "Libo est-il gratuit ?",
-        "a": "Libo propose une offre gratuite avec accès aux entraînements, aux exercices, au suivi de base, aux concours de produits courants, et à un cash challenge d'entrée de gamme. Premium débloque la bibliothèque complète, des analyses avancées, des récompenses en cash plus élevées (jusqu'à €50) et les concours Premium."
+        "a": "Libo propose une offre gratuite avec accès aux entraînements, aux exercices, au suivi de base, à une série d'activité avec des points, et à un cash challenge d'entrée de gamme. Premium débloque la bibliothèque complète, des analyses avancées, un jeton freeze pour chaque challenge, et les niveaux de challenge à €15 et €50."
       }
     },
     {
