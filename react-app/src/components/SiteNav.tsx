@@ -27,7 +27,7 @@ const NAV_LINKS = [
 ] as const;
 
 // Filtered at RENDER time, never at module load — the founding item has to
-// remove itself when the clock passes LAUNCH_DATE, without a deploy, exactly
+// remove itself when the clock passes FOUNDING_CLOSE_DATE, without a deploy, exactly
 // as the countdown and the /membership founding card already do.
 const visibleNavLinks = () =>
   NAV_LINKS.filter((l) => l.to !== '/join' || isFoundingOpen());
@@ -60,7 +60,7 @@ export default function SiteNav() {
   const onMembership = location.pathname.startsWith('/membership');
   const showOffer = isPrelaunch() && isStripeConfigured() && isFoundingOpen() && onMembership;
   // Fallback, not "everywhere except /membership": once the founding offer
-  // closes on LAUNCH_DATE, /membership would otherwise be the one page with no
+  // closes on FOUNDING_CLOSE_DATE, /membership would otherwise be the one page with no
   // bar at all. The waitlist bar takes over there too.
   const showWaitlist = isPrelaunch() && !showOffer;
   const showAnnounce = (showOffer || showWaitlist) && !announceDismissed && announceAllowedHere;

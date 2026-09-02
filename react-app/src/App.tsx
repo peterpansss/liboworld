@@ -59,7 +59,7 @@ function ScrollToTop() {
 // Marketing pages
 import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
-import { isPrelaunch } from './config/launchMode';
+import { isPrelaunch, FUNNEL_PAGES_ENABLED } from './config/launchMode';
 import FoundingCheckoutProvider from './components/funnel/FoundingCheckoutProvider';
 import CursorFollower from './components/CursorFollower';
 import ConsentBanner from './components/ConsentBanner';
@@ -152,8 +152,8 @@ export default function App() {
         <Route path="/rules" element={<Suspense fallback={darkFallback}><Rules /></Suspense>} />
         <Route path="/auth/callback" element={<Suspense fallback={darkFallback}><AuthCallback /></Suspense>} />
         <Route path="/auth/confirm" element={<Suspense fallback={darkFallback}><AuthConfirm /></Suspense>} />
-        <Route path="/giveaway" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><Giveaway /></Suspense>} />
-        <Route path="/cash-challenge" element={isPrelaunch() ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
+        <Route path="/giveaway" element={!FUNNEL_PAGES_ENABLED ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><Giveaway /></Suspense>} />
+        <Route path="/cash-challenge" element={!FUNNEL_PAGES_ENABLED ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
         {/* /get-app UA-routes to the App Store, but there is no listing yet — it
             would dump visitors on apps.apple.com's homepage. Send them home until
             launch; flipping LAUNCH_MODE to 'launched' restores the real endpoint. */}

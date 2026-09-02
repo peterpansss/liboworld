@@ -42,7 +42,7 @@ export default function JoinFunnel() {
   const { openFoundingCheckout } = useFoundingCheckout();
   const stripeReady = isStripeConfigured();
   // Called at render, never captured at module load — the pre-sale closes
-  // itself on LAUNCH_DATE with no deploy (config/launchMode.ts).
+  // itself on FOUNDING_CLOSE_DATE with no deploy (config/launchMode.ts).
   const foundingOpen = isFoundingOpen();
   usePopIn();
 
@@ -146,7 +146,7 @@ export default function JoinFunnel() {
       q: t('joinFunnel.faq.q1', { defaultValue: 'What is Libo?' }),
       a: t('joinFunnel.faq.a1', {
         defaultValue:
-          'A training club: 820+ exercises, 140 workouts, AI-built plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.',
+          'A training club: 820+ exercises, 140 workouts, generated plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.',
       }),
     },
     {

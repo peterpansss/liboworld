@@ -4,7 +4,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import LiboLogo from './LiboLogo';
 import StoreBadges from './StoreBadges';
 import { resetConsent } from '../lib/consent';
-import { isPrelaunch } from '../config/launchMode';
+import { isPrelaunch, FUNNEL_PAGES_ENABLED } from '../config/launchMode';
 import './SiteFooter.css';
 
 export default function SiteFooter() {
@@ -47,7 +47,7 @@ export default function SiteFooter() {
               <Link to="/cash-challenges">{t('footer.cashChallengesLink', { defaultValue: 'Cash Challenges' })}</Link>
               <Link to="/membership">{t('footer.pricing', { defaultValue: 'Pricing' })}</Link>
               {!isPrelaunch() && (<Link to="/#rewards">{t('footer.rewardsLink')}</Link>)}
-              {!isPrelaunch() && (<Link to="/giveaway">{t('footer.giveaways')}</Link>)}
+              {FUNNEL_PAGES_ENABLED && (<Link to="/giveaway">{t('footer.giveaways')}</Link>)}
               <Link to="/creator-program">{t('footer.creatorProgram', { defaultValue: 'Creator Program' })}</Link>
             </div>
           </div>

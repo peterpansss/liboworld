@@ -87,7 +87,7 @@ export default function ChallengeFunnel() {
   const { t } = useTranslation();
   const { openFoundingCheckout } = useFoundingCheckout();
   const stripeReady = isStripeConfigured();
-  // Read at render so the upsell closes itself on LAUNCH_DATE without a deploy
+  // Read at render so the upsell closes itself on FOUNDING_CLOSE_DATE without a deploy
   // (config/launchMode.ts). Only the Premium upsell is gated — the challenge
   // itself, including the free €5 Starter, is unaffected.
   const foundingOpen = isFoundingOpen();
@@ -105,7 +105,7 @@ export default function ChallengeFunnel() {
 
   // The ONE priced label on the page: the paid tiers' close button + sticky bar.
   // Once the pre-sale closes it drops back to the unpriced label — the €39.50
-  // founding price must not be advertised past LAUNCH_DATE.
+  // founding price must not be advertised past FOUNDING_CLOSE_DATE.
   const ctaPricedLabel =
     isFree || !foundingOpen
       ? ctaLabel
