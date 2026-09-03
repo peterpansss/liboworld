@@ -32,8 +32,15 @@ export const FUNNEL_PAGES_ENABLED = false;
 export const LAUNCH_DATE = '2026-09-03T00:00:00+02:00';
 
 // Founding is sold THROUGH launch day and closes at the end of it, so this is
-// midnight at the close of 3 Sep — i.e. 4 Sep 00:00, not 3 Sep 00:00.
-export const FOUNDING_CLOSE_DATE = '2026-09-04T00:00:00+02:00';
+// midnight at the close of the final day — i.e. the NEXT day's 00:00.
+//
+// Extended 3 Sep 2026 (Noah): iOS was still 'In Review' on launch day with no
+// date from Apple, so founding was held open to Sun 7 Sep rather than closing
+// on an opening day the app never opened on. This date is deliberately fixed
+// and NOT tied to App Review — the offer has to have a deadline a customer can
+// act on, and Apple's timing is not knowable. If review drags past Sunday,
+// move this again on purpose; do not make it open-ended.
+export const FOUNDING_CLOSE_DATE = '2026-09-08T00:00:00+02:00';
 
 // Call this at RENDER time, never at module load — the offer has to close
 // itself while a long-lived tab is open, without a rebuild.
