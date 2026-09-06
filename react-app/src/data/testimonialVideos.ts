@@ -64,8 +64,6 @@ export type TestimonialVideo = {
    * circle cuts the forehead off, so this is framed separately.
    */
   avatar: string;
-  /** Caption track, served from the site itself. */
-  vtt: string;
   /**
    * Exactly as it appears on the card, which renders it uppercase.
    *
@@ -92,7 +90,6 @@ function urls(base: string) {
     src720: `${CDN}/${base}-720p.mp4?v=${V}`,
     poster: `/funnel-media/${base}-poster.jpg`,
     avatar: `/funnel-media/${base}-avatar.jpg`,
-    vtt: `/funnel-media/${base}.vtt`,
   };
 }
 

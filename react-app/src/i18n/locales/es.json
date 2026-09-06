@@ -1164,7 +1164,8 @@
     },
     "videoReviews": {
       "h2": "Lo que dice gente como tú.",
-      "play": "Reproducir: la reseña de {{name}}, {{duration}}"
+      "play": "Reproducir: la reseña de {{name}}, {{duration}}",
+      "pause": "Pausar: la reseña de {{name}}"
     },
     "faq": {
       "headline": "Preguntas frecuentes.",

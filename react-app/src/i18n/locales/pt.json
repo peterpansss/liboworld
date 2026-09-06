@@ -1164,7 +1164,8 @@
     },
     "videoReviews": {
       "h2": "O que dizem pessoas como você.",
-      "play": "Reproduzir: a avaliação de {{name}}, {{duration}}"
+      "play": "Reproduzir: a avaliação de {{name}}, {{duration}}",
+      "pause": "Pausar: a avaliação de {{name}}"
     },
     "faq": {
       "headline": "Perguntas frequentes.",

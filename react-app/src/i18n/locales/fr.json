@@ -1138,7 +1138,8 @@
     },
     "videoReviews": {
       "h2": "Ce que disent des gens comme vous.",
-      "play": "Lire : l’avis de {{name}}, {{duration}}"
+      "play": "Lire : l’avis de {{name}}, {{duration}}",
+      "pause": "Mettre en pause : l’avis de {{name}}"
     },
     "faq": {
       "headline": "Questions fréquentes.",

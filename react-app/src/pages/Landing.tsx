@@ -774,6 +774,12 @@ export default function Landing() {
                   duration,
                 })
               }
+              pauseLabelFor={(name) =>
+                t('relaunchHome.videoReviews.pause', {
+                  defaultValue: `Pause: ${name}'s review`,
+                  name,
+                })
+              }
             />
 
             <div className="rh-reviews-grid">

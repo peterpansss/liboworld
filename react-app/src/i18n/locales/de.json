@@ -1164,7 +1164,8 @@
     },
     "videoReviews": {
       "h2": "Was Leute wie du sagen.",
-      "play": "Abspielen: Bewertung von {{name}}, {{duration}}"
+      "play": "Abspielen: Bewertung von {{name}}, {{duration}}",
+      "pause": "Pausieren: Bewertung von {{name}}"
     },
     "faq": {
       "headline": "Häufige Fragen.",

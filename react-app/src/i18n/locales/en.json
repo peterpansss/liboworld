@@ -1164,7 +1164,8 @@
     },
     "videoReviews": {
       "h2": "What people like you are saying.",
-      "play": "Play: {{name}}'s review, {{duration}}"
+      "play": "Play: {{name}}'s review, {{duration}}",
+      "pause": "Pause: {{name}}’s review"
     },
     "faq": {
       "headline": "Frequently asked.",
