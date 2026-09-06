@@ -18,7 +18,7 @@
     "navigationMenu": "Menu de navigation",
     "changeLanguage": "Changer de langue",
     "moneyChallenges": "Money Challenges",
-    "library": "Bibliothèque",
+    "library": "Bibliothèque d'exercices",
     "founder": "Fondateur",
     "press": "Presse",
     "joinClub": "Rejoins le club →",
@@ -1136,6 +1136,10 @@
       "eyebrowV2": "Programme bêta",
       "h2V2": "Premiers avis."
     },
+    "videoReviews": {
+      "h2": "Ce que disent des gens comme vous.",
+      "play": "Lire : l’avis de {{name}}, {{duration}}"
+    },
     "faq": {
       "headline": "Questions fréquentes.",
       "q1": "En quoi Libo est différent des autres apps de fitness ?",
@@ -1749,7 +1753,8 @@
       "schemaDescription": "Comment fonctionne le cash challenge Libo : choisis un défi, enregistre tes reps dans l'app pendant 30 jours, envoie ta preuve et sois payé à la fin."
     },
     "social": {
-      "title": "Des gens qui ont vraiment été payés."
+      "title": "Des gens qui ont vraiment été payés.",
+      "titleV2": "Des gens qui ont vraiment tenu bon."
     },
     "capture": {
       "confirm": "Tu es sur la liste ✓",

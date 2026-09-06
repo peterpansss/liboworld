@@ -354,17 +354,38 @@
 
 .cf-quote.popped { opacity: 1; transform: none; }
 
+/* min-height, not a fixed height: names are real and some are long. Without a
+   floor, the one two-line name grew its row and pushed that card's quote out of
+   line with the other two; with it, every card's quote starts at the same y and
+   short names simply carry more whitespace. */
 .cf-quote__head {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-height: 64px;
+}
+
+.cf-quote__who {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 
 .cf-quote__photo { width: 32px; height: 32px; border-radius: 100px; object-fit: cover; }
-.cf-quote__handle { color: var(--text); font-size: 14px; font-weight: 600; }
+/* No min-width: 0 here. Flex's default min-content floor is what makes a long
+   name wrap at its spaces ("Dr. Kenneth / Sullivan-Bol") instead of breaking
+   down to one word per line, which is what min-width: 0 produced. */
+.cf-quote__handle {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
 
 .cf-quote__badge {
-  margin-left: auto;
+  flex: none;
+  white-space: nowrap;
   padding: 4px 10px;
   border-radius: 8px;
   background: var(--accent);

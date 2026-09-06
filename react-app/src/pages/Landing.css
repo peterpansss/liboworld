@@ -490,21 +490,28 @@ video.rh-phone {
   gap: 40px;
 }
 .rh-reviews-inner .rh-eyebrow { margin-bottom: 12px; }
-/* 5 reviews in a 3-up grid leaves a dead 6th slot; use a centered flex row
-   so the trailing two cards center under the first three. */
+.rh-reviews-head { margin-bottom: 8px; }
+/* Three written reviews under the video wall, one row, no wrapping — the count
+   matches the grid so there is no dead slot to work around. */
 .rh-reviews-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 .rh-review {
-  flex: 0 1 calc((100% - 32px) / 3);
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 .rh-review-head { display: flex; align-items: center; gap: 12px; }
+/* Pushed to the right edge of the head row, the way an app-store review card
+   sets its rating apart from the reviewer. */
+.rh-review-stars {
+  margin-left: auto;
+  color: var(--libo-accent);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
 .rh-review-photo {
   width: 44px;
   height: 44px;
@@ -710,7 +717,6 @@ video.rh-phone {
   .rh-hero-phones { height: auto; }
   .rh-mechanism,
   .rh-offer { grid-template-columns: 1fr; gap: 40px; }
-    .rh-reviews-grid .rh-review { flex-basis: calc((100% - 16px) / 2); }
   .rh-members { grid-template-columns: repeat(3, 1fr); }
     .rh-founder-inner { flex-wrap: wrap; gap: 24px; }
   .rh-mechanism,
@@ -1469,21 +1475,27 @@ video.rh-phone {
   .rh-inside-cap--2 { order: 3; text-align: center; align-self: start; }
 }
 
-/* ── Early reviews: no card chrome, left-aligned trailing row ────────────── */
+/* ── Early reviews: carded row under the video wall ──────────────────────── */
 
-.rh-review { padding: 0; background: none; border: none; }
+/* These used to be chrome-free text columns. They sit under the video cards
+   now, and unbordered text directly below three heavy 4:5 frames read as
+   orphaned copy rather than as reviews — the panel is what groups them. */
+.rh-review {
+  padding: 24px;
+  border: 1px solid var(--libo-bg-4);
+  border-radius: var(--libo-r-card);
+  background: var(--card);
+}
 
 .rh-reviews-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
+  gap: 20px;
   justify-content: start;
 }
 
 @media (max-width: 767px) {
   .rh-reviews-grid { grid-template-columns: 1fr; }
-  /* Target mobile shows 3 reviews. */
-  .rh-review--desktop { display: none; }
 }
 
 /* ── Creators: copy-only, left column, right half empty ──────────────────── */

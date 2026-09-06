@@ -7,8 +7,10 @@ import { SeoHead } from '../components/SeoHead';
 import ScrollRevealText from '../components/ScrollRevealText';
 import WaitlistCapture from '../components/WaitlistCapture';
 import HomeStickyWaitlist from '../components/HomeStickyWaitlist';
+import VideoTestimonials from '../components/VideoTestimonials';
 import { usePopIn } from '../utils/funnelAnimations';
 import { CHALLENGE_TIERS } from '../data/challengeTiers';
+import { buildTestimonialVideoGraph } from '../data/testimonialVideos';
 import './Landing.css';
 
 // ── Smooth scroll to an in-page anchor (offset for the sticky nav) ──
@@ -230,6 +232,11 @@ export default function Landing() {
   // ── Early reviews. Live beta copy, carried over verbatim EXCEPT the one
   // clause that breaks the canon rules: "@somin · won €10" — "win" is banned
   // ("earn"), and €10 is a superseded tier (€5 / €15 / €50).
+  //
+  // Three, not five. The filmed testimonials above them are now the section's
+  // proof; these back it up. Five left a dead sixth slot in the 3-up grid and
+  // needed a `.rh-review--desktop` hack to hide the overflow on mobile — both
+  // gone with the count.
   const reviews = [
     {
       photo: 'beta-thao.png',
@@ -253,22 +260,6 @@ export default function Landing() {
       quote: t('relaunchHome.reviews.q3', {
         defaultValue:
           "im usually so bad with apps but libo's plans actually make sense. told it i have 30 min and dumbbells and it built me something real. no fluff.",
-      }),
-    },
-    {
-      photo: 'beta-marco.png',
-      handle: '@gabriel',
-      quote: t('relaunchHome.reviews.q4', {
-        defaultValue:
-          'joined the libo beta with low expectations. the workout generator is better than my old PT, not even close',
-      }),
-    },
-    {
-      photo: 'beta-paul.png',
-      handle: '@tony',
-      quote: t('relaunchHome.reviews.q5', {
-        defaultValue:
-          '63 and skeptical about gym-bro apps. picked up libo in the beta and... the mobility plans are unreal. rewards thing is dumb fun. 2 months in',
       }),
     },
   ];
@@ -308,6 +299,7 @@ export default function Landing() {
         description={seoDescription}
         canonical="https://liboworld.com/"
         ogImage="https://liboworld.com/brand/og-image.png"
+        jsonLd={buildTestimonialVideoGraph()}
       />
       <SiteNav />
       <main className="relaunch-home" id="main-content">
@@ -755,24 +747,44 @@ export default function Landing() {
         </section>
 
         {/* ── 7. EARLY REVIEWS ────────────────────────────────────── */}
+        {/* Two tiers: the filmed testimonials carry the section, the written
+            beta reviews back them up underneath. The video wall replaced a
+            third row of avatar-and-text cards — see UserVoices/EDIT-MAP.md §3,
+            "Site swap". */}
         <section className="rh-reviews">
           <div className="rh-reviews-inner">
-            <div>
+            <div className="rh-reviews-head">
               <p className="rh-eyebrow">
                 {t('relaunchHome.reviews.eyebrowV2', { defaultValue: 'Beta program' })}
               </p>
               <h2 className="rh-h2">
                 <ScrollRevealText as="span" className="rh-h2-line">
-                  {t('relaunchHome.reviews.h2V2', { defaultValue: 'Early reviews.' })}
+                  {t('relaunchHome.videoReviews.h2', {
+                    defaultValue: 'What people like you are saying.',
+                  })}
                 </ScrollRevealText>
               </h2>
             </div>
+
+            <VideoTestimonials
+              playLabelFor={(name, duration) =>
+                t('relaunchHome.videoReviews.play', {
+                  defaultValue: `Play: ${name}'s review, ${duration}`,
+                  name,
+                  duration,
+                })
+              }
+            />
+
             <div className="rh-reviews-grid">
-              {reviews.map((r, i) => (
-                <div className={`rh-review${i >= 3 ? ' rh-review--desktop' : ''}`} key={r.handle}>
+              {reviews.map((r) => (
+                <div className="rh-review" key={r.handle}>
                   <div className="rh-review-head">
                     <img className="rh-review-photo" src={`/${r.photo}`} alt="" aria-hidden="true" loading="lazy" />
                     <span className="rh-review-handle">{r.handle}</span>
+                    <span className="rh-review-stars" aria-label="5 out of 5">
+                      {'★★★★★'}
+                    </span>
                   </div>
                   <p className="rh-review-quote">&ldquo;{r.quote}&rdquo;</p>
                 </div>

@@ -20,7 +20,7 @@ const ANNOUNCE_DISMISS_KEY = 'ea_announce_dismissed';
 // waitlist card. Pricing keeps its footer link (footer.pricing → /membership).
 const NAV_LINKS = [
   { labelKey: 'nav.cashChallenges', defaultLabel: 'Cash Challenges', to: '/cash-challenges' },
-  { labelKey: 'nav.library', defaultLabel: 'Library', to: '/exercises' },
+  { labelKey: 'nav.library', defaultLabel: 'Exercise Library', to: '/exercises' },
   { labelKey: 'nav.foundingMember', defaultLabel: 'Founding Member', to: '/join' },
   { labelKey: 'nav.press', defaultLabel: 'Press', to: '/press' },
   { labelKey: 'nav.careers', defaultLabel: 'Careers', to: '/careers' },

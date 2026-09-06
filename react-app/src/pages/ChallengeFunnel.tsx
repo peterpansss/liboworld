@@ -20,6 +20,7 @@ import { usePopIn } from '../utils/funnelAnimations';
 import { getChallengeTier, FUNNEL_TIER_SLUG, type ChallengeTier } from '../data/challengeTiers';
 import FunnelVideo from '../components/funnel/FunnelVideo';
 import { CASH_CHALLENGE_VIDEO, buildFunnelVideoSchema } from '../data/funnelVideos';
+import { TESTIMONIAL_VIDEOS } from '../data/testimonialVideos';
 import './ChallengeFunnel.css';
 
 /**
@@ -53,33 +54,38 @@ const INSIDE_SCREENS = [
 type Testimonial = { photo: string; handle: string; badge: string; quote: string };
 
 /**
- * Beta testimonials, shared by all three tiers. Badges are quotes' own facts
- * ("PAID €15", "8 WEEKS") and deliberately NOT scaled to the tier on screen —
- * these are real people describing what actually happened, not a payout table.
+ * Beta testimonials, shared by all three tiers.
+ *
+ * Derived from `TESTIMONIAL_VIDEOS` rather than retyped. These are the same
+ * three people, saying the same three things, as the homepage video wall — and
+ * a second hand-maintained copy of a verbatim quote is exactly the thing that
+ * drifts until one page misquotes someone. The only difference here is the
+ * avatar: the funnel shows a face in a 32px circle, so it uses the square face
+ * crop rather than the 4:5 poster.
+ *
+ * These replace three fabricated quotes badged "PAID €15" / "8 WEEKS" /
+ * "30 DAYS", attributed to people who do not exist. The docstring that stood
+ * here asserted they were "real people describing what actually happened"; they
+ * were not, and the site audit in
+ * `Brand-Management/Marketing/Pre-Launch/UserVoices/USER-VOICES-BRIEF.md`
+ * logged them as live legal exposure.
+ *
+ * Two rules from `UserVoices/EDIT-MAP.md` that must survive any edit:
+ *
+ *   - the badge is "BETA TESTER". Never a payout, duration or result claim.
+ *   - the quote is what the person said. If it needs a claim it does not make,
+ *     find another person, do not write the line.
+ *
+ * None of the three talks about the cash challenge, so none is quoted as if
+ * they did. They speak to consistency and structure, which is what the
+ * challenge is for.
  */
-const TESTIMONIALS: Testimonial[] = [
-  {
-    photo: '/beta-sarah.png',
-    handle: '@somin',
-    badge: 'PAID €15',
-    quote:
-      'completed the cash challenge in beta and kept the streak after. the money got me started, the streak kept me going',
-  },
-  {
-    photo: '/beta-thao.png',
-    handle: '@redtao_',
-    badge: '8 WEEKS',
-    quote:
-      "legit the only fitness app i've stuck with past month 2. cash challenge thing got me actually doing reps for once",
-  },
-  {
-    photo: '/beta-marco.png',
-    handle: '@gabriel',
-    badge: '30 DAYS',
-    quote:
-      "the daily recording keeps you honest — no way to cheat it. best motivation i've ever had",
-  },
-];
+const TESTIMONIALS: Testimonial[] = TESTIMONIAL_VIDEOS.map((v) => ({
+  photo: v.avatar,
+  handle: v.displayName,
+  badge: v.badge,
+  quote: v.quote,
+}));
 
 export default function ChallengeFunnel() {
   const { tier: slug } = useParams();
@@ -339,15 +345,23 @@ export default function ChallengeFunnel() {
         {/* ── 6. Testimonials ─────────────────────────────────────────────── */}
         <section className="cf-section">
           <ScrollRevealText as="h2" className="cf-h2 font-display">
-            {t('challengeFunnel.social.title', { defaultValue: 'People who actually got paid.' })}
+            {t('challengeFunnel.social.titleV2', {
+              defaultValue: 'People who actually stuck with it.',
+            })}
           </ScrollRevealText>
           <ul className="cf-quotes">
             {TESTIMONIALS.map((q) => (
               <li className="cf-quote" key={q.handle} data-popin>
                 <div className="cf-quote__head">
                   <img className="cf-quote__photo" src={q.photo} alt="" loading="lazy" />
-                  <span className="cf-quote__handle">{q.handle}</span>
-                  <span className="cf-quote__badge font-display">{q.badge}</span>
+                  {/* Name over badge, not beside it. These cards are ~214px wide
+                      and one of the testers is "Dr. Kenneth Sullivan-Bol" — an
+                      avatar, that name and a BETA TESTER pill do not fit on one
+                      row at any font size worth shipping. */}
+                  <div className="cf-quote__who">
+                    <span className="cf-quote__handle">{q.handle}</span>
+                    <span className="cf-quote__badge font-display">{q.badge}</span>
+                  </div>
                 </div>
                 <p className="cf-quote__text">“{q.quote}”</p>
               </li>

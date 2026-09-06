@@ -19,7 +19,7 @@
     "navigationMenu": "Menú de navegación",
     "changeLanguage": "Cambiar idioma",
     "moneyChallenges": "Retos de Dinero",
-    "library": "Biblioteca",
+    "library": "Biblioteca de Ejercicios",
     "founder": "Fundador",
     "press": "Prensa",
     "joinClub": "Únete al club →",
@@ -1162,6 +1162,10 @@
       "eyebrowV2": "Programa beta",
       "h2V2": "Primeras reseñas."
     },
+    "videoReviews": {
+      "h2": "Lo que dice gente como tú.",
+      "play": "Reproducir: la reseña de {{name}}, {{duration}}"
+    },
     "faq": {
       "headline": "Preguntas frecuentes.",
       "q1": "¿En qué se diferencia Libo de otras apps de fitness?",
@@ -1749,7 +1753,8 @@
       "schemaDescription": "Cómo funciona el cash challenge de Libo: elige un reto, registra tus reps en la app durante 30 días, envía tu prueba y cobra al terminar."
     },
     "social": {
-      "title": "Gente que cobró de verdad."
+      "title": "Gente que cobró de verdad.",
+      "titleV2": "Gente que de verdad siguió adelante."
     },
     "capture": {
       "confirm": "Estás en la lista ✓",

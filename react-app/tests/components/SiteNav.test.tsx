@@ -74,7 +74,7 @@ describe('SiteNav', () => {
     expect(screen.getByRole('navigation', { name: 'nav.mainNavigation' })).toBeInTheDocument();
     // The drawer renders the same links (always in the DOM, hidden by CSS),
     // so each label appears twice.
-    ['Cash Challenges', 'Library', 'Founding Member', 'Press', 'Careers'].forEach((label) => {
+    ['Cash Challenges', 'Exercise Library', 'Founding Member', 'Press', 'Careers'].forEach((label) => {
       expect(screen.getAllByText(label).length).toBeGreaterThanOrEqual(1);
     });
     expect(screen.getAllByText('Join the waitlist').length).toBe(2);
@@ -104,7 +104,7 @@ describe('SiteNav', () => {
 
   it('marks the active nav link with aria-current="page"', () => {
     renderAt('/exercises');
-    const libraryLinks = screen.getAllByRole('link', { name: 'Library' });
+    const libraryLinks = screen.getAllByRole('link', { name: 'Exercise Library' });
     expect(libraryLinks.some((l) => l.getAttribute('aria-current') === 'page')).toBe(true);
   });
 
