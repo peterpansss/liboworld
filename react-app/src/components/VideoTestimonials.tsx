@@ -109,11 +109,6 @@ function Card({
         >
           <span className="vt-card__triangle" />
         </span>
-        {!mounted && (
-          <span className="vt-card__duration font-display" aria-hidden="true">
-            {video.duration}
-          </span>
-        )}
       </button>
 
       {/* Stays up for the whole clip. This is the thing the card exists to say,

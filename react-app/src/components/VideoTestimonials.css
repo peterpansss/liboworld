@@ -132,19 +132,6 @@
   border-color: transparent transparent transparent var(--accent-text);
 }
 
-.vt-card__duration {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 3px 9px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.62);
-  color: var(--text);
-  font-size: 14px;
-  letter-spacing: 0.06em;
-  pointer-events: none;
-}
-
 /* ── Name + quote ────────────────────────────────────────── */
 
 /* pointer-events: none throughout: the frame beneath is the play/pause target,
@@ -249,5 +236,4 @@
   .vt-card__play { width: 54px; height: 54px; }
   .vt-card__triangle { border-width: 9px 0 9px 15px; }
   .vt-card__meta { padding: 0 18px 22px; gap: 6px; }
-  .vt-card__duration { font-size: 12px; top: 12px; right: 12px; }
 }

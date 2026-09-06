@@ -490,7 +490,13 @@ video.rh-phone {
   gap: 40px;
 }
 .rh-reviews-inner .rh-eyebrow { margin-bottom: 12px; }
-.rh-reviews-head { margin-bottom: 8px; }
+/* Centred, unlike the other section heads on this page, which are left-set.
+   This block is modelled on a centred reference and the video row beneath it is
+   a symmetrical three-up — a left-set head hung off the edge of it. */
+.rh-reviews-head {
+  margin-bottom: 8px;
+  text-align: center;
+}
 /* Three written reviews under the video wall, one row, no wrapping — the count
    matches the grid so there is no dead slot to work around. */
 .rh-reviews-grid {

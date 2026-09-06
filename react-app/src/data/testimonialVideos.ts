@@ -76,7 +76,11 @@ export type TestimonialVideo = {
   badge: string;
   /** Verbatim, from this person's own transcript. Two lines on the card. */
   quote: string;
-  /** Rendered next to the play button, e.g. "0:29". */
+  /**
+   * Human-readable length, e.g. "0:29". Not rendered — it is spoken, in the
+   * play button's aria-label ("Play: Somin K.'s review, 0:30"), so a screen
+   * reader user knows what they are committing to before starting it.
+   */
   duration: string;
   /** Seconds — for the VideoObject `duration` in ISO-8601. */
   durationSeconds: number;
