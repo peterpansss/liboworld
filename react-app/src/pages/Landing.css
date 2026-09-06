@@ -512,13 +512,6 @@ video.rh-phone {
   font-size: 13px;
   letter-spacing: 0.08em;
 }
-.rh-review-photo {
-  width: 44px;
-  height: 44px;
-  object-fit: cover;
-  border-radius: 100px;
-  border: 1px solid var(--libo-bg-4);
-}
 .rh-review-handle { font-size: 14px; font-weight: 600; color: var(--libo-accent); }
 .rh-review-quote { font-size: 14px; line-height: 1.6; color: var(--libo-text); margin: 0; }
 

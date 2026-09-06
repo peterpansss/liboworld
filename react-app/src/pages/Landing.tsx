@@ -237,9 +237,13 @@ export default function Landing() {
   // proof; these back it up. Five left a dead sixth slot in the 3-up grid and
   // needed a `.rh-review--desktop` hack to hide the overflow on mobile — both
   // gone with the count.
+  //
+  // No avatars. The faces above these cards are real people who were filmed and
+  // consented; the stock-ish `beta-*.png` portraits next to a handle read as if
+  // they were the same kind of thing, and app-store-style review cards (the
+  // reference here) carry a name and a rating, not a photograph.
   const reviews = [
     {
-      photo: 'beta-thao.png',
       handle: '@redtao_',
       quote: t('relaunchHome.reviews.q1', {
         defaultValue:
@@ -247,7 +251,6 @@ export default function Landing() {
       }),
     },
     {
-      photo: 'beta-sarah.png',
       handle: '@somin',
       quote: t('relaunchHome.reviews.q2', {
         defaultValue:
@@ -255,7 +258,6 @@ export default function Landing() {
       }),
     },
     {
-      photo: 'beta-danny.png',
       handle: '@guilherme',
       quote: t('relaunchHome.reviews.q3', {
         defaultValue:
@@ -786,7 +788,6 @@ export default function Landing() {
               {reviews.map((r) => (
                 <div className="rh-review" key={r.handle}>
                   <div className="rh-review-head">
-                    <img className="rh-review-photo" src={`/${r.photo}`} alt="" aria-hidden="true" loading="lazy" />
                     <span className="rh-review-handle">{r.handle}</span>
                     <span className="rh-review-stars" aria-label="5 out of 5">
                       {'★★★★★'}
