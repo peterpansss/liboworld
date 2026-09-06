@@ -99,15 +99,25 @@
   transition: transform 0.25s ease, background 0.2s ease, opacity 0.25s ease;
   pointer-events: none;
 }
-.vt-card__hit:hover .vt-card__play {
+/* :not(--hidden) so the hover grow never fights the hide below. */
+.vt-card__hit:hover .vt-card__play:not(.vt-card__play--hidden) {
   background: var(--accent2);
   transform: translate(-50%, -50%) scale(1.05);
 }
 
-/* Out of the way while the clip runs, back on pause and on hover — so the
-   frame never looks like a dead image but also never covers the speaker. */
-.vt-card__play--hidden { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
-.vt-card__hit:hover .vt-card__play--hidden,
+/* Gone for the whole clip. Hover deliberately does NOT bring it back: the
+   pointer is sitting on the card by definition the instant after the click that
+   started playback, so a hover-reveal meant the disc hid for one frame and came
+   straight back — it never actually left. Clicking the frame pauses, and
+   pausing is what returns it. */
+.vt-card__play--hidden {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+/* Keyboard focus is the exception. It only happens on deliberate tab
+   navigation, never as a side effect of a click, and a keyboard user has to be
+   able to see which control they are on. */
 .vt-card__hit:focus-visible .vt-card__play--hidden {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
