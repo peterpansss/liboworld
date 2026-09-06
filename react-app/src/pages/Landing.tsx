@@ -317,7 +317,7 @@ export default function Landing() {
           <div className="rh-hero-text">
             <div className="rh-badges">
               <span className="rh-badge rh-badge--accent">
-                {t('relaunchHome.hero.pillSoon', { defaultValue: 'Launching 3 September' })}
+                {t('relaunchHome.hero.pillSoon', { defaultValue: 'iOS coming soon' })}
               </span>
               <span className="rh-badge">
                 {t('relaunchHome.hero.pillPlatforms', { defaultValue: 'iOS' })}
@@ -850,13 +850,13 @@ export default function Landing() {
                 {t('relaunchHome.final.h2a', { defaultValue: 'Your first challenge' })}
               </ScrollRevealText>
               <ScrollRevealText as="span" className="rh-h2-line rh-reveal--accent">
-                {t('relaunchHome.final.h2b', { defaultValue: 'opens 3 September.' })}
+                {t('relaunchHome.final.h2b', { defaultValue: 'opens with the app.' })}
               </ScrollRevealText>
             </h2>
             <p className="rh-final-body">
               {t('relaunchHome.final.body', {
                 defaultValue:
-                  'A confirmation email now, then one on 3 September with your download link and your first cash challenge already open. Nothing in between.',
+                  'A confirmation email now, then one the day Libo lands on iOS, with your download link and your first cash challenge already open. Nothing in between.',
               })}
             </p>
             <WaitlistCapture variant="final" />

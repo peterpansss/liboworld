@@ -170,7 +170,7 @@ export default function JoinFunnel() {
       q: t('joinFunnel.faq.q4', { defaultValue: 'When does the app launch?' }),
       a: t('joinFunnel.faq.a4', {
         defaultValue:
-          '3 September 2026 — iOS first. Waitlist members get one email the moment the doors open; Founding Members get their download link before general release.',
+          'iOS first — the app is with Apple for review now, so we don’t have a date yet. Waitlist members get one email the moment it’s approved; Founding Members get their download link before general release.',
       }),
     },
     {
@@ -247,7 +247,7 @@ export default function JoinFunnel() {
                 Restore the second badge when Android ships. */}
             <div className="jf-stores">
               <span className="jf-store">
-                {t('joinFunnel.stores.ios', { defaultValue: 'On the App Store 3 September' })}
+                {t('joinFunnel.stores.ios', { defaultValue: 'On the App Store soon' })}
               </span>
             </div>
           </div>

@@ -176,7 +176,7 @@
     "lessThanMinute": "Menos de 1 minuto restante",
     "lessThanHour": "Menos de 1 hora restante",
     "remaining": "restante",
-    "founderLabel": "Preço de fundador até 3 de setembro",
+    "founderLabel": "Preço de fundador até 13 de setembro",
     "unitDays": "DIAS",
     "unitHours": "HRS",
     "unitMinutes": "MIN",
@@ -870,8 +870,8 @@
     }
   },
   "earlyAccess": {
-    "announceText": "Founding Members: 50% de desconto — só até a gente lançar em 3 de setembro",
-    "announceTextShort": "Founding Members: 50% de desconto até 3 set →",
+    "announceText": "Founding Members: 50% de desconto — só até 13 de setembro",
+    "announceTextShort": "Founding Members: 50% de desconto até 13 set →",
     "announceDismiss": "Dispensar",
     "eyebrow": "FOUNDING MEMBER",
     "headline": "Garanta a Libo antes do lançamento",
@@ -941,7 +941,7 @@
       "imgAltLeft": "Aba Explorar da Libo",
       "imgAltCenter": "Aba Início da Libo com sequência e treino do dia",
       "imgAltRight": "Aba Recompensas da Libo com 436 pontos",
-      "pillSoon": "Lançamento em 3 de setembro",
+      "pillSoon": "Em breve no iOS",
       "pillPlatforms": "iOS",
       "pillTier": "Plano gratuito",
       "h1a": "Complete 30 dias",
@@ -1175,7 +1175,7 @@
       "q5": "Posso montar meus próprios treinos?",
       "a5": "Pode. O Custom Builder deixa você escolher da biblioteca completa de exercícios, definir suas séries, reps e tempos de descanso, e salvar e reutilizar seus treinos quando quiser.",
       "q6": "A Libo está disponível no Android?",
-      "a6": "No lançamento, não. A Libo chega ao iOS em 3 de setembro de 2026; o Android está no roadmap, ainda sem data. Entre na lista de espera e a gente te avisa assim que sair.",
+      "a6": "Ainda não. A Libo chega primeiro ao iOS; o Android está no roadmap, ainda sem data. Entre na lista de espera e a gente te avisa assim que sair.",
       "q7": "Posso seguir programas estruturados?",
       "a7": "Sim. A Libo tem programas de várias semanas feitos pra objetivos específicos — ganho de músculo, perda de gordura, mobilidade e mais. Siga o plano, registre seu progresso e veja resultados de verdade.",
       "q8": "A Libo acompanha meu progresso?",
@@ -1322,8 +1322,8 @@
     },
     "final": {
       "h2a": "Sua primeira Challenge",
-      "h2b": "abre em 3 de setembro.",
-      "body": "Um e-mail de confirmação agora e outro em 3 de setembro com seu link de download e sua primeira cash challenge já aberta. Nada no meio."
+      "h2b": "abre com o app.",
+      "body": "Um e-mail de confirmação agora e outro no dia em que a Libo chegar ao iOS, com seu link de download e sua primeira cash challenge já aberta. Nada no meio."
     },
     "habit": {
       "s1Name": "Apareça",
@@ -1336,8 +1336,8 @@
       "h2b": "hábito."
     },
     "waitlistBar": {
-      "full": "As Cash Challenges abrem em 3 de setembro — entre na lista de espera",
-      "short": "Cash Challenges em 3 set →"
+      "full": "As Cash Challenges abrem com o app de iOS — entre na lista de espera",
+      "short": "Cash Challenges no iOS →"
     }
   },
   "relaunchPricing": {
@@ -1838,7 +1838,7 @@
       "q3": "O que é um Founding Member?",
       "a3": "A oferta de pré-lançamento: 12 meses de Premium com 50% off, primeiro a entrar no dia do lançamento, todos os níveis de desafio desbloqueados — e reembolso total até o lançamento.",
       "q4": "Quando o app lança?",
-      "a4": "3 de setembro de 2026 — iOS primeiro. Quem está na lista de espera recebe um e-mail assim que as portas abrem; os Founding Members recebem o link de download antes do lançamento geral.",
+      "a4": "iOS primeiro — o app está em análise na Apple, então ainda não temos data. Quem está na lista de espera recebe um e-mail assim que for aprovado; os Founding Members recebem o link de download antes do lançamento geral.",
       "q5": "Como funcionam os cash challenges?",
       "a5": "30 dias de reps diárias, gravadas e verificadas no app, pagas em cash de verdade quando você termina — €5, €15 ou €50 conforme o nível. Sem sorteio, sem sorte.",
       "titleLine1": "Antes de",
@@ -1849,8 +1849,8 @@
       "title": "Vire Founding Member — Libo Training Club",
       "description": "Entre na Libo como Founding Member por €39.50 — 50% off no primeiro ano, reembolso total até o lançamento. Seu ano começa no dia em que o app entra no ar."
     },
-    "contextBar": "Oferta de pré-lançamento · 50% off no primeiro ano · até a gente lançar em 3 de setembro",
-    "contextBarShort": "50% off no primeiro ano · até 3 set",
+    "contextBar": "Oferta Founding · 50% off no primeiro ano · até 13 de setembro",
+    "contextBarShort": "50% off no primeiro ano · até 13 set",
     "hero": {
       "eyebrow": "O Training Club",
       "titleLine1": "Entre",
@@ -1918,7 +1918,7 @@
       "h2b": "funciona."
     },
     "stores": {
-      "ios": "Na App Store em 3 de setembro"
+      "ios": "Em breve na App Store"
     },
     "capture": {
       "confirm": "Você está na lista ✓",
@@ -1945,7 +1945,7 @@
         "name": "Founding Member",
         "badge": "Pré-venda · 50% off",
         "price": "€39.50",
-        "per": "12 meses · preço Founding até 3 de setembro",
+        "per": "12 meses · preço Founding até 13 de setembro",
         "strike": "€79.99",
         "strikeNote": "reembolsável até o lançamento",
         "blurb": "Garanta um ano inteiro de Premium antes do lançamento. Seu ano começa no dia do lançamento, não hoje.",

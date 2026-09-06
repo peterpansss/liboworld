@@ -169,7 +169,7 @@ describe('SiteNav announce bar', () => {
     const bar = container.querySelector('.site-announce');
     expect(bar).not.toBeNull();
     expect(bar!.className).toContain('site-announce--waitlist');
-    expect(screen.getByText('Cash challenges open 3 September — join the waitlist')).toBeInTheDocument();
+    expect(screen.getByText('Cash challenges open with the iOS app — join the waitlist')).toBeInTheDocument();
   });
 
   it('does not gate the waitlist variant on Stripe — it is a free ask', () => {
@@ -184,7 +184,7 @@ describe('SiteNav announce bar', () => {
     expect(bar).not.toBeNull();
     expect(bar!.className).not.toContain('site-announce--waitlist');
     expect(
-      screen.getByText('Founding Members: 50% off — until we launch on 3 September'),
+      screen.getByText('Founding Members: 50% off — until 13 September'),
     ).toBeInTheDocument();
   });
 
@@ -198,7 +198,7 @@ describe('SiteNav announce bar', () => {
     expect(bar).not.toBeNull();
     expect(bar!.className).toContain('site-announce--waitlist');
     expect(
-      screen.queryByText('Founding Members: 50% off — until we launch on 3 September'),
+      screen.queryByText('Founding Members: 50% off — until 13 September'),
     ).toBeNull();
   });
 

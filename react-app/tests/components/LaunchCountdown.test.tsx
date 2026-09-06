@@ -82,7 +82,7 @@ describe('LaunchCountdown', () => {
     at(10 * 86400_000);
     render(<LaunchCountdown />);
     expect(
-      screen.getAllByText(/Founder pricing ends 3 September/).length,
+      screen.getAllByText(/Founder pricing ends 13 September/).length,
     ).toBeGreaterThan(0);
     expect(screen.queryByText(/Founding closed/)).toBeNull();
   });

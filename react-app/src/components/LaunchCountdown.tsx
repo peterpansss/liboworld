@@ -75,7 +75,7 @@ export default function LaunchCountdown({ className }: Props) {
   ];
 
   const label = t('countdown.founderLabel', {
-    defaultValue: 'Founder pricing ends 3 September',
+    defaultValue: 'Founder pricing ends 13 September',
   });
 
   return (
