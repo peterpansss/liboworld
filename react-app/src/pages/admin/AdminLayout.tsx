@@ -10,6 +10,7 @@ const GiveawayTemplatesPage = lazy(() => import('./GiveawayTemplatesPage').then(
 const ReferralCodesPage = lazy(() => import('./ReferralCodesPage').then((m) => ({ default: m.ReferralCodesPage })));
 const UsersPage = lazy(() => import('./UsersPage').then((m) => ({ default: m.UsersPage })));
 const ActivityPage = lazy(() => import('./ActivityPage').then((m) => ({ default: m.ActivityPage })));
+const SocialPage = lazy(() => import('./SocialPage').then((m) => ({ default: m.SocialPage })));
 const SubscriptionsPage = lazy(() => import('./SubscriptionsPage').then((m) => ({ default: m.SubscriptionsPage })));
 const ExercisesPage = lazy(() => import('./ExercisesPage').then((m) => ({ default: m.ExercisesPage })));
 const WorkoutsPage = lazy(() => import('./WorkoutsPage').then((m) => ({ default: m.WorkoutsPage })));
@@ -31,6 +32,7 @@ const NAV = [
   { to: '/admin/giveaway-templates', label: 'Giveaway Templates' },
   { to: '/admin/users', label: 'Users' },
   { to: '/admin/activity', label: 'Activity' },
+  { to: '/admin/social', label: 'Social' },
   { to: '/admin/subscriptions', label: 'Subscriptions' },
   { to: '/admin/referral-codes', label: 'Referral Codes' },
   { to: '/admin/mfa', label: 'Security · MFA' },
@@ -154,6 +156,7 @@ function Shell() {
             <Route path="giveaway-templates" element={<GiveawayTemplatesPage />} />
             <Route path="users" element={<UsersPage />} />
             <Route path="activity" element={<ActivityPage />} />
+            <Route path="social" element={<SocialPage />} />
             <Route path="subscriptions" element={<SubscriptionsPage />} />
             <Route path="referral-codes" element={<ReferralCodesPage />} />
             <Route path="mfa" element={<MfaPage />} />
