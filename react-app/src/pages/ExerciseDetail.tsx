@@ -279,6 +279,15 @@ export default function ExerciseDetail() {
   const mainSrc = showingAlt && altSrc ? altSrc : primarySrc;
   const pipSrc = showingAlt && altSrc ? primarySrc : altSrc;
 
+  // Real-frame still shown under BOTH players while their clip buffers, so
+  // neither is a black rectangle on first paint (the video-XOR-thumbnail
+  // problem already fixed on the main player and on mobile). `.ed-demo-pip`
+  // paints `background: #000`, so without this the PiP was solid black with a
+  // "SIDE" label on it until the first frame decoded. The frame is the front
+  // angle either way — exactly right when the PiP is showing the primary
+  // clip, and a close-enough 112x84 placeholder when it is showing the side.
+  const posterSrc = (exerciseThumb(exercise) ?? exerciseThumb(videoSource)) ?? undefined;
+
   // Reset the fallback-step counter whenever the (exercise, voice, lang)
   // tuple changes, so each new selection re-attempts the localized variant
   // first.
@@ -449,7 +458,7 @@ export default function ExerciseDetail() {
                   <video
                     ref={videoRef}
                     src={mainSrc}
-                    poster={(exerciseThumb(exercise) ?? exerciseThumb(videoSource)) ?? undefined}
+                    poster={posterSrc}
                     muted={muted}
                     loop
                     playsInline
@@ -462,9 +471,12 @@ export default function ExerciseDetail() {
                       // slugs in voiceover_excluded.json that have no
                       // voiceover variants at all.
                       //
-                      // When showingAlt is true the same chain applies to
-                      // the alt clip, falling back to the bare side-view URL
-                      // (no suffix) which is the canonical we always upload.
+                      // When showingAlt is true the main element is playing
+                      // the ALT clip, which is now always requested at its
+                      // bare `video_url_alt` (no lang/voice suffix — see
+                      // publicVideoUrlAlt). There is therefore nothing left to
+                      // step down to; the retry below is kept only as a
+                      // safety net and should never actually change the src.
                       //
                       // Every step resolves against `videoSource`, NOT
                       // `exercise`. For a unilateral canonical those are
@@ -562,19 +574,20 @@ export default function ExerciseDetail() {
                       <video
                         ref={pipVideoRef}
                         src={pipSrc}
+                        poster={posterSrc}
                         muted
                         loop
                         playsInline
                         autoPlay
                         preload="metadata"
                         onError={() => {
-                          // Per-(lang, voice) side-view variants may be
-                          // missing for some exercises (TTS mp3 wasn't
-                          // produced for that locale yet). Fall back to the
-                          // bare alt URL — guaranteed to exist on R2.
-                          // Same rule as the main player: resolve against
-                          // `videoSource`, which is the child row when the
-                          // canonical has no clip of its own.
+                          // Retained safety net. The PiP now asks for the
+                          // bare `video_url_alt` (no lang/voice suffix), so
+                          // this recovery is a no-op in practice — it only
+                          // fires if the alt src is somehow not already the
+                          // base URL. Same rule as the main player: resolve
+                          // against `videoSource`, which is the child row when
+                          // the canonical has no clip of its own.
                           if (!videoSource || !pipVideoRef.current) return;
                           if (showingAlt) return; // PiP shows primary in this case; primary's own chain handles it
                           const base = safeUrl(publicVideoUrlAltBase(videoSource));

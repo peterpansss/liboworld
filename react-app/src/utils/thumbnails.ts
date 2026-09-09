@@ -55,33 +55,35 @@ export function publicVideoUrl(
 /**
  * Alternate-angle (e.g. "_side_view") clip URL.
  *
- * Mirrors `publicVideoUrl`'s lang/voice suffixing — per-(lang, voice) side-view
- * variants are produced by `Brand-Management/Exercises/voiceovers/add-sideview-voiceover.sh`
- * and uploaded to R2 alongside the canonical (`{slug}_side_view_<lang>_<voice>.mp4`).
+ * Deliberately does NOT apply `withLangVoice`, mirroring mobile's
+ * `getExerciseVideoSourceAlt` in `libo-app-v2/src/utils/exerciseVideo.ts`:
+ * side views are silent alternate-angle footage and carry no voiceover, so
+ * there is nothing for a lang/voice suffix to select. Nothing in
+ * `media-worker` produces `<slug>_side_view_<lang>_<voice>.mp4` either, so
+ * every such URL web used to request was an orphan artifact that only
+ * existed because web asked for it — and 11 of them were already missing,
+ * costing a black PiP frame until `onError` recovered.
  *
- * Safety net: callers must wire an `onError` on the <video> that falls back
- * to the bare `videoUrlAlt` — exercises whose TTS mp3 is missing for a given
- * (lang, voice) won't have a matching side-view variant uploaded, and the
- * 404 would otherwise leave a black PiP for users on that preference.
+ * `_voice`/`_lang` are kept in the signature (and ignored) so callers can go
+ * on passing the user's preferences uniformly alongside `publicVideoUrl`.
  */
 export function publicVideoUrlAlt(
   ex: Exercise,
-  voice: VoicePreference = 'male',
-  lang: SupportedLang = 'en',
+  _voice: VoicePreference = 'male',
+  _lang: SupportedLang = 'en',
 ): string | undefined {
   if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrlAlt) return undefined;
-  return withLangVoice(ex.videoUrlAlt, lang, voice);
+  return ex.videoUrlAlt;
 }
 
 /**
- * Bare (en+onyx) alt URL for the onError fallback path. Strips any
- * `_<lang>_<voice>` or `_<voice>` suffix that publicVideoUrlAlt may have
- * appended before the `.mp4` so the video element can retry against the
- * canonical that's guaranteed to exist on R2.
+ * Bare alt URL for the `onError` fallback path. Identical to
+ * `publicVideoUrlAlt` now that the alt clip is never suffixed — kept as the
+ * fallback's own entry point so the recovery chain stays wired if the alt URL
+ * ever gains variant resolution again. In practice it should never fire.
  */
 export function publicVideoUrlAltBase(ex: Exercise): string | undefined {
-  if (isMediaHidden(ex.cat, ex.equipment) || !ex.videoUrlAlt) return undefined;
-  return ex.videoUrlAlt;
+  return publicVideoUrlAlt(ex);
 }
 
 export function publicAnimationUrl(ex: Exercise): string | undefined {
