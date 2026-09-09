@@ -25,6 +25,7 @@ import {
 } from '../utils/exerciseInfo';
 import { buildExerciseGraph, exerciseCanonicalUrl } from '../utils/schema';
 import { safeUrl } from '../utils/safeUrl';
+import { findChildVideoDonor } from '../utils/exerciseFamily';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseDetail.css';
@@ -202,8 +203,14 @@ export default function ExerciseDetail() {
     );
   }, [i18n.language]);
 
+  // `aliasIds` carries the Supabase primary key for rows the bundle keys by
+  // slug, so a legacy /exercises/<supabase-id> link still resolves (and then
+  // gets canonicalized to the slug by `needsSlugRedirect` below).
   const exercise = useMemo(
-    () => exercises.find((e) => e.slug === slug || e.id === slug) || null,
+    () =>
+      exercises.find(
+        (e) => e.slug === slug || e.id === slug || (slug ? e.aliasIds?.includes(slug) : false),
+      ) || null,
     [exercises, slug],
   );
 
@@ -253,13 +260,7 @@ export default function ExerciseDetail() {
   const videoSource = useMemo(() => {
     if (!exercise) return null;
     if (exercise.videoUrl) return exercise;
-    // Some bundled rows carry stale parent ids that don't link in this snapshot;
-    // parentName is the reliable link.
-    const child = exercises.find(e =>
-      (e.parentId === exercise.id || (e.parentName && e.parentName === exercise.name))
-      && e.videoUrl
-    );
-    return child ?? exercise;
+    return findChildVideoDonor(exercise, exercises) ?? exercise;
   }, [exercise, exercises]);
 
   // Resolve video sources at top level so [mainSrc]/[pipSrc] effects can
@@ -464,9 +465,21 @@ export default function ExerciseDetail() {
                       // When showingAlt is true the same chain applies to
                       // the alt clip, falling back to the bare side-view URL
                       // (no suffix) which is the canonical we always upload.
-                      if (!exercise || !videoRef.current) return;
+                      //
+                      // Every step resolves against `videoSource`, NOT
+                      // `exercise`. For a unilateral canonical those are
+                      // different rows: the canonical has no `videoUrl` at all,
+                      // so building the fallback from it yielded `undefined`,
+                      // the chain went dead on the first error and the player
+                      // was stranded on a 404. That is exactly what happened to
+                      // the 28 child-video-dependent canonicals for anyone on
+                      // the female voice or a non-English locale — the
+                      // localized variant of a child clip
+                      // (`..._left_nova.mp4`) is not uploaded, 404s, and there
+                      // was no way back to the plain English clip that exists.
+                      if (!videoSource || !videoRef.current) return;
                       if (showingAlt) {
-                        const base = safeUrl(publicVideoUrlAltBase(exercise));
+                        const base = safeUrl(publicVideoUrlAltBase(videoSource));
                         if (base && videoRef.current.src !== base) {
                           videoRef.current.src = base;
                           videoRef.current.load();
@@ -477,9 +490,9 @@ export default function ExerciseDetail() {
                       while (fallbackStepRef.current < 2 && !nextUrl) {
                         fallbackStepRef.current += 1;
                         if (fallbackStepRef.current === 1 && lang !== 'en') {
-                          nextUrl = safeUrl(publicVideoUrl(exercise, voice, 'en'));
+                          nextUrl = safeUrl(publicVideoUrl(videoSource, voice, 'en'));
                         } else if (fallbackStepRef.current === 2 && voice !== 'male') {
-                          nextUrl = safeUrl(publicVideoUrl(exercise, 'male', 'en'));
+                          nextUrl = safeUrl(publicVideoUrl(videoSource, 'male', 'en'));
                         }
                         if (nextUrl === videoRef.current.src) nextUrl = null;
                       }
@@ -559,9 +572,12 @@ export default function ExerciseDetail() {
                           // missing for some exercises (TTS mp3 wasn't
                           // produced for that locale yet). Fall back to the
                           // bare alt URL — guaranteed to exist on R2.
-                          if (!exercise || !pipVideoRef.current) return;
+                          // Same rule as the main player: resolve against
+                          // `videoSource`, which is the child row when the
+                          // canonical has no clip of its own.
+                          if (!videoSource || !pipVideoRef.current) return;
                           if (showingAlt) return; // PiP shows primary in this case; primary's own chain handles it
-                          const base = safeUrl(publicVideoUrlAltBase(exercise));
+                          const base = safeUrl(publicVideoUrlAltBase(videoSource));
                           if (base && pipVideoRef.current.src !== base) {
                             pipVideoRef.current.src = base;
                             pipVideoRef.current.load();

@@ -10,6 +10,7 @@ import { ActiveFilters, type ActiveFilter } from '../components/ActiveFilters';
 import { SeoHead } from '../components/SeoHead';
 import { libraryCanonicalUrl } from '../utils/schema';
 import { safeUrl } from '../utils/safeUrl';
+import { normalizeExerciseName, parentIdentifiers } from '../utils/exerciseFamily';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { Search, ICON_STROKE } from '../utils/icons';
@@ -152,16 +153,36 @@ export default function ExerciseLibrary() {
   // grid fall back to a child's thumbnail when the parent canonical itself
   // has no own demo (common pattern for ~110 single-arm parents we
   // restructured: parent has no video, L/R children carry the demos).
+  // Indexed by parent id AND by normalized parent name: on the static-fallback
+  // path the bundled children carry a Supabase parent id that no row in the
+  // snapshot answers to, so an id-only index left those parents on the plain
+  // muscle-tile placeholder. See utils/exerciseFamily.ts for why the link needs
+  // two keys.
   const childThumbDonorByParent = useMemo(() => {
     const map = new Map<string, typeof exercises[number]>();
+    const put = (key: string, e: typeof exercises[number]) => {
+      const prev = map.get(key);
+      // Lowest id wins so the donor is stable across reloads, matching
+      // findChildVideoDonor().
+      if (!prev || e.id < prev.id) map.set(key, e);
+    };
     for (const e of exercises) {
-      const pid = e.parentId;
-      if (!pid) continue;
       if (!e.videoUrl) continue;
-      if (!map.has(pid)) map.set(pid, e);
+      if (e.parentId) put(e.parentId, e);
+      const parentName = normalizeExerciseName(e.parentName);
+      if (parentName) put(`name:${parentName}`, e);
     }
     return map;
   }, [exercises]);
+
+  const thumbDonorFor = (ex: typeof exercises[number]) => {
+    for (const id of parentIdentifiers(ex)) {
+      const donor = childThumbDonorByParent.get(id);
+      if (donor) return donor;
+    }
+    const name = normalizeExerciseName(ex.name);
+    return name ? childThumbDonorByParent.get(`name:${name}`) : undefined;
+  };
 
   // ── Filter logic ──
   const filtered = useMemo(() => {
@@ -492,9 +513,7 @@ export default function ExerciseLibrary() {
                 // If the parent canonical has no own video, derive its
                 // library-card thumbnail from a child's video so the grid
                 // doesn't fall back to the muscle-tile placeholder.
-                const thumb =
-                  exerciseThumbSet(ex) ??
-                  exerciseThumbSet(childThumbDonorByParent.get(ex.id));
+                const thumb = exerciseThumbSet(ex) ?? exerciseThumbSet(thumbDonorFor(ex));
                 return (
                 <Link key={ex.id} to={`/exercises/${ex.slug ?? ex.id}`} className="el-card">
                   <div className="el-card-media">

@@ -28,6 +28,14 @@ export interface Exercise {
   thumbnailUrl?: string;
   parentId?: string;    // L/R variants inherit parent's media (thumb + video)
   parentName?: string;
+  /**
+   * Other ids this row is known by. The bundled snapshot keys every row by its
+   * SLUG while Supabase keys it by a distinct primary key (550 of 575 published
+   * canonicals have `id <> slug`), and children's `parentId` points at the
+   * Supabase key. `getExercises()` records that key here when it merges the two
+   * sources so parent⇄child links resolve without guessing on names.
+   */
+  aliasIds?: string[];
 }
 
 export interface WorkoutExercise {
@@ -377,22 +385,42 @@ export async function getExercises(lang: string = 'en'): Promise<Exercise[]> {
   // Precedence (low -> high so the latter wins):
   //   base  <  admin override  <  locale overlay (non-en setupNotes)
   // Rationale: a translated setupNotes should win over an English admin edit.
+  // Always clone: the un-overridden branch used to hand back the very object
+  // held in the `_exercises` module cache, so the alias merge below would have
+  // written through into the cached snapshot and compounded across calls.
   const merged = base.map((ex) => {
     const override = overrides[ex.id];
     const loc = overlay[ex.id];
-    let out: Exercise = ex;
-    if (override) out = { ...out, ...override };
-    if (loc?.setupNotes) out = { ...out, setupNotes: loc.setupNotes };
+    const out: Exercise = { ...ex, ...(override ?? {}) };
+    if (loc?.setupNotes) out.setupNotes = loc.setupNotes;
     return out;
   });
 
-  // Union admin-only rows. Anything whose id isn't in the bundled catalog is
-  // appended; rows that ARE in the bundle stay on the existing override path
-  // above to avoid changing precedence for the 99% case.
+  // Union admin-only rows — keyed on SLUG, not id.
+  //
+  // The bundle keys every row by its slug; Supabase keys the same row by a
+  // different primary key (550 of 575 published canonicals have `id <> slug`).
+  // Keying this union on `id` therefore treated almost the whole catalog as
+  // "admin-only" and appended a second copy of it — 797 duplicate rows on top
+  // of the 829 real ones — leaving every `find()` in the app to pick whichever
+  // copy happened to come first. Matching on slug collapses those back into one
+  // row and records the Supabase key as an alias, which is what lets a child's
+  // `parentId` resolve to its parent (see utils/exerciseFamily.ts).
+  //
+  // Precedence is deliberately unchanged: a row present in the bundle keeps its
+  // bundled + override + locale values and only gains `aliasIds`.
   if (supabaseRows.length > 0) {
-    const baseIds = new Set(base.map((b) => b.id));
+    const bySlug = new Map<string, Exercise>();
+    for (const ex of merged) bySlug.set(ex.slug ?? ex.id, ex);
     for (const r of supabaseRows) {
-      if (!baseIds.has(r.id)) merged.push(r);
+      const key = r.slug ?? r.id;
+      const existing = bySlug.get(key);
+      if (!existing) {
+        merged.push(r);
+        bySlug.set(key, r);
+      } else if (existing.id !== r.id && !(existing.aliasIds ?? []).includes(r.id)) {
+        existing.aliasIds = [...(existing.aliasIds ?? []), r.id];
+      }
     }
   }
   return merged;

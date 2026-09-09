@@ -1,4 +1,5 @@
 import type { Exercise, Workout, WorkoutExercise } from '../data/exercises';
+import { findChildVideoDonor } from './exerciseFamily';
 
 // Free-weight equipment gates (Dumbbell / Barbell / Kettlebell) were a
 // stopgap when those exercises had no real demos. We now ship them, so
@@ -186,10 +187,7 @@ function workoutHeroExercise(
   // Parent canonical with no own video — fall back to a child variant's
   // thumbnail (the same pattern ExerciseLibrary uses for grid cards).
   if (exercises) {
-    const childWithVideo = exercises.find(e =>
-      (e.parentId === ex.id || (e.parentName && e.parentName === ex.name))
-      && e.videoUrl
-    );
+    const childWithVideo = findChildVideoDonor(ex, exercises);
     if (childWithVideo) return childWithVideo;
   }
   return ex;

@@ -21,6 +21,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import type { ExerciseRow } from '../lib/adminApi';
+import { normalizeExerciseName, parentIdentifiers } from '../utils/exerciseFamily';
 
 // Mirrors `Exercise` in src/data/exercises.ts. Defined locally so the hook is
 // self-contained and doesn't pull on the lazy-loaded data module.
@@ -134,9 +135,11 @@ function fromSupabase(row: ExerciseRow): ExerciseDisplay {
  *
  * Rules:
  *   - A canonical (parent) exercise is playable if its own videoUrl is
- *     non-empty OR at least one of its children (rows whose parentId matches
- *     this exercise's id) has a non-empty videoUrl. Same fallback the detail
- *     page already uses to source a thumbnail/clip.
+ *     non-empty OR at least one of its children has a non-empty videoUrl.
+ *     "Child" is resolved the same way `utils/exerciseFamily.ts` resolves it —
+ *     by any of the parent's ids (id, slug, alias) or, failing that, by
+ *     normalized parent name. Same fallback the detail page uses to source a
+ *     thumbnail/clip.
  *   - A child variant is playable only if its own videoUrl is non-empty.
  *
  * `childrenWithVideoByParent` is built once by the caller and threaded
@@ -146,14 +149,32 @@ function fromSupabase(row: ExerciseRow): ExerciseDisplay {
  * `hasVideo OR hasAnimation` in this one place — `filterPlayable` and the
  * workout-block filter both inherit the change.
  */
-type PlayableExercise = Pick<ExerciseDisplay, 'id' | 'parentId' | 'videoUrl'>;
+type PlayableExercise = Pick<ExerciseDisplay, 'id' | 'parentId' | 'videoUrl'> & {
+  slug?: string;
+  name?: string;
+  parentName?: string;
+  aliasIds?: string[];
+};
 
+/**
+ * Keys under which a video-bearing child announces its parent. Both the
+ * parent's ids AND its normalized name are indexed, because the two data
+ * sources disagree on which one links: Supabase rows link by the parent's
+ * primary key, while the bundled snapshot preserves that same key on children
+ * whose parent it stores under its slug — leaving 214 bundled children pointing
+ * at an id that isn't in the file. Indexing both means the static fallback path
+ * classifies the same 28 canonicals as playable that the Supabase path does,
+ * instead of dropping them out of the library whenever Supabase is unreachable.
+ */
 export function buildChildrenWithVideoByParent(
   rows: readonly PlayableExercise[],
 ): Set<string> {
   const set = new Set<string>();
   for (const r of rows) {
-    if (r.parentId && r.videoUrl) set.add(r.parentId);
+    if (!r.videoUrl) continue;
+    if (r.parentId) set.add(r.parentId);
+    const parentName = normalizeExerciseName(r.parentName);
+    if (parentName) set.add(`name:${parentName}`);
   }
   return set;
 }
@@ -164,7 +185,11 @@ export function isPlayable(
 ): boolean {
   if (ex.videoUrl) return true;
   if (ex.parentId) return false;
-  return childrenWithVideoByParent.has(ex.id);
+  for (const id of parentIdentifiers(ex)) {
+    if (childrenWithVideoByParent.has(id)) return true;
+  }
+  const name = normalizeExerciseName(ex.name);
+  return name ? childrenWithVideoByParent.has(`name:${name}`) : false;
 }
 
 function filterPlayable(rows: ExerciseDisplay[]): ExerciseDisplay[] {
