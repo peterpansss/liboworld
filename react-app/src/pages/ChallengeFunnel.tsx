@@ -57,11 +57,15 @@ type Testimonial = { photo: string; handle: string; badge: string; quote: string
  * Beta testimonials, shared by all three tiers.
  *
  * Derived from `TESTIMONIAL_VIDEOS` rather than retyped. These are the same
- * three people, saying the same three things, as the homepage video wall — and
- * a second hand-maintained copy of a verbatim quote is exactly the thing that
- * drifts until one page misquotes someone. The only difference here is the
- * avatar: the funnel shows a face in a 32px circle, so it uses the square face
- * crop rather than the 4:5 poster.
+ * people, saying the same things, as the homepage video wall — and a second
+ * hand-maintained copy of a verbatim quote is exactly the thing that drifts
+ * until one page misquotes someone. The only difference here is the avatar:
+ * the funnel shows a face in a 32px circle, so it uses the square face crop
+ * rather than the 4:5 poster.
+ *
+ * Because it is derived, adding a person to the wall adds a card here too —
+ * `.cf-quotes` in the stylesheet is laid out for that, and the count is worth
+ * a glance whenever the array changes.
  *
  * These replace three fabricated quotes badged "PAID €15" / "8 WEEKS" /
  * "30 DAYS", attributed to people who do not exist. The docstring that stood
@@ -76,7 +80,7 @@ type Testimonial = { photo: string; handle: string; badge: string; quote: string
  *   - the quote is what the person said. If it needs a claim it does not make,
  *     find another person, do not write the line.
  *
- * None of the three talks about the cash challenge, so none is quoted as if
+ * None of them talks about the cash challenge, so none is quoted as if
  * they did. They speak to consistency and structure, which is what the
  * challenge is for.
  */

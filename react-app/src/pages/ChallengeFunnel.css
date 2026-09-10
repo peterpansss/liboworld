@@ -332,9 +332,15 @@
 
 /* ── Testimonials ────────────────────────────────────────────────────────── */
 
+/* Two up, not three. There are four testimonials, and at repeat(3, 1fr) the
+   fourth wrapped onto a row of its own as a third-width orphan. Four across
+   was the other option and is worse: the container is 832px inside its
+   padding, so 4 columns is ~193px a card, and the name/badge note below
+   already says ~264px is tight for "Dr. Kenneth Sullivan-Bol". 2×2 gives each
+   card ~406px and stays balanced for any even count. */
 .cf-quotes {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin: 40px 0 0;
   padding: 0;

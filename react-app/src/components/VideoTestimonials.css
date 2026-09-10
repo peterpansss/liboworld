@@ -1,10 +1,13 @@
-/* Homepage video wall. Three 4:5 portrait cards in a scroll-snap row, arrows
-   lifted from the blog carousel so paging feels identical across the site.
+/* Homepage video wall. 4:5 portrait cards in a scroll-snap row, arrows lifted
+   from the blog carousel so paging feels identical across the site. Three fit
+   across at desktop and the rest scroll — which is also when the arrows first
+   earn their keep: while the wall held exactly three cards the row never
+   overflowed, so both arrows sat permanently disabled.
 
    The name and quote sit INSIDE the frame over a gradient scrim rather than in
    a caption block underneath. That is the whole point of the treatment: the
-   card reads as one object, and the text is legible against footage shot in
-   three different rooms without having to know anything about the footage. */
+   card reads as one object, and the text is legible against footage shot in a
+   different room every time without having to know anything about it. */
 
 .vt-wrap {
   position: relative;
@@ -81,7 +84,7 @@
 }
 
 /* Below centre, not on it. Dead-centre put the disc squarely over every face —
-   three lime discs in a row, each covering the one thing the card is selling.
+   a row of lime discs, each covering the one thing the card is selling.
    54% drops it to the chin/chest and still clears the name below. */
 .vt-card__play {
   position: absolute;
@@ -217,7 +220,7 @@
 
 /* ── Responsive ──────────────────────────────────────────── */
 
-/* Below the desktop breakpoint all three no longer fit side by side, and the
+/* Below the desktop breakpoint the cards no longer fit side by side, and the
    arrows lose their gutter — swipe takes over. */
 @media (max-width: 900px) {
   .vt-wrap { padding: 0; }

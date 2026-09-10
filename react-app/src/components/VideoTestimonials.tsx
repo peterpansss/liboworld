@@ -136,8 +136,8 @@ export default function VideoTestimonials({
   playLabelFor: (name: string, duration: string) => string;
   pauseLabelFor: (name: string) => string;
 }) {
-  // Only one card plays at a time — three testimonials talking over each other
-  // is the failure mode this guards against.
+  // Only one card plays at a time — a wall of testimonials talking over each
+  // other is the failure mode this guards against.
   const [activeId, setActiveId] = useState<string | null>(null);
 
   // Carousel scroll state, same shape as the blog row: listen on the scroll

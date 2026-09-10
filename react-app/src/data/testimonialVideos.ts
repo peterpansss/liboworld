@@ -1,5 +1,5 @@
 /**
- * The three filmed beta-tester testimonials on the homepage video wall.
+ * The four filmed beta-tester testimonials on the homepage video wall.
  *
  * Sibling of `funnelVideos.ts`, and the same deal: masters are cut and encoded
  * locally, renditions live on R2, posters ship from `public/`. Split into its
@@ -18,25 +18,56 @@
  *     carries the full text for anyone who needs it.
  *
  * Masters: `~/Downloads/LiboWorldWebsiteVideosReviews/{Somin,Jerson,Ken}Libo.mp4`
- * (2160×3840 phone footage). Encoded by `scripts/encode-testimonial-video.sh`,
- * uploaded by `libo-landing/scripts/upload-marketing-video.mjs`.
+ * (2160×3840 phone footage) and `SOS-LIB.MOV` at the repo root for Gabriel.
+ * Encoded by `scripts/encode-testimonial-video.sh`, uploaded by
+ * `libo-landing/scripts/upload-marketing-video.mjs`.
  *
  * Crop and trim per person, so a re-cut reproduces exactly:
  *
  *   somin   crop 2160:2700:0:609      0.00 → 30.70   poster @12s
  *   jerson  crop 1600:2000:280:1000  45.80 → 74.85   poster @50s
  *   ken     crop 1900:2375:300:820   45.05 → 72.10   poster @60s
+ *   gabriel crop 1080:1350:0:470      8.69 → 15.80   poster @12s
  *
  * Avatar crops, same masters and timestamps, square and face-centred:
  *
  *   somin   crop 1500:1500:400:800
  *   jerson  crop 1250:1250:500:1330
  *   ken     crop 1250:1250:560:1240
+ *   gabriel crop 760:760:150:700
  *
- * The two long ones are trimmed on WORD boundaries taken from whisper's
- * word-level output, not on its sentence cues — the cue boundaries fall
- * mid-phrase and cost Jerson his "After work" and Ken his "I feel that
- * you're going to".
+ * **Gabriel's crop numbers are on a different scale.** His master is 1080×1920,
+ * not 2160×3840 like the other three, so 1080:1350:0:470 is the FULL width of
+ * the frame — the equivalent of Somin's full-width crop, not of Ken's tight
+ * one. Doubling it to compare against the others is the mistake to avoid. It is
+ * also the only crop here that neither up- nor downscales: 1080×1350 out of a
+ * 1080-wide master is 1:1, and anything narrower would have upscaled.
+ *
+ * The long ones are trimmed on WORD boundaries taken from whisper's word-level
+ * output, not on its sentence cues — the cue boundaries fall mid-phrase and
+ * cost Jerson his "After work" and Ken his "I feel that you're going to".
+ * Word times only choose the words, though; the cuts themselves come from
+ * `ffmpeg silencedetect`, because whisper's word timings absorb the pauses
+ * either side and drift up to ~150ms off the actual audio edge.
+ *
+ * Gabriel's 7 seconds are the whole of what his 24.09s master can ship, and
+ * the reason is worth keeping written down. The sentence before his
+ * ("This is honestly crazy, and I generally achieve this result with the help
+ * of Libo") and the two after it ("get the best form of your life in a short
+ * amount of time" / "It's free, so check it out") all fail the never-say
+ * checklist in `UserVoices/USER-VOICES-BRIEF.md` — the first two on rule 6,
+ * body results, which the brief flags as the rule people break by accident.
+ * The master is also framed as a physique display for its first 8.67s (phone
+ * held at arm's length, full torso in frame) before he hard-cuts to a talking
+ * head at 8.672; the in-point sits just past that cut, so no torso frame
+ * survives into the rendition. Do not "recover" the extra seventeen seconds
+ * without re-reading that checklist — they are cut on purpose, not for length.
+ *
+ * Full names, for provenance — the cards show first name + last initial:
+ *
+ *   gabriel  Gabriel Koffisoza (name supplied by Noah, not stated on camera;
+ *            "Koffisoza" is the spelling already used across the Day-3 user
+ *            research, e.g. `UserResearch/Day3-User-Research-Synthesis.md`)
  */
 
 /** R2 public base — same bucket and custom domain as the funnel films. */
@@ -67,9 +98,10 @@ export type TestimonialVideo = {
   /**
    * Exactly as it appears on the card, which renders it uppercase.
    *
-   * A literal string rather than first-name + last-initial: two of the three
-   * are "Somin K." / "Jerson O.", but Ken is a doctor and goes by his full
-   * name and title, which no initial-assembling helper survives contact with.
+   * A literal string rather than first-name + last-initial: most are of that
+   * shape ("Somin K.", "Jerson O.", "Gabriel K."), but Ken is a doctor and goes
+   * by his full name and title, which no initial-assembling helper survives
+   * contact with.
    */
   displayName: string;
   /** Never a payout or result claim. See the note above. */
@@ -131,6 +163,20 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
     durationSeconds: 27,
     title: 'Dr. Kenneth Sullivan-Bol on training with Libo',
   },
+  {
+    id: 'voice-gabriel',
+    ...urls('voice-gabriel'),
+    displayName: 'Gabriel K.',
+    badge: 'BETA TESTER',
+    // Verbatim and untrimmed — the whole sentence he says, word for word. The
+    // only editorial act is the two em-dashes, which stand in for the commas
+    // around a spoken list; there is no punctuation in speech to be faithful to.
+    quote:
+      "I've tried everything before — notes, different apps, different routines — but nothing actually kept me as consistent as Libo did.",
+    duration: '0:07',
+    durationSeconds: 7,
+    title: 'Gabriel K. on training with Libo',
+  },
 ];
 
 /** ISO-8601 duration, e.g. 29 → "PT0M29S". */
@@ -158,10 +204,10 @@ function videoObject(v: TestimonialVideo) {
 }
 
 /**
- * All three as one `@graph` for `SeoHead`'s `jsonLd` prop, which takes a single
- * object. `buildFunnelVideoSchema` emits a lone VideoObject because those pages
- * carry exactly one film; the homepage carries three, and a graph is how you
- * say that in one script tag.
+ * All of them as one `@graph` for `SeoHead`'s `jsonLd` prop, which takes a
+ * single object. `buildFunnelVideoSchema` emits a lone VideoObject because
+ * those pages carry exactly one film; the homepage carries the whole wall, and
+ * a graph is how you say that in one script tag.
  */
 export function buildTestimonialVideoGraph(videos: TestimonialVideo[] = TESTIMONIAL_VIDEOS) {
   return {
