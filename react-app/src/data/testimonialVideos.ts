@@ -27,7 +27,24 @@
  *   somin   crop 2160:2700:0:609      0.00 → 30.70   poster @12s
  *   jerson  crop 1600:2000:280:1000  45.80 → 74.85   poster @50s
  *   ken     crop 1900:2375:300:820   45.05 → 72.10   poster @60s
- *   gabriel crop 1080:1350:0:470      8.69 → 15.80   poster @12s
+ *   gabriel crop 1080:1350:0:240      0.00 → 24.09   poster @12s
+ *
+ * Gabriel ships FULL and untrimmed, reverted 2026-09-10 from a 7-second cut.
+ * That cut removed a body-results line and "It's free, so check it out" on the
+ * grounds of the never-say rules — which was wrong. Those rules govern LIBO's
+ * OWN copy: "Libo gets you in the best shape of your life" is a company claim.
+ * A named beta tester describing his own experience in his own voice is the
+ * entire point of a testimonial, and "it's free" is simply true — the app is
+ * free to use and Premium is optional. Do not re-trim this for content.
+ *
+ * His crop is the odd one out in two ways. His master is 1080x1920, NOT
+ * 2160x3840 like the other three, so 1080 wide is the FULL frame and the
+ * numbers are not comparable to theirs — it is also the only crop that neither
+ * up- nor downscales. And y=240 is a COMPROMISE, not a best fit: the framing
+ * changes hard at 8.67s from arm's-length torso to a close talking head, and
+ * his head sits at roughly y=370 at 21s but y=780 at 12s. 240 is the offset
+ * that keeps his head whole on both sides of that cut. The earlier y=470 was
+ * tuned only for the 8.69-15.80 window and decapitates him after it.
  *
  * Avatar crops, same masters and timestamps, square and face-centred:
  *
@@ -131,6 +148,27 @@ function urls(base: string) {
 
 export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
   {
+    id: 'voice-gabriel',
+    ...urls('voice-gabriel-full'),
+    displayName: 'Gabriel K.',
+    badge: 'BETA TESTER',
+    // Verbatim. The only editorial act is the em-dash, standing in for the
+    // spoken pause before the last word; there is no punctuation in speech to
+    // be faithful to.
+    //
+    // Chosen over his longer "I've tried everything before — notes, different
+    // apps, different routines — but nothing actually kept me as consistent as
+    // Libo did." Both are his; that one is better body copy than a headline,
+    // and it is still in the video at 8.7s regardless. This one leads because
+    // it is short enough to read at a glance on the first card, and names a
+    // loss before a gain, which the longer line takes twenty words to reach.
+    quote:
+      'This app brought me back something I completely lost — discipline.',
+    duration: '0:24',
+    durationSeconds: 24,
+    title: 'Gabriel K. on training with Libo',
+  },
+  {
     id: 'voice-somin',
     ...urls('voice-somin'),
     displayName: 'Somin K.',
@@ -162,20 +200,6 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
     duration: '0:27',
     durationSeconds: 27,
     title: 'Dr. Kenneth Sullivan-Bol on training with Libo',
-  },
-  {
-    id: 'voice-gabriel',
-    ...urls('voice-gabriel'),
-    displayName: 'Gabriel K.',
-    badge: 'BETA TESTER',
-    // Verbatim and untrimmed — the whole sentence he says, word for word. The
-    // only editorial act is the two em-dashes, which stand in for the commas
-    // around a spoken list; there is no punctuation in speech to be faithful to.
-    quote:
-      "I've tried everything before — notes, different apps, different routines — but nothing actually kept me as consistent as Libo did.",
-    duration: '0:07',
-    durationSeconds: 7,
-    title: 'Gabriel K. on training with Libo',
   },
 ];
 
