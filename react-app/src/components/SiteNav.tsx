@@ -84,10 +84,10 @@ export default function SiteNav() {
   // → because CSS hides the standalone arrow at ≤430px.
   const announceFull = showWaitlist
     ? t('relaunchHome.waitlistBar.full', { defaultValue: 'Cash challenges open with the iOS app — join the waitlist' })
-    : t('earlyAccess.announceText', { defaultValue: 'Founding Members: 50% off — until 13 September' });
+    : t('earlyAccess.announceText', { defaultValue: 'Founding Members: 50% off — until 13 October' });
   const announceShort = showWaitlist
     ? t('relaunchHome.waitlistBar.short', { defaultValue: 'Cash challenges on iOS →' })
-    : t('earlyAccess.announceTextShort', { defaultValue: 'Founding Members: 50% off until 13 Sept →' });
+    : t('earlyAccess.announceTextShort', { defaultValue: 'Founding Members: 50% off until 13 Oct →' });
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {

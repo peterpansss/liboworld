@@ -176,7 +176,7 @@
     "lessThanMinute": "Menos de 1 minuto restante",
     "lessThanHour": "Menos de 1 hora restante",
     "remaining": "restante",
-    "founderLabel": "Precio de fundador hasta el 13 de septiembre",
+    "founderLabel": "Precio de fundador hasta el 13 de octubre",
     "unitDays": "DÍAS",
     "unitHours": "HRS",
     "unitMinutes": "MIN",
@@ -870,8 +870,8 @@
     }
   },
   "earlyAccess": {
-    "announceText": "Founding Members: 50% de descuento — solo hasta el 13 de septiembre",
-    "announceTextShort": "Founding Members: 50% de descuento hasta el 13 sept →",
+    "announceText": "Founding Members: 50% de descuento — solo hasta el 13 de octubre",
+    "announceTextShort": "Founding Members: 50% de descuento hasta el 13 oct →",
     "announceDismiss": "Cerrar",
     "eyebrow": "FOUNDING MEMBER",
     "headline": "Asegura Libo antes de que lancemos",
@@ -1855,8 +1855,8 @@
       "title": "Hazte Founding Member — Libo Training Club",
       "description": "Únete a Libo como Founding Member por €39.50 — 50% de descuento el primer año, totalmente reembolsable hasta el lanzamiento. Tu año empieza el día que la app salga en vivo."
     },
-    "contextBar": "Oferta Founding · 50% de descuento el primer año · hasta el 13 de septiembre",
-    "contextBarShort": "50% de descuento el primer año · hasta el 13 sept",
+    "contextBar": "Oferta Founding · 50% de descuento el primer año · hasta el 13 de octubre",
+    "contextBarShort": "50% de descuento el primer año · hasta el 13 oct",
     "hero": {
       "eyebrow": "El Training Club",
       "titleLine1": "Entra",
@@ -1951,7 +1951,7 @@
         "name": "Founding Member",
         "badge": "Preventa · 50% de descuento",
         "price": "€39.50",
-        "per": "12 meses · precio Founding hasta el 13 de septiembre",
+        "per": "12 meses · precio Founding hasta el 13 de octubre",
         "strike": "€79.99",
         "strikeNote": "reembolsable hasta el lanzamiento",
         "blurb": "Asegura un año completo de Premium antes del lanzamiento. Tu año empieza el día del lanzamiento, no hoy.",

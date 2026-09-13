@@ -37,11 +37,14 @@ export const LAUNCH_DATE = '2026-09-03T00:00:00+02:00';
 // Extended 3 Sep 2026 (Noah): iOS was still 'In Review' on launch day with no
 // date from Apple, so founding was held open rather than closing on an opening
 // day the app never opened on. Extended again 6 Sep to Sun 13 Sep, still with
-// no ruling from Apple. This date is deliberately fixed
-// and NOT tied to App Review — the offer has to have a deadline a customer can
-// act on, and Apple's timing is not knowable. If review drags past Sunday,
-// move this again on purpose; do not make it open-ended.
-export const FOUNDING_CLOSE_DATE = '2026-09-14T00:00:00+02:00';
+// no ruling from Apple. Extended again 13 Sep to Tue 13 Oct: still no ruling,
+// and Android needs a minimum of three weeks to reach the Play Store, so a
+// month is the first date that can cover both without a fourth move. This date
+// is deliberately fixed and NOT tied to App Review — the offer has to have a
+// deadline a customer can act on, and Apple's timing is not knowable. If review
+// drags past mid-October, move this again on purpose; do not make it
+// open-ended.
+export const FOUNDING_CLOSE_DATE = '2026-10-14T00:00:00+02:00';
 
 // Call this at RENDER time, never at module load — the offer has to close
 // itself while a long-lived tab is open, without a rebuild.

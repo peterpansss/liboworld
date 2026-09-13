@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LAUNCH_DATE } from '../config/launchMode';
+import { FOUNDING_CLOSE_DATE } from '../config/launchMode';
 import { diffParts, pad2 } from '../utils/countdown';
 import './LaunchCountdown.css';
 
@@ -39,7 +39,14 @@ type Props = {
 export default function LaunchCountdown({ className }: Props) {
   const { t } = useTranslation();
   const [now, setNow] = useState(() => Date.now());
-  const target = new Date(LAUNCH_DATE).getTime();
+  // FOUNDING_CLOSE_DATE, not LAUNCH_DATE. This block's own label reads
+  // "Founder pricing ends <date>", so it has to count to the date founding
+  // actually closes. It was pointed at LAUNCH_DATE, which passed on 3 Sep — so
+  // from 3 to 13 Sep every pricing card rendered the closed line, "Founding
+  // closed — Premium is EUR 79.99/yr", while the announcement bar directly
+  // above it advertised the offer as open and Stripe was still taking founding
+  // payments at 50% off.
+  const target = new Date(FOUNDING_CLOSE_DATE).getTime();
   const parts = diffParts(target, now);
   const closed = parts.totalSec === 0;
 
@@ -75,7 +82,7 @@ export default function LaunchCountdown({ className }: Props) {
   ];
 
   const label = t('countdown.founderLabel', {
-    defaultValue: 'Founder pricing ends 13 September',
+    defaultValue: 'Founder pricing ends 13 October',
   });
 
   return (

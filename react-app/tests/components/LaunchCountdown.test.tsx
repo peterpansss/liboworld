@@ -3,10 +3,14 @@
  *
  * This is the block that makes the founding pre-sale expire on its own, so the
  * behaviour worth pinning is the boundary: four zero-padded units before
- * LAUNCH_DATE, the closed line after it, and the flip happening on the 1s tick
+ * FOUNDING_CLOSE_DATE, the closed line after it, and the flip on the 1s tick
  * without a reload. Getting that wrong means either a countdown reading
  * "closed" above a live Buy button, or a 3 a.m. deploy on launch morning — the
- * two outcomes the date-driven design exists to prevent.
+ * two outcomes the date-driven design exists to prevent. The first of those
+ * shipped anyway between 3 and 13 Sep 2026, because the component counted to
+ * LAUNCH_DATE while the offer closed on FOUNDING_CLOSE_DATE — the suite passed
+ * throughout, since it mocked the one constant the component happened to read.
+ * Mock both, and keep them equal here on purpose.
  *
  * launchMode is mocked so the suite doesn't depend on the real launch date
  * still being in the future. react-i18next resolves against the real en.json
@@ -22,6 +26,10 @@ void React;
 const LAUNCH = '2026-09-03T00:00:00+02:00';
 
 vi.mock('../../src/config/launchMode', () => ({
+  // The component counts to FOUNDING_CLOSE_DATE, not LAUNCH_DATE. Both are
+  // mocked to the same instant here so the boundary assertions below read
+  // naturally; in production they are deliberately different dates.
+  FOUNDING_CLOSE_DATE: '2026-09-03T00:00:00+02:00',
   LAUNCH_DATE: '2026-09-03T00:00:00+02:00',
   LAUNCH_MODE: 'prelaunch',
   isPrelaunch: () => true,
@@ -82,7 +90,7 @@ describe('LaunchCountdown', () => {
     at(10 * 86400_000);
     render(<LaunchCountdown />);
     expect(
-      screen.getAllByText(/Founder pricing ends 13 September/).length,
+      screen.getAllByText(/Founder pricing ends 13 October/).length,
     ).toBeGreaterThan(0);
     expect(screen.queryByText(/Founding closed/)).toBeNull();
   });

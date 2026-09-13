@@ -176,7 +176,7 @@
     "lessThanMinute": "Menos de 1 minuto restante",
     "lessThanHour": "Menos de 1 hora restante",
     "remaining": "restante",
-    "founderLabel": "Preço de fundador até 13 de setembro",
+    "founderLabel": "Preço de fundador até 13 de outubro",
     "unitDays": "DIAS",
     "unitHours": "HRS",
     "unitMinutes": "MIN",
@@ -870,8 +870,8 @@
     }
   },
   "earlyAccess": {
-    "announceText": "Founding Members: 50% de desconto — só até 13 de setembro",
-    "announceTextShort": "Founding Members: 50% de desconto até 13 set →",
+    "announceText": "Founding Members: 50% de desconto — só até 13 de outubro",
+    "announceTextShort": "Founding Members: 50% de desconto até 13 out →",
     "announceDismiss": "Dispensar",
     "eyebrow": "FOUNDING MEMBER",
     "headline": "Garanta a Libo antes do lançamento",
@@ -1855,8 +1855,8 @@
       "title": "Vire Founding Member — Libo Training Club",
       "description": "Entre na Libo como Founding Member por €39.50 — 50% off no primeiro ano, reembolso total até o lançamento. Seu ano começa no dia em que o app entra no ar."
     },
-    "contextBar": "Oferta Founding · 50% off no primeiro ano · até 13 de setembro",
-    "contextBarShort": "50% off no primeiro ano · até 13 set",
+    "contextBar": "Oferta Founding · 50% off no primeiro ano · até 13 de outubro",
+    "contextBarShort": "50% off no primeiro ano · até 13 out",
     "hero": {
       "eyebrow": "O Training Club",
       "titleLine1": "Entre",
@@ -1951,7 +1951,7 @@
         "name": "Founding Member",
         "badge": "Pré-venda · 50% off",
         "price": "€39.50",
-        "per": "12 meses · preço Founding até 13 de setembro",
+        "per": "12 meses · preço Founding até 13 de outubro",
         "strike": "€79.99",
         "strikeNote": "reembolsável até o lançamento",
         "blurb": "Garanta um ano inteiro de Premium antes do lançamento. Seu ano começa no dia do lançamento, não hoje.",
