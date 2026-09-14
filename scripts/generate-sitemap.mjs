@@ -2,7 +2,7 @@
 /**
  * Generate sitemap.xml covering every public route on liboworld.com:
  *   /, /exercises, /exercises/<slug>, /workouts, /workouts/<id>,
- *   /blog, /blog/<slug>, /privacy, /terms, /rules.
+ *   /blog, /blog/<slug>, /privacy, /terms, /rules, /delete-account.
  *
  * Reads source data:
  *   - react-app/public/exercises.json  (680 exercises)
@@ -108,6 +108,9 @@ function main() {
   // funnels: the launch films name liboworld.com/rules out loud, so people
   // will search for it.
   entries.push(urlEntry(`${SITE_URL}/rules`, 0.4, 'monthly'));
+  // /delete-account — the public deletion link Google Play requires. Indexed so
+  // someone searching "delete Libo account" without the app can find it.
+  entries.push(urlEntry(`${SITE_URL}/delete-account`, 0.3, 'yearly'));
 
   // Exercise detail pages — slug-first, id fallback (route is /exercises/:slug)
   for (const ex of exercises) {

@@ -105,6 +105,9 @@ export default function SiteFooter() {
                   /terms — nowhere a person looking for "the rules" would go. */}
               <Link to="/rules">{t('footer.rules', { defaultValue: 'Cash Challenge Rules' })}</Link>
               <Link to="/privacy">{t('footer.privacy')}</Link>
+              {/* Google Play requires a public, app-independent deletion link;
+                  the footer puts it one click from every page. */}
+              <Link to="/delete-account">{t('footer.deleteAccount', { defaultValue: 'Delete account' })}</Link>
               {/* Re-opens the consent banner — the choice must stay revocable. */}
               <button type="button" className="site-footer__consent" onClick={resetConsent}>
                 {t('footer.cookieSettings', { defaultValue: 'Cookie settings' })}

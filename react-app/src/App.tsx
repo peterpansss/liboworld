@@ -81,6 +81,7 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Rules = lazy(() => import('./pages/Rules'));
+const DeleteAccount = lazy(() => import('./pages/DeleteAccount'));
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthConfirm = lazy(() => import('./pages/AuthConfirm'));
 const Giveaway = lazy(() => import('./pages/Giveaway'));
@@ -150,6 +151,9 @@ export default function App() {
         <Route path="/privacy" element={<Suspense fallback={darkFallback}><Privacy /></Suspense>} />
         <Route path="/terms" element={<Suspense fallback={darkFallback}><Terms /></Suspense>} />
         <Route path="/rules" element={<Suspense fallback={darkFallback}><Rules /></Suspense>} />
+        {/* Account-deletion instructions — the public link Google Play's Data
+            safety form requires, reachable without the app installed. */}
+        <Route path="/delete-account" element={<Suspense fallback={darkFallback}><DeleteAccount /></Suspense>} />
         <Route path="/auth/callback" element={<Suspense fallback={darkFallback}><AuthCallback /></Suspense>} />
         <Route path="/auth/confirm" element={<Suspense fallback={darkFallback}><AuthConfirm /></Suspense>} />
         <Route path="/giveaway" element={!FUNNEL_PAGES_ENABLED ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><Giveaway /></Suspense>} />
