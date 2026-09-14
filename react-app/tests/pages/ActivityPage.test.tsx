@@ -13,6 +13,7 @@
 import * as React from 'react';
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import type { WorkoutLogRow } from '../../src/lib/adminApi';
 
 void React;
 
@@ -24,7 +25,7 @@ vi.mock('../../src/lib/adminApi', () => ({
 
 import { ActivityPage } from '../../src/pages/admin/ActivityPage';
 
-const buildRow = (overrides: Partial<any> = {}) => ({
+const buildRow = (overrides: Partial<WorkoutLogRow> = {}) => ({
   id: 'log-' + Math.random(),
   user_id: 'user-1',
   user_name: 'Alice',
@@ -121,13 +122,17 @@ describe('ActivityPage', () => {
     fetchActivityFeedMock.mockResolvedValue([buildRow()]);
     const createObjUrl = vi.fn(() => 'blob://x');
     const revokeObjUrl = vi.fn();
-    (URL as any).createObjectURL = createObjUrl;
-    (URL as any).revokeObjectURL = revokeObjUrl;
+    URL.createObjectURL = createObjUrl;
+    URL.revokeObjectURL = revokeObjUrl;
 
     render(<ActivityPage />);
     await waitFor(() => expect(fetchActivityFeedMock).toHaveBeenCalledTimes(1));
+    // Export stays disabled until the fetched rows land in state; the mock
+    // having been called doesn't mean that has happened yet (was flaky).
+    const exportBtn = screen.getByRole('button', { name: /Export CSV/i });
+    await waitFor(() => expect(exportBtn).toBeEnabled());
 
-    fireEvent.click(screen.getByRole('button', { name: /Export CSV/i }));
+    fireEvent.click(exportBtn);
     expect(createObjUrl).toHaveBeenCalledTimes(1);
     expect(revokeObjUrl).toHaveBeenCalledWith('blob://x');
   });

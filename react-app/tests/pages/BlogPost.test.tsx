@@ -25,13 +25,20 @@ vi.mock('../../src/components/SiteFooter', () => ({
 vi.mock('../../src/components/EmojiIcon', () => ({
   EmojiIcon: ({ emoji }: { emoji?: string }) => <span data-testid="emoji">{emoji ?? ''}</span>,
 }));
+// Key passthrough that still exercises the component's i18n contract:
+//  - `defaultValue` wins when supplied (category labels fall back to the raw
+//    category name when no `blog.categories.*` key exists)
+//  - `count` renders as `key:<count>`
+//  - any other interpolation values are appended as `key:<value>` so the
+//    data the page passes in (e.g. the author) is still observable.
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, opts?: Record<string, unknown>) => {
-      if (opts && typeof opts === 'object' && 'count' in opts) {
-        return `${key}:${(opts as { count: number }).count}`;
-      }
-      return key;
+      if (!opts) return key;
+      if (typeof opts.defaultValue === 'string') return opts.defaultValue;
+      if ('count' in opts) return `${key}:${String(opts.count)}`;
+      const values = Object.values(opts).map(String);
+      return values.length ? `${key}:${values.join(',')}` : key;
     },
     i18n: { language: 'en' },
   }),
@@ -106,14 +113,16 @@ describe('BlogPost', () => {
     // Body content rendered via dangerouslySetInnerHTML
     expect(screen.getByText('FIRST CONTENT')).toBeInTheDocument();
 
-    // Author / metadata
-    expect(screen.getByText('Author A')).toBeInTheDocument();
+    // Author / metadata (author is interpolated into blogPost.writtenBy)
+    expect(screen.getByText('blogPost.writtenBy:Author A')).toBeInTheDocument();
+    expect(screen.getByText('blogPost.minRead:3')).toBeInTheDocument();
 
     // Related links: relatedExercises and relatedPrograms both rendered
     expect(screen.getByRole('link', { name: /Barbell Bench Press/ }))
       .toHaveAttribute('href', '/exercises/barbell-bench-press');
+    // Programs are served under /workouts/:id (the old /programs routes are gone)
     expect(screen.getByRole('link', { name: /Push Pull Legs/ }))
-      .toHaveAttribute('href', '/programs/push-pull-legs');
+      .toHaveAttribute('href', '/workouts/push-pull-legs');
 
     // Next link present, prev link absent
     expect(screen.getByText('Middle Post')).toBeInTheDocument();

@@ -5,6 +5,9 @@
  * registerReauthPrompt (in lib/adminApi). We mock that lib so the test
  * can drive the `resolve(...)` callback the modal hands back to the lib
  * and verify the modal opens, validates, submits and cancels correctly.
+ *
+ * Since LIBO-02 (43a3ea7) re-auth is 2FA-based: the modal asks for the 6-digit
+ * TOTP code from the admin's authenticator app and never handles a password.
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
@@ -14,11 +17,11 @@ import userEvent from '@testing-library/user-event';
 
 void React;
 
-let promptCallback: ((resolve: (pw: string | null) => void) => void) | null = null;
+let promptCallback: ((resolve: (code: string | null) => void) => void) | null = null;
 let unregisterCalls = 0;
 
 vi.mock('../../../src/lib/adminApi', () => ({
-  registerReauthPrompt: (cb: (resolve: (pw: string | null) => void) => void) => {
+  registerReauthPrompt: (cb: (resolve: (code: string | null) => void) => void) => {
     promptCallback = cb;
     return () => { unregisterCalls += 1; };
   },
@@ -39,6 +42,10 @@ function triggerPrompt(): { resolve: ReturnType<typeof vi.fn> } {
   return { resolve };
 }
 
+function codeInput(): HTMLInputElement {
+  return document.querySelector('input[autocomplete="one-time-code"]') as HTMLInputElement;
+}
+
 describe('ReauthModal', () => {
   it('renders nothing initially', () => {
     const { container } = render(<ReauthModal />);
@@ -49,27 +56,49 @@ describe('ReauthModal', () => {
   it('opens when the prompt is triggered', () => {
     render(<ReauthModal />);
     triggerPrompt();
-    expect(screen.getByText(/Confirm with password/i)).toBeInTheDocument();
-    expect(document.querySelector('input[type="password"]') as HTMLInputElement).toBeInTheDocument();
+    expect(screen.getByText(/Confirm with authenticator/i)).toBeInTheDocument();
+    expect(codeInput()).toBeInTheDocument();
+    // Never a password field.
+    expect(document.querySelector('input[type="password"]')).toBeNull();
   });
 
-  it('resolves with the typed password and closes on submit', async () => {
+  it('resolves with the typed 6-digit code and closes on submit', async () => {
     const user = userEvent.setup();
     render(<ReauthModal />);
     const { resolve } = triggerPrompt();
-    const pwd = document.querySelector('input[type="password"]') as HTMLInputElement;
-    await user.type(pwd, 'hunter2');
-    fireEvent.submit(pwd.closest('form')!);
-    expect(resolve).toHaveBeenCalledWith('hunter2');
-    expect(screen.queryByText(/Confirm with password/i)).not.toBeInTheDocument();
+    const input = codeInput();
+    await user.type(input, '123456');
+    fireEvent.submit(input.closest('form')!);
+    expect(resolve).toHaveBeenCalledWith('123456');
+    expect(screen.queryByText(/Confirm with authenticator/i)).not.toBeInTheDocument();
   });
 
-  it('shows a "Password is required" error when submitted empty', () => {
+  it('strips non-digits and caps the code at 6 characters', async () => {
+    const user = userEvent.setup();
     render(<ReauthModal />);
     triggerPrompt();
-    const pwd = document.querySelector('input[type="password"]') as HTMLInputElement;
-    fireEvent.submit(pwd.closest('form')!);
-    expect(screen.getByText(/Password is required/i)).toBeInTheDocument();
+    const input = codeInput();
+    await user.type(input, '12a34-5678');
+    expect(input.value).toBe('123456');
+  });
+
+  it('shows a validation error (and does not resolve) when submitted empty', () => {
+    render(<ReauthModal />);
+    const { resolve } = triggerPrompt();
+    fireEvent.submit(codeInput().closest('form')!);
+    expect(screen.getByText('Enter the 6-digit code from your authenticator app.')).toBeInTheDocument();
+    expect(resolve).not.toHaveBeenCalled();
+  });
+
+  it('rejects a code shorter than 6 digits', async () => {
+    const user = userEvent.setup();
+    render(<ReauthModal />);
+    const { resolve } = triggerPrompt();
+    const input = codeInput();
+    await user.type(input, '123');
+    fireEvent.submit(input.closest('form')!);
+    expect(screen.getByText('Enter the 6-digit code from your authenticator app.')).toBeInTheDocument();
+    expect(resolve).not.toHaveBeenCalled();
   });
 
   it('resolves with null and closes when Cancel is clicked', async () => {
@@ -78,7 +107,7 @@ describe('ReauthModal', () => {
     const { resolve } = triggerPrompt();
     await user.click(screen.getByRole('button', { name: /Cancel/ }));
     expect(resolve).toHaveBeenCalledWith(null);
-    expect(screen.queryByText(/Confirm with password/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Confirm with authenticator/i)).not.toBeInTheDocument();
   });
 
   it('resolves with null when the overlay is clicked (cancel behavior)', () => {
@@ -91,8 +120,7 @@ describe('ReauthModal', () => {
   it('does not bubble overlay clicks when the form is clicked (stopPropagation)', () => {
     render(<ReauthModal />);
     const { resolve } = triggerPrompt();
-    const pwd = document.querySelector('input[type="password"]') as HTMLInputElement;
-    fireEvent.click(pwd.closest('form')!);
+    fireEvent.click(codeInput().closest('form')!);
     expect(resolve).not.toHaveBeenCalled();
   });
 

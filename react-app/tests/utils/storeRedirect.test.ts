@@ -8,10 +8,9 @@ import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
 import { detectPlatform, storeUrlFor, redirectToStore, STORE_URLS, WAITLIST_URL, ANDROID_AVAILABLE } from '../../src/utils/storeRedirect';
 
 const ORIG_NAV = global.navigator;
-const ORIG_LOC = global.window?.location;
 
 afterEach(() => {
-  // Restore navigator + window.location.
+  // Restore navigator.
   Object.defineProperty(global, 'navigator', { configurable: true, value: ORIG_NAV });
 });
 
@@ -105,12 +104,12 @@ describe('redirectToStore', () => {
 
   it('navigates to the iOS URL for ios platform', () => {
     redirectToStore('ios');
-    expect((window.location.assign as any).mock.calls[0][0]).toBe(STORE_URLS.ios);
+    expect(vi.mocked(window.location.assign).mock.calls[0][0]).toBe(STORE_URLS.ios);
   });
 
   it('navigates android to the waitlist, not the Play Store', () => {
     redirectToStore('android');
-    expect((window.location.assign as any).mock.calls[0][0]).toBe(WAITLIST_URL);
+    expect(vi.mocked(window.location.assign).mock.calls[0][0]).toBe(WAITLIST_URL);
   });
 });
 

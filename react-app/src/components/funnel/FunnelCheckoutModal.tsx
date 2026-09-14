@@ -47,6 +47,7 @@ export type AccentTheme = {
   onAccent: string; // text/icon color on a solid/gradient accent fill
 };
 
+// eslint-disable-next-line react-refresh/only-export-components -- theme constant shared with funnel pages
 export const ORANGE_ACCENT: AccentTheme = {
   solid: '#FF6A1A',
   light: '#FF8A4A',
@@ -58,6 +59,7 @@ export const ORANGE_ACCENT: AccentTheme = {
 
 // Lime on near-black — matches the Libo brand system (--accent #CAFF00,
 // --accent2 #9BC800, --accent-text #080B10). Dark text on lime for contrast.
+// eslint-disable-next-line react-refresh/only-export-components -- theme constant shared with funnel pages
 export const LIME_ACCENT: AccentTheme = {
   solid: '#CAFF00',
   light: '#CAFF00',

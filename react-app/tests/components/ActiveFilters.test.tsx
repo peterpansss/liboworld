@@ -3,12 +3,21 @@
  *
  * Verifies the empty-state short-circuit, per-filter remove buttons,
  * accessible label format and the conditional "Clear all" affordance.
+ *
+ * react-i18next is mocked to return the key, so the "Clear all" button is
+ * asserted by its translation key (`common.clearAll`) rather than English
+ * copy that lives in the locale bundles.
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key: string) => key, i18n: {} }),
+}));
+
 import { ActiveFilters } from '../../src/components/ActiveFilters';
 
 void React;
@@ -46,7 +55,7 @@ describe('ActiveFilters', () => {
         onClearAll={() => {}}
       />,
     );
-    expect(screen.queryByText('Clear all')).not.toBeInTheDocument();
+    expect(screen.queryByText('common.clearAll')).not.toBeInTheDocument();
   });
 
   it('renders Clear all when 2+ filters are active', () => {
@@ -60,7 +69,7 @@ describe('ActiveFilters', () => {
         onClearAll={() => {}}
       />,
     );
-    expect(screen.getByText('Clear all')).toBeInTheDocument();
+    expect(screen.getByText('common.clearAll')).toBeInTheDocument();
   });
 
   it('invokes onRemove with the filter key when its X is clicked', async () => {
@@ -90,7 +99,7 @@ describe('ActiveFilters', () => {
         onClearAll={onClearAll}
       />,
     );
-    await user.click(screen.getByText('Clear all'));
+    await user.click(screen.getByText('common.clearAll'));
     expect(onClearAll).toHaveBeenCalledTimes(1);
   });
 });

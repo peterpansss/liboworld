@@ -10,26 +10,35 @@
  * Plus the MFA hard-redirect: when getAdminMfaStatus returns must_enrol:true
  * the user is redirected to /admin/mfa (and is NOT redirected when already
  * sitting on that route — i.e. no infinite loop).
+ *
+ * And the AAL2 gate (LIBO-02): admin content only renders once the session is
+ * aal2 (or aal1 with no verified factor — the enrol case). An aal1 session with
+ * a verified factor, or an AAL read error, is held on the step-up screen.
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
+import type { AdminMfaStatus, SessionAalInfo } from '../../src/lib/adminApi';
 
 void React;
 
-let nextSession: any = null;
+type FakeSession = { user: { id: string } } | null;
+
+let nextSession: FakeSession = null;
 let nextIsAdmin = false;
-let nextMfaStatus: any = { is_admin: true, mfa_enrolled: true, must_enrol: false };
+let nextMfaStatus: AdminMfaStatus = { is_admin: true, mfa_enrolled: true, must_enrol: false };
 let nextMfaShouldThrow = false;
-let authChangeCb: ((event: string, session: any) => void) | null = null;
+let nextAal: SessionAalInfo = { level: 'aal2', hasVerifiedFactor: true, error: false };
+const stepUpMock = vi.fn(() => new Promise<boolean>(() => {}));
+let authChangeCb: ((event: string, session: FakeSession) => void) | null = null;
 
 vi.mock('../../src/lib/supabase', () => ({
   supabase: {
     auth: {
       getSession: () => Promise.resolve({ data: { session: nextSession } }),
-      onAuthStateChange: (cb: any) => {
+      onAuthStateChange: (cb: (event: string, session: FakeSession) => void) => {
         authChangeCb = cb;
         return { data: { subscription: { unsubscribe: () => {} } } };
       },
@@ -49,6 +58,9 @@ vi.mock('../../src/lib/adminApi', () => ({
     nextMfaShouldThrow
       ? Promise.reject(new Error('RPC missing'))
       : Promise.resolve(nextMfaStatus),
+  getSessionAal: () => Promise.resolve(nextAal),
+  stepUpAdminSessionToAal2: () => stepUpMock(),
+  signOutAdmin: () => Promise.resolve(),
 }));
 
 // ReauthModal is mounted inside the admin tree and listens for re-auth
@@ -100,6 +112,8 @@ beforeEach(() => {
   nextIsAdmin = false;
   nextMfaStatus = { is_admin: true, mfa_enrolled: true, must_enrol: false };
   nextMfaShouldThrow = false;
+  nextAal = { level: 'aal2', hasVerifiedFactor: true, error: false };
+  stepUpMock.mockClear();
   authChangeCb = null;
 });
 
@@ -185,16 +199,51 @@ describe('AdminGuard', () => {
     expect(screen.getByTestId('mfa-route-target')).toHaveTextContent('/admin/mfa');
   });
 
-  it('fails open (renders children) when getAdminMfaStatus RPC is missing', async () => {
+  it('fails CLOSED (redirects to /admin/mfa) when getAdminMfaStatus RPC is missing', async () => {
+    // LIBO-02 (54ced56): an unavailable MFA-status RPC can no longer wave the
+    // admin through — enrolment is forced instead.
     nextSession = { user: { id: 'u_admin' } };
     nextIsAdmin = true;
     nextMfaShouldThrow = true;
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    renderGuard(<div data-testid="protected">protected</div>);
+    await waitFor(() => {
+      expect(screen.getByTestId('mfa-route-target')).toHaveTextContent('/admin/mfa');
+    });
+    expect(screen.queryByTestId('protected')).not.toBeInTheDocument();
+    expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('holds an aal1 session with a verified factor on the step-up screen', async () => {
+    nextSession = { user: { id: 'u_admin' } };
+    nextIsAdmin = true;
+    nextAal = { level: 'aal1', hasVerifiedFactor: true, error: false };
+    renderGuard(<div data-testid="protected">protected</div>);
+    await waitFor(() => {
+      expect(screen.getByText('Two-factor required')).toBeInTheDocument();
+    });
+    expect(screen.queryByTestId('protected')).not.toBeInTheDocument();
+    await waitFor(() => expect(stepUpMock).toHaveBeenCalled());
+  });
+
+  it('fails closed to the step-up screen when the AAL cannot be read', async () => {
+    nextSession = { user: { id: 'u_admin' } };
+    nextIsAdmin = true;
+    nextAal = { level: null, hasVerifiedFactor: false, error: true };
+    renderGuard(<div data-testid="protected">protected</div>);
+    await waitFor(() => {
+      expect(screen.getByText('Two-factor required')).toBeInTheDocument();
+    });
+    expect(screen.queryByTestId('protected')).not.toBeInTheDocument();
+  });
+
+  it('lets an aal1 session with no verified factor through (enrol/grace case)', async () => {
+    nextSession = { user: { id: 'u_admin' } };
+    nextIsAdmin = true;
+    nextAal = { level: 'aal1', hasVerifiedFactor: false, error: false };
     renderGuard(<div data-testid="protected">protected</div>);
     await waitFor(() => {
       expect(screen.getByTestId('protected')).toBeInTheDocument();
     });
-    expect(warnSpy).toHaveBeenCalled();
-    warnSpy.mockRestore();
   });
 });

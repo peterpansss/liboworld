@@ -56,6 +56,26 @@ vi.mock('../../src/pages/admin/AdminLayout', () => ({
   default: () => <div data-testid="page-admin" />,
 }));
 
+// ---- Launch gates. -----------------------------------------------------------
+// /giveaway + /cash-challenge are gated by FUNNEL_PAGES_ENABLED and /get-app by
+// isPrelaunch(); while gated each route <Navigate>s home. Overridden with
+// getters so every test picks the gate state explicitly instead of inheriting
+// whatever src/config/launchMode.ts ships today. Everything else in the module
+// (founding dates etc.) stays real.
+let funnelPagesEnabled = true;
+let prelaunch = false;
+vi.mock('../../src/config/launchMode', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../src/config/launchMode')>();
+  return {
+    ...actual,
+    isPrelaunch: () => prelaunch,
+    isLaunched: () => !prelaunch,
+    get FUNNEL_PAGES_ENABLED() {
+      return funnelPagesEnabled;
+    },
+  };
+});
+
 import App from '../../src/App';
 
 // Reset URL between tests so BrowserRouter picks up the right path.
@@ -64,6 +84,10 @@ function gotoUrl(url: string) {
 }
 
 beforeEach(() => {
+  // Gates open by default so the route table itself is exercised; the gated
+  // behaviour has its own describe block below.
+  funnelPagesEnabled = true;
+  prelaunch = false;
   // Default to "/" before each test to give us a clean slate.
   gotoUrl('/');
   // jsdom does not implement window.scrollTo. Silence the harmless
@@ -107,6 +131,38 @@ describe('Lazy-loaded routes', () => {
     gotoUrl(path);
     render(<App />);
     await waitFor(() => expect(screen.getByTestId(marker)).toBeInTheDocument());
+  });
+});
+
+describe('Launch-gated routes', () => {
+  it.each([
+    ['/giveaway', 'page-giveaway'],
+    ['/cash-challenge', 'page-cash-challenge'],
+  ])('redirects %s home while FUNNEL_PAGES_ENABLED is false', async (path, marker) => {
+    funnelPagesEnabled = false;
+    gotoUrl(path);
+    render(<App />);
+    await waitFor(() => expect(screen.getByTestId('page-landing')).toBeInTheDocument());
+    expect(screen.queryByTestId(marker)).not.toBeInTheDocument();
+    expect(window.location.pathname).toBe('/');
+  });
+
+  it('keeps the funnel pages gated even after launch (gate is independent of LAUNCH_MODE)', async () => {
+    funnelPagesEnabled = false;
+    prelaunch = false;
+    gotoUrl('/cash-challenge');
+    render(<App />);
+    await waitFor(() => expect(screen.getByTestId('page-landing')).toBeInTheDocument());
+    expect(screen.queryByTestId('page-cash-challenge')).not.toBeInTheDocument();
+  });
+
+  it('redirects /get-app home during prelaunch', async () => {
+    prelaunch = true;
+    gotoUrl('/get-app');
+    render(<App />);
+    await waitFor(() => expect(screen.getByTestId('page-landing')).toBeInTheDocument());
+    expect(screen.queryByTestId('page-getapp')).not.toBeInTheDocument();
+    expect(window.location.pathname).toBe('/');
   });
 });
 

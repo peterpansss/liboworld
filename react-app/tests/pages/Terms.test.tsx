@@ -4,7 +4,7 @@
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -17,7 +17,30 @@ vi.mock('../../src/components/SiteFooter', () => ({
   default: () => <footer data-testid="site-footer" />,
 }));
 
+// GIVEAWAYS_ENABLED gates the "Points Packs" section (#points-packs, formerly
+// #s8) out of the Terms for launch. Mocked with a getter so each test can pick
+// the gate state instead of depending on the current build flag.
+let giveawaysEnabled = false;
+vi.mock('../../src/config/featureFlags', () => ({
+  get GIVEAWAYS_ENABLED() {
+    return giveawaysEnabled;
+  },
+}));
+
 import Terms from '../../src/pages/Terms';
+
+beforeEach(() => {
+  giveawaysEnabled = false;
+});
+
+const tocHrefs = () =>
+  Array.from(document.querySelectorAll<HTMLAnchorElement>('.legal-toc a')).map((a) =>
+    a.getAttribute('href'),
+  );
+const sectionNumbers = () =>
+  Array.from(document.querySelectorAll('.legal-section-num')).map((el) => el.textContent);
+const expectedNumbers = (count: number) =>
+  Array.from({ length: count }, (_, i) => String(i + 1).padStart(2, '0'));
 
 function renderPage() {
   return render(
@@ -49,12 +72,34 @@ describe('Terms', () => {
     expect(privacy).toHaveAttribute('href', '/privacy');
   });
 
-  it('renders all 17 numbered TOC anchor links', () => {
+  it('renders 19 TOC links, each resolving to a section, numbered 01–19 with giveaways gated off', () => {
     renderPage();
-    for (let i = 1; i <= 17; i++) {
-      const anchor = document.querySelector(`a[href="#s${i}"]`);
-      expect(anchor, `expected TOC link to #s${i}`).not.toBeNull();
+    const hrefs = tocHrefs();
+    // s8 (Points Packs) is gated off; the remaining sections keep their ids.
+    expect(hrefs).toEqual([
+      '#s1', '#s2', '#s3', '#s4', '#s5', '#s6', '#s7',
+      '#s9', '#s10', '#s11', '#s12', '#s13', '#s14', '#s15', '#s16', '#s17', '#s18',
+      '#early-access', '#challenge-rules',
+    ]);
+    for (const href of hrefs) {
+      expect(document.getElementById(href!.slice(1)), `expected section for ${href}`).not.toBeNull();
     }
+    expect(document.getElementById('points-packs')).toBeNull();
+    expect(screen.queryByRole('heading', { name: /Points Packs/i })).not.toBeInTheDocument();
+    // Visible numbering renumbers around the gap rather than skipping 08.
+    expect(sectionNumbers()).toEqual(expectedNumbers(19));
+  });
+
+  it('adds the Points Packs section to the TOC and numbering when giveaways are enabled', () => {
+    giveawaysEnabled = true;
+    renderPage();
+    const hrefs = tocHrefs();
+    expect(hrefs).toHaveLength(20);
+    expect(hrefs[7]).toBe('#points-packs');
+    for (const href of hrefs) {
+      expect(document.getElementById(href!.slice(1)), `expected section for ${href}`).not.toBeNull();
+    }
+    expect(sectionNumbers()).toEqual(expectedNumbers(20));
   });
 
   it('exposes the support email', () => {

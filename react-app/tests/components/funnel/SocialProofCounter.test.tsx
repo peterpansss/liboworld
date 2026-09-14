@@ -9,10 +9,13 @@
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import SocialProofCounter from '../../../src/components/funnel/SocialProofCounter';
 
 void React;
+
+// jsdom has no IntersectionObserver; each test installs its own stand-in.
+const ioGlobal = globalThis as { IntersectionObserver?: unknown };
 
 class MockIO {
   callback: IntersectionObserverCallback;
@@ -31,7 +34,7 @@ class MockIO {
 }
 
 beforeEach(() => {
-  (globalThis as any).IntersectionObserver = MockIO;
+  ioGlobal.IntersectionObserver = MockIO;
   // Make rAF flush each frame instantly so the count-up completes.
   vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
     cb(performance.now() + 5000);
@@ -40,7 +43,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  delete (globalThis as any).IntersectionObserver;
+  delete ioGlobal.IntersectionObserver;
 });
 
 describe('SocialProofCounter', () => {
@@ -62,7 +65,7 @@ describe('SocialProofCounter', () => {
 
   it('starts at 0 before the section intersects', () => {
     // Override IO to NOT trigger; observe is a no-op.
-    (globalThis as any).IntersectionObserver = class {
+    ioGlobal.IntersectionObserver = class {
       observe = () => {};
       unobserve = vi.fn();
       disconnect = vi.fn();
@@ -81,16 +84,20 @@ describe('SocialProofCounter', () => {
   });
 
   it('disconnects the observer on unmount', () => {
-    let observerInstance: any = null;
-    (globalThis as any).IntersectionObserver = class {
-      callback: any;
-      constructor(cb: any) { this.callback = cb; observerInstance = this; }
+    const instances: { disconnect: () => void }[] = [];
+    ioGlobal.IntersectionObserver = class {
+      callback: IntersectionObserverCallback;
+      constructor(cb: IntersectionObserverCallback) {
+        this.callback = cb;
+        instances.push(this);
+      }
       observe = () => {};
       unobserve = vi.fn();
       disconnect = vi.fn();
     };
     const { unmount } = render(<SocialProofCounter counters={[{ value: 1, label: 'X' }]} />);
     unmount();
-    expect(observerInstance.disconnect).toHaveBeenCalled();
+    expect(instances).toHaveLength(1);
+    expect(instances[0].disconnect).toHaveBeenCalled();
   });
 });

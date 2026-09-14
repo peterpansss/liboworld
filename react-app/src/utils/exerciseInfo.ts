@@ -81,7 +81,7 @@ const BODY_FOCUS_MUSCLE_MAP: Record<string, MuscleGroup[]> = {
 
 function parseBodyFocus(bodyFocus: string): string[] {
   return bodyFocus
-    .split(/[\/&,]+/)
+    .split(/[/&,]+/)
     .map((s) => s.trim())
     .filter(Boolean);
 }

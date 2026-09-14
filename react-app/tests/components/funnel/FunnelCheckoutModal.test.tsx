@@ -83,6 +83,9 @@ const copy = {
   duplicateBody: 'You already entered.',
   errorMsg: 'Something failed',
   backLabel: 'Back',
+  consentLabel: 'I consent to immediate provision and waive my withdrawal right.',
+  consentLinkLabel: 'See terms',
+  consentRequired: 'Please accept the terms to continue',
 };
 
 beforeEach(() => {
@@ -95,13 +98,24 @@ beforeEach(() => {
   document.body.style.overflow = '';
 });
 
-function fillStep1(overrides: Partial<{ name: string; email: string; phone: string }> = {}) {
+/**
+ * Fills the three Step-1 text fields and, unless `consent: false`, ticks the
+ * EU Art. 16(m) consent checkbox (added 2026-05-16). The Continue button is
+ * disabled and handleStep1 refuses to advance until consent is given, so every
+ * "reach Step 2" path has to tick it — exactly as a real buyer must.
+ */
+function fillStep1(
+  overrides: Partial<{ name: string; email: string; phone: string; consent: boolean }> = {},
+) {
   const name = overrides.name ?? 'Alice';
   const email = overrides.email ?? 'alice@example.com';
   const phone = overrides.phone ?? '+15551234567';
   fireEvent.change(document.getElementById('fm-name')!, { target: { value: name } });
   fireEvent.change(document.getElementById('fm-email')!, { target: { value: email } });
   fireEvent.change(document.getElementById('fm-phone')!, { target: { value: phone } });
+  if (overrides.consent ?? true) {
+    fireEvent.click(document.getElementById('fm-terms')!);
+  }
 }
 
 describe('FunnelCheckoutModal — open/closed', () => {
@@ -408,6 +422,78 @@ describe('FunnelCheckoutModal — a11y polish', () => {
     first.focus();
     fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
     expect(document.activeElement).toBe(last);
+  });
+});
+
+describe('FunnelCheckoutModal — EU withdrawal-right consent (Step 1)', () => {
+  it('keeps Continue disabled until the consent box is ticked', () => {
+    render(
+      <FunnelCheckoutModal
+        open={true}
+        selected={baseSelected}
+        copy={copy}
+        onClose={() => {}}
+        onSubmit={async () => ({ ok: true })}
+      />,
+    );
+    fillStep1({ consent: false });
+    const continueBtn = screen.getByRole('button', { name: 'Continue' });
+    expect(continueBtn).toBeDisabled();
+    fireEvent.click(document.getElementById('fm-terms')!);
+    expect(continueBtn).toBeEnabled();
+  });
+
+  it('refuses to advance (and says why) when the form is submitted without consent', async () => {
+    const createIntent = vi.fn(async () => ({
+      ok: true as const,
+      clientSecret: 'cs_xxx',
+      paymentIntentId: 'pi_xxx',
+    }));
+    isStripeConfiguredFlag = true;
+    render(
+      <FunnelCheckoutModal
+        open={true}
+        selected={baseSelected}
+        copy={copy}
+        createIntent={createIntent}
+        onClose={() => {}}
+        onSubmit={async () => ({ ok: true })}
+      />,
+    );
+    fillStep1({ consent: false });
+    // Bypasses the disabled button, as a devtools-edited client could.
+    fireEvent.submit(document.getElementById('fm-name')!.closest('form')!);
+    await waitFor(() => screen.getByText(copy.consentRequired));
+    expect(createIntent).not.toHaveBeenCalled();
+    expect(screen.getByText('Full Name')).toBeInTheDocument();
+    expect(screen.queryByTestId('payment-element')).not.toBeInTheDocument();
+    // Ticking the box clears the consent error.
+    fireEvent.click(document.getElementById('fm-terms')!);
+    expect(screen.queryByText(copy.consentRequired)).not.toBeInTheDocument();
+  });
+
+  it('links the consent copy to the early-access Terms section by default, or to consentHref', () => {
+    const { rerender } = render(
+      <FunnelCheckoutModal
+        open={true}
+        selected={baseSelected}
+        copy={copy}
+        onClose={() => {}}
+        onSubmit={async () => ({ ok: true })}
+      />,
+    );
+    expect(screen.getByRole('link', { name: 'See terms' })).toHaveAttribute('href', '/terms#early-access');
+    rerender(
+      <FunnelCheckoutModal
+        open={true}
+        selected={baseSelected}
+        copy={copy}
+        consentHref="/terms#points-packs"
+        onClose={() => {}}
+        onSubmit={async () => ({ ok: true })}
+      />,
+    );
+    expect(screen.getByRole('link', { name: 'See terms' })).toHaveAttribute('href', '/terms#points-packs');
   });
 });
 

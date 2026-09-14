@@ -60,12 +60,15 @@ function renderAt(search: string) {
 }
 
 describe('GetApp', () => {
-  it('renders the App Store and Play Store fallback links', () => {
+  it('renders the App Store fallback link and no Google Play badge', () => {
+    // The Play badge was dropped on purpose (1921a5d "funnel: drop Google Play
+    // badge"; Android isn't shipped, and the site must not claim it is), so
+    // the fallback is iOS-only.
     renderAt('');
     const appStore = screen.getByRole('link', { name: /Download on the App Store/ });
-    const play = screen.getByRole('link', { name: /Get it on Google Play/ });
     expect(appStore).toHaveAttribute('href', 'https://apps.apple.com/libo');
-    expect(play).toHaveAttribute('href', 'https://play.google.com/libo');
+    expect(screen.queryByRole('link', { name: /Google Play/i })).not.toBeInTheDocument();
+    expect(screen.getAllByRole('link')).toHaveLength(1);
   });
 
   it('shows "Opening the app store" copy before the redirect timer fires', () => {

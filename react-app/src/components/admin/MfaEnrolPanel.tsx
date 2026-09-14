@@ -122,7 +122,7 @@ export function MfaEnrolPanel() {
               </p>
               <div
                 style={{ background: '#fff', padding: 12, borderRadius: 8, marginBottom: 12, width: 'fit-content' }}
-                // eslint-disable-next-line react/no-danger -- Supabase returns a sanitised SVG string
+                // dangerouslySetInnerHTML is deliberate: Supabase returns a sanitised SVG string
                 dangerouslySetInnerHTML={{ __html: challenge.qrSvg }}
               />
               <p style={{ margin: '0 0 12px 0', fontSize: 11, color: colors.dim, fontFamily: 'monospace' }}>

@@ -5,7 +5,9 @@
  *   - loading state
  *   - 404 when slug doesn't match any workout
  *   - happy path: hero, meta chips, phase grouping (warmup/main/cooldown)
- *   - exercise rows: linked when exercise exists in DB, plain text otherwise
+ *   - exercise rows: linked to the exercise page; blocks whose exercise is
+ *     not playable (unknown name, or no video) are dropped by
+ *     filterPlayableBlocks before render
  *   - related-workouts list (same category, current excluded, limit 4)
  */
 /// <reference types="@testing-library/jest-dom" />
@@ -23,8 +25,8 @@ vi.mock('../../src/components/SiteFooter', () => ({
   default: () => <footer data-testid="site-footer" />,
 }));
 vi.mock('../../src/utils/thumbnails', () => ({
-  buildNameToSlug: () => new Map<string, string>(),
-  workoutHeroThumb: () => null,
+  buildNameToSlug: () => ({}),
+  workoutHeroThumbSet: () => null,
 }));
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -46,25 +48,29 @@ const WORKOUT_TARGET = {
     { name: 'Foam Roller', sets: '1', reps: '0', dur: 30, phase: 'warmup' as const },
     { name: 'Bench Press', sets: '4', reps: '5', phase: 'main' as const },
     { name: 'Mystery Move', sets: '3', reps: '10', phase: 'main' as const },
+    { name: 'Unfilmed Fly', sets: '3', reps: '12', phase: 'main' as const },
     { name: 'Pec Stretch', sets: '1', reps: '0', dur: 20, phase: 'cooldown' as const },
   ],
 };
 const WORKOUT_SAMECAT = {
   id: 'wkt-2', name: 'Heavy Pull', emoji: 'P',
   diff: 'intermediate', dur: 45, cat: 'Gym',
-  exercises: [],
+  exercises: [{ name: 'Bench Press', sets: '3', reps: '8', phase: 'main' as const }],
 };
 const WORKOUT_OTHERCAT = {
   id: 'wkt-3', name: 'Cardio Burn', emoji: 'C',
   diff: 'beginner', dur: 30, cat: 'Cardio',
-  exercises: [],
+  exercises: [{ name: 'Foam Roller', sets: '1', reps: '0', dur: 60, phase: 'main' as const }],
 };
 
 vi.mock('../../src/data/exercises', () => ({
   getWorkouts: () => Promise.resolve([WORKOUT_TARGET, WORKOUT_SAMECAT, WORKOUT_OTHERCAT]),
   getExercises: () => Promise.resolve([
-    { id: 'bench-press', name: 'Bench Press', cat: 'gym', bodyFocus: 'Chest', equipment: 'Barbell', machineRequired: false, diff: 'advanced', variation: '', emoji: '', setupNotes: '' },
-    { id: 'foam-roller', name: 'Foam Roller', cat: 'mobility', bodyFocus: 'Full Body', equipment: 'Bodyweight', machineRequired: false, diff: 'beginner', variation: '', emoji: '', setupNotes: '' },
+    { id: 'bench-press', name: 'Bench Press', cat: 'gym', bodyFocus: 'Chest', equipment: 'Barbell', machineRequired: false, diff: 'advanced', variation: '', emoji: '', setupNotes: '', videoUrl: '/v/bench_press.mp4' },
+    { id: 'foam-roller', name: 'Foam Roller', cat: 'mobility', bodyFocus: 'Full Body', equipment: 'Bodyweight', machineRequired: false, diff: 'beginner', variation: '', emoji: '', setupNotes: '', videoUrl: '/v/foam_roller.mp4' },
+    { id: 'pec-stretch', name: 'Pec Stretch', cat: 'stretching', bodyFocus: 'Chest', equipment: 'Bodyweight', machineRequired: false, diff: 'beginner', variation: '', emoji: '', setupNotes: '', videoUrl: '/v/pec_stretch.mp4' },
+    // In the DB but no video → not playable → its block is dropped.
+    { id: 'unfilmed-fly', name: 'Unfilmed Fly', cat: 'gym', bodyFocus: 'Chest', equipment: 'Dumbbell', machineRequired: false, diff: 'beginner', variation: '', emoji: '', setupNotes: '' },
   ]),
 }));
 
@@ -105,17 +111,19 @@ describe('ProgramDetail', () => {
     expect(screen.getByText('programDetail.phases.cooldown')).toBeInTheDocument();
   });
 
-  it('links exercises that exist in the DB and renders unknown ones as plain text', async () => {
+  it('links playable exercises and drops blocks whose exercise is unknown or has no video', async () => {
     renderAt('/workouts/wkt-1');
     await waitFor(() => screen.getByRole('heading', { level: 1, name: 'Heavy Push' }));
 
-    // Bench Press is in the DB → link
+    // Bench Press is in the DB with a video → link
     const bench = screen.getByRole('link', { name: 'Bench Press' });
     expect(bench).toHaveAttribute('href', '/exercises/bench-press');
 
-    // "Mystery Move" not in DB → no link
-    expect(screen.getByText('Mystery Move')).toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'Mystery Move' })).not.toBeInTheDocument();
+    // "Mystery Move" is not in the DB and "Unfilmed Fly" has no video →
+    // both blocks are filtered out, and the count chip reflects the 3 left.
+    expect(screen.queryByText('Mystery Move')).not.toBeInTheDocument();
+    expect(screen.queryByText('Unfilmed Fly')).not.toBeInTheDocument();
+    expect(screen.getByText('programDetail.meta.exercisesCount:count=3')).toBeInTheDocument();
   });
 
   it('renders related workouts in the same category but excludes the current one', async () => {

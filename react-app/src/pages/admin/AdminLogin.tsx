@@ -132,6 +132,7 @@ export function AdminLogin({ onSignedIn, deniedReason }: { onSignedIn: () => voi
 // Exported for use by sign-up / change-password flows. Returns the first
 // problem found, or null if the password is acceptable. We don't surface the
 // full list because the UI shows a single error string.
+// eslint-disable-next-line react-refresh/only-export-components -- shared helper, see comment above
 export function describePasswordPolicyError(password: string): string | null {
   const result = validatePasswordPolicy(password);
   if (result.ok) return null;

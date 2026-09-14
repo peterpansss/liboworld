@@ -15,12 +15,12 @@
  */
 import { describe, expect, it, beforeEach, vi } from 'vitest';
 
-const rpcCalls: { name: string; args: any }[] = [];
-let nextRpcResp: { data: any; error: any } = { data: { ok: true, duplicate: false }, error: null };
+const rpcCalls: { name: string; args: Record<string, unknown> }[] = [];
+let nextRpcResp: { data: unknown; error: unknown } = { data: { ok: true, duplicate: false }, error: null };
 
 vi.mock('../../src/lib/supabase', () => ({
   supabase: {
-    rpc: async (name: string, args: any) => {
+    rpc: async (name: string, args: Record<string, unknown>) => {
       rpcCalls.push({ name, args });
       return nextRpcResp;
     },

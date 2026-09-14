@@ -12,6 +12,7 @@
 import * as React from 'react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import type { AdminUserRow, ChallengeCycleRow, MoneyChallenge } from '../../src/lib/adminApi';
 
 void React;
 
@@ -35,7 +36,7 @@ vi.mock('../../src/lib/adminApi', () => ({
 
 import { CyclesPage } from '../../src/pages/admin/CyclesPage';
 
-const cycle = (o: Partial<any> = {}) => ({
+const cycle = (o: Partial<ChallengeCycleRow> = {}) => ({
   id: 'cyc-1',
   challenge_id: 'ch-1',
   challenge_title: 'Pushup 30',
@@ -61,7 +62,7 @@ const cycle = (o: Partial<any> = {}) => ({
   ...o,
 });
 
-const ch = (o: Partial<any> = {}) => ({
+const ch = (o: Partial<MoneyChallenge> = {}) => ({
   id: 'ch-1',
   title: 'Pushup 30',
   description: 'd',
@@ -84,7 +85,7 @@ const ch = (o: Partial<any> = {}) => ({
   ...o,
 });
 
-const adminUser = (o: Partial<any> = {}) => ({
+const adminUser = (o: Partial<AdminUserRow> = {}) => ({
   id: 'u1',
   email: 'a@x.com',
   signup_at: null,
@@ -231,7 +232,11 @@ describe('CyclesPage', () => {
     // Mount triggers two fetches: the initial Promise.all + the
     // challengeFilter useEffect on first render.
     await waitFor(() => expect(listChallengeCyclesMock).toHaveBeenCalledTimes(2));
-    fireEvent.click(screen.getByRole('button', { name: /Refresh/ }));
+    // The button is disabled (and reads "Refreshing…") until those fetches
+    // settle; clicking it earlier is a no-op, which made this test flaky.
+    const refreshBtn = await screen.findByRole('button', { name: 'Refresh' });
+    await waitFor(() => expect(refreshBtn).toBeEnabled());
+    fireEvent.click(refreshBtn);
     await waitFor(() => expect(listChallengeCyclesMock).toHaveBeenCalledTimes(3));
   });
 

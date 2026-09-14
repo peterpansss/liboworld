@@ -79,8 +79,8 @@ describe('useDebouncedValue', () => {
 
   it('works with non-string values (numbers, objects, undefined)', () => {
     const { result, rerender } = renderHook(
-      ({ value }: { value: any }) => useDebouncedValue(value, 50),
-      { initialProps: { value: 0 as any } },
+      ({ value }: { value: unknown }) => useDebouncedValue(value, 50),
+      { initialProps: { value: 0 as unknown } },
     );
     rerender({ value: 42 });
     act(() => { vi.advanceTimersByTime(50); });

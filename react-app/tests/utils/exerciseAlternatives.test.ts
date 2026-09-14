@@ -5,8 +5,9 @@
  */
 import { describe, expect, it } from 'vitest';
 import { getScoredAlternatives, getRecommended } from '../../src/utils/exerciseAlternatives';
+import type { Exercise } from '../../src/data/exercises';
 
-function ex(o: any) {
+function ex(o: Partial<Exercise>): Exercise {
   return {
     id: o.id ?? 'e_' + Math.random().toString(36).slice(2),
     name: o.name ?? 'X',
@@ -21,7 +22,7 @@ function ex(o: any) {
     primaryCat: o.primaryCat,
     subcat: o.subcat,
     parentId: o.parentId,
-  } as any;
+  };
 }
 
 describe('getScoredAlternatives (web)', () => {

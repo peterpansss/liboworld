@@ -15,6 +15,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
+import type { ExerciseDisplay } from '../../src/hooks/useExercises';
 
 void React;
 
@@ -54,7 +55,7 @@ vi.mock('../../src/utils/icons', () => ({
   ICON_STROKE: 1.6,
 }));
 vi.mock('../../src/utils/thumbnails', () => ({
-  exerciseThumb: () => null,
+  exerciseThumbSet: () => null,
   isMediaHidden: () => false,
 }));
 vi.mock('../../src/utils/schema', () => ({
@@ -71,11 +72,13 @@ vi.mock('react-i18next', () => ({
     },
     i18n: { language: 'en' },
   }),
+  Trans: ({ i18nKey }: { i18nKey: string }) => <>{i18nKey}</>,
 }));
 
 // Mock data: ~35 exercises so we get >= 2 pages (PER_PAGE = 30) for pagination
-const EXERCISES = Array.from({ length: 35 }).map((_, i) => ({
+const EXERCISES: ExerciseDisplay[] = Array.from({ length: 35 }).map((_, i) => ({
   id: `ex-${i}`,
+  slug: `ex-${i}`,
   name: `Exercise ${i}`,
   cat: i % 2 === 0 ? 'gym' : 'home',
   primaryCat: i < 5 ? 'Cardio' : 'Strength',
@@ -89,9 +92,22 @@ const EXERCISES = Array.from({ length: 35 }).map((_, i) => ({
   setupNotes: '',
 }));
 
-vi.mock('../../src/data/exercises', () => ({
-  getExercises: () => Promise.resolve(EXERCISES),
-}));
+// The page reads the catalog through useExercises() (static JSON first, then
+// Supabase). Stub the hook with the same contract: loading on first render,
+// then the rows resolve on the next tick.
+vi.mock('../../src/hooks/useExercises', async () => {
+  const { useEffect, useState } = await import('react');
+  return {
+    useExercises: () => {
+      const [loaded, setLoaded] = useState(false);
+      useEffect(() => {
+        const id = setTimeout(() => setLoaded(true), 0);
+        return () => clearTimeout(id);
+      }, []);
+      return { exercises: loaded ? EXERCISES : [], loading: !loaded, error: null };
+    },
+  };
+});
 
 import ExerciseLibrary from '../../src/pages/ExerciseLibrary';
 
@@ -190,7 +206,7 @@ describe('ExerciseLibrary', () => {
       expect(screen.getByText('exerciseLibrary.emptyState.title')).toBeInTheDocument();
     });
 
-    await user.click(screen.getByRole('button', { name: 'Clear filters' }));
+    await user.click(screen.getByRole('button', { name: 'common.clearFilters' }));
     await waitFor(() => screen.getByText('Exercise 0'));
   });
 });

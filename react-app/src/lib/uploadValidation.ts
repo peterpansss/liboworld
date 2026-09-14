@@ -37,6 +37,7 @@ export type ValidateUploadResult =
   | { ok: true }
   | { ok: false; error: string };
 
+// eslint-disable-next-line no-control-regex -- matching control characters is the point
 const CONTROL_CHAR_REGEX = /[\x00-\x1f\x7f]/;
 
 /**

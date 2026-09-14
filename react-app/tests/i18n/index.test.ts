@@ -2,14 +2,18 @@
  * Coverage for src/i18n/index.ts.
  *
  * The module performs the following side effects on first import:
- *  1. localStorage.removeItem('libo-lang') (defensive — wrapped in try/catch)
- *  2. i18n.init({ resources: en/de/fr/es/pt, lng: 'en', fallbackLng: 'en', ... })
+ *  1. localStorage.getItem('libo-lang') to restore the visitor's saved
+ *     language choice (defensive — wrapped in try/catch, falls back to 'en')
+ *  2. i18n.init({ resources: en/de/fr/es/pt, lng: <restored>, fallbackLng: 'en', ... })
  *  3. document.documentElement.lang = derived from i18n.language
  *  4. Subscribes to languageChanged so html lang stays in sync
  *
  * Most tests work against the singleton instance directly; the
- * "localStorage throws" branch needs a fresh module load with a thrown
- * setter, hence vi.resetModules() + vi.spyOn(Storage.prototype, ...).
+ * restored-language branches need a fresh module load with a stubbed
+ * localStorage, hence vi.resetModules() + vi.stubGlobal('localStorage', ...).
+ * (Stubbing the global rather than spying on Storage.prototype keeps this
+ * independent of whether the runtime's `localStorage` is jsdom's Storage or
+ * Node ≥22's built-in one, which isn't a jsdom Storage instance.)
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -128,18 +132,43 @@ describe('document.documentElement.lang side effect', () => {
   });
 });
 
-describe('localStorage clear-on-load (defensive try/catch)', () => {
-  it('does not throw when localStorage.removeItem is missing / throws', async () => {
-    // Re-load the module with localStorage.removeItem throwing.
+describe('saved-language restore on load (defensive try/catch)', () => {
+  function stubStorage(getItem: (key: string) => string | null) {
+    const spy = vi.fn(getItem);
+    vi.stubGlobal('localStorage', { getItem: spy, setItem: vi.fn(), removeItem: vi.fn() });
+    return spy;
+  }
+
+  afterEach(async () => {
+    vi.unstubAllGlobals();
+    const { default: i18n } = await import('../../src/i18n/index');
+    await i18n.changeLanguage('en');
+  });
+
+  it('boots in the saved language when libo-lang holds a supported code', async () => {
     vi.resetModules();
-    const removeSpy = vi
-      .spyOn(Storage.prototype, 'removeItem')
-      .mockImplementation(() => {
-        throw new Error('quota / private mode');
-      });
+    const getSpy = stubStorage((key) => (key === 'libo-lang' ? 'de' : null));
+    const { default: i18n } = await import('../../src/i18n/index');
+    expect(getSpy).toHaveBeenCalledWith('libo-lang');
+    expect(i18n.language).toBe('de');
+  });
+
+  it('ignores an unsupported stored value and boots in English', async () => {
+    vi.resetModules();
+    const getSpy = stubStorage((key) => (key === 'libo-lang' ? 'zz' : null));
+    const { default: i18n } = await import('../../src/i18n/index');
+    expect(getSpy).toHaveBeenCalledWith('libo-lang');
+    expect(i18n.language).toBe('en');
+  });
+
+  it('does not throw when localStorage.getItem throws, and falls back to English', async () => {
+    vi.resetModules();
+    const getSpy = stubStorage(() => {
+      throw new Error('quota / private mode');
+    });
     // Importing must not throw — try/catch wraps the call.
-    await expect(import('../../src/i18n/index')).resolves.toBeTruthy();
-    expect(removeSpy).toHaveBeenCalledWith('libo-lang');
-    removeSpy.mockRestore();
+    const mod = await import('../../src/i18n/index');
+    expect(getSpy).toHaveBeenCalledWith('libo-lang');
+    expect(mod.default.language).toBe('en');
   });
 });

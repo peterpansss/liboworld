@@ -11,16 +11,24 @@
  *  - SLUG_MAP filtering by side (e.g. Lats only on posterior)
  *  - dedupe within a side
  *  - empty body focus → no chips, but bodies still render
+ *
+ * react-i18next is mocked to return the key, so labels are asserted by
+ * translation key (`exerciseDetail.anatomy.*`, `exerciseLibrary.muscles.*`)
+ * rather than English copy that lives in the locale bundles.
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 void React;
 
 // Capture every <Model> prop set so assertions can check what was passed.
 const modelCalls: Array<{ type: string; muscles: string[][] }> = [];
+
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key: string) => key, i18n: {} }),
+}));
 
 vi.mock('react-body-highlighter', () => {
   return {
@@ -43,14 +51,12 @@ beforeEach(() => {
   modelCalls.length = 0;
 });
 
-import { beforeEach } from 'vitest';
-
 describe('AnatomyDiagram', () => {
   it('renders the title plus Front and Back labels', () => {
     render(<AnatomyDiagram bodyFocus="Chest" />);
-    expect(screen.getByText('Target Muscle')).toBeInTheDocument();
-    expect(screen.getByText('Front')).toBeInTheDocument();
-    expect(screen.getByText('Back')).toBeInTheDocument();
+    expect(screen.getByText('exerciseDetail.anatomy.targetMuscle')).toBeInTheDocument();
+    expect(screen.getByText('exerciseDetail.anatomy.front')).toBeInTheDocument();
+    expect(screen.getByText('exerciseDetail.anatomy.back')).toBeInTheDocument();
   });
 
   it('renders both anterior and posterior models', () => {
@@ -61,12 +67,13 @@ describe('AnatomyDiagram', () => {
 
   it('shows Primary and Secondary legend chips for compound focuses', () => {
     render(<AnatomyDiagram bodyFocus="Chest" />);
-    expect(screen.getByText('Primary')).toBeInTheDocument();
-    expect(screen.getByText('Secondary')).toBeInTheDocument();
-    expect(screen.getByText('Chest')).toBeInTheDocument();
+    expect(screen.getByText('exerciseDetail.anatomy.primary')).toBeInTheDocument();
+    expect(screen.getByText('exerciseDetail.anatomy.secondary')).toBeInTheDocument();
+    // Muscle chips are labelled via MUSCLE_NAME_I18N_KEYS → exerciseLibrary.muscles.<key>
+    expect(screen.getByText('exerciseLibrary.muscles.chest')).toBeInTheDocument();
     // Front Delts + Triceps are secondary on Chest
-    expect(screen.getByText('Front Delts')).toBeInTheDocument();
-    expect(screen.getByText('Triceps')).toBeInTheDocument();
+    expect(screen.getByText('exerciseLibrary.muscles.frontDelts')).toBeInTheDocument();
+    expect(screen.getByText('exerciseLibrary.muscles.triceps')).toBeInTheDocument();
   });
 
   it('routes side-locked muscles only to the correct view', () => {
@@ -93,8 +100,8 @@ describe('AnatomyDiagram', () => {
   it('renders without legend chips when bodyFocus is empty/unknown', () => {
     render(<AnatomyDiagram bodyFocus="" />);
     // No "Primary" / "Secondary" labels because muscles array is empty
-    expect(screen.queryByText('Primary')).not.toBeInTheDocument();
-    expect(screen.queryByText('Secondary')).not.toBeInTheDocument();
+    expect(screen.queryByText('exerciseDetail.anatomy.primary')).not.toBeInTheDocument();
+    expect(screen.queryByText('exerciseDetail.anatomy.secondary')).not.toBeInTheDocument();
     // Bodies still render
     expect(screen.getByTestId('body-anterior')).toBeInTheDocument();
   });

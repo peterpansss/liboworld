@@ -21,12 +21,20 @@ void React;
 const listWorkoutOverridesMock = vi.fn();
 const replaceWorkoutOverrideMock = vi.fn();
 const deleteWorkoutOverrideMock = vi.fn();
+const listWorkoutsMock = vi.fn();
 
 vi.mock('../../src/lib/adminApi', () => ({
   listWorkoutOverrides: () => listWorkoutOverridesMock(),
   replaceWorkoutOverride: (...a: unknown[]) => replaceWorkoutOverrideMock(...a),
   // Page imports the *WithReauth wrapper under the original name.
   deleteWorkoutOverrideWithReauth: (...a: unknown[]) => deleteWorkoutOverrideMock(...a),
+  // Canonical (Supabase `workouts` table) flow — the page loads canonical rows
+  // on mount to populate the status column and the published/draft counts.
+  listWorkouts: () => listWorkoutsMock(),
+  listExercises: () => Promise.resolve([]),
+  createWorkout: () => Promise.resolve({ ok: true }),
+  updateWorkout: () => Promise.resolve({ ok: true }),
+  deleteWorkoutWithReauth: () => Promise.resolve({ ok: true }),
 }));
 
 import { WorkoutsPage } from '../../src/pages/admin/WorkoutsPage';
@@ -64,6 +72,8 @@ beforeEach(() => {
   listWorkoutOverridesMock.mockReset();
   replaceWorkoutOverrideMock.mockReset();
   deleteWorkoutOverrideMock.mockReset();
+  listWorkoutsMock.mockReset();
+  listWorkoutsMock.mockResolvedValue([]);
   // Stub fetch
   global.fetch = vi.fn((url: string) => {
     if (url.includes('workouts.json')) {
@@ -73,7 +83,7 @@ beforeEach(() => {
       return Promise.resolve({ ok: true, json: () => Promise.resolve(exercises) });
     }
     return Promise.resolve({ ok: false, json: () => Promise.resolve([]) });
-  }) as any;
+  }) as unknown as typeof fetch;
 });
 
 afterEach(() => {
@@ -86,7 +96,21 @@ describe('WorkoutsPage', () => {
     render(<WorkoutsPage />);
     await waitFor(() => expect(screen.getByText('Full Body Burn')).toBeInTheDocument());
     expect(screen.getByText('Mobility Flow')).toBeInTheDocument();
-    expect(screen.getByText(/2 workouts, 0 with overrides/)).toBeInTheDocument();
+    expect(screen.getByText(/2 workouts · 0 published · 0 draft · 0 with overrides/)).toBeInTheDocument();
+  });
+
+  it('header counts published / draft canonical rows', async () => {
+    listWorkoutOverridesMock.mockResolvedValue([]);
+    const row = (id: string, status: 'published' | 'draft') => ({
+      id, slug: id, name: id, cat: null, subcat: null, dur: null, diff: null, emoji: '',
+      warmup: [], main: [], cooldown: [], status, origin: 'admin',
+      created_at: '2025-01-01', updated_at: '2025-01-01',
+    });
+    listWorkoutsMock.mockResolvedValue([row('wo-1', 'published'), row('wo-2', 'draft'), row('wo-3', 'published')]);
+    render(<WorkoutsPage />);
+    await waitFor(() =>
+      expect(screen.getByText(/2 workouts · 2 published · 1 draft · 0 with overrides/)).toBeInTheDocument(),
+    );
   });
 
   it('renders Edited chip for workouts with overrides + applies the patch', async () => {
@@ -96,24 +120,24 @@ describe('WorkoutsPage', () => {
     render(<WorkoutsPage />);
     await waitFor(() => expect(screen.getByText('Renamed Burn')).toBeInTheDocument());
     expect(screen.getByText('Edited')).toBeInTheDocument();
-    expect(screen.getByText(/2 workouts, 1 with overrides/)).toBeInTheDocument();
+    expect(screen.getByText(/2 workouts · 0 published · 0 draft · 1 with overrides/)).toBeInTheDocument();
   });
 
   it('shows page error when /workouts.json fetch fails', async () => {
     listWorkoutOverridesMock.mockResolvedValue([]);
-    (global.fetch as any) = vi.fn(() => Promise.resolve({ ok: false, status: 500 }));
+    global.fetch = vi.fn(() => Promise.resolve({ ok: false, status: 500 })) as unknown as typeof fetch;
     render(<WorkoutsPage />);
     await waitFor(() => expect(screen.getByText(/workouts.json: 500/)).toBeInTheDocument());
   });
 
   it('exercises.json failure is non-fatal — workouts still render', async () => {
     listWorkoutOverridesMock.mockResolvedValue([]);
-    (global.fetch as any) = vi.fn((url: string) => {
+    global.fetch = vi.fn((url: string) => {
       if (url.includes('workouts.json')) {
         return Promise.resolve({ ok: true, json: () => Promise.resolve(baseWorkouts) });
       }
       return Promise.resolve({ ok: false });
-    });
+    }) as unknown as typeof fetch;
     render(<WorkoutsPage />);
     await waitFor(() => expect(screen.getByText('Full Body Burn')).toBeInTheDocument());
   });
@@ -180,9 +204,7 @@ describe('WorkoutsPage', () => {
     fireEvent.click(screen.getByText('Full Body Burn'));
     await waitFor(() => expect(screen.getByText(/Edit · Full Body Burn/)).toBeInTheDocument());
 
-    // Change name
-    const nameInput = document.querySelectorAll('input')[5] as HTMLInputElement; // skip search/filters
-    // Simpler: find by current value
+    // Change name (find the input by its current value)
     const inputs = Array.from(document.querySelectorAll('input')) as HTMLInputElement[];
     const targetNameInput = inputs.find((i) => i.value === 'Full Body Burn');
     expect(targetNameInput).toBeTruthy();
@@ -192,7 +214,17 @@ describe('WorkoutsPage', () => {
     await waitFor(() => expect(replaceWorkoutOverrideMock).toHaveBeenCalledTimes(1));
     expect(replaceWorkoutOverrideMock.mock.calls[0][0]).toBe('wo-1');
     expect(replaceWorkoutOverrideMock.mock.calls[0][1]).toEqual({ name: 'New Name' });
-    void nameInput;
+  });
+
+  it('save with no changes skips replaceWorkoutOverride', async () => {
+    listWorkoutOverridesMock.mockResolvedValue([]);
+    render(<WorkoutsPage />);
+    await waitFor(() => expect(screen.getByText('Full Body Burn')).toBeInTheDocument());
+    fireEvent.click(screen.getByText('Full Body Burn'));
+    await waitFor(() => expect(screen.getByText(/Edit · Full Body Burn/)).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await waitFor(() => expect(screen.queryByText(/Edit · Full Body Burn/)).not.toBeInTheDocument());
+    expect(replaceWorkoutOverrideMock).not.toHaveBeenCalled();
   });
 
   it('save error surfaces in modal', async () => {
@@ -202,6 +234,9 @@ describe('WorkoutsPage', () => {
     await waitFor(() => expect(screen.getByText('Full Body Burn')).toBeInTheDocument());
     fireEvent.click(screen.getByText('Full Body Burn'));
     await waitFor(() => expect(screen.getByText(/Edit · Full Body Burn/)).toBeInTheDocument());
+    // Save only writes an override when the form differs from the base row.
+    const inputs = Array.from(document.querySelectorAll('input')) as HTMLInputElement[];
+    fireEvent.change(inputs.find((i) => i.value === 'Full Body Burn')!, { target: { value: 'X' } });
     fireEvent.click(screen.getByRole('button', { name: 'Save' }));
     await waitFor(() => expect(screen.getByText('save_failed')).toBeInTheDocument());
   });

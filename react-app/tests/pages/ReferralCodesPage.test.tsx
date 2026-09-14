@@ -15,6 +15,7 @@
 import * as React from 'react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import type { ReferralCode } from '../../src/lib/adminApi';
 
 void React;
 
@@ -46,13 +47,13 @@ function fieldInput(labelText: string): HTMLInputElement | HTMLSelectElement {
   while (next && next.nodeType !== 1) next = next.nextSibling;
   const direct = next as HTMLElement | null;
   if (!direct) throw new Error(`No element after label: ${labelText}`);
-  if (direct.tagName === 'INPUT' || direct.tagName === 'SELECT') return direct as any;
-  const inner = direct.querySelector('input, select') as any;
+  if (direct.tagName === 'INPUT' || direct.tagName === 'SELECT') return direct as HTMLInputElement | HTMLSelectElement;
+  const inner = direct.querySelector<HTMLInputElement | HTMLSelectElement>('input, select');
   if (!inner) throw new Error(`No input found after label: ${labelText}`);
   return inner;
 }
 
-const code = (o: Partial<any> = {}) => ({
+const code = (o: Partial<ReferralCode> = {}) => ({
   id: 'rc-1',
   code: 'WELCOME100',
   owner_user_id: null,

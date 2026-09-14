@@ -26,7 +26,7 @@ function makeFile(name: string, bytes: number, type: string): File {
 
 describe('validateUpload — basic file checks', () => {
   it('rejects null/undefined files', () => {
-    expect(validateUpload(undefined as any, IMAGE_OPTS)).toEqual({ ok: false, error: 'No file selected.' });
+    expect(validateUpload(undefined as unknown as File, IMAGE_OPTS)).toEqual({ ok: false, error: 'No file selected.' });
   });
 
   it('rejects empty files', () => {

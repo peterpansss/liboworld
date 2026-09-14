@@ -86,7 +86,11 @@ describe('DashboardPage', () => {
     await waitFor(() => {
       expect(fetchKpisMock).toHaveBeenCalledTimes(1);
     });
-    fireEvent.click(screen.getByRole('button', { name: /Refresh/i }));
+    // The button is disabled (and reads "Refreshing…") until the first fetch
+    // settles; clicking it before then is a no-op, which made this test flaky.
+    const refreshBtn = await screen.findByRole('button', { name: 'Refresh' });
+    await waitFor(() => expect(refreshBtn).toBeEnabled());
+    fireEvent.click(refreshBtn);
     await waitFor(() => {
       expect(fetchKpisMock).toHaveBeenCalledTimes(2);
     });

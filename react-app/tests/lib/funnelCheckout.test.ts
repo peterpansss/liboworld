@@ -6,14 +6,14 @@
  */
 import { describe, expect, it, beforeEach, vi } from 'vitest';
 
-let nextInvokeResp: { data: any; error: any } = { data: null, error: null };
+let nextInvokeResp: { data: unknown; error: unknown } = { data: null, error: null };
 let nextInvokeThrow: Error | null = null;
-const invokeCalls: { fn: string; body: any }[] = [];
+const invokeCalls: { fn: string; body: Record<string, unknown> }[] = [];
 
 vi.mock('../../src/lib/supabase', () => ({
   supabase: {
     functions: {
-      invoke: async (fn: string, opts: { body: any }) => {
+      invoke: async (fn: string, opts: { body: Record<string, unknown> }) => {
         invokeCalls.push({ fn, body: opts.body });
         if (nextInvokeThrow) throw nextInvokeThrow;
         return nextInvokeResp;

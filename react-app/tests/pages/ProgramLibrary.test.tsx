@@ -3,10 +3,11 @@
  *
  * Behaviour to cover:
  *   - loading state then grid renders after async getWorkouts/getExercises
- *   - search input writes ?q= to URL params
+ *   - ?q= from the URL filters by free text (the on-page search input was
+ *     removed in 551958b; the param is still honoured)
  *   - category chip writes ?cat= to URL params
- *   - filtered grid + results count + "more in app" CTA when truncated
- *   - empty state when filters yield nothing
+ *   - zero matches falls back to the full catalog with a preview banner
+ *     (the empty state was replaced in b493a16)
  *   - 404-not-found is the responsibility of ProgramDetail, not this index
  *
  * The data layer is mocked so we get deterministic counts.
@@ -30,23 +31,19 @@ vi.mock('../../src/components/EmojiIcon', () => ({
   EmojiIcon: ({ emoji }: { emoji?: string }) => <span data-testid="emoji">{emoji ?? ''}</span>,
 }));
 vi.mock('../../src/utils/icons', () => ({
-  Search: () => null,
   Hourglass: () => null,
-  Frown: () => null,
+  Dumbbell: () => null,
   ICON_STROKE: 1.6,
 }));
 vi.mock('../../src/utils/thumbnails', () => ({
-  buildNameToSlug: () => new Map<string, string>(),
-  workoutHeroThumb: () => null,
+  buildNameToSlug: () => ({}),
+  workoutHeroThumbSet: () => null,
 }));
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, opts?: Record<string, unknown>) => {
       if (opts && typeof opts === 'object' && 'count' in opts) {
         return `${key}:${(opts as { count: number }).count}`;
-      }
-      if (opts && typeof opts === 'object' && 'defaultValue' in opts) {
-        return key;
       }
       return key;
     },
@@ -75,10 +72,20 @@ const W4 = {
   exercises: [{ name: 'Cobra', sets: '1', reps: '10' }],
 };
 
+// Every block must reference a playable (video-backed) exercise, otherwise
+// filterPlayableWorkouts drops the workout from the list.
+const playable = (id: string, name: string) => ({
+  id, name, cat: 'gym', bodyFocus: 'Chest', equipment: 'Barbell', machineRequired: false,
+  diff: 'beginner', variation: '', emoji: '', setupNotes: '', videoUrl: `/v/${id}.mp4`,
+});
+
 vi.mock('../../src/data/exercises', () => ({
   getWorkouts: () => Promise.resolve([W1, W2, W3, W4]),
   getExercises: () => Promise.resolve([
-    { id: 'bench', name: 'Bench', cat: 'gym', bodyFocus: 'Chest', equipment: 'Barbell', machineRequired: false, diff: 'beginner', variation: '', emoji: '', setupNotes: '' },
+    playable('bench', 'Bench'),
+    playable('row', 'Row'),
+    playable('burpee', 'Burpee'),
+    playable('cobra', 'Cobra'),
   ]),
 }));
 
@@ -108,7 +115,7 @@ describe('ProgramLibrary', () => {
   it('marks the "All" category chip active by default', async () => {
     renderAt();
     await waitFor(() => screen.getByText('Gym Push Workout'));
-    expect(screen.getByRole('button', { name: 'programLibrary.categories.all' }))
+    expect(screen.getByRole('button', { name: 'programLibrary.filters.catAll' }))
       .toHaveAttribute('aria-pressed', 'true');
   });
 
@@ -130,29 +137,21 @@ describe('ProgramLibrary', () => {
     expect(screen.queryByText('Gym Push Workout')).not.toBeInTheDocument();
   });
 
-  it('filters by free-text search across name and category', async () => {
-    const user = userEvent.setup();
-    renderAt();
-    await waitFor(() => screen.getByText('Gym Push Workout'));
-
-    await user.type(screen.getByPlaceholderText('programLibrary.searchPlaceholder'), 'pull');
-
-    await waitFor(() => {
-      expect(screen.queryByText('Gym Push Workout')).not.toBeInTheDocument();
-    });
-    expect(screen.getByText('Gym Pull Workout')).toBeInTheDocument();
+  it('filters by free-text ?q= across name and subcategory', async () => {
+    renderAt('?q=pull');
+    await waitFor(() => screen.getByText('Gym Pull Workout'));
+    expect(screen.queryByText('Gym Push Workout')).not.toBeInTheDocument();
+    expect(screen.queryByText('Home HIIT')).not.toBeInTheDocument();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 
-  it('shows the empty state when the search yields zero hits', async () => {
-    const user = userEvent.setup();
-    renderAt();
-    await waitFor(() => screen.getByText('Gym Push Workout'));
-
-    await user.type(screen.getByPlaceholderText('programLibrary.searchPlaceholder'), 'nonsense-query');
-
+  it('falls back to the full catalog with a preview banner when filters match nothing', async () => {
+    renderAt('?q=nonsense-query');
     await waitFor(() => {
-      expect(screen.getByText('programLibrary.empty.title')).toBeInTheDocument();
+      expect(screen.getByRole('status')).toHaveTextContent('programLibrary.previewFallback');
     });
+    expect(screen.getByText('Gym Push Workout')).toBeInTheDocument();
+    expect(screen.getByText('Morning Stretch')).toBeInTheDocument();
   });
 
   it('links each card to /workouts/:id', async () => {
@@ -162,9 +161,10 @@ describe('ProgramLibrary', () => {
       .toHaveAttribute('href', '/workouts/w-gym-a');
   });
 
-  it('updates document.title to include the active category', async () => {
-    renderAt('?cat=Gym');
-    await waitFor(() => expect(document.title).toContain('Gym'));
-    expect(document.title).toContain('Libo');
+  it('updates document.title to include the active goal', async () => {
+    renderAt('?goal=Strength');
+    await waitFor(() =>
+      expect(document.title).toBe('programLibrary.goals.strength programLibrary.documentTitle | Libo'),
+    );
   });
 });

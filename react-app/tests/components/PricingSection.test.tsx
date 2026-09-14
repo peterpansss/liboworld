@@ -19,6 +19,17 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import PricingSection from '../../src/components/PricingSection';
+import { MONTHLY_PRICE, YEARLY_PRICE, YEARLY_DISCOUNT } from '../../src/data/tiers';
+
+// Prices are asserted against the tier constants (the single source of truth
+// in src/data/tiers.ts, mirrored from the mobile paywall) so a deliberate price
+// change doesn't strand this suite; what's under test is that the right label
+// renders for the selected cycle and that Elite's never does.
+const eur = (n: number) => `€${n.toFixed(2)}`;
+const PREMIUM_MONTHLY = eur(MONTHLY_PRICE.premium); // €12.99
+const PREMIUM_YEARLY_PER_MONTH = eur(YEARLY_PRICE.premium / 12); // €6.67
+const ELITE_MONTHLY = eur(MONTHLY_PRICE.elite);
+const ELITE_YEARLY_PER_MONTH = eur(YEARLY_PRICE.elite / 12);
 
 void React;
 
@@ -52,18 +63,25 @@ describe('PricingSection', () => {
     const yearly = screen.getByRole('tab', { name: /Yearly/ });
     expect(monthly).toHaveAttribute('aria-selected', 'false');
     expect(yearly).toHaveAttribute('aria-selected', 'true');
-    // Yearly default → premium price label is "€79". Elite's "€149" is gone.
-    expect(screen.getByText('€79')).toBeInTheDocument();
-    expect(screen.queryByText('€149')).not.toBeInTheDocument();
+    // Yearly default → premium shows the per-month equivalent billed annually,
+    // plus the annual total + discount line. Elite's yearly price is gone.
+    expect(screen.getByText(PREMIUM_YEARLY_PER_MONTH)).toBeInTheDocument();
+    expect(screen.getByText('/mo billed annually')).toBeInTheDocument();
+    expect(
+      screen.getByText(`€${YEARLY_PRICE.premium.toFixed(2)}/year · save ${YEARLY_DISCOUNT.premium}%`),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(ELITE_YEARLY_PER_MONTH)).not.toBeInTheDocument();
+    expect(screen.queryByText(PREMIUM_MONTHLY)).not.toBeInTheDocument();
   });
 
   it('switches to monthly prices when the Monthly tab is clicked', async () => {
     const user = userEvent.setup();
     renderSection();
     await user.click(screen.getByRole('tab', { name: /Monthly/ }));
-    expect(screen.getByText('€9.99')).toBeInTheDocument();
+    expect(screen.getByText(PREMIUM_MONTHLY)).toBeInTheDocument();
+    expect(screen.queryByText(PREMIUM_YEARLY_PER_MONTH)).not.toBeInTheDocument();
     // Elite's monthly price is no longer rendered.
-    expect(screen.queryByText('€19.99')).not.toBeInTheDocument();
+    expect(screen.queryByText(ELITE_MONTHLY)).not.toBeInTheDocument();
     expect(screen.getAllByText('/month').length).toBeGreaterThan(0);
   });
 

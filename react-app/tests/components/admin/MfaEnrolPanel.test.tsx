@@ -14,16 +14,17 @@ import * as React from 'react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import type { AdminMfaStatus } from '../../../src/lib/adminApi';
 
 void React;
 
 // --- mock surface for the lib calls ---
-let nextStatus: any = { is_admin: true, mfa_enrolled: false, must_enrol: false, grace_days_remaining: 7 };
+let nextStatus: AdminMfaStatus = { is_admin: true, mfa_enrolled: false, must_enrol: false, grace_days_remaining: 7 };
 let nextStatusError: Error | null = null;
-let nextStartChallenge: any = { factorId: 'f_1', secret: 'JBSW…', qrSvg: '<svg data-testid="qr" />' };
+const nextStartChallenge = { factorId: 'f_1', secret: 'JBSW…', qrSvg: '<svg data-testid="qr" />' };
 let nextStartError: Error | null = null;
 let nextConfirmError: Error | null = null;
-const calls: { fn: string; args: any[] }[] = [];
+const calls: { fn: string; args: unknown[] }[] = [];
 
 vi.mock('../../../src/lib/adminApi', () => ({
   getAdminMfaStatus: async () => {

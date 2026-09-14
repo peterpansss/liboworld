@@ -59,6 +59,7 @@ vi.mock('../../src/utils/thumbnails', () => ({
   exerciseThumb: () => '/thumb.jpg',
   publicVideoUrl: () => 'https://video/main.mp4',
   publicVideoUrlAlt: () => 'https://video/alt.mp4',
+  publicVideoUrlAltBase: () => 'https://video/alt.mp4',
 }));
 vi.mock('../../src/utils/exerciseInfo', () => ({
   getInstructions: () => ['Step one', 'Step two'],
@@ -72,18 +73,14 @@ vi.mock('../../src/utils/schema', () => ({
 }));
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string, opts?: Record<string, unknown>) => {
-      if (opts && typeof opts === 'object' && 'defaultValue' in opts) {
-        return key;
-      }
-      return key;
-    },
+    t: (key: string) => key,
     i18n: { language: 'en' },
   }),
 }));
 
 const EX = {
   id: 'bench-press',
+  slug: 'bench-press',
   name: 'Bench Press',
   cat: 'gym',
   primaryCat: 'Strength',
@@ -116,7 +113,7 @@ function renderAt(path: string) {
   return render(
     <MemoryRouter initialEntries={[path]}>
       <Routes>
-        <Route path="/exercises/:id" element={<ExerciseDetail />} />
+        <Route path="/exercises/:slug" element={<ExerciseDetail />} />
       </Routes>
     </MemoryRouter>,
   );
@@ -179,10 +176,15 @@ describe('ExerciseDetail', () => {
     renderAt('/exercises/bench-press');
     await waitFor(() => screen.getByRole('heading', { level: 1, name: 'Bench Press' }));
 
-    // Starts muted → label is "Unmute"
-    const unmute = screen.getByRole('button', { name: 'exerciseDetail.unmute' });
-    await user.click(unmute);
-    // Now button is "Mute"
+    // Starts unmuted so the voiceover plays (autoplay is allowed here because
+    // play() resolves) → label is "Mute"
+    const mute = screen.getByRole('button', { name: 'exerciseDetail.mute' });
+    const video = document.querySelector('video') as HTMLVideoElement;
+    await user.click(mute);
+    // Now muted → button is "Unmute"
+    expect(video.muted).toBe(true);
+    await user.click(screen.getByRole('button', { name: 'exerciseDetail.unmute' }));
+    expect(video.muted).toBe(false);
     expect(screen.getByRole('button', { name: 'exerciseDetail.mute' })).toBeInTheDocument();
   });
 

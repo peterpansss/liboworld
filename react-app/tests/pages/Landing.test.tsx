@@ -1,31 +1,35 @@
 /**
- * Tests for src/pages/Landing.tsx — main marketing landing page.
+ * Tests for src/pages/Landing.tsx — the relaunch home page.
  *
- * Landing.tsx is large and dominated by static layout. Coverage:
- *   - Hero, FAQ, and QR/App Store closer render
- *   - Hero CTA stack: App Store badge link + "See plans" anchor
- *   - QR closer block: QR placeholder image + App Store badge
- *   - FAQ accordion: clicking a question opens/closes it
- *   - Goal cards link to /onboarding?goal=...
+ * The page was rebuilt for the site relaunch (prelaunch waitlist). The old
+ * App Store badges, "See plans" anchor, QR closer, community constellation,
+ * blog-preview row and FAQ accordion no longer exist, so this suite covers
+ * the structure that replaced them:
+ *   - Hero promise + the FREE waitlist capture under #hero-capture, with a
+ *     second capture in the bottom #waitlist block (the ids the site header
+ *     and funnels deep-link to)
+ *   - Community rail: one captioned photo per beta member
+ *   - Cash-challenge grid: one card per CHALLENGE_TIERS entry
+ *   - "Everything you get": the feature list drives the phone + pager dots
+ *   - Guides row + "See all posts" link into /blog
+ *   - #hash arrivals scroll to the in-page anchor
  *
- * Heavy chrome (SiteNav, SiteFooter, PricingSection) is stubbed; scroll /
- * intersection observers / cursor follower / 3D tilt are exercised but
- * have no observable side effects in jsdom (the listeners are attached
- * and the component still renders correctly).
+ * Heavy/side-effectful children (SiteNav, SiteFooter, SeoHead, the waitlist
+ * captures, the video testimonial wall) are stubbed — they have their own
+ * suites. react-i18next returns the key so assertions don't depend on the
+ * locale bundles' copy (relaunchAcceptance.test.tsx asserts on real copy).
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
 void React;
 
-// jsdom doesn't ship IntersectionObserver. Landing uses two of them
-// (data-reveal and .reveal observers) plus a useInView hook. A no-op
-// stub is enough — the side effects (animation classes) aren't asserted
-// in these tests.
+// jsdom doesn't ship IntersectionObserver; usePopIn / useScrollProgress only
+// need the constructor to exist.
 class IOStub {
   observe() {}
   unobserve() {}
@@ -43,29 +47,17 @@ vi.mock('../../src/components/SiteNav', () => ({
 vi.mock('../../src/components/SiteFooter', () => ({
   default: () => <footer data-testid="site-footer" />,
 }));
-vi.mock('../../src/components/FreeTrialCta', () => ({
-  default: () => <section data-testid="free-trial-cta" />,
+vi.mock('../../src/components/SeoHead', () => ({ SeoHead: () => null }));
+vi.mock('../../src/components/WaitlistCapture', () => ({
+  default: ({ variant }: { variant?: string }) => (
+    <form data-testid={`waitlist-capture-${variant ?? 'final'}`} />
+  ),
 }));
-vi.mock('../../src/components/PricingSection', () => ({
-  default: () => <div data-testid="pricing-section" />,
+vi.mock('../../src/components/HomeStickyWaitlist', () => ({
+  default: () => <div data-testid="home-sticky-waitlist" />,
 }));
-vi.mock('../../src/components/FounderCard', () => ({
-  default: () => <div data-testid="founder-card" />,
-}));
-vi.mock('../../src/components/EmojiIcon', () => ({
-  EmojiIcon: ({ emoji }: { emoji?: string }) => <span>{emoji ?? ''}</span>,
-}));
-vi.mock('../../src/utils/icons', () => ({
-  Star: () => null,
-}));
-// Slugs must match the FEATURED_SLUGS list in Landing.tsx or the blog
-// preview row filters them out and the cards never render.
-vi.mock('../../src/data/blog', () => ({
-  blogArticles: [
-    { slug: '30-days-one-habit-real-money', title: 'Blog A', excerpt: 'a', category: 'Training', readTime: 3, date: '2026-01-01', author: 'Libo', heroEmoji: '\u{1F4AA}', heroImage: '/img/a.jpg', content: '<p/>' },
-    { slug: 'how-to-lose-fat-and-stay-lean', title: 'Blog B', excerpt: 'b', category: 'Training', readTime: 4, date: '2026-01-02', author: 'Libo', heroEmoji: '\u{1F4AA}', content: '<p/>' },
-    { slug: 'simple-high-protein-meals-in-15-minutes', title: 'Blog C', excerpt: 'c', category: 'Training', readTime: 5, date: '2026-01-03', author: 'Libo', heroEmoji: '\u{1F4AA}', content: '<p/>' },
-  ],
+vi.mock('../../src/components/VideoTestimonials', () => ({
+  default: () => <div data-testid="video-testimonials" />,
 }));
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -75,87 +67,110 @@ vi.mock('react-i18next', () => ({
 }));
 
 import Landing from '../../src/pages/Landing';
+import { CHALLENGE_TIERS } from '../../src/data/challengeTiers';
 
-function renderPage() {
+function renderPage(path = '/') {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[path]}>
       <Landing />
     </MemoryRouter>,
   );
 }
 
 describe('Landing', () => {
-  it('renders the hero, FAQ, and QR closer block', () => {
-    renderPage();
-    // Hero headline lines
-    expect(screen.getByText('hero.headline1')).toBeInTheDocument();
-    // FAQ eyebrow
-    expect(screen.getByText('faq.eyebrow', { exact: false })).toBeTruthy();
-    // QR closer eyebrow
-    expect(screen.getByText('qrCloser.eyebrow')).toBeInTheDocument();
+  it('renders the hero promise with the free waitlist capture under #hero-capture', () => {
+    const { container } = renderPage();
+    const h1 = screen.getByRole('heading', { level: 1 });
+    for (const key of ['h1a', 'h1b', 'h1c', 'h1d']) {
+      expect(within(h1).getByText(`relaunchHome.hero.${key}`)).toBeInTheDocument();
+    }
+    const heroAnchor = container.querySelector('#hero-capture');
+    expect(heroAnchor).not.toBeNull();
+    expect(
+      within(heroAnchor as HTMLElement).getByTestId('waitlist-capture-hero'),
+    ).toBeInTheDocument();
   });
 
-  it('mounts the community constellation with avatars rendered', () => {
-    renderPage();
-    expect(screen.getByText('community.eyebrow')).toBeInTheDocument();
-    // The first avatar in AVATARS uses initials "JM" — proves both the
-    // section and the placeholder avatar component render together.
-    expect(document.querySelector('.community-section')).not.toBeNull();
-    const avatars = document.querySelectorAll('.community-avatar');
-    expect(avatars.length).toBeGreaterThan(0);
+  it('ends with a second waitlist capture in the #waitlist block the funnels link to', () => {
+    const { container } = renderPage();
+    const finalBlock = container.querySelector('section#waitlist');
+    expect(finalBlock).not.toBeNull();
+    expect(
+      within(finalBlock as HTMLElement).getByTestId('waitlist-capture-final'),
+    ).toBeInTheDocument();
+    // Exactly two inline captures on the page (hero + final), plus the sticky bar.
+    expect(screen.getAllByTestId(/^waitlist-capture-/)).toHaveLength(2);
+    expect(screen.getByTestId('home-sticky-waitlist')).toBeInTheDocument();
   });
 
-  it('shows the hero App Store badge linking to the placeholder App Store URL', () => {
+  it('renders the community rail with one captioned photo per member', () => {
     renderPage();
-    const heroBadge = screen.getAllByRole('link', { name: 'store.downloadAppStore' })[0];
-    expect(heroBadge).toHaveAttribute('href', 'https://apps.apple.com/app/libo');
+    const rail = screen.getByRole('group', { name: 'relaunchHome.community.railLabel' });
+    const members = rail.querySelectorAll('figure.rh-member');
+    expect(members).toHaveLength(5);
+    for (let i = 1; i <= 5; i++) {
+      const name = `relaunchHome.community.m${i}Name`;
+      expect(within(rail).getByAltText(name)).toHaveAttribute(
+        'src',
+        expect.stringMatching(/^\/beta-.+\.png$/),
+      );
+      expect(within(rail).getByText(`relaunchHome.community.m${i}Meta`)).toBeInTheDocument();
+    }
   });
 
-  it('shows the hero "See plans" link pointing at the trial CTA anchor', () => {
-    renderPage();
-    const seePlans = screen.getByRole('link', { name: 'hero.seePlans' });
-    expect(seePlans).toHaveAttribute('href', '#pricing-cta');
-  });
-
-  it('renders the QR closer with a QR image and an App Store badge', () => {
-    renderPage();
-    expect(screen.getByAltText('qrCloser.qrAlt')).toHaveAttribute(
-      'src',
-      '/images/qr-app-store.svg',
-    );
-    // Badge appears in three places now: hero, community constellation,
-    // and QR closer. They all point to the same placeholder URL.
-    const badges = screen.getAllByRole('link', { name: 'store.downloadAppStore' });
-    expect(badges).toHaveLength(3);
-    badges.forEach((badge) => {
-      expect(badge).toHaveAttribute('href', 'https://apps.apple.com/app/libo');
+  it('renders one cash-challenge card per tier, linking to its funnel', () => {
+    const { container } = renderPage();
+    const cards = container.querySelectorAll<HTMLAnchorElement>('a.rh-cc-card');
+    expect(cards).toHaveLength(CHALLENGE_TIERS.length);
+    CHALLENGE_TIERS.forEach((tier, i) => {
+      expect(cards[i]).toHaveAttribute('href', `/cash-challenges/${tier.slug}`);
+      expect(within(cards[i]).getByText(`€${tier.payout}`)).toBeInTheDocument();
+      expect(within(cards[i]).getByText(tier.name)).toBeInTheDocument();
     });
   });
 
-  it('renders the 3 blog preview cards as links into /blog/:slug', () => {
-    renderPage();
-    expect(screen.getByRole('link', { name: /Blog A/ })).toHaveAttribute(
-      'href',
-      '/blog/30-days-one-habit-real-money',
-    );
-    expect(screen.getByRole('link', { name: /Blog B/ })).toHaveAttribute(
-      'href',
-      '/blog/how-to-lose-fat-and-stay-lean',
-    );
-    expect(screen.getByRole('link', { name: /Blog C/ })).toHaveAttribute(
-      'href',
-      '/blog/simple-high-protein-meals-in-15-minutes',
-    );
+  it('switches the featured phone screen when a feature card is clicked', async () => {
+    const user = userEvent.setup();
+    const { container } = renderPage();
+    expect(container.querySelectorAll('button.rh-feature')).toHaveLength(6);
+    // Default is feature 04 (Progress tracking).
+    const progress = screen.getByRole('button', { name: /relaunchHome\.library\.c4Name/ });
+    expect(progress).toHaveAttribute('aria-pressed', 'true');
+    const dots = screen.getAllByRole('tab');
+    expect(dots).toHaveLength(6);
+    expect(dots[3]).toHaveAttribute('aria-selected', 'true');
+
+    const library = screen.getByRole('button', { name: /relaunchHome\.library\.c1Name/ });
+    await user.click(library);
+    expect(library).toHaveAttribute('aria-pressed', 'true');
+    expect(progress).toHaveAttribute('aria-pressed', 'false');
+    expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+    expect(dots[3]).toHaveAttribute('aria-selected', 'false');
+
+    // The pager dots drive the same state.
+    await user.click(dots[5]);
+    expect(screen.getByRole('button', { name: /relaunchHome\.library\.c6Name/ }))
+      .toHaveAttribute('aria-pressed', 'true');
+    expect(library).toHaveAttribute('aria-pressed', 'false');
   });
 
-  it('toggles FAQ items open and closed', async () => {
-    const user = userEvent.setup();
-    renderPage();
-    const q1 = screen.getByRole('button', { name: /faq\.q1/ });
-    expect(q1).toHaveAttribute('aria-expanded', 'false');
-    await user.click(q1);
-    expect(q1).toHaveAttribute('aria-expanded', 'true');
-    await user.click(q1);
-    expect(q1).toHaveAttribute('aria-expanded', 'false');
+  it('renders the three guide cards and the "See all posts" link into /blog', () => {
+    const { container } = renderPage();
+    const guides = container.querySelectorAll<HTMLAnchorElement>('a.rh-guide-card');
+    expect(guides).toHaveLength(3);
+    guides.forEach((card, i) => {
+      expect(card).toHaveAttribute('href', '/blog');
+      expect(within(card).getByText(`relaunchHome.guides.p${i + 1}Title`)).toBeInTheDocument();
+    });
+    expect(screen.getByRole('link', { name: 'relaunchHome.guides.seeAll' }))
+      .toHaveAttribute('href', '/blog');
+  });
+
+  it('scrolls to the in-page anchor when arriving with a #hash', async () => {
+    const scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+    renderPage('/#waitlist');
+    await waitFor(() => expect(scrollTo).toHaveBeenCalled());
+    // Offset by the 72px sticky nav (getBoundingClientRect is 0 in jsdom).
+    expect(scrollTo).toHaveBeenCalledWith(expect.objectContaining({ top: -72 }));
   });
 });

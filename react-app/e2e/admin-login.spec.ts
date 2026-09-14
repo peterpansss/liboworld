@@ -8,10 +8,10 @@
  * We mock the Supabase auth + profiles endpoints because it's much
  * faster + deterministic than spinning up real users in the local DB.
  */
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page, type Route } from '@playwright/test';
 
-async function mockSupabaseAuth(page: any, scenario: 'admin' | 'not-admin' | 'bad-creds') {
-  await page.route('**/auth/v1/token*', (route: any) => {
+async function mockSupabaseAuth(page: Page, scenario: 'admin' | 'not-admin' | 'bad-creds') {
+  await page.route('**/auth/v1/token*', (route: Route) => {
     if (scenario === 'bad-creds') {
       return route.fulfill({
         status: 400,
@@ -31,7 +31,7 @@ async function mockSupabaseAuth(page: any, scenario: 'admin' | 'not-admin' | 'ba
     });
   });
 
-  await page.route('**/rest/v1/profiles*', (route: any) =>
+  await page.route('**/rest/v1/profiles*', (route: Route) =>
     route.fulfill({
       status: 200,
       body: JSON.stringify({ is_admin: scenario === 'admin' }),
@@ -39,7 +39,7 @@ async function mockSupabaseAuth(page: any, scenario: 'admin' | 'not-admin' | 'ba
     }),
   );
 
-  await page.route('**/rest/v1/rpc/is_caller_admin', (route: any) =>
+  await page.route('**/rest/v1/rpc/is_caller_admin', (route: Route) =>
     route.fulfill({
       status: 200,
       body: JSON.stringify(scenario === 'admin'),

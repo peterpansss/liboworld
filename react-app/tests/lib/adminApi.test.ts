@@ -5,34 +5,56 @@
  * client and verify each public function (a) calls the right RPC / table,
  * (b) propagates errors, (c) maps results.
  */
-import { describe, expect, it, beforeEach, vi } from 'vitest';
+import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
+import type { GiveawayInput } from '../../src/lib/adminApi';
 
 // Mutable state used by the supabase mock.
-let nextRpcResp: { data: any; error: any } = { data: null, error: null };
-const rpcCalls: { name: string; args: any }[] = [];
-let nextSelectResp: { data: any; error: any } = { data: null, error: null };
-let nextSelectCount: { data: any; count: number; error: any } = { data: [], count: 0, error: null };
-let nextInsertResp: { data: any; error: any } = { data: null, error: null };
-let nextUpdateResp: { data: any; error: any } = { data: null, error: null };
-let nextDeleteResp: { error: any } = { error: null };
-let nextSessionResp: any = { data: { session: { user: { id: 'u_admin' } } } };
-let nextSignInResp: { error: any } = { error: null };
-let nextSignOutResp: { error: any } = { error: null };
-const captured: { selects: any[]; inserts: any[]; updates: any[]; deletes: any[]; uploads: any[] } = {
+type Resp = { data: unknown; error: unknown };
+type Filter = [string, string, unknown];
+let nextRpcResp: Resp = { data: null, error: null };
+const rpcCalls: { name: string; args: Record<string, unknown> }[] = [];
+let nextSelectResp: Resp = { data: null, error: null };
+let nextSelectCount: Resp & { count: number } = { data: [], count: 0, error: null };
+let nextInsertResp: Resp = { data: null, error: null };
+let nextUpdateResp: Resp = { data: null, error: null };
+let nextDeleteResp: { error: unknown } = { error: null };
+let nextSessionResp: { data: { session: { user: { id: string } } | null } } = {
+  data: { session: { user: { id: 'u_admin' } } },
+};
+let nextSignInResp: { error: unknown } = { error: null };
+let nextSignOutResp: { error: unknown } = { error: null };
+const captured: {
+  selects: { table: string; filters: Filter[] }[];
+  inserts: { table: string; rows: unknown }[];
+  updates: { table: string; filters?: Filter[]; values?: unknown }[];
+  deletes: { table: string; filters: Filter[] }[];
+  uploads: { bucket: string; path: string; file: File | Blob; opts: { contentType?: string } & Record<string, unknown> }[];
+} = {
   selects: [], inserts: [], updates: [], deletes: [], uploads: [],
 };
 
-function makeChain(table: string, op: 'select' | 'insert' | 'update' | 'delete', initialFilters: any[] = []): any {
+type Chain = {
+  eq: (col: string, val: unknown) => Chain;
+  order: () => Chain;
+  ilike: (col: string, val: unknown) => Chain;
+  limit: () => Chain;
+  select: () => Chain;
+  single: () => Promise<Resp>;
+  maybeSingle: () => Promise<Resp>;
+  then: (resolve: (v: unknown) => unknown, reject?: (e: unknown) => unknown) => Promise<unknown>;
+};
+
+function makeChain(table: string, op: 'select' | 'insert' | 'update' | 'delete', initialFilters: Filter[] = []): Chain {
   const filters = [...initialFilters];
-  const chain: any = {
-    eq: (col: string, val: any) => { filters.push(['eq', col, val]); return chain; },
+  const chain: Chain = {
+    eq: (col, val) => { filters.push(['eq', col, val]); return chain; },
     order: () => chain,
-    ilike: (col: string, val: any) => { filters.push(['ilike', col, val]); return chain; },
+    ilike: (col, val) => { filters.push(['ilike', col, val]); return chain; },
     limit: () => chain,
     select: () => chain,
     single: () => Promise.resolve(op === 'select' ? nextSelectResp : nextInsertResp),
     maybeSingle: () => Promise.resolve(nextSelectResp),
-    then: (resolve: any, reject?: any) => {
+    then: (resolve, reject) => {
       let resp;
       if (op === 'select') {
         captured.selects.push({ table, filters });
@@ -59,12 +81,12 @@ vi.mock('../../src/lib/supabase', () => ({
       signInWithPassword: () => Promise.resolve(nextSignInResp),
       signOut: () => Promise.resolve(nextSignOutResp),
     },
-    rpc: (name: string, args: any) => {
+    rpc: (name: string, args: Record<string, unknown>) => {
       rpcCalls.push({ name, args });
       return Promise.resolve(nextRpcResp);
     },
     from: (table: string) => ({
-      select: (_cols?: string, opts?: any) => {
+      select: (_cols?: string, opts?: { head?: boolean }) => {
         if (opts?.head) {
           // count-only call (used by listGiveaways)
           return {
@@ -73,12 +95,12 @@ vi.mock('../../src/lib/supabase', () => ({
         }
         return makeChain(table, 'select');
       },
-      insert: (rows: any) => {
+      insert: (rows: unknown) => {
         captured.inserts.push({ table, rows });
         const c = makeChain(table, 'insert');
         return c;
       },
-      update: (values: any) => {
+      update: (values: unknown) => {
         captured.updates.push({ table, values });
         return makeChain(table, 'update');
       },
@@ -86,7 +108,7 @@ vi.mock('../../src/lib/supabase', () => ({
     }),
     storage: {
       from: (bucket: string) => ({
-        upload: (path: string, file: File | Blob, opts: any) => {
+        upload: (path: string, file: File | Blob, opts: { contentType?: string } & Record<string, unknown>) => {
           captured.uploads.push({ bucket, path, file, opts });
           return Promise.resolve({ data: { path }, error: null });
         },
@@ -290,14 +312,14 @@ describe('Giveaways CRUD', () => {
 
   it('createGiveaway inserts and returns the row', async () => {
     nextInsertResp = { data: { id: 'g_new' }, error: null };
-    const r = await createGiveaway({ title: 'X' } as any);
+    const r = await createGiveaway({ title: 'X' } as unknown as GiveawayInput);
     expect(captured.inserts[0].table).toBe('giveaways');
     expect(r.id).toBe('g_new');
   });
 
   it('updateGiveaway updates by id', async () => {
     nextInsertResp = { data: { id: 'g1', title: 'Updated' }, error: null };
-    const r = await updateGiveaway('g1', { title: 'Updated' } as any);
+    const r = await updateGiveaway('g1', { title: 'Updated' });
     expect(r.title).toBe('Updated');
   });
 
@@ -317,10 +339,43 @@ describe('Giveaways CRUD', () => {
     await expect(drawGiveawayWinners_unsafe('g1')).rejects.toThrow('too soon');
   });
 
-  it('uploadGiveawayImage uploads and returns public URL', async () => {
-    const file = new File(['dummy'], 'pic.jpg', { type: 'image/jpeg' });
-    const url = await uploadGiveawayImage(file);
-    expect(url).toMatch(/^https:\/\/cdn\/giveaway-images\//);
+  describe('uploadGiveawayImage', () => {
+    // jsdom has neither createImageBitmap nor a 2D canvas, both of which the
+    // client-side resize (resizeForUpload) needs. Stub just those browser
+    // primitives so the real resize + upload path runs.
+    const drawImage = vi.fn();
+    const close = vi.fn();
+    beforeEach(() => {
+      drawImage.mockClear();
+      close.mockClear();
+      vi.stubGlobal('createImageBitmap', vi.fn(() => Promise.resolve({ width: 3200, height: 2400, close })));
+      vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(
+        () => ({ drawImage }) as unknown as CanvasRenderingContext2D,
+      );
+      vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation(function (cb) {
+        cb(new Blob(['resized'], { type: 'image/jpeg' }));
+      });
+    });
+    afterEach(() => {
+      vi.unstubAllGlobals();
+    });
+
+    it('resizes to max 1600px wide, uploads a JPEG and returns the public URL', async () => {
+      const file = new File(['dummy'], 'pic.png', { type: 'image/png' });
+      const url = await uploadGiveawayImage(file);
+      expect(url).toMatch(/^https:\/\/cdn\/giveaway-images\/.+\.jpg$/);
+      expect(drawImage).toHaveBeenCalledWith(expect.anything(), 0, 0, 1600, 1200);
+      expect(close).toHaveBeenCalled();
+      expect(captured.uploads[0].bucket).toBe('giveaway-images');
+      expect(captured.uploads[0].opts.contentType).toBe('image/jpeg');
+    });
+
+    it('rejects disallowed types (e.g. GIF) before resizing or uploading', async () => {
+      const file = new File(['gif'], 'anim.gif', { type: 'image/gif' });
+      await expect(uploadGiveawayImage(file)).rejects.toThrow(/image\/gif is not allowed/);
+      expect(createImageBitmap).not.toHaveBeenCalled();
+      expect(captured.uploads).toHaveLength(0);
+    });
   });
 });
 

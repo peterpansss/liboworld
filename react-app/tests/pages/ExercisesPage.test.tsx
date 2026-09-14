@@ -87,12 +87,23 @@ beforeEach(() => {
       return Promise.resolve({ ok: true, json: () => Promise.resolve(exercises) });
     }
     return Promise.resolve({ ok: false, json: () => Promise.resolve([]) });
-  }) as any;
+  }) as unknown as typeof fetch;
 });
 
 afterEach(() => {
   vi.useRealTimers();
 });
+
+async function openPushupsEditor() {
+  await waitFor(() => expect(screen.getByText('Pushups')).toBeInTheDocument());
+  fireEvent.click(screen.getByText('Pushups'));
+  await waitFor(() => expect(screen.getByText('Edit · Pushups')).toBeInTheDocument());
+}
+
+function skipProcessingCheckbox(): HTMLInputElement {
+  const label = screen.getByText(/Skip processing — already cropped/);
+  return label.closest('label')!.querySelector('input[type="checkbox"]') as HTMLInputElement;
+}
 
 describe('ExercisesPage', () => {
   it('loads + renders rows + override count', async () => {
@@ -106,7 +117,7 @@ describe('ExercisesPage', () => {
 
   it('exercise.json fetch failure surfaces page error', async () => {
     listExerciseOverridesMock.mockResolvedValue([]);
-    (global.fetch as any) = vi.fn(() => Promise.resolve({ ok: false, status: 503 }));
+    global.fetch = vi.fn(() => Promise.resolve({ ok: false, status: 503 })) as unknown as typeof fetch;
     render(<ExercisesPage />);
     await waitFor(() => expect(screen.getByText(/Failed to load exercises.json \(503\)/)).toBeInTheDocument());
   });
@@ -246,13 +257,14 @@ describe('ExercisesPage', () => {
     await waitFor(() => expect(deleteExerciseOverrideMock).toHaveBeenCalledWith('pushup'));
   });
 
-  it('video upload sets the videoUrl field', async () => {
+  it('video upload with "Skip processing" uploads directly and sets the videoUrl field', async () => {
     listExerciseOverridesMock.mockResolvedValue([]);
     uploadExerciseVideoMock.mockResolvedValue('https://cdn/video.mp4');
     render(<ExercisesPage />);
-    await waitFor(() => expect(screen.getByText('Pushups')).toBeInTheDocument());
-    fireEvent.click(screen.getByText('Pushups'));
-    await waitFor(() => expect(screen.getByText('Edit · Pushups')).toBeInTheDocument());
+    await openPushupsEditor();
+
+    // Direct upload is opt-in (9888a9b): the default routes via media-worker.
+    fireEvent.click(skipProcessingCheckbox());
 
     const videoInputs = document.querySelectorAll('input[type="file"][accept="video/*"]');
     expect(videoInputs.length).toBeGreaterThanOrEqual(1);
@@ -267,6 +279,19 @@ describe('ExercisesPage', () => {
       const vUrl = inputs.find((i) => i.value === 'https://cdn/video.mp4');
       expect(vUrl).toBeTruthy();
     });
+  });
+
+  it('default (worker) video upload refuses when there is no canonical row', async () => {
+    listExerciseOverridesMock.mockResolvedValue([]);
+    render(<ExercisesPage />);
+    await openPushupsEditor();
+
+    const primaryVideoInput = document.querySelector('input[type="file"][accept="video/*"]') as HTMLInputElement;
+    Object.defineProperty(primaryVideoInput, 'files', { value: [new File(['x'], 'v.mp4', { type: 'video/mp4' })] });
+    fireEvent.change(primaryVideoInput);
+
+    await waitFor(() => expect(screen.getByText(/No canonical row for this exercise/)).toBeInTheDocument());
+    expect(uploadExerciseVideoMock).not.toHaveBeenCalled();
   });
 
   it('thumbnail upload sets the thumbnailUrl field', async () => {
@@ -292,9 +317,8 @@ describe('ExercisesPage', () => {
     listExerciseOverridesMock.mockResolvedValue([]);
     uploadExerciseVideoMock.mockRejectedValue(new Error('upload_failed'));
     render(<ExercisesPage />);
-    await waitFor(() => expect(screen.getByText('Pushups')).toBeInTheDocument());
-    fireEvent.click(screen.getByText('Pushups'));
-    await waitFor(() => expect(screen.getByText('Edit · Pushups')).toBeInTheDocument());
+    await openPushupsEditor();
+    fireEvent.click(skipProcessingCheckbox());
 
     const primaryVideoInput = document.querySelector('input[type="file"][accept="video/*"]') as HTMLInputElement;
     Object.defineProperty(primaryVideoInput, 'files', { value: [new File(['x'], 'v.mp4', { type: 'video/mp4' })] });

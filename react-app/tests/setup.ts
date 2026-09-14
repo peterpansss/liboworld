@@ -45,6 +45,25 @@ if (typeof window !== 'undefined' && !window.matchMedia) {
   });
 }
 
+// Node >= 25 ships its own Web Storage globals. Without `--localstorage-file`
+// they are non-functional stubs that shadow jsdom's, so `localStorage.clear()`
+// / `getItem()` throw "is not a function" locally while the same suite passes
+// on CI's Node 20. When that happens, re-point the globals at jsdom's own
+// Storage instances (Vitest exposes the JSDOM instance as `globalThis.jsdom`),
+// so `vi.spyOn(Storage.prototype, ...)` keeps working. No-op on Node 20.
+{
+  const dom = (globalThis as { jsdom?: { window: Window } }).jsdom;
+  if (dom && typeof globalThis.localStorage?.clear !== 'function') {
+    for (const name of ['localStorage', 'sessionStorage'] as const) {
+      Object.defineProperty(globalThis, name, {
+        configurable: true,
+        writable: true,
+        value: dom.window[name],
+      });
+    }
+  }
+}
+
 if (!('randomUUID' in (globalThis.crypto ?? {}))) {
   Object.defineProperty(globalThis.crypto ?? {}, 'randomUUID', {
     value: () => 'test-uuid-' + Math.random().toString(36).slice(2),

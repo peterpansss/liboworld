@@ -64,7 +64,7 @@ describe('main.tsx entry', () => {
     // Walk through to find the App stub by its testid marker.
     // We don't render the tree (createRoot is mocked), so we only check
     // the structural type chain via React's ReactElement object graph.
-    const helmetProvider = (tree.props as any).children;
+    const helmetProvider = (tree.props as { children: React.ReactElement }).children;
     expect(helmetProvider).toBeTruthy();
     expect(typeof helmetProvider.type).toBe('function');
   });

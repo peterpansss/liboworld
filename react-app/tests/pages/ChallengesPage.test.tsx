@@ -14,6 +14,7 @@
 import * as React from 'react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import type { MoneyChallenge } from '../../src/lib/adminApi';
 
 void React;
 
@@ -48,14 +49,14 @@ function fieldInput(labelText: string): HTMLInputElement | HTMLTextAreaElement |
   const direct = next as HTMLElement | null;
   if (!direct) throw new Error(`No element after label: ${labelText}`);
   if (direct.tagName === 'INPUT' || direct.tagName === 'TEXTAREA' || direct.tagName === 'SELECT') {
-    return direct as any;
+    return direct as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
   }
   const inner = direct.querySelector('input, textarea, select') as HTMLInputElement | null;
   if (!inner) throw new Error(`No input found after label: ${labelText}`);
   return inner;
 }
 
-const mc = (o: Partial<any> = {}) => ({
+const mc = (o: Partial<MoneyChallenge> = {}) => ({
   id: 'pushup_50_30d_v1',
   title: '50 pushups, 30 days',
   description: 'Do 50 pushups every day for 30 days',
@@ -265,7 +266,11 @@ describe('ChallengesPage', () => {
     listMock.mockResolvedValue([]);
     render(<ChallengesPage />);
     await waitFor(() => expect(listMock).toHaveBeenCalledTimes(1));
-    fireEvent.click(screen.getByRole('button', { name: /Refresh/ }));
+    // Disabled ("Refreshing…") until the first load settles; clicking earlier
+    // is a no-op, which made this test flaky.
+    const refreshBtn = await screen.findByRole('button', { name: 'Refresh' });
+    await waitFor(() => expect(refreshBtn).toBeEnabled());
+    fireEvent.click(refreshBtn);
     await waitFor(() => expect(listMock).toHaveBeenCalledTimes(2));
   });
 });

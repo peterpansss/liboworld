@@ -14,6 +14,7 @@
 import * as React from 'react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import type { GiveawayTemplate } from '../../src/lib/adminApi';
 
 void React;
 
@@ -34,7 +35,7 @@ vi.mock('../../src/lib/adminApi', () => ({
 
 import { GiveawayTemplatesPage } from '../../src/pages/admin/GiveawayTemplatesPage';
 
-const tpl = (o: Partial<any> = {}) => ({
+const tpl = (o: Partial<GiveawayTemplate> = {}) => ({
   id: 't-1',
   title: 'Weekly Whey',
   subtitle: 'Mondays',
