@@ -17,11 +17,22 @@
 /* ── Top: logo + social ── */
 .site-footer__top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding-bottom: 40px;
+  gap: 32px;
+  padding-bottom: 28px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 40px;
+  margin-bottom: 28px;
+}
+
+/* Socials and the Discord card share the right-hand side: one block that reads
+   as "where we are", instead of icons stranded at the top and a full-width
+   band wedged between the brand and the link columns. */
+.site-footer__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
 }
 
 .site-footer__logo {
@@ -289,42 +300,42 @@
 }
 .site-footer__consent:hover { color: var(--accent); }
 
-/* ── Discord band ──
-   Sits between the brand row and the link columns: the last thing on the page
-   that is an invitation rather than navigation. Lime, not Discord purple —
-   purple on this palette reads as someone else's button. */
+/* ── Discord ──
+   Sits with the socials, sized to its content. Lime rather than Discord
+   purple: purple on this palette reads as somebody else's button. */
 .site-footer__discord {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 16px;
-  margin: 32px 0 8px;
-  padding: 18px 20px;
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-  border-radius: 16px;
-  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  gap: 14px;
+  padding: 12px 14px 12px 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
   color: var(--text);
   text-decoration: none;
   transition: background 0.2s, border-color 0.2s;
+  max-width: 420px;
 }
 .site-footer__discord:hover {
-  background: color-mix(in srgb, var(--accent) 13%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
   border-color: var(--accent);
 }
 .site-footer__discord-mark { color: var(--accent); flex: none; }
-.site-footer__discord-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.site-footer__discord-text strong { font-size: 16px; font-weight: 700; }
-.site-footer__discord-text span { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.site-footer__discord-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; text-align: left; }
+.site-footer__discord-text strong { font-size: 14px; font-weight: 700; }
+.site-footer__discord-text span { color: var(--muted); font-size: 12.5px; line-height: 1.35; }
 .site-footer__discord-cta {
-  margin-left: auto;
   flex: none;
-  padding: 10px 22px;
+  padding: 8px 16px;
   border-radius: 100px;
   background: var(--accent);
   color: #0A0A0A;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 13px;
 }
-@media (max-width: 640px) {
-  .site-footer__discord { flex-wrap: wrap; gap: 12px; }
-  .site-footer__discord-cta { margin-left: 0; width: 100%; text-align: center; }
+@media (max-width: 860px) {
+  .site-footer__top { flex-direction: column; align-items: stretch; }
+  .site-footer__right { align-items: stretch; }
+  .site-footer__social { justify-content: flex-start; }
+  .site-footer__discord { max-width: none; }
 }

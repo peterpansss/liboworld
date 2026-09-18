@@ -32,6 +32,14 @@
  *   ken     crop 1900:2375:300:820   45.05 → 72.10   poster @60s
  *   gabriel crop 1080:1350:0:240      0.00 → 24.09   poster @12s
  *   ben     crop 478:598:0:0         14.70 → 35.85   poster @24.50s
+ *   ben-progression
+ *           crop 478:598:0:0         97.30 → 128.20  poster @120.20s
+ *
+ * Ben has TWO cuts on R2 and neither is in the array. `voice-ben-*` is the
+ * first (busy father of two, 21.15s); `voice-ben-progression-*` is the second
+ * (18 Sep 2026, 30.93s), made after the owner asked for the strong windows
+ * back with the brand name cut out rather than stepped around. Same master,
+ * same crop, different window — see the Ben block further down.
  *
  * Gabriel ships FULL and untrimmed, reverted 2026-09-10 from a 7-second cut.
  * That cut removed a body-results line and "It's free, so check it out" on the
@@ -57,6 +65,13 @@
  *   ken     crop 1250:1250:560:1240
  *   gabriel crop 760:760:150:700
  *   ben     crop 240:240:100:15
+ *   ben-progression
+ *           crop 200:200:128:76
+ *
+ * Ben's second avatar is a 200px box, not 240. His head is smaller in frame at
+ * 120.20s than at 24.50s, so a 240 box framed on his face would have carried
+ * half the kitchen into a 32px circle. 200→256 upscales 1.28× against 240's
+ * 1.07×, which on this master is the cheaper of the two prices.
  *
  * **Gabriel's crop numbers are on a different scale.** His master is 1080×1920,
  * not 2160×3840 like the other three, so 1080:1350:0:470 is the FULL width of
@@ -72,22 +87,48 @@
  * `ffmpeg silencedetect`, because whisper's word timings absorb the pauses
  * either side and drift up to ~150ms off the actual audio edge.
  *
- * **Ben is encoded and uploaded but NOT in the array below yet** — the assets
- * exist (`voice-ben-1080p.mp4`, `voice-ben-720p.mp4` on R2,
- * `voice-ben-poster.jpg` and `voice-ben-avatar.jpg` in `public/funnel-media/`,
- * transcript at `UserVoices/transcripts/voice-ben.vtt`), the entry does not.
- * Two things have to be decided before it ships, and both are in that
- * transcript's NOTE header:
+ * **Ben is encoded and uploaded TWICE and in the array NEITHER time** — the
+ * assets exist (`voice-ben-{1080p,720p}.mp4` and
+ * `voice-ben-progression-{1080p,720p}.mp4` on R2, all four posters and avatars
+ * in `public/funnel-media/`, transcripts at
+ * `UserVoices/transcripts/voice-ben.vtt` and `voice-ben-progression.vtt`), the
+ * entry does not. The gate is his consent, not the cut: see the note by the
+ * commented entry below.
  *
- *   1. **He calls the app "Ladder", ten times across the master**, and never
- *      says "Libo" once. Not a mishearing — the same word comes back from
- *      isolated segments at both model sizes and does not move when the
- *      decoder is primed with "Libo". The shipped window is the longest
- *      stretch of his own pillar with no brand mention inside it, which is
- *      most of why it is where it is.
- *   2. His master argues decision fatigue, time efficiency and training at
- *      home — Somin's pillar and Tony's, not his. Pillar G ("not the gym
- *      guy") survives only as his answer to what he wants out of training.
+ * **He calls the app "Ladder", ten times across the master** (5.60, 96.14,
+ * 169.65, 235.37 as "latter", 273.26, 283.22, 303.31, 358.23, 399.40, 418.46),
+ * and never says "Libo" once. Not a mishearing — the same word comes back from
+ * isolated segments at both model sizes and does not move when the decoder is
+ * primed with "Libo". The first pass treated every one of those as a wall and
+ * shipped the longest brand-free stretch it could find. **The owner's
+ * instruction on 18 Sep 2026 was to go back and cut the NAME out instead**, on
+ * the grounds that he was plainly talking about Libo. That second pass is
+ * `voice-ben-progression`, and what it found is worth not re-deriving:
+ *
+ *   - **The name comes off cleanly in exactly one place.** At 96.14 it sits in
+ *     the run-up clause "so another good thing about Ladder", which drops
+ *     WHOLE at the 96.897–97.588 pause, leaving "I really enjoy the structured
+ *     progression that it has" as a grammatical cold open. No excision inside
+ *     a sentence, no crossfade, no internal splice anywhere in the 30.9s.
+ *   - **Everywhere else the name is load-bearing mid-sentence** — "and Ladder
+ *     actually helps me monitor that", "so Ladder actually lets me specify",
+ *     "after using Ladder for a couple of weeks now". Cutting the word leaves
+ *     no subject; cutting the clause leaves no sentence. Those windows are
+ *     unusable for the name alone, before anything else is checked.
+ *   - **The best single line in the master is still unshippable, and the name
+ *     is not why.** "Am I finding that I have a bit more consistency? Yeah,
+ *     absolutely" (402.16→405.22) is the most on-brand sentence he says. It is
+ *     followed immediately by "I know if I was to pay for a gym membership and
+ *     a coach…" and then by a second "Ladder". Cut both and ~9s survives with
+ *     two internal splices in it. It is a QUOTE, not a clip.
+ *   - **Pillar G is not in this master at all.** Not with the name, not
+ *     without it. He never mentions bodybuilding or physique; the nearest is
+ *     171.95→188.96, "I don't really like going to the gym so much… people
+ *     using their phone too much in the gym… having to wait for machines",
+ *     which is gym LOGISTICS, runs 17.2s, and points a complaint at the people
+ *     the launch avatar is made of (brief risk 8). Do not keep re-opening it.
+ *     What the master actually argues is decision fatigue (Somin's), time
+ *     efficiency and training at home (Tony's), and cost (banned outright).
  *
  * His master is also by far the worst of the five: `WhatsApp Video 2026-09-14
  * at 00.12.47.mp4` is **478×850**, WhatsApp-recompressed, where the others are
@@ -98,18 +139,30 @@
  *     chosen: the framing drifts through the take and his head reaches y≈33 at
  *     the tightest moment (~18s), so any positive y offset crops his hat off.
  *   - 478×598 → 1080×1350 is a **2.26× upscale**. The `-1080p` rendition is
- *     1080×1350 in name only; there is no 1080p detail in it, and the 4.6MB it
- *     costs is mostly spent re-encoding WhatsApp's artefacts. Do not read its
- *     size as quality, and do not "fix" it by cropping tighter — that upscales
- *     harder. If a real rendition is wanted, the fix is Ben's original file.
+ *     1080×1350 in name only; there is no 1080p detail in it, and the 4.6MB
+ *     (6.5MB for the longer second cut) is mostly spent re-encoding WhatsApp's
+ *     artefacts. Do not read its size as quality, and do not "fix" it by
+ *     cropping tighter — that upscales harder. If a real rendition is wanted,
+ *     the fix is Ben's original file.
  *   - The avatar is 256px, matching `voice-gabriel-full-avatar.jpg` rather than
  *     the 160px of the first three.
  *
- * His in/out come from silencedetect like the other long cuts: 14.70 sits
- * inside the 14.304–14.779 pause between "so" and "my current situation", and
- * 35.85 inside the 35.615–36.087 pause after "growing", before he starts "the
- * real appeal for me was that" — which is the sentence that would have taken
- * the clip into Somin's pillar.
+ * Both his in/outs come from silencedetect like the other long cuts:
+ *
+ *   - 14.70 sits inside the 14.304–14.779 pause between "so" and "my current
+ *     situation"; 35.85 inside 35.615–36.087 after "growing", before "the real
+ *     appeal for me was that" — the sentence that would have taken cut one
+ *     into Somin's pillar.
+ *   - 97.30 sits inside the 96.897–97.588 pause after "Ladder", before "I
+ *     really enjoy"; 128.20 inside 128.001–128.383 after "workout", before
+ *     "obviously, time efficiency is a big thing for me as well" — the
+ *     sentence that would have taken cut two into Tony's pillar and, eleven
+ *     seconds later, into the cost-of-a-trainer material.
+ *
+ * Cut two's poster is at 120.20 rather than mid-clip by accident: his framing
+ * is handheld and drifts the whole take, and 120.20 is the one frame in the
+ * window where his mouth is closed, his eyes are on the lens and the hat has
+ * headroom. 102.2 and 117.5 are the next best and both clip the top of the hat.
  *
  * Gabriel's 7 seconds are the whole of what his 24.09s master can ship, and
  * the reason is worth keeping written down. The sentence before his
@@ -251,19 +304,46 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
   // scrolls any count, and `.cf-quotes` on the funnel now centres an odd last
   // card instead of orphaning it (ChallengeFunnel.css, 18 Sep 2026).
   //
-  // Uncomment and fill in once `voice-ben-{1080p,720p}.mp4` are on R2 and
-  // `voice-ben-{poster,avatar}.jpg` are in `public/funnel-media/`:
+  // The renditions, posters and avatars for BOTH cuts are on R2 and in
+  // `public/funnel-media/` and all four URLs return 200. What is missing is
+  // his SITE consent (`USER-VOICES-BRIEF.md`, casting table) — nothing of his
+  // goes on liboworld.com until that row is ticked, footage in hand or not.
+  //
+  // RECOMMENDED — cut two, "structured progression". Paste as-is:
   //
   // {
   //   id: 'voice-ben',
-  //   ...urls('voice-ben'),          // basename must match what was uploaded
+  //   ...urls('voice-ben-progression'),   // basename of what was uploaded
   //   displayName: 'Ben',
   //   badge: 'BETA TESTER',
-  //   quote: '…',                    // verbatim, from transcripts/voice-ben.vtt
-  //   duration: '0:00',              // trimmed length, m:ss
-  //   durationSeconds: 0,
+  //   quote:
+  //     'I can see it straight there on the app, so I kind of know where I was last week, the week before, and how I\'m progressing.',
+  //   duration: '0:31',
+  //   durationSeconds: 31,
   //   title: 'Ben on training with Libo',
   // },
+  //
+  // The quote is subtractive only — his words are "I can see it straight there
+  // on the on the app so I kind of know where I was you know last week the week
+  // before you know the weeks before that and then how I'm progressing over the
+  // time that I you know can dedicate to doing a workout". Dropped: the
+  // stutter, three "you know"s, "the weeks before that", "then", and the
+  // trailing clause. Nothing added, nothing reordered. It is inside the shipped
+  // window (clip 17.08–30.48), so a viewer who presses play hears the line.
+  //
+  // Shorter alternative from the same window, also inside the clip:
+  //   'I really enjoy the structured progression… I can see it straight there
+  //    on the app, so I kind of know where I was last week, the week before.'
+  //
+  // TO SHIP CUT ONE INSTEAD — "busy father of two", 21.15s — swap the spread to
+  // `...urls('voice-ben')`, duration '0:21', durationSeconds 21, and take the
+  // quote from `transcripts/voice-ben.vtt`. That cut is biography with no
+  // product in it, which is why cut two is the recommendation.
+  //
+  // NOT AVAILABLE AS A CLIP, worth knowing before someone asks for it: his
+  // strongest sentence is "Am I finding that I have a bit more consistency?
+  // Yeah, absolutely" at master 402.16. It cannot be a card quote either — the
+  // rule is the line comes out of the video, and it is in neither cut.
   //
   // Three things that are NOT free-choice here:
   //   - He is a professor. The card says "Ben" and nothing else — no surname,
