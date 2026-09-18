@@ -2231,10 +2231,21 @@
     "submit": "Postuler"
   },
   "consent": {
-    "aria": "Consentement aux cookies",
-    "text": "On utilise des cookies pour l'analyse et le marketing — seulement si tu acceptes. Tu peux changer d'avis à tout moment via « Paramètres des cookies » en bas de page.",
-    "privacyLink": "Politique de confidentialité",
-    "reject": "Refuser",
-    "accept": "Accepter"
+    "aria": "Choix des cookies",
+    "title": "Les cookies, c'est toi qui choisis",
+    "intro": "Rien qui te piste ne démarre tant que tu n'as pas dit oui. Choisis ce qui te va — tu peux changer quand tu veux.",
+    "necessaryLabel": "Nécessaires",
+    "necessaryAlways": "Toujours actifs",
+    "necessaryBody": "Font tourner le site et retiennent ce choix. Aucun pistage, rien de partagé.",
+    "analyticsLabel": "Mesure d'audience",
+    "analyticsBody": "Google Analytics 4 (Google). Compte les pages visitées, à peu près d'où et depuis quel type d'appareil, et pose des cookies pour ça.",
+    "marketingLabel": "Marketing",
+    "marketingBody": "Meta Pixel (Meta). Nous montre quelles pubs mènent vraiment à des inscriptions, pose des cookies et partage ta visite avec Meta.",
+    "reject": "Tout refuser",
+    "accept": "Tout accepter",
+    "manage": "Gérer mes préférences",
+    "save": "Enregistrer mes choix",
+    "privacyLink": "Ce qu'on fait de tes données",
+    "note": "Rien n'est coché d'avance. Tu peux changer d'avis à tout moment via « Paramètres des cookies » en bas de page."
   }
 }

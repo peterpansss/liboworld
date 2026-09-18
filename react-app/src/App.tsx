@@ -21,9 +21,11 @@ const HASH_SCROLL_TIMEOUT_MS = 3_000;
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
-  // SPA PageView (Meta-Pixel-Setup Step 2): without this the pixel counts one
-  // page per session and the five-locale funnel collapses in every report.
-  // No-ops until consent is granted; guarded against the init double-fire.
+  // SPA page view (Meta-Pixel-Setup Step 2): without this the pixel counts one
+  // page per session and the five-locale funnel collapses in every report. GA4
+  // is sent the same way, since gtag only auto-counts the page it loaded on.
+  // No-ops for any category the visitor did not opt into; guarded against the
+  // init double-fire.
   useEffect(() => {
     trackPageView(pathname);
   }, [pathname]);
@@ -65,7 +67,9 @@ import CursorFollower from './components/CursorFollower';
 import ConsentBanner from './components/ConsentBanner';
 import { initConsent, trackPageView } from './lib/consent';
 
-// If the visitor accepted on a previous visit, load GA4 + pixel immediately.
+// Re-apply whatever the visitor chose on a previous visit (per category).
+// Nothing loads without a stored opt-in — GA4 and the Meta Pixel both live
+// behind this gate now, see src/lib/consent.ts.
 initConsent();
 
 // Content pages — lazy loaded

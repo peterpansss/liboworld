@@ -2231,10 +2231,21 @@
     "submit": "Candidatar-se"
   },
   "consent": {
-    "aria": "Consentimento de cookies",
-    "text": "Usamos cookies para análise e marketing — só se você concordar. Você pode mudar sua escolha a qualquer momento em \"Configurações de cookies\" no rodapé.",
-    "privacyLink": "Política de Privacidade",
-    "reject": "Recusar",
-    "accept": "Aceitar"
+    "aria": "Opções de cookies",
+    "title": "Cookies: a escolha é sua",
+    "intro": "Nada que rastreia você roda antes de você permitir. Escolha o que achar ok — dá para mudar quando quiser.",
+    "necessaryLabel": "Necessários",
+    "necessaryAlways": "Sempre ativos",
+    "necessaryBody": "Mantêm o site funcionando e lembram desta escolha. Sem rastreamento e sem compartilhar nada.",
+    "analyticsLabel": "Análise",
+    "analyticsBody": "Google Analytics 4 (Google). Conta quais páginas são visitadas, mais ou menos de onde e em que tipo de aparelho, e usa cookies para isso.",
+    "marketingLabel": "Marketing",
+    "marketingBody": "Meta Pixel (Meta). Mostra quais anúncios realmente viram cadastros, usa cookies e compartilha sua visita com a Meta.",
+    "reject": "Recusar tudo",
+    "accept": "Aceitar tudo",
+    "manage": "Gerenciar preferências",
+    "save": "Salvar minhas escolhas",
+    "privacyLink": "Como cuidamos dos seus dados",
+    "note": "Nada vem marcado. Mude quando quiser em “Configurações de cookies”, no rodapé."
   }
 }

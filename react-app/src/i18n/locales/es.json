@@ -2231,10 +2231,21 @@
     "submit": "Aplicar"
   },
   "consent": {
-    "aria": "Consentimiento de cookies",
-    "text": "Usamos cookies para analítica y marketing — solo si aceptas. Puedes cambiar tu elección en cualquier momento en \"Configuración de cookies\" en el pie de página.",
-    "privacyLink": "Política de Privacidad",
-    "reject": "Rechazar",
-    "accept": "Aceptar"
+    "aria": "Opciones de cookies",
+    "title": "Tú decides sobre las cookies",
+    "intro": "Nada que te rastree se activa hasta que tú lo digas. Elige con qué estás de acuerdo — puedes cambiarlo cuando quieras.",
+    "necessaryLabel": "Necesarias",
+    "necessaryAlways": "Siempre activas",
+    "necessaryBody": "Hacen que la web funcione y recuerdan esta elección. Sin rastreo y sin compartir nada.",
+    "analyticsLabel": "Analítica",
+    "analyticsBody": "Google Analytics 4 (Google). Cuenta qué páginas se visitan, más o menos desde dónde y con qué tipo de dispositivo, y usa cookies para hacerlo.",
+    "marketingLabel": "Marketing",
+    "marketingBody": "Meta Pixel (Meta). Nos dice qué anuncios acaban en registros, usa cookies y comparte tu visita con Meta.",
+    "reject": "Rechazar todo",
+    "accept": "Aceptar todo",
+    "manage": "Gestionar preferencias",
+    "save": "Guardar mi elección",
+    "privacyLink": "Cómo tratamos tus datos",
+    "note": "No hay nada marcado por defecto. Cámbialo cuando quieras en «Configuración de cookies», en el pie de página."
   }
 }

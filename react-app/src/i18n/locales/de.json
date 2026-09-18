@@ -2231,10 +2231,21 @@
     "submit": "Bewerben"
   },
   "consent": {
-    "aria": "Cookie-Zustimmung",
-    "text": "Wir nutzen Cookies für Analyse und Marketing — nur, wenn du zustimmst. Du kannst deine Wahl jederzeit über „Cookie-Einstellungen“ im Footer ändern.",
-    "privacyLink": "Datenschutzerklärung",
-    "reject": "Ablehnen",
-    "accept": "Akzeptieren"
+    "aria": "Cookie-Auswahl",
+    "title": "Deine Entscheidung zu Cookies",
+    "intro": "Nichts, was dich trackt, läuft los, bevor du zustimmst. Wähl aus, was für dich ok ist — ändern kannst du es jederzeit.",
+    "necessaryLabel": "Notwendig",
+    "necessaryAlways": "Immer an",
+    "necessaryBody": "Hält die Seite am Laufen und merkt sich diese Entscheidung. Kein Tracking, nichts wird weitergegeben.",
+    "analyticsLabel": "Analyse",
+    "analyticsBody": "Google Analytics 4 (Google). Zählt, welche Seiten besucht werden, ungefähr von wo und mit welchem Gerät, und setzt dafür Cookies.",
+    "marketingLabel": "Marketing",
+    "marketingBody": "Meta Pixel (Meta). Zeigt uns, welche Anzeigen wirklich zu Anmeldungen führen, setzt Cookies und teilt deinen Besuch mit Meta.",
+    "reject": "Alles ablehnen",
+    "accept": "Alles akzeptieren",
+    "manage": "Einstellungen verwalten",
+    "save": "Auswahl speichern",
+    "privacyLink": "Wie wir mit deinen Daten umgehen",
+    "note": "Nichts ist für dich vorausgewählt. Du kannst es jederzeit über „Cookie-Einstellungen“ im Footer ändern."
   }
 }

@@ -17,6 +17,22 @@ export default defineConfig({
   fullyParallel: true,
   reporter: process.env.CI ? [['github'], ['list']] : [['list']],
   use: {
+    // Answer the cookie modal before every spec — with a REJECT, so no tracker
+    // ever loads in an e2e run. Since 2026-09-18 the consent gate is a blocking
+    // modal with a scrim (src/components/ConsentBanner.tsx): without a stored
+    // choice it would intercept every click in every spec. The banner's own
+    // behaviour is covered by tests/components/ConsentBanner.test.tsx.
+    storageState: {
+      cookies: [],
+      origins: [
+        {
+          origin: `http://127.0.0.1:${PORT}`,
+          localStorage: [
+            { name: 'libo-consent-v2', value: '{"analytics":false,"marketing":false,"v":2}' },
+          ],
+        },
+      ],
+    },
     baseURL: `http://127.0.0.1:${PORT}`,
     headless: true,
     screenshot: 'only-on-failure',

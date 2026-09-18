@@ -11,12 +11,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <!-- Fonts (Inter + Barlow Condensed) self-hosted via @fontsource; imported in src/main.tsx -->
-    <!-- Google Analytics — unconditional, pre-Aug-7 behavior restored on
-         Noah's explicit call (2026-08-10): full-traffic GA data beats the
-         consent-gated trickle during pre-launch. The Meta Pixel remains
-         consent-gated in src/lib/consent.ts (Meta-Pixel-Setup Step 0). -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R05YQ1CH2N"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R05YQ1CH2N');</script>
+    <!-- NO tracker may be loaded from this file. Google Analytics used to sit
+         here unconditionally (2026-08-10 → 2026-09-18) while the banner told
+         visitors "only if you agree" — a §25 TDDDG breach and worthless data.
+         GA4 and the Meta Pixel now both load from src/lib/consent.ts, and only
+         after an explicit opt-in. tests/app/indexHtml.test.ts fails if a tracker
+         snippet reappears here. -->
   </head>
   <body>
     <div id="root"></div>

@@ -33,7 +33,7 @@ export default function Privacy() {
             <div className="legal-label">Legal</div>
             <h1 className="font-display">Privacy Policy</h1>
             <p className="legal-meta">
-              Last updated: <span>14 September 2026</span> &middot; Effective date: <span>14 September 2026</span>
+              Last updated: <span>18 September 2026</span> &middot; Effective date: <span>18 September 2026</span>
             </p>
           </div>
 
@@ -214,7 +214,7 @@ export default function Privacy() {
             <ul>
               <li><strong>Performance of a contract (Art. 6(1)(b) GDPR)</strong> — Processing necessary to provide the Service you signed up for, including account management, workout delivery and tracking, subscriptions, cash challenges and payouts.</li>
               <li><strong>Legitimate interests (Art. 6(1)(f) GDPR)</strong> — Processing necessary for our legitimate business interests such as crash reporting, improving the Service, ensuring security, and preventing fraud and cheating — where these interests are not overridden by your rights.</li>
-              <li><strong>Consent (Art. 6(1)(a) GDPR)</strong> — For optional processing such as marketing emails and marketing cookies (Meta Pixel). You can withdraw consent at any time.</li>
+              <li><strong>Consent (Art. 6(1)(a) GDPR, and &sect; 25(1) TDDDG for the storage and reading of information on your device)</strong> — For optional processing such as marketing emails, website analytics cookies (Google Analytics) and marketing cookies (Meta Pixel). None of these run before you agree, and you can withdraw consent at any time.</li>
               <li><strong>Legal obligation (Art. 6(1)(c) GDPR)</strong> — Where we are required to process data to comply with applicable law, such as tax and financial record-keeping.</li>
             </ul>
             <h3>Health Information (Art. 9 GDPR)</h3>
@@ -240,7 +240,7 @@ export default function Privacy() {
                   <tr><td>Stripe</td><td>Payments on liboworld.com</td><td>Name, email, phone (optional), payment details you enter with Stripe</td><td>EU / USA</td></tr>
                   <tr><td>Cloudflare</td><td>Website delivery and streaming of workout videos</td><td>IP address and technical request data</td><td>Global network (USA-based company)</td></tr>
                   <tr><td>Netcup</td><td>Website hosting</td><td>IP address and technical request data</td><td>Germany</td></tr>
-                  <tr><td>Google Analytics</td><td>Website usage analytics</td><td>Pages visited, browser and device information, cookie identifiers, IP address</td><td>EU / USA</td></tr>
+                  <tr><td>Google Analytics 4</td><td>Website usage analytics — only with your consent</td><td>Pages visited, browser and device information, cookie identifiers, IP address</td><td>EU / USA</td></tr>
                   <tr><td>Meta Pixel</td><td>Measuring our website marketing — only with your consent</td><td>Pages visited, sign-up events, cookie identifiers, IP address</td><td>EU / USA</td></tr>
                   <tr><td>Payout providers (e.g. Stripe, Wise, Revolut)</td><td>Identity verification and cash payouts — only if you claim a payout</td><td>Identity data, payment details, payout amount</td><td>Depends on provider</td></tr>
                 </tbody>
@@ -257,11 +257,12 @@ export default function Privacy() {
             <h2>Cookies &amp; Tracking</h2>
             <p>Our website uses cookies and similar technologies (such as browser local storage). We use the following categories:</p>
             <ul>
-              <li><strong>Strictly necessary</strong> — Required for the website to function, for example keeping you signed in and remembering your cookie choice. Cannot be disabled.</li>
-              <li><strong>Analytics</strong> — Google Analytics helps us understand how visitors use our website. It is currently loaded on every page of the website and is not controlled by the cookie banner.</li>
-              <li><strong>Marketing</strong> — The Meta Pixel measures the effectiveness of our campaigns. It is loaded only after you click Accept in the cookie banner, and never if you click Reject.</li>
+              <li><strong>Strictly necessary</strong> — Required for the website to function, for example keeping you signed in and remembering your cookie choice. On pages where you can pay, our payment provider Stripe also sets fraud-prevention cookies (<code>__stripe_mid</code>, <code>__stripe_sid</code>) needed to process a payment safely. Cannot be disabled.</li>
+              <li><strong>Analytics</strong> — Google Analytics 4 helps us understand how visitors use our website. It is loaded only if you turn Analytics on in the cookie banner. If you reject, the Google Analytics script is never loaded, no request is made to Google and no analytics cookies are set.</li>
+              <li><strong>Marketing</strong> — The Meta Pixel measures the effectiveness of our campaigns. It is loaded only if you turn Marketing on in the cookie banner, and never if you reject.</li>
             </ul>
-            <p>You can change your cookie choice at any time via "Cookie settings" in the website footer, or by adjusting your browser settings.</p>
+            <p>Analytics and Marketing are separate choices: you can allow one and refuse the other under "Manage preferences". Nothing is switched on in advance, and closing the banner without choosing does not switch anything on.</p>
+            <p>You can change your cookie choice at any time via "Cookie settings" in the website footer, or by adjusting your browser settings. When you withdraw consent, we stop the relevant tracking immediately and delete the cookies that provider had set in your browser.</p>
             <p>The Libo app does not use cookies for tracking, advertising identifiers, or analytics or advertising SDKs.</p>
           </section>
 

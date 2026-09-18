@@ -2231,10 +2231,21 @@
     "submit": "Apply"
   },
   "consent": {
-    "aria": "Cookie consent",
-    "text": "We use cookies for analytics and marketing — only if you agree. You can change your choice any time via \"Cookie settings\" in the footer.",
-    "privacyLink": "Privacy Policy",
-    "reject": "Reject",
-    "accept": "Accept"
+    "aria": "Cookie choices",
+    "title": "Your call on cookies",
+    "intro": "Nothing that tracks you runs until you say so. Pick what you're ok with — you can change it whenever.",
+    "necessaryLabel": "Necessary",
+    "necessaryAlways": "Always on",
+    "necessaryBody": "Keeps the site working and remembers this choice. No tracking, nothing shared.",
+    "analyticsLabel": "Analytics",
+    "analyticsBody": "Google Analytics 4 (Google). Counts which pages get visited, from roughly where and on what kind of device, and sets cookies to do it.",
+    "marketingLabel": "Marketing",
+    "marketingBody": "Meta Pixel (Meta). Tells us which ads actually lead to sign-ups, sets cookies, and shares your visit with Meta.",
+    "reject": "Reject all",
+    "accept": "Accept all",
+    "manage": "Manage preferences",
+    "save": "Save my choices",
+    "privacyLink": "How we handle your data",
+    "note": "Nothing is ticked for you. Change your mind any time with “Cookie settings” in the footer."
   }
 }
