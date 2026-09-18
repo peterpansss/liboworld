@@ -18,7 +18,10 @@
  *     carries the full text for anyone who needs it.
  *
  * Masters: `~/Downloads/LiboWorldWebsiteVideosReviews/{Somin,Jerson,Ken}Libo.mp4`
- * (2160×3840 phone footage) and `SOS-LIB.MOV` at the repo root for Gabriel.
+ * (2160×3840 phone footage), `SOS-LIB.MOV` at the repo root for Gabriel, and
+ * `WhatsApp Video 2026-09-14 at 00.12.47.mp4`, also at the repo root, for Ben.
+ * Masters are never committed — `.gitignore` drops `*.mp4`/`*.MOV`, which is
+ * why the two at the repo root are fine where they are.
  * Encoded by `scripts/encode-testimonial-video.sh`, uploaded by
  * `libo-landing/scripts/upload-marketing-video.mjs`.
  *
@@ -28,6 +31,7 @@
  *   jerson  crop 1600:2000:280:1000  45.80 → 74.85   poster @50s
  *   ken     crop 1900:2375:300:820   45.05 → 72.10   poster @60s
  *   gabriel crop 1080:1350:0:240      0.00 → 24.09   poster @12s
+ *   ben     crop 478:598:0:0         14.70 → 35.85   poster @24.50s
  *
  * Gabriel ships FULL and untrimmed, reverted 2026-09-10 from a 7-second cut.
  * That cut removed a body-results line and "It's free, so check it out" on the
@@ -52,6 +56,7 @@
  *   jerson  crop 1250:1250:500:1330
  *   ken     crop 1250:1250:560:1240
  *   gabriel crop 760:760:150:700
+ *   ben     crop 240:240:100:15
  *
  * **Gabriel's crop numbers are on a different scale.** His master is 1080×1920,
  * not 2160×3840 like the other three, so 1080:1350:0:470 is the FULL width of
@@ -66,6 +71,45 @@
  * Word times only choose the words, though; the cuts themselves come from
  * `ffmpeg silencedetect`, because whisper's word timings absorb the pauses
  * either side and drift up to ~150ms off the actual audio edge.
+ *
+ * **Ben is encoded and uploaded but NOT in the array below yet** — the assets
+ * exist (`voice-ben-1080p.mp4`, `voice-ben-720p.mp4` on R2,
+ * `voice-ben-poster.jpg` and `voice-ben-avatar.jpg` in `public/funnel-media/`,
+ * transcript at `UserVoices/transcripts/voice-ben.vtt`), the entry does not.
+ * Two things have to be decided before it ships, and both are in that
+ * transcript's NOTE header:
+ *
+ *   1. **He calls the app "Ladder", ten times across the master**, and never
+ *      says "Libo" once. Not a mishearing — the same word comes back from
+ *      isolated segments at both model sizes and does not move when the
+ *      decoder is primed with "Libo". The shipped window is the longest
+ *      stretch of his own pillar with no brand mention inside it, which is
+ *      most of why it is where it is.
+ *   2. His master argues decision fatigue, time efficiency and training at
+ *      home — Somin's pillar and Tony's, not his. Pillar G ("not the gym
+ *      guy") survives only as his answer to what he wants out of training.
+ *
+ * His master is also by far the worst of the five: `WhatsApp Video 2026-09-14
+ * at 00.12.47.mp4` is **478×850**, WhatsApp-recompressed, where the others are
+ * 1080- or 2160-wide. Consequences worth knowing before re-cutting:
+ *
+ *   - 478 is the FULL width, so the crop is full-width like Gabriel's and the
+ *     numbers are again not comparable to Somin's or Ken's. y=0 is forced, not
+ *     chosen: the framing drifts through the take and his head reaches y≈33 at
+ *     the tightest moment (~18s), so any positive y offset crops his hat off.
+ *   - 478×598 → 1080×1350 is a **2.26× upscale**. The `-1080p` rendition is
+ *     1080×1350 in name only; there is no 1080p detail in it, and the 4.6MB it
+ *     costs is mostly spent re-encoding WhatsApp's artefacts. Do not read its
+ *     size as quality, and do not "fix" it by cropping tighter — that upscales
+ *     harder. If a real rendition is wanted, the fix is Ben's original file.
+ *   - The avatar is 256px, matching `voice-gabriel-full-avatar.jpg` rather than
+ *     the 160px of the first three.
+ *
+ * His in/out come from silencedetect like the other long cuts: 14.70 sits
+ * inside the 14.304–14.779 pause between "so" and "my current situation", and
+ * 35.85 inside the 35.615–36.087 pause after "growing", before he starts "the
+ * real appeal for me was that" — which is the sentence that would have taken
+ * the clip into Somin's pillar.
  *
  * Gabriel's 7 seconds are the whole of what his 24.09s master can ship, and
  * the reason is worth keeping written down. The sentence before his
@@ -174,7 +218,7 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
     displayName: 'Somin K.',
     badge: 'BETA TESTER',
     quote:
-      "I'm just lazy. I just want a simple plan and to get back into working out — this is perfect for me.",
+      "I'm just lazy — I just want to have a simple plan… and I feel like this is just a perfect option for me.",
     duration: '0:30',
     durationSeconds: 30,
     title: 'Somin K. on training with Libo',
@@ -196,11 +240,44 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
     displayName: 'Dr. Kenneth Sullivan-Bol',
     badge: 'BETA TESTER',
     quote:
-      "It takes the thinking out — and the concern that you're not doing the right thing for the right muscle group.",
+      "It takes the thinking out, and it takes the concern that they're not doing the right thing for the right muscle group.",
     duration: '0:27',
     durationSeconds: 27,
     title: 'Dr. Kenneth Sullivan-Bol on training with Libo',
   },
+  // TODO(ben) — fifth card, blocked on the cut, not on the layout. Footage
+  // arrived 14 Sep 2026; the encode/upload agent owns the numbers. Everything
+  // this array's consumers need already works at five: the wall (`.vt-rail`)
+  // scrolls any count, and `.cf-quotes` on the funnel now centres an odd last
+  // card instead of orphaning it (ChallengeFunnel.css, 18 Sep 2026).
+  //
+  // Uncomment and fill in once `voice-ben-{1080p,720p}.mp4` are on R2 and
+  // `voice-ben-{poster,avatar}.jpg` are in `public/funnel-media/`:
+  //
+  // {
+  //   id: 'voice-ben',
+  //   ...urls('voice-ben'),          // basename must match what was uploaded
+  //   displayName: 'Ben',
+  //   badge: 'BETA TESTER',
+  //   quote: '…',                    // verbatim, from transcripts/voice-ben.vtt
+  //   duration: '0:00',              // trimmed length, m:ss
+  //   durationSeconds: 0,
+  //   title: 'Ben on training with Libo',
+  // },
+  //
+  // Three things that are NOT free-choice here:
+  //   - He is a professor. The card says "Ben" and nothing else — no surname,
+  //     no institution. Same rule Ken got, and it is in USER-VOICES-BRIEF.md
+  //     risk 9 because an academic credential on a testimonial reads as an
+  //     expert endorsement.
+  //   - His pillar is "not the gym guy". The quote must be what he wants for
+  //     himself, never a swipe at people who lift — brief risk 8. A line that
+  //     lands as contempt gets cut, not softened.
+  //   - Nothing about what training does to a body, his or anyone's.
+  //
+  // Position in the array is the owner's call; appended last unless told
+  // otherwise. The site rule is only that the wall must not OPEN on the older
+  // half of the cast (brief, "Age spread"), and Gabriel already leads.
 ];
 
 /** ISO-8601 duration, e.g. 29 → "PT0M29S". */

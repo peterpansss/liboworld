@@ -60,6 +60,12 @@ describe('Privacy', () => {
     expect(screen.getByRole('link', { name: /Contact & Data Protection Officer/ })).toHaveAttribute('href', '#p13');
   });
 
+  it('links to the account-deletion page and section', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { level: 2, name: /Deleting Your Account/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /^Delete your account$/ })).toHaveAttribute('href', '/delete-account');
+  });
+
   it('exposes the privacy contact email as a mailto link', () => {
     renderPage();
     const links = screen.getAllByRole('link', { name: /privacy@liboworld\.com/ });

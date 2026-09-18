@@ -579,6 +579,19 @@ export type ExerciseRow = {
   id: string;
   slug: string;
   name: string;
+  /**
+   * Translated display names (supabase-migration-exercise-name-translations.sql).
+   * NULL = untranslated; mobile falls back to the English `name` via
+   * localizedExerciseField(). Optional because a row read from a database
+   * without the columns won't carry them. The English `name` stays the
+   * canonical join key (workout blocks, search, bilateral parents) — these are
+   * print-only. Seeded from Brand-Management/Exercises/Translations/RENAMES-*.csv;
+   * the admin panel is the source of truth from then on.
+   */
+  name_de?: string | null;
+  name_es?: string | null;
+  name_fr?: string | null;
+  name_pt?: string | null;
   cat: string | null;
   primary_cat: string | null;
   subcat: string | null;
@@ -641,6 +654,15 @@ export type WorkoutRow = {
    * existed won't carry it; treat undefined as false.
    */
   free_tier?: boolean;
+  /**
+   * Translated display names (supabase-migration-workout-name-translations.sql).
+   * NULL = untranslated; app + web fall back to `name`. Optional because rows
+   * from a database without the columns won't carry them.
+   */
+  name_de?: string | null;
+  name_es?: string | null;
+  name_fr?: string | null;
+  name_pt?: string | null;
   origin: string;
   created_at: string;
   updated_at: string;

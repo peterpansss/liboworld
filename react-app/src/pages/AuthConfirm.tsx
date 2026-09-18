@@ -103,12 +103,14 @@ export default function AuthConfirm() {
             <div className="auth-callback-label">Email Verified</div>
             <h1 className="auth-callback-title">You&rsquo;re verified</h1>
             <p className="auth-callback-body">
-              Your account is verified — open the <strong>Libo app</strong> on your phone to sign
-              in and get started.
+              Your account is verified. Open the <strong>Libo app</strong> on your phone and sign
+              in with your email and password to get started.
             </p>
-            <a href="libo://auth/confirmed" className="auth-callback-cta">
-              Open Libo
-            </a>
+            {/* No deep link here. `libo://auth/confirmed` opened a 404 inside
+                the shipped app (17 Sep 2026) — the route landed only in a later
+                build. The account is already confirmed at this point, so the
+                only thing left to do is open the app from the home screen and
+                sign in; a button that 404s reads as a failed signup. */}
             <Link to="/" className="auth-callback-secondary">
               Back to liboworld.com
             </Link>

@@ -11,6 +11,7 @@ import { SeoHead } from '../components/SeoHead';
 import { libraryCanonicalUrl } from '../utils/schema';
 import { safeUrl } from '../utils/safeUrl';
 import { normalizeExerciseName, parentIdentifiers } from '../utils/exerciseFamily';
+import { exerciseSearchNames, localizedExerciseName } from '../utils/exerciseLocale';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { Search, ICON_STROKE } from '../utils/icons';
@@ -196,8 +197,13 @@ export default function ExerciseLibrary() {
       const norm = (s: string) =>
         s.toLowerCase().replace(/[—–\-']/g, ' ').replace(/\s+/g, ' ').trim();
       const q = norm(urlSearch);
+      // Every name the row has — English plus each translation — so a German
+      // visitor typing "Kniebeuge" and an English one typing "Squat" both land
+      // on the same card, whichever language the page is currently in. The
+      // English name stays searchable in every language on purpose: gym names
+      // are widely used untranslated, and the catalog's own slugs are English.
       result = result.filter(e =>
-        norm(e.name).includes(q) ||
+        exerciseSearchNames(e).some(n => norm(n).includes(q)) ||
         norm(e.bodyFocus).includes(q) ||
         norm(e.equipment).includes(q)
       );
@@ -540,7 +546,7 @@ export default function ExerciseLibrary() {
                       />
                     ) : null}
                   </div>
-                  <div className="el-card-name">{ex.name}</div>
+                  <div className="el-card-name">{localizedExerciseName(ex, i18n.language)}</div>
                   <div className="el-card-meta">
                     <span className={`el-card-diff el-card-diff--${ex.diff}`}>{capitalize(ex.diff)}</span>
                     <span className="el-card-meta-text">{ex.equipment}</span>

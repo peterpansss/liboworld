@@ -44,6 +44,19 @@ type ExerciseLite = { id: string; name: string };
 
 type Phase = 'warmup' | 'main' | 'cooldown';
 
+// Translated workout names (workouts.name_<lang>). Blank in the editor = NULL in
+// the database = the app and web fall back to the English name.
+const NAME_LANG_KEYS = ['name_de', 'name_es', 'name_fr', 'name_pt'] as const;
+type NameTranslations = Record<(typeof NAME_LANG_KEYS)[number], string>;
+function namesFrom(row: WorkoutRow | null): NameTranslations {
+  return {
+    name_de: row?.name_de ?? '',
+    name_es: row?.name_es ?? '',
+    name_fr: row?.name_fr ?? '',
+    name_pt: row?.name_pt ?? '',
+  };
+}
+
 type DurationBucket = 'all' | 'short' | 'medium' | 'long';
 
 // ── Helpers ──────────────────────────────────────────────────────────────
@@ -1002,6 +1015,9 @@ function EditWorkoutModal({
   // overrides patch content (name, blocks, duration), while free_tier is a
   // canonical column that has to go through updateWorkout, exactly like status.
   const [freeTier, setFreeTier] = useState<boolean>(canonical?.free_tier ?? false);
+  // Translated names — canonical columns, so (like free_tier) they save through
+  // updateWorkout, never into the override patch. '' clears back to English.
+  const [names, setNames] = useState<NameTranslations>(() => namesFrom(canonical));
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -1010,6 +1026,7 @@ function EditWorkoutModal({
     setForm(initial);
     setStatus(canonical?.status ?? 'published');
     setFreeTier(canonical?.free_tier ?? false);
+    setNames(namesFrom(canonical));
     setErr(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initial.id]);
@@ -1028,16 +1045,25 @@ function EditWorkoutModal({
       const overrideHasChanges = Object.keys(diff).length > 0;
       const statusChanged = canonical !== null && status !== canonical.status;
       const freeTierChanged = canonical !== null && freeTier !== (canonical.free_tier ?? false);
+      const namePatch: Partial<NameTranslations> = {};
+      if (canonical) {
+        const current = namesFrom(canonical);
+        for (const k of NAME_LANG_KEYS) {
+          if (names[k].trim() !== current[k]) namePatch[k] = names[k].trim();
+        }
+      }
+      const namesChanged = Object.keys(namePatch).length > 0;
 
       if (overrideHasChanges) {
         await replaceWorkoutOverride(base.id, diff);
       }
       // One call for both canonical fields — two sequential updateWorkout
       // calls would leave the row half-saved if the second failed.
-      if ((statusChanged || freeTierChanged) && canonical) {
+      if ((statusChanged || freeTierChanged || namesChanged) && canonical) {
         const res = await updateWorkout(canonical.id, {
           ...(statusChanged ? { status } : {}),
           ...(freeTierChanged ? { free_tier: freeTier } : {}),
+          ...namePatch,
         });
         if (!res.ok) {
           setErr(res.error ?? 'Update failed');
@@ -1184,6 +1210,32 @@ function EditWorkoutModal({
             ID: <span style={{ color: colors.muted }}>{base.id}</span>
           </div>
         </div>
+      </div>
+
+      {/* Translated names (canonical columns; blank = English fallback) */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: 12,
+          marginBottom: 8,
+        }}
+      >
+        {NAME_LANG_KEYS.map((k) => (
+          <div key={k} style={{ gridColumn: 'span 3' }}>
+            <Field
+              label={`Name · ${k.slice(-2).toUpperCase()}`}
+              hint={canonical ? 'Blank = English name.' : 'Bundled-only — save another change first to make it editable.'}
+            >
+              <TextInput
+                value={names[k]}
+                placeholder={form.name}
+                disabled={!canonical}
+                onChange={(e) => setNames((prev) => ({ ...prev, [k]: e.target.value }))}
+              />
+            </Field>
+          </div>
+        ))}
       </div>
 
       {/* Phase sections */}

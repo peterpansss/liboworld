@@ -135,3 +135,119 @@ describe('getExercises union', () => {
     expect(first).not.toBe(second);
   });
 });
+
+/**
+ * The name_<lang> columns are on staging only as of 16 Sep 2026. PostgREST
+ * rejects an entire query for one unknown column, so asking production for them
+ * unconditionally would drop every admin-only row this fetch exists to surface
+ * (the detail page 404s on URLs the admin panel clearly shows). The select is
+ * therefore retried without the translation columns.
+ */
+describe('getExercises against a database without the name_<lang> columns', () => {
+  const selectCalls: string[] = [];
+
+  beforeEach(() => {
+    vi.resetModules();
+    supabaseFrom.mockReset();
+    selectCalls.length = 0;
+    supabaseFrom.mockImplementation((table: string) => {
+      if (table === 'exercises') {
+        return {
+          select: (columns: string) => {
+            selectCalls.push(columns);
+            const missingColumn = columns.includes('name_de');
+            return {
+              eq: () =>
+                Promise.resolve(
+                  missingColumn
+                    ? {
+                        data: null,
+                        error: {
+                          code: '42703',
+                          message: 'column exercises.name_de does not exist',
+                        },
+                      }
+                    : { data: SUPABASE_ROWS, error: null },
+                ),
+            };
+          },
+        };
+      }
+      return { select: () => Promise.resolve({ data: [], error: null }) };
+    });
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => ({ ok: true, json: async () => BUNDLED })),
+    );
+  });
+
+  it('retries without the translation columns and still returns the rows', async () => {
+    const { getExercises } = await import('../../src/data/exercises');
+    const rows = await getExercises('en');
+    expect(selectCalls).toHaveLength(2);
+    expect(selectCalls[0]).toContain('name_de');
+    expect(selectCalls[1]).not.toContain('name_de');
+    // The admin-only row survives the missing columns.
+    expect(rows.find((r) => r.slug === 'brand_new_admin_exercise')?.id).toBe('gym_999');
+  });
+
+  it('leaves every row on its English name', async () => {
+    const { getExercises } = await import('../../src/data/exercises');
+    const rows = await getExercises('en');
+    const admin = rows.find((r) => r.slug === 'brand_new_admin_exercise');
+    expect(admin?.name).toBe('Brand New Admin Exercise');
+    expect(admin?.name_de).toBeUndefined();
+  });
+});
+
+describe('getExercises with admin overrides over translated bundled rows', () => {
+  const TRANSLATED_BUNDLE = [
+    { ...BUNDLED[0], name_de: 'Einarmige Kabel-Trizepsstrecke' },
+  ];
+
+  function stubWithOverride(patch: Record<string, unknown>) {
+    supabaseFrom.mockImplementation((table: string) => {
+      if (table === 'exercises') {
+        return { select: () => ({ eq: () => Promise.resolve({ data: [], error: null }) }) };
+      }
+      if (table === 'exercise_overrides') {
+        return {
+          select: () =>
+            Promise.resolve({
+              data: [{ id: 'single_arm_cable_overhead_extension', patch }],
+              error: null,
+            }),
+        };
+      }
+      return { select: () => Promise.resolve({ data: [], error: null }) };
+    });
+  }
+
+  beforeEach(() => {
+    vi.resetModules();
+    supabaseFrom.mockReset();
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => ({ ok: true, json: async () => TRANSLATED_BUNDLE })),
+    );
+  });
+
+  it('keeps the bundled translation when the patch does not rename the row', async () => {
+    stubWithOverride({ equipment: 'Cable Machine' });
+    const { getExercises } = await import('../../src/data/exercises');
+    const rows = await getExercises('en');
+    const row = rows.find((r) => r.slug === 'single_arm_cable_overhead_extension');
+    expect(row?.equipment).toBe('Cable Machine');
+    expect(row?.name_de).toBe('Einarmige Kabel-Trizepsstrecke');
+  });
+
+  it('drops the stale translation when the patch renames the row', async () => {
+    stubWithOverride({ name: 'Single-Arm Cable Overhead Triceps Extension' });
+    const { getExercises } = await import('../../src/data/exercises');
+    const rows = await getExercises('en');
+    const row = rows.find((r) => r.slug === 'single_arm_cable_overhead_extension');
+    expect(row?.name).toBe('Single-Arm Cable Overhead Triceps Extension');
+    // The old title's German must not stand in front of the new English one.
+    expect(row?.name_de).toBeUndefined();
+  });
+});

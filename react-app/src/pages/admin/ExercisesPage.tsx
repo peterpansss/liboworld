@@ -50,6 +50,14 @@ type Exercise = {
   setupNotesEs?: string;
   setupNotesFr?: string;
   setupNotesPt?: string;
+  // Translated display names, mirroring the `name_{lang}` columns
+  // (supabase-migration-exercise-name-translations.sql). Empty string when the
+  // column is NULL. Canonical-only: they are NOT part of the legacy override
+  // patch (see CANONICAL_ONLY_KEYS).
+  nameDe?: string;
+  nameEs?: string;
+  nameFr?: string;
+  namePt?: string;
   videoUrl?: string;
   videoUrlAlt?: string;
   animationUrl?: string;
@@ -63,6 +71,10 @@ type Exercise = {
 
 type EditableKey =
   | 'name'
+  | 'nameDe'
+  | 'nameEs'
+  | 'nameFr'
+  | 'namePt'
   | 'setupNotes'
   | 'setupNotesDe'
   | 'setupNotesEs'
@@ -84,6 +96,10 @@ type EditableKey =
 
 const EDITABLE_KEYS: EditableKey[] = [
   'name',
+  'nameDe',
+  'nameEs',
+  'nameFr',
+  'namePt',
   'setupNotes',
   'setupNotesDe',
   'setupNotesEs',
@@ -103,6 +119,26 @@ const EDITABLE_KEYS: EditableKey[] = [
   'thumbnailUrl',
   'status',
 ];
+
+/**
+ * Keys that only exist as canonical `exercises` columns and must never end up
+ * in a legacy override patch. The override store holds a free-form camelCase
+ * blob that mobile spreads over the bundled row, so an override key that
+ * doesn't match the field the app actually reads (`name_de`, not `nameDe`)
+ * would look saved in admin and do nothing on the device. Names go through
+ * updateExercise → admin_update_exercise → the real column instead, which is
+ * also why the four fields are disabled for a row that has no canonical row.
+ */
+const CANONICAL_ONLY_KEYS: readonly EditableKey[] = ['nameDe', 'nameEs', 'nameFr', 'namePt'];
+
+// The four translated-name fields, in the order they render. `col` is the
+// canonical column; `key` the FormState field; the label suffix is the badge.
+const NAME_LANG_FIELDS = [
+  { lang: 'DE', key: 'nameDe', col: 'name_de' },
+  { lang: 'ES', key: 'nameEs', col: 'name_es' },
+  { lang: 'FR', key: 'nameFr', col: 'name_fr' },
+  { lang: 'PT', key: 'namePt', col: 'name_pt' },
+] as const satisfies readonly { lang: string; key: EditableKey; col: keyof ExerciseRow }[];
 
 // Languages whose translations live in `setup_notes_{lang}` columns and
 // surface as tabs in the Edit modal. EN is the source-of-truth column
@@ -309,6 +345,8 @@ function buildForm(merged: Exercise): FormState {
 function diffAgainstBase(base: Exercise, form: FormState): Record<string, unknown> {
   const patch: Record<string, unknown> = {};
   for (const k of EDITABLE_KEYS) {
+    // Translated names are canonical columns only — see CANONICAL_ONLY_KEYS.
+    if (CANONICAL_ONLY_KEYS.includes(k)) continue;
     const baseVal = str(base[k]);
     const formVal = form[k];
     if (formVal !== baseVal) {
@@ -702,6 +740,10 @@ export function ExercisesPage() {
       emoji: r.emoji ?? '',
       trackingType: r.tracking_type ?? 'reps',
       setupNotes: r.setup_notes ?? '',
+      nameDe: r.name_de ?? '',
+      nameEs: r.name_es ?? '',
+      nameFr: r.name_fr ?? '',
+      namePt: r.name_pt ?? '',
       setupNotesDe: r.setup_notes_de ?? '',
       setupNotesEs: r.setup_notes_es ?? '',
       setupNotesFr: r.setup_notes_fr ?? '',
@@ -1299,6 +1341,11 @@ export function ExercisesPage() {
       }
     };
     setIfChanged('name', f.name, row.name);
+    // Translated names. A blank field sends '' and admin_update_exercise
+    // NULLIFs it, which clears the translation back to the English fallback.
+    for (const { key, col } of NAME_LANG_FIELDS) {
+      setIfChanged(col, f[key].trim(), row[col] ?? null);
+    }
     setIfChanged('setup_notes', f.setupNotes, row.setup_notes);
     setIfChanged('setup_notes_de', f.setupNotesDe, row.setup_notes_de);
     setIfChanged('setup_notes_es', f.setupNotesEs, row.setup_notes_es);
@@ -3175,6 +3222,33 @@ function EditForm({
           <Field label="Name">
             <TextInput value={form.name} onChange={(e) => update('name', e.target.value)} />
           </Field>
+
+          {/* Translated names — canonical `name_{lang}` columns. Blank = the
+              English name. The English name above stays the join key for
+              workout blocks, search and bilateral parents, so renaming it is a
+              different (riskier) act than translating it. Convention:
+              BASE — EQUIPMENT — SETUP — GRIP — EXECUTION — SIDE, separated by
+              " — " (see Brand-Management/Exercises/Translations/STYLE-GUIDE-*.md). */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            {NAME_LANG_FIELDS.map(({ lang, key }) => (
+              <Field
+                key={key}
+                label={`Name · ${lang}`}
+                hint={
+                  isCanonical
+                    ? 'Blank = English name.'
+                    : 'Needs a canonical row — save another change first.'
+                }
+              >
+                <TextInput
+                  value={form[key]}
+                  placeholder={form.name}
+                  disabled={!isCanonical}
+                  onChange={(e) => update(key, e.target.value)}
+                />
+              </Field>
+            ))}
+          </div>
 
           <Field
             label="Setup Notes"

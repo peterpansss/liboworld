@@ -75,11 +75,17 @@ vi.mock('react-i18next', () => ({
   Trans: ({ i18nKey }: { i18nKey: string }) => <>{i18nKey}</>,
 }));
 
-// Mock data: ~35 exercises so we get >= 2 pages (PER_PAGE = 30) for pagination
+// Mock data: ~35 exercises so we get >= 2 pages (PER_PAGE = 30) for pagination.
+// Exercise 0 carries translated names (the shape of a row seeded by
+// supabase-migration-exercise-name-translations.sql); the rest carry none, which
+// is the production shape until that migration is applied there.
 const EXERCISES: ExerciseDisplay[] = Array.from({ length: 35 }).map((_, i) => ({
   id: `ex-${i}`,
   slug: `ex-${i}`,
   name: `Exercise ${i}`,
+  ...(i === 0
+    ? { name_de: 'Kniebeuge Null', name_es: 'Sentadilla Cero' }
+    : {}),
   cat: i % 2 === 0 ? 'gym' : 'home',
   primaryCat: i < 5 ? 'Cardio' : 'Strength',
   bodyFocus: i < 10 ? 'Chest' : i < 20 ? 'Back' : 'Legs',
@@ -208,5 +214,36 @@ describe('ExerciseLibrary', () => {
 
     await user.click(screen.getByRole('button', { name: 'common.clearFilters' }));
     await waitFor(() => screen.getByText('Exercise 0'));
+  });
+
+  // ── Localized names ──
+  // The catalog is indexed under every name a row has, so the search works the
+  // same whichever language the page happens to be in. These run with i18n
+  // language 'en' (the mock above), which is also what proves a translated row
+  // still PRINTS English here.
+  describe('search across localized names', () => {
+    it('matches a German name while the page is in English', async () => {
+      renderAt('?q=Kniebeuge');
+      await waitFor(() => screen.getByText('Exercise 0'));
+      // Only the row carrying name_de survives the filter.
+      expect(screen.queryByText('Exercise 1')).not.toBeInTheDocument();
+    });
+
+    it('matches a Spanish name too', async () => {
+      renderAt('?q=Sentadilla');
+      await waitFor(() => screen.getByText('Exercise 0'));
+      expect(screen.queryByText('Exercise 1')).not.toBeInTheDocument();
+    });
+
+    it('still matches the canonical English name', async () => {
+      renderAt('?q=Exercise 0');
+      await waitFor(() => screen.getByText('Exercise 0'));
+    });
+
+    it('prints the English name when the page is in English', async () => {
+      renderAt('?q=Kniebeuge');
+      await waitFor(() => screen.getByText('Exercise 0'));
+      expect(screen.queryByText('Kniebeuge Null')).not.toBeInTheDocument();
+    });
   });
 });

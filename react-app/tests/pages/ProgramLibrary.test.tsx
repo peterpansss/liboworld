@@ -58,6 +58,9 @@ const W1 = {
 };
 const W2 = {
   id: 'w-gym-b', name: 'Gym Pull Workout', emoji: 'B',
+  // Translated titles (workouts.name_<lang>); the rest of the catalog carries
+  // none, which is production's shape until that data load runs.
+  name_de: 'Zug-Einheit', name_es: 'Sesión de Tirón',
   diff: 'intermediate', dur: 45, cat: 'Gym', subcat: 'Pull',
   exercises: [{ name: 'Row', sets: '3', reps: '8' }],
 };
@@ -166,5 +169,31 @@ describe('ProgramLibrary', () => {
     await waitFor(() =>
       expect(document.title).toBe('programLibrary.goals.strength programLibrary.documentTitle | Libo'),
     );
+  });
+
+  // ── Localized workout names ──
+  // The catalog is searchable under every title a workout has, in any language,
+  // so a member who knows a workout by its German name finds it and so does one
+  // who knows the English one. i18n language is 'en' here (see the mock above),
+  // which also proves a translated row still PRINTS English in English.
+  describe('search across localized names', () => {
+    it('matches a German workout title while the page is in English', async () => {
+      renderAt('?q=Zug-Einheit');
+      await waitFor(() => screen.getByText('Gym Pull Workout'));
+      expect(screen.queryByText('Gym Push Workout')).not.toBeInTheDocument();
+      expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    });
+
+    it('matches a Spanish workout title', async () => {
+      renderAt('?q=Tirón');
+      await waitFor(() => screen.getByText('Gym Pull Workout'));
+      expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    });
+
+    it('prints the English title when the page is in English', async () => {
+      renderAt('?q=Zug-Einheit');
+      await waitFor(() => screen.getByText('Gym Pull Workout'));
+      expect(screen.queryByText('Zug-Einheit')).not.toBeInTheDocument();
+    });
   });
 });

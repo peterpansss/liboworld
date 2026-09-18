@@ -16,6 +16,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import type { WorkoutRow, WorkoutBlockEntry } from '../lib/adminApi';
+import type { WorkoutNameTranslations } from '../data/exercises';
 
 export type WorkoutBlock = {
   exerciseId?: string;
@@ -26,7 +27,9 @@ export type WorkoutBlock = {
   rest?: number;
 };
 
-export type WorkoutDisplay = {
+// `name` is canonical English; the `name_<lang>` fields are print-only and are
+// resolved by `localizedWorkoutName` (src/utils/workoutLocale.ts).
+export type WorkoutDisplay = WorkoutNameTranslations & {
   id: string;
   slug: string;
   name: string;
@@ -48,7 +51,7 @@ type StaticWorkoutEntry = {
   rest?: number;
 };
 
-type StaticWorkout = {
+type StaticWorkout = WorkoutNameTranslations & {
   id: string;
   slug?: string;
   name: string;
@@ -86,6 +89,10 @@ function fromStatic(w: StaticWorkout): WorkoutDisplay {
     id: w.id,
     slug: w.slug ?? w.id,
     name: w.name,
+    name_de: w.name_de,
+    name_es: w.name_es,
+    name_fr: w.name_fr,
+    name_pt: w.name_pt,
     cat: w.cat,
     subcat: w.subcat,
     dur: w.dur,
@@ -102,6 +109,10 @@ function fromSupabase(w: WorkoutRow): WorkoutDisplay {
     id: w.id,
     slug: w.slug,
     name: w.name,
+    name_de: w.name_de,
+    name_es: w.name_es,
+    name_fr: w.name_fr,
+    name_pt: w.name_pt,
     cat: w.cat ?? '',
     subcat: w.subcat ?? undefined,
     dur: w.dur ?? 0,

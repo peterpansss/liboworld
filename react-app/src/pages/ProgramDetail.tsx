@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Workout, type WorkoutExercise, type Exercise } from '../data/exercises';
+import { localizedWorkoutName } from '../utils/workoutLocale';
+import { localizedExerciseName } from '../utils/exerciseLocale';
 import { buildPlayableExerciseNames, filterPlayableBlocks, filterPlayableWorkouts } from '../lib/playableWorkouts';
 import { buildNameToSlug, workoutHeroThumbSet } from '../utils/thumbnails';
 import { ThumbPicture } from '../components/ThumbPicture';
@@ -30,17 +32,34 @@ function formatSetsReps(ex: WorkoutExercise): string {
   return '\u2014';
 }
 
+/**
+ * Printed name for a workout block — the web counterpart of mobile's
+ * `useBlockName` (libo-app-v2/src/hooks/useExercises.ts).
+ *
+ * Blocks store only the canonical English exercise name (it's the join key), so
+ * the translation has to come from the exercise row the block resolves to. A
+ * block that resolves to nothing keeps its raw English string: a content
+ * problem, never a reason to render blank.
+ */
+function blockDisplayName(name: string, exerciseDb: Exercise[], lang: string): string {
+  const match = findExercise(name, exerciseDb);
+  return (match ? localizedExerciseName(match, lang) : '') || name;
+}
+
+function findExercise(name: string, exerciseDb: Exercise[]): Exercise | undefined {
+  const normalized = name.toLowerCase().trim();
+  return exerciseDb.find((e) => e.name.toLowerCase().trim() === normalized);
+}
+
 function findExerciseId(name: string, exerciseDb: Exercise[]): string | null {
   // Returns the URL identifier for an exercise — slug-first, id fallback —
   // so links built from program data work after the route switched to :slug.
-  const normalized = name.toLowerCase().trim();
-  const match = exerciseDb.find((e) => e.name.toLowerCase().trim() === normalized);
+  const match = findExercise(name, exerciseDb);
   return match ? (match.slug ?? match.id) : null;
 }
 
 function findExerciseEquipment(name: string, exerciseDb: Exercise[]): string | null {
-  const normalized = name.toLowerCase().trim();
-  const match = exerciseDb.find((e) => e.name.toLowerCase().trim() === normalized);
+  const match = findExercise(name, exerciseDb);
   if (!match) return null;
   if (!match.equipment || match.equipment.toLowerCase() === 'none' || match.equipment.toLowerCase() === 'bodyweight') return null;
   return match.equipment;
@@ -175,7 +194,7 @@ export default function ProgramDetail() {
           <span className="pd-breadcrumb-sep">&gt;</span>
           <Link to={`/workouts?cat=${encodeURIComponent(workout.cat)}`}>{workout.cat}</Link>
           <span className="pd-breadcrumb-sep">&gt;</span>
-          <span>{workout.name}</span>
+          <span>{localizedWorkoutName(workout, i18n.language)}</span>
         </nav>
 
         {/* Hero */}
@@ -186,7 +205,7 @@ export default function ProgramDetail() {
             <span className="pd-hero-cat">
               {workout.cat}{workout.subcat ? ` \u2014 ${workout.subcat}` : ''}
             </span>
-            <h1>{workout.name}</h1>
+            <h1>{localizedWorkoutName(workout, i18n.language)}</h1>
           </div>
         </div>
 
@@ -223,6 +242,7 @@ export default function ProgramDetail() {
                 exerciseCounter++;
                 const exId = findExerciseId(ex.name, exerciseDb);
                 const equipment = findExerciseEquipment(ex.name, exerciseDb);
+                const exLabel = blockDisplayName(ex.name, exerciseDb, i18n.language);
 
                 return (
                   <div key={`${group.phase}-${i}`} className="pd-ex-row">
@@ -231,10 +251,10 @@ export default function ProgramDetail() {
                       <div className="pd-ex-name">
                         {exId ? (
                           <Link to={`/exercises/${exId}`} className="pd-ex-name-link">
-                            {ex.name}
+                            {exLabel}
                           </Link>
                         ) : (
-                          ex.name
+                          exLabel
                         )}
                       </div>
                       {equipment && <div className="pd-ex-equip">{equipment}</div>}
@@ -278,7 +298,7 @@ export default function ProgramDetail() {
                       style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
                     />
                   </span>
-                  <span className="pd-related-name">{w.name}</span>
+                  <span className="pd-related-name">{localizedWorkoutName(w, i18n.language)}</span>
                   <span className="pd-related-meta">
                     {t('programDetail.related.cardMeta', {
                       duration: w.dur,

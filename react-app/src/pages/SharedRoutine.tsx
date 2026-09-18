@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Dumbbell } from 'lucide-react';
 import { SeoHead } from '../components/SeoHead';
 import SiteFooter from '../components/SiteFooter';
@@ -7,6 +8,7 @@ import AppStoreBadge from '../components/AppStoreBadge';
 import { useSharedWorkout } from '../hooks/useSharedWorkout';
 import { useExercises, type ExerciseDisplay } from '../hooks/useExercises';
 import { exerciseThumb } from '../utils/thumbnails';
+import { localizedExerciseName } from '../utils/exerciseLocale';
 import type {
   SharedItem,
   SharedMuscleSummaryEntry,
@@ -32,6 +34,7 @@ function ExerciseThumb({ ex, muscle }: { ex: ExerciseDisplay | undefined; muscle
 
 export default function SharedRoutine() {
   const { id } = useParams();
+  const { i18n } = useTranslation();
   const { workout, loading, notFound } = useSharedWorkout(id);
   const { exercises } = useExercises();
 
@@ -93,11 +96,20 @@ export default function SharedRoutine() {
 
   const renderRow = (item: SharedItem, key: string) => {
     const subParts = [item.equipment, item.muscle].filter(Boolean);
+    const row = exercisesById.get(item.exerciseId);
+    // The share snapshot stores the name the sharer saw. Translate it only when
+    // it is still the exercise's canonical English name — a name the sharer
+    // typed or edited is theirs and is never translated away. Same rule as
+    // `localizedLoggedWorkoutName` in libo-app-v2/src/utils/workoutLocale.ts.
+    const displayName =
+      row && row.name === item.name
+        ? localizedExerciseName(row, i18n.language) || item.name
+        : item.name;
     return (
       <div className="sr-row" key={key}>
-        <ExerciseThumb ex={exercisesById.get(item.exerciseId)} muscle={item.muscle} />
+        <ExerciseThumb ex={row} muscle={item.muscle} />
         <div className="sr-row__main">
-          <div className="sr-row__name">{item.name}</div>
+          <div className="sr-row__name">{displayName}</div>
           {subParts.length > 0 && (
             <div className="sr-row__sub">{subParts.join(' · ')}</div>
           )}

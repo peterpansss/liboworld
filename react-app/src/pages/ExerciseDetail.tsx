@@ -26,6 +26,7 @@ import {
 import { buildExerciseGraph, exerciseCanonicalUrl } from '../utils/schema';
 import { safeUrl } from '../utils/safeUrl';
 import { findChildVideoDonor } from '../utils/exerciseFamily';
+import { localizedExerciseName } from '../utils/exerciseLocale';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ExerciseDetail.css';
@@ -220,6 +221,12 @@ export default function ExerciseDetail() {
     exercise && exercise.slug && exercise.slug !== slug,
   );
 
+  // The printed name for this page: translated when the row has one for the
+  // active language, English otherwise. The canonical English `exercise.name`
+  // is still what the slug, the JSON-LD graph and every lookup below use — only
+  // the visible string and the <title>/description change.
+  const displayName = localizedExerciseName(exercise, i18n.language);
+
   const instructions = useMemo(
     () => (exercise ? getInstructions(exercise, t) : []),
     [exercise, t],
@@ -367,16 +374,22 @@ export default function ExerciseDetail() {
       ? desc.length > 158
         ? desc.slice(0, 155) + '…'
         : desc
-      : `Learn how to perform ${exercise.name} — a ${exercise.diff} ${exercise.bodyFocus.toLowerCase()} exercise using ${exercise.equipment.toLowerCase()}.`;
+      : `Learn how to perform ${displayName} — a ${exercise.diff} ${exercise.bodyFocus.toLowerCase()} exercise using ${exercise.equipment.toLowerCase()}.`;
     const thumb = exerciseThumb(exercise) ?? exerciseThumb(videoSource);
     return {
-      title: `${exercise.name} — How to Perform | Libo`,
+      // Localized name + localized "How to Perform"; in English this is byte
+      // for byte the title the prerendered stub (scripts/prerender-meta.mjs)
+      // already writes, so the crawler baseline is unchanged. The JSON-LD graph
+      // deliberately keeps the canonical English name — one URL serves all five
+      // languages, so the structured data has to match the prerendered stub and
+      // the sitemap rather than the visitor's language choice.
+      title: `${displayName} — ${t('exerciseDetail.howToPerformTitle')} | Libo`,
       description,
       canonical: exerciseCanonicalUrl(exercise),
       ogImage: thumb ? (thumb.startsWith('http') ? thumb : `https://liboworld.com${thumb}`) : undefined,
       jsonLd: buildExerciseGraph(exercise, primaryMuscle),
     };
-  }, [exercise, primaryMuscle, videoSource]);
+  }, [exercise, displayName, primaryMuscle, videoSource, t]);
 
   if (loading) {
     return (
@@ -436,12 +449,12 @@ export default function ExerciseDetail() {
               {muscleLabel(primaryMuscle)}
             </Link>
             <span className="ed-breadcrumb-sep">&gt;</span>
-            <span>{exercise.name}</span>
+            <span>{displayName}</span>
           </nav>
 
           {/* Hero: H1 + chips */}
           <div className="ed-hero">
-            <h1 className="font-display">{exercise.name}</h1>
+            <h1 className="font-display">{displayName}</h1>
             <div className="ed-chips">
               <span className="ed-chip">{muscleLabel(exercise.bodyFocus)}</span>
               <span className="ed-chip">{equipmentLabel(exercise.equipment)}</span>

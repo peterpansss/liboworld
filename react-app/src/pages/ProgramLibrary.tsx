@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Exercise, type Workout } from '../data/exercises';
+import { localizedWorkoutName } from '../utils/workoutLocale';
 import { buildPlayableExerciseNames, filterPlayableWorkouts } from '../lib/playableWorkouts';
 import { buildNameToSlug, workoutHeroThumbSet } from '../utils/thumbnails';
 import { ThumbPicture } from '../components/ThumbPicture';
@@ -176,7 +177,9 @@ export default function ProgramLibrary() {
       const q = search.toLowerCase();
       result = result.filter(
         (w) =>
-          w.name.toLowerCase().includes(q) ||
+          [w.name, w.name_de, w.name_es, w.name_fr, w.name_pt].some(
+            (n) => typeof n === 'string' && n.toLowerCase().includes(q)
+          ) ||
           (w.subcat && w.subcat.toLowerCase().includes(q)) ||
           w.cat.toLowerCase().includes(q)
       );
@@ -256,7 +259,7 @@ export default function ProgramLibrary() {
           />
           <PlayIcon />
         </div>
-        <div className="el-card-name">{w.name}</div>
+        <div className="el-card-name">{localizedWorkoutName(w, i18n.language)}</div>
         <div className="el-card-meta">
           <span className="el-card-badge">{categoryBadgeLabel(w.cat)}</span>
           <span className="el-card-equip">{t('programLibrary.card.minutes', { count: w.dur })}</span>

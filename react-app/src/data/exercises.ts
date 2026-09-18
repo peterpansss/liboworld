@@ -2,8 +2,15 @@
 // Source: libo-data.js (302 KB) — loaded on demand, not at startup
 
 import { supabase } from '../lib/supabase';
+import {
+  mergeNamePatch,
+  NAME_TRANSLATION_LANGS,
+  type ExerciseNameTranslations,
+} from '../utils/exerciseLocale';
 
-export interface Exercise {
+/** `name` is canonical English (join key); `name_<lang>` is print-only —
+ * resolve with `localizedExerciseName` (src/utils/exerciseLocale.ts). */
+export interface Exercise extends ExerciseNameTranslations {
   id: string;
   name: string;
   slug?: string;       // Stable URL slug (== id for current data)
@@ -47,7 +54,16 @@ export interface WorkoutExercise {
   phase?: 'warmup' | 'main' | 'cooldown';
 }
 
-export interface Workout {
+/** Translated workout display names (workouts.name_<lang>); absent/null = English.
+ * Resolve for display with `localizedWorkoutName` (src/utils/workoutLocale.ts). */
+export type WorkoutNameTranslations = {
+  name_de?: string | null;
+  name_es?: string | null;
+  name_fr?: string | null;
+  name_pt?: string | null;
+};
+
+export interface Workout extends WorkoutNameTranslations {
   id: string;
   name: string;
   emoji: string;
@@ -73,7 +89,7 @@ interface RawWorkoutExercise {
   rest?: number;
 }
 
-interface RawWorkout {
+interface RawWorkout extends WorkoutNameTranslations {
   id: string;
   name: string;
   emoji: string;
@@ -108,6 +124,10 @@ function normalizeWorkout(raw: RawWorkout): Workout {
   return {
     id: raw.id,
     name: raw.name,
+    name_de: raw.name_de,
+    name_es: raw.name_es,
+    name_fr: raw.name_fr,
+    name_pt: raw.name_pt,
     emoji: raw.emoji,
     diff: raw.diff,
     dur: raw.dur,
@@ -257,7 +277,7 @@ function loadExerciseOverrides(): Promise<Record<string, Partial<Exercise>>> {
  * `video_url`), which silently breaks every URL the row points at. Cheaper
  * to absorb here than to rely on every save path scrubbing perfectly.
  */
-type SupabaseExerciseRow = {
+type SupabaseExerciseRow = ExerciseNameTranslations & {
   id: string;
   slug: string | null;
   name: string;
@@ -295,6 +315,12 @@ function supabaseRowToExercise(r: SupabaseExerciseRow): Exercise {
     id: r.id,
     slug: trimOrUndefined(r.slug),
     name: trimOrEmpty(r.name),
+    // Translated names, when the target database has the columns. Absent or
+    // empty leaves the row on the English fallback.
+    name_de: trimOrUndefined(r.name_de),
+    name_es: trimOrUndefined(r.name_es),
+    name_fr: trimOrUndefined(r.name_fr),
+    name_pt: trimOrUndefined(r.name_pt),
     cat: trimOrEmpty(r.cat),
     primaryCat: trimOrUndefined(r.primary_cat),
     subcat: trimOrUndefined(r.subcat),
@@ -314,24 +340,48 @@ function supabaseRowToExercise(r: SupabaseExerciseRow): Exercise {
   };
 }
 
+// Explicit column list (not `*`) so this fetch stays small — it runs on every
+// page that calls getExercises(). Split in two so the translated-name columns
+// can be dropped on a database that predates
+// supabase-migration-exercise-name-translations.sql: PostgREST rejects the
+// WHOLE query for one unknown column (42703), which would take the admin-only
+// rows this fetch exists to surface down with it.
+const BASE_EXERCISE_COLUMNS =
+  'id, slug, name, cat, primary_cat, subcat, environment, body_focus, equipment, machine_required, diff, variation, emoji, setup_notes, parent_id, parent_name, video_url, video_url_alt, thumbnail_url';
+const NAME_TRANSLATION_COLUMNS = NAME_TRANSLATION_LANGS.map((l) => `name_${l}`).join(', ');
+
+// A runtime-built column list makes supabase-js infer `GenericStringError[]`
+// instead of rows, so the shape is asserted here — once — rather than at the
+// call site.
+async function queryPublishedExercises(
+  columns: string,
+): Promise<{ data: SupabaseExerciseRow[] | null; error: unknown }> {
+  const { data, error } = await supabase
+    .from('exercises')
+    .select(columns)
+    .eq('status', 'published');
+  return { data: data as unknown as SupabaseExerciseRow[] | null, error };
+}
+
 function loadSupabaseExercises(): Promise<Exercise[]> {
   if (_supabaseExercises) return Promise.resolve(_supabaseExercises);
   if (_supabaseExercisesPromise) return _supabaseExercisesPromise;
   _supabaseExercisesPromise = (async () => {
     try {
-      const { data, error } = await supabase
-        .from('exercises')
-        .select(
-          'id, slug, name, cat, primary_cat, subcat, environment, body_focus, equipment, machine_required, diff, variation, emoji, setup_notes, parent_id, parent_name, video_url, video_url_alt, thumbnail_url',
-        )
-        .eq('status', 'published');
+      let { data, error } = await queryPublishedExercises(
+        `${BASE_EXERCISE_COLUMNS}, ${NAME_TRANSLATION_COLUMNS}`,
+      );
+      if (error) {
+        // Most likely the name_<lang> columns aren't there yet (production as
+        // of 16 Sep 2026). Retry without them so the rows still arrive, just
+        // on the English fallback.
+        ({ data, error } = await queryPublishedExercises(BASE_EXERCISE_COLUMNS));
+      }
       if (error) {
         _supabaseExercises = [];
         return _supabaseExercises;
       }
-      _supabaseExercises = ((data ?? []) as SupabaseExerciseRow[]).map(
-        supabaseRowToExercise,
-      );
+      _supabaseExercises = (data ?? []).map(supabaseRowToExercise);
       return _supabaseExercises;
     } catch {
       _supabaseExercises = [];
@@ -391,7 +441,10 @@ export async function getExercises(lang: string = 'en'): Promise<Exercise[]> {
   const merged = base.map((ex) => {
     const override = overrides[ex.id];
     const loc = overlay[ex.id];
-    const out: Exercise = { ...ex, ...(override ?? {}) };
+    // mergeNamePatch, not a plain spread: an admin patch that renames a row
+    // without supplying translations must not leave the OLD name's
+    // translations standing in front of the new English one.
+    const out: Exercise = override ? mergeNamePatch(ex, override) : { ...ex };
     if (loc?.setupNotes) out.setupNotes = loc.setupNotes;
     return out;
   });
@@ -437,7 +490,9 @@ export async function getWorkouts(): Promise<Workout[]> {
   if (!hasOverrides) return raw.map(normalizeWorkout);
   return raw.map((w) => {
     const o = overrides[w.id];
-    const merged: RawWorkout = o ? { ...w, ...o } : w;
+    // Same rename rule as the exercise merge above: a patch that changes `name`
+    // without new translations drops the stale ones instead of printing them.
+    const merged: RawWorkout = o ? mergeNamePatch(w, o) : w;
     return normalizeWorkout(merged);
   });
 }

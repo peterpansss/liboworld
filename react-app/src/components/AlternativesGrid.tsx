@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { Exercise } from '../data/exercises';
 import { getRecommended } from '../utils/exerciseAlternatives';
+import { localizedExerciseName } from '../utils/exerciseLocale';
 import { exerciseThumbSet } from '../utils/thumbnails';
 import { ThumbPicture } from './ThumbPicture';
 import { MuscleTile } from './MuscleTile';
@@ -27,7 +28,8 @@ export function AlternativesGrid({
   equipmentLabel = (e) => e,
   difficultyLabel = (d) => d,
 }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // Scoring keys off `current.id`; only the printed names are localized.
   const alternatives = getRecommended(current.id, allExercises, limit);
   if (alternatives.length === 0) return null;
 
@@ -35,7 +37,7 @@ export function AlternativesGrid({
     <section className="alts">
       <h2 className="alts__title">
         {t('exerciseDetail.alternativeExercisesTitle', {
-          name: current.name,
+          name: localizedExerciseName(current, i18n.language),
           defaultValue: 'Alternative Exercises to replace {{name}}',
         })}
       </h2>
@@ -54,7 +56,7 @@ export function AlternativesGrid({
                 />
               </div>
               <div className="alts__body">
-                <div className="alts__name">{alt.name}</div>
+                <div className="alts__name">{localizedExerciseName(alt, i18n.language)}</div>
                 <div className="alts__meta">
                   {equipmentLabel(alt.equipment)} · {difficultyLabel(alt.diff)}
                 </div>

@@ -23,6 +23,9 @@ const replaceExerciseOverrideMock = vi.fn();
 const deleteExerciseOverrideMock = vi.fn();
 const uploadExerciseVideoMock = vi.fn();
 const uploadExerciseThumbnailMock = vi.fn();
+// Canonical-row path (listExercises → refreshCanonical → updateExercise).
+const listExercisesMock = vi.fn();
+const updateExerciseMock = vi.fn();
 
 vi.mock('../../src/lib/adminApi', () => ({
   listExerciseOverrides: () => listExerciseOverridesMock(),
@@ -34,10 +37,10 @@ vi.mock('../../src/lib/adminApi', () => ({
   // The page grew to call these on mount / in edit flows after this mock was
   // first written. Benign stubs keep the module mock complete (vitest throws on
   // any imported-but-unmocked export). listExercises drives refreshCanonical.
-  listExercises: () => Promise.resolve([]),
+  listExercises: () => listExercisesMock(),
   createExercise: (...a: unknown[]) => Promise.resolve({ id: 'ex_new', ...(a as object) }),
   deleteExerciseWithReauth: () => Promise.resolve(),
-  updateExercise: () => Promise.resolve(),
+  updateExercise: (...a: unknown[]) => updateExerciseMock(...a),
   uploadExerciseVideoRaw: () => Promise.resolve({ ok: true }),
   createMediaJob: () => Promise.resolve({ id: 'job_1' }),
 }));
@@ -82,6 +85,12 @@ beforeEach(() => {
   deleteExerciseOverrideMock.mockReset();
   uploadExerciseVideoMock.mockReset();
   uploadExerciseThumbnailMock.mockReset();
+  // Default: no canonical rows, so every exercise takes the legacy
+  // override-patch path (what most cases below exercise).
+  listExercisesMock.mockReset();
+  listExercisesMock.mockResolvedValue([]);
+  updateExerciseMock.mockReset();
+  updateExerciseMock.mockResolvedValue({ ok: true });
   global.fetch = vi.fn((url: string) => {
     if (url.includes('exercises.json')) {
       return Promise.resolve({ ok: true, json: () => Promise.resolve(exercises) });
@@ -214,6 +223,77 @@ describe('ExercisesPage', () => {
     await waitFor(() => expect(replaceExerciseOverrideMock).toHaveBeenCalledTimes(1));
     expect(replaceExerciseOverrideMock.mock.calls[0][0]).toBe('pushup');
     expect(replaceExerciseOverrideMock.mock.calls[0][1]).toEqual({ name: 'Pushups V2' });
+  });
+
+  it('saves a translated name to its canonical name_<lang> column', async () => {
+    // A canonical row exists → Save writes the real column through
+    // admin_update_exercise, never the camelCase override blob (the app reads
+    // `name_de`, so an override key would look saved and do nothing).
+    listExerciseOverridesMock.mockResolvedValue([]);
+    listExercisesMock.mockResolvedValue([
+      {
+        id: 'pushup',
+        slug: 'pushup',
+        name: 'Pushups',
+        cat: 'home',
+        primary_cat: 'Push',
+        subcat: 'Chest',
+        environment: 'Home',
+        body_focus: 'Chest',
+        equipment: 'None',
+        machine_required: false,
+        diff: 'beginner',
+        variation: '',
+        emoji: '💪',
+        setup_notes: 'Place hands shoulder-width apart',
+        setup_notes_de: null,
+        setup_notes_es: null,
+        setup_notes_fr: null,
+        setup_notes_pt: null,
+        name_de: null,
+        name_es: null,
+        name_fr: null,
+        name_pt: null,
+        parent_id: '',
+        parent_name: '',
+        video_url: null,
+        video_url_alt: null,
+        thumbnail_url: null,
+        voiceover_url: null,
+        status: 'published',
+        origin: 'admin',
+        created_at: '2026-01-01',
+        updated_at: '2026-01-01',
+      },
+    ]);
+    updateExerciseMock.mockResolvedValue({
+      ok: true,
+      row: { id: 'pushup', name: 'Pushups', setup_notes: 'Place hands shoulder-width apart' },
+    });
+    render(<ExercisesPage />);
+    await openPushupsEditor();
+
+    const deField = screen.getByText('Name · DE').closest('div')!.querySelector('input')!;
+    expect(deField.disabled).toBe(false);
+    fireEvent.change(deField, { target: { value: 'Liegestütz' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+    await waitFor(() => expect(updateExerciseMock).toHaveBeenCalledTimes(1));
+    expect(updateExerciseMock.mock.calls[0][0]).toBe('pushup');
+    expect(updateExerciseMock.mock.calls[0][1]).toEqual({ name_de: 'Liegestütz' });
+    expect(replaceExerciseOverrideMock).not.toHaveBeenCalled();
+  });
+
+  it('disables the translated-name fields for a bundled-only row', async () => {
+    // No canonical row → nowhere to persist a name_<lang>, so the fields are
+    // read-only rather than silently dropping the edit.
+    listExerciseOverridesMock.mockResolvedValue([]);
+    render(<ExercisesPage />);
+    await openPushupsEditor();
+    for (const lang of ['DE', 'ES', 'FR', 'PT']) {
+      const input = screen.getByText(`Name · ${lang}`).closest('div')!.querySelector('input')!;
+      expect(input.disabled).toBe(true);
+    }
   });
 
   it('save with no changes and no existing override → "No changes" error', async () => {

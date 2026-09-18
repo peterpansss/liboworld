@@ -18,14 +18,23 @@
 // `src/lib/adminApi.ts`: that one requires admin auth and can return drafts;
 // this one is anonymous and only sees published rows.
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import type { ExerciseRow } from '../lib/adminApi';
 import { normalizeExerciseName, parentIdentifiers } from '../utils/exerciseFamily';
+import {
+  hasNameTranslation,
+  pickNameTranslations,
+  type ExerciseNameTranslations,
+} from '../utils/exerciseLocale';
 
 // Mirrors `Exercise` in src/data/exercises.ts. Defined locally so the hook is
 // self-contained and doesn't pull on the lazy-loaded data module.
-export type ExerciseDisplay = {
+//
+// `name` stays the canonical English string (it is the join key for workout
+// blocks, slugs and search); the `name_<lang>` fields are print-only and are
+// resolved by `localizedExerciseName` (utils/exerciseLocale.ts).
+export type ExerciseDisplay = ExerciseNameTranslations & {
   id: string;
   slug: string;
   name: string;
@@ -51,7 +60,7 @@ export type ExerciseDisplay = {
   trackingType?: 'reps' | 'duration';
 };
 
-type StaticExerciseRow = {
+type StaticExerciseRow = ExerciseNameTranslations & {
   id: string;
   slug?: string;
   name: string;
@@ -79,6 +88,7 @@ function fromStatic(row: StaticExerciseRow): ExerciseDisplay {
     id: row.id,
     slug: row.slug ?? row.id,
     name: row.name,
+    ...pickNameTranslations(row),
     cat: row.cat,
     primaryCat: row.primaryCat,
     subcat: row.subcat,
@@ -104,6 +114,7 @@ function fromSupabase(row: ExerciseRow): ExerciseDisplay {
     id: row.id,
     slug: row.slug,
     name: row.name,
+    ...pickNameTranslations(row),
     cat: row.cat ?? '',
     primaryCat: row.primary_cat ?? undefined,
     subcat: row.subcat ?? undefined,
@@ -201,14 +212,50 @@ function filterPlayable(rows: ExerciseDisplay[]): ExerciseDisplay[] {
 let cachedSupabase: ExerciseDisplay[] | null = null;
 let cachedStatic: ExerciseDisplay[] | null = null;
 
+/**
+ * Carry the bundled snapshot's translated names onto Supabase rows that have
+ * none, matched on slug (ids differ between the two sources — the bundle keys
+ * rows by slug, Supabase by its own primary key).
+ *
+ * Why this exists: the static baseline paints first and the Supabase rows
+ * replace it a moment later. Without this overlay that swap *reverts* a
+ * translated card grid to English every cold load for as long as the two
+ * sources disagree about translations — which is exactly today's state, since
+ * the name_<lang> columns are on staging only and production has none. It is
+ * also the direction the mobile app already merges (`useExerciseSync` layers
+ * Supabase deltas OVER the bundled JSON rather than replacing it).
+ *
+ * Supabase still wins wherever it actually has a translation, so once the
+ * production load lands the admin panel stays the source of truth.
+ */
+export function overlayStaticNameTranslations(
+  supabaseRows: readonly ExerciseDisplay[],
+  staticRows: readonly ExerciseDisplay[] | null,
+): ExerciseDisplay[] {
+  const rows = supabaseRows as ExerciseDisplay[];
+  if (!staticRows || staticRows.length === 0) return rows;
+  const donorBySlug = new Map<string, ExerciseDisplay>();
+  for (const r of staticRows) {
+    if (hasNameTranslation(r)) donorBySlug.set(r.slug, r);
+  }
+  if (donorBySlug.size === 0) return rows;
+  return rows.map((row) => {
+    if (hasNameTranslation(row)) return row;
+    const donor = donorBySlug.get(row.slug);
+    return donor ? { ...row, ...pickNameTranslations(donor) } : row;
+  });
+}
+
 export function useExercises(): {
   exercises: ExerciseDisplay[];
   loading: boolean;
   error: Error | null;
 } {
-  const [exercises, setExercises] = useState<ExerciseDisplay[]>(
-    cachedSupabase ?? cachedStatic ?? []
-  );
+  // Kept as two slots rather than one painted list so the Supabase rows can
+  // inherit the static baseline's translated names (see
+  // overlayStaticNameTranslations) no matter which source resolves first.
+  const [staticRows, setStaticRows] = useState<ExerciseDisplay[] | null>(cachedStatic);
+  const [supabaseRows, setSupabaseRows] = useState<ExerciseDisplay[] | null>(cachedSupabase);
   const [loading, setLoading] = useState<boolean>(
     cachedSupabase === null && cachedStatic === null
   );
@@ -219,7 +266,8 @@ export function useExercises(): {
 
     // If the canonical Supabase result is already cached we can short-circuit.
     if (cachedSupabase) {
-      setExercises(cachedSupabase);
+      setSupabaseRows(cachedSupabase);
+      if (cachedStatic) setStaticRows(cachedStatic);
       setLoading(false);
       return () => {
         cancelled = true;
@@ -264,22 +312,20 @@ export function useExercises(): {
       }
     })();
 
-    // Paint whichever resolves first; Supabase result, if it lands later,
-    // overrides the static one. If Supabase wins the race, don't downgrade
-    // the UI by overwriting it with the (older) static rows afterwards.
-    let supabaseLanded = false;
-
+    // Paint whichever resolves first; the Supabase result, once it lands, is
+    // what the derived list below renders. Static rows are still recorded when
+    // they arrive second — not to downgrade the paint, but as the donor for
+    // name translations the Supabase rows may not carry yet.
     staticPromise.then((rows) => {
-      if (cancelled || supabaseLanded || !rows) return;
-      setExercises(rows);
+      if (cancelled || !rows) return;
+      setStaticRows(rows);
       setLoading(false);
     });
 
     supabasePromise.then((rows) => {
       if (cancelled) return;
-      supabaseLanded = true;
       if (rows) {
-        setExercises(rows);
+        setSupabaseRows(rows);
       }
       // Always release the loading flag once the canonical query has resolved,
       // even on Supabase failure — at that point the static rows (if any) are
@@ -291,6 +337,14 @@ export function useExercises(): {
       cancelled = true;
     };
   }, []);
+
+  const exercises = useMemo(
+    () =>
+      supabaseRows
+        ? overlayStaticNameTranslations(supabaseRows, staticRows)
+        : staticRows ?? [],
+    [supabaseRows, staticRows],
+  );
 
   return { exercises, loading, error };
 }
