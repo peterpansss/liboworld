@@ -224,7 +224,10 @@
     "copyrightShort": "© 2026 Libo World",
     "tagline": "Le club d’entraînement qui te paie pour aller au bout de 30 jours.",
     "popularLabel": "Populaire :",
-    "cookieSettings": "Paramètres des cookies"
+    "cookieSettings": "Paramètres des cookies",
+    "discordTitle": "Parle à l’équipe sur Discord",
+    "discordSub": "Pose tes questions, suis le développement et entraîne-toi avec les autres qui font les 30 jours.",
+    "discordCta": "Rejoindre"
   },
   "exerciseLibrary": {
     "title": "Bibliothèque d'Exercices",

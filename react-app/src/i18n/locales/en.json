@@ -295,7 +295,10 @@
     "copyrightShort": "© 2026 Libo World",
     "tagline": "The training club that pays you to finish 30 days.",
     "popularLabel": "Popular:",
-    "cookieSettings": "Cookie settings"
+    "cookieSettings": "Cookie settings",
+    "discordTitle": "Talk to the team on Discord",
+    "discordSub": "Ask anything, follow the build, train alongside everyone else doing the 30 days.",
+    "discordCta": "Join"
   },
   "onboarding": {
     "topBar": {

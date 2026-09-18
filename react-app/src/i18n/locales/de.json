@@ -295,7 +295,10 @@
     "copyrightShort": "© 2026 Libo World",
     "tagline": "Der Trainingsclub, der dich fürs Durchziehen von 30 Tagen bezahlt.",
     "popularLabel": "Beliebt:",
-    "cookieSettings": "Cookie-Einstellungen"
+    "cookieSettings": "Cookie-Einstellungen",
+    "discordTitle": "Sprich mit dem Team auf Discord",
+    "discordSub": "Frag alles, verfolg den Aufbau, trainier mit allen anderen, die die 30 Tage ziehen.",
+    "discordCta": "Beitreten"
   },
   "onboarding": {
     "topBar": {

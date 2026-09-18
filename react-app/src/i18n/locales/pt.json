@@ -295,7 +295,10 @@
     "copyrightShort": "© 2026 Libo World",
     "tagline": "O clube de treino que te paga para completar 30 dias.",
     "popularLabel": "Populares:",
-    "cookieSettings": "Configurações de cookies"
+    "cookieSettings": "Configurações de cookies",
+    "discordTitle": "Fale com o time no Discord",
+    "discordSub": "Pergunte o que quiser, acompanhe o desenvolvimento e treine junto com quem está fazendo os 30 dias.",
+    "discordCta": "Entrar"
   },
   "onboarding": {
     "topBar": {
