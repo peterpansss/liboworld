@@ -16,6 +16,7 @@
  * enroll_in_cycle RPC). The web page is purely an acquisition surface.
  */
 import { useState } from 'react';
+import { APP_STORE_URL } from '../components/AppStoreBadge';
 import { useTranslation } from 'react-i18next';
 import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
@@ -232,7 +233,7 @@ export default function CashChallengePage() {
             <h2 className="funnel-app__title">{t('cashChallengeFunnel.appTitle')}</h2>
             <p className="funnel-app__sub">{t('cashChallengeFunnel.appSub')}</p>
             <div className="funnel-app__badges">
-              <a href="https://apps.apple.com" className="funnel-app__badge funnel-app__badge--img" aria-label="Download on the App Store">
+              <a href={APP_STORE_URL} className="funnel-app__badge funnel-app__badge--img" aria-label="Download on the App Store">
                 <img src="/store-badges/app-store.svg" alt="Download on the App Store" />
               </a>
             </div>

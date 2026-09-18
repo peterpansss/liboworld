@@ -27,8 +27,7 @@ export const WAITLIST_URL = '/#hero-capture';
 
 export const STORE_URLS = {
   // TODO: replace with the real App Store listing once Libo is published.
-  // e.g. 'https://apps.apple.com/app/libo/id1234567890'
-  ios: 'https://apps.apple.com',
+  ios: 'https://apps.apple.com/app/libo-world-training-club/id6773703113',
   // TODO: replace with the real Play Store listing once Libo is published.
   // e.g. 'https://play.google.com/store/apps/details?id=world.libo.app'
   android: 'https://play.google.com',

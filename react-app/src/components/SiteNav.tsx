@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { APP_STORE_URL } from './AppStoreBadge';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LiboLogo from './LiboLogo';
@@ -37,7 +38,6 @@ const visibleNavLinks = () =>
 // (ONBOARDING-FLOW-TICKET) — but the hero IS the capture now, so the free label
 // lands on a free field instead of merely avoiding the paid funnel. The paid
 // 50%-off ask lives only on /membership and /join, which this never links to.
-const WAITLIST_TARGET = '/#hero-capture';
 
 export default function SiteNav() {
   const { t } = useTranslation();
@@ -76,17 +76,22 @@ export default function SiteNav() {
   const isSubpage = location.pathname !== '/';
 
   const navLinks = visibleNavLinks();
-  const waitlistLabel = t('nav.joinWaitlist', { defaultValue: 'Join the waitlist' });
+  // iOS shipped 18 Sep 2026. Sending a visitor to a waitlist for something
+  // they can download in ten seconds is the one thing the bar must not do, so
+  // the CTA and the bar both point at the App Store now. The waitlist form
+  // stays on the page — it is the Android notify list until Play opens, and
+  // that is what the copy in the hero says.
+  const waitlistLabel = t('nav.downloadCta', { defaultValue: 'Download' });
   const handleWaitlistClick = () => setDrawerOpen(false);
 
   // The ⚡ and → are markup (site-announce__spark / __arrow), so the copy must
   // not repeat them — except the short variant, which carries its own trailing
   // → because CSS hides the standalone arrow at ≤430px.
   const announceFull = showWaitlist
-    ? t('relaunchHome.waitlistBar.full', { defaultValue: 'Cash challenges open with the iOS app — join the waitlist' })
+    ? t('relaunchHome.liveBar.full', { defaultValue: 'Libo is live on the App Store — download it free' })
     : t('earlyAccess.announceText', { defaultValue: 'Founding Members: 50% off — until 13 October' });
   const announceShort = showWaitlist
-    ? t('relaunchHome.waitlistBar.short', { defaultValue: 'Cash challenges on iOS →' })
+    ? t('relaunchHome.liveBar.short', { defaultValue: 'Live on the App Store →' })
     : t('earlyAccess.announceTextShort', { defaultValue: 'Founding Members: 50% off until 13 Oct →' });
 
   useEffect(() => {
@@ -121,7 +126,7 @@ export default function SiteNav() {
           <button
             type="button"
             className="site-announce__msg"
-            onClick={() => navigate(showWaitlist ? WAITLIST_TARGET : '/membership')}
+            onClick={() => { if (showWaitlist) window.location.assign(APP_STORE_URL); else navigate('/membership'); }}
           >
             <span className="site-announce__spark" aria-hidden="true">⚡</span>
             <span className="site-announce__text">
@@ -175,13 +180,13 @@ export default function SiteNav() {
 
           {/* Right section */}
           <div className="site-nav__right">
-            <Link
-              to={WAITLIST_TARGET}
+            <a
+              href={APP_STORE_URL}
               className="site-nav__cta"
               onClick={handleWaitlistClick}
             >
               {waitlistLabel}
-            </Link>
+            </a>
             <button
               className="site-nav__hamburger"
               onClick={() => setDrawerOpen(true)}
@@ -231,13 +236,13 @@ export default function SiteNav() {
             then the language switcher (HEADER-FOOTER-TICKET §2). */}
         <div className="site-nav__drawer-bottom">
           <StoreBadges className="site-nav__drawer-badges" />
-          <Link
-            to={WAITLIST_TARGET}
+          <a
+            href={APP_STORE_URL}
             className="site-nav__drawer-cta"
             onClick={handleWaitlistClick}
           >
             {waitlistLabel}
-          </Link>
+          </a>
           <div className="site-nav__drawer-lang">
             <LanguageSwitcher variant="drawer" />
           </div>

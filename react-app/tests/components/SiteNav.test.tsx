@@ -3,8 +3,9 @@
  *
  * Covers: scroll-based class toggle, mobile drawer open/close, ESC closes
  * the drawer, active-link highlighting, body-scroll lock, the skip link,
- * the waitlist CTA target, and the two announce-bar variants (free waitlist
- * everywhere / paid founding offer on /membership only).
+ * the CTA target (the App Store, since iOS shipped 18 Sep 2026), and the two
+ * announce-bar variants (download bar everywhere / paid founding offer on
+ * /membership only).
  *
  * react-i18next mock returns the key (or defaultValue when supplied).
  * react-router-dom is loaded for real but with MemoryRouter.
@@ -68,7 +69,7 @@ function renderAt(path: string) {
 }
 
 describe('SiteNav', () => {
-  it('renders the skip link, primary nav links, and the waitlist CTA', () => {
+  it('renders the skip link, primary nav links, and the download CTA', () => {
     renderAt('/');
     expect(screen.getByText('nav.skipToMain')).toBeInTheDocument();
     expect(screen.getByRole('navigation', { name: 'nav.mainNavigation' })).toBeInTheDocument();
@@ -77,7 +78,7 @@ describe('SiteNav', () => {
     ['Cash Challenges', 'Exercise Library', 'Founding Member', 'Press', 'Careers'].forEach((label) => {
       expect(screen.getAllByText(label).length).toBeGreaterThanOrEqual(1);
     });
-    expect(screen.getAllByText('Join the waitlist').length).toBe(2);
+    expect(screen.getAllByText('Download').length).toBe(2);
     // Membership left the header on 2026-08-27; it lives in the footer as
     // "Pricing" now, and the freed slot carries the founding offer.
     expect(screen.queryByText('Membership')).toBeNull();
@@ -93,13 +94,18 @@ describe('SiteNav', () => {
     expect(screen.getAllByText('Cash Challenges').length).toBeGreaterThanOrEqual(1);
   });
 
-  it('points both waitlist CTAs at the homepage hero capture, not the paid funnel', () => {
+  it('points both CTAs at the App Store listing — the app is live, so a waitlist would be a detour', () => {
     renderAt('/');
     // getAllByText, not getAllByRole: the closed drawer is aria-hidden, so
     // its copy of the CTA is out of the accessibility tree.
-    const ctas = screen.getAllByText('Join the waitlist');
+    const ctas = screen.getAllByText('Download');
     expect(ctas.length).toBe(2);
-    ctas.forEach((cta) => expect(cta).toHaveAttribute('href', '/#hero-capture'));
+    ctas.forEach((cta) =>
+      expect(cta).toHaveAttribute(
+        'href',
+        'https://apps.apple.com/app/libo-world-training-club/id6773703113',
+      ),
+    );
   });
 
   it('marks the active nav link with aria-current="page"', () => {
@@ -169,7 +175,7 @@ describe('SiteNav announce bar', () => {
     const bar = container.querySelector('.site-announce');
     expect(bar).not.toBeNull();
     expect(bar!.className).toContain('site-announce--waitlist');
-    expect(screen.getByText('Cash challenges open with the iOS app — join the waitlist')).toBeInTheDocument();
+    expect(screen.getByText('Libo is live on the App Store — download it free')).toBeInTheDocument();
   });
 
   it('does not gate the waitlist variant on Stripe — it is a free ask', () => {
