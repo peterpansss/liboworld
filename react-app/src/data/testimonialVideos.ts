@@ -254,7 +254,7 @@ function urls(base: string) {
 export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
   {
     id: 'voice-gabriel',
-    ...urls('voice-gabriel-sdr2'),
+    ...urls('voice-gabriel-sdr3'),
     displayName: 'Gabriel K.',
     badge: 'BETA TESTER',
     // Verbatim. The only editorial act is the em-dash, standing in for the
