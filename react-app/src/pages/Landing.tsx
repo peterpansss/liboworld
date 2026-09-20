@@ -201,7 +201,7 @@ export default function Landing() {
 
   // ── Community rail. Order is fixed by HANDOFF-V2 §B5: Thao first, Noah is
   // NOT in this row (the founder lives on /founder only).
-  // Order is the owner's call (20 Sep 2026): Gabriel leads, Ken closes.
+  // Order is the owner's call (20 Sep 2026): Gabriel leads. Cast unchanged.
   const members = [
     {
       photo: 'beta-marco.png',
@@ -224,12 +224,9 @@ export default function Landing() {
       meta: t('relaunchHome.community.m2Meta', { defaultValue: '@somin · kept the streak' }),
     },
     {
-      // His own avatar from the filmed testimonial, not a stock beta headshot.
-      // No handle and no title: the brief keeps him as "Ken" (a physician's
-      // credential on screen reads as a medical endorsement).
-      photo: 'beta-ken.jpg',
-      name: t('relaunchHome.community.m6Name', { defaultValue: 'Ken' }),
-      meta: t('relaunchHome.community.m6Meta', { defaultValue: 'Beta tester · takes the thinking out' }),
+      photo: 'beta-paul.png',
+      name: t('relaunchHome.community.m5Name', { defaultValue: 'Tony' }),
+      meta: t('relaunchHome.community.m5Meta', { defaultValue: '@tony · 47, mobility plans' }),
     },
   ];
 

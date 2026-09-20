@@ -108,13 +108,11 @@ describe('Landing', () => {
     const rail = screen.getByRole('group', { name: 'relaunchHome.community.railLabel' });
     const members = rail.querySelectorAll('figure.rh-member');
     expect(members).toHaveLength(5);
-    // m5 (Tony) was replaced by m6 (Ken) on 20 Sep 2026, and Ken's photo is a
-    // .jpg frame from his own filmed testimonial rather than a beta headshot.
-    for (const i of [1, 2, 3, 4, 6]) {
+    for (let i = 1; i <= 5; i++) {
       const name = `relaunchHome.community.m${i}Name`;
       expect(within(rail).getByAltText(name)).toHaveAttribute(
         'src',
-        expect.stringMatching(/^\/beta-.+\.(png|jpg)$/),
+        expect.stringMatching(/^\/beta-.+\.png$/),
       );
       expect(within(rail).getByText(`relaunchHome.community.m${i}Meta`)).toBeInTheDocument();
     }
