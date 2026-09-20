@@ -234,11 +234,19 @@ export type TestimonialVideo = {
   title: string;
 };
 
+/**
+ * Poster cache-bust. The renditions carry `?v=` already; the posters did not,
+ * so re-cutting Gabriel's still shipped to the origin and Cloudflare kept
+ * serving the old bytes off the unchanged filename — twice. Bump this on any
+ * poster change.
+ */
+const POSTER_V = '1789000000000';
+
 function urls(base: string) {
   return {
     src1080: `${CDN}/${base}-1080p.mp4?v=${V}`,
     src720: `${CDN}/${base}-720p.mp4?v=${V}`,
-    poster: `/funnel-media/${base}-poster.jpg`,
+    poster: `/funnel-media/${base}-poster.jpg?v=${POSTER_V}`,
     avatar: `/funnel-media/${base}-avatar.jpg`,
   };
 }
