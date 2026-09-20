@@ -285,17 +285,6 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
     title: 'Somin K. on training with Libo',
   },
   {
-    id: 'voice-jerson',
-    ...urls('voice-jerson'),
-    displayName: 'Jerson O.',
-    badge: 'BETA TESTER',
-    quote:
-      "After work you're tired. You don't want to spend time looking for what to do — you want to go straight to the point.",
-    duration: '0:29',
-    durationSeconds: 29,
-    title: 'Jerson O. on training with Libo',
-  },
-  {
     id: 'voice-ken',
     ...urls('voice-ken'),
     displayName: 'Dr. Kenneth Sullivan-Bol',
@@ -366,6 +355,17 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
   // Position in the array is the owner's call; appended last unless told
   // otherwise. The site rule is only that the wall must not OPEN on the older
   // half of the cast (brief, "Age spread"), and Gabriel already leads.
+  {
+    id: 'voice-jerson',
+    ...urls('voice-jerson'),
+    displayName: 'Jerson O.',
+    badge: 'BETA TESTER',
+    quote:
+      "After work you're tired. You don't want to spend time looking for what to do — you want to go straight to the point.",
+    duration: '0:29',
+    durationSeconds: 29,
+    title: 'Jerson O. on training with Libo',
+  },
 ];
 
 /** ISO-8601 duration, e.g. 29 → "PT0M29S". */
