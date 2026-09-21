@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { effectiveTier } from '../../lib/entitlement';
+import {
+  effectiveTier,
+  resolveGrantPlan,
+  GRANT_DURATION_OPTIONS,
+  type GrantDuration,
+} from '../../lib/entitlement';
 import { colors } from '../../theme';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, Select, Button } from '../../components/admin/FormField';
@@ -52,6 +57,20 @@ function formatDate(iso: string | null): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return '—';
   return d.toLocaleDateString();
+}
+
+/** "22 Nov 2026" — used in grant confirmation copy, where an ambiguous 11/22 won't do. */
+function formatGrantDate(iso: string | null): string {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '—';
+  return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+/** `YYYY-MM-DD` for a date input's min attribute, in the operator's local timezone. */
+function localDateInputValue(d: Date): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
 function formatDateTime(iso: string | null): string {
@@ -468,6 +487,168 @@ function ErrorBanner({ message }: { message: string }) {
   );
 }
 
+// ── Tier grant card ────────────────────────────────────────────────────────
+
+/**
+ * "Set tier" — now a tier AND a duration, so an operator can comp someone a
+ * month of Premium and have it end by itself.
+ *
+ * Two deliberate choices:
+ *
+ * 1. The tier dropdown no longer commits on change. It can't: a tier and a
+ *    duration have to be chosen together, and committing on the tier change
+ *    alone would hand out an indefinite grant before the operator had said how
+ *    long they meant. Nothing is written until "Apply tier", and the line above
+ *    the button spells out the exact outcome first.
+ * 2. Duration defaults to Indefinite, which is precisely what this card did
+ *    before. An operator who ignores the new control gets the old behaviour.
+ *
+ * State is initialised from props and re-armed by remounting (the caller keys
+ * this on user + purchased tier), so there is no effect syncing props into
+ * state and no window where the form shows a tier the row no longer has.
+ */
+function TierGrantCard({
+  user,
+  saving,
+  onApply,
+}: {
+  user: AdminUserRow;
+  saving: boolean;
+  onApply: (tier: Tier, expiresAt: string | null) => void;
+}) {
+  const purchased: Tier = (user.tier as Tier | null | undefined) ?? 'free';
+  const [tier, setTier] = useState<Tier>(purchased);
+  const [duration, setDuration] = useState<GrantDuration>('indefinite');
+  const [customDate, setCustomDate] = useState('');
+  // Captured once on mount rather than read during render — the date picker's
+  // floor only has to be roughly "tomorrow", and `resolveGrantPlan` re-checks
+  // the date against the real clock anyway.
+  const [minCustomDate] = useState(() => localDateInputValue(new Date(Date.now() + 86400000)));
+
+  const plan = resolveGrantPlan({ tier, duration, customDate, current: user });
+  const lapsed = effectiveTier(user) === 'free' && purchased !== 'free';
+  const tierLabel = tier === 'pro' ? 'Pro' : 'Elite';
+
+  const apply = () => {
+    // Re-resolve at click time: a modal can sit open for a long while, and the
+    // preview must not be able to drift from what gets written.
+    const fresh = resolveGrantPlan({ tier, duration, customDate, current: user });
+    if (fresh.error) return;
+    onApply(tier, fresh.expiresAt);
+  };
+
+  return (
+    <div
+      style={{
+        background: colors.bg3,
+        border: `1px solid ${colors.border}`,
+        borderRadius: 12,
+        padding: 14,
+      }}
+    >
+      <div style={{ fontSize: 12, fontWeight: 700, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 10 }}>
+        Set tier
+      </div>
+
+      {/* The tier dropdown deliberately shows the PURCHASED tier — that is what
+          you are editing. The status line further down shows why it may not be
+          what the user actually has: without it the operator sees "Pro"
+          selected and has no way to tell the window closed. */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        <Field label="Tier">
+          <Select value={tier} onChange={(e) => setTier(e.target.value as Tier)} disabled={saving}>
+            <option value="free">Free</option>
+            <option value="pro">Pro</option>
+            <option value="elite">Elite</option>
+          </Select>
+        </Field>
+        <Field label="Duration">
+          <Select
+            value={duration}
+            onChange={(e) => setDuration(e.target.value as GrantDuration)}
+            disabled={saving || tier === 'free'}
+          >
+            {GRANT_DURATION_OPTIONS.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
+            ))}
+          </Select>
+        </Field>
+      </div>
+
+      {tier !== 'free' && duration === 'custom' && (
+        <Field label="Ends on">
+          <TextInput
+            type="date"
+            value={customDate}
+            min={minCustomDate}
+            onChange={(e) => setCustomDate(e.target.value)}
+            disabled={saving}
+          />
+        </Field>
+      )}
+
+      {/* Say what the button will do, in full, before it is pressed — an
+          entitlement grant is invisible from this screen once made. */}
+      <div
+        style={{
+          background: colors.bg,
+          border: `1px solid ${colors.border}`,
+          borderRadius: 10,
+          padding: '8px 10px',
+          marginBottom: 10,
+        }}
+      >
+        <div style={{ fontSize: 13, color: colors.text, fontWeight: 600 }}>
+          {plan.error
+            ? '—'
+            : tier === 'free'
+            ? 'Free — paid access removed'
+            : plan.expiresAt
+            ? `${tierLabel} until ${formatGrantDate(plan.expiresAt)}`
+            : `${tierLabel}, no expiry`}
+        </div>
+        {plan.error ? (
+          <div style={{ fontSize: 12, color: colors.error, marginTop: 4 }}>{plan.error}</div>
+        ) : plan.extendsFrom ? (
+          <div style={{ fontSize: 12, color: colors.muted, marginTop: 4 }}>
+            Extends the current grant, which ends {formatGrantDate(plan.extendsFrom)} — the
+            remaining time is added to, not replaced.
+          </div>
+        ) : plan.shortensIndefinite ? (
+          <div style={{ fontSize: 12, color: colors.warning, marginTop: 4 }}>
+            This user currently has {purchased} with no expiry. Applying a duration REPLACES that
+            open-ended grant with one that ends.
+          </div>
+        ) : tier !== 'free' && plan.expiresAt ? (
+          <div style={{ fontSize: 12, color: colors.muted, marginTop: 4 }}>
+            New window, counted from today.
+          </div>
+        ) : null}
+      </div>
+
+      <Button variant="primary" onClick={apply} disabled={saving || plan.error !== null}>
+        {saving ? 'Updating…' : 'Apply tier'}
+      </Button>
+
+      <div style={{ fontSize: 12, color: colors.muted, marginTop: 10 }}>
+        Status: <strong style={{ color: colors.text }}>{user.subscription_status ?? 'no row'}</strong>
+        {' · '}
+        {user.subscription_expires_at
+          ? `${lapsed ? 'expired' : 'expires'} ${formatDate(user.subscription_expires_at)}`
+          : 'no expiry'}
+      </div>
+      {lapsed && (
+        <div style={{ fontSize: 12, color: colors.warning, marginTop: 6 }}>
+          Subscription window has closed — the app is showing this user as Free and gating paid
+          content. Pick a tier and duration above and apply to grant it again.
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── User detail modal ──────────────────────────────────────────────────────
 
 function UserDetailModal({
@@ -532,6 +713,8 @@ function UserDetailModal({
     }
   }, [userId, loadDetails]);
 
+  const purchasedTier: Tier = (user?.tier as Tier | null | undefined) ?? 'free';
+
   const wrap = async (key: string, fn: () => Promise<void>) => {
     if (!userId) return;
     setSavingAction(key);
@@ -565,9 +748,9 @@ function UserDetailModal({
       setPointsNote('');
     });
 
-  const handleSetTier = (tier: Tier) =>
+  const handleApplyTier = (tier: Tier, expiresAt: string | null) =>
     wrap('tier', async () => {
-      await setSubscriptionTier(userId!, tier);
+      await setSubscriptionTier(userId!, tier, expiresAt);
     });
 
   const handleToggleAdmin = () =>
@@ -788,52 +971,12 @@ function UserDetailModal({
                 gap: 16,
               }}
             >
-              <div
-                style={{
-                  background: colors.bg3,
-                  border: `1px solid ${colors.border}`,
-                  borderRadius: 12,
-                  padding: 14,
-                }}
-              >
-                <div style={{ fontSize: 12, fontWeight: 700, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 10 }}>
-                  Set tier
-                </div>
-                <Field label="Tier">
-                  <Select
-                    value={user.tier ?? 'free'}
-                    onChange={(e) => handleSetTier(e.target.value as Tier)}
-                    disabled={savingAction === 'tier'}
-                  >
-                    <option value="free">Free</option>
-                    <option value="pro">Pro</option>
-                    <option value="elite">Elite</option>
-                  </Select>
-                </Field>
-                {/* The dropdown above deliberately shows the PURCHASED tier —
-                    that is what you are editing. This line shows why it may
-                    not be what the user actually has: without it the operator
-                    sees "Pro" selected and has no way to tell the window
-                    closed. Setting a tier from here writes expires_at = NULL,
-                    i.e. an indefinite grant. */}
-                <div style={{ fontSize: 12, color: colors.muted, marginTop: 4 }}>
-                  Status: <strong style={{ color: colors.text }}>{user.subscription_status ?? 'no row'}</strong>
-                  {' · '}
-                  {user.subscription_expires_at
-                    ? `${effectiveTier(user) === 'free' && (user.tier ?? 'free') !== 'free' ? 'expired' : 'expires'} ${formatDate(user.subscription_expires_at)}`
-                    : 'no expiry'}
-                </div>
-                {effectiveTier(user) === 'free' && (user.tier ?? 'free') !== 'free' && (
-                  <div style={{ fontSize: 12, color: colors.warning, marginTop: 6 }}>
-                    Subscription window has closed — the app is showing this user
-                    as Free and gating paid content. Re-select the tier above to
-                    grant it again indefinitely.
-                  </div>
-                )}
-                {savingAction === 'tier' && (
-                  <div style={{ fontSize: 12, color: colors.muted }}>Updating…</div>
-                )}
-              </div>
+              <TierGrantCard
+                key={`${userId}:${purchasedTier}`}
+                user={user}
+                saving={savingAction === 'tier'}
+                onApply={handleApplyTier}
+              />
 
               <div
                 style={{

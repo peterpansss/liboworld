@@ -17,7 +17,7 @@
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
-import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, waitFor, fireEvent, act } from '@testing-library/react';
 
 void React;
@@ -196,13 +196,17 @@ describe('UsersPage - re-auth gate on sensitive actions', () => {
 
   it('change tier goes through setSubscriptionTierWithReauth (re-auth fires)', async () => {
     await openUserModal();
-    // The tier select inside the modal defaults to 'free' for this user; pick 'pro'.
-    const tierSelect = screen.getByRole('combobox') as HTMLSelectElement;
+    // The tier select inside the modal defaults to 'free' for this user; pick
+    // 'pro' and commit. The duration control is left alone, so this is the
+    // pre-existing indefinite grant: p_expires_at === null.
     await act(async () => {
-      fireEvent.change(tierSelect, { target: { value: 'pro' } });
+      fireEvent.change(screen.getByLabelText('Tier'), { target: { value: 'pro' } });
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByText('Apply tier'));
     });
     await waitFor(() => expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledTimes(1));
-    expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledWith('u_alice', 'pro');
+    expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledWith('u_alice', 'pro', null);
     expect(mocked.requireRecentAuth).toHaveBeenCalled();
   });
 
@@ -229,5 +233,185 @@ describe('UsersPage - re-auth gate on sensitive actions', () => {
     expect(mocked.grantTickets).not.toHaveBeenCalled();
     // The page surfaces the error message.
     expect(await screen.findByText(/Re-authentication cancelled/)).toBeInTheDocument();
+  });
+});
+
+/**
+ * Time-limited Premium grants.
+ *
+ * The RPC has always accepted `p_expires_at`; the UI always sent null, so every
+ * comped account was indefinite and had to be revoked by hand. These tests pin
+ * the three things that make the new duration control trustworthy: the default
+ * still means "forever", a preset sends a real ISO instant, and giving someone
+ * another month on top of a live grant adds to it instead of resetting it.
+ *
+ * Dates are constructed locally on both sides — the grant maths preserves local
+ * wall-clock time, so hard-coded UTC literals would only pass in one timezone.
+ */
+describe('UsersPage - time-limited tier grants', () => {
+  /** 21 Sep 2026, 12:00 local. */
+  const NOW = new Date(2026, 8, 21, 12, 0, 0, 0);
+
+  beforeEach(() => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(NOW);
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  async function openModalFor(user: Record<string, unknown>) {
+    mocked.listUsers.mockImplementation(async () => [user]);
+    await openUserModal();
+  }
+
+  /**
+   * The expiry the last grant sent, as epoch ms.
+   *
+   * Windows measured "from now" are asserted with a tolerance: the fake clock
+   * runs with `shouldAdvanceTime`, so the real milliseconds spent inside the
+   * awaited interactions land in the result. A window EXTENDED from a stored
+   * expiry is deterministic and is asserted exactly.
+   */
+  function lastGrantExpiryMs(): number {
+    const call = mocked.setSubscriptionTierWithReauth.mock.calls.at(-1)!;
+    return new Date(call[2] as string).getTime();
+  }
+
+  it('defaults the duration control to Indefinite', async () => {
+    await openUserModal();
+    expect((screen.getByLabelText('Duration') as HTMLSelectElement).value).toBe('indefinite');
+  });
+
+  it('previews and sends a null expiry when the duration is left alone', async () => {
+    await openUserModal();
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Tier'), { target: { value: 'pro' } });
+    });
+    expect(screen.getByText('Pro, no expiry')).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.click(screen.getByText('Apply tier'));
+    });
+    await waitFor(() => expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledTimes(1));
+    expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledWith('u_alice', 'pro', null);
+  });
+
+  it('sends the right ISO instant for a 1 month preset on a user with no subscription', async () => {
+    await openUserModal();
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Tier'), { target: { value: 'pro' } });
+    });
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Duration'), { target: { value: '1m' } });
+    });
+    const expected = new Date(2026, 9, 21, 12, 0, 0, 0).getTime();
+    expect(screen.getByText(/^Pro until /)).toBeInTheDocument();
+    expect(screen.getByText(/New window, counted from today/)).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.click(screen.getByText('Apply tier'));
+    });
+    await waitFor(() => expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledTimes(1));
+    expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledWith('u_alice', 'pro', expect.any(String));
+    expect(lastGrantExpiryMs()).toBeCloseTo(expected, -4); // within ~10s of one month out
+  });
+
+  it('EXTENDS from an existing future expiry rather than restarting the clock', async () => {
+    const existing = new Date(2026, 9, 15, 9, 30, 0, 0); // 15 Oct 2026
+    await openModalFor({
+      ...USER_FIXTURE,
+      tier: 'pro',
+      subscription_status: 'active',
+      subscription_expires_at: existing.toISOString(),
+    });
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Duration'), { target: { value: '1m' } });
+    });
+    expect(screen.getByText(/Extends the current grant/)).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.click(screen.getByText('Apply tier'));
+    });
+    await waitFor(() => expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledTimes(1));
+    expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledWith(
+      'u_alice',
+      'pro',
+      new Date(2026, 10, 15, 9, 30, 0, 0).toISOString(),
+    );
+  });
+
+  it('REPLACES (starts from today) when the existing grant has lapsed', async () => {
+    await openModalFor({
+      ...USER_FIXTURE,
+      tier: 'pro',
+      subscription_status: 'active',
+      subscription_expires_at: new Date(2026, 7, 1, 9, 0, 0, 0).toISOString(), // 1 Aug, past
+    });
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Duration'), { target: { value: '1m' } });
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByText('Apply tier'));
+    });
+    await waitFor(() => expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledTimes(1));
+    // Not extended from the lapsed 1 Aug expiry — a fresh month from today.
+    expect(lastGrantExpiryMs()).toBeCloseTo(new Date(2026, 9, 21, 12, 0, 0, 0).getTime(), -4);
+  });
+
+  it('warns that a duration replaces an open-ended grant', async () => {
+    await openModalFor({
+      ...USER_FIXTURE,
+      tier: 'pro',
+      subscription_status: 'active',
+      subscription_expires_at: null,
+    });
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Duration'), { target: { value: '3m' } });
+    });
+    expect(screen.getByText(/REPLACES that open-ended grant/)).toBeInTheDocument();
+  });
+
+  it('blocks Apply until a custom date is filled in', async () => {
+    await openUserModal();
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Tier'), { target: { value: 'pro' } });
+    });
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Duration'), { target: { value: 'custom' } });
+    });
+    expect(screen.getByText('Apply tier')).toBeDisabled();
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Ends on'), { target: { value: '2026-11-22' } });
+    });
+    expect(screen.getByText('Apply tier')).not.toBeDisabled();
+    await act(async () => {
+      fireEvent.click(screen.getByText('Apply tier'));
+    });
+    await waitFor(() => expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledTimes(1));
+    expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledWith(
+      'u_alice',
+      'pro',
+      new Date(2026, 10, 22, 23, 59, 59, 999).toISOString(),
+    );
+  });
+
+  it('never attaches an expiry to a free downgrade', async () => {
+    await openModalFor({
+      ...USER_FIXTURE,
+      tier: 'pro',
+      subscription_status: 'active',
+      subscription_expires_at: new Date(2026, 9, 15, 9, 30, 0, 0).toISOString(),
+    });
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Duration'), { target: { value: '6m' } });
+    });
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Tier'), { target: { value: 'free' } });
+    });
+    expect(screen.getByText('Free — paid access removed')).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.click(screen.getByText('Apply tier'));
+    });
+    await waitFor(() => expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledTimes(1));
+    expect(mocked.setSubscriptionTierWithReauth).toHaveBeenCalledWith('u_alice', 'free', null);
   });
 });
