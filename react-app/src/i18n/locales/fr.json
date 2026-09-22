@@ -1944,11 +1944,11 @@
         "price": "€0",
         "per": "pour toujours",
         "blurb": "Tout ce qu'il faut pour commencer à t'entraîner aujourd'hui — pas de carte, pas de compte à rebours d'essai.",
-        "perk1": "Bibliothèque d'entraînements & d'exercices de base",
-        "perk2": "Suivi de progression de base",
-        "perk3": "Cash challenge d'entrée (€5)",
-        "perk4": "Série d'activité & points",
-        "perk5": "Générateur de plans — 3 plans/mois",
+        "perk1": "La bibliothèque complète de 820+ exercices",
+        "perk2": "80 des 140 séances guidées",
+        "perk3": "Générateur de plans — un plan, jusqu'à 4 semaines",
+        "perk4": "Tout ce que tu enregistres, plus 7 jours de tendances",
+        "perk5": "Le défi à 5 € — entrée gratuite",
         "cta": "Commencer gratuitement"
       },
       "founding": {
@@ -1971,13 +1971,13 @@
         "price": "€79.99",
         "per": "/an · €6.67/mois",
         "monthly": "ou €12.99/mois sans engagement — annulable à tout moment",
-        "blurb": "L'expérience Libo complète dès le lancement — chaque format, chaque palier de challenge.",
-        "perk1": "Bibliothèque complète — 820+ exercices, 140 entraînements",
-        "perk2": "Cash challenges jusqu'à €50",
-        "perk3": "Statistiques avancées & records",
-        "perk4": "1 jeton freeze par challenge, +1 à gagner",
-        "perk5": "Générateur de plans illimité",
-        "cta": "Disponible au lancement"
+        "blurb": "La même app, sans plafonds — plus de profondeur, pas plus d'accès.",
+        "perk1": "Les 140 séances guidées",
+        "perk2": "Garde autant de plans que tu veux, de n'importe quelle durée",
+        "perk3": "Tendances sur 30 et 90 jours, plus la heatmap musculaire",
+        "perk4": "Défis cash jusqu'à 50 €",
+        "perk5": "2 jetons de pause par défi et 2× points",
+        "cta": "Télécharger Libo sur l'App Store →"
       }
     },
     "guarantee": {

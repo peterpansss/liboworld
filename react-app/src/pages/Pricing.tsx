@@ -10,6 +10,7 @@ import { PRICING_FAQ } from '../data/faq';
 import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvider';
 import LaunchCountdown from '../components/LaunchCountdown';
 import { isFoundingOpen } from '../config/launchMode';
+import { APP_STORE_URL } from '../components/AppStoreBadge';
 import './Pricing.css';
 
 // /membership (route /pricing redirects here) — the Membership page.
@@ -56,7 +57,8 @@ interface Plan {
   /** Founding Member is the only card that opens Stripe. */
   founding?: boolean;
   /** Premium isn't purchasable yet — rendered as a static, non-interactive chip. */
-  staticCta?: boolean;
+  /** Off-site CTA target (the App Store). Rendered as a plain <a>, not a Link. */
+  externalHref?: string;
   href?: string;
 }
 
@@ -88,12 +90,22 @@ export default function Pricing() {
       blurb: t('membershipV2.plans.free.blurb', {
         defaultValue: 'Everything you need to start training today — no card, no trial clock.',
       }),
+      // Perks mirror libo-app-v2/src/constants/tierFeatures.ts. The exercise
+      // library is not tier-gated at all; only the 140 curated workouts are
+      // (80 free). The plan cap is a CONCURRENCY cap, not a monthly quota —
+      // delete the plan and the slot frees immediately.
       perks: [
-        t('membershipV2.plans.free.perk1', { defaultValue: 'Core workout & exercise library' }),
-        t('membershipV2.plans.free.perk2', { defaultValue: 'Basic progress tracking' }),
-        t('membershipV2.plans.free.perk3', { defaultValue: 'Entry-level cash challenge (€5)' }),
-        t('membershipV2.plans.free.perk4', { defaultValue: 'Activity streak & points' }),
-        t('membershipV2.plans.free.perk5', { defaultValue: 'Plan generator — 3 plans/mo' }),
+        t('membershipV2.plans.free.perk1', { defaultValue: 'The full 820+ exercise library' }),
+        t('membershipV2.plans.free.perk2', { defaultValue: '80 of the 140 guided workouts' }),
+        t('membershipV2.plans.free.perk3', {
+          defaultValue: 'Plan generator — keep one plan, up to 4 weeks',
+        }),
+        t('membershipV2.plans.free.perk4', {
+          defaultValue: 'Everything you log, plus 7 days of trends',
+        }),
+        t('membershipV2.plans.free.perk5', {
+          defaultValue: 'The €5 cash challenge — free to enter',
+        }),
       ],
       ctaLabel: t('membershipV2.plans.free.cta', { defaultValue: 'Start free' }),
       ctaStyle: 'default',
@@ -145,20 +157,24 @@ export default function Pricing() {
       strike: '',
       strikeNote: '',
       blurb: t('membershipV2.plans.premium.blurb', {
-        defaultValue: 'The full Libo experience once we launch — every format, every challenge tier.',
+        defaultValue: 'The same app, with the ceilings taken off — depth, not access.',
       }),
       perks: [
-        t('membershipV2.plans.premium.perk1', {
-          defaultValue: 'Full library — 820+ exercises, 140 workouts',
+        t('membershipV2.plans.premium.perk1', { defaultValue: 'All 140 guided workouts' }),
+        t('membershipV2.plans.premium.perk2', {
+          defaultValue: 'Keep as many plans as you want, any length',
         }),
-        t('membershipV2.plans.premium.perk2', { defaultValue: 'Cash challenges up to €50' }),
-        t('membershipV2.plans.premium.perk3', { defaultValue: 'Advanced analytics & PRs' }),
-        t('membershipV2.plans.premium.perk4', { defaultValue: '2 freeze tokens per challenge' }),
-        t('membershipV2.plans.premium.perk5', { defaultValue: 'Unlimited plan generator' }),
+        t('membershipV2.plans.premium.perk3', {
+          defaultValue: '30- and 90-day trends, plus the muscle heatmap',
+        }),
+        t('membershipV2.plans.premium.perk4', { defaultValue: 'Cash challenges up to €50' }),
+        t('membershipV2.plans.premium.perk5', {
+          defaultValue: '2 freeze tokens per challenge and 2× points',
+        }),
       ],
-      ctaLabel: t('membershipV2.plans.premium.cta', { defaultValue: 'Available at launch' }),
-      ctaStyle: 'muted',
-      staticCta: true,
+      ctaLabel: t('membershipV2.plans.premium.cta', { defaultValue: 'Get Libo on the App Store →' }),
+      ctaStyle: 'default',
+      externalHref: APP_STORE_URL,
     },
   ];
 
@@ -312,15 +328,15 @@ export default function Pricing() {
                 >
                   {p.ctaLabel}
                 </button>
-              ) : p.staticCta ? (
-                // Premium can't be bought before launch — a link here would be a
-                // dead end (/pricing now redirects to this very page).
-                <span
-                  className={`pr-card__cta pr-card__cta--${p.ctaStyle} pr-card__cta--static`}
-                  aria-disabled="true"
+              ) : p.externalHref ? (
+                // Premium is an in-app purchase, so the CTA leaves the site for
+                // the App Store rather than pointing at a checkout we don't run.
+                <a
+                  href={p.externalHref}
+                  className={`pr-card__cta pr-card__cta--${p.ctaStyle}`}
                 >
                   {p.ctaLabel}
-                </span>
+                </a>
               ) : (
                 <Link to={p.href ?? '/'} className={`pr-card__cta pr-card__cta--${p.ctaStyle}`}>
                   {p.ctaLabel}

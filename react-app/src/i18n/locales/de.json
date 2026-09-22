@@ -1944,11 +1944,11 @@
         "price": "€0",
         "per": "für immer",
         "blurb": "Alles, was du brauchst, um heute mit dem Training zu starten — keine Karte, kein Testzeitraum-Countdown.",
-        "perk1": "Basis-Workout- & Übungsbibliothek",
-        "perk2": "Basis-Fortschritts-Tracking",
-        "perk3": "Einsteiger-Cash-Challenge (€5)",
-        "perk4": "Aktivitäts-Streak & Punkte",
-        "perk5": "Plan-Generator — 3 Pläne/Monat",
+        "perk1": "Die komplette Übungsbibliothek mit 820+ Übungen",
+        "perk2": "80 der 140 geführten Workouts",
+        "perk3": "Plan-Generator — ein Plan, bis zu 4 Wochen",
+        "perk4": "Alles, was du loggst, plus 7 Tage Trends",
+        "perk5": "Die 5-€-Cash-Challenge — kostenlos",
         "cta": "Gratis starten"
       },
       "founding": {
@@ -1971,13 +1971,13 @@
         "price": "€79.99",
         "per": "/Jahr · €6.67/Monat",
         "monthly": "oder €12.99/Monat im Monatsabo — jederzeit kündbar",
-        "blurb": "Das volle Libo Erlebnis ab Launch — jedes Format, jede Challenge-Stufe.",
-        "perk1": "Komplette Bibliothek — 820+ Übungen, 140 Workouts",
-        "perk2": "Cash Challenges bis €50",
-        "perk3": "Erweiterte Statistiken & PRs",
-        "perk4": "1 Freeze-Token pro Challenge, +1 kannst du dir verdienen",
-        "perk5": "Unbegrenzter Plan-Generator",
-        "cta": "Verfügbar zum Launch"
+        "blurb": "Dieselbe App, nur ohne Obergrenzen — mehr Tiefe, nicht mehr Zugang.",
+        "perk1": "Alle 140 geführten Workouts",
+        "perk2": "So viele Pläne wie du willst, in jeder Länge",
+        "perk3": "30- und 90-Tage-Trends plus Muskel-Heatmap",
+        "perk4": "Cash-Challenges bis 50 €",
+        "perk5": "2 Freeze-Tokens pro Challenge und 2× Punkte",
+        "cta": "Libo im App Store holen →"
       }
     },
     "guarantee": {

@@ -2005,11 +2005,11 @@
         "price": "€0",
         "per": "forever",
         "blurb": "Everything you need to start training today — no card, no trial clock.",
-        "perk1": "Core workout & exercise library",
-        "perk2": "Basic progress tracking",
-        "perk3": "Entry-level cash challenge (€5)",
-        "perk4": "Activity streak & points",
-        "perk5": "Plan generator — 3 plans/mo",
+        "perk1": "The full 820+ exercise library",
+        "perk2": "80 of the 140 guided workouts",
+        "perk3": "Plan generator — keep one plan, up to 4 weeks",
+        "perk4": "Everything you log, plus 7 days of trends",
+        "perk5": "The €5 cash challenge — free to enter",
         "cta": "Start free"
       },
       "founding": {
@@ -2032,13 +2032,13 @@
         "price": "€79.99",
         "per": "/year · €6.67/mo",
         "monthly": "or €12.99/mo month-to-month — cancel any time",
-        "blurb": "The full Libo experience once we launch — every format, every challenge tier.",
-        "perk1": "Full library — 820+ exercises, 140 workouts",
-        "perk2": "Cash challenges up to €50",
-        "perk3": "Advanced analytics & PRs",
-        "perk4": "1 freeze token per challenge, +1 you can earn",
-        "perk5": "Unlimited plan generator",
-        "cta": "Available at launch"
+        "blurb": "The same app, with the ceilings taken off — depth, not access.",
+        "perk1": "All 140 guided workouts",
+        "perk2": "Keep as many plans as you want, any length",
+        "perk3": "30- and 90-day trends, plus the muscle heatmap",
+        "perk4": "Cash challenges up to €50",
+        "perk5": "2 freeze tokens per challenge and 2× points",
+        "cta": "Get Libo on the App Store →"
       }
     },
     "guarantee": {
