@@ -83,6 +83,9 @@ interface RawWorkoutExercise {
   exercise?: string;
   exercise_name?: string;
   exercise_id?: string | null;
+  /** Supabase-only. Kept so live blocks survive a round-trip through this
+   * shape; no web call site resolves blocks by slug (they join on name). */
+  exercise_slug?: string | null;
   sets: string;
   reps: string;
   dur?: number;
@@ -104,10 +107,17 @@ interface RawWorkout extends WorkoutNameTranslations {
   type?: string;
 }
 
+/** Block display name under either live shape — 1821 production blocks carry
+ * `exercise_name`, 6 legacy ones only `exercise`. Mirrors `block_raw_name` in
+ * scripts/regen_landing_workouts_json.py. */
+function blockName(item: RawWorkoutExercise): string {
+  return item.exercise_name ?? item.exercise ?? '';
+}
+
 /** Normalize raw workout: merge warmup/main/cooldown into flat exercises array with phase tags */
 function normalizeWorkout(raw: RawWorkout): Workout {
   const toExercise = (item: RawWorkoutExercise, phase: 'warmup' | 'main' | 'cooldown'): WorkoutExercise => ({
-    name: item.exercise_name ?? item.exercise ?? '',
+    name: blockName(item),
     sets: item.sets,
     reps: item.reps,
     dur: item.dur,
@@ -215,9 +225,20 @@ function loadRawWorkouts(): Promise<RawWorkout[]> {
   if (_workoutsRaw) return Promise.resolve(_workoutsRaw);
   if (_workoutsRawPromise) return _workoutsRawPromise;
   _workoutsRawPromise = (async () => {
-    const res = await fetch('/workouts.json');
-    _workoutsRaw = (await res.json()) as RawWorkout[];
-    return _workoutsRaw;
+    try {
+      const res = await fetch('/workouts.json');
+      if (!res.ok) throw new Error(`workouts.json ${res.status}`);
+      _workoutsRaw = (await res.json()) as RawWorkout[];
+      return _workoutsRaw;
+    } catch (e) {
+      // Non-fatal since the Supabase fetch can carry the page on its own.
+      // Deliberately NOT cached as an empty catalog: a 404 while a deploy
+      // swaps the file would otherwise blank workouts for the whole session,
+      // so drop the promise and let the next navigation retry.
+      console.error('loadRawWorkouts: static fetch failed', e);
+      _workoutsRawPromise = null;
+      return [];
+    }
   })();
   return _workoutsRawPromise;
 }
@@ -391,6 +412,114 @@ function loadSupabaseExercises(): Promise<Exercise[]> {
   return _supabaseExercisesPromise;
 }
 
+/**
+ * Pull every published workout straight from the Supabase `workouts` table —
+ * the workout twin of `loadSupabaseExercises` above, and for the same reason:
+ * the bundled JSON is a build-time snapshot, so anything the admin panel
+ * creates or edits in the canonical table after it was regenerated existed
+ * only in Supabase and never reached the site.
+ *
+ * Unlike the exercise union this one keys on `id`: bundle and table agree on
+ * the workout id (`wk_…` both sides — see scripts/regen_landing_workouts_json.py,
+ * which matches rows on it) and the public route is `/workouts/:id`. The `slug`
+ * column differs from the id on all 140 rows and is not a join key here.
+ *
+ * `select('*')` rather than an explicit column list: the row's bulk is the
+ * warmup/main/cooldown jsonb we need anyway, so pruning columns saves little,
+ * and a star select can't be rejected wholesale (42703) by a database that
+ * predates the `name_<lang>` columns the way the exercise fetch could.
+ */
+type SupabaseWorkoutRow = WorkoutNameTranslations & {
+  id: string;
+  name: string | null;
+  cat: string | null;
+  subcat: string | null;
+  dur: number | null;
+  diff: string | null;
+  emoji: string | null;
+  warmup: RawWorkoutExercise[] | null;
+  main: RawWorkoutExercise[] | null;
+  cooldown: RawWorkoutExercise[] | null;
+};
+
+let _supabaseWorkouts: Record<string, Partial<RawWorkout>> | null = null;
+let _supabaseWorkoutsPromise: Promise<Record<string, Partial<RawWorkout>>> | null = null;
+
+/**
+ * A live row is only usable if every block carries a name. Same guard as
+ * `rowHasIntactBlocks` in libo-app-v2/src/hooks/useWorkoutSync.ts: a nameless
+ * block renders as a blank line in the phase overview and has nothing for the
+ * player to resolve, and `filterPlayableBlocks` waves it through (no name =
+ * nothing to gate on). A row that fails falls back to its bundled version.
+ */
+function liveWorkoutIsUsable(patch: Partial<RawWorkout>): boolean {
+  const blocks = [...(patch.warmup ?? []), ...(patch.main ?? []), ...(patch.cooldown ?? [])];
+  if (blocks.length === 0) return false;
+  return blocks.every((b) => blockName(b).trim().length > 0);
+}
+
+/**
+ * Live row → patch over the bundled row. Only fields the row actually carries
+ * are emitted, so a NULL column can't blank a value the bundle has (the table
+ * has nullable cat/diff/dur/emoji; the bundle has never held a null).
+ *
+ * The three block arrays are taken wholesale when present — they can't be
+ * merged block-by-block, and per-block bundle-only fields (`dur`/`rest`) are
+ * carried by the regen script, not by this path.
+ */
+function supabaseRowToWorkoutPatch(r: SupabaseWorkoutRow): Partial<RawWorkout> {
+  const patch: Partial<RawWorkout> = {};
+  const name = trimOrUndefined(r.name);
+  if (name) patch.name = name;
+  const cat = trimOrUndefined(r.cat);
+  if (cat) patch.cat = cat;
+  const subcat = trimOrUndefined(r.subcat);
+  if (subcat) patch.subcat = subcat;
+  const diff = trimOrUndefined(r.diff);
+  if (diff) patch.diff = diff;
+  const emoji = trimOrUndefined(r.emoji);
+  if (emoji) patch.emoji = emoji;
+  if (typeof r.dur === 'number') patch.dur = r.dur;
+  for (const lang of NAME_TRANSLATION_LANGS) {
+    const key = `name_${lang}` as const;
+    const translated = trimOrUndefined(r[key]);
+    if (translated) patch[key] = translated;
+  }
+  if (Array.isArray(r.warmup)) patch.warmup = r.warmup;
+  if (Array.isArray(r.main)) patch.main = r.main;
+  if (Array.isArray(r.cooldown)) patch.cooldown = r.cooldown;
+  return patch;
+}
+
+function loadSupabaseWorkouts(): Promise<Record<string, Partial<RawWorkout>>> {
+  if (_supabaseWorkouts) return Promise.resolve(_supabaseWorkouts);
+  if (_supabaseWorkoutsPromise) return _supabaseWorkoutsPromise;
+  _supabaseWorkoutsPromise = (async () => {
+    try {
+      const { data, error } = await supabase
+        .from('workouts')
+        .select('*')
+        .eq('status', 'published');
+      if (error) {
+        _supabaseWorkouts = {};
+        return _supabaseWorkouts;
+      }
+      const map: Record<string, Partial<RawWorkout>> = {};
+      for (const r of (data ?? []) as unknown as SupabaseWorkoutRow[]) {
+        if (!r || !r.id) continue;
+        const patch = supabaseRowToWorkoutPatch(r);
+        if (liveWorkoutIsUsable(patch)) map[r.id] = patch;
+      }
+      _supabaseWorkouts = map;
+      return map;
+    } catch {
+      _supabaseWorkouts = {};
+      return _supabaseWorkouts;
+    }
+  })();
+  return _supabaseWorkoutsPromise;
+}
+
 function loadWorkoutOverrides(): Promise<Record<string, Partial<RawWorkout>>> {
   if (_workoutOverrides) return Promise.resolve(_workoutOverrides);
   if (_workoutOverridesPromise) return _workoutOverridesPromise;
@@ -480,19 +609,47 @@ export async function getExercises(lang: string = 'en'): Promise<Exercise[]> {
 }
 
 export async function getWorkouts(): Promise<Workout[]> {
-  // Overrides apply to the RawWorkout shape (warmup/main/cooldown) BEFORE
-  // normalization, so admin edits to those arrays flow through normalizeWorkout.
-  const [raw, overrides] = await Promise.all([
+  // Both patch sources apply to the RawWorkout shape (warmup/main/cooldown)
+  // BEFORE normalization, so edited block arrays flow through normalizeWorkout
+  // and pick up their phase tags like any bundled ones.
+  const [raw, overrides, live] = await Promise.all([
     loadRawWorkouts(),
     loadWorkoutOverrides(),
+    loadSupabaseWorkouts(),
   ]);
-  const hasOverrides = Object.keys(overrides).length > 0;
-  if (!hasOverrides) return raw.map(normalizeWorkout);
-  return raw.map((w) => {
+
+  // Precedence (low -> high so the latter wins):
+  //   bundled snapshot  <  live `workouts` row  <  admin `workout_overrides`
+  //
+  // The live row outranks the bundle because the admin panel is the source of
+  // truth (CLAUDE.md, "Exercise Data Sync Rule") and the bundle is only a
+  // build-time snapshot of it. The override outranks BOTH because it is the
+  // admin's own content-edit channel: WorkoutsPage computes the patch as a diff
+  // against the bundled base and shows the merged result as what the site
+  // serves, so demoting it below the live row would make the public page
+  // disagree with the panel the editor is looking at.
+  //
+  // mergeNamePatch at both steps rather than a plain spread: a patch that
+  // renames a workout without supplying translations must not leave the OLD
+  // name's translations standing in front of the new English one.
+  const applyOverride = (w: RawWorkout): RawWorkout => {
     const o = overrides[w.id];
-    // Same rename rule as the exercise merge above: a patch that changes `name`
-    // without new translations drops the stale ones instead of printing them.
-    const merged: RawWorkout = o ? mergeNamePatch(w, o) : w;
-    return normalizeWorkout(merged);
-  });
+    return o ? mergeNamePatch(w, o) : w;
+  };
+  const patched: RawWorkout[] = raw.map((w) =>
+    applyOverride(live[w.id] ? mergeNamePatch(w, live[w.id]) : w),
+  );
+
+  // Workouts that exist only in Supabase — created in the admin panel after the
+  // last bundle regen. The id is what `/workouts/:id` resolves on, so no slug is
+  // needed; the defaults cover columns the row may leave NULL, except `name`,
+  // whose absence means an unnameable card and so skips the row entirely.
+  const bundledIds = new Set(raw.map((w) => w.id));
+  for (const [id, patch] of Object.entries(live)) {
+    if (bundledIds.has(id) || !patch.name) continue;
+    const base: RawWorkout = { id, name: '', emoji: '', diff: '', dur: 0, cat: '' };
+    patched.push(applyOverride({ ...base, ...patch }));
+  }
+
+  return patched.map(normalizeWorkout);
 }

@@ -122,10 +122,10 @@ export default function ProgramLibrary() {
     return map[c] ?? c;
   };
 
-  // Static catalogs — workouts.json + exercises.json (build-time baseline).
-  // The Supabase race-and-replace path used to live here via a useWorkouts
-  // hook, but that hook was never committed; ship a simpler getWorkouts/
-  // getExercises path so the page keeps working without it.
+  // Catalogs via getWorkouts/getExercises — both merge the live Supabase tables
+  // over their bundled snapshot internally, so this page needs no Supabase
+  // wiring of its own (the useWorkouts hook that once did the race-and-replace
+  // here was never imported by anything and has been deleted).
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
