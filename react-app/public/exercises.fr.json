@@ -51,10 +51,10 @@
     "setupNotes": "Barre dans l'attache landmine ou calée dans un coin. À demi-genou face à la barre, saisis le bout de la barre à la poitrine avec les deux mains. Pousse vers le haut et l'avant en arc jusqu'à l'extension complète — cible le haut de la poitrine et les deltoïdes antérieurs en éliminant l'impulsion du bas du corps."
   },
   "single_arm_landmine_press_left_arm": {
-    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin. Debout en position décalée, saisis le bout de la barre d'une main à l'épaule. Pousse vers le haut et l'avant en arc jusqu'à l'extension complète — cible la poitrine et l'épaule avec une exigence unilatérale sur le core."
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin. Debout en position décalée, saisis le bout de la barre de la main gauche à l'épaule. Pousse vers le haut et l'avant en arc jusqu'à l'extension complète — cible la poitrine et l'épaule avec une exigence unilatérale sur le core."
   },
   "single_arm_landmine_press_right_arm": {
-    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin. Debout en position décalée, saisis le bout de la barre d'une main à l'épaule. Pousse vers le haut et l'avant en arc jusqu'à l'extension complète — cible la poitrine et l'épaule avec une exigence unilatérale sur le core."
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin. Debout en position décalée, saisis le bout de la barre de la main droite à l'épaule. Pousse vers le haut et l'avant en arc jusqu'à l'extension complète — cible la poitrine et l'épaule avec une exigence unilatérale sur le core."
   },
   "dumbbell_floor_press": {
     "setupNotes": "Allongé au sol avec un haltère. Genoux fléchis, pieds à plat. Les bras touchent le sol en bas de chaque répétition."
@@ -168,10 +168,10 @@
     "setupNotes": "Debout avec haltères légers. Élévation frontale jusqu'à hauteur d'épaule, puis enchaîne en position d'élévation latérale sans redescendre. Mouvement en arc fluide."
   },
   "single_arm_landmine_shoulder_press_left_arm": {
-    "setupNotes": "Barre dans l'attache landmine, position décalée. Saisis le bout de la barre à hauteur d'épaule d'une main. Pousse vers le haut en arc jusqu'à tendre le bras — descends lentement."
+    "setupNotes": "Barre dans l'attache landmine, position décalée. Saisis le bout de la barre à hauteur d'épaule de la main gauche. Pousse vers le haut en arc jusqu'à tendre le bras gauche — descends lentement."
   },
   "single_arm_landmine_shoulder_press_right_arm": {
-    "setupNotes": "Barre dans l'attache landmine, position décalée. Saisis le bout de la barre à hauteur d'épaule d'une main. Pousse vers le haut en arc jusqu'à tendre le bras — descends lentement."
+    "setupNotes": "Barre dans l'attache landmine, position décalée. Saisis le bout de la barre à hauteur d'épaule de la main droite. Pousse vers le haut en arc jusqu'à tendre le bras droit — descends lentement."
   },
   "double_arm_landmine_shoulder_press": {
     "setupNotes": "Barre dans l'attache landmine, position décalée. Saisis le bout de la barre à la poitrine avec les deux mains. Pousse vers le haut en arc jusqu'à tendre les bras — descends lentement."
@@ -249,7 +249,7 @@
     "setupNotes": "Station de rowing assis à la poulie, barre large ou barre droite. Prise pronation. Tire vers le bas de la poitrine, coudes écartés sur les côtés."
   },
   "seated_cable_row_underhand_grip": {
-    "setupNotes": "Station de rowing assis à la poulie, barre droite avec prise supination à la largeur des épaules. Tire vers le bas du ventre, coudes près du corps."
+    "setupNotes": "Station de rowing assis à la poulie, barre droite avec prise supination à la largeur des épaules. Tire vers le bas de la poitrine, coudes près du corps."
   },
   "one_arm_dumbbell_row_left_arm": {
     "setupNotes": "Main droite et genou droit sur un banc plat, pied gauche au sol, dos plat. Haltère dans la main gauche pendant sous l'épaule — tire vers la hanche gauche, coude près du corps. Serre le dorsal en haut."
@@ -2437,5 +2437,56 @@
   },
   "twisting_supinating_curl_seated": {
     "setupNotes": "Assis sur un Bench, Dumbbell dans chaque main avec prise neutre. En effectuant la flexion, tourne les poignets pour que les paumes se fassent face vers le haut à l'arrivée — supination complète. Redescends de façon contrôlée à la position neutre. Cible les biceps en mettant l'accent sur le chef court."
+  },
+  "barbell_back_squat_paused": {
+    "setupNotes": "Power rack, barre sur les trapèzes supérieurs (high bar) ou sur les deltoïdes postérieurs (low bar). Pieds écartés à la largeur des épaules. Descends en contrôle jusqu'à ce que les cuisses soient parallèles au sol ou plus bas et tiens 2–3 secondes en bas — sans rebondir en position basse. Pousse vers le haut à travers les talons. Développe la force et le contrôle en position basse."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused": {
+    "setupNotes": "Barre posée sur le haut du dos, pied arrière surélevé sur un banc derrière toi et pied de travail ancré devant. Descends en Squat fendu jusqu'à ce que la cuisse avant soit parallèle au sol et tiens 1-2 secondes en bas pour supprimer le réflexe d'étirement avant de pousser dans le talon avant. Le tempo avec pause développe la force en position basse dans le quadriceps et le fessier de la jambe avant sous charge axiale."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused_left_leg": {
+    "setupNotes": "Pied droit surélevé à l'arrière sur un banc, pied gauche devant, barre posée sur le haut du dos. Descends jusqu'à ce que la cuisse avant gauche soit parallèle, tiens 1-2 secondes en bas pour supprimer le réflexe d'étirement, puis pousse à travers le talon gauche pour te redresser. Le tempo avec pause développe la force en position basse dans le quadriceps et le fessier gauches sous charge spinale."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused_right_leg": {
+    "setupNotes": "Pied gauche surélevé à l'arrière sur un banc, pied droit devant, barre posée sur le haut du dos. Descends jusqu'à ce que la cuisse avant droite soit parallèle, tiens 1-2 secondes en bas pour supprimer le réflexe d'étirement, puis pousse à travers le talon droit pour te redresser. Le tempo avec pause développe la force en position basse dans le quadriceps et le fessier droits sous charge spinale."
+  },
+  "double_arm_landmine_chest_press": {
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin. Debout en position décalée, saisis le bout de la barre à la poitrine avec les deux mains. Pousse la barre vers l'avant et le haut en arc presque horizontal jusqu'à l'extension complète, puis descends en contrôle — cible la poitrine, avec l'aide des deltoïdes antérieurs et des triceps."
+  },
+  "incline_hammer_curl_simultaneous": {
+    "setupNotes": "Assis sur un banc incliné à ~45-60 degrés, un haltère dans chaque main en prise neutre marteau (paumes face à face), les bras pendant derrière le buste. Fléchis les deux bras simultanément, pouces pointant vers le haut, puis redescends en contrôle — les deux bras bougent ensemble à chaque rep. L'inclinaison étire le chef long et met l'accent sur le biceps et le brachial antérieur."
+  },
+  "kneeling_double_arm_landmine_chest_press": {
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin. À genoux bien droit face à la barre, les deux genoux au sol, saisis le bout de la barre à la poitrine avec les deux mains. Pousse vers l'avant et le haut en arc presque horizontal jusqu'à l'extension complète, puis descends en contrôle — la base à genoux élimine l'impulsion des jambes et augmente la demande sur le core, en ciblant la poitrine et les deltoïdes antérieurs."
+  },
+  "kneeling_double_arm_landmine_shoulder_press": {
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin. À genoux bien droit face à la barre, les deux genoux au sol, saisis le bout de la barre à la poitrine avec les deux mains. Pousse plus verticalement au-dessus de la tête jusqu'à l'extension complète, puis descends en contrôle — la base à genoux élimine l'impulsion des jambes et augmente la demande sur le core, en ciblant les épaules (deltoïdes)."
+  },
+  "kneeling_single_arm_landmine_press_chest": {
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin, saisis le bout de la barre d'une main. À genoux bien droit face à la barre, les deux genoux au sol, le bras travaillant à hauteur d'épaule, la main libre sur la cuisse. Pousse la barre vers l'avant et le haut en arc presque horizontal jusqu'à l'extension complète, puis descends en contrôle. Cible la poitrine et le deltoïde antérieur avec une forte exigence unilatérale sur le core et en anti-rotation."
+  },
+  "kneeling_single_arm_landmine_press_chest_left_arm": {
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin, saisis le bout de la barre de la main gauche. À genoux bien droit face à la barre, les deux genoux au sol, bras gauche à hauteur d'épaule, main droite posée sur la cuisse. Pousse la barre vers l'avant et le haut en arc presque horizontal jusqu'à l'extension complète, puis descends en contrôle. Cible la poitrine et le deltoïde antérieur gauches avec une forte exigence sur le core et en anti-rotation."
+  },
+  "kneeling_single_arm_landmine_press_chest_right_arm": {
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin, saisis le bout de la barre de la main droite. À genoux bien droit face à la barre, les deux genoux au sol, bras droit à hauteur d'épaule, main gauche posée sur la cuisse. Pousse la barre vers l'avant et le haut en arc presque horizontal jusqu'à l'extension complète, puis descends en contrôle. Cible la poitrine et le deltoïde antérieur droits avec une forte exigence sur le core et en anti-rotation."
+  },
+  "kneeling_single_arm_landmine_press_shoulder": {
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin, saisis le bout de la barre d'une main. À genoux bien droit face à la barre, les deux genoux au sol, le bras travaillant à hauteur d'épaule, la main libre sur la cuisse. Pousse la barre plus verticalement au-dessus de la tête jusqu'à l'extension complète, puis descends en contrôle. Cible les épaules avec une forte exigence unilatérale sur le core et en anti-rotation."
+  },
+  "kneeling_single_arm_landmine_press_shoulder_left_arm": {
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin, saisis le bout de la barre de la main gauche. À genoux bien droit face à la barre, les deux genoux au sol, bras gauche à hauteur d'épaule, main droite posée sur la cuisse. Pousse la barre plus verticalement au-dessus de la tête jusqu'à l'extension complète, puis descends en contrôle. Cible l'épaule gauche avec une forte exigence sur le core et en anti-rotation."
+  },
+  "kneeling_single_arm_landmine_press_shoulder_right_arm": {
+    "setupNotes": "Barre dans l'attache landmine ou calée dans un coin, saisis le bout de la barre de la main droite. À genoux bien droit face à la barre, les deux genoux au sol, bras droit à hauteur d'épaule, main gauche posée sur la cuisse. Pousse la barre plus verticalement au-dessus de la tête jusqu'à l'extension complète, puis descends en contrôle. Cible l'épaule droite avec une forte exigence sur le core et en anti-rotation."
+  },
+  "seated_cable_row_underhand_grip_single_arm": {
+    "setupNotes": "Poste de tirage assis à la poulie, poignée D. Pieds sur le repose-pied, genoux légèrement fléchis, la main libre en appui sur la cuisse. Tire la poignée vers les côtes basses en prise supination, coude près du corps et le biceps assiste. Cible le bas du grand dorsal et le milieu du dos."
+  },
+  "seated_cable_row_underhand_grip_single_arm_left": {
+    "setupNotes": "Poste de tirage assis à la poulie, poignée D. Pieds sur le repose-pied, genoux légèrement fléchis, main droite en appui sur la cuisse. Tire la poignée vers les côtes basses gauches en prise supination, coude près du corps et le biceps assiste. Cible le bas du grand dorsal gauche et le milieu du dos."
+  },
+  "seated_cable_row_underhand_grip_single_arm_right": {
+    "setupNotes": "Poste de tirage assis à la poulie, poignée D. Pieds sur le repose-pied, genoux légèrement fléchis, main gauche en appui sur la cuisse. Tire la poignée vers les côtes basses droites en prise supination, coude près du corps et le biceps assiste. Cible le bas du grand dorsal droit et le milieu du dos."
   }
 }

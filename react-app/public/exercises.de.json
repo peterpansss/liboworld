@@ -51,10 +51,10 @@
     "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. Im halben Kniestand zur Stange, das Ende der Stange mit beiden Händen auf Brusthöhe greifen. Nach oben und vorn in einem Bogen bis zur vollen Streckung drücken — Fokus auf die obere Brust und vordere Deltas, ohne Impuls aus dem Unterkörper."
   },
   "single_arm_landmine_press_left_arm": {
-    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. In Schrittstellung stehen, das Ende der Stange mit einer Hand auf Schulterhöhe greifen. Nach oben und vorn in einem Bogen bis zur vollen Streckung drücken — Fokus auf Brust und Schulter mit unilateraler Anforderung an den Rumpf."
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. In Schrittstellung stehen, das Ende der Stange mit der linken Hand auf Schulterhöhe greifen. Nach oben und vorn in einem Bogen bis zur vollen Streckung drücken — Fokus auf Brust und Schulter mit unilateraler Anforderung an den Rumpf."
   },
   "single_arm_landmine_press_right_arm": {
-    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. In Schrittstellung stehen, das Ende der Stange mit einer Hand auf Schulterhöhe greifen. Nach oben und vorn in einem Bogen bis zur vollen Streckung drücken — Fokus auf Brust und Schulter mit unilateraler Anforderung an den Rumpf."
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. In Schrittstellung stehen, das Ende der Stange mit der rechten Hand auf Schulterhöhe greifen. Nach oben und vorn in einem Bogen bis zur vollen Streckung drücken — Fokus auf Brust und Schulter mit unilateraler Anforderung an den Rumpf."
   },
   "dumbbell_floor_press": {
     "setupNotes": "Auf dem Boden liegen mit Kurzhantel. Knie gebeugt, Füße aufgesetzt. Die Oberarme berühren am unteren Punkt jeder Wiederholung den Boden."
@@ -168,10 +168,10 @@
     "setupNotes": "Stehend mit leichten Kurzhanteln. Frontheben auf Schulterhöhe, dann ohne abzusenken in die Position des Seitheben übergehen. Gleichmäßige Bogenbewegung."
   },
   "single_arm_landmine_shoulder_press_left_arm": {
-    "setupNotes": "Langhantel im Landmine-Aufsatz, Schrittstellung. Das Ende der Stange mit einer Hand auf Schulterhöhe greifen. In einem Bogen nach oben drücken, bis der Arm gestreckt ist — langsam absenken."
+    "setupNotes": "Langhantel im Landmine-Aufsatz, Schrittstellung. Das Ende der Stange mit der linken Hand auf Schulterhöhe greifen. In einem Bogen nach oben drücken, bis der linke Arm gestreckt ist — langsam absenken."
   },
   "single_arm_landmine_shoulder_press_right_arm": {
-    "setupNotes": "Langhantel im Landmine-Aufsatz, Schrittstellung. Das Ende der Stange mit einer Hand auf Schulterhöhe greifen. In einem Bogen nach oben drücken, bis der Arm gestreckt ist — langsam absenken."
+    "setupNotes": "Langhantel im Landmine-Aufsatz, Schrittstellung. Das Ende der Stange mit der rechten Hand auf Schulterhöhe greifen. In einem Bogen nach oben drücken, bis der rechte Arm gestreckt ist — langsam absenken."
   },
   "double_arm_landmine_shoulder_press": {
     "setupNotes": "Langhantel im Landmine-Aufsatz, Schrittstellung. Das Ende der Stange mit beiden Händen auf Brusthöhe greifen. In einem Bogen nach oben drücken, bis die Arme gestreckt sind — langsam absenken."
@@ -2052,7 +2052,7 @@
     "setupNotes": "Hack-Squat-Maschine, Schultern unter den Polstern, Rücken gegen das Polster. Füße breit auf der Plattform, Zehen leicht nach außen. Herab bis Parallel oder tiefer, hochdrücken — betont die Innenschenkel und das Gesäß."
   },
   "simultaneous_dumbbell_biceps_hammer_curl_standing": {
-    "setupNotes": "Aufrecht stehen, je eine Kurzhantel seitlich mit neutralem Griff (Handflächen innen). Beide Arme gleichzeitig nach oben curlen, Daumen zeigen nach oben. Kontrolliert absenken — beide Arme bewegen sich bei jedem Satz zusammen."
+    "setupNotes": "Aufrecht stehen, je eine Kurzhantel seitlich mit neutralem Griff (Handflächen innen). Beide Arme gleichzeitig nach oben curlen, Daumen zeigen nach oben. Kontrolliert absenken — beide Arme bewegen sich bei jeder Wiederholung zusammen."
   },
   "cable_biceps_curl_straight_bar_narrow_closed_grip": {
     "setupNotes": "Niedriger Kabelzug, Langhantel-Aufsatz. Stelle dich zum Kabelzug, Hände enger als Schultterbreite mit geschlossenem Griff (Daumen umfassend). Ziehe die Stange zu den Schultern, halte die Ellbogen an den Rippen — enge Griffweite betont den langen Kopf des Bizeps."
@@ -2437,5 +2437,56 @@
   },
   "twisting_supinating_curl_seated": {
     "setupNotes": "Sitz auf einer Bank, Hantel in jeder Hand mit neutralem Griff. Während du curls, drehe deine Handgelenke so, dass die Handflächen oben supiniert sind. Kontrolliert zurück zur Neutral-Position. Zielt auf die Bizeps mit Schwerpunkt auf den kurzen Kopf."
+  },
+  "barbell_back_squat_paused": {
+    "setupNotes": "Power Rack, Stange auf dem oberen Trapezius (High Bar) oder auf den hinteren Deltas (Low Bar). Füße schulterbreit. Kontrolliert absenken, bis die Oberschenkel parallel oder tiefer sind, und unten bewusst 2–3 Sekunden halten — kein Abfedern aus der tiefen Position. Über die Fersen nach oben drücken. Baut Kraft und Kontrolle in der tiefen Position auf."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused": {
+    "setupNotes": "Langhantel auf dem oberen Rücken abgelegt, hinterer Fuß auf einer Bank hinter dir erhöht, Arbeitsfuß davor aufgesetzt. Senke dich in den Split Squat, bis der vordere Oberschenkel parallel ist, und halte unten bewusst 1-2 Sekunden, um den Dehnungsreflex rauszunehmen, bevor du über die vordere Ferse hochdrückst. Das gehaltene Tempo baut Kraft in der tiefen Position in Quadrizeps und Gesäß des vorderen Beins unter Wirbelsäulenlast auf."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused_left_leg": {
+    "setupNotes": "Rechter Fuß hinten erhöht auf einer Bank, linker Fuß vorn, Langhantel quer auf dem oberen Rücken. Absenken bis der linke vordere Oberschenkel parallel ist, unten bewusst 1-2 Sekunden halten, um den Dehnungsreflex rauszunehmen, dann über die linke Ferse aufstehen. Das gehaltene Tempo baut Kraft in der tiefen Position in den linken Quads und im Gesäß unter axialer Last auf."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused_right_leg": {
+    "setupNotes": "Linker Fuß hinten erhöht auf einer Bank, rechter Fuß vorn, Langhantel quer auf dem oberen Rücken. Absenken bis der rechte vordere Oberschenkel parallel ist, unten bewusst 1-2 Sekunden halten, um den Dehnungsreflex rauszunehmen, dann über die rechte Ferse aufstehen. Das gehaltene Tempo baut Kraft in der tiefen Position in den rechten Quads und im Gesäß unter axialer Last auf."
+  },
+  "double_arm_landmine_chest_press": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. In Schrittstellung stehen, das Ende der Stange mit beiden Händen auf Brusthöhe greifen. Die Stange in einem flachen, eher horizontalen Bogen nach vorn und oben bis zur vollen Streckung drücken, dann kontrolliert absenken — Fokus auf die Brust, vordere Deltas und Trizeps assistieren."
+  },
+  "incline_hammer_curl_simultaneous": {
+    "setupNotes": "Sitzend auf einer Schrägbank bei ~45-60 Grad, je eine Kurzhantel mit neutralem Hammergriff (Handflächen zueinander), Arme hängen hinter dem Oberkörper. Beide Arme gleichzeitig nach oben curlen, Daumen zeigen nach oben, dann kontrolliert absenken — beide Arme bewegen sich bei jeder Wiederholung zusammen. Die Neigung dehnt den langen Kopf und betont Bizeps und Brachialis."
+  },
+  "kneeling_double_arm_landmine_chest_press": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. Im aufrechten Kniestand zur Stange, beide Knie auf dem Boden, das Ende der Stange mit beiden Händen auf Brusthöhe greifen. In einem flachen, eher horizontalen Bogen nach vorn und oben bis zur vollen Streckung drücken, dann kontrolliert absenken — der Kniestand nimmt den Impuls aus den Beinen und erhöht die Rumpfarbeit, Fokus auf Brust und vordere Deltas."
+  },
+  "kneeling_double_arm_landmine_shoulder_press": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt. Im aufrechten Kniestand zur Stange, beide Knie auf dem Boden, das Ende der Stange mit beiden Händen auf Brusthöhe greifen. Steiler nach oben über den Kopf bis zur vollen Streckung drücken, dann kontrolliert absenken — der Kniestand nimmt den Impuls aus den Beinen und erhöht die Rumpfarbeit, Fokus auf die Schultern (Deltas)."
+  },
+  "kneeling_single_arm_landmine_press_chest": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt, das Ende der Stange mit einer Hand greifen. Im aufrechten Kniestand zur Stange, beide Knie auf der Matte, der Arbeitsarm auf Schulterhöhe, die freie Hand auf dem Oberschenkel. Die Stange in einem flachen, eher horizontalen Bogen nach vorn und oben bis zur vollen Streckung drücken, dann kontrolliert absenken. Belastet Brust und vordere Deltas mit hoher unilateraler Rumpf- und Anti-Rotations-Anforderung."
+  },
+  "kneeling_single_arm_landmine_press_chest_left_arm": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt, das Ende der Stange mit der linken Hand greifen. Im aufrechten Kniestand zur Stange, beide Knie auf der Matte, linker Arm auf Schulterhöhe, rechte Hand auf dem Oberschenkel. Die Stange in einem flachen, eher horizontalen Bogen nach vorn und oben bis zur vollen Streckung drücken, dann kontrolliert absenken. Belastet die linke Brustseite und die vorderen Deltas mit hoher Rumpf- und Anti-Rotations-Anforderung."
+  },
+  "kneeling_single_arm_landmine_press_chest_right_arm": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt, das Ende der Stange mit der rechten Hand greifen. Im aufrechten Kniestand zur Stange, beide Knie auf der Matte, rechter Arm auf Schulterhöhe, linke Hand auf dem Oberschenkel. Die Stange in einem flachen, eher horizontalen Bogen nach vorn und oben bis zur vollen Streckung drücken, dann kontrolliert absenken. Belastet die rechte Brustseite und die vorderen Deltas mit hoher Rumpf- und Anti-Rotations-Anforderung."
+  },
+  "kneeling_single_arm_landmine_press_shoulder": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt, das Ende der Stange mit einer Hand greifen. Im aufrechten Kniestand zur Stange, beide Knie auf der Matte, der Arbeitsarm auf Schulterhöhe, die freie Hand auf dem Oberschenkel. Die Stange steiler über den Kopf bis zur vollen Streckung drücken, dann kontrolliert absenken. Zielt auf die Schultern mit hoher unilateraler Rumpf- und Anti-Rotations-Anforderung."
+  },
+  "kneeling_single_arm_landmine_press_shoulder_left_arm": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt, das Ende der Stange mit der linken Hand greifen. Im aufrechten Kniestand zur Stange, beide Knie auf der Matte, linker Arm auf Schulterhöhe, rechte Hand auf dem Oberschenkel. Die Stange steiler über den Kopf bis zur vollen Streckung drücken, dann kontrolliert absenken. Zielt auf die linke Schulter mit hoher Rumpf- und Anti-Rotations-Anforderung."
+  },
+  "kneeling_single_arm_landmine_press_shoulder_right_arm": {
+    "setupNotes": "Langhantel im Landmine-Aufsatz oder in eine Ecke geklemmt, das Ende der Stange mit der rechten Hand greifen. Im aufrechten Kniestand zur Stange, beide Knie auf der Matte, rechter Arm auf Schulterhöhe, linke Hand auf dem Oberschenkel. Die Stange steiler über den Kopf bis zur vollen Streckung drücken, dann kontrolliert absenken. Zielt auf die rechte Schulter mit hoher Rumpf- und Anti-Rotations-Anforderung."
+  },
+  "seated_cable_row_underhand_grip_single_arm": {
+    "setupNotes": "Kabelzug-Ruderstation, D-Griff. Füße auf der Fußplatte, Knie leicht gebeugt, die freie Hand auf dem Oberschenkel abgestützt. Zieh den Griff im Untergriff (supiniert) zu den unteren Rippen, Ellbogen nah am Körper, der Bizeps assistiert. Betont den unteren Latissimus und den mittleren Rücken."
+  },
+  "seated_cable_row_underhand_grip_single_arm_left": {
+    "setupNotes": "Kabelzug-Ruderstation, D-Griff. Füße auf der Fußplatte, Knie leicht gebeugt, rechte Hand auf dem Oberschenkel abgestützt. Zieh den Griff im Untergriff (supiniert) zu den linken unteren Rippen, Ellbogen nah am Körper, der Bizeps assistiert. Betont den linken unteren Latissimus und den mittleren Rücken."
+  },
+  "seated_cable_row_underhand_grip_single_arm_right": {
+    "setupNotes": "Kabelzug-Ruderstation, D-Griff. Füße auf der Fußplatte, Knie leicht gebeugt, linke Hand auf dem Oberschenkel abgestützt. Zieh den Griff im Untergriff (supiniert) zu den rechten unteren Rippen, Ellbogen nah am Körper, der Bizeps assistiert. Betont den rechten unteren Latissimus und den mittleren Rücken."
   }
 }

@@ -51,10 +51,10 @@
     "setupNotes": "Barra en el landmine o encajada en una esquina. De rodillas (media rodilla) mirando a la barra, agarra el extremo con ambas manos al pecho. Empuja hacia arriba y hacia delante en arco hasta la extensión completa — trabaja la parte alta del pecho y los deltoides anteriores sin impulso del tren inferior."
   },
   "single_arm_landmine_press_left_arm": {
-    "setupNotes": "Barra en el landmine o encajada en una esquina. De pie en postura escalonada, agarra el extremo de la barra con una mano al hombro. Empuja hacia arriba y hacia delante en arco hasta la extensión completa — trabaja pecho y hombro con exigencia unilateral del core."
+    "setupNotes": "Barra en el landmine o encajada en una esquina. De pie en postura escalonada, agarra el extremo de la barra con la mano izquierda al hombro. Empuja hacia arriba y hacia delante en arco hasta la extensión completa — trabaja pecho y hombro con exigencia unilateral del core."
   },
   "single_arm_landmine_press_right_arm": {
-    "setupNotes": "Barra en el landmine o encajada en una esquina. De pie en postura escalonada, agarra el extremo de la barra con una mano al hombro. Empuja hacia arriba y hacia delante en arco hasta la extensión completa — trabaja pecho y hombro con exigencia unilateral del core."
+    "setupNotes": "Barra en el landmine o encajada en una esquina. De pie en postura escalonada, agarra el extremo de la barra con la mano derecha al hombro. Empuja hacia arriba y hacia delante en arco hasta la extensión completa — trabaja pecho y hombro con exigencia unilateral del core."
   },
   "dumbbell_floor_press": {
     "setupNotes": "Túmbate en el suelo con una mancuerna. Rodillas flexionadas, pies apoyados. Los brazos tocan el suelo al final de cada repetición."
@@ -168,10 +168,10 @@
     "setupNotes": "De pie con mancuernas ligeras. Elevación frontal hasta la altura del hombro, luego continúa hacia elevación lateral sin bajar. Movimiento en arco suave."
   },
   "single_arm_landmine_shoulder_press_left_arm": {
-    "setupNotes": "Barra en el landmine, postura escalonada. Agarra el extremo de la barra a la altura del hombro con una mano. Empuja hacia arriba en arco hasta extender el brazo — baja despacio."
+    "setupNotes": "Barra en el landmine, postura escalonada. Agarra el extremo de la barra a la altura del hombro con la mano izquierda. Empuja hacia arriba en arco hasta extender el brazo izquierdo — baja despacio."
   },
   "single_arm_landmine_shoulder_press_right_arm": {
-    "setupNotes": "Barra en el landmine, postura escalonada. Agarra el extremo de la barra a la altura del hombro con una mano. Empuja hacia arriba en arco hasta extender el brazo — baja despacio."
+    "setupNotes": "Barra en el landmine, postura escalonada. Agarra el extremo de la barra a la altura del hombro con la mano derecha. Empuja hacia arriba en arco hasta extender el brazo derecho — baja despacio."
   },
   "double_arm_landmine_shoulder_press": {
     "setupNotes": "Barra en el landmine, postura escalonada. Agarra el extremo de la barra al pecho con ambas manos. Empuja hacia arriba en arco hasta extender los brazos — baja despacio."
@@ -249,7 +249,7 @@
     "setupNotes": "Estación de remo sentado en polea, barra ancha de dorsales o barra recta. Agarre prono. Tira hacia la parte baja del pecho, codos abiertos hacia los lados."
   },
   "seated_cable_row_underhand_grip": {
-    "setupNotes": "Estación de remo sentado en polea, barra recta con agarre supino a la anchura de los hombros. Tira hacia la parte baja del abdomen, codos pegados al cuerpo."
+    "setupNotes": "Estación de remo sentado en polea, barra recta con agarre supino a la anchura de los hombros. Tira hacia la parte baja del pecho, codos pegados al cuerpo."
   },
   "one_arm_dumbbell_row_left_arm": {
     "setupNotes": "Mano derecha y rodilla derecha sobre el banco plano, pie izquierdo en el suelo, espalda recta. Mancuerna en la mano izquierda colgando por debajo del hombro — rema hacia la cadera izquierda, codo pegado al cuerpo. Aprieta el dorsal arriba."
@@ -2437,5 +2437,56 @@
   },
   "twisting_supinating_curl_seated": {
     "setupNotes": "Sentado en un banco, mancuerna en cada mano con agarre neutral. Mientras flexionas, rota las muñecas para que las palmas miren hacia arriba en la parte superior — terminación supinada. Baja de forma controlada a posición neutral. Enfatiza el bíceps con énfasis en la cabeza corta."
+  },
+  "barbell_back_squat_paused": {
+    "setupNotes": "Power rack, barra sobre los trapecios superiores (high bar) o los deltoides posteriores (low bar). Pies a la anchura de los hombros. Desciende controlado hasta que los muslos estén paralelos al suelo o por debajo y aguanta 2–3 segundos abajo — sin rebotar en la posición baja. Empuja hacia arriba desde los talones. Desarrolla fuerza y control en la posición baja."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused": {
+    "setupNotes": "Barra apoyada en la parte alta de la espalda, pie trasero elevado en un banco detrás de ti y el pie de trabajo plantado delante. Baja a un Squat búlgaro hasta que el muslo adelantado quede paralelo y aguanta 1-2 segundos abajo para eliminar el reflejo de estiramiento antes de empujar con el talón adelantado. El tempo con pausa desarrolla fuerza en la posición baja en el cuádriceps y el glúteo de la pierna adelantada con carga sobre la columna."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused_left_leg": {
+    "setupNotes": "Pie derecho elevado atrás sobre un banco, pie izquierdo delante, barra colocada sobre la espalda alta. Baja hasta que el muslo delantero izquierdo esté paralelo, aguanta 1-2 segundos abajo para eliminar el reflejo de estiramiento, luego empuja desde el talón izquierdo para subir. El tempo con pausa desarrolla fuerza en la posición baja en el cuádriceps y glúteo izquierdo con carga espinal."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused_right_leg": {
+    "setupNotes": "Pie izquierdo elevado atrás sobre un banco, pie derecho delante, barra colocada sobre la espalda alta. Baja hasta que el muslo delantero derecho esté paralelo, aguanta 1-2 segundos abajo para eliminar el reflejo de estiramiento, luego empuja desde el talón derecho para subir. El tempo con pausa desarrolla fuerza en la posición baja en el cuádriceps y glúteo derecho con carga espinal."
+  },
+  "double_arm_landmine_chest_press": {
+    "setupNotes": "Barra en el landmine o encajada en una esquina. De pie en postura escalonada, agarra el extremo de la barra con ambas manos al pecho. Empuja la barra hacia delante y arriba en un arco casi horizontal hasta la extensión completa, luego baja con control — trabaja el pecho, con ayuda de los deltoides anteriores y el tríceps."
+  },
+  "incline_hammer_curl_simultaneous": {
+    "setupNotes": "Sentado en banco inclinado a ~45-60 grados, una mancuerna en cada mano con agarre neutro de martillo (palmas enfrentadas), los brazos colgando por detrás del torso. Flexiona ambos brazos hacia arriba al mismo tiempo, pulgares apuntando hacia arriba, luego baja con control — ambos brazos se mueven juntos en cada repetición. La inclinación estira la cabeza larga y enfatiza el bíceps y el braquial."
+  },
+  "kneeling_double_arm_landmine_chest_press": {
+    "setupNotes": "Barra en el landmine o encajada en una esquina. De rodillas erguido frente a la barra, ambas rodillas en el suelo, agarra el extremo de la barra con ambas manos al pecho. Empuja hacia delante y arriba en un arco casi horizontal hasta la extensión completa, luego baja con control — la base de rodillas elimina el impulso de las piernas y aumenta la exigencia del core, con énfasis en el pecho y los deltoides anteriores."
+  },
+  "kneeling_double_arm_landmine_shoulder_press": {
+    "setupNotes": "Barra en el landmine o encajada en una esquina. De rodillas erguido frente a la barra, ambas rodillas en el suelo, agarra el extremo de la barra con ambas manos al pecho. Empuja más vertical, por encima de la cabeza, hasta la extensión completa, luego baja con control — la base de rodillas elimina el impulso de las piernas y aumenta la exigencia del core, con énfasis en los hombros (deltoides)."
+  },
+  "kneeling_single_arm_landmine_press_chest": {
+    "setupNotes": "Barra en el landmine o encajada en una esquina, agarrando el extremo de la barra con una mano. De rodillas erguido frente a la barra, ambas rodillas en la colchoneta, el brazo de trabajo a la altura del hombro y la mano libre en el muslo. Empuja la barra hacia delante y arriba en un arco casi horizontal hasta la extensión completa, luego baja con control. Trabaja el pecho y el deltoides anterior con fuerte exigencia unilateral del core y anti-rotación."
+  },
+  "kneeling_single_arm_landmine_press_chest_left_arm": {
+    "setupNotes": "Barra en el landmine o encajada en una esquina, agarrando el extremo de la barra con la mano izquierda. De rodillas erguido frente a la barra, ambas rodillas en la colchoneta, brazo izquierdo a la altura del hombro y mano derecha apoyada en el muslo. Empuja la barra hacia delante y arriba en un arco casi horizontal hasta la extensión completa, luego baja con control. Trabaja el pecho y el deltoides anterior izquierdos con fuerte exigencia del core y anti-rotación."
+  },
+  "kneeling_single_arm_landmine_press_chest_right_arm": {
+    "setupNotes": "Barra en el landmine o encajada en una esquina, agarrando el extremo de la barra con la mano derecha. De rodillas erguido frente a la barra, ambas rodillas en la colchoneta, brazo derecho a la altura del hombro y mano izquierda apoyada en el muslo. Empuja la barra hacia delante y arriba en un arco casi horizontal hasta la extensión completa, luego baja con control. Trabaja el pecho y el deltoides anterior derechos con fuerte exigencia del core y anti-rotación."
+  },
+  "kneeling_single_arm_landmine_press_shoulder": {
+    "setupNotes": "Barra en el landmine o encajada en una esquina, agarrando el extremo de la barra con una mano. De rodillas erguido frente a la barra, ambas rodillas en la colchoneta, el brazo de trabajo a la altura del hombro y la mano libre en el muslo. Empuja la barra más vertical, por encima de la cabeza, hasta la extensión completa, luego baja con control. Trabaja los hombros con fuerte exigencia unilateral del core y anti-rotación."
+  },
+  "kneeling_single_arm_landmine_press_shoulder_left_arm": {
+    "setupNotes": "Barra en el landmine o encajada en una esquina, agarrando el extremo de la barra con la mano izquierda. De rodillas erguido frente a la barra, ambas rodillas en la colchoneta, brazo izquierdo a la altura del hombro y mano derecha apoyada en el muslo. Empuja la barra más vertical, por encima de la cabeza, hasta la extensión completa, luego baja con control. Trabaja el hombro izquierdo con fuerte exigencia del core y anti-rotación."
+  },
+  "kneeling_single_arm_landmine_press_shoulder_right_arm": {
+    "setupNotes": "Barra en el landmine o encajada en una esquina, agarrando el extremo de la barra con la mano derecha. De rodillas erguido frente a la barra, ambas rodillas en la colchoneta, brazo derecho a la altura del hombro y mano izquierda apoyada en el muslo. Empuja la barra más vertical, por encima de la cabeza, hasta la extensión completa, luego baja con control. Trabaja el hombro derecho con fuerte exigencia del core y anti-rotación."
+  },
+  "seated_cable_row_underhand_grip_single_arm": {
+    "setupNotes": "Estación de cable row sentado, D-handle. Pies en la plataforma, rodillas ligeramente flexionadas, la mano libre apoyada en el muslo. Jala el handle hacia las costillas inferiores con agarre supino, codo pegado al cuerpo y el bíceps asistiendo. Trabaja la parte baja del dorsal y la espalda media."
+  },
+  "seated_cable_row_underhand_grip_single_arm_left": {
+    "setupNotes": "Estación de cable row sentado, D-handle. Pies en la plataforma, rodillas ligeramente flexionadas, mano derecha apoyada en el muslo. Jala el handle hacia las costillas inferiores izquierdas con agarre supino, codo pegado al cuerpo y el bíceps asistiendo. Trabaja la parte baja del dorsal izquierdo y la espalda media."
+  },
+  "seated_cable_row_underhand_grip_single_arm_right": {
+    "setupNotes": "Estación de cable row sentado, D-handle. Pies en la plataforma, rodillas ligeramente flexionadas, mano izquierda apoyada en el muslo. Jala el handle hacia las costillas inferiores derechas con agarre supino, codo pegado al cuerpo y el bíceps asistiendo. Trabaja la parte baja del dorsal derecho y la espalda media."
   }
 }

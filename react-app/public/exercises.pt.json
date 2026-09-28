@@ -51,10 +51,10 @@
     "setupNotes": "Barra no suporte landmine ou encaixada no canto. Meio ajoelhado de frente para a barra, segure a ponta da barra no peito com as duas mãos. Empurre para cima e para frente em um arco até a extensão total — foco na parte superior do peito e deltoides anteriores, eliminando o impulso dos membros inferiores."
   },
   "single_arm_landmine_press_left_arm": {
-    "setupNotes": "Barra no suporte landmine ou encaixada no canto. Em pé com base em passada, segure a ponta da barra com uma mão no ombro. Empurre para cima e para frente em um arco até a extensão total — foco no peito e ombro com demanda unilateral do core."
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto. Em pé com base em passada, segure a ponta da barra com a mão esquerda no ombro. Empurre para cima e para frente em um arco até a extensão total — foco no peito e ombro com demanda unilateral do core."
   },
   "single_arm_landmine_press_right_arm": {
-    "setupNotes": "Barra no suporte landmine ou encaixada no canto. Em pé com base em passada, segure a ponta da barra com uma mão no ombro. Empurre para cima e para frente em um arco até a extensão total — foco no peito e ombro com demanda unilateral do core."
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto. Em pé com base em passada, segure a ponta da barra com a mão direita no ombro. Empurre para cima e para frente em um arco até a extensão total — foco no peito e ombro com demanda unilateral do core."
   },
   "dumbbell_floor_press": {
     "setupNotes": "Deitado no chão com halter. Joelhos flexionados, pés apoiados. Parte superior do braço toca o chão no ponto mais baixo de cada repetição."
@@ -168,10 +168,10 @@
     "setupNotes": "Em pé com halteres leves. Elevação frontal até a altura do ombro, depois continue para posição de elevação lateral sem descer. Movimento em arco suave."
   },
   "single_arm_landmine_shoulder_press_left_arm": {
-    "setupNotes": "Barra no suporte landmine, base em passada. Segure a ponta da barra no ombro com uma mão. Empurre para cima em arco até o braço ficar estendido — desça lentamente."
+    "setupNotes": "Barra no suporte landmine, base em passada. Segure a ponta da barra no ombro com a mão esquerda. Empurre para cima em arco até o braço esquerdo ficar estendido — desça lentamente."
   },
   "single_arm_landmine_shoulder_press_right_arm": {
-    "setupNotes": "Barra no suporte landmine, base em passada. Segure a ponta da barra no ombro com uma mão. Empurre para cima em arco até o braço ficar estendido — desça lentamente."
+    "setupNotes": "Barra no suporte landmine, base em passada. Segure a ponta da barra no ombro com a mão direita. Empurre para cima em arco até o braço direito ficar estendido — desça lentamente."
   },
   "double_arm_landmine_shoulder_press": {
     "setupNotes": "Barra no suporte landmine, base em passada. Segure a ponta da barra no peito com as duas mãos. Empurre para cima em arco até os braços ficarem estendidos — desça lentamente."
@@ -2437,5 +2437,56 @@
   },
   "twisting_supinating_curl_seated": {
     "setupNotes": "Sentado em um banco, haltere em cada mão com pegada neutra. Conforme faz o rosca, gire os pulsos para que as palmas fiquem viradas para cima no topo — término supinado. Desça de forma controlada até a posição neutra. Trabalha o bíceps com ênfase no segmento curto."
+  },
+  "barbell_back_squat_paused": {
+    "setupNotes": "Power rack, barra sobre os trapézios superiores (high bar) ou os deltoides posteriores (low bar). Pés na largura dos ombros. Desça sob controle até que as coxas fiquem paralelas ao chão ou abaixo e segure 2–3 segundos embaixo — sem quicar na posição inferior. Empurre para cima através dos calcanhares. Constrói força e controle na posição inferior."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused": {
+    "setupNotes": "Barra apoiada na parte superior das costas, pé de trás elevado em um banco atrás de você e o pé de trabalho apoiado à frente. Desça em agachamento búlgaro até a coxa da frente ficar paralela e segure 1-2 segundos embaixo para eliminar o reflexo de estiramento antes de empurrar pelo calcanhar da frente. O tempo com pausa constrói força na posição baixa no quadríceps e glúteo da perna da frente sob carga na coluna."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused_left_leg": {
+    "setupNotes": "Pé direito elevado atrás em um banco, pé esquerdo à frente, barra apoiada na parte superior das costas. Desça até a coxa esquerda da frente ficar paralela, segure 1-2 segundos embaixo para eliminar o reflexo de estiramento, depois empurre pelo calcanhar esquerdo para ficar em pé. O tempo com pausa constrói força na posição baixa no quadríceps e glúteo esquerdos sob carga espinhal."
+  },
+  "bulgarian_split_squat_barbell_back_rack_paused_right_leg": {
+    "setupNotes": "Pé esquerdo elevado atrás em um banco, pé direito à frente, barra apoiada na parte superior das costas. Desça até a coxa direita da frente ficar paralela, segure 1-2 segundos embaixo para eliminar o reflexo de estiramento, depois empurre pelo calcanhar direito para ficar em pé. O tempo com pausa constrói força na posição baixa no quadríceps e glúteo direitos sob carga espinhal."
+  },
+  "double_arm_landmine_chest_press": {
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto. Em pé com base em passada, segure a ponta da barra com as duas mãos no peito. Empurre a barra para frente e para cima em um arco quase horizontal até a extensão total, depois desça sob controle — foco no peito, com auxílio dos deltoides anteriores e tríceps."
+  },
+  "incline_hammer_curl_simultaneous": {
+    "setupNotes": "Sentado em banco inclinado a ~45-60 graus, um halter em cada mão com pegada neutra de martelo (palmas viradas para dentro), braços pendurados atrás do tronco. Curla os dois braços simultaneamente, polegares apontando para cima, depois baixa sob controle — ambos os braços se movem juntos em cada repetição. A inclinação alonga a cabeça longa e enfatiza o bíceps e o braquial."
+  },
+  "kneeling_double_arm_landmine_chest_press": {
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto. Ajoelhado ereto de frente para a barra, os dois joelhos no chão, segure a ponta da barra com as duas mãos no peito. Empurre para frente e para cima em um arco quase horizontal até a extensão total, depois desça sob controle — a base ajoelhada elimina o impulso das pernas e aumenta a demanda do core, com foco no peito e deltoides anteriores."
+  },
+  "kneeling_double_arm_landmine_shoulder_press": {
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto. Ajoelhado ereto de frente para a barra, os dois joelhos no chão, segure a ponta da barra com as duas mãos no peito. Empurre mais verticalmente acima da cabeça até a extensão total, depois desça sob controle — a base ajoelhada elimina o impulso das pernas e aumenta a demanda do core, com foco nos ombros (deltoides)."
+  },
+  "kneeling_single_arm_landmine_press_chest": {
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto, segurando a ponta da barra com uma mão. Ajoelhado ereto de frente para a barra, os dois joelhos no colchonete, o braço de trabalho na altura do ombro e a mão livre na coxa. Empurre a barra para frente e para cima em um arco quase horizontal até a extensão total, depois desça sob controle. Trabalha o peito e o deltoide anterior com forte demanda unilateral do core e anti-rotação."
+  },
+  "kneeling_single_arm_landmine_press_chest_left_arm": {
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto, segurando a ponta da barra com a mão esquerda. Ajoelhado ereto de frente para a barra, os dois joelhos no colchonete, braço esquerdo na altura do ombro e mão direita apoiada na coxa. Empurre a barra para frente e para cima em um arco quase horizontal até a extensão total, depois desça sob controle. Trabalha o peito e o deltoide anterior esquerdos com forte demanda do core e anti-rotação."
+  },
+  "kneeling_single_arm_landmine_press_chest_right_arm": {
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto, segurando a ponta da barra com a mão direita. Ajoelhado ereto de frente para a barra, os dois joelhos no colchonete, braço direito na altura do ombro e mão esquerda apoiada na coxa. Empurre a barra para frente e para cima em um arco quase horizontal até a extensão total, depois desça sob controle. Trabalha o peito e o deltoide anterior direitos com forte demanda do core e anti-rotação."
+  },
+  "kneeling_single_arm_landmine_press_shoulder": {
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto, segurando a ponta da barra com uma mão. Ajoelhado ereto de frente para a barra, os dois joelhos no colchonete, o braço de trabalho na altura do ombro e a mão livre na coxa. Empurre a barra mais verticalmente acima da cabeça até a extensão total, depois desça sob controle. Trabalha os ombros com forte demanda unilateral do core e anti-rotação."
+  },
+  "kneeling_single_arm_landmine_press_shoulder_left_arm": {
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto, segurando a ponta da barra com a mão esquerda. Ajoelhado ereto de frente para a barra, os dois joelhos no colchonete, braço esquerdo na altura do ombro e mão direita apoiada na coxa. Empurre a barra mais verticalmente acima da cabeça até a extensão total, depois desça sob controle. Trabalha o ombro esquerdo com forte demanda do core e anti-rotação."
+  },
+  "kneeling_single_arm_landmine_press_shoulder_right_arm": {
+    "setupNotes": "Barra no suporte landmine ou encaixada no canto, segurando a ponta da barra com a mão direita. Ajoelhado ereto de frente para a barra, os dois joelhos no colchonete, braço direito na altura do ombro e mão esquerda apoiada na coxa. Empurre a barra mais verticalmente acima da cabeça até a extensão total, depois desça sob controle. Trabalha o ombro direito com forte demanda do core e anti-rotação."
+  },
+  "seated_cable_row_underhand_grip_single_arm": {
+    "setupNotes": "Estação de polia para remada sentado, pega D. Pés na base, joelhos ligeiramente flexionados, a mão livre apoiada na coxa. Puxe o cabo até as costelas inferiores com pegada supinada, cotovelo próximo ao corpo e o bíceps auxiliando. Enfatiza a parte inferior do latíssimo e o meio das costas."
+  },
+  "seated_cable_row_underhand_grip_single_arm_left": {
+    "setupNotes": "Estação de polia para remada sentado, pega D. Pés na base, joelhos ligeiramente flexionados, mão direita apoiada na coxa. Puxe o cabo até as costelas inferiores esquerdas com pegada supinada, cotovelo próximo ao corpo e o bíceps auxiliando. Enfatiza a parte inferior do latíssimo esquerdo e o meio das costas."
+  },
+  "seated_cable_row_underhand_grip_single_arm_right": {
+    "setupNotes": "Estação de polia para remada sentado, pega D. Pés na base, joelhos ligeiramente flexionados, mão esquerda apoiada na coxa. Puxe o cabo até as costelas inferiores direitas com pegada supinada, cotovelo próximo ao corpo e o bíceps auxiliando. Enfatiza a parte inferior do latíssimo direito e o meio das costas."
   }
 }
