@@ -1,5 +1,5 @@
 // Lazy-loaded exercise and workout data
-// Source: libo-data.js (302 KB) — loaded on demand, not at startup
+// Source: Supabase, with public/exercises.json + workouts.json as fallback — loaded on demand, not at startup
 
 import { supabase } from '../lib/supabase';
 import {

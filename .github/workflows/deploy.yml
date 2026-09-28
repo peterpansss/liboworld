@@ -78,7 +78,6 @@ jobs:
           cp robots.txt react-app/dist/robots.txt
           cp sitemap.xml react-app/dist/sitemap.xml
           cp googlea384516e7c52bfef.html react-app/dist/ 2>/dev/null || true
-          cp libo-data.js react-app/dist/libo-data.js 2>/dev/null || true
 
       # ── Deploy everything ──
       # LIBO-06 (Dimitri audit): deploy over encrypted FTPS, not plaintext FTP.
