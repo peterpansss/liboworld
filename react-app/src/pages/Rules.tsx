@@ -122,7 +122,7 @@ export default function Rules() {
             <h3>The {paidTiers} challenges need a paid Premium</h3>
             <p>The {paidTiers} challenges need an active, <strong>paid</strong> Premium &mdash; on the day you join and on every day you record a session. A free Premium period, such as free weeks from an offer code, doesn&rsquo;t count.</p>
             <ul>
-              <li><strong>If your Premium ends during a run, the run ends</strong> the next time you record a day. Days you already recorded while Premium was active still count. Cancelling doesn&rsquo;t end it early &mdash; Premium stays active until the end of the period you paid for, and a payment the app store is still retrying counts as active.</li>
+              <li><strong>If your Premium ends during a run, the run ends</strong> the next time you record a day. Days you already recorded while Premium was active still count. Cancelling doesn&rsquo;t end it early &mdash; Premium stays active until the end of the period you paid for, and if the app store keeps your Premium active while it retries a payment, that still counts as active.</li>
               <li><strong>If your Premium is refunded during a run, that run earns no payout</strong>, even if you finish all 30 days.</li>
             </ul>
 

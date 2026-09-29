@@ -33,7 +33,7 @@ export default function Terms() {
             <div className="legal-label">Legal</div>
             <h1 className="font-display">Terms &amp; Conditions</h1>
             <p className="legal-meta">
-              Last updated: <span>May 2026</span> &middot; Effective date: <span>May 2026</span>
+              Last updated: <span>29 September 2026</span> &middot; Effective date: <span>May 2026</span>
             </p>
           </div>
 
@@ -125,8 +125,12 @@ export default function Terms() {
             </ul>
             {/* No introductory offer is configured on either product in App
                 Store Connect, and every tier ships with trial days set to 0.
-                Stated plainly so a reader is not left inferring one. */}
-            <p>Libo Premium does not include a free trial: your subscription begins and your payment method is charged as soon as you subscribe.</p>
+                The only free period is an Apple custom offer code (first one:
+                ALENA, 2 weeks on monthly, live 2026-09-29) — REWARDS-ECONOMY-RULES
+                §3 "Exception — creator offer codes". A free period is not paid
+                Premium for the cash gate (supabase-migration-paid-premium-cash-gate.sql). */}
+            <p>Libo Premium does not include a free trial by default: unless an offer applies, your subscription begins and your payment method is charged as soon as you subscribe.</p>
+            <p>From time to time we may make <strong>promotional offer codes</strong> available that give new subscribers a free Premium period (for example, two weeks) on a specified plan. When the free period ends, your subscription automatically renews at the standard price for that plan unless you cancel it through your Apple account settings before the free period ends. A free Premium period is not a paid Premium subscription for the purposes of the cash challenges (see <a href="#challenge-rules">Cash Challenges</a>).</p>
 
             <h3>Auto-Renewal</h3>
             {/* "All" used to read as absolute, which is wrong for the Founding
@@ -154,6 +158,7 @@ export default function Terms() {
 
             <h3>Refund Policy</h3>
             <p>We offer a <strong>14-day money-back guarantee</strong> for new Premium subscribers. Contact us within 14 days of your first charge for a full refund — no questions asked.</p>
+            <p>If your Premium subscription is refunded while you are taking part in a &euro;15 or &euro;50 cash challenge, that run earns no payout (see <a href="#challenge-rules">Cash Challenges</a>).</p>
             <p>Refunds are not available for:</p>
             <ul>
               {/* Carve-out, not a contradiction: §Early Access promises Founding
@@ -350,6 +355,7 @@ export default function Terms() {
             <p>A Libo <strong>cash challenge</strong> is skill-based: you complete a published amount of work on each of a fixed number of days and receive a fixed cash payout for finishing. <strong>There is no draw, no ballot and no element of chance</strong>, and there is <strong>no entry fee</strong> &mdash; the payout is funded by Libo and set aside when you enrol, never funded by other participants.</p>
             <p>Enrolment, daily windows, proof requirements, freeze tokens, forfeiture and payout are governed by the <strong>Cash Challenge Rules</strong> published at <Link to="/rules">liboworld.com/rules</Link>, which are <strong>incorporated into these Terms by reference</strong> and form part of your agreement with us.</p>
             <p>Sections 3 (Eligibility &mdash; 16+ to enter, 18+ for a cash payout), 11 (Health &amp; Fitness Disclaimer) and 17 (Governing Law &amp; Geographic Availability) apply in full to challenge participation. Identity verification is required before any payout is released. Where the Cash Challenge Rules conflict with these Terms, these Terms govern.</p>
+            <p><strong>Paid Premium requirement.</strong> The &euro;15 and &euro;50 cash challenges require an active, <strong>paid</strong> Premium subscription on the day you enrol and on every day you record a session. A free Premium period, including one granted by a promotional offer code, does not satisfy this requirement. If your Premium subscription ends during a run, the run ends the next time you record a day; days already recorded while your Premium was active continue to count. If your Premium subscription is refunded during a run, that run earns no payout, even if you complete every day.</p>
             <p>We may amend the Cash Challenge Rules for <strong>future</strong> enrolments. The rules in force on the day you enrolled govern your run.</p>
           </section>
         </div>

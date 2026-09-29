@@ -1178,7 +1178,7 @@
       "q2": "How do the Cash Challenges work?",
       "a2": "Join a 30-day challenge (e.g. 100 reps daily), record yourself completing the reps each day — verified in-app, no way to cheat it — and cash out real money when you finish. Spots are limited, and your 30 days start the moment you join.",
       "q3": "Is Libo free?",
-      "a3": "Libo offers a free tier with access to workouts, exercises, basic tracking, an activity streak and points, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, a freeze token for every challenge, and the €15 and €50 challenge tiers.",
+      "a3": "Libo offers a free tier with access to workouts, exercises, basic tracking, an activity streak and points, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, a freeze token for every challenge and, with a paid subscription, the €15 and €50 challenge tiers.",
       "q4": "What equipment do I need?",
       "a4": "None — or everything. Libo has 396 home exercises (most need no equipment) and 432 gym exercises, including 50 mobility moves. Filter by what you have available.",
       "q5": "Can I build my own workouts?",
@@ -1754,7 +1754,7 @@
       "upsell": "Want the €15 and €50 tiers? Get Premium — 50% off →",
       "title": "Lock in the year before we launch.",
       "per": "/ year",
-      "body": "Premium unlocks this tier — it does not reserve a place. Spots are limited and first come, first served. If the challenge is full, request to join and you are notified the second a spot frees.",
+      "body": "Paid Premium unlocks this tier — it does not reserve a place. Spots are limited and first come, first served. If the challenge is full, request to join and you are notified the second a spot frees.",
       "note": "Fully refundable until launch.",
       "eyebrowFree": "Optional upgrade · 50% off until launch",
       "eyebrow": "Premium · 50% off until launch",
@@ -1763,7 +1763,7 @@
       "tick2": "Eligible for every challenge tier — first come, first served",
       "tick3": "Year starts on launch day, not today",
       "titleFree": "Unlock the €15 and €50 challenges.",
-      "ledeFree": "The €5 Starter is free for every member. Premium opens the higher-payout tiers — and right now the first year is half price.",
+      "ledeFree": "The €5 Starter is free for every member. Paid Premium opens the higher-payout tiers — and right now the first year is half price.",
       "tickUnlock": "Every challenge tier unlocked — €15 and €50",
       "tickFreeze": "1 freeze token per challenge, +1 you can earn",
       "ctaFree": "Get Premium — {{price}}/yr →",
@@ -1799,12 +1799,12 @@
     "close": {
       "line1": "Limited spots.",
       "line2": "Start the day you join.",
-      "sub": "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
+      "sub": "Paid Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
       "waitlist": "Join the free waitlist instead",
       "subFree": "The €5 Starter challenge is free for every member — leave your email and you're in on launch day. Spots are first come, first served.",
       "upsell": "Want the €15 and €50 tiers? Get Premium — 50% off →",
       "upsellClosed": "Want the €15 and €50 tiers? Get Premium →",
-      "subClosed": "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees."
+      "subClosed": "Paid Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees."
     },
     "footerNote": "Challenge terms apply",
     "seo": {
@@ -2058,11 +2058,11 @@
     "faq": {
       "free": {
         "q": "Is Libo free?",
-        "a": "Yes — the free tier gets you the core workout and exercise library, basic progress tracking, your activity streak and points, and the entry-level €5 cash challenge. Premium unlocks the full library, advanced analytics, cash challenges up to €50, and a freeze token for every challenge."
+        "a": "Yes — the free tier gets you the core workout and exercise library, basic progress tracking, your activity streak and points, and the entry-level €5 cash challenge. Premium unlocks the full library, advanced analytics and a freeze token for every challenge — and, with a paid subscription, cash challenges up to €50."
       },
       "challenges": {
         "q": "How do the cash challenges work?",
-        "a": "Pick a challenge and hit its daily rep target for 30 days. You record each session in the app, so the run is verified — there is no way to fake it. Your 30 days start the moment you join, and finishing pays out in real cash. Premium unlocks the bigger tiers; spots are limited and first come, first served."
+        "a": "Pick a challenge and hit its daily rep target for 30 days. You record each session in the app, so the run is verified — there is no way to fake it. Your 30 days start the moment you join, and finishing pays out in real cash. Paid Premium unlocks the bigger tiers; spots are limited and first come, first served."
       },
       "monthlyPrice": {
         "q": "What does €6.67/mo mean?",

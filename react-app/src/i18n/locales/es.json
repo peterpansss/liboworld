@@ -1178,7 +1178,7 @@
       "q2": "¿Cómo funcionan los Cash Challenges?",
       "a2": "Únete a un reto de 30 días (por ejemplo, 100 reps al día), grábate completando las reps cada día, compártelo en tus stories y cobra dinero real cuando termines. Las plazas son limitadas, y tus 30 días empiezan en el momento en que entras.",
       "q3": "¿Libo es gratis?",
-      "a3": "Libo ofrece un plan gratuito con acceso a entrenamientos, ejercicios, seguimiento básico, una racha de actividad con puntos y un reto de dinero de nivel inicial. Premium desbloquea la biblioteca completa, analíticas avanzadas, una ficha de congelación en cada reto y los niveles de €15 y €50.",
+      "a3": "Libo ofrece un plan gratuito con acceso a entrenamientos, ejercicios, seguimiento básico, una racha de actividad con puntos y un reto de dinero de nivel inicial. Premium desbloquea la biblioteca completa, analíticas avanzadas, una ficha de congelación en cada reto y, con una suscripción de pago, los niveles de €15 y €50.",
       "q4": "¿Qué equipo necesito?",
       "a4": "Ninguno — o todo. Libo tiene 396 ejercicios para casa (la mayoría sin equipo) y 432 de gimnasio, incluidos 50 de movilidad. Filtra por lo que tengas disponible.",
       "q5": "¿Puedo crear mis propios entrenamientos?",
@@ -1693,7 +1693,7 @@
       "upsell": "¿Quieres los niveles de €15 y €50? Consigue Premium — 50% de descuento →",
       "title": "Asegura el año antes de que lancemos.",
       "per": "/ año",
-      "body": "Premium desbloquea este nivel — no reserva plaza. Las plazas son limitadas y van por orden de llegada. Si el reto está lleno, solicita unirte y te avisamos en cuanto se libere una plaza.",
+      "body": "Premium de pago desbloquea este nivel — no reserva plaza. Las plazas son limitadas y van por orden de llegada. Si el reto está lleno, solicita unirte y te avisamos en cuanto se libere una plaza.",
       "note": "Totalmente reembolsable hasta el lanzamiento.",
       "eyebrowFree": "Mejora opcional · 50% de descuento hasta el lanzamiento",
       "eyebrow": "Premium · 50% de descuento hasta el lanzamiento",
@@ -1702,7 +1702,7 @@
       "tick2": "Acceso a todos los niveles del reto — por orden de llegada",
       "tick3": "Tu año empieza el día del lanzamiento, no hoy",
       "titleFree": "Desbloquea los retos de €15 y €50.",
-      "ledeFree": "El Starter de €5 es gratis para todos los miembros. Premium abre los niveles con mayor pago — y ahora mismo el primer año está a mitad de precio.",
+      "ledeFree": "El Starter de €5 es gratis para todos los miembros. Premium de pago abre los niveles con mayor recompensa — y ahora mismo el primer año está a mitad de precio.",
       "tickUnlock": "Todos los niveles del reto desbloqueados — €15 y €50",
       "tickFreeze": "1 ficha de congelación por reto, +1 que puedes ganar",
       "ctaFree": "Consigue Premium — {{price}}/año →",
@@ -1738,12 +1738,12 @@
     "close": {
       "line1": "Plazas limitadas.",
       "line2": "Empieza el día que entras.",
-      "sub": "Premium desbloquea este nivel — la entrada es por orden de llegada y las plazas son limitadas. Si está lleno, te avisamos en cuanto se libere una plaza. Primer año al 50% hasta el lanzamiento, totalmente reembolsable.",
+      "sub": "Premium de pago desbloquea este nivel — la entrada es por orden de llegada y las plazas son limitadas. Si está lleno, te avisamos en cuanto se libere una plaza. Primer año al 50% hasta el lanzamiento, totalmente reembolsable.",
       "waitlist": "Mejor únete a la lista de espera gratis",
       "subFree": "El reto Starter de €5 es gratis para todos los miembros — deja tu email y estás dentro el día del lanzamiento. Las plazas son por orden de llegada.",
       "upsell": "¿Quieres los niveles de €15 y €50? Consigue Premium — 50% de descuento →",
       "upsellClosed": "¿Quieres los niveles de €15 y €50? Consigue Premium →",
-      "subClosed": "Premium desbloquea este nivel — por orden de llegada y con plazas limitadas. Si está lleno, te avisamos en cuanto se libere una plaza."
+      "subClosed": "Premium de pago desbloquea este nivel — por orden de llegada y con plazas limitadas. Si está lleno, te avisamos en cuanto se libere una plaza."
     },
     "footerNote": "Aplican los términos del reto",
     "seo": {
@@ -1997,11 +1997,11 @@
     "faq": {
       "free": {
         "q": "¿Libo es gratis?",
-        "a": "Sí — el plan gratuito te da la biblioteca básica de entrenamientos y ejercicios, seguimiento básico de progreso, tu racha de actividad con puntos y el cash challenge de nivel inicial de €5. Premium desbloquea la biblioteca completa, analíticas avanzadas, cash challenges de hasta €50 y una ficha de congelación en cada reto."
+        "a": "Sí — el plan gratuito te da la biblioteca básica de entrenamientos y ejercicios, seguimiento básico de progreso, tu racha de actividad con puntos y el cash challenge de nivel inicial de €5. Premium desbloquea la biblioteca completa, analíticas avanzadas y una ficha de congelación en cada reto — y, con una suscripción de pago, cash challenges de hasta €50."
       },
       "challenges": {
         "q": "¿Cómo funcionan los cash challenges?",
-        "a": "Elige un reto y cumple su meta diaria de reps durante 30 días. Grabas cada sesión en la app, así que la racha queda verificada — no hay forma de falsearla. Tus 30 días empiezan en el momento en que entras, y terminar se paga en cash real. Premium desbloquea los niveles más grandes; las plazas son limitadas y van por orden de llegada."
+        "a": "Elige un reto y cumple su meta diaria de reps durante 30 días. Grabas cada sesión en la app, así que la racha queda verificada — no hay forma de falsearla. Tus 30 días empiezan en el momento en que entras, y terminar se paga en cash real. Premium de pago desbloquea los niveles más grandes; las plazas son limitadas y van por orden de llegada."
       },
       "monthlyPrice": {
         "q": "¿Qué significa €6.67/mes?",

@@ -1152,7 +1152,7 @@
       "q2": "Comment fonctionnent les Cash Challenges ?",
       "a2": "Rejoins un challenge de 30 jours (ex. 100 reps par jour), filme-toi en train de finir tes reps chaque jour, partage dans tes stories, et encaisse du vrai argent une fois terminé. Les places sont limitées, et tes 30 jours commencent dès que tu t'inscris.",
       "q3": "Libo est-il gratuit ?",
-      "a3": "Libo propose une offre gratuite avec accès aux entraînements, aux exercices, au suivi de base, à une série d'activité avec des points, et à un cash challenge d'entrée de gamme. Premium débloque la bibliothèque complète, des analyses avancées, un jeton freeze pour chaque challenge, et les niveaux de challenge à €15 et €50.",
+      "a3": "Libo propose une offre gratuite avec accès aux entraînements, aux exercices, au suivi de base, à une série d'activité avec des points, et à un cash challenge d'entrée de gamme. Premium débloque la bibliothèque complète, des analyses avancées, un jeton freeze pour chaque challenge et, avec un abonnement payant, les niveaux de challenge à €15 et €50.",
       "q4": "De quel matériel ai-je besoin ?",
       "a4": "Aucun — ou tout. Libo compte 396 exercices à la maison (la plupart sans matériel) et 432 exercices en salle, dont 50 mouvements de mobilité. Filtre selon ce que tu as sous la main.",
       "q5": "Puis-je créer mes propres entraînements ?",
@@ -1693,7 +1693,7 @@
       "upsell": "Tu veux les paliers €15 et €50 ? Passe à Premium — -50% →",
       "title": "Bloque l'année avant le lancement.",
       "per": "/ an",
-      "body": "Premium débloque ce palier — il ne réserve pas de place. Les places sont limitées et c'est premier arrivé, premier servi. Si le challenge est complet, demande à rejoindre et tu es prévenu à la seconde où une place se libère.",
+      "body": "Le Premium payant débloque ce palier — il ne réserve pas de place. Les places sont limitées et c'est premier arrivé, premier servi. Si le challenge est complet, demande à rejoindre et tu es prévenu à la seconde où une place se libère.",
       "note": "Intégralement remboursable jusqu'au lancement.",
       "eyebrowFree": "Upgrade optionnel · -50% jusqu'au lancement",
       "eyebrow": "Premium · -50% jusqu'au lancement",
@@ -1702,7 +1702,7 @@
       "tick2": "Accès à tous les paliers de challenge — premier arrivé, premier servi",
       "tick3": "Ton année commence le jour du lancement, pas aujourd'hui",
       "titleFree": "Débloque les challenges €15 et €50.",
-      "ledeFree": "Le Starter à €5 est gratuit pour chaque membre. Premium ouvre les paliers plus élevés — et là, la première année est à moitié prix.",
+      "ledeFree": "Le Starter à €5 est gratuit pour chaque membre. Le Premium payant ouvre les paliers plus élevés — et là, la première année est à moitié prix.",
       "tickUnlock": "Tous les paliers de challenge débloqués — €15 et €50",
       "tickFreeze": "1 jeton freeze par challenge, +1 à gagner",
       "ctaFree": "Passe à Premium — {{price}}/an →",
@@ -1738,12 +1738,12 @@
     "close": {
       "line1": "Places limitées.",
       "line2": "Commence le jour où tu t'inscris.",
-      "sub": "Premium débloque ce palier — l'entrée est premier arrivé, premier servi, et les places sont limitées. Si c'est complet, tu es prévenu à la seconde où une place se libère. Première année à -50% jusqu'au lancement, intégralement remboursable.",
+      "sub": "Le Premium payant débloque ce palier — l'entrée est premier arrivé, premier servi, et les places sont limitées. Si c'est complet, tu es prévenu à la seconde où une place se libère. Première année à -50% jusqu'au lancement, intégralement remboursable.",
       "waitlist": "Rejoins plutôt la liste d'attente gratuite",
       "subFree": "Le challenge Starter à €5 est gratuit pour chaque membre — laisse ton e-mail et tu es là le jour du lancement. Premier arrivé, premier servi.",
       "upsell": "Tu veux les paliers €15 et €50 ? Passe à Premium — -50% →",
       "upsellClosed": "Tu veux les paliers €15 et €50 ? Prends Premium →",
-      "subClosed": "Premium débloque ce palier — premier arrivé, premier servi, et les places sont limitées. Si c’est complet, tu es prévenu dès qu’une place se libère."
+      "subClosed": "Le Premium payant débloque ce palier — premier arrivé, premier servi, et les places sont limitées. Si c’est complet, tu es prévenu dès qu’une place se libère."
     },
     "footerNote": "Les conditions du challenge s'appliquent",
     "seo": {
@@ -1997,11 +1997,11 @@
     "faq": {
       "free": {
         "q": "Libo est gratuit ?",
-        "a": "Oui — le niveau Free te donne la bibliothèque d'entraînements et d'exercices de base, le suivi de progression de base, ta série d'activité et tes points, et le cash challenge d'entrée à €5. Premium débloque la bibliothèque complète, les statistiques avancées, les cash challenges jusqu'à €50 et un jeton freeze pour chaque challenge."
+        "a": "Oui — le niveau Free te donne la bibliothèque d'entraînements et d'exercices de base, le suivi de progression de base, ta série d'activité et tes points, et le cash challenge d'entrée à €5. Premium débloque la bibliothèque complète, les statistiques avancées et un jeton freeze pour chaque challenge — et, avec un abonnement payant, les cash challenges jusqu'à €50."
       },
       "challenges": {
         "q": "Comment marchent les cash challenges ?",
-        "a": "Choisis un challenge et atteins son objectif de reps quotidien pendant 30 jours. Tu enregistres chaque séance dans l'app, donc le run est vérifié — impossible de tricher. Tes 30 jours commencent dès que tu t'inscris, et finir paie en vrai cash. Premium débloque les paliers plus gros ; les places sont limitées et c'est premier arrivé, premier servi."
+        "a": "Choisis un challenge et atteins son objectif de reps quotidien pendant 30 jours. Tu enregistres chaque séance dans l'app, donc le run est vérifié — impossible de tricher. Tes 30 jours commencent dès que tu t'inscris, et finir paie en vrai cash. Le Premium payant débloque les paliers plus gros ; les places sont limitées et c'est premier arrivé, premier servi."
       },
       "monthlyPrice": {
         "q": "Ça veut dire quoi, €6.67/mois ?",

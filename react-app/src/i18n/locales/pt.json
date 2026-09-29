@@ -1178,7 +1178,7 @@
       "q2": "Como funcionam os Cash Challenges?",
       "a2": "Entre num desafio de 30 dias (por exemplo, 100 reps por dia), se grave completando as reps todo dia, compartilhe nos seus stories e saque dinheiro de verdade quando terminar. As vagas são limitadas, e seus 30 dias começam no momento em que você entra.",
       "q3": "A Libo é grátis?",
-      "a3": "A Libo oferece um plano gratuito com acesso a treinos, exercícios, acompanhamento básico, uma sequência de atividade com pontos e um desafio de dinheiro inicial. O Premium libera a biblioteca completa, análises avançadas, uma ficha de congelamento em cada desafio e os níveis de €15 e €50.",
+      "a3": "A Libo oferece um plano gratuito com acesso a treinos, exercícios, acompanhamento básico, uma sequência de atividade com pontos e um desafio de dinheiro inicial. O Premium libera a biblioteca completa, análises avançadas, uma ficha de congelamento em cada desafio e, com uma assinatura paga, os níveis de €15 e €50.",
       "q4": "De que equipamento eu preciso?",
       "a4": "Nenhum — ou todos. A Libo tem 396 exercícios em casa (a maioria sem equipamento) e 432 de academia, incluindo 50 de mobilidade. Filtre pelo que você tem à disposição.",
       "q5": "Posso montar meus próprios treinos?",
@@ -1693,7 +1693,7 @@
       "upsell": "Quer os níveis de €15 e €50? Assine o Premium — 50% off →",
       "title": "Garanta o ano antes do lançamento.",
       "per": "/ ano",
-      "body": "O Premium desbloqueia este nível — não reserva vaga. As vagas são limitadas e por ordem de chegada. Se o desafio estiver cheio, peça pra entrar e você é avisado no segundo em que uma vaga abrir.",
+      "body": "O Premium pago desbloqueia este nível — não reserva vaga. As vagas são limitadas e por ordem de chegada. Se o desafio estiver cheio, peça pra entrar e você é avisado no segundo em que uma vaga abrir.",
       "note": "Reembolso total até o lançamento.",
       "eyebrowFree": "Upgrade opcional · 50% off até o lançamento",
       "eyebrow": "Premium · 50% off até o lançamento",
@@ -1702,7 +1702,7 @@
       "tick2": "Elegível pra todos os níveis de desafio — por ordem de chegada",
       "tick3": "O ano começa no dia do lançamento, não hoje",
       "titleFree": "Desbloqueie os desafios de €15 e €50.",
-      "ledeFree": "O Starter de €5 é grátis pra todo membro. O Premium abre os níveis de pagamento maior — e agora o primeiro ano está pela metade do preço.",
+      "ledeFree": "O Starter de €5 é grátis pra todo membro. O Premium pago abre os níveis de pagamento maior — e agora o primeiro ano está pela metade do preço.",
       "tickUnlock": "Todos os níveis de desafio desbloqueados — €15 e €50",
       "tickFreeze": "1 token freeze por desafio, +1 para ganhar",
       "ctaFree": "Assine o Premium — {{price}}/ano →",
@@ -1738,12 +1738,12 @@
     "close": {
       "line1": "Vagas limitadas.",
       "line2": "Comece no dia em que entrar.",
-      "sub": "O Premium desbloqueia este nível — a entrada é por ordem de chegada e as vagas são limitadas. Se estiver cheio, você é avisado no segundo em que uma vaga abrir. Primeiro ano com 50% off até o lançamento, reembolso total.",
+      "sub": "O Premium pago desbloqueia este nível — a entrada é por ordem de chegada e as vagas são limitadas. Se estiver cheio, você é avisado no segundo em que uma vaga abrir. Primeiro ano com 50% off até o lançamento, reembolso total.",
       "waitlist": "Ou entre na lista de espera gratuita",
       "subFree": "O desafio Starter de €5 é grátis pra todo membro — deixe seu e-mail e você está dentro no dia do lançamento. Vagas por ordem de chegada.",
       "upsell": "Quer os níveis de €15 e €50? Assine o Premium — 50% off →",
       "upsellClosed": "Quer os níveis de €15 e €50? Garanta o Premium →",
-      "subClosed": "O Premium libera este nível — por ordem de chegada e com vagas limitadas. Se estiver cheio, avisamos assim que uma vaga abrir."
+      "subClosed": "O Premium pago libera este nível — por ordem de chegada e com vagas limitadas. Se estiver cheio, avisamos assim que uma vaga abrir."
     },
     "footerNote": "Aplicam-se os termos do desafio",
     "seo": {
@@ -1997,11 +1997,11 @@
     "faq": {
       "free": {
         "q": "A Libo é grátis?",
-        "a": "Sim — o plano gratuito te dá a biblioteca essencial de treinos e exercícios, acompanhamento básico de progresso, sua sequência de atividade com pontos e o desafio cash de entrada de €5. O Premium desbloqueia a biblioteca completa, análises avançadas, Cash Challenges de até €50 e um token freeze em cada desafio."
+        "a": "Sim — o plano gratuito te dá a biblioteca essencial de treinos e exercícios, acompanhamento básico de progresso, sua sequência de atividade com pontos e o desafio cash de entrada de €5. O Premium desbloqueia a biblioteca completa, análises avançadas e um token freeze em cada desafio — e, com uma assinatura paga, Cash Challenges de até €50."
       },
       "challenges": {
         "q": "Como funcionam os cash challenges?",
-        "a": "Escolha um desafio e bata a meta diária de reps por 30 dias. Você grava cada sessão no app, então a corrida é verificada — não tem como falsificar. Seus 30 dias começam no momento em que você entra, e terminar paga em cash de verdade. O Premium desbloqueia os níveis maiores; as vagas são limitadas e por ordem de chegada."
+        "a": "Escolha um desafio e bata a meta diária de reps por 30 dias. Você grava cada sessão no app, então a corrida é verificada — não tem como falsificar. Seus 30 dias começam no momento em que você entra, e terminar paga em cash de verdade. O Premium pago desbloqueia os níveis maiores; as vagas são limitadas e por ordem de chegada."
       },
       "monthlyPrice": {
         "q": "O que significa €6.67/mês?",

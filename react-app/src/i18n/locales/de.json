@@ -1178,7 +1178,7 @@
       "q2": "Wie funktionieren die Cash Challenges?",
       "a2": "Tritt einer 30-Tage-Challenge bei (z.B. 100 Reps täglich), nimm dich jeden Tag beim Absolvieren der Reps auf, teile es in deinen Stories und cash echtes Geld aus, wenn du fertig bist. Die Plätze sind begrenzt, und deine 30 Tage starten in dem Moment, in dem du einsteigst.",
       "q3": "Ist Libo kostenlos?",
-      "a3": "Libo bietet eine kostenlose Stufe mit Zugriff auf Workouts, Übungen, einfaches Tracking, eine Aktivitäts-Streak samt Punkten und eine Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Analysen, ein Freeze-Token pro Challenge und die €15- und €50-Stufen.",
+      "a3": "Libo bietet eine kostenlose Stufe mit Zugriff auf Workouts, Übungen, einfaches Tracking, eine Aktivitäts-Streak samt Punkten und eine Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Analysen, ein Freeze-Token pro Challenge und – mit einem bezahlten Abo – die €15- und €50-Stufen.",
       "q4": "Welches Equipment brauche ich?",
       "a4": "Keins — oder alles. Libo hat 396 Home-Übungen (die meisten ohne Equipment) und 432 Gym-Übungen, darunter 50 Mobility-Moves. Filter nach dem, was du hast.",
       "q5": "Kann ich meine eigenen Workouts bauen?",
@@ -1693,7 +1693,7 @@
       "upsell": "Willst du die €15- und €50-Stufen? Hol dir Premium — 50% Rabatt →",
       "title": "Sicher dir das Jahr vor dem Launch.",
       "per": "/ Jahr",
-      "body": "Premium schaltet diese Stufe frei — es reserviert keinen Platz. Die Plätze sind begrenzt und first come, first served. Ist die Challenge voll, stell eine Beitrittsanfrage und du wirst in der Sekunde benachrichtigt, in der ein Platz frei wird.",
+      "body": "Bezahltes Premium schaltet diese Stufe frei — es reserviert keinen Platz. Die Plätze sind begrenzt und first come, first served. Ist die Challenge voll, stell eine Beitrittsanfrage und du wirst in der Sekunde benachrichtigt, in der ein Platz frei wird.",
       "note": "Bis zum Launch voll erstattbar.",
       "eyebrowFree": "Optionales Upgrade · 50% Rabatt bis zum Launch",
       "eyebrow": "Premium · 50% Rabatt bis zum Launch",
@@ -1702,7 +1702,7 @@
       "tick2": "Zugang zu jeder Challenge-Stufe — first come, first served",
       "tick3": "Dein Jahr startet am Launch-Tag, nicht heute",
       "titleFree": "Schalte die €15- und €50-Challenges frei.",
-      "ledeFree": "Die €5 Starter Challenge ist für jeden Member gratis. Premium öffnet die höheren Stufen — und gerade ist das erste Jahr zum halben Preis.",
+      "ledeFree": "Die €5 Starter Challenge ist für jeden Member gratis. Bezahltes Premium öffnet die höheren Stufen — und gerade ist das erste Jahr zum halben Preis.",
       "tickUnlock": "Jede Challenge-Stufe freigeschaltet — €15 und €50",
       "tickFreeze": "1 Freeze-Token pro Challenge, +1 kannst du dir verdienen",
       "ctaFree": "Hol dir Premium — {{price}}/Jahr →",
@@ -1738,12 +1738,12 @@
     "close": {
       "line1": "Begrenzte Plätze.",
       "line2": "Starte am Tag deines Beitritts.",
-      "sub": "Premium schaltet diese Stufe frei — der Einstieg ist first come, first served, und die Plätze sind begrenzt. Ist alles voll, wirst du benachrichtigt, sobald ein Platz frei wird. Erstes Jahr 50% Rabatt bis zum Launch, voll erstattbar.",
+      "sub": "Bezahltes Premium schaltet diese Stufe frei — der Einstieg ist first come, first served, und die Plätze sind begrenzt. Ist alles voll, wirst du benachrichtigt, sobald ein Platz frei wird. Erstes Jahr 50% Rabatt bis zum Launch, voll erstattbar.",
       "waitlist": "Lieber auf die Gratis-Warteliste",
       "subFree": "Die €5 Starter Challenge ist für jeden Member gratis — lass deine E-Mail da und du bist am Launch-Tag dabei. Plätze sind first come, first served.",
       "upsell": "Willst du die €15- und €50-Stufen? Hol dir Premium — 50% Rabatt →",
       "upsellClosed": "Willst du die €15- und €50-Stufen? Hol dir Premium →",
-      "subClosed": "Premium schaltet diese Stufe frei — wer zuerst kommt, mahlt zuerst, und die Plätze sind begrenzt. Ist alles voll, wirst du sofort benachrichtigt, wenn ein Platz frei wird."
+      "subClosed": "Bezahltes Premium schaltet diese Stufe frei — wer zuerst kommt, mahlt zuerst, und die Plätze sind begrenzt. Ist alles voll, wirst du sofort benachrichtigt, wenn ein Platz frei wird."
     },
     "footerNote": "Es gelten die Challenge-Bedingungen",
     "seo": {
@@ -1997,11 +1997,11 @@
     "faq": {
       "free": {
         "q": "Ist Libo gratis?",
-        "a": "Ja — die Gratis-Version bringt dir die Basis-Workout- und Übungsbibliothek, Basis-Fortschritts-Tracking, deinen Aktivitäts-Streak samt Punkten und die €5 Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Statistiken, Cash Challenges bis €50 und ein Freeze-Token pro Challenge."
+        "a": "Ja — die Gratis-Version bringt dir die Basis-Workout- und Übungsbibliothek, Basis-Fortschritts-Tracking, deinen Aktivitäts-Streak samt Punkten und die €5 Einsteiger-Cash-Challenge. Premium schaltet die komplette Bibliothek frei, dazu erweiterte Statistiken und ein Freeze-Token pro Challenge — mit einem bezahlten Abo auch Cash Challenges bis €50."
       },
       "challenges": {
         "q": "Wie funktionieren die Cash Challenges?",
-        "a": "Wähl eine Challenge und triff ihr tägliches Rep-Ziel, 30 Tage lang. Du nimmst jede Session in der App auf, der Run ist also verifiziert — faken unmöglich. Deine 30 Tage starten in dem Moment, in dem du beitrittst, und wer durchzieht, bekommt echtes Geld. Premium schaltet die größeren Stufen frei; die Plätze sind begrenzt und first come, first served."
+        "a": "Wähl eine Challenge und triff ihr tägliches Rep-Ziel, 30 Tage lang. Du nimmst jede Session in der App auf, der Run ist also verifiziert — faken unmöglich. Deine 30 Tage starten in dem Moment, in dem du beitrittst, und wer durchzieht, bekommt echtes Geld. Bezahltes Premium schaltet die größeren Stufen frei; die Plätze sind begrenzt und first come, first served."
       },
       "monthlyPrice": {
         "q": "Was bedeutet €6.67/Monat?",
