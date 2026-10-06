@@ -59,6 +59,7 @@
  * subscriptions UPSERT (or extend their period if their tier matches).
  */
 import { supabase } from './supabase';
+import { getAttributionUtm } from './signupAttribution';
 
 export type FunnelKind = 'giveaway' | 'cash_challenge' | 'early_access';
 
@@ -82,14 +83,19 @@ export type FunnelSubmitInput = {
   giveawayId?: string | null;
 };
 
-const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
-
+/**
+ * The landing page's utm_* params.
+ *
+ * Used to read `window.location.search` directly, which meant every UTM was
+ * lost the moment the visitor navigated: land on `/?utm_source=tiktok`,
+ * convert on /join, and the row recorded utm_source=NULL. Now delegates to
+ * the first-touch snapshot in signupAttribution.ts, which survives
+ * navigation and still falls back to the live URL when sessionStorage is
+ * unavailable. Shape and name kept so callers are unaffected.
+ */
 export function readUtm(): Record<string, string | null> {
   if (typeof window === 'undefined') return {};
-  const params = new URLSearchParams(window.location.search);
-  const out: Record<string, string | null> = {};
-  for (const k of UTM_KEYS) out[k] = params.get(k);
-  return out;
+  return getAttributionUtm();
 }
 
 function readReferrer(): string | null {

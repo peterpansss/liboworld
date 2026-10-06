@@ -41,6 +41,37 @@ export type AdminUserRow = {
   workout_count: number;
   last_workout_at: string | null;
   banned_until: string | null;
+
+  /**
+   * Signup attribution — where this account came from. Columns on
+   * `public.profiles`, surfaced through `admin_list_users`.
+   *
+   * Every field is BOTH optional and nullable, deliberately:
+   *   - nullable because every account created before the attribution
+   *     migration has nothing recorded, and most rows will read null for a
+   *     long while;
+   *   - optional because a panel build can be pointed at a database whose
+   *     `admin_list_users` does not return these columns yet, in which case
+   *     they arrive as `undefined`.
+   *
+   * Both cases mean exactly one thing to the UI: WE DO NOT KNOW. Render them
+   * as unknown — never fall back to a guess (see `platformKey()` in
+   * pages/admin/UsersPage.tsx).
+   */
+  /** Free text in the DB; 'ios' | 'android' | 'web' are the values we write. */
+  signup_platform?: string | null;
+  /**
+   * True when `signup_platform` was DERIVED (e.g. back-filled from a user
+   * agent or a purchase receipt) rather than reported by the client at signup.
+   * An inferred platform must never be displayed as if it were measured —
+   * it is a good guess, and operators segment and spend against this column.
+   */
+  signup_platform_inferred?: boolean | null;
+  /** e.g. 'tiktok', 'referral', 'organic'. */
+  signup_source?: string | null;
+  signup_campaign?: string | null;
+  signup_app_version?: string | null;
+  signup_locale?: string | null;
 };
 
 /**

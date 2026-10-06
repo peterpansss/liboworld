@@ -30,6 +30,9 @@ export * from './api/overrides';
 export * from './funnelCheckout';
 export * from './funnelSignups';
 
+// Signup attribution (platform + acquisition source)
+export * from './signupAttribution';
+
 // Infra (kept thin so swap-out is easy)
 export { supabase } from './infra/supabase';
 export * from './infra/stripe';

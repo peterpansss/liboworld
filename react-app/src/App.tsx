@@ -66,11 +66,20 @@ import FoundingCheckoutProvider from './components/funnel/FoundingCheckoutProvid
 import CursorFollower from './components/CursorFollower';
 import ConsentBanner from './components/ConsentBanner';
 import { initConsent, trackPageView } from './lib/consent';
+import { captureAttribution } from './lib/signupAttribution';
 
 // Re-apply whatever the visitor chose on a previous visit (per category).
 // Nothing loads without a stored opt-in — GA4 and the Meta Pixel both live
 // behind this gate now, see src/lib/consent.ts.
 initConsent();
+
+// Snapshot the LANDING url's utm_* params + external referrer into
+// sessionStorage, so a signup three routes later can still say where it came
+// from. Must run here, at module scope, before BrowserRouter mounts and the
+// first <Navigate>/ScrollToTop can rewrite the URL. Not consent-gated — see
+// the consent section of src/lib/signupAttribution.ts, which flags the open
+// question rather than assuming an answer.
+captureAttribution();
 
 // Content pages — lazy loaded
 const Careers = lazy(() => import('./pages/Careers'));

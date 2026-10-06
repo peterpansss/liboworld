@@ -147,6 +147,151 @@ function EntitlementChip({ user }: { user: AdminUserRow }) {
   );
 }
 
+// ── signup attribution ─────────────────────────────────────────────────────
+
+/**
+ * `unknown` is a first-class value here, not a rendering accident.
+ *
+ * Every account that signed up before the attribution columns landed has
+ * `signup_platform = null`, and that is the majority of the table. The one
+ * thing this column must never do is turn "nothing was recorded" into a
+ * plausible-looking 'ios' — somebody budgets against these numbers.
+ *
+ * `other` keeps an unrecognised-but-present value (a stray 'ipados', a typo
+ * from a manual back-fill) visible and filterable instead of quietly folding
+ * it in with the nulls.
+ */
+type PlatformKey = 'ios' | 'android' | 'web' | 'other' | 'unknown';
+
+function platformKey(raw: string | null | undefined): PlatformKey {
+  const v = (raw ?? '').trim().toLowerCase();
+  if (v === '') return 'unknown';
+  if (v === 'ios') return 'ios';
+  if (v === 'android') return 'android';
+  if (v === 'web') return 'web';
+  return 'other';
+}
+
+const PLATFORM_LABEL: Record<PlatformKey, string> = {
+  ios: 'iOS',
+  android: 'Android',
+  web: 'Web',
+  other: 'Other',
+  unknown: 'Unknown',
+};
+
+const PLATFORM_FILTER_OPTIONS: { value: PlatformKey | 'all'; label: string }[] = [
+  { value: 'all', label: 'All platforms' },
+  { value: 'ios', label: 'iOS' },
+  { value: 'android', label: 'Android' },
+  { value: 'web', label: 'Web' },
+  { value: 'unknown', label: 'Unknown (not recorded)' },
+  { value: 'other', label: 'Other / unrecognised' },
+];
+
+const INFERRED_HINT =
+  'Inferred: this platform was derived after the fact (from a user agent, a receipt, a back-fill) — it was NOT reported by the client at signup.';
+
+const MEASURED_HINT = 'Reported by the client at signup.';
+
+const UNKNOWN_PLATFORM_HINT =
+  'No platform recorded at signup. Not a guess — this account predates platform capture, or the client sent nothing.';
+
+/**
+ * Platform cell. Three visually distinct states, because conflating any two of
+ * them misleads the operator:
+ *   measured  → solid chip, full-strength text
+ *   inferred  → dashed chip, muted text, trailing asterisk (+ table legend)
+ *   unknown   → an em dash, no chip at all
+ */
+function PlatformCell({ user }: { user: AdminUserRow }) {
+  const key = platformKey(user.signup_platform);
+
+  if (key === 'unknown') {
+    return (
+      <span style={{ color: colors.dim }} title={UNKNOWN_PLATFORM_HINT}>
+        —
+      </span>
+    );
+  }
+
+  const inferred = user.signup_platform_inferred === true;
+  // For 'other', show what the database actually holds rather than the word
+  // "Other" — the raw value is the whole point of noticing it.
+  const label = key === 'other' ? (user.signup_platform ?? '').trim() : PLATFORM_LABEL[key];
+
+  return (
+    <span
+      title={inferred ? INFERRED_HINT : MEASURED_HINT}
+      style={{
+        display: 'inline-block',
+        padding: '3px 10px',
+        borderRadius: 8,
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 0.5,
+        whiteSpace: 'nowrap',
+        background: colors.bg3,
+        color: inferred ? colors.muted : colors.text,
+        border: inferred ? `1px dashed ${colors.warning}` : `1px solid ${colors.border}`,
+      }}
+    >
+      {label}
+      {inferred && (
+        <span style={{ color: colors.warning, marginLeft: 4 }} aria-label="inferred">
+          *
+        </span>
+      )}
+    </span>
+  );
+}
+
+/** Source, with the campaign as secondary text (full value on hover). */
+function SourceCell({ user }: { user: AdminUserRow }) {
+  const source = (user.signup_source ?? '').trim();
+  const campaign = (user.signup_campaign ?? '').trim();
+
+  if (!source && !campaign) {
+    return (
+      <span style={{ color: colors.dim }} title="No source recorded at signup.">
+        —
+      </span>
+    );
+  }
+
+  return (
+    <span style={{ display: 'inline-block', maxWidth: 180 }}>
+      <span
+        style={{
+          display: 'block',
+          color: source ? colors.text : colors.dim,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+        title={source || 'No source recorded — campaign only.'}
+      >
+        {source || '—'}
+      </span>
+      {campaign && (
+        <span
+          style={{
+            display: 'block',
+            fontSize: 11,
+            color: colors.dim,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+          title={`Campaign: ${campaign}`}
+        >
+          {campaign}
+        </span>
+      )}
+    </span>
+  );
+}
+
 // ── headings ───────────────────────────────────────────────────────────────
 
 const H1: React.CSSProperties = {
@@ -187,6 +332,7 @@ export function UsersPage() {
   // Users tab state
   const [searchInput, setSearchInput] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [platformFilter, setPlatformFilter] = useState<PlatformKey | 'all'>('all');
   const [users, setUsers] = useState<AdminUserRow[]>([]);
   const [usersLoading, setUsersLoading] = useState(false);
   const [usersError, setUsersError] = useState<string | null>(null);
@@ -240,6 +386,22 @@ export function UsersPage() {
   const selectedUser = useMemo(
     () => users.find((u) => u.id === selectedUserId) ?? null,
     [users, selectedUserId]
+  );
+
+  // Platform filtering is client-side, over the rows already loaded — the same
+  // place the DataTable does its sorting. The search box is the server-side
+  // filter (`admin_list_users`), and it caps at 200 rows, so this narrows the
+  // loaded page rather than the whole table. The count readout below the
+  // filter bar says so, because "3 users on Android" would otherwise read as a
+  // total.
+  const visibleUsers = useMemo(() => {
+    if (platformFilter === 'all') return users;
+    return users.filter((u) => platformKey(u.signup_platform) === platformFilter);
+  }, [users, platformFilter]);
+
+  const anyInferredPlatform = useMemo(
+    () => visibleUsers.some((u) => u.signup_platform_inferred === true),
+    [visibleUsers]
   );
 
   // ── Users table columns ──────────────────────────────────────────────
@@ -301,6 +463,27 @@ export function UsersPage() {
         header: 'Signup',
         render: (r) => <span style={{ color: colors.muted }}>{formatDate(r.signup_at)}</span>,
         sort: (a, b) => new Date(a.signup_at ?? 0).getTime() - new Date(b.signup_at ?? 0).getTime(),
+      },
+      {
+        key: 'platform',
+        header: 'Platform',
+        render: (r) => <PlatformCell user={r} />,
+        // Sort by the normalised key so the three real platforms group
+        // together and the unknowns collect at one end, instead of ordering by
+        // whatever casing the client happened to send.
+        sort: (a, b) => {
+          const ka = platformKey(a.signup_platform);
+          const kb = platformKey(b.signup_platform);
+          if (ka !== kb) return ka.localeCompare(kb);
+          // Within a platform, measured before inferred.
+          return Number(a.signup_platform_inferred === true) - Number(b.signup_platform_inferred === true);
+        },
+      },
+      {
+        key: 'source',
+        header: 'Source',
+        render: (r) => <SourceCell user={r} />,
+        sort: (a, b) => (a.signup_source ?? '').localeCompare(b.signup_source ?? ''),
       },
     ],
     []
@@ -395,21 +578,65 @@ export function UsersPage() {
 
       {tab === 'users' && (
         <>
-          <div style={{ marginBottom: 16, maxWidth: 400 }}>
-            <TextInput
-              placeholder="Search by name or email…"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
+          <div
+            style={{
+              display: 'flex',
+              gap: 12,
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              marginBottom: 16,
+            }}
+          >
+            <div style={{ flex: '1 1 260px', maxWidth: 400 }}>
+              <TextInput
+                placeholder="Search by name or email…"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+            </div>
+            <div style={{ minWidth: 210 }}>
+              <Select
+                aria-label="Filter by signup platform"
+                value={platformFilter}
+                onChange={(e) => setPlatformFilter(e.target.value as PlatformKey | 'all')}
+              >
+                {PLATFORM_FILTER_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </Select>
+            </div>
+            {platformFilter !== 'all' && (
+              <span style={{ fontSize: 12, color: colors.muted }}>
+                {visibleUsers.length} of {users.length} loaded
+              </span>
+            )}
           </div>
           {usersError && <ErrorBanner message={usersError} />}
           <DataTable<AdminUserRow>
-            rows={users}
+            rows={visibleUsers}
             columns={userColumns}
             rowKey={(r) => r.id}
             onRowClick={(r) => setSelectedUserId(r.id)}
-            emptyLabel={usersLoading ? 'Loading…' : 'No users found'}
+            emptyLabel={
+              usersLoading
+                ? 'Loading…'
+                : platformFilter !== 'all'
+                ? `No loaded users with platform "${PLATFORM_LABEL[platformFilter]}"`
+                : 'No users found'
+            }
           />
+          {/* Legend for the asterisk. Only shown when something on screen
+              carries it — a permanent footnote to nothing trains operators to
+              stop reading footnotes. */}
+          {anyInferredPlatform && (
+            <div style={{ fontSize: 12, color: colors.muted, marginTop: 10 }}>
+              <span style={{ color: colors.warning, fontWeight: 700 }}>*</span> platform inferred —
+              derived after signup (user agent, receipt, back-fill), not reported by the client. A
+              dash means nothing was recorded at all.
+            </div>
+          )}
         </>
       )}
 
@@ -881,6 +1108,13 @@ function UserDetailModal({
 
           {error && <ErrorBanner message={error} />}
 
+          {/* Signup attribution — app version and locale live here rather than
+              as more top-level columns: they're per-user forensics, not
+              something you scan a table for. */}
+          <Section title="Where they came from">
+            <SignupAttribution user={user} />
+          </Section>
+
           {/* Actions */}
           <Section title="Actions">
             <div
@@ -1269,6 +1503,89 @@ function StatBox({ label, value }: { label: string; value: string }) {
 
 function Muted({ text }: { text: string }) {
   return <div style={{ fontSize: 13, color: colors.muted, padding: '8px 0' }}>{text}</div>;
+}
+
+// ── Signup attribution (per-user detail) ───────────────────────────────────
+
+function AttrItem({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: colors.muted,
+          textTransform: 'uppercase',
+          letterSpacing: 0.5,
+          marginBottom: 4,
+        }}
+      >
+        {label}
+      </div>
+      <div style={{ fontSize: 13, wordBreak: 'break-word' }}>{children}</div>
+    </div>
+  );
+}
+
+/** "Not recorded" in dim text — never a placeholder that could pass for data. */
+function AttrValue({ value }: { value: string | null | undefined }) {
+  const v = (value ?? '').trim();
+  if (!v) return <span style={{ color: colors.dim }}>Not recorded</span>;
+  return <span style={{ color: colors.text }}>{v}</span>;
+}
+
+/**
+ * The attribution a signup carried. Here the measured/inferred distinction is
+ * spelled out in words rather than as the table's asterisk — there is room,
+ * and this is the screen an operator is on when they're about to act on it.
+ */
+function SignupAttribution({ user }: { user: AdminUserRow }) {
+  const key = platformKey(user.signup_platform);
+  const inferred = user.signup_platform_inferred === true;
+
+  return (
+    <div
+      style={{
+        background: colors.bg3,
+        border: `1px solid ${colors.border}`,
+        borderRadius: 12,
+        padding: 14,
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+        gap: 14,
+      }}
+    >
+      <AttrItem label="Platform">
+        {key === 'unknown' ? (
+          <span style={{ color: colors.dim }}>
+            Not recorded — predates platform capture, or the client sent nothing
+          </span>
+        ) : (
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+            <PlatformCell user={user} />
+            <span style={{ fontSize: 11, color: inferred ? colors.warning : colors.muted }}>
+              {inferred ? 'inferred — derived, not reported at signup' : 'reported at signup'}
+            </span>
+          </span>
+        )}
+      </AttrItem>
+      <AttrItem label="Source">
+        <AttrValue value={user.signup_source} />
+      </AttrItem>
+      <AttrItem label="Campaign">
+        <AttrValue value={user.signup_campaign} />
+      </AttrItem>
+      <AttrItem label="App version">
+        <AttrValue value={user.signup_app_version} />
+      </AttrItem>
+      <AttrItem label="Locale">
+        <AttrValue value={user.signup_locale} />
+      </AttrItem>
+      <AttrItem label="Signed up">
+        <span style={{ color: colors.text }}>{formatDateTime(user.signup_at)}</span>
+      </AttrItem>
+    </div>
+  );
 }
 
 // ── Enrollment row (per-user cash-challenge state + reset) ─────────────────

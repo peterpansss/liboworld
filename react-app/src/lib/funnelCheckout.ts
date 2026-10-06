@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import type { FunnelKind, FunnelTierSlug } from './funnelSignups';
+import { getAttributionUtm, getSignupMetadata } from './signupAttribution';
 
 /**
  * Client for the funnel checkout flow.
@@ -62,9 +63,34 @@ export async function createPaymentIntent(
         full_name: input.fullName,
         phone: input.phone,
         giveaway_id: input.giveawayId ?? null,
-        utm: input.utm ?? null,
+        // Fall back to the persisted landing UTMs when the caller passes
+        // none (Giveaway.tsx never did), so paid clicks stop arriving as
+        // utm_source=NULL on the funnel_signups row this function writes.
+        utm: input.utm ?? getAttributionUtm(),
         referrer: typeof document !== 'undefined' ? document.referrer : null,
         terms_acknowledged: input.termsAcknowledged,
+        // Platform + acquisition source for the auth.users row this purchase
+        // will create. The web app has NO client-side supabase.auth.signUp
+        // call — the account is created server-side by findOrCreateUser() in
+        // the stripe_webhook Edge Function, so the browser's only chance to
+        // say "this one came from the website, via tiktok" is to hand the
+        // metadata over here and have the server put it in user_metadata.
+        //
+        // SERVER-SIDE WORK IS STILL REQUIRED (libo-app-v2, not this repo):
+        // create_payment_intent currently destructures a fixed set of body
+        // keys and ignores the rest, so this field is inert — forward-
+        // compatible, not yet effective. To light it up:
+        //   1. create_payment_intent/index.ts — read `signup_metadata` and
+        //      persist it (Stripe PaymentIntent metadata is the natural
+        //      carrier, since the webhook is what creates the user).
+        //   2. stripe_webhook/index.ts — spread it into the
+        //      `supabase.auth.admin.createUser({ user_metadata: … })` call in
+        //      findOrCreateUser(), so it lands in raw_user_meta_data for the
+        //      profiles trigger to copy.
+        // Keys inside the object are the agreed contract and must not be
+        // renamed; `signup_metadata` is the envelope name and the server half
+        // has to match it.
+        signup_metadata: getSignupMetadata(),
       },
     });
     if (error) {
