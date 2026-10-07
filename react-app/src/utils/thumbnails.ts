@@ -112,21 +112,61 @@ const THUMB_CACHE_BUST = 'v=5';
  */
 export interface ThumbnailSet {
   /**
-   * Null for admin-uploaded Supabase Storage thumbnails. Only the bundled
-   * `/images/thumbnails/` pipeline produces a .webp alongside the .jpg —
-   * deriving a .webp URL for any other origin would 400, and Chrome doesn't
-   * gracefully fall through to the <img> when a <source srcSet> returns
-   * 400/404, so the card silently goes blank.
+   * Null when we cannot be sure a `.webp` sibling exists next to the `.jpg`.
+   * Chrome does NOT gracefully fall through to the <img> when a
+   * <source srcSet> returns 400/404 — the card just goes blank — so the webp
+   * variant is only ever offered for keys the thumbnail pipeline wrote, which
+   * always encodes both variants under the same basename
+   * (media-worker `uploadThumbnailVariants`, `scripts/regen_thumbnails_*.mjs`,
+   * `sync_landing_thumbnails.sh`). See THUMB_WEBP_SIBLING_PATH below.
    */
   webp: string | null;
   jpeg: string;
 }
 
+/**
+ * Thumbnail key shapes that the pipeline writes as a `.jpg` + `.webp` pair.
+ *
+ * Matched against the URL **path only — never the host**. The exact same
+ * `<slug>.jpg` key is served from three origins and must behave identically
+ * on all of them:
+ *
+ *   - `/images/thumbnails/exercises/<slug>.jpg`                  (bundled, liboworld.com)
+ *   - `…supabase.co/.../exercise-thumbnails/<slug>.jpg`           (Supabase Storage)
+ *   - `https://videos.liboworld.com/thumbnails/<slug>.jpg`        (Cloudflare R2)
+ *
+ * The Supabase → R2 move is STAGED: during rollout the database, the bundled
+ * `exercises.json` and already-installed app builds all hold a mixture of the
+ * Supabase and the R2 form, so both have to resolve. Anything host-specific
+ * here would blank half the grid for the length of the rollout.
+ */
+const THUMB_WEBP_SIBLING_PATH =
+  /(?:^|\/)(?:images\/thumbnails\/exercises|exercise-thumbnails|thumbnails)\/[^/]+$/i;
+
+/**
+ * Admin one-off uploads (`adminApi.uploadExerciseThumbnail`) land in the same
+ * `exercise-thumbnails` bucket but under a fresh UUID, and are a SINGLE file
+ * with no `.webp` sibling. Keep those JPEG-only whichever host serves them.
+ */
+const UUID_THUMB_KEY = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 function deriveVariants(canonicalJpeg: string): ThumbnailSet {
-  const [pathPart, queryPart] = canonicalJpeg.split('?');
-  const q = queryPart ? `?${queryPart}` : '';
+  // Split on the FIRST '?' only, and keep the query half verbatim: every
+  // thumbnail URL carries a `?v=<stamp>` cache-bust (both the Supabase and the
+  // R2 form) and losing it would re-poison Cloudflare's edge cache.
+  const qIdx = canonicalJpeg.indexOf('?');
+  const pathPart = qIdx === -1 ? canonicalJpeg : canonicalJpeg.slice(0, qIdx);
+  const q = qIdx === -1 ? '' : canonicalJpeg.slice(qIdx);
+
+  // The variant swap is keyed on the FILE EXTENSION, not on the origin. A
+  // thumbnail that isn't a .jpg at all (an admin PNG/WebP upload) is passed
+  // through untouched — the old code appended `.jpg` to it and produced a URL
+  // that 404s.
+  if (!/\.jpg$/i.test(pathPart)) return { jpeg: canonicalJpeg, webp: null };
+
   const base = pathPart.replace(/\.jpg$/i, '');
-  const hasWebp = pathPart.startsWith('/images/thumbnails/');
+  const key = base.split('/').pop() ?? '';
+  const hasWebp = THUMB_WEBP_SIBLING_PATH.test(pathPart) && !UUID_THUMB_KEY.test(key);
   return {
     jpeg: `${base}.jpg${q}`,
     webp: hasWebp ? `${base}.webp${q}` : null,
@@ -139,8 +179,12 @@ function deriveVariants(canonicalJpeg: string): ThumbnailSet {
 //
 // `thumbnailUrl` (set by media-worker for admin-uploaded rows) takes precedence
 // over the bundled-static path: legacy rows have it null and stay on the
-// SEO-friendly /images path; admin-only rows render directly from Supabase
-// Storage so they don't require a sync_landing_thumbnails + redeploy first.
+// SEO-friendly /images path; admin-only rows render straight off whichever
+// origin media-worker persisted — Supabase Storage before the R2 migration,
+// `videos.liboworld.com/thumbnails/` after — so they don't require a
+// sync_landing_thumbnails + redeploy first. Returned verbatim, stamp included:
+// this function must stay origin-agnostic, because during the staged migration
+// the DB holds a mixture of both forms.
 export function exerciseThumb(ex: Exercise | undefined | null): string | null {
   if (!ex) return null;
   if (isMediaHidden(ex.cat, ex.equipment)) return null;

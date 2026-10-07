@@ -161,11 +161,63 @@ describe('exerciseThumbSet', () => {
     expect(set?.webp?.split('?')[1]).toBe(set?.jpeg.split('?')[1]);
   });
 
-  it('has no WebP variant for non-bundled (Supabase Storage) thumbnails', () => {
+  it('has no WebP variant for an unrecognised thumbnail origin', () => {
     expect(exerciseThumbSet(ex({ thumbnailUrl: 'https://storage/x-thumb.jpg' }))).toEqual({
       jpeg: 'https://storage/x-thumb.jpg',
       webp: null,
     });
+  });
+
+  // The Supabase -> R2 thumbnail migration is staged: the DB, the bundled
+  // exercises.json and already-installed app builds all hold a MIXTURE of the
+  // two forms, so both have to derive identically and both have to keep the
+  // `?v=` stamp (losing it re-poisons Cloudflare's edge cache).
+  const SUPABASE_THUMB =
+    'https://oaftqweofrifoiuwntce.supabase.co/storage/v1/object/public/exercise-thumbnails/21s_ez_bar.jpg?v=1789171952361';
+  const R2_THUMB = 'https://videos.liboworld.com/thumbnails/21s_ez_bar.jpg?v=1789171952361';
+
+  it('derives the WebP sibling for a Supabase Storage pipeline thumbnail', () => {
+    expect(exerciseThumbSet(ex({ thumbnailUrl: SUPABASE_THUMB }))).toEqual({
+      jpeg: SUPABASE_THUMB,
+      webp: SUPABASE_THUMB.replace('.jpg?', '.webp?'),
+    });
+  });
+
+  it('derives the WebP sibling for an R2 pipeline thumbnail', () => {
+    expect(exerciseThumbSet(ex({ thumbnailUrl: R2_THUMB }))).toEqual({
+      jpeg: R2_THUMB,
+      webp: R2_THUMB.replace('.jpg?', '.webp?'),
+    });
+  });
+
+  it('preserves the ?v= stamp on both hosts', () => {
+    for (const url of [SUPABASE_THUMB, R2_THUMB]) {
+      const set = exerciseThumbSet(ex({ thumbnailUrl: url }));
+      expect(set?.jpeg).toContain('?v=1789171952361');
+      expect(set?.webp).toContain('?v=1789171952361');
+    }
+  });
+
+  it('works with no query string at all on either host', () => {
+    const bare = 'https://videos.liboworld.com/thumbnails/zercher_squat.jpg';
+    expect(exerciseThumbSet(ex({ thumbnailUrl: bare }))).toEqual({
+      jpeg: bare,
+      webp: 'https://videos.liboworld.com/thumbnails/zercher_squat.webp',
+    });
+  });
+
+  it('stays JPEG-only for admin one-off UUID uploads on either host', () => {
+    const supabaseUuid =
+      'https://oaftqweofrifoiuwntce.supabase.co/storage/v1/object/public/exercise-thumbnails/6f1a2b3c-4d5e-6f70-8192-a3b4c5d6e7f8.jpg';
+    const r2Uuid =
+      'https://videos.liboworld.com/thumbnails/6f1a2b3c-4d5e-6f70-8192-a3b4c5d6e7f8.jpg';
+    expect(exerciseThumbSet(ex({ thumbnailUrl: supabaseUuid }))?.webp).toBeNull();
+    expect(exerciseThumbSet(ex({ thumbnailUrl: r2Uuid }))?.webp).toBeNull();
+  });
+
+  it('passes a non-JPEG thumbnail through untouched instead of appending .jpg', () => {
+    const png = 'https://videos.liboworld.com/thumbnails/custom-cover.png';
+    expect(exerciseThumbSet(ex({ thumbnailUrl: png }))).toEqual({ jpeg: png, webp: null });
   });
 });
 

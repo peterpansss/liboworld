@@ -390,6 +390,24 @@ export async function listGiveawayWinners(giveawayId: string) {
 }
 
 /**
+ * Cache lifetime for Storage objects whose KEY IS UNIQUE PER UPLOAD
+ * (`crypto.randomUUID()` + `upsert: false`), so the bytes behind a given URL
+ * can never change — one year, the HTTP maximum anyone honours.
+ *
+ * SECONDS AS A STRING is the only shape Supabase accepts; supabase-js expands
+ * it to `cache-control: public, max-age=31536000` on the stored object. It
+ * cannot express `immutable`. Omitting the option entirely makes Supabase
+ * default to `no-cache`, which means every view re-downloads the whole file
+ * with no browser, app or Cloudflare cache — measured on exercise thumbnails
+ * 2026-10-07 (~72 KB re-fetched on every single exercise open).
+ *
+ * ONLY for unique-per-upload keys. A key that is overwritten in place needs a
+ * cache-busting stamp on the consuming URL before it can take a lifetime like
+ * this, or a long TTL strands the old bytes for a year.
+ */
+const IMMUTABLE_UPLOAD_CACHE_CONTROL = '31536000';
+
+/**
  * Browser-side resize before upload. Phone photos are 2-5 MB at 4032×3024;
  * giveaway cards render at ~400 px wide on mobile (~1200 px at 3× retina),
  * so anything over ~1600 px is wasted bandwidth. We re-encode to JPEG q=85
@@ -438,6 +456,9 @@ export async function uploadGiveawayImage(file: File): Promise<string> {
   const { error } = await supabase.storage.from('giveaway-images').upload(path, resized, {
     upsert: false,
     contentType: resized.type,
+    // Fresh UUID per upload (`upsert: false`), so these bytes are immutable —
+    // a replacement image gets a new key and a new URL on the giveaway row.
+    cacheControl: IMMUTABLE_UPLOAD_CACHE_CONTROL,
   });
   if (error) throw error;
   const { data } = supabase.storage.from('giveaway-images').getPublicUrl(path);
@@ -579,12 +600,48 @@ export async function uploadExerciseVideo(file: File): Promise<string> {
   const { error } = await supabase.storage.from('exercise-videos').upload(path, file, {
     upsert: false,
     contentType: 'video/mp4',
+    // Fresh UUID per upload (`upsert: false`): the key never carries different
+    // bytes, and a re-shoot uploads to a new key. Matters more here than for
+    // thumbnails — an un-cached demo clip is megabytes re-sent per playback.
+    cacheControl: IMMUTABLE_UPLOAD_CACHE_CONTROL,
   });
   if (error) throw error;
   const { data } = supabase.storage.from('exercise-videos').getPublicUrl(path);
   return data.publicUrl;
 }
 
+/**
+ * Manual thumbnail override from the admin exercise modal.
+ *
+ * THE ONE THUMBNAIL PRODUCER STILL ON SUPABASE STORAGE — and knowingly so.
+ *
+ * Every other producer (media-worker's processVideo + regenerateThumbnail, and
+ * scripts/regen_thumbnails_{local,parents}.mjs) moved to R2 on 2026-10-07,
+ * because Supabase Storage serves `cache-control: no-cache` on public objects
+ * NO MATTER WHAT the upload passes. That was proven on prod three ways — raw
+ * PUT, raw POST + `x-upsert`, and this very SDK call — on an existing key and
+ * on a brand-new one: the stored metadata changes, the served header never
+ * does. So `cacheControl` below is, in practice, inert; it is kept only
+ * because it is harmless and correct-in-intent, not because it works.
+ *
+ * This path cannot follow the others as things stand. R2 writes need S3
+ * credentials, and this code runs in the browser — putting an R2 key in the
+ * admin bundle would hand bucket write access to anyone who opens devtools.
+ * Moving it needs a credentialed server hop that does not exist yet, either:
+ *   (a) an endpoint on media-worker that verifies the caller's Supabase JWT +
+ *       is_admin and returns a presigned PUT (media-worker today authenticates
+ *       only with the shared WEBHOOK_SECRET, which must never reach a browser);
+ *   or
+ *   (b) a Supabase Edge Function holding the R2 credentials as secrets.
+ * Either is a new auth surface and a deploy, so it is deliberately NOT bodged
+ * in here.
+ *
+ * Consequence to keep in mind: these URLs stay uncached, and they are
+ * `<uuid>.<ext>` objects with NO `.webp` sibling. Anything that derives a WebP
+ * variant by swapping the `.jpg` suffix must keep excluding this host, or the
+ * derived URL 400s and Chrome renders a blank card rather than falling through
+ * to the <img> (see utils/thumbnails.ts, `deriveVariants`).
+ */
 export async function uploadExerciseThumbnail(file: File): Promise<string> {
   assertValidUpload(file, { kind: 'image', maxBytes: MAX_IMAGE_BYTES });
   const ext = safeExtensionForMime(file.type, 'jpg');
@@ -592,6 +649,9 @@ export async function uploadExerciseThumbnail(file: File): Promise<string> {
   const { error } = await supabase.storage.from('exercise-thumbnails').upload(path, file, {
     upsert: false,
     contentType: file.type || 'image/jpeg',
+    // Fresh UUID per upload, so a one-year lifetime could never strand stale
+    // bytes here. See the note above for why it does not actually take effect.
+    cacheControl: IMMUTABLE_UPLOAD_CACHE_CONTROL,
   });
   if (error) throw error;
   const { data } = supabase.storage.from('exercise-thumbnails').getPublicUrl(path);
@@ -2039,6 +2099,11 @@ export async function uploadExerciseVideoRaw(
   const { error } = await supabase.storage.from(RAW_VIDEO_BUCKET).upload(path, file, {
     contentType: 'video/mp4',
     upsert: false,
+    // No `cacheControl` on purpose. This bucket is PRIVATE and write-once /
+    // read-once: media-worker downloads the object with the service key, then
+    // the ingest scripts delete it. Nothing is ever served to a browser or a
+    // CDN from here, so Supabase's `no-cache` default costs nothing and a long
+    // lifetime would buy nothing. Contrast with the public buckets above.
   });
   if (error) throw new Error(`upload failed: ${error.message}`);
   return { storage_path: path };
