@@ -250,6 +250,15 @@ export default function Terms() {
               <li>Experience pain, dizziness, or discomfort during exercise</li>
             </ul>
             <p>You acknowledge that physical exercise carries inherent risks, including injury. By using Libo, you assume full responsibility for any risk, injury, or damage arising from your participation in any fitness activity facilitated through the Service.</p>
+            {/* Added 2026-10-13 with the AI coach. This is where the coach's
+                medical and fallibility disclosure lives — deliberately here and
+                NOT as a permanent label under the chat composer, which is not
+                how any comparable app presents it. Section 11 already applies
+                in full to challenge participation (§ Cash Challenges), so
+                putting it here covers the coach by the same route. */}
+            <h3>The AI coach</h3>
+            <p>Libo&rsquo;s in-app coach generates its responses using artificial intelligence, reading the training data you have recorded in the app. <strong>It can be wrong.</strong> What it tells you is general guidance, not medical advice, and it is not a substitute for a qualified healthcare professional, physiotherapist or personal trainer.</p>
+            <p>In particular: <strong>do not rely on the coach to judge whether an exercise is safe for you if you are in pain, injured or unwell.</strong> Everything in this section applies to the coach&rsquo;s responses as it does to the rest of the Service. The coach cannot change your training plan or any other part of your account; anything it suggests takes effect only if you make the change yourself.</p>
           </section>
 
           {/* 12 */}
