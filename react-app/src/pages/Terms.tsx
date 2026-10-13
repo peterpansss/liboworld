@@ -356,6 +356,13 @@ export default function Terms() {
             <p>Enrolment, daily windows, proof requirements, freeze tokens, forfeiture and payout are governed by the <strong>Cash Challenge Rules</strong> published at <Link to="/rules">liboworld.com/rules</Link>, which are <strong>incorporated into these Terms by reference</strong> and form part of your agreement with us.</p>
             <p>Sections 3 (Eligibility &mdash; 16+ to enter, 18+ for a cash payout), 11 (Health &amp; Fitness Disclaimer) and 17 (Governing Law &amp; Geographic Availability) apply in full to challenge participation. Identity verification is required before any payout is released. Where the Cash Challenge Rules conflict with these Terms, these Terms govern.</p>
             <p><strong>Paid Premium requirement.</strong> The &euro;15 and &euro;50 cash challenges require an active, <strong>paid</strong> Premium subscription on the day you enrol and on every day you record a session. A free Premium period, including one granted by a promotional offer code, does not satisfy this requirement. If your Premium subscription ends during a run, the run ends the next time you record a day; days already recorded while your Premium was active continue to count. If your Premium subscription is refunded during a run, that run earns no payout, even if you complete every day.</p>
+            {/* Added 2026-10-13 alongside the fuller clause in the Rules page's
+                payout section. Stated here too because the Terms are what a
+                payment provider or a regulator reads first, and because the
+                recordings never reach Libo (Rules §5) — producing them on
+                request is the whole of our verification until signed on-device
+                proof ships. */}
+            <p><strong>Producing your recordings.</strong> Challenge recordings stay on your device and are never uploaded to us. Before a payout is released we may ask you to send us the recordings for the days you completed; where we do, we will identify the days and allow you at least <strong>7 days</strong> to respond. If they are not provided in that time, or do not show the exercise and rep count the challenge prescribed, or show the same footage used for more than one day, the payout is not made and the entry is void. Full detail is in the <Link to="/rules">Cash Challenge Rules</Link>.</p>
             <p>We may amend the Cash Challenge Rules for <strong>future</strong> enrolments. The rules in force on the day you enrolled govern your run.</p>
           </section>
         </div>

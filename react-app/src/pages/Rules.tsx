@@ -243,6 +243,18 @@ export default function Rules() {
               <li><strong>A refunded Premium means no payout.</strong> If the Premium behind a {paidTiers} run is refunded during that run, the run earns nothing, even when all 30 days are complete.</li>
               <li><strong>Tax is yours.</strong> You are responsible for any tax due on a payout in your own jurisdiction.</li>
             </ul>
+            {/* Added 2026-10-13. §5 already said we "may ask you to produce the
+                recordings" if a payout is queried; this states it as a step in
+                every payout, with the days named, a response window and a stated
+                consequence. It exists because the recording never reaches Libo
+                (§5) and the app's footage floor cannot read what is in a clip —
+                so a human looking at the footage before money moves is the only
+                verification there is until signed on-device proof ships. Written
+                as a right we may exercise, not a promise to exercise it every
+                time, so a straightforward payout is not slowed down. */}
+            <h3>Producing your recordings</h3>
+            <p>Because your recordings stay on your device, they are the only evidence of the work. <strong>Before a payout is released we may ask you to send us the recordings for the days you completed.</strong> If we do, we will tell you exactly which days we need and give you <strong>at least 7 days</strong> to respond.</p>
+            <p>If the recordings are not provided within that time, or they do not show the exercise and the number of reps your challenge prescribed, the payout is not made and the entry is void. The same applies where the recordings show the same footage used for more than one day. A decision to void is made by a person looking at the evidence, we will tell you the reason, and you can ask us to look again at <a href="mailto:support@liboworld.com">support@liboworld.com</a>.</p>
             <p>We will tell you the expected timing when your final day is confirmed. Payment is issued once verification is complete.</p>
           </section>
 
@@ -262,16 +274,24 @@ export default function Rules() {
             {/* Added 2026-09-01. This is an anti-fraud floor, deliberately
                 placed here and NOT in §5, because it does not change what
                 completing a day means — it stops a token clip standing in for a
-                session at all. Half a second per prescribed rep is below any
-                human rep rate on the exercises these challenges offer, so it
-                cannot refuse honest work; and it is measured over the day's
-                total precisely because §4 promises a day may be split across
-                sessions. The app enforces it and states the number as you
-                record. See docs/TICKET-session-verification.md for the
-                rep-detection work this is a stop-gap for. */}
+                session at all. It is below any human rep rate on the exercises
+                these challenges offer, so it cannot refuse honest work; and it
+                is measured over the day's total precisely because §4 promises a
+                day may be split across sessions. The app enforces it and states
+                the number as you record. See docs/TICKET-session-verification.md
+                for the rep-detection work this is a stop-gap for.
+
+                RAISED 0.5s → 1.0s per rep on 2026-10-13, after a test run banked
+                a day on two clips of two push-ups (about 15 seconds). MUST stay
+                in step with MIN_SECONDS_PER_REP in
+                libo-app-v2/src/utils/challengeSessionScope.ts — the app states
+                this number to the member as they record, so a page saying one
+                figure while the app enforces another is a false statement in a
+                document the Terms incorporate by reference. Note §11: a change
+                published here applies to FUTURE enrolments only. */}
             <h3>A minimum amount of footage</h3>
-            <p>Because a recording is what stands in for the work, a day needs a realistic amount of it: <strong>at least half a second of footage per rep your challenge prescribes</strong>, added up across that day&rsquo;s recordings. That is 15 seconds on a 30-rep challenge, 25 seconds at 50 reps, and 50 seconds at 100.</p>
-            <p>This is a floor, not a target. It is set far below the pace anyone actually trains at, so doing the work will always clear it &mdash; it exists only so a two-second clip cannot stand in for a session. It applies to the day&rsquo;s recordings <em>together</em>, never to any single one, so splitting a day across sessions costs you nothing. The app tells you if a day is still short.</p>
+            <p>Because a recording is what stands in for the work, a day needs a realistic amount of it: <strong>at least one second of footage per rep your challenge prescribes</strong>, added up across that day&rsquo;s recordings. That is 30 seconds on a 30-rep challenge, 50 seconds at 50 reps, and 100 seconds at 100.</p>
+            <p>This is a floor, not a target. It is set below the pace anyone actually trains at, so doing the work will always clear it &mdash; it exists only so a token clip cannot stand in for a session. It applies to the day&rsquo;s recordings <em>together</em>, never to any single one, so splitting a day across sessions costs you nothing. The app tells you if a day is still short.</p>
           </section>
 
           {/* 10 */}
