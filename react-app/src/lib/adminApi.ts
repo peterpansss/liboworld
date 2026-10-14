@@ -2205,3 +2205,161 @@ export function subscribeToMediaJob(
     void supabase.removeChannel(channel);
   };
 }
+
+// ── AI coach usage ─────────────────────────────────────────────────────────
+//
+// Backed by `admin_ai_coach_usage(p_days)` — see
+// libo-app-v2/supabase-migration-ai-coach-admin-rpc.sql. That RPC returns
+// COUNTS AND SUMS ONLY, never rows of member content, and the shape of its
+// return value is the guarantee: the coach stores no transcript on purpose,
+// and there is no field here that could carry one. Do not "upgrade" this to a
+// table read — the reasoning is in the migration's header and it is a product
+// decision, not a technical one.
+
+/** One day of the bounded window. Token counts, never content. */
+export type AiCoachDay = {
+  /** UTC date (the billing window key, not the app's 06:00-local day). */
+  period_start: string;
+  /** Members with at least one message that day. */
+  members: number;
+  messages: number;
+  /** input + cache_write — the runbook's "billed input". */
+  billed_input: number;
+  /** Fresh input tokens alone. Priced lower than a cache write. */
+  input: number;
+  cache_write: number;
+  /** cache_read — should be MOST of the input. See cacheHitRate(). */
+  cached_input: number;
+  output: number;
+};
+
+export type AiCoachTotals = Omit<AiCoachDay, 'period_start'>;
+
+/**
+ * A member at or near today's cap. `member_ref` is the first 8 hex characters
+ * of their UUID — enough to paste into the Users page search, and deliberately
+ * not a name, an email, or anything they said to the coach.
+ */
+export type AiCoachCapRow = {
+  member_ref: string;
+  messages: number;
+  tokens: number;
+  /** True when this is an admin's own usage, which today is most of it. */
+  is_admin: boolean;
+  max_tool_calls: number;
+  /** Null until at least one request that day has settled. */
+  avg_tool_calls: number | null;
+};
+
+/**
+ * A recent upstream failure. `error_detail` is written and already redacted by
+ * the Edge Function (`describeUpstreamError` scrubs any `sk-ant-` substring);
+ * it is an API failure reason, not a member's message, and nothing is stripped
+ * again on this side — that text is the whole point of the column.
+ */
+export type AiCoachFailure = {
+  created_at: string;
+  member_ref: string;
+  error_detail: string;
+  tool_calls: number;
+};
+
+export type AiCoachUsage = {
+  /** Clamped server-side to 1..90 — the panel cannot ask for everything. */
+  window_days: number;
+  window_from: string;
+  generated_at: string;
+  /** DAILY_MESSAGE_LIMIT from supabase/functions/ai_coach/index.ts. */
+  daily_message_limit: number;
+  near_cap_threshold: number;
+  /** MAX_TOOL_ITERATIONS. Persistently here means the model is hunting. */
+  tool_call_ceiling: number;
+  /**
+   * Lifetime, NOT windowed — "has anyone ever used this" must not quietly
+   * become "in the last 14 days". `non_admin_*` is the signal that matters:
+   * every request on record today is the owner's own, so total usage and real
+   * member usage are different facts.
+   */
+  ever: {
+    member_days: number;
+    members: number;
+    non_admin_members: number;
+    messages: number;
+    non_admin_messages: number;
+    first_day: string | null;
+    last_day: string | null;
+    non_admin_first_day: string | null;
+  };
+  today: AiCoachTotals;
+  window_totals: AiCoachTotals;
+  daily: AiCoachDay[];
+  at_cap_count: number;
+  near_cap_count: number;
+  at_cap: AiCoachCapRow[];
+  /** True when `at_cap` hit its 50-row ceiling and is not the whole list. */
+  at_cap_truncated: boolean;
+  tool_calls: { requests: number; avg: number; max: number; at_ceiling: number };
+  /** Requests still unsettled after an hour. Rising = settle is failing. */
+  unsettled_over_1h: number;
+  failures: AiCoachFailure[];
+};
+
+/**
+ * Anthropic list prices for the model the coach actually runs — `MODEL` in
+ * `libo-app-v2/supabase/functions/ai_coach/index.ts` is `claude-sonnet-5-5`.
+ * USD per million tokens, from Anthropic's published pricing (checked
+ * 14 Oct 2026): Sonnet 5.5 input $2.00, output $10.00, cache read $0.20.
+ * A cache WRITE is 1.25x input, hence $2.50.
+ *
+ * THIS IS THE ONE PLACE A PRICE CHANGE HAS TO LAND. It is here rather than in
+ * the RPC so that re-pricing is a web deploy, not a migration — and so that
+ * someone grepping for a dollar figure finds exactly one. Cross-check:
+ * docs/RUNBOOK-ai-coach-costs.md quotes ~$0.018 per message with the system
+ * prompt cached, which is roughly what these rates give for one cached-prefix
+ * turn; if the panel's cost-per-message drifts far from that, either the cache
+ * stopped hitting or the model changed.
+ *
+ * If `MODEL` in the Edge Function changes, change these. There is no shared
+ * source of truth for it, and nothing will fail loudly if they disagree — the
+ * panel will just quietly report the wrong bill.
+ */
+export const AI_COACH_RATES_USD_PER_MTOK = {
+  input: 2.0,
+  cacheWrite: 2.5,
+  cacheRead: 0.2,
+  output: 10.0,
+} as const;
+
+/** USD for one bucket of token counters, at the rates above. */
+export function aiCoachCostUsd(t: AiCoachTotals): number {
+  const r = AI_COACH_RATES_USD_PER_MTOK;
+  return (
+    (t.input * r.input +
+      t.cache_write * r.cacheWrite +
+      t.cached_input * r.cacheRead +
+      t.output * r.output) /
+    1_000_000
+  );
+}
+
+/**
+ * Share of input tokens served from the prompt cache, 0..1, or null when there
+ * is no input at all to divide by (which is the honest answer at zero usage —
+ * NOT 0, which would read as "the cache is broken").
+ *
+ * The runbook's first weekly check: this should be MOST of the input. Near
+ * zero means the system-prompt cache is not being hit and the bill is several
+ * times what it should be, usually because the system prompt changed between
+ * requests.
+ */
+export function aiCoachCacheHitRate(t: AiCoachTotals): number | null {
+  const total = t.cached_input + t.billed_input;
+  if (total <= 0) return null;
+  return t.cached_input / total;
+}
+
+export async function fetchAiCoachUsage(days = 14): Promise<AiCoachUsage> {
+  const { data, error } = await supabase.rpc('admin_ai_coach_usage', { p_days: days });
+  if (error) throw error;
+  return data as AiCoachUsage;
+}
