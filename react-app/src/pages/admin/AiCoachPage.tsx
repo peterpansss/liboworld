@@ -43,6 +43,21 @@ const pct = (v: number) => `${Math.round(v * 100)}%`;
 // a healthy cached prefix puts this well above 80%.
 const CACHE_HIT_FLOOR = 0.5;
 
+// A low rate is only evidence of a BROKEN cache once there were enough requests
+// for the cache to have had a chance.
+//
+// Measured on production 13-14 Oct, before the coach moved to a 1h TTL: nine
+// requests, two cache reads, four writes — a 13-19% rate that looked alarming
+// and meant nothing. The messages were 6 minutes, 80 minutes and 9 hours apart,
+// so the default five-minute window had expired before almost every one of
+// them. The prompt was never changing; there was simply no traffic to keep the
+// cache warm. Flagging that as a fault teaches the reader to ignore this panel,
+// which is worse than not having it.
+//
+// Ten requests in a day is the point at which a cold cache stops being the
+// obvious explanation. Below it the rate is reported without a verdict.
+const CACHE_VERDICT_MIN_REQUESTS = 10;
+
 const fmtDay = (iso: string) => {
   const d = new Date(`${iso}T00:00:00Z`);
   if (isNaN(d.getTime())) return iso;
@@ -175,6 +190,11 @@ export function AiCoachPage() {
       // handful of messages, and the question "is the cache working" is not a
       // same-day question.
       cacheRate: aiCoachCacheHitRate(usage.window_totals),
+      // How many requests the cache had a chance to serve. `tool_calls.requests`
+      // is the RPC's own count of requests in the window, which is the right
+      // denominator for "was there enough traffic to judge the cache" — messages
+      // can be several per request once tools run.
+      windowRequests: usage.tool_calls.requests,
     };
   }, [usage]);
 
@@ -404,12 +424,26 @@ export function AiCoachPage() {
     // problem that does not exist yet.
     if (rate == null) return null;
     if (rate >= CACHE_HIT_FLOOR) return null;
+    // Too few requests for a cold cache to be surprising — report, do not accuse.
+    if (derived.windowRequests < CACHE_VERDICT_MIN_REQUESTS) {
+      return (
+        <Notice tone="neutral">
+          <strong>Cache hit rate is {pct(rate)}, on {derived.windowRequests} request
+          {derived.windowRequests === 1 ? '' : 's'}.</strong>{' '}
+          Not enough traffic to judge yet. The cache holds for an hour, so messages further apart
+          than that each pay to rebuild it — at this volume a low rate is expected and costs
+          pennies. It only indicates a fault once the rate stays low across messages sent close
+          together.
+        </Notice>
+      );
+    }
     return (
       <Notice tone="bad">
         <strong>Prompt cache is not hitting ({pct(rate)} of input served from cache).</strong>{' '}
         Cache reads should be most of the input; at this rate the bill is several times what it
-        should be. The usual cause is the system prompt changing between requests. Check the
-        cache before changing anything else — see RUNBOOK-ai-coach-costs § Turning it down.
+        should be. With a 1-hour TTL and this many requests, the usual cause is the system prompt
+        changing between them. Check the cache before changing anything else — see
+        RUNBOOK-ai-coach-costs § Turning it down.
       </Notice>
     );
   };
@@ -509,9 +543,11 @@ export function AiCoachPage() {
           hint={
             derived?.cacheRate == null
               ? 'No input to measure yet'
-              : derived.cacheRate < CACHE_HIT_FLOOR
-                ? 'Too low — the bill is inflated'
-                : 'Cache reads should dominate'
+              : derived.windowRequests < CACHE_VERDICT_MIN_REQUESTS
+                ? `${derived.windowRequests} request(s) — too few to judge`
+                : derived.cacheRate < CACHE_HIT_FLOOR
+                  ? 'Too low — the bill is inflated'
+                  : 'Cache reads should dominate'
           }
         />
         <KpiCard
