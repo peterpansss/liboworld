@@ -141,6 +141,15 @@ export default function App() {
         <Route path="/cash-challenges" element={<Suspense fallback={darkFallback}><CashChallenges /></Suspense>} />
         <Route path="/cash-challenges/:tier" element={<Suspense fallback={darkFallback}><ChallengeFunnel /></Suspense>} />
         <Route path="/money-challenges" element={<Navigate to="/cash-challenges" replace />} />
+        {/*
+          /rewards is the App Store in-app event's deep link. On a device with
+          the app it never reaches React at all — the association file claims
+          the path and iOS opens the Rewards tab, where the cash challenge
+          lives. This route is the fallback for everyone else: the store card is
+          seen mostly by people who have NOT installed yet, and without it they
+          would tap an advert for the cash challenge and land on a 404.
+        */}
+        <Route path="/rewards" element={<Navigate to="/cash-challenges" replace />} />
 
         {/* Founding Member funnel — the single paid conversion surface. */}
         <Route path="/join" element={<Suspense fallback={darkFallback}><JoinFunnel /></Suspense>} />

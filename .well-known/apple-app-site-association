@@ -2,11 +2,17 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["69WP8B2BRM.com.liboworld.app"],
+        "appIDs": [
+          "69WP8B2BRM.com.liboworld.app"
+        ],
         "components": [
           {
             "/": "/auth/confirm",
             "comment": "Email confirmation / magic-link opens the Libo app directly (Associated Domains)."
+          },
+          {
+            "/": "/rewards",
+            "comment": "App Store in-app event destination. The cash challenge lives on the Rewards tab (app/(tabs)/rewards.tsx), so the event's Open button lands on the thing it advertised instead of Home. The web route of the same name redirects to /cash-challenges for anyone without the app."
           }
         ]
       }
