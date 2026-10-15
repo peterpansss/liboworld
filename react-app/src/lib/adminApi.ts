@@ -1237,6 +1237,18 @@ export type ChallengeCycleRow = {
   active_count: number;
   completed_count: number;
   removed_count: number;
+  /**
+   * Everyone enrolled on this cycle, ACTIVE FIRST, then by join time.
+   *
+   * A cycle is single-tenant — `enroll_in_challenge` creates one per member,
+   * starting the day they join — so three people joining on the same day make
+   * three rows with identical challenge, status and window. This is the only
+   * field that tells them apart. Legacy cohort-era cycles can hold several.
+   *
+   * Optional: rows read before supabase-migration-cycles-show-member.sql lands
+   * do not carry it. Treat undefined as "unknown", not as "nobody".
+   */
+  member_emails?: string[];
   payouts_pending: number;
   payouts_paid: number;
   total_owed: number;

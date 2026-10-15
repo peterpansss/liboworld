@@ -594,13 +594,36 @@ export function CyclesPage() {
       {
         key: 'challenge',
         header: 'Challenge',
-        render: (r) => (
-          <div>
-            <div style={{ fontWeight: 600, color: colors.text }}>{r.challenge_title}</div>
-            <div style={{ color: colors.dim, fontSize: 11, marginTop: 2 }}>{r.challenge_id}</div>
-          </div>
-        ),
-        sort: (a, b) => a.challenge_id.localeCompare(b.challenge_id),
+        render: (r) => {
+          // WHO this cycle belongs to. A cycle is single-tenant — see the file
+          // header — so three people joining on 13 Oct produce three rows with
+          // the same challenge, status and window, and nothing else on the row
+          // tells them apart. Without this line the page reads as duplicates.
+          const members = r.member_emails;
+          return (
+            <div>
+              <div style={{ fontWeight: 600, color: colors.text }}>{r.challenge_title}</div>
+              {members === undefined ? (
+                // Row predates the migration: unknown, not empty. Saying
+                // "no members" here would be a lie about a cycle that has one.
+                <div style={{ color: colors.dim, fontSize: 12, marginTop: 2 }}>—</div>
+              ) : members.length === 0 ? (
+                <div style={{ color: colors.dim, fontSize: 12, marginTop: 2 }}>no members</div>
+              ) : (
+                <div style={{ color: colors.muted, fontSize: 12, marginTop: 2 }} title={members.join(', ')}>
+                  {members[0]}
+                  {members.length > 1 ? ` +${members.length - 1}` : ''}
+                </div>
+              )}
+              <div style={{ color: colors.dim, fontSize: 11, marginTop: 2 }}>{r.challenge_id}</div>
+            </div>
+          );
+        },
+        // Same challenge sorts together, then by member, so a run of identical
+        // windows is at least alphabetical by who is in them.
+        sort: (a, b) =>
+          a.challenge_id.localeCompare(b.challenge_id) ||
+          (a.member_emails?.[0] ?? '').localeCompare(b.member_emails?.[0] ?? ''),
       },
       {
         key: 'status',
