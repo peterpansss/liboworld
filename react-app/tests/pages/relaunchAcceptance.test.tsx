@@ -11,7 +11,7 @@
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
@@ -38,6 +38,36 @@ import { CHALLENGE_TIERS } from '../../src/data/challengeTiers';
 import ChallengeFunnel from '../../src/pages/ChallengeFunnel';
 import CashChallenges from '../../src/pages/CashChallenges';
 import JoinFunnel from '../../src/pages/JoinFunnel';
+
+/**
+ * The founding offer closes ITSELF on FOUNDING_CLOSE_DATE, with no deploy —
+ * `isFoundingOpen()` is evaluated at render time precisely so a long-lived tab
+ * stops selling it (see config/launchMode.ts).
+ *
+ * Which means a test asserting the priced CTAs is really asserting "today is
+ * before 14 Oct 2026", and it quietly becomes a time bomb. It went off: this
+ * file was green on 13 Oct and has failed on EVERY push since 14 Oct, emailing
+ * a red build each time for a site that was behaving exactly as designed.
+ *
+ * So the open-state tests now say which moment they describe, and the closed
+ * state gets its own coverage below.
+ */
+const DURING_FOUNDING = new Date('2026-10-01T12:00:00+02:00');
+const AFTER_FOUNDING = new Date('2026-10-20T12:00:00+02:00');
+
+/**
+ * Only Date is faked. Faking timers wholesale breaks React Testing Library,
+ * which needs real ones to flush effects.
+ */
+function freezeAt(when: Date) {
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(when);
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+}
 
 function renderTier(slug: string) {
   return render(
@@ -85,6 +115,8 @@ describe('relaunch acceptance — banned vocabulary', () => {
 });
 
 describe('relaunch acceptance — Founding Member funnel', () => {
+  freezeAt(DURING_FOUNDING);
+
   it('contains ZERO email inputs — /join sells one thing (Noah 2026-08-07)', () => {
     const { container } = render(<MemoryRouter><JoinFunnel /></MemoryRouter>);
     expect(container.querySelectorAll('input')).toHaveLength(0);
@@ -156,6 +188,8 @@ describe('relaunch acceptance — the funnel films', () => {
 });
 
 describe('relaunch acceptance — challenge funnel CTAs', () => {
+  freezeAt(DURING_FOUNDING);
+
   // Derived from CHALLENGE_TIERS, not retyped here. These literals had drifted:
   // the table said committed = 60 reps while challengeTiers.ts (and production
   // `money_challenges.reps_per_day`) say 50, so the test was pinning a number
@@ -210,6 +244,43 @@ describe('relaunch acceptance — challenge funnel CTAs', () => {
   it('redirects an unknown tier to the catalogue', () => {
     renderTier('platinum');
     expect(screen.getByText('catalogue')).toBeInTheDocument();
+  });
+});
+
+describe('relaunch acceptance — after the founding offer closes', () => {
+  // The state the live site has actually been in since 14 Oct 2026, and which
+  // nothing covered — which is why the close read as four broken tests rather
+  // than as the feature working.
+  freezeAt(AFTER_FOUNDING);
+
+  it('stops advertising the founding price on /join', () => {
+    const { container } = render(<MemoryRouter><JoinFunnel /></MemoryRouter>);
+    expect(container.textContent || '').not.toContain('39.50');
+  });
+
+  it('stops advertising the founding price on a paid challenge tier', () => {
+    const { container } = renderTier('committed');
+    expect(container.textContent || '').not.toContain('39.50');
+  });
+
+  it('still shows the payout and the rep target — only the PRICE goes', () => {
+    // The offer closing must not take the challenge's own terms with it. This
+    // is the cash rule in test form: amount and condition survive.
+    const tier = CHALLENGE_TIERS.find((t) => t.slug === 'committed')!;
+    const { container } = renderTier('committed');
+    const text = container.textContent || '';
+    expect(text).toContain(`€${tier.payout}`);
+    expect(text).toContain(`${tier.reps} reps a day`);
+  });
+
+  it('every CTA still has a label — none render empty', () => {
+    // The failure mode worth guarding: a priced label resolving to '' once the
+    // price is gone, leaving a button nobody can read.
+    const { container } = renderTier('committed');
+    const labels = Array.from(container.querySelectorAll('a.cf-btn, button.cf-btn'))
+      .map((el) => (el.textContent || '').trim());
+    expect(labels.length).toBeGreaterThan(0);
+    for (const label of labels) expect(label.length).toBeGreaterThan(0);
   });
 });
 
