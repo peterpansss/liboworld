@@ -23,6 +23,8 @@ import {
   TYPE_I18N_KEYS,
 } from '../utils/i18nKeys';
 import './ExerciseLibrary.css';
+import '../components/CoverCard.css';
+import { DifficultyBars, type DiffLevel } from '../components/DifficultyBars';
 
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -521,8 +523,10 @@ export default function ExerciseLibrary() {
                 // doesn't fall back to the muscle-tile placeholder.
                 const thumb = exerciseThumbSet(ex) ?? exerciseThumbSet(thumbDonorFor(ex));
                 return (
-                <Link key={ex.id} to={`/exercises/${ex.slug ?? ex.id}`} className="el-card">
-                  <div className="el-card-media">
+                <Link key={ex.id} to={`/exercises/${ex.slug ?? ex.id}`} className="el-card wk-cover">
+                  {/* Cover card: same look as the workout cards and the @libo_training_club covers. Overlay drawn
+                      here over the real frame, never baked into the image (THUMBNAIL-DESIGN-SYSTEM §2). */}
+                  <div className="wk-cover-media wk-cover-media--exercise">
                     <MuscleTile muscle={ex.bodyFocus} />
                     {thumb ? (
                       <ThumbPicture
@@ -545,11 +549,15 @@ export default function ExerciseLibrary() {
                         className="el-card-thumb"
                       />
                     ) : null}
-                  </div>
-                  <div className="el-card-name">{localizedExerciseName(ex, i18n.language)}</div>
-                  <div className="el-card-meta">
-                    <span className={`el-card-diff el-card-diff--${ex.diff}`}>{capitalize(ex.diff)}</span>
-                    <span className="el-card-meta-text">{ex.equipment}</span>
+                    <div className="wk-cover-shade" aria-hidden="true" />
+                    <div className="wk-cover-text">
+                      <span className="wk-cover-tag">{MUSCLE_I18N_KEYS[ex.bodyFocus] ? muscleLabel(ex.bodyFocus) : ex.bodyFocus}</span>
+                      <span className="wk-cover-name font-display">{localizedExerciseName(ex, i18n.language)}</span>
+                      <span className="wk-cover-meta">
+                        <DifficultyBars level={(ex.diff as DiffLevel) ?? 'beginner'} label={capitalize(ex.diff)} />
+                        <span>{ex.equipment}</span>
+                      </span>
+                    </div>
                   </div>
                 </Link>
                 );

@@ -1,0 +1,71 @@
+/* ── Cover cards for workouts and exercises (15 Oct 2026) ──
+   Used by ProgramLibrary (/workouts) and ExerciseLibrary (/exercises). The name, category and meta sit over the real frame: dimmed picture, dark gradient to the bottom, category in
+   lime, name in the display face. Mirrors the @libo_training_club social covers. */
+.wk-cover { border-radius: 16px; }
+.wk-cover-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wk-cover-emoji { position: relative; z-index: 0; }
+.wk-cover-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 1;
+  filter: brightness(0.72) contrast(1.06);
+  transition: transform 400ms ease, filter 400ms ease;
+}
+.wk-cover-shade {
+  position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(180deg, rgba(6, 7, 6, 0) 35%, rgba(6, 7, 6, 0.55) 62%, rgba(6, 7, 6, 0.94) 100%);
+}
+.wk-cover .wk-card-play { top: 14px; right: 14px; bottom: auto; z-index: 3; }
+.wk-cover-text {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 18px 18px 18px;
+}
+.wk-cover-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--accent);
+}
+.wk-cover-name {
+  font-size: 30px; font-weight: 800; line-height: 0.95; text-transform: uppercase;
+  color: #f8faf6; text-wrap: balance;
+}
+.wk-cover-meta {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; color: rgba(235, 238, 232, 0.8);
+}
+@media (hover: hover) {
+  .wk-cover:hover .wk-cover-img { transform: scale(1.04); filter: brightness(0.8) contrast(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wk-cover-img { transition: none; }
+  .wk-cover:hover .wk-cover-img { transform: none; }
+}
+@media (max-width: 480px) {
+  .wk-cover-media { aspect-ratio: 4 / 3.4; }
+  .wk-cover-name { font-size: 26px; }
+}
+/* Difficulty as bars on cover cards (Noah, 15 Oct: the bars from the Index cover style). */
+.wk-cover .wk-card-diff { gap: 4px; padding: 0; }
+.wk-cover .wk-card-diff-dot { width: 6px; height: 11px; border-radius: 2px; background: rgba(255, 255, 255, 0.25); }
+.wk-cover .wk-card-diff-dot.is-filled { background: var(--accent); }
+.wk-cover-meta { gap: 10px; }
+
+/* Bars need these when the page does not load ProgramLibrary.css (the exercise library). */
+.wk-cover .wk-card-diff { display: inline-flex; align-items: center; }
+.wk-cover .visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.wk-cover-media--exercise { aspect-ratio: 4 / 4.2; }
+.wk-cover-media--exercise .wk-cover-shade {
+  background: linear-gradient(180deg, rgba(6, 7, 6, 0) 50%, rgba(6, 7, 6, 0.6) 72%, rgba(6, 7, 6, 0.94) 100%);
+}
+.wk-cover-media--exercise .wk-cover-name { font-size: 24px; }
+.wk-cover-media--exercise .el-card-thumb { filter: brightness(0.8) contrast(1.05); }

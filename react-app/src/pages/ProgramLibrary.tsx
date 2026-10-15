@@ -13,6 +13,8 @@ import WorkoutsAppCTA from '../components/WorkoutsAppCTA';
 import { Hourglass } from '../utils/icons';
 import './ExerciseLibrary.css';
 import './ProgramLibrary.css';
+import '../components/CoverCard.css';
+import { DifficultyBars } from '../components/DifficultyBars';
 
 const GOAL_KEYS = ['All', 'Strength', 'Cardio', 'Mobility', 'Stretching', 'Recovery', 'Morning', 'Evening'] as const;
 type GoalKey = typeof GOAL_KEYS[number];
@@ -55,21 +57,6 @@ function classifyGoal(w: { cat: string; subcat?: string }): Exclude<GoalKey, 'Al
 
 type DiffLevel = 'beginner' | 'intermediate' | 'advanced';
 
-function DifficultyDots({ level, label }: { level: DiffLevel; label: string }) {
-  const filled = level === 'beginner' ? 1 : level === 'intermediate' ? 2 : 3;
-  return (
-    <span className={`wk-card-diff wk-card-diff--${level}`}>
-      {[0, 1, 2].map((i) => (
-        <span
-          key={i}
-          className={`wk-card-diff-dot${i < filled ? ' is-filled' : ''}`}
-          aria-hidden="true"
-        />
-      ))}
-      <span className="visually-hidden">{label}</span>
-    </span>
-  );
-}
 
 function PlayIcon() {
   return (
@@ -246,24 +233,29 @@ export default function ProgramLibrary() {
     const heroThumb = workoutHeroThumbSet(w, nameToSlug, exercises);
     const level = diffClass(w.diff) as DiffLevel;
     return (
-      <Link key={w.id} to={`/workouts/${w.id}`} className="el-card">
-        <div className="el-card-emoji" style={{ position: 'relative', overflow: 'hidden' }}>
-          <span aria-hidden="true" style={{ position: 'relative', zIndex: 0 }}>
+      <Link key={w.id} to={`/workouts/${w.id}`} className="el-card wk-cover">
+        <div className="wk-cover-media">
+          <span className="wk-cover-emoji" aria-hidden="true">
             <EmojiIcon emoji={w.emoji || '🏋️'} size={28} />
           </span>
           <ThumbPicture
             thumb={heroThumb}
             loading="lazy"
             onError={(e) => (e.currentTarget.style.display = 'none')}
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }}
+            className="wk-cover-img"
           />
+          {/* Cover treatment drawn by the component over the real frame (THUMBNAIL-DESIGN-SYSTEM §2: un-branded
+              masters, overlays rendered in UI). Same look as the @libo_training_club covers. */}
+          <div className="wk-cover-shade" aria-hidden="true" />
           <PlayIcon />
-        </div>
-        <div className="el-card-name">{localizedWorkoutName(w, i18n.language)}</div>
-        <div className="el-card-meta">
-          <span className="el-card-badge">{categoryBadgeLabel(w.cat)}</span>
-          <span className="el-card-equip">{t('programLibrary.card.minutes', { count: w.dur })}</span>
-          <DifficultyDots level={level} label={diffLabel(w.diff)} />
+          <div className="wk-cover-text">
+            <span className="wk-cover-tag">{categoryBadgeLabel(w.cat)}</span>
+            <span className="wk-cover-name font-display">{localizedWorkoutName(w, i18n.language)}</span>
+            <span className="wk-cover-meta">
+              <DifficultyBars level={level} label={diffLabel(w.diff)} />
+              <span>{t('programLibrary.card.minutes', { count: w.dur })}</span>
+            </span>
+          </div>
         </div>
       </Link>
     );
