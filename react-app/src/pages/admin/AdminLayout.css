@@ -1,0 +1,28 @@
+/* Admin shell: sidebar on desktop, top bar + drop-down menu on phones (Noah, 15 Oct: the sidebar took half the
+   screen and squeezed every table to one column). Colours come from theme.ts via the custom properties set inline. */
+.admin-shell { min-height: 100vh; display: flex; }
+.admin-aside {
+  width: 240px; min-height: 100vh; padding: 24px 16px; display: flex; flex-direction: column;
+  position: sticky; top: 0; align-self: flex-start; box-sizing: border-box;
+}
+.admin-brand-row { display: flex; align-items: center; justify-content: space-between; }
+.admin-menu-btn { display: none; }
+.admin-nav-wrap { display: flex; flex-direction: column; flex: 1; }
+.admin-main { flex: 1; padding: 32px 40px; min-width: 0; }
+
+@media (max-width: 820px) {
+  .admin-shell { flex-direction: column; }
+  .admin-aside {
+    width: 100%; min-height: 0; padding: 12px 16px; position: sticky; top: 0; z-index: 50;
+    border-right: none !important; border-bottom: 1px solid var(--admin-border);
+  }
+  .admin-brand-row > div { margin-bottom: 0 !important; }
+  .admin-menu-btn {
+    display: inline-flex; align-items: center; gap: 8px; background: transparent; cursor: pointer;
+    border: 1px solid var(--admin-border); color: var(--admin-text); border-radius: 10px;
+    padding: 8px 12px; font-size: 13px; font-weight: 600;
+  }
+  .admin-nav-wrap { display: none; padding-top: 12px; max-height: calc(100vh - 70px); overflow-y: auto; }
+  .admin-nav-wrap.open { display: flex; }
+  .admin-main { padding: 20px 16px; }
+}

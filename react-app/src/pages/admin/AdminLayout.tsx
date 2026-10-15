@@ -1,8 +1,10 @@
-import { useEffect, lazy, Suspense } from 'react';
-import { NavLink, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { useEffect, useState, lazy, Suspense } from 'react';
+import type { CSSProperties } from 'react';
+import { NavLink, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { AdminGuard } from './AdminGuard';
 import { signOutAdmin } from '../../lib/adminApi';
 import { colors } from '../../theme';
+import './AdminLayout.css';
 
 const DashboardPage = lazy(() => import('./DashboardPage').then((m) => ({ default: m.DashboardPage })));
 const GiveawaysPage = lazy(() => import('./GiveawaysPage').then((m) => ({ default: m.GiveawaysPage })));
@@ -42,6 +44,10 @@ const NAV = [
 
 function Shell() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  // Phones show the current page name on the menu button.
+  const current = NAV.find((n) => (n.end ? pathname.replace(/\/$/, '') === n.to : pathname.startsWith(n.to)))?.label ?? 'Menu';
 
   useEffect(() => {
     const prev = document.title;
@@ -70,81 +76,81 @@ function Shell() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: colors.bg, color: colors.text, display: 'flex' }}>
-      <aside
-        style={{
-          width: 240,
-          minHeight: '100vh',
-          background: colors.bg2,
-          borderRight: `1px solid ${colors.border}`,
-          padding: '24px 16px',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'sticky',
-          top: 0,
-          alignSelf: 'flex-start',
-        }}
-      >
-        <div
-          style={{
-            fontFamily: 'Barlow Condensed, sans-serif',
-            fontSize: 26,
-            fontWeight: 800,
-            textTransform: 'uppercase',
-            letterSpacing: 0.5,
-            marginBottom: 4,
-            padding: '0 8px',
-          }}
-        >
-          Libo
-        </div>
-        <div style={{ fontSize: 11, fontWeight: 600, color: colors.accent, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 28, padding: '0 8px' }}>
-          Admin
+    <div
+      className="admin-shell"
+      style={{ background: colors.bg, color: colors.text, '--admin-border': colors.border, '--admin-text': colors.text } as CSSProperties}
+    >
+      <aside className="admin-aside" style={{ background: colors.bg2, borderRight: `1px solid ${colors.border}` }}>
+        <div className="admin-brand-row">
+          <div>
+            <div
+              style={{
+                fontFamily: 'Barlow Condensed, sans-serif',
+                fontSize: 26,
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: 0.5,
+                marginBottom: 4,
+                padding: '0 8px',
+              }}
+            >
+              Libo
+            </div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: colors.accent, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 28, padding: '0 8px' }}>
+              Admin
+            </div>
+          </div>
+          <button className="admin-menu-btn" aria-expanded={menuOpen} onClick={() => setMenuOpen((o) => !o)}>
+            {current} <span aria-hidden>{menuOpen ? '✕' : '☰'}</span>
+          </button>
         </div>
 
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          {NAV.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              style={({ isActive }) => ({
+        <div className={`admin-nav-wrap${menuOpen ? ' open' : ''}`}>
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {NAV.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                onClick={() => setMenuOpen(false)}
+                style={({ isActive }) => ({
+                  padding: '10px 12px',
+                  borderRadius: 10,
+                  fontSize: 14,
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  color: isActive ? colors.text : colors.muted,
+                  background: isActive ? colors.bg3 : 'transparent',
+                  transition: 'background 120ms ease, color 120ms ease',
+                })}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+
+          <div style={{ marginTop: 'auto', paddingTop: 24 }}>
+            <button
+              onClick={signOut}
+              style={{
+                width: '100%',
+                background: 'transparent',
+                border: `1px solid ${colors.border}`,
+                color: colors.muted,
                 padding: '10px 12px',
                 borderRadius: 10,
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: 600,
-                textDecoration: 'none',
-                color: isActive ? colors.text : colors.muted,
-                background: isActive ? colors.bg3 : 'transparent',
-                transition: 'background 120ms ease, color 120ms ease',
-              })}
+                cursor: 'pointer',
+              }}
             >
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        <div style={{ marginTop: 'auto', paddingTop: 24 }}>
-          <button
-            onClick={signOut}
-            style={{
-              width: '100%',
-              background: 'transparent',
-              border: `1px solid ${colors.border}`,
-              color: colors.muted,
-              padding: '10px 12px',
-              borderRadius: 10,
-              fontSize: 13,
-              fontWeight: 600,
-              cursor: 'pointer',
-            }}
-          >
-            Sign out
-          </button>
+              Sign out
+            </button>
+          </div>
         </div>
       </aside>
 
-      <main style={{ flex: 1, padding: '32px 40px', minWidth: 0 }}>
+      <main className="admin-main">
         <Suspense fallback={<div style={{ color: colors.muted }}>Loading…</div>}>
           <Routes>
             <Route index element={<DashboardPage />} />
