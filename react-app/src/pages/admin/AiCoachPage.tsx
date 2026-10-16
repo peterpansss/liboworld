@@ -56,6 +56,15 @@ const CACHE_HIT_FLOOR = 0.5;
 //
 // Ten requests in a day is the point at which a cold cache stops being the
 // obvious explanation. Below it the rate is reported without a verdict.
+//
+// Compared against the BUSIEST SINGLE DAY in the window, not the window total.
+// Comparing the total was the same false alarm in a new costume: on 16 Oct the
+// 14-day window held ~15 requests - about one a day, every one of them a
+// guaranteed cold cache - and cleared a bar that means ten in one day. The red
+// banner accused the prompt of changing while per-message cost sat at $0.02
+// against a ~$0.018 target, which a broken cache cannot produce. Only messages
+// sent close together say anything about the cache, and only a single day's
+// count can show that.
 const CACHE_VERDICT_MIN_REQUESTS = 10;
 
 const fmtDay = (iso: string) => {
@@ -195,6 +204,11 @@ export function AiCoachPage() {
       // denominator for "was there enough traffic to judge the cache" — messages
       // can be several per request once tools run.
       windowRequests: usage.tool_calls.requests,
+      // Per-day messages is the closest proxy the payload carries for
+      // "requests that day" - AiCoachDay has no request count - and it is the
+      // only figure that can show messages clustered tightly enough for the
+      // cache to have had a fair chance.
+      busiestDayMessages: usage.daily.reduce((max, d) => Math.max(max, d.messages), 0),
     };
   }, [usage]);
 
@@ -407,7 +421,7 @@ export function AiCoachPage() {
       <Notice tone="good">
         <strong>
           {numberFmt.format(ever.non_admin_members)} member
-          {ever.non_admin_members === 1 ? '' : 's'} have used the AI coach
+          {ever.non_admin_members === 1 ? ' has' : 's have'} used the AI coach
         </strong>{' '}
         — {numberFmt.format(ever.non_admin_messages)} message
         {ever.non_admin_messages === 1 ? '' : 's'}, first on{' '}
@@ -425,7 +439,7 @@ export function AiCoachPage() {
     if (rate == null) return null;
     if (rate >= CACHE_HIT_FLOOR) return null;
     // Too few requests for a cold cache to be surprising — report, do not accuse.
-    if (derived.windowRequests < CACHE_VERDICT_MIN_REQUESTS) {
+    if (derived.busiestDayMessages < CACHE_VERDICT_MIN_REQUESTS) {
       return (
         <Notice tone="neutral">
           <strong>Cache hit rate is {pct(rate)}, on {derived.windowRequests} request
