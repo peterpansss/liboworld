@@ -33,7 +33,7 @@ export default function Privacy() {
             <div className="legal-label">Legal</div>
             <h1 className="font-display">Privacy Policy</h1>
             <p className="legal-meta">
-              Last updated: <span>18 September 2026</span> &middot; Effective date: <span>18 September 2026</span>
+              Last updated: <span>27 October 2026</span> &middot; Effective date: <span>27 October 2026</span>
             </p>
           </div>
 
@@ -242,12 +242,14 @@ export default function Privacy() {
                   <tr><td>Netcup</td><td>Website hosting</td><td>IP address and technical request data</td><td>Germany</td></tr>
                   <tr><td>Google Analytics 4</td><td>Website usage analytics — only with your consent</td><td>Pages visited, browser and device information, cookie identifiers, IP address</td><td>EU / USA</td></tr>
                   <tr><td>Meta Pixel</td><td>Measuring our website marketing — only with your consent</td><td>Pages visited, sign-up events, cookie identifiers, IP address</td><td>EU / USA</td></tr>
+                  <tr><td>Anthropic</td><td>Answering your questions to the AI coach — only when you use it</td><td>Your messages to the coach and the conversation so far, plus the profile answers and workout history it needs to answer (for example your goals, experience, equipment, any injuries you told us about, and your logged sessions and sets). Libo does not store the conversation</td><td>USA</td></tr>
+                  <tr><td>OpenAI</td><td>Turning voice notes you send to the AI coach into text — only if you record one</td><td>The voice recording and its transcript. Libo does not store either: the recording is deleted as soon as it has been transcribed</td><td>USA</td></tr>
                   <tr><td>Payout providers (e.g. Stripe, Wise, Revolut)</td><td>Identity verification and cash payouts — only if you claim a payout</td><td>Identity data, payment details, payout amount</td><td>Depends on provider</td></tr>
                 </tbody>
               </table>
             </div>
             <p><strong>Apple and Google</strong> process in-app purchases (and, for Sign in with Apple, your sign-in) as independent controllers under their own privacy policies.</p>
-            <p>We also use <strong>Railway</strong> (media processing) and <strong>OpenAI</strong> (generating exercise voiceovers). These process only Libo's own exercise videos and exercise instructions and receive no personal data about you.</p>
+            <p>We also use <strong>Railway</strong> (media processing) and <strong>OpenAI</strong> to generate exercise voiceovers. For that purpose they process only Libo's own exercise videos and exercise instructions and receive no personal data about you.</p>
             <p>We do not share your personal data with any other third parties except where required by law, where you choose to share something yourself (for example a share card sent to another app), or with your explicit consent.</p>
           </section>
 
