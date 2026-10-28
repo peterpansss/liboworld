@@ -135,7 +135,13 @@ const EMPTY_FORM: FormState = {
   title: '',
   description: '',
   emoji: '💪',
-  exercise_option_ids: EXERCISE_OPTION_CATALOG.map((o) => o.id),
+  // Squats and push-ups only — Noah, 28 Oct 2026. Was every movement in the
+  // catalog, so each new challenge silently re-offered nine tap-counted
+  // movements with no verification behind them. The checkbox list below still
+  // shows all of them, so turning one back on is two clicks; this is only
+  // where a blank form starts. Mirrored in libo-app-v2's
+  // exerciseOptionCatalog.ts as CHALLENGE_OPTION_IDS.
+  exercise_option_ids: ['squats', 'pushups'],
   reps_per_day: '',
   total_days: '',
   reward_amount: '',
