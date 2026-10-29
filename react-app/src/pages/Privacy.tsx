@@ -50,6 +50,7 @@ export default function Privacy() {
               <li><a href="#p3">How We Use Your Data</a></li>
               <li><a href="#p4">Legal Basis for Processing</a></li>
               <li><a href="#p5">Third-Party Services</a></li>
+              <li><a href="#apple-health">Apple Health (HealthKit)</a></li>
               <li><a href="#p6">Cookies &amp; Tracking</a></li>
               <li><a href="#p7">Data Retention</a></li>
               <li><a href="#delete-account">Deleting Your Account</a></li>
@@ -188,6 +189,8 @@ export default function Privacy() {
                 <tbody>
                   <tr><td>Providing and operating the Service</td><td>Account data, profile data, workout and activity data, photos</td></tr>
                   <tr><td>Personalising your workout plan and recommendations</td><td>Profile and onboarding data, health information (with your explicit consent), activity history</td></tr>
+                  <tr><td>Adding your finished workouts to Apple Health, and estimating their energy (see <a href="#apple-health">Apple Health</a>)</td><td>Workout duration and type; your bodyweight, read from Health or taken from your profile, used only to calculate the estimate</td></tr>
+                  <tr><td>Filling in your profile from Apple Health, if you ask us to</td><td>Weight, height, age and biological sex read from Health, stored only with your explicit health-data consent</td></tr>
                   <tr><td>Running cash challenges and preventing cheating</td><td>Challenge enrolment and completion data, timezone at enrolment, account data</td></tr>
                   <tr><td>Verifying identity and paying out cash rewards</td><td>Payout and identity data, challenge data</td></tr>
                   <tr><td>Awarding rewards points and preventing points fraud</td><td>Workout and activity data, account data</td></tr>
@@ -248,9 +251,45 @@ export default function Privacy() {
                 </tbody>
               </table>
             </div>
-            <p><strong>Apple and Google</strong> process in-app purchases (and, for Sign in with Apple, your sign-in) as independent controllers under their own privacy policies.</p>
+            <p><strong>Apple and Google</strong> process in-app purchases (and, for Sign in with Apple, your sign-in) as independent controllers under their own privacy policies. The same applies to <strong>Apple Health</strong>: it is not a provider acting on our instructions. What we write there is held in your own Health store on your device, under Apple&rsquo;s control and yours, and what we read from it we read only with the permission you grant in iOS. See <a href="#apple-health">Apple Health (HealthKit)</a> for exactly what is read and written.</p>
             <p>We also use <strong>Railway</strong> (media processing) and <strong>OpenAI</strong> to generate exercise voiceovers. For that purpose they process only Libo's own exercise videos and exercise instructions and receive no personal data about you.</p>
             <p>We do not share your personal data with any other third parties except where required by law, where you choose to share something yourself (for example a share card sent to another app), or with your explicit consent.</p>
+          </section>
+
+          {/* Apple Health */}
+          <section className="legal-section" id="apple-health">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Apple Health (HealthKit)</h2>
+            <p>The iOS app can connect to Apple Health. The connection is <strong>off until you turn it on</strong> with the Apple Health switch in your profile settings, which asks iOS for permission. It is not available on Android, or on devices without Apple Health.</p>
+
+            <h3>What we read from Health</h3>
+            <p>If you allow it, we read:</p>
+            <ul>
+              <li><strong>Bodyweight and height</strong> — your most recent entry of each, used to estimate the energy you burn in a workout and, with your consent, to fill in your Libo profile.</li>
+              <li><strong>Date of birth</strong> — read only to work out your age in whole years. We do not store the date itself.</li>
+              <li><strong>Biological sex</strong> — as recorded in Health.</li>
+              <li><strong>Existing workouts</strong> — the workouts already in Health for the period you were training, read for one purpose only: so that we do not add a second entry for a session your Apple Watch or another app already recorded. From those entries we read the app or device that recorded them, their start and end time and their energy total, and nothing else.</li>
+            </ul>
+
+            <h3>What we write to Health</h3>
+            <ul>
+              <li>Your finished Libo workouts, with their start and end time (and therefore their duration) and the type of training.</li>
+              <li>An <strong>estimated</strong> active-energy figure for each workout, where the session is long enough for an estimate to be worth recording. This is a calculation, not a measurement: we work it out from your body weight and the type of exercise in the session, using published activity-intensity (MET) values. If no bodyweight is available — neither from Health nor from your profile — we use a typical adult bodyweight instead. Entries we write are marked in Health as estimates, with the method used. Where an Apple Watch already recorded the same session, its measurement takes precedence and we write nothing.</li>
+            </ul>
+            <p>We do not write anything else to Health.</p>
+
+            <h3>Where this data goes</h3>
+            <ul>
+              <li>The workouts and estimates we write go into <strong>your</strong> Health store on your device.</li>
+              <li>A bodyweight read from Health while a workout is being saved is used <strong>only in memory</strong>, to calculate that workout's energy estimate. It is not saved to your Libo profile and is not sent to our servers.</li>
+              <li>Weight, height, age and biological sex are copied into your stored Libo profile — and therefore synced to our database — <strong>only</strong> when you ask for it, by connecting Health or by using "Update body stats from Health", <strong>and</strong> only if you have given the app's explicit health-data consent (see <a href="#p4">Legal Basis for Processing</a>). Without that consent nothing is stored: the app tells you the consent is missing and asks for it.</li>
+            </ul>
+
+            <h3>Your control</h3>
+            <p>You can turn the connection off at any time with the Apple Health switch in your profile settings, and you can change or withdraw the permissions you gave Apple at any time in iOS <strong>Settings &rarr; Privacy &amp; Security &rarr; Health &rarr; Libo</strong>. Turning the switch off stops us reading from and writing to Health. It does not remove workouts already written: those are in your own Health store, where you can delete them. Deleting your Libo account does not remove them either.</p>
+
+            <h3>How we do not use it</h3>
+            <p>We do not use data from Apple Health for advertising or profiling, and we will never sell it or share it with third parties. We use it only for the purposes described in this section.</p>
           </section>
 
           {/* 6 */}

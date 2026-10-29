@@ -10,7 +10,7 @@
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 void React;
@@ -44,6 +44,24 @@ describe('Privacy', () => {
     expect(screen.getByRole('heading', { level: 2, name: /Contact & Data Protection/ })).toBeInTheDocument();
   });
 
+  // App Review requires HealthKit use to be described specifically, so the
+  // section and its two load-bearing promises are asserted rather than
+  // spot-checked: that the energy figure is called an estimate, and that
+  // Health data is not used for advertising and not sold or shared.
+  it('describes the Apple Health (HealthKit) integration', () => {
+    renderPage();
+
+    expect(
+      screen.getByRole('heading', { level: 2, name: /Apple Health \(HealthKit\)/ }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: /What we read from Health/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: /What we write to Health/ })).toBeInTheDocument();
+    expect(screen.getByText(/This is a calculation, not a measurement/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/do not use data from Apple Health for advertising or profiling/),
+    ).toBeInTheDocument();
+  });
+
   it('renders the navigation chrome and breadcrumb home link', () => {
     renderPage();
     expect(screen.getByTestId('site-nav')).toBeInTheDocument();
@@ -54,10 +72,19 @@ describe('Privacy', () => {
 
   it('renders the table-of-contents anchor links', () => {
     renderPage();
-    // 13 numbered TOC items, hash links into sections
-    expect(screen.getByRole('link', { name: /Cookies & Tracking/ })).toHaveAttribute('href', '#p6');
-    expect(screen.getByRole('link', { name: /Your Rights Under GDPR/ })).toHaveAttribute('href', '#p10');
-    expect(screen.getByRole('link', { name: /Contact & Data Protection Officer/ })).toHaveAttribute('href', '#p13');
+    // 15 numbered TOC items, hash links into sections. The #pN ids are frozen
+    // at their original numbers, so later-inserted sections (Deleting Your
+    // Account, Apple Health) carry named ids instead.
+    // Scoped to the TOC on purpose: body sections now cross-reference each
+    // other by the same link text (Apple Health is linked from the How We Use
+    // Your Data table and from the Third-Party Services note), so an unscoped
+    // getByRole finds several and throws. This assertion is about the TABLE
+    // OF CONTENTS, so it should only ever have looked inside it.
+    const toc = within(document.querySelector('.legal-toc') as HTMLElement);
+    expect(toc.getByRole('link', { name: /Apple Health \(HealthKit\)/ })).toHaveAttribute('href', '#apple-health');
+    expect(toc.getByRole('link', { name: /Cookies & Tracking/ })).toHaveAttribute('href', '#p6');
+    expect(toc.getByRole('link', { name: /Your Rights Under GDPR/ })).toHaveAttribute('href', '#p10');
+    expect(toc.getByRole('link', { name: /Contact & Data Protection Officer/ })).toHaveAttribute('href', '#p13');
   });
 
   it('links to the account-deletion page and section', () => {
