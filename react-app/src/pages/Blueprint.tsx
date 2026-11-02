@@ -10,11 +10,12 @@ import './Blueprint.css';
 // (Noah, 2 Nov: "I'm not trying to sell here anything"), so the page has no
 // hooks, no urgency and only one quiet line about Libo at the bottom.
 // Every fact here comes from the PDF itself (Brand-Management/Marketing/Blueprint/).
+// Assets live under /downloads/ — a public/blueprint/ folder made Apache answer /blueprint with 301 → 403.
 // The PDFs are versioned in the filename because Cloudflare caches asset URLs:
 // ship a new version as -v2, never overwrite -v1.
 
-const PDF_EN = '/blueprint/Libo-12-Month-Blueprint-EN-v1.pdf';
-const PDF_DE = '/blueprint/Libo-12-Month-Blueprint-DE-v1.pdf';
+const PDF_EN = '/downloads/blueprint/Libo-12-Month-Blueprint-EN-v1.pdf';
+const PDF_DE = '/downloads/blueprint/Libo-12-Month-Blueprint-DE-v1.pdf';
 
 export default function Blueprint() {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ export default function Blueprint() {
           'Seven years stuck at 69 kg, then about 77 kg in twelve months. How I trained and ate, written down. Free PDF, English and German.',
         )}
         canonical="https://liboworld.com/blueprint"
-        ogImage="https://liboworld.com/blueprint/cover-v1-01.jpg"
+        ogImage="https://liboworld.com/downloads/blueprint/cover-v1-01.jpg"
       />
       <SiteNav />
 
@@ -91,7 +92,7 @@ export default function Blueprint() {
 
           <a className="bp-cover" href={PDF_EN} target="_blank" rel="noopener" aria-label={d('ctaEn', 'Download (English)')}>
             <img
-              src="/blueprint/cover-v1-01.jpg"
+              src="/downloads/blueprint/cover-v1-01.jpg"
               alt={d('coverAlt', 'Cover of The 12-Month Blueprint by Noah F.')}
               width={900}
               height={1273}
