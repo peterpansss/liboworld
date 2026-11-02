@@ -1,0 +1,214 @@
+/* /blueprint — tokens from src/index.css (--bg, --bg2, --bg3, --accent, --text, --muted, --dim).
+   Display = Barlow Condensed 800 uppercase, body = Inter. 14px buttons, 16px cards. */
+
+.bp-page {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.bp-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 72px 32px 96px;
+}
+
+.bp-hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.bp-badge {
+  display: inline-flex;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(202, 255, 0, 0.35);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.bp-hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(56px, 8vw, 104px);
+  line-height: 0.9;
+  margin: 22px 0 10px;
+}
+
+.bp-accent { color: var(--accent); }
+
+.bp-lead {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 28px;
+}
+
+.bp-story p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.86);
+  margin: 0 0 16px;
+}
+
+.bp-story .bp-sign {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.bp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.bp-btn-primary,
+.bp-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.bp-btn-primary { background: var(--accent); color: #080808; }
+.bp-btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid rgba(255, 255, 255, 0.12); }
+.bp-btn-primary:active,
+.bp-btn-secondary:active { transform: scale(0.97); }
+.bp-btn-primary:hover,
+.bp-btn-secondary:hover { opacity: 0.9; }
+
+.bp-meta {
+  font-size: 13px;
+  color: var(--dim);
+  margin: 12px 0 0;
+}
+
+.bp-cover {
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  transform: rotate(1.5deg);
+}
+
+.bp-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.bp-inside,
+.bp-rules {
+  margin-top: 88px;
+  background: var(--bg2);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.bp-inside h2,
+.bp-rules h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 36px;
+  margin: 0 0 20px;
+}
+
+.bp-inside ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 32px;
+}
+
+.bp-inside li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.bp-inside li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.bp-rules { margin-top: 24px; }
+
+.bp-rules ol {
+  list-style: none;
+  counter-reset: bp-rule;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.bp-rules li {
+  counter-increment: bp-rule;
+  position: relative;
+  padding-left: 40px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.bp-rules li::before {
+  content: counter(bp-rule);
+  position: absolute;
+  left: 0;
+  top: -5px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  color: var(--accent);
+}
+
+.bp-note {
+  margin: 56px auto 0;
+  max-width: 640px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.bp-note a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.bp-note a:hover { text-decoration: underline; }
+
+@media (max-width: 860px) {
+  .bp-main { padding: 40px 16px 72px; }
+  .bp-hero { grid-template-columns: 1fr; gap: 40px; }
+  .bp-cover { max-width: 360px; margin: 0 auto; transform: none; }
+  .bp-inside ul { grid-template-columns: 1fr; }
+  .bp-inside, .bp-rules { padding: 28px 20px; margin-top: 56px; }
+  .bp-rules { margin-top: 16px; }
+  .bp-actions a { flex: 1 1 100%; }
+}

@@ -101,6 +101,7 @@ const Giveaway = lazy(() => import('./pages/Giveaway'));
 const CashChallenge = lazy(() => import('./pages/CashChallenge'));
 const GetApp = lazy(() => import('./pages/GetApp'));
 const Founder = lazy(() => import('./pages/Founder'));
+const Blueprint = lazy(() => import('./pages/Blueprint'));
 const Affiliate = lazy(() => import('./pages/Affiliate'));
 const AffiliateApply = lazy(() => import('./pages/AffiliateApply'));
 const AffiliateApplySent = lazy(() => import('./pages/AffiliateApplySent'));
@@ -188,6 +189,7 @@ export default function App() {
             a redirect so the URL that's been live since the v1 port never 404s. */}
         <Route path="/about" element={<Suspense fallback={darkFallback}><Founder /></Suspense>} />
         <Route path="/founder" element={<Navigate to="/about" replace />} />
+        <Route path="/blueprint" element={<Suspense fallback={darkFallback}><Blueprint /></Suspense>} />
         <Route path="/press" element={<Suspense fallback={darkFallback}><Press /></Suspense>} />
         <Route path="/press/sent" element={<Suspense fallback={darkFallback}><PressSent /></Suspense>} />
         <Route path="/admin/*" element={<Suspense fallback={darkFallback}><AdminLayout /></Suspense>} />
