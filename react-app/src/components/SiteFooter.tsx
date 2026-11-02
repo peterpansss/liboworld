@@ -96,6 +96,7 @@ export default function SiteFooter() {
               <Link to="/blog">{t('footer.blogLink')}</Link>
               <Link to="/exercises">{t('footer.exerciseLibrary')}</Link>
               <Link to="/workouts">{t('footer.workoutsLink')}</Link>
+              <Link to="/blueprint">{t('footer.blueprintLink', { defaultValue: '12-Month Blueprint' })}</Link>
             </div>
           </div>
 
