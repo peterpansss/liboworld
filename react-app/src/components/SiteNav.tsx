@@ -62,8 +62,12 @@ export default function SiteNav() {
   // Fallback, not "everywhere except /membership": once the founding offer
   // closes on FOUNDING_CLOSE_DATE, /membership would otherwise be the one page with no
   // bar at all. The waitlist bar takes over there too.
-  const showWaitlist = isPrelaunch() && !showOffer;
-  const showAnnounce = (showOffer || showWaitlist) && !announceDismissed && announceAllowedHere;
+  // NOT gated on isPrelaunch(): this bar is the most prominent App Store CTA
+  // on the site, and tying it to the launch flag meant flipping that flag
+  // would have deleted it from every page at the exact moment it mattered.
+  // It shows whenever the founding offer is not taking the slot.
+  const showDownloadBar = !showOffer;
+  const showAnnounce = (showOffer || showDownloadBar) && !announceDismissed && announceAllowedHere;
   const dismissAnnounce = () => {
     setAnnounceDismissed(true);
     try { sessionStorage.setItem(ANNOUNCE_DISMISS_KEY, '1'); } catch { /* ignore */ }
@@ -87,10 +91,10 @@ export default function SiteNav() {
   // The ⚡ and → are markup (site-announce__spark / __arrow), so the copy must
   // not repeat them — except the short variant, which carries its own trailing
   // → because CSS hides the standalone arrow at ≤430px.
-  const announceFull = showWaitlist
+  const announceFull = showDownloadBar
     ? t('relaunchHome.liveBar.full', { defaultValue: 'Libo is live on the App Store — download it free' })
     : t('earlyAccess.announceText', { defaultValue: 'Founding Members: 50% off — until 13 October' });
-  const announceShort = showWaitlist
+  const announceShort = showDownloadBar
     ? t('relaunchHome.liveBar.short', { defaultValue: 'Live on the App Store →' })
     : t('earlyAccess.announceTextShort', { defaultValue: 'Founding Members: 50% off until 13 Oct →' });
 
@@ -122,11 +126,11 @@ export default function SiteNav() {
     <>
       <a href="#main-content" className="skip-link">{t('nav.skipToMain')}</a>
       {showAnnounce && (
-        <div className={`site-announce${showWaitlist ? ' site-announce--waitlist' : ''}`}>
+        <div className={`site-announce${showDownloadBar ? ' site-announce--waitlist' : ''}`}>
           <button
             type="button"
             className="site-announce__msg"
-            onClick={() => { if (showWaitlist) window.location.assign(APP_STORE_URL); else navigate('/membership'); }}
+            onClick={() => { if (showDownloadBar) window.location.assign(APP_STORE_URL); else navigate('/membership'); }}
           >
             <span className="site-announce__spark" aria-hidden="true">⚡</span>
             <span className="site-announce__text">

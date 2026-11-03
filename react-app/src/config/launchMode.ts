@@ -13,7 +13,13 @@ export type LaunchMode = 'prelaunch' | 'launched';
 
 // Cast keeps the type as the union (LaunchMode) rather than narrowing to the
 // literal 'prelaunch' — otherwise TS flags `=== 'launched'` as impossible.
-export const LAUNCH_MODE = 'prelaunch' as LaunchMode;
+// Flipped to 'launched' on 3 Nov 2026, 6.5 weeks after iOS actually shipped
+// (18 Sep). It had been left on 'prelaunch', which kept /get-app redirecting
+// to / — the site had no download endpoint to link a bio or an ad at, and
+// App Store Connect reported ZERO downloads attributed to a web referrer for
+// the whole life of the app. Everything that must STAY shut after launch now
+// has its own flag below; this one only means "the iOS app exists".
+export const LAUNCH_MODE = 'launched' as LaunchMode;
 
 // Helpers — use these instead of comparing LAUNCH_MODE directly so the
 // flag's intent is readable at call sites.
@@ -27,6 +33,16 @@ export const isLaunched = () => LAUNCH_MODE === 'launched';
  * turn this on only once the counters are removed or backed by real figures.
  */
 export const FUNNEL_PAGES_ENABLED = false;
+
+/**
+ * The footer and onboarding menu used to show a 'Rewards' link to /#rewards
+ * as soon as isPrelaunch() went false. No element with id="rewards" exists
+ * anywhere in the app, so that link has always been a dead anchor — it would
+ * have shipped on launch day as a visibly broken nav item in five languages.
+ * Gate it on the section existing, not on the launch flag. Turn this on in
+ * the same commit that adds the section.
+ */
+export const REWARDS_SECTION_LIVE = false;
 
 // 3 Sep 2026, local midnight in Central Europe (CEST in September, i.e. UTC+2).
 export const LAUNCH_DATE = '2026-09-03T00:00:00+02:00';

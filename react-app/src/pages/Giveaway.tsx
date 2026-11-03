@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
 import { SeoHead } from '../components/SeoHead';
+import { APP_STORE_URL } from '../components/AppStoreBadge';
 import FunnelHeader from '../components/funnel/FunnelHeader';
 import PackageCard from '../components/funnel/PackageCard';
 import FunnelFAQ from '../components/funnel/FunnelFAQ';
@@ -405,7 +406,12 @@ export default function GiveawayPage() {
             <h2 className="funnel-app__title">{t('giveawayFunnel.appTitle')}</h2>
             <p className="funnel-app__sub">{t('giveawayFunnel.appSub')}</p>
             <div className="funnel-app__badges">
-              <a href="https://apps.apple.com" className="funnel-app__badge funnel-app__badge--img" aria-label="Download on the App Store">
+              {/* Was a bare `https://apps.apple.com`, which dropped visitors on
+                  the App Store's own homepage with nothing to install — the
+                  exact failure App.tsx's /get-app comment warns about. Point at
+                  the real listing via the one constant every other download
+                  button reads, so this link can never drift again. */}
+              <a href={APP_STORE_URL} className="funnel-app__badge funnel-app__badge--img" aria-label="Download on the App Store">
                 <img src="/store-badges/app-store.svg" alt="Download on the App Store" />
               </a>
             </div>

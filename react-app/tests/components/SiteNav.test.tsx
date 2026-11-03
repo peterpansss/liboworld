@@ -222,10 +222,21 @@ describe('SiteNav announce bar', () => {
     expect(press.container.querySelector('.site-announce')).toBeNull();
   });
 
-  it('hides the bar after launch', () => {
+  // Was 'hides the bar after launch', asserting the bar disappeared once
+  // isPrelaunch() went false. That was the behaviour, and it was wrong: this
+  // bar is the most prominent App Store link on the site, so flipping
+  // LAUNCH_MODE on launch day would have deleted the download CTA at the
+  // moment it finally had something to point at. Inverted 3 Nov 2026 when the
+  // flag was flipped for real.
+  it('keeps the download bar after launch', () => {
     prelaunch.mockReturnValue(false);
     const { container } = renderAt('/');
-    expect(container.querySelector('.site-announce')).toBeNull();
+    const bar = container.querySelector('.site-announce');
+    expect(bar).not.toBeNull();
+    expect(bar!.className).toContain('site-announce--waitlist');
+    expect(
+      screen.queryByText('Libo is live on the App Store — download it free'),
+    ).not.toBeNull();
   });
 
   it('dismisses for the session and offsets the nav while shown', async () => {

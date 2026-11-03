@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect, useMemo, type FormEvent } fro
 import { useSearchParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
-import { isPrelaunch } from '../config/launchMode';
+import { REWARDS_SECTION_LIVE } from '../config/launchMode';
 import './Onboarding.css';
 
 // ── Constants ──
@@ -714,7 +714,7 @@ export default function Onboarding() {
           </button>
           <a href="/" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.home')}</a>
           <a href="/#features" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.features')}</a>
-          {!isPrelaunch() && (
+          {REWARDS_SECTION_LIVE && (
             <a href="/#rewards" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.rewards')}</a>
           )}
           <a href="/#workouts" onClick={() => setMenuOpen(false)}>{t('onboarding.menu.workouts')}</a>

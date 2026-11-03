@@ -38,7 +38,10 @@ export default function GetAppPage() {
       });
     }
 
-    // 2. Google Analytics event (the gtag tag is loaded site-wide in index.html)
+    // 2. Google Analytics event. NOTE: gtag is no longer loaded site-wide from
+    //    index.html — since 2026-09-18 it is injected by lib/consent.ts only
+    //    after an analytics opt-in, so this fires for roughly a quarter of
+    //    visitors. The typeof guard below is load-bearing, not defensive.
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('event', 'cash_challenge_app_redirect_qr', {
         tier: tierSlug ?? 'unknown',

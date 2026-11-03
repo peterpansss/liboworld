@@ -5,6 +5,7 @@
     "workouts": "Workouts",
     "goals": "Goals",
     "cta": "Get Early Access",
+    "downloadCta": "Download",
     "home": "Home",
     "exercises": "Exercises",
     "blog": "Blog",
@@ -1347,6 +1348,10 @@
     "waitlistBar": {
       "full": "Cash challenges open with the iOS app — join the waitlist",
       "short": "Cash challenges on iOS →"
+    },
+    "liveBar": {
+      "full": "Libo is live on the App Store — download it free",
+      "short": "Live on the App Store →"
     }
   },
   "relaunchPricing": {

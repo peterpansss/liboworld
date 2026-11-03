@@ -8,10 +8,15 @@
  * (modal mounting, step transitions, form validation).
  */
 import { test, expect } from '@playwright/test';
-import { isPrelaunch } from '../src/config/launchMode';
+import { FUNNEL_PAGES_ENABLED } from '../src/config/launchMode';
 
 test.describe('Giveaway checkout', () => {
-  test.skip(isPrelaunch(), 'Giveaway funnel is gated behind LAUNCH_MODE');
+  // Keyed on the WRONG flag until 3 Nov 2026. /giveaway is gated by
+  // FUNNEL_PAGES_ENABLED, never by LAUNCH_MODE, so flipping LAUNCH_MODE to
+  // 'launched' un-skipped these tests against a route that still
+  // <Navigate>s to /. Two of them would then have passed by accident, on
+  // the homepage's waitlist form matching the package-select locator.
+  test.skip(!FUNNEL_PAGES_ENABLED, 'Giveaway funnel is gated behind FUNNEL_PAGES_ENABLED');
   test.beforeEach(async ({ page }) => {
     await page.route('**/rest/v1/giveaways*', (route) =>
       route.fulfill({

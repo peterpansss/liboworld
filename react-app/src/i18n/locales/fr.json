@@ -5,6 +5,7 @@
     "workouts": "Entraînements",
     "goals": "Objectifs",
     "cta": "Accès Anticipé",
+    "downloadCta": "Télécharger",
     "home": "Accueil",
     "exercises": "Exercices",
     "blog": "Blog",
@@ -1326,6 +1327,10 @@
     "waitlistBar": {
       "full": "Les Cash Challenges ouvrent avec l’app iOS — rejoins la liste d’attente",
       "short": "Cash Challenges sur iOS →"
+    },
+    "liveBar": {
+      "full": "Libo est disponible sur l’App Store — télécharge-la gratuitement",
+      "short": "Sur l’App Store →"
     }
   },
   "relaunchPricing": {
