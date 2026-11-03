@@ -14,8 +14,8 @@ import './Blueprint.css';
 // The PDFs are versioned in the filename because Cloudflare caches asset URLs:
 // ship a new version as -v2, never overwrite -v1.
 
-const PDF_EN = '/downloads/blueprint/Libo-12-Month-Blueprint-EN-v4.pdf';
-const PDF_DE = '/downloads/blueprint/Libo-12-Month-Blueprint-DE-v4.pdf';
+const PDF_EN = '/downloads/blueprint/Libo-12-Month-Blueprint-EN-v5.pdf';
+const PDF_DE = '/downloads/blueprint/Libo-12-Month-Blueprint-DE-v5.pdf';
 
 export default function Blueprint() {
   const { t } = useTranslation();
@@ -42,7 +42,7 @@ export default function Blueprint() {
           'Seven years stuck at 69 kg, then about 77 kg in twelve months. How I trained and ate, written down. Free PDF, English and German.',
         )}
         canonical="https://liboworld.com/blueprint"
-        ogImage="https://liboworld.com/downloads/blueprint/card-v5.jpg"
+        ogImage="https://liboworld.com/downloads/blueprint/card-v6.jpg"
       />
       <SiteNav />
 
@@ -61,7 +61,7 @@ export default function Blueprint() {
               <p>
                 {d(
                   'story.0',
-                  'I was 69 kg at 17. Still 69 kg at 20. Still 69 kg at 24. In early 2024, at 25, I started training properly, five or six days a week, and eating real food every day. Twelve months later I was around 77 kg.',
+                  'I was 69 kg at 17. Still 69 kg at 20. Still 69 kg at 24. Around New Year 2024, at 25, I started training properly, five or six days a week, and eating real food every day. Twelve months later I was around 77 kg.',
                 )}
               </p>
               <p>
@@ -92,8 +92,8 @@ export default function Blueprint() {
 
           <a className="bp-cover" href={PDF_EN} target="_blank" rel="noopener" aria-label={d('ctaEn', 'Download (English)')}>
             <img
-              src="/downloads/blueprint/card-v5.jpg"
-              alt={d('coverAlt', 'Noah in 2026 at 77 kg, on the cover of The 12-Month Blueprint')}
+              src="/downloads/blueprint/card-v6.jpg"
+              alt={d('coverAlt', 'Noah in May 2024, five months in, on the cover of The 12-Month Blueprint')}
               width={900}
               height={1273}
             />
