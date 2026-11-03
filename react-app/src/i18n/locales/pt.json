@@ -1709,8 +1709,8 @@
       "tickUnlock": "Todos os níveis de desafio desbloqueados — €15 e €50",
       "tickFreeze": "1 token freeze por desafio, +1 para ganhar",
       "ctaFree": "Assine o Premium — {{price}}/ano →",
-      "eyebrowClosed": "Premium · disponível no lançamento",
-      "titleClosed": "Garanta o Premium no lançamento."
+      "eyebrowClosed": "Premium · já no app",
+      "titleClosed": "Garanta o Premium no app."
     },
     "faq": {
       "title": "Alguma dúvida?",
@@ -1743,7 +1743,7 @@
       "line2": "Comece no dia em que entrar.",
       "sub": "O Premium pago desbloqueia este nível — a entrada é por ordem de chegada e as vagas são limitadas. Se estiver cheio, você é avisado no segundo em que uma vaga abrir. Primeiro ano com 50% off até o lançamento, reembolso total.",
       "waitlist": "Ou entre na lista de espera gratuita",
-      "subFree": "O desafio Starter de €5 é grátis pra todo membro — deixe seu e-mail e você está dentro no dia do lançamento. Vagas por ordem de chegada.",
+      "subFree": "A Challenge Starter de € 5 é grátis para todos os membros. Deixe seu e-mail e guardamos sua vaga — por ordem de chegada.",
       "upsell": "Quer os níveis de €15 e €50? Assine o Premium — 50% off →",
       "upsellClosed": "Quer os níveis de €15 e €50? Garanta o Premium →",
       "subClosed": "O Premium pago libera este nível — por ordem de chegada e com vagas limitadas. Se estiver cheio, avisamos assim que uma vaga abrir."
@@ -1850,8 +1850,8 @@
       "a2": "Existe um plano gratuito — sem cartão. O Premium custa €79.99 por ano (cerca de €6.67/mês) ou €12.99 no mês a mês. Founding Members garantem o primeiro ano por €39.50.",
       "q3": "O que é um Founding Member?",
       "a3": "A oferta de pré-lançamento: 12 meses de Premium com 50% off, primeiro a entrar no dia do lançamento, todos os níveis de desafio desbloqueados — e reembolso total até o lançamento.",
-      "q4": "Quando o app lança?",
-      "a4": "iOS primeiro — o app está em análise na Apple, então ainda não temos data. Quem está na lista de espera recebe um e-mail assim que for aprovado; os Founding Members recebem o link de download antes do lançamento geral.",
+      "q4": "A Libo já está disponível?",
+      "a4": "Sim — a Libo está na App Store para iPhone, grátis. O Android está em teste fechado e ainda não tem data pública.",
       "q5": "Como funcionam os cash challenges?",
       "a5": "30 dias de reps diárias, gravadas e verificadas no app, pagas em cash de verdade quando você termina — €5, €15 ou €50 conforme o nível. Sem sorteio, sem sorte.",
       "titleLine1": "Antes de",
@@ -1875,7 +1875,7 @@
       "h1a": "Entre",
       "h1b": "no clube.",
       "caption": "Dentro do clube",
-      "footnoteClosed": "Um ano completo de Premium · disponível no lançamento",
+      "footnoteClosed": "Um ano inteiro de Premium · já no app",
       "videoPlayLabel": "Reproduzir: torna-te Founding Member, 2 minutos e 44 segundos",
       "videoCaption": "Inside the club — 2:44 · em inglês",
       "rulesLink": "Ler os termos completos",

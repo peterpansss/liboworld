@@ -161,11 +161,13 @@ export default function Terms() {
             <p>If your Premium subscription is refunded while you are taking part in a &euro;15 or &euro;50 cash challenge, that run earns no payout (see <a href="#challenge-rules">Cash Challenges</a>).</p>
             <p>Refunds are not available for:</p>
             <ul>
-              {/* Carve-out, not a contradiction: §Early Access promises Founding
-                  Members a full refund at any time before launch, which is well
+              {/* Carve-out, not a contradiction: §Early Access honours a full
+                  refund on request for Founding Member purchases, which is well
                   past 14 days. Without this line the general rule here answers
-                  "no" to a buyer the specific section answers "yes" to. */}
-              <li>Subscriptions older than 14 days from the first charge — <em>except</em> Founding Member purchases, which remain fully refundable at any time before launch (see <a href="#early-access">Early Access</a>)</li>
+                  "no" to a buyer the specific section answers "yes" to. Said
+                  "at any time before launch" until 3 Nov 2026 — launch was
+                  18 Sep, so that carve-out had silently expired. */}
+              <li>Subscriptions older than 14 days from the first charge — <em>except</em> Founding Member purchases, which remain fully refundable on request (see <a href="#early-access">Early Access</a>)</li>
               <li>Partial billing periods following cancellation</li>
               <li>Users who have previously received a refund for Libo</li>
             </ul>
@@ -336,23 +338,24 @@ export default function Terms() {
           {/* 19 */}
           <section className="legal-section" id="early-access">
             <div className="legal-section-num">{n()}</div>
+            {/* Rewritten 3 Nov 2026. This section described a live pre-launch
+                offer in the present tense and contradicted what happened: it
+                said the 12-month entitlement "begins on the day Libo launches"
+                and that the offer "closes on launch day", while in fact Libo
+                launched on 18 September 2026 and the offer was held open until
+                14 October, four weeks past it. The section and its id are kept
+                rather than deleted — /join and the checkout consent link deep-
+                link to #early-access, and removing it would renumber every
+                section after it. The terms any buyer bought under are
+                preserved below. */}
             <h2>Early Access (Founding Member) Purchases</h2>
-            <p>This section sets out the specific terms that apply when you buy the pre-launch <strong>Founding Member</strong> early-access offer, before the Libo mobile app is publicly available. It supplements Sections 5 (Subscription Plans), 6 (Billing &amp; Payment) and 7 (Cancellation &amp; Refunds).</p>
+            <p><strong>This offer has closed.</strong> The Founding Member early-access offer closed on <strong>14 October 2026</strong> and is no longer available to buy. Libo is now published on the App Store and Premium is sold at its standard price; see Sections 5 (Subscription Plans) and 6 (Billing &amp; Payment).</p>
 
-            <h3>One-Time Purchase, No Auto-Renewal</h3>
-            <p>The Founding Member offer is a <strong>single one-time payment</strong> of &euro;39.50 — 50% off the standard &euro;79.99 first-year price of Premium (&euro;6.67/mo billed annually). It is <strong>not</strong> a subscription and does <strong>not</strong> auto-renew. You are charged once and no further charges are made. After your first year ends, Premium does not renew automatically; you may choose to subscribe at the then-current standard price if you wish to continue.</p>
+            <h3>If You Bought the Founding Member Offer</h3>
+            <p>The terms you purchased under continue to apply to that purchase. The offer was a <strong>single one-time payment</strong> of &euro;39.50 for <strong>12 months of Premium</strong> — 50% off the standard &euro;79.99 first-year price. It is <strong>not</strong> a subscription and does <strong>not</strong> auto-renew: you were charged once and no further charges are made. When your 12 months end, Premium does not renew automatically; you may subscribe at the then-current standard price if you wish to continue.</p>
 
-            <h3>What You Receive</h3>
-            <p>You receive <strong>12 months of Premium</strong> (the full Libo app, all Premium features, no limits). Because the app is not yet publicly launched at the time of purchase, <strong>your 12-month entitlement begins on the day Libo launches</strong>, not on the day you pay — so you do not lose any of your paid year while waiting. As an early-access bonus, Premium is unlocked on your account immediately on liboworld.com and any pre-launch (e.g. TestFlight) access we provide, at no additional charge and without shortening your 12 months.</p>
-
-            <h3>Pre-Launch Right of Withdrawal &amp; Refunds</h3>
-            <p>{GIVEAWAYS_ENABLED ? 'Unlike points packs, no' : 'No'} digital content is delivered <em>at the moment of purchase</em> as your paid entitlement year; it begins at launch. Accordingly, <strong>your 14-day right of withdrawal under Article 16(m) of Directive 2011/83/EU applies</strong>, and beyond that statutory period we will honour a <strong>full refund at any time before launch</strong>, for any reason, on request. To withdraw or request a refund, email <a href="mailto:support@liboworld.com">support@liboworld.com</a> from the address you purchased with.</p>
-
-            <h3>If We Do Not Launch</h3>
-            <p>If Libo does not launch, or if we discontinue the Founding Member entitlement before your 12 months begin, you are entitled to a <strong>full refund</strong> of the amount you paid. Founding Member access is tied to the email address used at checkout; please use the same email when the app launches.</p>
-
-            <h3>Offer Availability</h3>
-            <p>The Founding Member offer is available only during the pre-launch period and closes on launch day. Pricing and availability may be changed or withdrawn for future buyers at any time before purchase; any change does not affect a purchase already completed.</p>
+            <h3>Refunds</h3>
+            <p>{GIVEAWAYS_ENABLED ? 'Unlike points packs, your' : 'Your'} <strong>14-day right of withdrawal under Article 16(m) of Directive 2011/83/EU</strong> applied to this purchase, and beyond that statutory period we will honour a <strong>full refund on request, for any reason</strong>. To request one, email <a href="mailto:support@liboworld.com">support@liboworld.com</a> from the address you purchased with. Founding Member access is tied to that email address.</p>
           </section>
 
           {/* Appended, never inserted: sections auto-number, and earlier

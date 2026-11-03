@@ -377,7 +377,7 @@ export default function ChallengeFunnel() {
         <section className="cf-section" id="offer">
           <span className="funnel-eyebrow cf-eyebrow">
             {!foundingOpen
-              ? t('challengeFunnel.offer.eyebrowClosed', { defaultValue: 'Premium · available at launch' })
+              ? t('challengeFunnel.offer.eyebrowClosed', { defaultValue: 'Premium · in the app now' })
               : isFree
                 ? t('challengeFunnel.offer.eyebrowFree', { defaultValue: 'Optional upgrade · 50% off until launch' })
                 : t('challengeFunnel.offer.eyebrow', { defaultValue: 'Premium · 50% off until launch' })}
@@ -387,7 +387,7 @@ export default function ChallengeFunnel() {
               ? t('challengeFunnel.offer.titleFree', { defaultValue: 'Unlock the €15 and €50 challenges.' })
               : foundingOpen
                 ? t('challengeFunnel.offer.title', { defaultValue: 'Lock in the year before we launch.' })
-                : t('challengeFunnel.offer.titleClosed', { defaultValue: 'Get Premium when we launch.' })}
+                : t('challengeFunnel.offer.titleClosed', { defaultValue: 'Get Premium in the app.' })}
           </h2>
           {isFree && (
             <p className="cf-body">
@@ -483,7 +483,7 @@ export default function ChallengeFunnel() {
               <p className="cf-body">
                 {t('challengeFunnel.close.subFree', {
                   defaultValue:
-                    "The €5 Starter challenge is free for every member — leave your email and you're in on launch day. Spots are first come, first served.",
+                    "The €5 Starter challenge is free for every member. Leave your email and we'll save your spot — first come, first served.",
                 })}
               </p>
               <StarterCapture t={t} onTrack={track} />

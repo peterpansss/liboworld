@@ -1770,8 +1770,8 @@
       "tickUnlock": "Every challenge tier unlocked — €15 and €50",
       "tickFreeze": "1 freeze token per challenge, +1 you can earn",
       "ctaFree": "Get Premium — {{price}}/yr →",
-      "eyebrowClosed": "Premium · available at launch",
-      "titleClosed": "Get Premium when we launch."
+      "eyebrowClosed": "Premium · in the app now",
+      "titleClosed": "Get Premium in the app."
     },
     "faq": {
       "title": "Any questions?",
@@ -1804,7 +1804,7 @@
       "line2": "Start the day you join.",
       "sub": "Paid Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
       "waitlist": "Join the free waitlist instead",
-      "subFree": "The €5 Starter challenge is free for every member — leave your email and you're in on launch day. Spots are first come, first served.",
+      "subFree": "The €5 Starter challenge is free for every member. Leave your email and we'll save your spot — first come, first served.",
       "upsell": "Want the €15 and €50 tiers? Get Premium — 50% off →",
       "upsellClosed": "Want the €15 and €50 tiers? Get Premium →",
       "subClosed": "Paid Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees."
@@ -1911,8 +1911,8 @@
       "a2": "There is a free tier — no card needed. Premium is €79.99 a year (about €6.67/mo) or €12.99 month-to-month. Founding Members lock the first year at €39.50.",
       "q3": "What is a Founding Member?",
       "a3": "The pre-launch offer: 12 months of Premium at 50% off, first through the door on launch day, every challenge tier unlocked — and fully refundable until launch.",
-      "q4": "When does the app launch?",
-      "a4": "iOS first — the app is with Apple for review now, so we don’t have a date yet. Waitlist members get one email the moment it’s approved; Founding Members get their download link before general release.",
+      "q4": "Is Libo out yet?",
+      "a4": "Yes — Libo is on the App Store for iPhone, free to download. Android is in closed testing and has no public date yet.",
       "q5": "How do cash challenges work?",
       "a5": "30 days of daily reps, recorded and verified in-app, paid out as real cash when you finish — €5, €15 or €50 depending on the tier. No draw, no luck.",
       "titleLine1": "Before you",
@@ -1936,7 +1936,7 @@
       "h1a": "Enter",
       "h1b": "the club.",
       "caption": "Inside the club",
-      "footnoteClosed": "A full year of Premium · available at launch",
+      "footnoteClosed": "A full year of Premium · in the app now",
       "videoPlayLabel": "Play: become a Founding Member, 2 minutes 44 seconds",
       "videoCaption": "Inside the club — 2:44",
       "rulesLink": "Read the full terms",

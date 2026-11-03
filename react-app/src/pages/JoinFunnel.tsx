@@ -167,10 +167,10 @@ export default function JoinFunnel() {
         }]
       : []),
     {
-      q: t('joinFunnel.faq.q4', { defaultValue: 'When does the app launch?' }),
+      q: t('joinFunnel.faq.q4', { defaultValue: 'Is Libo out yet?' }),
       a: t('joinFunnel.faq.a4', {
         defaultValue:
-          'iOS first — the app is with Apple for review now, so we don’t have a date yet. Waitlist members get one email the moment it’s approved; Founding Members get their download link before general release.',
+          'Yes — Libo is on the App Store for iPhone, free to download. Android is in closed testing and has no public date yet.',
       }),
     },
     {
