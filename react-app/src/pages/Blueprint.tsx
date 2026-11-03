@@ -14,8 +14,8 @@ import './Blueprint.css';
 // The PDFs are versioned in the filename because Cloudflare caches asset URLs:
 // ship a new version as -v2, never overwrite -v1.
 
-const PDF_EN = '/downloads/blueprint/Libo-12-Month-Blueprint-EN-v6.pdf';
-const PDF_DE = '/downloads/blueprint/Libo-12-Month-Blueprint-DE-v6.pdf';
+const PDF_EN = '/downloads/blueprint/Libo-12-Month-Blueprint-EN-v7.pdf';
+const PDF_DE = '/downloads/blueprint/Libo-12-Month-Blueprint-DE-v7.pdf';
 
 export default function Blueprint() {
   const { t } = useTranslation();
