@@ -247,7 +247,7 @@ export default function JoinFunnel() {
                 Restore the second badge when Android ships. */}
             <div className="jf-stores">
               <span className="jf-store">
-                {t('joinFunnel.stores.ios', { defaultValue: 'On the App Store soon' })}
+                {t('joinFunnel.stores.ios', { defaultValue: 'On the App Store' })}
               </span>
             </div>
           </div>

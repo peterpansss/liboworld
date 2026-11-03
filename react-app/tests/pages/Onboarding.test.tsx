@@ -266,7 +266,7 @@ describe('Onboarding email step', () => {
     await waitFor(() => {
       expect(screen.getByPlaceholderText('onboarding.email.placeholder')).toBeInTheDocument();
     });
-    expect(screen.getByText('onboarding.buttons.joinWaitlist')).toBeInTheDocument();
+    expect(screen.getByText('onboarding.buttons.getPlan')).toBeInTheDocument();
   }, 20000);
 
   it('submits the email and shows the success state when supabase returns no error', async () => {
@@ -278,7 +278,7 @@ describe('Onboarding email step', () => {
 
     const emailInput = await screen.findByPlaceholderText('onboarding.email.placeholder');
     await user.type(emailInput, 'me@example.com');
-    await user.click(screen.getByText('onboarding.buttons.joinWaitlist'));
+    await user.click(screen.getByText('onboarding.buttons.getPlan'));
 
     await waitFor(() => {
       expect(insertMock).toHaveBeenCalledWith('waitlist', expect.objectContaining({
@@ -299,7 +299,7 @@ describe('Onboarding email step', () => {
     await walkToEmailStep(user);
 
     await user.type(await screen.findByPlaceholderText('onboarding.email.placeholder'), 'dup@example.com');
-    await user.click(screen.getByText('onboarding.buttons.joinWaitlist'));
+    await user.click(screen.getByText('onboarding.buttons.getPlan'));
 
     await waitFor(() => {
       expect(screen.getByText('onboarding.email.duplicateMessage')).toBeInTheDocument();
@@ -314,7 +314,7 @@ describe('Onboarding email step', () => {
     await walkToEmailStep(user);
 
     await user.type(await screen.findByPlaceholderText('onboarding.email.placeholder'), 'err@example.com');
-    await user.click(screen.getByText('onboarding.buttons.joinWaitlist'));
+    await user.click(screen.getByText('onboarding.buttons.getPlan'));
 
     await waitFor(() => {
       expect(screen.getByText('onboarding.email.errorMessage')).toBeInTheDocument();
@@ -329,7 +329,7 @@ describe('Onboarding email step', () => {
     await walkToEmailStep(user);
 
     await user.type(await screen.findByPlaceholderText('onboarding.email.placeholder'), 'oops@example.com');
-    await user.click(screen.getByText('onboarding.buttons.joinWaitlist'));
+    await user.click(screen.getByText('onboarding.buttons.getPlan'));
 
     await waitFor(() => {
       expect(screen.getByText('onboarding.email.connectionError')).toBeInTheDocument();

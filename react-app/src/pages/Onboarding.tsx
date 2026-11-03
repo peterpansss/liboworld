@@ -625,9 +625,9 @@ export default function Onboarding() {
             disabled={formState === 'submitting' || isDone}
             style={isDone ? { background: 'var(--accent)', color: '#000' } : undefined}
           >
-            {formState === 'submitting' ? t('onboarding.buttons.joining')
-              : isDone ? t('onboarding.buttons.onTheList')
-              : t('onboarding.buttons.joinWaitlist')}
+            {formState === 'submitting' ? t('onboarding.buttons.sending')
+              : isDone ? t('onboarding.buttons.sent')
+              : t('onboarding.buttons.getPlan')}
           </button>
         </form>
         {formMsg && (

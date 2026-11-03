@@ -5,8 +5,7 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
 import ScrollRevealText from '../components/ScrollRevealText';
-import WaitlistCapture from '../components/WaitlistCapture';
-import HomeStickyWaitlist from '../components/HomeStickyWaitlist';
+import StoreBadges from '../components/StoreBadges';
 import VideoTestimonials from '../components/VideoTestimonials';
 import { usePopIn } from '../utils/funnelAnimations';
 import { CHALLENGE_TIERS } from '../data/challengeTiers';
@@ -15,9 +14,11 @@ import './Landing.css';
 
 // ── Smooth scroll to an in-page anchor (offset for the sticky nav) ──
 //
-// Two live targets on this page: "#hero-capture" (the email field in the hero —
-// the site header and /membership link straight to it) and "#waitlist" (the
-// bottom block, linked from the funnels).
+// Two live targets on this page: "#hero-capture" (the download block in the
+// hero — the site header and /membership link straight to it) and "#waitlist"
+// (the bottom block, linked from the funnels). Both were email captures until
+// 3 Nov 2026; the ids are kept because other pages and outside links point at
+// them, but neither collects an address any more.
 function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -313,7 +314,7 @@ export default function Landing() {
           <div className="rh-hero-text">
             <div className="rh-badges">
               <span className="rh-badge rh-badge--accent">
-                {t('relaunchHome.hero.pillSoon', { defaultValue: 'iOS coming soon' })}
+                {t('relaunchHome.hero.pillLive', { defaultValue: 'Live on the App Store' })}
               </span>
               <span className="rh-badge">
                 {t('relaunchHome.hero.pillPlatforms', { defaultValue: 'iOS' })}
@@ -353,12 +354,16 @@ export default function Landing() {
               })}
             </p>
 
-            {/* The hero ask is now FREE. It used to be the paid Founding
-                Member funnel, which met a cold visitor with a paywall before
-                anything had been explained. "hero-capture" finally means what
-                it says — Pricing.tsx and the site header deep-link here. */}
+            {/* A waitlist email field until 3 Nov 2026 — six and a half weeks
+                after Libo reached the App Store, the hero was still collecting
+                addresses for a launch that had already happened, and this page
+                carried no App Store link anywhere in it. App Store Connect
+                reported zero downloads from a web referrer for the whole life
+                of the app. The id stays: Pricing.tsx ("Start free"), the site
+                header and storeRedirect's non-iOS fallback all deep-link to
+                it. It lands on the download now, not a form. */}
             <div id="hero-capture" className="rh-hero-capture-anchor">
-              <WaitlistCapture variant="hero" />
+              <StoreBadges />
             </div>
           </div>
 
@@ -859,11 +864,11 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 10. FINAL CTA + WAITLIST ────────────────────────────── */}
-        {/* The second of the page's two captures — same free ask as the hero,
-            for anyone who read the whole page before deciding. "waitlist" is
-            the id the funnels link to (JoinFunnel → "/#waitlist"); the hero
-            owns "hero-capture". */}
+        {/* ── 10. FINAL CTA ───────────────────────────────────────── */}
+        {/* The second of the page's two download prompts, for anyone who read
+            the whole page before deciding. The id stays "waitlist" because
+            JoinFunnel links to "/#waitlist" and outside links may too — it is
+            not a waitlist any more. The hero owns "hero-capture". */}
         <section className="rh-final" id="waitlist">
           <div className="rh-final-inner">
             <h2 className="rh-h2 rh-h2--center rh-h2--lg">
@@ -871,21 +876,20 @@ export default function Landing() {
                 {t('relaunchHome.final.h2a', { defaultValue: 'Your first challenge' })}
               </ScrollRevealText>
               <ScrollRevealText as="span" className="rh-h2-line rh-reveal--accent">
-                {t('relaunchHome.final.h2b', { defaultValue: 'opens with the app.' })}
+                {t('relaunchHome.final.h2b', { defaultValue: 'is already open.' })}
               </ScrollRevealText>
             </h2>
             <p className="rh-final-body">
               {t('relaunchHome.final.body', {
                 defaultValue:
-                  'A confirmation email now, then one the day Libo lands on iOS, with your download link and your first cash challenge already open. Nothing in between.',
+                  'Download Libo free on iPhone, pick a challenge and start today. Finish 30 days straight and we pay you — €5, €15 or €50 in real cash, funded by Libo.',
               })}
             </p>
-            <WaitlistCapture variant="final" />
+            <StoreBadges />
           </div>
         </section>
 
       </main>
-      <HomeStickyWaitlist />
       <SiteFooter />
     </>
   );

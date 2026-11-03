@@ -132,14 +132,18 @@ describe('StoreRedirectOverlay', () => {
     expect(ios.getAttribute('rel')).toContain('noreferrer');
   });
 
-  // Launch is iOS-only — a Play Store badge here would promise an install
-  // that doesn't exist. The waitlist link is the honest fallback.
-  it('offers no Play Store badge, only a waitlist link for Android', () => {
+  // Libo is iOS-only — a Play Store badge here would promise an install that
+  // doesn't exist. Until 3 Nov 2026 this offered "On Android? Join the
+  // waitlist →" pointing at #hero-capture; that anchor stopped being a
+  // waitlist, so the link promised something gone. The honest answer is now a
+  // plain statement and no door.
+  it('offers no Play Store badge and no dead waitlist link for Android', () => {
     const { container } = render(
       <StoreRedirectOverlay open={true} tierSlug={null} copy={baseCopy} onClose={() => {}} />,
     );
     expect(screen.queryByLabelText('store.downloadGooglePlay')).toBeNull();
-    // Match on href, not copy — the note's wording is translated.
-    expect(container.querySelector('a[href="/#hero-capture"]')).not.toBeNull();
+    expect(container.querySelector('a[href="/#hero-capture"]')).toBeNull();
+    // Matches the key or the resolved copy — the note is translated.
+    expect(screen.getByText(/Android|iosFirstNote/)).toBeInTheDocument();
   });
 });

@@ -24,8 +24,7 @@
     "press": "Presse",
     "joinClub": "Rejoins le club →",
     "careers": "Carrières",
-    "foundingMember": "Founding Member",
-    "joinWaitlist": "Rejoindre la liste"
+    "foundingMember": "Founding Member"
   },
   "common": {
     "clearAll": "Tout effacer",
@@ -160,8 +159,7 @@
     "appStoreShort": "App Store",
     "downloadGooglePlay": "Disponible sur Google Play",
     "googlePlayShort": "Google Play",
-    "iosFirstNote": "iPhone uniquement au lancement — Android suivra plus tard.",
-    "androidWaitlistLink": "Sur Android ? Rejoins la liste →"
+    "iosFirstNote": "iPhone uniquement pour l’instant — Android est en test."
   },
   "community": {
     "eyebrow": "LA COMMUNAUTÉ LIBO",
@@ -656,9 +654,9 @@
     "buttons": {
       "continue": "CONTINUER",
       "nextStep": "ÉTAPE SUIVANTE",
-      "joinWaitlist": "REJOINDRE LA LISTE",
-      "joining": "INSCRIPTION...",
-      "onTheList": "✓ TU ES SUR LA LISTE !"
+      "getPlan": "RECEVOIR MON PLAN",
+      "sending": "ENVOI...",
+      "sent": "✓ REGARDE TES E-MAILS"
     },
     "goalHeadings": {
       "loseWeight": "Perds du poids vite !",
@@ -841,14 +839,14 @@
       "testimonialAuthor": "- Marco T., utilisateur vérifié"
     },
     "email": {
-      "headingPrefix": "Rejoins la liste d'attente Libo pour un accès anticipé à ton",
-      "trainingPlan": "Plan d'Entraînement",
+      "headingPrefix": "Reçois ton",
+      "trainingPlan": "Plan d’Entraînement",
       "headingMiddle": "personnalisé pour",
       "headingSuffix": " !",
       "placeholder": "Entre ton adresse e-mail",
       "privacyNote": "En continuant, tu acceptes de recevoir des e-mails de Libo. Nous respectons ta vie privée et ne partagerons jamais tes données.",
-      "successMessage": "Bienvenue ! On te préviendra au lancement de Libo.",
-      "duplicateMessage": "Tu es déjà sur la liste d'attente ! On revient vers toi bientôt.",
+      "successMessage": "Ton plan arrive. Libo est gratuite sur l’App Store — télécharge-la et commence aujourd’hui.",
+      "duplicateMessage": "Tu es déjà inscrit — regarde tes e-mails. Libo est gratuite sur l’App Store.",
       "errorMessage": "Un problème est survenu. Réessaie s'il te plaît.",
       "connectionError": "Erreur de connexion. Réessaie s'il te plaît."
     }
@@ -920,7 +918,7 @@
       "imgAltLeft": "Onglet Explorer de Libo",
       "imgAltCenter": "Onglet Accueil de Libo avec la série et l'entraînement du jour",
       "imgAltRight": "Onglet Récompenses de Libo avec 436 points",
-      "pillSoon": "Bientôt sur iOS",
+      "pillLive": "Disponible sur l’App Store",
       "pillPlatforms": "iOS",
       "pillTier": "Niveau Free",
       "h1a": "Va au bout de",
@@ -1159,7 +1157,7 @@
       "q5": "Puis-je créer mes propres entraînements ?",
       "a5": "Oui. Le Custom Builder te permet de piocher dans toute la bibliothèque d'exercices, de définir tes séries, reps et temps de repos, puis d'enregistrer et de réutiliser tes entraînements quand tu veux.",
       "q6": "Libo est-il disponible sur Android ?",
-      "a6": "Pas encore. Libo sort d’abord sur iOS ; Android est au programme, sans date pour l’instant. Rejoins la liste d’attente et on te préviendra dès que c’est disponible.",
+      "a6": "Pas encore. Libo sort d’abord sur iOS ; Android est en test fermé, sans date publique pour l’instant. On l’annoncera sur liboworld.com et sur nos réseaux dès que ce sera prêt.",
       "q7": "Puis-je suivre des programmes structurés ?",
       "a7": "Oui. Libo inclut des programmes de plusieurs semaines conçus pour des objectifs précis — prise de muscle, perte de gras, mobilité, et plus. Suis le plan, note ta progression, et vois de vrais résultats.",
       "q8": "Libo suit-il ma progression ?",
@@ -1311,8 +1309,8 @@
     },
     "final": {
       "h2a": "Ton premier Challenge",
-      "h2b": "ouvre avec l’app.",
-      "body": "Un e-mail de confirmation maintenant, puis un le jour où Libo arrive sur iOS, avec ton lien de téléchargement et ton premier cash challenge déjà ouvert. Rien entre les deux."
+      "h2b": "est déjà ouvert.",
+      "body": "Télécharge Libo gratuitement sur iPhone, choisis un challenge et commence aujourd’hui. Termine 30 jours d’affilée et on te paie — 5 €, 15 € ou 50 € en argent réel, financés par Libo."
     },
     "habit": {
       "s1Name": "Pointe-toi",
@@ -1630,7 +1628,7 @@
   },
   "challengeFunnel": {
     "cta": {
-      "free": "Rejoins gratuitement au lancement →",
+      "free": "Participer gratuitement →",
       "enter": "Clique pour entrer →",
       "checkout": "Clique pour entrer — {{price}}/an →"
     },
@@ -1933,7 +1931,7 @@
       "h2b": "tient."
     },
     "stores": {
-      "ios": "Bientôt sur l’App Store"
+      "ios": "Sur l’App Store"
     },
     "capture": {
       "confirm": "Tu es sur la liste ✓",
@@ -2118,7 +2116,7 @@
       "platformLabel": "Plateforme",
       "platformValue": "iOS (Android à suivre)",
       "stageLabel": "Phase",
-      "stageValue": "Pré-lancement · liste d'attente ouverte",
+      "stageValue": "En ligne sur iOS · Android en test",
       "pricingLabel": "Prix",
       "pricingValue": "Niveau Free + €79.99/an",
       "exercisesLabel": "Exercices",

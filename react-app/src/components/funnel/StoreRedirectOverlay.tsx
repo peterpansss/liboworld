@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { colors } from '../../theme';
-import { STORE_URLS, WAITLIST_URL } from '../../utils/storeRedirect';
+import { STORE_URLS } from '../../utils/storeRedirect';
 
 /**
  * Desktop fallback overlay for the /cash-challenge "Reserve my slot" flow.
@@ -179,12 +179,12 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
         </div>
 
         {/* No Play Store badge on purpose — there is nothing to install on
-            Android yet, so the honest answer is the waitlist. */}
+            Android yet. This used to offer "On Android? Join the waitlist →"
+            pointing at #hero-capture; that anchor stopped being a waitlist on
+            3 Nov 2026, so the link was promising something that no longer
+            existed. State the position instead of offering a dead door. */}
         <p style={iosNote}>
-          {t('store.iosFirstNote', { defaultValue: 'iPhone only at launch — Android follows later.' })}{' '}
-          <a href={WAITLIST_URL} style={{ color: colors.accent, textDecoration: 'underline' }}>
-            {t('store.androidWaitlistLink', { defaultValue: 'On Android? Join the waitlist →' })}
-          </a>
+          {t('store.iosFirstNote', { defaultValue: 'iPhone only for now — Android is in testing.' })}
         </p>
       </div>
 

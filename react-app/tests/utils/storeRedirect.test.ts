@@ -5,7 +5,7 @@
  * and the redirect navigation helper.
  */
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
-import { detectPlatform, storeUrlFor, redirectToStore, STORE_URLS, WAITLIST_URL, ANDROID_AVAILABLE } from '../../src/utils/storeRedirect';
+import { detectPlatform, storeUrlFor, redirectToStore, STORE_URLS, NON_IOS_FALLBACK_URL, ANDROID_AVAILABLE } from '../../src/utils/storeRedirect';
 
 const ORIG_NAV = global.navigator;
 
@@ -83,11 +83,11 @@ describe('storeUrlFor', () => {
   // Android visitor lands on the Play Store homepage with nothing to install.
   it('sends android to the waitlist while ANDROID_AVAILABLE is off', () => {
     expect(ANDROID_AVAILABLE).toBe(false);
-    expect(storeUrlFor('android')).toBe(WAITLIST_URL);
+    expect(storeUrlFor('android')).toBe(NON_IOS_FALLBACK_URL);
   });
 
   it('sends desktop to the waitlist, not to a store', () => {
-    expect(storeUrlFor('desktop')).toBe(WAITLIST_URL);
+    expect(storeUrlFor('desktop')).toBe(NON_IOS_FALLBACK_URL);
   });
 });
 
@@ -109,7 +109,7 @@ describe('redirectToStore', () => {
 
   it('navigates android to the waitlist, not the Play Store', () => {
     redirectToStore('android');
-    expect(vi.mocked(window.location.assign).mock.calls[0][0]).toBe(WAITLIST_URL);
+    expect(vi.mocked(window.location.assign).mock.calls[0][0]).toBe(NON_IOS_FALLBACK_URL);
   });
 });
 

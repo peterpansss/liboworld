@@ -110,7 +110,7 @@ export default function ChallengeFunnel() {
   const isFree = !tier.requiresPremium;
 
   const ctaLabel = isFree
-    ? t('challengeFunnel.cta.free', { defaultValue: 'Join free at launch →' })
+    ? t('challengeFunnel.cta.free', { defaultValue: 'Join free →' })
     : t('challengeFunnel.cta.enter', { defaultValue: 'Click to Enter →' });
 
   // The ONE priced label on the page: the paid tiers' close button + sticky bar.

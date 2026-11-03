@@ -78,7 +78,10 @@ function renderPage(path = '/') {
 }
 
 describe('Landing', () => {
-  it('renders the hero promise with the free waitlist capture under #hero-capture', () => {
+  // Both of these asserted a waitlist email capture until 3 Nov 2026. The app
+  // had been on the App Store for six and a half weeks and this page offered
+  // no way to install it; the tests were holding that in place.
+  it('renders the hero promise with the App Store download under #hero-capture', () => {
     const { container } = renderPage();
     const h1 = screen.getByRole('heading', { level: 1 });
     for (const key of ['h1a', 'h1b', 'h1c', 'h1d']) {
@@ -86,21 +89,21 @@ describe('Landing', () => {
     }
     const heroAnchor = container.querySelector('#hero-capture');
     expect(heroAnchor).not.toBeNull();
-    expect(
-      within(heroAnchor as HTMLElement).getByTestId('waitlist-capture-hero'),
-    ).toBeInTheDocument();
+    const cta = within(heroAnchor as HTMLElement).getByLabelText('store.downloadAppStore');
+    expect(cta).toHaveAttribute('href', expect.stringContaining('apps.apple.com'));
   });
 
-  it('ends with a second waitlist capture in the #waitlist block the funnels link to', () => {
+  it('ends with a second App Store download in the #waitlist block the funnels link to', () => {
     const { container } = renderPage();
+    // The id stays "waitlist" because JoinFunnel and outside links point at
+    // it; what it contains is no longer a waitlist.
     const finalBlock = container.querySelector('section#waitlist');
     expect(finalBlock).not.toBeNull();
-    expect(
-      within(finalBlock as HTMLElement).getByTestId('waitlist-capture-final'),
-    ).toBeInTheDocument();
-    // Exactly two inline captures on the page (hero + final), plus the sticky bar.
-    expect(screen.getAllByTestId(/^waitlist-capture-/)).toHaveLength(2);
-    expect(screen.getByTestId('home-sticky-waitlist')).toBeInTheDocument();
+    const cta = within(finalBlock as HTMLElement).getByLabelText('store.downloadAppStore');
+    expect(cta).toHaveAttribute('href', expect.stringContaining('apps.apple.com'));
+    // No email capture anywhere on the page, and no sticky waitlist bar.
+    expect(screen.queryAllByTestId(/^waitlist-capture-/)).toHaveLength(0);
+    expect(screen.queryByTestId('home-sticky-waitlist')).toBeNull();
   });
 
   it('renders the community rail with one captioned photo per member', () => {
