@@ -320,7 +320,11 @@ export default function Terms() {
             <h2>Governing Law &amp; Geographic Availability</h2>
             <p>These Terms are governed by the laws of the <strong>Federal Republic of Germany</strong>. Disputes shall be subject to the exclusive jurisdiction of the courts of Germany. EU consumers may also bring claims in the courts of their country of residence.</p>
             <p>You may also use the EU Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
-            <p><strong>Geographic availability.</strong> Libo's {GIVEAWAYS_ENABLED ? 'giveaways and cash challenges are' : 'cash challenges are'} open globally <strong>except where prohibited by local law</strong>. At launch, the following jurisdictions are excluded from {GIVEAWAYS_ENABLED ? 'all paid-entry promotions, giveaways and cash challenges' : 'all cash challenges'}: <strong>Quebec (Canada), Brazil, mainland China, and any country or region subject to OFAC or comparable EU/UN sanctions</strong>. Libo may add or remove jurisdictions at any time in response to local regulatory contact or legal review. Where a jurisdiction is excluded after a cycle has started, in-flight cycles for already-enrolled users in that geography will be honoured to completion.</p>
+            <p><strong>Geographic availability.</strong> Libo's <strong>cash challenges</strong> are decided entirely by your own effort: everyone who completes a challenge is paid in full, with no draw, no pot and no element of chance. They are open globally <strong>except where prohibited by local law</strong>. At launch, cash challenges are excluded in <strong>Quebec (Canada) and any country or region subject to OFAC or comparable EU/UN sanctions</strong>.</p>
+            {GIVEAWAYS_ENABLED && (
+              <p><strong>Giveaways and other paid-entry promotions</strong> turn on an element of chance and are restricted in more places. They are excluded in <strong>Quebec (Canada), Brazil, mainland China, and any country or region subject to OFAC or comparable EU/UN sanctions</strong>.</p>
+            )}
+            <p>Libo may add or remove jurisdictions at any time in response to local regulatory contact or legal review. Where a jurisdiction is excluded after a cycle has started, in-flight cycles for already-enrolled users in that geography will be honoured to completion.</p>
           </section>
 
           {/* 18 */}
