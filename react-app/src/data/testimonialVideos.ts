@@ -30,7 +30,29 @@
  *   somin   crop 2160:2700:0:609      0.00 → 30.70   poster @12s
  *   jerson  crop 1600:2000:280:1000  45.80 → 74.85   poster @50s
  *   ken     crop 1900:2375:300:820   45.05 → 72.10   poster @60s
- *   gabriel crop 1080:1350:0:240      0.00 → 24.09   poster @12s
+ *   gabriel crop 1080:1350:0:240      0.00 → 24.09   poster @0s  (see note)
+ *
+ * GABRIEL IS THE ONLY HDR CLIP, and it was shipped that way until 6 Nov 2026.
+ * His master is HLG / BT.2020 (iPhone HDR); the other three are plain BT.709.
+ * A still pulled from an HLG source without tone-mapping is flat and dull, so
+ * the poster read dark and then the picture JUMPED to full brightness the moment
+ * playback handed the HLG stream to the display's HDR path. Reported on Android,
+ * but it was never platform-specific — iPhones and desktop both did it.
+ *
+ * Both renditions are now tone-mapped to BT.709 with `scripts/social/hdr.py`
+ * (`sdr_chain`), the same 3D-LUT conversion the social pipeline runs on every
+ * HLG clip — this ffmpeg has no zscale, which is why that module exists. The HLG
+ * originals are kept at `marketing/archive/voice-gabriel-full-{720,1080}p-hlg-original.mp4`.
+ *
+ * CHECK THE METADATA, NOT THE FILENAME. R2 still holds voice-gabriel-sdr2/sdr3,
+ * from earlier attempts; both are still `arib-std-b67` despite the name. Verify with
+ * `ffprobe -show_entries stream=color_transfer` before believing any conversion.
+ *
+ * The poster is the clip's FIRST frame, not a 12s still — the old `@12s` note here
+ * pointed at the washed-out ceiling shot that was replaced on 17 Sep 2026 and never
+ * corrected. The avatar is from some other moment again; its crop (760:760:150:700,
+ * master scale) does NOT map onto frame 0, so it was left on the HDR-derived still
+ * and is the one asset here still untouched.
  *   ben     crop 478:598:0:0         14.70 → 35.85   poster @24.50s
  *   ben-progression
  *           crop 478:598:0:0         97.30 → 128.20  poster @120.20s
@@ -192,7 +214,7 @@ const CDN = 'https://videos.liboworld.com/marketing';
  * stable, so this query string is the only thing that busts the Cloudflare
  * edge. Same trick as `funnelVideos.ts`.
  */
-const V = '1788307200000';
+const V = '1794005847000';
 
 export type TestimonialVideo = {
   /** Stable id — also the R2 basename and the analytics event name. */
@@ -240,7 +262,7 @@ export type TestimonialVideo = {
  * serving the old bytes off the unchanged filename — twice. Bump this on any
  * poster change.
  */
-const POSTER_V = '1789000000000';
+const POSTER_V = '1794005848000';
 
 function urls(base: string) {
   return {
