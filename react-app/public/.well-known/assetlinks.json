@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.liboworld.app",
+      "sha256_cert_fingerprints": [
+        "A4:32:C7:33:54:97:16:3E:CE:AD:90:EE:B7:65:8F:C5:97:52:38:AF:06:16:69:CB:81:8C:10:60:12:55:69:9B"
+      ]
+    }
+  }
+]
