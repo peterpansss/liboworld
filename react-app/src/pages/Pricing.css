@@ -58,7 +58,7 @@
   align-self: center;
   background: var(--accent-dim);
   color: var(--accent);
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -69,7 +69,7 @@
 }
 
 .pr-hero__h1 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   /* Scales down before it can ever collide with the viewport edge. */
@@ -135,7 +135,7 @@
 }
 
 .pr-card__name {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 28px;
@@ -152,7 +152,7 @@
   text-align: center;
   background: var(--accent);
   color: var(--accent-text, #080B10);
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -170,7 +170,7 @@
 }
 
 .pr-card__price {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   font-size: 56px;
   line-height: 1;
@@ -235,7 +235,7 @@
   align-items: center;
   /* ≥44px tap target at every breakpoint. */
   min-height: 52px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 16px;
@@ -307,7 +307,7 @@
 }
 
 .pr-guarantee__title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 22px;
@@ -330,7 +330,7 @@
 }
 
 .pr-faq__h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 54px;

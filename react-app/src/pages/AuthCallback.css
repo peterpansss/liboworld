@@ -74,7 +74,7 @@
 }
 
 .auth-callback-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-size: clamp(36px, 6vw, 48px);
   font-weight: 900;
   text-transform: uppercase;

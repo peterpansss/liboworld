@@ -110,7 +110,7 @@
   color: var(--accent-text);
   border: none;
   border-radius: 12px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   font-size: 16px;
   text-transform: uppercase;
@@ -195,7 +195,7 @@
   width: 100%;
   background: var(--accent);
   color: var(--accent-text);
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   font-size: 16px;
   text-transform: uppercase;

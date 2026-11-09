@@ -160,7 +160,7 @@
 
 /* ── Section Tag ── */
 .ob-section-tag {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   font-size: 11px;
   text-transform: uppercase;
@@ -171,7 +171,7 @@
 
 /* ── Question Heading ── */
 .ob-step-heading {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   font-size: clamp(28px, 8vw, 36px);
   text-transform: uppercase;
@@ -312,7 +312,7 @@
   color: #080808;
   border: none;
   border-radius: 16px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   font-size: 16px;
   text-transform: uppercase;
@@ -352,7 +352,7 @@
 }
 
 .ob-interstitial-heading {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   font-size: clamp(28px, 8vw, 40px);
   text-transform: uppercase;
@@ -438,14 +438,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   font-size: 42px;
   color: #fff;
 }
 
 .ob-loading-ready {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   font-size: 24px;
   color: var(--text);
@@ -594,7 +594,7 @@
 }
 
 .ob-menu-drawer a {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   font-size: 18px;
   text-transform: uppercase;

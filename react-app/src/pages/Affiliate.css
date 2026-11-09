@@ -156,7 +156,7 @@
 }
 
 .aff-calc-users {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 700;
   font-size: 56px;
   color: var(--text);
@@ -475,7 +475,7 @@
   height: 15px;
   border-radius: 50%;
   border: 1px solid currentColor;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-style: italic;
   font-weight: 800;
   font-size: 11px;

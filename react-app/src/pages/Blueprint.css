@@ -22,7 +22,7 @@
 
 .bp-badge {
   display: inline-flex;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.08em;
@@ -34,7 +34,7 @@
 }
 
 .bp-hero h1 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   font-size: clamp(56px, 8vw, 104px);
@@ -45,7 +45,7 @@
 .bp-accent { color: var(--accent); }
 
 .bp-lead {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 24px;
@@ -126,7 +126,7 @@
 
 .bp-inside h2,
 .bp-rules h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 36px;
@@ -185,7 +185,7 @@
   position: absolute;
   left: 0;
   top: -5px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   font-size: 26px;
   color: var(--accent);

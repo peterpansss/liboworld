@@ -202,7 +202,7 @@
 }
 
 .founder-caption__quote {
-  font-family: 'Barlow Condensed', system-ui, sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
   font-size: 24px;
   font-weight: 700;
   line-height: 0.8;
