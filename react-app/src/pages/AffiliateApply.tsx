@@ -99,7 +99,6 @@ export default function AffiliateApply() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) return t('affiliateApply.errEmailFormat', { defaultValue: 'Please enter a valid email.' });
     if (form.email.trim() !== form.emailConfirm.trim()) return t('affiliateApply.errEmailMatch', { defaultValue: "Email addresses don't match." });
     if (!form.mainChannel.trim()) return t('affiliateApply.errMainChannel', { defaultValue: 'Please add a link to your main channel.' });
-    if (!form.audienceSize.trim()) return t('affiliateApply.errAudience', { defaultValue: 'Please tell us your audience size.' });
     if (!form.agreed) return t('affiliateApply.errTerms', { defaultValue: 'You must agree to the Terms of Service.' });
     return null;
   };
@@ -284,13 +283,12 @@ export default function AffiliateApply() {
             />
           </label>
           <label className="aa-field">
-            <span className="aa-label">{t('affiliateApply.audienceSize', { defaultValue: 'What is your audience size?' })} *</span>
+            <span className="aa-label">{t('affiliateApply.audienceSize', { defaultValue: 'Audience size (optional)' })}</span>
             <input
               type="text"
               value={form.audienceSize}
               onChange={(e) => update('audienceSize', e.target.value)}
-              placeholder="e.g. 25,000 IG + 8,000 TikTok"
-              required
+              placeholder={t('affiliateApply.audienceSizePlaceholder', { defaultValue: 'Any size is fine — leave blank if you prefer' })}
             />
           </label>
           <label className="aa-field">

@@ -825,7 +825,7 @@ export default function Landing() {
               <p className="rh-body">
                 {t('relaunchHome.creators.body', {
                   defaultValue:
-                    'Refer people to Libo and we pay you a 25% commission on their subscription — for as long as they stay members and you stay one too. Built for creators with 5K+ followers who actually train.',
+                    'Refer people to Libo and we pay you a 25% commission on their subscription — for as long as they stay members and you stay one too. Open to anyone who actually trains — creators, coaches, gyms and PTs, whatever the follower count.',
                 })}
               </p>
               <Link to="/creator-program" viewTransition className="rh-btn rh-btn--primary">

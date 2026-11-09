@@ -1197,7 +1197,7 @@
       "eyebrow": "CRÉATEURS & PARTENAIRES",
       "h2Line1": "Ton audience s'entraîne.",
       "h2Accent": "Tu gagnes 25% à vie.",
-      "body": "Amène des gens sur Libo et on te verse 25% de commission sur leur abonnement — tant qu'ils restent membres et toi aussi. Pour les créateurs avec 5K+ abonnés qui s'entraînent vraiment.",
+      "body": "Amène des gens sur Libo et on te verse 25% de commission sur leur abonnement — tant qu'ils restent membres et toi aussi. Ouvert à tous ceux qui s'entraînent vraiment — créateurs, coachs, salles et préparateurs, peu importe le nombre d'abonnés.",
       "cta": "Devenir partenaire →",
       "cards": [
         {
@@ -1275,7 +1275,7 @@
       "eyebrow": "Créateurs & partenaires",
       "h2a": "Ton audience s'entraîne.",
       "h2b": "Tu gagnes 25% à vie.",
-      "body": "Amène des gens sur Libo et on te verse 25% de commission sur leur abonnement — tant qu'ils restent membres et toi aussi. Fait pour les créateurs avec 5K+ abonnés qui s'entraînent vraiment.",
+      "body": "Amène des gens sur Libo et on te verse 25% de commission sur leur abonnement — tant qu'ils restent membres et toi aussi. Ouvert à tous ceux qui s'entraînent vraiment — créateurs, coachs, salles et préparateurs, peu importe le nombre d'abonnés.",
       "cta": "Deviens partenaire →"
     },
     "guides": {
@@ -2181,7 +2181,7 @@
     "calcTooltip": "Estimé comme 25% de commission sur l'abonnement annuel à €79.99. Les gains réels dépendent du forfait et de la durée d'abonnement des membres.",
     "howHeading": "Lien → membres → paiement.",
     "step1Title": "Postule",
-    "step1Body": "5K+ abonnés sur un réseau social, un blog ou une newsletter ? Postule en moins de 2 minutes.",
+    "step1Body": "Tu t'entraînes, tu coaches, tu gères une salle ou tu postes sur le fitness ? Postule en moins de 2 minutes — aucun minimum d'abonnés.",
     "step2Title": "Partage ton lien",
     "step2Body": "Ton lien de parrainage unique, partout — bio, légendes, descriptions, newsletter.",
     "step3Title": "Gagne chaque mois",
@@ -2224,7 +2224,8 @@
     "companyName": "Nom de l'entreprise / de la personne / du site",
     "audienceTitle": "Audience",
     "mainChannel": "Site principal / réseau social où tu feras la promo (lien)",
-    "audienceSize": "Quelle est la taille de ton audience ?",
+    "audienceSize": "Taille de ton audience (optionnel)",
+    "audienceSizePlaceholder": "Toutes les tailles conviennent — laisse vide si tu préfères",
     "otherChannels": "Autres sites / réseaux sociaux (ajoute-les tous)",
     "termsTitle": "Conditions générales",
     "termsSubtitle": "Conditions d'utilisation du programme d'affiliation Libo",

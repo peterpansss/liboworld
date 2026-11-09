@@ -89,7 +89,7 @@ export default function Affiliate() {
       accent: true,
     },
     {
-      value: '5K+',
+      value: '0',
       label: t('affiliate.trustFollowers', { defaultValue: 'Min. follower count' }),
       labelMobile: t('affiliate.trustFollowersMobile', { defaultValue: 'Min. followers' }),
       accent: false,
@@ -212,7 +212,7 @@ export default function Affiliate() {
             <span className="aff-how-num font-display">01</span>
             <div>
               <h3 className="aff-how-title">{t('affiliate.step1Title', { defaultValue: 'Sign up' })}</h3>
-              <p>{t('affiliate.step1Body', { defaultValue: '5K+ followers on a social platform, blog, or newsletter? Apply in under 2 minutes.' })}</p>
+              <p>{t('affiliate.step1Body', { defaultValue: 'Train, coach, run a gym, or post about fitness? Apply in under 2 minutes — no follower minimum.' })}</p>
             </div>
           </li>
           <li className="aff-how-step" data-popin>

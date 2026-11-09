@@ -1223,7 +1223,7 @@
       "eyebrow": "CREATORS & PARTNERS",
       "h2Line1": "Your audience trains.",
       "h2Accent": "You earn 25% for life.",
-      "body": "Refer people to Libo and we pay you a 25% commission on their subscription — for as long as they stay members and you stay one too. Built for creators with 5K+ followers who actually train.",
+      "body": "Refer people to Libo and we pay you a 25% commission on their subscription — for as long as they stay members and you stay one too. Open to anyone who actually trains — creators, coaches, gyms and PTs, whatever the follower count.",
       "cta": "Become a partner →",
       "cards": [
         {
@@ -1296,7 +1296,7 @@
       "eyebrow": "Creators & partners",
       "h2a": "Your audience trains.",
       "h2b": "You earn 25% for life.",
-      "body": "Refer people to Libo and we pay you a 25% commission on their subscription — for as long as they stay members and you stay one too. Built for creators with 5K+ followers who actually train.",
+      "body": "Refer people to Libo and we pay you a 25% commission on their subscription — for as long as they stay members and you stay one too. Open to anyone who actually trains — creators, coaches, gyms and PTs, whatever the follower count.",
       "cta": "Become a partner →"
     },
     "guides": {
@@ -2181,7 +2181,7 @@
     "calcTooltip": "Estimated as a 25% commission on the €79.99 annual subscription. Real earnings depend on the plan and how long members stay.",
     "howHeading": "Link → members → payout.",
     "step1Title": "Sign up",
-    "step1Body": "5K+ followers on a social platform, blog, or newsletter? Apply in under 2 minutes.",
+    "step1Body": "Train, coach, run a gym, or post about fitness? Apply in under 2 minutes — no follower minimum.",
     "step2Title": "Share your link",
     "step2Body": "Your unique referral link, anywhere — bio, captions, descriptions, newsletter.",
     "step3Title": "Earn monthly",
@@ -2224,7 +2224,8 @@
     "companyName": "Company / Individual / Website name",
     "audienceTitle": "Audience",
     "mainChannel": "Main website / social media you will advertise on (link)",
-    "audienceSize": "What is your audience size?",
+    "audienceSize": "Audience size (optional)",
+    "audienceSizePlaceholder": "Any size is fine — leave blank if you prefer",
     "otherChannels": "Other websites / social media (add all)",
     "termsTitle": "Terms and Conditions",
     "termsSubtitle": "Libo Affiliate Programme Terms of Service",
