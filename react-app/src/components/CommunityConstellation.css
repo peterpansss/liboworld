@@ -25,7 +25,7 @@
 }
 
 .community-eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   font-size: 14px;
   letter-spacing: 0.1em;
@@ -35,7 +35,7 @@
 }
 
 .community-headline {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   font-size: clamp(40px, 5vw, 64px);
   line-height: 0.95;
@@ -77,7 +77,7 @@
   border-radius: 50%;
   border: 3px solid var(--accent, #CAFF00);
   color: var(--white, #fff);
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   letter-spacing: 0.05em;
   text-transform: uppercase;

@@ -71,7 +71,7 @@
 }
 
 .pd-hero h1 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -1px;
@@ -150,7 +150,7 @@
 }
 
 .pd-phase-label {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -250,7 +250,7 @@
 }
 
 .pd-cta h3 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -290,7 +290,7 @@
 }
 
 .pd-related h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -371,7 +371,7 @@
 }
 
 .pd-not-found h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
   font-size: 28px;

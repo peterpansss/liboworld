@@ -43,7 +43,7 @@
 }
 
 .el-hero h1 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -1px;

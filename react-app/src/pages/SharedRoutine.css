@@ -135,7 +135,7 @@
 }
 
 .sr-row__thumb-initial {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   font-size: 22px;
   color: var(--muted);
