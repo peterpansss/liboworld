@@ -1223,7 +1223,7 @@
       "eyebrow": "CREATOR & PARTNER",
       "h2Line1": "Deine Audience trainiert.",
       "h2Accent": "Du verdienst 25% — auf Lebenszeit.",
-      "body": "Bring Leute zu Libo und wir zahlen dir 25% Provision auf ihr Abo — solange sie Mitglied bleiben und du auch. Für Creator mit 5K+ Followern, die wirklich trainieren.",
+      "body": "Bring Leute zu Libo und wir zahlen dir 25% Provision auf ihr Abo — solange sie Mitglied bleiben und du auch. Offen für alle, die wirklich trainieren — Creator, Coaches, Gyms und Personal Trainer, egal wie viele Follower.",
       "cta": "Partner werden →",
       "cards": [
         {
@@ -1296,7 +1296,7 @@
       "eyebrow": "Creator & Partner",
       "h2a": "Deine Audience trainiert.",
       "h2b": "Du verdienst 25% — lebenslang.",
-      "body": "Empfiehl Libo und wir zahlen dir 25% Provision auf jedes Abo — solange deine Member dabei bleiben und du auch. Gebaut für Creator mit 5K+ Followern, die wirklich trainieren.",
+      "body": "Empfiehl Libo und wir zahlen dir 25% Provision auf jedes Abo — solange deine Member dabei bleiben und du auch. Offen für alle, die wirklich trainieren — Creator, Coaches, Gyms und Personal Trainer, egal wie viele Follower.",
       "cta": "Werde Partner →"
     },
     "guides": {
@@ -2181,7 +2181,7 @@
     "calcTooltip": "Geschätzt als 25% Provision auf das Jahresabo für €79.99. Der echte Verdienst hängt vom Tarif ab und davon, wie lange Member bleiben.",
     "howHeading": "Link → Member → Auszahlung.",
     "step1Title": "Bewirb dich",
-    "step1Body": "5K+ Follower auf Social Media, Blog oder Newsletter? Bewirb dich in unter 2 Minuten.",
+    "step1Body": "Du trainierst, coachst, führst ein Gym oder postest über Fitness? Bewirb dich in unter 2 Minuten — kein Follower-Minimum.",
     "step2Title": "Teile deinen Link",
     "step2Body": "Dein persönlicher Referral-Link, überall — Bio, Captions, Beschreibungen, Newsletter.",
     "step3Title": "Verdiene monatlich",
@@ -2224,7 +2224,8 @@
     "companyName": "Name von Unternehmen / Person / Website",
     "audienceTitle": "Audience",
     "mainChannel": "Hauptwebsite / Social-Media-Kanal, auf dem du wirbst (Link)",
-    "audienceSize": "Wie groß ist deine Audience?",
+    "audienceSize": "Audience-Größe (optional)",
+    "audienceSizePlaceholder": "Jede Größe ist okay — lass es ruhig leer",
     "otherChannels": "Weitere Websites / Social-Media-Kanäle (alle angeben)",
     "termsTitle": "Allgemeine Geschäftsbedingungen",
     "termsSubtitle": "Nutzungsbedingungen des Libo Affiliate-Programms",
