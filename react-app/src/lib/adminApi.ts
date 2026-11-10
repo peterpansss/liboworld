@@ -1480,11 +1480,15 @@ export async function setCycleWindow(
 export type ChallengePayoutStatus = 'pending' | 'processing' | 'paid' | 'failed' | 'cancelled';
 export type ChallengePayoutMethod = 'wise' | 'sepa' | 'paypal' | 'manual';
 
+/** 'challenge' = cash-challenge finisher; 'giveaway' = membership-giveaway winner. */
+export type PayoutKind = 'challenge' | 'giveaway';
+
 export type ChallengePayoutRow = {
   id: string;
-  enrollment_id: string;
-  cycle_id: string;
-  challenge_id: string;
+  /** Null on giveaway rows. */
+  enrollment_id: string | null;
+  cycle_id: string | null;
+  challenge_id: string | null;
   challenge_title: string;
   user_id: string;
   user_email: string | null;
@@ -1503,6 +1507,21 @@ export type ChallengePayoutRow = {
   paid_at: string | null;
   failed_at: string | null;
   failure_reason: string | null;
+  // Added by supabase-migration-giveaway-claims.sql. Optional so an older
+  // server that does not send them still type-checks at runtime.
+  kind?: PayoutKind;
+  giveaway_id?: string | null;
+  giveaway_winner_id?: string | null;
+  /** Account holder: the winner, or their parent/guardian if under 18. */
+  payee_name?: string | null;
+  identity_verified_at?: string | null;
+  verification_note?: string | null;
+  date_of_birth?: string | null;
+  winner_status?: 'pending_claim' | 'verifying' | 'paid' | 'forfeited' | null;
+  payee_relationship?: 'self' | 'parent' | 'guardian' | null;
+  winner_legal_name?: string | null;
+  guardian_email?: string | null;
+  guardian_consent_at?: string | null;
 };
 
 export type MarkPayoutPaidInput = {
@@ -2012,6 +2031,44 @@ export async function deleteUserWithReauth(userId: string) {
 
 export async function markPayoutPaidWithReauth(payoutId: string, input: MarkPayoutPaidInput) {
   return withRecentAuth(() => markPayoutPaid_unsafe(payoutId, input));
+}
+
+/**
+ * Record that a person checked the payee's photo ID and age (and, for an
+ * under-18 giveaway winner, the parent/guardian's ID and the link). A
+ * giveaway payout cannot be marked paid until this is recorded — enforced by
+ * a trigger in supabase-migration-giveaway-claims.sql.
+ */
+export async function verifyPayoutIdentityWithReauth(payoutId: string, note: string | null) {
+  return withRecentAuth(async () => {
+    const { data, error } = await supabase.rpc('admin_verify_payout_identity', {
+      p_payout_id: payoutId,
+      p_note: note,
+    });
+    if (error) throw error;
+    const r = data as { ok: boolean; error?: string };
+    if (!r.ok) throw new Error(r.error ?? 'verify_failed');
+  });
+}
+
+export type GiveawayForfeitReason = 'failed_verification' | 'ineligible' | 'declined';
+
+/**
+ * Forfeit a giveaway winner (failed ID/age check, ineligible, declined),
+ * cancel their unpaid payout and draw a replacement from the same round's
+ * entries at once. Irreversible.
+ */
+export async function forfeitGiveawayWinnerWithReauth(winnerId: string, reason: GiveawayForfeitReason) {
+  return withRecentAuth(async () => {
+    const { data, error } = await supabase.rpc('admin_forfeit_giveaway_winner', {
+      p_winner_id: winnerId,
+      p_reason: reason,
+    });
+    if (error) throw error;
+    const r = data as { ok: boolean; error?: string; redraw?: { redrawn: number; no_entrants_left: number } };
+    if (!r.ok) throw new Error(r.error ?? 'forfeit_failed');
+    return r.redraw ?? { redrawn: 0, no_entrants_left: 0 };
+  });
 }
 
 // Destructive content + drawing ops — all gated through requireRecentAuth().

@@ -311,7 +311,7 @@ export default function Rules() {
             <ul>
               <li><strong>Email:</strong> <a href="mailto:support@liboworld.com">support@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
-              <li><strong>Operator:</strong> Noah Fofana, trading as Libo World, Fornicher Weg 3, 56626 Andernach, Germany</li>
+              <li><strong>Operator:</strong> Noah Fofana, trading as Libo World, Johannishof 10, 56626 Andernach, Germany</li>
             </ul>
           </section>
         </div>

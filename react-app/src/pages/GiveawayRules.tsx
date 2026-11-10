@@ -107,7 +107,7 @@ export default function GiveawayRules() {
             <h2>Who Runs the Giveaway</h2>
             <p>The giveaway is run by <strong>Noah Fofana, trading as Libo World</strong>, a registered business in Germany (&ldquo;Libo&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;), the promoter.</p>
             <ul>
-              <li><strong>Postal address:</strong> Fornicher Weg 3, 56626 Andernach, Germany</li>
+              <li><strong>Postal address:</strong> Johannishof 10, 56626 Andernach, Germany</li>
               <li><strong>Email:</strong> <a href="mailto:support@liboworld.com">support@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
             </ul>
@@ -252,7 +252,7 @@ export default function GiveawayRules() {
             <ul>
               <li><strong>Email:</strong> <a href="mailto:support@liboworld.com">support@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
-              <li><strong>Promoter:</strong> Noah Fofana, trading as Libo World, Fornicher Weg 3, 56626 Andernach, Germany</li>
+              <li><strong>Promoter:</strong> Noah Fofana, trading as Libo World, Johannishof 10, 56626 Andernach, Germany</li>
             </ul>
           </section>
         </div>

@@ -66,7 +66,7 @@ describe('DeleteAccount', () => {
     const { container } = renderPage();
     const text = container.textContent ?? '';
     expect(text).toContain('Libo World - Training Club');
-    expect(text).toContain('Noah Fofana, trading as Libo World, Fornicher Weg 3, 56626 Andernach, Germany');
+    expect(text).toContain('Noah Fofana, trading as Libo World, Johannishof 10, 56626 Andernach, Germany');
   });
 
   it('gives the in-app path using the app’s own labels', () => {
