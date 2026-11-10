@@ -10,4 +10,8 @@ export {
   listChallengePayouts,
   markPayoutPaidWithReauth,
   markPayoutPaid_unsafe,
+  verifyPayoutIdentityWithReauth,
+  forfeitGiveawayWinnerWithReauth,
+  type PayoutKind,
+  type GiveawayForfeitReason,
 } from '../adminApi';

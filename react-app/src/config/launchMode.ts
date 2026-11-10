@@ -27,8 +27,9 @@ export const isPrelaunch = () => LAUNCH_MODE === 'prelaunch';
 export const isLaunched = () => LAUNCH_MODE === 'launched';
 
 /**
- * /giveaway and /cash-challenge carry placeholder statistics (entrant, winner
- * and completer counts) that were never real. They must NOT become public as a
+ * /cash-challenge carries placeholder statistics (completer and payout counts)
+ * that were never real. (The /giveaway points-pack page that shared this gate
+ * has been deleted; /giveaway now redirects to /giveaway-rules.) They must NOT become public as a
  * side effect of flipping LAUNCH_MODE on launch morning. Gate them separately;
  * turn this on only once the counters are removed or backed by real figures.
  */

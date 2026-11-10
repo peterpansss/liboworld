@@ -1,0 +1,263 @@
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import SiteNav from '../components/SiteNav';
+import SiteFooter from '../components/SiteFooter';
+import {
+  GIVEAWAY_ROUNDS,
+  GIVEAWAY_ENTRIES,
+  GIVEAWAY_MAX_ENTRIES,
+  LOYALTY_PER_MONTH,
+  LOYALTY_MAX_MONTHS,
+  LOYALTY_MIN_WORKOUT_MINUTES,
+  GIVEAWAY_CLAIM_DAYS,
+  GIVEAWAY_MIN_AGE,
+  GIVEAWAY_EXCLUDED,
+  formatRoundDate,
+} from '../data/giveawayRounds';
+import './Legal.css';
+
+/**
+ * /giveaway-rules — the public Official Giveaway Rules.
+ *
+ * Deliberately NOT gated behind GIVEAWAYS_ENABLED: the rules must be publicly
+ * reachable before round 1 opens, so anyone told about the giveaway can read
+ * them first. The Terms section that incorporates this page by reference
+ * (Terms §Giveaways) stays behind the flag until the giveaway goes live.
+ *
+ * English-only inline JSX, like Terms.tsx and Rules.tsx — the legal pages are
+ * deliberately not run through i18n.
+ *
+ * Model: Noah, 10 Nov 2026 — canon LEGAL-COMPETITIONS.md §4b/§5/§8 and
+ * REWARDS-ECONOMY-RULES.md §8.1/§8.4. Two content rules this page must never
+ * break:
+ *  - Never state or imply that buying does not improve your chances. Premium
+ *    gives 5x the entries, so it does. That clause was deleted from canon on
+ *    purpose (LEGAL-COMPETITIONS §5 cl.4). The three true statements replace it.
+ *  - Never void a round for low participation (§8a / REWARDS §8.4).
+ * Round dates and prizes come from GIVEAWAY_ROUNDS, so adding a round is a
+ * one-line change in src/data/giveawayRounds.ts.
+ */
+export default function GiveawayRules() {
+  let sectionNo = 0;
+  const n = () => String(++sectionNo).padStart(2, '0');
+
+  useEffect(() => {
+    document.title = 'Official Giveaway Rules | Libo';
+    return () => { document.title = 'Libo'; };
+  }, []);
+
+  const first = GIVEAWAY_ROUNDS[0];
+  const last = GIVEAWAY_ROUNDS[GIVEAWAY_ROUNDS.length - 1];
+
+  return (
+    <>
+      <SiteNav />
+      <main className="legal-page">
+        <div className="legal-container">
+          {/* Breadcrumb */}
+          <div className="legal-breadcrumb">
+            <Link to="/">Home</Link>
+            <span className="legal-breadcrumb-sep">&gt;</span>
+            <span>Official Giveaway Rules</span>
+          </div>
+
+          {/* Hero */}
+          <div className="legal-hero">
+            <div className="legal-label">Rules</div>
+            <h1 className="font-display">Official Giveaway Rules</h1>
+            <p className="legal-meta">
+              Last updated: <span>10 November 2026</span> &middot; Applies to: <span>giveaway rounds from {formatRoundDate(first.opens)} to {formatRoundDate(last.closes)}</span>
+            </p>
+          </div>
+
+          <div className="legal-highlight">
+            <p>
+              <strong>The short version.</strong> No purchase necessary. Every eligible Libo
+              member is entered automatically. Free members get {GIVEAWAY_ENTRIES.free} entry
+              per round, Premium members get {GIVEAWAY_ENTRIES.premium}, plus loyalty entries for
+              every month in a row you&rsquo;ve trained. Your entries count once
+              you complete one workout in the app while the round is open. Every entry has the
+              same chance of winning, and all entries are drawn from one pool. Memberships give
+              more entries. Apple and Google are not sponsors of, and are not involved in, this
+              giveaway.
+            </p>
+          </div>
+
+          {/* Table of Contents */}
+          <div className="legal-toc">
+            <div className="legal-toc-title">Table of Contents</div>
+            <ol>
+              <li><a href="#promoter">Who Runs the Giveaway</a></li>
+              <li><a href="#who">Who Can Enter</a></li>
+              <li><a href="#where">Where You Can Enter</a></li>
+              <li><a href="#rounds">Rounds &amp; Prizes</a></li>
+              <li><a href="#entries">How You Are Entered</a></li>
+              <li><a href="#free">No Purchase Necessary</a></li>
+              <li><a href="#draw">The Draw</a></li>
+              <li><a href="#claim">Winning &amp; Claiming</a></li>
+              <li><a href="#fair-play">Fair Play</a></li>
+              <li><a href="#cancellation">If a Round Cannot Run</a></li>
+              <li><a href="#tax-privacy">Tax, Privacy, Apple &amp; Google</a></li>
+              <li><a href="#changes">Changes &amp; Contact</a></li>
+            </ol>
+          </div>
+
+          <section className="legal-section" id="promoter">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Who Runs the Giveaway</h2>
+            <p>The giveaway is run by <strong>Noah Fofana, trading as Libo World</strong>, a registered business in Germany (&ldquo;Libo&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;), the promoter.</p>
+            <ul>
+              <li><strong>Postal address:</strong> Johannishof 10, 56626 Andernach, Germany</li>
+              <li><strong>Email:</strong> <a href="mailto:support@liboworld.com">support@liboworld.com</a></li>
+              <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
+            </ul>
+            <p>These rules form part of our <Link to="/terms">Terms &amp; Conditions</Link>. If they conflict, the Terms govern.</p>
+          </section>
+
+          <section className="legal-section" id="who">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Who Can Enter</h2>
+            <ul>
+              <li><strong>You must be {GIVEAWAY_MIN_AGE} or older</strong> and have a Libo account. If your local law sets a higher minimum age, that law applies.</li>
+              <li><strong>One account per person.</strong> If you use more than one account, all of them are disqualified.</li>
+              <li><strong>Libo staff and partners can&rsquo;t enter.</strong> Nor can anyone in their household.</li>
+            </ul>
+          </section>
+
+          <section className="legal-section" id="where">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Where You Can Enter</h2>
+            <p>The giveaway is open worldwide, except:</p>
+            <ul>
+              {GIVEAWAY_EXCLUDED.map((place) => (
+                <li key={place}>{place}</li>
+              ))}
+              <li>any country or region under EU, UN or US (OFAC) sanctions</li>
+              <li>anywhere local law prohibits it</li>
+            </ul>
+            <p>If you live in an excluded place, you are not entered and cannot win. We may add places to this list after local legal review.</p>
+          </section>
+
+          <section className="legal-section" id="rounds">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Rounds &amp; Prizes</h2>
+            <p>The giveaway runs in weekly rounds. Only one round is open at a time. All times are Berlin time (Germany). Each round opens at 00:00 on its first day and closes at 23:59 on its last day.</p>
+            <div className="legal-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Round</th>
+                    <th>Opens</th>
+                    <th>Closes</th>
+                    <th>Prize</th>
+                    <th>Winner announced</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Driven off GIVEAWAY_ROUNDS. Announcement = the day after
+                      close, i.e. the following Monday. */}
+                  {GIVEAWAY_ROUNDS.map((round) => (
+                    <tr key={round.n}>
+                      <td><strong>Round {round.n}</strong></td>
+                      <td>{formatRoundDate(round.opens)}, 00:00</td>
+                      <td>{formatRoundDate(round.closes)}, 23:59</td>
+                      <td>&euro;{round.prize} cash, {round.winners === 1 ? '1 winner' : `${round.winners} winners`}</td>
+                      <td>{formatRoundDate(round.closes, 1)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p>Each round is a separate draw. The prize is paid in cash. It can&rsquo;t be transferred to someone else or exchanged for anything else.</p>
+          </section>
+
+          <section className="legal-section" id="entries">
+            <div className="legal-section-num">{n()}</div>
+            <h2>How You Are Entered</h2>
+            <p>You don&rsquo;t need to sign up. Every eligible member is entered into each round automatically:</p>
+            <ul>
+              <li><strong>Free plan:</strong> {GIVEAWAY_ENTRIES.free} entry per round</li>
+              <li><strong>Premium:</strong> {GIVEAWAY_ENTRIES.premium} entries per round</li>
+            </ul>
+            <p><strong>Loyalty entries:</strong> for every calendar month in a row before the round&rsquo;s month in which you completed at least one workout of {LOYALTY_MIN_WORKOUT_MINUTES} minutes or more, you get extra entries &mdash; Free +{LOYALTY_PER_MONTH.free}, Premium +{LOYALTY_PER_MONTH.premium} per month, counting up to {LOYALTY_MAX_MONTHS} months. A month without such a workout restarts the count. Example: a member who trained every month for the past year holds {GIVEAWAY_MAX_ENTRIES.free} entries on Free, or {GIVEAWAY_MAX_ENTRIES.premium} on Premium.</p>
+            <p>You need to have confirmed your date of birth in the app.</p>
+            <h3>Your entries count once you train</h3>
+            <p>Your entries for a round only become active when you <strong>complete one workout in the app while that round is open</strong>. This rule is the same on every plan. If you don&rsquo;t complete a workout during the round, your entries for that round don&rsquo;t count.</p>
+            <p>Your plan on the day the round closes decides how many entries you hold. Each round is a separate draw. Your entries are worked out fresh for every round.</p>
+          </section>
+
+          <section className="legal-section" id="free">
+            <div className="legal-section-num">{n()}</div>
+            <h2>No Purchase Necessary</h2>
+            <ul>
+              <li><strong>No purchase necessary.</strong> The Free plan is free. A free member who completes one workout during a round is in the draw.</li>
+              <li><strong>Every entry has the same chance of winning, and all entries are drawn from one pool.</strong> A free entry and a Premium entry are treated exactly the same.</li>
+              <li><strong>Memberships give more entries.</strong> Premium members get {GIVEAWAY_ENTRIES.premium} base entries per round instead of {GIVEAWAY_ENTRIES.free}, and +{LOYALTY_PER_MONTH.premium} loyalty entries per month instead of +{LOYALTY_PER_MONTH.free}.</li>
+              <li><strong>Points can&rsquo;t be bought, and can&rsquo;t be turned into entries.</strong></li>
+            </ul>
+          </section>
+
+          <section className="legal-section" id="draw">
+            <div className="legal-section-num">{n()}</div>
+            <h2>The Draw</h2>
+            <p>When a round closes, the winner is drawn automatically and at random by computer from all active entries in that round. The winner is announced on the following Monday.</p>
+          </section>
+
+          <section className="legal-section" id="claim">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Winning &amp; Claiming</h2>
+            <ul>
+              <li><strong>We tell you in the app or by email.</strong></li>
+              <li><strong>You have {GIVEAWAY_CLAIM_DAYS} days to claim.</strong> If you don&rsquo;t claim in time, a new winner is drawn from the same round&rsquo;s entries.</li>
+              <li><strong>We check your ID and age before paying.</strong> If you can&rsquo;t verify them, or you are not eligible, a new winner is drawn from the same round&rsquo;s entries.</li>
+              <li><strong>If you are under 18</strong>, the prize is paid to a verified account of your parent or guardian.</li>
+            </ul>
+          </section>
+
+          <section className="legal-section" id="fair-play">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Fair Play</h2>
+            <p>We may disqualify entries and refuse a prize where we find:</p>
+            <ul>
+              <li>More than one account used by the same person</li>
+              <li>Workouts that were faked, or completed by someone else</li>
+              <li>Tampering with the app, the draw or your account</li>
+              <li>Any other attempt to win unfairly</li>
+            </ul>
+            <p>A person makes these decisions, and we will tell you the reason. If you think we got it wrong, email <a href="mailto:support@liboworld.com">support@liboworld.com</a> and we will look again.</p>
+          </section>
+
+          <section className="legal-section" id="cancellation">
+            <div className="legal-section-num">{n()}</div>
+            <h2>If a Round Cannot Run</h2>
+            <p><strong>A round is never cancelled for low participation.</strong> The draw goes ahead at the published close, however many entries there are. There is no minimum number of entries.</p>
+            <p>We may only cancel or pause a draw if its integrity is compromised &mdash; for example by fraud, tampering or a technical failure &mdash; or if an event outside our reasonable control stops it from running. If that happens, the draw is rescheduled and <strong>all valid entries carry forward to the rescheduled draw</strong>.</p>
+          </section>
+
+          <section className="legal-section" id="tax-privacy">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Tax, Privacy, Apple &amp; Google</h2>
+            <ul>
+              <li><strong>Tax is the winner&rsquo;s responsibility.</strong> You are responsible for any tax due on the prize where you live.</li>
+              <li><strong>Privacy.</strong> We use your data to run the giveaway, check eligibility and pay the prize, as set out in our <Link to="/privacy">Privacy Policy</Link>.</li>
+              <li><strong>Apple and Google are not sponsors of, and are not involved in, this giveaway.</strong></li>
+            </ul>
+          </section>
+
+          <section className="legal-section" id="changes">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Changes &amp; Contact</h2>
+            <p>We may change these rules for <strong>future</strong> rounds. The rules in force when a round opens govern that round.</p>
+            <p>These rules are governed by the laws of the <strong>Federal Republic of Germany</strong>, as set out in our <Link to="/terms">Terms &amp; Conditions</Link>. Questions:</p>
+            <ul>
+              <li><strong>Email:</strong> <a href="mailto:support@liboworld.com">support@liboworld.com</a></li>
+              <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
+              <li><strong>Promoter:</strong> Noah Fofana, trading as Libo World, Johannishof 10, 56626 Andernach, Germany</li>
+            </ul>
+          </section>
+        </div>
+      </main>
+      <SiteFooter />
+    </>
+  );
+}

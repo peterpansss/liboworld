@@ -8,6 +8,8 @@ import {
   // Sensitive op: gated through requireRecentAuth() via the wrapper.
   // See lib/adminApi.ts.
   markPayoutPaidWithReauth as markPayoutPaid,
+  verifyPayoutIdentityWithReauth as verifyPayoutIdentity,
+  forfeitGiveawayWinnerWithReauth as forfeitGiveawayWinner,
   type ChallengePayoutRow,
   type ChallengePayoutStatus,
   type ChallengePayoutMethod,
@@ -164,8 +166,37 @@ function truncate(value: string | null | undefined, n: number): string {
 }
 
 function userLabel(row: ChallengePayoutRow): string {
-  return row.user_email ?? row.user_id.slice(0, 8);
+  return row.user_email ?? (row.user_id ? row.user_id.slice(0, 8) : 'deleted user');
 }
+
+function isGiveaway(row: ChallengePayoutRow): boolean {
+  return row.kind === 'giveaway';
+}
+
+/** Whole years between a YYYY-MM-DD birth date and today. */
+function ageFrom(dob: string | null | undefined): number | null {
+  if (!dob) return null;
+  const d = new Date(dob);
+  if (isNaN(d.getTime())) return null;
+  const now = new Date();
+  let age = now.getFullYear() - d.getFullYear();
+  const m = now.getMonth() - d.getMonth();
+  if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age -= 1;
+  return age;
+}
+
+const kindChipStyle: React.CSSProperties = {
+  display: 'inline-block',
+  padding: '2px 8px',
+  borderRadius: 8,
+  background: colors.accentDim,
+  color: colors.accent,
+  fontSize: 10,
+  fontWeight: 700,
+  textTransform: 'uppercase',
+  letterSpacing: 0.5,
+  marginRight: 6,
+};
 
 // ── form ──────────────────────────────────────────────────────────────────
 
@@ -305,8 +336,15 @@ export function PayoutsPage() {
         header: 'Challenge',
         render: (r) => (
           <div>
-            <div style={{ fontWeight: 600, color: colors.text }}>{r.challenge_title}</div>
-            <div style={{ color: colors.dim, fontSize: 11, marginTop: 2 }}>{r.challenge_id}</div>
+            <div style={{ fontWeight: 600, color: colors.text }}>
+              {isGiveaway(r) && <span style={kindChipStyle}>Giveaway</span>}
+              {r.challenge_title}
+            </div>
+            <div style={{ color: colors.dim, fontSize: 11, marginTop: 2 }}>
+              {isGiveaway(r)
+                ? `${r.identity_verified_at ? 'ID checked' : 'ID not checked'}${r.payee_relationship && r.payee_relationship !== 'self' ? ` · paid to ${r.payee_relationship}` : ''}`
+                : r.challenge_id}
+            </div>
           </div>
         ),
         sort: (a, b) => a.challenge_title.localeCompare(b.challenge_title),
@@ -404,6 +442,54 @@ export function PayoutsPage() {
 
   const isActionable =
     !!editing && (editing.status === 'pending' || editing.status === 'processing');
+  // Rules: ID and age are checked before a giveaway prize is paid. The server
+  // refuses the flip too; this just keeps the button honest.
+  const needsVerification = !!editing && isGiveaway(editing) && !editing.identity_verified_at;
+
+  const [verifyNote, setVerifyNote] = useState('');
+  const [verifying, setVerifying] = useState(false);
+
+  const handleVerify = async () => {
+    if (!editing) return;
+    setVerifying(true);
+    setFormErr(null);
+    try {
+      await verifyPayoutIdentity(editing.id, verifyNote.trim() || null);
+      const at = new Date().toISOString();
+      setEditing({ ...editing, identity_verified_at: at, verification_note: verifyNote.trim() || null });
+      setVerifyNote('');
+      setPageMessage('ID check recorded');
+      await refresh();
+    } catch (e2) {
+      setFormErr(e2 instanceof Error ? e2.message : 'Recording the ID check failed');
+    } finally {
+      setVerifying(false);
+    }
+  };
+
+  const handleFailVerification = async () => {
+    if (!editing?.giveaway_winner_id) return;
+    if (!window.confirm(
+      'Forfeit this winner for failed verification? Their payout is cancelled and a new winner is drawn from the same round now. This cannot be undone.',
+    )) return;
+    setVerifying(true);
+    setFormErr(null);
+    try {
+      const r = await forfeitGiveawayWinner(editing.giveaway_winner_id, 'failed_verification');
+      setPageMessage(
+        r.redrawn > 0
+          ? 'Winner forfeited — a new winner was drawn and will be emailed.'
+          : 'Winner forfeited — nobody left to draw in this round (recorded).',
+      );
+      setModalOpen(false);
+      setEditing(null);
+      await refresh();
+    } catch (e2) {
+      setFormErr(e2 instanceof Error ? e2.message : 'Forfeit failed');
+    } finally {
+      setVerifying(false);
+    }
+  };
 
   return (
     <div style={{ padding: 0 }}>
@@ -550,6 +636,18 @@ export function PayoutsPage() {
               <StatusChip status={editing.status} />
             </div>
 
+            {isGiveaway(editing) && (
+              <GiveawayVerificationPanel
+                row={editing}
+                actionable={isActionable}
+                note={verifyNote}
+                onNote={setVerifyNote}
+                busy={verifying}
+                onVerify={() => void handleVerify()}
+                onFail={() => void handleFailVerification()}
+              />
+            )}
+
             {isActionable ? (
               <form onSubmit={handleSubmit}>
                 {formErr && <div style={errorBannerStyle}>{formErr}</div>}
@@ -629,7 +727,8 @@ export function PayoutsPage() {
                   <Button
                     type="submit"
                     variant="primary"
-                    disabled={saving}
+                    disabled={saving || needsVerification}
+                    title={needsVerification ? 'Record the ID check first' : undefined}
                     style={{
                       background: colors.success,
                       borderColor: colors.success,
@@ -646,6 +745,93 @@ export function PayoutsPage() {
           </>
         )}
       </Modal>
+    </div>
+  );
+}
+
+// ── giveaway verification ────────────────────────────────────────────────
+
+function GiveawayVerificationPanel({
+  row,
+  actionable,
+  note,
+  onNote,
+  busy,
+  onVerify,
+  onFail,
+}: {
+  row: ChallengePayoutRow;
+  actionable: boolean;
+  note: string;
+  onNote: (v: string) => void;
+  busy: boolean;
+  onVerify: () => void;
+  onFail: () => void;
+}) {
+  const age = ageFrom(row.date_of_birth);
+  const viaGuardian = !!row.payee_relationship && row.payee_relationship !== 'self';
+  return (
+    <div
+      style={{
+        padding: 16,
+        background: colors.bg3,
+        border: `1px solid ${row.identity_verified_at ? colors.success : colors.warning}`,
+        borderRadius: 12,
+        marginBottom: 16,
+      }}
+    >
+      <div style={{ fontWeight: 700, color: colors.text, marginBottom: 10 }}>
+        ID &amp; age check {row.identity_verified_at ? `— done ${formatAbsolute(row.identity_verified_at)}` : '— required before paying'}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+        <DetailItem label="Winner (as on ID)" value={row.winner_legal_name ?? row.payee_name ?? '—'} />
+        <DetailItem
+          label="Date of birth (profile)"
+          value={row.date_of_birth ? `${row.date_of_birth}${age !== null ? ` · ${age}` : ''}` : '—'}
+        />
+        <DetailItem label="Account holder (payee)" value={row.payee_name ?? '—'} />
+        <DetailItem label="Payee is" value={row.payee_relationship ?? 'self'} />
+        {viaGuardian && (
+          <>
+            <DetailItem label="Parent / guardian email" value={row.guardian_email ?? '—'} />
+            <DetailItem label="Consent given in app" value={formatAbsolute(row.guardian_consent_at)} />
+          </>
+        )}
+        {row.verification_note && (
+          <div style={{ gridColumn: '1 / -1' }}>
+            <DetailItem label="Check note" value={row.verification_note} />
+          </div>
+        )}
+      </div>
+      <div style={{ fontSize: 12, color: colors.muted, marginBottom: 12, lineHeight: 1.5 }}>
+        Ask for a photo ID from {row.payee_email ?? 'the payee'} (support@liboworld.com). The name must match
+        the winner, the date of birth must match the profile and be 16+.
+        {viaGuardian
+          ? ' Under 18: also check the parent/guardian’s photo ID, that it matches the account holder, and that they are the winner’s parent or legal guardian.'
+          : ''}
+      </div>
+      {actionable && !row.identity_verified_at && (
+        <>
+          <Field label="Note (what you checked)">
+            <TextInput value={note} onChange={(e) => onNote(e.target.value)} placeholder="e.g. passport, name + DOB match" />
+          </Field>
+          <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+            <Button type="button" variant="danger" onClick={onFail} disabled={busy}>
+              Failed verification → redraw
+            </Button>
+            <Button type="button" variant="primary" onClick={onVerify} disabled={busy}>
+              {busy ? 'Saving…' : 'Record ID check'}
+            </Button>
+          </div>
+        </>
+      )}
+      {actionable && row.identity_verified_at && (
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button type="button" variant="danger" onClick={onFail} disabled={busy}>
+            Forfeit + redraw
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

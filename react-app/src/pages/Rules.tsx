@@ -299,7 +299,7 @@ export default function Rules() {
             <div className="legal-section-num">{n()}</div>
             <h2>Where You Can Enter</h2>
             <p>A cash challenge is decided entirely by whether you complete the work. There is no draw, no random element and no chance component &mdash; which is why cash challenges are available far more widely than a prize draw would be.</p>
-            <p>They are open globally <strong>except where prohibited by local law</strong>. The jurisdictions excluded at launch are listed in Section 17 of our <Link to="/terms#s17">Terms &amp; Conditions</Link>, and that list is the authoritative one. Libo may add or remove jurisdictions in response to local legal review. Where a jurisdiction is excluded after your run has already started, your run is honoured to completion.</p>
+            <p>They are open globally <strong>except where prohibited by local law</strong>. The jurisdictions excluded at launch are listed under Governing Law &amp; Geographic Availability in our <Link to="/terms#s17">Terms &amp; Conditions</Link>, and that list is the authoritative one. Libo may add or remove jurisdictions in response to local legal review. Where a jurisdiction is excluded after your run has already started, your run is honoured to completion.</p>
           </section>
 
           {/* 11 */}
@@ -311,7 +311,7 @@ export default function Rules() {
             <ul>
               <li><strong>Email:</strong> <a href="mailto:support@liboworld.com">support@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
-              <li><strong>Company:</strong> Libo World, Germany</li>
+              <li><strong>Operator:</strong> Noah Fofana, trading as Libo World, Johannishof 10, 56626 Andernach, Germany</li>
             </ul>
           </section>
         </div>

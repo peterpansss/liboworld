@@ -45,8 +45,8 @@ vi.mock('../../src/pages/Rules', () => ({ default: () => <div data-testid="page-
 vi.mock('../../src/pages/AuthCallback', () => ({
   default: () => <div data-testid="page-auth-cb" />,
 }));
-vi.mock('../../src/pages/Giveaway', () => ({
-  default: () => <div data-testid="page-giveaway" />,
+vi.mock('../../src/pages/GiveawayRules', () => ({
+  default: () => <div data-testid="page-giveaway-rules" />,
 }));
 vi.mock('../../src/pages/CashChallenge', () => ({
   default: () => <div data-testid="page-cash-challenge" />,
@@ -57,7 +57,7 @@ vi.mock('../../src/pages/admin/AdminLayout', () => ({
 }));
 
 // ---- Launch gates. -----------------------------------------------------------
-// /giveaway + /cash-challenge are gated by FUNNEL_PAGES_ENABLED and /get-app by
+// /cash-challenge is gated by FUNNEL_PAGES_ENABLED and /get-app by
 // isPrelaunch(); while gated each route <Navigate>s home. Overridden with
 // getters so every test picks the gate state explicitly instead of inheriting
 // whatever src/config/launchMode.ts ships today. Everything else in the module
@@ -122,7 +122,7 @@ describe('Lazy-loaded routes', () => {
     ['/terms', 'page-terms'],
     ['/rules', 'page-rules'],
     ['/auth/callback', 'page-auth-cb'],
-    ['/giveaway', 'page-giveaway'],
+    ['/giveaway-rules', 'page-giveaway-rules'],
     ['/cash-challenge', 'page-cash-challenge'],
     ['/get-app', 'page-getapp'],
     ['/admin', 'page-admin'],
@@ -136,7 +136,6 @@ describe('Lazy-loaded routes', () => {
 
 describe('Launch-gated routes', () => {
   it.each([
-    ['/giveaway', 'page-giveaway'],
     ['/cash-challenge', 'page-cash-challenge'],
   ])('redirects %s home while FUNNEL_PAGES_ENABLED is false', async (path, marker) => {
     funnelPagesEnabled = false;
@@ -164,6 +163,19 @@ describe('Launch-gated routes', () => {
     expect(screen.queryByTestId('page-getapp')).not.toBeInTheDocument();
     expect(window.location.pathname).toBe('/');
   });
+});
+
+describe('Retired /giveaway points-pack page', () => {
+  it.each([true, false])(
+    'redirects /giveaway to /giveaway-rules (FUNNEL_PAGES_ENABLED=%s)',
+    async (enabled) => {
+      funnelPagesEnabled = enabled;
+      gotoUrl('/giveaway');
+      render(<App />);
+      await waitFor(() => expect(screen.getByTestId('page-giveaway-rules')).toBeInTheDocument());
+      expect(window.location.pathname).toBe('/giveaway-rules');
+    },
+  );
 });
 
 describe('Catch-all redirect', () => {

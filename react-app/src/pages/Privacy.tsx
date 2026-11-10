@@ -69,8 +69,8 @@ export default function Privacy() {
             <h2>Who We Are</h2>
             <p>The data controller responsible for your personal data is:</p>
             <ul>
-              <li><strong>Company:</strong> Libo World</li>
-              <li><strong>Country:</strong> Germany</li>
+              <li><strong>Name:</strong> Noah Fofana, trading as Libo World (registered sole trader)</li>
+              <li><strong>Address:</strong> Johannishof 10, 56626 Andernach, Germany</li>
               <li><strong>Email:</strong> <a href="mailto:privacy@liboworld.com">privacy@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
             </ul>
@@ -369,9 +369,9 @@ export default function Privacy() {
               {/* Giveaway clauses are gated, not deleted: giveaways are Phase 2, so
                   the sentence must read correctly with them absent and restore
                   the reviewed wording when GIVEAWAYS_ENABLED flips back on. */}
-              <li>The app, accounts{GIVEAWAYS_ENABLED ? ', the rewards programme and Common product giveaways' : ' and the rewards programme'} are open to users aged <strong>13 and over</strong>.</li>
+              <li>The app, accounts and the rewards programme are open to users aged <strong>13 and over</strong>.</li>
               <li>Users under <strong>16</strong> may only use the Service with verified parental consent — typically provided through Apple Family Sharing or Google Family Link, which act as our first-line age and consent gate.</li>
-              <li>{GIVEAWAYS_ENABLED ? 'Premium/Special giveaways and cash challenges' : 'Cash challenges'} are restricted to users aged <strong>16 and over</strong>; direct cash payouts are restricted to users aged <strong>18 and over</strong>.</li>
+              <li>{GIVEAWAYS_ENABLED ? 'Giveaways and cash challenges' : 'Cash challenges'} are restricted to users aged <strong>16 and over</strong>; direct cash payouts are restricted to users aged <strong>18 and over</strong>.</li>
             </ul>
             <p>We do not knowingly collect personal data from children under 13, or from children aged 13–15 without verified parental consent. If we become aware that we have collected such data without the required consent, we will delete it promptly.</p>
             <p>If you are a parent or guardian and you believe your child has provided us with personal data without your consent, please contact us at <a href="mailto:privacy@liboworld.com">privacy@liboworld.com</a> and we will action your request within 30 days.</p>
@@ -450,7 +450,7 @@ export default function Privacy() {
               <li><strong>Privacy email:</strong> <a href="mailto:privacy@liboworld.com">privacy@liboworld.com</a></li>
               <li><strong>General contact:</strong> <a href="mailto:hello@liboworld.com">hello@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
-              <li><strong>Company:</strong> Libo World, Germany</li>
+              <li><strong>Operator:</strong> Noah Fofana, trading as Libo World, Johannishof 10, 56626 Andernach, Germany</li>
             </ul>
             <p>We aim to respond to all privacy requests within <strong>30 days</strong>. For complex requests, we may extend this by up to an additional 2 months and will inform you accordingly.</p>
             <div className="legal-highlight" style={{ marginTop: 24 }}>
