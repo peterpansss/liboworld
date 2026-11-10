@@ -102,7 +102,7 @@ export default function GiveawayRules() {
             <h2>Who Runs the Giveaway</h2>
             <p>The giveaway is run by <strong>Libo World</strong>, Germany (&ldquo;Libo&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;), the promoter.</p>
             <ul>
-              <li><strong>Postal address:</strong> [PROMOTER POSTAL ADDRESS]</li>
+              <li><strong>Postal address:</strong> Fornicher Weg 3, 56626 Andernach, Germany</li>
               <li><strong>Email:</strong> <a href="mailto:support@liboworld.com">support@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
             </ul>
@@ -127,6 +127,7 @@ export default function GiveawayRules() {
               {GIVEAWAY_EXCLUDED.map((place) => (
                 <li key={place}>{place}</li>
               ))}
+              <li>any country or region under EU, UN or US (OFAC) sanctions</li>
               <li>anywhere local law prohibits it</li>
             </ul>
             <p>If you live in an excluded place, you are not entered and cannot win. We may add places to this list after local legal review.</p>
@@ -173,9 +174,10 @@ export default function GiveawayRules() {
               <li><strong>Free plan:</strong> {GIVEAWAY_ENTRIES.free} entry per round</li>
               <li><strong>Premium:</strong> {GIVEAWAY_ENTRIES.premium} entries per round</li>
             </ul>
+            <p>You need to have confirmed your date of birth in the app.</p>
             <h3>Your entries count once you train</h3>
             <p>Your entries for a round only become active when you <strong>complete one workout in the app while that round is open</strong>. This rule is the same on every plan. If you don&rsquo;t complete a workout during the round, your entries for that round don&rsquo;t count.</p>
-            <p>Your plan on the day the round closes decides how many entries you hold. Entries don&rsquo;t carry over from one round to the next.</p>
+            <p>Your plan on the day the round closes decides how many entries you hold. Each round is a separate draw. Your entries are worked out fresh for every round.</p>
           </section>
 
           <section className="legal-section" id="free">
