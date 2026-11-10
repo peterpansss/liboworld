@@ -37,7 +37,7 @@ import './AffiliateApply.css';
  * pointing at affiliates@liboworld.com so applications are never silently lost.
  */
 
-const TERMS_TEXT = `1. These Terms and Conditions apply to the Affiliate Programme of Libo World, S.L. (hereafter, "Libo").
+const TERMS_TEXT = `1. These Terms and Conditions apply to the Affiliate Programme of Noah Fofana, trading as Libo World, Fornicher Weg 3, 56626 Andernach, Germany (hereafter, "Libo").
 
 2. Libo must confirm the publisher's participation in this Affiliate Programme ("confirmed publisher"). Upon confirmation of participation in the Libo Affiliate Programme, the publisher declares their agreement with these Terms and Conditions. Libo can change these Terms and Conditions or terminate the Libo Affiliate Programme at any time.
 
