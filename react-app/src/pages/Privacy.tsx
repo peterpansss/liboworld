@@ -150,7 +150,7 @@ export default function Privacy() {
             {/* Giveaways are gated, not deleted (Phase 2): the prize-claim form
                 only exists in the app when GIVEAWAYS_ENABLED is on. */}
             {GIVEAWAYS_ENABLED && (
-              <p>If you win a giveaway and claim a physical prize, we collect the name, delivery address and (optionally) phone number you provide so we can send it to you.</p>
+              <p><strong>Giveaways.</strong> To enter you automatically and check eligibility, we use your date of birth, your country (as you declare it and as detected from your connection) and your plan. If you win and claim a cash prize, we collect your legal name, a contact email and the payout account you choose (IBAN, or a PayPal, Wise or Revolut email or phone number). If you are 16 or 17, we also collect your parent's or guardian's name, email and consent, and the payout goes to their account. Before paying, we check your identity and age by asking you for a photo of an ID document by email. The app records only that the check passed and when. The ID image is not stored in the app, and we delete it from our email once the check is done. The legal basis is performance of the giveaway you are entered in (Art. 6(1)(b) GDPR) and our legal obligations (Art. 6(1)(c) GDPR).</p>
             )}
 
             <h3>Payment &amp; Billing Data</h3>
