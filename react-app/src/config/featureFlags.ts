@@ -19,4 +19,6 @@
  * questions we don't want to answer yet — but deleting them means rewriting
  * reviewed legal copy in December.
  */
-export const GIVEAWAYS_ENABLED = false;
+// ON from 10 Nov 2026 (Noah): membership giveaways, four €150 rounds from
+// 23 Nov. Ships together with the app build that flips the mobile flag.
+export const GIVEAWAYS_ENABLED = true;
