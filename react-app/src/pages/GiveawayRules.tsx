@@ -5,6 +5,10 @@ import SiteFooter from '../components/SiteFooter';
 import {
   GIVEAWAY_ROUNDS,
   GIVEAWAY_ENTRIES,
+  GIVEAWAY_MAX_ENTRIES,
+  LOYALTY_PER_MONTH,
+  LOYALTY_MAX_MONTHS,
+  LOYALTY_MIN_WORKOUT_MINUTES,
   GIVEAWAY_CLAIM_DAYS,
   GIVEAWAY_MIN_AGE,
   GIVEAWAY_EXCLUDED,
@@ -70,7 +74,8 @@ export default function GiveawayRules() {
             <p>
               <strong>The short version.</strong> No purchase necessary. Every eligible Libo
               member is entered automatically. Free members get {GIVEAWAY_ENTRIES.free} entry
-              per round, Premium members get {GIVEAWAY_ENTRIES.premium}. Your entries count once
+              per round, Premium members get {GIVEAWAY_ENTRIES.premium}, plus loyalty entries for
+              every month in a row you&rsquo;ve trained. Your entries count once
               you complete one workout in the app while the round is open. Every entry has the
               same chance of winning, and all entries are drawn from one pool. Memberships give
               more entries. Apple and Google are not sponsors of, and are not involved in, this
@@ -174,6 +179,7 @@ export default function GiveawayRules() {
               <li><strong>Free plan:</strong> {GIVEAWAY_ENTRIES.free} entry per round</li>
               <li><strong>Premium:</strong> {GIVEAWAY_ENTRIES.premium} entries per round</li>
             </ul>
+            <p><strong>Loyalty entries:</strong> for every calendar month in a row before the round&rsquo;s month in which you completed at least one workout of {LOYALTY_MIN_WORKOUT_MINUTES} minutes or more, you get extra entries &mdash; Free +{LOYALTY_PER_MONTH.free}, Premium +{LOYALTY_PER_MONTH.premium} per month, counting up to {LOYALTY_MAX_MONTHS} months. A month without such a workout restarts the count. Example: a member who trained every month for the past year holds {GIVEAWAY_MAX_ENTRIES.free} entries on Free, or {GIVEAWAY_MAX_ENTRIES.premium} on Premium.</p>
             <p>You need to have confirmed your date of birth in the app.</p>
             <h3>Your entries count once you train</h3>
             <p>Your entries for a round only become active when you <strong>complete one workout in the app while that round is open</strong>. This rule is the same on every plan. If you don&rsquo;t complete a workout during the round, your entries for that round don&rsquo;t count.</p>
@@ -186,7 +192,7 @@ export default function GiveawayRules() {
             <ul>
               <li><strong>No purchase necessary.</strong> The Free plan is free. A free member who completes one workout during a round is in the draw.</li>
               <li><strong>Every entry has the same chance of winning, and all entries are drawn from one pool.</strong> A free entry and a Premium entry are treated exactly the same.</li>
-              <li><strong>Memberships give more entries.</strong> Premium members get {GIVEAWAY_ENTRIES.premium} entries per round instead of {GIVEAWAY_ENTRIES.free}.</li>
+              <li><strong>Memberships give more entries.</strong> Premium members get {GIVEAWAY_ENTRIES.premium} base entries per round instead of {GIVEAWAY_ENTRIES.free}, and +{LOYALTY_PER_MONTH.premium} loyalty entries per month instead of +{LOYALTY_PER_MONTH.free}.</li>
               <li><strong>Points can&rsquo;t be bought, and can&rsquo;t be turned into entries.</strong></li>
             </ul>
           </section>

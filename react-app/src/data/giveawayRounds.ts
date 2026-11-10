@@ -4,8 +4,9 @@
  *
  * Model decided by Noah on 10 Nov 2026 — canon LEGAL-COMPETITIONS.md §4b/§5/§8
  * and REWARDS-ECONOMY-RULES.md §8.1/§8.4. One open draw per round, every
- * eligible member entered automatically (Free 1 entry, Premium 5), entries
- * activate on one completed workout while the round is open.
+ * eligible member entered automatically (Free 1 entry, Premium 5, plus
+ * loyalty entries), entries activate on one completed workout while the round
+ * is open.
  *
  * Adding a round is a one-line change: append an object below. Dates are
  * calendar dates in Berlin time (Europe/Berlin); a round opens at 00:00 on
@@ -35,6 +36,24 @@ export const GIVEAWAY_ROUNDS: GiveawayRound[] = [
 
 /** Entries per member per round, by plan. Same activation rule for every plan. */
 export const GIVEAWAY_ENTRIES = { free: 1, premium: 5 } as const;
+
+/**
+ * Loyalty entries (Noah, 10 Nov 2026; computed server-side). For every
+ * calendar month in a row before the round's month in which the member
+ * completed at least one workout of LOYALTY_MIN_WORKOUT_MINUTES or more, they
+ * get LOYALTY_PER_MONTH extra entries, counting up to LOYALTY_MAX_MONTHS
+ * months. A month without such a workout restarts the count. Must match the
+ * server, which is the one that actually assigns entries.
+ */
+export const LOYALTY_PER_MONTH = { free: 1, premium: 2 } as const;
+export const LOYALTY_MAX_MONTHS = 12;
+export const LOYALTY_MIN_WORKOUT_MINUTES = 10;
+
+/** Most entries a member can hold in one round: base + a full loyalty streak. */
+export const GIVEAWAY_MAX_ENTRIES = {
+  free: GIVEAWAY_ENTRIES.free + LOYALTY_PER_MONTH.free * LOYALTY_MAX_MONTHS,
+  premium: GIVEAWAY_ENTRIES.premium + LOYALTY_PER_MONTH.premium * LOYALTY_MAX_MONTHS,
+} as const;
 
 /** Days a winner has to claim before a new winner is drawn. */
 export const GIVEAWAY_CLAIM_DAYS = 7;
