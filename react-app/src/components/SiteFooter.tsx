@@ -129,6 +129,7 @@ export default function SiteFooter() {
                   reachable only from the funnel CTA and from deep inside
                   /terms — nowhere a person looking for "the rules" would go. */}
               <Link to="/rules">{t('footer.rules', { defaultValue: 'Cash Challenge Rules' })}</Link>
+              <Link to="/giveaway-rules">{t('footer.giveawayRules', { defaultValue: 'Giveaway Rules' })}</Link>
               <Link to="/privacy">{t('footer.privacy')}</Link>
               {/* Google Play requires a public, app-independent deletion link;
                   the footer puts it one click from every page. */}

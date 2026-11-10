@@ -369,9 +369,9 @@ export default function Privacy() {
               {/* Giveaway clauses are gated, not deleted: giveaways are Phase 2, so
                   the sentence must read correctly with them absent and restore
                   the reviewed wording when GIVEAWAYS_ENABLED flips back on. */}
-              <li>The app, accounts{GIVEAWAYS_ENABLED ? ', the rewards programme and Common product giveaways' : ' and the rewards programme'} are open to users aged <strong>13 and over</strong>.</li>
+              <li>The app, accounts and the rewards programme are open to users aged <strong>13 and over</strong>.</li>
               <li>Users under <strong>16</strong> may only use the Service with verified parental consent — typically provided through Apple Family Sharing or Google Family Link, which act as our first-line age and consent gate.</li>
-              <li>{GIVEAWAYS_ENABLED ? 'Premium/Special giveaways and cash challenges' : 'Cash challenges'} are restricted to users aged <strong>16 and over</strong>; direct cash payouts are restricted to users aged <strong>18 and over</strong>.</li>
+              <li>{GIVEAWAYS_ENABLED ? 'Giveaways and cash challenges' : 'Cash challenges'} are restricted to users aged <strong>16 and over</strong>; direct cash payouts are restricted to users aged <strong>18 and over</strong>.</li>
             </ul>
             <p>We do not knowingly collect personal data from children under 13, or from children aged 13–15 without verified parental consent. If we become aware that we have collected such data without the required consent, we will delete it promptly.</p>
             <p>If you are a parent or guardian and you believe your child has provided us with personal data without your consent, please contact us at <a href="mailto:privacy@liboworld.com">privacy@liboworld.com</a> and we will action your request within 30 days.</p>
