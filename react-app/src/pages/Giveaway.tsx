@@ -23,8 +23,6 @@ import PackageCard from '../components/funnel/PackageCard';
 import FunnelFAQ from '../components/funnel/FunnelFAQ';
 import FunnelCheckoutModal, { type ModalSelectedTier } from '../components/funnel/FunnelCheckoutModal';
 import { submitFunnelInterest, type GiveawayTierSlug } from '../lib/funnelSignups';
-import { createPaymentIntent } from '../lib/funnelCheckout';
-import { isStripeConfigured } from '../lib/stripe';
 import { supabase } from '../lib/supabase';
 import { safeUrl } from '../utils/safeUrl';
 import { useInView, useCountUp, useRevealOnScroll } from '../utils/funnelAnimations';
@@ -448,37 +446,15 @@ export default function GiveawayPage() {
 
       <SiteFooter />
 
-      {/* Shared LMCT+-style 2-step checkout modal.
-          Stripe-mode (real payment processing) activates automatically when
-          VITE_STRIPE_PUBLISHABLE_KEY is set + the create_payment_intent
-          Edge Function is deployed. Until then, falls back to intent-only
-          capture into funnel_signups. */}
+      {/* Shared LMCT+-style 2-step checkout modal — intent capture ONLY.
+          Points packs can never be paid for: buying points that convert into
+          giveaway entries is disabled for good (REWARDS-ECONOMY-RULES.md
+          §8.5), so no createIntent is passed and create_payment_intent
+          rejects funnel 'giveaway' with 403 points_packs_disabled anyway. */}
       <FunnelCheckoutModal
         open={modalTier !== null}
         selected={modalTier?.tier ?? null}
         currency="€"
-        createIntent={
-          isStripeConfigured() && modalTier
-            ? async ({ email, fullName, phone }) => {
-                const r = await createPaymentIntent({
-                  funnel: 'giveaway',
-                  tierSlug: modalTier.slug,
-                  email,
-                  fullName,
-                  phone,
-                  giveawayId: active?.id ?? null,
-                  // EU Directive 2011/83/EU Art. 16(m): the modal blocks
-                  // submission unless the consent checkbox is ticked, so by
-                  // the time createIntent runs we know consent was given.
-                  // See PARTNERSHIP-FINANCE-MODEL.md §4.4.
-                  termsAcknowledged: true,
-                });
-                return r.ok
-                  ? { ok: true, clientSecret: r.clientSecret, paymentIntentId: r.paymentIntentId }
-                  : { ok: false, error: r.error };
-              }
-            : undefined
-        }
         copy={{
           step1Label: t('giveawayFunnel.modal.step1Label'),
           step1Subtitle: t('giveawayFunnel.modal.step1Subtitle'),
@@ -509,18 +485,9 @@ export default function GiveawayPage() {
           consentLinkLabel: t('giveawayFunnel.modal.consentLinkLabel'),
           consentRequired: t('giveawayFunnel.modal.consentRequired'),
         }}
-        onSubmit={async ({ fullName, email, phone, paymentIntentId }) => {
+        onSubmit={async ({ fullName, email, phone }) => {
           if (!modalTier) return { ok: false };
-          // Stripe mode: the create_payment_intent Edge Function already
-          // inserted the funnel_signups row keyed to this PaymentIntent.
-          // A second insert here would hit the UNIQUE(email, funnel,
-          // tier_slug, giveaway_id) constraint and surface as the
-          // "Already on the list" duplicate screen — misleading, since
-          // the payment actually just succeeded.
-          if (paymentIntentId) {
-            return { ok: true };
-          }
-          // v1 (no Stripe): capture purchase intent into funnel_signups.
+          // Interest capture into funnel_signups — no payment is taken.
           const r = await submitFunnelInterest({
             email,
             fullName,

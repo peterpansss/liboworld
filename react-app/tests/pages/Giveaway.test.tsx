@@ -8,7 +8,7 @@
  *   - SELECT button on each PackageCard opens the modal pre-loaded with
  *     that tier's name / price / amount / heroSummary.
  *   - "View full inclusions" toggle expands/collapses the tile grid.
- *   - When Stripe is configured, modal createIntent uses createPaymentIntent;
+ *   - Never wires a payment path (points packs disabled), Stripe or not;
  *     when not, modal falls back to submitFunnelInterest only.
  */
 /// <reference types="@testing-library/jest-dom" />
@@ -206,27 +206,15 @@ describe('Giveaway', () => {
     expect(lastModalProps?.createIntent).toBeUndefined();
   });
 
-  it('passes a createIntent prop when Stripe is configured and the modal is open', async () => {
+  it('never passes a createIntent prop, even when Stripe is configured (points packs disabled)', async () => {
     const user = userEvent.setup();
     isStripeConfiguredMock.mockReturnValue(true);
     renderPage();
     await waitFor(() => screen.getByRole('heading', { name: 'giveawayFunnel.packages.gold.name' }));
 
     await user.click(screen.getByRole('button', { name: /giveawayFunnel.ctaSelect giveawayFunnel.packages.gold.name/ }));
-    expect(typeof lastModalProps?.createIntent).toBe('function');
-
-    // Invoke it and confirm it routes to createPaymentIntent
-    createPaymentIntentMock.mockResolvedValue({
-      ok: true, clientSecret: 'cs_x', paymentIntentId: 'pi_x',
-    });
-    const result = await lastModalProps!.createIntent!({
-      email: 'a@b.co', fullName: 'A B', phone: '+1234',
-    });
-    expect(createPaymentIntentMock).toHaveBeenCalledWith(expect.objectContaining({
-      funnel: 'giveaway', tierSlug: 'gold', email: 'a@b.co', fullName: 'A B', phone: '+1234',
-      giveawayId: 'g-1',
-    }));
-    expect(result).toEqual({ ok: true, clientSecret: 'cs_x', paymentIntentId: 'pi_x' });
+    expect(lastModalProps?.createIntent).toBeUndefined();
+    expect(createPaymentIntentMock).not.toHaveBeenCalled();
   });
 
   it('routes onSubmit through submitFunnelInterest and propagates the duplicate flag', async () => {
