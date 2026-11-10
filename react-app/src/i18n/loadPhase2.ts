@@ -3,9 +3,10 @@
  *
  * WHY THIS EXISTS
  * ---------------
- * `giveawayFunnel.*` and `cashChallengeFunnel.*` describe unreleased Phase-2
- * mechanics (paid giveaway packages, the Elite pool, ticket conversion). Both
- * routes hard-redirect to `/` while `isPrelaunch()` is true, yet when the copy
+ * `cashChallengeFunnel.*` describes unreleased Phase-2 mechanics (the Elite
+ * pool, ticket conversion). (`giveawayFunnel.*`, the paid points-pack copy, was
+ * deleted with the /giveaway page.) The route hard-redirects to `/` while
+ * `isPrelaunch()` is true, yet when the copy
  * lived in `locales/*.json` every one of those strings was statically imported
  * by `src/i18n/index.ts` and therefore inlined — in five languages — into the
  * main JS chunk served to every visitor. Anyone reading source could read the
@@ -15,13 +16,13 @@
  * The copy now lives in `src/i18n/phase2/{lng}.json` and is pulled in with a
  * dynamic import — one chunk per language, fetched only when a Phase-2 page
  * actually mounts. The key structure is unchanged, so once merged the strings
- * still resolve as `giveawayFunnel.*` / `cashChallengeFunnel.*`.
+ * still resolve as `cashChallengeFunnel.*`.
  *
  * CONTRACT
  * --------
  *  - Idempotent: a language is fetched at most once; concurrent callers share
  *    one in-flight promise.
- *  - Re-runnable on language change: switching to DE on /giveaway loads the DE
+ *  - Re-runnable on language change: switching to DE on /cash-challenge loads the DE
  *    bundle instead of silently serving the English fallback.
  *  - Never throws: a failed chunk fetch degrades to the English bundle (or, in
  *    the worst case, to i18next's normal missing-key behaviour) rather than
@@ -34,7 +35,7 @@ import { useTranslation } from 'react-i18next';
 // runtime — './index' just configures it — but importing the bootstrap module
 // pulls `initReactI18next` into the module graph of every page that uses this
 // hook, which breaks any test that mocks `react-i18next` without re-exporting
-// it (Giveaway, Giveaway.cssGuard and CashChallenge all do). Nothing here
+// it (CashChallenge does). Nothing here
 // needs the React bindings; addResourceBundle lives on the core instance.
 import i18n from 'i18next';
 

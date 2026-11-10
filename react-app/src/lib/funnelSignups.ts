@@ -1,5 +1,6 @@
 /**
- * Funnel signup capture for /giveaway and /cash-challenge landing pages.
+ * Funnel signup capture for the /cash-challenge and Founding Member (/join)
+ * funnels.
  *
  * v1 (current): writes (email + funnel + tier_slug + UTM params) into
  * Supabase `funnel_signups` via the capture_funnel_signup RPC (LIBO-01 — the
@@ -9,66 +10,24 @@
  * level via a unique index — we surface that as a friendly "already on
  * the list" state, mirroring how Landing.tsx handles `waitlist`.
  *
- * ─────────────────────────────────────────────────────────────────────
- * v2 ARCHITECTURE — Stripe-backed package purchase
- * ─────────────────────────────────────────────────────────────────────
- * Replace `submitFunnelInterest` with a Stripe Checkout session for
- * /giveaway packages. Cash-challenge stays email-only (slot reservation
- * happens in-app via existing `enroll_in_cycle` RPC).
- *
- * Flow:
- *   1. Visitor clicks SELECT → opens modal → enters email + clicks Buy
- *   2. Frontend calls Edge Function `create_checkout_session`:
- *        - Returns Stripe Checkout URL (mode='subscription' since the
- *          package includes a Premium trial that auto-renews)
- *        - Stripe Customer is created/found by email
- *        - Stripe Subscription is configured with:
- *            * trial_period_days = tier-specific (7 / 14 / 30)
- *            * Recurring price item = Premium €9.99/mo
- *            * One-off line item = the package bonus (entries+points)
- *   3. User completes Stripe Checkout (card collected)
- *   4. Stripe webhook `checkout.session.completed` fires →
- *      `purchase_funnel_package` Postgres RPC routes the user:
- *
- *        SELECT user_id FROM auth.users WHERE email = $1;
- *        IF NULL → auth.signup({email}) creates user + magic link
- *        ELSE    → reuse existing user_id (entries STACK)
- *
- *        INSERT INTO tickets_ledger (user_id, amount, reason='funnel_purchase', reference_id=stripe_session_id);
- *        INSERT INTO points_ledger  (user_id, amount, reason='funnel_purchase', reference_id=stripe_session_id);
- *        UPSERT subscriptions
- *           SET tier='premium', status='trialing',
- *               trial_ends_at = NOW() + tier_trial_length,
- *               stripe_customer_id, stripe_subscription_id;
- *
- *   5. Email user: "You're in! Download Libo + log in with [email]."
- *      Magic link routes to mobile app via universal-link handler.
- *
- *   6. After trial:
- *        - Stripe auto-charges €9.99/mo (subscription continues)
- *        - User can cancel via mobile app (RevenueCat) or via Stripe
- *          billing portal link in their account email
- *
- * Idempotency: the Stripe `session_id` is stored as `reference_id` in
- * both ledgers (UNIQUE constraint already exists), so webhook retries
- * are safe — duplicate inserts no-op.
- *
- * Existing-user case: if the email matches an existing auth.users row
- * with an active subscription, we DON'T downgrade their plan or restart
- * their trial — we just stack the entries+points and skip the
- * subscriptions UPSERT (or extend their period if their tier matches).
+ * Paid checkouts (Founding Member) go through funnelCheckout.ts instead.
+ * The old v2 plan to sell /giveaway "packages" (entries + points + Premium
+ * trial) via Stripe is dead: points can't be bought and giveaways are
+ * membership-based, so the page and its tier slugs were removed.
  */
 import { supabase } from './supabase';
 import { getAttributionUtm } from './signupAttribution';
 
+// 'giveaway' stays in the union only as historical vocabulary: funnel_signups
+// still holds rows from the retired /giveaway points-pack page, and
+// funnelCheckout.ts refuses it at runtime. No page submits it any more.
 export type FunnelKind = 'giveaway' | 'cash_challenge' | 'early_access';
 
-export type GiveawayTierSlug = 'entry' | 'bronze' | 'silver' | 'gold' | 'platinum';
 export type ChallengeTierSlug = 'starter' | 'pro_pool' | 'elite_pool';
 // Founding Member early-access pre-purchase (one-time €39.50 = 50% off the
-// first year of Premium). Flows through the same Stripe pipeline as giveaway.
+// first year of Premium). Flows through the funnel Stripe pipeline.
 export type EarlyAccessTierSlug = 'founding';
-export type FunnelTierSlug = GiveawayTierSlug | ChallengeTierSlug | EarlyAccessTierSlug;
+export type FunnelTierSlug = ChallengeTierSlug | EarlyAccessTierSlug;
 
 export type FunnelSubmitResult =
   | { ok: true; duplicate: boolean }

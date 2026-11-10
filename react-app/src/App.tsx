@@ -98,7 +98,6 @@ const GiveawayRules = lazy(() => import('./pages/GiveawayRules'));
 const DeleteAccount = lazy(() => import('./pages/DeleteAccount'));
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthConfirm = lazy(() => import('./pages/AuthConfirm'));
-const Giveaway = lazy(() => import('./pages/Giveaway'));
 const CashChallenge = lazy(() => import('./pages/CashChallenge'));
 const GetApp = lazy(() => import('./pages/GetApp'));
 const Founder = lazy(() => import('./pages/Founder'));
@@ -182,7 +181,9 @@ export default function App() {
         <Route path="/delete-account" element={<Suspense fallback={darkFallback}><DeleteAccount /></Suspense>} />
         <Route path="/auth/callback" element={<Suspense fallback={darkFallback}><AuthCallback /></Suspense>} />
         <Route path="/auth/confirm" element={<Suspense fallback={darkFallback}><AuthConfirm /></Suspense>} />
-        <Route path="/giveaway" element={!FUNNEL_PAGES_ENABLED ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><Giveaway /></Suspense>} />
+        {/* The old points-pack page is gone (giveaways are membership-based; points
+            can't be bought). Old links and ads land on the official rules. */}
+        <Route path="/giveaway" element={<Navigate to="/giveaway-rules" replace />} />
         <Route path="/cash-challenge" element={!FUNNEL_PAGES_ENABLED ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
         {/* /get-app UA-routes to the App Store, but there is no listing yet — it
             would dump visitors on apps.apple.com's homepage. Send them home until

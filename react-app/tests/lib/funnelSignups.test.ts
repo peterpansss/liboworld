@@ -43,18 +43,18 @@ beforeEach(() => {
 
 describe('submitFunnelInterest — email validation', () => {
   it('rejects invalid emails before hitting the network', async () => {
-    const r = await submitFunnelInterest({ email: 'not-an-email', funnel: 'giveaway', tierSlug: 'entry' });
+    const r = await submitFunnelInterest({ email: 'not-an-email', funnel: 'early_access', tierSlug: 'founding' });
     expect(r).toEqual({ ok: false, error: 'invalid_email' });
     expect(rpcCalls.length).toBe(0);
   });
 
   it('rejects emails with no domain', async () => {
-    const r = await submitFunnelInterest({ email: 'foo@', funnel: 'giveaway', tierSlug: 'entry' });
+    const r = await submitFunnelInterest({ email: 'foo@', funnel: 'early_access', tierSlug: 'founding' });
     expect(r.ok).toBe(false);
   });
 
   it('lowercases and trims the email', async () => {
-    await submitFunnelInterest({ email: '  Alice@Example.COM  ', funnel: 'giveaway', tierSlug: 'entry' });
+    await submitFunnelInterest({ email: '  Alice@Example.COM  ', funnel: 'early_access', tierSlug: 'founding' });
     expect(rpcCalls[0].args.p_email).toBe('alice@example.com');
   });
 });
@@ -62,7 +62,7 @@ describe('submitFunnelInterest — email validation', () => {
 describe('submitFunnelInterest — RPC contract', () => {
   it('calls capture_funnel_signup (never a direct insert)', async () => {
     const r = await submitFunnelInterest({
-      email: 'alice@example.com', funnel: 'giveaway', tierSlug: 'entry', giveawayId: 'g_1',
+      email: 'alice@example.com', funnel: 'early_access', tierSlug: 'founding', giveawayId: 'g_1',
     });
     expect(r).toEqual({ ok: true, duplicate: false });
     expect(rpcCalls[0].name).toBe('capture_funnel_signup');
@@ -70,20 +70,20 @@ describe('submitFunnelInterest — RPC contract', () => {
   });
 
   it('LIBO-01: the payload carries NO payment/stripe column', async () => {
-    await submitFunnelInterest({ email: 'alice@example.com', funnel: 'giveaway', tierSlug: 'entry' });
+    await submitFunnelInterest({ email: 'alice@example.com', funnel: 'early_access', tierSlug: 'founding' });
     const keys = Object.keys(rpcCalls[0].args);
     for (const k of PAYMENT_KEYS) expect(keys).not.toContain(k);
   });
 
   it('surfaces duplicate=true from the RPC result, not an error code', async () => {
     nextRpcResp = { data: { ok: true, duplicate: true }, error: null };
-    const r = await submitFunnelInterest({ email: 'alice@example.com', funnel: 'giveaway', tierSlug: 'entry' });
+    const r = await submitFunnelInterest({ email: 'alice@example.com', funnel: 'early_access', tierSlug: 'founding' });
     expect(r).toEqual({ ok: true, duplicate: true });
   });
 
   it('returns ok=false / error=unknown when the RPC errors', async () => {
     nextRpcResp = { data: null, error: { code: '22023', message: 'invalid_funnel' } };
-    const r = await submitFunnelInterest({ email: 'alice@example.com', funnel: 'giveaway', tierSlug: 'entry' });
+    const r = await submitFunnelInterest({ email: 'alice@example.com', funnel: 'early_access', tierSlug: 'founding' });
     expect(r.ok).toBe(false);
     if (r.ok === false) expect(r.error).toBe('unknown');
   });
@@ -94,7 +94,7 @@ describe('submitFunnelInterest — RPC contract', () => {
       supabase: { rpc: async () => { throw new Error('Network down'); }, from: () => ({}) },
     }));
     const { submitFunnelInterest: freshSubmit } = await import('../../src/lib/funnelSignups');
-    const r = await freshSubmit({ email: 'alice@example.com', funnel: 'giveaway', tierSlug: 'entry' });
+    const r = await freshSubmit({ email: 'alice@example.com', funnel: 'early_access', tierSlug: 'founding' });
     expect(r.ok).toBe(false);
     if (r.ok === false) expect(r.error).toBe('network');
     vi.doUnmock('../../src/lib/supabase');
@@ -104,7 +104,7 @@ describe('submitFunnelInterest — RPC contract', () => {
   it('captures full_name and phone when supplied', async () => {
     await submitFunnelInterest({
       email: 'alice@example.com', fullName: 'Alice Smith', phone: '+15551234567',
-      funnel: 'giveaway', tierSlug: 'silver',
+      funnel: 'early_access', tierSlug: 'founding',
     });
     expect(rpcCalls[rpcCalls.length - 1].args.p_full_name).toBe('Alice Smith');
     expect(rpcCalls[rpcCalls.length - 1].args.p_phone).toBe('+15551234567');
@@ -112,7 +112,7 @@ describe('submitFunnelInterest — RPC contract', () => {
 
   it('nulls full_name and phone when blank', async () => {
     await submitFunnelInterest({
-      email: 'alice@example.com', fullName: '   ', phone: '', funnel: 'giveaway', tierSlug: 'silver',
+      email: 'alice@example.com', fullName: '   ', phone: '', funnel: 'early_access', tierSlug: 'founding',
     });
     expect(rpcCalls[rpcCalls.length - 1].args.p_full_name).toBeNull();
     expect(rpcCalls[rpcCalls.length - 1].args.p_phone).toBeNull();
@@ -126,7 +126,7 @@ describe('submitFunnelInterest — UTM capture', () => {
       configurable: true, writable: true,
       value: { ...window.location, search: '?utm_source=google&utm_campaign=spring' },
     });
-    await submitFunnelInterest({ email: 'a@b.com', funnel: 'giveaway', tierSlug: 'entry' });
+    await submitFunnelInterest({ email: 'a@b.com', funnel: 'early_access', tierSlug: 'founding' });
     expect(rpcCalls[rpcCalls.length - 1].args.p_utm_source).toBe('google');
     expect(rpcCalls[rpcCalls.length - 1].args.p_utm_campaign).toBe('spring');
     Object.defineProperty(window, 'location', {
@@ -143,13 +143,13 @@ describe('logFunnelClick — fire-and-forget anon logger', () => {
   });
 
   it('LIBO-01: click payload carries no payment column', async () => {
-    await logFunnelClick({ funnel: 'giveaway', tierSlug: 'entry' });
+    await logFunnelClick({ funnel: 'early_access', tierSlug: 'founding' });
     const keys = Object.keys(rpcCalls[rpcCalls.length - 1].args);
     for (const k of PAYMENT_KEYS) expect(keys).not.toContain(k);
   });
 
   it('does not throw when the RPC fails', async () => {
     nextRpcResp = { data: null, error: { code: '???', message: 'down' } };
-    await expect(logFunnelClick({ funnel: 'giveaway', tierSlug: 'entry' })).resolves.toBeUndefined();
+    await expect(logFunnelClick({ funnel: 'early_access', tierSlug: 'founding' })).resolves.toBeUndefined();
   });
 });

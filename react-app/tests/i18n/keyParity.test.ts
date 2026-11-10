@@ -67,7 +67,7 @@ const isEnOnly = (key: string) =>
  * Shared so the lazily-loaded Phase-2 bundles (`src/i18n/phase2/*.json`) are
  * held to exactly the same standard as the main bundles. They are merged into
  * the same 'translation' namespace at runtime, so drift there breaks the
- * /giveaway and /cash-challenge pages in precisely the same way.
+ * /cash-challenge page in precisely the same way.
  */
 function describeParity(
   label: string,
@@ -159,7 +159,7 @@ describeParity(
  * If someone moves a namespace back, this fails before it ships.
  */
 describe('phase2 namespace separation', () => {
-  const PHASE2_NAMESPACES = ['giveawayFunnel', 'cashChallengeFunnel'];
+  const PHASE2_NAMESPACES = ['cashChallengeFunnel'];
   const MAIN: Array<readonly [string, Json]> = [
     ['en', en as Json],
     ['de', de as Json],

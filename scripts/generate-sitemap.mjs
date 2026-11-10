@@ -88,11 +88,13 @@ function main() {
   entries.push(urlEntry(`${SITE_URL}/workouts`, 0.9, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/blog`, 0.8, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/onboarding`, 0.6, 'monthly'));
-  // /giveaway and /cash-challenge are NOT listed. Both redirect to `/` while
-  // LAUNCH_MODE is 'prelaunch' (see react-app/src/App.tsx), so advertising them
-  // asks Google to crawl URLs that serve no content — soft-404s that dilute the
-  // pages that do. Re-add them in the same commit that flips LAUNCH_MODE to
-  // 'launched', not before.
+  // /giveaway is NOT listed and never will be: the old points-pack page was
+  // deleted and the path is now a permanent redirect to /giveaway-rules.
+  // /cash-challenge is NOT listed either. It redirects to `/` while
+  // FUNNEL_PAGES_ENABLED is false (see react-app/src/App.tsx), so advertising
+  // it asks Google to crawl a URL that serves no content — a soft-404 that
+  // dilutes the pages that do. Re-add it in the same commit that turns the
+  // funnel pages on, not before.
   // Brand pages from the site relaunch. The funnels they feed (/join and
   // /cash-challenges/<tier>) are deliberately NOT listed — they're conversion
   // surfaces with one action and no standalone search intent, and indexing them
