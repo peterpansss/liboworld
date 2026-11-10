@@ -31,6 +31,20 @@ beforeEach(() => {
 });
 
 describe('createPaymentIntent', () => {
+  it('refuses points packs (funnel giveaway) without calling the Edge Function', async () => {
+    const r = await createPaymentIntent({
+      // Untyped caller: the type already excludes 'giveaway'.
+      funnel: 'giveaway' as unknown as 'early_access',
+      tierSlug: 'silver',
+      email: 'alice@example.com',
+      fullName: 'Alice',
+      phone: '+1',
+      termsAcknowledged: true,
+    });
+    expect(r).toEqual({ ok: false, error: 'points_packs_disabled' });
+    expect(invokeCalls).toHaveLength(0);
+  });
+
   it('returns ok with normalized fields on success', async () => {
     nextInvokeResp = {
       data: {
@@ -44,8 +58,8 @@ describe('createPaymentIntent', () => {
       error: null,
     };
     const r = await createPaymentIntent({
-      funnel: 'giveaway',
-      tierSlug: 'silver',
+      funnel: 'early_access',
+      tierSlug: 'founding',
       email: 'alice@example.com',
       fullName: 'Alice',
       phone: '+15551234567',
@@ -70,8 +84,8 @@ describe('createPaymentIntent', () => {
   it('returns error from supabase invoke', async () => {
     nextInvokeResp = { data: null, error: { message: 'function failed' } };
     const r = await createPaymentIntent({
-      funnel: 'giveaway',
-      tierSlug: 'entry',
+      funnel: 'early_access',
+      tierSlug: 'founding',
       email: 'alice@example.com',
       fullName: 'A',
       phone: '+1',
@@ -83,8 +97,8 @@ describe('createPaymentIntent', () => {
   it('returns error when data.ok is false (server-side validation)', async () => {
     nextInvokeResp = { data: { ok: false, error: 'invalid_tier' }, error: null };
     const r = await createPaymentIntent({
-      funnel: 'giveaway',
-      tierSlug: 'gold',
+      funnel: 'early_access',
+      tierSlug: 'founding',
       email: 'alice@example.com',
       fullName: 'A',
       phone: '+1',
@@ -96,8 +110,8 @@ describe('createPaymentIntent', () => {
   it('returns "unknown" when data.ok is false but no error message provided', async () => {
     nextInvokeResp = { data: { ok: false }, error: null };
     const r = await createPaymentIntent({
-      funnel: 'giveaway',
-      tierSlug: 'gold',
+      funnel: 'early_access',
+      tierSlug: 'founding',
       email: 'a@b.c',
       fullName: 'A',
       phone: '+1',
@@ -108,8 +122,8 @@ describe('createPaymentIntent', () => {
   it('handles network exceptions', async () => {
     nextInvokeThrow = new Error('Failed to fetch');
     const r = await createPaymentIntent({
-      funnel: 'giveaway',
-      tierSlug: 'entry',
+      funnel: 'early_access',
+      tierSlug: 'founding',
       email: 'a@b.c',
       fullName: 'A',
       phone: '+1',
@@ -124,8 +138,8 @@ describe('createPaymentIntent', () => {
       error: null,
     };
     await createPaymentIntent({
-      funnel: 'giveaway',
-      tierSlug: 'entry',
+      funnel: 'early_access',
+      tierSlug: 'founding',
       email: 'a@b.c',
       fullName: 'A',
       phone: '+1',

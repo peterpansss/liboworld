@@ -21,8 +21,17 @@ import { getAttributionUtm, getSignupMetadata } from './signupAttribution';
  * (stripe_webhook Edge Function) credits the entries + points.
  */
 
+/**
+ * Points packs (funnel 'giveaway') are permanently disabled: bought points
+ * could become giveaway entries (REWARDS-ECONOMY-RULES.md §8.5). The type
+ * excludes it so no call site compiles, the runtime guard below refuses it
+ * for untyped callers, and create_payment_intent answers 403
+ * `points_packs_disabled` server-side regardless.
+ */
+export type ChargeableFunnel = Exclude<FunnelKind, 'giveaway'>;
+
 export type CreatePaymentIntentInput = {
-  funnel: FunnelKind;
+  funnel: ChargeableFunnel;
   tierSlug: FunnelTierSlug;
   email: string;
   fullName: string;
@@ -54,6 +63,9 @@ export type CreatePaymentIntentResult =
 export async function createPaymentIntent(
   input: CreatePaymentIntentInput,
 ): Promise<CreatePaymentIntentResult> {
+  if ((input.funnel as FunnelKind) === 'giveaway') {
+    return { ok: false, error: 'points_packs_disabled' };
+  }
   try {
     const { data, error } = await supabase.functions.invoke('create_payment_intent', {
       body: {
