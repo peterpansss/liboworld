@@ -187,7 +187,7 @@ export default function DeleteAccount() {
             <ul>
               <li><strong>Privacy email:</strong> <a href="mailto:privacy@liboworld.com">privacy@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
-              <li><strong>Company:</strong> Libo World, Germany</li>
+              <li><strong>Operator:</strong> Noah Fofana, trading as Libo World, Fornicher Weg 3, 56626 Andernach, Germany</li>
             </ul>
             <p>More about how we handle your data is in our <Link to="/privacy">Privacy Policy</Link>.</p>
           </section>

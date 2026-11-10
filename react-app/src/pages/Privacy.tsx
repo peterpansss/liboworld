@@ -69,8 +69,8 @@ export default function Privacy() {
             <h2>Who We Are</h2>
             <p>The data controller responsible for your personal data is:</p>
             <ul>
-              <li><strong>Company:</strong> Libo World</li>
-              <li><strong>Country:</strong> Germany</li>
+              <li><strong>Name:</strong> Noah Fofana, trading as Libo World (registered sole trader)</li>
+              <li><strong>Address:</strong> Fornicher Weg 3, 56626 Andernach, Germany</li>
               <li><strong>Email:</strong> <a href="mailto:privacy@liboworld.com">privacy@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
             </ul>
@@ -450,7 +450,7 @@ export default function Privacy() {
               <li><strong>Privacy email:</strong> <a href="mailto:privacy@liboworld.com">privacy@liboworld.com</a></li>
               <li><strong>General contact:</strong> <a href="mailto:hello@liboworld.com">hello@liboworld.com</a></li>
               <li><strong>Website:</strong> <a href="https://www.liboworld.com">www.liboworld.com</a></li>
-              <li><strong>Company:</strong> Libo World, Germany</li>
+              <li><strong>Operator:</strong> Noah Fofana, trading as Libo World, Fornicher Weg 3, 56626 Andernach, Germany</li>
             </ul>
             <p>We aim to respond to all privacy requests within <strong>30 days</strong>. For complex requests, we may extend this by up to an additional 2 months and will inform you accordingly.</p>
             <div className="legal-highlight" style={{ marginTop: 24 }}>
