@@ -1,7 +1,20 @@
 /**
- * Fetches a public shared_workouts row by id (anon SELECT; RLS allows public
- * read) and maps the snake_case DB columns to the camelCase SharedWorkout
- * contract. `notFound` is set when the id doesn't resolve to a row.
+ * Fetches one shared workout by id via the `get_shared_workout` RPC, and maps the
+ * snake_case DB columns to the camelCase SharedWorkout contract. `notFound` is set
+ * when the id doesn't resolve to a row.
+ *
+ * WHY AN RPC AND NOT A TABLE SELECT (audit finding LIBO-09)
+ * `shared_workouts` used to carry `FOR SELECT USING (true)`. This hook filtered
+ * with `.eq('id', id)`, but PostgREST applies the filter AFTER the policy, so
+ * anyone who dropped the filter got the whole table — verified live with the
+ * public anon key: every row, with usernames and full snapshots. RLS cannot say
+ * "only when filtered by id", so the lookup moved to a SECURITY DEFINER function
+ * that REQUIRES the id as an argument and can only ever return one row.
+ *
+ * The RPC deliberately does NOT return `owner_user_id`. Nothing renders it (only
+ * `creatorUsername` reaches the screen), and that UUID is the join key that
+ * de-anonymises other surfaces. `ownerUserId` is kept in the mapped shape as null
+ * so the SharedWorkout contract is unchanged.
  */
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
@@ -15,7 +28,6 @@ import type {
 
 interface SharedWorkoutRow {
   id: string;
-  owner_user_id: string | null;
   kind: string;
   title: string;
   creator_username: string | null;
@@ -28,7 +40,7 @@ interface SharedWorkoutRow {
 function mapRow(row: SharedWorkoutRow): SharedWorkout {
   return {
     id: row.id,
-    ownerUserId: row.owner_user_id,
+    ownerUserId: null, // never published: see the LIBO-09 note above
     kind: (row.kind === 'plan' ? 'plan' : 'workout') as SharedWorkoutKind,
     title: row.title,
     creatorUsername: row.creator_username,
@@ -63,11 +75,7 @@ export function useSharedWorkout(id: string | undefined): UseSharedWorkoutResult
 
     (async () => {
       const { data, error } = await supabase
-        .from('shared_workouts')
-        .select(
-          'id, owner_user_id, kind, title, creator_username, meta, snapshot, muscle_summary, created_at',
-        )
-        .eq('id', id)
+        .rpc('get_shared_workout', { p_id: id })
         .maybeSingle();
 
       if (cancelled) return;
