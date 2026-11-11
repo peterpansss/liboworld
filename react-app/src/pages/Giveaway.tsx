@@ -27,7 +27,7 @@ import { createPaymentIntent } from '../lib/funnelCheckout';
 import { isStripeConfigured } from '../lib/stripe';
 import { supabase } from '../lib/supabase';
 import { safeUrl } from '../utils/safeUrl';
-import { useInView, useCountUp, useRevealOnScroll } from '../utils/funnelAnimations';
+import { useRevealOnScroll } from '../utils/funnelAnimations';
 import { usePhase2Translations } from '../i18n/loadPhase2';
 import './Giveaway.css';
 
@@ -93,12 +93,6 @@ export default function GiveawayPage() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [modalTier, setModalTier] = useState<(PackageDef & { tier: ModalSelectedTier }) | null>(null);
   const [inclusionsOpen, setInclusionsOpen] = useState(false);
-
-  // Big-stats count-up on scroll
-  const statsView = useInView<HTMLElement>(0.4);
-  const statEntries = useCountUp(2400, statsView.inView);
-  const statGivenAway = useCountUp(18, statsView.inView);
-  const statWinners = useCountUp(47, statsView.inView);
 
   // Reveal-on-scroll for [data-reveal] section headers
   useRevealOnScroll();
@@ -363,42 +357,15 @@ export default function GiveawayPage() {
           </a>
         </div>
 
-        {/* ── BIG STATS ────────────────────────────────────── */}
-        <section className="funnel-stats" ref={statsView.ref}>
-          <h2 className="funnel-stats__title font-display" data-reveal>{t('giveawayFunnel.statsTitle')}</h2>
-          <div className="funnel-stats__sub" data-reveal data-reveal-delay="0.1">{t('giveawayFunnel.statsSub')}</div>
-          <div className="funnel-stats__grid">
-            <div className="funnel-stats__cell">
-              <div className="funnel-stats__num">{statEntries.toLocaleString()}+</div>
-              <div className="funnel-stats__label">{t('giveawayFunnel.statEntries')}</div>
-            </div>
-            <div className="funnel-stats__cell">
-              <div className="funnel-stats__num">€{statGivenAway}k</div>
-              <div className="funnel-stats__label">{t('giveawayFunnel.statGivenAway')}</div>
-            </div>
-            <div className="funnel-stats__cell">
-              <div className="funnel-stats__num">{statWinners}</div>
-              <div className="funnel-stats__label">{t('giveawayFunnel.statWinners')}</div>
-            </div>
-          </div>
-        </section>
+        {/* No invented proof on this page. The BIG STATS block (2,400 entries,
+            EUR 18k given away, 47 winners) and four placeholder winner cards were
+            removed on 10 Nov 2026: all of it was fabricated, against 12 people who
+            have ever entered a challenge and ZERO payouts on record.
 
-        {/* ── WINNERS (placeholder cards) ──────────────────── */}
-        <section className="funnel-section">
-          <header className="funnel-section__header" data-reveal>
-            <h2 className="funnel-section__title font-display">{t('giveawayFunnel.winnersTitle')}</h2>
-            <p className="funnel-section__sub">{t('giveawayFunnel.winnersSub')}</p>
-          </header>
-          <div className="funnel-winners">
-            {[1, 2, 3, 4].map(n => (
-              <div key={n} className="funnel-winner-card">
-                <span className="funnel-winner-card__chip">{t(`giveawayFunnel.winners.w${n}.prize`)}</span>
-                <p className="funnel-winner-card__quote">"{t(`giveawayFunnel.winners.w${n}.quote`)}"</p>
-                <div className="funnel-winner-card__author">— {t(`giveawayFunnel.winners.w${n}.name`)}</div>
-              </div>
-            ))}
-          </div>
-        </section>
+            Settled rule (Noah, 10 Nov 2026): we do not show other members' wins in
+            our own product, in the app or on the site. Proof of payouts lives in
+            social content, where a real winner is called on camera, and in the
+            published rules. Real numbers may go here once there are any. */}
 
         {/* ── APP DOWNLOAD CTA ─────────────────────────────── */}
         <section className="funnel-section funnel-section--narrow funnel-section--tight">
