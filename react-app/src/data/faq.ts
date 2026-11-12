@@ -7,7 +7,7 @@
 //   • Pricing renders the 6 items whose `pricing` flag is set, in `pricingOrder`.
 //     The Pricing FAQ reuses the Home answers for the questions it shares
 //     ("Same answers as the home page — one source of truth" — Pricing design),
-//     and adds two pricing-only questions (€6.67/mo, refundable) whose copy
+//     and adds two pricing-only questions (€10.00/mo, refundable) whose copy
 //     lives under relaunchPricing.faq.
 //
 // Consume with react-i18next: t(item.qKey), t(item.aKey).

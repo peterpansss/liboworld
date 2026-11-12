@@ -32,7 +32,7 @@ import './Affiliate.css';
  * string renders from its defaultValue. Keep that pattern.
  */
 
-// Slider math: 25% commission on the €79.99 standard annual subscription
+// Slider math: 25% commission on the €119.99 standard annual subscription
 // → ≈ €20 of commission per paid member per year.
 const COMMISSION_PER_USER_PER_YEAR_EUR = 20;
 const MIN_USERS = 0;
@@ -197,7 +197,7 @@ export default function Affiliate() {
           </div>
           <div className="aff-calc-earnings font-display">{formattedEarnings}</div>
           <p className="aff-calc-caption">
-            {t('affiliate.calcCaption', { defaultValue: '25% of €79.99/yr per member, every year they renew.' })}
+            {t('affiliate.calcCaption', { defaultValue: '25% of €119.99/yr per member, every year they renew.' })}
           </p>
         </div>
       </section>

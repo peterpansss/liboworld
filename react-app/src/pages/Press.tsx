@@ -84,7 +84,7 @@ export default function Press() {
     { label: t('pressKit.facts.whatLabel', { defaultValue: 'What' }), value: t('pressKit.facts.whatValue', { defaultValue: 'Training club that pays cash' }) },
     { label: t('pressKit.facts.platformLabel', { defaultValue: 'Platform' }), value: t('pressKit.facts.platformValue', { defaultValue: 'iOS (Android to follow)' }) },
     { label: t('pressKit.facts.stageLabel', { defaultValue: 'Stage' }), value: t('pressKit.facts.stageValue', { defaultValue: 'Live on iOS · Android in testing' }) },
-    { label: t('pressKit.facts.pricingLabel', { defaultValue: 'Pricing' }), value: t('pressKit.facts.pricingValue', { defaultValue: 'Free tier + €79.99/yr' }) },
+    { label: t('pressKit.facts.pricingLabel', { defaultValue: 'Pricing' }), value: t('pressKit.facts.pricingValue', { defaultValue: 'Free tier + €119.99/yr' }) },
     { label: t('pressKit.facts.exercisesLabel', { defaultValue: 'Exercises' }), value: t('pressKit.facts.exercisesValue', { defaultValue: '820+' }) },
     { label: t('pressKit.facts.workoutsLabel', { defaultValue: 'Workouts' }), value: t('pressKit.facts.workoutsValue', { defaultValue: '140' }) },
     { label: t('pressKit.facts.payoutLabel', { defaultValue: 'Challenge payouts' }), value: t('pressKit.facts.payoutValue', { defaultValue: '€5–€50 / cycle' }) },
@@ -104,7 +104,7 @@ export default function Press() {
 
   const boilerplate = t('pressKit.boilerplate.body', {
     defaultValue:
-      'Libo is a training club that pays members real cash for consistency. Alongside a library of 820+ exercises, 140 workouts, and generated training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, and cash out €5–€50 at the end of the cycle. The recording stays on your device and sharing is always optional — it is never a condition of being paid. Libo launches on iOS with a free tier and a Premium subscription at €79.99/year.',
+      'Libo is a training club that pays members real cash for consistency. Alongside a library of 820+ exercises, 140 workouts, and generated training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, and cash out €5–€50 at the end of the cycle. The recording stays on your device and sharing is always optional — it is never a condition of being paid. Libo launches on iOS with a free tier and a Premium subscription at €119.99/year.',
   });
 
   usePopIn();

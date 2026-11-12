@@ -29,11 +29,18 @@
  */
 
 // YEARLY_PRICE is the annual TOTAL (per-month equivalent = /12). Premium is
-// shown to users as €6.67/mo billed annually (= €79.99/yr, 49% off €12.99/mo).
+// shown to users as €10.00/mo billed annually (= €119.99/yr, 50% off €19.99/mo).
+// Raised 12 Nov 2026 (Noah) at the start of Phase 2, with zero active
+// subscriptions on RevenueCat — so nobody was grandfathered.
 // Launch/introductory pricing — competitive with training apps (Alpha, Liftoff
-// €79.99/yr); to be raised as rewards/partner-discounts/features land (Dec/Jan).
-export const MONTHLY_PRICE = { premium: 12.99, elite: 19.99 } as const;
-export const YEARLY_PRICE = { premium: 79.99, elite: 149 } as const;
+// €119.99/yr). Elite is DEAD for now (Noah, 12 Nov 2026) — Premium took its
+// €19.99 slot; Elite keeps constants only so stored rows still resolve.
+export const MONTHLY_PRICE = { premium: 19.99, elite: 19.99 } as const;
+export const YEARLY_PRICE = { premium: 119.99, elite: 149 } as const;
+// New 12 Nov 2026: a quarter, €15.00/mo — a discount without a year's commitment.
+// It buys NO extra giveaway entries (loyalty months count months with a
+// workout, not months paid for), so never sell it on entries.
+export const QUARTERLY_PRICE = { premium: 44.99, elite: 44.99 } as const;
 export const YEARLY_DISCOUNT = { premium: 49, elite: 37 } as const;
 // NOTE: there is deliberately no TRIAL_DAYS export. App Store Connect carries
 // no introductory offer on either subscription product

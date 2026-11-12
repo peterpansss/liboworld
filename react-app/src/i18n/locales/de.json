@@ -180,7 +180,7 @@
     "unitHours": "STD",
     "unitMinutes": "MIN",
     "unitSeconds": "SEK",
-    "foundingClosed": "Founding geschlossen — Premium kostet €79.99/Jahr"
+    "foundingClosed": "Founding geschlossen — Premium kostet €119.99/Jahr"
   },
   "community": {
     "eyebrow": "DIE LIBO COMMUNITY",
@@ -1119,7 +1119,7 @@
       "cta": "Founding Member werden →",
       "cardBadge": "Founding Member",
       "price": "€39.50",
-      "priceStrike": "€79.99",
+      "priceStrike": "€119.99",
       "cardSub": "12 Monate Premium · 50% Rabatt · voll erstattbar bis zum Launch",
       "perks": [
         "Volle Bibliothek — 820+ Übungen, 140 Workouts",
@@ -1355,7 +1355,7 @@
   "relaunchPricing": {
     "seo": {
       "title": "Preise | Libo — Training Club",
-      "description": "Eine kostenlose Stufe oder €6.67/Monat für alles. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — kein Test-Abo."
+      "description": "Eine kostenlose Stufe oder €10.00/Monat für alles. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — kein Test-Abo."
     },
     "aria": {
       "plans": "Tarife",
@@ -1365,9 +1365,9 @@
     "hero": {
       "badge": "Mitgliedschaft",
       "h1Pre": "Kostenlose Stufe. Oder ",
-      "h1Accent": "€6.67/Monat",
+      "h1Accent": "€10.00/Monat",
       "h1Post": " für alles.",
-      "sub": "Keine Karte zum Start. Trainiere gratis, so lange du willst — oder hol dir Premium, monatlich für €12.99."
+      "sub": "Keine Karte zum Start. Trainiere gratis, so lange du willst — oder hol dir Premium, monatlich für €19.99."
     },
     "guarantee": [
       {
@@ -1386,8 +1386,8 @@
     "faq": {
       "headline": "Häufige Fragen.",
       "subhead": "Dieselben Antworten wie auf der Startseite — eine Quelle der Wahrheit.",
-      "qPrice": "Was bedeutet €6.67/Monat?",
-      "aPrice": "Premium wird jährlich mit €79.99 abgerechnet, das sind €6.67 pro Monat. Founding Members sichern sich das erste Jahr für €39.50 — etwa €3.29/Monat.",
+      "qPrice": "Was bedeutet €10.00/Monat?",
+      "aPrice": "Premium wird jährlich mit €119.99 abgerechnet, das sind €10.00 pro Monat. Founding Members sichern sich das erste Jahr für €39.50 — etwa €3.29/Monat.",
       "qRefund": "Ist das Founding-Member-Angebot wirklich erstattbar?",
       "aRefund": "Jederzeit vor dem Launch voll erstattbar, ohne Wenn und Aber. Und deine 12 Monate starten am Launch-Tag, du verlierst also keinen einzigen Tag mit Warten."
     }
@@ -1527,7 +1527,7 @@
       },
       {
         "label": "Preise",
-        "value": "Kostenloser Tarif + €79.99/Jahr"
+        "value": "Kostenloser Tarif + €119.99/Jahr"
       },
       {
         "label": "Übungen",
@@ -1549,7 +1549,7 @@
     "boilerplate": {
       "title": "Über Libo",
       "titleTag": "· Boilerplate",
-      "body": "Libo ist ein Training Club, der Mitglieder für Konsistenz mit echtem Cash bezahlt. Neben einer Bibliothek aus 820+ Übungen, 140 Workouts und generierten Trainingsplänen laufen bei Libo 30-tägige Money Challenges: Members erreichen ein tägliches Rep-Ziel, nehmen den Beweis auf und cashen am Ende des Cycles €5–€50 aus. Die Aufnahme bleibt auf deinem Gerät und Teilen ist immer freiwillig — es ist nie Bedingung für die Auszahlung. Libo startet auf iOS mit einem kostenlosen Tarif und einem Premium-Abo für €79.99/Jahr.",
+      "body": "Libo ist ein Training Club, der Mitglieder für Konsistenz mit echtem Cash bezahlt. Neben einer Bibliothek aus 820+ Übungen, 140 Workouts und generierten Trainingsplänen laufen bei Libo 30-tägige Money Challenges: Members erreichen ein tägliches Rep-Ziel, nehmen den Beweis auf und cashen am Ende des Cycles €5–€50 aus. Die Aufnahme bleibt auf deinem Gerät und Teilen ist immer freiwillig — es ist nie Bedingung für die Auszahlung. Libo startet auf iOS mit einem kostenlosen Tarif und einem Premium-Abo für €119.99/Jahr.",
       "founderTitle": "Noah F.",
       "founderTag": "· Gründer",
       "founderBio": "Noah kommt aus dem deutschen Leistungssport — jahrelang Regionalliga-Fußball, mit Berufungen in den DFB Stützpunkt und die Westfalenauswahl mit dem Bonner SC. Er ist außerdem der Designer hinter dem Modelabel Mieuxnoir und Gründer von Manufactnow, einer Modeproduktions- und Beratungsfirma. Seine Wette mit Libo: Echter Einsatz schlägt Motivation, also setzt der Club echtes Geld auf die Konsistenz seiner Mitglieder. Über die Psychologie dahinter schreibt er im Libo-Blog (\"30 Days, One Habit, Real Money\").",
@@ -1847,7 +1847,7 @@
       "q1": "Was ist Libo?",
       "a1": "Ein Trainingsclub: 820+ Übungen, 140 Workouts, generierte Pläne, ein Streak, der nie auf null fällt — und 30-Tage-Cash-Challenges, die echtes Geld für Konstanz zahlen.",
       "q2": "Was kostet die Mitgliedschaft?",
-      "a2": "Es gibt eine Gratis-Version — keine Karte nötig. Premium kostet €79.99 im Jahr (etwa €6.67/Monat) oder €12.99 monatlich. Founding Members sichern sich das erste Jahr für €39.50.",
+      "a2": "Es gibt eine Gratis-Version — keine Karte nötig. Premium kostet €119.99 im Jahr (etwa €10.00/Monat) oder €19.99 monatlich. Founding Members sichern sich das erste Jahr für €39.50.",
       "q3": "Was ist ein Founding Member?",
       "a3": "Das Pre-Launch-Angebot: 12 Monate Premium mit 50% Rabatt, zuerst durch die Tür am Launch-Tag, jede Challenge-Stufe freigeschaltet — und bis zum Launch voll erstattbar.",
       "q4": "Gibt es Libo schon?",
@@ -1959,7 +1959,7 @@
         "badge": "Pre-Sale · 50% Rabatt",
         "price": "€39.50",
         "per": "12 Monate · Founding-Preis bis 13. Oktober",
-        "strike": "€79.99",
+        "strike": "€119.99",
         "strikeNote": "bis zum Launch erstattbar",
         "blurb": "Sicher dir ein volles Jahr Premium vor dem Launch. Dein Jahr startet am Launch-Tag, nicht heute.",
         "perk1": "Alles aus Premium, 50% Rabatt",
@@ -1971,9 +1971,9 @@
       },
       "premium": {
         "name": "Premium",
-        "price": "€79.99",
-        "per": "/Jahr · €6.67/Monat",
-        "monthly": "oder €12.99/Monat im Monatsabo — jederzeit kündbar",
+        "price": "€119.99",
+        "per": "/Jahr · €10.00/Monat",
+        "monthly": "oder €19.99/Monat im Monatsabo — jederzeit kündbar",
         "blurb": "Dieselbe App, nur ohne Obergrenzen — mehr Tiefe, nicht mehr Zugang.",
         "perk1": "Alle 140 geführten Workouts",
         "perk2": "So viele Pläne wie du willst, in jeder Länge",
@@ -2007,14 +2007,14 @@
         "a": "Wähl eine Challenge und triff ihr tägliches Rep-Ziel, 30 Tage lang. Du nimmst jede Session in der App auf, der Run ist also verifiziert — faken unmöglich. Deine 30 Tage starten in dem Moment, in dem du beitrittst, und wer durchzieht, bekommt echtes Geld. Bezahltes Premium schaltet die größeren Stufen frei; die Plätze sind begrenzt und first come, first served."
       },
       "monthlyPrice": {
-        "q": "Was bedeutet €6.67/Monat?",
-        "a": "Premium wird jährlich mit €79.99 abgerechnet — das sind €6.67 pro Monat. Lieber flexibel bleiben? Das Monatsabo kostet €12.99. Founding Members sichern sich das erste Jahr für €39.50 — etwa €3.29/Monat."
+        "q": "Was bedeutet €10.00/Monat?",
+        "a": "Premium wird jährlich mit €119.99 abgerechnet — das sind €10.00 pro Monat. Lieber flexibel bleiben? Das Monatsabo kostet €19.99. Founding Members sichern sich das erste Jahr für €39.50 — etwa €3.29/Monat."
       },
       "subhead": "Dieselben Antworten wie auf der Startseite — eine einzige Quelle."
     },
     "seo": {
       "title": "Mitgliedschaft | Libo — Training Club",
-      "description": "Eine Gratis-Version, oder €6.67/Monat für alles — oder monatlich für €12.99. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — kein Test-Abo."
+      "description": "Eine Gratis-Version, oder €10.00/Monat für alles — oder monatlich für €19.99. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — kein Test-Abo."
     }
   },
   "relaunchFounder": {
@@ -2118,7 +2118,7 @@
       "stageLabel": "Phase",
       "stageValue": "Live auf iOS · Android im Test",
       "pricingLabel": "Preise",
-      "pricingValue": "Gratis-Version + €79.99/Jahr",
+      "pricingValue": "Gratis-Version + €119.99/Jahr",
       "exercisesLabel": "Übungen",
       "exercisesValue": "820+",
       "workoutsLabel": "Workouts",
@@ -2178,7 +2178,7 @@
     "calcSub": "Mach aus deinem Einsatz eine Einnahmequelle, die deine Arbeit und deine Reichweite belohnt.",
     "calcUsersLabel": "Zahlende Member, die du bringst",
     "calcEarningsLabel": "Geschätzter Jahresverdienst",
-    "calcTooltip": "Geschätzt als 25% Provision auf das Jahresabo für €79.99. Der echte Verdienst hängt vom Tarif ab und davon, wie lange Member bleiben.",
+    "calcTooltip": "Geschätzt als 25% Provision auf das Jahresabo für €119.99. Der echte Verdienst hängt vom Tarif ab und davon, wie lange Member bleiben.",
     "howHeading": "Link → Member → Auszahlung.",
     "step1Title": "Bewirb dich",
     "step1Body": "Du trainierst, coachst, führst ein Gym oder postest über Fitness? Bewirb dich in unter 2 Minuten — kein Follower-Minimum.",
@@ -2192,7 +2192,7 @@
     "trustFollowersMobile": "Min. Follower",
     "trustPayoutValue": "Monatlich",
     "trustPayout": "Auszahlungen",
-    "calcCaption": "25% von €79.99/Jahr pro Member, jedes Jahr, das sie verlängern."
+    "calcCaption": "25% von €119.99/Jahr pro Member, jedes Jahr, das sie verlängern."
   },
   "affiliateApply": {
     "errFirstName": "Vorname ist erforderlich.",

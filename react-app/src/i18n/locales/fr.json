@@ -1093,7 +1093,7 @@
       "cta": "Devenir Founding Member →",
       "cardBadge": "Founding Member",
       "price": "€39.50",
-      "priceStrike": "€79.99",
+      "priceStrike": "€119.99",
       "cardSub": "12 mois de Premium · -50% · entièrement remboursable jusqu'au lancement",
       "perks": [
         "Bibliothèque complète — 820+ exercices, 140 entraînements",
@@ -1335,9 +1335,9 @@
     "hero": {
       "badge": "Abonnement",
       "h1Pre": "Offre gratuite. Ou ",
-      "h1Accent": "€6.67/mois",
+      "h1Accent": "€10.00/mois",
       "h1Post": " pour tout.",
-      "sub": "Aucune carte pour commencer. Entraîne-toi gratuitement aussi longtemps que tu veux — ou passe à Premium, au mois à €12.99."
+      "sub": "Aucune carte pour commencer. Entraîne-toi gratuitement aussi longtemps que tu veux — ou passe à Premium, au mois à €19.99."
     },
     "guarantee": [
       {
@@ -1356,14 +1356,14 @@
     "faq": {
       "headline": "Questions fréquentes.",
       "subhead": "Les mêmes réponses que sur la page d'accueil — une seule source de vérité.",
-      "qPrice": "Que veut dire €6.67/mois ?",
-      "aPrice": "Premium est facturé chaque année à €79.99, soit €6.67 par mois. Les Founding Members bloquent la première année à €39.50 — environ €3.29/mois.",
+      "qPrice": "Que veut dire €10.00/mois ?",
+      "aPrice": "Premium est facturé chaque année à €119.99, soit €10.00 par mois. Les Founding Members bloquent la première année à €39.50 — environ €3.29/mois.",
       "qRefund": "L'offre Founding Member est-elle vraiment remboursable ?",
       "aRefund": "Entièrement remboursable à tout moment avant le lancement, sans poser de questions. Et tes 12 mois commencent le jour du lancement, donc tu ne perds pas un seul jour à attendre."
     },
     "seo": {
       "title": "Tarifs | Libo — Training Club",
-      "description": "Une offre gratuite, ou €6.67/mois pour tout. Aucune carte pour commencer, et le niveau Free est vraiment gratuit — pas un essai."
+      "description": "Une offre gratuite, ou €10.00/mois pour tout. Aucune carte pour commencer, et le niveau Free est vraiment gratuit — pas un essai."
     },
     "aria": {
       "plans": "Offres",
@@ -1499,7 +1499,7 @@
       },
       {
         "label": "Tarifs",
-        "value": "Offre gratuite + €79.99/an"
+        "value": "Offre gratuite + €119.99/an"
       },
       {
         "label": "Exercices",
@@ -1521,7 +1521,7 @@
     "boilerplate": {
       "title": "À propos de Libo",
       "titleTag": "· texte de présentation",
-      "body": "Libo est un training club qui paie ses membres en vrai cash pour leur régularité. En plus d'une bibliothèque de 820+ exercices, 140 entraînements et de plans d'entraînement générés, Libo propose des money challenges de 30 jours : les membres atteignent un objectif de reps quotidien, enregistrent la preuve, et encaissent €5 à €50 à la fin du cycle. L'enregistrement reste sur ton appareil et le partage est toujours facultatif — ce n'est jamais une condition pour être payé. Libo se lance sur iOS avec une offre gratuite et un abonnement Premium à €79.99/an.",
+      "body": "Libo est un training club qui paie ses membres en vrai cash pour leur régularité. En plus d'une bibliothèque de 820+ exercices, 140 entraînements et de plans d'entraînement générés, Libo propose des money challenges de 30 jours : les membres atteignent un objectif de reps quotidien, enregistrent la preuve, et encaissent €5 à €50 à la fin du cycle. L'enregistrement reste sur ton appareil et le partage est toujours facultatif — ce n'est jamais une condition pour être payé. Libo se lance sur iOS avec une offre gratuite et un abonnement Premium à €119.99/an.",
       "founderTitle": "Noah F.",
       "founderTag": "· fondateur",
       "founderBio": "Noah vient du sport allemand de haut niveau — des années de football en Regionalliga, avec des sélections pour le DFB Stützpunkt et la Westfalenauswahl avec le Bonner SC. Il est aussi le designer derrière la marque de mode Mieuxnoir et le fondateur de Manufactnow, une société de production et de conseil dans la mode. Son pari avec Libo : de vrais enjeux battent la motivation, alors le club met du vrai argent sur la régularité de ses membres. Il écrit sur la psychologie derrière tout ça sur le blog de Libo (« 30 Days, One Habit, Real Money »).",
@@ -1606,7 +1606,7 @@
     "unitHours": "H",
     "unitMinutes": "MIN",
     "unitSeconds": "SEC",
-    "foundingClosed": "Founding terminé — Premium à €79.99/an"
+    "foundingClosed": "Founding terminé — Premium à €119.99/an"
   },
   "cashChallenges": {
     "seo": {
@@ -1847,7 +1847,7 @@
       "q1": "C'est quoi Libo ?",
       "a1": "Un club d'entraînement : 820+ exercices, 140 entraînements, des plans générés, une série qui ne retombe jamais à zéro — et des cash challenges de 30 jours qui paient du vrai argent pour ta régularité.",
       "q2": "Combien coûte l'adhésion ?",
-      "a2": "Il y a un niveau Free — pas de carte nécessaire. Premium coûte €79.99 par an (environ €6.67/mois) ou €12.99 au mois. Les Founding Members bloquent la première année à €39.50.",
+      "a2": "Il y a un niveau Free — pas de carte nécessaire. Premium coûte €119.99 par an (environ €10.00/mois) ou €19.99 au mois. Les Founding Members bloquent la première année à €39.50.",
       "q3": "C'est quoi un Founding Member ?",
       "a3": "L'offre pré-lancement : 12 mois de Premium à -50%, premier à entrer le jour du lancement, tous les paliers de challenge débloqués — et intégralement remboursable jusqu'au lancement.",
       "q4": "Libo est déjà disponible ?",
@@ -1959,7 +1959,7 @@
         "badge": "Prévente · -50%",
         "price": "€39.50",
         "per": "12 mois · tarif Founding jusqu’au 13 octobre",
-        "strike": "€79.99",
+        "strike": "€119.99",
         "strikeNote": "remboursable jusqu'au lancement",
         "blurb": "Bloque une année complète de Premium avant le lancement. Ton année commence le jour du lancement, pas aujourd'hui.",
         "perk1": "Tout Premium, à -50%",
@@ -1971,9 +1971,9 @@
       },
       "premium": {
         "name": "Premium",
-        "price": "€79.99",
-        "per": "/an · €6.67/mois",
-        "monthly": "ou €12.99/mois sans engagement — annulable à tout moment",
+        "price": "€119.99",
+        "per": "/an · €10.00/mois",
+        "monthly": "ou €19.99/mois sans engagement — annulable à tout moment",
         "blurb": "La même app, sans plafonds — plus de profondeur, pas plus d'accès.",
         "perk1": "Les 140 séances guidées",
         "perk2": "Garde autant de plans que tu veux, de n'importe quelle durée",
@@ -2007,14 +2007,14 @@
         "a": "Choisis un challenge et atteins son objectif de reps quotidien pendant 30 jours. Tu enregistres chaque séance dans l'app, donc le run est vérifié — impossible de tricher. Tes 30 jours commencent dès que tu t'inscris, et finir paie en vrai cash. Le Premium payant débloque les paliers plus gros ; les places sont limitées et c'est premier arrivé, premier servi."
       },
       "monthlyPrice": {
-        "q": "Ça veut dire quoi, €6.67/mois ?",
-        "a": "Premium est facturé €79.99 à l'année, soit €6.67 par mois. Tu préfères rester flexible ? Le mensuel est à €12.99. Les Founding Members bloquent la première année à €39.50 — environ €3.29/mois."
+        "q": "Ça veut dire quoi, €10.00/mois ?",
+        "a": "Premium est facturé €119.99 à l'année, soit €10.00 par mois. Tu préfères rester flexible ? Le mensuel est à €19.99. Les Founding Members bloquent la première année à €39.50 — environ €3.29/mois."
       },
       "subhead": "Les mêmes réponses que sur la page d'accueil — une seule source de vérité."
     },
     "seo": {
       "title": "Adhésion | Libo — Training Club",
-      "description": "Un niveau Free, ou €6.67/mois pour tout — ou €12.99 au mois. Pas de carte pour commencer, et le niveau Free est vraiment gratuit — pas un essai."
+      "description": "Un niveau Free, ou €10.00/mois pour tout — ou €19.99 au mois. Pas de carte pour commencer, et le niveau Free est vraiment gratuit — pas un essai."
     }
   },
   "relaunchFounder": {
@@ -2118,7 +2118,7 @@
       "stageLabel": "Phase",
       "stageValue": "En ligne sur iOS · Android en test",
       "pricingLabel": "Prix",
-      "pricingValue": "Niveau Free + €79.99/an",
+      "pricingValue": "Niveau Free + €119.99/an",
       "exercisesLabel": "Exercices",
       "exercisesValue": "820+",
       "workoutsLabel": "Entraînements",
@@ -2178,7 +2178,7 @@
     "calcSub": "Transforme ton engagement en source de revenus qui récompense ton travail et ton influence.",
     "calcUsersLabel": "Membres payants que tu amènes",
     "calcEarningsLabel": "Gains annuels estimés",
-    "calcTooltip": "Estimé comme 25% de commission sur l'abonnement annuel à €79.99. Les gains réels dépendent du forfait et de la durée d'abonnement des membres.",
+    "calcTooltip": "Estimé comme 25% de commission sur l'abonnement annuel à €119.99. Les gains réels dépendent du forfait et de la durée d'abonnement des membres.",
     "howHeading": "Lien → membres → paiement.",
     "step1Title": "Postule",
     "step1Body": "Tu t'entraînes, tu coaches, tu gères une salle ou tu postes sur le fitness ? Postule en moins de 2 minutes — aucun minimum d'abonnés.",
@@ -2192,7 +2192,7 @@
     "trustFollowersMobile": "Abonnés min.",
     "trustPayoutValue": "Mensuel",
     "trustPayout": "Paiements",
-    "calcCaption": "25% de €79.99/an par membre, chaque année où il renouvelle."
+    "calcCaption": "25% de €119.99/an par membre, chaque année où il renouvelle."
   },
   "affiliateApply": {
     "errFirstName": "Le prénom est requis.",

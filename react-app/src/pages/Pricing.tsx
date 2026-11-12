@@ -20,7 +20,7 @@ import './Pricing.css';
 //     legal exposure), replaced by "Activity streak & points" (Free) and
 //     "2 freeze tokens per challenge" (Premium)
 //   • the free plan is a "free tier", never described as permanent
-//   • the €12.99 month-to-month option is visible in the plan cards, not just
+//   • the €19.99 month-to-month option is visible in the plan cards, not just
 //     in the hero subhead
 //   • NO TRIAL, anywhere. App Store Connect has no introductory offer on
 //     com.liboworld.app.premium.monthly or the yearly product, and the app
@@ -72,7 +72,7 @@ export default function Pricing() {
   // Read at render, not at module load: the pre-sale has to close itself on
   // the launch date without a deploy (see config/launchMode.ts). Once it's
   // shut, the Founding card comes out of the array entirely — Premium already
-  // carries the €79.99/yr price, so there's nothing to replace it with.
+  // carries the €119.99/yr price, so there's nothing to replace it with.
   const foundingOpen = isFoundingOpen();
 
   const allPlans: Plan[] = [
@@ -120,7 +120,7 @@ export default function Pricing() {
       price: t('membershipV2.plans.founding.price', { defaultValue: '€39.50' }),
       per: t('membershipV2.plans.founding.per', { defaultValue: '12 months' }),
       monthly: '',
-      strike: t('membershipV2.plans.founding.strike', { defaultValue: '€79.99' }),
+      strike: t('membershipV2.plans.founding.strike', { defaultValue: '€119.99' }),
       strikeNote: t('membershipV2.plans.founding.strikeNote', {
         defaultValue: 'refundable until launch',
       }),
@@ -149,10 +149,10 @@ export default function Pricing() {
       priceAccent: false,
       name: t('membershipV2.plans.premium.name', { defaultValue: 'Premium' }),
       badge: '',
-      price: t('membershipV2.plans.premium.price', { defaultValue: '€79.99' }),
-      per: t('membershipV2.plans.premium.per', { defaultValue: '/year · €6.67/mo' }),
+      price: t('membershipV2.plans.premium.price', { defaultValue: '€119.99' }),
+      per: t('membershipV2.plans.premium.per', { defaultValue: '/year · €10.00/mo' }),
       monthly: t('membershipV2.plans.premium.monthly', {
-        defaultValue: 'or €12.99/mo month-to-month — cancel any time',
+        defaultValue: 'or €19.99/mo month-to-month — cancel any time',
       }),
       strike: '',
       strikeNote: '',
@@ -233,10 +233,10 @@ export default function Pricing() {
       }),
     },
     monthlyPrice: {
-      q: t('membershipV2.faq.monthlyPrice.q', { defaultValue: 'What does €6.67/mo mean?' }),
+      q: t('membershipV2.faq.monthlyPrice.q', { defaultValue: 'What does €10.00/mo mean?' }),
       a: t('membershipV2.faq.monthlyPrice.a', {
         defaultValue:
-          'Premium is billed yearly at €79.99, which works out to €6.67 per month. Prefer to stay flexible? Month-to-month is €12.99. Founding Members lock the first year at €39.50 — about €3.29/mo.',
+          'Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99. Founding Members lock the first year at €39.50 — about €3.29/mo.',
       }),
     },
   };
@@ -249,7 +249,7 @@ export default function Pricing() {
         })}
         description={t('membershipV2.seo.description', {
           defaultValue:
-            'A free tier, or €6.67/mo for everything — or month-to-month at €12.99. No card to start, and the free tier is genuinely free — not a trial.',
+            'A free tier, or €10.00/mo for everything — or month-to-month at €19.99. No card to start, and the free tier is genuinely free — not a trial.',
         })}
         canonical="https://liboworld.com/membership"
         ogImage="https://liboworld.com/brand/og-image.png"
