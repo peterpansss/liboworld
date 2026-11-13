@@ -3,6 +3,7 @@ import { colors } from '../../theme';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, TextArea, Select, Button } from '../../components/admin/FormField';
 import { Modal } from '../../components/admin/Modal';
+import { PostalEntriesPanel } from '../../components/admin/PostalEntriesPanel';
 import {
   listGiveaways,
   createGiveaway,
@@ -778,6 +779,15 @@ export function GiveawaysPage() {
               </span>
             </label>
           </Field>
+
+          {editing && editing.entry_mode === 'membership' && (
+            <PostalEntriesPanel
+              giveawayId={editing.id}
+              startsAt={editing.starts_at}
+              endsAt={editing.ends_at}
+              drawn={editing.status === 'completed'}
+            />
+          )}
 
           {editing && editing.status === 'completed' && winners && winners.length > 0 && (
             <div

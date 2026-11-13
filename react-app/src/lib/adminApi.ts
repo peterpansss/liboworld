@@ -128,6 +128,8 @@ export type Giveaway = {
    * a row read before it exists has no key at all.
    */
   min_tier?: 'free' | 'premium';
+  /** 'membership' = automatic in-app entries (+ postal letters); set on the server. */
+  entry_mode?: string;
   created_at: string;
 };
 
@@ -394,6 +396,71 @@ export async function listGiveawayWinners(giveawayId: string) {
     .eq('giveaway_id', giveawayId);
   if (error) throw error;
   return data ?? [];
+}
+
+// ── Giveaway free entry by post (membership rounds) ────────────────────────
+// One letter = one entry; what counts is the member's gap to a Premium member
+// with the same loyalty months (Free 2 + 2/month, max 26), received before the
+// round closes. The server checks account, staff, country and the cap
+// (supabase-migration-giveaway-postal-entries.sql).
+
+export type PostalEntry = {
+  id: string;
+  email: string;
+  received_on: string;
+  country: string;
+  note: string | null;
+  created_at: string;
+};
+
+const POSTAL_ERRORS: Record<string, string> = {
+  not_authorized: 'Not authorised.',
+  giveaway_not_found: 'Round not found (postal entries only work on membership rounds).',
+  round_already_drawn: 'This round has already been drawn.',
+  received_outside_round: 'The letter must arrive between the round\'s start and end date.',
+  country_required: 'Enter the sender\'s country as a 2-letter code (e.g. DE).',
+  country_restricted: 'The sender\'s country is excluded from giveaways.',
+  account_not_found: 'No Libo account with that email.',
+  staff_ineligible: 'Staff accounts cannot enter.',
+  cap_reached: 'This member already has 26 letters in this round (the most that can ever count).',
+  entry_not_found: 'Entry not found.',
+};
+
+function postalError(code: string | undefined): Error {
+  return new Error((code && POSTAL_ERRORS[code]) ?? code ?? 'postal_entry_failed');
+}
+
+export async function listPostalEntries(giveawayId: string): Promise<PostalEntry[]> {
+  const { data, error } = await supabase.rpc('admin_list_postal_entries', { p_giveaway_id: giveawayId });
+  if (error) throw error;
+  return (data ?? []) as PostalEntry[];
+}
+
+export async function recordPostalEntry(input: {
+  giveawayId: string;
+  email: string;
+  receivedOn: string;
+  country: string;
+  note?: string;
+}): Promise<{ letters: number; counting: number }> {
+  const { data, error } = await supabase.rpc('admin_record_postal_entry', {
+    p_giveaway_id: input.giveawayId,
+    p_email: input.email,
+    p_received_on: input.receivedOn,
+    p_country: input.country,
+    p_note: input.note ?? null,
+  });
+  if (error) throw error;
+  const r = data as { ok: boolean; postal_entries?: number; counting_now?: number; error?: string };
+  if (!r.ok) throw postalError(r.error);
+  return { letters: r.postal_entries ?? 0, counting: r.counting_now ?? 0 };
+}
+
+export async function deletePostalEntry(entryId: string): Promise<void> {
+  const { data, error } = await supabase.rpc('admin_delete_postal_entry', { p_entry_id: entryId });
+  if (error) throw error;
+  const r = data as { ok: boolean; error?: string };
+  if (!r.ok) throw postalError(r.error);
 }
 
 /**

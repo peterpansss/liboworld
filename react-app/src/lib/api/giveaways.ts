@@ -19,4 +19,8 @@ export {
   drawGiveawayWinners_unsafe,
   listGiveawayWinners,
   uploadGiveawayImage,
+  type PostalEntry,
+  listPostalEntries,
+  recordPostalEntry,
+  deletePostalEntry,
 } from '../adminApi';
