@@ -20,6 +20,7 @@ const WorkoutsPage = lazy(() => import('./WorkoutsPage').then((m) => ({ default:
 const ChallengesPage = lazy(() => import('./ChallengesPage').then((m) => ({ default: m.ChallengesPage })));
 const CyclesPage = lazy(() => import('./CyclesPage').then((m) => ({ default: m.CyclesPage })));
 const PayoutsPage = lazy(() => import('./PayoutsPage').then((m) => ({ default: m.PayoutsPage })));
+const RewardsPage = lazy(() => import('./RewardsPage').then((m) => ({ default: m.RewardsPage })));
 const ProgramsPage = lazy(() => import('./ProgramsPage').then((m) => ({ default: m.ProgramsPage })));
 const MfaPage = lazy(() => import('./MfaPage').then((m) => ({ default: m.MfaPage })));
 
@@ -31,6 +32,7 @@ const NAV = [
   { to: '/admin/challenges', label: 'Challenges' },
   { to: '/admin/cycles', label: 'Cycles' },
   { to: '/admin/payouts', label: 'Payouts' },
+  { to: '/admin/rewards', label: 'Rewards' },
   { to: '/admin/giveaways', label: 'Giveaways' },
   { to: '/admin/giveaway-templates', label: 'Giveaway Templates' },
   { to: '/admin/users', label: 'Users' },
@@ -160,6 +162,7 @@ function Shell() {
             <Route path="challenges" element={<ChallengesPage />} />
             <Route path="cycles" element={<CyclesPage />} />
             <Route path="payouts" element={<PayoutsPage />} />
+            <Route path="rewards" element={<RewardsPage />} />
             <Route path="giveaways" element={<GiveawaysPage />} />
             <Route path="giveaway-templates" element={<GiveawayTemplatesPage />} />
             <Route path="users" element={<UsersPage />} />

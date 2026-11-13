@@ -121,6 +121,13 @@ export type Giveaway = {
    * at a time; a database trigger auto-unfeatures others on save.
    */
   featured: boolean;
+  /**
+   * 'premium' = Premium draw: only Premium members are entered from the app;
+   * the free route is the postal entry in the Official Giveaway Rules.
+   * Optional because the column arrives with the reward-catalog migration;
+   * a row read before it exists has no key at all.
+   */
+  min_tier?: 'free' | 'premium';
   created_at: string;
 };
 
@@ -1553,6 +1560,205 @@ export async function markPayoutPaid_unsafe(payoutId: string, input: MarkPayoutP
   if (!r.ok) throw new Error(r.detail ?? r.error ?? 'mark_paid_failed');
 }
 
+// ── Rewards shop (points → gift code / PayPal) ─────────────────────────────
+// Backend: libo-app-v2/supabase-migration-reward-catalog.sql. Every admin RPC
+// is is_admin() + AAL2, like admin_list_payouts. Field names are read
+// defensively: the RPCs were written in parallel with this page, so the
+// normalisers accept the obvious aliases rather than trusting one spelling.
+
+export type RedemptionStatus = 'pending' | 'sent' | 'rejected';
+export type RedemptionMethod = 'code' | 'paypal';
+export type RewardMinTier = 'free' | 'premium';
+
+export type RewardRedemptionRow = {
+  id: string;
+  user_id: string;
+  catalog_id: string;
+  points: number;
+  value_eur: number;
+  brand: string | null;
+  method: RedemptionMethod;
+  paypal_email: string | null;
+  status: RedemptionStatus;
+  code_or_txn: string | null;
+  admin_note: string | null;
+  created_at: string;
+  fulfilled_at: string | null;
+  /** Member display name, if the RPC sends one. */
+  member_name: string | null;
+  /** Member account email (same field PayoutsPage reads: user_email). */
+  member_email: string | null;
+  catalog_title: string | null;
+};
+
+export type RewardCatalogRow = {
+  id: string;
+  slug: string;
+  title: string;
+  value_eur: number;
+  points_cost: number;
+  min_tier: RewardMinTier;
+  brands: string[];
+  monthly_stock: number;
+  /** Null when the row came from the table read only (no RPC count). */
+  remaining_this_month: number | null;
+  active: boolean;
+  sort_order: number;
+  image_url: string | null;
+};
+
+export type RewardCatalogInput = {
+  id?: string | null;
+  slug: string;
+  title: string;
+  value_eur: number;
+  points_cost: number;
+  min_tier: RewardMinTier;
+  brands: string[];
+  monthly_stock: number;
+  active: boolean;
+  sort_order: number;
+  image_url?: string | null;
+};
+
+type Loose = Record<string, unknown>;
+const str = (v: unknown): string | null => (typeof v === 'string' && v !== '' ? v : null);
+const num = (v: unknown, fallback = 0): number => {
+  const n = typeof v === 'number' ? v : Number(v);
+  return Number.isFinite(n) ? n : fallback;
+};
+const firstStr = (r: Loose, keys: string[]): string | null => {
+  for (const k of keys) {
+    const v = str(r[k]);
+    if (v) return v;
+  }
+  return null;
+};
+
+function normaliseRedemption(raw: Loose): RewardRedemptionRow {
+  // Some RPCs nest the redemption under `redemption` and add joins beside it.
+  const r: Loose = raw.redemption && typeof raw.redemption === 'object'
+    ? { ...(raw.redemption as Loose), ...raw }
+    : raw;
+  const method = r.method === 'paypal' ? 'paypal' : 'code';
+  const status = r.status === 'sent' || r.status === 'rejected' ? r.status : 'pending';
+  return {
+    id: String(r.id ?? r.redemption_id ?? ''),
+    user_id: String(r.user_id ?? ''),
+    catalog_id: String(r.catalog_id ?? ''),
+    points: num(r.points ?? r.points_cost),
+    value_eur: num(r.value_eur),
+    brand: str(r.brand),
+    method,
+    paypal_email: str(r.paypal_email),
+    status,
+    code_or_txn: str(r.code_or_txn),
+    admin_note: str(r.admin_note),
+    created_at: String(r.created_at ?? ''),
+    fulfilled_at: str(r.fulfilled_at),
+    member_name: firstStr(r, ['member_name', 'display_name', 'user_display_name', 'user_name', 'full_name', 'username']),
+    member_email: firstStr(r, ['member_email', 'user_email', 'email']),
+    catalog_title: firstStr(r, ['catalog_title', 'title', 'reward_title']),
+  };
+}
+
+function normaliseCatalog(r: Loose): RewardCatalogRow {
+  const remaining = r.remaining_this_month;
+  return {
+    id: String(r.id ?? ''),
+    slug: String(r.slug ?? ''),
+    title: String(r.title ?? ''),
+    value_eur: num(r.value_eur),
+    points_cost: num(r.points_cost),
+    min_tier: r.min_tier === 'premium' ? 'premium' : 'free',
+    brands: Array.isArray(r.brands) ? (r.brands as unknown[]).map(String) : [],
+    monthly_stock: num(r.monthly_stock),
+    remaining_this_month: remaining == null ? null : num(remaining),
+    // get_reward_catalog() is the member-facing list, so a row it returns is
+    // live; the table read carries the real flag.
+    active: typeof r.active === 'boolean' ? r.active : true,
+    sort_order: num(r.sort_order),
+    image_url: str(r.image_url),
+  };
+}
+
+export async function listRewardRedemptions(status: RedemptionStatus | null = null): Promise<RewardRedemptionRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_redemptions', { p_status: status });
+  if (error) throw error;
+  return ((data ?? []) as Loose[]).map(normaliseRedemption);
+}
+
+/**
+ * The catalogue for the admin editor. get_reward_catalog() gives this month's
+ * remaining stock but (being the member list) may omit inactive rows and the
+ * `active` flag, so the table is read too where RLS lets an admin see it, and
+ * the two are merged by id. Either source alone is enough to render.
+ */
+export async function listRewardCatalogAdmin(): Promise<RewardCatalogRow[]> {
+  const [rpc, table] = await Promise.all([
+    supabase.rpc('get_reward_catalog'),
+    supabase.from('reward_catalog').select('*'),
+  ]);
+  if (rpc.error && table.error) throw rpc.error;
+  const byId = new Map<string, RewardCatalogRow>();
+  for (const raw of (table.error ? [] : (table.data ?? [])) as Loose[]) {
+    const row = normaliseCatalog(raw);
+    byId.set(row.id, row);
+  }
+  for (const raw of (rpc.error ? [] : (rpc.data ?? [])) as Loose[]) {
+    const fromRpc = normaliseCatalog(raw);
+    const fromTable = byId.get(fromRpc.id);
+    byId.set(
+      fromRpc.id,
+      fromTable ? { ...fromTable, remaining_this_month: fromRpc.remaining_this_month } : fromRpc,
+    );
+  }
+  return [...byId.values()].sort((a, b) => a.sort_order - b.sort_order || a.value_eur - b.value_eur);
+}
+
+/** UNGATED — UI callers must use {@link resolveRedemptionWithReauth}. */
+export async function resolveRedemption_unsafe(
+  id: string,
+  status: 'sent' | 'rejected',
+  codeOrTxn: string | null,
+  note: string | null,
+): Promise<void> {
+  const { data, error } = await supabase.rpc('admin_resolve_redemption', {
+    p_id: id,
+    p_status: status,
+    p_code_or_txn: codeOrTxn,
+    p_note: note,
+  });
+  if (error) throw error;
+  const r = (data ?? {}) as { ok?: boolean; error?: string };
+  if (r.ok === false) throw new Error(r.error ?? 'resolve_failed');
+}
+
+/** UNGATED — UI callers must use {@link upsertRewardCatalogWithReauth}. */
+export async function upsertRewardCatalog_unsafe(input: RewardCatalogInput): Promise<string> {
+  const { data, error } = await supabase.rpc('admin_upsert_reward_catalog', {
+    p_id: input.id ?? null,
+    p_slug: input.slug,
+    p_title: input.title,
+    p_value_eur: input.value_eur,
+    p_points_cost: input.points_cost,
+    p_min_tier: input.min_tier,
+    p_brands: input.brands,
+    p_monthly_stock: input.monthly_stock,
+    p_active: input.active,
+    p_sort_order: input.sort_order,
+    p_image_url: input.image_url ?? null,
+  });
+  if (error) throw error;
+  // Contract: returns the id. Tolerate an {ok,id,error} envelope too.
+  if (data && typeof data === 'object') {
+    const r = data as { ok?: boolean; id?: string; error?: string };
+    if (r.ok === false) throw new Error(r.error ?? 'upsert_failed');
+    return String(r.id ?? input.id ?? '');
+  }
+  return String(data ?? input.id ?? '');
+}
+
 // ════════════════════════════════════════════════════════════════════════
 // Admin auth hardening (T10 / T11 / JWT) — added by spec 04.
 // Don't refactor or reorder these against the rest of the file; that's
@@ -2031,6 +2237,21 @@ export async function deleteUserWithReauth(userId: string) {
 
 export async function markPayoutPaidWithReauth(payoutId: string, input: MarkPayoutPaidInput) {
   return withRecentAuth(() => markPayoutPaid_unsafe(payoutId, input));
+}
+
+/** Mark a reward redemption sent (member is emailed) or rejected (points refunded). */
+export async function resolveRedemptionWithReauth(
+  id: string,
+  status: 'sent' | 'rejected',
+  codeOrTxn: string | null,
+  note: string | null,
+) {
+  return withRecentAuth(() => resolveRedemption_unsafe(id, status, codeOrTxn, note));
+}
+
+/** Prices and stock move real money, so catalogue edits are challenged too. */
+export async function upsertRewardCatalogWithReauth(input: RewardCatalogInput) {
+  return withRecentAuth(() => upsertRewardCatalog_unsafe(input));
 }
 
 /**

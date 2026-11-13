@@ -2,7 +2,7 @@
 /**
  * Generate sitemap.xml covering every public route on liboworld.com:
  *   /, /exercises, /exercises/<slug>, /workouts, /workouts/<id>,
- *   /blog, /blog/<slug>, /privacy, /terms, /rules, /giveaway-rules, /delete-account.
+ *   /blog, /blog/<slug>, /privacy, /terms, /rules, /giveaway-rules, /rewards-rules, /delete-account.
  *
  * Reads source data:
  *   - react-app/public/exercises.json  (680 exercises)
@@ -113,6 +113,9 @@ function main() {
   // /giveaway-rules — the public Official Giveaway Rules. Indexed and never
   // gated: the rules must be findable before round 1 opens.
   entries.push(urlEntry(`${SITE_URL}/giveaway-rules`, 0.4, 'weekly'));
+  // /rewards-rules — the public Rewards Rules (points for gift codes / PayPal).
+  // Indexed and never gated, same as the giveaway rules.
+  entries.push(urlEntry(`${SITE_URL}/rewards-rules`, 0.4, 'monthly'));
   // /delete-account — the public deletion link Google Play requires. Indexed so
   // someone searching "delete Libo account" without the app can find it.
   entries.push(urlEntry(`${SITE_URL}/delete-account`, 0.3, 'yearly'));
