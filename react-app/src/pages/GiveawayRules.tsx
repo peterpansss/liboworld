@@ -66,7 +66,7 @@ export default function GiveawayRules() {
             <div className="legal-label">Rules</div>
             <h1 className="font-display">Official Giveaway Rules</h1>
             <p className="legal-meta">
-              Last updated: <span>10 November 2026</span> &middot; Applies to: <span>giveaway rounds from {formatRoundDate(first.opens)} to {formatRoundDate(last.closes)}</span>
+              Last updated: <span>13 November 2026</span> &middot; Applies to: <span>giveaway rounds from {formatRoundDate(first.opens)} to {formatRoundDate(last.closes)}</span>
             </p>
           </div>
 
@@ -179,7 +179,7 @@ export default function GiveawayRules() {
               <li><strong>Free plan:</strong> {GIVEAWAY_ENTRIES.free} entry per round</li>
               <li><strong>Premium:</strong> {GIVEAWAY_ENTRIES.premium} entries per round</li>
             </ul>
-            <p><strong>Loyalty entries:</strong> for every calendar month in a row before the round&rsquo;s month in which you completed at least one workout of {LOYALTY_MIN_WORKOUT_MINUTES} minutes or more, you get extra entries &mdash; Free +{LOYALTY_PER_MONTH.free}, Premium +{LOYALTY_PER_MONTH.premium} per month, counting up to {LOYALTY_MAX_MONTHS} months. A month without such a workout restarts the count. Example: a member who trained every month for the past year holds {GIVEAWAY_MAX_ENTRIES.free} entries on Free, or {GIVEAWAY_MAX_ENTRIES.premium} on Premium.</p>
+            <p><strong>Loyalty entries:</strong> for every calendar month in a row before the round&rsquo;s month in which you completed at least one workout of {LOYALTY_MIN_WORKOUT_MINUTES} minutes or more, you get your plan&rsquo;s entries again, so entries add up month by month &mdash; Free +{LOYALTY_PER_MONTH.free}, Premium +{LOYALTY_PER_MONTH.premium} per month, counting up to {LOYALTY_MAX_MONTHS} months. A month without such a workout restarts the count. Example: in your 5th month in a row you hold {GIVEAWAY_ENTRIES.free + 4 * LOYALTY_PER_MONTH.free} entries on Free, or {GIVEAWAY_ENTRIES.premium + 4 * LOYALTY_PER_MONTH.premium} on Premium; a member who trained every month for the past year holds {GIVEAWAY_MAX_ENTRIES.free} on Free, or {GIVEAWAY_MAX_ENTRIES.premium} on Premium.</p>
             <p>You need to have confirmed your date of birth in the app.</p>
             <h3>Your entries count once you train</h3>
             <p>Your entries for a round only become active when you <strong>complete one workout in the app while that round is open</strong>. This rule is the same on every plan. If you don&rsquo;t complete a workout during the round, your entries for that round don&rsquo;t count.</p>
