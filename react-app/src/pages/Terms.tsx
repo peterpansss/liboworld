@@ -359,17 +359,18 @@ export default function Terms() {
 
           {/* Gated with giveaways. Rewritten 10 Nov 2026 to the one-pool model
               (canon LEGAL-COMPETITIONS §4b/§5/§8, REWARDS-ECONOMY-RULES §8.1/
-              §8.4): no tier-locked giveaways, Free 1 / Premium 5 entries, same
+              §8.4): no tier-locked giveaways, Free 1 / Premium 3 entries per month
+              (accumulating, Noah 13 Nov 2026), same
               activation rule for every plan, points neither bought nor
               converted. Appended last so no earlier section renumbers when the
               flag flips. The /giveaway-rules page itself is public and NOT
               gated. Never add "buying does not increase your chances" —
-              Premium gives 5x the entries (LEGAL-COMPETITIONS §5 cl.4). */}
+              Premium gives 3x the entries (LEGAL-COMPETITIONS §5 cl.4). */}
           {GIVEAWAYS_ENABLED && (
           <section className="legal-section" id="giveaways">
             <div className="legal-section-num">{n('giveaways')}</div>
             <h2>Giveaways</h2>
-            <p>Libo runs a <strong>giveaway</strong>: a cash prize draw held in rounds. There is one open draw per round, and every eligible member is entered automatically. <strong>Free members get 1 entry per round and Premium members get 5.</strong> There are no giveaways reserved for any plan.</p>
+            <p>Libo runs a <strong>giveaway</strong>: a cash prize draw held in rounds. There is one open draw per round, and every eligible member is entered automatically. <strong>Free members get 1 entry per round and Premium members get 3, and the same again for every month in a row they have trained</strong>, as set out in the <Link to="/giveaway-rules">Official Giveaway Rules</Link>. There are no giveaways reserved for any plan.</p>
             <p>Entries for a round only become active when the member <strong>completes one workout in the app while that round is open</strong>. This rule is the same on every plan.</p>
             <ul>
               <li><strong>No purchase necessary.</strong> The Free plan is free.</li>
