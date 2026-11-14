@@ -89,7 +89,14 @@ export function PostalEntriesPanel({
     }
   };
 
-  const dateOnly = (iso: string) => iso.slice(0, 10);
+  // Berlin calendar date (a round opening 00:00 Berlin is 23:00 UTC the day before).
+  const dateOnly = (iso: string) => {
+    try {
+      return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin' }).format(new Date(iso));
+    } catch {
+      return iso.slice(0, 10);
+    }
+  };
 
   return (
     <div
