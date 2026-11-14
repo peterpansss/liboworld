@@ -33,7 +33,7 @@ export default function Privacy() {
             <div className="legal-label">Legal</div>
             <h1 className="font-display">Privacy Policy</h1>
             <p className="legal-meta">
-              Last updated: <span>13 November 2026</span> &middot; Effective date: <span>27 October 2026</span>
+              Last updated: <span>14 November 2026</span> &middot; Effective date: <span>27 October 2026</span>
             </p>
           </div>
 
@@ -152,7 +152,7 @@ export default function Privacy() {
             {GIVEAWAYS_ENABLED && (
               <p><strong>Giveaways.</strong> To enter you automatically and check eligibility, we use your date of birth, your country (as you declare it and as detected from your connection) and your plan. If you win and claim a cash prize, we collect your legal name, a contact email and the payout account you choose (IBAN, or a PayPal, Wise or Revolut email or phone number). If you are 16 or 17, we also collect your parent's or guardian's name, email and consent, and the payout goes to their account. Before paying, we check your identity and age by asking you for a photo of an ID document by email. The app records only that the check passed and when. The ID image is not stored in the app, and we delete it from our email once the check is done. The legal basis is performance of the giveaway you are entered in (Art. 6(1)(b) GDPR) and our legal obligations (Art. 6(1)(c) GDPR).</p>
             )}
-            <p><strong>Rewards.</strong> If you choose a PayPal reward when you exchange points (see the <Link to="/rewards-rules">Rewards Rules</Link>), we process the PayPal email you give us to send the payment and keep it with the record of that reward, on the legal basis of performing our agreement with you (Art. 6(1)(b) GDPR).</p>
+            <p><strong>Rewards.</strong> If you choose a cash reward when you exchange points (see the <Link to="/rewards-rules">Rewards Rules</Link>), we process the payout details you give us (a PayPal, Wise or Revolut email, phone number or tag, or an account holder name and IBAN) to send the payment and keep them with the record of that reward, on the legal basis of performing our agreement with you (Art. 6(1)(b) GDPR).</p>
 
             <h3>Payment &amp; Billing Data</h3>
             <p>We do <strong>not</strong> see or store your full card number, CVV or other card details. Depending on how you pay:</p>

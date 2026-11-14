@@ -1567,7 +1567,10 @@ export async function markPayoutPaid_unsafe(payoutId: string, input: MarkPayoutP
 // normalisers accept the obvious aliases rather than trusting one spelling.
 
 export type RedemptionStatus = 'pending' | 'sent' | 'rejected';
-export type RedemptionMethod = 'code' | 'paypal';
+export type RedemptionMethod = 'code' | 'paypal' | 'revolut' | 'wise' | 'sepa';
+const REDEMPTION_METHODS = new Set<string>(['code', 'paypal', 'revolut', 'wise', 'sepa']);
+/** 'gift' = a branded code; 'cash' = money to PayPal / Revolut / Wise / bank (Noah, 14 Nov 2026). */
+export type RewardKind = 'gift' | 'cash';
 export type RewardMinTier = 'free' | 'premium';
 
 export type RewardRedemptionRow = {
@@ -1579,6 +1582,10 @@ export type RewardRedemptionRow = {
   brand: string | null;
   method: RedemptionMethod;
   paypal_email: string | null;
+  /** Cash: where to pay — email / phone / @tag / IBAN. */
+  payout_to: string | null;
+  /** Cash by bank transfer: the account holder's name. */
+  payout_name: string | null;
   status: RedemptionStatus;
   code_or_txn: string | null;
   admin_note: string | null;
@@ -1598,6 +1605,7 @@ export type RewardCatalogRow = {
   value_eur: number;
   points_cost: number;
   min_tier: RewardMinTier;
+  kind: RewardKind;
   brands: string[];
   monthly_stock: number;
   /** Null when the row came from the table read only (no RPC count). */
@@ -1614,6 +1622,7 @@ export type RewardCatalogInput = {
   value_eur: number;
   points_cost: number;
   min_tier: RewardMinTier;
+  kind: RewardKind;
   brands: string[];
   monthly_stock: number;
   active: boolean;
@@ -1640,7 +1649,7 @@ function normaliseRedemption(raw: Loose): RewardRedemptionRow {
   const r: Loose = raw.redemption && typeof raw.redemption === 'object'
     ? { ...(raw.redemption as Loose), ...raw }
     : raw;
-  const method = r.method === 'paypal' ? 'paypal' : 'code';
+  const method = (typeof r.method === 'string' && REDEMPTION_METHODS.has(r.method) ? r.method : 'code') as RedemptionMethod;
   const status = r.status === 'sent' || r.status === 'rejected' ? r.status : 'pending';
   return {
     id: String(r.id ?? r.redemption_id ?? ''),
@@ -1651,6 +1660,8 @@ function normaliseRedemption(raw: Loose): RewardRedemptionRow {
     brand: str(r.brand),
     method,
     paypal_email: str(r.paypal_email),
+    payout_to: str(r.payout_to) ?? str(r.paypal_email),
+    payout_name: str(r.payout_name),
     status,
     code_or_txn: str(r.code_or_txn),
     admin_note: str(r.admin_note),
@@ -1671,6 +1682,7 @@ function normaliseCatalog(r: Loose): RewardCatalogRow {
     value_eur: num(r.value_eur),
     points_cost: num(r.points_cost),
     min_tier: r.min_tier === 'premium' ? 'premium' : 'free',
+    kind: r.kind === 'cash' ? 'cash' : 'gift',
     brands: Array.isArray(r.brands) ? (r.brands as unknown[]).map(String) : [],
     monthly_stock: num(r.monthly_stock),
     remaining_this_month: remaining == null ? null : num(remaining),
@@ -1748,6 +1760,7 @@ export async function upsertRewardCatalog_unsafe(input: RewardCatalogInput): Pro
     p_active: input.active,
     p_sort_order: input.sort_order,
     p_image_url: input.image_url ?? null,
+    p_kind: input.kind,
   });
   if (error) throw error;
   // Contract: returns the id. Tolerate an {ok,id,error} envelope too.

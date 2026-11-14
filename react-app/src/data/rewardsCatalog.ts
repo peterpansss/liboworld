@@ -1,7 +1,8 @@
 /**
  * Rewards catalogue as published on the public Rewards Rules page
- * (/rewards-rules). Members swap training points for a gift code or a PayPal
- * payment of a fixed value. No chance is involved.
+ * (/rewards-rules). Members swap training points for a gift code or cash
+ * (PayPal / Revolut / Wise / bank, Noah 14 Nov 2026) of a fixed value; each
+ * value exists once as a gift card and once as cash. No chance is involved.
  *
  * Economy decided by Noah, 13 Nov 2026: 500 points per €1 for every member,
  * no Premium discount. €5 and €10 are open to all members, €20 is Premium

@@ -15,10 +15,12 @@ import {
   type RedemptionStatus,
   type RedemptionMethod,
   type RewardMinTier,
+  type RewardKind,
 } from '../../lib/adminApi';
 
 /**
- * /admin/rewards — the rewards shop back office (points → gift code / PayPal).
+ * /admin/rewards — the rewards shop back office (points → gift code, or cash
+ * to PayPal / Revolut / Wise / bank, Noah 14 Nov 2026).
  *
  *  (a) Redemption queue: pending first. "Mark sent" needs the gift code or
  *      the PayPal transaction ID and emails the member; "Reject" needs a note
@@ -139,6 +141,9 @@ const METHOD_FILTER_OPTIONS: { value: '' | RedemptionMethod; label: string }[] =
   { value: '', label: 'All' },
   { value: 'code', label: 'gift code' },
   { value: 'paypal', label: 'PayPal' },
+  { value: 'revolut', label: 'Revolut' },
+  { value: 'wise', label: 'Wise' },
+  { value: 'sepa', label: 'Bank transfer' },
 ];
 
 function statusChipStyle(status: RedemptionStatus): React.CSSProperties {
@@ -199,13 +204,27 @@ function cardLabel(r: RewardRedemptionRow): string {
   return r.catalog_title ?? `${formatEur(r.value_eur)} reward`;
 }
 
+const METHOD_LABELS: Record<RedemptionMethod, string> = {
+  code: 'Gift code',
+  paypal: 'PayPal',
+  revolut: 'Revolut',
+  wise: 'Wise',
+  sepa: 'Bank transfer',
+};
+
 function methodLabel(m: RedemptionMethod): string {
-  return m === 'paypal' ? 'PayPal' : 'Gift code';
+  return METHOD_LABELS[m] ?? m;
 }
 
 /** What "Mark sent" asks for, by method. */
 function proofLabel(m: RedemptionMethod): string {
-  return m === 'paypal' ? 'PayPal transaction ID' : 'Gift code';
+  return m === 'code' ? 'Gift code' : `${methodLabel(m)} transaction ID`;
+}
+
+/** Where to pay a cash redemption, for the queue and the modal. */
+function payoutLabel(r: RewardRedemptionRow): string | null {
+  if (r.method === 'code' || !r.payout_to) return null;
+  return r.method === 'sepa' && r.payout_name ? `${r.payout_name} · ${r.payout_to}` : r.payout_to;
 }
 
 /** Pending first (oldest first, it is a queue), then everything else newest first. */
@@ -303,6 +322,7 @@ type CatalogForm = {
   value_eur: string;
   points_cost: string;
   min_tier: RewardMinTier;
+  kind: RewardKind;
   brands: string;
   monthly_stock: string;
   active: boolean;
@@ -317,6 +337,7 @@ const EMPTY_CATALOG_FORM: CatalogForm = {
   value_eur: '',
   points_cost: '',
   min_tier: 'free',
+  kind: 'gift',
   brands: '',
   monthly_stock: '0',
   active: false,
@@ -332,6 +353,7 @@ function catalogToForm(r: RewardCatalogRow): CatalogForm {
     value_eur: String(r.value_eur),
     points_cost: String(r.points_cost),
     min_tier: r.min_tier,
+    kind: r.kind,
     brands: r.brands.join(', '),
     monthly_stock: String(r.monthly_stock),
     active: r.active,
@@ -351,7 +373,8 @@ function formToCatalogInput(f: CatalogForm): RewardCatalogInput | string {
   if (!Number.isInteger(points) || points <= 0) return 'Points must be a positive whole number.';
   if (!Number.isInteger(stock) || stock < 0) return 'Monthly stock must be a whole number, 0 or more.';
   if (!Number.isInteger(sort)) return 'Sort order must be a whole number.';
-  const brands = f.brands.split(',').map((b) => b.trim()).filter(Boolean);
+  const brands = f.kind === 'cash' ? [] : f.brands.split(',').map((b) => b.trim()).filter(Boolean);
+  if (f.kind === 'gift' && brands.length === 0) return 'A gift card needs at least one brand.';
   return {
     id: f.id,
     slug: f.slug.trim(),
@@ -359,6 +382,7 @@ function formToCatalogInput(f: CatalogForm): RewardCatalogInput | string {
     value_eur: value,
     points_cost: points,
     min_tier: f.min_tier,
+    kind: f.kind,
     brands,
     monthly_stock: stock,
     active: f.active,
@@ -458,7 +482,7 @@ export function RewardsPage() {
       await resolveRedemption(open.id, 'sent', value, note.trim() || null);
       setPageMessage(
         `Marked sent: ${cardLabel(open)} for ${memberLabel(open)}. The member gets an email${
-          open.method === 'code' ? ' with the code' : ' saying the PayPal payment was sent'
+          open.method === 'code' ? ' with the code' : ` saying the ${methodLabel(open.method)} payment was sent`
         }.`,
       );
       setOpen(null);
@@ -558,13 +582,13 @@ export function RewardsPage() {
         sort: (a, b) => a.method.localeCompare(b.method),
       },
       {
-        key: 'paypal',
-        header: 'PayPal email',
+        key: 'payout',
+        header: 'Pay to',
         render: (r) =>
-          r.paypal_email ? (
+          payoutLabel(r) ? (
             <span style={{ display: 'inline-flex', alignItems: 'center', fontSize: 12, color: colors.text }}>
-              {r.paypal_email}
-              <CopyButton value={r.paypal_email} />
+              {payoutLabel(r)}
+              <CopyButton value={r.payout_to ?? ''} />
             </span>
           ) : (
             <span style={{ color: colors.dim }}>—</span>
@@ -632,10 +656,18 @@ export function RewardsPage() {
         render: (r) => <TierChip tier={r.min_tier} />,
       },
       {
+        key: 'kind',
+        header: 'Kind',
+        render: (r) => <span style={{ color: colors.text, fontSize: 12 }}>{r.kind === 'cash' ? 'Cash' : 'Gift card'}</span>,
+        sort: (a, b) => a.kind.localeCompare(b.kind),
+      },
+      {
         key: 'brands',
         header: 'Brands',
         render: (r) => (
-          <span style={{ color: colors.muted, fontSize: 12 }}>{r.brands.length ? r.brands.join(', ') : '—'}</span>
+          <span style={{ color: colors.muted, fontSize: 12 }}>
+            {r.kind === 'cash' ? 'PayPal, Revolut, Wise, bank' : r.brands.length ? r.brands.join(', ') : '—'}
+          </span>
         ),
       },
       {
@@ -784,16 +816,29 @@ export function RewardsPage() {
               <DetailItem label="Brand" value={open.brand ?? '—'} />
               <DetailItem label="Method" value={methodLabel(open.method)} />
               <DetailItem
-                label="PayPal email"
+                label={open.method === 'sepa' ? 'IBAN' : 'Pay to'}
                 value={
-                  open.paypal_email ? (
+                  open.method !== 'code' && open.payout_to ? (
                     <span style={{ display: 'inline-flex', alignItems: 'center' }}>
-                      {open.paypal_email}
-                      <CopyButton value={open.paypal_email} />
+                      {open.payout_to}
+                      <CopyButton value={open.payout_to} />
                     </span>
                   ) : '—'
                 }
               />
+              {open.method === 'sepa' && (
+                <DetailItem
+                  label="Account holder"
+                  value={
+                    open.payout_name ? (
+                      <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                        {open.payout_name}
+                        <CopyButton value={open.payout_name} />
+                      </span>
+                    ) : '—'
+                  }
+                />
+              )}
               <DetailItem label="Status" value={<StatusChip status={open.status} />} />
               <DetailItem label="Requested" value={formatAbsolute(open.created_at)} />
               {open.status !== 'pending' && (
@@ -814,7 +859,7 @@ export function RewardsPage() {
 
             {open.status === 'sent' && (
               <div style={{ fontSize: 13, color: colors.muted, marginBottom: 16 }}>
-                Sent. The member was emailed{open.method === 'code' ? ' the code' : ' that the PayPal payment was sent'}.
+                Sent. The member was emailed{open.method === 'code' ? ' the code' : ` that the ${methodLabel(open.method)} payment was sent`}.
               </div>
             )}
             {open.status === 'rejected' && (
@@ -832,15 +877,15 @@ export function RewardsPage() {
                   <Field
                     label={proofLabel(open.method)}
                     hint={
-                      open.method === 'paypal'
-                        ? `Send ${formatEur(open.value_eur)} to ${open.paypal_email ?? 'the PayPal email'} first, then paste the transaction ID.`
+                      open.method !== 'code'
+                        ? `Send ${formatEur(open.value_eur)} by ${methodLabel(open.method)} to ${payoutLabel(open) ?? 'the member'} first, then paste the transaction ID.`
                         : `Buy a ${formatEur(open.value_eur)}${open.brand ? ` ${open.brand}` : ''} code, then paste it here.`
                     }
                   >
                     <TextInput
                       value={proof}
                       onChange={(e) => setProof(e.target.value)}
-                      placeholder={open.method === 'paypal' ? 'e.g. 5TY05013RG002845M' : 'e.g. XXXX-XXXX-XXXX'}
+                      placeholder={open.method !== 'code' ? 'e.g. 5TY05013RG002845M' : 'e.g. XXXX-XXXX-XXXX'}
                       autoComplete="off"
                     />
                   </Field>
@@ -950,13 +995,24 @@ export function RewardsPage() {
                 </Select>
               </Field>
             </div>
-            <Field label="Brands" hint="Comma-separated. The member picks one of these; they are also the logos shown.">
-              <TextInput
-                value={catalogForm.brands}
-                onChange={(e) => setCatalogForm({ ...catalogForm, brands: e.target.value })}
-                placeholder="Amazon, Zalando, Steam"
-              />
+            <Field label="Kind" hint="Gift card = the member picks a brand and gets a code. Cash = paid to their PayPal, Revolut, Wise or bank account.">
+              <Select
+                value={catalogForm.kind}
+                onChange={(e) => setCatalogForm({ ...catalogForm, kind: e.target.value as RewardKind })}
+              >
+                <option value="gift">Gift card</option>
+                <option value="cash">Cash</option>
+              </Select>
             </Field>
+            {catalogForm.kind === 'gift' && (
+              <Field label="Brands" hint="Comma-separated. The member picks one of these; they are also the logos shown.">
+                <TextInput
+                  value={catalogForm.brands}
+                  onChange={(e) => setCatalogForm({ ...catalogForm, brands: e.target.value })}
+                  placeholder="Amazon, Zalando, Steam"
+                />
+              </Field>
+            )}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
               <Field label="Monthly stock" hint="Resets on the 1st, Berlin time.">
                 <TextInput
