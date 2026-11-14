@@ -56,6 +56,31 @@ export const GIVEAWAY_MAX_ENTRIES = {
   premium: GIVEAWAY_ENTRIES.premium + LOYALTY_PER_MONTH.premium * LOYALTY_MAX_MONTHS,
 } as const;
 
+/**
+ * Free entry by post (Noah, 13 Nov 2026). One letter = one entry. Letters let a
+ * member reach exactly what a Premium member with the same loyalty months
+ * holds, never more: Free can count 2 + 2 per loyalty month (max 26); Premium
+ * already holds that, so letters add nothing. It must arrive before the round
+ * closes, and the member still needs one workout in the round. Must match the
+ * server (libo-app-v2/supabase-migration-giveaway-postal-entries.sql).
+ */
+export const POSTAL_BASE_LETTERS = GIVEAWAY_ENTRIES.premium - GIVEAWAY_ENTRIES.free;
+export const POSTAL_LETTERS_PER_LOYALTY_MONTH = LOYALTY_PER_MONTH.premium - LOYALTY_PER_MONTH.free;
+export const POSTAL_MAX_LETTERS = POSTAL_BASE_LETTERS + POSTAL_LETTERS_PER_LOYALTY_MONTH * LOYALTY_MAX_MONTHS;
+
+/**
+ * Where letters go (Noah, 14 Nov 2026): his mother's business office in
+ * Andernach, which logs each letter's arrival date and sends Noah a photo the
+ * same day. Addressed c/o the business so the post delivers it.
+ */
+export const POSTAL_ENTRY_ADDRESS: readonly string[] | null = [
+  'Libo Giveaway',
+  'c/o Fornicher Hof',
+  'Fornicher Weg 3',
+  '56626 Andernach',
+  'Germany',
+];
+
 /** Days a winner has to claim before a new winner is drawn. */
 export const GIVEAWAY_CLAIM_DAYS = 7;
 

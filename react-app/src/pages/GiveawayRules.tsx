@@ -13,6 +13,10 @@ import {
   GIVEAWAY_MIN_AGE,
   GIVEAWAY_EXCLUDED,
   formatRoundDate,
+  POSTAL_BASE_LETTERS,
+  POSTAL_LETTERS_PER_LOYALTY_MONTH,
+  POSTAL_MAX_LETTERS,
+  POSTAL_ENTRY_ADDRESS,
 } from '../data/giveawayRounds';
 import './Legal.css';
 
@@ -95,6 +99,7 @@ export default function GiveawayRules() {
               <li><a href="#entries">How You Are Entered</a></li>
               <li><a href="#premium">Premium Draws</a></li>
               <li><a href="#free">No Purchase Necessary</a></li>
+              <li><a href="#post">Free Entry by Post</a></li>
               <li><a href="#draw">The Draw</a></li>
               <li><a href="#claim">Winning &amp; Claiming</a></li>
               <li><a href="#fair-play">Fair Play</a></li>
@@ -212,6 +217,29 @@ export default function GiveawayRules() {
               <li><strong>Every entry has the same chance of winning, and all entries are drawn from one pool.</strong> A free entry and a Premium entry are treated exactly the same.</li>
               <li><strong>Memberships give more entries.</strong> Premium members get {GIVEAWAY_ENTRIES.premium} base entries per round instead of {GIVEAWAY_ENTRIES.free}, and +{LOYALTY_PER_MONTH.premium} loyalty entries per month instead of +{LOYALTY_PER_MONTH.free}.</li>
               <li><strong>Points can&rsquo;t be bought, and can&rsquo;t be turned into entries.</strong></li>
+              <li><strong>You can also add entries for free by post.</strong> See <a href="#post">Free Entry by Post</a>.</li>
+            </ul>
+          </section>
+
+          <section className="legal-section" id="post">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Free Entry by Post</h2>
+            <p>Any eligible member can add entries to a round without buying anything, by sending a letter.</p>
+            <ul>
+              <li><strong>One letter = one entry.</strong> Letters let you reach exactly the entries a Premium member with the same loyalty months holds, never more. On the Free plan you can send up to {POSTAL_BASE_LETTERS} letters per round, plus {POSTAL_LETTERS_PER_LOYALTY_MONTH} for each of your loyalty months (at most {POSTAL_MAX_LETTERS}). Example: with 3 loyalty months, Premium holds {GIVEAWAY_ENTRIES.premium} + {3 * LOYALTY_PER_MONTH.premium} = {GIVEAWAY_ENTRIES.premium + 3 * LOYALTY_PER_MONTH.premium} entries; a Free member holds {GIVEAWAY_ENTRIES.free} + {3 * LOYALTY_PER_MONTH.free} = {GIVEAWAY_ENTRIES.free + 3 * LOYALTY_PER_MONTH.free} and can add up to {POSTAL_BASE_LETTERS + 3 * POSTAL_LETTERS_PER_LOYALTY_MONTH} letters to reach {GIVEAWAY_ENTRIES.premium + 3 * LOYALTY_PER_MONTH.premium}. Premium members already hold that number, so letters add nothing for them. Your plan and loyalty months on the day the round closes decide. Each letter needs its own envelope and stamp; letters above your limit don&rsquo;t count.</li>
+              <li><strong>What to write:</strong> your full name, the email of your Libo account, your postal address including country, and the round you want to enter (for example &ldquo;Round 1, 23&ndash;29 November 2026&rdquo;). A free Libo account is enough; you can create one in the app.</li>
+              <li><strong>Where to send it:</strong>{' '}
+                {POSTAL_ENTRY_ADDRESS ? (
+                  POSTAL_ENTRY_ADDRESS.map((line, i) => (
+                    <span key={line}>{i > 0 && ', '}{line}</span>
+                  ))
+                ) : (
+                  <span>[ADDRESS TO BE ADDED BEFORE PUBLISHING]</span>
+                )}
+              </li>
+              <li><strong>When:</strong> the letter must <strong>arrive</strong> before the round closes. Letters that arrive later are not carried over to the next round.</li>
+              <li><strong>Same conditions as every entry:</strong> you must be eligible (see <a href="#who">Who Can Enter</a> and <a href="#where">Where You Can Enter</a>) and complete one workout in the app during the round. Postal entries are added to your other entries and have exactly the same chance of winning.</li>
+              <li>You pay the postage. Letters that are illegible, incomplete, or sent from an excluded country don&rsquo;t count. Letters are not returned or acknowledged.</li>
             </ul>
           </section>
 
