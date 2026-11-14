@@ -39,7 +39,7 @@ export const GIVEAWAY_ROUNDS: GiveawayRound[] = [
     title: 'PlayStation 5 Giveaway',
     opens: '2026-11-20',
     closes: '2026-12-20',
-    prize: 'A PlayStation 5, or €550 cash instead',
+    prize: 'A PlayStation 5, or €400 cash instead',
     winners: 1,
   },
 ];

@@ -176,7 +176,7 @@ export default function GiveawayRules() {
             </div>
             <p>Each round is a separate draw. Prizes can&rsquo;t be transferred to someone else.</p>
             <ul>
-              <li><strong>Item prizes</strong> (such as the PlayStation 5) are new, bought by us, and shipped free to the winner in the EU or the UK. Instead of the item, the winner can choose the cash amount shown in the table. A winner living outside the EU and the UK receives the cash amount.</li>
+              <li><strong>Item prizes</strong> (such as the PlayStation 5) are new, bought by us, and shipped free to the winner in the EU or the UK. Instead of the item, the winner can choose the cash amount shown in the table, which is 80% of the item&rsquo;s retail price. A winner living outside the EU and the UK receives the cash amount.</li>
               <li>PlayStation is a trademark of Sony Interactive Entertainment. Sony is not a sponsor of, or involved in, this giveaway.</li>
             </ul>
           </section>
