@@ -146,7 +146,7 @@ export default function RewardsRules() {
             </div>
             <p>Each reward is either a <strong>gift code</strong> of that value, from a brand you choose among the brands shown in the app for that reward, or a <strong>PayPal payment</strong> of that value to your own PayPal account.</p>
             <p><strong>Each code is subject to its issuer&rsquo;s terms.</strong> The brand that issues a gift code sets how and where it can be used, and for how long. We are not responsible for the issuer&rsquo;s terms or service.</p>
-            <p>A &ldquo;Premium member&rdquo; is a member with an active Premium membership on the day they redeem.</p>
+            <p>A &ldquo;Premium member&rdquo; is a member with an active, paid Premium membership on the day they redeem, or a member who has been given Premium by Libo directly (for example through a company partnership). Free trial periods and free weeks from offer codes do not count.</p>
           </section>
 
           <section className="legal-section" id="stock">
