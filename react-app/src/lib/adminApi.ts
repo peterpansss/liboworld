@@ -1634,10 +1634,11 @@ export async function markPayoutPaid_unsafe(payoutId: string, input: MarkPayoutP
 // normalisers accept the obvious aliases rather than trusting one spelling.
 
 export type RedemptionStatus = 'pending' | 'sent' | 'rejected';
-export type RedemptionMethod = 'code' | 'paypal' | 'revolut' | 'wise' | 'sepa';
-const REDEMPTION_METHODS = new Set<string>(['code', 'paypal', 'revolut', 'wise', 'sepa']);
+export type RedemptionMethod = 'code' | 'paypal' | 'revolut' | 'wise' | 'sepa' | 'ship';
+const REDEMPTION_METHODS = new Set<string>(['code', 'paypal', 'revolut', 'wise', 'sepa', 'ship']);
 /** 'gift' = a branded code; 'cash' = money to PayPal / Revolut / Wise / bank (Noah, 14 Nov 2026). */
-export type RewardKind = 'gift' | 'cash';
+/** 'item' = a physical prize, shipped or the cash instead (Noah, 15 Nov 2026: iPhone Duo). */
+export type RewardKind = 'gift' | 'cash' | 'item';
 export type RewardMinTier = 'free' | 'premium';
 
 export type RewardRedemptionRow = {
@@ -1663,6 +1664,13 @@ export type RewardRedemptionRow = {
   /** Member account email (same field PayoutsPage reads: user_email). */
   member_email: string | null;
   catalog_title: string | null;
+  /** Shipped item: where it goes (EU + UK). `brand` holds the option (colour). */
+  ship_name: string | null;
+  ship_line1: string | null;
+  ship_line2: string | null;
+  ship_postcode: string | null;
+  ship_city: string | null;
+  ship_country: string | null;
 };
 
 export type RewardCatalogRow = {
@@ -1680,6 +1688,8 @@ export type RewardCatalogRow = {
   active: boolean;
   sort_order: number;
   image_url: string | null;
+  /** Lifetime cap across all months, never shown to members. Null = none. */
+  total_stock: number | null;
 };
 
 export type RewardCatalogInput = {
@@ -1695,6 +1705,7 @@ export type RewardCatalogInput = {
   active: boolean;
   sort_order: number;
   image_url?: string | null;
+  total_stock?: number | null;
 };
 
 type Loose = Record<string, unknown>;
@@ -1737,6 +1748,12 @@ function normaliseRedemption(raw: Loose): RewardRedemptionRow {
     member_name: firstStr(r, ['member_name', 'display_name', 'user_display_name', 'user_name', 'full_name', 'username']),
     member_email: firstStr(r, ['member_email', 'user_email', 'email']),
     catalog_title: firstStr(r, ['catalog_title', 'title', 'reward_title']),
+    ship_name: str(r.ship_name),
+    ship_line1: str(r.ship_line1),
+    ship_line2: str(r.ship_line2),
+    ship_postcode: str(r.ship_postcode),
+    ship_city: str(r.ship_city),
+    ship_country: str(r.ship_country),
   };
 }
 
@@ -1749,7 +1766,7 @@ function normaliseCatalog(r: Loose): RewardCatalogRow {
     value_eur: num(r.value_eur),
     points_cost: num(r.points_cost),
     min_tier: r.min_tier === 'premium' ? 'premium' : 'free',
-    kind: r.kind === 'cash' ? 'cash' : 'gift',
+    kind: r.kind === 'cash' ? 'cash' : r.kind === 'item' ? 'item' : 'gift',
     brands: Array.isArray(r.brands) ? (r.brands as unknown[]).map(String) : [],
     monthly_stock: num(r.monthly_stock),
     remaining_this_month: remaining == null ? null : num(remaining),
@@ -1758,6 +1775,7 @@ function normaliseCatalog(r: Loose): RewardCatalogRow {
     active: typeof r.active === 'boolean' ? r.active : true,
     sort_order: num(r.sort_order),
     image_url: str(r.image_url),
+    total_stock: r.total_stock == null ? null : num(r.total_stock),
   };
 }
 
@@ -1828,6 +1846,9 @@ export async function upsertRewardCatalog_unsafe(input: RewardCatalogInput): Pro
     p_sort_order: input.sort_order,
     p_image_url: input.image_url ?? null,
     p_kind: input.kind,
+    // Only sent when set, so the call still matches a database that predates
+    // supabase-migration-reward-items.sql.
+    ...(input.total_stock != null ? { p_total_stock: input.total_stock } : {}),
   });
   if (error) throw error;
   // Contract: returns the id. Tolerate an {ok,id,error} envelope too.

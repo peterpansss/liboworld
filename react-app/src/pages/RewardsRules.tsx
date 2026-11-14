@@ -10,8 +10,7 @@ import {
   REWARDS_COOLDOWN_DAYS,
   REWARDS_DELIVERY_DAYS,
   POINTS_EXPIRY_DAYS,
-  formatPoints,
-} from '../data/rewardsCatalog';
+  formatPoints, REWARDS_ITEMS, ITEM_SHIP_AREA, itemCashEur } from '../data/rewardsCatalog';
 import './Legal.css';
 
 /**
@@ -45,7 +44,7 @@ export default function RewardsRules() {
   const openToAll = REWARDS_CATALOG.filter((r) => r.minTier === 'free');
   const premiumOnly = REWARDS_CATALOG.filter((r) => r.minTier === 'premium');
   const priceList = (list: typeof REWARDS_CATALOG) =>
-    list.map((r) => `€${r.valueEur} for ${formatPoints(r.points)} points`).join(' or ');
+    list.map((r) => `€${r.valueEur} for ${formatPoints(r.points)} Libo Points`).join(' or ');
 
   return (
     <>
@@ -64,18 +63,18 @@ export default function RewardsRules() {
             <div className="legal-label">Rules</div>
             <h1 className="font-display">Rewards Rules</h1>
             <p className="legal-meta">
-              Last updated: <span>14 November 2026</span> &middot; Applies to: <span>rewards redeemed with Libo points in the app</span>
+              Last updated: <span>15 November 2026</span> &middot; Applies to: <span>rewards redeemed with Libo Points in the app</span>
             </p>
           </div>
 
           <div className="legal-highlight">
             <p>
-              <strong>The short version.</strong> You earn points by training in the Libo app.
+              <strong>The short version.</strong> You earn Libo Points by training in the Libo app.
               You can swap them for a reward of a fixed value: {priceList(openToAll)} for every
               member, or {priceList(premiumOnly)} for Premium members only. Each value comes as a
               gift card or as cash (PayPal, Revolut, Wise or bank transfer), while this
-              month&rsquo;s stock lasts. No chance is
-              involved: this is not a prize draw. Points have no cash value and can&rsquo;t be
+              month&rsquo;s stock lasts. Premium members can also swap them for physical items, shipped or as cash instead. No chance is
+              involved: this is not a prize draw. Libo Points have no cash value and can&rsquo;t be
               bought, sold or transferred.
             </p>
           </div>
@@ -85,13 +84,13 @@ export default function RewardsRules() {
             <div className="legal-toc-title">Table of Contents</div>
             <ol>
               <li><a href="#operator">Who Runs the Rewards</a></li>
-              <li><a href="#points">What Points Are</a></li>
+              <li><a href="#points">What Libo Points Are</a></li>
               <li><a href="#catalogue">The Catalogue</a></li>
               <li><a href="#stock">Monthly Stock</a></li>
               <li><a href="#who">Who Can Redeem</a></li>
               <li><a href="#where">Where You Can Redeem</a></li>
               <li><a href="#redeem">How to Redeem &amp; Delivery</a></li>
-              <li><a href="#expiry">When Points Expire</a></li>
+              <li><a href="#expiry">When Libo Points Expire</a></li>
               <li><a href="#fair-play">Fair Play</a></li>
               <li><a href="#no-chance">Not a Prize Draw</a></li>
               <li><a href="#changes">Changes &amp; Contact</a></li>
@@ -112,18 +111,18 @@ export default function RewardsRules() {
 
           <section className="legal-section" id="points">
             <div className="legal-section-num">{n()}</div>
-            <h2>What Points Are</h2>
+            <h2>What Libo Points Are</h2>
             <ul>
-              <li><strong>Points have no cash value.</strong> They are a loyalty reward for training in the app (shown in the app as Libo).</li>
-              <li><strong>Points can&rsquo;t be bought, sold or transferred</strong> to another account or person.</li>
-              <li><strong>Points can be exchanged only for the rewards in the published catalogue</strong> below, while stock lasts. They can&rsquo;t be exchanged for anything else, and can&rsquo;t be paid out in any other way.</li>
+              <li><strong>Libo Points have no cash value.</strong> They are a loyalty reward for training in the app.</li>
+              <li><strong>Libo Points can&rsquo;t be bought, sold or transferred</strong> to another account or person.</li>
+              <li><strong>Libo Points can be exchanged only for the rewards in the published catalogue</strong> below, while stock lasts. They can&rsquo;t be exchanged for anything else, and can&rsquo;t be paid out in any other way.</li>
             </ul>
           </section>
 
           <section className="legal-section" id="catalogue">
             <div className="legal-section-num">{n()}</div>
             <h2>The Catalogue</h2>
-            <p>The current catalogue. The price is the same for every member: 500 points per &euro;1.</p>
+            <p>The current catalogue. The price is the same for every member.</p>
             <div className="legal-table-wrap">
               <table>
                 <thead>
@@ -137,7 +136,14 @@ export default function RewardsRules() {
                   {REWARDS_CATALOG.map((r) => (
                     <tr key={r.valueEur}>
                       <td><strong>&euro;{r.valueEur}</strong></td>
-                      <td>{formatPoints(r.points)} points</td>
+                      <td>{formatPoints(r.points)} Libo Points</td>
+                      <td>{r.minTier === 'premium' ? 'Premium members only' : 'All members'}</td>
+                    </tr>
+                  ))}
+                  {REWARDS_ITEMS.map((r) => (
+                    <tr key={r.title}>
+                      <td><strong>{r.title}</strong> (or &euro;{formatPoints(itemCashEur(r.valueEur))} cash)</td>
+                      <td>{formatPoints(r.points)} Libo Points</td>
                       <td>{r.minTier === 'premium' ? 'Premium members only' : 'All members'}</td>
                     </tr>
                   ))}
@@ -149,6 +155,7 @@ export default function RewardsRules() {
               <li><strong>Gift card:</strong> a gift code of that value, from a brand you choose among the brands shown in the app for that reward.</li>
               <li><strong>Cash:</strong> a payment of that value to your own PayPal, Revolut or Wise account, or by bank transfer (SEPA) to your own bank account.</li>
             </ul>
+            <p><strong>Items</strong> are physical rewards. You choose: we ship the item free to an address in {ITEM_SHIP_AREA} (you pick the option, such as the colour, where there is one), or you take the cash instead: <strong>80% of the item&rsquo;s listed value</strong>, paid the same way as a cash reward. Outside {ITEM_SHIP_AREA}, items are cash only. Items are limited and may not come back once claimed.</p>
             <p><strong>Each code is subject to its issuer&rsquo;s terms.</strong> The brand that issues a gift code sets how and where it can be used, and for how long. We are not responsible for the issuer&rsquo;s terms or service.</p>
             <p>A &ldquo;Premium member&rdquo; is a member with an active, paid Premium membership on the day they redeem, or a member who has been given Premium by Libo directly (for example through a company partnership). Free trial periods and free weeks from offer codes do not count.</p>
           </section>
@@ -192,29 +199,29 @@ export default function RewardsRules() {
             <div className="legal-section-num">{n()}</div>
             <h2>How to Redeem &amp; Delivery</h2>
             <ul>
-              <li><strong>In the app:</strong> pick a reward, choose a brand (gift card) or how you want to be paid (cash), and confirm. The points are taken from your balance when you confirm.</li>
+              <li><strong>In the app:</strong> pick a reward, choose a brand (gift card), how you want to be paid (cash), or shipping or cash (item), and confirm. The Libo Points are taken from your balance when you confirm.</li>
               <li><strong>One reward per member per {REWARDS_COOLDOWN_DAYS} days.</strong></li>
-              <li><strong>Delivery within {REWARDS_DELIVERY_DAYS} days by email.</strong> A person checks every request before it is sent. We email the gift code, or send the cash to the account details you gave us and email you when it&rsquo;s sent.</li>
-              <li><strong>If we reject a request, your points are returned.</strong> We tell you the reason. For example, we reject a request if you don&rsquo;t meet the conditions in these rules.</li>
-              <li><strong>Check your payment details.</strong> If you give us a wrong email, phone number, tag or IBAN, we can&rsquo;t always get the payment back.</li>
+              <li><strong>Delivery within {REWARDS_DELIVERY_DAYS} days by email.</strong> A person checks every request before it is sent. We email the gift code, or send the cash to the account details you gave us and email you when it&rsquo;s sent. A shipped item is sent within the same time, and we email you the tracking number.</li>
+              <li><strong>If we reject a request, your Libo Points are returned.</strong> We tell you the reason. For example, we reject a request if you don&rsquo;t meet the conditions in these rules.</li>
+              <li><strong>Check your payment details.</strong> If you give us a wrong email, phone number, tag, IBAN or address, we can&rsquo;t always get the payment or item back.</li>
             </ul>
           </section>
 
           <section className="legal-section" id="expiry">
             <div className="legal-section-num">{n()}</div>
-            <h2>When Points Expire</h2>
-            <p>Points expire if you don&rsquo;t use them. On the <strong>Free</strong> plan, points expire <strong>{POINTS_EXPIRY_DAYS.free} days</strong> after you earn them. As a <strong>Premium</strong> member, points expire <strong>{POINTS_EXPIRY_DAYS.premium} days</strong> after you earn them. The app shows when your points expire.</p>
+            <h2>When Libo Points Expire</h2>
+            <p>Libo Points expire if you don&rsquo;t use them. On the <strong>Free</strong> plan, they expire <strong>{POINTS_EXPIRY_DAYS.free} days</strong> after you earn them. As a <strong>Premium</strong> member, they expire <strong>{POINTS_EXPIRY_DAYS.premium} days</strong> after you earn them. The app shows when your Libo Points expire.</p>
           </section>
 
           <section className="legal-section" id="fair-play">
             <div className="legal-section-num">{n()}</div>
             <h2>Fair Play</h2>
-            <p>We may refuse or reverse a reward, and remove points, where we find:</p>
+            <p>We may refuse or reverse a reward, and remove Libo Points, where we find:</p>
             <ul>
               <li>More than one account used by the same person</li>
               <li>Workouts that were faked, or completed by someone else</li>
               <li>Tampering with the app or your account</li>
-              <li>Any other attempt to get points or rewards unfairly</li>
+              <li>Any other attempt to get Libo Points or rewards unfairly</li>
             </ul>
             <p>A person makes these decisions, and we will tell you the reason. If you think we got it wrong, email <a href="mailto:support@liboworld.com">support@liboworld.com</a> and we will look again.</p>
           </section>
@@ -222,13 +229,13 @@ export default function RewardsRules() {
           <section className="legal-section" id="no-chance">
             <div className="legal-section-num">{n()}</div>
             <h2>Not a Prize Draw</h2>
-            <p><strong>Rewards involve no chance.</strong> They are not a prize draw, lottery or game. Every member who meets the conditions in these rules and has enough points gets the reward they choose, as long as that reward is in stock that month. Our giveaways are separate and have their own <Link to="/giveaway-rules">Official Giveaway Rules</Link>.</p>
+            <p><strong>Rewards involve no chance.</strong> They are not a prize draw, lottery or game. Every member who meets the conditions in these rules and has enough Libo Points gets the reward they choose, as long as that reward is in stock that month. Our giveaways are separate and have their own <Link to="/giveaway-rules">Official Giveaway Rules</Link>.</p>
           </section>
 
           <section className="legal-section" id="changes">
             <div className="legal-section-num">{n()}</div>
             <h2>Changes &amp; Contact</h2>
-            <p>We may change the catalogue at any time: the rewards offered, their prices in points, which plan can redeem them, the brands and the monthly stock. We will update this page when we do. A change does not affect a request you have already made: it is handled at the price and on the terms in force when you made it.</p>
+            <p>We may change the catalogue at any time: the rewards offered, their prices in Libo Points, which plan can redeem them, the brands and the monthly stock. We will update this page when we do. A change does not affect a request you have already made: it is handled at the price and on the terms in force when you made it.</p>
             <p>These rules are governed by the laws of the <strong>Federal Republic of Germany</strong>, as set out in our <Link to="/terms">Terms &amp; Conditions</Link>. Questions:</p>
             <ul>
               <li><strong>Email:</strong> <a href="mailto:support@liboworld.com">support@liboworld.com</a></li>
