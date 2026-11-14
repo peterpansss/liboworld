@@ -98,7 +98,7 @@ describe('LaunchCountdown', () => {
   it('collapses to the closed line once the date passes', () => {
     at(-1000); // one second after launch
     const { container } = render(<LaunchCountdown />);
-    expect(screen.getByText('Founding closed — Premium is €79.99/yr')).toBeInTheDocument();
+    expect(screen.getByText('Founding closed — Premium is €119.99/yr')).toBeInTheDocument();
     expect(container.querySelectorAll('.launch-countdown__unit')).toHaveLength(0);
     expect(container.firstElementChild?.className).toContain('launch-countdown--closed');
   });
@@ -110,7 +110,7 @@ describe('LaunchCountdown', () => {
     act(() => { vi.advanceTimersByTime(3_000); }); // three ticks, now past launch
     // getAllByText, not getByText: crossing over live also fills the aria-live
     // span, so the closed line is legitimately present twice.
-    expect(screen.getAllByText('Founding closed — Premium is €79.99/yr').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Founding closed — Premium is €119.99/yr').length).toBeGreaterThan(0);
     expect(container.querySelectorAll('.launch-countdown__unit')).toHaveLength(0);
   });
 

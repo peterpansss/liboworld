@@ -28,7 +28,6 @@ import { MONTHLY_PRICE, YEARLY_PRICE, YEARLY_DISCOUNT } from '../../src/data/tie
 const eur = (n: number) => `€${n.toFixed(2)}`;
 const PREMIUM_MONTHLY = eur(MONTHLY_PRICE.premium); // €12.99
 const PREMIUM_YEARLY_PER_MONTH = eur(YEARLY_PRICE.premium / 12); // €6.67
-const ELITE_MONTHLY = eur(MONTHLY_PRICE.elite);
 const ELITE_YEARLY_PER_MONTH = eur(YEARLY_PRICE.elite / 12);
 
 void React;
@@ -80,8 +79,11 @@ describe('PricingSection', () => {
     await user.click(screen.getByRole('tab', { name: /Monthly/ }));
     expect(screen.getByText(PREMIUM_MONTHLY)).toBeInTheDocument();
     expect(screen.queryByText(PREMIUM_YEARLY_PER_MONTH)).not.toBeInTheDocument();
-    // Elite's monthly price is no longer rendered.
-    expect(screen.queryByText(ELITE_MONTHLY)).not.toBeInTheDocument();
+    // Elite is checked by NAME, not by price. Since Phase 2 (12 Nov 2026)
+    // Premium occupies Elite's old €19.99 slot, so MONTHLY_PRICE.premium and
+    // MONTHLY_PRICE.elite are the same string and a price assertion can no
+    // longer tell the two cards apart — it would fail on a correct page.
+    expect(screen.queryByText('Elite')).not.toBeInTheDocument();
     expect(screen.getAllByText('/month').length).toBeGreaterThan(0);
   });
 
