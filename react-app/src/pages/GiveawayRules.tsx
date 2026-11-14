@@ -83,8 +83,8 @@ export default function GiveawayRules() {
               you complete one workout in the app while the round is open. Every entry has the
               same chance of winning, and all entries are drawn from one pool. Memberships give
               more entries. Some draws are Premium draws: in the app only Premium members are
-              entered, and anyone eligible can enter them free by post. Apple, Google, Sony and
-              Rockstar Games are not sponsors of, and are not involved in, this giveaway.
+              entered, and anyone eligible can enter them free by post. Apple, Google and Sony
+              are not sponsors of, and are not involved in, this giveaway.
             </p>
           </div>
 
@@ -176,9 +176,8 @@ export default function GiveawayRules() {
             </div>
             <p>Each round is a separate draw. Prizes can&rsquo;t be transferred to someone else.</p>
             <ul>
-              <li><strong>Item prizes</strong> (such as the PlayStation 5 with GTA VI) are new, bought by us, and shipped free to the winner in the EU or the UK. Instead of the item, the winner can choose the cash amount shown in the table. A winner living outside the EU and the UK receives the cash amount.</li>
-              <li><strong>Age-rated games.</strong> GTA VI is rated 18+. A winner aged 16 or 17 receives the PlayStation 5 and, instead of the game, its retail price in cash, sent to their parent or guardian.</li>
-              <li>PlayStation is a trademark of Sony Interactive Entertainment, and GTA VI is a game by Rockstar Games. Neither is a sponsor of, or involved in, this giveaway.</li>
+              <li><strong>Item prizes</strong> (such as the PlayStation 5) are new, bought by us, and shipped free to the winner in the EU or the UK. Instead of the item, the winner can choose the cash amount shown in the table. A winner living outside the EU and the UK receives the cash amount.</li>
+              <li>PlayStation is a trademark of Sony Interactive Entertainment. Sony is not a sponsor of, or involved in, this giveaway.</li>
             </ul>
           </section>
 
@@ -231,7 +230,7 @@ export default function GiveawayRules() {
             <p>Any eligible member can add entries to a round without buying anything, by sending a letter.</p>
             <ul>
               <li><strong>One letter = one entry.</strong> Letters let you reach exactly the entries a Premium member with the same loyalty months holds, never more. On the Free plan you can send up to {POSTAL_BASE_LETTERS} letters per round, plus {POSTAL_LETTERS_PER_LOYALTY_MONTH} for each of your loyalty months (at most {POSTAL_MAX_LETTERS}). Example: with 3 loyalty months, Premium holds {GIVEAWAY_ENTRIES.premium} + {3 * LOYALTY_PER_MONTH.premium} = {GIVEAWAY_ENTRIES.premium + 3 * LOYALTY_PER_MONTH.premium} entries; a Free member holds {GIVEAWAY_ENTRIES.free} + {3 * LOYALTY_PER_MONTH.free} = {GIVEAWAY_ENTRIES.free + 3 * LOYALTY_PER_MONTH.free} and can add up to {POSTAL_BASE_LETTERS + 3 * POSTAL_LETTERS_PER_LOYALTY_MONTH} letters to reach {GIVEAWAY_ENTRIES.premium + 3 * LOYALTY_PER_MONTH.premium}. Premium members already hold that number, so letters add nothing for them. Your plan and loyalty months on the day the round closes decide. Each letter needs its own envelope and stamp; letters above your limit don&rsquo;t count.</li>
-              <li><strong>What to write:</strong> your full name, the email of your Libo account, your postal address including country, and the round you want to enter (for example &ldquo;PS5 + GTA VI Giveaway, 20 November&ndash;20 December 2026&rdquo;). A free Libo account is enough; you can create one in the app.</li>
+              <li><strong>What to write:</strong> your full name, the email of your Libo account, your postal address including country, and the round you want to enter (for example &ldquo;PlayStation 5 Giveaway, 20 November&ndash;20 December 2026&rdquo;). A free Libo account is enough; you can create one in the app.</li>
               <li><strong>Where to send it:</strong>{' '}
                 {POSTAL_ENTRY_ADDRESS ? (
                   POSTAL_ENTRY_ADDRESS.map((line, i) => (
