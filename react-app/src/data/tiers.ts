@@ -41,7 +41,10 @@ export const YEARLY_PRICE = { premium: 119.99, elite: 149 } as const;
 // It buys NO extra giveaway entries (loyalty months count months with a
 // workout, not months paid for), so never sell it on entries.
 export const QUARTERLY_PRICE = { premium: 44.99, elite: 44.99 } as const;
-export const YEARLY_DISCOUNT = { premium: 49, elite: 37 } as const;
+// Premium: 119.99 vs 19.99x12 = 49.98% off, shown as 50. Raised with the Phase 2
+// prices (12 Nov 2026) — it was left at 49 from the old 79.99/12.99 pair, which
+// made the card contradict the comment above it.
+export const YEARLY_DISCOUNT = { premium: 50, elite: 37 } as const;
 // NOTE: there is deliberately no TRIAL_DAYS export. App Store Connect carries
 // no introductory offer on either subscription product
 // (com.liboworld.app.premium.monthly / .yearly), and the mobile app has shipped
