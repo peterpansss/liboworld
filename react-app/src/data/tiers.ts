@@ -96,14 +96,12 @@ export const TIERS: Tier[] = [
       'Reps & kg tracking',
       'Basic progress charts',
       'Rewards program (1× Libo)',
-      // No giveaway bullet here. Giveaways (common, premium, special, prize
-      // draws, entry allocation) are Phase 2 — canon
-      // Brand-Management/Project-Structure/canon/REWARDS-ECONOMY-RULES.md §8
-      // "Phase 2 — NOT FOR LAUNCH"; §3 launches Free + Premium only.
-      // NOTE: VISIBLE_TIER_IDS / isTierVisible do NOT protect us here — they
-      // only hide Elite. A giveaway promise written onto Free or Premium ships
-      // the moment anything renders these tiers. Same applies to the Premium
-      // features below and to the COMPARISON_GROUPS rows.
+      // Giveaways are live (membership model, 10-13 Nov 2026) with the free
+      // postal route live since 14 Nov; the pricing footnote links the rules.
+      // Numbers must match data/giveawayRounds.ts (GIVEAWAY_ENTRIES /
+      // LOYALTY_PER_MONTH). Never on the quarterly plan's copy: it buys no
+      // extra entries.
+      'Every giveaway: 1 entry, +1 every month you train',
       // Starter challenge — src/data/challengeTiers.ts ('starter': €5, 30 reps,
       // requiresPremium: false). Source of truth for these numbers.
       'Cash challenges (€5 reward · 30 reps/day)',
@@ -131,7 +129,7 @@ export const TIERS: Tier[] = [
       // GRANT, not ceiling. Canon §5.2: Premium is granted 1 and can earn a
       // second (train 60 of the last 90 days). Cut 2 → 1 on 2026-08-10.
       '1 freeze token per challenge, +1 you can earn',
-      // Giveaway / prize-draw bullet removed — Phase 2, see the Free tier note above.
+      'Every giveaway: 3 entries, +3 every month you train',
       // Premium unlocks BOTH gated challenges in src/data/challengeTiers.ts:
       // 'committed' (€15 · 50 reps) and 'flagship' (€50 · 100 reps), both
       // requiresPremium: true. Canon §7.4 — no maximum tier, so the €50 run is

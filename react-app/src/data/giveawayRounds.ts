@@ -11,7 +11,11 @@
  * Adding a round is a one-line change: append an object below. Dates are
  * calendar dates in Berlin time (Europe/Berlin); a round opens at 00:00 on
  * `opens` and closes at 23:59 on `closes`. The draw runs automatically at the
- * close and the winner is announced the following day (a Monday).
+ * close and the winner is announced the following day.
+ *
+ * 14 Nov 2026 (Noah): one big giveaway a month, promoted for its whole run,
+ * instead of four weekly EUR 150 rounds. Rounds can differ in length and more
+ * than one can be open at a time. Must match the `giveaways` rows on the server.
  */
 
 export type GiveawayRound = {
@@ -21,17 +25,23 @@ export type GiveawayRound = {
   opens: string;
   /** Last day of the round, YYYY-MM-DD, Berlin time. Closes 23:59. */
   closes: string;
-  /** Cash prize in euros, rendered as €{prize}. */
-  prize: number;
+  /** Round name, as in the app. */
+  title: string;
+  /** The prize, as written in the rules table. */
+  prize: string;
   /** Number of winners drawn in this round. */
   winners: number;
 };
 
 export const GIVEAWAY_ROUNDS: GiveawayRound[] = [
-  { n: 1, opens: '2026-11-23', closes: '2026-11-29', prize: 150, winners: 1 },
-  { n: 2, opens: '2026-11-30', closes: '2026-12-06', prize: 150, winners: 1 },
-  { n: 3, opens: '2026-12-07', closes: '2026-12-13', prize: 150, winners: 1 },
-  { n: 4, opens: '2026-12-14', closes: '2026-12-20', prize: 150, winners: 1 },
+  {
+    n: 1,
+    title: 'PS5 + GTA VI Giveaway',
+    opens: '2026-11-20',
+    closes: '2026-12-20',
+    prize: 'A PlayStation 5 with GTA VI, or €550 cash instead',
+    winners: 1,
+  },
 ];
 
 /** Entries per member per round, by plan. Same activation rule for every plan. */

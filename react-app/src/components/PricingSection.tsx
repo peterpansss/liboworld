@@ -387,6 +387,19 @@ export default function PricingSection() {
         >
           No countdown on the free tier. Cancel anytime. No ads, ever.
         </p>
+        <p
+          style={{
+            marginTop: 8,
+            textAlign: 'center',
+            fontSize: 13,
+            color: colors.muted,
+          }}
+        >
+          Giveaways: no purchase necessary. Free entry by post.{' '}
+          <Link to="/giveaway-rules" style={{ color: colors.muted, textDecoration: 'underline' }}>
+            Official rules
+          </Link>
+        </p>
       </div>
     </section>
   );
