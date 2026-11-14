@@ -48,6 +48,9 @@ vi.mock('../../src/pages/AuthCallback', () => ({
 vi.mock('../../src/pages/GiveawayRules', () => ({
   default: () => <div data-testid="page-giveaway-rules" />,
 }));
+vi.mock('../../src/pages/RewardsRules', () => ({
+  default: () => <div data-testid="page-rewards-rules" />,
+}));
 vi.mock('../../src/pages/CashChallenge', () => ({
   default: () => <div data-testid="page-cash-challenge" />,
 }));
@@ -123,6 +126,7 @@ describe('Lazy-loaded routes', () => {
     ['/rules', 'page-rules'],
     ['/auth/callback', 'page-auth-cb'],
     ['/giveaway-rules', 'page-giveaway-rules'],
+    ['/rewards-rules', 'page-rewards-rules'],
     ['/cash-challenge', 'page-cash-challenge'],
     ['/get-app', 'page-getapp'],
     ['/admin', 'page-admin'],

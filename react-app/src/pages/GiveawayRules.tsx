@@ -78,8 +78,9 @@ export default function GiveawayRules() {
               every month in a row you&rsquo;ve trained. Your entries count once
               you complete one workout in the app while the round is open. Every entry has the
               same chance of winning, and all entries are drawn from one pool. Memberships give
-              more entries. Apple and Google are not sponsors of, and are not involved in, this
-              giveaway.
+              more entries. Some draws are Premium draws: in the app only Premium members are
+              entered, and anyone eligible can enter them free by post. Apple and Google are not
+              sponsors of, and are not involved in, this giveaway.
             </p>
           </div>
 
@@ -92,6 +93,7 @@ export default function GiveawayRules() {
               <li><a href="#where">Where You Can Enter</a></li>
               <li><a href="#rounds">Rounds &amp; Prizes</a></li>
               <li><a href="#entries">How You Are Entered</a></li>
+              <li><a href="#premium">Premium Draws</a></li>
               <li><a href="#free">No Purchase Necessary</a></li>
               <li><a href="#draw">The Draw</a></li>
               <li><a href="#claim">Winning &amp; Claiming</a></li>
@@ -184,6 +186,22 @@ export default function GiveawayRules() {
             <h3>Your entries count once you train</h3>
             <p>Your entries for a round only become active when you <strong>complete one workout in the app while that round is open</strong>. This rule is the same on every plan. If you don&rsquo;t complete a workout during the round, your entries for that round don&rsquo;t count.</p>
             <p>Your plan on the day the round closes decides how many entries you hold. Each round is a separate draw. Your entries are worked out fresh for every round.</p>
+          </section>
+
+          {/* Premium draws (Noah, 13 Nov 2026). The free route is the postal
+              clause (#post, from feat/giveaway-postal-entry) with the same parity
+              cap: a Free member's letters can reach exactly what a Premium member
+              with the same loyalty months holds, never more. Don't restate the
+              postal mechanics here; refer to #post. */}
+          <section className="legal-section" id="premium">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Premium Draws</h2>
+            <p>Some draws are marked <strong>Premium</strong> in the app. Each Premium draw&rsquo;s dates, prize and number of winners are shown in the app before it opens, and the same times apply as in <a href="#rounds">Rounds &amp; Prizes</a> (Berlin time, opening 00:00, closing 23:59).</p>
+            <ul>
+              <li><strong>In the app, only Premium members are entered</strong> into a Premium draw, with the entries set out in <a href="#entries">How You Are Entered</a>.</li>
+              <li><strong>Anyone eligible can enter a Premium draw free by post</strong>, under <a href="#post">Free Entry by Post</a>, with the same limit: your letters can bring you to exactly the entries a Premium member with the same loyalty months holds, never more. On a Premium draw a Free member holds no entries from the app, so that is up to {GIVEAWAY_ENTRIES.premium} letters plus {LOYALTY_PER_MONTH.premium} for each loyalty month (at most {GIVEAWAY_MAX_ENTRIES.premium}).</li>
+              <li><strong>Everything else in these rules applies to Premium draws too</strong>: who can enter, excluded places, the one-workout activation rule, the draw, claiming and fair play.</li>
+            </ul>
           </section>
 
           <section className="legal-section" id="free">

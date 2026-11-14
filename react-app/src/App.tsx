@@ -95,6 +95,7 @@ const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Rules = lazy(() => import('./pages/Rules'));
 const GiveawayRules = lazy(() => import('./pages/GiveawayRules'));
+const RewardsRules = lazy(() => import('./pages/RewardsRules'));
 const DeleteAccount = lazy(() => import('./pages/DeleteAccount'));
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthConfirm = lazy(() => import('./pages/AuthConfirm'));
@@ -176,6 +177,8 @@ export default function App() {
         <Route path="/rules" element={<Suspense fallback={darkFallback}><Rules /></Suspense>} />
         {/* Public and ungated: the official rules must be readable before round 1 opens. */}
         <Route path="/giveaway-rules" element={<Suspense fallback={darkFallback}><GiveawayRules /></Suspense>} />
+        {/* Public and ungated, like the giveaway rules: the rewards rules must be readable before the shop opens. */}
+        <Route path="/rewards-rules" element={<Suspense fallback={darkFallback}><RewardsRules /></Suspense>} />
         {/* Account-deletion instructions — the public link Google Play's Data
             safety form requires, reachable without the app installed. */}
         <Route path="/delete-account" element={<Suspense fallback={darkFallback}><DeleteAccount /></Suspense>} />

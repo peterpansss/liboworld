@@ -115,6 +115,7 @@ type FormState = {
   starts_at: string;
   ends_at: string;
   featured: boolean;
+  min_tier: 'free' | 'premium';
 };
 
 const EMPTY_FORM: FormState = {
@@ -131,6 +132,7 @@ const EMPTY_FORM: FormState = {
   starts_at: '',
   ends_at: '',
   featured: false,
+  min_tier: 'free',
 };
 
 function rowToForm(row: Giveaway): FormState {
@@ -148,11 +150,20 @@ function rowToForm(row: Giveaway): FormState {
     starts_at: toLocalDateTimeInput(row.starts_at),
     ends_at: toLocalDateTimeInput(row.ends_at),
     featured: !!row.featured,
+    min_tier: row.min_tier === 'premium' ? 'premium' : 'free',
   };
 }
 
-function formToInput(form: FormState): GiveawayInput {
+/**
+ * `min_tier` is only sent when it carries information: always when the row
+ * already has the column (editing a row read after the migration), and when
+ * the admin picks Premium. A new Free draw leaves it to the column default
+ * ('free'), so saves keep working against a database that predates the
+ * column instead of failing on an unknown field.
+ */
+function formToInput(form: FormState, hasMinTierColumn: boolean): GiveawayInput {
   return {
+    ...(hasMinTierColumn || form.min_tier === 'premium' ? { min_tier: form.min_tier } : {}),
     title: form.title.trim(),
     description: form.description.trim() ? form.description.trim() : null,
     prize_description: form.prize_description.trim(),
@@ -269,7 +280,8 @@ export function GiveawaysPage() {
     setSaving(true);
     setFormError(null);
     try {
-      const input = formToInput(form);
+      const hasMinTierColumn = rows.some((r) => 'min_tier' in r);
+      const input = formToInput(form, hasMinTierColumn);
       if (editing) {
         await updateGiveaway(editing.id, input);
       } else {
@@ -404,7 +416,16 @@ export function GiveawaysPage() {
       {
         key: 'type',
         header: 'Type',
-        render: (r) => <span style={{ color: colors.muted, textTransform: 'capitalize' }}>{r.type}</span>,
+        render: (r) => (
+          <span style={{ color: colors.muted, textTransform: 'capitalize' }}>
+            {r.type}
+            {r.min_tier === 'premium' && (
+              <span style={{ marginLeft: 6, color: colors.accent, fontSize: 11, fontWeight: 700, textTransform: 'uppercase' }}>
+                Premium draw
+              </span>
+            )}
+          </span>
+        ),
         sort: (a, b) => a.type.localeCompare(b.type),
       },
       {
@@ -626,7 +647,7 @@ export function GiveawaysPage() {
             </div>
           </Field>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <Field label="Type">
               <Select
                 value={form.type}
@@ -645,6 +666,15 @@ export function GiveawaysPage() {
                 {CATEGORY_OPTIONS.map((c) => (
                   <option key={c} value={c}>{c}</option>
                 ))}
+              </Select>
+            </Field>
+            <Field label="Who is entered in the app" hint="Premium: only Premium members in the app; free route by post (rules #premium).">
+              <Select
+                value={form.min_tier}
+                onChange={(e) => setForm({ ...form, min_tier: e.target.value as FormState['min_tier'] })}
+              >
+                <option value="free">Free (all members)</option>
+                <option value="premium">Premium only</option>
               </Select>
             </Field>
             <Field label="Status">
