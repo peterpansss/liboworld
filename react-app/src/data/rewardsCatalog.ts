@@ -30,10 +30,6 @@ export const REWARDS_CATALOG: PublishedReward[] = [
   { valueEur: 20, points: 10000, minTier: 'premium' },
 ];
 
-/** Minimum age to redeem any reward. */
-export const REWARDS_MIN_AGE = 16;
-/** Minimum age for the PayPal method (PayPal's own minimum). */
-export const REWARDS_PAYPAL_MIN_AGE = 18;
 /** Account must be at least this many days old. */
 export const REWARDS_MIN_ACCOUNT_DAYS = 14;
 /** Completed workouts needed before the first redemption. */

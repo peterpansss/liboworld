@@ -5,8 +5,6 @@ import SiteFooter from '../components/SiteFooter';
 import { GIVEAWAY_EXCLUDED } from '../data/giveawayRounds';
 import {
   REWARDS_CATALOG,
-  REWARDS_MIN_AGE,
-  REWARDS_PAYPAL_MIN_AGE,
   REWARDS_MIN_ACCOUNT_DAYS,
   REWARDS_MIN_WORKOUTS,
   REWARDS_COOLDOWN_DAYS,
@@ -65,7 +63,7 @@ export default function RewardsRules() {
             <div className="legal-label">Rules</div>
             <h1 className="font-display">Rewards Rules</h1>
             <p className="legal-meta">
-              Last updated: <span>13 November 2026</span> &middot; Applies to: <span>rewards redeemed with Libo points in the app</span>
+              Last updated: <span>14 November 2026</span> &middot; Applies to: <span>rewards redeemed with Libo points in the app</span>
             </p>
           </div>
 
@@ -163,8 +161,8 @@ export default function RewardsRules() {
             <div className="legal-section-num">{n()}</div>
             <h2>Who Can Redeem</h2>
             <ul>
-              <li><strong>You must be {REWARDS_MIN_AGE} or older</strong> and have a Libo account. You need to have confirmed your date of birth in the app.</li>
-              <li><strong>PayPal payments are for members aged {REWARDS_PAYPAL_MIN_AGE} and over</strong>, because PayPal requires its users to be {REWARDS_PAYPAL_MIN_AGE}. Members aged 16 or 17 can redeem gift codes only.</li>
+              <li><strong>You need a Libo account.</strong></li>
+              <li><strong>PayPal payments go only to a PayPal account in your own name.</strong> PayPal sets its own rules for who can hold an account, including a minimum age.</li>
               <li><strong>Your account must be at least {REWARDS_MIN_ACCOUNT_DAYS} days old</strong>, and you must have completed at least <strong>{REWARDS_MIN_WORKOUTS} workouts</strong> in the app.</li>
               <li><strong>One account per person.</strong></li>
             </ul>
