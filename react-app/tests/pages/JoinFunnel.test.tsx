@@ -71,6 +71,27 @@ describe('JoinFunnel pricing', () => {
     expect(container.querySelector('.jf-offer__was')).toHaveTextContent(FOUNDING_WAS);
   });
 
+  it('drops the pre-launch framing once founding has closed', () => {
+    const { container } = renderPage();
+    const text = container.textContent || '';
+    // Founding ended 14 Oct 2026 and the app is on both stores, so none of the
+    // pre-sale framing may sit above a card that says the offer has closed.
+    expect(text).not.toContain('Pre-sale');
+    expect(text).not.toContain('before we launch');
+    expect(text).not.toContain('Lock in the year');
+    // And nothing may still promise the discount or a checkout that is not mounted.
+    expect(text).not.toContain('50% off');
+    expect(text).not.toContain('Checkout opens from this card');
+  });
+
+  it('keeps the pre-launch framing while founding is open', () => {
+    isFoundingOpenMock.mockReturnValue(true);
+    const { container } = renderPage();
+    const text = container.textContent || '';
+    expect(text).toContain('Pre-sale');
+    expect(text).toContain('Lock in the year');
+  });
+
   it('quotes the same yearly price the pricing page does', () => {
     renderPage();
     // One number, one source: both pages read membershipV2.plans.premium.price.

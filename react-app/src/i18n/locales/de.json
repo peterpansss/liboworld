@@ -890,7 +890,7 @@
     "tierName": "FOUNDING MEMBER",
     "tierSummary": "12 Monate Premium",
     "alreadyPurchased": "Du bist schon Founding Member — check dein Postfach für deinen Login-Link.",
-    "offerEnded": "Das Founding-Angebot ist geschlossen — aber du kannst zum Launch trotzdem dabei sein.",
+    "offerEnded": "Das Founding-Angebot ist geschlossen — die App ist jetzt draußen.",
     "genericError": "Etwas ist schiefgelaufen. Bitte versuch es nochmal.",
     "modal": {
       "step1Label": "Details",
@@ -1841,7 +1841,11 @@
       "h2b": "vor dem Launch.",
       "badgeMobile": "Pre-Launch",
       "title": "Founding Member",
-      "fineLink": "Startseite"
+      "fineLink": "Startseite",
+      "eyebrowClosed": "Mitgliedschaft",
+      "h2aClosed": "Der ganze Club,",
+      "h2bClosed": "eine Mitgliedschaft.",
+      "fineClosed": "Premium wird in der App gekauft — diese Karte zeigt den Preis, keine Kasse."
     },
     "faq": {
       "q1": "Was ist Libo?",
@@ -1860,7 +1864,9 @@
     },
     "seo": {
       "title": "Werde Founding Member — Libo Training Club",
-      "description": "Werde Libo Founding Member für €39.50 — 50% Rabatt aufs erste Jahr, bis zum Launch voll erstattbar. Dein Jahr startet am Tag, an dem die App live geht."
+      "description": "Werde Libo Founding Member für €39.50 — 50% Rabatt aufs erste Jahr, bis zum Launch voll erstattbar. Dein Jahr startet am Tag, an dem die App live geht.",
+      "titleClosed": "Mitgliedschaft — Libo Training Club",
+      "descriptionClosed": "Premium schaltet die komplette Bibliothek frei, jede Cash-Challenge-Stufe und 2x Punkte. Es gibt auch eine Gratis-Version — ohne Karte."
     },
     "contextBar": "Founding-Angebot · 50% Rabatt aufs erste Jahr · bis 13. Oktober",
     "contextBarShort": "50% Rabatt aufs erste Jahr · bis 13. Okt.",
@@ -1902,7 +1908,9 @@
       "h2a": "Starte heute.",
       "h2b": "Nicht irgendwann.",
       "fine": "50% Rabatt aufs erste Jahr · Jahr startet am Launch-Tag · bis zum Launch voll erstattbar",
-      "fineMobile": "50% Rabatt aufs erste Jahr · Jahr startet am Launch-Tag · bis zum Launch erstattbar"
+      "fineMobile": "50% Rabatt aufs erste Jahr · Jahr startet am Launch-Tag · bis zum Launch erstattbar",
+      "fineClosed": "Gratis-Version, keine Karte nötig. Premium jederzeit kündbar.",
+      "fineMobileClosed": "Gratis-Version, keine Karte nötig. Premium jederzeit kündbar."
     },
     "cta": {
       "sticky": "Werde Founding Member →",
