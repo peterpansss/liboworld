@@ -23,8 +23,6 @@ import { safeUrl } from '../../utils/safeUrl';
 type Row = Giveaway & { entry_count: number };
 
 const STATUS_OPTIONS: Giveaway['status'][] = ['upcoming', 'active', 'drawing', 'completed'];
-const TYPE_OPTIONS: Giveaway['type'][] = ['common', 'premium', 'elite'];
-const CATEGORY_OPTIONS: Giveaway['category'][] = ['win', 'buy'];
 
 const h1Style: React.CSSProperties = {
   margin: 0,
@@ -415,19 +413,17 @@ export function GiveawaysPage() {
         sort: (a, b) => a.status.localeCompare(b.status),
       },
       {
-        key: 'type',
-        header: 'Type',
-        render: (r) => (
-          <span style={{ color: colors.muted, textTransform: 'capitalize' }}>
-            {r.type}
-            {r.min_tier === 'premium' && (
-              <span style={{ marginLeft: 6, color: colors.accent, fontSize: 11, fontWeight: 700, textTransform: 'uppercase' }}>
-                Premium draw
-              </span>
-            )}
-          </span>
-        ),
-        sort: (a, b) => a.type.localeCompare(b.type),
+        key: 'who',
+        header: 'Who',
+        render: (r) =>
+          r.min_tier === 'premium' ? (
+            <span style={{ color: colors.accent, fontSize: 11, fontWeight: 700, textTransform: 'uppercase' }}>
+              Premium draw
+            </span>
+          ) : (
+            <span style={{ color: colors.muted }}>All members</span>
+          ),
+        sort: (a, b) => (a.min_tier ?? 'free').localeCompare(b.min_tier ?? 'free'),
       },
       {
         key: 'winner_count',
@@ -642,26 +638,10 @@ export function GiveawaysPage() {
           </Field>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-            <Field label="Type">
-              <Select
-                value={form.type}
-                onChange={(e) => setForm({ ...form, type: e.target.value as Giveaway['type'] })}
-              >
-                {TYPE_OPTIONS.map((t) => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </Select>
-            </Field>
-            <Field label="Category">
-              <Select
-                value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value as Giveaway['category'] })}
-              >
-                {CATEGORY_OPTIONS.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </Select>
-            </Field>
+            {/* "Type" and "Category" removed (Noah, 14 Nov 2026): leftovers from the
+                ticket era (only enter_giveaway_with_points reads them; the app
+                maps but never shows them). New rows save 'common' / 'win' because
+                giveaways.type is NOT NULL; edits keep the row's values. */}
             <Field label="Who is entered in the app" hint="Premium: only Premium members in the app; free route by post (rules #premium).">
               <Select
                 value={form.min_tier}
