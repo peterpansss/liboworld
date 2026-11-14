@@ -1056,7 +1056,7 @@ export function RewardsPage() {
               </Select>
             </Field>
             {catalogForm.kind === 'item' && (
-              <Field label="Options (colours)" hint="Comma-separated, optional. The member picks one when it ships. Value (€) is also the cash alternative.">
+              <Field label="Options (colours)" hint="Comma-separated, optional. The member picks one when it ships. Value (€) is the retail price; the cash alternative is 80% of it.">
                 <TextInput
                   value={catalogForm.brands}
                   onChange={(e) => setCatalogForm({ ...catalogForm, brands: e.target.value })}

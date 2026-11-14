@@ -10,7 +10,7 @@ import {
   REWARDS_COOLDOWN_DAYS,
   REWARDS_DELIVERY_DAYS,
   POINTS_EXPIRY_DAYS,
-  formatPoints, REWARDS_ITEMS, ITEM_SHIP_AREA } from '../data/rewardsCatalog';
+  formatPoints, REWARDS_ITEMS, ITEM_SHIP_AREA, itemCashEur } from '../data/rewardsCatalog';
 import './Legal.css';
 
 /**
@@ -142,7 +142,7 @@ export default function RewardsRules() {
                   ))}
                   {REWARDS_ITEMS.map((r) => (
                     <tr key={r.title}>
-                      <td><strong>{r.title}</strong> (or &euro;{formatPoints(r.valueEur)} cash)</td>
+                      <td><strong>{r.title}</strong> (or &euro;{formatPoints(itemCashEur(r.valueEur))} cash)</td>
                       <td>{formatPoints(r.points)} Libo Points</td>
                       <td>{r.minTier === 'premium' ? 'Premium members only' : 'All members'}</td>
                     </tr>
@@ -155,7 +155,7 @@ export default function RewardsRules() {
               <li><strong>Gift card:</strong> a gift code of that value, from a brand you choose among the brands shown in the app for that reward.</li>
               <li><strong>Cash:</strong> a payment of that value to your own PayPal, Revolut or Wise account, or by bank transfer (SEPA) to your own bank account.</li>
             </ul>
-            <p><strong>Items</strong> are physical rewards. You choose: we ship the item free to an address in {ITEM_SHIP_AREA} (you pick the option, such as the colour, where there is one), or you take its listed value in cash instead, paid the same way as a cash reward. Outside {ITEM_SHIP_AREA}, items are cash only. Items are limited and may not come back once claimed.</p>
+            <p><strong>Items</strong> are physical rewards. You choose: we ship the item free to an address in {ITEM_SHIP_AREA} (you pick the option, such as the colour, where there is one), or you take the cash instead: <strong>80% of the item&rsquo;s listed value</strong>, paid the same way as a cash reward. Outside {ITEM_SHIP_AREA}, items are cash only. Items are limited and may not come back once claimed.</p>
             <p><strong>Each code is subject to its issuer&rsquo;s terms.</strong> The brand that issues a gift code sets how and where it can be used, and for how long. We are not responsible for the issuer&rsquo;s terms or service.</p>
             <p>A &ldquo;Premium member&rdquo; is a member with an active, paid Premium membership on the day they redeem, or a member who has been given Premium by Libo directly (for example through a company partnership). Free trial periods and free weeks from offer codes do not count.</p>
           </section>

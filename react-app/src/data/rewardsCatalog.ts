@@ -38,6 +38,8 @@ export type PublishedItem = { title: string; valueEur: number; points: number; m
 export const REWARDS_ITEMS: PublishedItem[] = [
   { title: 'iPhone Duo 512 GB', valueEur: 2600, points: 29000, minTier: 'premium' },
 ];
+/** Cash instead of an item: 20% under its value, as a rule (Noah, 15 Nov 2026; _reward_item_cash_eur). */
+export const itemCashEur = (valueEur: number): number => Math.floor(valueEur * 0.8);
 /** Item prizes ship to these places (redeem_reward ship_country); anywhere else takes the cash. */
 export const ITEM_SHIP_AREA = 'the EU and the UK';
 
