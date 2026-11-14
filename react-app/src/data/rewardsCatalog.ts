@@ -25,10 +25,12 @@ export type PublishedReward = {
   minTier: RewardTier;
 };
 
+// Repriced 14 Nov 2026 (Noah): 2,500/5,000/10,000 -> 4,000/8,000/15,000. A peak Premium month buys EUR 10; yearly
+// Premium nets ~EUR 5.88/month, so the old rate let a power user cost more than he pays. Mirrors reward_catalog.
 export const REWARDS_CATALOG: PublishedReward[] = [
-  { valueEur: 5, points: 2500, minTier: 'free' },
-  { valueEur: 10, points: 5000, minTier: 'free' },
-  { valueEur: 20, points: 10000, minTier: 'premium' },
+  { valueEur: 5, points: 4000, minTier: 'free' },
+  { valueEur: 10, points: 8000, minTier: 'free' },
+  { valueEur: 20, points: 15000, minTier: 'premium' },
 ];
 
 /** Account must be at least this many days old. */
@@ -42,7 +44,7 @@ export const REWARDS_DELIVERY_DAYS = 7;
 /** Points shelf life by plan (canon REWARDS-ECONOMY-RULES §6.3). */
 export const POINTS_EXPIRY_DAYS = { free: 30, premium: 90 } as const;
 
-/** "2,500" with a comma separator regardless of the reader's locale. */
+/** "4,000" with a comma separator regardless of the reader's locale. */
 export function formatPoints(n: number): string {
   return n.toLocaleString('en-GB');
 }
