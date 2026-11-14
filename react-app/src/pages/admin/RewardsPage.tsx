@@ -211,6 +211,7 @@ const METHOD_LABELS: Record<RedemptionMethod, string> = {
   revolut: 'Revolut',
   wise: 'Wise',
   sepa: 'Bank transfer',
+  ship: 'Ship item',
 };
 
 function methodLabel(m: RedemptionMethod): string {
@@ -219,13 +220,23 @@ function methodLabel(m: RedemptionMethod): string {
 
 /** What "Mark sent" asks for, by method. */
 function proofLabel(m: RedemptionMethod): string {
+  if (m === 'ship') return 'Tracking number';
   return m === 'code' ? 'Gift code' : `${methodLabel(m)} transaction ID`;
 }
 
 /** Where to pay a cash redemption, for the queue and the modal. */
 function payoutLabel(r: RewardRedemptionRow): string | null {
+  if (r.method === 'ship') return shipAddress(r);
   if (r.method === 'code' || !r.payout_to) return null;
   return r.method === 'sepa' && r.payout_name ? `${r.payout_name} · ${r.payout_to}` : r.payout_to;
+}
+
+/** A shipped item's address on one line (for the queue and copying). */
+function shipAddress(r: RewardRedemptionRow): string | null {
+  if (!r.ship_name) return null;
+  return [r.ship_name, r.ship_line1, r.ship_line2, `${r.ship_postcode ?? ''} ${r.ship_city ?? ''}`.trim(), r.ship_country]
+    .filter(Boolean)
+    .join(', ');
 }
 
 /** Pending first (oldest first, it is a queue), then everything else newest first. */
@@ -326,6 +337,7 @@ type CatalogForm = {
   kind: RewardKind;
   brands: string;
   monthly_stock: string;
+  total_stock: string;
   active: boolean;
   sort_order: string;
   image_url: string;
@@ -341,6 +353,7 @@ const EMPTY_CATALOG_FORM: CatalogForm = {
   kind: 'gift',
   brands: '',
   monthly_stock: '0',
+  total_stock: '',
   active: false,
   sort_order: '0',
   image_url: '',
@@ -357,6 +370,7 @@ function catalogToForm(r: RewardCatalogRow): CatalogForm {
     kind: r.kind,
     brands: r.brands.join(', '),
     monthly_stock: String(r.monthly_stock),
+    total_stock: r.total_stock == null ? '' : String(r.total_stock),
     active: r.active,
     sort_order: String(r.sort_order),
     image_url: r.image_url ?? '',
@@ -374,6 +388,8 @@ function formToCatalogInput(f: CatalogForm): RewardCatalogInput | string {
   if (!Number.isInteger(points) || points <= 0) return 'Points must be a positive whole number.';
   if (!Number.isInteger(stock) || stock < 0) return 'Monthly stock must be a whole number, 0 or more.';
   if (!Number.isInteger(sort)) return 'Sort order must be a whole number.';
+  const total = f.total_stock.trim() === '' ? null : Number(f.total_stock);
+  if (total !== null && (!Number.isInteger(total) || total < 0)) return 'Total stock must be empty or a whole number, 0 or more.';
   const brands = f.kind === 'cash' ? [] : f.brands.split(',').map((b) => b.trim()).filter(Boolean);
   if (f.kind === 'gift' && brands.length === 0) return 'A gift card needs at least one brand.';
   return {
@@ -389,6 +405,7 @@ function formToCatalogInput(f: CatalogForm): RewardCatalogInput | string {
     active: f.active,
     sort_order: sort,
     image_url: f.image_url.trim() ? f.image_url.trim() : null,
+    total_stock: total,
   };
 }
 
@@ -676,7 +693,11 @@ export function RewardsPage() {
       {
         key: 'kind',
         header: 'Kind',
-        render: (r) => <span style={{ color: colors.text, fontSize: 12 }}>{r.kind === 'cash' ? 'Cash' : 'Gift card'}</span>,
+        render: (r) => (
+          <span style={{ color: colors.text, fontSize: 12 }}>
+            {r.kind === 'cash' ? 'Cash' : r.kind === 'item' ? 'Item (ship or cash)' : 'Gift card'}
+          </span>
+        ),
         sort: (a, b) => a.kind.localeCompare(b.kind),
       },
       {
@@ -684,7 +705,11 @@ export function RewardsPage() {
         header: 'Brands',
         render: (r) => (
           <span style={{ color: colors.muted, fontSize: 12 }}>
-            {r.kind === 'cash' ? 'PayPal, Revolut, Wise, bank' : r.brands.length ? r.brands.join(', ') : '—'}
+            {r.kind === 'cash'
+              ? 'PayPal, Revolut, Wise, bank'
+              : r.brands.length
+                ? r.brands.join(', ')
+                : '—'}
           </span>
         ),
       },
@@ -695,6 +720,7 @@ export function RewardsPage() {
         render: (r) => (
           <span style={{ color: colors.text }}>
             {r.remaining_this_month ?? '?'} / {r.monthly_stock}
+            {r.total_stock != null ? ` · ${r.total_stock} total` : ''}
           </span>
         ),
       },
@@ -716,7 +742,8 @@ export function RewardsPage() {
     ? 'Loading…'
     : `${pendingCount} pending · ${formatEur(pendingEur)} to send (${statusFilter === '' ? 'all' : `status=${statusFilter}`})`;
   const configuredStockEur = catalog
-    .filter((c) => c.active)
+    // Items (one-off prizes with a lifetime cap) aren't part of the monthly budget.
+    .filter((c) => c.active && c.kind !== 'item')
     .reduce((acc, c) => acc + c.value_eur * c.monthly_stock, 0);
 
   return (
@@ -831,12 +858,17 @@ export function RewardsPage() {
               <DetailItem label="Member" value={memberLabel(open)} />
               <DetailItem label="Account email" value={open.member_email ?? '—'} />
               <DetailItem label="Card" value={`${cardLabel(open)} · ${formatPoints(open.points)} points`} />
-              <DetailItem label="Brand" value={open.brand ?? '—'} />
+              <DetailItem label={open.method === 'ship' ? 'Option (colour)' : 'Brand'} value={open.brand ?? '—'} />
               <DetailItem label="Method" value={methodLabel(open.method)} />
               <DetailItem
-                label={open.method === 'sepa' ? 'IBAN' : 'Pay to'}
+                label={open.method === 'ship' ? 'Ship to' : open.method === 'sepa' ? 'IBAN' : 'Pay to'}
                 value={
-                  open.method !== 'code' && open.payout_to ? (
+                  open.method === 'ship' && shipAddress(open) ? (
+                    <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                      {shipAddress(open)}
+                      <CopyButton value={shipAddress(open) ?? ''} />
+                    </span>
+                  ) : open.method !== 'code' && open.payout_to ? (
                     <span style={{ display: 'inline-flex', alignItems: 'center' }}>
                       {open.payout_to}
                       <CopyButton value={open.payout_to} />
@@ -1013,15 +1045,25 @@ export function RewardsPage() {
                 </Select>
               </Field>
             </div>
-            <Field label="Kind" hint="Gift card = the member picks a brand and gets a code. Cash = paid to their PayPal, Revolut, Wise or bank account.">
+            <Field label="Kind" hint="Gift card = the member picks a brand and gets a code. Cash = paid to their PayPal, Revolut, Wise or bank account. Item = a physical prize: shipped (EU + UK, member picks an option) or the value in cash instead.">
               <Select
                 value={catalogForm.kind}
                 onChange={(e) => setCatalogForm({ ...catalogForm, kind: e.target.value as RewardKind })}
               >
                 <option value="gift">Gift card</option>
                 <option value="cash">Cash</option>
+                <option value="item">Item (ship or cash)</option>
               </Select>
             </Field>
+            {catalogForm.kind === 'item' && (
+              <Field label="Options (colours)" hint="Comma-separated, optional. The member picks one when it ships. Value (€) is also the cash alternative.">
+                <TextInput
+                  value={catalogForm.brands}
+                  onChange={(e) => setCatalogForm({ ...catalogForm, brands: e.target.value })}
+                  placeholder="Black, White, Silver"
+                />
+              </Field>
+            )}
             {catalogForm.kind === 'gift' && (
               <Field label="Brands" hint="Comma-separated. The member picks one of these; they are also the logos shown.">
                 <TextInput
@@ -1031,7 +1073,7 @@ export function RewardsPage() {
                 />
               </Field>
             )}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 12 }}>
               <Field label="Monthly stock" hint="Resets on the 1st, Berlin time.">
                 <TextInput
                   type="number"
@@ -1039,6 +1081,15 @@ export function RewardsPage() {
                   step={1}
                   value={catalogForm.monthly_stock}
                   onChange={(e) => setCatalogForm({ ...catalogForm, monthly_stock: e.target.value })}
+                />
+              </Field>
+              <Field label="Total stock" hint="Lifetime cap, never shown to members. Empty = no cap.">
+                <TextInput
+                  type="number"
+                  min={0}
+                  step={1}
+                  value={catalogForm.total_stock}
+                  onChange={(e) => setCatalogForm({ ...catalogForm, total_stock: e.target.value })}
                 />
               </Field>
               <Field label="Sort order">
