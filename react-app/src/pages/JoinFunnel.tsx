@@ -11,6 +11,7 @@ import {
   FunnelStickyCta,
 } from '../components/funnel/FunnelChrome';
 import { useFoundingCheckout, EARLY_ACCESS_PRICE } from '../components/funnel/FoundingCheckoutProvider';
+import { YEARLY_PRICE } from '../data/tiers';
 import { isStripeConfigured } from '../lib/stripe';
 import LaunchCountdown from '../components/LaunchCountdown';
 import { isFoundingOpen } from '../config/launchMode';
@@ -32,7 +33,14 @@ import './JoinFunnel.css';
  */
 
 const PRICE = `€${EARLY_ACCESS_PRICE.toFixed(2)}`; // €39.50
-const WAS_PRICE = '€79.99';
+// The standing list price, derived from the tier constants so a price change
+// cannot strand this page. Phase 2 raised it to €119.99 (Noah, 12 Nov 2026).
+const LIST_PRICE = `€${YEARLY_PRICE.premium.toFixed(2)}`;
+// HISTORICAL. What founding was sold against while the offer ran, used only for
+// the strikethrough beside the €39.50 price. Founding closed 14 Oct 2026, so
+// this is NOT today's price and must never be rendered as one — that bug shipped
+// once already: with founding closed this page showed €79.99 as the list price.
+const FOUNDING_WAS_PRICE = '€79.99';
 const MEMBERSHIP_HREF = '#membership';
 
 type Member = { photo: string; name: string; meta: string };
@@ -153,7 +161,7 @@ export default function JoinFunnel() {
       q: t('joinFunnel.faq.q2', { defaultValue: 'What does membership cost?' }),
       a: t('joinFunnel.faq.a2', {
         defaultValue:
-          'There is a free tier — no card needed. Premium is €79.99 a year (about €6.67/mo) or €12.99 month-to-month. Founding Members lock the first year at €39.50.',
+          'There is a free tier — no card needed. Premium is €119.99 a year (about €10.00/mo) or €19.99 month-to-month. Founding Members lock the first year at €39.50.',
       }),
     },
     // Describes the pre-sale itself, so it goes with the pre-sale.
@@ -434,14 +442,20 @@ export default function JoinFunnel() {
                 : t('membershipV2.plans.premium.name', { defaultValue: 'Premium' })}
             </h3>
             {/* New price FIRST, was-price after — once the pre-sale closes
-                there is no "was", just the standing €79.99 list price. */}
+                there is no "was", just the standing list price. That branch
+                reads the SAME translation key as Pricing.tsx so the two pages
+                can never quote different numbers. */}
             <p className="jf-offer__price">
-              <span className="jf-offer__now font-display">{foundingOpen ? PRICE : WAS_PRICE}</span>
-              {foundingOpen && <s className="jf-offer__was">{WAS_PRICE}</s>}
+              <span className="jf-offer__now font-display">
+                {foundingOpen
+                  ? PRICE
+                  : t('membershipV2.plans.premium.price', { defaultValue: LIST_PRICE })}
+              </span>
+              {foundingOpen && <s className="jf-offer__was">{FOUNDING_WAS_PRICE}</s>}
               <span className="jf-offer__per">
                 {foundingOpen
                   ? t('joinFunnel.offer.per', { defaultValue: 'first year' })
-                  : t('membershipV2.plans.premium.per', { defaultValue: '/year · €6.67/mo' })}
+                  : t('membershipV2.plans.premium.per', { defaultValue: '/year · €10.00/mo' })}
               </span>
             </p>
             <ul className="jf-offer__ticks">

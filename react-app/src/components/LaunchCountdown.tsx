@@ -51,7 +51,7 @@ export default function LaunchCountdown({ className }: Props) {
   const closed = parts.totalSec === 0;
 
   const closedLabel = t('countdown.foundingClosed', {
-    defaultValue: 'Founding closed — Premium is €79.99/yr',
+    defaultValue: 'Founding closed — Premium is €119.99/yr',
   });
 
   // As in CountdownBanner: the ticking digits are NOT a live region — a polite
