@@ -890,7 +890,7 @@
     "tierName": "FOUNDING MEMBER",
     "tierSummary": "12 months of Premium",
     "alreadyPurchased": "You're already a Founding Member — check your inbox for your sign-in link.",
-    "offerEnded": "The founding offer has closed — but you can still join us at launch.",
+    "offerEnded": "The founding offer has closed — the app is out now.",
     "genericError": "Something went wrong. Please try again.",
     "modal": {
       "step1Label": "Details",
@@ -1902,7 +1902,11 @@
       "h2b": "before we launch.",
       "badgeMobile": "Pre-launch",
       "title": "Founding Member",
-      "fineLink": "homepage"
+      "fineLink": "homepage",
+      "eyebrowClosed": "Membership",
+      "h2aClosed": "The whole club,",
+      "h2bClosed": "one membership.",
+      "fineClosed": "Premium is bought inside the app — this card shows the price, not a checkout."
     },
     "faq": {
       "q1": "What is Libo?",
@@ -1921,7 +1925,9 @@
     },
     "seo": {
       "title": "Become a Founding Member — Libo Training Club",
-      "description": "Join Libo as a Founding Member for €39.50 — 50% off the first year, fully refundable until launch. Your year starts the day the app goes live."
+      "description": "Join Libo as a Founding Member for €39.50 — 50% off the first year, fully refundable until launch. Your year starts the day the app goes live.",
+      "titleClosed": "Membership — Libo Training Club",
+      "descriptionClosed": "Premium unlocks the full library, every cash challenge tier and 2x points. There is a free tier too — no card needed."
     },
     "contextBar": "Founding offer · 50% off the first year · until 13 October",
     "contextBarShort": "50% off the first year · until 13 Oct",
@@ -1963,7 +1969,9 @@
       "h2a": "Start today.",
       "h2b": "Not someday.",
       "fine": "50% off the first year · year starts on launch day · fully refundable until launch",
-      "fineMobile": "50% off the first year · year starts on launch day · refundable until launch"
+      "fineMobile": "50% off the first year · year starts on launch day · refundable until launch",
+      "fineClosed": "Free tier, no card needed. Cancel Premium any time.",
+      "fineMobileClosed": "Free tier, no card needed. Cancel Premium any time."
     },
     "cta": {
       "sticky": "Become a Founding Member →",

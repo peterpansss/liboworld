@@ -193,13 +193,24 @@ export default function JoinFunnel() {
   return (
     <div className="jf-page">
       <SeoHead
-        title={t('joinFunnel.seo.title', {
-          defaultValue: 'Become a Founding Member — Libo Training Club',
-        })}
-        description={t('joinFunnel.seo.description', {
-          defaultValue:
-            'Join Libo as a Founding Member for €39.50 — 50% off the first year, fully refundable until launch. Your year starts the day the app goes live.',
-        })}
+        title={
+          foundingOpen
+            ? t('joinFunnel.seo.title', {
+                defaultValue: 'Become a Founding Member — Libo Training Club',
+              })
+            : t('joinFunnel.seo.titleClosed', { defaultValue: 'Membership — Libo Training Club' })
+        }
+        description={
+          foundingOpen
+            ? t('joinFunnel.seo.description', {
+                defaultValue:
+                  'Join Libo as a Founding Member for €39.50 — 50% off the first year, fully refundable until launch. Your year starts the day the app goes live.',
+              })
+            : t('joinFunnel.seo.descriptionClosed', {
+                defaultValue:
+                  'Premium unlocks the full library, every cash challenge tier and 2x points. There is a free tier too — no card needed.',
+              })
+        }
         canonical="https://liboworld.com/join"
         jsonLd={buildFunnelVideoSchema(
           FOUNDING_MEMBER_VIDEO,
@@ -406,15 +417,24 @@ export default function JoinFunnel() {
         {/* ── 6. Pricing ──────────────────────────────────────────────────── */}
         <section className="jf-section jf-membership" id="membership">
           <span className="funnel-eyebrow jf-eyebrow">
-            {t('joinFunnel.offer.eyebrow', { defaultValue: 'Pre-sale · ends at launch' })}
+            {foundingOpen
+              ? t('joinFunnel.offer.eyebrow', { defaultValue: 'Pre-sale · ends at launch' })
+              : t('joinFunnel.offer.eyebrowClosed', { defaultValue: 'Membership' })}
           </span>
-          {/* Both lines white — no lime in this headline (target). */}
+          {/* Both lines white — no lime in this headline (target). The closed
+              pair drops the pre-launch framing: founding ended 14 Oct 2026 and
+              the app is on both stores, so "before we launch" sat directly
+              above a card saying the offer had closed. */}
           <h2 className="jf-h2 font-display">
             <span className="jf-line">
-              {t('joinFunnel.offer.h2a', { defaultValue: 'Lock in the year' })}
+              {foundingOpen
+                ? t('joinFunnel.offer.h2a', { defaultValue: 'Lock in the year' })
+                : t('joinFunnel.offer.h2aClosed', { defaultValue: 'The whole club,' })}
             </span>
             <span className="jf-line">
-              {t('joinFunnel.offer.h2b', { defaultValue: 'before we launch.' })}
+              {foundingOpen
+                ? t('joinFunnel.offer.h2b', { defaultValue: 'before we launch.' })
+                : t('joinFunnel.offer.h2bClosed', { defaultValue: 'one membership.' })}
             </span>
           </h2>
 
@@ -476,14 +496,25 @@ export default function JoinFunnel() {
           </article>
 
           <p className="jf-offer__fine">
-            {t('joinFunnel.offer.fine', {
-              defaultValue:
-                'Checkout opens from this card only — price always shown first. Just want launch news? The waitlist lives on the ',
-            })}
-            <Link to="/#waitlist" className="jf-inline-link">
-              {t('joinFunnel.offer.fineLink', { defaultValue: 'homepage' })}
-            </Link>
-            .
+            {foundingOpen ? (
+              <>
+                {t('joinFunnel.offer.fine', {
+                  defaultValue:
+                    'Checkout opens from this card only — price always shown first. Just want launch news? The waitlist lives on the ',
+                })}
+                <Link to="/#waitlist" className="jf-inline-link">
+                  {t('joinFunnel.offer.fineLink', { defaultValue: 'homepage' })}
+                </Link>
+                .
+              </>
+            ) : (
+              /* No Stripe checkout is mounted once founding closes, and the
+                 waitlist was for launch news we have already given. */
+              t('joinFunnel.offer.fineClosed', {
+                defaultValue:
+                  'Premium is bought inside the app — this card shows the price, not a checkout.',
+              })
+            )}
           </p>
         </section>
 
@@ -530,14 +561,24 @@ export default function JoinFunnel() {
             </a>
             <p className="jf-close__fine">
               <span className="jf-copy--desktop">
-                {t('joinFunnel.close.fine', {
-                  defaultValue: '50% off the first year · year starts on launch day · fully refundable until launch',
-                })}
+                {foundingOpen
+                  ? t('joinFunnel.close.fine', {
+                      defaultValue:
+                        '50% off the first year · year starts on launch day · fully refundable until launch',
+                    })
+                  : t('joinFunnel.close.fineClosed', {
+                      defaultValue: 'Free tier, no card needed. Cancel Premium any time.',
+                    })}
               </span>
               <span className="jf-copy--mobile">
-                {t('joinFunnel.close.fineMobile', {
-                  defaultValue: '50% off the first year · year starts on launch day · refundable until launch',
-                })}
+                {foundingOpen
+                  ? t('joinFunnel.close.fineMobile', {
+                      defaultValue:
+                        '50% off the first year · year starts on launch day · refundable until launch',
+                    })
+                  : t('joinFunnel.close.fineMobileClosed', {
+                      defaultValue: 'Free tier, no card needed. Cancel Premium any time.',
+                    })}
               </span>
             </p>
           </div>

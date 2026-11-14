@@ -890,7 +890,7 @@
     "tierName": "FOUNDING MEMBER",
     "tierSummary": "12 meses de Premium",
     "alreadyPurchased": "Ya eres Founding Member — revisa tu bandeja de entrada para tu enlace de acceso.",
-    "offerEnded": "La oferta de fundador ha cerrado — pero aún puedes unirte en el lanzamiento.",
+    "offerEnded": "La oferta de fundador ha cerrado — la app ya está disponible.",
     "genericError": "Algo salió mal. Inténtalo de nuevo.",
     "modal": {
       "step1Label": "Datos",
@@ -1841,7 +1841,11 @@
       "h2b": "antes de que lancemos.",
       "badgeMobile": "Pre-lanzamiento",
       "title": "Founding Member",
-      "fineLink": "página de inicio"
+      "fineLink": "página de inicio",
+      "eyebrowClosed": "Membresía",
+      "h2aClosed": "Todo el club,",
+      "h2bClosed": "una membresía.",
+      "fineClosed": "Premium se compra dentro de la app — esta tarjeta muestra el precio, no es una caja."
     },
     "faq": {
       "q1": "¿Qué es Libo?",
@@ -1860,7 +1864,9 @@
     },
     "seo": {
       "title": "Hazte Founding Member — Libo Training Club",
-      "description": "Únete a Libo como Founding Member por €39.50 — 50% de descuento el primer año, totalmente reembolsable hasta el lanzamiento. Tu año empieza el día que la app salga en vivo."
+      "description": "Únete a Libo como Founding Member por €39.50 — 50% de descuento el primer año, totalmente reembolsable hasta el lanzamiento. Tu año empieza el día que la app salga en vivo.",
+      "titleClosed": "Membresía — Libo Training Club",
+      "descriptionClosed": "Premium desbloquea la biblioteca completa, todos los niveles de reto con dinero y 2x puntos. También hay un plan gratuito — sin tarjeta."
     },
     "contextBar": "Oferta Founding · 50% de descuento el primer año · hasta el 13 de octubre",
     "contextBarShort": "50% de descuento el primer año · hasta el 13 oct",
@@ -1902,7 +1908,9 @@
       "h2a": "Empieza hoy.",
       "h2b": "No algún día.",
       "fine": "50% de descuento el primer año · el año empieza el día del lanzamiento · totalmente reembolsable hasta el lanzamiento",
-      "fineMobile": "50% de descuento el primer año · el año empieza al lanzar · reembolsable hasta el lanzamiento"
+      "fineMobile": "50% de descuento el primer año · el año empieza al lanzar · reembolsable hasta el lanzamiento",
+      "fineClosed": "Plan gratuito, sin tarjeta. Cancela Premium cuando quieras.",
+      "fineMobileClosed": "Plan gratuito, sin tarjeta. Cancela Premium cuando quieras."
     },
     "cta": {
       "sticky": "Hazte Founding Member →",

@@ -869,7 +869,7 @@
     "tierName": "FOUNDING MEMBER",
     "tierSummary": "12 mois de Premium",
     "alreadyPurchased": "Tu es déjà Founding Member — vérifie ta boîte mail pour ton lien de connexion.",
-    "offerEnded": "L'offre fondateur est terminée — mais tu peux quand même nous rejoindre au lancement.",
+    "offerEnded": "L'offre fondateur est terminée — l'app est disponible maintenant.",
     "genericError": "Un problème est survenu. Réessaie.",
     "modal": {
       "step1Label": "Coordonnées",
@@ -1841,7 +1841,11 @@
       "h2b": "avant le lancement.",
       "badgeMobile": "Pré-lancement",
       "title": "Founding Member",
-      "fineLink": "page d'accueil"
+      "fineLink": "page d'accueil",
+      "eyebrowClosed": "Abonnement",
+      "h2aClosed": "Tout le club,",
+      "h2bClosed": "un abonnement.",
+      "fineClosed": "Premium s'achète dans l'app — cette carte affiche le prix, ce n'est pas un paiement."
     },
     "faq": {
       "q1": "C'est quoi Libo ?",
@@ -1860,7 +1864,9 @@
     },
     "seo": {
       "title": "Deviens Founding Member — Libo Training Club",
-      "description": "Rejoins Libo comme Founding Member pour €39.50 — -50% sur la première année, intégralement remboursable jusqu'au lancement. Ton année commence le jour où l'app est en ligne."
+      "description": "Rejoins Libo comme Founding Member pour €39.50 — -50% sur la première année, intégralement remboursable jusqu'au lancement. Ton année commence le jour où l'app est en ligne.",
+      "titleClosed": "Abonnement — Libo Training Club",
+      "descriptionClosed": "Premium débloque toute la bibliothèque, chaque palier de défi en argent et 2x les points. Il y a aussi un niveau gratuit — sans carte."
     },
     "contextBar": "Offre Founding · -50% sur la première année · jusqu’au 13 octobre",
     "contextBarShort": "-50% sur la première année · jusqu’au 13 oct",
@@ -1902,7 +1908,9 @@
       "h2a": "Commence aujourd'hui.",
       "h2b": "Pas demain.",
       "fine": "-50% sur la première année · l'année commence le jour du lancement · intégralement remboursable jusqu'au lancement",
-      "fineMobile": "-50% sur la première année · l'année commence le jour du lancement · remboursable jusqu'au lancement"
+      "fineMobile": "-50% sur la première année · l'année commence le jour du lancement · remboursable jusqu'au lancement",
+      "fineClosed": "Niveau gratuit, sans carte. Premium résiliable à tout moment.",
+      "fineMobileClosed": "Niveau gratuit, sans carte. Premium résiliable à tout moment."
     },
     "cta": {
       "sticky": "Deviens Founding Member →",
