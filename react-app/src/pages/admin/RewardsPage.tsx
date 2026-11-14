@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { colors } from '../../theme';
 import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Field, TextInput, TextArea, Select, Button } from '../../components/admin/FormField';
@@ -6,6 +6,7 @@ import { Modal } from '../../components/admin/Modal';
 import {
   listRewardRedemptions,
   listRewardCatalogAdmin,
+  uploadGiveawayImage,
   // Sensitive ops: gated through requireRecentAuth() via the wrappers.
   resolveRedemptionWithReauth as resolveRedemption,
   upsertRewardCatalogWithReauth as upsertRewardCatalog,
@@ -415,6 +416,23 @@ export function RewardsPage() {
   const [catalogForm, setCatalogForm] = useState<CatalogForm | null>(null);
   const [catalogFormErr, setCatalogFormErr] = useState<string | null>(null);
   const [catalogSaving, setCatalogSaving] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+
+  // Same public bucket + resize/validation as the giveaway images.
+  const handleImageUpload = async (file: File) => {
+    setImageUploading(true);
+    setCatalogFormErr(null);
+    try {
+      const url = await uploadGiveawayImage(file);
+      setCatalogForm((f) => (f ? { ...f, image_url: url } : f));
+    } catch (e) {
+      setCatalogFormErr(e instanceof Error ? e.message : 'Upload failed');
+    } finally {
+      setImageUploading(false);
+      if (imageInputRef.current) imageInputRef.current.value = '';
+    }
+  };
 
   const refresh = async (status: '' | RedemptionStatus = statusFilter) => {
     setLoading(true);
@@ -1042,12 +1060,61 @@ export function RewardsPage() {
                 </label>
               </Field>
             </div>
-            <Field label="Image URL (optional)">
-              <TextInput
-                value={catalogForm.image_url}
-                onChange={(e) => setCatalogForm({ ...catalogForm, image_url: e.target.value })}
-                placeholder="https://…"
-              />
+            <Field label="Image (optional)">
+              <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+                {catalogForm.image_url ? (
+                  <img
+                    src={catalogForm.image_url}
+                    alt=""
+                    style={{ width: 96, height: 96, objectFit: 'cover', borderRadius: 10, border: `1px solid ${colors.border}`, flexShrink: 0 }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: 96,
+                      height: 96,
+                      borderRadius: 10,
+                      background: colors.bg3,
+                      border: `1px solid ${colors.border}`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: colors.muted,
+                      fontSize: 11,
+                      flexShrink: 0,
+                    }}
+                  >
+                    No image
+                  </div>
+                )}
+                <div style={{ flex: 1 }}>
+                  <TextInput
+                    value={catalogForm.image_url}
+                    onChange={(e) => setCatalogForm({ ...catalogForm, image_url: e.target.value })}
+                    placeholder="https://…"
+                  />
+                  <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                    <input
+                      ref={imageInputRef}
+                      type="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) void handleImageUpload(f);
+                      }}
+                    />
+                    <Button type="button" variant="secondary" onClick={() => imageInputRef.current?.click()} disabled={imageUploading}>
+                      {imageUploading ? 'Uploading…' : 'Upload image'}
+                    </Button>
+                    {catalogForm.image_url && (
+                      <Button type="button" variant="ghost" onClick={() => setCatalogForm({ ...catalogForm, image_url: '' })}>
+                        Clear
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
             </Field>
             <div
               style={{
