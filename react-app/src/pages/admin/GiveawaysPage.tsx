@@ -430,13 +430,6 @@ export function GiveawaysPage() {
         sort: (a, b) => a.type.localeCompare(b.type),
       },
       {
-        key: 'tickets_per_entry',
-        header: 'Tickets/entry',
-        align: 'right',
-        render: (r) => r.tickets_per_entry,
-        sort: (a, b) => a.tickets_per_entry - b.tickets_per_entry,
-      },
-      {
         key: 'winner_count',
         header: 'Winners',
         align: 'right',
@@ -690,24 +683,11 @@ export function GiveawaysPage() {
             </Field>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-            <Field label="Tickets per entry">
-              <TextInput
-                type="number"
-                min={0}
-                value={form.tickets_per_entry}
-                onChange={(e) => setForm({ ...form, tickets_per_entry: e.target.value })}
-              />
-            </Field>
-            <Field label="Max entries per user" hint="Leave blank for unlimited.">
-              <TextInput
-                type="number"
-                min={1}
-                value={form.max_entries_per_user}
-                onChange={(e) => setForm({ ...form, max_entries_per_user: e.target.value })}
-                placeholder="Unlimited"
-              />
-            </Field>
+          {/* "Tickets per entry" and "Max entries per user" removed (Noah, 14 Nov
+              2026): only the old ticket-era RPCs read them. Membership rounds
+              take entries from the plan + loyalty months + letters. The form
+              still saves the row's existing values untouched. */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
             <Field label="Winner count">
               <TextInput
                 type="number"
