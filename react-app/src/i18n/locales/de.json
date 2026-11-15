@@ -1961,7 +1961,8 @@
         "perk3": "Plan-Generator — ein Plan, bis zu 4 Wochen",
         "perk4": "Alles, was du loggst, plus 7 Tage Trends",
         "perk5": "Die 5-€-Cash-Challenge — kostenlos",
-        "cta": "Gratis starten"
+        "cta": "Gratis starten",
+        "perk6": "{{count}} Los in jedem Gewinnspiel, +{{loyalty}} für jeden Monat, in dem du trainierst"
       },
       "founding": {
         "name": "Founding Member",
@@ -1989,7 +1990,8 @@
         "perk3": "30- und 90-Tage-Trends plus Muskel-Heatmap",
         "perk4": "Cash-Challenges bis 50 €",
         "perk5": "2 Freeze-Tokens pro Challenge und 2× Punkte",
-        "cta": "Libo im App Store holen →"
+        "cta": "Libo im App Store holen →",
+        "perk6": "{{count}} Lose in jedem Gewinnspiel, +{{loyalty}} für jeden Monat, in dem du trainierst"
       }
     },
     "guarantee": {

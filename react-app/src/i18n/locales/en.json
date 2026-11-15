@@ -2022,7 +2022,8 @@
         "perk3": "Plan generator — keep one plan, up to 4 weeks",
         "perk4": "Everything you log, plus 7 days of trends",
         "perk5": "The €5 cash challenge — free to enter",
-        "cta": "Start free"
+        "cta": "Start free",
+        "perk6": "{{count}} entry in every giveaway, +{{loyalty}} for each month you train"
       },
       "founding": {
         "name": "Founding Member",
@@ -2050,7 +2051,8 @@
         "perk3": "30- and 90-day trends, plus the muscle heatmap",
         "perk4": "Cash challenges up to €50",
         "perk5": "2 freeze tokens per challenge and 2× points",
-        "cta": "Get Libo on the App Store →"
+        "cta": "Get Libo on the App Store →",
+        "perk6": "{{count}} entries in every giveaway, +{{loyalty}} for each month you train"
       }
     },
     "guarantee": {
