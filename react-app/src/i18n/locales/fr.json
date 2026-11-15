@@ -1358,7 +1358,7 @@
       "headline": "Questions fréquentes.",
       "subhead": "Les mêmes réponses que sur la page d'accueil — une seule source de vérité.",
       "qPrice": "Que veut dire €10.00/mois ?",
-      "aPrice": "Premium est facturé chaque année à €119.99, soit €10.00 par mois. Les Founding Members bloquent la première année à €39.50 — environ €3.29/mois.",
+      "aPrice": "Premium est facturé chaque année à €119.99, soit €10.00 par mois.",
       "qRefund": "L'offre Founding Member est-elle vraiment remboursable ?",
       "aRefund": "Entièrement remboursable à tout moment avant le lancement, sans poser de questions. Et tes 12 mois commencent le jour du lancement, donc tu ne perds pas un seul jour à attendre."
     },
@@ -1707,11 +1707,13 @@
       "tick3": "Ton année commence le jour du lancement, pas aujourd'hui",
       "titleFree": "Débloque les challenges €15 et €50.",
       "ledeFree": "Le Starter à €5 est gratuit pour chaque membre. Le Premium payant ouvre les paliers plus élevés — et là, la première année est à moitié prix.",
+      "ledeFreeClosed": "Le Starter à €5 est gratuit pour chaque membre. Le Premium payant ouvre les paliers plus élevés.",
       "tickUnlock": "Tous les paliers de challenge débloqués — €15 et €50",
       "tickFreeze": "1 jeton freeze par challenge, +1 à gagner",
       "ctaFree": "Passe à Premium — {{price}}/an →",
       "eyebrowClosed": "Premium · dans l’app maintenant",
-      "titleClosed": "Prends Premium dans l’app."
+      "titleClosed": "Prends Premium dans l’app.",
+      "perYear": "/ an"
     },
     "faq": {
       "title": "Des questions ?",
@@ -2019,7 +2021,7 @@
       },
       "monthlyPrice": {
         "q": "Ça veut dire quoi, €10.00/mois ?",
-        "a": "Premium est facturé €119.99 à l'année, soit €10.00 par mois. Tu préfères rester flexible ? Le mensuel est à €19.99. Les Founding Members bloquent la première année à €39.50 — environ €3.29/mois."
+        "a": "Premium est facturé €119.99 à l'année, soit €10.00 par mois. Tu préfères rester flexible ? Le mensuel est à €19.99."
       },
       "subhead": "Les mêmes réponses que sur la page d'accueil — une seule source de vérité."
     },

@@ -1388,7 +1388,7 @@
       "headline": "Perguntas frequentes.",
       "subhead": "As mesmas respostas da página inicial — uma única fonte da verdade.",
       "qPrice": "O que significa €10.00/mês?",
-      "aPrice": "O Premium é cobrado anualmente a €119.99, o que dá €10.00 por mês. Founding Members garantem o primeiro ano a €39.50 — cerca de €3.29/mês.",
+      "aPrice": "O Premium é cobrado anualmente a €119.99, o que dá €10.00 por mês.",
       "qRefund": "A oferta de Founding Member tem reembolso mesmo?",
       "aRefund": "Reembolso total a qualquer momento antes do lançamento, sem perguntas. E seus 12 meses começam no dia do lançamento, então você não perde nem um dia esperando."
     }
@@ -1707,11 +1707,13 @@
       "tick3": "O ano começa no dia do lançamento, não hoje",
       "titleFree": "Desbloqueie os desafios de €15 e €50.",
       "ledeFree": "O Starter de €5 é grátis pra todo membro. O Premium pago abre os níveis de pagamento maior — e agora o primeiro ano está pela metade do preço.",
+      "ledeFreeClosed": "O Starter de €5 é grátis pra todo membro. O Premium pago abre os níveis de pagamento maior.",
       "tickUnlock": "Todos os níveis de desafio desbloqueados — €15 e €50",
       "tickFreeze": "1 token freeze por desafio, +1 para ganhar",
       "ctaFree": "Assine o Premium — {{price}}/ano →",
       "eyebrowClosed": "Premium · já no app",
-      "titleClosed": "Garanta o Premium no app."
+      "titleClosed": "Garanta o Premium no app.",
+      "perYear": "/ ano"
     },
     "faq": {
       "title": "Alguma dúvida?",
@@ -2019,7 +2021,7 @@
       },
       "monthlyPrice": {
         "q": "O que significa €10.00/mês?",
-        "a": "O Premium é cobrado anualmente a €119.99, o que dá €10.00 por mês. Prefere flexibilidade? O mês a mês custa €19.99. Founding Members garantem o primeiro ano por €39.50 — cerca de €3.29/mês."
+        "a": "O Premium é cobrado anualmente a €119.99, o que dá €10.00 por mês. Prefere flexibilidade? O mês a mês custa €19.99."
       },
       "subhead": "As mesmas respostas da página inicial — uma única fonte de verdade."
     },
