@@ -1860,6 +1860,112 @@ export async function upsertRewardCatalog_unsafe(input: RewardCatalogInput): Pro
   return String(data ?? input.id ?? '');
 }
 
+// ── Partner offers (affiliate catalogue) ──────────────────────────────────
+// supabase-migration-partner-offers.sql. No points; a member taps an offer and
+// is redirected through the affiliate link. No delete: active=false removes it.
+
+export type PartnerOfferTier = 'free' | 'premium';
+
+export type PartnerOfferRow = {
+  id: string;
+  slug: string;
+  provider: string;
+  title: string;
+  subtitle: string | null;
+  badge: string | null;
+  image_url: string | null;
+  affiliate_url: string;
+  promo_code: string | null;
+  /** ISO-3166 alpha-2; empty = worldwide. */
+  countries: string[];
+  min_tier: PartnerOfferTier;
+  active: boolean;
+  sort_order: number;
+  starts_at: string | null;
+  ends_at: string | null;
+  clicks_total: number;
+  clicks_30d: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type PartnerOfferInput = {
+  id: string | null;
+  slug: string;
+  provider: string;
+  title: string;
+  subtitle: string | null;
+  badge: string | null;
+  image_url: string | null;
+  affiliate_url: string;
+  promo_code: string | null;
+  countries: string[];
+  min_tier: PartnerOfferTier;
+  active: boolean;
+  sort_order: number;
+  starts_at: string | null;
+  ends_at: string | null;
+};
+
+function normalisePartnerOffer(r: Loose): PartnerOfferRow {
+  return {
+    id: String(r.id ?? ''),
+    slug: String(r.slug ?? ''),
+    provider: String(r.provider ?? ''),
+    title: String(r.title ?? ''),
+    subtitle: str(r.subtitle),
+    badge: str(r.badge),
+    image_url: str(r.image_url),
+    affiliate_url: String(r.affiliate_url ?? ''),
+    promo_code: str(r.promo_code),
+    countries: Array.isArray(r.countries) ? (r.countries as unknown[]).map(String) : [],
+    min_tier: r.min_tier === 'premium' ? 'premium' : 'free',
+    active: r.active === true,
+    sort_order: num(r.sort_order),
+    starts_at: str(r.starts_at),
+    ends_at: str(r.ends_at),
+    clicks_total: num(r.clicks_total),
+    clicks_30d: num(r.clicks_30d),
+    created_at: String(r.created_at ?? ''),
+    updated_at: String(r.updated_at ?? ''),
+  };
+}
+
+/** Raises 'not_authorized' unless the caller is an admin at AAL2. */
+export async function listPartnerOffersAdmin(): Promise<PartnerOfferRow[]> {
+  const { data, error } = await supabase.rpc('admin_list_partner_offers');
+  if (error) throw error;
+  return ((data ?? []) as Loose[]).map(normalisePartnerOffer);
+}
+
+/**
+ * UNGATED — UI callers must use {@link upsertPartnerOfferWithReauth}.
+ * Throws Error(code) with the RPC's error code (invalid_url, slug_taken, …).
+ */
+export async function upsertPartnerOffer_unsafe(input: PartnerOfferInput): Promise<string> {
+  const { data, error } = await supabase.rpc('admin_upsert_partner_offer', {
+    p_id: input.id,
+    p_slug: input.slug,
+    p_provider: input.provider,
+    p_title: input.title,
+    p_subtitle: input.subtitle,
+    p_badge: input.badge,
+    p_image_url: input.image_url,
+    p_affiliate_url: input.affiliate_url,
+    p_promo_code: input.promo_code,
+    p_countries: input.countries,
+    p_min_tier: input.min_tier,
+    p_active: input.active,
+    p_sort_order: input.sort_order,
+    p_starts_at: input.starts_at,
+    p_ends_at: input.ends_at,
+  });
+  if (error) throw error;
+  const r = (data ?? {}) as { ok?: boolean; id?: string; error?: string };
+  if (r.ok === false) throw new Error(r.error ?? 'upsert_failed');
+  return String(r.id ?? input.id ?? '');
+}
+
 // ════════════════════════════════════════════════════════════════════════
 // Admin auth hardening (T10 / T11 / JWT) — added by spec 04.
 // Don't refactor or reorder these against the rest of the file; that's
@@ -2353,6 +2459,11 @@ export async function resolveRedemptionWithReauth(
 /** Prices and stock move real money, so catalogue edits are challenged too. */
 export async function upsertRewardCatalogWithReauth(input: RewardCatalogInput) {
   return withRecentAuth(() => upsertRewardCatalog_unsafe(input));
+}
+
+/** Affiliate links route member clicks (and Libo's commission), so edits are challenged too. */
+export async function upsertPartnerOfferWithReauth(input: PartnerOfferInput) {
+  return withRecentAuth(() => upsertPartnerOffer_unsafe(input));
 }
 
 /**
