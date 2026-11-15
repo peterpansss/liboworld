@@ -238,7 +238,7 @@ export default function Pricing() {
       q: t('membershipV2.faq.free.q', { defaultValue: 'Is Libo free?' }),
       a: t('membershipV2.faq.free.a', {
         defaultValue:
-          'Yes — the free tier gets you the core workout and exercise library, basic progress tracking, your activity streak and points, and the entry-level €5 cash challenge. Premium unlocks the full library, advanced analytics, cash challenges up to €50, and 2 freeze tokens per challenge.',
+          'Yes — the free tier gets you the core workout and exercise library, basic progress tracking, your activity streak and points, and the entry-level €5 cash challenge. Premium unlocks the full library, advanced analytics, cash challenges up to €50, and a freeze token per challenge with a second you can earn.',
       }),
     },
     challenges: {
