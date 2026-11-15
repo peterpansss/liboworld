@@ -178,7 +178,9 @@ export default function Pricing() {
         }),
         t('membershipV2.plans.premium.perk4', { defaultValue: 'Cash challenges up to €50' }),
         t('membershipV2.plans.premium.perk5', {
-          defaultValue: '2 freeze tokens per challenge and 2× points',
+          // GRANT, not ceiling (canon §5.2): Premium is granted 1 and can earn a
+          // second. Matches the app paywall and data/tiers.ts.
+          defaultValue: '1 freeze token per challenge, +1 you can earn, and 2× points',
         }),
         t('membershipV2.plans.premium.perk6', {
           count: GIVEAWAY_ENTRIES.premium,
