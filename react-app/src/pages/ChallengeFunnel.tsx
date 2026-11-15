@@ -17,6 +17,7 @@ import { isFoundingOpen } from '../config/launchMode';
 import { logFunnelClick } from '../lib/funnelSignups';
 import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import { usePopIn } from '../utils/funnelAnimations';
+import { YEARLY_PRICE } from '../data/tiers';
 import { getChallengeTier, FUNNEL_TIER_SLUG, type ChallengeTier } from '../data/challengeTiers';
 import FunnelVideo from '../components/funnel/FunnelVideo';
 import { CASH_CHALLENGE_VIDEO, buildFunnelVideoSchema } from '../data/funnelVideos';
@@ -40,6 +41,11 @@ import './ChallengeFunnel.css';
  */
 
 const PRICE = `€${EARLY_ACCESS_PRICE.toFixed(2)}`; // €39.50
+// The standing list price once founding has closed, from the tier constants so
+// a price change cannot strand this page (Phase 2: €119.99, 12 Nov 2026).
+const LIST_PRICE = `€${YEARLY_PRICE.premium.toFixed(2)}`;
+// HISTORICAL: the struck-through "was" price shown only while founding was open.
+const FOUNDING_WAS_PRICE = '€79.99';
 const OFFER_HREF = '#offer';
 
 /** The app screens for "Inside the challenge" fan. Mapped by content, not filename. */
@@ -391,18 +397,33 @@ export default function ChallengeFunnel() {
           </h2>
           {isFree && (
             <p className="cf-body">
-              {t('challengeFunnel.offer.ledeFree', {
-                defaultValue:
-                  'The €5 Starter is free for every member. Premium opens the higher-payout tiers — and right now the first year is half price.',
-              })}
+              {foundingOpen
+                ? t('challengeFunnel.offer.ledeFree', {
+                    defaultValue:
+                      'The €5 Starter is free for every member. Premium opens the higher-payout tiers — and right now the first year is half price.',
+                  })
+                : t('challengeFunnel.offer.ledeFreeClosed', {
+                    defaultValue:
+                      'The €5 Starter is free for every member. Paid Premium opens the higher-payout tiers.',
+                  })}
             </p>
           )}
 
           <div className="cf-offer" data-popin>
             <LaunchCountdown />
             <p className="cf-offer__price">
-              <span className="cf-offer__now font-display">{foundingOpen ? PRICE : '€79.99'}</span>
-              {foundingOpen && <s className="cf-offer__was">€79.99</s>}
+              {/* Closed: the standing list price from the tier constants, never a
+                  literal. This used to read '€79.99' — the PRE-Phase-2 price —
+                  €40 under what Apple and Google charge (fixed 15 Nov 2026, the
+                  same bug JoinFunnel's WAS_PRICE had). */}
+              <span className="cf-offer__now font-display">{foundingOpen ? PRICE : LIST_PRICE}</span>
+              {foundingOpen ? (
+                <s className="cf-offer__was">{FOUNDING_WAS_PRICE}</s>
+              ) : (
+                <span className="cf-offer__was" style={{ textDecoration: 'none' }}>
+                  {t('challengeFunnel.offer.perYear', { defaultValue: '/ year' })}
+                </span>
+              )}
             </p>
             <p className="cf-offer__sub">
               {foundingOpen

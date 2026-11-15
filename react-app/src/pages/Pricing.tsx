@@ -245,14 +245,14 @@ export default function Pricing() {
       q: t('membershipV2.faq.challenges.q', { defaultValue: 'How do the cash challenges work?' }),
       a: t('membershipV2.faq.challenges.a', {
         defaultValue:
-          'Pick a challenge and hit its daily rep target for 30 days. You record each session in the app, so the run is verified — there is no way to fake it. Your 30 days start the moment you join, and finishing pays out in real cash. Premium unlocks the bigger tiers; spots are first come, first served, 50 at a time.',
+          'Pick a challenge and hit its daily rep target for 30 days. You record each session in the app, so the run is verified — there is no way to fake it. Your 30 days start the moment you join, and finishing pays out in real cash. Premium unlocks the bigger tiers; spots are limited and first come, first served.',
       }),
     },
     monthlyPrice: {
       q: t('membershipV2.faq.monthlyPrice.q', { defaultValue: 'What does €10.00/mo mean?' }),
       a: t('membershipV2.faq.monthlyPrice.a', {
         defaultValue:
-          'Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99. Founding Members lock the first year at €39.50 — about €3.29/mo.',
+          'Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99.',
       }),
     },
   };

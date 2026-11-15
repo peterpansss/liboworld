@@ -1388,7 +1388,7 @@
       "headline": "Frequently asked.",
       "subhead": "Same answers as the home page — one source of truth.",
       "qPrice": "What does €10.00/mo mean?",
-      "aPrice": "Premium is billed yearly at €119.99, which works out to €10.00 per month. Founding Members lock the first year at €39.50 — about €3.29/mo.",
+      "aPrice": "Premium is billed yearly at €119.99, which works out to €10.00 per month.",
       "qRefund": "Is the Founding Member offer really refundable?",
       "aRefund": "Fully refundable any time before launch, no questions asked. And your 12 months start the day we launch, so you don't lose a single day waiting."
     }
@@ -1768,11 +1768,13 @@
       "tick3": "Year starts on launch day, not today",
       "titleFree": "Unlock the €15 and €50 challenges.",
       "ledeFree": "The €5 Starter is free for every member. Paid Premium opens the higher-payout tiers — and right now the first year is half price.",
+      "ledeFreeClosed": "The €5 Starter is free for every member. Paid Premium opens the higher-payout tiers.",
       "tickUnlock": "Every challenge tier unlocked — €15 and €50",
       "tickFreeze": "1 freeze token per challenge, +1 you can earn",
       "ctaFree": "Get Premium — {{price}}/yr →",
       "eyebrowClosed": "Premium · in the app now",
-      "titleClosed": "Get Premium in the app."
+      "titleClosed": "Get Premium in the app.",
+      "perYear": "/ year"
     },
     "faq": {
       "title": "Any questions?",
@@ -2080,7 +2082,7 @@
       },
       "monthlyPrice": {
         "q": "What does €10.00/mo mean?",
-        "a": "Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99. Founding Members lock the first year at €39.50 — about €3.29/mo."
+        "a": "Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99."
       },
       "subhead": "Same answers as the home page — one source of truth."
     },

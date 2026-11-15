@@ -1388,7 +1388,7 @@
       "headline": "Häufige Fragen.",
       "subhead": "Dieselben Antworten wie auf der Startseite — eine Quelle der Wahrheit.",
       "qPrice": "Was bedeutet €10.00/Monat?",
-      "aPrice": "Premium wird jährlich mit €119.99 abgerechnet, das sind €10.00 pro Monat. Founding Members sichern sich das erste Jahr für €39.50 — etwa €3.29/Monat.",
+      "aPrice": "Premium wird jährlich mit €119.99 abgerechnet, das sind €10.00 pro Monat.",
       "qRefund": "Ist das Founding-Member-Angebot wirklich erstattbar?",
       "aRefund": "Jederzeit vor dem Launch voll erstattbar, ohne Wenn und Aber. Und deine 12 Monate starten am Launch-Tag, du verlierst also keinen einzigen Tag mit Warten."
     }
@@ -1707,11 +1707,13 @@
       "tick3": "Dein Jahr startet am Launch-Tag, nicht heute",
       "titleFree": "Schalte die €15- und €50-Challenges frei.",
       "ledeFree": "Die €5 Starter Challenge ist für jeden Member gratis. Bezahltes Premium öffnet die höheren Stufen — und gerade ist das erste Jahr zum halben Preis.",
+      "ledeFreeClosed": "Die €5 Starter Challenge ist für jeden Member gratis. Bezahltes Premium öffnet die höheren Stufen.",
       "tickUnlock": "Jede Challenge-Stufe freigeschaltet — €15 und €50",
       "tickFreeze": "1 Freeze-Token pro Challenge, +1 kannst du dir verdienen",
       "ctaFree": "Hol dir Premium — {{price}}/Jahr →",
       "eyebrowClosed": "Premium · jetzt in der App",
-      "titleClosed": "Hol dir Premium in der App."
+      "titleClosed": "Hol dir Premium in der App.",
+      "perYear": "/ Jahr"
     },
     "faq": {
       "title": "Noch Fragen?",
@@ -2019,7 +2021,7 @@
       },
       "monthlyPrice": {
         "q": "Was bedeutet €10.00/Monat?",
-        "a": "Premium wird jährlich mit €119.99 abgerechnet — das sind €10.00 pro Monat. Lieber flexibel bleiben? Das Monatsabo kostet €19.99. Founding Members sichern sich das erste Jahr für €39.50 — etwa €3.29/Monat."
+        "a": "Premium wird jährlich mit €119.99 abgerechnet — das sind €10.00 pro Monat. Lieber flexibel bleiben? Das Monatsabo kostet €19.99."
       },
       "subhead": "Dieselben Antworten wie auf der Startseite — eine einzige Quelle."
     },

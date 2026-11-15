@@ -1388,7 +1388,7 @@
       "headline": "Preguntas frecuentes.",
       "subhead": "Las mismas respuestas que en la página de inicio — una sola fuente de verdad.",
       "qPrice": "¿Qué significa €10.00/mes?",
-      "aPrice": "Premium se factura anualmente a €119.99, lo que equivale a €10.00 al mes. Los Founding Members aseguran el primer año a €39.50 — unos €3.29/mes.",
+      "aPrice": "Premium se factura anualmente a €119.99, lo que equivale a €10.00 al mes.",
       "qRefund": "¿La oferta de Founding Member es de verdad reembolsable?",
       "aRefund": "Totalmente reembolsable en cualquier momento antes del lanzamiento, sin preguntas. Y tus 12 meses empiezan el día que lancemos, así que no pierdes ni un solo día esperando."
     }
@@ -1707,11 +1707,13 @@
       "tick3": "Tu año empieza el día del lanzamiento, no hoy",
       "titleFree": "Desbloquea los retos de €15 y €50.",
       "ledeFree": "El Starter de €5 es gratis para todos los miembros. Premium de pago abre los niveles con mayor recompensa — y ahora mismo el primer año está a mitad de precio.",
+      "ledeFreeClosed": "El Starter de €5 es gratis para todos los miembros. Premium de pago abre los niveles con mayor recompensa.",
       "tickUnlock": "Todos los niveles del reto desbloqueados — €15 y €50",
       "tickFreeze": "1 ficha de congelación por reto, +1 que puedes ganar",
       "ctaFree": "Consigue Premium — {{price}}/año →",
       "eyebrowClosed": "Premium · ya en la app",
-      "titleClosed": "Consigue Premium en la app."
+      "titleClosed": "Consigue Premium en la app.",
+      "perYear": "/ año"
     },
     "faq": {
       "title": "¿Dudas?",
@@ -2019,7 +2021,7 @@
       },
       "monthlyPrice": {
         "q": "¿Qué significa €10.00/mes?",
-        "a": "Premium se factura anualmente a €119.99, que sale a €10.00 al mes. ¿Prefieres flexibilidad? Mes a mes son €19.99. Los Founding Members aseguran el primer año a €39.50 — unos €3.29/mes."
+        "a": "Premium se factura anualmente a €119.99, que sale a €10.00 al mes. ¿Prefieres flexibilidad? Mes a mes son €19.99."
       },
       "subhead": "Las mismas respuestas que en la página de inicio — una sola fuente de verdad."
     },
