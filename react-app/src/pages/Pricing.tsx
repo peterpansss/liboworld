@@ -11,14 +11,18 @@ import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvid
 import LaunchCountdown from '../components/LaunchCountdown';
 import { isFoundingOpen } from '../config/launchMode';
 import { APP_STORE_URL } from '../components/AppStoreBadge';
+import { GIVEAWAY_ENTRIES, LOYALTY_PER_MONTH } from '../data/giveawayRounds';
 import './Pricing.css';
 
 // /membership (route /pricing redirects here) — the Membership page.
 //
 // Copy status, per HANDOFF-V2-COMPLEMENT §A7/§A8 and the site-wide copy rule:
-//   • no prize-draw / product-raffle perks anywhere (Phase 2, gated off —
-//     legal exposure), replaced by "Activity streak & points" (Free) and
-//     "2 freeze tokens per challenge" (Premium)
+//   • giveaway entries ARE a perk since the membership giveaways went live
+//     (10–14 Nov 2026, free postal route included). The old "no prize-draw
+//     perks anywhere" rule is superseded. Numbers come from GIVEAWAY_ENTRIES /
+//     LOYALTY_PER_MONTH in data/giveawayRounds.ts, never typed here, and must
+//     match the app's TIER_GIVEAWAY_ENTRIES and the server's
+//     _giveaway_entries_for_tier (free 1 · premium 3).
 //   • the free plan is a "free tier", never described as permanent
 //   • the €19.99 month-to-month option is visible in the plan cards, not just
 //     in the hero subhead
@@ -106,6 +110,11 @@ export default function Pricing() {
         t('membershipV2.plans.free.perk5', {
           defaultValue: 'The €5 cash challenge — free to enter',
         }),
+        t('membershipV2.plans.free.perk6', {
+          count: GIVEAWAY_ENTRIES.free,
+          loyalty: LOYALTY_PER_MONTH.free,
+          defaultValue: '{{count}} entry in every giveaway, +{{loyalty}} for each month you train',
+        }),
       ],
       ctaLabel: t('membershipV2.plans.free.cta', { defaultValue: 'Start free' }),
       ctaStyle: 'default',
@@ -169,7 +178,14 @@ export default function Pricing() {
         }),
         t('membershipV2.plans.premium.perk4', { defaultValue: 'Cash challenges up to €50' }),
         t('membershipV2.plans.premium.perk5', {
-          defaultValue: '2 freeze tokens per challenge and 2× points',
+          // GRANT, not ceiling (canon §5.2): Premium is granted 1 and can earn a
+          // second. Matches the app paywall and data/tiers.ts.
+          defaultValue: '1 freeze token per challenge, +1 you can earn, and 2× points',
+        }),
+        t('membershipV2.plans.premium.perk6', {
+          count: GIVEAWAY_ENTRIES.premium,
+          loyalty: LOYALTY_PER_MONTH.premium,
+          defaultValue: '{{count}} entries in every giveaway, +{{loyalty}} for each month you train',
         }),
       ],
       ctaLabel: t('membershipV2.plans.premium.cta', { defaultValue: 'Get Libo on the App Store →' }),
@@ -222,7 +238,7 @@ export default function Pricing() {
       q: t('membershipV2.faq.free.q', { defaultValue: 'Is Libo free?' }),
       a: t('membershipV2.faq.free.a', {
         defaultValue:
-          'Yes — the free tier gets you the core workout and exercise library, basic progress tracking, your activity streak and points, and the entry-level €5 cash challenge. Premium unlocks the full library, advanced analytics, cash challenges up to €50, and 2 freeze tokens per challenge.',
+          'Yes — the free tier gets you the core workout and exercise library, basic progress tracking, your activity streak and points, and the entry-level €5 cash challenge. Premium unlocks the full library, advanced analytics, cash challenges up to €50, and a freeze token per challenge with a second you can earn.',
       }),
     },
     challenges: {

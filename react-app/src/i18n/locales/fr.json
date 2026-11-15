@@ -1961,7 +1961,8 @@
         "perk3": "Générateur de plans — un plan, jusqu'à 4 semaines",
         "perk4": "Tout ce que tu enregistres, plus 7 jours de tendances",
         "perk5": "Le défi à 5 € — entrée gratuite",
-        "cta": "Commencer gratuitement"
+        "cta": "Commencer gratuitement",
+        "perk6": "{{count}} participation à chaque tirage, +{{loyalty}} par mois d'entraînement"
       },
       "founding": {
         "name": "Founding Member",
@@ -1988,8 +1989,9 @@
         "perk2": "Garde autant de plans que tu veux, de n'importe quelle durée",
         "perk3": "Tendances sur 30 et 90 jours, plus la heatmap musculaire",
         "perk4": "Défis cash jusqu'à 50 €",
-        "perk5": "2 jetons de pause par défi et 2× points",
-        "cta": "Télécharger Libo sur l'App Store →"
+        "perk5": "1 jeton de pause par défi, +1 à gagner, et 2× points",
+        "cta": "Télécharger Libo sur l'App Store →",
+        "perk6": "{{count}} participations à chaque tirage, +{{loyalty}} par mois d'entraînement"
       }
     },
     "guarantee": {
