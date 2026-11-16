@@ -17,6 +17,7 @@ const SECTION_ORDER = [
   's9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18',
   'early-access', 'challenge-rules',
   ...(GIVEAWAYS_ENABLED ? ['giveaways'] : []),
+  'partner-offers',
 ];
 const sec = (id: string) => SECTION_ORDER.indexOf(id) + 1;
 const n = (id: string) => String(sec(id)).padStart(2, '0');
@@ -44,7 +45,7 @@ export default function Terms() {
             <div className="legal-label">Legal</div>
             <h1 className="font-display">Terms &amp; Conditions</h1>
             <p className="legal-meta">
-              Last updated: <span>29 September 2026</span> &middot; Effective date: <span>May 2026</span>
+              Last updated: <span>16 November 2026</span> &middot; Effective date: <span>May 2026</span>
             </p>
           </div>
 
@@ -74,6 +75,7 @@ export default function Terms() {
               {GIVEAWAYS_ENABLED && (
                 <li><a href="#giveaways">Giveaways</a></li>
               )}
+              <li><a href="#partner-offers">Partner Offers</a></li>
             </ol>
           </div>
 
@@ -385,6 +387,17 @@ export default function Terms() {
             <p>Prizes are not transferable or exchangeable. Tax on a prize is the winner&rsquo;s responsibility. Apple and Google are not sponsors of, and are not involved in, any Libo giveaway.</p>
           </section>
           )}
+
+          {/* Added 16 Nov 2026 with the WeWard-style Offers grid. The app shows
+              NO per-card "Ad" label (Noah's call); the disclosure lives here
+              and behind the ⓘ next to the "Partner offers" heading, which
+              deep-links to #partner-offers. Keep the anchor id stable, and keep
+              the Amazon sentence verbatim (Associates Operating Agreement). */}
+          <section className="legal-section" id="partner-offers">
+            <div className="legal-section-num">{n('partner-offers')}</div>
+            <h2>Partner Offers</h2>
+            <p>Partner offers are ads. Libo earns a commission when you sign up or buy through these links, at no extra cost to you. As an Amazon Associate, Libo earns from qualifying purchases.</p>
+          </section>
         </div>
       </main>
       <SiteFooter />

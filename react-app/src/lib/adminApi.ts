@@ -1887,6 +1887,10 @@ export type PartnerOfferRow = {
   clicks_30d: number;
   created_at: string;
   updated_at: string;
+  /** Detail page text (supabase-migration-partner-offers-details.sql). */
+  description: string | null;
+  /** Detail page conditions. */
+  terms: string | null;
 };
 
 export type PartnerOfferInput = {
@@ -1905,6 +1909,8 @@ export type PartnerOfferInput = {
   sort_order: number;
   starts_at: string | null;
   ends_at: string | null;
+  description: string | null;
+  terms: string | null;
 };
 
 function normalisePartnerOffer(r: Loose): PartnerOfferRow {
@@ -1928,6 +1934,8 @@ function normalisePartnerOffer(r: Loose): PartnerOfferRow {
     clicks_30d: num(r.clicks_30d),
     created_at: String(r.created_at ?? ''),
     updated_at: String(r.updated_at ?? ''),
+    description: str(r.description),
+    terms: str(r.terms),
   };
 }
 
@@ -1959,6 +1967,9 @@ export async function upsertPartnerOffer_unsafe(input: PartnerOfferInput): Promi
     p_sort_order: input.sort_order,
     p_starts_at: input.starts_at,
     p_ends_at: input.ends_at,
+    // '' clears; the RPC treats NULL as "keep what is stored".
+    p_description: input.description ?? '',
+    p_terms: input.terms ?? '',
   });
   if (error) throw error;
   const r = (data ?? {}) as { ok?: boolean; id?: string; error?: string };

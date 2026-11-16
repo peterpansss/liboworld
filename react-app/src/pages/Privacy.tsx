@@ -33,7 +33,7 @@ export default function Privacy() {
             <div className="legal-label">Legal</div>
             <h1 className="font-display">Privacy Policy</h1>
             <p className="legal-meta">
-              Last updated: <span>14 November 2026</span> &middot; Effective date: <span>27 October 2026</span>
+              Last updated: <span>16 November 2026</span> &middot; Effective date: <span>27 October 2026</span>
             </p>
           </div>
 
@@ -176,6 +176,12 @@ export default function Privacy() {
 
             <h3>Communications Data</h3>
             <p>If you contact us or send a bug report or feature idea from the app, we store the content of your message, your email address if you provide one, and — for in-app reports — your account ID, app version and build, device model, operating system version and language setting, so we can investigate and respond.</p>
+
+            {/* Added 16 Nov 2026 with the partner-offers detail page. Mirrors
+                Terms #partner-offers. partner_offer_clicks.user_id is ON DELETE
+                SET NULL, which is what "anonymised" below relies on. */}
+            <h3>Partner Offers</h3>
+            <p>When you open a partner offer we record which offer, your account and your country. Partners only receive the offer&rsquo;s ID, never your personal details.</p>
           </section>
 
           {/* 3 */}
