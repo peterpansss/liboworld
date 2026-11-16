@@ -15,7 +15,8 @@ import './Legal.css';
 const SECTION_ORDER = [
   's1', 's2', 's3', 's4', 's5', 's6', 's7',
   's9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18',
-  'early-access', 'challenge-rules',
+  'early-access', 'challenge-rules', 'partner-offers',
+  // Gated sections stay LAST, so flipping a flag never renumbers another one.
   ...(GIVEAWAYS_ENABLED ? ['giveaways'] : []),
 ];
 const sec = (id: string) => SECTION_ORDER.indexOf(id) + 1;
@@ -44,7 +45,7 @@ export default function Terms() {
             <div className="legal-label">Legal</div>
             <h1 className="font-display">Terms &amp; Conditions</h1>
             <p className="legal-meta">
-              Last updated: <span>29 September 2026</span> &middot; Effective date: <span>May 2026</span>
+              Last updated: <span>16 November 2026</span> &middot; Effective date: <span>May 2026</span>
             </p>
           </div>
 
@@ -71,6 +72,7 @@ export default function Terms() {
               <li><a href="#s18">Contact</a></li>
               <li><a href="#early-access">Early Access (Founding Member) Purchases</a></li>
               <li><a href="#challenge-rules">Cash Challenges</a></li>
+              <li><a href="#partner-offers">Partner Offers</a></li>
               {GIVEAWAYS_ENABLED && (
                 <li><a href="#giveaways">Giveaways</a></li>
               )}
@@ -355,6 +357,17 @@ export default function Terms() {
                 proof ships. */}
             <p><strong>Producing your recordings.</strong> Challenge recordings stay on your device and are never uploaded to us. Before a payout is released we may ask you to send us the recordings for the days you completed; where we do, we will identify the days and allow you at least <strong>7 days</strong> to respond. If they are not provided in that time, or do not show the exercise and rep count the challenge prescribed, or show the same footage used for more than one day, the payout is not made and the entry is void. Full detail is in the <Link to="/rules">Cash Challenge Rules</Link>.</p>
             <p>We may amend the Cash Challenge Rules for <strong>future</strong> enrolments. The rules in force on the day you enrolled govern your run.</p>
+          </section>
+
+          {/* Added 16 Nov 2026 with the WeWard-style Offers grid. The app shows
+              NO per-card "Ad" label (Noah's call); the disclosure lives here
+              and behind the ⓘ next to the "Partner offers" heading, which
+              deep-links to #partner-offers. Keep the anchor id stable, and keep
+              the Amazon sentence verbatim (Associates Operating Agreement). */}
+          <section className="legal-section" id="partner-offers">
+            <div className="legal-section-num">{n('partner-offers')}</div>
+            <h2>Partner Offers</h2>
+            <p>Partner offers are ads. Libo earns a commission when you sign up or buy through these links, at no extra cost to you. As an Amazon Associate, Libo earns from qualifying purchases.</p>
           </section>
 
           {/* Gated with giveaways. Rewritten 10 Nov 2026 to the one-pool model

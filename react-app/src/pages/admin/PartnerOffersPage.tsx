@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { colors } from '../../theme';
 import { DataTable, type Column } from '../../components/admin/DataTable';
-import { Field, TextInput, Select, Button } from '../../components/admin/FormField';
+import { Field, TextInput, TextArea, Select, Button } from '../../components/admin/FormField';
 import { Modal } from '../../components/admin/Modal';
 import {
   listPartnerOffersAdmin,
@@ -193,6 +193,8 @@ type OfferForm = {
   title: string;
   subtitle: string;
   badge: string;
+  description: string;
+  terms: string;
   image_url: string;
   affiliate_url: string;
   promo_code: string;
@@ -212,6 +214,8 @@ const EMPTY_FORM: OfferForm = {
   title: '',
   subtitle: '',
   badge: '',
+  description: '',
+  terms: '',
   image_url: '',
   affiliate_url: '',
   promo_code: '',
@@ -233,6 +237,8 @@ function rowToForm(r: PartnerOfferRow): OfferForm {
     title: r.title,
     subtitle: r.subtitle ?? '',
     badge: r.badge ?? '',
+    description: r.description ?? '',
+    terms: r.terms ?? '',
     image_url: r.image_url ?? '',
     affiliate_url: r.affiliate_url,
     promo_code: r.promo_code ?? '',
@@ -269,6 +275,8 @@ function formToInput(f: OfferForm): PartnerOfferInput | string {
     title: f.title.trim(),
     subtitle: opt(f.subtitle),
     badge: opt(f.badge),
+    description: opt(f.description),
+    terms: opt(f.terms),
     image_url: opt(f.image_url),
     affiliate_url: url,
     promo_code: opt(f.promo_code),
@@ -595,6 +603,22 @@ export function PartnerOffersPage() {
                 <TextInput value={form.badge} onChange={(e) => patch({ badge: e.target.value })} placeholder="3 months free" />
               </Field>
             </div>
+            <Field label="Description (optional)" hint="Shown on the offer's detail page in the app: 2-3 short lines on what the member gets.">
+              <TextArea
+                value={form.description}
+                onChange={(e) => patch({ description: e.target.value })}
+                rows={3}
+                placeholder="Unbegrenzt lesen: über 1 Million eBooks, Comics und Magazine. Jederzeit kündbar."
+              />
+            </Field>
+            <Field label="Conditions (optional)" hint="The offer's terms, shown small under the description (new customers only, cancel before the trial ends, …).">
+              <TextArea
+                value={form.terms}
+                onChange={(e) => patch({ terms: e.target.value })}
+                rows={3}
+                placeholder="Nur für Neukunden. Danach 11,99 €/Monat, jederzeit kündbar."
+              />
+            </Field>
             <Field
               label="Affiliate URL"
               hint="Paste the tracking link from the affiliate network. Optional: put {SUBID} where the network accepts a sub-ID (Amazon ascsubtag, Awin clickref) — it's replaced with the offer slug."

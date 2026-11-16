@@ -73,14 +73,14 @@ describe('Terms', () => {
     expect(privacy).toHaveAttribute('href', '/privacy');
   });
 
-  it('renders 19 TOC links, each resolving to a section, numbered 01–19 with giveaways gated off', () => {
+  it('renders 20 TOC links, each resolving to a section, numbered 01–20 with giveaways gated off', () => {
     renderPage();
     const hrefs = tocHrefs();
     // There is no s8 (Points Packs was removed); the remaining sections keep their ids.
     expect(hrefs).toEqual([
       '#s1', '#s2', '#s3', '#s4', '#s5', '#s6', '#s7',
       '#s9', '#s10', '#s11', '#s12', '#s13', '#s14', '#s15', '#s16', '#s17', '#s18',
-      '#early-access', '#challenge-rules',
+      '#early-access', '#challenge-rules', '#partner-offers',
     ]);
     for (const href of hrefs) {
       expect(document.getElementById(href!.slice(1)), `expected section for ${href}`).not.toBeNull();
@@ -88,7 +88,7 @@ describe('Terms', () => {
     expect(document.getElementById('giveaways')).toBeNull();
     expect(screen.queryByRole('heading', { name: /Points Packs/i })).not.toBeInTheDocument();
     // Visible numbering renumbers around the gap rather than skipping 08.
-    expect(sectionNumbers()).toEqual(expectedNumbers(19));
+    expect(sectionNumbers()).toEqual(expectedNumbers(20));
   });
 
   it('appends the Giveaways section to the TOC and numbering when giveaways are enabled', async () => {
@@ -101,13 +101,13 @@ describe('Terms', () => {
       </MemoryRouter>,
     );
     const hrefs = tocHrefs();
-    expect(hrefs).toHaveLength(20);
-    expect(hrefs[19]).toBe('#giveaways');
+    expect(hrefs).toHaveLength(21);
+    expect(hrefs[20]).toBe('#giveaways');
     expect(screen.queryByRole('heading', { name: /Points Packs/i })).not.toBeInTheDocument();
     for (const href of hrefs) {
       expect(document.getElementById(href!.slice(1)), `expected section for ${href}`).not.toBeNull();
     }
-    expect(sectionNumbers()).toEqual(expectedNumbers(20));
+    expect(sectionNumbers()).toEqual(expectedNumbers(21));
   });
 
   it('exposes the support email', () => {
