@@ -1866,6 +1866,37 @@ export async function upsertRewardCatalog_unsafe(input: RewardCatalogInput): Pro
 
 export type PartnerOfferTier = 'free' | 'premium';
 
+/** The app's five languages. English is the fallback for anything missing. */
+export const PARTNER_OFFER_LANGS = ['en', 'de', 'es', 'fr', 'pt'] as const;
+export type PartnerOfferLang = (typeof PARTNER_OFFER_LANGS)[number];
+export type PartnerOfferText = {
+  title?: string;
+  subtitle?: string;
+  badge?: string;
+  description?: string;
+  terms?: string;
+};
+/** supabase-migration-partner-offers-i18n.sql: per-language texts. */
+export type PartnerOfferTranslations = Partial<Record<PartnerOfferLang, PartnerOfferText>>;
+
+const OFFER_TEXT_FIELDS = ['title', 'subtitle', 'badge', 'description', 'terms'] as const;
+
+function normaliseTranslations(v: unknown): PartnerOfferTranslations {
+  const out: PartnerOfferTranslations = {};
+  if (!v || typeof v !== 'object') return out;
+  for (const lang of PARTNER_OFFER_LANGS) {
+    const entry = (v as Record<string, unknown>)[lang];
+    if (!entry || typeof entry !== 'object') continue;
+    const t: PartnerOfferText = {};
+    for (const f of OFFER_TEXT_FIELDS) {
+      const x = (entry as Record<string, unknown>)[f];
+      if (typeof x === 'string' && x.trim()) t[f] = x;
+    }
+    if (Object.keys(t).length) out[lang] = t;
+  }
+  return out;
+}
+
 export type PartnerOfferRow = {
   id: string;
   slug: string;
@@ -1891,6 +1922,7 @@ export type PartnerOfferRow = {
   description: string | null;
   /** Detail page conditions. */
   terms: string | null;
+  translations: PartnerOfferTranslations;
 };
 
 export type PartnerOfferInput = {
@@ -1911,6 +1943,7 @@ export type PartnerOfferInput = {
   ends_at: string | null;
   description: string | null;
   terms: string | null;
+  translations: PartnerOfferTranslations;
 };
 
 function normalisePartnerOffer(r: Loose): PartnerOfferRow {
@@ -1936,6 +1969,7 @@ function normalisePartnerOffer(r: Loose): PartnerOfferRow {
     updated_at: String(r.updated_at ?? ''),
     description: str(r.description),
     terms: str(r.terms),
+    translations: normaliseTranslations(r.translations),
   };
 }
 
@@ -1970,6 +2004,8 @@ export async function upsertPartnerOffer_unsafe(input: PartnerOfferInput): Promi
     // '' clears; the RPC treats NULL as "keep what is stored".
     p_description: input.description ?? '',
     p_terms: input.terms ?? '',
+    // Always the full set: the RPC keeps only en/de/es/fr/pt and drops blanks.
+    p_translations: input.translations,
   });
   if (error) throw error;
   const r = (data ?? {}) as { ok?: boolean; id?: string; error?: string };
