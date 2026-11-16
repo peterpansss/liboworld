@@ -11,6 +11,9 @@ import {
   type PartnerOfferRow,
   type PartnerOfferInput,
   type PartnerOfferTier,
+  type PartnerOfferLang,
+  type PartnerOfferTranslations,
+  PARTNER_OFFER_LANGS,
 } from '../../lib/adminApi';
 
 /**
@@ -204,7 +207,12 @@ type OfferForm = {
   sort_order: string;
   starts_at: string;
   ends_at: string;
+  /** DE/ES/FR/PT texts; the plain fields above are the English (fallback) ones. */
+  translations: PartnerOfferTranslations;
 };
+
+type TextField = 'title' | 'subtitle' | 'badge' | 'description' | 'terms';
+const LANG_LABEL: Record<PartnerOfferLang, string> = { en: 'EN', de: 'DE', es: 'ES', fr: 'FR', pt: 'PT' };
 
 const EMPTY_FORM: OfferForm = {
   id: null,
@@ -226,6 +234,7 @@ const EMPTY_FORM: OfferForm = {
   sort_order: '0',
   starts_at: '',
   ends_at: '',
+  translations: {},
 };
 
 function rowToForm(r: PartnerOfferRow): OfferForm {
@@ -248,6 +257,10 @@ function rowToForm(r: PartnerOfferRow): OfferForm {
     sort_order: String(r.sort_order),
     starts_at: isoToLocalInput(r.starts_at),
     ends_at: isoToLocalInput(r.ends_at),
+    // English lives in the plain fields; an 'en' entry would only shadow them.
+    translations: Object.fromEntries(
+      Object.entries(r.translations).filter(([l]) => l !== 'en'),
+    ) as PartnerOfferTranslations,
   };
 }
 
@@ -286,6 +299,17 @@ function formToInput(f: OfferForm): PartnerOfferInput | string {
     sort_order: sort,
     starts_at: starts,
     ends_at: ends,
+    translations: {
+      ...f.translations,
+      // Mirror English so the server's lang → en → column fallback agrees.
+      en: {
+        title: f.title.trim(),
+        subtitle: f.subtitle.trim(),
+        badge: f.badge.trim(),
+        description: f.description.trim(),
+        terms: f.terms.trim(),
+      },
+    },
   };
 }
 
@@ -326,6 +350,18 @@ export function PartnerOffersPage() {
   const [formErr, setFormErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
+  const [lang, setLang] = useState<PartnerOfferLang>('en');
+  /** A text field in the language being edited (EN = the plain fields). */
+  const textOf = (f: OfferForm, field: TextField): string =>
+    lang === 'en' ? f[field] : f.translations[lang]?.[field] ?? '';
+  const setText = (field: TextField, value: string) =>
+    setForm((f) => {
+      if (!f) return f;
+      if (lang === 'en') return { ...f, [field]: value };
+      return { ...f, translations: { ...f.translations, [lang]: { ...f.translations[lang], [field]: value } } };
+    });
+  /** In another language, show the English text as the placeholder. */
+  const ph = (f: OfferForm, field: TextField, fallback: string) => (lang === 'en' ? fallback : f[field] || fallback);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   const refresh = async () => {
@@ -537,6 +573,7 @@ export function PartnerOffersPage() {
           <Button
             variant="primary"
             onClick={() => {
+              setLang('en');
               setForm(EMPTY_FORM);
               setFormErr(null);
             }}
@@ -562,6 +599,7 @@ export function PartnerOffersPage() {
         columns={columns}
         rowKey={(r) => r.id}
         onRowClick={(r) => {
+          setLang('en');
           setForm(rowToForm(r));
           setFormErr(null);
         }}
@@ -579,44 +617,74 @@ export function PartnerOffersPage() {
         {form && (
           <form onSubmit={handleSave}>
             {formErr && <div style={errorBannerStyle}>{formErr}</div>}
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', margin: '0 0 12px' }}>
+              <span style={{ fontSize: 12, color: colors.muted, marginRight: 4 }}>Texts in</span>
+              {PARTNER_OFFER_LANGS.map((l) => {
+                const done = l === 'en' ? !!form.title.trim() : !!form.translations[l]?.title?.trim();
+                return (
+                  <button
+                    key={l}
+                    type="button"
+                    onClick={() => setLang(l)}
+                    aria-pressed={lang === l}
+                    style={{
+                      ...chipBase,
+                      cursor: 'pointer',
+                      border: `1px solid ${lang === l ? colors.accent : colors.border}`,
+                      background: lang === l ? colors.accentDim : 'transparent',
+                      color: lang === l ? colors.accent : done ? colors.text : colors.muted,
+                    }}
+                  >
+                    {LANG_LABEL[l]}{done ? '' : ' ·'}
+                  </button>
+                );
+              })}
+              <span style={{ fontSize: 12, color: colors.muted, marginLeft: 4 }}>
+                {lang === 'en' ? 'English is the fallback for any language left blank.' : 'Blank fields show the English text.'}
+              </span>
+            </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 12 }}>
               <Field label="Provider">
                 <TextInput value={form.provider} onChange={(e) => patch({ provider: e.target.value })} placeholder="Amazon" />
               </Field>
-              <Field label="Title">
+              <Field label={`Title (${LANG_LABEL[lang]})`}>
                 <TextInput
-                  value={form.title}
-                  onChange={(e) => patch({ title: e.target.value })}
-                  placeholder="Kindle Unlimited 3 months free"
+                  value={textOf(form, 'title')}
+                  onChange={(e) => setText('title', e.target.value)}
+                  placeholder={ph(form, 'title', 'Kindle Unlimited 3 months free')}
                 />
               </Field>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 12 }}>
-              <Field label="Subtitle (optional)">
+              <Field label={`Subtitle (${LANG_LABEL[lang]}, optional)`}>
                 <TextInput
-                  value={form.subtitle}
-                  onChange={(e) => patch({ subtitle: e.target.value })}
-                  placeholder="New subscribers only"
+                  value={textOf(form, 'subtitle')}
+                  onChange={(e) => setText('subtitle', e.target.value)}
+                  placeholder={ph(form, 'subtitle', 'New subscribers only')}
                 />
               </Field>
-              <Field label="Badge (optional)">
-                <TextInput value={form.badge} onChange={(e) => patch({ badge: e.target.value })} placeholder="3 months free" />
+              <Field label={`Badge (${LANG_LABEL[lang]}, optional)`}>
+                <TextInput
+                  value={textOf(form, 'badge')}
+                  onChange={(e) => setText('badge', e.target.value)}
+                  placeholder={ph(form, 'badge', '3 months free')}
+                />
               </Field>
             </div>
-            <Field label="Description (optional)" hint="Shown on the offer's detail page in the app: 2-3 short lines on what the member gets.">
+            <Field label={`Description (${LANG_LABEL[lang]}, optional)`} hint="Shown on the offer's detail page in the app: 2-3 short lines on what the member gets.">
               <TextArea
-                value={form.description}
-                onChange={(e) => patch({ description: e.target.value })}
+                value={textOf(form, 'description')}
+                onChange={(e) => setText('description', e.target.value)}
                 rows={3}
-                placeholder="Unbegrenzt lesen: über 1 Million eBooks, Comics und Magazine. Jederzeit kündbar."
+                placeholder={ph(form, 'description', 'Read as much as you like: millions of eBooks, comics and magazines.')}
               />
             </Field>
-            <Field label="Conditions (optional)" hint="The offer's terms, shown small under the description (new customers only, cancel before the trial ends, …).">
+            <Field label={`Conditions (${LANG_LABEL[lang]}, optional)`} hint="The offer's terms, shown small under the description (new customers only, cancel before the trial ends, …).">
               <TextArea
-                value={form.terms}
-                onChange={(e) => patch({ terms: e.target.value })}
+                value={textOf(form, 'terms')}
+                onChange={(e) => setText('terms', e.target.value)}
                 rows={3}
-                placeholder="Nur für Neukunden. Danach 11,99 €/Monat, jederzeit kündbar."
+                placeholder={ph(form, 'terms', 'New customers only. Then €11.99/month, cancel anytime.')}
               />
             </Field>
             <Field
