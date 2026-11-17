@@ -34,7 +34,7 @@
   position: relative;
   margin: 0;
   aspect-ratio: 4 / 5;
-  border-radius: 20px; /* same as .fv and .cf-video */
+  border-radius: 16px; /* brand card radius */
   overflow: hidden;
   background: var(--bg3);
   scroll-snap-align: start;

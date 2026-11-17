@@ -544,7 +544,9 @@
       "medium": "15–30 min",
       "long": "30–45 min",
       "xlong": "45+ min"
-    }
+    },
+    "loadError": "Impossible de charger les séances. Vérifie ta connexion et réessaie.",
+    "retry": "Réessayer"
   },
   "programDetail": {
     "loading": "Chargement de l'entraînement...",

@@ -116,6 +116,8 @@ export default function ProgramLibrary() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const [filtersOpen, setFiltersOpen] = useState(() => {
     const g = searchParams.get('goal') || 'All';
@@ -144,10 +146,16 @@ export default function ProgramLibrary() {
       const playableNames = buildPlayableExerciseNames(e);
       setWorkouts(filterPlayableWorkouts(w, playableNames));
       setExercises(e);
+      setLoadError(false);
+      setLoading(false);
+    }).catch(() => {
+      // Without this the hourglass spins forever when a data file fails to load.
+      if (cancelled) return;
+      setLoadError(true);
       setLoading(false);
     });
     return () => { cancelled = true; };
-  }, [i18n.language]);
+  }, [i18n.language, reloadKey]);
 
   const nameToSlug = useMemo(() => buildNameToSlug(exercises), [exercises]);
 
@@ -389,7 +397,20 @@ export default function ProgramLibrary() {
             </div>
           )}
 
-          {!loading && (
+          {!loading && loadError && (
+            <div className="el-empty" role="alert">
+              <p className="el-empty-text">{t('programLibrary.loadError')}</p>
+              <button
+                type="button"
+                className="wk-clear-filters"
+                onClick={() => { setLoading(true); setReloadKey((k) => k + 1); }}
+              >
+                {t('programLibrary.retry')}
+              </button>
+            </div>
+          )}
+
+          {!loading && !loadError && (
             <>
               {noMatches && (
                 <div className="wk-preview-fallback" role="status">

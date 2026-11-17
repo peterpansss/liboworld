@@ -18,7 +18,7 @@
   gap: 16px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .rel-articles__grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -86,7 +86,7 @@
   gap: 8px;
   align-items: center;
   font-size: 11px;
-  color: var(--dim);
+  color: var(--muted);
 }
 
 .rel-articles__category {

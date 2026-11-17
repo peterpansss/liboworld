@@ -69,7 +69,7 @@
 .aa-headline {
   display: flex;
   flex-direction: column;
-  font-size: clamp(32px, 5vw, 52px);
+  font-size: var(--h1-page);
   line-height: 1;
   letter-spacing: -1px;
   color: var(--text);
@@ -102,7 +102,7 @@
   padding: 32px;
   background: var(--bg2);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
 }
 
 /* Inline success state — replaces the form, no redirect. */
@@ -266,7 +266,7 @@
   background: rgba(255, 51, 51, 0.08);
   border: 1px solid rgba(255, 51, 51, 0.3);
   border-radius: 12px;
-  color: #ff7a7a;
+  color: var(--error);
   font-size: 14px;
 }
 

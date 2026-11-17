@@ -20,7 +20,7 @@
 
 .cc-hero__title {
   margin: 24px 0 0;
-  font-size: clamp(44px, 7vw, 80px);
+  font-size: var(--h1-hero);
   line-height: 0.92;
   letter-spacing: -1px;
   text-transform: uppercase;
@@ -120,21 +120,21 @@
 }
 
 .cc-card__cta {
-  /* Filled pill button, not a text link — target renders a full-width lime
-     pill inside the scrim on every card. */
+  /* Filled button, not a text link: a full-width lime button inside the
+     scrim on every card. Brand button radius (14px), same as every CTA. */
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   min-height: 48px;
   margin-top: 14px;
-  border-radius: 100px;
+  border-radius: 14px;
   background: var(--accent);
   color: var(--accent-text);
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
-  font-size: 17px;
-  letter-spacing: 0.04em;
+  font-size: 18px;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   transition: background .2s ease;
 }

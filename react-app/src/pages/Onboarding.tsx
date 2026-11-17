@@ -496,24 +496,26 @@ export default function Onboarding() {
         <h1 className="ob-step-heading">{t(step.headingKey)}</h1>
         <div className={`ob-options${step.grid ? ' grid-2' : ''}`}>
           {step.options.map(opt => (
-            <div
+            <button
+              type="button"
               key={opt.value}
               className={`ob-option-card${isSelected(opt.value) ? ' selected' : ''}`}
+              aria-pressed={isSelected(opt.value)}
               onClick={() => handleOptionClick(step, opt.value)}
             >
-              <div className="ob-card-content">
-                {opt.icon && <span className="ob-card-icon">{opt.icon}</span>}
-                <div className="ob-card-text">
-                  <div className="ob-card-title">{t(opt.titleKey)}</div>
-                  {opt.descKey && <div className="ob-card-desc">{t(opt.descKey)}</div>}
-                </div>
-              </div>
+              <span className="ob-card-content">
+                {opt.icon && <span className="ob-card-icon" aria-hidden="true">{opt.icon}</span>}
+                <span className="ob-card-text">
+                  <span className="ob-card-title">{t(opt.titleKey)}</span>
+                  {opt.descKey && <span className="ob-card-desc">{t(opt.descKey)}</span>}
+                </span>
+              </span>
               {step.mode === 'single' ? (
-                <span className="ob-radio-circle" />
+                <span className="ob-radio-circle" aria-hidden="true" />
               ) : (
-                <span className="ob-check-square" />
+                <span className="ob-check-square" aria-hidden="true" />
               )}
-            </div>
+            </button>
           ))}
         </div>
         {step.mode === 'multi' && (

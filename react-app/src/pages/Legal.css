@@ -57,7 +57,7 @@
 }
 
 .legal-hero h1 {
-  font-size: clamp(48px, 8vw, 72px);
+  font-size: var(--h1-page);
   line-height: 0.95;
   margin-bottom: 20px;
 }
@@ -265,7 +265,7 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .legal-container {
     padding: 0 20px;
   }

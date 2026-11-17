@@ -98,6 +98,9 @@ export default function Careers() {
                   const panelId = `careers-role-panel-${role.id}`;
                   return (
                     <li key={role.id}>
+                      {/* Accordion pattern: the trigger sits inside an h2 so the role
+                          titles form the page outline (h1 → h2 → h3), not h1 → h3. */}
+                      <h2 className="careers-role__heading">
                       <button
                         type="button"
                         className={`careers-role${isOpen ? ' careers-role--open' : ''}`}
@@ -117,6 +120,7 @@ export default function Careers() {
                           <span aria-hidden>{isOpen ? ' ↑' : ' →'}</span>
                         </div>
                       </button>
+                      </h2>
 
                       {isOpen && (
                         <div id={panelId} className="careers-role__detail">

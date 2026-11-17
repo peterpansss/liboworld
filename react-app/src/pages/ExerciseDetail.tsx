@@ -412,7 +412,7 @@ export default function ExerciseDetail() {
         <main className="ed-page">
           <div className="ed-container">
             <div className="ed-not-found">
-              <h2 className="font-display">{t('exerciseDetail.notFoundTitle')}</h2>
+              <h1 className="font-display ed-not-found__title">{t('exerciseDetail.notFoundTitle')}</h1>
               <p>{t('exerciseDetail.notFoundDescription')}</p>
               <Link to="/exercises">{t('exerciseDetail.browseAll')}</Link>
             </div>

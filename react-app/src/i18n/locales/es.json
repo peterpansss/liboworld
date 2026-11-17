@@ -835,7 +835,9 @@
     "moreCta": {
       "text": "+{{count}} entrenamientos más en la app",
       "button": "Obtén la App"
-    }
+    },
+    "loadError": "No se pudieron cargar los entrenamientos. Revisa tu conexión e inténtalo de nuevo.",
+    "retry": "Reintentar"
   },
   "programDetail": {
     "loading": "Cargando entrenamiento...",

@@ -149,8 +149,10 @@ export default function BestWorkouts() {
     );
   }
 
-  // Unknown / suppressed facet → bounce to the workouts library.
-  if (!entry) return <Navigate to="/workouts" replace />;
+  // Unknown / suppressed facet, or a facet whose routines all dropped out
+  // (no playable clips) → bounce to the workouts library rather than
+  // headlining "0 free routines".
+  if (!entry || facetWorkouts.length === 0) return <Navigate to="/workouts" replace />;
 
   return (
     <>

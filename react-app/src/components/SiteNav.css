@@ -255,8 +255,11 @@
   color: var(--accent-text);
   text-decoration: none;
   padding: 8px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   border-radius: 14px;
   transition: background 0.2s, transform 0.15s;
   min-height: 44px;
@@ -267,7 +270,6 @@
   appearance: none;
   border: none;
   cursor: pointer;
-  font-family: inherit;
 }
 
 .site-nav__cta:hover {
@@ -398,29 +400,6 @@
   border-top: 1px solid var(--border);
 }
 
-.site-nav__drawer-cta {
-  display: block;
-  width: 100%;
-  text-align: center;
-  background: var(--accent);
-  color: var(--accent-text);
-  text-decoration: none;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 14px;
-  transition: background 0.2s;
-  /* Button reset — renders as <button> in prelaunch, <a> in launched. */
-  appearance: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.site-nav__drawer-cta:hover {
-  background: var(--accent2);
-}
-
 /* ── Founding savings bar ── */
 /* Loud lime strip above the nav advertising the 50%-off founding deal. Sits
    above the fixed nav (z 101 > 100); the nav + spacer get pushed down by the
@@ -521,7 +500,7 @@
 .site-nav-spacer--with-announce { height: 104px; } /* 64 nav + 40 bar */
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .site-nav__inner {
     padding: 0 16px;
   }
@@ -632,13 +611,13 @@
 /* ── Official store badges in the bar (17 Nov 2026, replaces .site-nav__cta) ── */
 .site-nav__badges { --badge-h: 40px; gap: 8px; flex-wrap: nowrap; }
 @media (max-width: 1100px) { .site-nav__badges { --badge-h: 34px; } }
-@media (max-width: 768px) { .site-nav__badges { display: none; } }
+@media (max-width: 767px) { .site-nav__badges { display: none; } }
 
 .site-nav__drawer-badges { --badge-h: 44px; justify-content: center; }
 
 /* ── Mobile: both badges pinned to the bottom of the screen ── */
 .site-storebar { display: none; }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .site-storebar {
     display: flex;
     justify-content: center;

@@ -835,7 +835,9 @@
     "moreCta": {
       "text": "+{{count}} more workouts available in the app",
       "button": "Get the App"
-    }
+    },
+    "loadError": "Couldn't load workouts. Check your connection and try again.",
+    "retry": "Try again"
   },
   "programDetail": {
     "loading": "Loading workout...",

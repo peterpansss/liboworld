@@ -11,7 +11,7 @@
      --libo-accent-2→ --accent2 (#9BC800)
      --libo-text    → --text    (#FFFFFF)
      --libo-muted   → --muted   (#8A9BB0)
-     --libo-dim     → --dim      (#4A5568)
+     --libo-dim     → --dim      (#6B7A8F)
    display font = 'Barlow Condensed'; button radius = 14px
    ───────────────────────────────────────────── */
 
@@ -73,7 +73,7 @@
   font-weight: 800;
   text-transform: uppercase;
   /* Scales down before it can ever collide with the viewport edge. */
-  font-size: clamp(38px, 5.2vw, 76px);
+  font-size: var(--h1-hero);
   line-height: 0.95;
   letter-spacing: 0;
   margin: 0;
@@ -238,8 +238,8 @@
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
-  font-size: 16px;
-  letter-spacing: 0.5px;
+  font-size: 18px;
+  letter-spacing: 0.03em;
   padding: 13px 20px;
   border-radius: 14px;
   text-decoration: none;
@@ -407,7 +407,7 @@
     gap: 14px;
   }
   .pr-hero__h1 {
-    font-size: 44px;
+    font-size: var(--h1-hero);
   }
   .pr-hero__sub {
     font-size: 16px;

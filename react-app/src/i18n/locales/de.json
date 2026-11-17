@@ -835,7 +835,9 @@
     "moreCta": {
       "text": "+{{count}} weitere Workouts in der App",
       "button": "App holen"
-    }
+    },
+    "loadError": "Workouts konnten nicht geladen werden. Prüf deine Verbindung und versuch es nochmal.",
+    "retry": "Nochmal versuchen"
   },
   "programDetail": {
     "loading": "Workout wird geladen...",
