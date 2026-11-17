@@ -1,0 +1,71 @@
+/* /giveaway — live round. Shared pieces live in components/earn/Earn.css.
+   (Giveaway.css is the old funnel's stylesheet; this page does not use it.) */
+
+.gw-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 100px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 600;
+}
+.gw-status__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.gw-status--open .gw-status__dot { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-dim); }
+.gw-badges { width: 100%; justify-content: center; }
+@media (min-width: 768px) { .gw-badges { justify-content: flex-start; } }
+
+.gw-cash {
+  margin: 0 auto;
+  max-width: 44ch;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.gw-entries-wrap { display: grid; gap: 32px; justify-items: center; }
+.gw-phone { display: none; }
+@media (min-width: 768px) {
+  .gw-entries-wrap { grid-template-columns: 1fr 260px; align-items: center; justify-items: stretch; }
+  .gw-phone { display: block; }
+}
+
+.gw-ladder {
+  width: 100%;
+  max-width: 560px;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+.gw-ladder th,
+.gw-ladder td { padding: 14px 16px; text-align: center; }
+.gw-ladder thead th {
+  padding-bottom: 4px;
+  color: var(--muted);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.gw-ladder thead th:first-child,
+.gw-ladder tbody th { text-align: left; }
+.gw-ladder tbody tr { background: var(--card); }
+.gw-ladder tbody th { font-size: 15px; font-weight: 600; border-radius: 16px 0 0 16px; }
+.gw-ladder tbody td { font-size: 32px; line-height: 1; }
+.gw-ladder tbody td:last-child { border-radius: 0 16px 16px 0; }
+.gw-ladder__premium { color: var(--accent); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

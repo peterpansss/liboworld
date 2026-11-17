@@ -73,16 +73,20 @@ describe('SiteNav', () => {
     renderAt('/');
     expect(screen.getByText('nav.skipToMain')).toBeInTheDocument();
     expect(screen.getByRole('navigation', { name: 'nav.mainNavigation' })).toBeInTheDocument();
-    // The drawer renders the same links (always in the DOM, hidden by CSS),
-    // so each label appears twice.
-    ['Cash Challenges', 'Exercise Library', 'Founding Member', 'Press', 'Careers'].forEach((label) => {
+    // Nav since 18 Nov 2026: Earn ▾ · Features · Exercises · Membership. The
+    // drawer renders the same links (always in the DOM, hidden by CSS).
+    ['Earn', 'Features', 'Exercises', 'Membership', 'Founding Member'].forEach((label) => {
       expect(screen.getAllByText(label).length).toBeGreaterThanOrEqual(1);
+    });
+    // The Earn menu links every train-and-earn page.
+    ['/earn', '/cash-challenges', '/giveaway', '/rewards'].forEach((href) => {
+      expect(document.querySelectorAll(`#nav-earn-menu a[href="${href}"]`).length).toBe(1);
     });
     // Official badge pairs: nav bar, mobile bottom bar, drawer (17 Nov 2026).
     expect(document.querySelectorAll('.store-badges').length).toBe(3);
-    // Membership left the header on 2026-08-27; it lives in the footer as
-    // "Pricing" now, and the freed slot carries the founding offer.
-    expect(screen.queryByText('Membership')).toBeNull();
+    // Press and Careers moved to the footer.
+    expect(screen.queryByText('Press')).toBeNull();
+    expect(screen.queryByText('Careers')).toBeNull();
   });
 
   it('drops the Founding Member link once the founding offer closes', () => {
@@ -92,7 +96,18 @@ describe('SiteNav', () => {
     foundingOpen.mockReturnValue(false);
     renderAt('/');
     expect(screen.queryByText('Founding Member')).toBeNull();
-    expect(screen.getAllByText('Cash Challenges').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Exercises').length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('toggles the Earn menu with its button and closes it on Escape', async () => {
+    const user = userEvent.setup();
+    renderAt('/');
+    const trigger = screen.getByRole('button', { name: /Earn/ });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await user.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await user.keyboard('{Escape}');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('puts both official store badges in the bar, the mobile bottom bar and the drawer', () => {
@@ -110,7 +125,7 @@ describe('SiteNav', () => {
 
   it('marks the active nav link with aria-current="page"', () => {
     renderAt('/exercises');
-    const libraryLinks = screen.getAllByRole('link', { name: 'Exercise Library' });
+    const libraryLinks = screen.getAllByRole('link', { name: 'Exercises' });
     expect(libraryLinks.some((l) => l.getAttribute('aria-current') === 'page')).toBe(true);
   });
 

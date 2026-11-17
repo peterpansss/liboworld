@@ -1,0 +1,284 @@
+/* Earn kit — shared styles for /earn, /rewards, /giveaway, /features, /faq.
+   Tokens only (index.css :root). Radii on the brand scale: 16 cards, 14
+   buttons, 12 chips, 100 pills. Mobile-first; desktop from 768px. */
+
+.earn-page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+  overflow-x: clip;
+}
+
+/* ── Eyebrow ── */
+.earn-eyebrow {
+  display: inline-block;
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+/* ── Hero ── */
+.earn-hero {
+  display: grid;
+  gap: 8px;
+  padding: 32px 0 24px;
+  text-align: center;
+}
+.earn-hero__copy { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.earn-hero__title {
+  font-size: var(--h1-hero);
+  line-height: 0.92;
+  letter-spacing: -1px;
+  margin: 0;
+}
+.earn-hero__title .accent { color: var(--accent); display: block; }
+.earn-hero__sub {
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.5;
+  margin: 0;
+}
+.earn-hero__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.earn-hero__art {
+  position: relative;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.earn-hero__art::before {
+  /* lime glow behind the props so they sit on light, not on flat black */
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(202, 255, 0, 0.18) 0%, rgba(202, 255, 0, 0) 70%);
+}
+.earn-hero__prop { position: relative; }
+.earn-hero__prop--0 { width: min(62vw, 240px); }
+.earn-hero__art--2 .earn-hero__prop--0 { width: min(46vw, 190px); transform: translateX(16px); }
+.earn-hero__art--2 .earn-hero__prop--1 { width: min(38vw, 150px); transform: translate(-16px, 40px) rotate(-8deg); }
+
+@media (min-width: 768px) {
+  .earn-hero {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 32px;
+    padding: 72px 0 48px;
+    text-align: left;
+  }
+  .earn-hero__copy { align-items: flex-start; }
+  .earn-hero__ctas { justify-content: flex-start; }
+  .earn-hero__art { height: 420px; }
+  .earn-hero__art::before { width: 420px; height: 420px; }
+  .earn-hero__prop--0 { width: 340px; }
+  .earn-hero__art--2 .earn-hero__prop--0 { width: 300px; }
+  .earn-hero__art--2 .earn-hero__prop--1 { width: 220px; }
+}
+
+/* ── Props ── */
+.earn-prop {
+  display: block;
+  height: auto;
+  user-select: none;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
+}
+.earn-prop--float { animation: earn-float 5s ease-in-out infinite; }
+.earn-hero__prop--1.earn-prop--float { animation-delay: -2.5s; }
+@keyframes earn-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+/* ── Sections ── */
+.earn-section { padding: 40px 0; }
+.earn-h2 {
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 0.95;
+  letter-spacing: -0.5px;
+  margin: 0 0 24px;
+  text-align: center;
+}
+.earn-lead {
+  max-width: 40ch;
+  margin: -12px auto 24px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ── Steps: swipe row on phones, three columns on desktop ── */
+.earn-steps {
+  list-style: none;
+  margin: 0 -16px;
+  padding: 0 16px 8px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 78%;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.earn-steps::-webkit-scrollbar { display: none; }
+.earn-step {
+  position: relative;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 20px 28px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.earn-step__num {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-size: 28px;
+  color: var(--accent);
+  line-height: 1;
+}
+.earn-step__prop { width: 120px; height: 120px; object-fit: contain; }
+.earn-step__title { font-size: 26px; line-height: 1; margin: 4px 0 0; }
+.earn-step__text { color: var(--muted); font-size: 15px; line-height: 1.45; margin: 0; }
+@media (min-width: 768px) {
+  .earn-steps { margin: 0; padding: 0; grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+}
+
+/* ── Premium strip ── */
+.earn-premium {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8px 0;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: linear-gradient(100deg, rgba(202, 255, 0, 0.14), rgba(202, 255, 0, 0.04));
+  border: 1px solid var(--accent-line);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.earn-premium:hover { border-color: var(--accent); }
+.earn-premium:active { transform: scale(0.98); }
+.earn-premium__prop { width: 72px; flex-shrink: 0; }
+.earn-premium__text { display: flex; flex-direction: column; gap: 2px; flex: 1; font-size: 14px; color: var(--muted); }
+.earn-premium__text strong { font-size: 22px; color: var(--accent); line-height: 1.05; }
+.earn-premium__arrow { font-size: 22px; color: var(--accent); }
+
+/* ── Next: the other earn pages ── */
+.earn-next {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.earn-next__card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: 16px;
+  align-items: center;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.earn-next__card:hover { border-color: var(--accent-line); transform: translateY(-2px); }
+.earn-next__prop { grid-row: 1 / 4; width: 96px; height: 96px; object-fit: contain; }
+.earn-next__title { font-size: 24px; line-height: 1; }
+.earn-next__text { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.earn-next__cta {
+  color: var(--accent);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+@media (min-width: 768px) {
+  .earn-next { grid-template-columns: repeat(3, 1fr); }
+  .earn-next__card { grid-template-columns: 1fr; text-align: center; justify-items: center; row-gap: 6px; padding: 24px 20px; }
+  .earn-next__prop { grid-row: auto; width: 140px; height: 140px; }
+}
+
+/* ── Phone frame for real app screens ── */
+.earn-phone {
+  margin: 0;
+  width: 100%;
+  max-width: 260px;
+  padding: 8px;
+  border-radius: 40px;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(202, 255, 0, 0.06);
+}
+.earn-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 32px;
+}
+
+/* ── Closing CTA ── */
+.earn-cta {
+  margin: 32px 0 0;
+  padding: 40px 20px;
+  border-radius: 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.earn-cta .earn-h2 { margin-bottom: 12px; }
+.earn-cta__sub { color: var(--muted); font-size: 16px; margin: 0 0 20px; }
+.earn-cta__badges { justify-content: center; }
+
+/* ── Rules link ── */
+.earn-rules { margin: 16px 0 0; text-align: center; font-size: 14px; }
+.earn-rules a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.earn-rules a:hover { color: var(--text); }
+
+/* ── Small print ── */
+.earn-fine { color: var(--dim); font-size: 13px; line-height: 1.5; text-align: center; margin: 12px auto 0; max-width: 52ch; }
+
+/* ── Segmented toggle (Free / Premium) ── */
+.earn-toggle {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 100px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+}
+.earn-toggle button {
+  min-height: 44px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.earn-toggle button[aria-pressed='true'] { background: var(--accent); color: var(--accent-text); }
+.earn-center { display: flex; justify-content: center; margin-bottom: 20px; }

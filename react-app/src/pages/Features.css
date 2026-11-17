@@ -1,0 +1,77 @@
+/* /features — real app screens. Shared pieces live in components/earn/Earn.css. */
+
+.ft-hero {
+  display: grid;
+  gap: 32px;
+  padding: 32px 0 24px;
+  text-align: center;
+}
+.ft-hero__copy { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.ft-hero__title { font-size: var(--h1-hero); line-height: 0.92; letter-spacing: -1px; margin: 0; }
+.ft-hero__title .accent { color: var(--accent); display: block; }
+.ft-badges { justify-content: center; }
+.ft-hero__phones {
+  position: relative;
+  height: 420px;
+  display: flex;
+  justify-content: center;
+}
+.ft-hero__phone { position: absolute; width: 200px; }
+.ft-hero__phone--front { transform: translateX(44px) rotate(4deg); z-index: 1; }
+.ft-hero__phone--back { transform: translateX(-60px) translateY(24px) rotate(-6deg); opacity: 0.7; }
+
+@media (min-width: 768px) {
+  .ft-hero { grid-template-columns: 1.1fr 1fr; align-items: center; padding: 72px 0 48px; text-align: left; }
+  .ft-hero__copy { align-items: flex-start; }
+  .ft-badges { justify-content: flex-start; }
+  .ft-hero__phones { height: 560px; }
+  .ft-hero__phone { width: 250px; }
+}
+
+.ft-list { list-style: none; margin: 0; padding: 24px 0; display: grid; gap: 56px; }
+.ft-item { display: grid; gap: 24px; justify-items: center; text-align: center; }
+.ft-item__phone { max-width: 240px; }
+.ft-item__copy { display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 420px; }
+.ft-item__num { font-size: 20px; color: var(--accent); line-height: 1; }
+.ft-item__title { font-size: clamp(32px, 5vw, 48px); line-height: 0.95; letter-spacing: -0.5px; margin: 0; }
+.ft-item__text { color: var(--muted); font-size: 17px; line-height: 1.5; margin: 0; }
+.ft-item__link {
+  color: var(--accent);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .ft-list { gap: 96px; padding: 48px 0; }
+  .ft-item { grid-template-columns: 1fr 1fr; align-items: center; text-align: left; justify-items: start; gap: 64px; }
+  .ft-item__phone { justify-self: center; max-width: 280px; }
+  .ft-item__copy { align-items: flex-start; }
+  .ft-item--flip .ft-item__phone { order: 2; }
+}
+
+.ft-extras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.ft-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.ft-extra strong { font-size: 20px; line-height: 1.05; }
+.ft-extra span { color: var(--muted); font-size: 14px; line-height: 1.4; }
+@media (min-width: 768px) { .ft-extras { grid-template-columns: repeat(3, 1fr); } }
