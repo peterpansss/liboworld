@@ -82,9 +82,8 @@ export default function SiteNav() {
   const navLinks = visibleNavLinks();
   // iOS shipped 18 Sep 2026. Sending a visitor to a waitlist for something
   // they can download in ten seconds is the one thing the bar must not do, so
-  // the CTA and the bar both point at the App Store now. The waitlist form
-  // stays on the page — it is the Android notify list until Play opens, and
-  // that is what the copy in the hero says.
+  // the CTA and the bar both point at the download block, which carries both
+  // store badges since Android went live (9 Nov 2026).
   const waitlistLabel = t('nav.downloadCta', { defaultValue: 'Download' });
   const handleWaitlistClick = () => setDrawerOpen(false);
 

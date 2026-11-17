@@ -35,7 +35,7 @@
     "headline2": "Partout.",
     "headline3": "À tout moment.",
     "scrollIndicator": "Défile pour explorer",
-    "iosOnly": "iOS uniquement",
+    "iosOnly": "iPhone et Android",
     "seePlans": "Voir les offres →"
   },
   "marquee": {
@@ -159,7 +159,7 @@
     "appStoreShort": "App Store",
     "downloadGooglePlay": "Disponible sur Google Play",
     "googlePlayShort": "Google Play",
-    "iosFirstNote": "iPhone uniquement pour l’instant — Android est en test."
+    "iosFirstNote": "Sur iPhone et Android."
   },
   "community": {
     "eyebrow": "LA COMMUNAUTÉ LIBO",
@@ -920,7 +920,7 @@
       "imgAltCenter": "Onglet Accueil de Libo avec la série et l'entraînement du jour",
       "imgAltRight": "Onglet Récompenses de Libo avec 436 points",
       "pillLive": "Disponible sur l’App Store",
-      "pillPlatforms": "iOS",
+      "pillPlatforms": "iOS · Android",
       "pillTier": "Niveau Free",
       "h1a": "Va au bout de",
       "h1b": "30 jours.",
@@ -1158,7 +1158,7 @@
       "q5": "Puis-je créer mes propres entraînements ?",
       "a5": "Oui. Le Custom Builder te permet de piocher dans toute la bibliothèque d'exercices, de définir tes séries, reps et temps de repos, puis d'enregistrer et de réutiliser tes entraînements quand tu veux.",
       "q6": "Libo est-il disponible sur Android ?",
-      "a6": "Pas encore. Libo sort d’abord sur iOS ; Android est en test fermé, sans date publique pour l’instant. On l’annoncera sur liboworld.com et sur nos réseaux dès que ce sera prêt.",
+      "a6": "Oui. Libo est gratuit sur Google Play pour Android et sur l’App Store pour iPhone.",
       "q7": "Puis-je suivre des programmes structurés ?",
       "a7": "Oui. Libo inclut des programmes de plusieurs semaines conçus pour des objectifs précis — prise de muscle, perte de gras, mobilité, et plus. Suis le plan, note ta progression, et vois de vrais résultats.",
       "q8": "Libo suit-il ma progression ?",
@@ -1311,7 +1311,7 @@
     "final": {
       "h2a": "Ton premier Challenge",
       "h2b": "est déjà ouvert.",
-      "body": "Télécharge Libo gratuitement sur iPhone, choisis un challenge et commence aujourd’hui. Termine 30 jours d’affilée et on te paie — 5 €, 15 € ou 50 € en argent réel, financés par Libo."
+      "body": "Télécharge Libo gratuitement sur iPhone ou Android, choisis un challenge et commence aujourd’hui. Termine 30 jours d’affilée et on te paie — 5 €, 15 € ou 50 € en argent réel, financés par Libo."
     },
     "habit": {
       "s1Name": "Pointe-toi",
@@ -1594,7 +1594,7 @@
     "subline": "Gratuit pour toujours. Premium quand tu veux.",
     "qrAlt": "QR code menant à Libo sur l'App Store",
     "scanCaption": "Scanne pour télécharger",
-    "platformNote": "iOS uniquement"
+    "platformNote": "iPhone et Android"
   },
   "countdown": {
     "closed": "terminé",
@@ -1858,7 +1858,7 @@
       "q3": "C'est quoi un Founding Member ?",
       "a3": "L'offre pré-lancement : 12 mois de Premium à -50%, premier à entrer le jour du lancement, tous les paliers de challenge débloqués — et intégralement remboursable jusqu'au lancement.",
       "q4": "Libo est déjà disponible ?",
-      "a4": "Oui — Libo est sur l’App Store pour iPhone, en téléchargement gratuit. Android est en test fermé et n’a pas encore de date publique.",
+      "a4": "Oui — Libo est gratuit sur l’App Store pour iPhone et sur Google Play pour Android.",
       "q5": "Comment marchent les cash challenges ?",
       "a5": "30 jours de reps quotidiennes, enregistrées et vérifiées dans l'app, payées en vrai cash à l'arrivée — €5, €15 ou €50 selon le palier. Pas de tirage, pas de chance.",
       "titleLine1": "Avant de",
@@ -1942,7 +1942,8 @@
       "h2b": "tient."
     },
     "stores": {
-      "ios": "Sur l’App Store"
+      "ios": "Sur l’App Store",
+      "android": "Sur Google Play"
     },
     "capture": {
       "confirm": "Tu es sur la liste ✓",
@@ -2127,9 +2128,9 @@
       "whatLabel": "Quoi",
       "whatValue": "Club d'entraînement qui paie en cash",
       "platformLabel": "Plateforme",
-      "platformValue": "iOS (Android à suivre)",
+      "platformValue": "iOS et Android",
       "stageLabel": "Phase",
-      "stageValue": "En ligne sur iOS · Android en test",
+      "stageValue": "En ligne sur l’App Store et Google Play",
       "pricingLabel": "Prix",
       "pricingValue": "Niveau Free + €119.99/an",
       "exercisesLabel": "Exercices",

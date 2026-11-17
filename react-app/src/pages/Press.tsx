@@ -82,8 +82,8 @@ export default function Press() {
   // named payout tiers, real captures only.
   const facts = [
     { label: t('pressKit.facts.whatLabel', { defaultValue: 'What' }), value: t('pressKit.facts.whatValue', { defaultValue: 'Training club that pays cash' }) },
-    { label: t('pressKit.facts.platformLabel', { defaultValue: 'Platform' }), value: t('pressKit.facts.platformValue', { defaultValue: 'iOS (Android to follow)' }) },
-    { label: t('pressKit.facts.stageLabel', { defaultValue: 'Stage' }), value: t('pressKit.facts.stageValue', { defaultValue: 'Live on iOS · Android in testing' }) },
+    { label: t('pressKit.facts.platformLabel', { defaultValue: 'Platform' }), value: t('pressKit.facts.platformValue', { defaultValue: 'iOS and Android' }) },
+    { label: t('pressKit.facts.stageLabel', { defaultValue: 'Stage' }), value: t('pressKit.facts.stageValue', { defaultValue: 'Live on the App Store and Google Play' }) },
     { label: t('pressKit.facts.pricingLabel', { defaultValue: 'Pricing' }), value: t('pressKit.facts.pricingValue', { defaultValue: 'Free tier + €119.99/yr' }) },
     { label: t('pressKit.facts.exercisesLabel', { defaultValue: 'Exercises' }), value: t('pressKit.facts.exercisesValue', { defaultValue: '820+' }) },
     { label: t('pressKit.facts.workoutsLabel', { defaultValue: 'Workouts' }), value: t('pressKit.facts.workoutsValue', { defaultValue: '140' }) },
