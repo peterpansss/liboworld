@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { SeoHead } from '../components/SeoHead';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
-import { AppCta } from '../components/earn/EarnKit';
+import { AppCta, EarnHero, Band } from '../components/earn/EarnKit';
 import './Faq.css';
 
 /**
@@ -18,6 +18,12 @@ type Tab = { id: string; items: Qa[]; rules?: { to: string; key: string } };
 
 const k = (base: string, id: string): Qa => ({ q: `${base}.q${id}`, a: `${base}.a${id}` });
 const E = 'earnPages.faq';
+
+/** "Questions, answered." → ["Questions,", "answered."]: last word in lime. */
+const splitTitle = (text: string): [string, string] => {
+  const w = text.trim().split(/\s+/);
+  return w.length < 2 ? ['', text] : [w.slice(0, -1).join(' '), w[w.length - 1]];
+};
 
 const TABS: Tab[] = [
   { id: 'points', items: [k(E, 'PointsWhat'), k(E, 'PointsEarn'), k(E, 'PointsExpire'), k(E, 'PointsSpend'), k(E, 'PointsBuy')], rules: { to: '/rewards-rules', key: 'rewardsRules' } },
@@ -53,11 +59,14 @@ export default function Faq() {
       />
       <SiteNav />
       <main id="main-content" className="earn-page">
-        <section className="fq-hero">
-          <span className="earn-eyebrow">{t('earnPages.faq.eyebrow')}</span>
-          <h1 className="fq-title font-display">{t('earnPages.faq.title')}</h1>
-        </section>
+        <EarnHero
+          compact
+          eyebrow={t('earnPages.faq.eyebrow')}
+          title={splitTitle(t('earnPages.faq.title'))}
+          props={['libo-coin']}
+        />
 
+        <Band raised>
         <div className="fq-tabs" role="tablist" aria-label={t('earnPages.faq.tabsLabel')}>
           {TABS.map((tb, i) => (
             <button
@@ -98,6 +107,7 @@ export default function Faq() {
         <p className="fq-contact">
           {t('earnPages.faq.contact')} <a href="mailto:hello@liboworld.com">hello@liboworld.com</a>
         </p>
+        </Band>
         <AppCta title={t('earnPages.common.ctaTitle')} sub={t('earnPages.common.ctaSub')} />
       </main>
       <SiteFooter />

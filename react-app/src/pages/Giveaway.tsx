@@ -4,10 +4,11 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import StoreBadges from '../components/StoreBadges';
 import {
-  EarnHero, StepStrip, PremiumStrip, EarnNext, PhoneShot, AppCta, RulesLink,
+  EarnHero, StepStrip, PremiumStrip, EarnNext, PhoneShot, AppCta, RulesLink, Band, Heading, BigNumber,
 } from '../components/earn/EarnKit';
+import { usePopIn } from '../utils/funnelAnimations';
 import {
-  featuredRound, roundStatus, GIVEAWAY_ENTRIES, LOYALTY_PER_MONTH, LOYALTY_MAX_MONTHS,
+  featuredRound, roundStatus, GIVEAWAY_ENTRIES, GIVEAWAY_MAX_ENTRIES, LOYALTY_PER_MONTH, LOYALTY_MAX_MONTHS,
 } from '../data/giveawayRounds';
 import './GiveawayPage.css';
 
@@ -26,6 +27,7 @@ export default function Giveaway() {
   const { t, i18n } = useTranslation();
   const round = featuredRound();
   const status = round ? roundStatus(round) : 'closed';
+  usePopIn();
 
   const fmt = (ymd: string) =>
     new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'long', timeZone: 'UTC' })
@@ -47,8 +49,8 @@ export default function Giveaway() {
         <EarnHero
           eyebrow={round ? t('earnPages.giveaway.eyebrow', { n: round.n }) : t('earnPages.giveaway.eyebrowNone')}
           title={round
-            ? <>{t('earnPages.giveaway.title1')} <span className="accent">{round.prizeName}.</span></>
-            : t('earnPages.giveaway.titleNone')}
+            ? [t('earnPages.giveaway.title1'), `${round.prizeName}.`]
+            : ['', t('earnPages.giveaway.titleNone')]}
           sub={t('earnPages.giveaway.sub')}
           props={round ? [round.prop, 'controller'] : ['trophy-lime']}
         >
@@ -59,13 +61,12 @@ export default function Giveaway() {
             </p>
           )}
           <StoreBadges className="gw-badges" />
+          {round && (
+            <p className="gw-cash">
+              {t('earnPages.giveaway.cash', { prize: round.prizeName, cash: round.cashEur })}
+            </p>
+          )}
         </EarnHero>
-
-        {round && (
-          <p className="gw-cash">
-            {t('earnPages.giveaway.cash', { prize: round.prizeName, cash: round.cashEur })}
-          </p>
-        )}
 
         <StepStrip
           heading={t('earnPages.giveaway.steps.heading')}
@@ -76,9 +77,14 @@ export default function Giveaway() {
           ]}
         />
 
-        <section className="earn-section">
-          <h2 className="earn-h2 font-display">{t('earnPages.giveaway.entries.heading')}</h2>
-          <p className="earn-lead">{t('earnPages.giveaway.entries.lead')}</p>
+        <BigNumber
+          value={String(GIVEAWAY_MAX_ENTRIES.premium)}
+          caption={t('earnPages.big.giveaway')}
+          prop="controller"
+        />
+
+        <Band raised>
+          <Heading title={t('earnPages.giveaway.entries.heading')} sub={t('earnPages.giveaway.entries.lead')} />
           <div className="gw-entries-wrap">
             <table className="gw-ladder">
               <caption className="sr-only">{t('earnPages.giveaway.entries.caption')}</caption>
@@ -91,7 +97,7 @@ export default function Giveaway() {
               </thead>
               <tbody>
                 {LADDER_MONTHS.map((m) => (
-                  <tr key={m}>
+                  <tr key={m} data-popin>
                     <th scope="row">{m === 0 ? t('earnPages.giveaway.entries.firstRound') : t('earnPages.giveaway.entries.monthsInRow', { count: m })}</th>
                     <td className="font-display">{GIVEAWAY_ENTRIES.free + LOYALTY_PER_MONTH.free * m}</td>
                     <td className="font-display gw-ladder__premium">{GIVEAWAY_ENTRIES.premium + LOYALTY_PER_MONTH.premium * m}</td>
@@ -103,11 +109,12 @@ export default function Giveaway() {
           </div>
           <p className="earn-fine">{t('earnPages.giveaway.entries.fine')}</p>
           <PremiumStrip text={t('earnPages.giveaway.premiumText')} />
-        </section>
+        </Band>
 
-        <EarnNext current="giveaway" />
-        <RulesLink to="/giveaway-rules" label={t('earnPages.giveaway.rules')} />
-        <p className="earn-fine">{t('earnPages.giveaway.trademark')}</p>
+        <EarnNext current="giveaway">
+          <RulesLink to="/giveaway-rules" label={t('earnPages.giveaway.rules')} />
+          <p className="earn-fine">{t('earnPages.giveaway.trademark')}</p>
+        </EarnNext>
         <AppCta title={t('earnPages.common.ctaTitle')} sub={t('earnPages.common.ctaSub')} />
       </main>
       <SiteFooter />

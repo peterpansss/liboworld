@@ -1,24 +1,37 @@
 /**
  * Earn kit: the shared building blocks of the "train and earn" pages
- * (/earn, /rewards, /giveaway) and /features.
+ * (/earn, /rewards, /giveaway, /features, /faq).
  *
- * Structure follows LMCT+ and Coverd (reference study, 17 Nov 2026): one prop
- * hero, a 3-step strip, a rules link, the app CTA. Props are static
- * transparent WebP renders of the Meshy/Blender models in
- * Marketing/.../Ads/train-and-earn-3d/ (public/props/<name>-{360,720}.webp),
- * never live 3D, so the pages stay light.
+ * Visual language is Home's (design review, 18 Nov 2026): full-bleed bands
+ * alternating --bg / --bg2 with hairlines, 96px rhythm, plain lime eyebrows,
+ * two-tone uppercase headings that reveal on scroll (ScrollRevealText), cards
+ * that pop in (usePopIn, mounted by each page), Home's phone styling and
+ * Home's closing band. Structure follows LMCT+/Coverd: prop hero, 3 steps,
+ * rules link, app CTA.
  *
- * Imagery rule: props are for rewards/prizes/points only. Training imagery
- * stays real footage or real app screens (no AI).
+ * Props are static transparent WebP renders of the Meshy/Blender models
+ * (public/props/<name>-{360,720}.webp), never live 3D. Imagery rule: props are
+ * for rewards/prizes/points only; training imagery stays real (no AI).
  */
-import type { ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import StoreBadges from '../StoreBadges';
+import ScrollRevealText from '../ScrollRevealText';
 import './Earn.css';
 
 /** Bump when the prop renders are re-exported, so Cloudflare serves the new files. */
 const PROP_VERSION = '1';
+
+/**
+ * Splits a heading into Home's two-tone lines: everything but the last word
+ * in white, the last word in lime. Works in every locale without extra keys.
+ */
+function splitLines(text: string): [string, string] {
+  const words = text.trim().split(/\s+/);
+  if (words.length < 2) return ['', text];
+  return [words.slice(0, -1).join(' '), words[words.length - 1]];
+}
 
 type PropImgProps = {
   name: string;
@@ -48,28 +61,93 @@ export function PropImg({ name, className = '', eager = false, width = 280, floa
   );
 }
 
+/** Full-bleed section band. `raised` = --bg2 with hairlines, like Home. */
+export function Band({ raised = false, className = '', children }: { raised?: boolean; className?: string; children: ReactNode }) {
+  return (
+    <section className={`earn-band${raised ? ' earn-band--raised' : ''} ${className}`.trim()}>
+      <div className="earn-inner">{children}</div>
+    </section>
+  );
+}
+
+/** Home's section heading: plain lime eyebrow + two-tone uppercase h2 that reveals on scroll. */
+export function Heading({ eyebrow, title, sub, align = 'center' }: { eyebrow?: string; title: string; sub?: string; align?: 'center' | 'left' }) {
+  const [a, b] = splitLines(title);
+  return (
+    <header className={`earn-head earn-head--${align}`}>
+      {eyebrow && <p className="earn-eyebrow">{eyebrow}</p>}
+      <h2 className="earn-h2">
+        {a && <ScrollRevealText as="span" className="earn-h2__line">{a}</ScrollRevealText>}
+        <ScrollRevealText as="span" className="earn-h2__line earn-reveal--accent">{b}</ScrollRevealText>
+      </h2>
+      {sub && <p className="earn-lead">{sub}</p>}
+    </header>
+  );
+}
+
 type HeroProps = {
   eyebrow: string;
-  title: ReactNode;
+  /** Two lines; the second renders in lime. */
+  title: [string, string];
   sub?: ReactNode;
   props: string[];
   children?: ReactNode;
+  /** Short hero for utility pages (/faq): no full-height stage. */
+  compact?: boolean;
 };
 
-/** Page hero: eyebrow, headline, one line, CTAs, and one or two floating props. */
-export function EarnHero({ eyebrow, title, sub, props, children }: HeroProps) {
+/**
+ * Cinematic hero: near full-height, lime spotlight from above, big floating
+ * props on a floor shadow, slow parallax on scroll (off under reduced motion).
+ */
+export function EarnHero({ eyebrow, title, sub, props, children, compact = false }: HeroProps) {
+  const artRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = artRef.current;
+    if (!el || typeof window === 'undefined') return;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.setProperty('--py', `${Math.min(window.scrollY, 900) * 0.18}px`);
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('scroll', onScroll); };
+  }, []);
+
   return (
-    <section className="earn-hero">
-      <div className="earn-hero__copy">
-        <span className="earn-eyebrow">{eyebrow}</span>
-        <h1 className="earn-hero__title font-display">{title}</h1>
-        {sub && <p className="earn-hero__sub">{sub}</p>}
-        {children && <div className="earn-hero__ctas">{children}</div>}
+    <section className={`earn-hero${compact ? ' earn-hero--compact' : ''}`}>
+      <div className="earn-hero__inner">
+        <div className="earn-hero__copy">
+          <p className="earn-eyebrow">{eyebrow}</p>
+          <h1 className="earn-hero__title">
+            {title[0] && <span className="earn-hero__line">{title[0]}</span>}
+            <span className="earn-hero__line earn-hero__line--accent">{title[1]}</span>
+          </h1>
+          {sub && <p className="earn-hero__sub">{sub}</p>}
+          {children && <div className="earn-hero__ctas">{children}</div>}
+        </div>
+        <div ref={artRef} className={`earn-hero__art earn-hero__art--${props.length}`} aria-hidden="true">
+          {props.map((p, i) => (
+            <PropImg key={p} name={p} eager float width={i === 0 ? 460 : 280} className={`earn-hero__prop earn-hero__prop--${i}`} />
+          ))}
+        </div>
       </div>
-      <div className={`earn-hero__art earn-hero__art--${props.length}`} aria-hidden="true">
-        {props.map((p, i) => (
-          <PropImg key={p} name={p} eager float width={i === 0 ? 360 : 220} className={`earn-hero__prop earn-hero__prop--${i}`} />
-        ))}
+    </section>
+  );
+}
+
+/** One giant number, the hook of the page, in Home's display type. */
+export function BigNumber({ value, caption, prop }: { value: string; caption: string; prop?: string }) {
+  return (
+    <section className="earn-big">
+      <div className="earn-big__inner" data-popin>
+        {prop && <PropImg name={prop} className="earn-big__prop" width={240} />}
+        <span className="earn-big__value">{value}</span>
+        <span className="earn-big__caption">{caption}</span>
       </div>
     </section>
   );
@@ -77,22 +155,22 @@ export function EarnHero({ eyebrow, title, sub, props, children }: HeroProps) {
 
 export type Step = { prop: string; title: string; text: string };
 
-/** Three numbered steps with a prop each. Swipes sideways on phones. */
-export function StepStrip({ heading, steps }: { heading: string; steps: Step[] }) {
+/** Three numbered steps, Home's numbered-card look with a prop each. Swipes sideways on phones. */
+export function StepStrip({ eyebrow, heading, steps, raised = true }: { eyebrow?: string; heading: string; steps: Step[]; raised?: boolean }) {
   return (
-    <section className="earn-section">
-      <h2 className="earn-h2 font-display">{heading}</h2>
+    <Band raised={raised}>
+      <Heading eyebrow={eyebrow} title={heading} />
       <ol className="earn-steps">
         {steps.map((s, i) => (
-          <li key={s.title} className="earn-step">
-            <span className="earn-step__num font-display" aria-hidden="true">{i + 1}</span>
-            <PropImg name={s.prop} className="earn-step__prop" width={160} />
-            <h3 className="earn-step__title font-display">{s.title}</h3>
+          <li key={s.title} className="earn-step" data-popin>
+            <PropImg name={s.prop} className="earn-step__prop" width={200} />
+            <span className="earn-step__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3 className="earn-step__title">{s.title}</h3>
             <p className="earn-step__text">{s.text}</p>
           </li>
         ))}
       </ol>
-    </section>
+    </Band>
   );
 }
 
@@ -100,10 +178,10 @@ export function StepStrip({ heading, steps }: { heading: string; steps: Step[] }
 export function PremiumStrip({ text }: { text?: string }) {
   const { t } = useTranslation();
   return (
-    <Link to="/membership" className="earn-premium" viewTransition>
-      <PropImg name="gym-card" className="earn-premium__prop" width={120} />
+    <Link to="/membership" className="earn-premium" viewTransition data-popin>
+      <PropImg name="gym-card" className="earn-premium__prop" width={160} />
       <span className="earn-premium__text">
-        <strong className="font-display">{t('earnPages.premiumStrip.title')}</strong>
+        <strong>{t('earnPages.premiumStrip.title')}</strong>
         <span>{text ?? t('earnPages.premiumStrip.text')}</span>
       </span>
       <span className="earn-premium__arrow" aria-hidden="true">→</span>
@@ -112,7 +190,7 @@ export function PremiumStrip({ text }: { text?: string }) {
 }
 
 /** Links to the other earn pages, so every page leads to the rest. */
-export function EarnNext({ current }: { current: 'earn' | 'challenges' | 'giveaway' | 'rewards' }) {
+export function EarnNext({ current, raised = false, children }: { current: 'earn' | 'challenges' | 'giveaway' | 'rewards'; raised?: boolean; children?: ReactNode }) {
   const { t } = useTranslation();
   const items = [
     { id: 'earn', to: '/earn', prop: 'libo-coin' },
@@ -121,23 +199,24 @@ export function EarnNext({ current }: { current: 'earn' | 'challenges' | 'giveaw
     { id: 'rewards', to: '/rewards', prop: 'reward-cards-fan' },
   ].filter((i) => i.id !== current);
   return (
-    <section className="earn-section">
-      <h2 className="earn-h2 font-display">{t('earnPages.next.heading')}</h2>
+    <Band raised={raised}>
+      <Heading title={t('earnPages.next.heading')} />
       <div className="earn-next">
         {items.map((i) => (
-          <Link key={i.id} to={i.to} className="earn-next__card" viewTransition>
-            <PropImg name={i.prop} className="earn-next__prop" width={160} />
-            <span className="earn-next__title font-display">{t(`earnPages.next.${i.id}.title`)}</span>
+          <Link key={i.id} to={i.to} className="earn-next__card" viewTransition data-popin>
+            <span className="earn-next__stage"><PropImg name={i.prop} className="earn-next__prop" width={200} /></span>
+            <span className="earn-next__title">{t(`earnPages.next.${i.id}.title`)}</span>
             <span className="earn-next__text">{t(`earnPages.next.${i.id}.text`)}</span>
             <span className="earn-next__cta">{t('earnPages.next.cta')} <span aria-hidden="true">→</span></span>
           </Link>
         ))}
       </div>
-    </section>
+      {children}
+    </Band>
   );
 }
 
-/** A real app screen in a phone frame. Screens come from the 17 Nov 2026 English app recording. */
+/** A real app screen, styled like Home's hero phones. Screens: 17 Nov 2026 English recording. */
 export function PhoneShot({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
   return (
     <figure className={`earn-phone ${className}`.trim()}>
@@ -146,13 +225,19 @@ export function PhoneShot({ src, alt, className = '' }: { src: string; alt: stri
   );
 }
 
-/** Closing block: headline, one line, both store badges. */
+/** Closing band, Home's "rh-final": big two-tone headline, one line, both store badges. */
 export function AppCta({ title, sub }: { title: string; sub?: string }) {
+  const [a, b] = splitLines(title);
   return (
-    <section className="earn-cta">
-      <h2 className="earn-h2 font-display">{title}</h2>
-      {sub && <p className="earn-cta__sub">{sub}</p>}
-      <StoreBadges className="earn-cta__badges" />
+    <section className="earn-final">
+      <div className="earn-final__inner">
+        <h2 className="earn-final__h2">
+          {a && <ScrollRevealText as="span" className="earn-h2__line">{a}</ScrollRevealText>}
+          <ScrollRevealText as="span" className="earn-h2__line earn-reveal--accent">{b}</ScrollRevealText>
+        </h2>
+        {sub && <p className="earn-final__sub">{sub}</p>}
+        <StoreBadges className="earn-final__badges" />
+      </div>
     </section>
   );
 }

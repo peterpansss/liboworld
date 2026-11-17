@@ -2461,7 +2461,7 @@
         },
         "library": {
           "title": "820+ Übungen",
-          "text": "Jede Übung auf Video, nach Muskel, Stil und Ort. Gym, zu Hause oder draußen.",
+          "text": "Fast jede Übung auf Video, nach Muskel, Stil und Ort. Gym, zu Hause oder draußen.",
           "alt": "Entdecken-Seite mit Muskelgruppen",
           "link": "Zur Bibliothek"
         },
@@ -2579,6 +2579,12 @@
     },
     "footer": {
       "trainTitle": "Trainieren"
+    },
+    "big": {
+      "earn": "Punkte für jedes Workout",
+      "rewards": "Punkte = ein {{value}}-€-Gutschein",
+      "giveaway": "Lose pro Runde, Premium nach 12 Monaten",
+      "features": "Übungen in der Bibliothek"
     }
   }
 }

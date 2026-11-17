@@ -16,21 +16,16 @@
 .gw-status__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
 .gw-status--open .gw-status__dot { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-dim); }
 .gw-badges { width: 100%; justify-content: center; }
-@media (min-width: 768px) { .gw-badges { justify-content: flex-start; } }
+@media (min-width: 900px) { .gw-badges { justify-content: flex-start; } }
 
-.gw-cash {
-  margin: 0 auto;
-  max-width: 44ch;
-  text-align: center;
-  color: var(--muted);
-  font-size: 15px;
-}
+.gw-cash { width: 100%; margin: 0; color: var(--muted); font-size: 15px; }
 
 .gw-entries-wrap { display: grid; gap: 32px; justify-items: center; }
 .gw-phone { display: none; }
-@media (min-width: 768px) {
-  .gw-entries-wrap { grid-template-columns: 1fr 260px; align-items: center; justify-items: stretch; }
-  .gw-phone { display: block; }
+@media (min-width: 900px) {
+  .gw-entries-wrap { grid-template-columns: 1fr 280px; gap: 64px; align-items: center; justify-items: stretch; }
+  .gw-phone { display: block; max-width: 280px; }
+  .gw-ladder { max-width: none; }
 }
 
 .gw-ladder {
@@ -52,9 +47,15 @@
 }
 .gw-ladder thead th:first-child,
 .gw-ladder tbody th { text-align: left; }
-.gw-ladder tbody tr { background: var(--card); }
+.gw-ladder tbody tr { background: var(--bg3); }
 .gw-ladder tbody th { font-size: 15px; font-weight: 600; border-radius: 16px 0 0 16px; }
-.gw-ladder tbody td { font-size: 32px; line-height: 1; }
+.gw-ladder tbody td {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
 .gw-ladder tbody td:last-child { border-radius: 0 16px 16px 0; }
 .gw-ladder__premium { color: var(--accent); }
 

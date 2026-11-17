@@ -4,8 +4,9 @@ import { SeoHead } from '../components/SeoHead';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import {
-  EarnHero, StepStrip, PremiumStrip, EarnNext, AppCta, RulesLink, PropImg,
+  EarnHero, StepStrip, PremiumStrip, EarnNext, AppCta, RulesLink, PropImg, Band, Heading, BigNumber,
 } from '../components/earn/EarnKit';
+import { usePopIn } from '../utils/funnelAnimations';
 import {
   REWARDS_CATALOG, REWARDS_ITEMS, REWARDS_DELIVERY_DAYS, itemCashEur, formatPoints,
 } from '../data/rewardsCatalog';
@@ -23,6 +24,8 @@ import './Rewards.css';
  */
 export default function Rewards() {
   const { t } = useTranslation();
+  usePopIn();
+  const cheapest = REWARDS_CATALOG[0];
 
   return (
     <>
@@ -35,27 +38,24 @@ export default function Rewards() {
       <main id="main-content" className="earn-page">
         <EarnHero
           eyebrow={t('earnPages.rewards.eyebrow')}
-          title={<>{t('earnPages.rewards.title1')} <span className="accent">{t('earnPages.rewards.title2')}</span></>}
+          title={[t('earnPages.rewards.title1'), t('earnPages.rewards.title2')]}
           sub={t('earnPages.rewards.sub')}
           props={['reward-cards-fan', 'cash-euro-stack']}
         >
-          <Link to="/earn" className="btn-primary" viewTransition>
+          <Link to="/earn" className="btn-primary btn-primary--lg" viewTransition>
             {t('earnPages.rewards.ctaEarn')} <span aria-hidden="true">→</span>
           </Link>
-        </EarnHero>
-        <p className="rw-challenge-link">
-          <Link to="/cash-challenges" viewTransition>
+          <Link to="/cash-challenges" className="rw-challenge-link" viewTransition>
             {t('earnPages.rewards.challengeLink')} <span aria-hidden="true">→</span>
           </Link>
-        </p>
+        </EarnHero>
 
-        {(['gift', 'cash'] as const).map((kind) => (
-          <section key={kind} className="earn-section">
-            <h2 className="earn-h2 font-display">{t(`earnPages.rewards.${kind}.heading`)}</h2>
-            <p className="earn-lead">{t(`earnPages.rewards.${kind}.lead`)}</p>
+        {(['gift', 'cash'] as const).map((kind, idx) => (
+          <Band key={kind} raised={idx === 0}>
+            <Heading title={t(`earnPages.rewards.${kind}.heading`)} sub={t(`earnPages.rewards.${kind}.lead`)} />
             <ul className="rw-cards">
               {REWARDS_CATALOG.map((r) => (
-                <li key={r.valueEur} className="rw-card">
+                <li key={r.valueEur} className="rw-card" data-popin>
                   <img
                     className="rw-card__img"
                     src={`/rewards/${kind}-${r.valueEur}.webp?v=1`}
@@ -66,7 +66,7 @@ export default function Rewards() {
                     height={380}
                   />
                   <div className="rw-card__row">
-                    <span className="rw-card__pts font-display">
+                    <span className="rw-card__pts">
                       {formatPoints(r.points)} <span>{t('earnPages.common.points')}</span>
                     </span>
                     {r.minTier === 'premium' && (
@@ -76,31 +76,37 @@ export default function Rewards() {
                 </li>
               ))}
             </ul>
-          </section>
+          </Band>
         ))}
 
         {REWARDS_ITEMS.length > 0 && (
-          <section className="earn-section">
-            <h2 className="earn-h2 font-display">{t('earnPages.rewards.items.heading')}</h2>
+          <Band raised>
+            <Heading title={t('earnPages.rewards.items.heading')} />
             <ul className="rw-items">
               {REWARDS_ITEMS.map((it) => (
-                <li key={it.title} className="rw-item">
-                  <PropImg name="iphone" className="rw-item__prop" width={160} />
+                <li key={it.title} className="rw-item" data-popin>
+                  <span className="rw-item__stage"><PropImg name="iphone" className="rw-item__prop" width={240} /></span>
                   <div className="rw-item__copy">
-                    <span className="rw-item__title font-display">{it.title}</span>
-                    <span className="rw-card__pts font-display">
+                    {it.minTier === 'premium' && <span className="rw-badge">{t('earnPages.common.premium')}</span>}
+                    <span className="rw-item__title">{it.title}</span>
+                    <span className="rw-card__pts">
                       {formatPoints(it.points)} <span>{t('earnPages.common.points')}</span>
                     </span>
                     <span className="rw-item__cash">
                       {t('earnPages.rewards.items.cash', { cash: itemCashEur(it.valueEur).toLocaleString('en-GB') })}
                     </span>
                   </div>
-                  {it.minTier === 'premium' && <span className="rw-badge rw-item__badge">{t('earnPages.common.premium')}</span>}
                 </li>
               ))}
             </ul>
-          </section>
+          </Band>
         )}
+
+        <BigNumber
+          value={formatPoints(cheapest.points)}
+          caption={t('earnPages.big.rewards', { value: cheapest.valueEur })}
+          prop="libo-coin"
+        />
 
         <StepStrip
           heading={t('earnPages.rewards.steps.heading')}
@@ -111,9 +117,10 @@ export default function Rewards() {
           ]}
         />
 
-        <PremiumStrip text={t('earnPages.rewards.premiumText')} />
-        <EarnNext current="rewards" />
-        <RulesLink to="/rewards-rules" label={t('earnPages.rewards.rules')} />
+        <EarnNext current="rewards">
+          <PremiumStrip text={t('earnPages.rewards.premiumText')} />
+          <RulesLink to="/rewards-rules" label={t('earnPages.rewards.rules')} />
+        </EarnNext>
         <AppCta title={t('earnPages.common.ctaTitle')} sub={t('earnPages.common.ctaSub')} />
       </main>
       <SiteFooter />

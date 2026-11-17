@@ -2461,7 +2461,7 @@
         },
         "library": {
           "title": "Más de 820 ejercicios",
-          "text": "Cada movimiento en vídeo, por músculo, estilo y lugar. Gimnasio, casa o al aire libre.",
+          "text": "Casi todos los movimientos en vídeo, por músculo, estilo y lugar. Gimnasio, casa o al aire libre.",
           "alt": "Pantalla Explorar con grupos musculares",
           "link": "Ver la biblioteca"
         },
@@ -2579,6 +2579,12 @@
     },
     "footer": {
       "trainTitle": "Entrena"
+    },
+    "big": {
+      "earn": "puntos por cada entreno",
+      "rewards": "puntos = una tarjeta regalo de {{value}} €",
+      "giveaway": "participaciones por ronda, Premium a los 12 meses",
+      "features": "ejercicios en la biblioteca"
     }
   }
 }

@@ -2461,7 +2461,7 @@
         },
         "library": {
           "title": "820+ exercices",
-          "text": "Chaque mouvement en vidéo, par muscle, style et lieu. Salle, maison ou dehors.",
+          "text": "Presque chaque mouvement en vidéo, par muscle, style et lieu. Salle, maison ou dehors.",
           "alt": "Écran Explorer avec les groupes musculaires",
           "link": "Voir la bibliothèque"
         },
@@ -2579,6 +2579,12 @@
     },
     "footer": {
       "trainTitle": "Entraînement"
+    },
+    "big": {
+      "earn": "points pour chaque séance",
+      "rewards": "points = une carte cadeau de {{value}} €",
+      "giveaway": "participations par manche, Premium à 12 mois",
+      "features": "exercices dans la bibliothèque"
     }
   }
 }

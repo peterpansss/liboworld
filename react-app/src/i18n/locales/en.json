@@ -2461,7 +2461,7 @@
         },
         "library": {
           "title": "820+ exercises",
-          "text": "Every move on video, by muscle, style and place. Gym, home or outside.",
+          "text": "Almost every move on video, by muscle, style and place. Gym, home or outside.",
           "alt": "Explore screen with muscle groups",
           "link": "Browse the library"
         },
@@ -2579,6 +2579,12 @@
     },
     "footer": {
       "trainTitle": "Train"
+    },
+    "big": {
+      "earn": "points for every workout",
+      "rewards": "points = a €{{value}} gift card",
+      "giveaway": "entries a round, Premium at 12 months",
+      "features": "exercises in the library"
     }
   }
 }

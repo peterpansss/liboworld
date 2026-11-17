@@ -2461,7 +2461,7 @@
         },
         "library": {
           "title": "820+ exercícios",
-          "text": "Cada movimento em vídeo, por músculo, estilo e lugar. Academia, casa ou ao ar livre.",
+          "text": "Quase todo movimento em vídeo, por músculo, estilo e lugar. Academia, casa ou ao ar livre.",
           "alt": "Tela Explorar com grupos musculares",
           "link": "Ver a biblioteca"
         },
@@ -2579,6 +2579,12 @@
     },
     "footer": {
       "trainTitle": "Treine"
+    },
+    "big": {
+      "earn": "pontos por cada treino",
+      "rewards": "pontos = um vale-presente de {{value}} €",
+      "giveaway": "participações por rodada, Premium aos 12 meses",
+      "features": "exercícios na biblioteca"
     }
   }
 }
