@@ -945,7 +945,7 @@
       "imgAltLeft": "Pestaña Explorar de Libo",
       "imgAltCenter": "Pestaña Inicio de Libo con racha y el entrenamiento de hoy",
       "imgAltRight": "Pestaña Recompensas de Libo con 436 puntos",
-      "pillLive": "Ya en la App Store",
+      "pillLive": "Ya disponible",
       "pillPlatforms": "iOS · Android",
       "pillTier": "Plan gratuito",
       "h1a": "Completa 30 días",
@@ -1349,8 +1349,8 @@
       "short": "Cash Challenges en iOS →"
     },
     "liveBar": {
-      "full": "Libo ya está en la App Store — descárgala gratis",
-      "short": "Ya en la App Store →"
+      "full": "Libo ya está en la App Store y Google Play — descárgala gratis",
+      "short": "En iOS y Android →"
     }
   },
   "relaunchPricing": {

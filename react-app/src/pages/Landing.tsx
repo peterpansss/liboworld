@@ -314,7 +314,7 @@ export default function Landing() {
           <div className="rh-hero-text">
             <div className="rh-badges">
               <span className="rh-badge rh-badge--accent">
-                {t('relaunchHome.hero.pillLive', { defaultValue: 'Live on the App Store' })}
+                {t('relaunchHome.hero.pillLive', { defaultValue: 'Live now' })}
               </span>
               <span className="rh-badge">
                 {t('relaunchHome.hero.pillPlatforms', { defaultValue: 'iOS · Android' })}
@@ -347,13 +347,6 @@ export default function Landing() {
               </span>
             </h1>
 
-            <p className="rh-hero-sub">
-              {t('relaunchHome.hero.body', {
-                defaultValue:
-                  'Pick a challenge. Hit your daily reps for 30 days, filmed and verified in the app. Finish and we pay you €5, €15 or €50 in real cash — funded by Libo, no draw, no luck. Miss a day and a freeze token covers you. Entry is free.',
-              })}
-            </p>
-
             {/* A waitlist email field until 3 Nov 2026 — six and a half weeks
                 after Libo reached the App Store, the hero was still collecting
                 addresses for a launch that had already happened, and this page
@@ -361,10 +354,19 @@ export default function Landing() {
                 reported zero downloads from a web referrer for the whole life
                 of the app. The id stays: Pricing.tsx ("Start free"), the site
                 header and storeRedirect's desktop fallback all deep-link to
-                it. It lands on the download now, not a form. */}
+                it. It lands on the download now, not a form. Sits right under the H1
+                since 17 Nov 2026 so both badges are visible on arrival (Noah,
+                "like Cal AI"). */}
             <div id="hero-capture" className="rh-hero-capture-anchor">
-              <StoreBadges />
+              <StoreBadges className="rh-hero-badges" />
             </div>
+
+            <p className="rh-hero-sub">
+              {t('relaunchHome.hero.body', {
+                defaultValue:
+                  'Pick a challenge. Hit your daily reps for 30 days, filmed and verified in the app. Finish and we pay you €5, €15 or €50 in real cash — funded by Libo, no draw, no luck. Miss a day and a freeze token covers you. Entry is free.',
+              })}
+            </p>
           </div>
 
           <div className="rh-hero-phones">

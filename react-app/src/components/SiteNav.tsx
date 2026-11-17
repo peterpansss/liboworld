@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { APP_STORE_URL } from './AppStoreBadge';
+import { detectPlatform, storeUrlFor } from '../utils/storeRedirect';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LiboLogo from './LiboLogo';
@@ -80,21 +80,17 @@ export default function SiteNav() {
   const isSubpage = location.pathname !== '/';
 
   const navLinks = visibleNavLinks();
-  // iOS shipped 18 Sep 2026. Sending a visitor to a waitlist for something
-  // they can download in ten seconds is the one thing the bar must not do, so
-  // the CTA and the bar both point at the download block, which carries both
-  // store badges since Android went live (9 Nov 2026).
-  const waitlistLabel = t('nav.downloadCta', { defaultValue: 'Download' });
-  const handleWaitlistClick = () => setDrawerOpen(false);
+  // The bar and the badges point at the stores: iOS since 18 Sep 2026,
+  // Google Play since 9 Nov 2026.
 
   // The ⚡ and → are markup (site-announce__spark / __arrow), so the copy must
   // not repeat them — except the short variant, which carries its own trailing
   // → because CSS hides the standalone arrow at ≤430px.
   const announceFull = showDownloadBar
-    ? t('relaunchHome.liveBar.full', { defaultValue: 'Libo is live on the App Store — download it free' })
+    ? t('relaunchHome.liveBar.full', { defaultValue: 'Libo is live on the App Store and Google Play — download it free' })
     : t('earlyAccess.announceText', { defaultValue: 'Founding Members: 50% off — until 13 October' });
   const announceShort = showDownloadBar
-    ? t('relaunchHome.liveBar.short', { defaultValue: 'Live on the App Store →' })
+    ? t('relaunchHome.liveBar.short', { defaultValue: 'Get it on iOS & Android →' })
     : t('earlyAccess.announceTextShort', { defaultValue: 'Founding Members: 50% off until 13 Oct →' });
 
   useEffect(() => {
@@ -129,7 +125,15 @@ export default function SiteNav() {
           <button
             type="button"
             className="site-announce__msg"
-            onClick={() => { if (showDownloadBar) window.location.assign(APP_STORE_URL); else navigate('/membership'); }}
+            onClick={() => {
+              if (!showDownloadBar) { navigate('/membership'); return; }
+              // Each phone to its own store; desktop to the hero badges.
+              const platform = detectPlatform();
+              if (platform !== 'desktop') { window.location.assign(storeUrlFor(platform)); return; }
+              const hero = document.getElementById('hero-capture');
+              if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              else navigate('/#hero-capture');
+            }}
           >
             <span className="site-announce__spark" aria-hidden="true">⚡</span>
             <span className="site-announce__text">
@@ -183,13 +187,9 @@ export default function SiteNav() {
 
           {/* Right section */}
           <div className="site-nav__right">
-            <a
-              href={APP_STORE_URL}
-              className="site-nav__cta"
-              onClick={handleWaitlistClick}
-            >
-              {waitlistLabel}
-            </a>
+            {/* Both official store badges in the bar, like Cal AI (Noah, 17 Nov
+                2026); was a single lime "Download" button to the App Store. */}
+            <StoreBadges className="site-nav__badges" />
             <button
               className="site-nav__hamburger"
               onClick={() => setDrawerOpen(true)}
@@ -202,6 +202,13 @@ export default function SiteNav() {
           </div>
         </div>
       </nav>
+
+      {/* Mobile: both store badges pinned to the bottom of the screen, always
+          in reach (Noah, 17 Nov 2026: "like on Cal AI"). Hidden above 768px,
+          where the badges sit in the nav bar instead. */}
+      <div className="site-storebar">
+        <StoreBadges className="site-storebar__badges" />
+      </div>
 
       {/* Mobile drawer */}
       {drawerOpen && (
@@ -235,17 +242,11 @@ export default function SiteNav() {
             </Link>
           ))}
         </div>
-        {/* Pinned to the drawer's bottom: store badges, the one lime CTA,
-            then the language switcher (HEADER-FOOTER-TICKET §2). */}
+        {/* Pinned to the drawer's bottom: the store badges, then the language
+            switcher (HEADER-FOOTER-TICKET §2). The lime "Download" CTA that sat
+            here went with the official badges (17 Nov 2026). */}
         <div className="site-nav__drawer-bottom">
           <StoreBadges className="site-nav__drawer-badges" />
-          <a
-            href={APP_STORE_URL}
-            className="site-nav__drawer-cta"
-            onClick={handleWaitlistClick}
-          >
-            {waitlistLabel}
-          </a>
           <div className="site-nav__drawer-lang">
             <LanguageSwitcher variant="drawer" />
           </div>

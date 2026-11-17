@@ -919,7 +919,7 @@
       "imgAltLeft": "Onglet Explorer de Libo",
       "imgAltCenter": "Onglet Accueil de Libo avec la série et l'entraînement du jour",
       "imgAltRight": "Onglet Récompenses de Libo avec 436 points",
-      "pillLive": "Disponible sur l’App Store",
+      "pillLive": "Disponible",
       "pillPlatforms": "iOS · Android",
       "pillTier": "Niveau Free",
       "h1a": "Va au bout de",
@@ -1328,8 +1328,8 @@
       "short": "Cash Challenges sur iOS →"
     },
     "liveBar": {
-      "full": "Libo est disponible sur l’App Store — télécharge-la gratuitement",
-      "short": "Sur l’App Store →"
+      "full": "Libo est disponible sur l’App Store et Google Play — télécharge-la gratuitement",
+      "short": "Sur iOS et Android →"
     }
   },
   "relaunchPricing": {

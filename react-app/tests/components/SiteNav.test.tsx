@@ -69,7 +69,7 @@ function renderAt(path: string) {
 }
 
 describe('SiteNav', () => {
-  it('renders the skip link, primary nav links, and the download CTA', () => {
+  it('renders the skip link, primary nav links, and the store badges', () => {
     renderAt('/');
     expect(screen.getByText('nav.skipToMain')).toBeInTheDocument();
     expect(screen.getByRole('navigation', { name: 'nav.mainNavigation' })).toBeInTheDocument();
@@ -78,7 +78,8 @@ describe('SiteNav', () => {
     ['Cash Challenges', 'Exercise Library', 'Founding Member', 'Press', 'Careers'].forEach((label) => {
       expect(screen.getAllByText(label).length).toBeGreaterThanOrEqual(1);
     });
-    expect(screen.getAllByText('Download').length).toBe(2);
+    // Official badge pairs: nav bar, mobile bottom bar, drawer (17 Nov 2026).
+    expect(document.querySelectorAll('.store-badges').length).toBe(3);
     // Membership left the header on 2026-08-27; it lives in the footer as
     // "Pricing" now, and the freed slot carries the founding offer.
     expect(screen.queryByText('Membership')).toBeNull();
@@ -94,18 +95,17 @@ describe('SiteNav', () => {
     expect(screen.getAllByText('Cash Challenges').length).toBeGreaterThanOrEqual(1);
   });
 
-  it('points both CTAs at the App Store listing — the app is live, so a waitlist would be a detour', () => {
-    renderAt('/');
-    // getAllByText, not getAllByRole: the closed drawer is aria-hidden, so
-    // its copy of the CTA is out of the accessibility tree.
-    const ctas = screen.getAllByText('Download');
-    expect(ctas.length).toBe(2);
-    ctas.forEach((cta) =>
-      expect(cta).toHaveAttribute(
-        'href',
-        'https://apps.apple.com/app/libo-world-training-club/id6773703113',
-      ),
-    );
+  it('puts both official store badges in the bar, the mobile bottom bar and the drawer', () => {
+    const { container } = renderAt('/');
+    // Selectors, not roles: the closed drawer is aria-hidden.
+    ['.site-nav__badges', '.site-storebar__badges', '.site-nav__drawer-badges'].forEach((sel) => {
+      const links = container.ownerDocument.querySelectorAll(`${sel} a`);
+      expect(links.length).toBe(2);
+      expect(links[0].getAttribute('href')).toContain('apps.apple.com');
+      expect(links[1].getAttribute('href')).toContain('play.google.com');
+    });
+    // The old lime "Download" button is gone.
+    expect(screen.queryByText('Download')).toBeNull();
   });
 
   it('marks the active nav link with aria-current="page"', () => {
@@ -175,7 +175,7 @@ describe('SiteNav announce bar', () => {
     const bar = container.querySelector('.site-announce');
     expect(bar).not.toBeNull();
     expect(bar!.className).toContain('site-announce--waitlist');
-    expect(screen.getByText('Libo is live on the App Store — download it free')).toBeInTheDocument();
+    expect(screen.getByText('Libo is live on the App Store and Google Play — download it free')).toBeInTheDocument();
   });
 
   it('does not gate the waitlist variant on Stripe — it is a free ask', () => {
@@ -235,7 +235,7 @@ describe('SiteNav announce bar', () => {
     expect(bar).not.toBeNull();
     expect(bar!.className).toContain('site-announce--waitlist');
     expect(
-      screen.queryByText('Libo is live on the App Store — download it free'),
+      screen.queryByText('Libo is live on the App Store and Google Play — download it free'),
     ).not.toBeNull();
   });
 

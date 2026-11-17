@@ -1,7 +1,6 @@
+import StoreBadges from '../StoreBadges';
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { colors } from '../../theme';
-import { ANDROID_AVAILABLE, STORE_URLS } from '../../utils/storeRedirect';
 
 /**
  * Desktop fallback overlay for the /cash-challenge "Reserve my slot" flow.
@@ -40,7 +39,6 @@ function qrSrc(target: string): string {
 }
 
 export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: Props) {
-  const { t } = useTranslation();
 
   // Esc to close
   useEffect(() => {
@@ -119,30 +117,8 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
     marginTop: 4,
   };
 
-  const badgeImgLink: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    textDecoration: 'none',
-  };
 
-  const badgeImg: React.CSSProperties = {
-    height: 44,
-    width: 'auto',
-    display: 'block',
-  };
 
-  const playPill: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    height: 44,
-    padding: '0 18px',
-    borderRadius: 14,
-    border: `1px solid ${colors.border}`,
-    color: colors.text,
-    fontSize: 14,
-    fontWeight: 600,
-    textDecoration: 'none',
-  };
 
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="store-overlay-title" onClick={onClose} style={overlay}>
@@ -171,26 +147,7 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
         </div>
 
         <div style={badgeRow}>
-          <a
-            href={STORE_URLS.ios}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={badgeImgLink}
-            aria-label={t('store.downloadAppStore')}
-          >
-            <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} style={badgeImg} />
-          </a>
-          {ANDROID_AVAILABLE && (
-            <a
-              href={STORE_URLS.android}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={playPill}
-              aria-label={t('store.downloadGooglePlay', { defaultValue: 'Get it on Google Play' })}
-            >
-              {t('store.downloadGooglePlay', { defaultValue: 'Get it on Google Play' })}
-            </a>
-          )}
+          <StoreBadges height={44} newTab />
         </div>
 
       </div>
