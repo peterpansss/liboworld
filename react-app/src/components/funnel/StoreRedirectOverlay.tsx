@@ -1,20 +1,18 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { colors } from '../../theme';
-import { STORE_URLS } from '../../utils/storeRedirect';
+import { ANDROID_AVAILABLE, STORE_URLS } from '../../utils/storeRedirect';
 
 /**
  * Desktop fallback overlay for the /cash-challenge "Reserve my slot" flow.
  *
  * Mobile visitors get UA-routed straight to the App Store.
  * Desktop visitors see this overlay instead — a QR code (so they can scan
- * with their phone) plus the App Store badge as fallback.
+ * with their phone) plus the App Store and Google Play links as fallback.
  *
  * The QR points at /get-app on liboworld.com — that page client-side
- * UA-detects and redirects. Launch is iOS-only, so an iPhone scanning the QR
- * lands on the App Store and a Pixel lands on the waitlist (storeRedirect.ts
- * §ANDROID_AVAILABLE); the note under the badge says so rather than letting an
- * Android visitor scan, wait, and find nothing to install.
+ * UA-detects and redirects: an iPhone lands on the App Store, an Android
+ * phone on Google Play (storeRedirect.ts §ANDROID_AVAILABLE).
  */
 
 type Props = {
@@ -133,11 +131,17 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
     display: 'block',
   };
 
-  const iosNote: React.CSSProperties = {
-    fontSize: 12,
-    color: colors.muted,
-    lineHeight: 1.5,
-    margin: '14px 0 0',
+  const playPill: React.CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    height: 44,
+    padding: '0 18px',
+    borderRadius: 14,
+    border: `1px solid ${colors.border}`,
+    color: colors.text,
+    fontSize: 14,
+    fontWeight: 600,
+    textDecoration: 'none',
   };
 
   return (
@@ -176,16 +180,19 @@ export default function StoreRedirectOverlay({ open, tierSlug, copy, onClose }: 
           >
             <img src="/store-badges/app-store.svg" alt={t('store.downloadAppStore')} style={badgeImg} />
           </a>
+          {ANDROID_AVAILABLE && (
+            <a
+              href={STORE_URLS.android}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={playPill}
+              aria-label={t('store.downloadGooglePlay', { defaultValue: 'Get it on Google Play' })}
+            >
+              {t('store.downloadGooglePlay', { defaultValue: 'Get it on Google Play' })}
+            </a>
+          )}
         </div>
 
-        {/* No Play Store badge on purpose — there is nothing to install on
-            Android yet. This used to offer "On Android? Join the waitlist →"
-            pointing at #hero-capture; that anchor stopped being a waitlist on
-            3 Nov 2026, so the link was promising something that no longer
-            existed. State the position instead of offering a dead door. */}
-        <p style={iosNote}>
-          {t('store.iosFirstNote', { defaultValue: 'iPhone only for now — Android is in testing.' })}
-        </p>
       </div>
 
       <style>{`

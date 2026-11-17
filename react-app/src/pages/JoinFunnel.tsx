@@ -178,7 +178,7 @@ export default function JoinFunnel() {
       q: t('joinFunnel.faq.q4', { defaultValue: 'Is Libo out yet?' }),
       a: t('joinFunnel.faq.a4', {
         defaultValue:
-          'Yes — Libo is on the App Store for iPhone, free to download. Android is in closed testing and has no public date yet.',
+          'Yes — Libo is on the App Store for iPhone and on Google Play for Android, free to download.',
       }),
     },
     {
@@ -262,11 +262,13 @@ export default function JoinFunnel() {
             </p>
 
             {/* Store badges — desktop only per target (mobile drops them).
-                Google Play is omitted: launch is iOS-only (Noah, 2026-08-21).
-                Restore the second badge when Android ships. */}
+                Google Play is back since Android went live (9 Nov 2026). */}
             <div className="jf-stores">
               <span className="jf-store">
                 {t('joinFunnel.stores.ios', { defaultValue: 'On the App Store' })}
+              </span>
+              <span className="jf-store">
+                {t('joinFunnel.stores.android', { defaultValue: 'On Google Play' })}
               </span>
             </div>
           </div>

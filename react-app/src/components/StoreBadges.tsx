@@ -2,14 +2,10 @@ import { useTranslation } from 'react-i18next';
 import { APP_STORE_URL } from './AppStoreBadge';
 import './StoreBadges.css';
 
-// TODO: replace with the real Play Store URL once the app is live.
-export const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.liboworld.app';
+import { ANDROID_AVAILABLE, STORE_URLS } from '../utils/storeRedirect';
 
-// Launch is iOS-only (3 Sep 2026). The Play pill stays in the tree but hidden:
-// promising Android before the listing exists is a promise we'd break on day
-// one. Flip to true the day the Play listing is live — nothing else to change.
-// Typed as boolean so the gated branch keeps type-checking while it's off.
-const ANDROID_AVAILABLE: boolean = false;
+// Live on Google Play since 9 Nov 2026; one flag in utils/storeRedirect.ts gates it.
+const PLAY_STORE_URL = STORE_URLS.android;
 
 /**
  * The App Store / Google Play pill pair (mobile drawer + desktop footer).

@@ -5,23 +5,19 @@
  * iOS visitors to the App Store. On desktop, the page shows a QR-code
  * overlay instead.
  *
- * Libo is iOS-only, so Android and desktop visitors go to the homepage
- * download block rather than to a store — see ANDROID_AVAILABLE below.
+ * Libo is on the App Store and Google Play (Play live since 9 Nov 2026), so
+ * iOS and Android visitors go to their store; desktop gets the homepage
+ * download block.
  *
- * When the real app listings are published, only the URLs in this file
- * need updating — every other call site reads from `STORE_URLS`.
+ * Every call site reads from `STORE_URLS`, so the URLs live only here.
  */
 
 export type Platform = 'ios' | 'android' | 'desktop';
 
-// Libo is iOS-only. `STORE_URLS.android` is still a bare placeholder, so every
-// Android visitor would otherwise land on play.google.com's homepage. Send them
-// to the homepage download block instead, which states plainly that it is
-// iPhone only. (This used to be held shut by LAUNCH_MODE as well; that flag
-// went to 'launched' on 3 Nov 2026 and this guard now stands on its own.)
-// Flip to true the day the Play listing is live: the Android path below is
-// intact and takes over on its own. Typed as boolean so both branches compile.
-export const ANDROID_AVAILABLE: boolean = false;
+// Android is live on Google Play (9 Nov 2026). The flag stays so the store
+// badges and redirects can be held shut again from one place if the listing
+// is ever pulled. Typed as boolean so both branches compile.
+export const ANDROID_AVAILABLE: boolean = true;
 
 /**
  * Where non-iOS visitors go instead of a store: the homepage hero download
@@ -31,12 +27,12 @@ export const ANDROID_AVAILABLE: boolean = false;
  */
 export const NON_IOS_FALLBACK_URL = '/#hero-capture';
 
+export const APP_STORE_ID = '6773703113';
+export const PLAY_PACKAGE = 'com.liboworld.app';
+
 export const STORE_URLS = {
-  // TODO: replace with the real App Store listing once Libo is published.
   ios: 'https://apps.apple.com/app/libo-world-training-club/id6773703113',
-  // TODO: replace with the real Play Store listing once Libo is published.
-  // e.g. 'https://play.google.com/store/apps/details?id=world.libo.app'
-  android: 'https://play.google.com',
+  android: 'https://play.google.com/store/apps/details?id=com.liboworld.app',
 } as const;
 
 /** UA-detect the visitor's platform. SSR-safe (returns 'desktop' off-window). */
@@ -54,9 +50,8 @@ export function detectPlatform(): Platform {
   return 'desktop';
 }
 
-/** Return the right destination for a platform. Only iOS gets a store link
- *  while Libo is iOS-only; Android and desktop get the homepage download block
- *  so no one is dropped on a store page that has nothing to download. */
+/** Return the right destination for a platform: its store on iOS and Android
+ *  (Android only while ANDROID_AVAILABLE), the homepage download block on desktop. */
 export function storeUrlFor(platform: Platform): string {
   if (platform === 'ios') return STORE_URLS.ios;
   if (platform === 'android' && ANDROID_AVAILABLE) return STORE_URLS.android;
@@ -64,8 +59,36 @@ export function storeUrlFor(platform: Platform): string {
 }
 
 /** Navigate the current window to the right destination. Use for in-page click handlers. */
-export function redirectToStore(platform: Platform): void {
+export function redirectToStore(platform: Platform, ct: string | null = null): void {
   if (typeof window === 'undefined') return;
-  const url = storeUrlFor(platform);
+  const url = storeUrlWithSource(platform, ct);
   window.location.assign(url);
+}
+
+/**
+ * Sanitise a campaign source (`?ct=` on /get-app, e.g. a social bio link) to
+ * what App Store Connect accepts: lowercase letters, digits, - and _, max 40.
+ * Returns null when nothing usable is left.
+ */
+export function cleanCampaignSource(raw: string | null): string | null {
+  if (!raw) return null;
+  const ct = raw.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
+  return ct || null;
+}
+
+/**
+ * Store URL carrying a campaign source, so one link (a social bio) can serve
+ * both stores and still show in App Store Connect's sources (`ct`) and in Play
+ * Console's acquisition report (`utm_source` via the install referrer).
+ */
+export function storeUrlWithSource(platform: Platform, ct: string | null): string {
+  if (!ct) return storeUrlFor(platform);
+  if (platform === 'ios') {
+    return `https://apps.apple.com/app/apple-store/id${APP_STORE_ID}?pt=128957923&ct=${ct}&mt=8`;
+  }
+  if (platform === 'android' && ANDROID_AVAILABLE) {
+    const referrer = encodeURIComponent(`utm_source=${ct}&utm_medium=social`);
+    return `${STORE_URLS.android}&referrer=${referrer}`;
+  }
+  return NON_IOS_FALLBACK_URL;
 }

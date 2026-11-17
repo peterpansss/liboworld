@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T18:10:24.782Z",
+  "generatedAt": "2026-11-17T17:29:08.940Z",
   "langs": [
     "en",
     "es",
@@ -127,23 +127,23 @@
       "id": "android",
       "en": {
         "q": "Is Libo available on Android?",
-        "a": "Not yet. Libo is iOS first, and Android is in closed testing with no public date yet. We’ll announce it on liboworld.com and our socials the moment it lands."
+        "a": "Yes. Libo is on Google Play for Android and on the App Store for iPhone, free to download."
       },
       "es": {
         "q": "¿Libo está disponible en Android?",
-        "a": "Todavía no. Libo sale primero en iOS; Android está en pruebas cerradas, aún sin fecha pública. Lo anunciaremos en liboworld.com y en nuestras redes en cuanto llegue."
+        "a": "Sí. Libo está gratis en Google Play para Android y en la App Store para iPhone."
       },
       "pt": {
         "q": "A Libo está disponível no Android?",
-        "a": "Ainda não. A Libo chega primeiro ao iOS; o Android está em teste fechado, ainda sem data pública. Vamos anunciar no liboworld.com e nas nossas redes assim que estiver pronto."
+        "a": "Sim. A Libo está grátis no Google Play para Android e na App Store para iPhone."
       },
       "de": {
         "q": "Gibt es Libo für Android?",
-        "a": "Noch nicht. Libo gibt es zuerst für iOS; Android ist im geschlossenen Test, noch ohne öffentliches Datum. Sobald es so weit ist, sagen wir es auf liboworld.com und in unseren Social-Kanälen."
+        "a": "Ja. Libo gibt es kostenlos bei Google Play für Android und im App Store für iPhone."
       },
       "fr": {
         "q": "Libo est-il disponible sur Android ?",
-        "a": "Pas encore. Libo sort d’abord sur iOS ; Android est en test fermé, sans date publique pour l’instant. On l’annoncera sur liboworld.com et sur nos réseaux dès que ce sera prêt."
+        "a": "Oui. Libo est gratuit sur Google Play pour Android et sur l’App Store pour iPhone."
       }
     },
     {
@@ -195,24 +195,24 @@
     {
       "id": "monthlyPrice",
       "en": {
-        "q": "What does €6.67/mo mean?",
-        "a": "Premium is billed yearly at €79.99, which works out to €6.67 per month. Founding Members lock the first year at €39.50 — about €3.29/mo."
+        "q": "What does €10.00/mo mean?",
+        "a": "Premium is billed yearly at €119.99, which works out to €10.00 per month."
       },
       "es": {
-        "q": "¿Qué significa €6.67/mes?",
-        "a": "Premium se factura anualmente a €79.99, lo que equivale a €6.67 al mes. Los Founding Members aseguran el primer año a €39.50 — unos €3.29/mes."
+        "q": "¿Qué significa €10.00/mes?",
+        "a": "Premium se factura anualmente a €119.99, lo que equivale a €10.00 al mes."
       },
       "pt": {
-        "q": "O que significa €6.67/mês?",
-        "a": "O Premium é cobrado anualmente a €79.99, o que dá €6.67 por mês. Founding Members garantem o primeiro ano a €39.50 — cerca de €3.29/mês."
+        "q": "O que significa €10.00/mês?",
+        "a": "O Premium é cobrado anualmente a €119.99, o que dá €10.00 por mês."
       },
       "de": {
-        "q": "Was bedeutet €6.67/Monat?",
-        "a": "Premium wird jährlich mit €79.99 abgerechnet, das sind €6.67 pro Monat. Founding Members sichern sich das erste Jahr für €39.50 — etwa €3.29/Monat."
+        "q": "Was bedeutet €10.00/Monat?",
+        "a": "Premium wird jährlich mit €119.99 abgerechnet, das sind €10.00 pro Monat."
       },
       "fr": {
-        "q": "Que veut dire €6.67/mois ?",
-        "a": "Premium est facturé chaque année à €79.99, soit €6.67 par mois. Les Founding Members bloquent la première année à €39.50 — environ €3.29/mois."
+        "q": "Que veut dire €10.00/mois ?",
+        "a": "Premium est facturé chaque année à €119.99, soit €10.00 par mois."
       }
     },
     {

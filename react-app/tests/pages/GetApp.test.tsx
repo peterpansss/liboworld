@@ -28,11 +28,11 @@ vi.mock('../../src/lib/funnelSignups', () => ({
 
 vi.mock('../../src/utils/storeRedirect', () => ({
   detectPlatform: () => detectPlatformMock(),
-  redirectToStore: (p: unknown) => redirectToStoreMock(p),
-  STORE_URLS: {
-    ios: 'https://apps.apple.com/libo',
-    android: 'https://play.google.com/libo',
-  },
+  redirectToStore: (p: unknown, ct: unknown) => redirectToStoreMock(p, ct),
+  cleanCampaignSource: (raw: string | null) =>
+    raw ? raw.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) || null : null,
+  storeUrlWithSource: (p: string, ct: string | null) =>
+    (p === 'ios' ? 'https://apps.apple.com/libo' : 'https://play.google.com/libo') + (ct ? `#ct=${ct}` : ''),
 }));
 
 import GetAppPage from '../../src/pages/GetApp';
@@ -60,15 +60,24 @@ function renderAt(search: string) {
 }
 
 describe('GetApp', () => {
-  it('renders the App Store fallback link and no Google Play badge', () => {
-    // The Play badge was dropped on purpose (1921a5d "funnel: drop Google Play
-    // badge"; Android isn't shipped, and the site must not claim it is), so
-    // the fallback is iOS-only.
+  it('renders both store fallback links (Android live since 9 Nov 2026)', () => {
     renderAt('');
     const appStore = screen.getByRole('link', { name: /Download on the App Store/ });
     expect(appStore).toHaveAttribute('href', 'https://apps.apple.com/libo');
-    expect(screen.queryByRole('link', { name: /Google Play/i })).not.toBeInTheDocument();
-    expect(screen.getAllByRole('link')).toHaveLength(1);
+    const play = screen.getByRole('link', { name: /Google Play/i });
+    expect(play).toHaveAttribute('href', 'https://play.google.com/libo');
+    expect(screen.getAllByRole('link')).toHaveLength(2);
+  });
+
+  it('carries a sanitised ?ct= source into the redirect and both fallback links', () => {
+    detectPlatformMock.mockReturnValue('ios');
+    renderAt('?ct=IG_LiboWorld!');
+    expect(screen.getByRole('link', { name: /App Store/ })).toHaveAttribute('href', 'https://apps.apple.com/libo#ct=ig_liboworld');
+    expect(screen.getByRole('link', { name: /Google Play/i })).toHaveAttribute('href', 'https://play.google.com/libo#ct=ig_liboworld');
+    act(() => {
+      vi.advanceTimersByTime(250);
+    });
+    expect(redirectToStoreMock).toHaveBeenCalledWith('ios', 'ig_liboworld');
   });
 
   it('shows "Opening the app store" copy before the redirect timer fires', () => {
@@ -118,7 +127,7 @@ describe('GetApp', () => {
     });
 
     expect(screen.getByText('Redirecting…')).toBeInTheDocument();
-    expect(redirectToStoreMock).toHaveBeenCalledWith('android');
+    expect(redirectToStoreMock).toHaveBeenCalledWith('android', null);
   });
 
   it('clears its timeout on unmount so a stale redirect cannot fire', () => {

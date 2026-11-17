@@ -5,7 +5,7 @@
  * and the redirect navigation helper.
  */
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
-import { detectPlatform, storeUrlFor, redirectToStore, STORE_URLS, NON_IOS_FALLBACK_URL, ANDROID_AVAILABLE } from '../../src/utils/storeRedirect';
+import { detectPlatform, storeUrlFor, redirectToStore, STORE_URLS, NON_IOS_FALLBACK_URL, ANDROID_AVAILABLE, cleanCampaignSource, storeUrlWithSource } from '../../src/utils/storeRedirect';
 
 const ORIG_NAV = global.navigator;
 
@@ -79,11 +79,11 @@ describe('storeUrlFor', () => {
     expect(storeUrlFor('ios')).toBe(STORE_URLS.ios);
   });
 
-  // Launch is iOS-only: nothing but iOS may be handed a store link, or an
-  // Android visitor lands on the Play Store homepage with nothing to install.
-  it('sends android to the waitlist while ANDROID_AVAILABLE is off', () => {
-    expect(ANDROID_AVAILABLE).toBe(false);
-    expect(storeUrlFor('android')).toBe(NON_IOS_FALLBACK_URL);
+  // Android is live on Google Play (9 Nov 2026): Android gets the real listing,
+  // never the bare play.google.com homepage.
+  it('sends android to the Libo Play listing', () => {
+    expect(ANDROID_AVAILABLE).toBe(true);
+    expect(storeUrlFor('android')).toBe('https://play.google.com/store/apps/details?id=com.liboworld.app');
   });
 
   it('sends desktop to the waitlist, not to a store', () => {
@@ -107,9 +107,34 @@ describe('redirectToStore', () => {
     expect(vi.mocked(window.location.assign).mock.calls[0][0]).toBe(STORE_URLS.ios);
   });
 
-  it('navigates android to the waitlist, not the Play Store', () => {
+  it('navigates android to the Play listing', () => {
     redirectToStore('android');
-    expect(vi.mocked(window.location.assign).mock.calls[0][0]).toBe(NON_IOS_FALLBACK_URL);
+    expect(vi.mocked(window.location.assign).mock.calls[0][0]).toBe(STORE_URLS.android);
+  });
+
+  it('navigates with a campaign source when one is given', () => {
+    redirectToStore('ios', 'ig_liboworld');
+    expect(vi.mocked(window.location.assign).mock.calls[0][0]).toContain('ct=ig_liboworld');
+  });
+});
+
+describe('campaign sources (/get-app?ct=)', () => {
+  it('sanitises the source and drops empty ones', () => {
+    expect(cleanCampaignSource('IG_LiboWorld!')).toBe('ig_liboworld');
+    expect(cleanCampaignSource('!!!')).toBeNull();
+    expect(cleanCampaignSource(null)).toBeNull();
+    expect(cleanCampaignSource('a'.repeat(60))).toHaveLength(40);
+  });
+
+  it('builds the App Store campaign link and the Play install referrer', () => {
+    expect(storeUrlWithSource('ios', 'ig_liboworld')).toBe(
+      'https://apps.apple.com/app/apple-store/id6773703113?pt=128957923&ct=ig_liboworld&mt=8',
+    );
+    expect(storeUrlWithSource('android', 'ig_liboworld')).toBe(
+      `${STORE_URLS.android}&referrer=${encodeURIComponent('utm_source=ig_liboworld&utm_medium=social')}`,
+    );
+    expect(storeUrlWithSource('desktop', 'ig_liboworld')).toBe(NON_IOS_FALLBACK_URL);
+    expect(storeUrlWithSource('ios', null)).toBe(STORE_URLS.ios);
   });
 });
 

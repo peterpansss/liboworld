@@ -34,7 +34,7 @@
     "headline1": "Train",
     "headline2": "Anywhere.",
     "headline3": "Anytime.",
-    "iosOnly": "iOS only",
+    "iosOnly": "iPhone and Android",
     "seePlans": "See plans →",
     "scrollIndicator": "Scroll to explore"
   },
@@ -158,7 +158,7 @@
     "subline": "Free forever. Premium when you want it.",
     "qrAlt": "QR code linking to Libo on the App Store",
     "scanCaption": "Scan to download",
-    "platformNote": "iOS only"
+    "platformNote": "iPhone and Android"
   },
   "store": {
     "appStore": "App Store",
@@ -167,7 +167,7 @@
     "appStoreShort": "App Store",
     "downloadGooglePlay": "Get it on Google Play",
     "googlePlayShort": "Google Play",
-    "iosFirstNote": "iPhone only for now — Android is in testing."
+    "iosFirstNote": "On iPhone and Android."
   },
   "countdown": {
     "closed": "closed",
@@ -946,7 +946,7 @@
       "imgAltCenter": "Libo Home tab with streak and today's workout",
       "imgAltRight": "Libo Rewards tab with 436 points",
       "pillLive": "Live on the App Store",
-      "pillPlatforms": "iOS",
+      "pillPlatforms": "iOS · Android",
       "pillTier": "Free tier",
       "h1a": "Finish 30 days",
       "h1b": "straight.",
@@ -1184,7 +1184,7 @@
       "q5": "Can I build my own workouts?",
       "a5": "Yes. The Custom Builder lets you pick from the full exercise library, set your own sets, reps, and rest times, then save and reuse your workouts anytime.",
       "q6": "Is Libo available on Android?",
-      "a6": "Not yet. Libo is iOS first, and Android is in closed testing with no public date yet. We’ll announce it on liboworld.com and our socials the moment it lands.",
+      "a6": "Yes. Libo is on Google Play for Android and on the App Store for iPhone, free to download.",
       "q7": "Can I follow structured programs?",
       "a7": "Yes. Libo includes multi-week programs designed for specific goals — muscle building, fat loss, mobility, and more. Follow the plan, log your progress, and see real results.",
       "q8": "Does Libo track my progress?",
@@ -1332,7 +1332,7 @@
     "final": {
       "h2a": "Your first challenge",
       "h2b": "is already open.",
-      "body": "Download Libo free on iPhone, pick a challenge and start today. Finish 30 days straight and we pay you — €5, €15 or €50 in real cash, funded by Libo."
+      "body": "Download Libo free on iPhone or Android, pick a challenge and start today. Finish 30 days straight and we pay you — €5, €15 or €50 in real cash, funded by Libo."
     },
     "habit": {
       "s1Name": "Show up",
@@ -1919,7 +1919,7 @@
       "q3": "What is a Founding Member?",
       "a3": "The pre-launch offer: 12 months of Premium at 50% off, first through the door on launch day, every challenge tier unlocked — and fully refundable until launch.",
       "q4": "Is Libo out yet?",
-      "a4": "Yes — Libo is on the App Store for iPhone, free to download. Android is in closed testing and has no public date yet.",
+      "a4": "Yes — Libo is on the App Store for iPhone and on Google Play for Android, free to download.",
       "q5": "How do cash challenges work?",
       "a5": "30 days of daily reps, recorded and verified in-app, paid out as real cash when you finish — €5, €15 or €50 depending on the tier. No draw, no luck.",
       "titleLine1": "Before you",
@@ -2003,7 +2003,8 @@
       "h2b": "holds."
     },
     "stores": {
-      "ios": "On the App Store"
+      "ios": "On the App Store",
+      "android": "On Google Play"
     },
     "capture": {
       "confirm": "You're on the list ✓",
@@ -2127,9 +2128,9 @@
       "whatLabel": "What",
       "whatValue": "Training club that pays cash",
       "platformLabel": "Platform",
-      "platformValue": "iOS (Android to follow)",
+      "platformValue": "iOS and Android",
       "stageLabel": "Stage",
-      "stageValue": "Live on iOS · Android in testing",
+      "stageValue": "Live on the App Store and Google Play",
       "pricingLabel": "Pricing",
       "pricingValue": "Free tier + €119.99/yr",
       "exercisesLabel": "Exercises",

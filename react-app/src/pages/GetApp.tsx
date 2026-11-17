@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { colors } from '../theme';
-import { detectPlatform, redirectToStore, STORE_URLS } from '../utils/storeRedirect';
+import { cleanCampaignSource, detectPlatform, redirectToStore, storeUrlWithSource } from '../utils/storeRedirect';
 import { logFunnelClick, type FunnelTierSlug } from '../lib/funnelSignups';
 
 declare global {
@@ -14,9 +14,11 @@ declare global {
  *   1. Reads ?tier= query param (for analytics)
  *   2. Logs an anonymous click to funnel_signups
  *   3. Fires a Google Analytics event
- *   4. UA-detects iOS vs Android vs desktop — only iOS reaches a store while
- *      ANDROID_AVAILABLE is false; the rest land on the waitlist
- *   5. Redirects to the right store URL
+ *   4. UA-detects iOS vs Android vs desktop (desktop lands on the homepage
+ *      download block)
+ *   5. Redirects to the right store URL. With ?ct=<source> (social bio links,
+ *      e.g. /get-app?ct=ig_liboworld) the store URL carries that source, so App
+ *      Store Connect and Play Console still show where the install came from.
  *
  * Direct hits (someone typing the URL) get the same treatment plus a
  * fallback UI with both store badges in case the redirect doesn't fire
@@ -25,6 +27,7 @@ declare global {
 export default function GetAppPage() {
   const [params] = useSearchParams();
   const [redirected, setRedirected] = useState(false);
+  const ct = cleanCampaignSource(params.get('ct'));
 
   useEffect(() => {
     const rawTier = params.get('tier');
@@ -52,11 +55,11 @@ export default function GetAppPage() {
     const t = setTimeout(() => {
       setRedirected(true);
       const platform = detectPlatform();
-      redirectToStore(platform);
+      redirectToStore(platform, ct);
     }, 200);
 
     return () => clearTimeout(t);
-  }, [params]);
+  }, [params, ct]);
 
   return (
     <div
@@ -94,11 +97,18 @@ export default function GetAppPage() {
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
           <a
-            href={STORE_URLS.ios}
+            href={storeUrlWithSource('ios', ct)}
             style={badgeImgLink}
             aria-label="Download on the App Store"
           >
             <img src="/store-badges/app-store.svg" alt="Download on the App Store" style={badgeImg} />
+          </a>
+          <a
+            href={storeUrlWithSource('android', ct)}
+            style={playPill}
+            aria-label="Get it on Google Play"
+          >
+            Get it on Google Play
           </a>
         </div>
       </div>
@@ -115,4 +125,16 @@ const badgeImg: React.CSSProperties = {
   height: 44,
   width: 'auto',
   display: 'block',
+};
+const playPill: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  height: 44,
+  padding: '0 18px',
+  borderRadius: 14,
+  border: `1px solid ${colors.border}`,
+  color: colors.text,
+  fontSize: 14,
+  fontWeight: 600,
+  textDecoration: 'none',
 };

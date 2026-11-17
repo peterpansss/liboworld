@@ -317,7 +317,7 @@ export default function Landing() {
                 {t('relaunchHome.hero.pillLive', { defaultValue: 'Live on the App Store' })}
               </span>
               <span className="rh-badge">
-                {t('relaunchHome.hero.pillPlatforms', { defaultValue: 'iOS' })}
+                {t('relaunchHome.hero.pillPlatforms', { defaultValue: 'iOS · Android' })}
               </span>
               <span className="rh-badge">
                 {t('relaunchHome.hero.pillTier', { defaultValue: 'Free tier' })}
@@ -360,7 +360,7 @@ export default function Landing() {
                 carried no App Store link anywhere in it. App Store Connect
                 reported zero downloads from a web referrer for the whole life
                 of the app. The id stays: Pricing.tsx ("Start free"), the site
-                header and storeRedirect's non-iOS fallback all deep-link to
+                header and storeRedirect's desktop fallback all deep-link to
                 it. It lands on the download now, not a form. */}
             <div id="hero-capture" className="rh-hero-capture-anchor">
               <StoreBadges />
@@ -882,7 +882,7 @@ export default function Landing() {
             <p className="rh-final-body">
               {t('relaunchHome.final.body', {
                 defaultValue:
-                  'Download Libo free on iPhone, pick a challenge and start today. Finish 30 days straight and we pay you — €5, €15 or €50 in real cash, funded by Libo.',
+                  'Download Libo free on iPhone or Android, pick a challenge and start today. Finish 30 days straight and we pay you — €5, €15 or €50 in real cash, funded by Libo.',
               })}
             </p>
             <StoreBadges />

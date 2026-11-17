@@ -74,14 +74,14 @@ describe('SiteFooter', () => {
     expect(tagline?.textContent).toBe('The training club that pays you to finish 30 days.');
   });
 
-  it('offers no Google Play badge while Android is unshipped', () => {
+  it('offers both store badges (Android live since 9 Nov 2026)', () => {
     render(
       <MemoryRouter>
         <SiteFooter />
       </MemoryRouter>,
     );
     expect(screen.getByText('App Store')).toBeInTheDocument();
-    expect(screen.queryByText('Google Play')).toBeNull();
+    expect(screen.getByText('Google Play')).toBeInTheDocument();
   });
 
   it('exposes external social links with rel=noopener noreferrer', () => {
