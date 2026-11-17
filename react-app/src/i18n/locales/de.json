@@ -945,7 +945,7 @@
       "imgAltLeft": "Libo Explore-Tab",
       "imgAltCenter": "Libo Home-Tab mit Streak und heutigem Workout",
       "imgAltRight": "Libo Rewards-Tab mit 436 Punkten",
-      "pillLive": "Jetzt im App Store",
+      "pillLive": "Jetzt live",
       "pillPlatforms": "iOS · Android",
       "pillTier": "Gratis-Version",
       "h1a": "Zieh 30 Tage",
@@ -1349,8 +1349,8 @@
       "short": "Cash Challenges auf iOS →"
     },
     "liveBar": {
-      "full": "Libo ist live im App Store — kostenlos herunterladen",
-      "short": "Jetzt im App Store →"
+      "full": "Libo ist live im App Store und bei Google Play — kostenlos herunterladen",
+      "short": "Für iOS & Android →"
     }
   },
   "relaunchPricing": {

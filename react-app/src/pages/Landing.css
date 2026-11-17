@@ -204,7 +204,9 @@
   grid-template-columns: 1.05fr 1fr;
   gap: 48px;
   align-items: center;
-  padding: 72px 64px 56px;
+  /* Top padding 72 → 40 and the H1 cap 88 → 78 (17 Nov 2026) so the store
+     badges sit above the fold on a laptop, as on Cal AI. */
+  padding: 40px 64px 56px;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -218,7 +220,7 @@
      headline is 24 characters, so between 900px and the 1400px max-width the
      hero column is too narrow for it and "FINISH 30 DAYS" broke mid-phrase.
      The clamp still resolves to 88px at the design width. */
-  font-size: clamp(52px, 6.4vw, 88px);
+  font-size: clamp(52px, 5.8vw, 78px);
   line-height: 0.92;
   letter-spacing: -1px;
   margin: 0;
@@ -1673,4 +1675,10 @@ video.rh-phone {
 
 @media (prefers-reduced-motion: reduce) {
   .rh-library-dot:hover { transform: none; }
+}
+
+/* Hero store badges: official art, larger than in the nav (17 Nov 2026). */
+.rh-hero-badges { --badge-h: 54px; }
+@media (max-width: 640px) {
+  .rh-hero-badges { --badge-h: 48px; justify-content: center; }
 }

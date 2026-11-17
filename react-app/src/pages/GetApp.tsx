@@ -1,3 +1,4 @@
+import StoreBadges from '../components/StoreBadges';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { colors } from '../theme';
@@ -95,46 +96,14 @@ export default function GetAppPage() {
         <p style={{ color: colors.muted, fontSize: 14, lineHeight: 1.6, margin: '0 0 28px' }}>
           If nothing happens in a moment, tap one of the buttons below.
         </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
-          <a
-            href={storeUrlWithSource('ios', ct)}
-            style={badgeImgLink}
-            aria-label="Download on the App Store"
-          >
-            <img src="/store-badges/app-store.svg" alt="Download on the App Store" style={badgeImg} />
-          </a>
-          <a
-            href={storeUrlWithSource('android', ct)}
-            style={playPill}
-            aria-label="Get it on Google Play"
-          >
-            Get it on Google Play
-          </a>
-        </div>
+        <StoreBadges
+          height={44}
+          className="get-app__badges"
+          iosHref={storeUrlWithSource('ios', ct)}
+          androidHref={storeUrlWithSource('android', ct)}
+        />
       </div>
     </div>
   );
 }
 
-const badgeImgLink: React.CSSProperties = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  textDecoration: 'none',
-};
-const badgeImg: React.CSSProperties = {
-  height: 44,
-  width: 'auto',
-  display: 'block',
-};
-const playPill: React.CSSProperties = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  height: 44,
-  padding: '0 18px',
-  borderRadius: 14,
-  border: `1px solid ${colors.border}`,
-  color: colors.text,
-  fontSize: 14,
-  fontWeight: 600,
-  textDecoration: 'none',
-};

@@ -1,35 +1,26 @@
-/* App Store / Google Play pill pair — canvas-style text pills.
-   TODO(launch): swap for official Apple/Google badge art. */
+/* Official App Store + Google Play badges, equal height (set via --badge-h). */
 
 .store-badges {
   display: flex;
-  gap: 10px;
-}
-
-.store-badges__pill {
-  display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  gap: 12px;
+}
+
+.store-badges__badge {
+  display: inline-flex;
   flex: 0 0 auto;
-  min-height: 48px;
-  padding: 0 20px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  color: var(--text);
-  font-size: 14px;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: border-color .2s ease, color .2s ease;
+  border-radius: 8px;
+  line-height: 0;
+  transition: transform .15s ease, opacity .2s ease;
 }
 
-.store-badges__pill:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+.store-badges__badge img {
+  display: block;
+  height: var(--badge-h, 48px);
+  width: auto;
 }
 
-/* Apple mark + two-line label, the shape people recognise as a store button. */
-.store-badges__glyph { flex: none; }
-.store-badges__label { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; }
-.store-badges__eyebrow { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
-.store-badges__name { font-size: 15px; font-weight: 700; }
+.store-badges__badge:hover { transform: translateY(-1px); opacity: .9; }
+.store-badges__badge:active { transform: scale(.97); }
+.store-badges__badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

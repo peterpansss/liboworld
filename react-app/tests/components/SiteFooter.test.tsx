@@ -75,13 +75,14 @@ describe('SiteFooter', () => {
   });
 
   it('offers both store badges (Android live since 9 Nov 2026)', () => {
-    render(
+    const { container } = render(
       <MemoryRouter>
         <SiteFooter />
       </MemoryRouter>,
     );
-    expect(screen.getByText('App Store')).toBeInTheDocument();
-    expect(screen.getByText('Google Play')).toBeInTheDocument();
+    const imgs = container.querySelectorAll('.site-footer__badges img');
+    expect(imgs[0].getAttribute('src')).toBe('/store-badges/app-store-black.svg');
+    expect(imgs[1].getAttribute('src')).toBe('/store-badges/google-play.png');
   });
 
   it('exposes external social links with rel=noopener noreferrer', () => {

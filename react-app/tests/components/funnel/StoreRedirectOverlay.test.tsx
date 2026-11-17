@@ -123,10 +123,11 @@ describe('StoreRedirectOverlay', () => {
   });
 
   it('renders the App Store badge as an external link with safe rel attrs', () => {
-    render(
+    const { container } = render(
       <StoreRedirectOverlay open={true} tierSlug={null} copy={baseCopy} onClose={() => {}} />,
     );
-    const ios = screen.getByLabelText('store.downloadAppStore');
+    const ios = container.querySelector('a[href^="https://apps.apple.com/"]')!;
+    expect(ios).not.toBeNull();
     expect(ios.getAttribute('target')).toBe('_blank');
     expect(ios.getAttribute('rel')).toContain('noopener');
     expect(ios.getAttribute('rel')).toContain('noreferrer');

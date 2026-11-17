@@ -27,6 +27,8 @@ vi.mock('../../src/lib/funnelSignups', () => ({
 }));
 
 vi.mock('../../src/utils/storeRedirect', () => ({
+  ANDROID_AVAILABLE: true,
+  STORE_URLS: { ios: 'https://apps.apple.com/libo', android: 'https://play.google.com/libo' },
   detectPlatform: () => detectPlatformMock(),
   redirectToStore: (p: unknown, ct: unknown) => redirectToStoreMock(p, ct),
   cleanCampaignSource: (raw: string | null) =>

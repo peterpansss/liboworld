@@ -628,3 +628,33 @@
 .site-nav__drawer-cta:hover { background: var(--accent2); }
 
 .site-nav__drawer-lang { display: flex; justify-content: center; }
+
+/* ── Official store badges in the bar (17 Nov 2026, replaces .site-nav__cta) ── */
+.site-nav__badges { --badge-h: 40px; gap: 8px; flex-wrap: nowrap; }
+@media (max-width: 1100px) { .site-nav__badges { --badge-h: 34px; } }
+@media (max-width: 768px) { .site-nav__badges { display: none; } }
+
+.site-nav__drawer-badges { --badge-h: 44px; justify-content: center; }
+
+/* ── Mobile: both badges pinned to the bottom of the screen ── */
+.site-storebar { display: none; }
+@media (max-width: 768px) {
+  .site-storebar {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(8, 8, 8, 0.86);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .site-storebar__badges { --badge-h: 44px; flex-wrap: nowrap; gap: 10px; }
+  /* Room so the bar never covers the end of the page (footer links). */
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 360px) { .site-storebar__badges { --badge-h: 38px; } }

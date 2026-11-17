@@ -945,7 +945,7 @@
       "imgAltLeft": "Aba Explorar da Libo",
       "imgAltCenter": "Aba Início da Libo com sequência e treino do dia",
       "imgAltRight": "Aba Recompensas da Libo com 436 pontos",
-      "pillLive": "Já na App Store",
+      "pillLive": "Já disponível",
       "pillPlatforms": "iOS · Android",
       "pillTier": "Plano gratuito",
       "h1a": "Complete 30 dias",
@@ -1349,8 +1349,8 @@
       "short": "Cash Challenges no iOS →"
     },
     "liveBar": {
-      "full": "A Libo já está na App Store — baixe grátis",
-      "short": "Já na App Store →"
+      "full": "A Libo já está na App Store e no Google Play — baixe grátis",
+      "short": "No iOS e Android →"
     }
   },
   "relaunchPricing": {
