@@ -132,18 +132,15 @@ describe('StoreRedirectOverlay', () => {
     expect(ios.getAttribute('rel')).toContain('noreferrer');
   });
 
-  // Libo is iOS-only — a Play Store badge here would promise an install that
-  // doesn't exist. Until 3 Nov 2026 this offered "On Android? Join the
-  // waitlist →" pointing at #hero-capture; that anchor stopped being a
-  // waitlist, so the link promised something gone. The honest answer is now a
-  // plain statement and no door.
-  it('offers no Play Store badge and no dead waitlist link for Android', () => {
+  // Android is live on Google Play (9 Nov 2026): the overlay offers the Play
+  // listing next to the App Store, and still no dead #hero-capture door.
+  it('offers the Google Play listing and no dead waitlist link', () => {
     const { container } = render(
       <StoreRedirectOverlay open={true} tierSlug={null} copy={baseCopy} onClose={() => {}} />,
     );
-    expect(screen.queryByLabelText('store.downloadGooglePlay')).toBeNull();
+    const play = container.querySelector('a[href^="https://play.google.com/store/apps/details?id=com.liboworld.app"]');
+    expect(play).not.toBeNull();
+    expect(play?.getAttribute('rel')).toContain('noopener');
     expect(container.querySelector('a[href="/#hero-capture"]')).toBeNull();
-    // Matches the key or the resolved copy — the note is translated.
-    expect(screen.getByText(/Android|iosFirstNote/)).toBeInTheDocument();
   });
 });
