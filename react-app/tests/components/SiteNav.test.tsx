@@ -190,7 +190,26 @@ describe('SiteNav', () => {
 });
 
 describe('SiteNav announce bar', () => {
+  // The bar carries giveaway news while a round is open or scheduled (18 Nov
+  // 2026); the download line only once no round is open or upcoming.
+  const afterLastRound = () => vi.useFakeTimers({ toFake: ['Date'] }).setSystemTime(new Date('2027-06-01T12:00:00Z'));
+  afterEach(() => { vi.useRealTimers(); });
+
+  it('announces the next giveaway before it opens and links to /giveaway', () => {
+    vi.useFakeTimers({ toFake: ['Date'] }).setSystemTime(new Date('2026-11-18T12:00:00Z'));
+    const { container } = renderAt('/');
+    expect(container.querySelector('.site-announce')).not.toBeNull();
+    expect(screen.getAllByText(/giveawayBar\.upcoming/).length).toBeGreaterThan(0);
+  });
+
+  it('announces the open giveaway while it runs', () => {
+    vi.useFakeTimers({ toFake: ['Date'] }).setSystemTime(new Date('2026-12-01T12:00:00Z'));
+    renderAt('/');
+    expect(screen.getAllByText(/giveawayBar\.open/).length).toBeGreaterThan(0);
+  });
+
   it('shows the free waitlist variant off /membership', () => {
+    afterLastRound();
     const { container } = renderAt('/exercises');
     const bar = container.querySelector('.site-announce');
     expect(bar).not.toBeNull();
@@ -249,6 +268,7 @@ describe('SiteNav announce bar', () => {
   // moment it finally had something to point at. Inverted 3 Nov 2026 when the
   // flag was flipped for real.
   it('keeps the download bar after launch', () => {
+    afterLastRound();
     prelaunch.mockReturnValue(false);
     const { container } = renderAt('/');
     const bar = container.querySelector('.site-announce');

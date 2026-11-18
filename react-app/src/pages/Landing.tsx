@@ -315,17 +315,8 @@ export default function Landing() {
         {/* ── 1. HERO ─────────────────────────────────────────────── */}
         <section className="rh-hero">
           <div className="rh-hero-text">
-            <div className="rh-badges">
-              <span className="rh-badge rh-badge--accent">
-                {t('relaunchHome.hero.pillLive', { defaultValue: 'Live now' })}
-              </span>
-              <span className="rh-badge">
-                {t('relaunchHome.hero.pillPlatforms', { defaultValue: 'iOS · Android' })}
-              </span>
-              <span className="rh-badge">
-                {t('relaunchHome.hero.pillTier', { defaultValue: 'Free tier' })}
-              </span>
-            </div>
+            {/* Live now / iOS · Android / Free tier chips removed 18 Nov 2026
+                (Noah): the giveaway bar above the nav carries the news now. */}
 
             {/* Four display lines on desktop; the two groups collapse to two
                 lines at ≤700px ("FINISH 30 DAYS STRAIGHT." / "WE PAY YOU UP TO

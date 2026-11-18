@@ -9,6 +9,7 @@ import StoreBadges from './StoreBadges';
 import { isStripeConfigured } from '../lib/stripe';
 import { isPrelaunch, isFoundingOpen } from '../config/launchMode';
 import { prefetchRoute } from '../lib/routePrefetch';
+import { featuredRound, roundStatus } from '../data/giveawayRounds';
 import './SiteNav.css';
 
 const ANNOUNCE_DISMISS_KEY = 'ea_announce_dismissed';
@@ -46,7 +47,7 @@ const visibleNavLinks = () =>
 // 50%-off ask lives only on /membership and /join, which this never links to.
 
 export default function SiteNav() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -73,6 +74,13 @@ export default function SiteNav() {
   // would have deleted it from every page at the exact moment it mattered.
   // It shows whenever the founding offer is not taking the slot.
   const showDownloadBar = !showOffer;
+  // Giveaway news takes the bar (Noah, 18 Nov 2026): the round that is open,
+  // else the next one, straight from data/giveawayRounds.ts, so a new round
+  // (an iPhone one, say) shows up here the day it is added. Once the last
+  // round has closed and none is scheduled, the download line comes back.
+  const round = featuredRound();
+  const roundState = round ? roundStatus(round) : 'closed';
+  const giveaway = showDownloadBar && round && roundState !== 'closed' ? round : null;
   const showAnnounce = (showOffer || showDownloadBar) && !announceDismissed && announceAllowedHere;
   const dismissAnnounce = () => {
     setAnnounceDismissed(true);
@@ -119,10 +127,22 @@ export default function SiteNav() {
   // The ⚡ and → are markup (site-announce__spark / __arrow), so the copy must
   // not repeat them — except the short variant, which carries its own trailing
   // → because CSS hides the standalone arrow at ≤430px.
-  const announceFull = showDownloadBar
+  const roundDate = (iso: string) => {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Intl.DateTimeFormat(i18n.language.startsWith('en') ? 'en-GB' : i18n.language, { day: 'numeric', month: 'short', timeZone: 'UTC' })
+      .format(new Date(Date.UTC(y, m - 1, d)));
+  };
+  const giveawayVars = giveaway
+    ? { prize: giveaway.prizeName, date: roundDate(roundState === 'open' ? giveaway.closes : giveaway.opens) }
+    : undefined;
+  const announceFull = giveaway
+    ? t(`giveawayBar.${roundState}.full`, giveawayVars)
+    : showDownloadBar
     ? t('relaunchHome.liveBar.full', { defaultValue: 'Libo is live on the App Store and Google Play — download it free' })
     : t('earlyAccess.announceText', { defaultValue: 'Founding Members: 50% off — until 13 October' });
-  const announceShort = showDownloadBar
+  const announceShort = giveaway
+    ? t(`giveawayBar.${roundState}.short`, giveawayVars)
+    : showDownloadBar
     ? t('relaunchHome.liveBar.short', { defaultValue: 'Get it on iOS & Android →' })
     : t('earlyAccess.announceTextShort', { defaultValue: 'Founding Members: 50% off until 13 Oct →' });
 
@@ -160,6 +180,7 @@ export default function SiteNav() {
             className="site-announce__msg"
             onClick={() => {
               if (!showDownloadBar) { navigate('/membership'); return; }
+              if (giveaway) { navigate('/giveaway'); return; }
               // Each phone to its own store; desktop to the hero badges.
               const platform = detectPlatform();
               if (platform !== 'desktop') { window.location.assign(storeUrlFor(platform)); return; }
