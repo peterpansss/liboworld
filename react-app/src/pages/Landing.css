@@ -1588,76 +1588,102 @@ video.rh-phone {
   flex-direction: column;
   gap: 14px;
 }
-/* ── "Everything you get": pinned scene, tablet + desktop (18 Nov 2026) ──
+/* ── "Everything you get": pinned scene, every screen size (18 Nov 2026) ──
    .rh-scene is 6 steps of scroll tall; .rh-scene-pin sticks for that whole
    length and holds the phone + one feature's text. The phone is sized to the
-   space under the nav so it always fits. Phones keep the tap list below. */
-.rh-scene-copy { display: none; }
-@media (min-width: 768px) {
-  .rh-scene { --scene-top: 112px; height: calc(6 * 55vh + 100vh); }
-  .rh-scene-pin {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    padding-top: var(--scene-top);
-    padding-bottom: 32px;
-    box-sizing: border-box;
+   space between the nav (--scene-top) and the bottom edge or, on phones, the
+   store-badge bar (--scene-bottom), so it always fits. */
+.rh-scene { --scene-top: 112px; --scene-bottom: 32px; height: calc(6 * 55vh + 100vh); }
+.rh-scene-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--scene-top);
+  padding-bottom: var(--scene-bottom);
+  box-sizing: border-box;
+}
+.rh-scene .rh-scene-stage {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(40px, 7vw, 96px);
+  align-items: center;
+}
+.rh-scene .rh-scene-device { position: static; }
+.rh-scene .rh-scene-phone {
+  height: min(630px, calc(100svh - var(--scene-top) - var(--scene-bottom) - 16px));
+  width: auto;
+  aspect-ratio: 300 / 630;
+}
+.rh-scene-copy { max-width: 540px; }
+.rh-scene-text { animation: rh-scene-text-in .35s ease both; }
+.rh-scene-count {
+  display: block;
+  color: var(--libo-accent);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: .12em;
+}
+.rh-scene-name {
+  margin: 12px 0 16px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 900;
+  font-size: clamp(40px, 4.6vw, 64px);
+  line-height: .95;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+.rh-scene-desc { margin: 0; color: var(--libo-muted); font-size: 18px; line-height: 1.55; min-height: 3.1em; }
+.rh-scene-progress { display: flex; gap: 8px; margin-top: 40px; }
+.rh-scene-seg {
+  flex: 1;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.rh-scene-seg span {
+  display: block;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.12);
+  transition: background-color .25s ease;
+}
+.rh-scene-seg--on span { background: var(--libo-accent); }
+.rh-scene-seg:hover span { background: rgba(202, 255, 0, 0.5); }
+.rh-scene-seg--on:hover span { background: var(--libo-accent); }
+
+/* Phones: phone on top, text + bar under it, centred. The store-badge bar is
+   fixed to the bottom (~64px + safe area), so the stage stops above it. */
+@media (max-width: 767px) {
+  .rh-scene {
+    --scene-top: 96px;
+    --scene-bottom: calc(80px + env(safe-area-inset-bottom));
+    height: calc(6 * 50svh + 100svh);
   }
   .rh-scene .rh-scene-stage {
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: clamp(40px, 7vw, 96px);
-    align-items: center;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 18px;
+    text-align: center;
   }
-  .rh-scene .rh-scene-device { position: static; }
   .rh-scene .rh-scene-phone {
-    height: min(630px, calc(100vh - var(--scene-top) - 48px));
-    width: auto;
-    aspect-ratio: 300 / 630;
+    height: min(470px, calc(100svh - var(--scene-top) - var(--scene-bottom) - 190px));
+    padding: 7px;
+    border-radius: 30px;
   }
-  .rh-scene .rh-library-dots,
-  .rh-scene .rh-features { display: none; }
-  .rh-scene-copy { display: block; max-width: 540px; }
-  .rh-scene-text { animation: rh-scene-text-in .35s ease both; }
-  .rh-scene-count {
-    display: block;
-    color: var(--libo-accent);
-    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: .12em;
-  }
-  .rh-scene-name {
-    margin: 12px 0 16px;
-    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-    font-weight: 900;
-    font-size: clamp(40px, 4.6vw, 64px);
-    line-height: .95;
-    letter-spacing: -1px;
-    text-transform: uppercase;
-  }
-  .rh-scene-desc { margin: 0; color: var(--libo-muted, var(--muted)); font-size: 18px; line-height: 1.55; min-height: 3.1em; }
-  .rh-scene-progress { display: flex; gap: 8px; margin-top: 40px; }
-  .rh-scene-seg {
-    flex: 1;
-    padding: 10px 0;
-    border: 0;
-    background: none;
-    cursor: pointer;
-  }
-  .rh-scene-seg span {
-    display: block;
-    height: 4px;
-    border-radius: 100px;
-    background: rgba(255, 255, 255, 0.12);
-    transition: background-color .25s ease;
-  }
-  .rh-scene-seg--on span { background: var(--libo-accent); }
-  .rh-scene-seg:hover span { background: rgba(202, 255, 0, 0.5); }
-  .rh-scene-seg--on:hover span { background: var(--libo-accent); }
+  .rh-scene .rh-scene-phone img { border-radius: 24px; }
+  .rh-scene-copy { width: 100%; max-width: 360px; }
+  .rh-scene-text { min-height: 112px; }
+  .rh-scene-count { font-size: 13px; }
+  .rh-scene-name { margin: 6px 0 8px; font-size: 30px; letter-spacing: -.5px; }
+  .rh-scene-desc { font-size: 15px; line-height: 1.45; min-height: 0; }
+  .rh-scene-progress { margin-top: 14px; gap: 6px; }
+  .rh-scene-seg { padding: 12px 0; }
 }
 @keyframes rh-scene-text-in {
   from { opacity: 0; transform: translateY(12px); }
