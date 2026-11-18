@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
@@ -43,6 +43,30 @@ export default function Landing() {
   // "Everything you get": which feature the phone shows. Default 04 Progress
   // Tracking — a real capture (HOME-RESTRUCTURE-V4 §3).
   const [activeFeature, setActiveFeature] = useState(3);
+  const featuresRef = useRef<HTMLDivElement>(null);
+
+  // Scrollytelling (Noah, 18 Nov 2026): while the phone is pinned, the card
+  // crossing the middle of the screen drives the phone. Tablet and desktop
+  // only: on phones the device sits above the list and doesn't pin, so a scroll
+  // switch would change a screen that is out of view. Clicks and dots still
+  // work everywhere.
+  useEffect(() => {
+    const list = featuresRef.current;
+    if (!list || typeof IntersectionObserver === 'undefined') return;
+    if (!window.matchMedia?.('(min-width: 768px)').matches) return;
+    const cards = Array.from(list.querySelectorAll<HTMLElement>('[data-feature-index]'));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActiveFeature(Number((e.target as HTMLElement).dataset.featureIndex));
+        });
+      },
+      // A thin band across the middle of the viewport.
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
+    );
+    cards.forEach((c) => observer.observe(c));
+    return () => observer.disconnect();
+  }, []);
 
   // Honor #hash arrivals (e.g. /membership → "/#hero-capture").
   useEffect(() => {
@@ -661,6 +685,8 @@ export default function Landing() {
               <div className="rh-library-device">
                 <div className="rh-library-phone">
                   <img
+                    key={libraryCards[activeFeature].screen}
+                    className="rh-library-screen"
                     src={libraryCards[activeFeature].screen}
                     alt={t('relaunchHome.library.phoneAlt', {
                       defaultValue: '{{feature}} in the Libo app',
@@ -692,12 +718,13 @@ export default function Landing() {
                   also delayed the active border, so two cards lit up at once
                   and the highlight lagged the phone. Home has no pop-in styles
                   for them anyway. */}
-              <div className="rh-features">
+              <div className="rh-features" ref={featuresRef}>
                 {libraryCards.map((c, i) => (
                   <button
                     type="button"
                     className={`rh-feature${i === activeFeature ? ' rh-feature--active' : ''}`}
                     key={c.num}
+                    data-feature-index={i}
                     onClick={() => setActiveFeature(i)}
                     aria-pressed={i === activeFeature}
                   >
