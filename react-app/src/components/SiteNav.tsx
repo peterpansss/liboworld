@@ -128,8 +128,9 @@ export default function SiteNav() {
   // not repeat them — except the short variant, which carries its own trailing
   // → because CSS hides the standalone arrow at ≤430px.
   const roundDate = (iso: string) => {
+    const lang = i18n?.language || 'en';
     const [y, m, d] = iso.split('-').map(Number);
-    return new Intl.DateTimeFormat(i18n.language.startsWith('en') ? 'en-GB' : i18n.language, { day: 'numeric', month: 'short', timeZone: 'UTC' })
+    return new Intl.DateTimeFormat(lang.startsWith('en') ? 'en-GB' : lang, { day: 'numeric', month: 'short', timeZone: 'UTC' })
       .format(new Date(Date.UTC(y, m - 1, d)));
   };
   const giveawayVars = giveaway
