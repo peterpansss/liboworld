@@ -154,8 +154,8 @@ export default function ProgramDetail() {
     return (
       <>
         <SiteNav />
-        <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ color: 'var(--muted)', fontSize: 14 }}>{t('programDetail.loading')}</div>
+        <div className="pd-loading" role="status">
+          <p>{t('programDetail.loading')}</p>
         </div>
         <SiteFooter />
       </>
@@ -169,7 +169,7 @@ export default function ProgramDetail() {
         <div className="pd-container">
           <div className="pd-not-found">
             <div className="pd-not-found-icon" aria-hidden="true">&#x1F3CB;&#xFE0F;</div>
-            <h2>{t('programDetail.notFound.title')}</h2>
+            <h1 className="pd-not-found__title">{t('programDetail.notFound.title')}</h1>
             <p>{t('programDetail.notFound.description')}</p>
             <Link to="/workouts" className="pd-not-found-link">
               {t('programDetail.notFound.backLink')}

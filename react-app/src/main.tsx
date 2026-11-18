@@ -5,7 +5,6 @@ import { HelmetProvider } from 'react-helmet-async'
 
 // Self-hosted fonts (replaces Google Fonts CDN). Imported before index.css
 // so @font-face declarations are processed first.
-import '@fontsource/inter/300.css'
 import '@fontsource/inter/400.css'
 import '@fontsource/inter/500.css'
 import '@fontsource/inter/600.css'

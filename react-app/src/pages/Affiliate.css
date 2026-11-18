@@ -50,7 +50,7 @@
      measure instead of bleeding past the right edge. */
   max-width: 960px;
   margin: 0 auto 20px;
-  font-size: clamp(36px, 6vw, 76px);
+  font-size: var(--h1-hero);
   line-height: 0.95;
   letter-spacing: -1.5px;
   color: var(--text);
@@ -143,7 +143,7 @@
 .aff-calc-card {
   background: var(--bg2);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 32px;
 }
 
@@ -214,7 +214,7 @@
 }
 
 .aff-calc-slider:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px rgba(202, 255, 0, 0.25);
+  box-shadow: 0 0 0 4px var(--accent-line);
 }
 
 .aff-calc-divider {
@@ -267,7 +267,7 @@
   align-items: center;
   justify-content: center;
   font-size: 22px;
-  border: 1px solid rgba(202, 255, 0, 0.25);
+  border: 1px solid var(--accent-line);
 }
 
 .aff-how-title {
@@ -578,7 +578,7 @@
 
 @media (max-width: 640px) {
   /* 2×2 inside the same single card; the pill radius relaxes so it wraps. */
-  .aff-stats { grid-template-columns: repeat(2, 1fr); row-gap: 22px; border-radius: 24px; }
+  .aff-stats { grid-template-columns: repeat(2, 1fr); row-gap: 22px; border-radius: 16px; }
   .aff-copy--desktop { display: none; }
   .aff-copy--mobile { display: inline; }
 }

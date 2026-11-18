@@ -21,10 +21,10 @@ export const darkColors = {
   accentDim: 'rgba(202,255,0,0.12)',
   text: '#FFFFFF',
   muted: '#8A9BB0',
-  dim: '#4A5568',
+  dim: '#6B7A8F', // matches --dim in index.css (#4A5568 failed AA)
   border: 'rgba(255,255,255,0.07)',
-  card: 'rgba(255,255,255,0.08)',
-  error: '#F87171',
+  card: 'rgba(255,255,255,0.04)',
+  error: '#FF3333',
   errorDim: 'rgba(248,113,113,0.15)',
   success: '#22c55e',
   successDim: 'rgba(34,197,94,0.15)',
@@ -37,9 +37,9 @@ export const darkColors = {
 /**
  * ⚠️ NOT RENDERED. liboworld.com is DARK-ONLY by decision (Noah, 2026-08-04).
  *
- * Nothing imports this map: Tailwind is fed by `tailwindColors`, which is built
- * entirely from `darkColors`, and the site has no `prefers-color-scheme`, no
- * `dark:` variants and no theme toggle. Kept because it costs nothing and the
+ * Nothing imports this map: only `darkColors` (as `colors`) is used, through
+ * inline styles, and the site has no `prefers-color-scheme`, no `dark:`
+ * variants and no theme toggle. Kept because it costs nothing and the
  * dark/light key-parity test is worth having.
  *
  * ⚠️ DO NOT ADOPT THESE VALUES if a web light theme is ever built. They are the

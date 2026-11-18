@@ -13,7 +13,7 @@
   --libo-accent-2: var(--accent2);/* #9BC800 */
   --libo-text: var(--text);       /* #FFFFFF */
   --libo-muted: var(--muted);     /* #8A9BB0 */
-  --libo-dim: var(--dim);         /* #4A5568 */
+  --libo-dim: var(--dim);         /* #6B7A8F */
   --libo-r-button: 14px;
   --libo-r-card: 16px;
   --libo-font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
@@ -25,15 +25,6 @@
   /* clip, not hidden: an overflow-hidden ancestor silently disables
      position: sticky (the feature phone pins while its cards scroll). */
   overflow-x: clip;
-}
-
-@media (max-width: 767px) {
-  /* Clear HomeStickyWaitlist (~77px) + safe-area inset so nothing is trapped
-     under the bar (same idiom as `.cf-page` in ChallengeFunnel.css). The
-     footer is a sibling of <main>, so it needs the padding too — the sibling
-     selector keeps this scoped to the home page rather than editing
-     SiteFooter.css, which the funnels share. */
-  .relaunch-home ~ .site-footer { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
 }
 
 .relaunch-home a { color: var(--libo-text); text-decoration: none; }
@@ -87,7 +78,7 @@
   white-space: nowrap;
 }
 .rh-badge--accent {
-  background: rgba(202, 255, 0, 0.12);
+  background: var(--accent-dim);
   color: var(--libo-accent);
 }
 
@@ -220,7 +211,7 @@
      headline is 24 characters, so between 900px and the 1400px max-width the
      hero column is too narrow for it and "FINISH 30 DAYS" broke mid-phrase.
      The clamp still resolves to 88px at the design width. */
-  font-size: clamp(52px, 5.8vw, 78px);
+  font-size: var(--h1-hero);
   line-height: 0.92;
   letter-spacing: -1px;
   margin: 0;
@@ -730,7 +721,7 @@ video.rh-phone {
 
 @media (max-width: 430px) {
   .rh-hero { padding: 32px 20px 40px; gap: 28px; }
-  .rh-hero-h1 { font-size: 48px; }
+  .rh-hero-h1 { font-size: var(--h1-hero); }
   .rh-hero-sub { font-size: 16px; }
   .rh-badges { flex-wrap: wrap; }
   .rh-hero-ctas { flex-direction: column; align-items: stretch; }
@@ -1019,9 +1010,9 @@ video.rh-phone {
   margin-top: 10px;
   color: var(--accent);
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: .04em;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 
@@ -1211,7 +1202,7 @@ video.rh-phone {
 
 /* Responsive ─────────────────────────────────────────────────────────────── */
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .rh-different,
   .rh-creators-inner { grid-template-columns: 1fr; gap: 40px; }
   .rh-guides-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1435,8 +1426,8 @@ video.rh-phone {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 44px;
-  border-radius: 100px;
+  min-height: 48px;
+  border-radius: 14px;
   background: var(--accent);
   color: var(--accent-text);
   transition: background .2s ease;

@@ -4,7 +4,6 @@ import LanguageSwitcher from './LanguageSwitcher';
 import LiboLogo from './LiboLogo';
 import StoreBadges from './StoreBadges';
 import { resetConsent } from '../lib/consent';
-import { REWARDS_SECTION_LIVE } from '../config/launchMode';
 import './SiteFooter.css';
 
 export default function SiteFooter() {
@@ -64,14 +63,28 @@ export default function SiteFooter() {
 
         {/* Columns */}
         <nav aria-label={t('footer.footerNavigation')} className="site-footer__columns">
-          {/* Product */}
+          {/* Earn — the train-and-earn pages, grouped like the nav (18 Nov 2026). */}
           <div className="site-footer__col">
-            <h2 className="site-footer__col-title">{t('footer.productTitle')}</h2>
+            <h2 className="site-footer__col-title">{t('earnPages.nav.earn', { defaultValue: 'Earn' })}</h2>
             <div className="site-footer__col-links">
+              <Link to="/earn">{t('earnPages.nav.howItWorks', { defaultValue: 'How it works' })}</Link>
               <Link to="/cash-challenges">{t('footer.cashChallengesLink', { defaultValue: 'Cash Challenges' })}</Link>
-              <Link to="/membership">{t('footer.pricing', { defaultValue: 'Pricing' })}</Link>
-              {REWARDS_SECTION_LIVE && (<Link to="/#rewards">{t('footer.rewardsLink')}</Link>)}
-              <Link to="/creator-program">{t('footer.creatorProgram', { defaultValue: 'Creator Program' })}</Link>
+              <Link to="/giveaway">{t('earnPages.nav.giveaway', { defaultValue: 'Giveaway' })}</Link>
+              <Link to="/rewards">{t('earnPages.nav.rewards', { defaultValue: 'Rewards' })}</Link>
+              <Link to="/membership">{t('earnPages.nav.membership', { defaultValue: 'Membership' })}</Link>
+            </div>
+          </div>
+
+          {/* Train */}
+          <div className="site-footer__col">
+            <h2 className="site-footer__col-title">{t('earnPages.footer.trainTitle', { defaultValue: 'Train' })}</h2>
+            <div className="site-footer__col-links">
+              <Link to="/features">{t('earnPages.nav.features', { defaultValue: 'Features' })}</Link>
+              <Link to="/blog">{t('footer.blogLink')}</Link>
+              <Link to="/exercises">{t('footer.exerciseLibrary')}</Link>
+              <Link to="/workouts">{t('footer.workoutsLink')}</Link>
+              <Link to="/blueprint">{t('footer.blueprintLink', { defaultValue: '12-Month Blueprint' })}</Link>
+              <Link to="/faq">{t('earnPages.nav.faq', { defaultValue: 'FAQ' })}</Link>
             </div>
           </div>
 
@@ -84,18 +97,8 @@ export default function SiteFooter() {
               <Link to="/about">{t('footer.about', { defaultValue: 'About' })}</Link>
               <Link to="/press">{t('footer.press', { defaultValue: 'Press' })}</Link>
               <Link to="/careers">{t('footer.careers', { defaultValue: 'Careers' })}</Link>
+              <Link to="/creator-program">{t('footer.creatorProgram', { defaultValue: 'Creator Program' })}</Link>
               <a href="mailto:hello@liboworld.com">{t('footer.contactUs')}</a>
-            </div>
-          </div>
-
-          {/* Resources */}
-          <div className="site-footer__col">
-            <h2 className="site-footer__col-title">{t('footer.resourcesTitle')}</h2>
-            <div className="site-footer__col-links">
-              <Link to="/blog">{t('footer.blogLink')}</Link>
-              <Link to="/exercises">{t('footer.exerciseLibrary')}</Link>
-              <Link to="/workouts">{t('footer.workoutsLink')}</Link>
-              <Link to="/blueprint">{t('footer.blueprintLink', { defaultValue: '12-Month Blueprint' })}</Link>
             </div>
           </div>
 

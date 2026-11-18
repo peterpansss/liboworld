@@ -88,8 +88,14 @@ function main() {
   entries.push(urlEntry(`${SITE_URL}/workouts`, 0.9, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/blog`, 0.8, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/onboarding`, 0.6, 'monthly'));
-  // /giveaway is NOT listed and never will be: the old points-pack page was
-  // deleted and the path is now a permanent redirect to /giveaway-rules.
+  // Train-and-earn pages (18 Nov 2026). /giveaway was a redirect to the rules
+  // until then; it is now the live round page. /rewards is also the App Store
+  // in-app event path (the AASA file claims it on devices with the app).
+  entries.push(urlEntry(`${SITE_URL}/earn`, 0.8, 'monthly'));
+  entries.push(urlEntry(`${SITE_URL}/rewards`, 0.8, 'weekly'));
+  entries.push(urlEntry(`${SITE_URL}/giveaway`, 0.8, 'weekly'));
+  entries.push(urlEntry(`${SITE_URL}/features`, 0.8, 'monthly'));
+  entries.push(urlEntry(`${SITE_URL}/faq`, 0.6, 'monthly'));
   // /cash-challenge is NOT listed either. It redirects to `/` while
   // FUNNEL_PAGES_ENABLED is false (see react-app/src/App.tsx), so advertising
   // it asks Google to crawl a URL that serves no content — a soft-404 that

@@ -499,12 +499,12 @@ export default function ExerciseLibrary() {
           {/* Grid */}
           {loading ? (
             <div className="el-empty">
-              <div className="el-empty-icon">&#9203;</div>
+              <div className="el-empty-icon" aria-hidden="true">&#9203;</div>
               <p className="el-empty-text">{t('exerciseLibrary.loading')}</p>
             </div>
           ) : pageExercises.length === 0 ? (
             <div className="el-empty">
-              <div className="el-empty-icon">&#128556;</div>
+              <div className="el-empty-icon" aria-hidden="true">&#128556;</div>
               <p className="el-empty-text">{t('exerciseLibrary.emptyState.title')}</p>
               <p className="el-empty-sub">
                 {muscle !== 'All' && equip !== 'All'
@@ -542,6 +542,7 @@ export default function ExerciseLibrary() {
                       // be replaced by the MuscleTile fallback already
                       // rendered behind this layer (no broken src="null").
                       <video
+                        aria-hidden="true"
                         src={safeUrl(ex.videoUrl) ?? undefined}
                         preload="metadata"
                         muted

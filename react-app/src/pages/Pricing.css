@@ -11,7 +11,7 @@
      --libo-accent-2→ --accent2 (#9BC800)
      --libo-text    → --text    (#FFFFFF)
      --libo-muted   → --muted   (#8A9BB0)
-     --libo-dim     → --dim      (#4A5568)
+     --libo-dim     → --dim      (#6B7A8F)
    display font = 'Barlow Condensed'; button radius = 14px
    ───────────────────────────────────────────── */
 
@@ -73,7 +73,7 @@
   font-weight: 800;
   text-transform: uppercase;
   /* Scales down before it can ever collide with the viewport edge. */
-  font-size: clamp(38px, 5.2vw, 76px);
+  font-size: var(--h1-hero);
   line-height: 0.95;
   letter-spacing: 0;
   margin: 0;
@@ -100,6 +100,8 @@
 }
 
 /* ── Plans ── */
+/* Founding closed 14 Oct 2026, so usually 2 cards: centre them instead of
+   leaving the third column of the 3-up grid empty. */
 .pr-plans {
   max-width: 1240px;
   margin: 0 auto;
@@ -238,8 +240,8 @@
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
-  font-size: 16px;
-  letter-spacing: 0.5px;
+  font-size: 18px;
+  letter-spacing: 0.03em;
   padding: 13px 20px;
   border-radius: 14px;
   text-decoration: none;
@@ -407,7 +409,7 @@
     gap: 14px;
   }
   .pr-hero__h1 {
-    font-size: 44px;
+    font-size: var(--h1-hero);
   }
   .pr-hero__sub {
     font-size: 16px;
@@ -458,7 +460,8 @@ button.pr-card__cta {
 /* Target mobile: the PRE-SALE badge notches onto the elevated card's top
    border instead of sitting inline beside the plan name. */
 @media (max-width: 640px) {
-  .pr-card--elevated { position: relative; margin-top: 14px; }
+  .pr-card--elevated { position: relative; }
+  .pr-card--elevated:has(.pr-card__badge) { margin-top: 14px; }
   .pr-card--elevated .pr-card__badge {
     position: absolute;
     top: -12px;
@@ -474,3 +477,58 @@ button.pr-card__cta {
   max-width: 100%;
   margin: 0;
 }
+
+/* ── Two-card layout + billing switch (18 Nov 2026) ── */
+.pr-plans--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1000px; }
+.pr-plans--1 { grid-template-columns: minmax(0, 520px); justify-content: center; }
+.pr-guarantee__inner--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 900px; }
+@media (max-width: 767px) {
+  .pr-plans--2, .pr-guarantee__inner--2 { grid-template-columns: 1fr; }
+}
+
+.pr-billing {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+}
+.pr-billing button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.pr-billing button[aria-pressed='true'] { background: var(--accent); color: var(--accent-text); }
+.pr-billing__save {
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 12px;
+}
+.pr-billing button[aria-pressed='true'] .pr-billing__save { background: rgba(8, 11, 16, 0.18); color: var(--accent-text); }
+.pr-card__badges { margin-top: auto; justify-content: center; }
+@media (max-width: 767px) { .pr-card__badges { --badge-h: 42px; } }
+.pr-plans-band { padding-top: 96px; }
+@media (max-width: 1023px) {
+  .pr-plans--2 { grid-template-columns: minmax(0, 520px); justify-content: center; }
+}
+@media (max-width: 767px) { .pr-plans-band { padding-top: 64px; } }
+.band-lime .pr-card { background: #0E0E0E; border-color: #0E0E0E; box-shadow: 0 24px 50px rgba(8, 8, 8, 0.28); }
+.band-lime .pr-card--elevated { background: #141414; border-color: #080808; }

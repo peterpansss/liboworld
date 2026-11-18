@@ -347,7 +347,7 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .blogpost-header {
     padding: 20px 20px 32px;
   }

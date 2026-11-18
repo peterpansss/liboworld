@@ -20,10 +20,10 @@
 }
 
 .careers-hero__headline {
-  font-size: clamp(40px, 7vw, 72px);
+  font-size: var(--h1-hero);
   font-weight: 800;
   line-height: 1.05;
-  letter-spacing: 0.5px;
+  letter-spacing: -1px;
   margin: 0 0 24px;
 }
 
@@ -64,7 +64,7 @@
   padding: 28px 32px;
   background: rgba(202, 255, 0, 0.06);
   border: 1px solid rgba(202, 255, 0, 0.18);
-  border-radius: 18px;
+  border-radius: 16px;
   text-decoration: none;
   color: var(--text);
   transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
@@ -105,7 +105,7 @@
   padding: 24px 32px 28px;
   background: rgba(202, 255, 0, 0.04);
   border: 1px solid rgba(202, 255, 0, 0.18);
-  border-top: 1px solid rgba(202, 255, 0, 0.12);
+  border-top: 1px solid var(--accent-dim);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-left-radius: 18px;
@@ -229,7 +229,7 @@
   text-align: center;
   padding: 64px 24px;
   border: 1px dashed var(--border);
-  border-radius: 18px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.02);
 }
 
@@ -341,7 +341,7 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .careers-hero {
     padding: 64px 20px 40px;
   }
@@ -392,4 +392,12 @@
     text-align: center;
     margin-top: 24px;
   }
+}
+
+/* h2 wrapper around each role's accordion button: outline only, no styling. */
+.careers-role__heading {
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
 }

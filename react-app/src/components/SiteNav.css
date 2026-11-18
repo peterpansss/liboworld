@@ -213,6 +213,15 @@
   line-height: 1.4;
 }
 
+/* Earn menu: prop thumbnail beside each item (18 Nov 2026). */
+.site-nav__dropdown-prop {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.site-nav__dropdown-item--mega { align-items: center; }
+
 /* ── Frosted-glass scroll state ── */
 .site-nav--scrolled {
   background: rgba(8, 8, 8, 0.97);
@@ -255,8 +264,11 @@
   color: var(--accent-text);
   text-decoration: none;
   padding: 8px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   border-radius: 14px;
   transition: background 0.2s, transform 0.15s;
   min-height: 44px;
@@ -267,7 +279,6 @@
   appearance: none;
   border: none;
   cursor: pointer;
-  font-family: inherit;
 }
 
 .site-nav__cta:hover {
@@ -368,8 +379,10 @@
 .site-nav__drawer-links {
   display: flex;
   flex-direction: column;
-  padding: 16px 0;
+  padding: 8px 0;
   flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .site-nav__drawer-links a {
@@ -377,16 +390,37 @@
   text-decoration: none;
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
-  font-size: 34px;
+  font-size: 30px;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: -0.3px;
-  padding: 11px 24px;
+  padding: 9px 24px;
   transition: color 0.2s, background 0.2s;
 }
 
 .site-nav__drawer-links a:hover {
   background: rgba(255, 255, 255, 0.05);
+}
+
+.site-nav__drawer-group {
+  margin: 0;
+  padding: 8px 24px 4px;
+  color: var(--dim);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.site-nav__drawer-links a.site-nav__drawer-sublink {
+  font-size: 22px;
+  padding: 8px 24px 8px 40px;
+}
+.site-nav__drawer-sep {
+  display: block;
+  height: 1px;
+  margin: 10px 24px;
+  background: var(--border);
 }
 
 .site-nav__drawer-link--active {
@@ -396,29 +430,6 @@
 .site-nav__drawer-bottom {
   padding: 16px 24px 32px;
   border-top: 1px solid var(--border);
-}
-
-.site-nav__drawer-cta {
-  display: block;
-  width: 100%;
-  text-align: center;
-  background: var(--accent);
-  color: var(--accent-text);
-  text-decoration: none;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 14px;
-  transition: background 0.2s;
-  /* Button reset — renders as <button> in prelaunch, <a> in launched. */
-  appearance: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.site-nav__drawer-cta:hover {
-  background: var(--accent2);
 }
 
 /* ── Founding savings bar ── */
@@ -521,7 +532,7 @@
 .site-nav-spacer--with-announce { height: 104px; } /* 64 nav + 40 bar */
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .site-nav__inner {
     padding: 0 16px;
   }
@@ -632,13 +643,13 @@
 /* ── Official store badges in the bar (17 Nov 2026, replaces .site-nav__cta) ── */
 .site-nav__badges { --badge-h: 40px; gap: 8px; flex-wrap: nowrap; }
 @media (max-width: 1100px) { .site-nav__badges { --badge-h: 34px; } }
-@media (max-width: 768px) { .site-nav__badges { display: none; } }
+@media (max-width: 767px) { .site-nav__badges { display: none; } }
 
 .site-nav__drawer-badges { --badge-h: 44px; justify-content: center; }
 
 /* ── Mobile: both badges pinned to the bottom of the screen ── */
 .site-storebar { display: none; }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .site-storebar {
     display: flex;
     justify-content: center;

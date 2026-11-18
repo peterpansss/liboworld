@@ -47,7 +47,7 @@
 }
 
 .auth-callback-icon--success {
-  background: rgba(202, 255, 0, 0.12);
+  background: var(--accent-dim);
   color: var(--accent);
   border: 1px solid rgba(202, 255, 0, 0.3);
 }
@@ -75,10 +75,10 @@
 
 .auth-callback-title {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-size: clamp(36px, 6vw, 48px);
+  font-size: var(--h1-page);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
   line-height: 0.95;
   color: var(--text);
   margin-bottom: 16px;
@@ -237,7 +237,7 @@
   padding: 10px 14px;
   background: rgba(255, 51, 51, 0.08);
   border: 1px solid rgba(255, 51, 51, 0.25);
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 13px;
   color: var(--error);
   text-align: left;

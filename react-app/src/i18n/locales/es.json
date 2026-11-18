@@ -835,7 +835,9 @@
     "moreCta": {
       "text": "+{{count}} entrenamientos más en la app",
       "button": "Obtén la App"
-    }
+    },
+    "loadError": "No se pudieron cargar los entrenamientos. Revisa tu conexión e inténtalo de nuevo.",
+    "retry": "Reintentar"
   },
   "programDetail": {
     "loading": "Cargando entrenamiento...",
@@ -1266,7 +1268,9 @@
       "h2a": "Constancia,",
       "h2b": "con pruebas.",
       "body": "Un solo bucle: abre la app, haz la sesión, mantén la racha. El cash challenge es opcional — el dinero es el recibo, no la razón.",
-      "link": "Cómo funciona el cash challenge →"
+      "link": "Cómo funciona el cash challenge →",
+      "card3RewardsName": "Sistema de premios",
+      "card3RewardsDesc": "+{{n}} puntos por entreno. Cámbialos por tarjetas regalo y dinero."
     },
     "insideApp": {
       "cap1Title": "Verificación de reps",
@@ -1368,7 +1372,7 @@
       "h1Pre": "Plan gratuito. O ",
       "h1Accent": "€10.00/mes",
       "h1Post": " por todo.",
-      "sub": "Sin tarjeta para empezar. Entrena gratis todo el tiempo que quieras — o pásate a Premium, mes a mes por €19.99."
+      "sub": "Sin tarjeta para empezar. Entrena gratis todo el tiempo que quieras — o pásate a Premium desde €10.00/mes."
     },
     "guarantee": [
       {
@@ -2022,13 +2026,25 @@
       },
       "monthlyPrice": {
         "q": "¿Qué significa €10.00/mes?",
-        "a": "Premium se factura anualmente a €119.99, que sale a €10.00 al mes. ¿Prefieres flexibilidad? Mes a mes son €19.99."
+        "a": "Premium se factura anualmente a €119.99, que sale a €10.00 al mes. ¿Prefieres flexibilidad? Mes a mes son €19.99, o €44.99 por 3 meses (€15.00/mes, ya en Android, pronto en iPhone)."
       },
       "subhead": "Las mismas respuestas que en la página de inicio — una sola fuente de verdad."
     },
     "seo": {
       "title": "Membresía | Libo — Training Club",
       "description": "Un plan gratuito, o €10.00/mes por todo — o mes a mes a €19.99. Sin tarjeta para empezar, y el plan gratuito es gratis de verdad — no una prueba."
+    },
+    "billing": {
+      "label": "Periodo de facturación",
+      "monthly": "Mensual",
+      "quarterly": "3 meses",
+      "yearly": "Anual",
+      "perMonth": "/mes",
+      "perQuarter": "/3 meses · {{pm}}/mes",
+      "perYear": "/año · {{pm}}/mes",
+      "noteMonthly": "Mes a mes. Cancela cuando quieras.",
+      "noteQuarterly": "Ahorra un {{pct}} % frente al mensual. Ya en Android, pronto en iPhone.",
+      "noteYearly": "Ahorra un {{pct}} % frente al mensual."
     }
   },
   "relaunchFounder": {
@@ -2265,5 +2281,358 @@
     "save": "Guardar mi elección",
     "privacyLink": "Cómo tratamos tus datos",
     "note": "No hay nada marcado por defecto. Cámbialo cuando quieras en «Configuración de cookies», en el pie de página."
+  },
+  "earnPages": {
+    "common": {
+      "free": "Free",
+      "premium": "Premium",
+      "points": "puntos",
+      "ctaTitle": "Entrena y gana.",
+      "ctaSub": "Gratis en iPhone y Android."
+    },
+    "nav": {
+      "earn": "Gana",
+      "howItWorks": "Cómo funciona",
+      "challenges": "Retos con dinero",
+      "giveaway": "Sorteo",
+      "rewards": "Recompensas",
+      "features": "Funciones",
+      "exercises": "Ejercicios",
+      "membership": "Membresía",
+      "faq": "FAQ",
+      "earnMenu": "Menú Gana"
+    },
+    "premiumStrip": {
+      "title": "Premium gana 2× puntos",
+      "text": "Y duran 90 días en vez de 30."
+    },
+    "next": {
+      "heading": "Más formas de ganar",
+      "cta": "Ver más",
+      "earn": {
+        "title": "Puntos Libo",
+        "text": "Lo que te da cada entreno."
+      },
+      "challenges": {
+        "title": "Retos con dinero",
+        "text": "30 días de reps diarias, dinero real al terminar."
+      },
+      "giveaway": {
+        "title": "Sorteo",
+        "text": "Un gran premio al mes. Todos los miembros participan."
+      },
+      "rewards": {
+        "title": "Tienda de recompensas",
+        "text": "Cambia puntos por tarjetas regalo o dinero."
+      }
+    },
+    "earn": {
+      "seo": {
+        "title": "Puntos Libo: entrena, gana, canjea | Libo",
+        "description": "Cada entreno te da puntos Libo. Canjéalos por tarjetas regalo y dinero en la tienda de recompensas. Premium gana 2×."
+      },
+      "eyebrow": "Puntos Libo",
+      "title1": "Entrena. Gana.",
+      "title2": "Canjea.",
+      "sub": "Cada entreno te da puntos. Canjéalos por tarjetas regalo y dinero.",
+      "ctaRewards": "Ver las recompensas",
+      "steps": {
+        "heading": "Cómo funciona",
+        "s1": {
+          "title": "Entrena",
+          "text": "Termina un entreno en la app."
+        },
+        "s2": {
+          "title": "Gana",
+          "text": "Los puntos llegan a tu saldo al momento."
+        },
+        "s3": {
+          "title": "Canjea",
+          "text": "Cámbialos por tarjetas regalo o dinero."
+        }
+      },
+      "table": {
+        "heading": "Lo que ganas",
+        "toggleLabel": "Ver puntos para",
+        "fine": "Valores base. Los entrenos muy cortos o muy fáciles dan menos.",
+        "screenAlt": "Historial de puntos Libo en la app"
+      },
+      "actions": {
+        "workout": "Terminar un entreno",
+        "challengeDay": "Día de reto con dinero",
+        "achievement": "Desbloquear un logro",
+        "friend": "Un amigo que invitas entrena",
+        "streak": "Hitos de racha"
+      },
+      "streakDays_one": "{{count}} día",
+      "streakDays_other": "{{count}} días",
+      "expiry": "Los puntos duran {{days}} días",
+      "rules": "Reglas de recompensas"
+    },
+    "rewards": {
+      "seo": {
+        "title": "Tienda de recompensas: tarjetas regalo y dinero por entrenar | Libo",
+        "description": "Cambia puntos Libo por tarjetas regalo o dinero de 5 €, 10 € o 20 €. Sin sorteo, sin suerte: un precio fijo en puntos."
+      },
+      "eyebrow": "Tienda de recompensas",
+      "title1": "Tus puntos.",
+      "title2": "Recompensas reales.",
+      "sub": "Cambia puntos Libo por tarjetas regalo o dinero. Precio fijo, sin sorteo.",
+      "ctaEarn": "Cómo ganar puntos",
+      "challengeLink": "¿Vienes por el reto con dinero de 30 días?",
+      "gift": {
+        "heading": "Tarjetas regalo",
+        "lead": "Eliges la marca al canjear.",
+        "alt": "Tarjeta regalo de {{value}} €"
+      },
+      "cash": {
+        "heading": "Dinero",
+        "lead": "A PayPal, Revolut, Wise o tu banco.",
+        "alt": "{{value}} € en dinero"
+      },
+      "items": {
+        "heading": "Grandes recompensas",
+        "cash": "O {{cash}} € en dinero"
+      },
+      "steps": {
+        "heading": "Cómo canjear",
+        "s1": {
+          "title": "Gana",
+          "text": "Entrena y acumula puntos Libo."
+        },
+        "s2": {
+          "title": "Elige",
+          "text": "Escoge una tarjeta en la pestaña Recompensas de la app."
+        },
+        "s3": {
+          "title": "Recibe",
+          "text": "Tu código o tu dinero llega en {{days}} días como máximo."
+        }
+      },
+      "premiumText": "Premium gana 2× puntos y desbloquea la tarjeta de 20 €.",
+      "rules": "Reglas de recompensas"
+    },
+    "giveaway": {
+      "seo": {
+        "title": "Gana una {{prize}}: el sorteo de Libo | Libo",
+        "description": "Todos los miembros de Libo participan automáticamente. Entrena una vez durante la ronda para activar tus participaciones. Gana una {{prize}}."
+      },
+      "eyebrow": "Sorteo · Ronda {{n}}",
+      "eyebrowNone": "Sorteo",
+      "title1": "Gana una",
+      "titleNone": "Próximo sorteo pronto.",
+      "sub": "Todos los miembros participan automáticamente. Entrena una vez durante la ronda para activar tus participaciones.",
+      "status": {
+        "open": "Abierto · cierra el {{closes}}, 23:59 hora de Berlín",
+        "upcoming": "Abre el {{opens}} · cierra el {{closes}}",
+        "closed": "Cerró el {{closes}}"
+      },
+      "cash": "¿Prefieres dinero? Llévate {{cash}} € en lugar de la {{prize}}.",
+      "steps": {
+        "heading": "Cómo participar",
+        "s1": {
+          "title": "Entrena una vez",
+          "text": "Un entreno durante la ronda activa tus participaciones."
+        },
+        "s2": {
+          "title": "Ya estás dentro",
+          "text": "Sin formulario, sin compra. Las participaciones se añaden solas."
+        },
+        "s3": {
+          "title": "Sorteo",
+          "text": "El ganador se sortea cuando cierra la ronda."
+        }
+      },
+      "entries": {
+        "heading": "Tus participaciones",
+        "lead": "Cada mes seguido que entrenas suma lo mismo otra vez.",
+        "caption": "Participaciones por ronda según plan y meses seguidos entrenando",
+        "months": "Meses seguidos",
+        "firstRound": "Primera ronda",
+        "monthsInRow_one": "{{count}} mes",
+        "monthsInRow_other": "{{count}} meses",
+        "fine": "Mayores de 16. También puedes participar gratis por correo: mira las reglas."
+      },
+      "screenAlt": "El sorteo en la app",
+      "premiumText": "Premium recibe 3 participaciones por ronda en vez de 1.",
+      "rules": "Reglas oficiales del sorteo",
+      "trademark": "PlayStation es una marca de Sony Interactive Entertainment. Libo no está afiliada a las marcas mostradas."
+    },
+    "features": {
+      "seo": {
+        "title": "Funciones: entrenos, planes, coach y más de 820 ejercicios | Libo",
+        "description": "Tu entreno de hoy listo, más de 820 ejercicios con vídeo, planes que puedes editar, un coach que conoce tu entrenamiento y rachas que perdonan un fallo."
+      },
+      "eyebrow": "La app",
+      "title1": "Todo lo que necesitas",
+      "title2": "para entrenar.",
+      "sub": "Entrenos elegidos para ti, más de 820 ejercicios con vídeo y un coach que conoce tu entrenamiento.",
+      "items": {
+        "today": {
+          "title": "Tu entreno de hoy, listo",
+          "text": "Abre la app y tu sesión de hoy está lista.",
+          "alt": "Pantalla de inicio con el entreno de hoy"
+        },
+        "library": {
+          "title": "Más de 820 ejercicios",
+          "text": "Casi todos los movimientos en vídeo, por músculo, estilo y lugar. Gimnasio, casa o al aire libre.",
+          "alt": "Pantalla Explorar con grupos musculares",
+          "link": "Ver la biblioteca"
+        },
+        "player": {
+          "title": "Sigue el vídeo, registra cada serie",
+          "text": "Vídeo, series, reps y peso en un solo lugar, con tu última marca y tu mejor marca al lado.",
+          "alt": "Reproductor de entreno registrando series"
+        },
+        "coach": {
+          "title": "Pregunta a tu coach",
+          "text": "Preguntas sobre tu entrenamiento, respondidas con tus propios datos. Escribe o habla.",
+          "alt": "Chat del coach respondiendo"
+        },
+        "generator": {
+          "title": "Hecho para ti",
+          "text": "Elige objetivo, tiempo y material. Recibe un entreno o un plan completo en segundos.",
+          "alt": "Generador de entrenos",
+          "link": "Ver los entrenos"
+        },
+        "editor": {
+          "title": "Hazlo tuyo",
+          "text": "Reordena, cambia, añade o quita. Ajusta series, reps y descanso. Calentamiento y vuelta a la calma incluidos.",
+          "alt": "Editor de planes"
+        },
+        "earn": {
+          "title": "Entrena y gana",
+          "text": "Los entrenos dan puntos, los puntos dan recompensas y el reto con dinero paga.",
+          "alt": "Pestaña Recompensas",
+          "link": "Cómo funcionan los puntos"
+        },
+        "plan": {
+          "title": "Sigue un plan",
+          "text": "Planes de varias semanas para músculo, pérdida de grasa o movilidad. Cada sesión organizada, semana a semana.",
+          "alt": "Un plan activo en la app",
+          "link": "Ver los planes"
+        }
+      },
+      "extras": {
+        "heading": "También en la app",
+        "offline": {
+          "title": "Sin conexión",
+          "text": "Guarda un plan y entrena sin cobertura."
+        },
+        "languages": {
+          "title": "5 idiomas",
+          "text": "Indicaciones de voz en inglés, alemán, español, francés y portugués."
+        },
+        "phases": {
+          "title": "Calentamiento y vuelta a la calma",
+          "text": "Incluidos en cada plan."
+        },
+        "notes": {
+          "title": "Notas de preparación",
+          "text": "Cómo preparar cada ejercicio."
+        },
+        "equipment": {
+          "title": "Cualquier material",
+          "text": "Peso corporal, mancuernas o un gimnasio completo."
+        },
+        "streak": {
+          "title": "Freezes de racha",
+          "text": "Un día fallado queda cubierto. Tu racha nunca vuelve a cero."
+        }
+      },
+      "premiumText": "Premium desbloquea la biblioteca completa y gana 2× puntos.",
+      "ctaSub": "Descarga gratis. Sin tarjeta."
+    },
+    "faq": {
+      "seo": {
+        "title": "FAQ: puntos, retos con dinero, sorteo y membresía | Libo",
+        "description": "Respuestas sobre los puntos Libo, los retos con dinero, el sorteo mensual, la membresía y la app."
+      },
+      "eyebrow": "FAQ",
+      "title": "Preguntas, respondidas.",
+      "tabsLabel": "Temas",
+      "tabs": {
+        "points": "Puntos",
+        "challenges": "Retos",
+        "giveaway": "Sorteo",
+        "membership": "Membresía",
+        "app": "La app"
+      },
+      "rulesLinks": {
+        "rewardsRules": "Reglas de recompensas",
+        "challengeRules": "Reglas de los retos con dinero",
+        "giveawayRules": "Reglas oficiales del sorteo"
+      },
+      "contact": "¿Más dudas? Escríbenos a",
+      "qPointsWhat": "¿Qué son los puntos Libo?",
+      "aPointsWhat": "Puntos que ganas entrenando en la app. Los canjeas en la tienda de recompensas por tarjetas regalo o dinero.",
+      "qPointsEarn": "¿Cómo gano puntos?",
+      "aPointsEarn": "Termina un entreno, alcanza un hito de racha, completa un día de reto con dinero, desbloquea un logro o invita a un amigo que entrene. Premium gana 2×.",
+      "qPointsExpire": "¿Caducan los puntos?",
+      "aPointsExpire": "Sí. Duran 30 días con Free y 90 días con Premium.",
+      "qPointsSpend": "¿En qué puedo usarlos?",
+      "aPointsSpend": "Tarjetas regalo y dinero desde 5 € (4.000 puntos). La tarjeta de 20 € y las grandes recompensas son para miembros Premium.",
+      "qPointsBuy": "¿Puedo comprar puntos?",
+      "aPointsBuy": "No. Los puntos solo se ganan entrenando.",
+      "qChallengeHow": "¿Cómo funcionan los retos con dinero?",
+      "aChallengeHow": "Únete a un reto de 30 días, graba tus reps cada día para que la app las verifique y cobra en dinero al terminar. El de 5 € es gratis; los de 15 € y 50 € son para miembros Premium.",
+      "qChallengeMiss": "¿Y si fallo un día?",
+      "aChallengeMiss": "Un freeze cubre un día fallado. Premium tiene uno por reto, y quien haya entrenado 60 de los últimos 90 días gana otro. Si fallas sin freeze, el reto termina.",
+      "qChallengePaid": "¿Cómo cobro?",
+      "aChallengePaid": "Al terminar, reclamas tu dinero en la app y eliges PayPal, Revolut, Wise o transferencia bancaria.",
+      "qGiveawayEnter": "¿Cómo participo en el sorteo?",
+      "aGiveawayEnter": "No tienes que hacer nada. Todos los miembros participan automáticamente. Un entreno durante la ronda activa tus participaciones.",
+      "qGiveawayPay": "¿Tengo que pagar para participar?",
+      "aGiveawayPay": "No. Los miembros Free reciben 1 participación y los Premium 3, más lo mismo por cada mes seguido que hayas entrenado. También puedes participar gratis por correo.",
+      "qGiveawayWho": "¿Quién puede participar?",
+      "aGiveawayWho": "Miembros a partir de 16 años. Si ganas con 16 o 17, el premio se paga a tu madre, padre o tutor. Algunos países están excluidos: mira las reglas.",
+      "qGiveawayCash": "¿Puedo elegir dinero en vez del premio?",
+      "aGiveawayCash": "Sí. Cada premio tiene una alternativa en dinero del 80 % de su precio.",
+      "qCancel": "¿Puedo cancelar Premium?",
+      "aCancel": "Sí, cuando quieras, en los ajustes de suscripción de App Store o Google Play. Premium sigue activo hasta el final del periodo pagado."
+    },
+    "footer": {
+      "trainTitle": "Entrena"
+    },
+    "big": {
+      "earn": "puntos por cada entreno",
+      "rewards": "puntos = una tarjeta regalo de {{value}} €",
+      "giveaway": "participaciones por ronda, Premium a los 12 meses",
+      "features": "ejercicios en la biblioteca"
+    }
+  },
+  "homeEarn": {
+    "eyebrow": "Entrena y gana",
+    "h2a": "Tu entrenamiento",
+    "h2b": "te recompensa.",
+    "sub": "Libo es más que una app de entrenamiento. Cada entreno suma puntos para tarjetas regalo y dinero, te mete en el sorteo mensual, y los retos con dinero pagan de verdad.",
+    "points": {
+      "title": "Puntos",
+      "text": "+{{n}} puntos por cada entreno que terminas. Premium gana 2×.",
+      "link": "Cómo funcionan los puntos"
+    },
+    "rewards": {
+      "title": "Tienda de premios",
+      "text": "Cambia puntos por tarjetas regalo y dinero, desde {{pts}} puntos.",
+      "link": "Ver la tienda"
+    },
+    "giveaway": {
+      "title": "Sorteo",
+      "text": "Esta ronda: {{prize}}. Entrena una vez y ya participas.",
+      "textNone": "Un gran sorteo cada mes. Entrena una vez y ya participas.",
+      "link": "Ver el sorteo"
+    },
+    "challenges": {
+      "title": "Retos con dinero",
+      "text": "Completa 30 días seguidos y cobra hasta €{{max}}.",
+      "link": "Elige un reto"
+    },
+    "stats": {
+      "exercises": "{{n}} ejercicios",
+      "l1": "Ejercicios en la biblioteca",
+      "l2": "Entrenos guiados",
+      "l3": "Pago máximo, 30 días seguidos",
+      "l4": "Puntos por entreno"
+    }
   }
 }

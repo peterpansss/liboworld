@@ -29,6 +29,11 @@
   --error: #FF3333;
   --success: #22c55e;
   --warning: #eab308;
+  --accent-line: rgba(202, 255, 0, 0.25);
+
+  /* Headline scale: one size for marketing heroes, one for library/detail/legal pages. */
+  --h1-hero: clamp(44px, 7vw, 80px);
+  --h1-page: clamp(36px, 5.5vw, 56px);
 }
 
 *,
@@ -96,3 +101,101 @@ body {
     animation: none !important;
   }
 }
+
+/* ── Primary button: the one lime CTA used across the site ──
+   Barlow 800 uppercase, 14px radius (brand scale), 52px tall (58px for --lg). */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.btn-primary:hover { background: var(--accent2); }
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary--lg { min-height: 58px; padding: 0 34px; font-size: 20px; }
+.btn-primary--block { width: 100%; }
+
+/* ── Reduced motion: one global switch so no page-level keyframe is missed ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Keyboard focus on form fields: a visible ring, not just a border tint ──
+   Several inputs set `outline: none` and only recolour their border on focus. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* ── Lime bands (Coverd-style, 18 Nov 2026) ──────────────────────────────
+   A section with .band-lime flips to solid brand lime with black type. Every
+   token is redefined locally, so headings, links and buttons inside follow
+   without per-component overrides: the "accent" becomes black, and a
+   .btn-primary turns black with lime text. Cards inside opt back into the
+   dark palette with .band-dark. --libo-* are re-declared because Landing.css
+   resolves them once at the page root. */
+section.band-lime,
+div.band-lime {
+  --text: #080808;
+  --muted: rgba(8, 8, 8, 0.7);
+  --dim: rgba(8, 8, 8, 0.62);
+  --accent: #080808;
+  --accent2: #222;
+  --accent-text: #CAFF00;
+  --accent-dim: rgba(8, 8, 8, 0.1);
+  --accent-line: rgba(8, 8, 8, 0.35);
+  --border: rgba(8, 8, 8, 0.14);
+  --libo-text: var(--text);
+  --libo-muted: var(--muted);
+  --libo-dim: var(--dim);
+  --libo-accent: var(--accent);
+  --libo-accent-2: var(--accent2);
+  --libo-bg-3: rgba(8, 8, 8, 0.14);
+  color: var(--text);
+  background: #CAFF00;
+  border-top: 0;
+}
+.band-lime .band-dark {
+  --text: #FFFFFF;
+  --muted: #8A9BB0;
+  --dim: #6B7A8F;
+  --accent: #CAFF00;
+  --accent2: #9BC800;
+  --accent-text: #080B10;
+  --accent-dim: rgba(202, 255, 0, 0.12);
+  --accent-line: rgba(202, 255, 0, 0.25);
+  --border: rgba(255, 255, 255, 0.07);
+  --libo-text: var(--text);
+  --libo-muted: var(--muted);
+  --libo-dim: var(--dim);
+  --libo-accent: var(--accent);
+  --libo-accent-2: var(--accent2);
+  --libo-bg-3: #141414;
+  color: var(--text);
+}
+.band-lime :focus-visible { outline-color: #080808; }
+.band-lime .band-dark :focus-visible { outline-color: var(--accent); }

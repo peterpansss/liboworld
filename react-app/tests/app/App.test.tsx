@@ -45,6 +45,11 @@ vi.mock('../../src/pages/Rules', () => ({ default: () => <div data-testid="page-
 vi.mock('../../src/pages/AuthCallback', () => ({
   default: () => <div data-testid="page-auth-cb" />,
 }));
+vi.mock('../../src/pages/Earn', () => ({ default: () => <div data-testid="page-earn" /> }));
+vi.mock('../../src/pages/Rewards', () => ({ default: () => <div data-testid="page-rewards" /> }));
+vi.mock('../../src/pages/Giveaway', () => ({ default: () => <div data-testid="page-giveaway" /> }));
+vi.mock('../../src/pages/Features', () => ({ default: () => <div data-testid="page-features" /> }));
+vi.mock('../../src/pages/Faq', () => ({ default: () => <div data-testid="page-faq" /> }));
 vi.mock('../../src/pages/GiveawayRules', () => ({
   default: () => <div data-testid="page-giveaway-rules" />,
 }));
@@ -127,6 +132,10 @@ describe('Lazy-loaded routes', () => {
     ['/auth/callback', 'page-auth-cb'],
     ['/giveaway-rules', 'page-giveaway-rules'],
     ['/rewards-rules', 'page-rewards-rules'],
+    ['/earn', 'page-earn'],
+    ['/rewards', 'page-rewards'],
+    ['/features', 'page-features'],
+    ['/faq', 'page-faq'],
     ['/cash-challenge', 'page-cash-challenge'],
     ['/get-app', 'page-getapp'],
     ['/admin', 'page-admin'],
@@ -169,15 +178,18 @@ describe('Launch-gated routes', () => {
   });
 });
 
-describe('Retired /giveaway points-pack page', () => {
+// /giveaway redirected to /giveaway-rules after the points-pack page was
+// retired; since 18 Nov 2026 it is the live giveaway round page again, with
+// or without the funnel pages.
+describe('/giveaway round page', () => {
   it.each([true, false])(
-    'redirects /giveaway to /giveaway-rules (FUNNEL_PAGES_ENABLED=%s)',
+    'renders the giveaway page and stays on /giveaway (FUNNEL_PAGES_ENABLED=%s)',
     async (enabled) => {
       funnelPagesEnabled = enabled;
       gotoUrl('/giveaway');
       render(<App />);
-      await waitFor(() => expect(screen.getByTestId('page-giveaway-rules')).toBeInTheDocument());
-      expect(window.location.pathname).toBe('/giveaway-rules');
+      await waitFor(() => expect(screen.getByTestId('page-giveaway')).toBeInTheDocument());
+      expect(window.location.pathname).toBe('/giveaway');
     },
   );
 });

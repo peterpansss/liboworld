@@ -835,7 +835,9 @@
     "moreCta": {
       "text": "+{{count}} weitere Workouts in der App",
       "button": "App holen"
-    }
+    },
+    "loadError": "Workouts konnten nicht geladen werden. Prüf deine Verbindung und versuch es nochmal.",
+    "retry": "Nochmal versuchen"
   },
   "programDetail": {
     "loading": "Workout wird geladen...",
@@ -1266,7 +1268,9 @@
       "h2a": "Konstanz,",
       "h2b": "schwarz auf weiß.",
       "body": "Ein Loop: App öffnen, Session machen, Streak halten. Die Cash Challenge ist optional — Geld ist der Beleg, nicht der Grund.",
-      "link": "So funktioniert die Cash Challenge →"
+      "link": "So funktioniert die Cash Challenge →",
+      "card3RewardsName": "Prämiensystem",
+      "card3RewardsDesc": "+{{n}} Punkte pro Workout. Lös sie gegen Gutscheine und Cash ein."
     },
     "insideApp": {
       "cap1Title": "Rep-Verifizierung",
@@ -1368,7 +1372,7 @@
       "h1Pre": "Kostenlose Stufe. Oder ",
       "h1Accent": "€10.00/Monat",
       "h1Post": " für alles.",
-      "sub": "Keine Karte zum Start. Trainiere gratis, so lange du willst — oder hol dir Premium, monatlich für €19.99."
+      "sub": "Keine Karte zum Start. Trainiere gratis, so lange du willst — oder hol dir Premium ab €10.00/Monat."
     },
     "guarantee": [
       {
@@ -2022,13 +2026,25 @@
       },
       "monthlyPrice": {
         "q": "Was bedeutet €10.00/Monat?",
-        "a": "Premium wird jährlich mit €119.99 abgerechnet — das sind €10.00 pro Monat. Lieber flexibel bleiben? Das Monatsabo kostet €19.99."
+        "a": "Premium wird jährlich mit €119.99 abgerechnet — das sind €10.00 pro Monat. Lieber flexibel bleiben? Das Monatsabo kostet €19.99, 3 Monate kosten €44.99 (€15.00/Monat, jetzt auf Android, iPhone folgt)."
       },
       "subhead": "Dieselben Antworten wie auf der Startseite — eine einzige Quelle."
     },
     "seo": {
       "title": "Mitgliedschaft | Libo — Training Club",
       "description": "Eine Gratis-Version, oder €10.00/Monat für alles — oder monatlich für €19.99. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — kein Test-Abo."
+    },
+    "billing": {
+      "label": "Abrechnungszeitraum",
+      "monthly": "Monatlich",
+      "quarterly": "3 Monate",
+      "yearly": "Jährlich",
+      "perMonth": "/Monat",
+      "perQuarter": "/3 Monate · {{pm}}/Monat",
+      "perYear": "/Jahr · {{pm}}/Monat",
+      "noteMonthly": "Monatlich kündbar.",
+      "noteQuarterly": "{{pct}} % günstiger als monatlich. Jetzt auf Android, iPhone folgt.",
+      "noteYearly": "{{pct}} % günstiger als monatlich."
     }
   },
   "relaunchFounder": {
@@ -2265,5 +2281,358 @@
     "save": "Auswahl speichern",
     "privacyLink": "Wie wir mit deinen Daten umgehen",
     "note": "Nichts ist für dich vorausgewählt. Du kannst es jederzeit über „Cookie-Einstellungen“ im Footer ändern."
+  },
+  "earnPages": {
+    "common": {
+      "free": "Free",
+      "premium": "Premium",
+      "points": "Punkte",
+      "ctaTitle": "Trainieren und verdienen.",
+      "ctaSub": "Kostenlos für iPhone und Android."
+    },
+    "nav": {
+      "earn": "Verdienen",
+      "howItWorks": "So funktioniert's",
+      "challenges": "Cash Challenges",
+      "giveaway": "Giveaway",
+      "rewards": "Rewards",
+      "features": "Features",
+      "exercises": "Übungen",
+      "membership": "Mitgliedschaft",
+      "faq": "FAQ",
+      "earnMenu": "Menü Verdienen"
+    },
+    "premiumStrip": {
+      "title": "Premium sammelt 2× Punkte",
+      "text": "Und sie halten 90 statt 30 Tage."
+    },
+    "next": {
+      "heading": "Mehr Wege zu verdienen",
+      "cta": "Mehr sehen",
+      "earn": {
+        "title": "Libo Punkte",
+        "text": "Was jedes Workout bringt."
+      },
+      "challenges": {
+        "title": "Cash Challenges",
+        "text": "30 Tage tägliche Reps, echtes Bargeld, wenn du durchziehst."
+      },
+      "giveaway": {
+        "title": "Giveaway",
+        "text": "Ein großer Preis im Monat. Jedes Mitglied ist dabei."
+      },
+      "rewards": {
+        "title": "Rewards Shop",
+        "text": "Tausch Punkte gegen Gutscheine oder Bargeld."
+      }
+    },
+    "earn": {
+      "seo": {
+        "title": "Libo Punkte: trainieren, sammeln, einlösen | Libo",
+        "description": "Jedes Workout bringt Libo Punkte. Lös sie im Rewards Shop gegen Gutscheine und Bargeld ein. Premium sammelt 2×."
+      },
+      "eyebrow": "Libo Punkte",
+      "title1": "Trainieren. Sammeln.",
+      "title2": "Einlösen.",
+      "sub": "Jedes Workout bringt Punkte. Lös sie gegen Gutscheine und Bargeld ein.",
+      "ctaRewards": "Zu den Rewards",
+      "steps": {
+        "heading": "So funktioniert's",
+        "s1": {
+          "title": "Trainieren",
+          "text": "Schließ ein Workout in der App ab."
+        },
+        "s2": {
+          "title": "Sammeln",
+          "text": "Die Punkte landen sofort auf deinem Konto."
+        },
+        "s3": {
+          "title": "Einlösen",
+          "text": "Tausch sie gegen Gutscheine oder Bargeld."
+        }
+      },
+      "table": {
+        "heading": "Was du bekommst",
+        "toggleLabel": "Punkte anzeigen für",
+        "fine": "Basiswerte. Sehr kurze oder sehr leichte Workouts bringen weniger.",
+        "screenAlt": "Libo Punkteverlauf in der App"
+      },
+      "actions": {
+        "workout": "Workout abschließen",
+        "challengeDay": "Cash-Challenge-Tag",
+        "achievement": "Achievement freischalten",
+        "friend": "Eingeladene:r Freund:in trainiert",
+        "streak": "Streak-Meilensteine"
+      },
+      "streakDays_one": "{{count}} Tag",
+      "streakDays_other": "{{count}} Tage",
+      "expiry": "Punkte halten {{days}} Tage",
+      "rules": "Rewards-Regeln"
+    },
+    "rewards": {
+      "seo": {
+        "title": "Rewards Shop: Gutscheine und Bargeld fürs Training | Libo",
+        "description": "Tausch Libo Punkte gegen Gutscheine oder Bargeld im Wert von 5 €, 10 € oder 20 €. Keine Verlosung, kein Glück: ein fester Preis in Punkten."
+      },
+      "eyebrow": "Rewards Shop",
+      "title1": "Deine Punkte.",
+      "title2": "Echte Rewards.",
+      "sub": "Tausch Libo Punkte gegen Gutscheine oder Bargeld. Fester Preis, keine Verlosung.",
+      "ctaEarn": "So sammelst du Punkte",
+      "challengeLink": "Wegen der 30-Tage Cash Challenge hier?",
+      "gift": {
+        "heading": "Gutscheine",
+        "lead": "Die Marke wählst du beim Einlösen.",
+        "alt": "Gutschein über {{value}} €"
+      },
+      "cash": {
+        "heading": "Bargeld",
+        "lead": "Auf PayPal, Revolut, Wise oder dein Bankkonto.",
+        "alt": "{{value}} € Bargeld"
+      },
+      "items": {
+        "heading": "Große Rewards",
+        "cash": "Oder stattdessen {{cash}} € Bargeld"
+      },
+      "steps": {
+        "heading": "So löst du ein",
+        "s1": {
+          "title": "Sammeln",
+          "text": "Trainier und sammle Libo Punkte."
+        },
+        "s2": {
+          "title": "Wählen",
+          "text": "Such dir im Rewards-Tab der App eine Karte aus."
+        },
+        "s3": {
+          "title": "Erhalten",
+          "text": "Dein Code oder dein Geld kommt innerhalb von {{days}} Tagen."
+        }
+      },
+      "premiumText": "Premium sammelt 2× Punkte und schaltet die 20-€-Karte frei.",
+      "rules": "Rewards-Regeln"
+    },
+    "giveaway": {
+      "seo": {
+        "title": "Gewinn eine {{prize}}: das Libo Giveaway | Libo",
+        "description": "Jedes Libo Mitglied nimmt automatisch teil. Ein Workout in der Runde aktiviert deine Lose. Gewinn eine {{prize}}."
+      },
+      "eyebrow": "Giveaway · Runde {{n}}",
+      "eyebrowNone": "Giveaway",
+      "title1": "Gewinn eine",
+      "titleNone": "Nächstes Giveaway bald.",
+      "sub": "Jedes Mitglied nimmt automatisch teil. Ein Workout in der Runde aktiviert deine Lose.",
+      "status": {
+        "open": "Jetzt offen · endet am {{closes}}, 23:59 Uhr Berlin",
+        "upcoming": "Startet am {{opens}} · endet am {{closes}}",
+        "closed": "Beendet am {{closes}}"
+      },
+      "cash": "Lieber Bargeld? Nimm {{cash}} € statt der {{prize}}.",
+      "steps": {
+        "heading": "So nimmst du teil",
+        "s1": {
+          "title": "Einmal trainieren",
+          "text": "Ein Workout in der Runde aktiviert deine Lose."
+        },
+        "s2": {
+          "title": "Du bist dabei",
+          "text": "Kein Formular, kein Kauf. Die Lose bekommst du automatisch."
+        },
+        "s3": {
+          "title": "Ziehung",
+          "text": "Der Gewinner wird gezogen, wenn die Runde endet."
+        }
+      },
+      "entries": {
+        "heading": "Deine Lose",
+        "lead": "Jeder Monat am Stück, in dem du trainierst, bringt dieselbe Anzahl noch einmal.",
+        "caption": "Lose pro Runde nach Mitgliedschaft und Trainingsmonaten am Stück",
+        "months": "Monate am Stück",
+        "firstRound": "Erste Runde",
+        "monthsInRow_one": "{{count}} Monat",
+        "monthsInRow_other": "{{count}} Monate",
+        "fine": "Ab 16. Kostenlose Teilnahme per Post ist auch möglich: siehe Regeln."
+      },
+      "screenAlt": "Das Giveaway in der App",
+      "premiumText": "Premium bekommt 3 Lose pro Runde statt 1.",
+      "rules": "Offizielle Giveaway-Regeln",
+      "trademark": "PlayStation ist eine Marke von Sony Interactive Entertainment. Libo ist mit den gezeigten Marken nicht verbunden."
+    },
+    "features": {
+      "seo": {
+        "title": "Features: Workouts, Pläne, Coach und 820+ Übungen | Libo",
+        "description": "Dein Workout für heute steht bereit, 820+ Übungen mit Video, Pläne zum Anpassen, ein Coach, der dein Training kennt, und Streaks, die einen Fehltag verzeihen."
+      },
+      "eyebrow": "Die App",
+      "title1": "Alles fürs",
+      "title2": "Training.",
+      "sub": "Workouts für dich ausgewählt, 820+ Übungen mit Video und ein Coach, der dein Training kennt.",
+      "items": {
+        "today": {
+          "title": "Dein Workout für heute",
+          "text": "Öffne die App und deine Session steht bereit.",
+          "alt": "Startseite mit dem heutigen Workout"
+        },
+        "library": {
+          "title": "820+ Übungen",
+          "text": "Fast jede Übung auf Video, nach Muskel, Stil und Ort. Gym, zu Hause oder draußen.",
+          "alt": "Entdecken-Seite mit Muskelgruppen",
+          "link": "Zur Bibliothek"
+        },
+        "player": {
+          "title": "Mitmachen, jeden Satz loggen",
+          "text": "Video, Sätze, Wiederholungen und Gewicht an einem Ort, mit deinem letzten und besten Wert direkt daneben.",
+          "alt": "Workout-Player beim Loggen von Sätzen"
+        },
+        "coach": {
+          "title": "Frag deinen Coach",
+          "text": "Fragen zu deinem Training, beantwortet mit deinen eigenen Daten. Tippen oder sprechen.",
+          "alt": "Coach-Chat beantwortet eine Frage"
+        },
+        "generator": {
+          "title": "Für dich gebaut",
+          "text": "Wähl Ziel, Zeit und Ausrüstung. In Sekunden bekommst du ein Workout oder einen ganzen Plan.",
+          "alt": "Workout-Generator",
+          "link": "Zu den Workouts"
+        },
+        "editor": {
+          "title": "Mach ihn zu deinem",
+          "text": "Umsortieren, tauschen, hinzufügen oder entfernen. Sätze, Wiederholungen und Pausen ändern. Aufwärmen und Cool-down inklusive.",
+          "alt": "Plan-Editor"
+        },
+        "earn": {
+          "title": "Trainieren und verdienen",
+          "text": "Workouts bringen Punkte, Punkte bringen Rewards, und die Cash Challenge zahlt aus.",
+          "alt": "Rewards-Tab",
+          "link": "So funktionieren Punkte"
+        },
+        "plan": {
+          "title": "Folge einem Plan",
+          "text": "Mehrwöchige Pläne für Muskelaufbau, Fettabbau oder Mobilität. Jede Session steht fest, Woche für Woche.",
+          "alt": "Ein aktiver Plan in der App",
+          "link": "Zu den Plänen"
+        }
+      },
+      "extras": {
+        "heading": "Außerdem in der App",
+        "offline": {
+          "title": "Offline",
+          "text": "Plan speichern und ohne Netz trainieren."
+        },
+        "languages": {
+          "title": "5 Sprachen",
+          "text": "Sprachansagen auf Englisch, Deutsch, Spanisch, Französisch und Portugiesisch."
+        },
+        "phases": {
+          "title": "Aufwärmen und Cool-down",
+          "text": "In jedem Plan eingebaut."
+        },
+        "notes": {
+          "title": "Setup-Hinweise",
+          "text": "So stellst du jede Übung richtig ein."
+        },
+        "equipment": {
+          "title": "Jede Ausrüstung",
+          "text": "Körpergewicht, Kurzhanteln oder ein ganzes Gym."
+        },
+        "streak": {
+          "title": "Streak-Freezes",
+          "text": "Ein Fehltag ist abgedeckt. Dein Streak fällt nie auf null."
+        }
+      },
+      "premiumText": "Premium schaltet die ganze Bibliothek frei und sammelt 2× Punkte.",
+      "ctaSub": "Kostenlos laden. Keine Karte nötig."
+    },
+    "faq": {
+      "seo": {
+        "title": "FAQ: Punkte, Cash Challenges, Giveaway und Mitgliedschaft | Libo",
+        "description": "Antworten zu Libo Punkten, Cash Challenges, dem monatlichen Giveaway, der Mitgliedschaft und der App."
+      },
+      "eyebrow": "FAQ",
+      "title": "Fragen, beantwortet.",
+      "tabsLabel": "Themen",
+      "tabs": {
+        "points": "Punkte",
+        "challenges": "Challenges",
+        "giveaway": "Giveaway",
+        "membership": "Mitgliedschaft",
+        "app": "Die App"
+      },
+      "rulesLinks": {
+        "rewardsRules": "Rewards-Regeln",
+        "challengeRules": "Cash-Challenge-Regeln",
+        "giveawayRules": "Offizielle Giveaway-Regeln"
+      },
+      "contact": "Noch Fragen? Schreib uns an",
+      "qPointsWhat": "Was sind Libo Punkte?",
+      "aPointsWhat": "Punkte, die du mit Training in der App sammelst. Du löst sie im Rewards Shop gegen Gutscheine oder Bargeld ein.",
+      "qPointsEarn": "Wie sammle ich Punkte?",
+      "aPointsEarn": "Workout abschließen, Streak-Meilenstein erreichen, Cash-Challenge-Tag schaffen, Achievement freischalten oder Freund:innen einladen, die trainieren. Premium sammelt 2×.",
+      "qPointsExpire": "Verfallen Punkte?",
+      "aPointsExpire": "Ja. Mit Free halten Punkte 30 Tage, mit Premium 90 Tage.",
+      "qPointsSpend": "Wofür kann ich sie einlösen?",
+      "aPointsSpend": "Gutscheine und Bargeld ab 5 € (4.000 Punkte). Die 20-€-Karte und die großen Rewards gibt es für Premium-Mitglieder.",
+      "qPointsBuy": "Kann ich Punkte kaufen?",
+      "aPointsBuy": "Nein. Punkte gibt es nur fürs Training.",
+      "qChallengeHow": "Wie funktionieren Cash Challenges?",
+      "aChallengeHow": "Tritt einer 30-Tage-Challenge bei, film jeden Tag deine Reps, damit die App sie prüfen kann, und bekomm Bargeld, wenn du durchziehst. Die 5-€-Challenge ist kostenlos; die 15-€- und 50-€-Challenges sind für Premium-Mitglieder.",
+      "qChallengeMiss": "Was, wenn ich einen Tag verpasse?",
+      "aChallengeMiss": "Ein Freeze deckt einen verpassten Tag ab. Premium hat einen pro Challenge, und wer an 60 der letzten 90 Tage trainiert hat, bekommt einen weiteren. Ohne Freeze endet der Run mit dem verpassten Tag.",
+      "qChallengePaid": "Wie werde ich ausgezahlt?",
+      "aChallengePaid": "Wenn du fertig bist, forderst du dein Geld in der App an und wählst PayPal, Revolut, Wise oder Überweisung.",
+      "qGiveawayEnter": "Wie nehme ich am Giveaway teil?",
+      "aGiveawayEnter": "Du musst nichts tun. Jedes Mitglied nimmt automatisch teil. Ein Workout in der Runde aktiviert deine Lose.",
+      "qGiveawayPay": "Muss ich für die Teilnahme zahlen?",
+      "aGiveawayPay": "Nein. Free-Mitglieder bekommen 1 Los, Premium-Mitglieder 3, plus dieselbe Anzahl für jeden Monat am Stück, in dem du trainiert hast. Du kannst auch kostenlos per Post teilnehmen.",
+      "qGiveawayWho": "Wer darf teilnehmen?",
+      "aGiveawayWho": "Mitglieder ab 16. Gewinner:innen mit 16 oder 17 werden über ein Elternteil ausgezahlt. Einige Länder sind ausgeschlossen: siehe Regeln.",
+      "qGiveawayCash": "Kann ich statt des Preises Bargeld nehmen?",
+      "aGiveawayCash": "Ja. Jeder Preis hat eine Bargeld-Alternative über 80 % seines Preises.",
+      "qCancel": "Kann ich Premium kündigen?",
+      "aCancel": "Ja, jederzeit in den Abo-Einstellungen von App Store oder Google Play. Premium läuft bis zum Ende des bezahlten Zeitraums."
+    },
+    "footer": {
+      "trainTitle": "Trainieren"
+    },
+    "big": {
+      "earn": "Punkte für jedes Workout",
+      "rewards": "Punkte = ein {{value}}-€-Gutschein",
+      "giveaway": "Lose pro Runde, Premium nach 12 Monaten",
+      "features": "Übungen in der Bibliothek"
+    }
+  },
+  "homeEarn": {
+    "eyebrow": "Trainieren und verdienen",
+    "h2a": "Dein Training",
+    "h2b": "zahlt sich aus.",
+    "sub": "Libo ist mehr als eine Trainings-App. Jedes Workout bringt Punkte für Gutscheine und Cash, bringt dich ins monatliche Gewinnspiel, und die Cash Challenges zahlen echtes Geld.",
+    "points": {
+      "title": "Punkte",
+      "text": "+{{n}} Punkte für jedes abgeschlossene Workout. Premium sammelt 2×.",
+      "link": "So funktionieren Punkte"
+    },
+    "rewards": {
+      "title": "Prämien-Shop",
+      "text": "Tausche Punkte gegen Gutscheine und Cash, ab {{pts}} Punkten.",
+      "link": "Zum Shop"
+    },
+    "giveaway": {
+      "title": "Gewinnspiel",
+      "text": "Diese Runde: {{prize}}. Einmal trainieren und du bist dabei.",
+      "textNone": "Jeden Monat ein großes Gewinnspiel. Einmal trainieren und du bist dabei.",
+      "link": "Zum Gewinnspiel"
+    },
+    "challenges": {
+      "title": "Cash Challenges",
+      "text": "Schaff 30 Tage am Stück und bekomm bis zu €{{max}}.",
+      "link": "Challenge wählen"
+    },
+    "stats": {
+      "exercises": "{{n}} Übungen",
+      "l1": "Übungen in der Bibliothek",
+      "l2": "Geführte Workouts",
+      "l3": "Höchste Auszahlung, 30 Tage am Stück",
+      "l4": "Punkte pro Workout"
+    }
   }
 }

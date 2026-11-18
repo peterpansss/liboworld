@@ -25,15 +25,16 @@
 }
 .bw-hero h1 {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 900;
   text-transform: uppercase;
-  font-size: 44px;
+  font-size: var(--h1-page);
   line-height: 1.05;
-  letter-spacing: 0.5px;
+  letter-spacing: -1px;
   margin: 0 0 8px;
   color: var(--text);
 }
 @media (min-width: 720px) {
-  .bw-hero h1 { font-size: 56px; }
+  .bw-hero h1 { font-size: var(--h1-page); }
 }
 .bw-subtitle {
   color: var(--muted);
@@ -213,7 +214,7 @@
   background: var(--accent);
   color: var(--accent-text);
   text-decoration: none;
-  border-radius: 10px;
+  border-radius: 14px;
   font-size: 14px;
   font-weight: 600;
 }

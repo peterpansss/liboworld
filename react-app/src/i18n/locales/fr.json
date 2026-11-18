@@ -544,7 +544,9 @@
       "medium": "15–30 min",
       "long": "30–45 min",
       "xlong": "45+ min"
-    }
+    },
+    "loadError": "Impossible de charger les séances. Vérifie ta connexion et réessaie.",
+    "retry": "Réessayer"
   },
   "programDetail": {
     "loading": "Chargement de l'entraînement...",
@@ -1245,7 +1247,9 @@
       "h2a": "La régularité,",
       "h2b": "preuves à l'appui.",
       "body": "Une boucle : ouvre l'app, fais la séance, garde la série. Le cash challenge est optionnel — l'argent est la preuve, pas la raison.",
-      "link": "Comment marche le cash challenge →"
+      "link": "Comment marche le cash challenge →",
+      "card3RewardsName": "Système de récompenses",
+      "card3RewardsDesc": "+{{n}} points par séance. Échange-les contre des cartes cadeaux et du cash."
     },
     "insideApp": {
       "cap1Title": "Vérification des reps",
@@ -1338,7 +1342,7 @@
       "h1Pre": "Offre gratuite. Ou ",
       "h1Accent": "€10.00/mois",
       "h1Post": " pour tout.",
-      "sub": "Aucune carte pour commencer. Entraîne-toi gratuitement aussi longtemps que tu veux — ou passe à Premium, au mois à €19.99."
+      "sub": "Aucune carte pour commencer. Entraîne-toi gratuitement aussi longtemps que tu veux — ou passe à Premium dès €10.00/mois."
     },
     "guarantee": [
       {
@@ -2022,13 +2026,25 @@
       },
       "monthlyPrice": {
         "q": "Ça veut dire quoi, €10.00/mois ?",
-        "a": "Premium est facturé €119.99 à l'année, soit €10.00 par mois. Tu préfères rester flexible ? Le mensuel est à €19.99."
+        "a": "Premium est facturé €119.99 à l'année, soit €10.00 par mois. Tu préfères rester flexible ? Le mensuel est à €19.99, ou €44.99 pour 3 mois (€15.00/mois, sur Android maintenant, bientôt sur iPhone)."
       },
       "subhead": "Les mêmes réponses que sur la page d'accueil — une seule source de vérité."
     },
     "seo": {
       "title": "Adhésion | Libo — Training Club",
       "description": "Un niveau Free, ou €10.00/mois pour tout — ou €19.99 au mois. Pas de carte pour commencer, et le niveau Free est vraiment gratuit — pas un essai."
+    },
+    "billing": {
+      "label": "Période de facturation",
+      "monthly": "Mensuel",
+      "quarterly": "3 mois",
+      "yearly": "Annuel",
+      "perMonth": "/mois",
+      "perQuarter": "/3 mois · {{pm}}/mois",
+      "perYear": "/an · {{pm}}/mois",
+      "noteMonthly": "Sans engagement. Résiliable à tout moment.",
+      "noteQuarterly": "{{pct}} % d’économie vs le mensuel. Sur Android maintenant, bientôt sur iPhone.",
+      "noteYearly": "{{pct}} % d’économie vs le mensuel."
     }
   },
   "relaunchFounder": {
@@ -2265,5 +2281,358 @@
     "save": "Enregistrer mes choix",
     "privacyLink": "Ce qu'on fait de tes données",
     "note": "Rien n'est coché d'avance. Tu peux changer d'avis à tout moment via « Paramètres des cookies » en bas de page."
+  },
+  "earnPages": {
+    "common": {
+      "free": "Free",
+      "premium": "Premium",
+      "points": "points",
+      "ctaTitle": "Entraîne-toi et gagne.",
+      "ctaSub": "Gratuit sur iPhone et Android."
+    },
+    "nav": {
+      "earn": "Gagner",
+      "howItWorks": "Comment ça marche",
+      "challenges": "Challenges cash",
+      "giveaway": "Concours",
+      "rewards": "Récompenses",
+      "features": "Fonctionnalités",
+      "exercises": "Exercices",
+      "membership": "Abonnement",
+      "faq": "FAQ",
+      "earnMenu": "Menu Gagner"
+    },
+    "premiumStrip": {
+      "title": "Premium gagne 2× plus de points",
+      "text": "Et ils durent 90 jours au lieu de 30."
+    },
+    "next": {
+      "heading": "D'autres façons de gagner",
+      "cta": "Voir plus",
+      "earn": {
+        "title": "Points Libo",
+        "text": "Ce que rapporte chaque séance."
+      },
+      "challenges": {
+        "title": "Challenges cash",
+        "text": "30 jours de reps quotidiennes, du vrai cash à la fin."
+      },
+      "giveaway": {
+        "title": "Concours",
+        "text": "Un gros lot par mois. Chaque membre participe."
+      },
+      "rewards": {
+        "title": "Boutique de récompenses",
+        "text": "Échange tes points contre des cartes cadeaux ou du cash."
+      }
+    },
+    "earn": {
+      "seo": {
+        "title": "Points Libo : entraîne-toi, gagne, dépense | Libo",
+        "description": "Chaque séance rapporte des points Libo. Échange-les contre des cartes cadeaux et du cash dans la boutique. Premium gagne 2×."
+      },
+      "eyebrow": "Points Libo",
+      "title1": "Entraîne-toi. Gagne.",
+      "title2": "Dépense.",
+      "sub": "Chaque séance rapporte des points. Échange-les contre des cartes cadeaux et du cash.",
+      "ctaRewards": "Voir les récompenses",
+      "steps": {
+        "heading": "Comment ça marche",
+        "s1": {
+          "title": "Entraîne-toi",
+          "text": "Termine une séance dans l'app."
+        },
+        "s2": {
+          "title": "Gagne",
+          "text": "Les points arrivent tout de suite sur ton solde."
+        },
+        "s3": {
+          "title": "Dépense",
+          "text": "Échange-les contre des cartes cadeaux ou du cash."
+        }
+      },
+      "table": {
+        "heading": "Ce que tu gagnes",
+        "toggleLabel": "Afficher les points pour",
+        "fine": "Valeurs de base. Les séances très courtes ou très faciles rapportent moins.",
+        "screenAlt": "Historique des points Libo dans l'app"
+      },
+      "actions": {
+        "workout": "Terminer une séance",
+        "challengeDay": "Jour de challenge cash",
+        "achievement": "Débloquer un succès",
+        "friend": "Un ami invité s'entraîne",
+        "streak": "Paliers de série"
+      },
+      "streakDays_one": "{{count}} jour",
+      "streakDays_other": "{{count}} jours",
+      "expiry": "Les points durent {{days}} jours",
+      "rules": "Règles des récompenses"
+    },
+    "rewards": {
+      "seo": {
+        "title": "Boutique de récompenses : cartes cadeaux et cash pour tes séances | Libo",
+        "description": "Échange tes points Libo contre des cartes cadeaux ou du cash de 5 €, 10 € ou 20 €. Pas de tirage, pas de chance : un prix fixe en points."
+      },
+      "eyebrow": "Boutique de récompenses",
+      "title1": "Tes points.",
+      "title2": "De vraies récompenses.",
+      "sub": "Échange tes points Libo contre des cartes cadeaux ou du cash. Prix fixe, pas de tirage.",
+      "ctaEarn": "Comment gagner des points",
+      "challengeLink": "Tu viens pour le challenge cash de 30 jours ?",
+      "gift": {
+        "heading": "Cartes cadeaux",
+        "lead": "Tu choisis la marque en échangeant.",
+        "alt": "Carte cadeau de {{value}} €"
+      },
+      "cash": {
+        "heading": "Cash",
+        "lead": "Versé sur PayPal, Revolut, Wise ou ton compte bancaire.",
+        "alt": "{{value}} € en cash"
+      },
+      "items": {
+        "heading": "Grosses récompenses",
+        "cash": "Ou {{cash}} € en cash à la place"
+      },
+      "steps": {
+        "heading": "Comment échanger",
+        "s1": {
+          "title": "Gagne",
+          "text": "Entraîne-toi et cumule des points Libo."
+        },
+        "s2": {
+          "title": "Choisis",
+          "text": "Choisis une carte dans l'onglet Récompenses de l'app."
+        },
+        "s3": {
+          "title": "Reçois",
+          "text": "Ton code ou ton cash arrive sous {{days}} jours."
+        }
+      },
+      "premiumText": "Premium gagne 2× plus de points et débloque la carte de 20 €.",
+      "rules": "Règles des récompenses"
+    },
+    "giveaway": {
+      "seo": {
+        "title": "Gagne une {{prize}} : le concours Libo | Libo",
+        "description": "Chaque membre Libo participe automatiquement. Une séance pendant la manche active tes participations. Gagne une {{prize}}."
+      },
+      "eyebrow": "Concours · Manche {{n}}",
+      "eyebrowNone": "Concours",
+      "title1": "Gagne une",
+      "titleNone": "Prochain concours bientôt.",
+      "sub": "Chaque membre participe automatiquement. Une séance pendant la manche active tes participations.",
+      "status": {
+        "open": "Ouvert · se termine le {{closes}}, 23h59 heure de Berlin",
+        "upcoming": "Ouvre le {{opens}} · se termine le {{closes}}",
+        "closed": "Terminé le {{closes}}"
+      },
+      "cash": "Tu préfères du cash ? Prends {{cash}} € à la place de la {{prize}}.",
+      "steps": {
+        "heading": "Comment participer",
+        "s1": {
+          "title": "Une séance",
+          "text": "Une séance pendant la manche active tes participations."
+        },
+        "s2": {
+          "title": "Tu participes",
+          "text": "Pas de formulaire, pas d'achat. Les participations sont ajoutées pour toi."
+        },
+        "s3": {
+          "title": "Tirage",
+          "text": "Le gagnant est tiré au sort à la fin de la manche."
+        }
+      },
+      "entries": {
+        "heading": "Tes participations",
+        "lead": "Chaque mois d'affilée où tu t'entraînes en ajoute autant.",
+        "caption": "Participations par manche selon l'abonnement et les mois d'entraînement d'affilée",
+        "months": "Mois d'affilée",
+        "firstRound": "Première manche",
+        "monthsInRow_one": "{{count}} mois",
+        "monthsInRow_other": "{{count}} mois",
+        "fine": "16 ans et plus. La participation gratuite par courrier est aussi ouverte : voir le règlement."
+      },
+      "screenAlt": "Le concours dans l'app",
+      "premiumText": "Premium reçoit 3 participations par manche au lieu d'1.",
+      "rules": "Règlement officiel du concours",
+      "trademark": "PlayStation est une marque de Sony Interactive Entertainment. Libo n'est pas affilié aux marques présentées."
+    },
+    "features": {
+      "seo": {
+        "title": "Fonctionnalités : séances, programmes, coach et 820+ exercices | Libo",
+        "description": "Ta séance du jour prête, 820+ exercices en vidéo, des programmes modifiables, un coach qui connaît ton entraînement et des séries qui pardonnent un oubli."
+      },
+      "eyebrow": "L'app",
+      "title1": "Tout ce qu'il te faut",
+      "title2": "pour t'entraîner.",
+      "sub": "Des séances choisies pour toi, 820+ exercices en vidéo et un coach qui connaît ton entraînement.",
+      "items": {
+        "today": {
+          "title": "Ta séance du jour, prête",
+          "text": "Ouvre l'app et ta séance du jour t'attend.",
+          "alt": "Écran d'accueil avec la séance du jour"
+        },
+        "library": {
+          "title": "820+ exercices",
+          "text": "Presque chaque mouvement en vidéo, par muscle, style et lieu. Salle, maison ou dehors.",
+          "alt": "Écran Explorer avec les groupes musculaires",
+          "link": "Voir la bibliothèque"
+        },
+        "player": {
+          "title": "Suis la vidéo, note chaque série",
+          "text": "Vidéo, séries, reps et charge au même endroit, avec ta dernière et ta meilleure perf juste à côté.",
+          "alt": "Lecteur de séance notant des séries"
+        },
+        "coach": {
+          "title": "Demande à ton coach",
+          "text": "Tes questions d'entraînement, avec des réponses basées sur tes propres données. À l'écrit ou à l'oral.",
+          "alt": "Chat du coach répondant à une question"
+        },
+        "generator": {
+          "title": "Fait pour toi",
+          "text": "Choisis ton objectif, ton temps et ton matériel. Une séance ou un programme complet en quelques secondes.",
+          "alt": "Générateur de séances",
+          "link": "Voir les séances"
+        },
+        "editor": {
+          "title": "Fais-le à ta façon",
+          "text": "Réordonne, remplace, ajoute ou retire. Change séries, reps et repos. Échauffement et retour au calme inclus.",
+          "alt": "Éditeur de programme"
+        },
+        "earn": {
+          "title": "Entraîne-toi et gagne",
+          "text": "Les séances rapportent des points, les points des récompenses, et le challenge cash paie.",
+          "alt": "Onglet Récompenses",
+          "link": "Comment marchent les points"
+        },
+        "plan": {
+          "title": "Suis un programme",
+          "text": "Des programmes sur plusieurs semaines pour le muscle, la perte de gras ou la mobilité. Chaque séance prévue, semaine après semaine.",
+          "alt": "Un programme actif dans l'app",
+          "link": "Voir les programmes"
+        }
+      },
+      "extras": {
+        "heading": "Aussi dans l'app",
+        "offline": {
+          "title": "Hors ligne",
+          "text": "Enregistre un programme et entraîne-toi sans réseau."
+        },
+        "languages": {
+          "title": "5 langues",
+          "text": "Consignes vocales en anglais, allemand, espagnol, français et portugais."
+        },
+        "phases": {
+          "title": "Échauffement et retour au calme",
+          "text": "Intégrés à chaque programme."
+        },
+        "notes": {
+          "title": "Notes de mise en place",
+          "text": "Comment préparer chaque exercice."
+        },
+        "equipment": {
+          "title": "Tout matériel",
+          "text": "Poids du corps, haltères ou salle complète."
+        },
+        "streak": {
+          "title": "Freezes de série",
+          "text": "Un jour manqué est couvert. Ta série ne retombe jamais à zéro."
+        }
+      },
+      "premiumText": "Premium débloque toute la bibliothèque et gagne 2× plus de points.",
+      "ctaSub": "Téléchargement gratuit. Sans carte."
+    },
+    "faq": {
+      "seo": {
+        "title": "FAQ : points, challenges cash, concours et abonnement | Libo",
+        "description": "Réponses sur les points Libo, les challenges cash, le concours mensuel, l'abonnement et l'app."
+      },
+      "eyebrow": "FAQ",
+      "title": "Tes questions, nos réponses.",
+      "tabsLabel": "Thèmes",
+      "tabs": {
+        "points": "Points",
+        "challenges": "Challenges",
+        "giveaway": "Concours",
+        "membership": "Abonnement",
+        "app": "L'app"
+      },
+      "rulesLinks": {
+        "rewardsRules": "Règles des récompenses",
+        "challengeRules": "Règles des challenges cash",
+        "giveawayRules": "Règlement officiel du concours"
+      },
+      "contact": "Encore une question ? Écris-nous à",
+      "qPointsWhat": "C'est quoi, les points Libo ?",
+      "aPointsWhat": "Des points que tu gagnes en t'entraînant dans l'app. Tu les échanges dans la boutique contre des cartes cadeaux ou du cash.",
+      "qPointsEarn": "Comment gagner des points ?",
+      "aPointsEarn": "Termine une séance, atteins un palier de série, valide un jour de challenge cash, débloque un succès ou invite un ami qui s'entraîne. Premium gagne 2×.",
+      "qPointsExpire": "Les points expirent-ils ?",
+      "aPointsExpire": "Oui. Ils durent 30 jours en Free et 90 jours en Premium.",
+      "qPointsSpend": "Contre quoi les échanger ?",
+      "aPointsSpend": "Des cartes cadeaux et du cash dès 5 € (4 000 points). La carte de 20 € et les grosses récompenses sont réservées aux membres Premium.",
+      "qPointsBuy": "Puis-je acheter des points ?",
+      "aPointsBuy": "Non. Les points se gagnent uniquement en s'entraînant.",
+      "qChallengeHow": "Comment marchent les challenges cash ?",
+      "aChallengeHow": "Rejoins un challenge de 30 jours, filme tes reps chaque jour pour que l'app les vérifie, et sois payé en cash à la fin. Celui à 5 € est gratuit ; ceux à 15 € et 50 € sont pour les membres Premium.",
+      "qChallengeMiss": "Et si je rate un jour ?",
+      "aChallengeMiss": "Un freeze couvre un jour manqué. Premium en a un par challenge, et toute personne qui s'est entraînée 60 des 90 derniers jours en gagne un de plus. Sans freeze, un jour manqué met fin au challenge.",
+      "qChallengePaid": "Comment suis-je payé ?",
+      "aChallengePaid": "À la fin, tu réclames ton cash dans l'app et tu choisis PayPal, Revolut, Wise ou un virement bancaire.",
+      "qGiveawayEnter": "Comment participer au concours ?",
+      "aGiveawayEnter": "Tu n'as rien à faire. Chaque membre participe automatiquement. Une séance pendant la manche active tes participations.",
+      "qGiveawayPay": "Faut-il payer pour participer ?",
+      "aGiveawayPay": "Non. Les membres Free ont 1 participation et les Premium 3, plus autant pour chaque mois d'affilée où tu t'es entraîné. Tu peux aussi participer gratuitement par courrier.",
+      "qGiveawayWho": "Qui peut participer ?",
+      "aGiveawayWho": "Les membres de 16 ans et plus. Les gagnants de 16 ou 17 ans sont payés via un parent ou tuteur. Certains pays sont exclus : voir le règlement.",
+      "qGiveawayCash": "Puis-je prendre du cash à la place du lot ?",
+      "aGiveawayCash": "Oui. Chaque lot a une alternative en cash de 80 % de son prix.",
+      "qCancel": "Puis-je résilier Premium ?",
+      "aCancel": "Oui, à tout moment, dans les réglages d'abonnement de l'App Store ou de Google Play. Premium reste actif jusqu'à la fin de la période payée."
+    },
+    "footer": {
+      "trainTitle": "Entraînement"
+    },
+    "big": {
+      "earn": "points pour chaque séance",
+      "rewards": "points = une carte cadeau de {{value}} €",
+      "giveaway": "participations par manche, Premium à 12 mois",
+      "features": "exercices dans la bibliothèque"
+    }
+  },
+  "homeEarn": {
+    "eyebrow": "S’entraîner et gagner",
+    "h2a": "Ton entraînement",
+    "h2b": "te rapporte.",
+    "sub": "Libo, c’est plus qu’une app d’entraînement. Chaque séance rapporte des points pour des cartes cadeaux et du cash, te fait participer au tirage mensuel, et les défis cash paient pour de vrai.",
+    "points": {
+      "title": "Points",
+      "text": "+{{n}} points pour chaque séance terminée. Premium gagne 2×.",
+      "link": "Comment marchent les points"
+    },
+    "rewards": {
+      "title": "Boutique",
+      "text": "Échange tes points contre des cartes cadeaux et du cash, dès {{pts}} points.",
+      "link": "Voir la boutique"
+    },
+    "giveaway": {
+      "title": "Tirage au sort",
+      "text": "Ce tour : {{prize}}. Une séance et tu participes.",
+      "textNone": "Un grand tirage chaque mois. Une séance et tu participes.",
+      "link": "Voir le tirage"
+    },
+    "challenges": {
+      "title": "Défis cash",
+      "text": "Tiens 30 jours d’affilée et touche jusqu’à €{{max}}.",
+      "link": "Choisir un défi"
+    },
+    "stats": {
+      "exercises": "{{n}} exercices",
+      "l1": "Exercices dans la bibliothèque",
+      "l2": "Séances guidées",
+      "l3": "Gain max, 30 jours d’affilée",
+      "l4": "Points par séance"
+    }
   }
 }
