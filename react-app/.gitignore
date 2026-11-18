@@ -78,3 +78,7 @@ Fitbod Generate Workout Example /
 ReferenceImagesReal/
 scripts/_logs/
 supabase/.temp/
+
+# Keep last: the site's transparent hero loops are HEVC-alpha .mov for Safari
+# (18 Nov 2026), so they must beat the *.mov rules above.
+!public/loops/*.mov

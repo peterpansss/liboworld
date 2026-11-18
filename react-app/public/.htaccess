@@ -2,6 +2,11 @@
   RewriteEngine On
   RewriteBase /
 
+  # /rewards is a React page. Until 18 Nov 2026 a public/rewards/ image folder
+  # shadowed it (403); that folder is now reward-cards/, but a stale copy left
+  # on the server would still shadow it, so route the page explicitly first.
+  RewriteRule ^rewards/?$ index.html [L]
+
   # Don't rewrite real files or directories
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
@@ -17,7 +22,10 @@
   # shell as the response for image/asset URLs that don't exist yet at the
   # moment of the first request, which then poisons the cache for hours
   # after the asset is actually deployed.
-  RewriteRule ^(images|assets|videos|fonts|audio|founder-media|funnel-media)/ - [L,R=404]
+  # (18 Nov 2026) The rewards card art lives in "reward-cards", not "rewards":
+  # a real dist/rewards/ directory 403'd the /rewards page exactly like
+  # /founder above. loops/props/reward-cards are the 3D + card assets.
+  RewriteRule ^(images|assets|videos|fonts|audio|founder-media|funnel-media|loops|props|reward-cards)/ - [L,R=404]
 
   # Same guard for the app-link association files (.well-known/). Measured
   # 2026-11-07, before assetlinks.json existed: a request for
