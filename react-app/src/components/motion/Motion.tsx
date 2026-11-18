@@ -57,14 +57,14 @@ export function Ribbons() {
  * "4,000", "820+"). Renders the final text for SSR, tests and reduced motion.
  */
 export function CountUp({ value, duration = 1400 }: { value: string; duration?: number }) {
-  const m = value.match(/^(\D*)([\d.,\s ]+)(.*)$/);
+  const m = value.match(/^(\D*)([\d.,\s\u202f]+)(.*)$/);
   const ref = useRef<HTMLSpanElement>(null);
   const [shown, setShown] = useState(value);
 
   useEffect(() => {
     if (!m || typeof IntersectionObserver === 'undefined' || reducedMotion()) return;
     const [, pre, num, post] = m;
-    const sep = (num.match(/[.,\s ]/) || [''])[0];
+    const sep = (num.match(/[.,\s\u202f]/) || [''])[0];
     const target = parseInt(num.replace(/\D/g, ''), 10);
     if (!Number.isFinite(target) || target === 0) return;
     const fmt = (n: number) => pre + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep) + post;
