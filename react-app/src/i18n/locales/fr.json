@@ -929,9 +929,9 @@
       "h1c": "On te paie",
       "h1d": "jusqu’à €50.",
       "body": "Choisis un challenge. Fais tes répétitions quotidiennes pendant 30 jours, filmées et vérifiées dans l’app. Va au bout et on te paie €5, €15 ou €50 en argent réel — financé par Libo, sans tirage au sort, sans chance. Si tu rates un jour, un freeze token te couvre. La participation est gratuite.",
-      "altLeft": "Onglet Récompenses de Libo — points, série et challenges à rejoindre",
-      "altCenter": "Écran d'accueil de Libo — challenge du jour, plan actif et entraînement du jour",
-      "altRight": "Capture vidéo d'un jour de challenge Libo dans l'app"
+      "altLeft": "Onglet Récompenses de Libo : points, série et les défis cash à rejoindre",
+      "altCenter": "Écran d'accueil Libo : programme actif, demande à ton coach et la séance du jour",
+      "altRight": "Lecteur de séance Libo : démo de l'exercice, séries, charge et répétitions"
     },
     "proof": {
       "exercisesValue": "820+",

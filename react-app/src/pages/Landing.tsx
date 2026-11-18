@@ -160,7 +160,7 @@ export default function Landing() {
       desc: t('relaunchHome.habit.s1Desc', {
         defaultValue: "One session, handed to you. No planning, no decisions — just today's work.",
       }),
-      screen: '/app-real-home.png',
+      screen: '/app-screens/home.webp?v=1',
     },
     {
       name: t('relaunchHome.habit.s2Name', { defaultValue: 'Hold the streak' }),
@@ -174,7 +174,7 @@ export default function Landing() {
       desc: t('relaunchHome.habit.s3Desc', {
         defaultValue: "After 30 days it isn't a challenge anymore. It's who you are. That's the product.",
       }),
-      screen: '/app-real-nicework.png',
+      screen: '/app-screens/progress.webp?v=1',
     },
   ];
 
@@ -381,40 +381,36 @@ export default function Landing() {
           <div className="rh-hero-phones">
             <img
               className="rh-phone rh-phone--left"
-              src="/app-real-rewards.png"
+              src="/app-screens/challenges.webp?v=1"
               alt={t('relaunchHome.hero.altLeft', {
-                defaultValue: 'Libo Rewards tab — points, streak and the challenges you can join',
+                defaultValue: 'Libo Rewards tab: points, streak and the cash challenges you can join',
               })}
               loading="eager"
-              width={1206}
-              height={2622}
+              width={600}
+              height={1304}
             />
             <img
               className="rh-phone rh-phone--center"
-              src="/app-real-home.png"
+              src="/app-screens/home.webp?v=1"
               alt={t('relaunchHome.hero.altCenter', {
-                defaultValue: "Libo home screen — today's challenge, active plan and today's workout",
+                defaultValue: "Libo home screen: active plan, ask your coach and today's workout",
               })}
               loading="eager"
-              width={1206}
-              height={2622}
+              width={600}
+              height={1304}
             />
-            {/* KEEP THIS VIDEO. The live hero screen recording beats every
-                static capture in the handoff — MASTER-HANDOFF "Hero screen
-                recording" and HANDOFF-V2 "Hero phone frames". The canvas shows
-                a still here only because it cannot embed video. */}
-            <video
+            {/* Current app screens (Noah, 18 Nov 2026): the Aug screen
+                recording (hero-right.mp4) showed the old player and gave way
+                to the current one. */}
+            <img
               className="rh-phone rh-phone--right"
-              src="/hero-right.mp4"
-              poster="/hero-right-poster.jpg"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-label={t('relaunchHome.hero.altRight', {
-                defaultValue: 'Screen recording of a Libo challenge day in the app',
+              src="/app-screens/player.webp?v=1"
+              alt={t('relaunchHome.hero.altRight', {
+                defaultValue: 'Libo workout player: exercise demo, sets, weight and reps',
               })}
+              loading="eager"
+              width={600}
+              height={1304}
             />
           </div>
         </section>
@@ -739,7 +735,7 @@ export default function Landing() {
               <div className="rh-habit-step" data-popin key={step.name}>
                 {/* Framed app capture above the caption (V4 §4). */}
                 <div className="rh-habit-screen">
-                  <img src={step.screen} alt="" loading="lazy" width={1206} height={2622} />
+                  <img src={step.screen} alt="" loading="lazy" width={600} height={1304} />
                 </div>
                 {/* Number badge inline BESIDE the title, not above it. */}
                 <h3 className="rh-habit-name">

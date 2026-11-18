@@ -955,9 +955,9 @@
       "h1c": "Te pagamos",
       "h1d": "hasta €50.",
       "body": "Elige un reto. Haz tus repeticiones diarias durante 30 días, grabadas y verificadas en la app. Termínalo y te pagamos €5, €15 o €50 en dinero real — financiado por Libo, sin sorteo, sin suerte. Si fallas un día, un freeze token te cubre. Participar es gratis.",
-      "altLeft": "Pestaña Recompensas de Libo — puntos, racha y los retos a los que puedes unirte",
-      "altCenter": "Pantalla de inicio de Libo — el reto de hoy, el plan activo y el entrenamiento de hoy",
-      "altRight": "Grabación de pantalla de un día de reto de Libo en la app"
+      "altLeft": "Pestaña Recompensas de Libo: puntos, racha y los retos con dinero a los que puedes unirte",
+      "altCenter": "Pantalla de inicio de Libo: plan activo, pregunta a tu coach y el entreno de hoy",
+      "altRight": "Reproductor de entrenos de Libo: demo del ejercicio, series, peso y repeticiones"
     },
     "proof": {
       "exercisesValue": "820+",
