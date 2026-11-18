@@ -132,30 +132,27 @@ describe('Landing', () => {
     });
   });
 
-  it('switches the featured phone screen when a feature card is clicked', async () => {
+  it('steps the pinned feature scene with its progress bar', async () => {
     const user = userEvent.setup();
     const { container } = renderPage();
-    expect(container.querySelectorAll('button.rh-feature')).toHaveLength(6);
-    // Starts on 01 (the pinned scene moves it with the scroll on desktop).
-    const library = screen.getByRole('button', { name: /relaunchHome\.library\.c1Name/ });
-    expect(library).toHaveAttribute('aria-pressed', 'true');
-    // Two tab rows share the state: the phone dots and the scene's progress bar.
-    const dots = screen.getAllByRole('tab').slice(0, 6);
-    expect(screen.getAllByRole('tab')).toHaveLength(12);
-    expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+    // One progress bar (6 segments) drives the phone and the single text block
+    // on every screen size; the old card list and dots are gone.
+    expect(container.querySelectorAll('button.rh-feature')).toHaveLength(0);
+    const segs = screen.getAllByRole('tab');
+    expect(segs).toHaveLength(6);
+    // Starts on 01 (scrolling moves it in a real browser).
+    expect(segs[0]).toHaveAttribute('aria-selected', 'true');
+    const name = () => container.querySelector('.rh-scene-name')?.textContent;
+    expect(name()).toMatch(/relaunchHome\.library\.c1Name/);
 
-    const progress = screen.getByRole('button', { name: /relaunchHome\.library\.c4Name/ });
-    await user.click(progress);
-    expect(progress).toHaveAttribute('aria-pressed', 'true');
-    expect(library).toHaveAttribute('aria-pressed', 'false');
-    expect(dots[3]).toHaveAttribute('aria-selected', 'true');
-    expect(dots[0]).toHaveAttribute('aria-selected', 'false');
+    // jsdom has no layout, so a segment click switches directly.
+    await user.click(segs[3]);
+    expect(segs[3]).toHaveAttribute('aria-selected', 'true');
+    expect(segs[0]).toHaveAttribute('aria-selected', 'false');
+    expect(name()).toMatch(/relaunchHome\.library\.c4Name/);
 
-    // The pager dots drive the same state.
-    await user.click(dots[5]);
-    expect(screen.getByRole('button', { name: /relaunchHome\.library\.c6Name/ }))
-      .toHaveAttribute('aria-pressed', 'true');
-    expect(library).toHaveAttribute('aria-pressed', 'false');
+    await user.click(segs[5]);
+    expect(name()).toMatch(/relaunchHome\.library\.c6Name/);
   });
 
   it('renders the three guide cards and the "See all posts" link into /blog', () => {
