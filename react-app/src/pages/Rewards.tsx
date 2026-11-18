@@ -85,7 +85,7 @@ export default function Rewards() {
             <ul className="rw-items">
               {REWARDS_ITEMS.map((it) => (
                 <li key={it.title} className="rw-item" data-popin>
-                  <span className="rw-item__stage"><PropImg name="iphone" className="rw-item__prop" width={240} /></span>
+                  <span className="rw-item__stage"><PropImg name="iphone-duo" className="rw-item__prop" width={400} /></span>
                   <div className="rw-item__copy">
                     {it.minTier === 'premium' && <span className="rw-badge">{t('earnPages.common.premium')}</span>}
                     <span className="rw-item__title">{it.title}</span>
@@ -99,6 +99,7 @@ export default function Rewards() {
                 </li>
               ))}
             </ul>
+            <p className="earn-fine">{t('earnPages.rewards.items.trademark')}</p>
           </Band>
         )}
 

@@ -2392,7 +2392,8 @@
       },
       "items": {
         "heading": "Grosses récompenses",
-        "cash": "Ou {{cash}} € en cash à la place"
+        "cash": "Ou {{cash}} € en cash à la place",
+        "trademark": "iPhone est une marque d'Apple Inc. Libo n'est pas affilié à Apple."
       },
       "steps": {
         "heading": "Comment échanger",

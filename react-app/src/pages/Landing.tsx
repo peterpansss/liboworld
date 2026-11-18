@@ -82,8 +82,8 @@ export default function Landing() {
   ];
 
   // ── "Everything you get" — Cal-AI-style interactive phone + card list.
-  // All six screens are CURRENT production captures (Noah, 2026-08-07).
-  // Progress Tracking plays a screen recording; the rest are stills.
+  // Current app screens (iOS 8.4.1 captures, 17 Nov 2026; replaced the
+  // 7 Aug set). Shared with the earn pages in /app-screens/.
   const libraryCards = [
     {
       num: '01',
@@ -94,7 +94,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c1DescMobile', {
         defaultValue: '820+ exercises with equipment notes and form cues.',
       }),
-      screen: '/feature-exercise-library.png', // real capture (Noah, 2026-08-07)
+      screen: '/app-screens/library.webp?v=1',
     },
     {
       num: '02',
@@ -105,7 +105,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c2DescMobile', {
         defaultValue: '140 pre-built sessions, 5 to 60 minutes.',
       }),
-      screen: '/feature-workout-library.png', // real capture (Noah, 2026-08-07)
+      screen: '/app-screens/explore.webp?v=1',
     },
     {
       num: '03',
@@ -116,7 +116,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c3DescMobile', {
         defaultValue: 'Tell Libo your time and equipment — it builds the session.',
       }),
-      screen: '/feature-ai-generator.png', // real capture (Noah, 2026-08-07)
+      screen: '/app-screens/generator.webp?v=1',
     },
     {
       num: '04',
@@ -127,9 +127,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c4DescMobile', {
         defaultValue: 'Every set, rep, and weight logged. PRs and streaks.',
       }),
-      screen: '/feature-progress-poster.png',
-      // Screen recording of the Progress flow — plays in the phone when active.
-      video: '/feature-progress.mp4',
+      screen: '/app-screens/progress.webp?v=1',
     },
     {
       num: '05',
@@ -140,7 +138,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c5DescMobile', {
         defaultValue: 'Build your own workout from the full library.',
       }),
-      screen: '/feature-custom-builder.png', // real capture (Noah, 2026-08-07)
+      screen: '/app-screens/plan-editor.webp?v=1',
     },
     {
       num: '06',
@@ -151,7 +149,7 @@ export default function Landing() {
       descMobile: t('relaunchHome.library.c6DescMobile', {
         defaultValue: '30 days of daily reps with real money as the proof.',
       }),
-      screen: '/app-real-rewards.png',
+      screen: '/app-screens/challenges.webp?v=1',
     },
   ];
 
@@ -669,32 +667,15 @@ export default function Landing() {
             <div className="rh-library-stage">
               <div className="rh-library-device">
                 <div className="rh-library-phone">
-                  {'video' in libraryCards[activeFeature] && libraryCards[activeFeature].video ? (
-                    <video
-                      key={libraryCards[activeFeature].video}
-                      src={libraryCards[activeFeature].video}
-                      poster={libraryCards[activeFeature].screen}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      aria-label={t('relaunchHome.library.phoneAlt', {
-                        defaultValue: '{{feature}} in the Libo app',
-                        feature: libraryCards[activeFeature].name,
-                      })}
-                    />
-                  ) : (
-                    <img
-                      src={libraryCards[activeFeature].screen}
-                      alt={t('relaunchHome.library.phoneAlt', {
-                        defaultValue: '{{feature}} in the Libo app',
-                        feature: libraryCards[activeFeature].name,
-                      })}
-                      width={1206}
-                      height={2622}
-                    />
-                  )}
+                  <img
+                    src={libraryCards[activeFeature].screen}
+                    alt={t('relaunchHome.library.phoneAlt', {
+                      defaultValue: '{{feature}} in the Libo app',
+                      feature: libraryCards[activeFeature].name,
+                    })}
+                    width={600}
+                    height={1304}
+                  />
                 </div>
                 {/* Pager dots (Cal-AI style): click switches the feature. */}
                 <div className="rh-library-dots" role="tablist"
