@@ -136,19 +136,20 @@ describe('Landing', () => {
     const user = userEvent.setup();
     const { container } = renderPage();
     expect(container.querySelectorAll('button.rh-feature')).toHaveLength(6);
-    // Default is feature 04 (Progress tracking).
-    const progress = screen.getByRole('button', { name: /relaunchHome\.library\.c4Name/ });
-    expect(progress).toHaveAttribute('aria-pressed', 'true');
-    const dots = screen.getAllByRole('tab');
-    expect(dots).toHaveLength(6);
-    expect(dots[3]).toHaveAttribute('aria-selected', 'true');
-
+    // Starts on 01 (the pinned scene moves it with the scroll on desktop).
     const library = screen.getByRole('button', { name: /relaunchHome\.library\.c1Name/ });
-    await user.click(library);
     expect(library).toHaveAttribute('aria-pressed', 'true');
-    expect(progress).toHaveAttribute('aria-pressed', 'false');
+    // Two tab rows share the state: the phone dots and the scene's progress bar.
+    const dots = screen.getAllByRole('tab').slice(0, 6);
+    expect(screen.getAllByRole('tab')).toHaveLength(12);
     expect(dots[0]).toHaveAttribute('aria-selected', 'true');
-    expect(dots[3]).toHaveAttribute('aria-selected', 'false');
+
+    const progress = screen.getByRole('button', { name: /relaunchHome\.library\.c4Name/ });
+    await user.click(progress);
+    expect(progress).toHaveAttribute('aria-pressed', 'true');
+    expect(library).toHaveAttribute('aria-pressed', 'false');
+    expect(dots[3]).toHaveAttribute('aria-selected', 'true');
+    expect(dots[0]).toHaveAttribute('aria-selected', 'false');
 
     // The pager dots drive the same state.
     await user.click(dots[5]);

@@ -32,6 +32,10 @@ function scrollToId(id: string) {
   });
 }
 
+// Number of features in "Everything you get" (libraryCards). The pinned scene
+// splits its scroll length into this many steps.
+const FEATURE_COUNT = 6;
+
 export default function Landing() {
   const { t } = useTranslation();
   const location = useLocation();
@@ -40,33 +44,48 @@ export default function Landing() {
   // `data-popin` is picked up — "How Libo is different", creator stats, guides.
   usePopIn();
 
-  // "Everything you get": which feature the phone shows. Default 04 Progress
-  // Tracking — a real capture (HOME-RESTRUCTURE-V4 §3).
-  const [activeFeature, setActiveFeature] = useState(3);
-  const featuresRef = useRef<HTMLDivElement>(null);
+  // "Everything you get": which feature the phone shows. Starts on 01; the
+  // scene below moves it with the scroll.
+  const [activeFeature, setActiveFeature] = useState(0);
+  const sceneRef = useRef<HTMLDivElement>(null);
 
-  // Scrollytelling (Noah, 18 Nov 2026): while the phone is pinned, the card
-  // crossing the middle of the screen drives the phone. Tablet and desktop
-  // only: on phones the device sits above the list and doesn't pin, so a scroll
-  // switch would change a screen that is out of view. Clicks and dots still
-  // work everywhere.
+  // Pinned scene (Noah, 18 Nov 2026, replaces the card list that scrolled past
+  // a sticky phone): on tablet and desktop the section is several screens tall
+  // and its inner stage pins to the viewport; how far you have scrolled through
+  // it picks the feature, so the phone and the one visible text block always
+  // change together. Phones keep the tap layout (no pin, no scroll mapping).
+  const isSceneViewport = () =>
+    typeof window !== 'undefined' && !!window.matchMedia?.('(min-width: 768px)').matches;
   useEffect(() => {
-    const list = featuresRef.current;
-    if (!list || typeof IntersectionObserver === 'undefined') return;
-    if (!window.matchMedia?.('(min-width: 768px)').matches) return;
-    const cards = Array.from(list.querySelectorAll<HTMLElement>('[data-feature-index]'));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActiveFeature(Number((e.target as HTMLElement).dataset.featureIndex));
-        });
-      },
-      // A thin band across the middle of the viewport.
-      { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
-    );
-    cards.forEach((c) => observer.observe(c));
-    return () => observer.disconnect();
+    const el = sceneRef.current;
+    if (!el || !isSceneViewport()) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const total = el.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      const p = Math.min(Math.max(-el.getBoundingClientRect().top / total, 0), 0.9999);
+      setActiveFeature(Math.floor(p * FEATURE_COUNT));
+    };
+    const onScroll = () => { if (!frame) frame = window.requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
+  // A progress segment or dot: in the scene, scroll to that step; on phones,
+  // just switch.
+  const goToFeature = (i: number) => {
+    const el = sceneRef.current;
+    if (!el || !isSceneViewport()) { setActiveFeature(i); return; }
+    const total = el.offsetHeight - window.innerHeight;
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + (total * (i + 0.5)) / FEATURE_COUNT, behavior: 'smooth' });
+  };
 
   // Honor #hash arrivals (e.g. /membership → "/#hero-capture").
   useEffect(() => {
@@ -681,61 +700,87 @@ export default function Landing() {
               </ScrollRevealText>
             </h2>
 
-            <div className="rh-library-stage">
-              <div className="rh-library-device">
-                <div className="rh-library-phone">
-                  <img
-                    key={libraryCards[activeFeature].screen}
-                    className="rh-library-screen"
-                    src={libraryCards[activeFeature].screen}
-                    alt={t('relaunchHome.library.phoneAlt', {
-                      defaultValue: '{{feature}} in the Libo app',
-                      feature: libraryCards[activeFeature].name,
-                    })}
-                    width={600}
-                    height={1304}
-                  />
-                </div>
-                {/* Pager dots (Cal-AI style): click switches the feature. */}
-                <div className="rh-library-dots" role="tablist"
-                  aria-label={t('relaunchHome.library.dotsLabel', { defaultValue: 'App features' })}>
-                  {libraryCards.map((c, i) => (
-                    <button
-                      key={c.num}
-                      type="button"
-                      role="tab"
-                      aria-selected={i === activeFeature}
-                      aria-label={c.name}
-                      className={`rh-library-dot${i === activeFeature ? ' rh-library-dot--active' : ''}`}
-                      onClick={() => setActiveFeature(i)}
-                    />
-                  ))}
-                </div>
-              </div>
+            <div className="rh-scene" ref={sceneRef}>
+              <div className="rh-scene-pin">
+                <div className="rh-library-stage rh-scene-stage">
+                  <div className="rh-library-device rh-scene-device">
+                    <div className="rh-library-phone rh-scene-phone">
+                      <img
+                        key={libraryCards[activeFeature].screen}
+                        className="rh-library-screen"
+                        src={libraryCards[activeFeature].screen}
+                        alt={t('relaunchHome.library.phoneAlt', {
+                          defaultValue: '{{feature}} in the Libo app',
+                          feature: libraryCards[activeFeature].name,
+                        })}
+                        width={600}
+                        height={1304}
+                      />
+                    </div>
+                    {/* Phones: pager dots under the device. */}
+                    <div className="rh-library-dots" role="tablist"
+                      aria-label={t('relaunchHome.library.dotsLabel', { defaultValue: 'App features' })}>
+                      {libraryCards.map((c, i) => (
+                        <button
+                          key={c.num}
+                          type="button"
+                          role="tab"
+                          aria-selected={i === activeFeature}
+                          aria-label={c.name}
+                          className={`rh-library-dot${i === activeFeature ? ' rh-library-dot--active' : ''}`}
+                          onClick={() => goToFeature(i)}
+                        />
+                      ))}
+                    </div>
+                  </div>
 
-              {/* No data-popin on these cards (18 Nov 2026): usePopIn writes a
-                  staggered transition-delay (up to 550ms) onto each card, which
-                  also delayed the active border, so two cards lit up at once
-                  and the highlight lagged the phone. Home has no pop-in styles
-                  for them anyway. */}
-              <div className="rh-features" ref={featuresRef}>
-                {libraryCards.map((c, i) => (
-                  <button
-                    type="button"
-                    className={`rh-feature${i === activeFeature ? ' rh-feature--active' : ''}`}
-                    key={c.num}
-                    data-feature-index={i}
-                    onClick={() => setActiveFeature(i)}
-                    aria-pressed={i === activeFeature}
-                  >
-                    <span className="rh-feature-num">{c.num}</span>
-                    <h3 className="rh-feature-name">{c.name}</h3>
-                    <p className="rh-feature-desc">
-                      <span className="rh-copy--desktop">{c.desc}</span>
-                      <span className="rh-copy--mobile">{c.descMobile}</span>
-                    </p>
-                  </button>
-                ))}
+                  {/* Tablet/desktop: one feature at a time, plus a 6-step bar. */}
+                  <div className="rh-scene-copy">
+                    <div className="rh-scene-text" key={activeFeature} aria-live="polite">
+                      <span className="rh-scene-count">
+                        {libraryCards[activeFeature].num} / {String(libraryCards.length).padStart(2, '0')}
+                      </span>
+                      <h3 className="rh-scene-name">{libraryCards[activeFeature].name}</h3>
+                      <p className="rh-scene-desc">{libraryCards[activeFeature].desc}</p>
+                    </div>
+                    <div className="rh-scene-progress" role="tablist"
+                      aria-label={t('relaunchHome.library.dotsLabel', { defaultValue: 'App features' })}>
+                      {libraryCards.map((c, i) => (
+                        <button
+                          key={c.num}
+                          type="button"
+                          role="tab"
+                          aria-selected={i === activeFeature}
+                          aria-label={c.name}
+                          className={`rh-scene-seg${i <= activeFeature ? ' rh-scene-seg--on' : ''}`}
+                          onClick={() => goToFeature(i)}
+                        >
+                          <span />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Phones: the tap list. Hidden in the scene. */}
+                  <div className="rh-features">
+                    {libraryCards.map((c, i) => (
+                      <button
+                        type="button"
+                        className={`rh-feature${i === activeFeature ? ' rh-feature--active' : ''}`}
+                        key={c.num}
+                        onClick={() => setActiveFeature(i)}
+                        aria-pressed={i === activeFeature}
+                      >
+                        <span className="rh-feature-num">{c.num}</span>
+                        <h3 className="rh-feature-name">{c.name}</h3>
+                        <p className="rh-feature-desc">
+                          <span className="rh-copy--desktop">{c.desc}</span>
+                          <span className="rh-copy--mobile">{c.descMobile}</span>
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -1588,10 +1588,80 @@ video.rh-phone {
   flex-direction: column;
   gap: 14px;
 }
-/* Scrollytelling room (18 Nov 2026): the phone stays pinned until the last
-   card has crossed the middle of the screen. */
+/* ── "Everything you get": pinned scene, tablet + desktop (18 Nov 2026) ──
+   .rh-scene is 6 steps of scroll tall; .rh-scene-pin sticks for that whole
+   length and holds the phone + one feature's text. The phone is sized to the
+   space under the nav so it always fits. Phones keep the tap list below. */
+.rh-scene-copy { display: none; }
 @media (min-width: 768px) {
-  .rh-features { padding-bottom: 38vh; }
+  .rh-scene { --scene-top: 112px; height: calc(6 * 55vh + 100vh); }
+  .rh-scene-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: var(--scene-top);
+    padding-bottom: 32px;
+    box-sizing: border-box;
+  }
+  .rh-scene .rh-scene-stage {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(40px, 7vw, 96px);
+    align-items: center;
+  }
+  .rh-scene .rh-scene-device { position: static; }
+  .rh-scene .rh-scene-phone {
+    height: min(630px, calc(100vh - var(--scene-top) - 48px));
+    width: auto;
+    aspect-ratio: 300 / 630;
+  }
+  .rh-scene .rh-library-dots,
+  .rh-scene .rh-features { display: none; }
+  .rh-scene-copy { display: block; max-width: 540px; }
+  .rh-scene-text { animation: rh-scene-text-in .35s ease both; }
+  .rh-scene-count {
+    display: block;
+    color: var(--libo-accent);
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: .12em;
+  }
+  .rh-scene-name {
+    margin: 12px 0 16px;
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    font-size: clamp(40px, 4.6vw, 64px);
+    line-height: .95;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+  }
+  .rh-scene-desc { margin: 0; color: var(--libo-muted, var(--muted)); font-size: 18px; line-height: 1.55; min-height: 3.1em; }
+  .rh-scene-progress { display: flex; gap: 8px; margin-top: 40px; }
+  .rh-scene-seg {
+    flex: 1;
+    padding: 10px 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .rh-scene-seg span {
+    display: block;
+    height: 4px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.12);
+    transition: background-color .25s ease;
+  }
+  .rh-scene-seg--on span { background: var(--libo-accent); }
+  .rh-scene-seg:hover span { background: rgba(202, 255, 0, 0.5); }
+  .rh-scene-seg--on:hover span { background: var(--libo-accent); }
+}
+@keyframes rh-scene-text-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
 }
 
 .rh-feature {
