@@ -416,3 +416,19 @@
   .earn-page [data-popin] { opacity: 1; transform: none; transition: none; }
   .earn-hero__art { transform: none; }
 }
+
+/* ── Phones: 3D art above the headline (Noah, 18 Nov 2026, iPhone review) ──
+   Below the copy it only peeked in at the bottom of the first screen. */
+@media (max-width: 899px) {
+  .earn-hero { min-height: 0; padding-top: 20px; }
+  .earn-hero__art { order: -1; height: 230px; margin-bottom: -6px; }
+  .earn-hero__prop--0 { width: min(56vw, 220px); }
+  .earn-hero__art--2 .earn-hero__prop--0 { width: min(46vw, 190px); }
+  .earn-hero__art--2 .earn-hero__prop--1 { width: min(32vw, 130px); transform: translate(-20px, 34px) rotate(-8deg); }
+  .earn-hero__art--loop { height: auto; margin: -8px 0 -18px; }
+  .earn-hero__loop { width: min(78vw, 320px); }
+  .earn-hero--compact .earn-hero__art { height: 170px; }
+}
+/* Safari paints its own play button when autoplay is refused (Low Power Mode). */
+.earn-hero__loop::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
+.earn-hero__loop::-webkit-media-controls { display: none !important; }

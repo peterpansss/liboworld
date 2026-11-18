@@ -113,9 +113,21 @@ const LOOP_VERSION = '1';
 function HeroLoop({ name }: { name: string }) {
   const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   const poster = `/loops/${name}-poster.webp?v=${LOOP_VERSION}`;
+  const ref = useRef<HTMLVideoElement>(null);
+  // iOS Low Power Mode blocks autoplay and paints a play button over the
+  // poster (hidden in CSS). Any first tap on the page counts as a gesture, so
+  // retry then; until that, the poster still is what people see.
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || reduced) return;
+    const retry = () => { if (v.paused) v.play().catch(() => {}); };
+    window.addEventListener('touchstart', retry, { once: true, passive: true });
+    window.addEventListener('pointerdown', retry, { once: true });
+    return () => { window.removeEventListener('touchstart', retry); window.removeEventListener('pointerdown', retry); };
+  }, [reduced]);
   if (reduced) return <img className="earn-hero__loop" src={poster} alt="" aria-hidden="true" />;
   return (
-    <video className="earn-hero__loop" poster={poster} autoPlay muted loop playsInline preload="auto" aria-hidden="true">
+    <video ref={ref} className="earn-hero__loop" poster={poster} autoPlay muted loop playsInline preload="auto" aria-hidden="true" disablePictureInPicture>
       <source src={`/loops/${name}.mov?v=${LOOP_VERSION}`} type='video/quicktime; codecs="hvc1"' />
       <source src={`/loops/${name}.webm?v=${LOOP_VERSION}`} type="video/webm" />
     </video>
