@@ -25,7 +25,7 @@
   # (18 Nov 2026) The rewards card art lives in "reward-cards", not "rewards":
   # a real dist/rewards/ directory 403'd the /rewards page exactly like
   # /founder above. loops/props/reward-cards are the 3D + card assets.
-  RewriteRule ^(images|assets|videos|fonts|audio|founder-media|funnel-media|loops|props|reward-cards)/ - [L,R=404]
+  RewriteRule ^(images|assets|videos|fonts|audio|founder-media|funnel-media|loops|props|reward-cards|qr|app-screens)/ - [L,R=404]
 
   # Same guard for the app-link association files (.well-known/). Measured
   # 2026-11-07, before assetlinks.json existed: a request for
@@ -56,6 +56,10 @@
   # homepage. Must stay above that catch-all.
   RewriteRule ^terms\.html$ /terms [R=301,L]
   RewriteRule ^privacy\.html$ /privacy [R=301,L]
+
+  # The waitlist-era /onboarding quiz became /find-your-plan (18 Nov 2026).
+  # 301 so old links, bookmarks and Google's index move to the new page.
+  RewriteRule ^onboarding/?$ /find-your-plan [R=301,L]
 
   # The November 2026 App Store event card links to /reward (missing "s") and
   # Apple does not allow editing the link of a published event. Send it to the

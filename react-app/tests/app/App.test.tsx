@@ -20,8 +20,8 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 // ---- Page mocks. Each one renders a unique marker we can assert on. -----
 
 vi.mock('../../src/pages/Landing', () => ({ default: () => <div data-testid="page-landing" /> }));
-vi.mock('../../src/pages/Onboarding', () => ({
-  default: () => <div data-testid="page-onboarding" />,
+vi.mock('../../src/pages/FindPlan', () => ({
+  default: () => <div data-testid="page-find-plan" />,
 }));
 vi.mock('../../src/pages/ExerciseLibrary', () => ({
   default: () => <div data-testid="page-exercises" />,
@@ -110,7 +110,6 @@ afterEach(() => {
 describe('Top-level static routes', () => {
   it.each([
     ['/', 'page-landing'],
-    ['/onboarding', 'page-onboarding'],
   ])('renders %s -> %s (eager-loaded, no suspense delay)', (path, marker) => {
     gotoUrl(path);
     render(<App />);
@@ -181,6 +180,16 @@ describe('Launch-gated routes', () => {
 // /giveaway redirected to /giveaway-rules after the points-pack page was
 // retired; since 18 Nov 2026 it is the live giveaway round page again, with
 // or without the funnel pages.
+// The waitlist-era /onboarding quiz was replaced by /find-your-plan (18 Nov 2026).
+describe('/onboarding', () => {
+  it('redirects to /find-your-plan', async () => {
+    gotoUrl('/onboarding?tier=premium');
+    render(<App />);
+    await waitFor(() => expect(screen.getByTestId('page-find-plan')).toBeInTheDocument());
+    expect(window.location.pathname).toBe('/find-your-plan');
+  });
+});
+
 describe('/giveaway round page', () => {
   it.each([true, false])(
     'renders the giveaway page and stays on /giveaway (FUNNEL_PAGES_ENABLED=%s)',
@@ -223,7 +232,7 @@ describe('ScrollToTop side effect', () => {
     // Change route by mutating the URL and rerendering inside an act so
     // BrowserRouter / our ScrollToTop pick the change up.
     await act(async () => {
-      gotoUrl('/onboarding');
+      gotoUrl('/membership');
       // Trigger a popstate so BrowserRouter notices the location change.
       window.dispatchEvent(new PopStateEvent('popstate'));
       rerender(<App />);

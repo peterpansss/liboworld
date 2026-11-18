@@ -60,7 +60,6 @@ function ScrollToTop() {
 
 // Marketing pages
 import Landing from './pages/Landing';
-import Onboarding from './pages/Onboarding';
 import { isPrelaunch, FUNNEL_PAGES_ENABLED } from './config/launchMode';
 import FoundingCheckoutProvider from './components/funnel/FoundingCheckoutProvider';
 import CursorFollower from './components/CursorFollower';
@@ -173,7 +172,9 @@ export default function App() {
         <Route path="/affiliate" element={<Navigate to="/creator-program" replace />} />
         <Route path="/affiliate/apply" element={<Navigate to="/creator-program/apply" replace />} />
         <Route path="/affiliate/apply/sent" element={<Navigate to="/creator-program/apply/sent" replace />} />
-        <Route path="/onboarding" element={<Onboarding />} />
+        {/* The waitlist-era 20-step quiz, replaced by /find-your-plan (18 Nov 2026).
+            .htaccess 301s it too, for crawlers and old links. */}
+        <Route path="/onboarding" element={<Navigate to="/find-your-plan" replace />} />
         <Route path="/exercises" element={<Suspense fallback={darkFallback}><ExerciseLibrary /></Suspense>} />
         <Route path="/exercises/:slug" element={<Suspense fallback={darkFallback}><ExerciseDetail /></Suspense>} />
         <Route path="/workouts" element={<Suspense fallback={darkFallback}><ProgramLibrary /></Suspense>} />

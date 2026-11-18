@@ -119,7 +119,7 @@ export default function Features() {
                 <p className="ft-item__text">{t(`earnPages.features.items.${f.id}.text`)}</p>
                 {f.to && (
                   <Link to={f.to} className="ft-item__link" viewTransition>
-                    {t(`earnPages.features.items.${f.id}.link`)} <span aria-hidden="true">→</span>
+                    {f.to === '/find-your-plan' ? t('findPlan.intro.start') : t(`earnPages.features.items.${f.id}.link`)} <span aria-hidden="true">→</span>
                   </Link>
                 )}
               </div>
