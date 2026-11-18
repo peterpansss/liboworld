@@ -87,7 +87,6 @@ function main() {
   entries.push(urlEntry(`${SITE_URL}/exercises`, 0.9, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/workouts`, 0.9, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/blog`, 0.8, 'weekly'));
-  entries.push(urlEntry(`${SITE_URL}/onboarding`, 0.6, 'monthly'));
   // Train-and-earn pages (18 Nov 2026). /giveaway was a redirect to the rules
   // until then; it is now the live round page. /rewards is also the App Store
   // in-app event path (the AASA file claims it on devices with the app).

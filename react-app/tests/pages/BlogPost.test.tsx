@@ -154,9 +154,9 @@ describe('BlogPost', () => {
       .toHaveAttribute('href', '/blog?cat=Nutrition');
   });
 
-  it('renders the CTA banner with the onboarding link', () => {
+  it('renders the CTA banner with the Find your plan link', () => {
     renderAt('/blog/first-post');
-    expect(screen.getByRole('link', { name: 'blogPost.ctaButton' }))
-      .toHaveAttribute('href', '/onboarding');
+    expect(screen.getByRole('link', { name: 'findPlan.intro.start' }))
+      .toHaveAttribute('href', '/find-your-plan');
   });
 });

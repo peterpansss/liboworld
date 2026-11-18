@@ -143,10 +143,10 @@ describe('ProgramDetail', () => {
     expect(selfLinks).toHaveLength(0);
   });
 
-  it('renders the onboarding CTA link', async () => {
+  it('renders the Find your plan CTA link', async () => {
     renderAt('/workouts/wkt-1');
     await waitFor(() => screen.getByRole('heading', { level: 1, name: 'Heavy Push' }));
-    expect(screen.getByRole('link', { name: 'programDetail.cta.button' }))
-      .toHaveAttribute('href', '/onboarding');
+    expect(screen.getByRole('link', { name: 'findPlan.intro.start' }))
+      .toHaveAttribute('href', '/find-your-plan');
   });
 });
