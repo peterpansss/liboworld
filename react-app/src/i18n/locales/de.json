@@ -2392,7 +2392,8 @@
       },
       "items": {
         "heading": "Große Rewards",
-        "cash": "Oder stattdessen {{cash}} € Bargeld"
+        "cash": "Oder stattdessen {{cash}} € Bargeld",
+        "trademark": "iPhone ist eine Marke von Apple Inc. Libo steht in keiner Verbindung zu Apple."
       },
       "steps": {
         "heading": "So löst du ein",

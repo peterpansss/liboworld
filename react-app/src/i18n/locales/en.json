@@ -2392,7 +2392,8 @@
       },
       "items": {
         "heading": "Big rewards",
-        "cash": "Or €{{cash}} cash instead"
+        "cash": "Or €{{cash}} cash instead",
+        "trademark": "iPhone is a trademark of Apple Inc. Libo is not affiliated with Apple."
       },
       "steps": {
         "heading": "How to redeem",

@@ -86,7 +86,7 @@
   padding: 32px 0 16px;
   background: radial-gradient(ellipse 60% 70% at 50% 55%, rgba(202, 255, 0, 0.16), rgba(202, 255, 0, 0) 70%);
 }
-.rw-item__prop { width: 170px; height: auto; }
+.rw-item__prop { width: min(280px, 80%); height: auto; }
 .rw-item__copy { display: flex; flex-direction: column; gap: 10px; padding: 24px; }
 .rw-item__title {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
@@ -99,6 +99,6 @@
 @media (min-width: 768px) {
   .rw-item { grid-template-columns: 1fr 1.1fr; align-items: center; }
   .rw-item__stage { padding: 40px 0; align-self: stretch; align-items: center; }
-  .rw-item__prop { width: 220px; }
+  .rw-item__prop { width: min(400px, 88%); }
   .rw-item__copy { padding: 40px; }
 }
