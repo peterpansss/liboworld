@@ -2870,5 +2870,15 @@
         "blurb": "Bouger en conscience pour relâcher les tensions et se recentrer."
       }
     }
+  },
+  "giveawayBar": {
+    "open": {
+      "full": "Le concours {{prize}} est ouvert : chaque membre participe automatiquement, jusqu’au {{date}}",
+      "short": "Concours {{prize}} ouvert →"
+    },
+    "upcoming": {
+      "full": "Prochain concours : {{prize}}, ouverture le {{date}}. Chaque membre participe automatiquement",
+      "short": "Prochain concours : {{prize}} →"
+    }
   }
 }

@@ -2870,5 +2870,15 @@
         "blurb": "Mindful movement to release tension and reset."
       }
     }
+  },
+  "giveawayBar": {
+    "open": {
+      "full": "{{prize}} giveaway is live: every member is entered automatically, ends {{date}}",
+      "short": "{{prize}} giveaway is live →"
+    },
+    "upcoming": {
+      "full": "Next giveaway: {{prize}}, opens {{date}}. Every member is entered automatically",
+      "short": "Next giveaway: {{prize}} →"
+    }
   }
 }

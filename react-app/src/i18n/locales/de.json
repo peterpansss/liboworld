@@ -2870,5 +2870,15 @@
         "blurb": "Bewusste Bewegung, um Spannung zu lösen und runterzukommen."
       }
     }
+  },
+  "giveawayBar": {
+    "open": {
+      "full": "{{prize}}-Gewinnspiel läuft: Jedes Mitglied ist automatisch dabei, bis {{date}}",
+      "short": "{{prize}}-Gewinnspiel läuft →"
+    },
+    "upcoming": {
+      "full": "Nächstes Gewinnspiel: {{prize}}, ab {{date}}. Jedes Mitglied ist automatisch dabei",
+      "short": "Nächstes Gewinnspiel: {{prize}} →"
+    }
   }
 }

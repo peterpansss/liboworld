@@ -2870,5 +2870,15 @@
         "blurb": "Movimiento consciente para soltar tensión y reiniciar."
       }
     }
+  },
+  "giveawayBar": {
+    "open": {
+      "full": "El sorteo de {{prize}} está abierto: cada miembro participa automáticamente, hasta el {{date}}",
+      "short": "Sorteo de {{prize}} abierto →"
+    },
+    "upcoming": {
+      "full": "Próximo sorteo: {{prize}}, abre el {{date}}. Cada miembro participa automáticamente",
+      "short": "Próximo sorteo: {{prize}} →"
+    }
   }
 }
