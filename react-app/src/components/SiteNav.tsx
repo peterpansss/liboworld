@@ -266,6 +266,17 @@ export default function SiteNav() {
           <div className="site-nav__right">
             {/* Both official store badges in the bar, like Cal AI (Noah, 17 Nov
                 2026); was a single lime "Download" button to the App Store. */}
+            {/* "Find your plan" (Noah, 18 Nov 2026, after Ladder): the web
+                version of the app's plan questions. Where "Get started" sat. */}
+            <Link
+              to="/find-your-plan"
+              className="btn-primary site-nav__plan"
+              viewTransition
+              onMouseEnter={() => prefetchRoute('/find-your-plan')}
+              onFocus={() => prefetchRoute('/find-your-plan')}
+            >
+              {t('findPlan.intro.start')}
+            </Link>
             <StoreBadges className="site-nav__badges" />
             <button
               className="site-nav__hamburger"
@@ -313,6 +324,9 @@ export default function SiteNav() {
           </button>
         </div>
         <div className="site-nav__drawer-links">
+          <Link to="/find-your-plan" className="btn-primary btn-primary--block site-nav__drawer-plan" viewTransition onClick={() => setDrawerOpen(false)}>
+            {t('findPlan.intro.start')}
+          </Link>
           <p className="site-nav__drawer-group">{t('earnPages.nav.earn', { defaultValue: 'Earn' })}</p>
           {EARN_LINKS.map((l) => (
             <Link key={l.to} to={l.to} className={`site-nav__drawer-sublink${isActive(l.to) ? ' site-nav__drawer-link--active' : ''}`} aria-current={isActive(l.to) ? 'page' : undefined} viewTransition onFocus={() => prefetchRoute(l.to)} onClick={() => setDrawerOpen(false)}>

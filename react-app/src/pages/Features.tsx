@@ -24,11 +24,28 @@ const FEATURES: { id: string; screen: string; to?: string }[] = [
   { id: 'coach', screen: 'coach' },
   { id: 'generator', screen: 'generator', to: '/workouts' },
   { id: 'editor', screen: 'plan-editor' },
-  { id: 'plan', screen: 'plan', to: '/workouts' },
+  { id: 'phases', screen: 'phases' },
+  // Plans are built in the app; the web quiz shows the one you'd get.
+  { id: 'plan', screen: 'plan', to: '/find-your-plan' },
   { id: 'earn', screen: 'rewards', to: '/earn' },
 ];
 
-const EXTRAS = ['streak', 'offline', 'languages', 'phases', 'notes', 'equipment'] as const;
+const EXTRAS = ['streak', 'offline', 'languages', 'settings', 'notes', 'equipment'] as const;
+
+/**
+ * "Train your way" (Noah, 18 Nov 2026: the formats weren't clear at first
+ * look). Real exercise frames from the library, never AI imagery. Links use
+ * the /workouts filters; 30-day programs live in the app only.
+ */
+const THUMB_V = 'v=5';
+const FORMATS: { id: string; thumb: string; to?: string }[] = [
+  { id: 'gym', thumb: 'cable_chest_fly_mid', to: '/workouts?cat=Gym' },
+  { id: 'home', thumb: 'burpee', to: '/workouts?cat=Home' },
+  { id: 'cardio', thumb: 'assault_air_bike_intervals', to: '/workouts?goal=Cardio' },
+  { id: 'stretching', thumb: 'couch_stretch', to: '/workouts?cat=Stretching' },
+  { id: 'routines', thumb: 'cat_cow', to: '/workouts?goal=Morning' },
+  { id: 'programs', thumb: 'archer_push_up' },
+];
 
 export default function Features() {
   const { t } = useTranslation();
@@ -60,6 +77,34 @@ export default function Features() {
           </div>
           </div>
         </section>
+
+        <Band>
+          <Heading title={t('earnPages.features.formats.heading')} />
+          <p className="ft-formats__sub">{t('earnPages.features.formats.sub')}</p>
+          <ul className="ft-formats">
+            {FORMATS.map((f) => {
+              const inner = (
+                <>
+                  <picture>
+                    <source srcSet={`/images/thumbnails/exercises/${f.thumb}.webp?${THUMB_V}`} type="image/webp" />
+                    <img src={`/images/thumbnails/exercises/${f.thumb}.jpg?${THUMB_V}`} alt="" loading="lazy" decoding="async" width={1440} height={1080} />
+                  </picture>
+                  <span className="ft-format__shade" aria-hidden="true" />
+                  <span className="ft-format__copy">
+                    <strong>{t(`earnPages.features.formats.${f.id}.title`)}</strong>
+                    <span>{t(`earnPages.features.formats.${f.id}.text`)}</span>
+                    <em>{f.to ? <>{t('earnPages.features.formats.link')} <span aria-hidden="true">→</span></> : t('earnPages.features.formats.app')}</em>
+                  </span>
+                </>
+              );
+              return (
+                <li key={f.id} data-popin>
+                  {f.to ? <Link to={f.to} className="ft-format" viewTransition>{inner}</Link> : <div className="ft-format">{inner}</div>}
+                </li>
+              );
+            })}
+          </ul>
+        </Band>
 
         <BigNumber value="820+" caption={t('earnPages.big.features')} prop="dumbbell-hex-lime" />
 

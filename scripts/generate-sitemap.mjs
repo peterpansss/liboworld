@@ -95,6 +95,7 @@ function main() {
   entries.push(urlEntry(`${SITE_URL}/rewards`, 0.8, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/giveaway`, 0.8, 'weekly'));
   entries.push(urlEntry(`${SITE_URL}/features`, 0.8, 'monthly'));
+  entries.push(urlEntry(`${SITE_URL}/find-your-plan`, 0.7, 'monthly'));
   entries.push(urlEntry(`${SITE_URL}/faq`, 0.6, 'monthly'));
   // /cash-challenge is NOT listed either. It redirects to `/` while
   // FUNNEL_PAGES_ENABLED is false (see react-app/src/App.tsx), so advertising

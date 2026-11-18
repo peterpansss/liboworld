@@ -2462,12 +2462,12 @@
     "features": {
       "seo": {
         "title": "Features: Workouts, Pläne, Coach und 820+ Übungen | Libo",
-        "description": "Dein Workout für heute steht bereit, 820+ Übungen mit Video, Pläne zum Anpassen, ein Coach, der dein Training kennt, und Streaks, die einen Fehltag verzeihen."
+        "description": "Dein Workout für heute, 820+ Übungen, Workouts fürs Gym und für Zuhause, Cardio, Dehnen und Regeneration, editierbare Pläne und ein Coach, der dein Training kennt."
       },
       "eyebrow": "Die App",
       "title1": "Alles fürs",
       "title2": "Training.",
-      "sub": "Workouts für dich ausgewählt, 820+ Übungen mit Video und ein Coach, der dein Training kennt.",
+      "sub": "Workouts, die für dich ausgewählt sind, 820+ Übungen und ein Coach, der dein Training kennt. Gym, Zuhause, Cardio, Dehnen und Regeneration.",
       "items": {
         "today": {
           "title": "Dein Workout für heute",
@@ -2511,7 +2511,12 @@
           "title": "Folge einem Plan",
           "text": "Mehrwöchige Pläne für Muskelaufbau, Fettabbau oder Mobilität. Jede Session steht fest, Woche für Woche.",
           "alt": "Ein aktiver Plan in der App",
-          "link": "Zu den Plänen"
+          "link": "Plan finden"
+        },
+        "phases": {
+          "title": "Aufwärmen und Cool-down, wie du willst",
+          "text": "Jedes Workout hat ein Aufwärmen und ein Cool-down. Behalte sie, schalte eins davon vor dem Start aus oder überspringe das Aufwärmen standardmäßig.",
+          "alt": "Eine Plan-Einheit mit eingeschaltetem Aufwärmen"
         }
       },
       "extras": {
@@ -2524,10 +2529,6 @@
           "title": "5 Sprachen",
           "text": "Sprachansagen auf Englisch, Deutsch, Spanisch, Französisch und Portugiesisch."
         },
-        "phases": {
-          "title": "Aufwärmen und Cool-down",
-          "text": "In jedem Plan eingebaut."
-        },
         "notes": {
           "title": "Setup-Hinweise",
           "text": "So stellst du jede Übung richtig ein."
@@ -2539,10 +2540,44 @@
         "streak": {
           "title": "Streak-Freezes",
           "text": "Ein Fehltag ist abgedeckt. Dein Streak fällt nie auf null."
+        },
+        "settings": {
+          "title": "Einstellungen, die bleiben",
+          "text": "Aufwärmen standardmäßig überspringen, Einheiten, Sprachansagen und mehr."
         }
       },
       "premiumText": "Premium schaltet die ganze Bibliothek frei und sammelt 2× Punkte.",
-      "ctaSub": "Kostenlos laden. Keine Karte nötig."
+      "ctaSub": "Kostenlos laden. Keine Karte nötig.",
+      "formats": {
+        "heading": "Trainiere, wie du willst",
+        "sub": "Gym oder Zuhause, hart oder locker. Du wählst das Format, Libo macht den Rest.",
+        "link": "Workouts ansehen",
+        "app": "In der App",
+        "gym": {
+          "title": "Gym",
+          "text": "Maschinen, Kabelzug und freie Gewichte."
+        },
+        "home": {
+          "title": "Zuhause",
+          "text": "Eigengewicht oder ein Paar Kurzhanteln."
+        },
+        "cardio": {
+          "title": "Cardio und HIIT",
+          "text": "Bike, Rudergerät oder ganz ohne Geräte."
+        },
+        "stretching": {
+          "title": "Dehnen und Regeneration",
+          "text": "Mobilität, Cool-downs und lockere Tage."
+        },
+        "routines": {
+          "title": "Morgens und abends",
+          "text": "Kurze Routinen zum Wachwerden oder Runterkommen."
+        },
+        "programs": {
+          "title": "30-Tage-Programme",
+          "text": "Ganzkörper, Core, dein erster Klimmzug. Tag für Tag."
+        }
+      }
     },
     "faq": {
       "seo": {
@@ -2634,6 +2669,206 @@
       "l2": "Geführte Workouts",
       "l3": "Höchste Auszahlung, 30 Tage am Stück",
       "l4": "Punkte pro Workout"
+    }
+  },
+  "findPlan": {
+    "seo": {
+      "title": "Finde deinen Plan | Libo",
+      "description": "Sechs kurze Fragen. Sieh den Trainingsplan, den die Libo App für dich baut, Gym oder Zuhause, und kostenlose Workouts für heute."
+    },
+    "intro": {
+      "eyebrow": "Finde deinen Plan",
+      "title1": "Finde einen Plan,",
+      "title2": "der zu dir passt.",
+      "sub": "Sechs kurze Fragen. Sieh den Plan, den die Libo App für dich baut, und kostenlose Workouts, die passen.",
+      "start": "Plan finden",
+      "note": "Etwa eine Minute. Nichts wird gespeichert."
+    },
+    "progress": "Frage {{n}} von {{total}}",
+    "back": "Zurück",
+    "result": {
+      "eyebrow": "Dein Plan",
+      "days": "{{count}} Tage pro Woche",
+      "weeks": "{{count}} Wochen",
+      "split": {
+        "full_body": "Ganzkörper",
+        "upper_lower": "Ober- / Unterkörper",
+        "push_pull_legs": "Push / Pull / Beine"
+      },
+      "level": {
+        "beginner": "Anfänger-Level",
+        "intermediate": "Fortgeschrittenen-Level",
+        "advanced": "Profi-Level"
+      },
+      "ramped": "Startet mit {{count}} Tagen pro Woche, passend zu deinem Training der letzten Zeit.",
+      "phases": "Aufwärmen und Cool-down in jeder Einheit. Beides kannst du jederzeit ausschalten.",
+      "appTitle": "Den ganzen Plan gibt es in der App",
+      "appText": "Die Libo App stellt dieselben Fragen und plant jede Einheit, Woche für Woche. Kostenlos.",
+      "tryTitle": "Starte heute",
+      "trySub": "Kostenlose Workouts aus der Bibliothek, die zu deinen Antworten passen.",
+      "tryAll": "Alle Workouts ansehen",
+      "restart": "Neu starten"
+    },
+    "questions": {
+      "goal": {
+        "section": "Was am wichtigsten ist",
+        "title": "Dein Hauptziel",
+        "options": {
+          "lose_weight": {
+            "label": "Abnehmen",
+            "sub": "Fett verbrennen und definierter werden"
+          },
+          "build_muscle": {
+            "label": "Muskeln aufbauen",
+            "sub": "Stärker und muskulöser werden"
+          },
+          "improve_mobility": {
+            "label": "Mobilität verbessern",
+            "sub": "Besser bewegen, besser fühlen"
+          },
+          "stay_active": {
+            "label": "Aktiv bleiben",
+            "sub": "Einen gesunden Lebensstil beibehalten"
+          },
+          "reduce_stress": {
+            "label": "Stress abbauen",
+            "sub": "Mentale und körperliche Balance"
+          }
+        }
+      },
+      "location": {
+        "section": "Wo du trainierst",
+        "title": "Dein Trainingsort",
+        "options": {
+          "gym": {
+            "label": "Fitnessstudio",
+            "sub": "Voller Gerätezugang"
+          },
+          "home": {
+            "label": "Zuhause",
+            "sub": "Kein Anfahrtsweg nötig"
+          },
+          "outdoors": {
+            "label": "Draußen",
+            "sub": "Workouts an der frischen Luft"
+          },
+          "anywhere": {
+            "label": "Überall",
+            "sub": "Flexibler Ort"
+          }
+        }
+      },
+      "experience": {
+        "section": "Damit das Level passt",
+        "title": "Deine Erfahrung",
+        "options": {
+          "beginner": {
+            "label": "Anfänger",
+            "sub": "Neu im Training"
+          },
+          "intermediate": {
+            "label": "Fortgeschritten",
+            "sub": "1–2 Jahre Trainingserfahrung"
+          },
+          "advanced": {
+            "label": "Profi",
+            "sub": "3+ Jahre regelmäßiges Training"
+          }
+        }
+      },
+      "recentTraining": {
+        "section": "Wo du gerade stehst",
+        "title": "Zuletzt trainiert?",
+        "subtitle": "Die letzten 3 Monate, ehrlich — das bestimmt, wie schnell wir hochfahren.",
+        "options": {
+          "regular": {
+            "label": "Regelmäßig im Training",
+            "sub": "3+ Einheiten in den meisten Wochen"
+          },
+          "onAndOff": {
+            "label": "Mal so, mal so",
+            "sub": "Manche Wochen ja, manche gar nichts"
+          },
+          "comingBack": {
+            "label": "Zurück nach einer Pause",
+            "sub": "Pause gemacht — Monate oder länger"
+          },
+          "startingFresh": {
+            "label": "Ganz neu dabei",
+            "sub": "Erster richtiger Trainingsblock"
+          }
+        }
+      },
+      "days": {
+        "section": "Dein Einsatz",
+        "title": "Tage pro Woche",
+        "options": {
+          "2": {
+            "label": "2 Tage",
+            "sub": "Leicht und machbar"
+          },
+          "3": {
+            "label": "3 Tage",
+            "sub": "Ideal für die meisten Ziele"
+          },
+          "4": {
+            "label": "4 Tage",
+            "sub": "Solides Engagement"
+          },
+          "5": {
+            "label": "5 Tage",
+            "sub": "Hoher Einsatz"
+          },
+          "6": {
+            "label": "6+ Tage",
+            "sub": "Athleten-Modus"
+          }
+        }
+      },
+      "minutes": {
+        "section": "Dein Einsatz",
+        "title": "Session-Dauer",
+        "options": {
+          "20": {
+            "label": "15–20 Min.",
+            "sub": "Kurz und effizient"
+          },
+          "45": {
+            "label": "30–45 Min.",
+            "sub": "Ausgewogene Einheiten"
+          },
+          "60": {
+            "label": "45–60 Min.",
+            "sub": "Volle Workouts"
+          },
+          "75": {
+            "label": "60+ Min.",
+            "sub": "Intensive Trainingseinheiten"
+          }
+        }
+      }
+    },
+    "theme": {
+      "lose_weight": {
+        "name": "SCHLANK & STARK",
+        "blurb": "Kraft plus Kondition — damit die Muskeln bleiben und das Fett verschwindet."
+      },
+      "build_muscle": {
+        "name": "MASSE AUFBAUEN",
+        "blurb": "Progressive Überlastung für mehr Masse und rohe Kraft."
+      },
+      "improve_mobility": {
+        "name": "FREI BEWEGEN",
+        "blurb": "Mobilität und Kontrolle, damit du dich jeden Tag besser bewegst."
+      },
+      "stay_active": {
+        "name": "STARK BLEIBEN",
+        "blurb": "Ausgewogene Sessions, die dich am Ball und voller Energie halten."
+      },
+      "reduce_stress": {
+        "name": "RUHIG & STARK",
+        "blurb": "Bewusste Bewegung, um Spannung zu lösen und runterzukommen."
+      }
     }
   }
 }

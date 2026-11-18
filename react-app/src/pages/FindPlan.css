@@ -1,0 +1,196 @@
+/* /find-your-plan. Shared pieces (eyebrow, phone frame, band-lime) come from
+   components/earn/Earn.css and index.css. */
+
+.fp-page { padding: 0 16px; }
+
+.fp-intro,
+.fp-quiz,
+.fp-result,
+.fp-try { max-width: 1080px; margin: 0 auto; }
+
+/* ── Intro ── */
+.fp-intro {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+  padding: 56px 0 72px;
+}
+.fp-intro__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.fp-intro__phones { position: relative; height: 420px; display: flex; justify-content: center; align-items: center; }
+.fp-intro__phone { position: absolute; width: 190px; max-width: none; }
+.fp-intro__phone--front { transform: translateX(46px) rotate(4deg); z-index: 1; }
+.fp-intro__phone--back { transform: translateX(-62px) translateY(26px) rotate(-6deg); }
+.fp-intro__phone--back img { filter: brightness(0.7); }
+@media (min-width: 900px) {
+  .fp-intro { grid-template-columns: 1.1fr 1fr; padding: 96px 0 120px; }
+  .fp-intro__phones { height: 600px; }
+  .fp-intro__phone { width: 250px; }
+  .fp-intro__phone--front { transform: translateX(66px) rotate(4deg); }
+  .fp-intro__phone--back { transform: translateX(-84px) translateY(34px) rotate(-6deg); }
+}
+
+.fp-title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 900;
+  font-size: var(--h1-hero, clamp(44px, 7vw, 80px));
+  line-height: 0.92;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.fp-title--accent { color: var(--accent); }
+.fp-sub { margin: 0; max-width: 560px; color: var(--muted); font-size: 17px; line-height: 1.55; }
+.fp-note { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* ── Questions ── */
+.fp-quiz {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 32px 0 96px;
+  min-height: 70vh;
+}
+.fp-quiz__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.fp-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.fp-back:hover { color: var(--text); }
+.fp-count { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.fp-bar { height: 4px; border-radius: 100px; background: rgba(255, 255, 255, 0.08); overflow: hidden; margin-bottom: 18px; }
+.fp-bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 100px;
+  transform-origin: 0 50%;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fp-q {
+  margin: 0;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 900;
+  font-size: clamp(36px, 5.5vw, 56px);
+  line-height: 0.95;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  outline: none;
+}
+.fp-options { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+.fp-option {
+  width: 100%;
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+.fp-option:hover { border-color: var(--accent-line, rgba(202, 255, 0, 0.25)); }
+.fp-option:active { transform: scale(0.98); }
+.fp-option--on { border-color: var(--accent); background: var(--accent-dim); }
+.fp-option__label {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.fp-option__sub { color: var(--muted); font-size: 14px; line-height: 1.4; }
+
+/* ── Result ── */
+.fp-result {
+  max-width: 1080px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 48px 0 40px;
+}
+.fp-result .fp-title { outline: none; }
+.fp-stats { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.fp-stats li {
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+}
+.fp-stats li:first-child { border-color: var(--accent); color: var(--accent); }
+.fp-phases { margin: 4px 0 0; display: flex; align-items: center; gap: 10px; color: var(--text); font-size: 16px; }
+.fp-phases__dot { width: 10px; height: 10px; border-radius: 100px; background: var(--accent); flex-shrink: 0; }
+
+.fp-h2 {
+  margin: 0;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 900;
+  font-size: clamp(32px, 4.4vw, 48px);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+.fp-app {
+  width: 100%;
+  margin-top: 32px;
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  padding: 32px 24px 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.fp-app__copy { display: flex; flex-direction: column; gap: 14px; }
+.fp-app__copy p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--muted); }
+.fp-app__badges { --badge-h: 44px; }
+.fp-app__phone { justify-self: center; width: 220px; margin-bottom: -120px; }
+@media (min-width: 768px) {
+  .fp-app { grid-template-columns: 1.3fr 1fr; padding: 40px 40px 0; }
+  .fp-app__copy { padding-bottom: 40px; }
+  .fp-app__phone { width: 240px; margin-bottom: -150px; }
+}
+
+.fp-try { display: flex; flex-direction: column; gap: 12px; padding: 72px 0 24px; }
+.fp-try__grid { margin-top: 12px; }
+.fp-link {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--accent);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.fp-restart { max-width: 1080px; margin: 0 auto; padding: 8px 0 96px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fp-bar span, .fp-option { transition: none; }
+}
