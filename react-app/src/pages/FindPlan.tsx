@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import { SeoHead } from '../components/SeoHead';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -30,8 +31,12 @@ const NUMERIC: QKey[] = ['days', 'minutes'];
 
 export default function FindPlan() {
   const { t } = useTranslation();
-  // -1 = intro, 0..5 = questions, 6 = result
-  const [step, setStep] = useState(-1);
+  // -1 = intro, 0..5 = questions, 6 = result. Every "Find your plan" button
+  // passes state { start: true } and lands on question 1 (Noah, 18 Nov 2026);
+  // a typed URL, Google or the /onboarding redirect still gets the intro.
+  const location = useLocation();
+  const fromButton = (location.state as { start?: boolean } | null)?.start === true;
+  const [step, setStep] = useState(fromButton ? 0 : -1);
   const [answers, setAnswers] = useState<Partial<PlanAnswers>>({});
   const headingRef = useRef<HTMLHeadingElement>(null);
   const advanceTimer = useRef<number | undefined>(undefined);
@@ -39,6 +44,11 @@ export default function FindPlan() {
   const done = step >= QUESTIONS.length;
 
   useEffect(() => () => window.clearTimeout(advanceTimer.current), []);
+
+  // Pressing the nav button while already here starts over at question 1.
+  useEffect(() => {
+    if (fromButton) { setAnswers({}); setStep(0); }
+  }, [location.key, fromButton]);
 
   // Every step change: back to the top, focus the new heading.
   useEffect(() => {

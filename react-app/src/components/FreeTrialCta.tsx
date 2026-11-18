@@ -40,7 +40,7 @@ export default function FreeTrialCta({ variant = 'dark' }: { variant?: 'dark' | 
           <Link to="/membership" className="trial-cta-primary">
             {t('freeTrialCta.primary', { defaultValue: 'See plans' })} →
           </Link>
-          <Link to="/find-your-plan" className="trial-cta-secondary">
+          <Link to="/find-your-plan" state={{ start: true }} className="trial-cta-secondary">
             {t('findPlan.intro.start')}
           </Link>
         </div>

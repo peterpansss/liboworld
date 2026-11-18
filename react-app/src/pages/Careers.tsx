@@ -194,7 +194,7 @@ export default function Careers() {
                 {t('careers.promoBody', { defaultValue: 'Even if we never work together — Libo is free to use. Real workouts, real cash challenges, real progress.' })}
               </p>
               <div className="careers-promo__actions">
-                <Link to="/find-your-plan" className="careers-promo__primary">
+                <Link to="/find-your-plan" state={{ start: true }} className="careers-promo__primary">
                   {t('findPlan.intro.start')}
                 </Link>
               </div>

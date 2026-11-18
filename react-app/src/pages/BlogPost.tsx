@@ -127,7 +127,7 @@ export default function BlogPost() {
         <div className="blogpost-cta-inner">
           <h2 className="font-display">{t('blogPost.ctaTitle')}</h2>
           <p>{t('blogPost.ctaBody')}</p>
-          <Link to="/find-your-plan" className="blogpost-cta-btn">
+          <Link to="/find-your-plan" state={{ start: true }} className="blogpost-cta-btn">
             {t('findPlan.intro.start')}
           </Link>
         </div>

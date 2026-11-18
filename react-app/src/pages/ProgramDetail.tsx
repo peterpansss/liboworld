@@ -271,7 +271,7 @@ export default function ProgramDetail() {
         <div className="pd-cta">
           <h3>{t('programDetail.cta.title')}</h3>
           <p>{t('programDetail.cta.description')}</p>
-          <Link to="/find-your-plan" className="pd-cta-btn">{t('findPlan.intro.start')}</Link>
+          <Link to="/find-your-plan" state={{ start: true }} className="pd-cta-btn">{t('findPlan.intro.start')}</Link>
         </div>
 
         {/* Related Workouts */}

@@ -83,8 +83,10 @@ describe('SiteNav', () => {
     ['/earn', '/cash-challenges', '/giveaway', '/rewards'].forEach((href) => {
       expect(document.querySelectorAll(`#nav-earn-menu a[href="${href}"]`).length).toBe(1);
     });
-    // Official badge pairs: nav bar, mobile bottom bar, drawer (17 Nov 2026).
-    expect(document.querySelectorAll('.store-badges').length).toBe(3);
+    // Badge pairs: mobile bottom bar + drawer. The bar itself has only the
+    // "Find your plan" button since 18 Nov 2026.
+    expect(document.querySelectorAll('.store-badges').length).toBe(2);
+    expect(document.querySelectorAll('.site-nav__badges').length).toBe(0);
     expect(document.querySelectorAll('a[href="/find-your-plan"]').length).toBe(2);
     // Press, Careers and Exercises live in the footer.
     expect(screen.queryByText('Exercises')).toBeNull();
@@ -113,10 +115,10 @@ describe('SiteNav', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
-  it('puts both official store badges in the bar, the mobile bottom bar and the drawer', () => {
+  it('puts both official store badges in the mobile bottom bar and the drawer', () => {
     const { container } = renderAt('/');
     // Selectors, not roles: the closed drawer is aria-hidden.
-    ['.site-nav__badges', '.site-storebar__badges', '.site-nav__drawer-badges'].forEach((sel) => {
+    ['.site-storebar__badges', '.site-nav__drawer-badges'].forEach((sel) => {
       const links = container.ownerDocument.querySelectorAll(`${sel} a`);
       expect(links.length).toBe(2);
       expect(links[0].getAttribute('href')).toContain('apps.apple.com');
