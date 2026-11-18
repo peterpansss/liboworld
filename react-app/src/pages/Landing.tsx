@@ -167,7 +167,7 @@ export default function Landing() {
       desc: t('relaunchHome.habit.s2Desc', {
         defaultValue: 'Day by day the streak grows — protected by freeze tokens, and never reset to zero.',
       }),
-      screen: '/app-real-streak.png',
+      screen: '/app-screens/streak.webp?v=1',
     },
     {
       name: t('relaunchHome.habit.s3Name', { defaultValue: 'Become someone who trains' }),
@@ -357,7 +357,7 @@ export default function Landing() {
             {/* Second path for people not ready to download (Noah, 18 Nov
                 2026, Ladder's "Find your plan"): the same lime button as the
                 nav, straight to question 1. */}
-            <Link to="/find-your-plan" state={{ start: true }} className="btn-primary btn-primary--lg rh-hero-plan" viewTransition>
+            <Link to="/find-your-plan" state={{ start: true }} className="btn-primary rh-hero-plan" viewTransition>
               {t('findPlan.intro.start')} <span aria-hidden="true">→</span>
             </Link>
 
@@ -451,7 +451,7 @@ export default function Landing() {
                     <video
                       className="rh-inside-phone"
                       src="/inside-challenge-day.mp4"
-                      poster="/app-real-run.png"
+                      poster="/app-screens/challenge-day.webp?v=1"
                       autoPlay muted loop playsInline preload="metadata"
                       aria-label={t('relaunchHome.insideApp.phoneAlt')}
                     />
@@ -461,14 +461,14 @@ export default function Landing() {
                 */}
                 <img
                   className="rh-inside-phone"
-                  src="/app-real-run.png"
+                  src="/app-screens/challenge-day.webp?v=1"
                   alt={t('relaunchHome.insideApp.phoneAlt', {
                     defaultValue:
-                      'A Libo challenge day in the app — 50 reps × 30 days, day 2 of 30, with the daily recording ready to start',
+                      'A Libo challenge day in the app: 30 reps × 30 days, day 1 of 30, with Record session ready to start',
                   })}
                   loading="lazy"
-                  width={1206}
-                  height={2622}
+                  width={600}
+                  height={1304}
                 />
               </div>
 
