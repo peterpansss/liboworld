@@ -58,7 +58,7 @@ export default function Rewards() {
                 <li key={r.valueEur} className="rw-card" data-popin>
                   <img
                     className="rw-card__img"
-                    src={`/rewards/${kind}-${r.valueEur}.webp?v=1`}
+                    src={`/reward-cards/${kind}-${r.valueEur}.webp?v=1`}
                     alt={t(`earnPages.rewards.${kind}.alt`, { value: r.valueEur })}
                     loading="lazy"
                     decoding="async"
