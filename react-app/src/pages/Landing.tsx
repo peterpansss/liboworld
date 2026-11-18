@@ -364,8 +364,9 @@ export default function Landing() {
               <StoreBadges className="rh-hero-badges" />
             </div>
             {/* Second path for people not ready to download (Noah, 18 Nov
-                2026, Ladder's "Find your plan"). */}
-            <Link to="/find-your-plan" className="rh-hero-plan" viewTransition>
+                2026, Ladder's "Find your plan"): the same lime button as the
+                nav, straight to question 1. */}
+            <Link to="/find-your-plan" state={{ start: true }} className="btn-primary btn-primary--lg rh-hero-plan" viewTransition>
               {t('findPlan.intro.start')} <span aria-hidden="true">→</span>
             </Link>
 

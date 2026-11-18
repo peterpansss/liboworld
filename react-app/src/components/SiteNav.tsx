@@ -265,12 +265,13 @@ export default function SiteNav() {
 
           {/* Right section */}
           <div className="site-nav__right">
-            {/* Both official store badges in the bar, like Cal AI (Noah, 17 Nov
-                2026); was a single lime "Download" button to the App Store. */}
-            {/* "Find your plan" (Noah, 18 Nov 2026, after Ladder): the web
-                version of the app's plan questions. Where "Get started" sat. */}
+            {/* "Find your plan" (Noah, 18 Nov 2026, after Ladder) is the bar's
+                one button and opens straight on question 1. The store badges
+                left the bar the same day: they sit in the Home hero, the
+                drawer and the mobile bottom bar. */}
             <Link
               to="/find-your-plan"
+              state={{ start: true }}
               className="btn-primary site-nav__plan"
               viewTransition
               onMouseEnter={() => prefetchRoute('/find-your-plan')}
@@ -278,7 +279,6 @@ export default function SiteNav() {
             >
               {t('findPlan.intro.start')}
             </Link>
-            <StoreBadges className="site-nav__badges" />
             <button
               className="site-nav__hamburger"
               onClick={() => setDrawerOpen(true)}
@@ -325,7 +325,7 @@ export default function SiteNav() {
           </button>
         </div>
         <div className="site-nav__drawer-links">
-          <Link to="/find-your-plan" className="btn-primary btn-primary--block site-nav__drawer-plan" viewTransition onClick={() => setDrawerOpen(false)}>
+          <Link to="/find-your-plan" state={{ start: true }} className="btn-primary btn-primary--block site-nav__drawer-plan" viewTransition onClick={() => setDrawerOpen(false)}>
             {t('findPlan.intro.start')}
           </Link>
           <p className="site-nav__drawer-group">{t('earnPages.nav.earn', { defaultValue: 'Earn' })}</p>

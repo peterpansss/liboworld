@@ -640,11 +640,6 @@
 
 .site-nav__drawer-lang { display: flex; justify-content: center; }
 
-/* ── Official store badges in the bar (17 Nov 2026, replaces .site-nav__cta) ── */
-.site-nav__badges { --badge-h: 40px; gap: 8px; flex-wrap: nowrap; }
-@media (max-width: 1100px) { .site-nav__badges { --badge-h: 34px; } }
-@media (max-width: 767px) { .site-nav__badges { display: none; } }
-
 .site-nav__drawer-badges { --badge-h: 44px; justify-content: center; }
 
 /* ── Mobile: both badges pinned to the bottom of the screen ── */
@@ -670,19 +665,13 @@
 }
 @media (max-width: 360px) { .site-storebar__badges { --badge-h: 38px; } }
 
-/* "Find your plan" in the bar (18 Nov 2026). Compact so it sits beside the
-   badges; on phones it is the only thing next to the menu button. */
-.site-nav__plan { min-height: 40px; padding: 0 18px; font-size: 16px; white-space: nowrap; }
-@media (max-width: 1100px) { .site-nav__plan { min-height: 34px; padding: 0 14px; font-size: 15px; } }
+/* "Find your plan": the bar's one button (18 Nov 2026; the store badges
+   left the bar the same day). */
+.site-nav__plan { min-height: 44px; padding: 0 22px; font-size: 17px; white-space: nowrap; }
 @media (max-width: 767px) { .site-nav__plan { min-height: 36px; padding: 0 14px; font-size: 15px; } }
-/* Tablets: links + button + both badges don't fit; the badges win here and
-   the plan link stays in the drawer and the Home hero. */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .site-nav__plan { display: none; }
-  /* The bar overflowed here (Google Play badge cut off at 800px). */
   .site-nav__inner { padding: 0 20px; gap: 12px; }
   .site-nav__link { padding: 8px 9px; }
-  .site-nav__badges { --badge-h: 30px; gap: 6px; }
 }
 .site-nav__drawer-links a.site-nav__drawer-plan {
   width: auto;
