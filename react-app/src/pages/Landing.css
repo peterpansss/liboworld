@@ -1254,7 +1254,9 @@ video.rh-phone {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 640px) {
-  .rh-hero { text-align: center; }
+  /* Bottom padding trimmed so the lime band starts right under the phones
+     instead of after a black strip. */
+  .rh-hero { text-align: center; padding-bottom: 12px; }
 
   /* Groups stay block (one per line), but the segments inside them go back to
      inline so each group wraps naturally: "THE END OF" / "STARTING OVER."
@@ -1263,6 +1265,12 @@ video.rh-phone {
 
   .rh-badges { justify-content: center; }
   .rh-hero-sub { margin-left: auto; margin-right: auto; }
+  /* Phones: what the challenge is comes before the download asks
+     (headline, paragraph, badges, plan button), and the plan button sits
+     on the centre line like everything else. */
+  .rh-hero-sub { order: 1; }
+  .rh-hero-capture-anchor { order: 2; }
+  .rh-hero .rh-hero-plan { order: 3; align-self: center; }
   .rh-hero-ctas { align-items: stretch; }
   .rh-hero-capture { margin-left: auto; margin-right: auto; max-width: 420px; }
 
@@ -1276,7 +1284,7 @@ video.rh-phone {
     transform: scale(0.56);
     transform-origin: top center;
     /* scale() doesn't reclaim layout box, so pull the empty space back. */
-    margin-bottom: -230px;
+    margin-bottom: -250px;
   }
   .rh-phone--left  { transform: rotate(-5deg) translateY(10px); }
   .rh-phone--right { transform: rotate(5deg) translateY(10px); }

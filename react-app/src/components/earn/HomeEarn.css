@@ -88,6 +88,7 @@
 .rh-earn { padding-bottom: 150px; }
 .rh-earn-pill {
   --text: #CAFF00;
+  color: var(--text);
   display: table;
   margin: 6px auto 0;
   padding: 2px 18px 6px;

@@ -47,7 +47,9 @@ export default function HomeEarn() {
         <p className="rh-eyebrow rh-eyebrow--center">{t('homeEarn.eyebrow')}</p>
         <h2 id="rh-earn-h2" className="rh-h2 rh-h2--lg rh-h2--center">
           <ScrollRevealText as="span" className="rh-h2-line">{t('homeEarn.h2a')}</ScrollRevealText>
-          <span className="rh-h2-line"><ScrollRevealText as="span" className="rh-earn-pill">{t('homeEarn.h2b')}</ScrollRevealText></span>
+          {/* The pill line shows whole: a word-by-word sweep inside it left a
+              full-width black pill with its last word missing mid-scroll. */}
+          <span className="rh-h2-line"><span className="rh-earn-pill">{t('homeEarn.h2b')}</span></span>
         </h2>
         <p className="rh-earn-sub">{t('homeEarn.sub')}</p>
 
