@@ -49,6 +49,19 @@ export default function Landing() {
   const [activeFeature, setActiveFeature] = useState(0);
   const sceneRef = useRef<HTMLDivElement>(null);
 
+  // While the hero's own store badges are on screen, the fixed bottom badge
+  // bar (SiteNav) stays tucked away so the badges never show twice at once.
+  useEffect(() => {
+    const el = document.getElementById('hero-capture');
+    const root = document.documentElement;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(([e]) => {
+      root.dataset.heroBadges = e.isIntersecting ? 'in' : 'out';
+    });
+    io.observe(el);
+    return () => { io.disconnect(); delete root.dataset.heroBadges; };
+  }, []);
+
   // Pinned scene (Noah, 18 Nov 2026, replaces the card list that scrolled past
   // a sticky phone): the section is several screens tall and its inner stage
   // pins to the viewport; how far you have scrolled through it picks the
