@@ -49,6 +49,11 @@
   RewriteRule ^terms\.html$ /terms [R=301,L]
   RewriteRule ^privacy\.html$ /privacy [R=301,L]
 
+  # The November 2026 App Store event card links to /reward (missing "s") and
+  # Apple does not allow editing the link of a published event. Send it to the
+  # real Rewards page. Exact path only. Must stay above the catch-all.
+  RewriteRule ^reward/?$ /rewards [R=301,L]
+
   # Everything else → index.html (React Router handles routing client-side)
   RewriteRule ^ index.html [L]
 </IfModule>
