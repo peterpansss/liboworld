@@ -1548,6 +1548,10 @@ video.rh-phone {
   overflow: hidden;
 }
 
+/* Each screen swap fades in (the img is keyed by its src). */
+.rh-library-screen { animation: rh-screen-in .3s ease both; }
+@keyframes rh-screen-in { from { opacity: 0; } to { opacity: 1; } }
+
 .rh-library-phone img,
 .rh-library-phone video {
   width: 100%;
@@ -1583,6 +1587,11 @@ video.rh-phone {
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+/* Scrollytelling room (18 Nov 2026): the phone stays pinned until the last
+   card has crossed the middle of the screen. */
+@media (min-width: 768px) {
+  .rh-features { padding-bottom: 38vh; }
 }
 
 .rh-feature {
