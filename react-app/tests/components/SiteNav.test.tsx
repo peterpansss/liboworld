@@ -73,9 +73,10 @@ describe('SiteNav', () => {
     renderAt('/');
     expect(screen.getByText('nav.skipToMain')).toBeInTheDocument();
     expect(screen.getByRole('navigation', { name: 'nav.mainNavigation' })).toBeInTheDocument();
-    // Nav since 18 Nov 2026: Earn ▾ · Features · Exercises · Membership. The
-    // drawer renders the same links (always in the DOM, hidden by CSS).
-    ['Earn', 'Features', 'Exercises', 'Membership', 'Founding Member'].forEach((label) => {
+    // Nav since 18 Nov 2026: Earn ▾ · Features · Membership, plus "Find your
+    // plan". Exercises moved to the footer. The drawer renders the same links
+    // (always in the DOM, hidden by CSS).
+    ['Earn', 'Features', 'Membership', 'Founding Member'].forEach((label) => {
       expect(screen.getAllByText(label).length).toBeGreaterThanOrEqual(1);
     });
     // The Earn menu links every train-and-earn page.
@@ -84,7 +85,9 @@ describe('SiteNav', () => {
     });
     // Official badge pairs: nav bar, mobile bottom bar, drawer (17 Nov 2026).
     expect(document.querySelectorAll('.store-badges').length).toBe(3);
-    // Press and Careers moved to the footer.
+    expect(document.querySelectorAll('a[href="/find-your-plan"]').length).toBe(2);
+    // Press, Careers and Exercises live in the footer.
+    expect(screen.queryByText('Exercises')).toBeNull();
     expect(screen.queryByText('Press')).toBeNull();
     expect(screen.queryByText('Careers')).toBeNull();
   });
@@ -96,7 +99,7 @@ describe('SiteNav', () => {
     foundingOpen.mockReturnValue(false);
     renderAt('/');
     expect(screen.queryByText('Founding Member')).toBeNull();
-    expect(screen.getAllByText('Exercises').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Membership').length).toBeGreaterThanOrEqual(1);
   });
 
   it('toggles the Earn menu with its button and closes it on Escape', async () => {
@@ -124,9 +127,9 @@ describe('SiteNav', () => {
   });
 
   it('marks the active nav link with aria-current="page"', () => {
-    renderAt('/exercises');
-    const libraryLinks = screen.getAllByRole('link', { name: 'Exercises' });
-    expect(libraryLinks.some((l) => l.getAttribute('aria-current') === 'page')).toBe(true);
+    renderAt('/membership');
+    const links = screen.getAllByRole('link', { name: 'Membership' });
+    expect(links.some((l) => l.getAttribute('aria-current') === 'page')).toBe(true);
   });
 
   it('opens the mobile drawer and locks body scroll', async () => {

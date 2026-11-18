@@ -2462,12 +2462,12 @@
     "features": {
       "seo": {
         "title": "Fonctionnalités : séances, programmes, coach et 820+ exercices | Libo",
-        "description": "Ta séance du jour prête, 820+ exercices en vidéo, des programmes modifiables, un coach qui connaît ton entraînement et des séries qui pardonnent un oubli."
+        "description": "La séance du jour choisie pour toi, plus de 820 exercices, séances en salle et à la maison, cardio, étirements et récupération, programmes modifiables et un coach qui connaît ton entraînement."
       },
       "eyebrow": "L'app",
       "title1": "Tout ce qu'il te faut",
       "title2": "pour t'entraîner.",
-      "sub": "Des séances choisies pour toi, 820+ exercices en vidéo et un coach qui connaît ton entraînement.",
+      "sub": "Des séances choisies pour toi, plus de 820 exercices et un coach qui connaît ton entraînement. Salle, maison, cardio, étirements et récupération.",
       "items": {
         "today": {
           "title": "Ta séance du jour, prête",
@@ -2511,7 +2511,12 @@
           "title": "Suis un programme",
           "text": "Des programmes sur plusieurs semaines pour le muscle, la perte de gras ou la mobilité. Chaque séance prévue, semaine après semaine.",
           "alt": "Un programme actif dans l'app",
-          "link": "Voir les programmes"
+          "link": "Trouver mon programme"
+        },
+        "phases": {
+          "title": "Échauffement et retour au calme, comme tu veux",
+          "text": "Chaque séance inclut un échauffement et un retour au calme. Garde-les, désactive l’un ou l’autre avant de commencer, ou saute l’échauffement par défaut.",
+          "alt": "Une séance de programme avec l’échauffement activé"
         }
       },
       "extras": {
@@ -2524,10 +2529,6 @@
           "title": "5 langues",
           "text": "Consignes vocales en anglais, allemand, espagnol, français et portugais."
         },
-        "phases": {
-          "title": "Échauffement et retour au calme",
-          "text": "Intégrés à chaque programme."
-        },
         "notes": {
           "title": "Notes de mise en place",
           "text": "Comment préparer chaque exercice."
@@ -2539,10 +2540,44 @@
         "streak": {
           "title": "Freezes de série",
           "text": "Un jour manqué est couvert. Ta série ne retombe jamais à zéro."
+        },
+        "settings": {
+          "title": "Des réglages qui restent",
+          "text": "Sauter l’échauffement par défaut, unités, consignes vocales et plus."
         }
       },
       "premiumText": "Premium débloque toute la bibliothèque et gagne 2× plus de points.",
-      "ctaSub": "Téléchargement gratuit. Sans carte."
+      "ctaSub": "Téléchargement gratuit. Sans carte.",
+      "formats": {
+        "heading": "Entraîne-toi à ta façon",
+        "sub": "En salle ou à la maison, intense ou tranquille. Tu choisis le format, Libo fait le reste.",
+        "link": "Voir les séances",
+        "app": "Dans l’app",
+        "gym": {
+          "title": "Salle",
+          "text": "Machines, poulies et poids libres."
+        },
+        "home": {
+          "title": "Maison",
+          "text": "Poids du corps ou une paire d’haltères."
+        },
+        "cardio": {
+          "title": "Cardio et HIIT",
+          "text": "Vélo, rameur ou sans matériel."
+        },
+        "stretching": {
+          "title": "Étirements et récupération",
+          "text": "Mobilité, retours au calme et jours légers."
+        },
+        "routines": {
+          "title": "Matin et soir",
+          "text": "Routines courtes pour se réveiller ou décompresser."
+        },
+        "programs": {
+          "title": "Programmes de 30 jours",
+          "text": "Full body, gainage, ta première traction. Jour après jour."
+        }
+      }
     },
     "faq": {
       "seo": {
@@ -2634,6 +2669,206 @@
       "l2": "Séances guidées",
       "l3": "Gain max, 30 jours d’affilée",
       "l4": "Points par séance"
+    }
+  },
+  "findPlan": {
+    "seo": {
+      "title": "Trouve ton programme | Libo",
+      "description": "Six questions rapides. Découvre le programme que l’app Libo crée pour toi, en salle ou à la maison, et des séances gratuites à faire aujourd’hui."
+    },
+    "intro": {
+      "eyebrow": "Trouve ton programme",
+      "title1": "Un programme",
+      "title2": "fait pour toi.",
+      "sub": "Six questions rapides. Découvre le programme que l’app Libo crée pour toi et des séances gratuites qui collent.",
+      "start": "Trouver mon programme",
+      "note": "Une minute. Rien n’est enregistré."
+    },
+    "progress": "Question {{n}} sur {{total}}",
+    "back": "Retour",
+    "result": {
+      "eyebrow": "Ton programme",
+      "days": "{{count}} jours par semaine",
+      "weeks": "{{count}} semaines",
+      "split": {
+        "full_body": "Full body",
+        "upper_lower": "Haut / bas du corps",
+        "push_pull_legs": "Push / pull / jambes"
+      },
+      "level": {
+        "beginner": "Niveau débutant",
+        "intermediate": "Niveau intermédiaire",
+        "advanced": "Niveau avancé"
+      },
+      "ramped": "Commence à {{count}} jours par semaine, selon ton entraînement récent.",
+      "phases": "Échauffement et retour au calme à chaque séance. Tu peux désactiver l’un ou l’autre quand tu veux.",
+      "appTitle": "Le programme complet est dans l’app",
+      "appText": "L’app Libo pose les mêmes questions et prévoit chaque séance, semaine après semaine. Téléchargement gratuit.",
+      "restart": "Recommencer",
+      "qrCaption": "Scanne avec l’appareil photo de ton téléphone pour télécharger l’app.",
+      "qrAlt": "QR code pour télécharger l’app Libo"
+    },
+    "questions": {
+      "goal": {
+        "section": "Ce qui compte le plus",
+        "title": "Ton objectif principal",
+        "options": {
+          "lose_weight": {
+            "label": "Perdre du poids",
+            "sub": "Brûler les graisses et s'affiner"
+          },
+          "build_muscle": {
+            "label": "Prendre du muscle",
+            "sub": "Devenir plus fort et plus massif"
+          },
+          "improve_mobility": {
+            "label": "Améliorer la mobilité",
+            "sub": "Mieux bouger, mieux se sentir"
+          },
+          "stay_active": {
+            "label": "Rester actif",
+            "sub": "Maintenir un mode de vie sain"
+          },
+          "reduce_stress": {
+            "label": "Réduire le stress",
+            "sub": "Équilibre mental et physique"
+          }
+        }
+      },
+      "equipment": {
+        "section": "Pour adapter chaque mouvement",
+        "title": "Avec quoi tu t'entraînes",
+        "subtitle": "Choisis le maximum que tu peux utiliser. Ça décide quels exercices entrent dans ton programme.",
+        "options": {
+          "bodyweight": {
+            "label": "Poids du corps",
+            "sub": "Aucun matériel"
+          },
+          "resistance_bands": {
+            "label": "Élastiques",
+            "sub": "À la maison ou en déplacement"
+          },
+          "dumbbells": {
+            "label": "Haltères",
+            "sub": "Haltères, barre ou barre de traction"
+          },
+          "full_gym": {
+            "label": "Salle complète",
+            "sub": "Machines, poulies et poids libres"
+          }
+        }
+      },
+      "experience": {
+        "section": "Pour ajuster le niveau",
+        "title": "Ton expérience",
+        "options": {
+          "beginner": {
+            "label": "Débutant",
+            "sub": "Nouveau dans le sport"
+          },
+          "intermediate": {
+            "label": "Intermédiaire",
+            "sub": "1–2 ans d'entraînement"
+          },
+          "advanced": {
+            "label": "Avancé",
+            "sub": "3+ ans d'entraînement régulier"
+          }
+        }
+      },
+      "recentTraining": {
+        "section": "D'où tu pars",
+        "title": "Tu t'es entraîné récemment ?",
+        "subtitle": "Les 3 derniers mois, honnêtement — ça détermine la vitesse de la montée en charge.",
+        "options": {
+          "regular": {
+            "label": "Entraînement régulier",
+            "sub": "3+ séances la plupart des semaines"
+          },
+          "onAndOff": {
+            "label": "En dents de scie",
+            "sub": "Certaines semaines oui, d'autres rien"
+          },
+          "comingBack": {
+            "label": "Retour après une pause",
+            "sub": "Une pause de plusieurs mois ou plus"
+          },
+          "startingFresh": {
+            "label": "Je débute",
+            "sub": "Premier vrai bloc d'entraînement"
+          }
+        }
+      },
+      "days": {
+        "section": "Ton engagement",
+        "title": "Jours par semaine",
+        "options": {
+          "2": {
+            "label": "2 jours",
+            "sub": "Léger et tenable"
+          },
+          "3": {
+            "label": "3 jours",
+            "sub": "Idéal pour la plupart des objectifs"
+          },
+          "4": {
+            "label": "4 jours",
+            "sub": "Un vrai engagement"
+          },
+          "5": {
+            "label": "5 jours",
+            "sub": "Grande détermination"
+          },
+          "6": {
+            "label": "6+ jours",
+            "sub": "Mode athlète"
+          }
+        }
+      },
+      "minutes": {
+        "section": "Ton engagement",
+        "title": "Durée de session",
+        "options": {
+          "20": {
+            "label": "15–20 min",
+            "sub": "Rapide et efficace"
+          },
+          "45": {
+            "label": "30–45 min",
+            "sub": "Sessions équilibrées"
+          },
+          "60": {
+            "label": "45–60 min",
+            "sub": "Workouts complets"
+          },
+          "75": {
+            "label": "60+ min",
+            "sub": "Sessions d'entraînement intensives"
+          }
+        }
+      }
+    },
+    "theme": {
+      "lose_weight": {
+        "name": "SÈCHE NETTE",
+        "blurb": "Force et cardio pour garder le muscle pendant que le gras s'en va."
+      },
+      "build_muscle": {
+        "name": "PRISE DE MASSE",
+        "blurb": "Surcharge progressive pour prendre du volume et de la force brute."
+      },
+      "improve_mobility": {
+        "name": "LIBRE DE BOUGER",
+        "blurb": "Mobilité et contrôle pour mieux bouger au quotidien."
+      },
+      "stay_active": {
+        "name": "RESTE FORT",
+        "blurb": "Des séances équilibrées pour rester régulier et plein d'énergie."
+      },
+      "reduce_stress": {
+        "name": "CALME & FORT",
+        "blurb": "Bouger en conscience pour relâcher les tensions et se recentrer."
+      }
     }
   }
 }

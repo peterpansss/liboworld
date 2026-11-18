@@ -19,6 +19,7 @@ const loaders: Record<string, () => Promise<unknown>> = {
   '/rewards': () => import('../pages/Rewards'),
   '/giveaway': () => import('../pages/Giveaway'),
   '/features': () => import('../pages/Features'),
+  '/find-your-plan': () => import('../pages/FindPlan'),
   '/faq': () => import('../pages/Faq'),
 };
 

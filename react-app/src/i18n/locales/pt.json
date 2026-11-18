@@ -2462,12 +2462,12 @@
     "features": {
       "seo": {
         "title": "Recursos: treinos, planos, coach e 820+ exercícios | Libo",
-        "description": "Seu treino de hoje pronto, 820+ exercícios em vídeo, planos editáveis, um coach que conhece seu treino e sequências que perdoam uma falta."
+        "description": "O treino de hoje escolhido para você, mais de 820 exercícios, treinos de academia e em casa, cardio, alongamento e recuperação, planos editáveis e um coach que conhece seu treino."
       },
       "eyebrow": "O app",
       "title1": "Tudo o que você precisa",
       "title2": "para treinar.",
-      "sub": "Treinos escolhidos para você, 820+ exercícios em vídeo e um coach que conhece seu treino.",
+      "sub": "Treinos escolhidos para você, mais de 820 exercícios e um coach que conhece seu treino. Academia, casa, cardio, alongamento e recuperação.",
       "items": {
         "today": {
           "title": "Seu treino de hoje, pronto",
@@ -2511,7 +2511,12 @@
           "title": "Siga um plano",
           "text": "Planos de várias semanas para músculo, perda de gordura ou mobilidade. Cada sessão organizada, semana a semana.",
           "alt": "Um plano ativo no app",
-          "link": "Ver os planos"
+          "link": "Encontrar meu plano"
+        },
+        "phases": {
+          "title": "Aquecimento e desaquecimento, do seu jeito",
+          "text": "Todo treino vem com aquecimento e desaquecimento. Mantenha, desligue qualquer um antes de começar ou pule o aquecimento por padrão.",
+          "alt": "Uma sessão do plano com o aquecimento ligado"
         }
       },
       "extras": {
@@ -2524,10 +2529,6 @@
           "title": "5 idiomas",
           "text": "Instruções por voz em inglês, alemão, espanhol, francês e português."
         },
-        "phases": {
-          "title": "Aquecimento e desaquecimento",
-          "text": "Em todo plano."
-        },
         "notes": {
           "title": "Notas de preparação",
           "text": "Como preparar cada exercício."
@@ -2539,10 +2540,44 @@
         "streak": {
           "title": "Freezes de sequência",
           "text": "Um dia perdido fica coberto. Sua sequência nunca volta a zero."
+        },
+        "settings": {
+          "title": "Ajustes que ficam",
+          "text": "Pular o aquecimento por padrão, unidades, avisos de voz e mais."
         }
       },
       "premiumText": "Premium libera a biblioteca completa e ganha 2× pontos.",
-      "ctaSub": "Download grátis. Sem cartão."
+      "ctaSub": "Download grátis. Sem cartão.",
+      "formats": {
+        "heading": "Treine do seu jeito",
+        "sub": "Academia ou casa, pesado ou leve. Você escolhe o formato, o Libo faz o resto.",
+        "link": "Ver treinos",
+        "app": "No app",
+        "gym": {
+          "title": "Academia",
+          "text": "Máquinas, polias e peso livre."
+        },
+        "home": {
+          "title": "Casa",
+          "text": "Peso corporal ou um par de halteres."
+        },
+        "cardio": {
+          "title": "Cardio e HIIT",
+          "text": "Bike, remo ou sem equipamento."
+        },
+        "stretching": {
+          "title": "Alongamento e recuperação",
+          "text": "Mobilidade, desaquecimento e dias leves."
+        },
+        "routines": {
+          "title": "Manhã e noite",
+          "text": "Rotinas curtas para acordar ou relaxar."
+        },
+        "programs": {
+          "title": "Programas de 30 dias",
+          "text": "Corpo inteiro, core, sua primeira barra. Dia a dia."
+        }
+      }
     },
     "faq": {
       "seo": {
@@ -2634,6 +2669,206 @@
       "l2": "Treinos guiados",
       "l3": "Pagamento máximo, 30 dias seguidos",
       "l4": "Pontos por treino"
+    }
+  },
+  "findPlan": {
+    "seo": {
+      "title": "Encontre seu plano | Libo",
+      "description": "Seis perguntas rápidas. Veja o plano de treino que o app Libo cria para você, na academia ou em casa, e treinos grátis para começar hoje."
+    },
+    "intro": {
+      "eyebrow": "Encontre seu plano",
+      "title1": "Um plano",
+      "title2": "feito para você.",
+      "sub": "Seis perguntas rápidas. Veja o plano que o app Libo cria para você e treinos grátis que combinam.",
+      "start": "Encontrar meu plano",
+      "note": "Cerca de um minuto. Nada é salvo."
+    },
+    "progress": "Pergunta {{n}} de {{total}}",
+    "back": "Voltar",
+    "result": {
+      "eyebrow": "Seu plano",
+      "days": "{{count}} dias por semana",
+      "weeks": "{{count}} semanas",
+      "split": {
+        "full_body": "Corpo inteiro",
+        "upper_lower": "Superior / inferior",
+        "push_pull_legs": "Empurrar / puxar / pernas"
+      },
+      "level": {
+        "beginner": "Nível iniciante",
+        "intermediate": "Nível intermediário",
+        "advanced": "Nível avançado"
+      },
+      "ramped": "Começa com {{count}} dias por semana, de acordo com seu treino recente.",
+      "phases": "Aquecimento e desaquecimento em todo treino. Você pode desligar qualquer um quando quiser.",
+      "appTitle": "O plano completo está no app",
+      "appText": "O app Libo faz as mesmas perguntas e organiza cada treino, semana a semana. Download grátis.",
+      "restart": "Recomeçar",
+      "qrCaption": "Escaneie com a câmera do celular para baixar o app.",
+      "qrAlt": "QR code para baixar o app Libo"
+    },
+    "questions": {
+      "goal": {
+        "section": "O que mais importa",
+        "title": "Seu objetivo principal",
+        "options": {
+          "lose_weight": {
+            "label": "Perder peso",
+            "sub": "Queimar gordura e definir"
+          },
+          "build_muscle": {
+            "label": "Ganhar músculo",
+            "sub": "Ficar mais forte e maior"
+          },
+          "improve_mobility": {
+            "label": "Melhorar mobilidade",
+            "sub": "Mover melhor, se sentir melhor"
+          },
+          "stay_active": {
+            "label": "Manter-se ativo",
+            "sub": "Manter um estilo de vida saudável"
+          },
+          "reduce_stress": {
+            "label": "Reduzir estresse",
+            "sub": "Equilíbrio mental e físico"
+          }
+        }
+      },
+      "equipment": {
+        "section": "Para tudo encaixar",
+        "title": "Com o que você treina",
+        "subtitle": "Escolha o máximo que você pode usar. Isso decide quais exercícios entram no seu plano.",
+        "options": {
+          "bodyweight": {
+            "label": "Só peso corporal",
+            "sub": "Sem equipamento"
+          },
+          "resistance_bands": {
+            "label": "Faixas elásticas",
+            "sub": "Faixas em casa ou em qualquer lugar"
+          },
+          "dumbbells": {
+            "label": "Halteres",
+            "sub": "Halteres, barra ou barra fixa"
+          },
+          "full_gym": {
+            "label": "Academia completa",
+            "sub": "Máquinas, polias e peso livre"
+          }
+        }
+      },
+      "experience": {
+        "section": "Para acertar o nível",
+        "title": "Sua experiência",
+        "options": {
+          "beginner": {
+            "label": "Iniciante",
+            "sub": "Novo no treino"
+          },
+          "intermediate": {
+            "label": "Intermediário",
+            "sub": "1–2 anos de treino"
+          },
+          "advanced": {
+            "label": "Avançado",
+            "sub": "3+ anos de treino consistente"
+          }
+        }
+      },
+      "recentTraining": {
+        "section": "De onde você está vindo",
+        "title": "Tem treinado ultimamente?",
+        "subtitle": "Os últimos 3 meses, com honestidade — é isso que define a velocidade do arranque.",
+        "options": {
+          "regular": {
+            "label": "Treinando com regularidade",
+            "sub": "3+ sessões na maioria das semanas"
+          },
+          "onAndOff": {
+            "label": "Vai e volta",
+            "sub": "Umas semanas sim, outras nada"
+          },
+          "comingBack": {
+            "label": "Voltando depois de uma pausa",
+            "sub": "Parei por meses ou mais"
+          },
+          "startingFresh": {
+            "label": "Começando do zero",
+            "sub": "Primeiro bloco de treino de verdade"
+          }
+        }
+      },
+      "days": {
+        "section": "Seu compromisso",
+        "title": "Dias por semana",
+        "options": {
+          "2": {
+            "label": "2 dias",
+            "sub": "Leve e sustentável"
+          },
+          "3": {
+            "label": "3 dias",
+            "sub": "Ideal para a maioria"
+          },
+          "4": {
+            "label": "4 dias",
+            "sub": "Bom compromisso"
+          },
+          "5": {
+            "label": "5 dias",
+            "sub": "Alta dedicação"
+          },
+          "6": {
+            "label": "6+ dias",
+            "sub": "Modo atleta"
+          }
+        }
+      },
+      "minutes": {
+        "section": "Seu compromisso",
+        "title": "Duração da sessão",
+        "options": {
+          "20": {
+            "label": "15–20 min",
+            "sub": "Rápido e eficiente"
+          },
+          "45": {
+            "label": "30–45 min",
+            "sub": "Sessões equilibradas"
+          },
+          "60": {
+            "label": "45–60 min",
+            "sub": "Treinos completos"
+          },
+          "75": {
+            "label": "60+ min",
+            "sub": "Sessões de treino intenso"
+          }
+        }
+      }
+    },
+    "theme": {
+      "lose_weight": {
+        "name": "SECA & DEFINE",
+        "blurb": "Força e condicionamento para manter o músculo enquanto a gordura sai."
+      },
+      "build_muscle": {
+        "name": "CONSTRUTOR DE MASSA",
+        "blurb": "Sobrecarga progressiva para ganhar tamanho e força bruta."
+      },
+      "improve_mobility": {
+        "name": "MOVIMENTO LIVRE",
+        "blurb": "Mobilidade e controle para você se mover melhor todo dia."
+      },
+      "stay_active": {
+        "name": "SEMPRE FORTE",
+        "blurb": "Sessões equilibradas para manter a constância e a energia."
+      },
+      "reduce_stress": {
+        "name": "CALMA & FORÇA",
+        "blurb": "Movimento consciente para soltar a tensão e recomeçar."
+      }
     }
   }
 }

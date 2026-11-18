@@ -669,3 +669,27 @@
   body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
 }
 @media (max-width: 360px) { .site-storebar__badges { --badge-h: 38px; } }
+
+/* "Find your plan" in the bar (18 Nov 2026). Compact so it sits beside the
+   badges; on phones it is the only thing next to the menu button. */
+.site-nav__plan { min-height: 40px; padding: 0 18px; font-size: 16px; white-space: nowrap; }
+@media (max-width: 1100px) { .site-nav__plan { min-height: 34px; padding: 0 14px; font-size: 15px; } }
+@media (max-width: 767px) { .site-nav__plan { min-height: 36px; padding: 0 14px; font-size: 15px; } }
+/* Tablets: links + button + both badges don't fit; the badges win here and
+   the plan link stays in the drawer and the Home hero. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .site-nav__plan { display: none; }
+  /* The bar overflowed here (Google Play badge cut off at 800px). */
+  .site-nav__inner { padding: 0 20px; gap: 12px; }
+  .site-nav__link { padding: 8px 9px; }
+  .site-nav__badges { --badge-h: 30px; gap: 6px; }
+}
+.site-nav__drawer-links a.site-nav__drawer-plan {
+  width: auto;
+  margin: 4px 24px 16px;
+  padding: 0 24px;
+  color: var(--accent-text);
+  font-size: 20px;
+  letter-spacing: 0.03em;
+}
+.site-nav__drawer-links a.site-nav__drawer-plan:hover { background: var(--accent2); }

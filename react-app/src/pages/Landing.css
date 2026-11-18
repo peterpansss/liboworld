@@ -1673,3 +1673,20 @@ video.rh-phone {
 @media (max-width: 640px) {
   .rh-hero-badges { --badge-h: 48px; justify-content: center; }
 }
+
+/* Hero second path: "Find your plan" (18 Nov 2026). */
+.rh-hero-plan {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 4px;
+  color: var(--accent);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.rh-hero-plan:hover { text-decoration: underline; text-underline-offset: 4px; }

@@ -2462,12 +2462,12 @@
     "features": {
       "seo": {
         "title": "Features: workouts, plans, coach and 820+ exercises | Libo",
-        "description": "Today's workout picked for you, 820+ exercises with video, plans you can edit, a coach that knows your training, and streaks that forgive a miss."
+        "description": "Today's workout picked for you, 820+ exercises, gym and home workouts, cardio, stretching and recovery, plans you can edit and a coach that knows your training."
       },
       "eyebrow": "The app",
       "title1": "Everything you need",
       "title2": "to train.",
-      "sub": "Workouts picked for you, 820+ exercises with video and a coach that knows your training.",
+      "sub": "Workouts picked for you, 820+ exercises and a coach that knows your training. Gym, home, cardio, stretching and recovery.",
       "items": {
         "today": {
           "title": "Today's workout, picked",
@@ -2511,7 +2511,12 @@
           "title": "Follow a plan",
           "text": "Multi-week plans for muscle, fat loss or mobility. Every session laid out, week by week.",
           "alt": "An active plan in the app",
-          "link": "See the plans"
+          "link": "Find your plan"
+        },
+        "phases": {
+          "title": "Warm-up and cool-down, your call",
+          "text": "Every workout comes with a warm-up and a cool-down. Keep them, switch either off before you start, or skip warm-ups by default.",
+          "alt": "A plan session with the warm-up switched on"
         }
       },
       "extras": {
@@ -2524,10 +2529,6 @@
           "title": "5 languages",
           "text": "Voice cues in English, German, Spanish, French and Portuguese."
         },
-        "phases": {
-          "title": "Warm-up and cool-down",
-          "text": "Built into every plan."
-        },
         "notes": {
           "title": "Setup notes",
           "text": "How to set up every exercise."
@@ -2539,10 +2540,44 @@
         "streak": {
           "title": "Streak freezes",
           "text": "A missed day is covered. Your streak never resets to zero."
+        },
+        "settings": {
+          "title": "Settings that stick",
+          "text": "Skip warm-ups by default, units, voice cues and more."
         }
       },
       "premiumText": "Premium unlocks the full library and earns 2× points.",
-      "ctaSub": "Free to download. No card needed."
+      "ctaSub": "Free to download. No card needed.",
+      "formats": {
+        "heading": "Train your way",
+        "sub": "Gym or home, hard or easy. Pick the format, Libo does the rest.",
+        "link": "See workouts",
+        "app": "In the app",
+        "gym": {
+          "title": "Gym",
+          "text": "Machines, cables and free weights."
+        },
+        "home": {
+          "title": "Home",
+          "text": "Bodyweight or a pair of dumbbells."
+        },
+        "cardio": {
+          "title": "Cardio and HIIT",
+          "text": "Bike, rower or no kit at all."
+        },
+        "stretching": {
+          "title": "Stretching and recovery",
+          "text": "Mobility, cool-downs and easy days."
+        },
+        "routines": {
+          "title": "Morning and evening",
+          "text": "Short routines to wake up or wind down."
+        },
+        "programs": {
+          "title": "30-day programs",
+          "text": "Total body, core, your first pull-up. Day by day."
+        }
+      }
     },
     "faq": {
       "seo": {
@@ -2634,6 +2669,206 @@
       "l2": "Guided workouts",
       "l3": "Top payout, 30 days straight",
       "l4": "Points per workout"
+    }
+  },
+  "findPlan": {
+    "seo": {
+      "title": "Find your plan | Libo",
+      "description": "Six quick questions. See the training plan the Libo app builds for you, gym or home, and free workouts you can start today."
+    },
+    "intro": {
+      "eyebrow": "Find your plan",
+      "title1": "Find a plan",
+      "title2": "built for you.",
+      "sub": "Six quick questions. See the plan the Libo app builds for you, plus free workouts that match.",
+      "start": "Find your plan",
+      "note": "About a minute. Nothing is saved."
+    },
+    "progress": "Question {{n}} of {{total}}",
+    "back": "Back",
+    "result": {
+      "eyebrow": "Your plan",
+      "days": "{{count}} days a week",
+      "weeks": "{{count}} weeks",
+      "split": {
+        "full_body": "Full body",
+        "upper_lower": "Upper / lower",
+        "push_pull_legs": "Push / pull / legs"
+      },
+      "level": {
+        "beginner": "Beginner level",
+        "intermediate": "Intermediate level",
+        "advanced": "Advanced level"
+      },
+      "ramped": "Starts at {{count}} days a week to match how you have trained lately.",
+      "phases": "Warm-up and cool-down in every session. Switch either off when you want.",
+      "appTitle": "Get the full plan in the app",
+      "appText": "The Libo app asks the same questions and lays out every session of your plan, week by week. Free to download.",
+      "restart": "Start over",
+      "qrCaption": "Scan with your phone camera to get the app.",
+      "qrAlt": "QR code to download the Libo app"
+    },
+    "questions": {
+      "goal": {
+        "section": "What matters most",
+        "title": "Your main goal",
+        "options": {
+          "lose_weight": {
+            "label": "Lose Weight",
+            "sub": "Burn fat and get leaner"
+          },
+          "build_muscle": {
+            "label": "Build Muscle",
+            "sub": "Get stronger and bigger"
+          },
+          "improve_mobility": {
+            "label": "Improve Mobility",
+            "sub": "Move better, feel better"
+          },
+          "stay_active": {
+            "label": "Stay Active",
+            "sub": "Maintain a healthy lifestyle"
+          },
+          "reduce_stress": {
+            "label": "Reduce Stress",
+            "sub": "Mental and physical balance"
+          }
+        }
+      },
+      "equipment": {
+        "section": "So every move fits",
+        "title": "What you train with",
+        "subtitle": "Pick the most you can use. It decides which exercises land in your plan.",
+        "options": {
+          "bodyweight": {
+            "label": "Bodyweight only",
+            "sub": "No equipment needed"
+          },
+          "resistance_bands": {
+            "label": "Resistance bands",
+            "sub": "Bands at home or on the go"
+          },
+          "dumbbells": {
+            "label": "Dumbbells",
+            "sub": "Dumbbells, a barbell or a pull-up bar"
+          },
+          "full_gym": {
+            "label": "Full gym",
+            "sub": "Machines, cables and free weights"
+          }
+        }
+      },
+      "experience": {
+        "section": "So we set the level",
+        "title": "Your experience",
+        "options": {
+          "beginner": {
+            "label": "Beginner",
+            "sub": "New to working out"
+          },
+          "intermediate": {
+            "label": "Intermediate",
+            "sub": "1–2 years of training"
+          },
+          "advanced": {
+            "label": "Advanced",
+            "sub": "3+ years of consistent training"
+          }
+        }
+      },
+      "recentTraining": {
+        "section": "Where you're coming from",
+        "title": "Training lately?",
+        "subtitle": "The last 3 months, honestly — it sets how fast we ramp.",
+        "options": {
+          "regular": {
+            "label": "Training regularly",
+            "sub": "3+ sessions most weeks"
+          },
+          "onAndOff": {
+            "label": "On and off",
+            "sub": "Some weeks yes, some weeks nothing"
+          },
+          "comingBack": {
+            "label": "Coming back",
+            "sub": "Took a break — months or longer"
+          },
+          "startingFresh": {
+            "label": "Starting fresh",
+            "sub": "First real training block"
+          }
+        }
+      },
+      "days": {
+        "section": "Your commitment",
+        "title": "Days per week",
+        "options": {
+          "2": {
+            "label": "2 days",
+            "sub": "Light and maintainable"
+          },
+          "3": {
+            "label": "3 days",
+            "sub": "Great for most goals"
+          },
+          "4": {
+            "label": "4 days",
+            "sub": "Solid commitment"
+          },
+          "5": {
+            "label": "5 days",
+            "sub": "High dedication"
+          },
+          "6": {
+            "label": "6+ days",
+            "sub": "Athlete mode"
+          }
+        }
+      },
+      "minutes": {
+        "section": "Your commitment",
+        "title": "Session length",
+        "options": {
+          "20": {
+            "label": "15–20 min",
+            "sub": "Quick and efficient"
+          },
+          "45": {
+            "label": "30–45 min",
+            "sub": "Balanced sessions"
+          },
+          "60": {
+            "label": "45–60 min",
+            "sub": "Full workouts"
+          },
+          "75": {
+            "label": "60+ min",
+            "sub": "Deep training sessions"
+          }
+        }
+      }
+    },
+    "theme": {
+      "lose_weight": {
+        "name": "LEAN BURN",
+        "blurb": "Strength plus conditioning to hold muscle while the fat comes off."
+      },
+      "build_muscle": {
+        "name": "MASS BUILDER",
+        "blurb": "Progressive overload to add size and raw strength."
+      },
+      "improve_mobility": {
+        "name": "MOVE FREELY",
+        "blurb": "Mobility and control so you move better every day."
+      },
+      "stay_active": {
+        "name": "STAY STRONG",
+        "blurb": "Balanced sessions that keep you consistent and energized."
+      },
+      "reduce_stress": {
+        "name": "CALM & STRONG",
+        "blurb": "Mindful movement to release tension and reset."
+      }
     }
   }
 }

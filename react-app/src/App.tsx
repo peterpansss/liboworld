@@ -116,6 +116,7 @@ const Earn = lazy(() => import('./pages/Earn'));
 const Rewards = lazy(() => import('./pages/Rewards'));
 const GiveawayPage = lazy(() => import('./pages/Giveaway'));
 const Features = lazy(() => import('./pages/Features'));
+const FindPlan = lazy(() => import('./pages/FindPlan'));
 const Faq = lazy(() => import('./pages/Faq'));
 const ChallengeFunnel = lazy(() => import('./pages/ChallengeFunnel'));
 const JoinFunnel = lazy(() => import('./pages/JoinFunnel'));
@@ -160,6 +161,7 @@ export default function App() {
         <Route path="/rewards" element={<Suspense fallback={darkFallback}><Rewards /></Suspense>} />
         <Route path="/earn" element={<Suspense fallback={darkFallback}><Earn /></Suspense>} />
         <Route path="/features" element={<Suspense fallback={darkFallback}><Features /></Suspense>} />
+        <Route path="/find-your-plan" element={<Suspense fallback={darkFallback}><FindPlan /></Suspense>} />
         <Route path="/faq" element={<Suspense fallback={darkFallback}><Faq /></Suspense>} />
 
         {/* Founding Member funnel — the single paid conversion surface. */}
