@@ -150,3 +150,52 @@ textarea:focus-visible,
 select:focus-visible {
   box-shadow: 0 0 0 3px var(--accent-dim);
 }
+
+/* ── Lime bands (Coverd-style, 18 Nov 2026) ──────────────────────────────
+   A section with .band-lime flips to solid brand lime with black type. Every
+   token is redefined locally, so headings, links and buttons inside follow
+   without per-component overrides: the "accent" becomes black, and a
+   .btn-primary turns black with lime text. Cards inside opt back into the
+   dark palette with .band-dark. --libo-* are re-declared because Landing.css
+   resolves them once at the page root. */
+section.band-lime,
+div.band-lime {
+  --text: #080808;
+  --muted: rgba(8, 8, 8, 0.7);
+  --dim: rgba(8, 8, 8, 0.62);
+  --accent: #080808;
+  --accent2: #222;
+  --accent-text: #CAFF00;
+  --accent-dim: rgba(8, 8, 8, 0.1);
+  --accent-line: rgba(8, 8, 8, 0.35);
+  --border: rgba(8, 8, 8, 0.14);
+  --libo-text: var(--text);
+  --libo-muted: var(--muted);
+  --libo-dim: var(--dim);
+  --libo-accent: var(--accent);
+  --libo-accent-2: var(--accent2);
+  --libo-bg-3: rgba(8, 8, 8, 0.14);
+  color: var(--text);
+  background: #CAFF00;
+  border-top: 0;
+}
+.band-lime .band-dark {
+  --text: #FFFFFF;
+  --muted: #8A9BB0;
+  --dim: #6B7A8F;
+  --accent: #CAFF00;
+  --accent2: #9BC800;
+  --accent-text: #080B10;
+  --accent-dim: rgba(202, 255, 0, 0.12);
+  --accent-line: rgba(202, 255, 0, 0.25);
+  --border: rgba(255, 255, 255, 0.07);
+  --libo-text: var(--text);
+  --libo-muted: var(--muted);
+  --libo-dim: var(--dim);
+  --libo-accent: var(--accent);
+  --libo-accent-2: var(--accent2);
+  --libo-bg-3: #141414;
+  color: var(--text);
+}
+.band-lime :focus-visible { outline-color: #080808; }
+.band-lime .band-dark :focus-visible { outline-color: var(--accent); }

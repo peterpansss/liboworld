@@ -37,6 +37,8 @@ export type GiveawayRound = {
   cashEur: number;
   /** Prop render under /props used as the /giveaway hero. */
   prop: string;
+  /** Optional transparent Blender loop under /loops (replaces the prop in the hero). */
+  loop?: string;
 };
 
 export const GIVEAWAY_ROUNDS: GiveawayRound[] = [
@@ -50,6 +52,7 @@ export const GIVEAWAY_ROUNDS: GiveawayRound[] = [
     prizeName: 'PlayStation 5',
     cashEur: 400,
     prop: 'ps5-slim',
+    loop: 'ps5',
   },
 ];
 

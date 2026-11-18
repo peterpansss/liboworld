@@ -1370,7 +1370,7 @@
       "h1Pre": "Kostenlose Stufe. Oder ",
       "h1Accent": "€10.00/Monat",
       "h1Post": " für alles.",
-      "sub": "Keine Karte zum Start. Trainiere gratis, so lange du willst — oder hol dir Premium, monatlich für €19.99."
+      "sub": "Keine Karte zum Start. Trainiere gratis, so lange du willst — oder hol dir Premium ab €10.00/Monat."
     },
     "guarantee": [
       {
@@ -2024,13 +2024,25 @@
       },
       "monthlyPrice": {
         "q": "Was bedeutet €10.00/Monat?",
-        "a": "Premium wird jährlich mit €119.99 abgerechnet — das sind €10.00 pro Monat. Lieber flexibel bleiben? Das Monatsabo kostet €19.99."
+        "a": "Premium wird jährlich mit €119.99 abgerechnet — das sind €10.00 pro Monat. Lieber flexibel bleiben? Das Monatsabo kostet €19.99, 3 Monate kosten €44.99 (€15.00/Monat, jetzt auf Android, iPhone folgt)."
       },
       "subhead": "Dieselben Antworten wie auf der Startseite — eine einzige Quelle."
     },
     "seo": {
       "title": "Mitgliedschaft | Libo — Training Club",
       "description": "Eine Gratis-Version, oder €10.00/Monat für alles — oder monatlich für €19.99. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — kein Test-Abo."
+    },
+    "billing": {
+      "label": "Abrechnungszeitraum",
+      "monthly": "Monatlich",
+      "quarterly": "3 Monate",
+      "yearly": "Jährlich",
+      "perMonth": "/Monat",
+      "perQuarter": "/3 Monate · {{pm}}/Monat",
+      "perYear": "/Jahr · {{pm}}/Monat",
+      "noteMonthly": "Monatlich kündbar.",
+      "noteQuarterly": "{{pct}} % günstiger als monatlich. Jetzt auf Android, iPhone folgt.",
+      "noteYearly": "{{pct}} % günstiger als monatlich."
     }
   },
   "relaunchFounder": {
@@ -2585,6 +2597,40 @@
       "rewards": "Punkte = ein {{value}}-€-Gutschein",
       "giveaway": "Lose pro Runde, Premium nach 12 Monaten",
       "features": "Übungen in der Bibliothek"
+    }
+  },
+  "homeEarn": {
+    "eyebrow": "Trainieren und verdienen",
+    "h2a": "Dein Training",
+    "h2b": "zahlt sich aus.",
+    "sub": "Libo ist mehr als eine Trainings-App. Jedes Workout bringt Punkte für Gutscheine und Cash, bringt dich ins monatliche Gewinnspiel, und die Cash Challenges zahlen echtes Geld.",
+    "points": {
+      "title": "Punkte",
+      "text": "+{{n}} Punkte für jedes abgeschlossene Workout. Premium sammelt 2×.",
+      "link": "So funktionieren Punkte"
+    },
+    "rewards": {
+      "title": "Prämien-Shop",
+      "text": "Tausche Punkte gegen Gutscheine und Cash, ab {{pts}} Punkten.",
+      "link": "Zum Shop"
+    },
+    "giveaway": {
+      "title": "Gewinnspiel",
+      "text": "Diese Runde: {{prize}}. Einmal trainieren und du bist dabei.",
+      "textNone": "Jeden Monat ein großes Gewinnspiel. Einmal trainieren und du bist dabei.",
+      "link": "Zum Gewinnspiel"
+    },
+    "challenges": {
+      "title": "Cash Challenges",
+      "text": "Schaff 30 Tage am Stück und bekomm bis zu €{{max}}.",
+      "link": "Challenge wählen"
+    },
+    "stats": {
+      "exercises": "{{n}} Übungen",
+      "l1": "Übungen in der Bibliothek",
+      "l2": "Geführte Workouts",
+      "l3": "Höchste Auszahlung, 30 Tage am Stück",
+      "l4": "Punkte pro Workout"
     }
   }
 }

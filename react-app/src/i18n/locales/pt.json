@@ -1370,7 +1370,7 @@
       "h1Pre": "Plano gratuito. Ou ",
       "h1Accent": "€10.00/mês",
       "h1Post": " por tudo.",
-      "sub": "Sem cartão pra começar. Treine de graça o tempo que você quiser — ou vá de Premium, mês a mês por €19.99."
+      "sub": "Sem cartão pra começar. Treine de graça o tempo que você quiser — ou vá de Premium a partir de €10.00/mês."
     },
     "guarantee": [
       {
@@ -2024,13 +2024,25 @@
       },
       "monthlyPrice": {
         "q": "O que significa €10.00/mês?",
-        "a": "O Premium é cobrado anualmente a €119.99, o que dá €10.00 por mês. Prefere flexibilidade? O mês a mês custa €19.99."
+        "a": "O Premium é cobrado anualmente a €119.99, o que dá €10.00 por mês. Prefere flexibilidade? O mês a mês custa €19.99, ou €44.99 por 3 meses (€15.00/mês, já no Android, em breve no iPhone)."
       },
       "subhead": "As mesmas respostas da página inicial — uma única fonte de verdade."
     },
     "seo": {
       "title": "Assinatura | Libo — Training Club",
       "description": "Um plano gratuito, ou €10.00/mês por tudo — ou mês a mês a €19.99. Sem cartão pra começar, e o plano gratuito é grátis de verdade — não é um trial."
+    },
+    "billing": {
+      "label": "Período de cobrança",
+      "monthly": "Mensal",
+      "quarterly": "3 meses",
+      "yearly": "Anual",
+      "perMonth": "/mês",
+      "perQuarter": "/3 meses · {{pm}}/mês",
+      "perYear": "/ano · {{pm}}/mês",
+      "noteMonthly": "Mês a mês. Cancele quando quiser.",
+      "noteQuarterly": "Economize {{pct}}% vs o mensal. Já no Android, em breve no iPhone.",
+      "noteYearly": "Economize {{pct}}% vs o mensal."
     }
   },
   "relaunchFounder": {
@@ -2585,6 +2597,40 @@
       "rewards": "pontos = um vale-presente de {{value}} €",
       "giveaway": "participações por rodada, Premium aos 12 meses",
       "features": "exercícios na biblioteca"
+    }
+  },
+  "homeEarn": {
+    "eyebrow": "Treine e ganhe",
+    "h2a": "O seu treino",
+    "h2b": "compensa.",
+    "sub": "A Libo é mais do que uma app de treino. Cada treino dá pontos para cartões-presente e dinheiro, coloca você no sorteio mensal, e os desafios em dinheiro pagam de verdade.",
+    "points": {
+      "title": "Pontos",
+      "text": "+{{n}} pontos por cada treino concluído. Premium ganha 2×.",
+      "link": "Como funcionam os pontos"
+    },
+    "rewards": {
+      "title": "Loja de prémios",
+      "text": "Troque pontos por cartões-presente e dinheiro, a partir de {{pts}} pontos.",
+      "link": "Ver a loja"
+    },
+    "giveaway": {
+      "title": "Sorteio",
+      "text": "Esta rodada: {{prize}}. Treine uma vez e já participa.",
+      "textNone": "Um grande sorteio todo mês. Treine uma vez e já participa.",
+      "link": "Ver o sorteio"
+    },
+    "challenges": {
+      "title": "Desafios em dinheiro",
+      "text": "Complete 30 dias seguidos e receba até €{{max}}.",
+      "link": "Escolher um desafio"
+    },
+    "stats": {
+      "exercises": "{{n}} exercícios",
+      "l1": "Exercícios na biblioteca",
+      "l2": "Treinos guiados",
+      "l3": "Pagamento máximo, 30 dias seguidos",
+      "l4": "Pontos por treino"
     }
   }
 }

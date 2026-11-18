@@ -7,6 +7,8 @@ import { SeoHead } from '../components/SeoHead';
 import ScrollRevealText from '../components/ScrollRevealText';
 import StoreBadges from '../components/StoreBadges';
 import VideoTestimonials from '../components/VideoTestimonials';
+import HomeEarn from '../components/earn/HomeEarn';
+import { Ribbons } from '../components/motion/Motion';
 import { usePopIn } from '../utils/funnelAnimations';
 import { CHALLENGE_TIERS } from '../data/challengeTiers';
 import { buildTestimonialVideoGraph } from '../data/testimonialVideos';
@@ -409,6 +411,9 @@ export default function Landing() {
             />
           </div>
         </section>
+
+        {/* ── 2. TRAIN AND EARN: points, rewards, giveaway, cash ── */}
+        <HomeEarn />
 
         {/* ── 4. INSIDE THE APP ───────────────────────────────────── */}
         <section className="rh-inside">
@@ -871,7 +876,8 @@ export default function Landing() {
             the whole page before deciding. The id stays "waitlist" because
             JoinFunnel links to "/#waitlist" and outside links may too — it is
             not a waitlist any more. The hero owns "hero-capture". */}
-        <section className="rh-final" id="waitlist">
+        <Ribbons />
+        <section className="rh-final band-lime" id="waitlist">
           <div className="rh-final-inner">
             <h2 className="rh-h2 rh-h2--center rh-h2--lg">
               <ScrollRevealText as="span" className="rh-h2-line">

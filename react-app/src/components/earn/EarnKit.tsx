@@ -14,6 +14,7 @@
  * for rewards/prizes/points only; training imagery stays real (no AI).
  */
 import { useEffect, useRef, type ReactNode } from 'react';
+import { CountUp, Ribbons } from '../motion/Motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import StoreBadges from '../StoreBadges';
@@ -21,7 +22,7 @@ import ScrollRevealText from '../ScrollRevealText';
 import './Earn.css';
 
 /** Bump when the prop renders are re-exported, so Cloudflare serves the new files. */
-const PROP_VERSION = '1';
+const PROP_VERSION = '2';
 
 /**
  * Splits a heading into Home's two-tone lines: everything but the last word
@@ -94,13 +95,38 @@ type HeroProps = {
   children?: ReactNode;
   /** Short hero for utility pages (/faq): no full-height stage. */
   compact?: boolean;
+  /**
+   * Transparent Blender loop under public/loops/<name>.{mov,webm} + <name>-poster.webp
+   * (renders/web/ in the 3D ad folder). Replaces the props; the still poster is
+   * shown under prefers-reduced-motion.
+   */
+  loop?: string;
 };
+
+const LOOP_VERSION = '1';
+
+/**
+ * Seamless transparent loop. Safari only does alpha video as HEVC (.mov,
+ * hvc1); Chrome/Firefox do it as VP9 WebM. The .mov is listed first with a
+ * QuickTime type Chrome reports it can't play, so each browser takes its own.
+ */
+function HeroLoop({ name }: { name: string }) {
+  const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const poster = `/loops/${name}-poster.webp?v=${LOOP_VERSION}`;
+  if (reduced) return <img className="earn-hero__loop" src={poster} alt="" aria-hidden="true" />;
+  return (
+    <video className="earn-hero__loop" poster={poster} autoPlay muted loop playsInline preload="auto" aria-hidden="true">
+      <source src={`/loops/${name}.mov?v=${LOOP_VERSION}`} type='video/quicktime; codecs="hvc1"' />
+      <source src={`/loops/${name}.webm?v=${LOOP_VERSION}`} type="video/webm" />
+    </video>
+  );
+}
 
 /**
  * Cinematic hero: near full-height, lime spotlight from above, big floating
  * props on a floor shadow, slow parallax on scroll (off under reduced motion).
  */
-export function EarnHero({ eyebrow, title, sub, props, children, compact = false }: HeroProps) {
+export function EarnHero({ eyebrow, title, sub, props, children, compact = false, loop }: HeroProps) {
   const artRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -130,8 +156,8 @@ export function EarnHero({ eyebrow, title, sub, props, children, compact = false
           {sub && <p className="earn-hero__sub">{sub}</p>}
           {children && <div className="earn-hero__ctas">{children}</div>}
         </div>
-        <div ref={artRef} className={`earn-hero__art earn-hero__art--${props.length}`} aria-hidden="true">
-          {props.map((p, i) => (
+        <div ref={artRef} className={`earn-hero__art earn-hero__art--${loop ? 'loop' : props.length}`} aria-hidden="true">
+          {loop ? <HeroLoop name={loop} /> : props.map((p, i) => (
             <PropImg key={p} name={p} eager float width={i === 0 ? 460 : 280} className={`earn-hero__prop earn-hero__prop--${i}`} />
           ))}
         </div>
@@ -146,7 +172,7 @@ export function BigNumber({ value, caption, prop }: { value: string; caption: st
     <section className="earn-big">
       <div className="earn-big__inner" data-popin>
         {prop && <PropImg name={prop} className="earn-big__prop" width={240} />}
-        <span className="earn-big__value">{value}</span>
+        <span className="earn-big__value"><CountUp value={value} /></span>
         <span className="earn-big__caption">{caption}</span>
       </div>
     </section>
@@ -229,7 +255,9 @@ export function PhoneShot({ src, alt, className = '' }: { src: string; alt: stri
 export function AppCta({ title, sub }: { title: string; sub?: string }) {
   const [a, b] = splitLines(title);
   return (
-    <section className="earn-final">
+    <>
+    <Ribbons />
+    <section className="earn-final band-lime">
       <div className="earn-final__inner">
         <h2 className="earn-final__h2">
           {a && <ScrollRevealText as="span" className="earn-h2__line">{a}</ScrollRevealText>}
@@ -239,6 +267,7 @@ export function AppCta({ title, sub }: { title: string; sub?: string }) {
         <StoreBadges className="earn-final__badges" />
       </div>
     </section>
+    </>
   );
 }
 

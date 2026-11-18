@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { ScrollProgress } from './motion/Motion';
 import { detectPlatform, storeUrlFor } from '../utils/storeRedirect';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -189,6 +190,7 @@ export default function SiteNav() {
         className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}${isSubpage ? ' site-nav--subpage' : ''}${showAnnounce ? ' site-nav--with-announce' : ''}`}
         aria-label={t('nav.mainNavigation')}
       >
+        <ScrollProgress />
         <div className="site-nav__inner">
           {/* Logo */}
           <Link to="/" className="site-nav__logo" aria-label="Libo home" viewTransition>
@@ -234,7 +236,7 @@ export default function SiteNav() {
                       viewTransition
                       onFocus={() => prefetchRoute(l.to)}
                     >
-                      <img className="site-nav__dropdown-prop" src={`/props/${l.prop}-360.webp?v=1`} alt="" aria-hidden="true" width={44} height={44} loading="lazy" decoding="async" />
+                      <img className="site-nav__dropdown-prop" src={`/props/${l.prop}-360.webp?v=2`} alt="" aria-hidden="true" width={44} height={44} loading="lazy" decoding="async" />
                       <span className="site-nav__dropdown-item-text">
                         <span className="site-nav__dropdown-item-title">{t(`earnPages.nav.${l.id}`)}</span>
                         <span className="site-nav__dropdown-item-desc">{t(l.descKey)}</span>

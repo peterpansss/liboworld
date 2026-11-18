@@ -1,0 +1,104 @@
+/* Motion kit — see Motion.tsx. */
+
+.mo-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.mo-count { font-variant-numeric: tabular-nums; }
+
+/* ── Crossing ribbons ── */
+.mo-ribbons {
+  position: relative;
+  height: 230px;
+  overflow: hidden;
+  overflow: clip;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mo-ribbon {
+  width: 112%;
+  margin-left: -6%;
+  padding: 16px 0;
+  overflow: hidden;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.mo-ribbon--dark {
+  position: relative;
+  z-index: 2;
+  background: #050505;
+  color: #fff;
+  transform: rotate(-3deg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.mo-ribbon--lime {
+  background: #CAFF00;
+  color: #080808;
+  transform: rotate(2deg);
+  margin-top: -18px;
+}
+.mo-ribbon__track {
+  display: inline-flex;
+  animation: mo-marquee 38s linear infinite;
+  will-change: transform;
+}
+.mo-ribbon__track--rev { animation-direction: reverse; animation-duration: 44s; }
+.mo-ribbon__half { display: inline-flex; flex-shrink: 0; }
+.mo-ribbon__item { display: inline-flex; align-items: center; gap: 36px; padding-right: 36px; }
+.mo-dots { width: 40px; height: 27px; flex-shrink: 0; }
+.mo-ribbon--dark .mo-dots { fill: #CAFF00; }
+.mo-ribbon--lime .mo-dots { fill: #080808; }
+@keyframes mo-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (max-width: 767px) {
+  .mo-ribbons { height: 150px; }
+  .mo-ribbon { font-size: 32px; padding: 11px 0; }
+  .mo-ribbon__item { gap: 22px; padding-right: 22px; }
+  .mo-dots { width: 26px; height: 18px; }
+  .mo-ribbon--lime { margin-top: -12px; }
+}
+
+/* ── Scroll coin (sprite sheet 8 x 6) ── */
+.mo-coin {
+  --fx: 0;
+  --fy: 0;
+  width: 220px;
+  aspect-ratio: 1;
+  background-repeat: no-repeat;
+  background-size: 800% 600%;
+  background-position: calc(var(--fx) * 100% / 7) calc(var(--fy) * 100% / 5);
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55));
+}
+@media (max-width: 767px) { .mo-coin { width: 150px; } }
+
+/* ── Scroll progress line (inside SiteNav) ── */
+.mo-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mo-ribbon__track { animation: none; }
+  .mo-progress { display: none; }
+}

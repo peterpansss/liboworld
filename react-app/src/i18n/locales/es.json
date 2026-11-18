@@ -1370,7 +1370,7 @@
       "h1Pre": "Plan gratuito. O ",
       "h1Accent": "€10.00/mes",
       "h1Post": " por todo.",
-      "sub": "Sin tarjeta para empezar. Entrena gratis todo el tiempo que quieras — o pásate a Premium, mes a mes por €19.99."
+      "sub": "Sin tarjeta para empezar. Entrena gratis todo el tiempo que quieras — o pásate a Premium desde €10.00/mes."
     },
     "guarantee": [
       {
@@ -2024,13 +2024,25 @@
       },
       "monthlyPrice": {
         "q": "¿Qué significa €10.00/mes?",
-        "a": "Premium se factura anualmente a €119.99, que sale a €10.00 al mes. ¿Prefieres flexibilidad? Mes a mes son €19.99."
+        "a": "Premium se factura anualmente a €119.99, que sale a €10.00 al mes. ¿Prefieres flexibilidad? Mes a mes son €19.99, o €44.99 por 3 meses (€15.00/mes, ya en Android, pronto en iPhone)."
       },
       "subhead": "Las mismas respuestas que en la página de inicio — una sola fuente de verdad."
     },
     "seo": {
       "title": "Membresía | Libo — Training Club",
       "description": "Un plan gratuito, o €10.00/mes por todo — o mes a mes a €19.99. Sin tarjeta para empezar, y el plan gratuito es gratis de verdad — no una prueba."
+    },
+    "billing": {
+      "label": "Periodo de facturación",
+      "monthly": "Mensual",
+      "quarterly": "3 meses",
+      "yearly": "Anual",
+      "perMonth": "/mes",
+      "perQuarter": "/3 meses · {{pm}}/mes",
+      "perYear": "/año · {{pm}}/mes",
+      "noteMonthly": "Mes a mes. Cancela cuando quieras.",
+      "noteQuarterly": "Ahorra un {{pct}} % frente al mensual. Ya en Android, pronto en iPhone.",
+      "noteYearly": "Ahorra un {{pct}} % frente al mensual."
     }
   },
   "relaunchFounder": {
@@ -2585,6 +2597,40 @@
       "rewards": "puntos = una tarjeta regalo de {{value}} €",
       "giveaway": "participaciones por ronda, Premium a los 12 meses",
       "features": "ejercicios en la biblioteca"
+    }
+  },
+  "homeEarn": {
+    "eyebrow": "Entrena y gana",
+    "h2a": "Tu entrenamiento",
+    "h2b": "te recompensa.",
+    "sub": "Libo es más que una app de entrenamiento. Cada entreno suma puntos para tarjetas regalo y dinero, te mete en el sorteo mensual, y los retos con dinero pagan de verdad.",
+    "points": {
+      "title": "Puntos",
+      "text": "+{{n}} puntos por cada entreno que terminas. Premium gana 2×.",
+      "link": "Cómo funcionan los puntos"
+    },
+    "rewards": {
+      "title": "Tienda de premios",
+      "text": "Cambia puntos por tarjetas regalo y dinero, desde {{pts}} puntos.",
+      "link": "Ver la tienda"
+    },
+    "giveaway": {
+      "title": "Sorteo",
+      "text": "Esta ronda: {{prize}}. Entrena una vez y ya participas.",
+      "textNone": "Un gran sorteo cada mes. Entrena una vez y ya participas.",
+      "link": "Ver el sorteo"
+    },
+    "challenges": {
+      "title": "Retos con dinero",
+      "text": "Completa 30 días seguidos y cobra hasta €{{max}}.",
+      "link": "Elige un reto"
+    },
+    "stats": {
+      "exercises": "{{n}} ejercicios",
+      "l1": "Ejercicios en la biblioteca",
+      "l2": "Entrenos guiados",
+      "l3": "Pago máximo, 30 días seguidos",
+      "l4": "Puntos por entreno"
     }
   }
 }

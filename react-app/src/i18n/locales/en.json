@@ -1370,7 +1370,7 @@
       "h1Pre": "Free tier. Or ",
       "h1Accent": "€10.00/mo",
       "h1Post": " for everything.",
-      "sub": "No card to start. Train free for as long as you like — or go Premium, month-to-month at €19.99."
+      "sub": "No card to start. Train free for as long as you like — or go Premium from €10.00/mo."
     },
     "guarantee": [
       {
@@ -2085,13 +2085,25 @@
       },
       "monthlyPrice": {
         "q": "What does €10.00/mo mean?",
-        "a": "Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99."
+        "a": "Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99, or €44.99 for 3 months (€15.00/mo, Android now, iPhone soon)."
       },
       "subhead": "Same answers as the home page — one source of truth."
     },
     "seo": {
       "title": "Membership | Libo — Training Club",
       "description": "A free tier, or €10.00/mo for everything — or month-to-month at €19.99. No card to start, and the free tier is genuinely free — not a trial."
+    },
+    "billing": {
+      "label": "Billing period",
+      "monthly": "Monthly",
+      "quarterly": "3 months",
+      "yearly": "Yearly",
+      "perMonth": "/month",
+      "perQuarter": "/3 months · {{pm}}/mo",
+      "perYear": "/year · {{pm}}/mo",
+      "noteMonthly": "Month to month. Cancel any time.",
+      "noteQuarterly": "Save {{pct}}% vs monthly. Android now, iPhone soon.",
+      "noteYearly": "Save {{pct}}% vs monthly."
     }
   },
   "founderV2": {
@@ -2585,6 +2597,40 @@
       "rewards": "points = a €{{value}} gift card",
       "giveaway": "entries a round, Premium at 12 months",
       "features": "exercises in the library"
+    }
+  },
+  "homeEarn": {
+    "eyebrow": "Train and earn",
+    "h2a": "Your training",
+    "h2b": "pays you back.",
+    "sub": "Libo is more than a training app. Every workout earns points for gift cards and cash, gets you into the monthly giveaway, and the cash challenges pay real money.",
+    "points": {
+      "title": "Points",
+      "text": "+{{n}} points for every workout you finish. Premium earns 2×.",
+      "link": "How points work"
+    },
+    "rewards": {
+      "title": "Rewards shop",
+      "text": "Swap points for gift cards and cash, from {{pts}} points.",
+      "link": "See the shop"
+    },
+    "giveaway": {
+      "title": "Giveaway",
+      "text": "This round: {{prize}}. Train once and you’re in.",
+      "textNone": "One big giveaway every month. Train once and you’re in.",
+      "link": "See the giveaway"
+    },
+    "challenges": {
+      "title": "Cash challenges",
+      "text": "Finish 30 days straight and get paid up to €{{max}}.",
+      "link": "Pick a challenge"
+    },
+    "stats": {
+      "exercises": "{{n}} exercises",
+      "l1": "Exercises in the library",
+      "l2": "Guided workouts",
+      "l3": "Top payout, 30 days straight",
+      "l4": "Points per workout"
     }
   }
 }

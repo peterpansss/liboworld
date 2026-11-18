@@ -149,6 +149,14 @@
   .earn-hero__art--2 .earn-hero__prop--1 { width: 280px; transform: translate(-60px, 120px) rotate(-8deg); }
 }
 
+/* Blender loop in place of the props (transparent video, 1:1). */
+.earn-hero__loop { position: relative; z-index: 1; display: block; width: min(92vw, 380px); height: auto; aspect-ratio: 1; }
+.earn-hero__art--loop { height: auto; }
+@media (min-width: 900px) {
+  .earn-hero__art--loop { height: 620px; }
+  .earn-hero__loop { width: 640px; max-width: none; }
+}
+
 /* Compact hero (/faq) */
 .earn-hero--compact { min-height: 0; padding-top: 40px; padding-bottom: 40px; }
 .earn-hero--compact .earn-hero__title { font-size: var(--h1-page); }

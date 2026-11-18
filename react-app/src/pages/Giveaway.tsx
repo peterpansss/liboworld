@@ -53,6 +53,7 @@ export default function Giveaway() {
             : ['', t('earnPages.giveaway.titleNone')]}
           sub={t('earnPages.giveaway.sub')}
           props={round ? [round.prop, 'controller'] : ['trophy-lime']}
+          loop={round?.loop}
         >
           {round && (
             <p className={`gw-status gw-status--${status}`}>
