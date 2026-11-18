@@ -213,6 +213,15 @@
   line-height: 1.4;
 }
 
+/* Earn menu: prop thumbnail beside each item (18 Nov 2026). */
+.site-nav__dropdown-prop {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.site-nav__dropdown-item--mega { align-items: center; }
+
 /* ── Frosted-glass scroll state ── */
 .site-nav--scrolled {
   background: rgba(8, 8, 8, 0.97);
@@ -370,8 +379,10 @@
 .site-nav__drawer-links {
   display: flex;
   flex-direction: column;
-  padding: 16px 0;
+  padding: 8px 0;
   flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .site-nav__drawer-links a {
@@ -379,16 +390,37 @@
   text-decoration: none;
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
-  font-size: 34px;
+  font-size: 30px;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: -0.3px;
-  padding: 11px 24px;
+  padding: 9px 24px;
   transition: color 0.2s, background 0.2s;
 }
 
 .site-nav__drawer-links a:hover {
   background: rgba(255, 255, 255, 0.05);
+}
+
+.site-nav__drawer-group {
+  margin: 0;
+  padding: 8px 24px 4px;
+  color: var(--dim);
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.site-nav__drawer-links a.site-nav__drawer-sublink {
+  font-size: 22px;
+  padding: 8px 24px 8px 40px;
+}
+.site-nav__drawer-sep {
+  display: block;
+  height: 1px;
+  margin: 10px 24px;
+  background: var(--border);
 }
 
 .site-nav__drawer-link--active {

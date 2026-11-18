@@ -31,6 +31,14 @@ export type GiveawayRound = {
   prize: string;
   /** Number of winners drawn in this round. */
   winners: number;
+  /** Short prize name for the /giveaway page headline. */
+  prizeName: string;
+  /** Cash alternative in euros (80% of the item's price, Noah 15 Nov 2026). */
+  cashEur: number;
+  /** Prop render under /props used as the /giveaway hero. */
+  prop: string;
+  /** Optional transparent Blender loop under /loops (replaces the prop in the hero). */
+  loop?: string;
 };
 
 export const GIVEAWAY_ROUNDS: GiveawayRound[] = [
@@ -41,6 +49,10 @@ export const GIVEAWAY_ROUNDS: GiveawayRound[] = [
     closes: '2026-12-20',
     prize: 'A PlayStation 5, or €400 cash instead',
     winners: 1,
+    prizeName: 'PlayStation 5',
+    cashEur: 400,
+    prop: 'ps5-slim',
+    loop: 'ps5',
   },
 ];
 
@@ -128,4 +140,30 @@ export function formatRoundDate(iso: string, offsetDays = 0): string {
     year: 'numeric',
     timeZone: 'UTC',
   }).format(date);
+}
+
+/**
+ * The round to feature on /giveaway: the open one if any, otherwise the next
+ * to open, otherwise the most recent. Dates are compared in Berlin time by
+ * comparing YYYY-MM-DD strings, which is what the rounds are written in.
+ */
+export function featuredRound(now: Date = new Date()): GiveawayRound | undefined {
+  const today = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(now);
+  const open = GIVEAWAY_ROUNDS.find((r) => r.opens <= today && today <= r.closes);
+  if (open) return open;
+  const upcoming = GIVEAWAY_ROUNDS.filter((r) => r.opens > today).sort((a, b) => a.opens.localeCompare(b.opens));
+  if (upcoming.length) return upcoming[0];
+  return [...GIVEAWAY_ROUNDS].sort((a, b) => b.closes.localeCompare(a.closes))[0];
+}
+
+/** Whether a round is open, upcoming or closed today (Berlin). */
+export function roundStatus(r: GiveawayRound, now: Date = new Date()): 'open' | 'upcoming' | 'closed' {
+  const today = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(now);
+  if (today < r.opens) return 'upcoming';
+  if (today > r.closes) return 'closed';
+  return 'open';
 }

@@ -51,15 +51,17 @@ describe('SiteFooter', () => {
     expect(homeLinks.length).toBeGreaterThan(0);
   });
 
-  it('renders the product/company/resources column titles', () => {
+  it('renders the earn/train/company column titles and links the earn pages', () => {
     render(
       <MemoryRouter>
         <SiteFooter />
       </MemoryRouter>,
     );
-    expect(screen.getByText('footer.productTitle')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Earn' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Train' })).toBeInTheDocument();
     expect(screen.getByText('footer.companyTitle')).toBeInTheDocument();
-    expect(screen.getByText('footer.resourcesTitle')).toBeInTheDocument();
+    ['/earn', '/cash-challenges', '/giveaway', '/rewards', '/membership', '/features', '/faq', '/press', '/careers']
+      .forEach((href) => expect(document.querySelector(`a[href="${href}"]`)).not.toBeNull());
   });
 
   // Launch is iOS-only and dated — the tagline must promise neither Android

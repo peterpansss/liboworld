@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { ScrollProgress } from './motion/Motion';
 import { detectPlatform, storeUrlFor } from '../utils/storeRedirect';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -12,19 +13,23 @@ import './SiteNav.css';
 
 const ANNOUNCE_DISMISS_KEY = 'ea_announce_dismissed';
 
-// Relaunch nav — five plain links, no dropdowns. MASTER-HANDOFF §21 specifies
-// Cash Challenges · Membership · Press · Careers; the designs render Library in
-// Membership's slot. We carry both rather than drop either (decision, 2026-08-05).
-//
-// Membership left the header on 2026-08-27 (Noah): the header slot now carries
-// the founding offer, because /join was reachable only from the homepage
-// waitlist card. Pricing keeps its footer link (footer.pricing → /membership).
+// Nav, 18 Nov 2026 (LMCT+ structure study, Noah): Earn ▾ · Features ·
+// Exercises · Membership. Earn groups the train-and-earn pages. Press and
+// Careers moved to the footer only. History: Membership left the header on
+// 27 Aug for the founding offer; it is back now that founding has closed, and
+// the founding item still removes itself after FOUNDING_CLOSE_DATE.
+const EARN_LINKS = [
+  { id: 'howItWorks', descKey: 'earnPages.next.earn.text', to: '/earn', prop: 'libo-coin' },
+  { id: 'challenges', descKey: 'earnPages.next.challenges.text', to: '/cash-challenges', prop: 'cash-euro-stack' },
+  { id: 'giveaway', descKey: 'earnPages.next.giveaway.text', to: '/giveaway', prop: 'ps5-slim' },
+  { id: 'rewards', descKey: 'earnPages.next.rewards.text', to: '/rewards', prop: 'reward-cards-fan' },
+] as const;
+
 const NAV_LINKS = [
-  { labelKey: 'nav.cashChallenges', defaultLabel: 'Cash Challenges', to: '/cash-challenges' },
-  { labelKey: 'nav.library', defaultLabel: 'Exercise Library', to: '/exercises' },
+  { labelKey: 'earnPages.nav.features', defaultLabel: 'Features', to: '/features' },
+  { labelKey: 'earnPages.nav.exercises', defaultLabel: 'Exercises', to: '/exercises' },
+  { labelKey: 'earnPages.nav.membership', defaultLabel: 'Membership', to: '/membership' },
   { labelKey: 'nav.foundingMember', defaultLabel: 'Founding Member', to: '/join' },
-  { labelKey: 'nav.press', defaultLabel: 'Press', to: '/press' },
-  { labelKey: 'nav.careers', defaultLabel: 'Careers', to: '/careers' },
 ] as const;
 
 // Filtered at RENDER time, never at module load — the founding item has to
@@ -74,6 +79,33 @@ export default function SiteNav() {
   };
 
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [earnOpen, setEarnOpen] = useState(false);
+  const earnRef = useRef<HTMLLIElement>(null);
+  // Hover opens the menu on desktop; the click that usually follows the hover
+  // must not then toggle it shut. Touch and keyboard toggle normally.
+  const earnHoverOpened = useRef(false);
+  const earnActive = EARN_LINKS.some((l) => location.pathname.startsWith(l.to));
+
+  // Close the Earn menu on route change, outside click and Escape.
+  useEffect(() => { setEarnOpen(false); }, [location.pathname]);
+  useEffect(() => {
+    if (!earnOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (earnRef.current && !earnRef.current.contains(e.target as Node)) setEarnOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setEarnOpen(false);
+        (earnRef.current?.querySelector('button') as HTMLButtonElement | null)?.focus();
+      }
+    };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [earnOpen]);
 
   const isActive = (to: string) =>
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
@@ -158,6 +190,7 @@ export default function SiteNav() {
         className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}${isSubpage ? ' site-nav--subpage' : ''}${showAnnounce ? ' site-nav--with-announce' : ''}`}
         aria-label={t('nav.mainNavigation')}
       >
+        <ScrollProgress />
         <div className="site-nav__inner">
           {/* Logo */}
           <Link to="/" className="site-nav__logo" aria-label="Libo home" viewTransition>
@@ -169,6 +202,50 @@ export default function SiteNav() {
 
           {/* Center links */}
           <ul className="site-nav__links">
+            <li
+              ref={earnRef}
+              className={`site-nav__dropdown${earnOpen ? ' site-nav__dropdown--open' : ''}`}
+              onMouseEnter={() => {
+                if (!earnOpen) earnHoverOpened.current = true;
+                setEarnOpen(true);
+                EARN_LINKS.forEach((l) => prefetchRoute(l.to));
+              }}
+              onMouseLeave={() => { earnHoverOpened.current = false; setEarnOpen(false); }}
+            >
+              <button
+                type="button"
+                className={`site-nav__link site-nav__dropdown-trigger${earnActive ? ' site-nav__link--active' : ''}`}
+                aria-expanded={earnOpen}
+                aria-controls="nav-earn-menu"
+                onClick={() => {
+                  if (earnHoverOpened.current) { earnHoverOpened.current = false; setEarnOpen(true); return; }
+                  setEarnOpen((o) => !o);
+                }}
+              >
+                {t('earnPages.nav.earn', { defaultValue: 'Earn' })}
+                <span className="site-nav__dropdown-caret" aria-hidden="true">▾</span>
+              </button>
+              <ul id="nav-earn-menu" className="site-nav__dropdown-menu site-nav__dropdown-menu--mega">
+                {EARN_LINKS.map((l) => (
+                  <li key={l.to}>
+                    <Link
+                      to={l.to}
+                      className={`site-nav__dropdown-item site-nav__dropdown-item--mega${isActive(l.to) ? ' site-nav__dropdown-item--active' : ''}`}
+                      aria-current={isActive(l.to) ? 'page' : undefined}
+                      tabIndex={earnOpen ? undefined : -1}
+                      viewTransition
+                      onFocus={() => prefetchRoute(l.to)}
+                    >
+                      <img className="site-nav__dropdown-prop" src={`/props/${l.prop}-360.webp?v=2`} alt="" aria-hidden="true" width={44} height={44} loading="lazy" decoding="async" />
+                      <span className="site-nav__dropdown-item-text">
+                        <span className="site-nav__dropdown-item-title">{t(`earnPages.nav.${l.id}`)}</span>
+                        <span className="site-nav__dropdown-item-desc">{t(l.descKey)}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
             {navLinks.map(({ labelKey, defaultLabel, to }) => (
               <li key={to}>
                 <Link
@@ -236,6 +313,13 @@ export default function SiteNav() {
           </button>
         </div>
         <div className="site-nav__drawer-links">
+          <p className="site-nav__drawer-group">{t('earnPages.nav.earn', { defaultValue: 'Earn' })}</p>
+          {EARN_LINKS.map((l) => (
+            <Link key={l.to} to={l.to} className={`site-nav__drawer-sublink${isActive(l.to) ? ' site-nav__drawer-link--active' : ''}`} aria-current={isActive(l.to) ? 'page' : undefined} viewTransition onFocus={() => prefetchRoute(l.to)} onClick={() => setDrawerOpen(false)}>
+              {t(`earnPages.nav.${l.id}`)}
+            </Link>
+          ))}
+          <span className="site-nav__drawer-sep" aria-hidden="true" />
           {navLinks.map(({ labelKey, defaultLabel, to }) => (
             <Link key={to} to={to} className={isActive(to) ? 'site-nav__drawer-link--active' : ''} aria-current={isActive(to) ? 'page' : undefined} viewTransition onMouseEnter={() => prefetchRoute(to)} onFocus={() => prefetchRoute(to)} onClick={() => setDrawerOpen(false)}>
               {t(labelKey, { defaultValue: defaultLabel })}

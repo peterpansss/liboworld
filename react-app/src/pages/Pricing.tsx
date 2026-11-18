@@ -10,7 +10,8 @@ import { PRICING_FAQ } from '../data/faq';
 import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvider';
 import LaunchCountdown from '../components/LaunchCountdown';
 import { isFoundingOpen } from '../config/launchMode';
-import { APP_STORE_URL } from '../components/AppStoreBadge';
+import StoreBadges from '../components/StoreBadges';
+import { MONTHLY_PRICE, QUARTERLY_PRICE, YEARLY_PRICE } from '../data/tiers';
 import { GIVEAWAY_ENTRIES, LOYALTY_PER_MONTH } from '../data/giveawayRounds';
 import './Pricing.css';
 
@@ -63,12 +64,43 @@ interface Plan {
   /** Premium isn't purchasable yet — rendered as a static, non-interactive chip. */
   /** Off-site CTA target (the App Store). Rendered as a plain <a>, not a Link. */
   externalHref?: string;
+  /** Render both official store badges as the CTA (Premium). */
+  storeBadges?: boolean;
   href?: string;
 }
+
+type Billing = 'monthly' | 'quarterly' | 'yearly';
+
+const eur = (n: number) => `€${n.toFixed(2)}`;
 
 export default function Pricing() {
   const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  // Three Premium prices since Phase 2 (12 Nov 2026). Yearly is the anchor.
+  // The quarter is live on Google Play only: Apple's quarterly product is
+  // still READY_TO_SUBMIT (checked 18 Nov 2026), so its note says so until
+  // Apple approves it. Never sell the quarter on giveaway entries: loyalty
+  // months count months with a workout, not months paid for.
+  const [billing, setBilling] = useState<Billing>('yearly');
+  const pm = { monthly: MONTHLY_PRICE.premium, quarterly: QUARTERLY_PRICE.premium / 3, yearly: YEARLY_PRICE.premium / 12 };
+  const save = (perMonth: number) => Math.round((1 - perMonth / MONTHLY_PRICE.premium) * 100);
+  const billingView: Record<Billing, { price: string; per: string; note: string }> = {
+    monthly: {
+      price: eur(MONTHLY_PRICE.premium),
+      per: t('membershipV2.billing.perMonth', { defaultValue: '/month' }),
+      note: t('membershipV2.billing.noteMonthly', { defaultValue: 'Month to month. Cancel any time.' }),
+    },
+    quarterly: {
+      price: eur(QUARTERLY_PRICE.premium),
+      per: t('membershipV2.billing.perQuarter', { pm: eur(pm.quarterly), defaultValue: '/3 months · {{pm}}/mo' }),
+      note: t('membershipV2.billing.noteQuarterly', { pct: save(pm.quarterly), defaultValue: 'Save {{pct}}% vs monthly. Android now, iPhone soon.' }),
+    },
+    yearly: {
+      price: eur(YEARLY_PRICE.premium),
+      per: t('membershipV2.billing.perYear', { pm: eur(pm.yearly), defaultValue: '/year · {{pm}}/mo' }),
+      note: t('membershipV2.billing.noteYearly', { pct: save(pm.yearly), defaultValue: 'Save {{pct}}% vs monthly.' }),
+    },
+  };
   const { openFoundingCheckout } = useFoundingCheckout();
 
   usePopIn();
@@ -154,15 +186,13 @@ export default function Pricing() {
     },
     {
       id: 'premium',
-      variant: 'default',
-      priceAccent: false,
+      variant: 'elevated',
+      priceAccent: true,
       name: t('membershipV2.plans.premium.name', { defaultValue: 'Premium' }),
       badge: '',
-      price: t('membershipV2.plans.premium.price', { defaultValue: '€119.99' }),
-      per: t('membershipV2.plans.premium.per', { defaultValue: '/year · €10.00/mo' }),
-      monthly: t('membershipV2.plans.premium.monthly', {
-        defaultValue: 'or €19.99/mo month-to-month — cancel any time',
-      }),
+      price: billingView[billing].price,
+      per: billingView[billing].per,
+      monthly: billingView[billing].note,
       strike: '',
       strikeNote: '',
       blurb: t('membershipV2.plans.premium.blurb', {
@@ -190,7 +220,8 @@ export default function Pricing() {
       ],
       ctaLabel: t('membershipV2.plans.premium.cta', { defaultValue: 'Get Libo on the App Store →' }),
       ctaStyle: 'default',
-      externalHref: APP_STORE_URL,
+      // Both stores: the quarter is Android-only for now (rendered as StoreBadges below).
+      storeBadges: true,
     },
   ];
 
@@ -294,9 +325,10 @@ export default function Pricing() {
         </header>
 
         {/* ── Plans ── */}
-        <section className="pr-plans" aria-label={t('relaunchPricing.aria.plans')}>
+        <div className="pr-plans-band band-lime">
+        <section className={`pr-plans pr-plans--${plans.length}`} aria-label={t('relaunchPricing.aria.plans')}>
           {plans.map((p) => (
-            <article key={p.id} className={`pr-card pr-card--${p.variant}`} data-popin>
+            <article key={p.id} className={`pr-card pr-card--${p.variant} band-dark`} data-popin>
               <div className="pr-card__head">
                 <h2 className="pr-card__name">{p.name}</h2>
                 {p.badge ? <span className="pr-card__badge">{p.badge}</span> : null}
@@ -308,7 +340,18 @@ export default function Pricing() {
                   the same collision JoinFunnel.tsx already guards against. */}
               {p.id === 'founding' ? <LaunchCountdown /> : null}
 
-              <div className="pr-card__price-row">
+              {p.id === 'premium' ? (
+                <div className="pr-billing" role="group" aria-label={t('membershipV2.billing.label', { defaultValue: 'Billing period' })}>
+                  {(['monthly', 'quarterly', 'yearly'] as const).map((b) => (
+                    <button key={b} type="button" aria-pressed={billing === b} onClick={() => setBilling(b)}>
+                      {t(`membershipV2.billing.${b}`, { defaultValue: { monthly: 'Monthly', quarterly: '3 months', yearly: 'Yearly' }[b] })}
+                      {b === 'yearly' ? <span className="pr-billing__save">−{save(pm.yearly)}%</span> : null}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+
+              <div className="pr-card__price-row" aria-live={p.id === 'premium' ? 'polite' : undefined}>
                 <span className={`pr-card__price${p.priceAccent ? ' pr-accent' : ''}`}>
                   {p.price}
                 </span>
@@ -336,7 +379,9 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              {p.founding && foundingOpen ? (
+              {p.storeBadges ? (
+                <StoreBadges className="pr-card__badges" />
+              ) : p.founding && foundingOpen ? (
                 <button
                   type="button"
                   className={`pr-card__cta pr-card__cta--${p.ctaStyle}`}
@@ -361,10 +406,11 @@ export default function Pricing() {
             </article>
           ))}
         </section>
+        </div>
 
         {/* ── Guarantee strip ── */}
         <section className="pr-guarantee" aria-label={t('relaunchPricing.aria.guarantees')}>
-          <div className="pr-guarantee__inner">
+          <div className={`pr-guarantee__inner pr-guarantee__inner--${guarantees.length}`}>
             {guarantees.map((g) => (
               <div key={g.title} className="pr-guarantee__item">
                 <span className="pr-guarantee__title">{g.title}</span>

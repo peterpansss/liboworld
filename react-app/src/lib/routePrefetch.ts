@@ -15,6 +15,11 @@ const loaders: Record<string, () => Promise<unknown>> = {
   '/press': () => import('../pages/Press'),
   '/careers': () => import('../pages/Careers'),
   '/exercises': () => import('../pages/ExerciseLibrary'),
+  '/earn': () => import('../pages/Earn'),
+  '/rewards': () => import('../pages/Rewards'),
+  '/giveaway': () => import('../pages/Giveaway'),
+  '/features': () => import('../pages/Features'),
+  '/faq': () => import('../pages/Faq'),
 };
 
 // Track which paths we've already kicked off so we only import() once per path.

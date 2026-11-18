@@ -112,6 +112,11 @@ const SharedRoutine = lazy(() => import('./pages/SharedRoutine'));
 
 // Site-relaunch pages
 const CashChallenges = lazy(() => import('./pages/CashChallenges'));
+const Earn = lazy(() => import('./pages/Earn'));
+const Rewards = lazy(() => import('./pages/Rewards'));
+const GiveawayPage = lazy(() => import('./pages/Giveaway'));
+const Features = lazy(() => import('./pages/Features'));
+const Faq = lazy(() => import('./pages/Faq'));
 const ChallengeFunnel = lazy(() => import('./pages/ChallengeFunnel'));
 const JoinFunnel = lazy(() => import('./pages/JoinFunnel'));
 
@@ -148,10 +153,14 @@ export default function App() {
           the app it never reaches React at all — the association file claims
           the path and iOS opens the Rewards tab, where the cash challenge
           lives. This route is the fallback for everyone else: the store card is
-          seen mostly by people who have NOT installed yet, and without it they
-          would tap an advert for the cash challenge and land on a 404.
+          seen mostly by people who have NOT installed yet. It used to redirect
+          to /cash-challenges; it is now the rewards shop page, which links the
+          cash challenge right under its hero (18 Nov 2026).
         */}
-        <Route path="/rewards" element={<Navigate to="/cash-challenges" replace />} />
+        <Route path="/rewards" element={<Suspense fallback={darkFallback}><Rewards /></Suspense>} />
+        <Route path="/earn" element={<Suspense fallback={darkFallback}><Earn /></Suspense>} />
+        <Route path="/features" element={<Suspense fallback={darkFallback}><Features /></Suspense>} />
+        <Route path="/faq" element={<Suspense fallback={darkFallback}><Faq /></Suspense>} />
 
         {/* Founding Member funnel — the single paid conversion surface. */}
         <Route path="/join" element={<Suspense fallback={darkFallback}><JoinFunnel /></Suspense>} />
@@ -184,9 +193,9 @@ export default function App() {
         <Route path="/delete-account" element={<Suspense fallback={darkFallback}><DeleteAccount /></Suspense>} />
         <Route path="/auth/callback" element={<Suspense fallback={darkFallback}><AuthCallback /></Suspense>} />
         <Route path="/auth/confirm" element={<Suspense fallback={darkFallback}><AuthConfirm /></Suspense>} />
-        {/* The old points-pack page is gone (giveaways are membership-based; points
-            can't be bought). Old links and ads land on the official rules. */}
-        <Route path="/giveaway" element={<Navigate to="/giveaway-rules" replace />} />
+        {/* The old points-pack page is gone (points can't be bought). /giveaway is
+            now the live membership giveaway round (18 Nov 2026). */}
+        <Route path="/giveaway" element={<Suspense fallback={darkFallback}><GiveawayPage /></Suspense>} />
         <Route path="/cash-challenge" element={!FUNNEL_PAGES_ENABLED ? <Navigate to="/" replace /> : <Suspense fallback={darkFallback}><CashChallenge /></Suspense>} />
         {/* /get-app UA-routes to the App Store, but there is no listing yet — it
             would dump visitors on apps.apple.com's homepage. Send them home until

@@ -1268,7 +1268,9 @@
       "h2a": "Consistency,",
       "h2b": "with receipts.",
       "body": "One loop: open the app, do the session, keep the streak. The cash challenge is opt-in — money is the receipt, not the reason.",
-      "link": "How the cash challenge works →"
+      "link": "How the cash challenge works →",
+      "card3RewardsName": "Rewards system",
+      "card3RewardsDesc": "+{{n}} points every workout. Spend them on gift cards and cash."
     },
     "insideApp": {
       "cap1Title": "Rep verification",
@@ -1370,7 +1372,7 @@
       "h1Pre": "Free tier. Or ",
       "h1Accent": "€10.00/mo",
       "h1Post": " for everything.",
-      "sub": "No card to start. Train free for as long as you like — or go Premium, month-to-month at €19.99."
+      "sub": "No card to start. Train free for as long as you like — or go Premium from €10.00/mo."
     },
     "guarantee": [
       {
@@ -2085,13 +2087,25 @@
       },
       "monthlyPrice": {
         "q": "What does €10.00/mo mean?",
-        "a": "Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99."
+        "a": "Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99, or €44.99 for 3 months (€15.00/mo, Android now, iPhone soon)."
       },
       "subhead": "Same answers as the home page — one source of truth."
     },
     "seo": {
       "title": "Membership | Libo — Training Club",
       "description": "A free tier, or €10.00/mo for everything — or month-to-month at €19.99. No card to start, and the free tier is genuinely free — not a trial."
+    },
+    "billing": {
+      "label": "Billing period",
+      "monthly": "Monthly",
+      "quarterly": "3 months",
+      "yearly": "Yearly",
+      "perMonth": "/month",
+      "perQuarter": "/3 months · {{pm}}/mo",
+      "perYear": "/year · {{pm}}/mo",
+      "noteMonthly": "Month to month. Cancel any time.",
+      "noteQuarterly": "Save {{pct}}% vs monthly. Android now, iPhone soon.",
+      "noteYearly": "Save {{pct}}% vs monthly."
     }
   },
   "founderV2": {
@@ -2267,5 +2281,358 @@
     "save": "Save my choices",
     "privacyLink": "How we handle your data",
     "note": "Nothing is ticked for you. Change your mind any time with “Cookie settings” in the footer."
+  },
+  "earnPages": {
+    "common": {
+      "free": "Free",
+      "premium": "Premium",
+      "points": "points",
+      "ctaTitle": "Train and earn.",
+      "ctaSub": "Free on iPhone and Android."
+    },
+    "nav": {
+      "earn": "Earn",
+      "howItWorks": "How it works",
+      "challenges": "Cash challenges",
+      "giveaway": "Giveaway",
+      "rewards": "Rewards",
+      "features": "Features",
+      "exercises": "Exercises",
+      "membership": "Membership",
+      "faq": "FAQ",
+      "earnMenu": "Earn menu"
+    },
+    "premiumStrip": {
+      "title": "Premium earns 2× points",
+      "text": "And they last 90 days instead of 30."
+    },
+    "next": {
+      "heading": "More ways to earn",
+      "cta": "See more",
+      "earn": {
+        "title": "Libo points",
+        "text": "What every workout earns."
+      },
+      "challenges": {
+        "title": "Cash challenges",
+        "text": "30 days of daily reps, real cash when you finish."
+      },
+      "giveaway": {
+        "title": "Giveaway",
+        "text": "One big prize a month. Every member is entered."
+      },
+      "rewards": {
+        "title": "Rewards shop",
+        "text": "Swap points for gift cards or cash."
+      }
+    },
+    "earn": {
+      "seo": {
+        "title": "Libo points: train, earn, spend | Libo",
+        "description": "Every workout earns Libo points. Spend them on gift cards and cash in the rewards shop. Premium earns 2×."
+      },
+      "eyebrow": "Libo points",
+      "title1": "Train. Earn.",
+      "title2": "Spend.",
+      "sub": "Every workout earns points. Spend them on gift cards and cash.",
+      "ctaRewards": "See the rewards",
+      "steps": {
+        "heading": "How it works",
+        "s1": {
+          "title": "Train",
+          "text": "Finish a workout in the app."
+        },
+        "s2": {
+          "title": "Earn",
+          "text": "Points land in your balance straight away."
+        },
+        "s3": {
+          "title": "Spend",
+          "text": "Swap them for gift cards or cash."
+        }
+      },
+      "table": {
+        "heading": "What you earn",
+        "toggleLabel": "Show points for",
+        "fine": "Base values. Very short or very easy workouts earn less.",
+        "screenAlt": "Libo points history in the app"
+      },
+      "actions": {
+        "workout": "Finish a workout",
+        "challengeDay": "Cash challenge day",
+        "achievement": "Unlock an achievement",
+        "friend": "A friend you invite trains",
+        "streak": "Streak milestones"
+      },
+      "streakDays_one": "{{count}} day",
+      "streakDays_other": "{{count}} days",
+      "expiry": "Points last {{days}} days",
+      "rules": "Rewards rules"
+    },
+    "rewards": {
+      "seo": {
+        "title": "Rewards shop: gift cards and cash for your workouts | Libo",
+        "description": "Swap Libo points for €5, €10 or €20 gift cards or cash. No draw, no luck: a fixed price in points."
+      },
+      "eyebrow": "Rewards shop",
+      "title1": "Your points.",
+      "title2": "Real rewards.",
+      "sub": "Swap Libo points for gift cards or cash. A fixed price, no draw.",
+      "ctaEarn": "How to earn points",
+      "challengeLink": "Here for the 30-day cash challenge?",
+      "gift": {
+        "heading": "Gift cards",
+        "lead": "Pick the brand when you redeem.",
+        "alt": "€{{value}} gift card"
+      },
+      "cash": {
+        "heading": "Cash",
+        "lead": "Paid to PayPal, Revolut, Wise or your bank.",
+        "alt": "€{{value}} cash"
+      },
+      "items": {
+        "heading": "Big rewards",
+        "cash": "Or €{{cash}} cash instead"
+      },
+      "steps": {
+        "heading": "How to redeem",
+        "s1": {
+          "title": "Earn",
+          "text": "Train and collect Libo points."
+        },
+        "s2": {
+          "title": "Pick",
+          "text": "Choose a card in the app's Rewards tab."
+        },
+        "s3": {
+          "title": "Receive",
+          "text": "Your code or cash arrives within {{days}} days."
+        }
+      },
+      "premiumText": "Premium earns 2× points and unlocks the €20 card.",
+      "rules": "Rewards rules"
+    },
+    "giveaway": {
+      "seo": {
+        "title": "Win a {{prize}}: the Libo giveaway | Libo",
+        "description": "Every Libo member is entered automatically. Train once during the round to activate your entries. Win a {{prize}}."
+      },
+      "eyebrow": "Giveaway · Round {{n}}",
+      "eyebrowNone": "Giveaway",
+      "title1": "Win a",
+      "titleNone": "Next giveaway soon.",
+      "sub": "Every member is entered automatically. Train once during the round to activate your entries.",
+      "status": {
+        "open": "Open now · closes {{closes}}, 23:59 Berlin",
+        "upcoming": "Opens {{opens}} · closes {{closes}}",
+        "closed": "Closed on {{closes}}"
+      },
+      "cash": "Prefer cash? Take €{{cash}} instead of the {{prize}}.",
+      "steps": {
+        "heading": "How to enter",
+        "s1": {
+          "title": "Train once",
+          "text": "One workout during the round activates your entries."
+        },
+        "s2": {
+          "title": "You're in",
+          "text": "No form, no purchase. Entries are added for you."
+        },
+        "s3": {
+          "title": "Draw",
+          "text": "The winner is drawn when the round closes."
+        }
+      },
+      "entries": {
+        "heading": "Your entries",
+        "lead": "Every month in a row you train adds the same again.",
+        "caption": "Entries per round by plan and months trained in a row",
+        "months": "Months in a row",
+        "firstRound": "First round",
+        "monthsInRow_one": "{{count}} month",
+        "monthsInRow_other": "{{count}} months",
+        "fine": "16+. Free entry by post is also open: see the rules."
+      },
+      "screenAlt": "The giveaway in the app",
+      "premiumText": "Premium gets 3 entries every round instead of 1.",
+      "rules": "Official giveaway rules",
+      "trademark": "PlayStation is a trademark of Sony Interactive Entertainment. Libo is not affiliated with the brands shown."
+    },
+    "features": {
+      "seo": {
+        "title": "Features: workouts, plans, coach and 820+ exercises | Libo",
+        "description": "Today's workout picked for you, 820+ exercises with video, plans you can edit, a coach that knows your training, and streaks that forgive a miss."
+      },
+      "eyebrow": "The app",
+      "title1": "Everything you need",
+      "title2": "to train.",
+      "sub": "Workouts picked for you, 820+ exercises with video and a coach that knows your training.",
+      "items": {
+        "today": {
+          "title": "Today's workout, picked",
+          "text": "Open the app and today's session is ready to go.",
+          "alt": "Home screen with today's workout"
+        },
+        "library": {
+          "title": "820+ exercises",
+          "text": "Almost every move on video, by muscle, style and place. Gym, home or outside.",
+          "alt": "Explore screen with muscle groups",
+          "link": "Browse the library"
+        },
+        "player": {
+          "title": "Follow along, log every set",
+          "text": "Video, sets, reps and weight in one place, with your last and best right there.",
+          "alt": "Workout player logging sets"
+        },
+        "coach": {
+          "title": "Ask your coach",
+          "text": "Questions about your training, answered from your own data. Type or talk.",
+          "alt": "Coach chat answering a question"
+        },
+        "generator": {
+          "title": "Built for you",
+          "text": "Pick your goal, time and kit. Get a workout or a full plan in seconds.",
+          "alt": "Workout generator",
+          "link": "See the workouts"
+        },
+        "editor": {
+          "title": "Make it yours",
+          "text": "Reorder, swap, add or remove. Change sets, reps and rest. Warm-up and cool-down included.",
+          "alt": "Plan editor"
+        },
+        "earn": {
+          "title": "Train and earn",
+          "text": "Workouts earn points, points buy rewards, and the cash challenge pays.",
+          "alt": "Rewards tab",
+          "link": "How points work"
+        },
+        "plan": {
+          "title": "Follow a plan",
+          "text": "Multi-week plans for muscle, fat loss or mobility. Every session laid out, week by week.",
+          "alt": "An active plan in the app",
+          "link": "See the plans"
+        }
+      },
+      "extras": {
+        "heading": "Also in the app",
+        "offline": {
+          "title": "Offline",
+          "text": "Save a plan and train with no signal."
+        },
+        "languages": {
+          "title": "5 languages",
+          "text": "Voice cues in English, German, Spanish, French and Portuguese."
+        },
+        "phases": {
+          "title": "Warm-up and cool-down",
+          "text": "Built into every plan."
+        },
+        "notes": {
+          "title": "Setup notes",
+          "text": "How to set up every exercise."
+        },
+        "equipment": {
+          "title": "Any kit",
+          "text": "Bodyweight, dumbbells or a full gym."
+        },
+        "streak": {
+          "title": "Streak freezes",
+          "text": "A missed day is covered. Your streak never resets to zero."
+        }
+      },
+      "premiumText": "Premium unlocks the full library and earns 2× points.",
+      "ctaSub": "Free to download. No card needed."
+    },
+    "faq": {
+      "seo": {
+        "title": "FAQ: points, cash challenges, giveaway and membership | Libo",
+        "description": "Answers about Libo points, cash challenges, the monthly giveaway, membership and the app."
+      },
+      "eyebrow": "FAQ",
+      "title": "Questions, answered.",
+      "tabsLabel": "Question topics",
+      "tabs": {
+        "points": "Points",
+        "challenges": "Challenges",
+        "giveaway": "Giveaway",
+        "membership": "Membership",
+        "app": "The app"
+      },
+      "rulesLinks": {
+        "rewardsRules": "Rewards rules",
+        "challengeRules": "Cash challenge rules",
+        "giveawayRules": "Official giveaway rules"
+      },
+      "contact": "Still stuck? Write to us at",
+      "qPointsWhat": "What are Libo points?",
+      "aPointsWhat": "Points you earn by training in the app. You spend them in the rewards shop on gift cards or cash.",
+      "qPointsEarn": "How do I earn points?",
+      "aPointsEarn": "Finish a workout, hit a streak milestone, complete a cash challenge day, unlock an achievement or invite a friend who trains. Premium earns 2×.",
+      "qPointsExpire": "Do points expire?",
+      "aPointsExpire": "Yes. Points last 30 days on Free and 90 days on Premium.",
+      "qPointsSpend": "What can I spend them on?",
+      "aPointsSpend": "Gift cards and cash from €5 (4,000 points). The €20 card and the big rewards are for Premium members.",
+      "qPointsBuy": "Can I buy points?",
+      "aPointsBuy": "No. Points only come from training.",
+      "qChallengeMiss": "What if I miss a day?",
+      "aChallengeMiss": "A freeze covers one missed day. Premium gets one per challenge, and anyone who trained 60 of the last 90 days earns one more. Miss a day without a freeze and the run ends.",
+      "qChallengePaid": "How do I get paid?",
+      "aChallengePaid": "When you finish, you claim your cash in the app and choose PayPal, Revolut, Wise or a bank transfer.",
+      "qGiveawayEnter": "How do I enter the giveaway?",
+      "aGiveawayEnter": "You don't have to do anything. Every member is entered automatically. One workout during the round activates your entries.",
+      "qGiveawayPay": "Do I have to pay to enter?",
+      "aGiveawayPay": "No. Free members get 1 entry and Premium members get 3, plus the same again for every month in a row you've trained. You can also enter for free by post.",
+      "qGiveawayWho": "Who can enter?",
+      "aGiveawayWho": "Members aged 16 or over. Winners aged 16 or 17 are paid via a parent or guardian. Some countries are excluded: see the rules.",
+      "qGiveawayCash": "Can I take cash instead of the prize?",
+      "aGiveawayCash": "Yes. Every prize has a cash alternative of 80% of its price.",
+      "qCancel": "Can I cancel Premium?",
+      "aCancel": "Yes, any time, in your App Store or Google Play subscription settings. Premium runs until the end of the period you paid for.",
+      "qChallengeHow": "How do cash challenges work?",
+      "aChallengeHow": "Join a 30-day challenge, film your reps each day so the app can verify them, and get paid in cash when you finish. €5 is free to join; the €15 and €50 challenges are for Premium members."
+    },
+    "footer": {
+      "trainTitle": "Train"
+    },
+    "big": {
+      "earn": "points for every workout",
+      "rewards": "points = a €{{value}} gift card",
+      "giveaway": "entries a round, Premium at 12 months",
+      "features": "exercises in the library"
+    }
+  },
+  "homeEarn": {
+    "eyebrow": "Train and earn",
+    "h2a": "Your training",
+    "h2b": "pays you back.",
+    "sub": "Libo is more than a training app. Every workout earns points for gift cards and cash, gets you into the monthly giveaway, and the cash challenges pay real money.",
+    "points": {
+      "title": "Points",
+      "text": "+{{n}} points for every workout you finish. Premium earns 2×.",
+      "link": "How points work"
+    },
+    "rewards": {
+      "title": "Rewards shop",
+      "text": "Swap points for gift cards and cash, from {{pts}} points.",
+      "link": "See the shop"
+    },
+    "giveaway": {
+      "title": "Giveaway",
+      "text": "This round: {{prize}}. Train once and you’re in.",
+      "textNone": "One big giveaway every month. Train once and you’re in.",
+      "link": "See the giveaway"
+    },
+    "challenges": {
+      "title": "Cash challenges",
+      "text": "Finish 30 days straight and get paid up to €{{max}}.",
+      "link": "Pick a challenge"
+    },
+    "stats": {
+      "exercises": "{{n}} exercises",
+      "l1": "Exercises in the library",
+      "l2": "Guided workouts",
+      "l3": "Top payout, 30 days straight",
+      "l4": "Points per workout"
+    }
   }
 }
