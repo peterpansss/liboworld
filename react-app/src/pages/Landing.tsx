@@ -687,12 +687,16 @@ export default function Landing() {
                 </div>
               </div>
 
+              {/* No data-popin on these cards (18 Nov 2026): usePopIn writes a
+                  staggered transition-delay (up to 550ms) onto each card, which
+                  also delayed the active border, so two cards lit up at once
+                  and the highlight lagged the phone. Home has no pop-in styles
+                  for them anyway. */}
               <div className="rh-features">
                 {libraryCards.map((c, i) => (
                   <button
                     type="button"
                     className={`rh-feature${i === activeFeature ? ' rh-feature--active' : ''}`}
-                    data-popin
                     key={c.num}
                     onClick={() => setActiveFeature(i)}
                     aria-pressed={i === activeFeature}
