@@ -1268,7 +1268,9 @@
       "h2a": "Constancia,",
       "h2b": "con pruebas.",
       "body": "Un solo bucle: abre la app, haz la sesión, mantén la racha. El cash challenge es opcional — el dinero es el recibo, no la razón.",
-      "link": "Cómo funciona el cash challenge →"
+      "link": "Cómo funciona el cash challenge →",
+      "card3RewardsName": "Sistema de premios",
+      "card3RewardsDesc": "+{{n}} puntos por entreno. Cámbialos por tarjetas regalo y dinero."
     },
     "insideApp": {
       "cap1Title": "Verificación de reps",

@@ -11,6 +11,7 @@ import HomeEarn from '../components/earn/HomeEarn';
 import { Ribbons } from '../components/motion/Motion';
 import { usePopIn } from '../utils/funnelAnimations';
 import { CHALLENGE_TIERS } from '../data/challengeTiers';
+import { POINTS_ACTIONS } from '../data/pointsTable';
 import { buildTestimonialVideoGraph } from '../data/testimonialVideos';
 import './Landing.css';
 
@@ -71,9 +72,11 @@ export default function Landing() {
     },
     {
       num: '03',
-      name: t('relaunchHome.different.card3Name', { defaultValue: 'Cash challenge' }),
-      desc: t('relaunchHome.different.card3Desc', {
-        defaultValue: '30 verified days. Real money. No draw, no luck.',
+      // Was "Cash challenge", which repeated the challenge band below (Noah, 18 Nov 2026).
+      name: t('relaunchHome.different.card3RewardsName', { defaultValue: 'Rewards system' }),
+      desc: t('relaunchHome.different.card3RewardsDesc', {
+        n: POINTS_ACTIONS[0].base,
+        defaultValue: '+{{n}} points every workout. Spend them on gift cards and cash.',
       }),
     },
   ];

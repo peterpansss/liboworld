@@ -1247,7 +1247,9 @@
       "h2a": "La régularité,",
       "h2b": "preuves à l'appui.",
       "body": "Une boucle : ouvre l'app, fais la séance, garde la série. Le cash challenge est optionnel — l'argent est la preuve, pas la raison.",
-      "link": "Comment marche le cash challenge →"
+      "link": "Comment marche le cash challenge →",
+      "card3RewardsName": "Système de récompenses",
+      "card3RewardsDesc": "+{{n}} points par séance. Échange-les contre des cartes cadeaux et du cash."
     },
     "insideApp": {
       "cap1Title": "Vérification des reps",

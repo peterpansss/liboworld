@@ -1268,7 +1268,9 @@
       "h2a": "Consistência,",
       "h2b": "com provas.",
       "body": "Um ciclo só: abra o app, faça a sessão, mantenha a sequência. O desafio cash é opcional — o dinheiro é o recibo, não o motivo.",
-      "link": "Como funciona o desafio cash →"
+      "link": "Como funciona o desafio cash →",
+      "card3RewardsName": "Sistema de prémios",
+      "card3RewardsDesc": "+{{n}} pontos por treino. Troque por cartões-presente e dinheiro."
     },
     "insideApp": {
       "cap1Title": "Verificação de reps",

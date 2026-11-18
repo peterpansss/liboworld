@@ -1268,7 +1268,9 @@
       "h2a": "Consistency,",
       "h2b": "with receipts.",
       "body": "One loop: open the app, do the session, keep the streak. The cash challenge is opt-in — money is the receipt, not the reason.",
-      "link": "How the cash challenge works →"
+      "link": "How the cash challenge works →",
+      "card3RewardsName": "Rewards system",
+      "card3RewardsDesc": "+{{n}} points every workout. Spend them on gift cards and cash."
     },
     "insideApp": {
       "cap1Title": "Rep verification",

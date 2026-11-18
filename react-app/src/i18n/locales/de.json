@@ -1268,7 +1268,9 @@
       "h2a": "Konstanz,",
       "h2b": "schwarz auf weiß.",
       "body": "Ein Loop: App öffnen, Session machen, Streak halten. Die Cash Challenge ist optional — Geld ist der Beleg, nicht der Grund.",
-      "link": "So funktioniert die Cash Challenge →"
+      "link": "So funktioniert die Cash Challenge →",
+      "card3RewardsName": "Prämiensystem",
+      "card3RewardsDesc": "+{{n}} Punkte pro Workout. Lös sie gegen Gutscheine und Cash ein."
     },
     "insideApp": {
       "cap1Title": "Rep-Verifizierung",
