@@ -1675,4 +1675,8 @@ video.rh-phone {
 }
 
 /* Hero second path: "Find your plan" (18 Nov 2026), the nav's lime button. */
-.rh-hero-plan { align-self: flex-start; margin-top: 8px; gap: 8px; }
+/* Hero second path: "Find your plan" (18 Nov 2026). Compact like the nav
+   button and Ladder's, black on lime. `.relaunch-home a` set link text white
+   and outranked .btn-primary, so Home's lime buttons restate their colour. */
+.relaunch-home a.btn-primary { color: var(--accent-text); }
+.rh-hero-plan { align-self: flex-start; margin-top: 4px; min-height: 44px; padding: 0 22px; font-size: 17px; gap: 6px; }
