@@ -2704,10 +2704,9 @@
       "phases": "Aquecimento e desaquecimento em todo treino. Você pode desligar qualquer um quando quiser.",
       "appTitle": "O plano completo está no app",
       "appText": "O app Libo faz as mesmas perguntas e organiza cada treino, semana a semana. Download grátis.",
-      "tryTitle": "Comece hoje",
-      "trySub": "Treinos grátis da biblioteca que combinam com suas respostas.",
-      "tryAll": "Ver todos os treinos",
-      "restart": "Recomeçar"
+      "restart": "Recomeçar",
+      "qrCaption": "Escaneie com a câmera do celular para baixar o app.",
+      "qrAlt": "QR code para baixar o app Libo"
     },
     "questions": {
       "goal": {

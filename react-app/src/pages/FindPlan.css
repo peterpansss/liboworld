@@ -5,8 +5,7 @@
 
 .fp-intro,
 .fp-quiz,
-.fp-result,
-.fp-try { max-width: 1080px; margin: 0 auto; }
+.fp-result { max-width: 1080px; margin: 0 auto; }
 
 /* ── Intro ── */
 .fp-intro {
@@ -123,7 +122,6 @@
 
 /* ── Result ── */
 .fp-result {
-  max-width: 1080px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -167,29 +165,23 @@
 .fp-app__copy p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--muted); }
 .fp-app__badges { --badge-h: 44px; }
 .fp-app__phone { justify-self: center; width: 220px; margin-bottom: -120px; }
+
+/* QR: desktop only, a phone can't scan its own screen. */
+.fp-qr { display: none; margin: 0; }
+.fp-qr img { display: block; width: 168px; height: 168px; padding: 10px; background: #fff; border-radius: 16px; }
+.fp-qr figcaption { margin-top: 10px; max-width: 168px; color: var(--muted); font-size: 13px; line-height: 1.35; text-align: center; }
+
 @media (min-width: 768px) {
   .fp-app { grid-template-columns: 1.3fr 1fr; padding: 40px 40px 0; }
   .fp-app__copy { padding-bottom: 40px; }
   .fp-app__phone { width: 240px; margin-bottom: -150px; }
 }
-
-.fp-try { display: flex; flex-direction: column; gap: 12px; padding: 72px 0 24px; }
-.fp-try__grid { margin-top: 12px; }
-.fp-link {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 44px;
-  color: var(--accent);
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  text-decoration: none;
+@media (min-width: 1024px) {
+  .fp-app { grid-template-columns: 1.4fr auto 1fr; gap: 40px; }
+  .fp-qr { display: block; align-self: center; padding-bottom: 40px; }
 }
-.fp-restart { max-width: 1080px; margin: 0 auto; padding: 8px 0 96px; }
+
+.fp-restart { max-width: 1080px; margin: 0 auto; padding: 32px 0 96px; }
 
 @media (prefers-reduced-motion: reduce) {
   .fp-bar span, .fp-option { transition: none; }

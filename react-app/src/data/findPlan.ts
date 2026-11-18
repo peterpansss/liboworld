@@ -14,8 +14,6 @@
  *
  * Nothing is stored or sent anywhere: the answers live in the page state.
  */
-import type { Workout } from './exercises';
-
 export type PlanGoal = 'lose_weight' | 'build_muscle' | 'improve_mobility' | 'stay_active' | 'reduce_stress';
 export type Experience = 'beginner' | 'intermediate' | 'advanced';
 export type RecentTraining = 'regular' | 'onAndOff' | 'comingBack' | 'startingFresh';
@@ -79,52 +77,4 @@ export function buildPlan(a: PlanAnswers): PlanResult {
     minutes: a.minutes,
     daysRamped: days < Math.min(6, Math.max(2, a.days)),
   };
-}
-
-// ── Workouts from the web library that fit the answers ──
-
-const MOBILITY_CATS = new Set(['Stretching', 'Morning Routine', 'Evening Routine']);
-
-function isMobility(w: Workout): boolean {
-  const sub = (w.subcat || '').toLowerCase();
-  return MOBILITY_CATS.has(w.cat) || sub.includes('mobility') || sub.includes('recovery') || sub.includes('rehab');
-}
-
-function isConditioning(w: Workout): boolean {
-  const sub = (w.subcat || '').toLowerCase();
-  return w.cat === 'Cardio' || sub.includes('hiit') || sub.includes('cardio') || sub === 'steady-state';
-}
-
-function fitsPlace(w: Workout, loc: Location): boolean {
-  if (loc === 'anywhere') return true;
-  if (loc === 'gym') return w.cat === 'Gym' || w.cat === 'Cardio';
-  // home + outdoors: no machines
-  return w.cat === 'Home' || w.cat === 'Morning Routine' || w.cat === 'Evening Routine' || w.cat === 'Stretching';
-}
-
-/** Up to `n` workouts, best match first. Challenges (30-day programs) are app-only. */
-export function matchWorkouts(workouts: readonly Workout[], a: PlanAnswers, n = 3): Workout[] {
-  const level = rampedLevel(a.experience, a.recentTraining);
-  const wantsMobility = a.goal === 'improve_mobility' || a.goal === 'reduce_stress';
-  const score = (w: Workout): number => {
-    let s = 0;
-    const mob = isMobility(w);
-    if (wantsMobility) s += mob ? 6 : -6;
-    else if (mob) s -= 4;
-    if (a.goal === 'lose_weight' && isConditioning(w)) s += 3;
-    if (a.goal === 'build_muscle' && !isConditioning(w) && !mob) s += 2;
-    if (fitsPlace(w, a.location)) s += 4;
-    else if (!wantsMobility) s -= 8;
-    const d = (w.diff || 'beginner').toLowerCase();
-    const wl = d.startsWith('adv') ? 2 : d.startsWith('int') ? 1 : 0;
-    s -= Math.abs(wl - LEVELS.indexOf(level)) * 2;
-    s -= Math.abs((w.dur || 30) - Math.min(a.minutes, 60)) / 10;
-    return s;
-  };
-  return workouts
-    .filter((w) => w.cat !== 'Challenge')
-    .map((w) => ({ w, s: score(w) }))
-    .sort((x, y) => y.s - x.s || x.w.id.localeCompare(y.w.id))
-    .slice(0, n)
-    .map((x) => x.w);
 }

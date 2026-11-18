@@ -2704,10 +2704,9 @@
       "phases": "Échauffement et retour au calme à chaque séance. Tu peux désactiver l’un ou l’autre quand tu veux.",
       "appTitle": "Le programme complet est dans l’app",
       "appText": "L’app Libo pose les mêmes questions et prévoit chaque séance, semaine après semaine. Téléchargement gratuit.",
-      "tryTitle": "Commence aujourd’hui",
-      "trySub": "Des séances gratuites de la bibliothèque qui correspondent à tes réponses.",
-      "tryAll": "Voir toutes les séances",
-      "restart": "Recommencer"
+      "restart": "Recommencer",
+      "qrCaption": "Scanne avec l’appareil photo de ton téléphone pour télécharger l’app.",
+      "qrAlt": "QR code pour télécharger l’app Libo"
     },
     "questions": {
       "goal": {

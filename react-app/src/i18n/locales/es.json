@@ -2704,10 +2704,9 @@
       "phases": "Calentamiento y vuelta a la calma en cada sesión. Puedes quitar cualquiera cuando quieras.",
       "appTitle": "El plan completo, en la app",
       "appText": "La app Libo hace las mismas preguntas y organiza cada sesión, semana a semana. Descarga gratis.",
-      "tryTitle": "Empieza hoy",
-      "trySub": "Entrenamientos gratis de la biblioteca que encajan con tus respuestas.",
-      "tryAll": "Ver todos los entrenamientos",
-      "restart": "Empezar de nuevo"
+      "restart": "Empezar de nuevo",
+      "qrCaption": "Escanea con la cámara del móvil para descargar la app.",
+      "qrAlt": "Código QR para descargar la app Libo"
     },
     "questions": {
       "goal": {

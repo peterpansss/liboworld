@@ -2704,10 +2704,9 @@
       "phases": "Warm-up and cool-down in every session. Switch either off when you want.",
       "appTitle": "Get the full plan in the app",
       "appText": "The Libo app asks the same questions and lays out every session of your plan, week by week. Free to download.",
-      "tryTitle": "Start one today",
-      "trySub": "Free workouts from the library that fit your answers.",
-      "tryAll": "See all workouts",
-      "restart": "Start over"
+      "restart": "Start over",
+      "qrCaption": "Scan with your phone camera to get the app.",
+      "qrAlt": "QR code to download the Libo app"
     },
     "questions": {
       "goal": {

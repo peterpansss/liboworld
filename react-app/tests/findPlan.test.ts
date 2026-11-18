@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildPlan, deriveSplit, matchWorkouts, rampedDays, rampedLevel, type PlanAnswers } from '../src/data/findPlan';
-import type { Workout } from '../src/data/exercises';
+import { buildPlan, deriveSplit, rampedDays, rampedLevel, type PlanAnswers } from '../src/data/findPlan';
 
 // Pins the web quiz to libo-app-v2/src/utils/onboardingPlan.ts.
 describe('findPlan mirrors the app plan builder', () => {
@@ -25,13 +24,4 @@ describe('findPlan mirrors the app plan builder', () => {
     expect(buildPlan(a)).toEqual({ goal: 'build_muscle', days: 4, level: 'beginner', split: 'full_body', weeks: 4, minutes: 60, daysRamped: true });
   });
 
-  it('matches mobility goals to stretching and keeps challenges out', () => {
-    const w = (id: string, cat: string, subcat = ''): Workout =>
-      ({ id, name: id, emoji: '', diff: 'beginner', dur: 20, cat, subcat, exercises: [] }) as Workout;
-    const pool = [w('a', 'Gym', 'Chest'), w('b', 'Stretching', 'Mobility'), w('c', 'Challenge', '30-Day Program'), w('d', 'Evening Routine', 'Before Sleep')];
-    const a: PlanAnswers = { goal: 'improve_mobility', location: 'gym', experience: 'beginner', recentTraining: 'regular', days: 3, minutes: 20 };
-    const ids = matchWorkouts(pool, a).map((x) => x.id);
-    expect(ids.slice(0, 2).sort()).toEqual(['b', 'd']);
-    expect(ids).not.toContain('c');
-  });
 });

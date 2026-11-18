@@ -27,7 +27,8 @@ const EARN_LINKS = [
 
 const NAV_LINKS = [
   { labelKey: 'earnPages.nav.features', defaultLabel: 'Features', to: '/features' },
-  { labelKey: 'earnPages.nav.exercises', defaultLabel: 'Exercises', to: '/exercises' },
+  // Exercises: footer only since 18 Nov 2026 (Noah). The bar is for the
+  // offer (earn, features, membership), the library is an SEO page.
   { labelKey: 'earnPages.nav.membership', defaultLabel: 'Membership', to: '/membership' },
   { labelKey: 'nav.foundingMember', defaultLabel: 'Founding Member', to: '/join' },
 ] as const;

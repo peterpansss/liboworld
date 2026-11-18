@@ -1,28 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SeoHead } from '../components/SeoHead';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import StoreBadges from '../components/StoreBadges';
 import { PhoneShot } from '../components/earn/EarnKit';
-import { ThumbPicture } from '../components/ThumbPicture';
-import { DifficultyBars } from '../components/DifficultyBars';
-import { getWorkouts, getExercises, type Exercise, type Workout } from '../data/exercises';
-import { buildPlayableExerciseNames, filterPlayableWorkouts } from '../lib/playableWorkouts';
-import { buildNameToSlug, workoutHeroThumbSet } from '../utils/thumbnails';
-import { localizedWorkoutName } from '../utils/workoutLocale';
-import { buildPlan, matchWorkouts, type PlanAnswers } from '../data/findPlan';
+import { buildPlan, type PlanAnswers } from '../data/findPlan';
 import '../components/earn/Earn.css';
-import '../components/CoverCard.css';
-import './ProgramLibrary.css';
 import './FindPlan.css';
 
 /**
  * /find-your-plan (Noah, 18 Nov 2026): a short web version of the app's plan
  * questions, after Ladder's "Find your plan". Six questions, then the plan the
- * app builds from the same answers (logic in data/findPlan.ts) and three free
- * workouts from the library that fit. No email, nothing stored.
+ * app builds from the same answers (logic in data/findPlan.ts), ending on the
+ * download: a QR code on desktop, store badges on phones. Training stays in
+ * the app (Noah: no workout picks here). No email, nothing stored.
  */
 
 type QKey = keyof PlanAnswers;
@@ -37,31 +29,14 @@ const QUESTIONS: { key: QKey; options: string[] }[] = [
 const NUMERIC: QKey[] = ['days', 'minutes'];
 
 export default function FindPlan() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   // -1 = intro, 0..5 = questions, 6 = result
   const [step, setStep] = useState(-1);
   const [answers, setAnswers] = useState<Partial<PlanAnswers>>({});
   const headingRef = useRef<HTMLHeadingElement>(null);
   const advanceTimer = useRef<number | undefined>(undefined);
 
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
-  const [exercises, setExercises] = useState<Exercise[]>([]);
-
   const done = step >= QUESTIONS.length;
-
-  // Workout data only once the result is near: it is the heavy part.
-  useEffect(() => {
-    if (step < QUESTIONS.length - 1 || workouts.length) return;
-    let cancelled = false;
-    Promise.all([getWorkouts(), getExercises(i18n.language)])
-      .then(([w, e]) => {
-        if (cancelled) return;
-        setWorkouts(filterPlayableWorkouts(w, buildPlayableExerciseNames(e)));
-        setExercises(e);
-      })
-      .catch(() => { /* the result still renders without the workout picks */ });
-    return () => { cancelled = true; };
-  }, [step, workouts.length, i18n.language]);
 
   useEffect(() => () => window.clearTimeout(advanceTimer.current), []);
 
@@ -73,11 +48,6 @@ export default function FindPlan() {
   }, [step]);
 
   const plan = useMemo(() => (done ? buildPlan(answers as PlanAnswers) : null), [done, answers]);
-  const picks = useMemo(
-    () => (done && workouts.length ? matchWorkouts(workouts, answers as PlanAnswers) : []),
-    [done, workouts, answers],
-  );
-  const nameToSlug = useMemo(() => buildNameToSlug(exercises), [exercises]);
 
   const choose = (key: QKey, value: string) => {
     const v = NUMERIC.includes(key) ? Number(value) : value;
@@ -89,14 +59,6 @@ export default function FindPlan() {
 
   const restart = () => { setAnswers({}); setStep(0); };
 
-  const diffLabel = (diff: string) => {
-    const d = (diff || 'beginner').toLowerCase();
-    return t(`programLibrary.difficulty.${d.startsWith('adv') ? 'advanced' : d.startsWith('int') ? 'intermediate' : 'beginner'}`);
-  };
-  const diffLevel = (diff: string) => {
-    const d = (diff || 'beginner').toLowerCase();
-    return d.startsWith('adv') ? 'advanced' : d.startsWith('int') ? 'intermediate' : 'beginner';
-  };
 
   return (
     <>
@@ -187,39 +149,15 @@ export default function FindPlan() {
                   <p>{t('findPlan.result.appText')}</p>
                   <StoreBadges className="fp-app__badges" />
                 </div>
+                {/* Desktop: scan to install. /get-app sends iPhone to the App
+                    Store and Android to Google Play; ct tags the source. */}
+                <figure className="fp-qr">
+                  <img src="/qr/get-app-find-plan.svg?v=1" alt={t('findPlan.result.qrAlt')} width={168} height={168} />
+                  <figcaption>{t('findPlan.result.qrCaption')}</figcaption>
+                </figure>
                 <PhoneShot src="plan-editor" alt="" className="fp-app__phone" />
               </div>
             </section>
-
-            {picks.length > 0 && (
-              <section className="fp-try">
-                <h2 className="fp-h2">{t('findPlan.result.tryTitle')}</h2>
-                <p className="fp-sub">{t('findPlan.result.trySub')}</p>
-                <div className="wk-group-grid fp-try__grid">
-                  {picks.map((w) => (
-                    <Link key={w.id} to={`/workouts/${w.id}`} className="el-card wk-cover">
-                      <div className="wk-cover-media">
-                        <ThumbPicture
-                          thumb={workoutHeroThumbSet(w, nameToSlug, exercises)}
-                          loading="lazy"
-                          onError={(e) => (e.currentTarget.style.display = 'none')}
-                          className="wk-cover-img"
-                        />
-                        <div className="wk-cover-shade" aria-hidden="true" />
-                        <div className="wk-cover-text">
-                          <span className="wk-cover-name font-display">{localizedWorkoutName(w, i18n.language)}</span>
-                          <span className="wk-cover-meta">
-                            <DifficultyBars level={diffLevel(w.diff)} label={diffLabel(w.diff)} />
-                            <span>{t('programLibrary.card.minutes', { count: w.dur })}</span>
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-                <Link to="/workouts" className="fp-link">{t('findPlan.result.tryAll')} <span aria-hidden="true">→</span></Link>
-              </section>
-            )}
 
             <div className="fp-restart">
               <button type="button" className="fp-back" onClick={restart}>{t('findPlan.result.restart')}</button>

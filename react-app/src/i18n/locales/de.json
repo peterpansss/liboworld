@@ -2704,10 +2704,9 @@
       "phases": "Aufwärmen und Cool-down in jeder Einheit. Beides kannst du jederzeit ausschalten.",
       "appTitle": "Den ganzen Plan gibt es in der App",
       "appText": "Die Libo App stellt dieselben Fragen und plant jede Einheit, Woche für Woche. Kostenlos.",
-      "tryTitle": "Starte heute",
-      "trySub": "Kostenlose Workouts aus der Bibliothek, die zu deinen Antworten passen.",
-      "tryAll": "Alle Workouts ansehen",
-      "restart": "Neu starten"
+      "restart": "Neu starten",
+      "qrCaption": "Mit der Handykamera scannen und die App laden.",
+      "qrAlt": "QR-Code zum Herunterladen der Libo App"
     },
     "questions": {
       "goal": {
