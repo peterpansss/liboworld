@@ -30,7 +30,7 @@ vi.mock('../../src/lib/adminApi', () => ({
   updateGiveawayTemplate: (...a: unknown[]) => updateMock(...a),
   // Page imports the *WithReauth wrapper under the original name.
   deleteGiveawayTemplateWithReauth: (...a: unknown[]) => deleteMock(...a),
-  uploadGiveawayImage: (...a: unknown[]) => uploadMock(...a),
+  uploadGiveawayImageWithReauth: (...a: unknown[]) => uploadMock(...a),
 }));
 
 import { GiveawayTemplatesPage } from '../../src/pages/admin/GiveawayTemplatesPage';

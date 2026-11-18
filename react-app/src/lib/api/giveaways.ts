@@ -18,9 +18,9 @@ export {
   deleteGiveaway_unsafe,
   drawGiveawayWinners_unsafe,
   listGiveawayWinners,
-  uploadGiveawayImage,
+  uploadGiveawayImageWithReauth as uploadGiveawayImage,
   type PostalEntry,
   listPostalEntries,
-  recordPostalEntry,
-  deletePostalEntry,
+  recordPostalEntryWithReauth as recordPostalEntry,
+  deletePostalEntryWithReauth as deletePostalEntry,
 } from '../adminApi';

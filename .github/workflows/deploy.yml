@@ -26,15 +26,19 @@ jobs:
           cache: npm
           cache-dependency-path: react-app/package-lock.json
 
-      # `npm install` instead of `npm ci`. The "strict" approach has bitten
-      # us in both directions: a macOS-generated lockfile fails on Linux
-      # (`EBADPLATFORM` on aix-ppc64), and a Linux-regenerated lockfile fails
-      # too (only locks linux-x64, npm ci then complains about missing
-      # linux-ppc64/riscv64/etc). `npm install` reconciles silently. The
-      # tradeoff is tiny version drift between builds — `tsc -b` catches
-      # anything that matters. Keep this until the npm cross-platform
-      # optional-dep story stabilizes.
-      - run: npm install --no-audit --no-fund
+      # Use the reviewed lockfile exactly; a dependency mismatch stops the
+      # deployment instead of silently changing the production bundle.
+      - run: npm ci --no-audit --no-fund
+        working-directory: react-app
+
+      # Run the same checks used on pull requests against the exact dependency
+      # install that will build this deploy. A failing check stops publication.
+      - name: Lint React app
+        run: npm run lint
+        working-directory: react-app
+
+      - name: Test React app
+        run: npm run test:run
         working-directory: react-app
 
       # tsc catches pure type errors that vite's bundle-time check misses
@@ -91,10 +95,12 @@ jobs:
       # The action is pinned to the full commit SHA of v4.3.5 (mutable tags are a
       # supply-chain vector for a job that holds production deploy credentials).
       #
-      # ⚠️ After this merges, the FIRST deploy must be watched: if Netcup rejects
-      # explicit FTPS the deploy fails (and the Discord alert fires). Rotate the
-      # FTP_PASSWORD secret once FTPS is confirmed working — the old one was sent
-      # in cleartext and should be considered exposed.
+      # Certificate verification is mandatory. If FTP_HOST is an IP address or
+      # alias absent from Netcup's certificate, the deploy fails closed. Set
+      # FTP_HOST to a hostname covered by the server certificate, or migrate
+      # the main hosting account to SFTP before merging this change.
+      # Rotate FTP_PASSWORD after verifying the secure transport; the old
+      # credential was previously sent via plaintext FTP.
       - name: Deploy via FTPS to Netcup
         uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
         with:
@@ -102,13 +108,7 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
-          # Netcup's shared-hosting FTPS cert does not list the connect hostname/IP,
-          # so `security: strict` fails with ERR_TLS_CERT_ALTNAME_INVALID. `loose`
-          # keeps the transport ENCRYPTED (the credential is no longer sent in
-          # cleartext — the actual LIBO-06 win) but skips cert-name validation.
-          # Full strict validation / SFTP needs Netcup's cert or an SSH key sorted
-          # out — tracked as a follow-up, not a launch-week blocker.
-          security: loose
+          security: strict
           local-dir: react-app/dist/
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
 

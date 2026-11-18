@@ -11,10 +11,9 @@
  * "only when filtered by id", so the lookup moved to a SECURITY DEFINER function
  * that REQUIRES the id as an argument and can only ever return one row.
  *
- * The RPC deliberately does NOT return `owner_user_id`. Nothing renders it (only
- * `creatorUsername` reaches the screen), and that UUID is the join key that
- * de-anonymises other surfaces. `ownerUserId` is kept in the mapped shape as null
- * so the SharedWorkout contract is unchanged.
+ * The RPC deliberately does not return `owner_user_id`; the page only needs
+ * `creatorUsername`. New share IDs are unguessable, and older links continue
+ * through the same ID-only lookup.
  */
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
@@ -40,7 +39,6 @@ interface SharedWorkoutRow {
 function mapRow(row: SharedWorkoutRow): SharedWorkout {
   return {
     id: row.id,
-    ownerUserId: null, // never published: see the LIBO-09 note above
     kind: (row.kind === 'plan' ? 'plan' : 'workout') as SharedWorkoutKind,
     title: row.title,
     creatorUsername: row.creator_username,
@@ -64,6 +62,8 @@ export function useSharedWorkout(id: string | undefined): UseSharedWorkoutResult
 
   useEffect(() => {
     let cancelled = false;
+    // The RPC is ID-scoped. Let it decide whether an older share ID exists;
+    // new 11-character IDs are not the only possible historical format.
     if (!id) {
       setLoading(false);
       setNotFound(true);

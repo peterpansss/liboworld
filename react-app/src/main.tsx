@@ -20,6 +20,7 @@ import '@fontsource/barlow-condensed/900.css'
 
 import './index.css'
 import './i18n'
+import './lib/authUrl'
 import App from './App'
 
 createRoot(document.getElementById('root')!).render(

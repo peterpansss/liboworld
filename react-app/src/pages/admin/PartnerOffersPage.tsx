@@ -5,7 +5,7 @@ import { Field, TextInput, TextArea, Select, Button } from '../../components/adm
 import { Modal } from '../../components/admin/Modal';
 import {
   listPartnerOffersAdmin,
-  uploadGiveawayImage,
+  uploadGiveawayImageWithReauth as uploadGiveawayImage,
   // Sensitive op: gated through requireRecentAuth() via the wrapper.
   upsertPartnerOfferWithReauth as upsertPartnerOffer,
   type PartnerOfferRow,

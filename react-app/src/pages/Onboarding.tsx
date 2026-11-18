@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect, useMemo, type FormEvent } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { supabase } from '../lib/supabase';
+import { submitWaitlistSignup } from '../lib/waitlistSignup';
 import { REWARDS_SECTION_LIVE } from '../config/launchMode';
 import './Onboarding.css';
 
@@ -457,23 +457,14 @@ export default function Onboarding() {
     setFormMsg('');
 
     try {
-      const { error } = await supabase
-        .from('waitlist')
-        .insert({
-          email: email.trim(),
-          source: 'onboarding',
-          onboarding_answers: JSON.stringify(answers),
-        });
+      const result = await submitWaitlistSignup(email.trim(), 'onboarding', JSON.stringify(answers));
 
-      if (!error) {
+      if (result === 'success') {
         setFormState('success');
         setFormMsg(t('onboarding.email.successMessage'));
-      } else if (error.code === '23505') {
+      } else {
         setFormState('duplicate');
         setFormMsg(t('onboarding.email.duplicateMessage'));
-      } else {
-        setFormState('error');
-        setFormMsg(t('onboarding.email.errorMessage'));
       }
     } catch {
       setFormState('error');

@@ -9,8 +9,8 @@
  *   - Back button reverts to the previous step
  *   - Step 1's goal is pre-filled from ?goal= query param
  *   - Mobile menu drawer open/close
- *   - Email step submits to supabase.from('waitlist').insert and handles
- *     success / duplicate-key (23505) / generic error / network throw
+ *   - Email step submits through the bounded waitlist function and handles
+ *     success / duplicate / network failure
  *
  * Step transitions use setTimeout(300) for the slide animation, so we
  * advance fake timers as we go.
@@ -24,14 +24,8 @@ import { MemoryRouter } from 'react-router-dom';
 
 void React;
 
-const insertMock = vi.fn();
-vi.mock('../../src/lib/supabase', () => ({
-  supabase: {
-    from: (table: string) => ({
-      insert: (row: unknown) => insertMock(table, row),
-    }),
-  },
-}));
+const { submitMock } = vi.hoisted(() => ({ submitMock: vi.fn() }));
+vi.mock('../../src/lib/waitlistSignup', () => ({ submitWaitlistSignup: submitMock }));
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, opts?: Record<string, unknown>) => {
@@ -55,7 +49,7 @@ function renderAt(search = '') {
 }
 
 beforeEach(() => {
-  insertMock.mockReset();
+  submitMock.mockReset();
   // Use fake timers so we can advance the 400ms debounce + 300ms slide
   vi.useFakeTimers({ shouldAdvanceTime: true });
 });
@@ -269,9 +263,9 @@ describe('Onboarding email step', () => {
     expect(screen.getByText('onboarding.buttons.getPlan')).toBeInTheDocument();
   }, 20000);
 
-  it('submits the email and shows the success state when supabase returns no error', async () => {
+  it('submits the email and shows the success state', async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-    insertMock.mockResolvedValue({ error: null });
+    submitMock.mockResolvedValue('success');
 
     renderAt('?goal=build-muscle');
     await walkToEmailStep(user);
@@ -281,19 +275,16 @@ describe('Onboarding email step', () => {
     await user.click(screen.getByText('onboarding.buttons.getPlan'));
 
     await waitFor(() => {
-      expect(insertMock).toHaveBeenCalledWith('waitlist', expect.objectContaining({
-        email: 'me@example.com',
-        source: 'onboarding',
-      }));
+      expect(submitMock).toHaveBeenCalledWith('me@example.com', 'onboarding', expect.any(String));
     });
     await waitFor(() => {
       expect(screen.getByText('onboarding.email.successMessage')).toBeInTheDocument();
     });
   }, 20000);
 
-  it('shows the duplicate message when supabase returns 23505', async () => {
+  it('shows the duplicate message when the server reports an existing signup', async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-    insertMock.mockResolvedValue({ error: { code: '23505', message: 'duplicate key' } });
+    submitMock.mockResolvedValue('duplicate');
 
     renderAt('?goal=build-muscle');
     await walkToEmailStep(user);
@@ -306,9 +297,9 @@ describe('Onboarding email step', () => {
     });
   }, 20000);
 
-  it('shows the error message when supabase returns a generic error', async () => {
+  it('shows the connection error when the signup function rejects', async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-    insertMock.mockResolvedValue({ error: { code: '99999', message: 'denied' } });
+    submitMock.mockRejectedValue(new Error('denied'));
 
     renderAt('?goal=build-muscle');
     await walkToEmailStep(user);
@@ -317,13 +308,13 @@ describe('Onboarding email step', () => {
     await user.click(screen.getByText('onboarding.buttons.getPlan'));
 
     await waitFor(() => {
-      expect(screen.getByText('onboarding.email.errorMessage')).toBeInTheDocument();
+      expect(screen.getByText('onboarding.email.connectionError')).toBeInTheDocument();
     });
   }, 20000);
 
   it('shows the connection-error message when supabase throws', async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-    insertMock.mockRejectedValue(new Error('network down'));
+    submitMock.mockRejectedValue(new Error('network down'));
 
     renderAt('?goal=build-muscle');
     await walkToEmailStep(user);
@@ -336,7 +327,7 @@ describe('Onboarding email step', () => {
     });
   }, 20000);
 
-  it('does not call supabase when the input is empty (only whitespace)', async () => {
+  it('does not call the signup function when the input is empty', async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     renderAt('?goal=build-muscle');
     await walkToEmailStep(user);
@@ -348,7 +339,7 @@ describe('Onboarding email step', () => {
     await act(async () => {
       form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
     });
-    expect(insertMock).not.toHaveBeenCalled();
+    expect(submitMock).not.toHaveBeenCalled();
   }, 20000);
 });
 

@@ -75,9 +75,10 @@
   # Don't let the browser MIME-sniff a response into an executable type.
   Header always set X-Content-Type-Options "nosniff"
 
-  # Send the origin but not the path/query on cross-origin navigations —
-  # keeps auth-callback URLs and UTM-tagged paths out of third-party referers.
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # Auth confirmation links contain one-time query tokens. No referrer avoids
+  # sending those URLs to either same-origin assets or third-party services
+  # before JavaScript clears them from the address bar.
+  Header always set Referrer-Policy "no-referrer"
 
   # Drop ambient access to powerful features the app never uses.
   Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()"

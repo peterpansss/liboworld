@@ -13,7 +13,7 @@ import {
   // hits the DB. The ungated `_unsafe` versions exist only for tests.
   deleteGiveawayWithReauth as deleteGiveaway,
   drawGiveawayWinnersWithReauth as drawGiveawayWinners,
-  uploadGiveawayImage,
+  uploadGiveawayImageWithReauth as uploadGiveawayImage,
   listGiveawayWinners,
   type Giveaway,
   type GiveawayInput,

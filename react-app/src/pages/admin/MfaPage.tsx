@@ -4,11 +4,8 @@ import { getAdminMfaStatus, type AdminMfaStatus } from '../../lib/adminApi';
 import { colors } from '../../theme';
 
 // Route: /admin/mfa
-// Wraps the existing MfaEnrolPanel scaffold. The page adds a status banner
-// above the panel reflecting the grace-period state:
-//   - must_enrol === true  → red banner: enrolment is required NOW
-//   - 1 ≤ grace_days_remaining ≤ 7 → yellow banner: enrol in N days
-//   - already enrolled → no banner (panel renders the "done" state)
+// Wraps the enrolment panel. Admin content requires AAL2, and this route stays
+// available at AAL1 so an operator can enroll or manage their TOTP factor.
 //
 // TODOs (deferred for min-viable scope):
 //   - Recovery codes UI (10 single-use codes)
@@ -76,8 +73,7 @@ export function MfaPage() {
             marginBottom: 16,
           }}
         >
-          MFA enrolment is required to access the admin panel. Your 30-day
-          grace period has expired.
+          MFA enrolment is required to access the admin panel.
         </div>
       )}
 

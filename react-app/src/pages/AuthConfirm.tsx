@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { EmailOtpType } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
+import { readAuthConfirmQuery } from '../lib/authUrl';
 import './AuthCallback.css';
 
 /**
@@ -32,8 +33,7 @@ type ConfirmState =
 
 function parseQuery(): { tokenHash: string | null; type: string | null } {
   if (typeof window === 'undefined') return { tokenHash: null, type: null };
-  const params = new URLSearchParams(window.location.search);
-  return { tokenHash: params.get('token_hash'), type: params.get('type') };
+  return readAuthConfirmQuery();
 }
 
 export default function AuthConfirm() {

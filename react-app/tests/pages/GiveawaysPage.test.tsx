@@ -37,7 +37,7 @@ vi.mock('../../src/lib/adminApi', () => ({
   // the re-auth modal here — it's covered separately in adminApi tests.
   deleteGiveawayWithReauth: (...a: unknown[]) => deleteGiveawayMock(...a),
   drawGiveawayWinnersWithReauth: (...a: unknown[]) => drawGiveawayWinnersMock(...a),
-  uploadGiveawayImage: (...a: unknown[]) => uploadGiveawayImageMock(...a),
+  uploadGiveawayImageWithReauth: (...a: unknown[]) => uploadGiveawayImageMock(...a),
   listGiveawayWinners: (...a: unknown[]) => listGiveawayWinnersMock(...a),
 }));
 

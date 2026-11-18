@@ -18,8 +18,8 @@ type AuthState = 'loading' | 'unauthenticated' | 'authenticated-not-admin' | 'ad
 
 // AAL gate decision (only meaningful once state === 'admin'):
 //   'checking' — AAL not yet determined this cycle
-//   'allow'    — session is aal2, OR aal1 with no factor (enrol/grace case,
-//                deferred to the mustEnrol redirect)
+//   'allow'    — session is aal2, or the user needs to enrol a factor and is
+//                redirected to the MFA page
 //   'stepup'   — session must be elevated to aal2 before admin content renders
 //                (aal1 with a verified factor, or a fail-closed read error)
 type AalGate = 'checking' | 'allow' | 'stepup';
@@ -46,8 +46,8 @@ const RECHECK_INTERVAL_MS = 5 * 60 * 1000;
 
 export function AdminGuard({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AuthState>('loading');
-  // null = unknown / not-yet-fetched; false = grace still active or enrolled;
-  // true = grace expired AND not enrolled (hard-redirect).
+  // Unenrolled admins may only reach the MFA page. The database requires AAL2
+  // for admin operations, so there is no access grace period.
   const [mustEnrol, setMustEnrol] = useState<boolean>(false);
   // AAL2 gate: whether the session is at aal2 (allow) or must step up first.
   const [aalGate, setAalGate] = useState<AalGate>('checking');
@@ -68,11 +68,9 @@ export function AdminGuard({ children }: { children: ReactNode }) {
       }
       // Two checks, AND-combined:
       //   1. Profile row says is_admin=true (cheap, anyone can read their own).
-      //   2. RPC is_caller_admin() returns true. This is what every admin RPC
-      //      uses, so if it disagrees with (1) the panel will be unusable
-      //      anyway and we should kick the user out.
-      // The RPC also acts as a server-side liveness probe -- if the JWT was
-      // revoked, the RPC fails and we treat it as not-admin.
+      //   2. my_admin_mfa_status() reads the caller's own admin flag under a
+      //      validated JWT. It remains usable at AAL1 for MFA enrolment,
+      //      while is_admin() denies privileged data until AAL2.
       const [profileSaysAdmin, rpcSaysAdmin] = await Promise.all([
         getCurrentUserIsAdmin(),
         isCallerAdminViaRpc(),
@@ -86,7 +84,7 @@ export function AdminGuard({ children }: { children: ReactNode }) {
       if (ok) {
         try {
           const mfa = await getAdminMfaStatus();
-          setMustEnrol(mfa.must_enrol === true);
+          setMustEnrol(mfa.must_enrol === true || mfa.mfa_enrolled !== true);
         } catch (e) {
           // FAIL CLOSED (LIBO-02): if the MFA-status RPC is unavailable or
           // errors, we cannot prove the admin is exempt from enrolment, so we
@@ -102,11 +100,10 @@ export function AdminGuard({ children }: { children: ReactNode }) {
           setMustEnrol(true);
         }
 
-        // AAL2 gate (LIBO-02): the DB enforces is_admin_aal2() for admin
-        // writes, so an aal1 session can read but not act. Require the session
-        // to be at aal2 before rendering admin content.
+        // AAL2 gate (LIBO-02): the DB requires AAL2 for admin reads and writes.
+        // Require the session to be at aal2 before rendering admin content.
         const aal = await getSessionAal();
-        if (aal.level === 'aal2') {
+        if (aal.level === 'aal2' && aal.hasVerifiedFactor) {
           setAalGate('allow');
         } else if (aal.error) {
           // FAIL CLOSED: couldn't determine AAL / factors. Do not silently
@@ -117,8 +114,9 @@ export function AdminGuard({ children }: { children: ReactNode }) {
           // aal1 with a verified factor: the session just needs elevating.
           setAalGate('stepup');
         } else {
-          // aal1 with NO verified factor: this is the enrol case. Defer to the
-          // mustEnrol / grace logic (redirect to /admin/mfa once grace ends).
+          // No verified TOTP factor remains. Keep /admin/mfa reachable so the
+          // operator can enrol; no other admin page may render.
+          setMustEnrol(true);
           setAalGate('allow');
         }
       } else {
@@ -174,7 +172,7 @@ export function AdminGuard({ children }: { children: ReactNode }) {
     );
   }
 
-  // Hard-redirect: grace period expired AND no factor enrolled. Allow the
+  // Hard-redirect: no verified TOTP factor enrolled. Allow the
   // /admin/mfa route itself through (otherwise the user can never reach the
   // enrolment UI to fix the situation). All other admin routes are blocked
   // until enrolment completes.
