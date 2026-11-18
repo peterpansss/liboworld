@@ -9,7 +9,9 @@
  *   - days + level pick the split (beginner or <= 3 days = full body,
  *     4 = upper/lower, 5+ = push/pull/legs),
  *   - every plan is 4 weeks (DEFAULT_DURATION_WEEKS = FREE_PLAN_MAX_WEEKS),
- *   - warm-up and cool-down are always on (includeWarmupCooldown: true).
+ *   - warm-up and cool-down are always on (includeWarmupCooldown: true),
+ *   - equipment is the app's single plan Equipment (bodyweight / bands /
+ *     dumbbells / full gym), which decides which exercises can land.
  * Change the app's rules and this file has to change with them.
  *
  * Nothing is stored or sent anywhere: the answers live in the page state.
@@ -17,12 +19,13 @@
 export type PlanGoal = 'lose_weight' | 'build_muscle' | 'improve_mobility' | 'stay_active' | 'reduce_stress';
 export type Experience = 'beginner' | 'intermediate' | 'advanced';
 export type RecentTraining = 'regular' | 'onAndOff' | 'comingBack' | 'startingFresh';
-export type Location = 'gym' | 'home' | 'outdoors' | 'anywhere';
+/** The app's plan Equipment (mapEquipment collapses its multi-select to one of these). */
+export type Equipment = 'bodyweight' | 'resistance_bands' | 'dumbbells' | 'full_gym';
 export type Split = 'full_body' | 'upper_lower' | 'push_pull_legs';
 
 export interface PlanAnswers {
   goal: PlanGoal;
-  location: Location;
+  equipment: Equipment;
   experience: Experience;
   recentTraining: RecentTraining;
   days: number; // 2..6 (6 = "6+")
@@ -61,6 +64,7 @@ export interface PlanResult {
   split: Split;
   weeks: number;
   minutes: number;
+  equipment: Equipment;
   /** True when the ramp started them on fewer days than they picked. */
   daysRamped: boolean;
 }
@@ -75,6 +79,7 @@ export function buildPlan(a: PlanAnswers): PlanResult {
     split: deriveSplit(days, level),
     weeks: PLAN_WEEKS,
     minutes: a.minutes,
+    equipment: a.equipment,
     daysRamped: days < Math.min(6, Math.max(2, a.days)),
   };
 }

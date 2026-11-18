@@ -20,8 +20,8 @@ describe('findPlan mirrors the app plan builder', () => {
   });
 
   it('builds a 4-week plan and flags a ramp', () => {
-    const a: PlanAnswers = { goal: 'build_muscle', location: 'gym', experience: 'intermediate', recentTraining: 'comingBack', days: 5, minutes: 60 };
-    expect(buildPlan(a)).toEqual({ goal: 'build_muscle', days: 4, level: 'beginner', split: 'full_body', weeks: 4, minutes: 60, daysRamped: true });
+    const a: PlanAnswers = { goal: 'build_muscle', equipment: 'full_gym', experience: 'intermediate', recentTraining: 'comingBack', days: 5, minutes: 60 };
+    expect(buildPlan(a)).toEqual({ goal: 'build_muscle', days: 4, level: 'beginner', split: 'full_body', weeks: 4, minutes: 60, equipment: 'full_gym', daysRamped: true });
   });
 
 });

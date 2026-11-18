@@ -2735,25 +2735,26 @@
           }
         }
       },
-      "location": {
-        "section": "Dónde entrenas",
-        "title": "Tu lugar de entreno",
+      "equipment": {
+        "section": "Para que todo encaje",
+        "title": "Con qué entrenas",
+        "subtitle": "Elige lo máximo que puedas usar. Decide qué ejercicios entran en tu plan.",
         "options": {
-          "gym": {
-            "label": "Gimnasio",
-            "sub": "Acceso completo a equipos"
+          "bodyweight": {
+            "label": "Solo peso corporal",
+            "sub": "Sin material"
           },
-          "home": {
-            "label": "Casa",
-            "sub": "Sin necesidad de desplazarte"
+          "resistance_bands": {
+            "label": "Bandas elásticas",
+            "sub": "Bandas en casa o donde sea"
           },
-          "outdoors": {
-            "label": "Al aire libre",
-            "sub": "Entrenos con aire fresco"
+          "dumbbells": {
+            "label": "Mancuernas",
+            "sub": "Mancuernas, barra o barra de dominadas"
           },
-          "anywhere": {
-            "label": "Donde sea",
-            "sub": "Lugar flexible"
+          "full_gym": {
+            "label": "Gimnasio completo",
+            "sub": "Máquinas, poleas y peso libre"
           }
         }
       },

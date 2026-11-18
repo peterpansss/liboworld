@@ -2735,25 +2735,26 @@
           }
         }
       },
-      "location": {
-        "section": "Wo du trainierst",
-        "title": "Dein Trainingsort",
+      "equipment": {
+        "section": "Damit jede Übung passt",
+        "title": "Womit du trainierst",
+        "subtitle": "Wähle das Meiste, was du nutzen kannst. Das entscheidet, welche Übungen in deinen Plan kommen.",
         "options": {
-          "gym": {
-            "label": "Fitnessstudio",
-            "sub": "Voller Gerätezugang"
+          "bodyweight": {
+            "label": "Nur Eigengewicht",
+            "sub": "Kein Equipment nötig"
           },
-          "home": {
-            "label": "Zuhause",
-            "sub": "Kein Anfahrtsweg nötig"
+          "resistance_bands": {
+            "label": "Widerstandsbänder",
+            "sub": "Bänder zuhause oder unterwegs"
           },
-          "outdoors": {
-            "label": "Draußen",
-            "sub": "Workouts an der frischen Luft"
+          "dumbbells": {
+            "label": "Kurzhanteln",
+            "sub": "Kurzhanteln, Langhantel oder Klimmzugstange"
           },
-          "anywhere": {
-            "label": "Überall",
-            "sub": "Flexibler Ort"
+          "full_gym": {
+            "label": "Komplettes Gym",
+            "sub": "Maschinen, Kabelzug und freie Gewichte"
           }
         }
       },

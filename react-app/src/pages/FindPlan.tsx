@@ -20,7 +20,7 @@ import './FindPlan.css';
 type QKey = keyof PlanAnswers;
 const QUESTIONS: { key: QKey; options: string[] }[] = [
   { key: 'goal', options: ['lose_weight', 'build_muscle', 'improve_mobility', 'stay_active', 'reduce_stress'] },
-  { key: 'location', options: ['gym', 'home', 'outdoors', 'anywhere'] },
+  { key: 'equipment', options: ['bodyweight', 'resistance_bands', 'dumbbells', 'full_gym'] },
   { key: 'experience', options: ['beginner', 'intermediate', 'advanced'] },
   { key: 'recentTraining', options: ['regular', 'onAndOff', 'comingBack', 'startingFresh'] },
   { key: 'days', options: ['2', '3', '4', '5', '6'] },
@@ -136,6 +136,7 @@ export default function FindPlan() {
                 <li>{t(`findPlan.result.split.${plan.split}`)}</li>
                 <li>{t(`findPlan.questions.minutes.options.${plan.minutes}.label`)}</li>
                 <li>{t(`findPlan.result.level.${plan.level}`)}</li>
+                <li>{t(`findPlan.questions.equipment.options.${plan.equipment}.label`)}</li>
               </ul>
               {plan.daysRamped && <p className="fp-note">{t('findPlan.result.ramped', { count: plan.days })}</p>}
               <p className="fp-phases">

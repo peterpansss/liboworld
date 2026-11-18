@@ -2735,25 +2735,26 @@
           }
         }
       },
-      "location": {
-        "section": "Where you train",
-        "title": "Your location",
+      "equipment": {
+        "section": "So every move fits",
+        "title": "What you train with",
+        "subtitle": "Pick the most you can use. It decides which exercises land in your plan.",
         "options": {
-          "gym": {
-            "label": "Gym",
-            "sub": "Full equipment access"
+          "bodyweight": {
+            "label": "Bodyweight only",
+            "sub": "No equipment needed"
           },
-          "home": {
-            "label": "Home",
-            "sub": "No commute needed"
+          "resistance_bands": {
+            "label": "Resistance bands",
+            "sub": "Bands at home or on the go"
           },
-          "outdoors": {
-            "label": "Outdoors",
-            "sub": "Fresh air workouts"
+          "dumbbells": {
+            "label": "Dumbbells",
+            "sub": "Dumbbells, a barbell or a pull-up bar"
           },
-          "anywhere": {
-            "label": "Anywhere",
-            "sub": "Flexible location"
+          "full_gym": {
+            "label": "Full gym",
+            "sub": "Machines, cables and free weights"
           }
         }
       },

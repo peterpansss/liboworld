@@ -2735,25 +2735,26 @@
           }
         }
       },
-      "location": {
-        "section": "Où tu t'entraînes",
-        "title": "Ton lieu",
+      "equipment": {
+        "section": "Pour adapter chaque mouvement",
+        "title": "Avec quoi tu t'entraînes",
+        "subtitle": "Choisis le maximum que tu peux utiliser. Ça décide quels exercices entrent dans ton programme.",
         "options": {
-          "gym": {
-            "label": "Salle de sport",
-            "sub": "Accès complet aux équipements"
+          "bodyweight": {
+            "label": "Poids du corps",
+            "sub": "Aucun matériel"
           },
-          "home": {
-            "label": "Maison",
-            "sub": "Pas besoin de se déplacer"
+          "resistance_bands": {
+            "label": "Élastiques",
+            "sub": "À la maison ou en déplacement"
           },
-          "outdoors": {
-            "label": "Extérieur",
-            "sub": "Séances en plein air"
+          "dumbbells": {
+            "label": "Haltères",
+            "sub": "Haltères, barre ou barre de traction"
           },
-          "anywhere": {
-            "label": "Partout",
-            "sub": "Lieu flexible"
+          "full_gym": {
+            "label": "Salle complète",
+            "sub": "Machines, poulies et poids libres"
           }
         }
       },

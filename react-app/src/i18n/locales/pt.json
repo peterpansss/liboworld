@@ -2735,25 +2735,26 @@
           }
         }
       },
-      "location": {
-        "section": "Onde você treina",
-        "title": "Seu local",
+      "equipment": {
+        "section": "Para tudo encaixar",
+        "title": "Com o que você treina",
+        "subtitle": "Escolha o máximo que você pode usar. Isso decide quais exercícios entram no seu plano.",
         "options": {
-          "gym": {
-            "label": "Academia",
-            "sub": "Acesso completo a equipamentos"
+          "bodyweight": {
+            "label": "Só peso corporal",
+            "sub": "Sem equipamento"
           },
-          "home": {
-            "label": "Casa",
-            "sub": "Sem precisar se deslocar"
+          "resistance_bands": {
+            "label": "Faixas elásticas",
+            "sub": "Faixas em casa ou em qualquer lugar"
           },
-          "outdoors": {
-            "label": "Ao ar livre",
-            "sub": "Treinos com ar puro"
+          "dumbbells": {
+            "label": "Halteres",
+            "sub": "Halteres, barra ou barra fixa"
           },
-          "anywhere": {
-            "label": "Em qualquer lugar",
-            "sub": "Local flexível"
+          "full_gym": {
+            "label": "Academia completa",
+            "sub": "Máquinas, polias e peso livre"
           }
         }
       },
