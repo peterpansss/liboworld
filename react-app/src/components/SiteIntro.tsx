@@ -1,18 +1,8 @@
 import { useEffect, useState, type CSSProperties } from 'react';
+import { introActive, markIntroDone } from '../utils/siteIntro';
 import './SiteIntro.css';
 
-const SEEN_KEY = 'libo-intro-seen';
 const TOTAL_MS = 2600;
-
-function shouldPlay(): boolean {
-  if (typeof window === 'undefined' || import.meta.env.MODE === 'test') return false;
-  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return false;
-  try {
-    if (sessionStorage.getItem(SEEN_KEY)) return false;
-    sessionStorage.setItem(SEEN_KEY, '1');
-  } catch { /* storage blocked: play once per page load */ }
-  return true;
-}
 
 /**
  * The three LiboDots in polar form around the mark's centre (design px at the
@@ -35,10 +25,13 @@ const DOTS = [
  * click or key ends it at once.
  */
 export default function SiteIntro() {
-  const [on, setOn] = useState(shouldPlay);
+  const [on, setOn] = useState(introActive);
 
+  // Tell the cookie dialog it can open. Leaving Home mid-intro is covered by
+  // the 3.5 s safety net in utils/siteIntro (an unmount hook here would fire
+  // on StrictMode's dev remount and open the dialog over the intro).
   useEffect(() => {
-    if (!on) return;
+    if (!on) { markIntroDone(); return; }
     const end = () => setOn(false);
     const timer = window.setTimeout(end, TOTAL_MS);
     window.addEventListener('pointerdown', end, { once: true });
