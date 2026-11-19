@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { introActive, onIntroDone } from '../utils/siteIntro';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -59,7 +60,12 @@ export default function ConsentBanner() {
     [],
   );
 
-  const open = stored === null && !dismissed;
+  // Wait for the Home brand opener (~2.5 s, first visit only) instead of
+  // covering it. Nothing tracks in the meantime: scripts load only on accept.
+  const [introOn, setIntroOn] = useState(introActive);
+  useEffect(() => (introOn ? onIntroDone(() => setIntroOn(false)) : undefined), [introOn]);
+
+  const open = stored === null && !dismissed && !introOn;
 
   const choose = useCallback((state: ConsentState) => {
     setConsent(state);

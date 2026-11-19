@@ -1,0 +1,111 @@
+/* Home brand opener (SiteIntro.tsx). Timeline, in ms:
+   0–1500   dots spiral in, one after another (160 ms apart), and settle
+   1500–1750 hold: the finished mark breathes
+   1700–1950 mark fades into the opening
+   1750–2350 lime opens from the centre into a rounded frame
+   2300–2600 frame fades */
+
+.site-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow: hidden;
+  animation: site-intro-fade 300ms ease-out 2300ms forwards;
+}
+
+/* The lime is the giant shadow around a rounded "hole" that starts as a point
+   in the centre and grows to the full viewport, so the page shows through it. */
+.site-intro__hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 32px;
+  box-shadow: 0 0 0 200vmax #CAFF00;
+  animation: site-intro-open 600ms cubic-bezier(.65, 0, .35, 1) 1750ms forwards;
+}
+
+/* 220px design box; every position below is in those px. */
+.site-intro__mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  animation:
+    site-intro-breathe 1100ms cubic-bezier(.45, 0, .55, 1) 1250ms both,
+    site-intro-mark-out 250ms ease-in 1700ms forwards;
+}
+
+/* A faint orbit that widens and fades while the dots arrive. */
+.site-intro__ring {
+  position: absolute;
+  left: -110px;
+  top: -110px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(14, 14, 14, 0.18);
+  opacity: 0;
+  transform: scale(.55);
+  animation: site-intro-ring 1500ms cubic-bezier(.22, 1, .36, 1) 80ms forwards;
+}
+
+/* Each dot: an arm from the centre that turns (the orbit) while it shortens
+   (the spiral), with the dot at its tip. */
+.site-intro__orbit {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a));
+  animation: site-intro-orbit 1250ms cubic-bezier(.22, 1, .36, 1) var(--delay) both;
+}
+.site-intro__dot {
+  position: absolute;
+  left: calc(var(--d) / -2);
+  top: calc(var(--d) / -2);
+  width: var(--d);
+  height: var(--d);
+  border-radius: 50%;
+  background: #0E0E0E;
+  transform: translateX(var(--r));
+  animation: site-intro-spiral 1250ms cubic-bezier(.22, 1, .36, 1) var(--delay) both;
+}
+
+@keyframes site-intro-orbit {
+  from { transform: rotate(calc(var(--a) - 300deg)); }
+  to   { transform: rotate(var(--a)); }
+}
+@keyframes site-intro-spiral {
+  from { transform: translateX(170px) scale(.25); opacity: 0; }
+  25%  { opacity: 1; }
+  to   { transform: translateX(var(--r)) scale(1); opacity: 1; }
+}
+@keyframes site-intro-ring {
+  30%  { opacity: 1; }
+  to   { opacity: 0; transform: scale(1.35); }
+}
+@keyframes site-intro-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+@keyframes site-intro-mark-out {
+  to { opacity: 0; transform: scale(.9); }
+}
+@keyframes site-intro-open {
+  to { top: 12px; left: 12px; width: calc(100% - 24px); height: calc(100% - 24px); }
+}
+@keyframes site-intro-fade {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@media (max-width: 640px) {
+  .site-intro__mark { zoom: .72; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-intro { display: none; }
+}

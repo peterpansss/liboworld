@@ -2880,5 +2880,10 @@
       "full": "Nächstes Gewinnspiel: {{prize}}, ab {{date}}. Jedes Mitglied ist automatisch dabei",
       "short": "Nächstes Gewinnspiel: {{prize}} →"
     }
+  },
+  "homeAd": {
+    "label": "Libo: Train and earn, der Spot",
+    "soundOn": "Ton an",
+    "soundOff": "Ton aus"
   }
 }
