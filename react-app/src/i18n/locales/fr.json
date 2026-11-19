@@ -2895,8 +2895,19 @@
     "qrCaption": "Scanne avec l'appareil photo de ton téléphone",
     "close": "Fermer",
     "before": "2023 · 69 kg",
-    "after": "Mai 2024 · 5 mois",
+    "after": "Mai 2024 · 7 mois",
     "beforeAlt": "Noah en 2023 à 69 kg",
-    "afterAlt": "Noah en mai 2024, après cinq mois"
+    "afterAlt": "Noah en mai 2024, après sept mois"
+  },
+  "blueprintVideos": {
+    "h2": "L'histoire en vidéo",
+    "sub": "Noah raconte l'année sur YouTube. Vidéos en anglais.",
+    "long": "L'histoire complète",
+    "longMeta": "12 min · Voir sur YouTube →",
+    "shortMeta": "Voir sur YouTube →",
+    "short1": "Sept ans à 69 kg",
+    "short2": "Toujours en mouvement",
+    "short3": "Le porridge que je mangeais chaque jour",
+    "short4": "Ce que je croyais à tort sur les séries lourdes"
   }
 }
