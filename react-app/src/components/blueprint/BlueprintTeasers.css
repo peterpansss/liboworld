@@ -67,3 +67,7 @@
   .bpt-shorts::-webkit-scrollbar { display: none; }
   .bpt-shorts li { scroll-snap-align: start; }
 }
+
+/* Not posted yet: same tile, muted label, no hover underline. */
+.bpt-soon .bpt-long__meta, .bpt-soon .bpt-short__meta { color: var(--muted); }
+.bpt-soon:hover .bpt-long__meta, .bpt-soon:hover .bpt-short__meta { text-decoration: none; }

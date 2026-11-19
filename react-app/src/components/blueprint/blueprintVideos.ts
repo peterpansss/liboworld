@@ -2,10 +2,9 @@
 // is a short muted loop that links to the real post, so the views land on
 // YouTube where they count (Noah, 19 Nov 2026).
 //
-// The posts go live on 3 Dec (organic launch; ads ~17 Dec). Until a URL is
-// filled in, that teaser doesn't render, and with no URLs at all the whole
-// section stays hidden. To switch on: paste the live YouTube links below.
-// `?teasers=preview` shows the section with every teaser for review.
+// The posts go live on 3 Dec (organic launch; ads ~17 Dec). Every teaser shows
+// from 19 Nov (Noah); until its URL is filled in it plays but isn't a link and
+// reads "On YouTube 3 Dec". To switch the links on: paste the YouTube URLs below.
 
 export interface BlueprintVideo {
   key: 'long' | 'short1' | 'short2' | 'short3' | 'short4';
@@ -25,8 +24,9 @@ export const BLUEPRINT_VIDEOS: BlueprintVideo[] = [
 
 export const TEASER_BASE = '/downloads/blueprint/teasers/';
 
-/** The videos to show: live ones, or all of them in preview mode. */
-export function visibleVideos(search: string, videos = BLUEPRINT_VIDEOS): BlueprintVideo[] {
-  const preview = new URLSearchParams(search).get('teasers') === 'preview';
-  return preview ? videos : videos.filter((v) => !!v.url);
+/** All teasers show (Noah, 19 Nov); `isLive` says whether one links out yet. */
+export function visibleVideos(videos = BLUEPRINT_VIDEOS): BlueprintVideo[] {
+  return videos;
 }
+
+export const isLive = (v: BlueprintVideo): v is BlueprintVideo & { url: string } => !!v.url;
