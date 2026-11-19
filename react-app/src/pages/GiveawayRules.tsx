@@ -35,7 +35,7 @@ import './Legal.css';
  * REWARDS-ECONOMY-RULES.md §8.1/§8.4. Two content rules this page must never
  * break:
  *  - Never state or imply that buying does not improve your chances. Premium
- *    gives 5x the entries, so it does. That clause was deleted from canon on
+ *    gives 3x and Elite 9x the Free entries, so it does. That clause was deleted from canon on
  *    purpose (LEGAL-COMPETITIONS §5 cl.4). The three true statements replace it.
  *  - Never void a round for low participation (§8a / REWARDS §8.4).
  * Round dates and prizes come from GIVEAWAY_ROUNDS, so adding a round is a
@@ -70,7 +70,7 @@ export default function GiveawayRules() {
             <div className="legal-label">Rules</div>
             <h1 className="font-display">Official Giveaway Rules</h1>
             <p className="legal-meta">
-              Last updated: <span>14 November 2026</span> &middot; Applies to: <span>giveaway rounds from {formatRoundDate(first.opens)} to {formatRoundDate(last.closes)}</span>
+              Last updated: <span>19 November 2026</span> &middot; Applies to: <span>giveaway rounds from {formatRoundDate(first.opens)} to {formatRoundDate(last.closes)}</span>
             </p>
           </div>
 
@@ -78,12 +78,14 @@ export default function GiveawayRules() {
             <p>
               <strong>The short version.</strong> No purchase necessary. Every eligible Libo
               member is entered automatically. Free members get {GIVEAWAY_ENTRIES.free} entry
-              per round, Premium members get {GIVEAWAY_ENTRIES.premium}, plus loyalty entries for
-              every month in a row you&rsquo;ve trained. Your entries count once
+              per round, Premium members get {GIVEAWAY_ENTRIES.premium} and Elite members get{' '}
+              {GIVEAWAY_ENTRIES.elite}, plus loyalty entries for every month in a row you&rsquo;ve
+              trained. Entries are a bonus on top of your membership, and the free entry by post
+              lets anyone reach the same number of entries as Elite. Your entries count once
               you complete one workout in the app while the round is open. Every entry has the
               same chance of winning, and all entries are drawn from one pool. Memberships give
-              more entries. Some draws are Premium draws: in the app only Premium members are
-              entered, and anyone eligible can enter them free by post. Apple, Google and Sony
+              more entries. Some draws are Premium draws: in the app only Premium and Elite members
+              are entered, and anyone eligible can enter them free by post. Apple, Google and Sony
               are not sponsors of, and are not involved in, this giveaway.
             </p>
           </div>
@@ -188,8 +190,9 @@ export default function GiveawayRules() {
             <ul>
               <li><strong>Free plan:</strong> {GIVEAWAY_ENTRIES.free} entry per round</li>
               <li><strong>Premium:</strong> {GIVEAWAY_ENTRIES.premium} entries per round</li>
+              <li><strong>Elite:</strong> {GIVEAWAY_ENTRIES.elite} entries per round</li>
             </ul>
-            <p><strong>Loyalty entries:</strong> for every calendar month in a row before the round&rsquo;s month in which you completed at least one workout of {LOYALTY_MIN_WORKOUT_MINUTES} minutes or more, you get your plan&rsquo;s entries again, so entries add up month by month &mdash; Free +{LOYALTY_PER_MONTH.free}, Premium +{LOYALTY_PER_MONTH.premium} per month, counting up to {LOYALTY_MAX_MONTHS} months. A month without such a workout restarts the count. Example: in your 5th month in a row you hold {GIVEAWAY_ENTRIES.free + 4 * LOYALTY_PER_MONTH.free} entries on Free, or {GIVEAWAY_ENTRIES.premium + 4 * LOYALTY_PER_MONTH.premium} on Premium; a member who trained every month for the past year holds {GIVEAWAY_MAX_ENTRIES.free} on Free, or {GIVEAWAY_MAX_ENTRIES.premium} on Premium.</p>
+            <p><strong>Loyalty entries:</strong> for every calendar month in a row before the round&rsquo;s month in which you completed at least one workout of {LOYALTY_MIN_WORKOUT_MINUTES} minutes or more, you get your plan&rsquo;s entries again, so entries add up month by month &mdash; Free +{LOYALTY_PER_MONTH.free}, Premium +{LOYALTY_PER_MONTH.premium}, Elite +{LOYALTY_PER_MONTH.elite} per month, counting up to {LOYALTY_MAX_MONTHS} months. A month without such a workout restarts the count. Example: in your 5th month in a row you hold {GIVEAWAY_ENTRIES.free + 4 * LOYALTY_PER_MONTH.free} entries on Free, {GIVEAWAY_ENTRIES.premium + 4 * LOYALTY_PER_MONTH.premium} on Premium, or {GIVEAWAY_ENTRIES.elite + 4 * LOYALTY_PER_MONTH.elite} on Elite; a member who trained every month for the past year holds {GIVEAWAY_MAX_ENTRIES.free} on Free, {GIVEAWAY_MAX_ENTRIES.premium} on Premium, or {GIVEAWAY_MAX_ENTRIES.elite} on Elite.</p>
             <p>You need to have confirmed your date of birth in the app.</p>
             <h3>Your entries count once you train</h3>
             <p>Your entries for a round only become active when you <strong>complete one workout in the app while that round is open</strong>. This rule is the same on every plan. If you don&rsquo;t complete a workout during the round, your entries for that round don&rsquo;t count.</p>
@@ -198,16 +201,16 @@ export default function GiveawayRules() {
 
           {/* Premium draws (Noah, 13 Nov 2026). The free route is the postal
               clause (#post, from feat/giveaway-postal-entry) with the same parity
-              cap: a Free member's letters can reach exactly what a Premium member
-              with the same loyalty months holds, never more. Don't restate the
+              cap: letters can reach exactly what an Elite member with the same
+              loyalty months holds, never more (Elite parity since 19 Nov 2026). Don't restate the
               postal mechanics here; refer to #post. */}
           <section className="legal-section" id="premium">
             <div className="legal-section-num">{n()}</div>
             <h2>Premium Draws</h2>
             <p>Some draws are marked <strong>Premium</strong> in the app. Each Premium draw&rsquo;s dates, prize and number of winners are shown in the app before it opens, and the same times apply as in <a href="#rounds">Rounds &amp; Prizes</a> (Berlin time, opening 00:00, closing 23:59).</p>
             <ul>
-              <li><strong>In the app, only Premium members are entered</strong> into a Premium draw, with the entries set out in <a href="#entries">How You Are Entered</a>.</li>
-              <li><strong>Anyone eligible can enter a Premium draw free by post</strong>, under <a href="#post">Free Entry by Post</a>, with the same limit: your letters can bring you to exactly the entries a Premium member with the same loyalty months holds, never more. On a Premium draw a Free member holds no entries from the app, so that is up to {GIVEAWAY_ENTRIES.premium} letters plus {LOYALTY_PER_MONTH.premium} for each loyalty month (at most {GIVEAWAY_MAX_ENTRIES.premium}).</li>
+              <li><strong>In the app, only Premium and Elite members are entered</strong> into a Premium draw, with the entries set out in <a href="#entries">How You Are Entered</a>.</li>
+              <li><strong>Anyone eligible can enter a Premium draw free by post</strong>, under <a href="#post">Free Entry by Post</a>, with the same limit: your letters can bring you to exactly the entries an Elite member with the same loyalty months holds, never more. On a Premium draw a Free member holds no entries from the app, so that is up to {GIVEAWAY_ENTRIES.elite} letters plus {LOYALTY_PER_MONTH.elite} for each loyalty month (at most {GIVEAWAY_MAX_ENTRIES.elite}).</li>
               <li><strong>Everything else in these rules applies to Premium draws too</strong>: who can enter, excluded places, the one-workout activation rule, the draw, claiming and fair play.</li>
             </ul>
           </section>
@@ -217,10 +220,10 @@ export default function GiveawayRules() {
             <h2>No Purchase Necessary</h2>
             <ul>
               <li><strong>No purchase necessary.</strong> The Free plan is free. A free member who completes one workout during a round is in the draw.</li>
-              <li><strong>Every entry has the same chance of winning, and all entries are drawn from one pool.</strong> A free entry and a Premium entry are treated exactly the same.</li>
-              <li><strong>Memberships give more entries.</strong> Premium members get {GIVEAWAY_ENTRIES.premium} base entries per round instead of {GIVEAWAY_ENTRIES.free}, and +{LOYALTY_PER_MONTH.premium} loyalty entries per month instead of +{LOYALTY_PER_MONTH.free}.</li>
+              <li><strong>Every entry has the same chance of winning, and all entries are drawn from one pool.</strong> A free entry, a Premium entry and an Elite entry are treated exactly the same.</li>
+              <li><strong>Memberships give more entries, as a bonus on top of the membership.</strong> Premium members get {GIVEAWAY_ENTRIES.premium} base entries per round and Elite members {GIVEAWAY_ENTRIES.elite}, instead of {GIVEAWAY_ENTRIES.free}, and +{LOYALTY_PER_MONTH.premium} or +{LOYALTY_PER_MONTH.elite} loyalty entries per month instead of +{LOYALTY_PER_MONTH.free}.</li>
               <li><strong>Points can&rsquo;t be bought, and can&rsquo;t be turned into entries.</strong></li>
-              <li><strong>You can also add entries for free by post.</strong> See <a href="#post">Free Entry by Post</a>.</li>
+              <li><strong>You can also add entries for free by post, up to the same number an Elite member holds.</strong> See <a href="#post">Free Entry by Post</a>.</li>
             </ul>
           </section>
 
@@ -229,7 +232,7 @@ export default function GiveawayRules() {
             <h2>Free Entry by Post</h2>
             <p>Any eligible member can add entries to a round without buying anything, by sending a letter.</p>
             <ul>
-              <li><strong>One letter = one entry.</strong> Letters let you reach exactly the entries a Premium member with the same loyalty months holds, never more. On the Free plan you can send up to {POSTAL_BASE_LETTERS} letters per round, plus {POSTAL_LETTERS_PER_LOYALTY_MONTH} for each of your loyalty months (at most {POSTAL_MAX_LETTERS}). Example: with 3 loyalty months, Premium holds {GIVEAWAY_ENTRIES.premium} + {3 * LOYALTY_PER_MONTH.premium} = {GIVEAWAY_ENTRIES.premium + 3 * LOYALTY_PER_MONTH.premium} entries; a Free member holds {GIVEAWAY_ENTRIES.free} + {3 * LOYALTY_PER_MONTH.free} = {GIVEAWAY_ENTRIES.free + 3 * LOYALTY_PER_MONTH.free} and can add up to {POSTAL_BASE_LETTERS + 3 * POSTAL_LETTERS_PER_LOYALTY_MONTH} letters to reach {GIVEAWAY_ENTRIES.premium + 3 * LOYALTY_PER_MONTH.premium}. Premium members already hold that number, so letters add nothing for them. Your plan and loyalty months on the day the round closes decide. Each letter needs its own envelope and stamp; letters above your limit don&rsquo;t count.</li>
+              <li><strong>One letter = one entry.</strong> Letters let you reach exactly the entries an Elite member with the same loyalty months holds, never more, so the free route gives the same chances as the highest membership. On the Free plan you can send up to {POSTAL_BASE_LETTERS} letters per round, plus {POSTAL_LETTERS_PER_LOYALTY_MONTH} for each of your loyalty months (at most {POSTAL_MAX_LETTERS}). Example: with 3 loyalty months, Elite holds {GIVEAWAY_ENTRIES.elite} + {3 * LOYALTY_PER_MONTH.elite} = {GIVEAWAY_ENTRIES.elite + 3 * LOYALTY_PER_MONTH.elite} entries; a Free member holds {GIVEAWAY_ENTRIES.free} + {3 * LOYALTY_PER_MONTH.free} = {GIVEAWAY_ENTRIES.free + 3 * LOYALTY_PER_MONTH.free} and can add up to {POSTAL_BASE_LETTERS + 3 * POSTAL_LETTERS_PER_LOYALTY_MONTH} letters to reach {GIVEAWAY_ENTRIES.elite + 3 * LOYALTY_PER_MONTH.elite}. A Premium member can add letters up to the same Elite number; Elite members already hold it, so letters add nothing for them. Your plan and loyalty months on the day the round closes decide. Each letter needs its own envelope and stamp; letters above your limit don&rsquo;t count.</li>
               <li><strong>What to write:</strong> your full name, the email of your Libo account, your postal address including country, and the round you want to enter (for example &ldquo;PlayStation 5 Giveaway, 23 November&ndash;20 December 2026&rdquo;). A free Libo account is enough; you can create one in the app.</li>
               <li><strong>Where to send it:</strong>{' '}
                 {POSTAL_ENTRY_ADDRESS ? (

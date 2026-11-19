@@ -2032,25 +2032,133 @@
       },
       "monthlyPrice": {
         "q": "Ça veut dire quoi, €10.00/mois ?",
-        "a": "Premium est facturé €119.99 à l'année, soit €10.00 par mois. Tu préfères rester flexible ? Le mensuel est à €19.99, ou €44.99 pour 3 mois (€15.00/mois, sur Android maintenant, bientôt sur iPhone)."
+        "a": "Premium coûte €19.99 par mois ou €119.99 par an, soit €10.00 par mois. Elite coûte €29.99 par mois ou €179.99 par an (€15.00 par mois). La facturation est mensuelle ou annuelle, et tu t'abonnes et résilies dans l'App Store ou sur Google Play."
       },
       "subhead": "Les mêmes réponses que sur la page d'accueil — une seule source de vérité."
     },
     "seo": {
       "title": "Adhésion | Libo — Training Club",
-      "description": "Un niveau Free, ou €10.00/mois pour tout — ou €19.99 au mois. Pas de carte pour commencer, et le niveau Free est vraiment gratuit — pas un essai."
+      "description": "Free, Premium ou Elite. Premium dès €10.00/mois et Elite dès €15.00/mois avec facturation annuelle, ou au mois. Sans carte pour commencer, et l'offre gratuite est vraiment gratuite — pas un essai."
     },
     "billing": {
       "label": "Période de facturation",
       "monthly": "Mensuel",
-      "quarterly": "3 mois",
       "yearly": "Annuel",
       "perMonth": "/mois",
-      "perQuarter": "/3 mois · {{pm}}/mois",
       "perYear": "/an · {{pm}}/mois",
       "noteMonthly": "Sans engagement. Résiliable à tout moment.",
-      "noteQuarterly": "{{pct}} % d’économie vs le mensuel. Sur Android maintenant, bientôt sur iPhone.",
       "noteYearly": "{{pct}} % d’économie vs le mensuel."
+    },
+    "hero": {
+      "eyebrow": "Abonnement",
+      "h1Pre": "Entraîne-toi et ",
+      "h1Accent": "gagne",
+      "h1Post": ". À ton niveau.",
+      "sub": "Commence gratuitement. Passe à Premium pour l'app complète, ou à Elite pour plus de coaching, des défis réservés à Elite et des événements VIP. Tu t'abonnes et tu résilies dans l'App Store ou sur Google Play."
+    },
+    "choose": {
+      "h2": "Choisis ton abonnement",
+      "save": "{{pct}} % d’économie",
+      "perMonth": "/mois",
+      "perYear": "/an",
+      "yearlyNote": "{{pm}}/mois, facturé à l'année",
+      "monthlyNote": "Facturé chaque mois. Résiliable à tout moment.",
+      "freePer": "offre gratuite",
+      "freeNote": "Sans carte bancaire.",
+      "mostPopular": "Le plus populaire",
+      "seeAll": "Voir tout ce qui est inclus",
+      "buyNote": "Tu t'abonnes dans l'app, via l'App Store ou Google Play.",
+      "cashNote": "Les défis cash ne paient que si tu atteins les reps quotidiennes pendant les 30 jours, enregistrées dans l'app.",
+      "rulesLink": "Règles des défis cash"
+    },
+    "tiers": {
+      "free": {
+        "name": "Free",
+        "tagline": "Commence à t'entraîner aujourd'hui. Sans carte, sans période d'essai.",
+        "cta": "Commencer gratuitement dans l'app",
+        "h1": "820+ exercices et 80 des 140 séances guidées",
+        "h2": "Coach IA : 1 message par jour",
+        "h3": "5 € cash pour 30 reps par jour, 30 jours d'affilée",
+        "h4": "Des points à chaque séance",
+        "h5": "{{count}} participation par tirage, +{{loyalty}} par mois d'entraînement",
+        "i1": "La bibliothèque complète de 820+ exercices",
+        "i2": "80 des 140 séances guidées",
+        "i3": "Générateur de plans : un plan, jusqu'à 4 semaines",
+        "i4": "Tout ce que tu enregistres, plus les tendances sur 7 jours",
+        "i5": "Coach IA : 1 message texte par jour",
+        "i6": "Le défi à 5 € : 30 reps par jour pendant 30 jours, entrée gratuite",
+        "i7": "Des points à chaque séance, à échanger contre des cartes cadeaux",
+        "i8": "{{count}} participation par tirage, +{{loyalty}} par mois d'entraînement"
+      },
+      "premium": {
+        "name": "Premium",
+        "tagline": "L'app complète, sans plafonds.",
+        "cta": "Passer à Premium dans l'app",
+        "h1": "Les 140 séances guidées, plans illimités",
+        "h2": "Coach IA : 3 messages par jour + messages vocaux",
+        "h3": "Défis cash jusqu'à 50 € : 50 € pour 100 reps par jour, 30 jours",
+        "h4": "Points ×2 et événements de la communauté",
+        "h5": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement",
+        "i1": "Tout ce qu'inclut Free",
+        "i2": "Les 140 séances guidées",
+        "i3": "Autant de plans que tu veux, de n'importe quelle durée",
+        "i4": "Tendances sur 30 et 90 jours, plus la carte musculaire",
+        "i5": "Coach IA : 3 messages par jour, plus les messages vocaux",
+        "i6": "Défis cash jusqu'à 50 € : 15 € pour 50 reps par jour ou 50 € pour 100 reps par jour, 30 jours chacun",
+        "i7": "1 jeton de gel par défi, +1 à gagner",
+        "i8": "Points ×2 à chaque séance",
+        "i9": "Événements de la communauté",
+        "i10": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement"
+      },
+      "elite": {
+        "name": "Elite",
+        "tagline": "Plus de coaching, des défis réservés à Elite et des événements VIP.",
+        "cta": "Passer à Elite dans l'app",
+        "h0": "Tout ce qu'inclut Premium",
+        "h1": "Coach IA : 10 messages par jour + messages vocaux",
+        "h2": "Défis réservés à Elite, dont des défis de créateurs",
+        "h3": "Événements VIP et accès anticipé aux nouveautés",
+        "h4": "Points ×3 à chaque séance",
+        "h5": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement",
+        "i1": "Tout ce qu'inclut Premium",
+        "i2": "Coach IA : 10 messages par jour, plus les messages vocaux",
+        "i3": "Défis réservés à Elite, y compris des défis de créateurs",
+        "i4": "Événements VIP",
+        "i5": "Accès anticipé aux nouvelles fonctionnalités",
+        "i6": "Points ×3 à chaque séance",
+        "i7": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement"
+      }
+    },
+    "inclusions": {
+      "eyebrow": "Tout ce qui est inclus",
+      "h2": "Tout dans {{tier}}",
+      "label": "Abonnement"
+    },
+    "loyalty": {
+      "eyebrow": "Fidélité",
+      "h2": "Entraîne-toi plus longtemps. Plus de participations.",
+      "sub": "Les participations aux tirages sont un bonus en plus de ton abonnement. Pour chaque mois d'affilée où tu t'entraînes, tu reçois à nouveau les participations de ton abonnement.",
+      "month": "Mois {{n}}",
+      "unit": "participations par tirage",
+      "aria": "Participations par tirage avec {{tier}}, par mois",
+      "foot": "Un mois compte quand tu termines au moins une séance de {{min}}+ minutes. Le compte va jusqu'à {{max}} mois ; un mois sans séance le remet à zéro. Chaque participation a la même chance.",
+      "postal": "Aucun achat nécessaire : la participation gratuite par courrier permet à chacun d'atteindre autant de participations qu'Elite.",
+      "postalLink": "Lire le règlement du tirage"
+    },
+    "more": {
+      "h2": "Plus qu'un abonnement",
+      "t1": "Résiliable à tout moment",
+      "b1": "Gère ou résilie depuis les réglages de l'App Store ou de Google Play. Pas d'e-mails, pas d'appels.",
+      "t2": "Un vrai coach dans ta poche",
+      "b2": "Pose tes questions au coach IA sur ton entraînement, ta technique ou ton plan. Texte avec chaque abonnement, messages vocaux avec Premium et Elite.",
+      "t3": "Des récompenses à dépenser",
+      "b3": "Chaque séance te rapporte des points. Échange-les contre des cartes cadeaux dans la boutique de récompenses.",
+      "t4": "Défis et événements réservés aux membres",
+      "b4": "Événements de la communauté avec Premium. Défis réservés à Elite, dont des défis de créateurs, et événements VIP avec Elite."
+    },
+    "final": {
+      "h2": "Commence gratuitement aujourd'hui.",
+      "sub": "Télécharge Libo, entraîne-toi avec l'offre gratuite et passe à la vitesse supérieure dans l'app quand tu veux."
     }
   },
   "relaunchFounder": {

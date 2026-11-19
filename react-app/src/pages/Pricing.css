@@ -1,360 +1,416 @@
 /* ─────────────────────────────────────────────
-   PRICING — Pricing.css
-   Ported pixel-for-pixel from the relaunch design
-   (design_handoff_site_relaunch/designs/Pricing.dc.html)
-   Design token --libo-* → project tokens:
-     --libo-bg      → --bg      (#080808)
-     --libo-bg-2    → --bg2     (#0E0E0E)
-     --libo-bg-3    → --bg3     (#141414)
-     --libo-bg-4    → --bg4     (#1A1A1A)
-     --libo-accent  → --accent  (#CAFF00)
-     --libo-accent-2→ --accent2 (#9BC800)
-     --libo-text    → --text    (#FFFFFF)
-     --libo-muted   → --muted   (#8A9BB0)
-     --libo-dim     → --dim      (#6B7A8F)
-   display font = 'Barlow Condensed'; button radius = 14px
+   MEMBERSHIP — Pricing.css (/membership)
+   Structure after LMCT+'s membership page, look is Libo's own:
+   dark tokens from index.css (--bg, --bg2, --bg3, --accent, --text, --muted),
+   Barlow Condensed display (uppercase) + Inter body,
+   radii: 16 cards · 14 buttons · 12 chips · 100 bars.
    ───────────────────────────────────────────── */
 
 .pr-page {
   background: var(--bg);
   color: var(--text);
-  /* clear the fixed 64px SiteNav */
-  padding-top: 64px;
+  padding-top: 64px; /* clear the fixed SiteNav */
+  overflow-x: clip;
 }
 
-.pr-accent {
+.pr-page .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pr-accent { color: var(--accent); }
+
+.pr-eyebrow {
+  display: inline-block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
   color: var(--accent);
 }
 
-/* ── Pop-in cards (usePopIn adds .popped, and removes it on the way out) ── */
-.pr-page [data-popin] {
-  opacity: 0;
-  transform: translateY(18px) scale(0.98);
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+.pr-h2 {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(34px, 5vw, 54px);
+  line-height: 0.95;
+  margin: 0;
 }
 
-.pr-page [data-popin].popped {
-  opacity: 1;
-  transform: none;
+.pr-lead {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 520px;
 }
 
-/* ── Hero ── */
-.pr-hero {
-  /* Wide enough that line 1 ("FREE TIER. OR €6.67/MO FOR") sets on ONE line at
-     1440 and breaks before "EVERYTHING." — the canvas clips it, we don't. */
+.pr-fine {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+}
+.pr-fine a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+.pr-section {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 88px 64px 56px;
+  padding: 72px 32px;
+}
+
+/* ── Props (decorative) ── */
+.pr-prop {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  height: auto;
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.5));
+}
+
+/* ── (a) Hero ── */
+.pr-hero {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 96px 32px 24px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 18px;
   align-items: center;
+  gap: 18px;
 }
+.pr-hero__h1 {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: var(--h1-hero);
+  line-height: 0.92;
+  margin: 0;
+  max-width: 900px;
+}
+.pr-hero__sub {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0;
+}
+.pr-prop--hero-l { width: 140px; left: 0; top: 24px; transform: rotate(-12deg); opacity: 0.9; }
+.pr-prop--hero-r { width: 110px; right: 8px; top: 290px; transform: rotate(10deg); opacity: 0.9; }
 
-.pr-badge {
+/* ── Segmented toggles (billing + tier) ── */
+.pr-seg {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  max-width: 100%;
+}
+.pr-seg button {
   display: inline-flex;
   align-items: center;
-  align-self: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+.pr-seg button:hover { color: var(--text); }
+.pr-seg button:active { transform: scale(0.97); }
+.pr-seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pr-seg button[aria-pressed='true'] { background: var(--accent); color: var(--accent-text); }
+.pr-seg__save {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 8px;
   background: var(--accent-dim);
   color: var(--accent);
+}
+.pr-seg button[aria-pressed='true'] .pr-seg__save { background: rgba(8, 11, 16, 0.16); color: var(--accent-text); }
+
+/* ── Buttons ── */
+.pr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.pr-btn:active { transform: scale(0.97); }
+.pr-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.pr-btn--accent { background: var(--accent); color: var(--accent-text); }
+.pr-btn--accent:hover { background: var(--accent2); }
+.pr-btn--ghost { background: transparent; color: var(--text); border: 1px solid rgba(255, 255, 255, 0.18); }
+.pr-btn--ghost:hover { border-color: var(--accent); }
+
+/* ── (b) Plan cards ── */
+.pr-section__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.pr-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+.pr-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px 24px 22px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.pr-card--premium {
+  border-color: var(--accent-line);
+  box-shadow: 0 0 0 1px var(--accent-line), 0 24px 60px rgba(202, 255, 0, 0.06);
+}
+.pr-card--elite {
+  background: linear-gradient(160deg, #161a0a 0%, var(--bg2) 55%);
+  border-color: rgba(202, 255, 0, 0.14);
+}
+.pr-prop--card { width: 84px; right: 14px; top: -26px; transform: rotate(8deg); }
+.pr-card__head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pr-card__name {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 30px;
+  line-height: 1;
+  margin: 0;
+}
+.pr-card__badge {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 12px;
-  line-height: 1;
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-text);
 }
-
-.pr-hero__h1 {
+.pr-card__tagline { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0; min-height: 42px; }
+.pr-card__price { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.pr-card__amount {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
-  text-transform: uppercase;
-  /* Scales down before it can ever collide with the viewport edge. */
-  font-size: var(--h1-hero);
-  line-height: 0.95;
-  letter-spacing: 0;
-  margin: 0;
+  font-size: 52px;
+  line-height: 1;
 }
-
-/* Each tone of the two-tone headline is its own reveal element. They stay
-   inline so the h1 wraps as one continuous sentence. */
-.pr-hero__seg {
-  display: inline;
-}
-
-/* ScrollRevealText paints characters from --muted → --text; pointing --text at
-   the accent keeps the lime segment lime through the whole sweep. */
-.pr-hero__seg--accent {
-  --text: var(--accent);
-}
-
-.pr-hero__sub {
-  font-size: 18px;
+.pr-card--premium .pr-card__amount,
+.pr-card--elite .pr-card__amount { color: var(--accent); }
+.pr-card__per { color: var(--muted); font-size: 14px; }
+.pr-card__note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-height: 22px;
+  font-size: 13px;
   color: var(--muted);
-  max-width: 640px;
-  margin: 0;
-  text-wrap: pretty;
 }
-
-/* ── Plans ── */
-/* Founding closed 14 Oct 2026, so usually 2 cards: centre them instead of
-   leaving the third column of the 3-up grid empty. */
-.pr-plans {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 64px 96px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  align-items: stretch;
+.pr-card__strike { color: var(--dim); }
+.pr-card__save {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  color: var(--accent);
 }
-
-.pr-card {
+.pr-card__list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 26px;
-  min-height: 480px;
-  background: var(--bg2);
-  border: 1px solid var(--bg3);
+  gap: 12px;
+  flex: 1;
+}
+.pr-card__list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.45; }
+.pr-icon { flex: 0 0 auto; color: var(--accent); margin-top: 1px; }
+.pr-card__more {
+  align-self: flex-start;
+  background: none;
+  border: 0;
+  padding: 8px 0 0;
+  color: var(--accent);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pr-card__more:hover { text-decoration: underline; text-underline-offset: 3px; }
+.pr-card__more:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.pr-choose .pr-fine { margin-top: 24px; max-width: 760px; }
+
+/* ── (c) Full inclusions ── */
+.pr-incl-wrap { padding-top: 24px; scroll-margin-top: 80px; }
+.pr-incl-wrap:focus { outline: none; }
+.pr-incl {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
   border-radius: 16px;
+  padding: 40px;
 }
-
-.pr-card--elevated {
-  background: var(--bg3);
-  border: 1px solid rgba(202, 255, 0, 0.35);
-  box-shadow: 0 0 0 1px rgba(202, 255, 0, 0.08), 0 24px 60px rgba(0, 0, 0, 0.45);
+.pr-incl__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
 }
-
-.pr-card__head {
+.pr-incl__head .pr-eyebrow { margin-bottom: 10px; }
+.pr-incl__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: 40px;
+}
+.pr-incl__list li {
+  break-inside: avoid;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.pr-incl__foot {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.pr-incl__price {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+/* ── (d) Loyalty ladder ── */
+.pr-loyal {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px;
+  align-items: center;
+}
+.pr-loyal__intro { position: relative; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.pr-prop--loyal { width: 76px; left: 220px; top: -100px; transform: rotate(-8deg); opacity: 0.9; }
+.pr-bars { display: flex; flex-direction: column; gap: 12px; }
+.pr-bar {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) 44px;
+  align-items: center;
   gap: 12px;
 }
-
-.pr-card__name {
+.pr-bar__label { color: var(--muted); font-size: 13px; font-weight: 600; }
+.pr-bar__track {
+  height: 14px;
+  border-radius: 100px;
+  background: var(--bg3);
+  overflow: hidden;
+}
+.pr-bar__fill {
+  display: block;
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pr-bar__value {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
-  text-transform: uppercase;
-  font-size: 28px;
-  line-height: 1;
-  margin: 0;
+  font-size: 22px;
+  text-align: right;
 }
+.pr-loyal__foot { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px; }
 
-.pr-card__badge {
-  flex-shrink: 0;
-  /* inline-block (not inline-flex) so "PRE-SALE · 50% OFF" can set on two
-     lines inside the pill instead of overflowing it. */
-  display: inline-block;
-  max-width: 8em;
-  text-align: center;
-  background: var(--accent);
-  color: var(--accent-text, #080B10);
+/* ── (e) More than a membership ── */
+.pr-more .pr-h2 { margin-bottom: 32px; }
+.pr-more__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.pr-more__item {
+  display: flex;
+  gap: 20px;
+  padding: 28px 24px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.pr-more__num {
+  flex: 0 0 52px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 44px;
+  line-height: 0.9;
+  color: var(--accent);
+}
+.pr-more__title {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 12px;
-  line-height: 1.2;
-  padding: 6px 10px;
-  border-radius: 8px;
-}
-
-.pr-card__price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.pr-card__price {
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800;
-  font-size: 56px;
-  line-height: 1;
-  color: var(--text);
-}
-
-.pr-card__per {
-  font-size: 14px;
-  color: var(--dim);
-}
-
-.pr-card__strike {
-  font-size: 14px;
-  color: var(--dim);
-}
-
-.pr-card__strike-through {
-  text-decoration: line-through;
-}
-
-/* Month-to-month alternative — the price has to be readable on the card
-   itself, not only in the hero subhead (HANDOFF-V2-COMPLEMENT §A8). */
-.pr-card__monthly {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.pr-card__blurb {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.55;
-  margin: 0;
-}
-
-.pr-card__perks {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-  border-top: 1px solid var(--bg3);
-  margin: 0;
-  padding: 16px 0 0;
-  list-style: none;
-  font-size: 14px;
-  flex: 1;
-}
-
-.pr-card--elevated .pr-card__perks {
-  border-top-color: var(--bg4);
-}
-
-.pr-card__perk {
-  color: var(--text);
-}
-
-.pr-card__check {
-  color: var(--accent);
-}
-
-.pr-card__cta {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* ≥44px tap target at every breakpoint. */
-  min-height: 52px;
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 18px;
-  letter-spacing: 0.03em;
-  padding: 13px 20px;
-  border-radius: 14px;
-  text-decoration: none;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
-}
-
-.pr-card__cta--default {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--bg4);
-}
-.pr-card__cta--default:hover {
-  border-color: var(--accent);
-}
-
-.pr-card__cta--accent {
-  background: var(--accent);
-  color: #080808;
-  border: 1px solid var(--accent);
-}
-.pr-card__cta--accent:hover {
-  background: var(--accent2);
-  border-color: var(--accent2);
-}
-
-.pr-card__cta--muted {
-  background: transparent;
-  color: var(--muted);
-  border: 1px solid var(--bg3);
-}
-.pr-card__cta--muted:hover {
-  border-color: var(--accent);
-}
-
-/* Premium isn't purchasable pre-launch: a status chip, not a control. */
-.pr-card__cta--static {
-  cursor: default;
-  color: var(--dim);
-}
-.pr-card__cta--static:hover {
-  border-color: var(--bg3);
-}
-
-/* ── Guarantee strip ── */
-.pr-guarantee {
-  background: var(--bg2);
-  border-top: 1px solid var(--bg3);
-  border-bottom: 1px solid var(--bg3);
-}
-
-.pr-guarantee__inner {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 40px 64px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  text-align: center;
-}
-
-.pr-guarantee__item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.pr-guarantee__title {
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 22px;
+  font-size: 24px;
   line-height: 1.05;
-}
-
-.pr-guarantee__body {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* ── FAQ ── */
-.pr-faq {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 96px 64px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.pr-faq__h2 {
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 54px;
-  line-height: 0.95;
   margin: 0 0 8px;
 }
+.pr-more__body { color: var(--muted); font-size: 15px; line-height: 1.6; margin: 0; }
 
-.pr-faq__subhead {
-  font-size: 14px;
-  color: var(--dim);
-  margin: 0;
-}
-
-.pr-faq__list {
-  display: flex;
-  flex-direction: column;
-}
-
-.pr-faq__item {
-  border-bottom: 1px solid var(--bg3);
-}
-
+/* ── (f) FAQ ── */
+.pr-faq .pr-h2 { margin-bottom: 24px; }
+.pr-faq__list { display: flex; flex-direction: column; }
+.pr-faq__item { border-bottom: 1px solid var(--bg3); }
 .pr-faq__q {
   width: 100%;
   display: flex;
@@ -368,167 +424,70 @@
   font-size: 16px;
   font-weight: 600;
   text-align: left;
-  padding: 20px 4px;
+  padding: 22px 4px;
   cursor: pointer;
-  transition: color 0.2s;
 }
-.pr-faq__q:hover {
-  color: var(--accent);
-}
+.pr-faq__q:hover { color: var(--accent); }
+.pr-faq__q:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pr-faq__icon { color: var(--accent); font-size: 20px; line-height: 1; flex-shrink: 0; }
+.pr-faq__a { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 0; padding: 0 4px 20px; max-width: 760px; }
 
-.pr-faq__icon {
-  color: var(--accent);
-  font-size: 20px;
-  line-height: 1;
-  flex-shrink: 0;
+/* ── Final CTA band ── */
+.pr-final {
+  margin: 24px auto 96px;
+  max-width: 1136px;
+  padding: 56px 32px;
+  border-radius: 16px;
+  background: var(--accent);
+  color: var(--accent-text);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
-
-.pr-faq__a {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.65;
+.pr-final__h2 {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(38px, 6vw, 64px);
+  line-height: 0.92;
   margin: 0;
-  padding: 0 4px 20px;
-  max-width: 760px;
 }
+.pr-final__sub { font-size: 16px; line-height: 1.6; margin: 0 0 8px; max-width: 520px; }
+.pr-final__badges { justify-content: center; }
 
 /* ── Responsive ── */
-@media (max-width: 900px) {
-  .pr-plans {
-    grid-template-columns: 1fr;
-  }
-  .pr-guarantee__inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
+@media (max-width: 1023px) {
+  .pr-cards { grid-template-columns: minmax(0, 560px); justify-content: center; }
+  .pr-loyal { grid-template-columns: 1fr; gap: 32px; }
+  .pr-prop--hero-l, .pr-prop--hero-r { opacity: 0.35; }
 }
-
-@media (max-width: 430px) {
-  .pr-hero {
-    padding: 56px 20px 40px;
-    gap: 14px;
-  }
-  .pr-hero__h1 {
-    font-size: var(--h1-hero);
-  }
-  .pr-hero__sub {
-    font-size: 16px;
-  }
-  .pr-plans {
-    padding: 0 20px 64px;
-  }
-  .pr-card {
-    padding: 22px;
-    min-height: 0;
-  }
-  .pr-guarantee__inner {
-    padding: 32px 20px;
-  }
-  .pr-faq {
-    padding: 64px 20px;
-    gap: 28px;
-  }
-  .pr-faq__h2 {
-    font-size: 38px;
-  }
-  .pr-faq__q {
-    font-size: 15px;
-    gap: 16px;
-  }
+@media (max-width: 767px) {
+  .pr-section { padding: 56px 16px; }
+  .pr-hero { padding: 64px 16px 8px; }
+  .pr-hero__sub { font-size: 16px; }
+  .pr-prop--hero-l { width: 110px; left: -24px; top: 20px; }
+  .pr-prop--hero-r { width: 90px; right: -18px; top: 40px; }
+  .pr-more__num { flex-basis: 44px; font-size: 38px; }
+  .pr-prop--loyal { display: none; }
+  .pr-section__head { flex-direction: column; align-items: flex-start; }
+  .pr-incl { padding: 24px 18px; }
+  .pr-incl__list { columns: 1; }
+  .pr-incl__foot .pr-btn { width: 100%; }
+  .pr-more__list { grid-template-columns: 1fr; }
+  .pr-more__item { padding: 22px 18px; gap: 16px; }
+  .pr-final { margin: 16px 16px 64px; padding: 40px 18px; }
+  .pr-final__badges { --badge-h: 42px; }
+  .pr-bar { grid-template-columns: 64px minmax(0, 1fr) 36px; gap: 10px; }
+  .pr-seg button { padding: 8px 12px; }
 }
 
 /* ── Reduced motion: everything inert ── */
 @media (prefers-reduced-motion: reduce) {
-  .pr-page [data-popin],
-  .pr-page [data-popin].popped {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  .pr-bar__fill,
+  .pr-seg button,
+  .pr-btn { transition: none; }
+  .pr-seg button:active,
+  .pr-btn:active { transform: none; }
 }
-
-/* Founding Member CTA is a <button> (opens Stripe checkout) — reset native chrome so it matches the link CTAs. */
-button.pr-card__cta {
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-
-/* Target mobile: the PRE-SALE badge notches onto the elevated card's top
-   border instead of sitting inline beside the plan name. */
-@media (max-width: 640px) {
-  .pr-card--elevated { position: relative; }
-  .pr-card--elevated:has(.pr-card__badge) { margin-top: 14px; }
-  .pr-card--elevated .pr-card__badge {
-    position: absolute;
-    top: -12px;
-    left: 20px;
-    margin: 0;
-  }
-}
-
-/* The founding card carries the LaunchCountdown block. It lives inside the
-   card's 26px padding and the 16px flex gap, so it overrides the component's
-   own 420px cap and adds no margin of its own. */
-.pr-card .launch-countdown {
-  max-width: 100%;
-  margin: 0;
-}
-
-/* ── Two-card layout + billing switch (18 Nov 2026) ── */
-.pr-plans--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1000px; }
-.pr-plans--1 { grid-template-columns: minmax(0, 520px); justify-content: center; }
-.pr-guarantee__inner--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 900px; }
-@media (max-width: 767px) {
-  .pr-plans--2, .pr-guarantee__inner--2 { grid-template-columns: 1fr; }
-}
-
-.pr-billing {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-  padding: 4px;
-  border-radius: 12px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-}
-.pr-billing button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 0 8px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--muted);
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800;
-  font-size: 16px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.pr-billing button[aria-pressed='true'] { background: var(--accent); color: var(--accent-text); }
-.pr-billing__save {
-  padding: 2px 6px;
-  border-radius: 8px;
-  background: var(--accent-dim);
-  color: var(--accent);
-  font-size: 12px;
-}
-.pr-billing button[aria-pressed='true'] .pr-billing__save { background: rgba(8, 11, 16, 0.18); color: var(--accent-text); }
-.pr-card__badges { margin-top: auto; justify-content: center; }
-@media (max-width: 767px) { .pr-card__badges { --badge-h: 42px; } }
-.pr-plans-band { padding-top: 96px; }
-@media (max-width: 1023px) {
-  .pr-plans--2 { grid-template-columns: minmax(0, 520px); justify-content: center; }
-}
-@media (max-width: 767px) { .pr-plans-band { padding-top: 64px; } }
-.band-lime .pr-card { background: #0E0E0E; border-color: #0E0E0E; box-shadow: 0 24px 50px rgba(8, 8, 8, 0.28); }
-.band-lime .pr-card--elevated { background: #141414; border-color: #080808; }
