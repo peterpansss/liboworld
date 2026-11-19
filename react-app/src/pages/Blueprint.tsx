@@ -53,6 +53,18 @@ export default function Blueprint() {
 
       <main className="bp-main">
         <section className="bp-hero">
+          {/* Phones open on the photos, not a wall of text (Noah, 19 Nov). Same
+              pair as the popup and the app's Home card. */}
+          <div className="bp-pair">
+            <figure>
+              <img src="/downloads/blueprint/before-2023-v1.jpg" alt={t('blueprintApp.beforeAlt')} width={600} height={800} />
+              <figcaption>{t('blueprintApp.before')}</figcaption>
+            </figure>
+            <figure>
+              <img src="/downloads/blueprint/after-2024-05-v1.jpg" alt={t('blueprintApp.afterAlt')} width={600} height={800} />
+              <figcaption className="bp-pair__after">{t('blueprintApp.after')}</figcaption>
+            </figure>
+          </div>
           <div className="bp-hero-text">
             <span className="bp-badge">{d('badge', 'Free · English + German · 11 pages')}</span>
             <h1>
@@ -61,6 +73,7 @@ export default function Blueprint() {
               <span className="bp-accent">{d('h1Line2', 'blueprint')}</span>
             </h1>
             <p className="bp-lead">{d('lead', '69 → 77 kg. No shortcuts.')}</p>
+            <div className="bp-mobile-teasers"><BlueprintTeasers /></div>
 
             <div className="bp-story">
               <p>
@@ -102,7 +115,7 @@ export default function Blueprint() {
           </button>
         </section>
 
-        <BlueprintTeasers />
+        <div className="bp-desktop-teasers"><BlueprintTeasers /></div>
 
         <section className="bp-inside">
           <h2>{d('insideH2', 'What’s inside')}</h2>

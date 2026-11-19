@@ -220,3 +220,30 @@
   .bp-rules { margin-top: 16px; }
   .bp-actions a { flex: 1 1 100%; }
 }
+
+/* Phones open on Noah's before/after; desktop keeps the cover card (19 Nov).
+   No store buttons here: the site's fixed store bar already carries them. */
+.bp-pair, .bp-mobile-teasers { display: none; }
+@media (max-width: 860px) {
+  .bp-main { padding-top: 20px; }
+  .bp-hero { gap: 24px; }
+  .bp-cover { display: none; }
+  .bp-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bp-pair figure { margin: 0; min-width: 0; }
+  .bp-pair img { display: block; width: 100%; aspect-ratio: 3 / 4; height: auto; object-fit: cover; object-position: 50% 30%; border-radius: 16px; }
+  .bp-pair figcaption {
+    margin-top: 8px;
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .bp-pair .bp-pair__after { color: var(--accent); }
+  .bp-hero h1 { margin-top: 16px; }
+  .bp-lead { margin-bottom: 18px; }
+  .bp-mobile-teasers { display: block; margin-bottom: 40px; }
+  .bp-mobile-teasers .bpt { margin-top: 32px; }
+  .bp-desktop-teasers { display: none; }
+}
