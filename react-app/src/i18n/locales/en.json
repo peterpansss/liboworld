@@ -2885,5 +2885,18 @@
     "label": "Libo: Train and earn, the ad",
     "soundOn": "Sound on",
     "soundOff": "Sound off"
+  },
+  "blueprintApp": {
+    "eyebrow": "Free in the Libo app",
+    "eyebrowExit": "Before you go",
+    "title": "Get your free 12-Month Blueprint",
+    "body": "How Noah trained and ate for a year, 69 → 77 kg, written down. It's free inside the app: download Libo and open it from Home.",
+    "qrAlt": "QR code to download the Libo app",
+    "qrCaption": "Scan with your phone camera",
+    "close": "Close",
+    "before": "2023 · 69 kg",
+    "after": "May 2024 · 5 months in",
+    "beforeAlt": "Noah in 2023 at 69 kg",
+    "afterAlt": "Noah in May 2024, five months in"
   }
 }

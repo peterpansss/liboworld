@@ -1,12 +1,17 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
 import { STORE_URLS } from '../utils/storeRedirect';
+import BlueprintAppModal from '../components/blueprint/BlueprintAppModal';
 import './Blueprint.css';
 
 // /blueprint — Noah's free 12-Month Blueprint (2 Nov 2026).
-// Free, no sign-up, no email gate. It's Noah sharing what worked, not a pitch
+// Free, no sign-up, no email gate. Since 19 Nov 2026 the PDF itself is handed
+// out in the app (Noah: "get your free Blueprint inside the app"): the buttons
+// open BlueprintAppModal, the app's Home card opens the PDF. The PDF URLs stay
+// live so links already shared keep working. It's Noah sharing what worked, not a pitch
 // (Noah, 2 Nov: "I'm not trying to sell here anything"), so the page has no
 // hooks, no urgency and only one quiet line about Libo at the bottom.
 // Every fact here comes from the PDF itself (Brand-Management/Marketing/Blueprint/).
@@ -14,12 +19,11 @@ import './Blueprint.css';
 // The PDFs are versioned in the filename because Cloudflare caches asset URLs:
 // ship a new version as -v2, never overwrite -v1.
 
-const PDF_EN = '/downloads/blueprint/Libo-12-Month-Blueprint-EN-v7.pdf';
-const PDF_DE = '/downloads/blueprint/Libo-12-Month-Blueprint-DE-v7.pdf';
 
 export default function Blueprint() {
   const { t } = useTranslation();
   const d = (key: string, defaultValue: string) => t(`blueprint.${key}`, { defaultValue });
+  const [appOpen, setAppOpen] = useState(false);
 
   const inside = [
     d('inside.0', 'The year in four phases: full body 3× a week, then upper/lower, then my 5–6 day split'),
@@ -39,7 +43,7 @@ export default function Blueprint() {
         title={d('seo.title', 'The 12-Month Blueprint — free, by Noah F. · Libo')}
         description={d(
           'seo.desc',
-          'Seven years stuck at 69 kg, then about 77 kg in twelve months. How I trained and ate, written down. Free PDF, English and German.',
+          'Seven years stuck at 69 kg, then about 77 kg in twelve months. How I trained and ate, written down. Free in the Libo app, English and German.',
         )}
         canonical="https://liboworld.com/blueprint"
         ogImage="https://liboworld.com/downloads/blueprint/card-v6.jpg"
@@ -73,31 +77,28 @@ export default function Blueprint() {
               <p>
                 {d(
                   'story.2',
-                  'It’s free. No sign-up, no email. Take it, share it, or don’t. I just wish someone had given me this when I was 17.',
+                  'It’s free, it’s in the app. Download it, open the Blueprint, done. I just wish someone had given me this when I was 17.',
                 )}
               </p>
               <p className="bp-sign">{d('sign', 'Noah F.')}</p>
             </div>
 
             <div className="bp-actions">
-              <a className="bp-btn-primary" href={PDF_EN} target="_blank" rel="noopener">
-                {d('ctaEn', 'Download (English)')}
-              </a>
-              <a className="bp-btn-secondary" href={PDF_DE} target="_blank" rel="noopener" hrefLang="de">
-                {d('ctaDe', 'Herunterladen (Deutsch)')}
-              </a>
+              <button type="button" className="bp-btn-primary" onClick={() => setAppOpen(true)}>
+                {d('ctaApp', 'Get it free in the app')}
+              </button>
             </div>
-            <p className="bp-meta">{d('meta', 'PDF · about 0.7 MB')}</p>
+            <p className="bp-meta">{d('metaApp', 'PDF in English and German, inside the Libo app')}</p>
           </div>
 
-          <a className="bp-cover" href={PDF_EN} target="_blank" rel="noopener" aria-label={d('ctaEn', 'Download (English)')}>
+          <button type="button" className="bp-cover" onClick={() => setAppOpen(true)} aria-label={d('ctaApp', 'Get it free in the app')}>
             <img
               src="/downloads/blueprint/card-v6.jpg"
               alt={d('coverAlt', 'Noah in May 2024, five months in, on the cover of The 12-Month Blueprint')}
               width={900}
               height={1273}
             />
-          </a>
+          </button>
         </section>
 
         <section className="bp-inside">
@@ -130,6 +131,7 @@ export default function Blueprint() {
       </main>
 
       <SiteFooter />
+      <BlueprintAppModal open={appOpen} onClose={() => setAppOpen(false)} />
     </div>
   );
 }

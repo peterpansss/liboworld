@@ -2885,5 +2885,18 @@
     "label": "Libo: Train and earn, der Spot",
     "soundOn": "Ton an",
     "soundOff": "Ton aus"
+  },
+  "blueprintApp": {
+    "eyebrow": "Gratis in der Libo App",
+    "eyebrowExit": "Bevor du gehst",
+    "title": "Hol dir den kostenlosen 12-Monats-Blueprint",
+    "body": "Wie Noah ein Jahr trainiert und gegessen hat, 69 → 77 kg, aufgeschrieben. Gratis in der App: Libo laden und auf dem Home-Screen öffnen.",
+    "qrAlt": "QR-Code zum Download der Libo App",
+    "qrCaption": "Mit der Handykamera scannen",
+    "close": "Schließen",
+    "before": "2023 · 69 kg",
+    "after": "Mai 2024 · 5 Monate dabei",
+    "beforeAlt": "Noah 2023 mit 69 kg",
+    "afterAlt": "Noah im Mai 2024, nach fünf Monaten"
   }
 }
