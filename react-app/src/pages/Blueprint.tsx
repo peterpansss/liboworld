@@ -66,7 +66,7 @@ export default function Blueprint() {
               <p>
                 {d(
                   'story.0',
-                  'I was 69 kg at 17. Still 69 kg at 20. Still 69 kg at 24. Around New Year 2024, at 25, I started training properly, five or six days a week, and eating real food every day. Twelve months later I was around 77 kg.',
+                  'I was 69 kg at 17. Still 69 kg at 20. Still 69 kg at 24. At the end of 2023 I started training properly, five or six days a week, and eating real food every day. Twelve months later I was around 77 kg.',
                 )}
               </p>
               <p>
@@ -95,7 +95,7 @@ export default function Blueprint() {
           <button type="button" className="bp-cover" onClick={() => setAppOpen(true)} aria-label={d('ctaApp', 'Get it free in the app')}>
             <img
               src="/downloads/blueprint/card-v7.jpg"
-              alt={d('coverAlt', 'Noah in May 2024, five months in, on the cover of The 12-Month Blueprint')}
+              alt={d('coverAlt', 'Noah in May 2024, eight months in, on the cover of The 12-Month Blueprint')}
               width={900}
               height={1273}
             />
