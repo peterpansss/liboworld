@@ -1,0 +1,73 @@
+/* Home brand opener (SiteIntro.tsx). Timeline, in ms:
+   0–420 dots pop · 300–600 LIBO slides in · 760–900 logo out ·
+   820–1200 lime opens into a frame · 1150–1350 frame fades. */
+
+.site-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow: hidden;
+  animation: site-intro-fade 200ms ease-in 1150ms forwards;
+}
+
+/* The lime is the giant shadow around a rounded "hole" that starts as a point
+   in the centre and grows to the full viewport, so the page shows through it. */
+.site-intro__hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 28px;
+  box-shadow: 0 0 0 200vmax #CAFF00;
+  animation: site-intro-open 380ms cubic-bezier(.7, 0, .2, 1) 820ms forwards;
+}
+
+.site-intro__logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(62vw, 420px);
+  height: auto;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  animation: site-intro-logo-out 140ms ease-in 760ms forwards;
+}
+
+.site-intro__dot {
+  fill: #0E0E0E;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  animation: site-intro-pop 320ms cubic-bezier(.34, 1.56, .64, 1) forwards;
+}
+.site-intro__dot--1 { animation-delay: 0ms; }
+.site-intro__dot--2 { animation-delay: 70ms; }
+.site-intro__dot--3 { animation-delay: 140ms; }
+
+.site-intro__word {
+  fill: #0E0E0E;
+  opacity: 0;
+  transform: translateX(-24px);
+  animation: site-intro-word 300ms cubic-bezier(.2, .8, .2, 1) 300ms forwards;
+}
+
+@keyframes site-intro-pop {
+  to { transform: scale(1); }
+}
+@keyframes site-intro-word {
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes site-intro-logo-out {
+  to { opacity: 0; transform: translate(-50%, -50%) scale(1.08); }
+}
+@keyframes site-intro-open {
+  to { top: 12px; left: 12px; width: calc(100% - 24px); height: calc(100% - 24px); }
+}
+@keyframes site-intro-fade {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-intro { display: none; }
+}

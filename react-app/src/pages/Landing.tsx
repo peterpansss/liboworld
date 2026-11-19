@@ -9,6 +9,7 @@ import StoreBadges from '../components/StoreBadges';
 import VideoTestimonials from '../components/VideoTestimonials';
 import HomeEarn from '../components/earn/HomeEarn';
 import HomeAd from '../components/HomeAd';
+import SiteIntro from '../components/SiteIntro';
 import { Ribbons } from '../components/motion/Motion';
 import { usePopIn } from '../utils/funnelAnimations';
 import { CHALLENGE_TIERS } from '../data/challengeTiers';
@@ -363,6 +364,7 @@ export default function Landing() {
         ogImage="https://liboworld.com/brand/og-image.png"
         jsonLd={buildTestimonialVideoGraph()}
       />
+      <SiteIntro />
       <SiteNav />
       <main className="relaunch-home" id="main-content">
 
