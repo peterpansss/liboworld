@@ -2885,5 +2885,14 @@
     "label": "Libo: Train and earn, der Spot",
     "soundOn": "Ton an",
     "soundOff": "Ton aus"
+  },
+  "blueprintApp": {
+    "eyebrow": "Gratis in der Libo App",
+    "eyebrowExit": "Bevor du gehst",
+    "title": "Hol dir den kostenlosen 12-Monats-Blueprint",
+    "body": "Noahs Jahr Training und Ernährung, 69 → 77 kg, aufgeschrieben. Gratis in der App: Libo laden und auf dem Home-Screen öffnen.",
+    "qrAlt": "QR-Code zum Download der Libo App",
+    "qrCaption": "Mit der Handykamera scannen",
+    "close": "Schließen"
   }
 }

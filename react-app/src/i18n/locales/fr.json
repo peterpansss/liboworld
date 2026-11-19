@@ -2885,5 +2885,14 @@
     "label": "Libo : Train and earn, la pub",
     "soundOn": "Activer le son",
     "soundOff": "Couper le son"
+  },
+  "blueprintApp": {
+    "eyebrow": "Gratuit dans l'app Libo",
+    "eyebrowExit": "Avant de partir",
+    "title": "Récupère ton Blueprint 12 mois gratuit",
+    "body": "L'année d'entraînement et d'alimentation de Noah, 69 → 77 kg, mise par écrit. Gratuit dans l'app : télécharge Libo et ouvre-le depuis l'accueil. PDF en anglais et en allemand.",
+    "qrAlt": "QR code pour télécharger l'app Libo",
+    "qrCaption": "Scanne avec l'appareil photo de ton téléphone",
+    "close": "Fermer"
   }
 }

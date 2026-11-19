@@ -84,6 +84,9 @@
   font-weight: 700;
   font-size: 16px;
   text-decoration: none;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
@@ -107,6 +110,11 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
   transform: rotate(1.5deg);
+  /* A button since 19 Nov 2026 (opens the get-it-in-the-app popup). */
+  width: 100%;
+  padding: 0;
+  background: none;
+  cursor: pointer;
 }
 
 .bp-cover img {

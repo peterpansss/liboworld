@@ -64,6 +64,7 @@ import { isPrelaunch, FUNNEL_PAGES_ENABLED } from './config/launchMode';
 import FoundingCheckoutProvider from './components/funnel/FoundingCheckoutProvider';
 import CursorFollower from './components/CursorFollower';
 import ConsentBanner from './components/ConsentBanner';
+import BlueprintExitPopup from './components/blueprint/BlueprintExitPopup';
 import { initConsent, trackPageView } from './lib/consent';
 import { captureAttribution } from './lib/signupAttribution';
 
@@ -131,6 +132,7 @@ export default function App() {
       <ScrollToTop />
       <CursorFollower />
       <ConsentBanner />
+      <BlueprintExitPopup />
       <FoundingCheckoutProvider>
       <Routes>
         <Route path="/" element={<Landing />} />
