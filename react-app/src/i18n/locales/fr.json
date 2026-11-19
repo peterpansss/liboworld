@@ -1635,7 +1635,9 @@
     "cta": {
       "free": "Participer gratuitement →",
       "enter": "Clique pour entrer →",
-      "checkout": "Clique pour entrer — {{price}}/an →"
+      "checkout": "Clique pour entrer — {{price}}/an →",
+      "freeApp": "Rejoins gratuitement dans l'app →",
+      "getApp": "Télécharge l'app →"
     },
     "bar": {
       "full": "⚡ Places limitées — tes 30 jours commencent dès que tu t'inscris ⚡",
@@ -1717,7 +1719,10 @@
       "ctaFree": "Passe à Premium — {{price}}/an →",
       "eyebrowClosed": "Premium · dans l’app maintenant",
       "titleClosed": "Prends Premium dans l’app.",
-      "perYear": "/ an"
+      "perYear": "/ an",
+      "perMonth": "/ mois",
+      "subApp": "ou {{year}} par an · Premium dans l'app",
+      "tick3App": "Résiliable à tout moment dans l'App Store ou Google Play"
     },
     "faq": {
       "title": "Des questions ?",
@@ -1753,7 +1758,8 @@
       "subFree": "Le Challenge Starter à 5 € est gratuit pour tous les membres. Laisse ton e-mail et on te garde ta place — premier arrivé, premier servi.",
       "upsell": "Tu veux les paliers €15 et €50 ? Passe à Premium — -50% →",
       "upsellClosed": "Tu veux les paliers €15 et €50 ? Prends Premium →",
-      "subClosed": "Le Premium payant débloque ce palier — premier arrivé, premier servi, et les places sont limitées. Si c’est complet, tu es prévenu dès qu’une place se libère."
+      "subClosed": "Le Premium payant débloque ce palier — premier arrivé, premier servi, et les places sont limitées. Si c’est complet, tu es prévenu dès qu’une place se libère.",
+      "subFreeApp": "Le défi Starter à 5 € est gratuit pour tous les membres. Télécharge Libo, ouvre Rewards et rejoins-le : premier arrivé, premier servi."
     },
     "footerNote": "Les conditions du challenge s'appliquent",
     "seo": {

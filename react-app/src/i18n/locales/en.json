@@ -1696,7 +1696,9 @@
     "cta": {
       "free": "Join free →",
       "enter": "Click to Enter →",
-      "checkout": "Click to Enter — {{price}}/yr →"
+      "checkout": "Click to Enter — {{price}}/yr →",
+      "freeApp": "Join free in the app →",
+      "getApp": "Get the app →"
     },
     "bar": {
       "full": "⚡ Limited spots — your 30 days start the moment you join ⚡",
@@ -1778,7 +1780,10 @@
       "ctaFree": "Get Premium — {{price}}/yr →",
       "eyebrowClosed": "Premium · in the app now",
       "titleClosed": "Get Premium in the app.",
-      "perYear": "/ year"
+      "perYear": "/ year",
+      "perMonth": "/ month",
+      "subApp": "or {{year}} a year · Premium in the app",
+      "tick3App": "Cancel any time in App Store or Google Play"
     },
     "faq": {
       "title": "Any questions?",
@@ -1814,7 +1819,8 @@
       "subFree": "The €5 Starter challenge is free for every member. Leave your email and we'll save your spot — first come, first served.",
       "upsell": "Want the €15 and €50 tiers? Get Premium — 50% off →",
       "upsellClosed": "Want the €15 and €50 tiers? Get Premium →",
-      "subClosed": "Paid Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees."
+      "subClosed": "Paid Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
+      "subFreeApp": "The €5 Starter challenge is free for every member. Download Libo, open Rewards and join: first come, first served."
     },
     "footerNote": "Challenge terms apply",
     "seo": {

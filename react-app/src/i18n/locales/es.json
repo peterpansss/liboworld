@@ -1635,7 +1635,9 @@
     "cta": {
       "free": "Participa gratis →",
       "enter": "Haz clic para entrar →",
-      "checkout": "Haz clic para entrar — {{price}}/año →"
+      "checkout": "Haz clic para entrar — {{price}}/año →",
+      "freeApp": "Únete gratis en la app →",
+      "getApp": "Descarga la app →"
     },
     "bar": {
       "full": "⚡ Plazas limitadas — tus 30 días empiezan en el momento en que entras ⚡",
@@ -1717,7 +1719,10 @@
       "ctaFree": "Consigue Premium — {{price}}/año →",
       "eyebrowClosed": "Premium · ya en la app",
       "titleClosed": "Consigue Premium en la app.",
-      "perYear": "/ año"
+      "perYear": "/ año",
+      "perMonth": "/ mes",
+      "subApp": "o {{year}} al año · Premium en la app",
+      "tick3App": "Cancela cuando quieras en App Store o Google Play"
     },
     "faq": {
       "title": "¿Dudas?",
@@ -1753,7 +1758,8 @@
       "subFree": "La Challenge Starter de 5 € es gratis para todos los miembros. Deja tu email y te guardamos tu plaza — por orden de llegada.",
       "upsell": "¿Quieres los niveles de €15 y €50? Consigue Premium — 50% de descuento →",
       "upsellClosed": "¿Quieres los niveles de €15 y €50? Consigue Premium →",
-      "subClosed": "Premium de pago desbloquea este nivel — por orden de llegada y con plazas limitadas. Si está lleno, te avisamos en cuanto se libere una plaza."
+      "subClosed": "Premium de pago desbloquea este nivel — por orden de llegada y con plazas limitadas. Si está lleno, te avisamos en cuanto se libere una plaza.",
+      "subFreeApp": "El reto Starter de 5 € es gratis para todos los miembros. Descarga Libo, abre Rewards y únete: por orden de llegada."
     },
     "footerNote": "Aplican los términos del reto",
     "seo": {

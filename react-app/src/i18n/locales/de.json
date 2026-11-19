@@ -1635,7 +1635,9 @@
     "cta": {
       "free": "Kostenlos mitmachen →",
       "enter": "Jetzt einsteigen →",
-      "checkout": "Jetzt einsteigen — {{price}}/Jahr →"
+      "checkout": "Jetzt einsteigen — {{price}}/Jahr →",
+      "freeApp": "Kostenlos in der App mitmachen →",
+      "getApp": "Hol dir die App →"
     },
     "bar": {
       "full": "⚡ Begrenzte Plätze — deine 30 Tage starten mit dem Beitritt ⚡",
@@ -1717,7 +1719,10 @@
       "ctaFree": "Hol dir Premium — {{price}}/Jahr →",
       "eyebrowClosed": "Premium · jetzt in der App",
       "titleClosed": "Hol dir Premium in der App.",
-      "perYear": "/ Jahr"
+      "perYear": "/ Jahr",
+      "perMonth": "/ Monat",
+      "subApp": "oder {{year}} im Jahr · Premium in der App",
+      "tick3App": "Jederzeit kündbar im App Store oder bei Google Play"
     },
     "faq": {
       "title": "Noch Fragen?",
@@ -1753,7 +1758,8 @@
       "subFree": "Die 5-€-Starter-Challenge ist für jedes Mitglied kostenlos. Lass deine E-Mail da und wir halten dir deinen Platz frei — wer zuerst kommt, mahlt zuerst.",
       "upsell": "Willst du die €15- und €50-Stufen? Hol dir Premium — 50% Rabatt →",
       "upsellClosed": "Willst du die €15- und €50-Stufen? Hol dir Premium →",
-      "subClosed": "Bezahltes Premium schaltet diese Stufe frei — wer zuerst kommt, mahlt zuerst, und die Plätze sind begrenzt. Ist alles voll, wirst du sofort benachrichtigt, wenn ein Platz frei wird."
+      "subClosed": "Bezahltes Premium schaltet diese Stufe frei — wer zuerst kommt, mahlt zuerst, und die Plätze sind begrenzt. Ist alles voll, wirst du sofort benachrichtigt, wenn ein Platz frei wird.",
+      "subFreeApp": "Die 5-€-Starter-Challenge ist für jedes Mitglied kostenlos. Lad Libo, öffne Rewards und mach mit: Wer zuerst kommt, mahlt zuerst."
     },
     "footerNote": "Es gelten die Challenge-Bedingungen",
     "seo": {
