@@ -47,7 +47,7 @@ export default function Blueprint() {
           'Seven years stuck at 69 kg, then about 77 kg in twelve months. How I trained and ate, written down. Free in the Libo app, English and German.',
         )}
         canonical="https://liboworld.com/blueprint"
-        ogImage="https://liboworld.com/downloads/blueprint/card-v7.jpg"
+        ogImage="https://liboworld.com/downloads/blueprint/card-v8.jpg"
       />
       <SiteNav />
 
@@ -94,8 +94,8 @@ export default function Blueprint() {
 
           <button type="button" className="bp-cover" onClick={() => setAppOpen(true)} aria-label={d('ctaApp', 'Get it free in the app')}>
             <img
-              src="/downloads/blueprint/card-v7.jpg"
-              alt={d('coverAlt', 'Noah in May 2024, eight months in, on the cover of The 12-Month Blueprint')}
+              src="/downloads/blueprint/card-v8.jpg"
+              alt={d('coverAlt', 'Noah in May 2024, seven months in, on the cover of The 12-Month Blueprint')}
               width={900}
               height={1273}
             />
