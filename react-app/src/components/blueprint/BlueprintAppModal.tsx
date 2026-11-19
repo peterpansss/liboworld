@@ -53,13 +53,18 @@ export default function BlueprintAppModal({ open, onClose, variant = 'page' }: P
         <button ref={closeRef} type="button" className="bpm-close" onClick={onClose} aria-label={t('blueprintApp.close')}>
           <span aria-hidden="true">×</span>
         </button>
-        <img
-          className="bpm-cover"
-          src="/downloads/blueprint/card-v6.jpg"
-          alt=""
-          width={900}
-          height={1273}
-        />
+        {/* Noah's real before/after (19 Nov 2026), the same pair as the app's
+            Home card. Photos from the Blueprint itself; labels per its cover. */}
+        <div className="bpm-pair">
+          <figure>
+            <img src="/downloads/blueprint/before-2023-v1.jpg" alt={t('blueprintApp.beforeAlt')} width={600} height={800} />
+            <figcaption>{t('blueprintApp.before')}</figcaption>
+          </figure>
+          <figure>
+            <img src="/downloads/blueprint/after-2024-05-v1.jpg" alt={t('blueprintApp.afterAlt')} width={600} height={800} />
+            <figcaption className="bpm-pair__after">{t('blueprintApp.after')}</figcaption>
+          </figure>
+        </div>
         <div className="bpm-body">
           <p className="bpm-eyebrow">
             {variant === 'exit' ? t('blueprintApp.eyebrowExit') : t('blueprintApp.eyebrow')}

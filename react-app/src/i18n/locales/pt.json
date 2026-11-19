@@ -2890,9 +2890,13 @@
     "eyebrow": "Grátis na app Libo",
     "eyebrowExit": "Antes de saíres",
     "title": "Recebe grátis o Blueprint de 12 meses",
-    "body": "O ano de treino e alimentação do Noah, 69 → 77 kg, por escrito. Grátis dentro da app: descarrega a Libo e abre-o no Início. PDF em inglês e alemão.",
+    "body": "Como o Noah treinou e comeu durante um ano, 69 → 77 kg, por escrito. Grátis dentro da app: descarrega a Libo e abre-o no Início. PDF em inglês e alemão.",
     "qrAlt": "Código QR para descarregar a app Libo",
     "qrCaption": "Lê com a câmara do telemóvel",
-    "close": "Fechar"
+    "close": "Fechar",
+    "before": "2023 · 69 kg",
+    "after": "Maio 2024 · 5 meses",
+    "beforeAlt": "Noah em 2023 com 69 kg",
+    "afterAlt": "Noah em maio de 2024, aos cinco meses"
   }
 }
