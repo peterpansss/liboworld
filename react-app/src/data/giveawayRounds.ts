@@ -4,8 +4,9 @@
  *
  * Model decided by Noah on 10 Nov 2026 — canon LEGAL-COMPETITIONS.md §4b/§5/§8
  * and REWARDS-ECONOMY-RULES.md §8.1/§8.4. One open draw per round, every
- * eligible member entered automatically (Free 1 entry, Premium 3, plus
- * the same again per loyalty month — Noah, 13 Nov 2026), entries activate on one completed workout while the round
+ * eligible member entered automatically (Free 1 entry, Premium 3, Elite 9
+ * — Elite added 19 Nov 2026 — plus the same again per loyalty month — Noah,
+ * 13 Nov 2026), entries activate on one completed workout while the round
  * is open.
  *
  * Adding a round is a one-line change: append an object below. Dates are
@@ -57,7 +58,7 @@ export const GIVEAWAY_ROUNDS: GiveawayRound[] = [
 ];
 
 /** Entries per member per round, by plan. Same activation rule for every plan. */
-export const GIVEAWAY_ENTRIES = { free: 1, premium: 3 } as const;
+export const GIVEAWAY_ENTRIES = { free: 1, premium: 3, elite: 9 } as const;
 
 /**
  * Loyalty entries (Noah, 10 Nov 2026; computed server-side). For every
@@ -68,7 +69,11 @@ export const GIVEAWAY_ENTRIES = { free: 1, premium: 3 } as const;
  * server, which is the one that actually assigns entries.
  */
 /** Equal to the plan's base entries: entries accumulate per month (Noah, 13 Nov 2026). */
-export const LOYALTY_PER_MONTH = { free: GIVEAWAY_ENTRIES.free, premium: GIVEAWAY_ENTRIES.premium } as const;
+export const LOYALTY_PER_MONTH = {
+  free: GIVEAWAY_ENTRIES.free,
+  premium: GIVEAWAY_ENTRIES.premium,
+  elite: GIVEAWAY_ENTRIES.elite,
+} as const;
 export const LOYALTY_MAX_MONTHS = 12;
 export const LOYALTY_MIN_WORKOUT_MINUTES = 10;
 
@@ -76,18 +81,21 @@ export const LOYALTY_MIN_WORKOUT_MINUTES = 10;
 export const GIVEAWAY_MAX_ENTRIES = {
   free: GIVEAWAY_ENTRIES.free + LOYALTY_PER_MONTH.free * LOYALTY_MAX_MONTHS,
   premium: GIVEAWAY_ENTRIES.premium + LOYALTY_PER_MONTH.premium * LOYALTY_MAX_MONTHS,
+  elite: GIVEAWAY_ENTRIES.elite + LOYALTY_PER_MONTH.elite * LOYALTY_MAX_MONTHS,
 } as const;
 
 /**
- * Free entry by post (Noah, 13 Nov 2026). One letter = one entry. Letters let a
- * member reach exactly what a Premium member with the same loyalty months
- * holds, never more: Free can count 2 + 2 per loyalty month (max 26); Premium
- * already holds that, so letters add nothing. It must arrive before the round
- * closes, and the member still needs one workout in the round. Must match the
- * server (libo-app-v2/supabase-migration-giveaway-postal-entries.sql).
+ * Free entry by post (Noah, 13 Nov 2026; parity raised to Elite 19 Nov 2026).
+ * One letter = one entry. Letters let a member reach exactly what an Elite
+ * member with the same loyalty months holds, never more: on Free that is
+ * 8 + 8 per loyalty month (max 104). A Premium member can top up to the same
+ * Elite figure; an Elite member already holds it, so letters add nothing. It
+ * must arrive before the round closes, and the member still needs one workout
+ * in the round. Must match the server
+ * (libo-app-v2/supabase-migration-giveaway-postal-entries.sql).
  */
-export const POSTAL_BASE_LETTERS = GIVEAWAY_ENTRIES.premium - GIVEAWAY_ENTRIES.free;
-export const POSTAL_LETTERS_PER_LOYALTY_MONTH = LOYALTY_PER_MONTH.premium - LOYALTY_PER_MONTH.free;
+export const POSTAL_BASE_LETTERS = GIVEAWAY_ENTRIES.elite - GIVEAWAY_ENTRIES.free;
+export const POSTAL_LETTERS_PER_LOYALTY_MONTH = LOYALTY_PER_MONTH.elite - LOYALTY_PER_MONTH.free;
 export const POSTAL_MAX_LETTERS = POSTAL_BASE_LETTERS + POSTAL_LETTERS_PER_LOYALTY_MONTH * LOYALTY_MAX_MONTHS;
 
 /**

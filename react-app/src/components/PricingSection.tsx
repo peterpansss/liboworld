@@ -1,11 +1,10 @@
 /**
  * Pricing section for the public landing page.
  *
- * Card grid over VISIBLE_TIERS: Free / Premium (highlighted) at launch. Elite
- * is deferred (see VISIBLE_TIER_IDS in data/tiers.ts) but its data is kept for
- * relaunch. Monthly/Yearly toggle at the top. Copy mirrors the mobile paywall:
+ * Card grid over VISIBLE_TIERS: Free / Premium (highlighted) / Elite (on sale
+ * since 19 Nov 2026). Monthly/Yearly toggle at the top. Copy mirrors the mobile paywall:
  *   - Premium: €19.99/mo or €10.00/mo billed annually (€119.99/yr, 50% off), 1 freeze token, 2x points, €50 pools
- *   - Elite (deferred): €19.99/mo or €149/yr, 3 freeze tokens, 3x points
+ *   - Elite: €29.99/mo or €15.00/mo billed annually (€179.99/yr, 50% off), 3x points, coach 10/day
  * No trial on any tier: App Store Connect carries no introductory offer on
  * either subscription product and the app ships TIER_TRIAL_DAYS = 0, so a
  * subscriber is charged immediately. The free tier is the try-before-you-buy.

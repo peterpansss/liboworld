@@ -2093,25 +2093,133 @@
       },
       "monthlyPrice": {
         "q": "What does €10.00/mo mean?",
-        "a": "Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99, or €44.99 for 3 months (€15.00/mo, Android now, iPhone soon)."
+        "a": "Premium is €19.99 a month, or €119.99 a year, which works out to €10.00 a month. Elite is €29.99 a month, or €179.99 a year (€15.00 a month). Billing is monthly or yearly, and you subscribe and cancel in the App Store or Google Play."
       },
       "subhead": "Same answers as the home page — one source of truth."
     },
     "seo": {
       "title": "Membership | Libo — Training Club",
-      "description": "A free tier, or €10.00/mo for everything — or month-to-month at €19.99. No card to start, and the free tier is genuinely free — not a trial."
+      "description": "Free, Premium or Elite. Premium from €10.00/mo and Elite from €15.00/mo billed yearly, or month to month. No card to start, and the free tier is genuinely free — not a trial."
     },
     "billing": {
       "label": "Billing period",
       "monthly": "Monthly",
-      "quarterly": "3 months",
       "yearly": "Yearly",
       "perMonth": "/month",
-      "perQuarter": "/3 months · {{pm}}/mo",
       "perYear": "/year · {{pm}}/mo",
       "noteMonthly": "Month to month. Cancel any time.",
-      "noteQuarterly": "Save {{pct}}% vs monthly. Android now, iPhone soon.",
       "noteYearly": "Save {{pct}}% vs monthly."
+    },
+    "hero": {
+      "eyebrow": "Membership",
+      "h1Pre": "Train and ",
+      "h1Accent": "earn",
+      "h1Post": ". Your level.",
+      "sub": "Start free. Go Premium for the full app, or Elite for more coaching, Elite-only challenges and VIP events. You subscribe and cancel in the App Store or Google Play."
+    },
+    "choose": {
+      "h2": "Choose your membership",
+      "save": "Save {{pct}}%",
+      "perMonth": "/month",
+      "perYear": "/year",
+      "yearlyNote": "{{pm}}/mo, billed yearly",
+      "monthlyNote": "Billed monthly. Cancel any time.",
+      "freePer": "free tier",
+      "freeNote": "No card needed.",
+      "mostPopular": "Most popular",
+      "seeAll": "See all inclusions",
+      "buyNote": "You subscribe in the app, on the App Store or Google Play.",
+      "cashNote": "Cash challenges pay out only when you hit the daily reps for all 30 days, recorded in the app.",
+      "rulesLink": "Cash challenge rules"
+    },
+    "tiers": {
+      "free": {
+        "name": "Free",
+        "tagline": "Start training today. No card, no trial clock.",
+        "cta": "Start free in the app",
+        "h1": "820+ exercises and 80 of 140 guided workouts",
+        "h2": "AI coach: 1 message a day",
+        "h3": "€5 cash for 30 reps a day, 30 days in a row",
+        "h4": "Points on every workout",
+        "h5": "{{count}} giveaway entry per round, +{{loyalty}} each month you train",
+        "i1": "The full 820+ exercise library",
+        "i2": "80 of the 140 guided workouts",
+        "i3": "Plan generator: keep one plan, up to 4 weeks",
+        "i4": "Everything you log, plus 7 days of trends",
+        "i5": "AI coach: 1 text message a day",
+        "i6": "The €5 cash challenge: 30 reps a day for 30 days, free to enter",
+        "i7": "Points on every workout, to spend on gift cards",
+        "i8": "{{count}} giveaway entry per round, +{{loyalty}} for each month you train"
+      },
+      "premium": {
+        "name": "Premium",
+        "tagline": "The full app, with the ceilings taken off.",
+        "cta": "Get Premium in the app",
+        "h1": "All 140 guided workouts, unlimited plans",
+        "h2": "AI coach: 3 messages a day + voice notes",
+        "h3": "Cash challenges up to €50: €50 for 100 reps a day, 30 days",
+        "h4": "2× points and community events",
+        "h5": "{{count}} giveaway entries per round, +{{loyalty}} each month you train",
+        "i1": "Everything in Free",
+        "i2": "All 140 guided workouts",
+        "i3": "Keep as many plans as you want, any length",
+        "i4": "30- and 90-day trends, plus the muscle heatmap",
+        "i5": "AI coach: 3 messages a day, plus voice notes",
+        "i6": "Cash challenges up to €50: €15 for 50 reps a day or €50 for 100 reps a day, 30 days each",
+        "i7": "1 freeze token per challenge, +1 you can earn",
+        "i8": "2× points on every workout",
+        "i9": "Community events",
+        "i10": "{{count}} giveaway entries per round, +{{loyalty}} for each month you train"
+      },
+      "elite": {
+        "name": "Elite",
+        "tagline": "More coaching, Elite-only challenges and VIP events.",
+        "cta": "Get Elite in the app",
+        "h0": "Everything in Premium",
+        "h1": "AI coach: 10 messages a day + voice notes",
+        "h2": "Elite-only challenges, incl. creator challenges",
+        "h3": "VIP events and early access to new features",
+        "h4": "3× points on every workout",
+        "h5": "{{count}} giveaway entries per round, +{{loyalty}} each month you train",
+        "i1": "Everything in Premium",
+        "i2": "AI coach: 10 messages a day, plus voice notes",
+        "i3": "Elite-only challenges, including creator challenges",
+        "i4": "VIP events",
+        "i5": "Early access to new features",
+        "i6": "3× points on every workout",
+        "i7": "{{count}} giveaway entries per round, +{{loyalty}} for each month you train"
+      }
+    },
+    "inclusions": {
+      "eyebrow": "Full inclusions",
+      "h2": "Everything in {{tier}}",
+      "label": "Plan"
+    },
+    "loyalty": {
+      "eyebrow": "Loyalty",
+      "h2": "Train longer. More entries.",
+      "sub": "Giveaway entries are a bonus on top of your membership. Every month in a row you train, you get your plan's entries again.",
+      "month": "Month {{n}}",
+      "unit": "entries per round",
+      "aria": "Giveaway entries per round on {{tier}}, by month",
+      "foot": "A month counts when you complete at least one workout of {{min}}+ minutes. Counts up to {{max}} months; a month off restarts the count. Every entry has the same chance.",
+      "postal": "No purchase necessary: a free entry by post can bring anyone up to the same number of entries as Elite.",
+      "postalLink": "Read the giveaway rules"
+    },
+    "more": {
+      "h2": "More than a membership",
+      "t1": "Cancel any time",
+      "b1": "Manage or cancel in your App Store or Google Play settings. No emails, no phone calls.",
+      "t2": "A real coach in your pocket",
+      "b2": "Ask the AI coach about your training, your form or your plan. Text on every plan, voice notes on Premium and Elite.",
+      "t3": "Rewards you can spend",
+      "b3": "Every workout earns points. Spend them on gift cards in the rewards shop.",
+      "t4": "Members-only challenges & events",
+      "b4": "Community events on Premium. Elite-only challenges, including creator challenges, and VIP events on Elite."
+    },
+    "final": {
+      "h2": "Start free today.",
+      "sub": "Download Libo, train on the free tier and upgrade in the app whenever you're ready."
     }
   },
   "founderV2": {

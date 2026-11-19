@@ -1,15 +1,15 @@
 /**
  * Tests for src/components/PricingSection.tsx.
  *
- * Two-card pricing grid (Free / Premium) with a Monthly/Yearly toggle. Elite is
- * deferred at launch (VISIBLE_TIER_IDS in data/tiers.ts), so it must NOT render.
+ * Three-card pricing grid (Free / Premium / Elite) with a Monthly/Yearly toggle.
+ * Elite went on sale 19 Nov 2026 (VISIBLE_TIER_IDS in data/tiers.ts).
  * Covers:
- *   - heading + tier names (Free + Premium only, no Elite)
+ *   - heading + tier names (Free, Premium, Elite)
  *   - cycle toggle aria-selected wiring + tab role
  *   - price + subline switch when cycle changes
- *   - badge rendering ("Most popular"; no "Elite" badge)
+ *   - badge rendering ("Most popular" on Premium)
  *   - feature list (Free's first vs Premium's "Everything in Free")
- *   - CTA href construction (?cycle=… for Premium, plain for Free)
+ *   - CTA href construction (?cycle=… for the paid tiers, plain for Free)
  *   - no trial promise anywhere (there is no ASC introductory offer)
  */
 /// <reference types="@testing-library/jest-dom" />
@@ -24,11 +24,12 @@ import { MONTHLY_PRICE, YEARLY_PRICE, YEARLY_DISCOUNT } from '../../src/data/tie
 // Prices are asserted against the tier constants (the single source of truth
 // in src/data/tiers.ts, mirrored from the mobile paywall) so a deliberate price
 // change doesn't strand this suite; what's under test is that the right label
-// renders for the selected cycle and that Elite's never does.
+// renders for the selected cycle, for every visible tier.
 const eur = (n: number) => `€${n.toFixed(2)}`;
-const PREMIUM_MONTHLY = eur(MONTHLY_PRICE.premium); // €12.99
-const PREMIUM_YEARLY_PER_MONTH = eur(YEARLY_PRICE.premium / 12); // €6.67
-const ELITE_YEARLY_PER_MONTH = eur(YEARLY_PRICE.elite / 12);
+const PREMIUM_MONTHLY = eur(MONTHLY_PRICE.premium); // €19.99
+const PREMIUM_YEARLY_PER_MONTH = eur(YEARLY_PRICE.premium / 12); // €10.00
+const ELITE_MONTHLY = eur(MONTHLY_PRICE.elite); // €29.99
+const ELITE_YEARLY_PER_MONTH = eur(YEARLY_PRICE.elite / 12); // €15.00
 
 void React;
 
@@ -41,19 +42,17 @@ function renderSection() {
 }
 
 describe('PricingSection', () => {
-  it('renders the heading and the two tier cards (Free + Premium, no Elite)', () => {
+  it('renders the heading and the three tier cards (Free, Premium, Elite)', () => {
     renderSection();
     expect(screen.getByRole('heading', { name: /Simple pricing\. Real rewards\./i })).toBeInTheDocument();
     expect(screen.getByText('Free')).toBeInTheDocument();
     expect(screen.getByText('Premium')).toBeInTheDocument();
-    // Elite is deferred — it must not appear as a tier name or badge.
-    expect(screen.queryByText('Elite')).not.toBeInTheDocument();
+    expect(screen.getByText('Elite')).toBeInTheDocument();
   });
 
-  it('renders the "Most popular" badge and no "Elite" badge', () => {
+  it('renders the "Most popular" badge once', () => {
     renderSection();
-    expect(screen.getByText('Most popular')).toBeInTheDocument();
-    expect(screen.queryByText('Elite')).not.toBeInTheDocument();
+    expect(screen.getAllByText('Most popular')).toHaveLength(1);
   });
 
   it('starts on the yearly cycle by default and exposes tab roles', () => {
@@ -63,14 +62,18 @@ describe('PricingSection', () => {
     expect(monthly).toHaveAttribute('aria-selected', 'false');
     expect(yearly).toHaveAttribute('aria-selected', 'true');
     // Yearly default → premium shows the per-month equivalent billed annually,
-    // plus the annual total + discount line. Elite's yearly price is gone.
+    // plus the annual total + discount line; Elite the same.
     expect(screen.getByText(PREMIUM_YEARLY_PER_MONTH)).toBeInTheDocument();
-    expect(screen.getByText('/mo billed annually')).toBeInTheDocument();
+    expect(screen.getByText(ELITE_YEARLY_PER_MONTH)).toBeInTheDocument();
+    expect(screen.getAllByText('/mo billed annually')).toHaveLength(2);
     expect(
       screen.getByText(`€${YEARLY_PRICE.premium.toFixed(2)}/year · save ${YEARLY_DISCOUNT.premium}%`),
     ).toBeInTheDocument();
-    expect(screen.queryByText(ELITE_YEARLY_PER_MONTH)).not.toBeInTheDocument();
+    expect(
+      screen.getByText(`€${YEARLY_PRICE.elite.toFixed(2)}/year · save ${YEARLY_DISCOUNT.elite}%`),
+    ).toBeInTheDocument();
     expect(screen.queryByText(PREMIUM_MONTHLY)).not.toBeInTheDocument();
+    expect(screen.queryByText(ELITE_MONTHLY)).not.toBeInTheDocument();
   });
 
   it('switches to monthly prices when the Monthly tab is clicked', async () => {
@@ -78,13 +81,10 @@ describe('PricingSection', () => {
     renderSection();
     await user.click(screen.getByRole('tab', { name: /Monthly/ }));
     expect(screen.getByText(PREMIUM_MONTHLY)).toBeInTheDocument();
+    expect(screen.getByText(ELITE_MONTHLY)).toBeInTheDocument();
     expect(screen.queryByText(PREMIUM_YEARLY_PER_MONTH)).not.toBeInTheDocument();
-    // Elite is checked by NAME, not by price. Since Phase 2 (12 Nov 2026)
-    // Premium occupies Elite's old €19.99 slot, so MONTHLY_PRICE.premium and
-    // MONTHLY_PRICE.elite are the same string and a price assertion can no
-    // longer tell the two cards apart — it would fail on a correct page.
-    expect(screen.queryByText('Elite')).not.toBeInTheDocument();
-    expect(screen.getAllByText('/month').length).toBeGreaterThan(0);
+    expect(screen.queryByText(ELITE_YEARLY_PER_MONTH)).not.toBeInTheDocument();
+    expect(screen.getAllByText('/month')).toHaveLength(2);
   });
 
   it('builds CTA hrefs with the cycle query param for the paid tier', () => {
@@ -93,9 +93,9 @@ describe('PricingSection', () => {
     const hrefs = ctas.map((a) => a.getAttribute('href'));
     // Free tier: plain /onboarding
     expect(hrefs).toContain('/onboarding');
-    // Default cycle yearly → ?cycle=yearly appended for Premium; no Elite CTA.
+    // Default cycle yearly → ?cycle=yearly appended for both paid tiers.
     expect(hrefs).toContain('/onboarding?tier=premium&cycle=yearly');
-    expect(hrefs).not.toContain('/onboarding?tier=elite&cycle=yearly');
+    expect(hrefs).toContain('/onboarding?tier=elite&cycle=yearly');
   });
 
   it('updates CTA hrefs when the cycle toggles to monthly', async () => {
@@ -105,7 +105,7 @@ describe('PricingSection', () => {
     const hrefs = Array.from(container.querySelectorAll<HTMLAnchorElement>('a.pricing-cta'))
       .map((a) => a.getAttribute('href'));
     expect(hrefs).toContain('/onboarding?tier=premium&cycle=monthly');
-    expect(hrefs).not.toContain('/onboarding?tier=elite&cycle=monthly');
+    expect(hrefs).toContain('/onboarding?tier=elite&cycle=monthly');
   });
 
   it('renders feature lists per tier (Free starts the list, Premium reuses)', () => {
@@ -115,15 +115,15 @@ describe('PricingSection', () => {
     expect(screen.getByText('Reps & kg tracking')).toBeInTheDocument();
     // Premium "Everything in Free"
     expect(screen.getByText('Everything in Free')).toBeInTheDocument();
-    // Elite's "Everything in Premium" bullet must be gone.
-    expect(screen.queryByText('Everything in Premium')).not.toBeInTheDocument();
+    // Elite "Everything in Premium"
+    expect(screen.getByText('Everything in Premium')).toBeInTheDocument();
   });
 
-  it('uses CTA copy "Get started" for free, "Get Premium" for the paid tier', () => {
+  it('uses CTA copy "Get started" for free, "Get Premium" / "Get Elite" for the paid tiers', () => {
     renderSection();
     expect(screen.getByText('Get started')).toBeInTheDocument();
-    // Only Premium remains, so the paid CTA appears exactly once.
     expect(screen.getAllByText('Get Premium')).toHaveLength(1);
+    expect(screen.getAllByText('Get Elite')).toHaveLength(1);
   });
 
   it('promises no trial anywhere', () => {

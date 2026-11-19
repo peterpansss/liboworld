@@ -13,7 +13,9 @@
  *     REWARDS-ECONOMY-RULES.md §7.4: "a challenge may have a minimum tier,
  *     never a maximum" — Premium sees every challenge a Free user sees, plus
  *     the gated ones. So Premium reaches the €50 / 100-rep Flagship challenge;
- *     it is not an Elite perk. Elite (Phase 2) unlocks no higher payout.
+ *     it is not an Elite perk. Elite adds Elite-only challenges (creator
+ *     challenges among them) on top; never publish an Elite payout here that
+ *     the server does not run.
  *   - Challenge numbers (payout · reps/day) are duplicated from
  *     src/data/challengeTiers.ts — that file is the source of truth for
  *     /cash-challenges and the funnels. Change them THERE first, then mirror.
@@ -22,29 +24,24 @@
  *     Premium's grant was cut 2 → 1 on 2026-08-10 (migration deployed to
  *     staging + production). User-facing framing across all five locales is
  *     "1 freeze token per challenge, +1 you can earn" — match it here.
- *   - Giveaways of every kind are Phase 2 — see the note on the Free tier below
- *     and canon REWARDS-ECONOMY-RULES.md §8 "Phase 2 — NOT FOR LAUNCH".
- *   - "Elite-exclusive" framing reserved for genuinely rare campaigns (€5k+),
- *     and only once Elite itself returns in Phase 2.
+ *   - Giveaway entries are a BONUS on top of the service (Free 1 / Premium 3 /
+ *     Elite 9 per round, the same again per loyalty month — data/giveawayRounds.ts).
+ *     Never sell a tier on entries: Elite leads with the coach, Elite-only
+ *     challenges and VIP events.
  */
 
 // YEARLY_PRICE is the annual TOTAL (per-month equivalent = /12). Premium is
 // shown to users as €10.00/mo billed annually (= €119.99/yr, 50% off €19.99/mo).
 // Raised 12 Nov 2026 (Noah) at the start of Phase 2, with zero active
 // subscriptions on RevenueCat — so nobody was grandfathered.
-// Launch/introductory pricing — competitive with training apps (Alpha, Liftoff
-// €119.99/yr). Elite is DEAD for now (Noah, 12 Nov 2026) — Premium took its
-// €19.99 slot; Elite keeps constants only so stored rows still resolve.
-export const MONTHLY_PRICE = { premium: 19.99, elite: 19.99 } as const;
-export const YEARLY_PRICE = { premium: 119.99, elite: 149 } as const;
-// New 12 Nov 2026: a quarter, €15.00/mo — a discount without a year's commitment.
-// It buys NO extra giveaway entries (loyalty months count months with a
-// workout, not months paid for), so never sell it on entries.
-export const QUARTERLY_PRICE = { premium: 44.99, elite: 44.99 } as const;
-// Premium: 119.99 vs 19.99x12 = 49.98% off, shown as 50. Raised with the Phase 2
-// prices (12 Nov 2026) — it was left at 49 from the old 79.99/12.99 pair, which
-// made the card contradict the comment above it.
-export const YEARLY_DISCOUNT = { premium: 50, elite: 37 } as const;
+// Elite went on sale 19 Nov 2026 (Noah): €29.99/mo or €179.99/yr. Billing is
+// monthly or yearly only — the Premium 3-month plan was withdrawn the same
+// day and must not appear anywhere on the site.
+export const MONTHLY_PRICE = { premium: 19.99, elite: 29.99 } as const;
+export const YEARLY_PRICE = { premium: 119.99, elite: 179.99 } as const;
+// Premium: 119.99 vs 19.99x12 = 49.98% off; Elite: 179.99 vs 29.99x12 = 49.99%
+// off. Both shown as 50.
+export const YEARLY_DISCOUNT = { premium: 50, elite: 50 } as const;
 // NOTE: there is deliberately no TRIAL_DAYS export. App Store Connect carries
 // no introductory offer on either subscription product
 // (com.liboworld.app.premium.monthly / .yearly), and the mobile app has shipped
@@ -57,14 +54,11 @@ export type TierId = 'free' | 'premium' | 'elite';
 export type BillingCycle = 'monthly' | 'yearly';
 
 /**
- * Tiers shown to users at launch. Elite is deferred until signed partner
- * discounts justify a higher tier (mirrors LAUNCH_TIERS in
- * libo-app-v2/src/constants/tierFeatures.ts). The full TIERS array and
- * COMPARISON_GROUPS below keep their Elite data intact and dormant — to
- * relaunch Elite, add 'elite' here. Render sites map over VISIBLE_TIERS and
- * VISIBLE_COMPARISON_TIERS, never the raw arrays.
+ * Tiers shown to users. Elite is on sale since 19 Nov 2026 (Noah). Render
+ * sites map over VISIBLE_TIERS and VISIBLE_COMPARISON_TIERS, never the raw
+ * arrays, so a tier can still be hidden by removing it here.
  */
-export const VISIBLE_TIER_IDS: readonly TierId[] = ['free', 'premium'] as const;
+export const VISIBLE_TIER_IDS: readonly TierId[] = ['free', 'premium', 'elite'] as const;
 export const isTierVisible = (id: TierId): boolean => VISIBLE_TIER_IDS.includes(id);
 
 export type Tier = {
@@ -96,11 +90,11 @@ export const TIERS: Tier[] = [
       'Reps & kg tracking',
       'Basic progress charts',
       'Rewards program (1× Libo)',
+      'AI coach: 1 message a day',
       // Giveaways are live (membership model, 10-13 Nov 2026) with the free
       // postal route live since 14 Nov; the pricing footnote links the rules.
       // Numbers must match data/giveawayRounds.ts (GIVEAWAY_ENTRIES /
-      // LOYALTY_PER_MONTH). Never on the quarterly plan's copy: it buys no
-      // extra entries.
+      // LOYALTY_PER_MONTH).
       'Every giveaway: 1 entry, +1 every month you train',
       // Starter challenge — src/data/challengeTiers.ts ('starter': €5, 30 reps,
       // requiresPremium: false). Source of truth for these numbers.
@@ -126,6 +120,8 @@ export const TIERS: Tier[] = [
       'Workout generator',
       'Advanced analytics',
       '2× Libo',
+      'AI coach: 3 messages a day + voice notes',
+      'Community events',
       // GRANT, not ceiling. Canon §5.2: Premium is granted 1 and can earn a
       // second (train 60 of the last 90 days). Cut 2 → 1 on 2026-08-10.
       '1 freeze token per challenge, +1 you can earn',
@@ -143,28 +139,22 @@ export const TIERS: Tier[] = [
   {
     id: 'elite',
     name: 'Elite',
-    // Tagline no longer claims "biggest prizes": Elite unlocks no challenge
-    // above Premium's €50 (canon §7.4 — minimum tier only, never a maximum),
-    // and "prizes" is prize-draw wording that was deliberately cut from this file.
-    tagline: 'The full experience.',
+    // Leads with the service (coach, Elite-only challenges, VIP events), not
+    // with entries — entries are a bonus, never the pitch (Noah, 19 Nov 2026).
+    tagline: 'More coaching. Elite-only challenges. VIP events.',
     monthlyLabel: `€${MONTHLY_PRICE.elite.toFixed(2)}`,
     yearlyLabel: `€${(YEARLY_PRICE.elite / 12).toFixed(2)}`,
     monthlySubline: '/month',
     yearlySubline: '/mo billed annually',
-    badge: 'Elite',
+    badge: 'Full access',
     features: [
       'Everything in Premium',
-      'Exclusive seasonal workouts',
-      '3× Libo',
-      // Canon §5.2: Elite grant stays 3, plus the same universal +1 earn path.
-      '3 freeze tokens per challenge, +1 you can earn',
-      // NOT a bigger payout than Premium — challengeTiers.ts tops out at the
-      // €50 / 100-rep 'flagship', which Premium already unlocks. Elite's edge
-      // here is the freeze grant above, not a higher cash ceiling.
-      'Cash challenges up to €50 (100 reps/day)',
-      'Priority on rare Elite-exclusive campaigns',
-      'Creator perks',
+      'AI coach: 10 messages a day + voice notes',
+      'Elite-only challenges, incl. creator challenges',
+      'VIP events',
       'Early access to new features',
+      '3× Libo',
+      'Every giveaway: 9 entries, +9 every month you train',
     ],
     cta: 'Get Elite',
     href: '/onboarding?tier=elite',
@@ -172,7 +162,7 @@ export const TIERS: Tier[] = [
   },
 ];
 
-/** Tier cards currently shown to users (Free + Premium at launch). */
+/** Tier cards currently shown to users (Free, Premium, Elite). */
 export const VISIBLE_TIERS: Tier[] = TIERS.filter((t) => isTierVisible(t.id));
 
 export function buildHref(base: string, id: TierId, cycle: BillingCycle): string {
@@ -198,7 +188,7 @@ export const comparisonValue = (row: ComparisonRow, id: TierId): string | boolea
 
 /**
  * Comparison-table columns currently rendered, with their display headers.
- * Drops the Elite column while Elite is deferred.
+ * A column drops out when its tier is removed from VISIBLE_TIER_IDS.
  */
 export const VISIBLE_COMPARISON_TIERS: Array<{ id: TierId; label: string }> = [
   { id: 'free', label: 'Free' },
@@ -221,11 +211,10 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
   {
     title: 'Library & training',
     rows: [
-      { label: 'Curated workouts', free: '20', premium: '140+', elite: '140+ exclusives' },
+      { label: 'Curated workouts', free: '20', premium: '140+', elite: '140+' },
       { label: 'Exercise library (600+)', free: true, premium: true, elite: true },
       { label: 'Custom workout builder', free: false, premium: true, elite: true },
       { label: 'Workout generator', free: false, premium: true, elite: true },
-      { label: 'Seasonal exclusive workouts', free: false, premium: false, elite: true },
     ],
   },
   {
@@ -258,13 +247,15 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
       // Giveaway rows removed — Phase 2 (canon REWARDS-ECONOMY-RULES.md §8).
       // They were truthy on Free/Premium, so visibleComparisonRows() kept them:
       // that filter only drops rows whose sole "yes" is the hidden Elite column.
-      { label: 'Elite-exclusive campaigns', free: false, premium: false, elite: true },
+      { label: 'Elite-only challenges (incl. creator challenges)', free: false, premium: false, elite: true },
     ],
   },
   {
     title: 'Other',
     rows: [
-      { label: 'Creator perks', free: false, premium: false, elite: true },
+      { label: 'AI coach messages per day', free: '1', premium: '3 + voice', elite: '10 + voice' },
+      { label: 'Community events', free: false, premium: true, elite: true },
+      { label: 'VIP events', free: false, premium: false, elite: true },
       { label: 'Early access to features', free: false, premium: false, elite: true },
     ],
   },

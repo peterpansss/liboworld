@@ -2032,25 +2032,133 @@
       },
       "monthlyPrice": {
         "q": "Was bedeutet €10.00/Monat?",
-        "a": "Premium wird jährlich mit €119.99 abgerechnet — das sind €10.00 pro Monat. Lieber flexibel bleiben? Das Monatsabo kostet €19.99, 3 Monate kosten €44.99 (€15.00/Monat, jetzt auf Android, iPhone folgt)."
+        "a": "Premium kostet €19.99 im Monat oder €119.99 im Jahr, das sind €10.00 pro Monat. Elite kostet €29.99 im Monat oder €179.99 im Jahr (€15.00 pro Monat). Abgerechnet wird monatlich oder jährlich; abschließen und kündigen geht im App Store oder bei Google Play."
       },
       "subhead": "Dieselben Antworten wie auf der Startseite — eine einzige Quelle."
     },
     "seo": {
       "title": "Mitgliedschaft | Libo — Training Club",
-      "description": "Eine Gratis-Version, oder €10.00/Monat für alles — oder monatlich für €19.99. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — kein Test-Abo."
+      "description": "Free, Premium oder Elite. Premium ab €10.00/Monat und Elite ab €15.00/Monat bei jährlicher Abrechnung, oder monatlich. Keine Karte zum Start, und die Gratis-Version ist wirklich gratis — keine Testphase."
     },
     "billing": {
       "label": "Abrechnungszeitraum",
       "monthly": "Monatlich",
-      "quarterly": "3 Monate",
       "yearly": "Jährlich",
       "perMonth": "/Monat",
-      "perQuarter": "/3 Monate · {{pm}}/Monat",
       "perYear": "/Jahr · {{pm}}/Monat",
       "noteMonthly": "Monatlich kündbar.",
-      "noteQuarterly": "{{pct}} % günstiger als monatlich. Jetzt auf Android, iPhone folgt.",
       "noteYearly": "{{pct}} % günstiger als monatlich."
+    },
+    "hero": {
+      "eyebrow": "Mitgliedschaft",
+      "h1Pre": "Trainieren und ",
+      "h1Accent": "verdienen",
+      "h1Post": ". Dein Level.",
+      "sub": "Starte gratis. Mit Premium bekommst du die komplette App, mit Elite mehr Coaching, Elite-Challenges und VIP-Events. Abschließen und kündigen geht im App Store oder bei Google Play."
+    },
+    "choose": {
+      "h2": "Wähl deine Mitgliedschaft",
+      "save": "{{pct}} % sparen",
+      "perMonth": "/Monat",
+      "perYear": "/Jahr",
+      "yearlyNote": "{{pm}}/Monat, jährlich abgerechnet",
+      "monthlyNote": "Monatlich abgerechnet. Jederzeit kündbar.",
+      "freePer": "Gratis-Version",
+      "freeNote": "Keine Karte nötig.",
+      "mostPopular": "Am beliebtesten",
+      "seeAll": "Alle Leistungen ansehen",
+      "buyNote": "Du schließt dein Abo in der App ab, über den App Store oder Google Play.",
+      "cashNote": "Cash-Challenges zahlen nur aus, wenn du das tägliche Rep-Ziel alle 30 Tage lang schaffst, aufgenommen in der App.",
+      "rulesLink": "Regeln der Cash-Challenges"
+    },
+    "tiers": {
+      "free": {
+        "name": "Free",
+        "tagline": "Heute anfangen zu trainieren. Keine Karte, keine Testphase.",
+        "cta": "Gratis in der App starten",
+        "h1": "820+ Übungen und 80 der 140 geführten Workouts",
+        "h2": "KI-Coach: 1 Nachricht pro Tag",
+        "h3": "5 € Cash für 30 Reps am Tag, 30 Tage am Stück",
+        "h4": "Punkte für jedes Workout",
+        "h5": "{{count}} Los pro Gewinnspiel-Runde, +{{loyalty}} für jeden Monat, in dem du trainierst",
+        "i1": "Die komplette Übungsbibliothek mit 820+ Übungen",
+        "i2": "80 der 140 geführten Workouts",
+        "i3": "Plan-Generator: ein Plan, bis zu 4 Wochen",
+        "i4": "Alles, was du loggst, plus Trends der letzten 7 Tage",
+        "i5": "KI-Coach: 1 Textnachricht pro Tag",
+        "i6": "Die 5-€-Cash-Challenge: 30 Reps am Tag, 30 Tage lang, kostenlos",
+        "i7": "Punkte für jedes Workout, einlösbar gegen Gutscheine",
+        "i8": "{{count}} Los pro Gewinnspiel-Runde, +{{loyalty}} für jeden Monat, in dem du trainierst"
+      },
+      "premium": {
+        "name": "Premium",
+        "tagline": "Die komplette App, ohne Obergrenzen.",
+        "cta": "Premium in der App holen",
+        "h1": "Alle 140 geführten Workouts, unbegrenzt Pläne",
+        "h2": "KI-Coach: 3 Nachrichten pro Tag + Sprachnachrichten",
+        "h3": "Cash-Challenges bis 50 €: 50 € für 100 Reps am Tag, 30 Tage",
+        "h4": "2× Punkte und Community-Events",
+        "h5": "{{count}} Lose pro Gewinnspiel-Runde, +{{loyalty}} für jeden Monat, in dem du trainierst",
+        "i1": "Alles aus Free",
+        "i2": "Alle 140 geführten Workouts",
+        "i3": "So viele Pläne wie du willst, in jeder Länge",
+        "i4": "30- und 90-Tage-Trends plus Muskel-Heatmap",
+        "i5": "KI-Coach: 3 Nachrichten pro Tag, plus Sprachnachrichten",
+        "i6": "Cash-Challenges bis 50 €: 15 € für 50 Reps am Tag oder 50 € für 100 Reps am Tag, jeweils 30 Tage",
+        "i7": "1 Freeze-Token pro Challenge, +1 zum Verdienen",
+        "i8": "2× Punkte für jedes Workout",
+        "i9": "Community-Events",
+        "i10": "{{count}} Lose pro Gewinnspiel-Runde, +{{loyalty}} für jeden Monat, in dem du trainierst"
+      },
+      "elite": {
+        "name": "Elite",
+        "tagline": "Mehr Coaching, Elite-Challenges und VIP-Events.",
+        "cta": "Elite in der App holen",
+        "h0": "Alles aus Premium",
+        "h1": "KI-Coach: 10 Nachrichten pro Tag + Sprachnachrichten",
+        "h2": "Challenges nur für Elite, inkl. Creator-Challenges",
+        "h3": "VIP-Events und früher Zugang zu neuen Features",
+        "h4": "3× Punkte für jedes Workout",
+        "h5": "{{count}} Lose pro Gewinnspiel-Runde, +{{loyalty}} für jeden Monat, in dem du trainierst",
+        "i1": "Alles aus Premium",
+        "i2": "KI-Coach: 10 Nachrichten pro Tag, plus Sprachnachrichten",
+        "i3": "Challenges nur für Elite, auch Creator-Challenges",
+        "i4": "VIP-Events",
+        "i5": "Früher Zugang zu neuen Features",
+        "i6": "3× Punkte für jedes Workout",
+        "i7": "{{count}} Lose pro Gewinnspiel-Runde, +{{loyalty}} für jeden Monat, in dem du trainierst"
+      }
+    },
+    "inclusions": {
+      "eyebrow": "Alle Leistungen",
+      "h2": "Alles in {{tier}}",
+      "label": "Mitgliedschaft"
+    },
+    "loyalty": {
+      "eyebrow": "Treue",
+      "h2": "Länger trainieren. Mehr Lose.",
+      "sub": "Gewinnspiel-Lose sind ein Bonus zu deiner Mitgliedschaft. Für jeden Monat am Stück, in dem du trainierst, bekommst du die Lose deiner Mitgliedschaft noch einmal.",
+      "month": "Monat {{n}}",
+      "unit": "Lose pro Runde",
+      "aria": "Gewinnspiel-Lose pro Runde mit {{tier}}, nach Monat",
+      "foot": "Ein Monat zählt, wenn du mindestens ein Workout von {{min}}+ Minuten abschließt. Gezählt wird bis zu {{max}} Monate; ein Monat Pause startet die Zählung neu. Jedes Los hat die gleiche Chance.",
+      "postal": "Kein Kauf nötig: Mit der kostenlosen Teilnahme per Post kommt jeder auf genauso viele Lose wie Elite.",
+      "postalLink": "Teilnahmebedingungen lesen"
+    },
+    "more": {
+      "h2": "Mehr als eine Mitgliedschaft",
+      "t1": "Jederzeit kündbar",
+      "b1": "Verwalten oder kündigen in den Einstellungen von App Store oder Google Play. Keine E-Mails, keine Anrufe.",
+      "t2": "Ein echter Coach in deiner Tasche",
+      "b2": "Frag den KI-Coach zu deinem Training, deiner Technik oder deinem Plan. Text in jeder Mitgliedschaft, Sprachnachrichten mit Premium und Elite.",
+      "t3": "Prämien, die du einlösen kannst",
+      "b3": "Jedes Workout bringt Punkte. Löse sie im Prämien-Shop gegen Gutscheine ein.",
+      "t4": "Challenges & Events nur für Mitglieder",
+      "b4": "Community-Events mit Premium. Challenges nur für Elite, auch Creator-Challenges, und VIP-Events mit Elite."
+    },
+    "final": {
+      "h2": "Starte heute gratis.",
+      "sub": "Lade Libo herunter, trainiere in der Gratis-Version und upgrade in der App, wann immer du so weit bist."
     }
   },
   "relaunchFounder": {

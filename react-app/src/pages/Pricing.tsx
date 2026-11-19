@@ -1,441 +1,352 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
-import ScrollRevealText from '../components/ScrollRevealText';
-import { usePopIn } from '../utils/funnelAnimations';
 import { PRICING_FAQ } from '../data/faq';
-import { useFoundingCheckout } from '../components/funnel/FoundingCheckoutProvider';
-import LaunchCountdown from '../components/LaunchCountdown';
-import { isFoundingOpen } from '../config/launchMode';
 import StoreBadges from '../components/StoreBadges';
-import { MONTHLY_PRICE, QUARTERLY_PRICE, YEARLY_PRICE } from '../data/tiers';
-import { GIVEAWAY_ENTRIES, LOYALTY_PER_MONTH } from '../data/giveawayRounds';
+import { storeUrlWithSource } from '../utils/storeRedirect';
+import { MONTHLY_PRICE, YEARLY_PRICE, type BillingCycle, type TierId } from '../data/tiers';
+import {
+  GIVEAWAY_ENTRIES,
+  LOYALTY_PER_MONTH,
+  LOYALTY_MAX_MONTHS,
+  LOYALTY_MIN_WORKOUT_MINUTES,
+} from '../data/giveawayRounds';
 import './Pricing.css';
 
 // /membership (route /pricing redirects here) — the Membership page.
 //
-// Copy status, per HANDOFF-V2-COMPLEMENT §A7/§A8 and the site-wide copy rule:
-//   • giveaway entries ARE a perk since the membership giveaways went live
-//     (10–14 Nov 2026, free postal route included). The old "no prize-draw
-//     perks anywhere" rule is superseded. Numbers come from GIVEAWAY_ENTRIES /
-//     LOYALTY_PER_MONTH in data/giveawayRounds.ts, never typed here, and must
-//     match the app's TIER_GIVEAWAY_ENTRIES and the server's
-//     _giveaway_entries_for_tier (free 1 · premium 3).
-//   • the free plan is a "free tier", never described as permanent
-//   • the €19.99 month-to-month option is visible in the plan cards, not just
-//     in the hero subhead
-//   • NO TRIAL, anywhere. App Store Connect has no introductory offer on
-//     com.liboworld.app.premium.monthly or the yearly product, and the app
-//     ships TIER_TRIAL_DAYS = 0 — subscribing charges immediately. The free
-//     tier is the try-before-you-buy story. (2026-08-27: the guarantee strip's
-//     second item, the hero subhead and the meta description all used to
-//     promise "7 days of Premium on us"; all three were rewritten, here and in
-//     all five locale files.)
-// relaunchPricing.hero.sub was rewritten in every locale for the same reason;
-// the rest of relaunchPricing.hero.* is reused as-is. Everything else that had
-// to change is authored under the page-local
-// `membershipV2` namespace as t(key, { defaultValue }) so a later harvest pass
-// can lift the English into the locale files without five agents fighting over
-// the same JSON.
+// Structure follows LMCT+'s membership page (hero → plan cards with a billing
+// toggle → full inclusions → loyalty ladder → "more than a membership" →
+// FAQ → CTA); the look is Libo's own. Decisions (Noah, 19 Nov 2026):
+//   • Three tiers: Free, Premium (€19.99/mo · €119.99/yr), Elite (€29.99/mo ·
+//     €179.99/yr). Prices come from data/tiers.ts, never typed here.
+//   • Billing is monthly or yearly only. The 3-month plan is withdrawn.
+//   • Purchases happen in the app (App Store / Google Play): CTAs go to
+//     /get-app or the store badges, never to a web checkout.
+//   • Giveaway entries are a BONUS on top of the service. Elite leads with the
+//     coach, Elite-only challenges and VIP events — never "pay for entries".
+//     Entry numbers come from data/giveawayRounds.ts, and the free postal
+//     route (Elite parity) is always linked next to them.
+//   • Cash is always amount + condition + a link to /rules. No luck or casino
+//     language, no winners feed, no trial (subscribing bills immediately),
+//     the exercise claim is "820+", and points never "never expire".
+//   • The Founding pre-sale is closed and has no card here any more.
 
-type CtaStyle = 'default' | 'accent' | 'muted';
+const TIER_IDS: TierId[] = ['free', 'premium', 'elite'];
+const GET_APP = '/get-app?ct=membership&medium=web';
+const LADDER_MONTHS = [1, 2, 3, 4, 5, 6];
 
-interface Plan {
-  id: string;
-  variant: 'default' | 'elevated';
-  priceAccent: boolean;
-  name: string;
-  badge: string;
-  price: string;
-  per: string;
-  /** Secondary billing line, e.g. the month-to-month alternative. */
-  monthly: string;
-  strike: string;
-  strikeNote: string;
-  blurb: string;
-  perks: string[];
-  ctaLabel: string;
-  ctaStyle: CtaStyle;
-  /** Founding Member is the only card that opens Stripe. */
-  founding?: boolean;
-  /** Premium isn't purchasable yet — rendered as a static, non-interactive chip. */
-  /** Off-site CTA target (the App Store). Rendered as a plain <a>, not a Link. */
-  externalHref?: string;
-  /** Render both official store badges as the CTA (Premium). */
-  storeBadges?: boolean;
-  href?: string;
-}
+type IconName = 'dumbbell' | 'coach' | 'cash' | 'points' | 'ticket' | 'star' | 'events' | 'check';
 
-type Billing = 'monthly' | 'quarterly' | 'yearly';
+/** Card bullets: icon + i18n key under membershipV2.tiers.<id>. */
+const HIGHLIGHTS: Record<TierId, Array<{ icon: IconName; key: string }>> = {
+  free: [
+    { icon: 'dumbbell', key: 'h1' },
+    { icon: 'coach', key: 'h2' },
+    { icon: 'cash', key: 'h3' },
+    { icon: 'points', key: 'h4' },
+    { icon: 'ticket', key: 'h5' },
+  ],
+  premium: [
+    { icon: 'dumbbell', key: 'h1' },
+    { icon: 'coach', key: 'h2' },
+    { icon: 'cash', key: 'h3' },
+    { icon: 'events', key: 'h4' },
+    { icon: 'ticket', key: 'h5' },
+  ],
+  elite: [
+    { icon: 'check', key: 'h0' },
+    { icon: 'coach', key: 'h1' },
+    { icon: 'star', key: 'h2' },
+    { icon: 'events', key: 'h3' },
+    { icon: 'points', key: 'h4' },
+    { icon: 'ticket', key: 'h5' },
+  ],
+};
+
+/** Number of inclusion lines (i1..iN) per tier in the locale files. */
+const INCLUSION_COUNT: Record<TierId, number> = { free: 8, premium: 10, elite: 7 };
 
 const eur = (n: number) => `€${n.toFixed(2)}`;
+const savePct = (id: Exclude<TierId, 'free'>) =>
+  Math.round((1 - YEARLY_PRICE[id] / (MONTHLY_PRICE[id] * 12)) * 100);
+
+function Icon({ name }: { name: IconName }) {
+  const paths: Record<IconName, string> = {
+    dumbbell: 'M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12',
+    coach: 'M4 5h16v11H9l-5 4V5zM8 10h8M8 13h5',
+    cash: 'M3 7h18v10H3zM12 9.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM6 10v4M18 10v4',
+    points: 'M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v10M9 9.5h4.5a1.75 1.75 0 010 3.5H10.5a1.75 1.75 0 000 3.5H15',
+    ticket: 'M3 8a2 2 0 002-2h14a2 2 0 002 2v2a2 2 0 000 4v2a2 2 0 00-2 2H5a2 2 0 00-2-2v-2a2 2 0 000-4V8zM14 6v12',
+    star: 'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7L12 3z',
+    events: 'M4 6h16v14H4zM4 10h16M8 3v5M16 3v5',
+    check: 'M5 12.5l4.5 4.5L19 7.5',
+  };
+  return (
+    <svg className="pr-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <path d={paths[name]} />
+    </svg>
+  );
+}
 
 export default function Pricing() {
   const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  // Three Premium prices since Phase 2 (12 Nov 2026). Yearly is the anchor.
-  // The quarter is live on Google Play only: Apple's quarterly product is
-  // still READY_TO_SUBMIT (checked 18 Nov 2026), so its note says so until
-  // Apple approves it. Never sell the quarter on giveaway entries: loyalty
-  // months count months with a workout, not months paid for.
-  const [billing, setBilling] = useState<Billing>('yearly');
-  const pm = { monthly: MONTHLY_PRICE.premium, quarterly: QUARTERLY_PRICE.premium / 3, yearly: YEARLY_PRICE.premium / 12 };
-  const save = (perMonth: number) => Math.round((1 - perMonth / MONTHLY_PRICE.premium) * 100);
-  const billingView: Record<Billing, { price: string; per: string; note: string }> = {
-    monthly: {
-      price: eur(MONTHLY_PRICE.premium),
-      per: t('membershipV2.billing.perMonth', { defaultValue: '/month' }),
-      note: t('membershipV2.billing.noteMonthly', { defaultValue: 'Month to month. Cancel any time.' }),
-    },
-    quarterly: {
-      price: eur(QUARTERLY_PRICE.premium),
-      per: t('membershipV2.billing.perQuarter', { pm: eur(pm.quarterly), defaultValue: '/3 months · {{pm}}/mo' }),
-      note: t('membershipV2.billing.noteQuarterly', { pct: save(pm.quarterly), defaultValue: 'Save {{pct}}% vs monthly. Android now, iPhone soon.' }),
-    },
-    yearly: {
-      price: eur(YEARLY_PRICE.premium),
-      per: t('membershipV2.billing.perYear', { pm: eur(pm.yearly), defaultValue: '/year · {{pm}}/mo' }),
-      note: t('membershipV2.billing.noteYearly', { pct: save(pm.yearly), defaultValue: 'Save {{pct}}% vs monthly.' }),
-    },
+  // Yearly is the anchor, as before.
+  const [billing, setBilling] = useState<BillingCycle>('yearly');
+  const [inclusionTier, setInclusionTier] = useState<TierId>('premium');
+  const [ladderTier, setLadderTier] = useState<TierId>('premium');
+  const inclusionsRef = useRef<HTMLElement>(null);
+
+  const tierName = (id: TierId) => t(`membershipV2.tiers.${id}.name`);
+  const entryVars = (id: TierId) => ({ count: GIVEAWAY_ENTRIES[id], loyalty: LOYALTY_PER_MONTH[id] });
+
+  const showInclusions = (id: TierId) => {
+    setInclusionTier(id);
+    const reduce = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    inclusionsRef.current?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    inclusionsRef.current?.focus({ preventScroll: true });
   };
-  const { openFoundingCheckout } = useFoundingCheckout();
 
-  usePopIn();
+  const priceFor = (id: TierId) => {
+    if (id === 'free') {
+      return { price: '€0', per: t('membershipV2.choose.freePer'), strike: '', note: t('membershipV2.choose.freeNote') };
+    }
+    if (billing === 'monthly') {
+      return {
+        price: eur(MONTHLY_PRICE[id]),
+        per: t('membershipV2.choose.perMonth'),
+        strike: '',
+        note: t('membershipV2.choose.monthlyNote'),
+      };
+    }
+    return {
+      price: eur(YEARLY_PRICE[id]),
+      per: t('membershipV2.choose.perYear'),
+      strike: eur(MONTHLY_PRICE[id] * 12),
+      note: t('membershipV2.choose.yearlyNote', { pm: eur(YEARLY_PRICE[id] / 12) }),
+    };
+  };
 
-  // Read at render, not at module load: the pre-sale has to close itself on
-  // the launch date without a deploy (see config/launchMode.ts). Once it's
-  // shut, the Founding card comes out of the array entirely — Premium already
-  // carries the €119.99/yr price, so there's nothing to replace it with.
-  const foundingOpen = isFoundingOpen();
-
-  const allPlans: Plan[] = [
-    {
-      id: 'free',
-      variant: 'default',
-      priceAccent: false,
-      name: t('membershipV2.plans.free.name', { defaultValue: 'Free' }),
-      badge: '',
-      price: t('membershipV2.plans.free.price', { defaultValue: '€0' }),
-      per: t('membershipV2.plans.free.per', { defaultValue: 'forever' }),
-      monthly: '',
-      strike: '',
-      strikeNote: '',
-      blurb: t('membershipV2.plans.free.blurb', {
-        defaultValue: 'Everything you need to start training today — no card, no trial clock.',
-      }),
-      // Perks mirror libo-app-v2/src/constants/tierFeatures.ts. The exercise
-      // library is not tier-gated at all; only the 140 curated workouts are
-      // (80 free). The plan cap is a CONCURRENCY cap, not a monthly quota —
-      // delete the plan and the slot frees immediately.
-      perks: [
-        t('membershipV2.plans.free.perk1', { defaultValue: 'The full 820+ exercise library' }),
-        t('membershipV2.plans.free.perk2', { defaultValue: '80 of the 140 guided workouts' }),
-        t('membershipV2.plans.free.perk3', {
-          defaultValue: 'Plan generator — keep one plan, up to 4 weeks',
-        }),
-        t('membershipV2.plans.free.perk4', {
-          defaultValue: 'Everything you log, plus 7 days of trends',
-        }),
-        t('membershipV2.plans.free.perk5', {
-          defaultValue: 'The €5 cash challenge — free to enter',
-        }),
-        t('membershipV2.plans.free.perk6', {
-          count: GIVEAWAY_ENTRIES.free,
-          loyalty: LOYALTY_PER_MONTH.free,
-          defaultValue: '{{count}} entry in every giveaway, +{{loyalty}} for each month you train',
-        }),
-      ],
-      ctaLabel: t('membershipV2.plans.free.cta', { defaultValue: 'Start free' }),
-      ctaStyle: 'default',
-      href: '/#hero-capture',
-    },
-    {
-      id: 'founding',
-      variant: 'elevated',
-      priceAccent: true,
-      name: t('membershipV2.plans.founding.name', { defaultValue: 'Founding Member' }),
-      badge: t('membershipV2.plans.founding.badge', { defaultValue: 'Pre-sale · 50% off' }),
-      price: t('membershipV2.plans.founding.price', { defaultValue: '€39.50' }),
-      per: t('membershipV2.plans.founding.per', { defaultValue: '12 months' }),
-      monthly: '',
-      strike: t('membershipV2.plans.founding.strike', { defaultValue: '€119.99' }),
-      strikeNote: t('membershipV2.plans.founding.strikeNote', {
-        defaultValue: 'refundable until launch',
-      }),
-      blurb: t('membershipV2.plans.founding.blurb', {
-        defaultValue:
-          'Lock a full year of Premium before launch. Your year starts on launch day, not today.',
-      }),
-      perks: [
-        t('membershipV2.plans.founding.perk1', { defaultValue: 'Everything in Premium, 50% off' }),
-        t('membershipV2.plans.founding.perk2', { defaultValue: 'Year starts on launch day' }),
-        t('membershipV2.plans.founding.perk3', { defaultValue: 'Fully refundable until launch' }),
-        t('membershipV2.plans.founding.perk4', { defaultValue: 'Founding Member badge' }),
-        t('membershipV2.plans.founding.perk5', {
-          defaultValue: 'First through the door at launch',
-        }),
-      ],
-      ctaLabel: t('membershipV2.plans.founding.cta', {
-        defaultValue: 'Become a Founding Member →',
-      }),
-      ctaStyle: 'accent',
-      founding: true,
-    },
-    {
-      id: 'premium',
-      variant: 'elevated',
-      priceAccent: true,
-      name: t('membershipV2.plans.premium.name', { defaultValue: 'Premium' }),
-      badge: '',
-      price: billingView[billing].price,
-      per: billingView[billing].per,
-      monthly: billingView[billing].note,
-      strike: '',
-      strikeNote: '',
-      blurb: t('membershipV2.plans.premium.blurb', {
-        defaultValue: 'The same app, with the ceilings taken off — depth, not access.',
-      }),
-      perks: [
-        t('membershipV2.plans.premium.perk1', { defaultValue: 'All 140 guided workouts' }),
-        t('membershipV2.plans.premium.perk2', {
-          defaultValue: 'Keep as many plans as you want, any length',
-        }),
-        t('membershipV2.plans.premium.perk3', {
-          defaultValue: '30- and 90-day trends, plus the muscle heatmap',
-        }),
-        t('membershipV2.plans.premium.perk4', { defaultValue: 'Cash challenges up to €50' }),
-        t('membershipV2.plans.premium.perk5', {
-          // GRANT, not ceiling (canon §5.2): Premium is granted 1 and can earn a
-          // second. Matches the app paywall and data/tiers.ts.
-          defaultValue: '1 freeze token per challenge, +1 you can earn, and 2× points',
-        }),
-        t('membershipV2.plans.premium.perk6', {
-          count: GIVEAWAY_ENTRIES.premium,
-          loyalty: LOYALTY_PER_MONTH.premium,
-          defaultValue: '{{count}} entries in every giveaway, +{{loyalty}} for each month you train',
-        }),
-      ],
-      ctaLabel: t('membershipV2.plans.premium.cta', { defaultValue: 'Get Libo on the App Store →' }),
-      ctaStyle: 'default',
-      // Both stores: the quarter is Android-only for now (rendered as StoreBadges below).
-      storeBadges: true,
-    },
-  ];
-
-  const plans = allPlans.filter((p) => foundingOpen || p.id !== 'founding');
-
-  const guarantees = [
-    {
-      title: t('membershipV2.guarantee.g1.title', { defaultValue: 'No card to start' }),
-      body: t('membershipV2.guarantee.g1.body', {
-        defaultValue: 'The free tier is genuinely free — not a trial.',
-      }),
-    },
-    {
-      // Was "7 days of Premium on us" — there is no trial. App Store Connect
-      // carries no introductory offer on either subscription product and the
-      // app ships TIER_TRIAL_DAYS = 0, so subscribing bills immediately. The
-      // free tier is the try-before-you-buy story, which is what g1 and this
-      // item now say together instead of contradicting each other.
-      title: t('membershipV2.guarantee.g2.title', { defaultValue: 'Upgrade when you\'re ready' }),
-      body: t('membershipV2.guarantee.g2.body', {
-        defaultValue: 'No countdown pushing you to decide. Train free as long as you like.',
-      }),
-    },
-    // Only meaningful while the pre-sale is open — with the Founding card gone
-    // this would be a promise about a card that isn't on the page.
-    ...(foundingOpen
-      ? [
-          {
-            title: t('membershipV2.guarantee.g3.title', { defaultValue: 'Refundable pre-sale' }),
-            body: t('membershipV2.guarantee.g3.body', {
-              defaultValue: 'Founding Member is fully refundable until launch day.',
-            }),
-          },
-        ]
-      : []),
-  ];
-
-  // The FAQ structure is shared (src/data/faq.ts) and so are three of its
-  // answers (relaunchHome.faq.*). Two of those shared answers still carry copy
-  // this page is no longer allowed to show (retired raffle perks, and the old
-  // pre-rename challenge label). faq.ts and the locale files belong to other
-  // owners, so the Membership page overrides just those entries locally.
+  // The FAQ structure is shared (src/data/faq.ts). Some shared answers carry
+  // copy this page must not show, so /membership overrides those locally.
   const faqOverride: Record<string, { q: string; a: string }> = {
-    free: {
-      q: t('membershipV2.faq.free.q', { defaultValue: 'Is Libo free?' }),
-      a: t('membershipV2.faq.free.a', {
-        defaultValue:
-          'Yes — the free tier gets you the core workout and exercise library, basic progress tracking, your activity streak and points, and the entry-level €5 cash challenge. Premium unlocks the full library, advanced analytics, cash challenges up to €50, and a freeze token per challenge with a second you can earn.',
-      }),
-    },
-    challenges: {
-      q: t('membershipV2.faq.challenges.q', { defaultValue: 'How do the cash challenges work?' }),
-      a: t('membershipV2.faq.challenges.a', {
-        defaultValue:
-          'Pick a challenge and hit its daily rep target for 30 days. You record each session in the app, so the run is verified — there is no way to fake it. Your 30 days start the moment you join, and finishing pays out in real cash. Premium unlocks the bigger tiers; spots are limited and first come, first served.',
-      }),
-    },
-    monthlyPrice: {
-      q: t('membershipV2.faq.monthlyPrice.q', { defaultValue: 'What does €10.00/mo mean?' }),
-      a: t('membershipV2.faq.monthlyPrice.a', {
-        defaultValue:
-          'Premium is billed yearly at €119.99, which works out to €10.00 per month. Prefer to stay flexible? Month-to-month is €19.99.',
-      }),
-    },
+    free: { q: t('membershipV2.faq.free.q'), a: t('membershipV2.faq.free.a') },
+    challenges: { q: t('membershipV2.faq.challenges.q'), a: t('membershipV2.faq.challenges.a') },
+    monthlyPrice: { q: t('membershipV2.faq.monthlyPrice.q'), a: t('membershipV2.faq.monthlyPrice.a') },
   };
+  // The refundable question was about the closed Founding pre-sale.
+  const faqItems = PRICING_FAQ.filter((item) => item.id !== 'refundable');
+
+  const ladderBase = GIVEAWAY_ENTRIES[ladderTier];
+  const ladderMax = ladderBase + LOYALTY_PER_MONTH[ladderTier] * (LADDER_MONTHS.length - 1);
+
+  const tierToggle = (value: TierId, onChange: (id: TierId) => void, label: string) => (
+    <div className="pr-seg" role="group" aria-label={label}>
+      {TIER_IDS.map((id) => (
+        <button key={id} type="button" aria-pressed={value === id} onClick={() => onChange(id)}>
+          {tierName(id)}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <>
       <SeoHead
-        title={t('membershipV2.seo.title', {
-          defaultValue: 'Membership | Libo — Training Club',
-        })}
-        description={t('membershipV2.seo.description', {
-          defaultValue:
-            'A free tier, or €10.00/mo for everything — or month-to-month at €19.99. No card to start, and the free tier is genuinely free — not a trial.',
-        })}
+        title={t('membershipV2.seo.title')}
+        description={t('membershipV2.seo.description')}
         canonical="https://liboworld.com/membership"
         ogImage="https://liboworld.com/brand/og-image.png"
       />
       <SiteNav />
 
       <main className="pr-page">
-        {/* ── Hero ── */}
+        {/* ── (a) Hero ── */}
         <header className="pr-hero">
-          <span className="pr-badge">{t('relaunchPricing.hero.badge')}</span>
-          {/* Two-tone headline. Each tone is its own ScrollRevealText so the
-              lime segment keeps its colour through the sweep (--text override)
-              instead of being repainted white by the reveal. */}
+          <img className="pr-prop pr-prop--hero-l" src="/props/gym-card-360.webp?v=2" alt="" aria-hidden="true" width={180} height={180} />
+          <img className="pr-prop pr-prop--hero-r" src="/props/libo-coin-360.webp?v=2" alt="" aria-hidden="true" width={150} height={150} />
+          <span className="pr-eyebrow">{t('membershipV2.hero.eyebrow')}</span>
           <h1 className="pr-hero__h1">
-            <ScrollRevealText as="span" className="pr-hero__seg">
-              {t('relaunchPricing.hero.h1Pre')}
-            </ScrollRevealText>
-            <ScrollRevealText as="span" className="pr-hero__seg pr-hero__seg--accent">
-              {t('relaunchPricing.hero.h1Accent')}
-            </ScrollRevealText>
-            <ScrollRevealText as="span" className="pr-hero__seg">
-              {t('relaunchPricing.hero.h1Post')}
-            </ScrollRevealText>
+            {t('membershipV2.hero.h1Pre')}
+            <span className="pr-accent">{t('membershipV2.hero.h1Accent')}</span>
+            {t('membershipV2.hero.h1Post')}
           </h1>
-          <p className="pr-hero__sub">{t('relaunchPricing.hero.sub')}</p>
+          <p className="pr-hero__sub">{t('membershipV2.hero.sub')}</p>
         </header>
 
-        {/* ── Plans ── */}
-        <div className="pr-plans-band band-lime">
-        <section className={`pr-plans pr-plans--${plans.length}`} aria-label={t('relaunchPricing.aria.plans')}>
-          {plans.map((p) => (
-            <article key={p.id} className={`pr-card pr-card--${p.variant} band-dark`} data-popin>
-              <div className="pr-card__head">
-                <h2 className="pr-card__name">{p.name}</h2>
-                {p.badge ? <span className="pr-card__badge">{p.badge}</span> : null}
-              </div>
-              {/* Countdown sits BELOW the head, not above it. At <=640px the
-                  PRE-SALE badge is absolutely positioned against the card
-                  (Pricing.css, top:-12px), so anything inserted ahead of the
-                  head pushes the plan name away from the badge labelling it —
-                  the same collision JoinFunnel.tsx already guards against. */}
-              {p.id === 'founding' ? <LaunchCountdown /> : null}
-
-              {p.id === 'premium' ? (
-                <div className="pr-billing" role="group" aria-label={t('membershipV2.billing.label', { defaultValue: 'Billing period' })}>
-                  {(['monthly', 'quarterly', 'yearly'] as const).map((b) => (
-                    <button key={b} type="button" aria-pressed={billing === b} onClick={() => setBilling(b)}>
-                      {t(`membershipV2.billing.${b}`, { defaultValue: { monthly: 'Monthly', quarterly: '3 months', yearly: 'Yearly' }[b] })}
-                      {b === 'yearly' ? <span className="pr-billing__save">−{save(pm.yearly)}%</span> : null}
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-
-              <div className="pr-card__price-row" aria-live={p.id === 'premium' ? 'polite' : undefined}>
-                <span className={`pr-card__price${p.priceAccent ? ' pr-accent' : ''}`}>
-                  {p.price}
-                </span>
-                <span className="pr-card__per">{p.per}</span>
-              </div>
-
-              {p.strike ? (
-                <span className="pr-card__strike">
-                  <span className="pr-card__strike-through">{p.strike}</span> · {p.strikeNote}
-                </span>
-              ) : null}
-
-              {p.monthly ? <span className="pr-card__monthly">{p.monthly}</span> : null}
-
-              <p className="pr-card__blurb">{p.blurb}</p>
-
-              <ul className="pr-card__perks">
-                {p.perks.map((perk) => (
-                  <li key={perk} className="pr-card__perk">
-                    <span className="pr-card__check" aria-hidden>
-                      ✓
-                    </span>{' '}
-                    {perk}
-                  </li>
-                ))}
-              </ul>
-
-              {p.storeBadges ? (
-                <StoreBadges className="pr-card__badges" />
-              ) : p.founding && foundingOpen ? (
-                <button
-                  type="button"
-                  className={`pr-card__cta pr-card__cta--${p.ctaStyle}`}
-                  onClick={() => openFoundingCheckout('pricing_card')}
-                >
-                  {p.ctaLabel}
+        {/* ── (b) Choose your membership ── */}
+        <section className="pr-section pr-choose" aria-labelledby="pr-choose-h">
+          <div className="pr-section__head">
+            <h2 id="pr-choose-h" className="pr-h2">{t('membershipV2.choose.h2')}</h2>
+            <div className="pr-seg pr-seg--billing" role="group" aria-label={t('membershipV2.billing.label')}>
+              {(['monthly', 'yearly'] as const).map((b) => (
+                <button key={b} type="button" aria-pressed={billing === b} onClick={() => setBilling(b)}>
+                  {t(`membershipV2.billing.${b}`)}
+                  {b === 'yearly' ? (
+                    <span className="pr-seg__save">{t('membershipV2.choose.save', { pct: savePct('premium') })}</span>
+                  ) : null}
                 </button>
-              ) : p.externalHref ? (
-                // Premium is an in-app purchase, so the CTA leaves the site for
-                // the App Store rather than pointing at a checkout we don't run.
-                <a
-                  href={p.externalHref}
-                  className={`pr-card__cta pr-card__cta--${p.ctaStyle}`}
-                >
-                  {p.ctaLabel}
-                </a>
-              ) : (
-                <Link to={p.href ?? '/'} className={`pr-card__cta pr-card__cta--${p.ctaStyle}`}>
-                  {p.ctaLabel}
-                </Link>
-              )}
-            </article>
-          ))}
-        </section>
-        </div>
+              ))}
+            </div>
+          </div>
 
-        {/* ── Guarantee strip ── */}
-        <section className="pr-guarantee" aria-label={t('relaunchPricing.aria.guarantees')}>
-          <div className={`pr-guarantee__inner pr-guarantee__inner--${guarantees.length}`}>
-            {guarantees.map((g) => (
-              <div key={g.title} className="pr-guarantee__item">
-                <span className="pr-guarantee__title">{g.title}</span>
-                <span className="pr-guarantee__body">{g.body}</span>
+          <div className="pr-cards">
+            {TIER_IDS.map((id) => {
+              const p = priceFor(id);
+              return (
+                <article key={id} className={`pr-card pr-card--${id}`}>
+                  {id === 'elite' ? (
+                    <img className="pr-prop pr-prop--card" src="/props/trophy-lime-360.webp?v=2" alt="" aria-hidden="true" width={96} height={96} />
+                  ) : null}
+                  <div className="pr-card__head">
+                    <h3 className="pr-card__name">{tierName(id)}</h3>
+                    {id === 'premium' ? <span className="pr-card__badge">{t('membershipV2.choose.mostPopular')}</span> : null}
+                  </div>
+                  <p className="pr-card__tagline">{t(`membershipV2.tiers.${id}.tagline`)}</p>
+
+                  <div className="pr-card__price" aria-live="polite">
+                    <span className="pr-card__amount">{p.price}</span>
+                    <span className="pr-card__per">{p.per}</span>
+                  </div>
+                  <div className="pr-card__note">
+                    {p.strike ? (
+                      <>
+                        <s className="pr-card__strike">{p.strike}</s>
+                        <span className="pr-card__save">
+                          {t('membershipV2.choose.save', { pct: savePct(id as Exclude<TierId, 'free'>) })}
+                        </span>
+                      </>
+                    ) : null}
+                    <span>{p.note}</span>
+                  </div>
+
+                  <Link to={GET_APP} className={`pr-btn ${id === 'free' ? 'pr-btn--ghost' : 'pr-btn--accent'}`}>
+                    {t(`membershipV2.tiers.${id}.cta`)}
+                  </Link>
+
+                  <ul className="pr-card__list">
+                    {HIGHLIGHTS[id].map((h) => (
+                      <li key={h.key}>
+                        <Icon name={h.icon} />
+                        <span>{t(`membershipV2.tiers.${id}.${h.key}`, entryVars(id))}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button type="button" className="pr-card__more" onClick={() => showInclusions(id)}>
+                    {t('membershipV2.choose.seeAll')} <span aria-hidden="true">→</span>
+                  </button>
+                </article>
+              );
+            })}
+          </div>
+
+          <p className="pr-fine">
+            {t('membershipV2.choose.buyNote')}{' '}
+            {t('membershipV2.choose.cashNote')}{' '}
+            <Link to="/rules">{t('membershipV2.choose.rulesLink')}</Link>
+          </p>
+        </section>
+
+        {/* ── (c) Full inclusions ── */}
+        <section
+          ref={inclusionsRef}
+          tabIndex={-1}
+          className="pr-section pr-incl-wrap"
+          aria-labelledby="pr-incl-h"
+        >
+          <div className="pr-incl">
+            <div className="pr-incl__head">
+              <div>
+                <span className="pr-eyebrow">{t('membershipV2.inclusions.eyebrow')}</span>
+                <h2 id="pr-incl-h" className="pr-h2" aria-live="polite">
+                  {t('membershipV2.inclusions.h2', { tier: tierName(inclusionTier) })}
+                </h2>
               </div>
-            ))}
+              {tierToggle(inclusionTier, setInclusionTier, t('membershipV2.inclusions.label'))}
+            </div>
+            <ul className="pr-incl__list">
+              {Array.from({ length: INCLUSION_COUNT[inclusionTier] }, (_, i) => (
+                <li key={`${inclusionTier}-${i}`}>
+                  <Icon name="check" />
+                  <span>{t(`membershipV2.tiers.${inclusionTier}.i${i + 1}`, entryVars(inclusionTier))}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="pr-incl__foot">
+              <span className="pr-incl__price">
+                {inclusionTier === 'free'
+                  ? `€0 · ${t('membershipV2.choose.freePer')}`
+                  : `${eur(MONTHLY_PRICE[inclusionTier])}${t('membershipV2.choose.perMonth')} · ${eur(YEARLY_PRICE[inclusionTier])}${t('membershipV2.choose.perYear')}`}
+              </span>
+              <Link to={GET_APP} className="pr-btn pr-btn--accent">{t(`membershipV2.tiers.${inclusionTier}.cta`)}</Link>
+            </div>
           </div>
         </section>
 
-        {/* ── FAQ ── */}
-        <section className="pr-faq" aria-label={t('relaunchPricing.aria.faq')}>
-          <div className="pr-faq__head">
-            <h2 className="pr-faq__h2">{t('relaunchPricing.faq.headline')}</h2>
-            <p className="pr-faq__subhead">
-              {t('membershipV2.faq.subhead', {
-                defaultValue: 'Same answers as the home page — one source of truth.',
-              })}
+        {/* ── (d) Loyalty ladder ── */}
+        <section className="pr-section pr-loyal" aria-labelledby="pr-loyal-h">
+          <div className="pr-loyal__intro">
+            <img className="pr-prop pr-prop--loyal" src="/props/coin-stack-360.webp?v=2" alt="" aria-hidden="true" width={150} height={150} />
+            <span className="pr-eyebrow">{t('membershipV2.loyalty.eyebrow')}</span>
+            <h2 id="pr-loyal-h" className="pr-h2">{t('membershipV2.loyalty.h2')}</h2>
+            <p className="pr-lead">{t('membershipV2.loyalty.sub')}</p>
+            {tierToggle(ladderTier, setLadderTier, t('membershipV2.inclusions.label'))}
+          </div>
+          <div className="pr-bars" role="list" aria-label={t('membershipV2.loyalty.aria', { tier: tierName(ladderTier) })}>
+            {LADDER_MONTHS.map((m) => {
+              const entries = ladderBase + LOYALTY_PER_MONTH[ladderTier] * (m - 1);
+              return (
+                <div key={m} className="pr-bar" role="listitem">
+                  <span className="pr-bar__label">{t('membershipV2.loyalty.month', { n: m })}</span>
+                  <span className="pr-bar__track">
+                    <span className="pr-bar__fill" style={{ width: `${(entries / ladderMax) * 100}%` }} />
+                  </span>
+                  <span className="pr-bar__value">
+                    {entries}
+                    <span className="sr-only"> {t('membershipV2.loyalty.unit')}</span>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+          <div className="pr-loyal__foot">
+            <p className="pr-fine">
+              {t('membershipV2.loyalty.foot', { min: LOYALTY_MIN_WORKOUT_MINUTES, max: LOYALTY_MAX_MONTHS })}
+            </p>
+            <p className="pr-fine">
+              {t('membershipV2.loyalty.postal')}{' '}
+              <Link to="/giveaway-rules">{t('membershipV2.loyalty.postalLink')}</Link>
             </p>
           </div>
+        </section>
 
+        {/* ── (e) More than a membership ── */}
+        <section className="pr-section pr-more" aria-labelledby="pr-more-h">
+          <h2 id="pr-more-h" className="pr-h2">{t('membershipV2.more.h2')}</h2>
+          <ol className="pr-more__list">
+            {[1, 2, 3, 4].map((n) => (
+              <li key={n} className="pr-more__item">
+                <span className="pr-more__num" aria-hidden="true">{String(n).padStart(2, '0')}</span>
+                <div>
+                  <h3 className="pr-more__title">{t(`membershipV2.more.t${n}`)}</h3>
+                  <p className="pr-more__body">{t(`membershipV2.more.b${n}`)}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ── (f) FAQ ── */}
+        <section className="pr-section pr-faq" aria-label={t('relaunchPricing.aria.faq')}>
+          <h2 className="pr-h2">{t('relaunchPricing.faq.headline')}</h2>
           <div className="pr-faq__list">
-            {/* The refundable question is about the founding pre-sale; once that
-                closes it answers a question nobody can act on. faq.ts stays the
-                single source — this only filters what /membership renders. */}
-            {PRICING_FAQ.filter((item) => foundingOpen || item.id !== 'refundable').map((item, i) => {
+            {faqItems.map((item, i) => {
               const isOpen = openFaq === i;
               const override = faqOverride[item.id];
               const question = override ? override.q : t(item.qKey);
@@ -449,15 +360,24 @@ export default function Pricing() {
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                   >
                     <span>{question}</span>
-                    <span className="pr-faq__icon" aria-hidden>
-                      {isOpen ? '−' : '+'}
-                    </span>
+                    <span className="pr-faq__icon" aria-hidden="true">{isOpen ? '−' : '+'}</span>
                   </button>
                   {isOpen ? <p className="pr-faq__a">{answer}</p> : null}
                 </div>
               );
             })}
           </div>
+        </section>
+
+        {/* ── Final CTA ── */}
+        <section className="pr-final" aria-labelledby="pr-final-h">
+          <h2 id="pr-final-h" className="pr-final__h2">{t('membershipV2.final.h2')}</h2>
+          <p className="pr-final__sub">{t('membershipV2.final.sub')}</p>
+          <StoreBadges
+            className="pr-final__badges"
+            iosHref={storeUrlWithSource('ios', 'membership', 'web')}
+            androidHref={storeUrlWithSource('android', 'membership', 'web')}
+          />
         </section>
       </main>
 
