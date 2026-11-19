@@ -2880,5 +2880,10 @@
       "full": "Prochain concours : {{prize}}, ouverture le {{date}}. Chaque membre participe automatiquement",
       "short": "Prochain concours : {{prize}} →"
     }
+  },
+  "homeAd": {
+    "label": "Libo : Train and earn, la pub",
+    "soundOn": "Activer le son",
+    "soundOff": "Couper le son"
   }
 }

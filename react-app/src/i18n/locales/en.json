@@ -2880,5 +2880,10 @@
       "full": "Next giveaway: {{prize}}, opens {{date}}. Every member is entered automatically",
       "short": "Next giveaway: {{prize}} →"
     }
+  },
+  "homeAd": {
+    "label": "Libo: Train and earn, the ad",
+    "soundOn": "Sound on",
+    "soundOff": "Sound off"
   }
 }

@@ -2880,5 +2880,10 @@
       "full": "Próximo sorteio: {{prize}}, abre em {{date}}. Todo membro participa automaticamente",
       "short": "Próximo sorteio: {{prize}} →"
     }
+  },
+  "homeAd": {
+    "label": "Libo: Train and earn, o anúncio",
+    "soundOn": "Ativar som",
+    "soundOff": "Desativar som"
   }
 }

@@ -8,6 +8,7 @@ import ScrollRevealText from '../components/ScrollRevealText';
 import StoreBadges from '../components/StoreBadges';
 import VideoTestimonials from '../components/VideoTestimonials';
 import HomeEarn from '../components/earn/HomeEarn';
+import HomeAd from '../components/HomeAd';
 import { Ribbons } from '../components/motion/Motion';
 import { usePopIn } from '../utils/funnelAnimations';
 import { CHALLENGE_TIERS } from '../data/challengeTiers';
@@ -458,6 +459,9 @@ export default function Landing() {
             />
           </div>
         </section>
+
+        {/* ── 1b. THE TRAIN AND EARN AD (Noah, 19 Nov 2026) ──────── */}
+        <HomeAd />
 
         {/* ── 2. TRAIN AND EARN: points, rewards, giveaway, cash ── */}
         <HomeEarn />
