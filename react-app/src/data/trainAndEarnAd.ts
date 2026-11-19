@@ -16,7 +16,7 @@
 
 const CDN = 'https://videos.liboworld.com/marketing';
 /** Bump when a file is re-encoded under the same name (Cloudflare caches per URL). */
-const V = '1';
+const V = '2'; // 2: German cut re-rendered with "PS5-LOSE" (Noah, 19 Nov)
 
 export type AdLang = 'en' | 'de';
 export type AdFormat = 'wide' | 'tall';
