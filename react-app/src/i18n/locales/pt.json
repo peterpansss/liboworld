@@ -1635,7 +1635,9 @@
     "cta": {
       "free": "Participe grátis →",
       "enter": "Clique pra entrar →",
-      "checkout": "Clique pra entrar — {{price}}/ano →"
+      "checkout": "Clique pra entrar — {{price}}/ano →",
+      "freeApp": "Entre grátis no app →",
+      "getApp": "Baixe o app →"
     },
     "bar": {
       "full": "⚡ Vagas limitadas — seus 30 dias começam no momento em que você entra ⚡",
@@ -1717,7 +1719,10 @@
       "ctaFree": "Assine o Premium — {{price}}/ano →",
       "eyebrowClosed": "Premium · já no app",
       "titleClosed": "Garanta o Premium no app.",
-      "perYear": "/ ano"
+      "perYear": "/ ano",
+      "perMonth": "/ mês",
+      "subApp": "ou {{year}} por ano · Premium no app",
+      "tick3App": "Cancele quando quiser na App Store ou no Google Play"
     },
     "faq": {
       "title": "Alguma dúvida?",
@@ -1753,7 +1758,8 @@
       "subFree": "A Challenge Starter de € 5 é grátis para todos os membros. Deixe seu e-mail e guardamos sua vaga — por ordem de chegada.",
       "upsell": "Quer os níveis de €15 e €50? Assine o Premium — 50% off →",
       "upsellClosed": "Quer os níveis de €15 e €50? Garanta o Premium →",
-      "subClosed": "O Premium pago libera este nível — por ordem de chegada e com vagas limitadas. Se estiver cheio, avisamos assim que uma vaga abrir."
+      "subClosed": "O Premium pago libera este nível — por ordem de chegada e com vagas limitadas. Se estiver cheio, avisamos assim que uma vaga abrir.",
+      "subFreeApp": "O desafio Starter de 5 € é grátis para todos os membros. Baixe a Libo, abra Rewards e participe: por ordem de chegada."
     },
     "footerNote": "Aplicam-se os termos do desafio",
     "seo": {

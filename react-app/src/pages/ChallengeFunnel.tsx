@@ -17,7 +17,9 @@ import { isFoundingOpen } from '../config/launchMode';
 import { logFunnelClick } from '../lib/funnelSignups';
 import { useWaitlistSubmit } from '../hooks/useWaitlistSubmit';
 import { usePopIn } from '../utils/funnelAnimations';
-import { YEARLY_PRICE } from '../data/tiers';
+import { MONTHLY_PRICE, YEARLY_PRICE } from '../data/tiers';
+import StoreBadges from '../components/StoreBadges';
+import { storeUrlWithSource } from '../utils/storeRedirect';
 import { getChallengeTier, FUNNEL_TIER_SLUG, type ChallengeTier } from '../data/challengeTiers';
 import FunnelVideo from '../components/funnel/FunnelVideo';
 import { CASH_CHALLENGE_VIDEO, buildFunnelVideoSchema } from '../data/funnelVideos';
@@ -44,6 +46,7 @@ const PRICE = `€${EARLY_ACCESS_PRICE.toFixed(2)}`; // €39.50
 // The standing list price once founding has closed, from the tier constants so
 // a price change cannot strand this page (Phase 2: €119.99, 12 Nov 2026).
 const LIST_PRICE = `€${YEARLY_PRICE.premium.toFixed(2)}`;
+const MONTH_PRICE = `€${MONTHLY_PRICE.premium.toFixed(2)}`;
 // HISTORICAL: the struck-through "was" price shown only while founding was open.
 const FOUNDING_WAS_PRICE = '€79.99';
 const OFFER_HREF = '#offer';
@@ -114,10 +117,28 @@ export default function ChallengeFunnel() {
   if (!tier) return <Navigate to="/cash-challenges" replace />;
 
   const isFree = !tier.requiresPremium;
+  // Since the founding offer closed (14 Oct) the only way in is the app, so
+  // every CTA goes to the right store for the device, tagged per challenge so
+  // App Store Connect / Play Console show which funnel page sent the install.
+  const CT = `challenge_${tier.slug}`;
+  const GET_APP = `/get-app?ct=${CT}&medium=web`;
+  const badges = (
+    <StoreBadges
+      className="cf-badges"
+      height={48}
+      iosHref={storeUrlWithSource('ios', CT, 'web')}
+      androidHref={storeUrlWithSource('android', CT, 'web')}
+    />
+  );
 
-  const ctaLabel = isFree
-    ? t('challengeFunnel.cta.free', { defaultValue: 'Join free →' })
-    : t('challengeFunnel.cta.enter', { defaultValue: 'Click to Enter →' });
+  const ctaLabel = !foundingOpen
+    ? isFree
+      ? t('challengeFunnel.cta.freeApp', { defaultValue: 'Join free in the app →' })
+      : t('challengeFunnel.cta.getApp', { defaultValue: 'Get the app →' })
+    : isFree
+      ? t('challengeFunnel.cta.free', { defaultValue: 'Join free →' })
+      : t('challengeFunnel.cta.enter', { defaultValue: 'Click to Enter →' });
+  const ctaHref = !foundingOpen ? GET_APP : isFree ? '#join-free' : OFFER_HREF;
 
   // The ONE priced label on the page: the paid tiers' close button + sticky bar.
   // Once the pre-sale closes it drops back to the unpriced label — the €39.50
@@ -143,7 +164,7 @@ export default function ChallengeFunnel() {
      capture). Hidden on mobile between steps and the video per target. */
   const CtaBar = ({ mobileHidden = false }: { mobileHidden?: boolean }) => (
     <div className={`cf-ctabar${mobileHidden ? ' cf-ctabar--desktop-only' : ''}`}>
-      <a className="funnel-btn cf-btn" href={isFree ? '#join-free' : OFFER_HREF} onClick={track}>
+      <a className="funnel-btn cf-btn" href={ctaHref} onClick={track}>
         {ctaLabel}
       </a>
     </div>
@@ -410,18 +431,18 @@ export default function ChallengeFunnel() {
           )}
 
           <div className="cf-offer" data-popin>
-            <LaunchCountdown />
+            {foundingOpen && <LaunchCountdown />}
             <p className="cf-offer__price">
               {/* Closed: the standing list price from the tier constants, never a
                   literal. This used to read '€79.99' — the PRE-Phase-2 price —
                   €40 under what Apple and Google charge (fixed 15 Nov 2026, the
                   same bug JoinFunnel's WAS_PRICE had). */}
-              <span className="cf-offer__now font-display">{foundingOpen ? PRICE : LIST_PRICE}</span>
+              <span className="cf-offer__now font-display">{foundingOpen ? PRICE : MONTH_PRICE}</span>
               {foundingOpen ? (
                 <s className="cf-offer__was">{FOUNDING_WAS_PRICE}</s>
               ) : (
                 <span className="cf-offer__was" style={{ textDecoration: 'none' }}>
-                  {t('challengeFunnel.offer.perYear', { defaultValue: '/ year' })}
+                  {t('challengeFunnel.offer.perMonth', { defaultValue: '/ month' })}
                 </span>
               )}
             </p>
@@ -430,7 +451,10 @@ export default function ChallengeFunnel() {
                 ? t('challengeFunnel.offer.sub', {
                     defaultValue: 'First year of Premium · 50% off · fully refundable until launch',
                   })
-                : t('earlyAccess.offerEnded')}
+                : t('challengeFunnel.offer.subApp', {
+                    defaultValue: 'or {{year}} a year · Premium in the app',
+                    year: LIST_PRICE,
+                  })}
             </p>
             <ul className="cf-offer__ticks">
               {/* Starter leads with the unlock (defect 18). */}
@@ -443,7 +467,11 @@ export default function ChallengeFunnel() {
               ) : (
                 <li>{t('challengeFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier — first come, first served' })}</li>
               )}
-              <li>{t('challengeFunnel.offer.tick3', { defaultValue: 'Year starts on launch day, not today' })}</li>
+              <li>
+                {foundingOpen
+                  ? t('challengeFunnel.offer.tick3', { defaultValue: 'Year starts on launch day, not today' })
+                  : t('challengeFunnel.offer.tick3App', { defaultValue: 'Cancel any time in App Store or Google Play' })}
+              </li>
             </ul>
           </div>
 
@@ -458,6 +486,7 @@ export default function ChallengeFunnel() {
                 : ctaLabel}
             </button>
           )}
+          {!foundingOpen && badges}
         </section>
 
         {/* ── 8. FAQ ──────────────────────────────────────────────────────── */}
@@ -502,12 +531,17 @@ export default function ChallengeFunnel() {
           {isFree ? (
             <>
               <p className="cf-body">
-                {t('challengeFunnel.close.subFree', {
-                  defaultValue:
-                    "The €5 Starter challenge is free for every member. Leave your email and we'll save your spot — first come, first served.",
-                })}
+                {foundingOpen
+                  ? t('challengeFunnel.close.subFree', {
+                      defaultValue:
+                        "The €5 Starter challenge is free for every member. Leave your email and we'll save your spot — first come, first served.",
+                    })
+                  : t('challengeFunnel.close.subFreeApp', {
+                      defaultValue:
+                        'The €5 Starter challenge is free for every member. Download Libo, open Rewards and join: first come, first served.',
+                    })}
               </p>
-              <StarterCapture t={t} onTrack={track} />
+              {foundingOpen ? <StarterCapture t={t} onTrack={track} /> : badges}
               <Link className="cf-textlink" to="#offer" onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -539,6 +573,7 @@ export default function ChallengeFunnel() {
                   {ctaPricedLabel}
                 </button>
               )}
+              {!foundingOpen && badges}
             </>
           )}
         </section>
@@ -550,7 +585,7 @@ export default function ChallengeFunnel() {
 
       <FunnelStickyCta
         label={ctaPricedLabel}
-        href={isFree ? '#join-free' : OFFER_HREF}
+        href={ctaHref}
         onClick={track}
       />
     </div>

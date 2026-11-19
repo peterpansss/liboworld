@@ -576,3 +576,6 @@
   max-width: 420px;
   margin: 0 auto 20px;
 }
+
+/* Store buttons replace the founding checkout (closed 14 Oct 2026). */
+.cf-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
