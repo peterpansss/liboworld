@@ -5,14 +5,14 @@ import BlueprintAppModal from './BlueprintAppModal';
 import { BP_POPUP_KEY, THIRTY_DAYS, isBlockedPath } from './blueprintPopupRules';
 
 const TOUCH_DELAY_MS = 40_000;
-const DESKTOP_MIN_MS = 6_000; // Noah, 19 Nov: 2 s less than 8, it's a free offer
+const DESKTOP_MIN_MS = 4_000; // Noah, 19 Nov: 8 s → 6 s → 4 s ("still 2 seconds too long")
 const SCROLL_SHARE = 0.7;
 const EXIT_BAND_PX = 120; // the nav's height: a quick flick reports its last in-page spot
 
 
 // Site-wide "Before you go: get the free 12-Month Blueprint" (Noah, 19 Nov
 // 2026, after LMCT+'s exit popup, minus their discount, timer and email step).
-// - Desktop (fine pointer): after 6 s, the mouse leaves through the top of the window.
+// - Desktop (fine pointer): after 4 s, the mouse leaves through the top of the window.
 // - Touch: after 40 s on the site, or once most of a page has been scrolled.
 // - At most once per 30 days per browser, never while the cookie banner is
 //   still unanswered, and never on pages where it would get in the way.

@@ -2898,5 +2898,16 @@
     "after": "Mayo 2024 · 5 meses",
     "beforeAlt": "Noah en 2023 con 69 kg",
     "afterAlt": "Noah en mayo de 2024, a los cinco meses"
+  },
+  "blueprintVideos": {
+    "h2": "Mira la historia",
+    "sub": "Noah cuenta el año en YouTube. Vídeos en inglés.",
+    "long": "La historia completa",
+    "longMeta": "12 min · Ver en YouTube →",
+    "shortMeta": "Ver en YouTube →",
+    "short1": "Siete años con 69 kg",
+    "short2": "Siempre en movimiento",
+    "short3": "El porridge que comía cada día",
+    "short4": "Lo que creía mal sobre las series pesadas"
   }
 }

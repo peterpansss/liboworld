@@ -5,6 +5,7 @@ import SiteFooter from '../components/SiteFooter';
 import { SeoHead } from '../components/SeoHead';
 import { STORE_URLS } from '../utils/storeRedirect';
 import BlueprintAppModal from '../components/blueprint/BlueprintAppModal';
+import BlueprintTeasers from '../components/blueprint/BlueprintTeasers';
 import './Blueprint.css';
 
 // /blueprint — Noah's free 12-Month Blueprint (2 Nov 2026).
@@ -100,6 +101,8 @@ export default function Blueprint() {
             />
           </button>
         </section>
+
+        <BlueprintTeasers />
 
         <section className="bp-inside">
           <h2>{d('insideH2', 'What’s inside')}</h2>
