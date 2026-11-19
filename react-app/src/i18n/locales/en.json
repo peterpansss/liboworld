@@ -2463,7 +2463,37 @@
       "screenAlt": "The giveaway in the app",
       "premiumText": "Premium gets 3 entries every round instead of 1.",
       "rules": "Official giveaway rules",
-      "trademark": "PlayStation is a trademark of Sony Interactive Entertainment. Libo is not affiliated with the brands shown."
+      "trademark": "PlayStation is a trademark of Sony Interactive Entertainment. Libo is not affiliated with the brands shown.",
+      "countdown": {
+        "opensIn": "Opens in",
+        "closesIn": "Closes in"
+      },
+      "chip": {
+        "open": "Open now",
+        "upcoming": "Opens {{date}}",
+        "closed": "Closed"
+      },
+      "timeline": {
+        "draw": "Drawn at the close",
+        "announced": "Winner announced {{date}}"
+      },
+      "trust": {
+        "label": "How the giveaway is run",
+        "random": "Drawn at random by computer",
+        "promoter": "Run by Noah Fofana, trading as Libo World, Andernach",
+        "post": "Free entry by post",
+        "noCancel": "Never cancelled for low participation",
+        "link": "Read the rules"
+      },
+      "prize": {
+        "eyebrow": "The prize",
+        "cash": "Or €{{cash}} cash instead, if the winner prefers.",
+        "rules": "Rules"
+      },
+      "next": {
+        "eyebrow": "Opening next",
+        "meta": "Opens {{opens}}"
+      }
     },
     "features": {
       "seo": {

@@ -2463,7 +2463,37 @@
       "screenAlt": "O sorteio no app",
       "premiumText": "Premium recebe 3 participações por rodada em vez de 1.",
       "rules": "Regras oficiais do sorteio",
-      "trademark": "PlayStation é uma marca da Sony Interactive Entertainment. A Libo não é afiliada às marcas exibidas."
+      "trademark": "PlayStation é uma marca da Sony Interactive Entertainment. A Libo não é afiliada às marcas exibidas.",
+      "countdown": {
+        "opensIn": "Abre em",
+        "closesIn": "Fecha em"
+      },
+      "chip": {
+        "open": "Aberto",
+        "upcoming": "Abre a {{date}}",
+        "closed": "Encerrado"
+      },
+      "timeline": {
+        "draw": "Sorteio no encerramento",
+        "announced": "Vencedor anunciado a {{date}}"
+      },
+      "trust": {
+        "label": "Como funciona o sorteio",
+        "random": "Sorteado aleatoriamente por computador",
+        "promoter": "Organizado por Noah Fofana, sob o nome Libo World, Andernach",
+        "post": "Participação gratuita por correio",
+        "noCancel": "Nunca cancelado por baixa participação",
+        "link": "Ler as regras"
+      },
+      "prize": {
+        "eyebrow": "O prémio",
+        "cash": "Ou €{{cash}} em dinheiro, se o vencedor preferir.",
+        "rules": "Regras"
+      },
+      "next": {
+        "eyebrow": "A seguir",
+        "meta": "Abre a {{opens}}"
+      }
     },
     "features": {
       "seo": {

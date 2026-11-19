@@ -167,3 +167,79 @@ export function roundStatus(r: GiveawayRound, now: Date = new Date()): 'open' | 
   if (today > r.closes) return 'closed';
   return 'open';
 }
+
+/** YYYY-MM-DD shifted by whole calendar days (UTC arithmetic, no TZ drift). */
+export function addDays(ymd: string, days: number): string {
+  const [y, m, d] = ymd.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
+}
+
+/**
+ * Epoch ms of 00:00 Europe/Berlin on a YYYY-MM-DD date. Works out Berlin's UTC
+ * offset for that day (CET/CEST) via Intl, so it is right in any reader's
+ * timezone and across the DST switch.
+ */
+export function berlinMidnight(ymd: string): number {
+  const [y, m, d] = ymd.split('-').map(Number);
+  const guess = Date.UTC(y, m - 1, d);
+  const offsetAt = (t: number) => {
+    const p = Object.fromEntries(
+      new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Europe/Berlin', hourCycle: 'h23',
+        year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit',
+      }).formatToParts(t).map((x) => [x.type, x.value]),
+    );
+    const wall = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+    return wall - t;
+  };
+  return guess - offsetAt(guess - offsetAt(guess));
+}
+
+/** When a round opens: 00:00 Berlin on `opens`. */
+export function roundOpensAt(r: GiveawayRound): number {
+  return berlinMidnight(r.opens);
+}
+
+/**
+ * When a round closes: the end of 23:59 Berlin on `closes`, i.e. 00:00 the day
+ * after, which is how the server stores `giveaways.ends_at` (it reads
+ * `ends_at - 1 second` as the last moment of the round).
+ */
+export function roundClosesAt(r: GiveawayRound): number {
+  return berlinMidnight(addDays(r.closes, 1));
+}
+
+/**
+ * The day the winner is announced, YYYY-MM-DD. The rules (/giveaway-rules,
+ * "The Draw") say the winner is drawn automatically when the round closes and
+ * announced the day after, so this is derived from `closes`, never typed in.
+ */
+export function announceDate(r: GiveawayRound): string {
+  return addDays(r.closes, 1);
+}
+
+/**
+ * The next round to open after the featured one, if any: the earliest round
+ * that opens later than today (Berlin) and is not `featured`. Undefined when
+ * nothing else is scheduled.
+ */
+export function nextRound(featured: GiveawayRound | undefined, now: Date = new Date()): GiveawayRound | undefined {
+  return GIVEAWAY_ROUNDS
+    .filter((r) => r !== featured && roundStatus(r, now) === 'upcoming')
+    .sort((a, b) => a.opens.localeCompare(b.opens))[0];
+}
+
+/**
+ * What a round's countdown points at, at `now` (epoch ms): the opening before it
+ * opens, then (unless `until` is 'open') the close; null once there is nothing
+ * left to count to.
+ */
+export function countdownTarget(round: GiveawayRound, now: number, until: 'auto' | 'open' = 'auto'):
+  { phase: 'opens' | 'closes'; target: number } | null {
+  const opensAt = roundOpensAt(round);
+  if (now < opensAt) return { phase: 'opens', target: opensAt };
+  if (until === 'open') return null;
+  const closesAt = roundClosesAt(round);
+  if (now < closesAt) return { phase: 'closes', target: closesAt };
+  return null;
+}

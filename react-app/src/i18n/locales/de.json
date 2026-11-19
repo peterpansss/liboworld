@@ -2463,7 +2463,37 @@
       "screenAlt": "Das Giveaway in der App",
       "premiumText": "Premium bekommt 3 Lose pro Runde statt 1.",
       "rules": "Offizielle Giveaway-Regeln",
-      "trademark": "PlayStation ist eine Marke von Sony Interactive Entertainment. Libo ist mit den gezeigten Marken nicht verbunden."
+      "trademark": "PlayStation ist eine Marke von Sony Interactive Entertainment. Libo ist mit den gezeigten Marken nicht verbunden.",
+      "countdown": {
+        "opensIn": "Startet in",
+        "closesIn": "Endet in"
+      },
+      "chip": {
+        "open": "Jetzt offen",
+        "upcoming": "Startet am {{date}}",
+        "closed": "Beendet"
+      },
+      "timeline": {
+        "draw": "Ziehung zum Ende der Runde",
+        "announced": "Gewinner wird am {{date}} bekanntgegeben"
+      },
+      "trust": {
+        "label": "So läuft das Giveaway",
+        "random": "Zufällig per Computer gezogen",
+        "promoter": "Veranstalter: Noah Fofana, handelnd als Libo World, Andernach",
+        "post": "Kostenlose Teilnahme per Post",
+        "noCancel": "Nie wegen geringer Teilnahme abgesagt",
+        "link": "Regeln lesen"
+      },
+      "prize": {
+        "eyebrow": "Der Preis",
+        "cash": "Oder stattdessen {{cash}} € in bar, wenn der Gewinner das lieber möchte.",
+        "rules": "Regeln"
+      },
+      "next": {
+        "eyebrow": "Als Nächstes",
+        "meta": "Startet am {{opens}}"
+      }
     },
     "features": {
       "seo": {
