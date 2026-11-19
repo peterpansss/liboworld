@@ -14,7 +14,7 @@ import * as React from 'react';
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { render } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { YEARLY_PRICE } from '../../src/data/tiers';
+import { MONTHLY_PRICE, YEARLY_PRICE } from '../../src/data/tiers';
 import { CHALLENGE_TIERS } from '../../src/data/challengeTiers';
 
 void React;
@@ -56,10 +56,11 @@ describe('ChallengeFunnel offer once founding has closed', () => {
   afterEach(() => vi.clearAllMocks());
 
   for (const tier of [free, paid]) {
-    it(`${tier.slug}: shows the standing list price, never €79.99`, () => {
+    it(`${tier.slug}: shows the Phase 2 prices (monthly big, yearly under it), never €79.99`, () => {
       const { container } = renderTier(tier.slug);
       const now = container.querySelector('.cf-offer__now');
-      expect(now).toHaveTextContent(LIST_PRICE);
+      expect(now).toHaveTextContent(`€${MONTHLY_PRICE.premium.toFixed(2)}`);
+      expect(container.querySelector('.cf-offer')).toHaveTextContent(LIST_PRICE);
       expect(container.querySelector('.cf-offer')).not.toHaveTextContent('€79.99');
       expect(container.querySelector('.cf-offer')).not.toHaveTextContent('€39.50');
     });
