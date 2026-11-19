@@ -148,3 +148,15 @@ describe('detectPlatform — SSR safety', () => {
     Object.defineProperty(global, 'navigator', { configurable: true, value: origNav });
   });
 });
+
+describe('campaign medium', () => {
+  it('labels website installs as web and keeps bio links as social', async () => {
+    const { storeUrlWithSource, cleanCampaignMedium } = await import('../../src/utils/storeRedirect');
+    expect(storeUrlWithSource('android', 'blueprint', 'web')).toContain(encodeURIComponent('utm_source=blueprint&utm_medium=web'));
+    expect(storeUrlWithSource('android', 'blueprint')).toContain(encodeURIComponent('utm_medium=social'));
+    expect(storeUrlWithSource('ios', 'blueprint', 'web')).toContain('ct=blueprint');
+    expect(cleanCampaignMedium('web')).toBe('web');
+    expect(cleanCampaignMedium('evil')).toBe('social');
+    expect(cleanCampaignMedium(null)).toBe('social');
+  });
+});

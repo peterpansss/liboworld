@@ -59,9 +59,9 @@ export function storeUrlFor(platform: Platform): string {
 }
 
 /** Navigate the current window to the right destination. Use for in-page click handlers. */
-export function redirectToStore(platform: Platform, ct: string | null = null): void {
+export function redirectToStore(platform: Platform, ct: string | null = null, medium: CampaignMedium = 'social'): void {
   if (typeof window === 'undefined') return;
-  const url = storeUrlWithSource(platform, ct);
+  const url = storeUrlWithSource(platform, ct, medium);
   window.location.assign(url);
 }
 
@@ -80,14 +80,23 @@ export function cleanCampaignSource(raw: string | null): string | null {
  * Store URL carrying a campaign source, so one link (a social bio) can serve
  * both stores and still show in App Store Connect's sources (`ct`) and in Play
  * Console's acquisition report (`utm_source` via the install referrer).
+ * `medium` is 'social' for bio links and 'web' for installs started on
+ * liboworld.com itself (the Blueprint popup), so Play Console keeps them apart.
  */
-export function storeUrlWithSource(platform: Platform, ct: string | null): string {
+export type CampaignMedium = 'social' | 'web';
+
+/** Only the two known mediums pass; anything else falls back to 'social'. */
+export function cleanCampaignMedium(raw: string | null): CampaignMedium {
+  return raw === 'web' ? 'web' : 'social';
+}
+
+export function storeUrlWithSource(platform: Platform, ct: string | null, medium: CampaignMedium = 'social'): string {
   if (!ct) return storeUrlFor(platform);
   if (platform === 'ios') {
     return `https://apps.apple.com/app/apple-store/id${APP_STORE_ID}?pt=128957923&ct=${ct}&mt=8`;
   }
   if (platform === 'android' && ANDROID_AVAILABLE) {
-    const referrer = encodeURIComponent(`utm_source=${ct}&utm_medium=social`);
+    const referrer = encodeURIComponent(`utm_source=${ct}&utm_medium=${medium}`);
     return `${STORE_URLS.android}&referrer=${referrer}`;
   }
   return NON_IOS_FALLBACK_URL;

@@ -79,13 +79,13 @@ export default function BlueprintAppModal({ open, onClose, variant = 'page' }: P
           <p className="bpm-text">{t('blueprintApp.body')}</p>
           <div className="bpm-get">
             <figure className="bpm-qr">
-              <img src="/qr/get-app-blueprint.svg?v=1" alt={t('blueprintApp.qrAlt')} width={132} height={132} />
+              <img src="/qr/get-app-blueprint.svg?v=2" alt={t('blueprintApp.qrAlt')} width={132} height={132} />
               <figcaption>{t('blueprintApp.qrCaption')}</figcaption>
             </figure>
             <StoreBadges
               className="bpm-badges"
-              iosHref={storeUrlWithSource('ios', CT)}
-              androidHref={storeUrlWithSource('android', CT)}
+              iosHref={storeUrlWithSource('ios', CT, 'web')}
+              androidHref={storeUrlWithSource('android', CT, 'web')}
               newTab
             />
           </div>
