@@ -33,6 +33,7 @@ vi.mock('../../src/utils/storeRedirect', () => ({
   redirectToStore: (p: unknown, ct: unknown) => redirectToStoreMock(p, ct),
   cleanCampaignSource: (raw: string | null) =>
     raw ? raw.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) || null : null,
+  cleanCampaignMedium: (raw: string | null) => (raw === 'web' ? 'web' : 'social'),
   storeUrlWithSource: (p: string, ct: string | null) =>
     (p === 'ios' ? 'https://apps.apple.com/libo' : 'https://play.google.com/libo') + (ct ? `#ct=${ct}` : ''),
 }));

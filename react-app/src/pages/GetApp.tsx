@@ -2,7 +2,7 @@ import StoreBadges from '../components/StoreBadges';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { colors } from '../theme';
-import { cleanCampaignSource, detectPlatform, redirectToStore, storeUrlWithSource } from '../utils/storeRedirect';
+import { cleanCampaignMedium, cleanCampaignSource, detectPlatform, redirectToStore, storeUrlWithSource } from '../utils/storeRedirect';
 import { logFunnelClick, type FunnelTierSlug } from '../lib/funnelSignups';
 
 declare global {
@@ -29,6 +29,8 @@ export default function GetAppPage() {
   const [params] = useSearchParams();
   const [redirected, setRedirected] = useState(false);
   const ct = cleanCampaignSource(params.get('ct'));
+  // ?medium=web marks QR codes shown on liboworld.com itself (Blueprint popup).
+  const medium = cleanCampaignMedium(params.get('medium'));
 
   useEffect(() => {
     const rawTier = params.get('tier');
@@ -56,11 +58,11 @@ export default function GetAppPage() {
     const t = setTimeout(() => {
       setRedirected(true);
       const platform = detectPlatform();
-      redirectToStore(platform, ct);
+      redirectToStore(platform, ct, medium);
     }, 200);
 
     return () => clearTimeout(t);
-  }, [params, ct]);
+  }, [params, ct, medium]);
 
   return (
     <div
@@ -99,8 +101,8 @@ export default function GetAppPage() {
         <StoreBadges
           height={44}
           className="get-app__badges"
-          iosHref={storeUrlWithSource('ios', ct)}
-          androidHref={storeUrlWithSource('android', ct)}
+          iosHref={storeUrlWithSource('ios', ct, medium)}
+          androidHref={storeUrlWithSource('android', ct, medium)}
         />
       </div>
     </div>
