@@ -113,6 +113,10 @@
   border: 0;
   cursor: pointer;
   font: inherit;
+  /* font: inherit resets the size, so restate .site-nav__link's (it read bigger
+     than the links next to it). */
+  font-size: 14px;
+  font-weight: 500;
   display: inline-flex;
   align-items: center;
   gap: 4px;
