@@ -54,7 +54,7 @@ export default function BlueprintAppModal({ open, onClose, variant = 'page' }: P
           <span aria-hidden="true">×</span>
         </button>
         {/* Noah's real before/after (19 Nov 2026), the same pair as the app's
-            Home card. Photos from the Blueprint itself; labels per its cover. */}
+            Home card. Photos from the Blueprint itself. Started end of Sep 2023, so May 2024 = 8 months in (Noah, 11 Nov). */}
         <div className="bpm-pair">
           <figure>
             <img src="/downloads/blueprint/before-2023-v1.jpg" alt={t('blueprintApp.beforeAlt')} width={600} height={800} />
