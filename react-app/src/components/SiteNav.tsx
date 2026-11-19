@@ -19,10 +19,14 @@ const ANNOUNCE_DISMISS_KEY = 'ea_announce_dismissed';
 // Careers moved to the footer only. History: Membership left the header on
 // 27 Aug for the founding offer; it is back now that founding has closed, and
 // the founding item still removes itself after FOUNDING_CLOSE_DATE.
+// 19 Nov 2026 (Noah): cash challenges and the giveaway are their own items in
+// the bar, not hidden in the Earn menu. Earn keeps "How it works" + Rewards.
+const TOP_EARN_LINKS = [
+  { id: 'challenges', to: '/cash-challenges' },
+  { id: 'giveaway', to: '/giveaway' },
+] as const;
 const EARN_LINKS = [
   { id: 'howItWorks', descKey: 'earnPages.next.earn.text', to: '/earn', prop: 'libo-coin' },
-  { id: 'challenges', descKey: 'earnPages.next.challenges.text', to: '/cash-challenges', prop: 'cash-euro-stack' },
-  { id: 'giveaway', descKey: 'earnPages.next.giveaway.text', to: '/giveaway', prop: 'ps5-slim' },
   { id: 'rewards', descKey: 'earnPages.next.rewards.text', to: '/rewards', prop: 'reward-cards-fan' },
 ] as const;
 
@@ -225,6 +229,20 @@ export default function SiteNav() {
 
           {/* Center links */}
           <ul className="site-nav__links">
+            {TOP_EARN_LINKS.map(({ id, to }) => (
+              <li key={to}>
+                <Link
+                  to={to}
+                  className={`site-nav__link${isActive(to) ? ' site-nav__link--active' : ''}`}
+                  aria-current={isActive(to) ? 'page' : undefined}
+                  viewTransition
+                  onMouseEnter={() => prefetchRoute(to)}
+                  onFocus={() => prefetchRoute(to)}
+                >
+                  {t(`earnPages.nav.${id}`)}
+                </Link>
+              </li>
+            ))}
             <li
               ref={earnRef}
               className={`site-nav__dropdown${earnOpen ? ' site-nav__dropdown--open' : ''}`}
@@ -350,6 +368,11 @@ export default function SiteNav() {
           <Link to="/find-your-plan" state={{ start: true }} className="btn-primary btn-primary--block site-nav__drawer-plan" viewTransition onClick={() => setDrawerOpen(false)}>
             {t('findPlan.intro.start')}
           </Link>
+          {TOP_EARN_LINKS.map(({ id, to }) => (
+            <Link key={to} to={to} className={isActive(to) ? 'site-nav__drawer-link--active' : ''} aria-current={isActive(to) ? 'page' : undefined} viewTransition onFocus={() => prefetchRoute(to)} onClick={() => setDrawerOpen(false)}>
+              {t(`earnPages.nav.${id}`)}
+            </Link>
+          ))}
           <p className="site-nav__drawer-group">{t('earnPages.nav.earn', { defaultValue: 'Earn' })}</p>
           {EARN_LINKS.map((l) => (
             <Link key={l.to} to={l.to} className={`site-nav__drawer-sublink${isActive(l.to) ? ' site-nav__drawer-link--active' : ''}`} aria-current={isActive(l.to) ? 'page' : undefined} viewTransition onFocus={() => prefetchRoute(l.to)} onClick={() => setDrawerOpen(false)}>

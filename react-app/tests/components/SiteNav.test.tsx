@@ -79,8 +79,13 @@ describe('SiteNav', () => {
     ['Earn', 'Features', 'Membership', 'Founding Member'].forEach((label) => {
       expect(screen.getAllByText(label).length).toBeGreaterThanOrEqual(1);
     });
-    // The Earn menu links every train-and-earn page.
-    ['/earn', '/cash-challenges', '/giveaway', '/rewards'].forEach((href) => {
+    // Cash challenges + Giveaway are their own bar items (Noah, 19 Nov 2026);
+    // the Earn menu keeps How it works + Rewards.
+    ['/cash-challenges', '/giveaway'].forEach((href) => {
+      expect(document.querySelectorAll(`.site-nav__links > li > a[href="${href}"]`).length).toBe(1);
+      expect(document.querySelectorAll(`#nav-earn-menu a[href="${href}"]`).length).toBe(0);
+    });
+    ['/earn', '/rewards'].forEach((href) => {
       expect(document.querySelectorAll(`#nav-earn-menu a[href="${href}"]`).length).toBe(1);
     });
     // Badge pairs: mobile bottom bar + drawer. The bar itself has only the
