@@ -138,8 +138,8 @@
   border-radius: 100px;
   border: 0;
   background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   color: #fff;
   display: flex;
   align-items: center;
@@ -172,8 +172,8 @@
   border-radius: 100px;
   border: 0;
   background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   color: #fff;
   display: flex;
   align-items: center;
@@ -205,8 +205,8 @@
   border-radius: 100px;
   border: 0;
   background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   color: #fff;
   display: flex;
   align-items: center;
