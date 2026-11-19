@@ -2571,7 +2571,37 @@
       "screenAlt": "Le concours dans l'app",
       "premiumText": "Premium reçoit 3 participations par manche au lieu d'1.",
       "rules": "Règlement officiel du concours",
-      "trademark": "PlayStation est une marque de Sony Interactive Entertainment. Libo n'est pas affilié aux marques présentées."
+      "trademark": "PlayStation est une marque de Sony Interactive Entertainment. Libo n'est pas affilié aux marques présentées.",
+      "countdown": {
+        "opensIn": "Ouvre dans",
+        "closesIn": "Ferme dans"
+      },
+      "chip": {
+        "open": "Ouvert",
+        "upcoming": "Ouvre le {{date}}",
+        "closed": "Terminé"
+      },
+      "timeline": {
+        "draw": "Tirage à la clôture",
+        "announced": "Gagnant annoncé le {{date}}"
+      },
+      "trust": {
+        "label": "Comment se déroule le concours",
+        "random": "Tirage au sort par ordinateur",
+        "promoter": "Organisé par Noah Fofana, sous le nom Libo World, Andernach",
+        "post": "Participation gratuite par courrier",
+        "noCancel": "Jamais annulé pour faible participation",
+        "link": "Lire le règlement"
+      },
+      "prize": {
+        "eyebrow": "Le lot",
+        "cash": "Ou {{cash}} € en espèces à la place, si le gagnant préfère.",
+        "rules": "Règlement"
+      },
+      "next": {
+        "eyebrow": "Prochain concours",
+        "meta": "Ouvre le {{opens}}"
+      }
     },
     "features": {
       "seo": {

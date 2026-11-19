@@ -1,14 +1,17 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { SeoHead } from '../components/SeoHead';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import StoreBadges from '../components/StoreBadges';
 import {
-  EarnHero, StepStrip, PremiumStrip, EarnNext, PhoneShot, AppCta, RulesLink, Band, Heading, BigNumber,
+  EarnHero, StepStrip, PremiumStrip, EarnNext, PhoneShot, AppCta, RulesLink, Band, Heading, BigNumber, PropImg,
 } from '../components/earn/EarnKit';
+import GiveawayCountdown from '../components/earn/GiveawayCountdown';
+import GiveawayNextCard from '../components/earn/GiveawayNextCard';
 import { usePopIn } from '../utils/funnelAnimations';
 import {
-  featuredRound, roundStatus, GIVEAWAY_ENTRIES, GIVEAWAY_MAX_ENTRIES, LOYALTY_PER_MONTH, LOYALTY_MAX_MONTHS,
+  featuredRound, roundStatus, announceDate, GIVEAWAY_ENTRIES, GIVEAWAY_MAX_ENTRIES, LOYALTY_PER_MONTH, LOYALTY_MAX_MONTHS,
 } from '../data/giveawayRounds';
 import './GiveawayPage.css';
 
@@ -31,6 +34,10 @@ export default function Giveaway() {
 
   const fmt = (ymd: string) =>
     new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'long', timeZone: 'UTC' })
+      .format(new Date(`${ymd}T12:00:00Z`));
+
+  const fmtShort = (ymd: string) =>
+    new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short', timeZone: 'UTC' })
       .format(new Date(`${ymd}T12:00:00Z`));
 
   const statusLine = round
@@ -61,6 +68,7 @@ export default function Giveaway() {
               {statusLine}
             </p>
           )}
+          {round && <GiveawayCountdown round={round} />}
           <StoreBadges className="gw-badges" />
           {round && (
             <p className="gw-cash">
@@ -68,6 +76,49 @@ export default function Giveaway() {
             </p>
           )}
         </EarnHero>
+
+        {/* Trust line. Every claim is from /giveaway-rules: "The Draw",
+            "Who Runs the Giveaway", "Free Entry by Post", "If a Round Cannot Run". */}
+        <section className="gw-trust" aria-label={t('earnPages.giveaway.trust.label')}>
+          <ul className="gw-trust__list">
+            <li>{t('earnPages.giveaway.trust.random')}</li>
+            <li>{t('earnPages.giveaway.trust.promoter')}</li>
+            <li>{t('earnPages.giveaway.trust.post')}</li>
+            <li>{t('earnPages.giveaway.trust.noCancel')}</li>
+          </ul>
+          <Link to="/giveaway-rules" className="gw-trust__link">
+            {t('earnPages.giveaway.trust.link')} <span aria-hidden="true">→</span>
+          </Link>
+        </section>
+
+        {round && (
+          <Band>
+            <article className="gw-prize" data-popin>
+              <div className="gw-prize__stage">
+                <PropImg name={round.prop} className="gw-prize__prop" width={420} />
+              </div>
+              <div className="gw-prize__body">
+                <div className="gw-timeline">
+                  <span className={`gw-chip gw-chip--${status}`}>
+                    {t(`earnPages.giveaway.chip.${status}`, { date: fmtShort(round.opens) })}
+                  </span>
+                  <span className="gw-timeline__item">{t('earnPages.giveaway.timeline.draw')}</span>
+                  <span className="gw-timeline__item">
+                    {t('earnPages.giveaway.timeline.announced', { date: fmtShort(announceDate(round)) })}
+                  </span>
+                </div>
+                <p className="earn-eyebrow">{t('earnPages.giveaway.prize.eyebrow')}</p>
+                <h2 className="gw-prize__title">{round.prizeName}</h2>
+                <p className="gw-prize__cash">{t('earnPages.giveaway.prize.cash', { cash: round.cashEur })}</p>
+                <Link to="/giveaway-rules" className="gw-prize__rules">
+                  {t('earnPages.giveaway.prize.rules')} <span aria-hidden="true">→</span>
+                </Link>
+                <p className="gw-prize__tm">{t('earnPages.giveaway.trademark')}</p>
+              </div>
+            </article>
+            <GiveawayNextCard featured={round} />
+          </Band>
+        )}
 
         <StepStrip
           heading={t('earnPages.giveaway.steps.heading')}
@@ -114,7 +165,7 @@ export default function Giveaway() {
 
         <EarnNext current="giveaway">
           <RulesLink to="/giveaway-rules" label={t('earnPages.giveaway.rules')} />
-          <p className="earn-fine">{t('earnPages.giveaway.trademark')}</p>
+          {!round && <p className="earn-fine">{t('earnPages.giveaway.trademark')}</p>}
         </EarnNext>
         <AppCta title={t('earnPages.common.ctaTitle')} sub={t('earnPages.common.ctaSub')} />
       </main>
