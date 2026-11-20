@@ -2141,9 +2141,7 @@
       "month": "Monat {{n}}",
       "unit": "Lose pro Runde",
       "aria": "Gewinnspiel-Lose pro Runde mit {{tier}}, nach Monat",
-      "foot": "Ein Monat zählt, wenn du mindestens ein Workout von {{min}}+ Minuten abschließt. Gezählt wird bis zu {{max}} Monate; ein Monat Pause startet die Zählung neu. Jedes Los hat die gleiche Chance.",
-      "postal": "Kein Kauf nötig: Mit der kostenlosen Teilnahme per Post kommt jeder auf genauso viele Lose wie Elite.",
-      "postalLink": "Teilnahmebedingungen lesen"
+      "foot": "Ein Monat zählt, wenn du mindestens ein Workout von {{min}}+ Minuten abschließt. Gezählt wird bis zu {{max}} Monate; ein Monat Pause startet die Zählung neu. Jedes Los hat die gleiche Chance."
     },
     "more": {
       "h2": "Mehr als eine Mitgliedschaft",

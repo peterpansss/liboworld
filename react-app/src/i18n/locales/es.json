@@ -2141,9 +2141,7 @@
       "month": "Mes {{n}}",
       "unit": "participaciones por ronda",
       "aria": "Participaciones por ronda con {{tier}}, por mes",
-      "foot": "Un mes cuenta cuando completas al menos un entrenamiento de {{min}}+ minutos. Cuenta hasta {{max}} meses; un mes sin entrenar reinicia la cuenta. Cada participación tiene la misma probabilidad.",
-      "postal": "Sin compra necesaria: la participación gratuita por correo permite a cualquiera llegar a las mismas participaciones que Elite.",
-      "postalLink": "Leer las reglas del sorteo"
+      "foot": "Un mes cuenta cuando completas al menos un entrenamiento de {{min}}+ minutos. Cuenta hasta {{max}} meses; un mes sin entrenar reinicia la cuenta. Cada participación tiene la misma probabilidad."
     },
     "more": {
       "h2": "Más que una membresía",
