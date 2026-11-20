@@ -2141,9 +2141,7 @@
       "month": "Mês {{n}}",
       "unit": "participações por rodada",
       "aria": "Participações por rodada no {{tier}}, por mês",
-      "foot": "Um mês conta quando você conclui pelo menos um treino de {{min}}+ minutos. Conta até {{max}} meses; um mês sem treinar reinicia a contagem. Cada participação tem a mesma chance.",
-      "postal": "Nenhuma compra necessária: a participação gratuita pelo correio permite a qualquer pessoa chegar às mesmas participações do Elite.",
-      "postalLink": "Ler as regras do sorteio"
+      "foot": "Um mês conta quando você conclui pelo menos um treino de {{min}}+ minutos. Conta até {{max}} meses; um mês sem treinar reinicia a contagem. Cada participação tem a mesma chance."
     },
     "more": {
       "h2": "Mais do que uma assinatura",

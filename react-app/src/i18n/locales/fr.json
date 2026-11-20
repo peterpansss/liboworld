@@ -2141,9 +2141,7 @@
       "month": "Mois {{n}}",
       "unit": "participations par tirage",
       "aria": "Participations par tirage avec {{tier}}, par mois",
-      "foot": "Un mois compte quand tu termines au moins une séance de {{min}}+ minutes. Le compte va jusqu'à {{max}} mois ; un mois sans séance le remet à zéro. Chaque participation a la même chance.",
-      "postal": "Aucun achat nécessaire : la participation gratuite par courrier permet à chacun d'atteindre autant de participations qu'Elite.",
-      "postalLink": "Lire le règlement du tirage"
+      "foot": "Un mois compte quand tu termines au moins une séance de {{min}}+ minutes. Le compte va jusqu'à {{max}} mois ; un mois sans séance le remet à zéro. Chaque participation a la même chance."
     },
     "more": {
       "h2": "Plus qu'un abonnement",

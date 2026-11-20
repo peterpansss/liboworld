@@ -319,10 +319,6 @@ export default function Pricing() {
             <p className="pr-fine">
               {t('membershipV2.loyalty.foot', { min: LOYALTY_MIN_WORKOUT_MINUTES, max: LOYALTY_MAX_MONTHS })}
             </p>
-            <p className="pr-fine">
-              {t('membershipV2.loyalty.postal')}{' '}
-              <Link to="/giveaway-rules">{t('membershipV2.loyalty.postalLink')}</Link>
-            </p>
           </div>
         </section>
 

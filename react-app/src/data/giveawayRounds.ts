@@ -75,7 +75,7 @@ export const LOYALTY_PER_MONTH = {
   elite: GIVEAWAY_ENTRIES.elite,
 } as const;
 export const LOYALTY_MAX_MONTHS = 12;
-export const LOYALTY_MIN_WORKOUT_MINUTES = 10;
+export const LOYALTY_MIN_WORKOUT_MINUTES = 3;
 
 /** Most entries a member can hold in one round: base + a full loyalty streak. */
 export const GIVEAWAY_MAX_ENTRIES = {

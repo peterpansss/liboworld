@@ -2202,9 +2202,7 @@
       "month": "Month {{n}}",
       "unit": "entries per round",
       "aria": "Giveaway entries per round on {{tier}}, by month",
-      "foot": "A month counts when you complete at least one workout of {{min}}+ minutes. Counts up to {{max}} months; a month off restarts the count. Every entry has the same chance.",
-      "postal": "No purchase necessary: a free entry by post can bring anyone up to the same number of entries as Elite.",
-      "postalLink": "Read the giveaway rules"
+      "foot": "A month counts when you complete at least one workout of {{min}}+ minutes. Counts up to {{max}} months; a month off restarts the count. Every entry has the same chance."
     },
     "more": {
       "h2": "More than a membership",
