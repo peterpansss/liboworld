@@ -9,10 +9,21 @@ import {
 import { Field, TextInput, Button } from '../../components/admin/FormField';
 import { colors } from '../../theme';
 
-// MFA enrolment scaffold. Shipped as a self-contained panel mountable from
-// the admin layout sidebar. NOT hooked into a route by this commit -- the
-// architecture agent owns the layout/routing. Mount it wherever the
-// "Settings" page is, or use the ChooseEnrolStep below as a banner.
+function qrImageUrl(value: string): string | null {
+  // SVG loaded through <img> cannot run scripts or event handlers. Supabase
+  // versions return raw, percent-encoded, or base64 SVG data URIs; accept only
+  // that media type and never insert the SVG into the admin DOM as markup.
+  const trimmed = value.trim();
+  if (/^data:image\/svg\+xml(?:;charset=[a-z0-9-]+|;utf-8)?(?:;base64)?,/i.test(trimmed)) {
+    return trimmed;
+  }
+  return trimmed.startsWith('<svg')
+    ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(trimmed)}`
+    : null;
+}
+
+// MFA enrolment panel for the /admin/mfa route. It remains reachable with an
+// AAL1 admin session so an operator can enroll before admin access is granted.
 //
 // PRODUCTION GAPS (intentionally left as TODOs, see spec section 5):
 //   - No recovery codes. If the device is lost, the only recovery path is
@@ -24,10 +35,6 @@ import { colors } from '../../theme';
 //   - No SMS/push fallback. Single TOTP factor is fragile.
 //   - No audit log of factor enrol / verify / unenrol events. Pipe these
 //     into points_ledger or a dedicated admin_audit table.
-//   - Enrolment is voluntary. The 30-day grace check (my_admin_mfa_status)
-//     returns must_enrol: true after the grace expires, but no UI BLOCKS
-//     the admin yet -- it just shows a banner. Wire that into a hard
-//     redirect for the next iteration.
 
 export function MfaEnrolPanel() {
   const [status, setStatus] = useState<AdminMfaStatus | null>(null);
@@ -82,6 +89,7 @@ export function MfaEnrolPanel() {
     }
   };
 
+  const qrSrc = challenge ? qrImageUrl(challenge.qrSvg) : null;
   if (!status?.is_admin) return null;
 
   return (
@@ -100,7 +108,7 @@ export function MfaEnrolPanel() {
             Add a TOTP authenticator (Google Authenticator, Authy, 1Password, etc.).
             {status.must_enrol ? (
               <strong style={{ color: colors.error, display: 'block', marginTop: 6 }}>
-                Required: your 30-day grace period has ended.
+                Required to access admin pages.
               </strong>
             ) : status.grace_days_remaining !== undefined ? (
               <span style={{ display: 'block', marginTop: 6, color: colors.dim }}>
@@ -120,11 +128,11 @@ export function MfaEnrolPanel() {
               <p style={{ margin: '0 0 8px 0', fontSize: 12, color: colors.muted }}>
                 Scan this QR with your authenticator app, then enter the 6-digit code.
               </p>
-              <div
-                style={{ background: '#fff', padding: 12, borderRadius: 8, marginBottom: 12, width: 'fit-content' }}
-                // dangerouslySetInnerHTML is deliberate: Supabase returns a sanitised SVG string
-                dangerouslySetInnerHTML={{ __html: challenge.qrSvg }}
-              />
+              {qrSrc && (
+                <div style={{ background: '#fff', padding: 12, borderRadius: 8, marginBottom: 12, width: 'fit-content' }}>
+                  <img src={qrSrc} alt="Scan this QR code to set up two-factor authentication" width={180} height={180} />
+                </div>
+              )}
               <p style={{ margin: '0 0 12px 0', fontSize: 11, color: colors.dim, fontFamily: 'monospace' }}>
                 Or enter this secret manually: {challenge.secret}
               </p>

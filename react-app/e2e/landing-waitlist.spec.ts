@@ -10,12 +10,12 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Landing waitlist', () => {
   test.beforeEach(async ({ page }) => {
-    // Intercept all supabase REST calls and return a successful insert.
+    // Intercept Supabase calls and return a successful signup.
     await page.route('**/rest/v1/funnel_signups*', (route) =>
       route.fulfill({ status: 201, body: '[]', contentType: 'application/json' }),
     );
-    await page.route('**/rest/v1/waitlist*', (route) =>
-      route.fulfill({ status: 201, body: '[]', contentType: 'application/json' }),
+    await page.route('**/functions/v1/waitlist_signup*', (route) =>
+      route.fulfill({ status: 200, body: '{"ok":true,"duplicate":false}', contentType: 'application/json' }),
     );
   });
 

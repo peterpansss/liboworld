@@ -17,6 +17,7 @@ import { DataTable, type Column } from '../../components/admin/DataTable';
 import { Button, Field, Select, TextArea, TextInput } from '../../components/admin/FormField';
 import { KpiCard } from '../../components/admin/KpiCard';
 import { colors } from '../../theme';
+import { safeUrl } from '../../utils/safeUrl';
 
 const PLATFORM_LABEL: Record<SocialPlatform, string> = {
   instagram: 'Instagram',
@@ -118,6 +119,7 @@ function TargetEditor({
   const [err, setErr] = useState<string | null>(null);
 
   const dirty = title !== (target.title ?? '') || caption !== (target.caption ?? '');
+  const remoteUrl = safeUrl(target.remote_url);
 
   const save = async () => {
     setBusy(true);
@@ -200,9 +202,9 @@ function TargetEditor({
             Retry
           </Button>
         )}
-        {target.remote_url && (
+        {remoteUrl?.startsWith('https://') && (
           <a
-            href={target.remote_url}
+            href={remoteUrl}
             target="_blank"
             rel="noreferrer"
             style={{ fontSize: 12, color: colors.accent, alignSelf: 'center' }}
@@ -221,6 +223,7 @@ function PostDetail({ post, onChanged }: { post: SocialPost; onChanged: () => vo
   const [err, setErr] = useState<string | null>(null);
 
   const staged = post.media_urls.length > 0;
+  const coverUrl = safeUrl(post.cover_url);
 
   const run = async (fn: () => Promise<void>) => {
     setBusy(true);
@@ -238,9 +241,9 @@ function PostDetail({ post, onChanged }: { post: SocialPost; onChanged: () => vo
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', flexWrap: 'wrap' }}>
-        {post.cover_url ? (
+        {coverUrl?.startsWith('https://') ? (
           <img
-            src={post.cover_url}
+            src={coverUrl}
             alt=""
             style={{ width: 108, borderRadius: 10, border: `1px solid ${colors.border}` }}
           />

@@ -7,13 +7,13 @@
  *   - authenticated-not-admin → renders AdminLogin with deniedReason
  *   - admin → renders children
  *
- * Plus the MFA hard-redirect: when getAdminMfaStatus returns must_enrol:true
+ * Plus the MFA hard-redirect: when the admin has no verified TOTP factor
  * the user is redirected to /admin/mfa (and is NOT redirected when already
  * sitting on that route — i.e. no infinite loop).
  *
  * And the AAL2 gate (LIBO-02): admin content only renders once the session is
- * aal2 (or aal1 with no verified factor — the enrol case). An aal1 session with
- * a verified factor, or an AAL read error, is held on the step-up screen.
+ * aal2. An aal1 session with a verified factor, or an AAL read error, is held
+ * on the step-up screen; an unenrolled session reaches only /admin/mfa.
  */
 /// <reference types="@testing-library/jest-dom" />
 import * as React from 'react';
@@ -46,8 +46,8 @@ vi.mock('../../src/lib/supabase', () => ({
   },
 }));
 
-// AdminGuard now does TWO checks AND-combined: profiles.is_admin via SELECT
-// (getCurrentUserIsAdmin) AND the is_caller_admin() RPC (isCallerAdminViaRpc).
+// AdminGuard does TWO checks AND-combined: profiles.is_admin via SELECT
+// (getCurrentUserIsAdmin) AND my_admin_mfa_status() (isCallerAdminViaRpc).
 // The mock returns the same `nextIsAdmin` value for both, simulating a
 // consistent backend; the AdminGuard logic correctly fails the gate when
 // either disagrees.
@@ -237,13 +237,15 @@ describe('AdminGuard', () => {
     expect(screen.queryByTestId('protected')).not.toBeInTheDocument();
   });
 
-  it('lets an aal1 session with no verified factor through (enrol/grace case)', async () => {
+  it('routes an aal1 admin without a verified TOTP factor to MFA only', async () => {
     nextSession = { user: { id: 'u_admin' } };
     nextIsAdmin = true;
+    nextMfaStatus = { is_admin: true, mfa_enrolled: false, must_enrol: true };
     nextAal = { level: 'aal1', hasVerifiedFactor: false, error: false };
     renderGuard(<div data-testid="protected">protected</div>);
     await waitFor(() => {
-      expect(screen.getByTestId('protected')).toBeInTheDocument();
+      expect(screen.getByTestId('mfa-route-target')).toHaveTextContent('/admin/mfa');
     });
+    expect(screen.queryByTestId('protected')).not.toBeInTheDocument();
   });
 });

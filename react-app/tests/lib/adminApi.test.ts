@@ -120,6 +120,7 @@ vi.mock('../../src/lib/supabase', () => ({
 
 import {
   getCurrentUserIsAdmin,
+  isCallerAdminViaRpc,
   signInAdmin,
   signOutAdmin,
   fetchDashboardKpis,
@@ -137,7 +138,7 @@ import {
   updateGiveaway,
   deleteGiveaway_unsafe,
   drawGiveawayWinners_unsafe,
-  uploadGiveawayImage,
+  uploadGiveawayImage_unsafe as uploadGiveawayImage,
   fetchActivityFeed,
   fetchDistinctWorkoutNames,
   uploadExerciseVideo,
@@ -165,6 +166,19 @@ beforeEach(() => {
   nextSessionResp = { data: { session: { user: { id: 'u_admin' } } } };
   nextSignInResp = { error: null };
   nextSignOutResp = { error: null };
+});
+
+describe('AAL1 admin identity probe', () => {
+  it('uses the self-only MFA status RPC so enrolment remains reachable', async () => {
+    nextRpcResp = { data: { is_admin: true, mfa_enrolled: false }, error: null };
+    expect(await isCallerAdminViaRpc()).toBe(true);
+    expect(rpcCalls.map((call) => call.name)).toEqual(['my_admin_mfa_status']);
+  });
+
+  it('fails closed when the MFA status RPC is unavailable', async () => {
+    nextRpcResp = { data: null, error: { message: 'missing' } };
+    expect(await isCallerAdminViaRpc()).toBe(false);
+  });
 });
 
 describe('getCurrentUserIsAdmin', () => {

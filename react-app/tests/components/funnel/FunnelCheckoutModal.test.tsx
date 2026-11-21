@@ -93,7 +93,10 @@ beforeEach(() => {
   mockConfirmPayment.mockReset();
   mockConfirmPayment.mockResolvedValue({ error: null, paymentIntent: { id: 'pi_from_result' } });
   mockGetStripe.mockClear();
-  mockUseStripe.mockClear();
+  // The preceding no-SDK case returns null. Clear its implementation too,
+  // otherwise the next Stripe case inherits a missing SDK under Vitest 5.
+  mockUseStripe.mockReset();
+  mockUseStripe.mockReturnValue({ confirmPayment: mockConfirmPayment });
   mockUseElements.mockClear();
   document.body.style.overflow = '';
 });

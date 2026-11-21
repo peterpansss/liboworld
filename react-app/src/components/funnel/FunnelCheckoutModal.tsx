@@ -74,7 +74,9 @@ export const LIME_ACCENT: AccentTheme = {
 // UA-routes phones to App Store / Play Store. No per-platform QR variants
 // needed; tierSlug is included for downstream analytics.
 function qrSrcForGetApp(tierSlug: string): string {
-  const target = `https://liboworld.com/get-app?tier=${encodeURIComponent(tierSlug)}`;
+  const siteUrl = import.meta.env.VITE_BUILD_TARGET === 'staging-test' && typeof window !== 'undefined'
+    ? window.location.origin : 'https://liboworld.com';
+  const target = `${siteUrl}/get-app?tier=${encodeURIComponent(tierSlug)}`;
   return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=8&data=${encodeURIComponent(target)}`;
 }
 

@@ -6,11 +6,12 @@
 // prompt caching on the system block). Writes back to
 // `exercises.setup_notes_{de,es,fr,pt}` via the service-role client.
 //
-// Auth: caller must be a logged-in admin. We read `Authorization: Bearer <jwt>`,
-// resolve the user, then call the existing `public.is_admin()` RPC. Non-admin
-// callers get 403. Deploy with `--no-verify-jwt` because we do our own auth
-// (we still need the JWT in the body to resolve the user — Supabase's verify
-// also requires anon key issuance, which is not what we want for an admin tool).
+// Auth: caller must be a logged-in admin with an aal2 session. We read
+// `Authorization: Bearer <jwt>`, validate the user and MFA level, then call the
+// existing `public.is_admin()` RPC. Other callers get 403. Deploy with
+// `--no-verify-jwt` because we do our own auth
+// (we validate the caller's bearer token inside the function before using the
+// service-role client).
 //
 // Required Supabase secrets (set via `supabase secrets set ...`):
 //   ANTHROPIC_API_KEY           sk-ant-…
@@ -23,7 +24,7 @@
 //   supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
 // ============================================================================
 
-import { createClient } from 'npm:@supabase/supabase-js@^2';
+import { createClient } from 'npm:@supabase/supabase-js@2.105.4';
 
 // ── CORS ──────────────────────────────────────────────────────────────────
 const ALLOWED_ORIGIN = 'https://liboworld.com';
@@ -190,6 +191,18 @@ Deno.serve(async (req) => {
   const { data: userRes, error: userErr } = await admin.auth.getUser(jwt);
   if (userErr || !userRes?.user) {
     return jsonResponse({ ok: false, error: 'invalid_jwt' }, 403);
+  }
+
+  // Enforce MFA on the server as well as in the admin UI. The explicit JWT
+  // parameter makes this check use the caller's session, not the service role.
+  const { data: assurance, error: assuranceErr } =
+    await admin.auth.mfa.getAuthenticatorAssuranceLevel(jwt);
+  if (assuranceErr) {
+    console.error('MFA assurance check failed', assuranceErr);
+    return jsonResponse({ ok: false, error: 'auth_check_failed' }, 500);
+  }
+  if (assurance?.currentLevel !== 'aal2') {
+    return jsonResponse({ ok: false, error: 'mfa_required' }, 403);
   }
 
   // Caller-scoped client just for the is_admin RPC so auth.uid() = caller.

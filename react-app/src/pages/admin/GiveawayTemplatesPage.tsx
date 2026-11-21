@@ -10,7 +10,7 @@ import {
   // Destructive op goes through the *WithReauth wrapper so
   // requireRecentAuth() can challenge the operator before delete.
   deleteGiveawayTemplateWithReauth as deleteGiveawayTemplate,
-  uploadGiveawayImage,
+  uploadGiveawayImageWithReauth as uploadGiveawayImage,
   type GiveawayTemplate,
   type GiveawayTemplateInput,
   type GiveawayTemplateType,
