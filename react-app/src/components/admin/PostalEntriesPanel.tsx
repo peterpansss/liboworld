@@ -3,8 +3,8 @@ import { colors } from '../../theme';
 import { Field, TextInput, Button } from './FormField';
 import {
   listPostalEntries,
-  recordPostalEntry,
-  deletePostalEntry,
+  recordPostalEntryWithReauth as recordPostalEntry,
+  deletePostalEntryWithReauth as deletePostalEntry,
   type PostalEntry,
 } from '../../lib/adminApi';
 

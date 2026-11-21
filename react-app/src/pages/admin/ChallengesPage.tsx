@@ -13,7 +13,7 @@ import {
   // Destructive op goes through the *WithReauth wrapper so
   // requireRecentAuth() can challenge the operator before delete.
   deleteMoneyChallengeWithReauth as deleteMoneyChallenge,
-  uploadGiveawayImage,
+  uploadGiveawayImageWithReauth as uploadGiveawayImage,
   EXERCISE_OPTION_CATALOG,
   type MoneyChallenge,
   type MoneyChallengeInput,

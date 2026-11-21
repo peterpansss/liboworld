@@ -35,6 +35,8 @@ export type ConsentState = {
 
 export const DENY_ALL: ConsentState = { analytics: false, marketing: false };
 export const ACCEPT_ALL: ConsentState = { analytics: true, marketing: true };
+// The isolated test build never reports test traffic to Libo's live GA/Meta accounts.
+const IS_STAGING_TEST = import.meta.env.VITE_BUILD_TARGET === 'staging-test';
 
 const STORAGE_KEY = 'libo-consent-v2';
 /**
@@ -140,16 +142,22 @@ function persist(state: ConsentState): void {
 
 /** The stored choice, or `null` when the visitor has not decided yet. */
 export function getConsent(): ConsentState | null {
+  if (IS_STAGING_TEST) return DENY_ALL;
   return readStored() ?? migrateLegacyChoice();
 }
 
 /** True when this category may currently run. Never guesses: default is no. */
 export function hasConsent(category: ConsentCategory): boolean {
-  return active[category] === true;
+  return !IS_STAGING_TEST && active[category] === true;
 }
 
 /** Record an explicit choice, apply it immediately, and tell the UI. */
 export function setConsent(state: ConsentState): void {
+  if (IS_STAGING_TEST) {
+    applyConsent(DENY_ALL);
+    listeners.forEach((l) => l(DENY_ALL));
+    return;
+  }
   const next: ConsentState = {
     analytics: state.analytics === true,
     marketing: state.marketing === true,

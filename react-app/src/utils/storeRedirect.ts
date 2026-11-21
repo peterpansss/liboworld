@@ -26,13 +26,14 @@ export const ANDROID_AVAILABLE: boolean = true;
  * exactly the kind of thing that let the site sit half-launched for six weeks.
  */
 export const NON_IOS_FALLBACK_URL = '/#hero-capture';
+export const IS_STAGING_TEST = import.meta.env.VITE_BUILD_TARGET === 'staging-test';
 
 export const APP_STORE_ID = '6773703113';
 export const PLAY_PACKAGE = 'com.liboworld.app';
 
 export const STORE_URLS = {
-  ios: 'https://apps.apple.com/app/libo-world-training-club/id6773703113',
-  android: 'https://play.google.com/store/apps/details?id=com.liboworld.app',
+  ios: IS_STAGING_TEST ? NON_IOS_FALLBACK_URL : 'https://apps.apple.com/app/libo-world-training-club/id6773703113',
+  android: IS_STAGING_TEST ? NON_IOS_FALLBACK_URL : 'https://play.google.com/store/apps/details?id=com.liboworld.app',
 } as const;
 
 /** UA-detect the visitor's platform. SSR-safe (returns 'desktop' off-window). */
@@ -91,6 +92,7 @@ export function cleanCampaignMedium(raw: string | null): CampaignMedium {
 }
 
 export function storeUrlWithSource(platform: Platform, ct: string | null, medium: CampaignMedium = 'social'): string {
+  if (IS_STAGING_TEST) return NON_IOS_FALLBACK_URL;
   if (!ct) return storeUrlFor(platform);
   if (platform === 'ios') {
     return `https://apps.apple.com/app/apple-store/id${APP_STORE_ID}?pt=128957923&ct=${ct}&mt=8`;

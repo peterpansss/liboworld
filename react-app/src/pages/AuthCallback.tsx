@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { readAuthCallbackHash } from '../lib/authUrl';
 import './AuthCallback.css';
 
 /**
@@ -140,7 +141,7 @@ function deriveInitialState(): {
     return { state: { kind: 'loading' }, recoveryTokens: null };
   }
 
-  const parsed = parseFragment(window.location.hash);
+  const parsed = parseFragment(readAuthCallbackHash());
 
   if (parsed.error || parsed.errorDescription || parsed.errorCode) {
     return {

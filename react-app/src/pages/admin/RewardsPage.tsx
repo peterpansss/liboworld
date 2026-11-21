@@ -6,7 +6,7 @@ import { Modal } from '../../components/admin/Modal';
 import {
   listRewardRedemptions,
   listRewardCatalogAdmin,
-  uploadGiveawayImage,
+  uploadGiveawayImageWithReauth as uploadGiveawayImage,
   // Sensitive ops: gated through requireRecentAuth() via the wrappers.
   resolveRedemptionWithReauth as resolveRedemption,
   upsertRewardCatalogWithReauth as upsertRewardCatalog,

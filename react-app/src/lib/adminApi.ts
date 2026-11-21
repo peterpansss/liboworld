@@ -193,6 +193,8 @@ export async function getCurrentUserIsAdmin(): Promise<boolean> {
 }
 
 export async function signInAdmin(email: string, password: string) {
+  lastReauthAt = null;
+  lastReauthUserId = null;
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) throw error;
   const isAdmin = await getCurrentUserIsAdmin();
@@ -203,6 +205,8 @@ export async function signInAdmin(email: string, password: string) {
 }
 
 export async function signOutAdmin() {
+  lastReauthAt = null;
+  lastReauthUserId = null;
   await supabase.auth.signOut();
 }
 
@@ -436,7 +440,8 @@ export async function listPostalEntries(giveawayId: string): Promise<PostalEntry
   return (data ?? []) as PostalEntry[];
 }
 
-export async function recordPostalEntry(input: {
+/** UNGATED — UI callers must use {@link recordPostalEntryWithReauth}. */
+export async function recordPostalEntry_unsafe(input: {
   giveawayId: string;
   email: string;
   receivedOn: string;
@@ -456,7 +461,8 @@ export async function recordPostalEntry(input: {
   return { letters: r.postal_entries ?? 0, counting: r.counting_now ?? 0 };
 }
 
-export async function deletePostalEntry(entryId: string): Promise<void> {
+/** UNGATED — UI callers must use {@link deletePostalEntryWithReauth}. */
+export async function deletePostalEntry_unsafe(entryId: string): Promise<void> {
   const { data, error } = await supabase.rpc('admin_delete_postal_entry', { p_entry_id: entryId });
   if (error) throw error;
   const r = data as { ok: boolean; error?: string };
@@ -518,7 +524,8 @@ async function resizeForUpload(file: File, maxWidth = 1600, quality = 0.85): Pro
   return blob ?? file;
 }
 
-export async function uploadGiveawayImage(file: File): Promise<string> {
+/** UNGATED — admin UI must use {@link uploadGiveawayImageWithReauth}. */
+export async function uploadGiveawayImage_unsafe(file: File): Promise<string> {
   // Client-side validation BEFORE resize: rejects oversized / wrong-type /
   // empty files before bytes go on the wire. Bucket-level constraints + RLS
   // policies are the authoritative gate (see supabase-migration-storage-policies.sql).
@@ -2020,15 +2027,16 @@ export async function upsertPartnerOffer_unsafe(input: PartnerOfferInput): Promi
 // ════════════════════════════════════════════════════════════════════════
 
 // ── Server-side admin verification via RPC ─────────────────────────────────
-// AdminGuard calls this in addition to the cheap profiles.is_admin SELECT.
-// The RPC enforces SECURITY DEFINER + STABLE, so a revoked JWT or a
-// recently-cleared is_admin flag is detected on the server side.
+// AdminGuard calls this in addition to the own-profile SELECT. The MFA status
+// RPC verifies the caller's JWT and reads only their own admin flag. It stays
+// available at AAL1, so an admin can reach MFA enrolment before is_admin()
+// (which now requires AAL2) permits privileged reads and writes.
 
 export async function isCallerAdminViaRpc(): Promise<boolean> {
   try {
-    const { data, error } = await supabase.rpc('is_caller_admin');
+    const { data, error } = await supabase.rpc('my_admin_mfa_status');
     if (error) return false;
-    return Boolean(data);
+    return (data as AdminMfaStatus | null)?.is_admin === true;
   } catch {
     return false;
   }
@@ -2183,8 +2191,8 @@ export function validatePasswordPolicy(password: string): PasswordPolicyResult {
 // ── Re-auth for sensitive ops ─────────────────────────────────────────────
 // Spec part 6: wrap markPayoutPaid, setSubscriptionTier, setUserAdminFlag,
 // grantTickets, adjustPoints with a "require recent re-auth" check. If the
-// session is older than 30 min, prompt for a 6-digit TOTP code and step the
-// session up to AAL2 before proceeding (never signInWithPassword).
+// last explicit TOTP check is older than 30 min, prompt for a 6-digit code
+// before proceeding (never signInWithPassword).
 //
 // We track recent-re-auth in module-scoped memory only -- a full reload
 // resets it (which is a feature: an admin walking away from their machine
@@ -2192,6 +2200,7 @@ export function validatePasswordPolicy(password: string): PasswordPolicyResult {
 
 const REAUTH_VALIDITY_MS = 30 * 60 * 1000;
 let lastReauthAt: number | null = null;
+let lastReauthUserId: string | null = null;
 
 /**
  * The React layer registers a callback that will SHOW a 6-digit TOTP prompt
@@ -2218,22 +2227,9 @@ function isRecentlyAuthenticated(): boolean {
   return lastReauthAt !== null && (Date.now() - lastReauthAt) < REAUTH_VALIDITY_MS;
 }
 
-async function getSessionAgeMs(): Promise<number | null> {
-  const { data } = await supabase.auth.getSession();
-  if (!data.session) return null;
-  // Supabase JWT iat is the issue time. expires_at - 3600 ≈ iat for a 1h
-  // token. Use that to estimate session age.
-  const expiresAt = data.session.expires_at;
-  if (!expiresAt) return null;
-  // expires_at is a unix timestamp in seconds
-  const issuedAtMs = expiresAt * 1000 - 3600_000;
-  return Date.now() - issuedAtMs;
-}
-
 /**
- * Verifies that the session has been re-authenticated within the last 30 min.
- * If not, prompts the user via the registered ReauthPrompt for a 6-digit TOTP
- * code and elevates the session to AAL2 (see {@link stepUpToAal2}).
+ * Requires an explicit TOTP challenge every 30 minutes for sensitive actions.
+ * A refreshed access token is not evidence of recent authentication.
  *
  * CRITICAL: this NEVER calls supabase.auth.signInWithPassword. That primitive
  * yields an AAL1 session and, worse, RESETS an already-AAL2 session down to
@@ -2242,14 +2238,10 @@ async function getSessionAgeMs(): Promise<number | null> {
  * Throws if the step-up fails or is cancelled.
  */
 export async function requireRecentAuth(): Promise<void> {
-  if (isRecentlyAuthenticated()) return;
-
-  const sessionAge = await getSessionAgeMs();
-  if (sessionAge !== null && sessionAge < REAUTH_VALIDITY_MS) {
-    // The session itself is fresh enough; treat as recently authenticated.
-    lastReauthAt = Date.now() - sessionAge;
-    return;
-  }
+  const { data: sessionData } = await supabase.auth.getSession();
+  const userId = sessionData.session?.user?.id;
+  if (!userId) throw new Error('Not signed in.');
+  if (lastReauthUserId === userId && isRecentlyAuthenticated()) return;
 
   if (!reauthPromptHandler) {
     // No prompt registered -- the layout component didn't mount the modal.
@@ -2257,25 +2249,20 @@ export async function requireRecentAuth(): Promise<void> {
     throw new Error('Re-authentication required. Reload the admin panel.');
   }
 
-  const { data: sessionData } = await supabase.auth.getSession();
-  if (!sessionData.session?.user) {
-    throw new Error('Not signed in.');
-  }
-
-  // Elevate to AAL2 via the TOTP challenge/verify path. If the session is
-  // already AAL2 this returns true immediately without prompting (AAL2
-  // persists across token refreshes, so this typically prompts once per
-  // sign-in). Cancel or a bad code returns false.
+  // Challenge again even when the JWT already says aal2. That claim survives
+  // token refreshes and does not prove the operator just entered a code.
   const elevated = await stepUpToAal2(
     () =>
       new Promise<string | null>((resolve) => {
         reauthPromptHandler!(resolve);
       }),
+    true,
   );
   if (!elevated) {
     throw new Error('Re-authentication failed. A valid 6-digit code is required.');
   }
   lastReauthAt = Date.now();
+  lastReauthUserId = userId;
 }
 
 /**
@@ -2292,7 +2279,7 @@ export async function withRecentAuth<T>(op: () => Promise<T>): Promise<T> {
 // Minimal TOTP enrolment helpers. Production-ready MFA needs:
 //   - recovery codes (single-use bypass, generated and shown ONCE)
 //   - device-trust ("don't ask again on this browser for 30 days")
-//   - per-action step-up (some ops require fresh TOTP, not just AAL2 session)
+//   - server-issued per-action step-up grants for financial/destructive RPCs
 //   - SMS / push fallback (TOTP only is fragile if the user loses the device)
 //   - audit log of factor enrol / unenrol / verify events
 //   - operator override (DBA can clear factors after support verification)
@@ -2363,10 +2350,13 @@ export async function getAdminMfaStatus(): Promise<AdminMfaStatus> {
  *
  * NEVER calls signInWithPassword — that would drop the session to aal1.
  */
-async function stepUpToAal2(promptCode: () => Promise<string | null>): Promise<boolean> {
+async function stepUpToAal2(
+  promptCode: () => Promise<string | null>,
+  forceChallenge = false,
+): Promise<boolean> {
   const { data: aalData, error: aalErr } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
   if (aalErr) return false;
-  if (aalData?.currentLevel === 'aal2') return true;
+  if (aalData?.currentLevel === 'aal2' && !forceChallenge) return true;
 
   const { data: factors } = await supabase.auth.mfa.listFactors();
   const totp = factors?.totp?.find((f) => f.status === 'verified');
@@ -2511,6 +2501,20 @@ export async function upsertRewardCatalogWithReauth(input: RewardCatalogInput) {
 /** Affiliate links route member clicks (and Libo's commission), so edits are challenged too. */
 export async function upsertPartnerOfferWithReauth(input: PartnerOfferInput) {
   return withRecentAuth(() => upsertPartnerOffer_unsafe(input));
+}
+
+/** Postal entries affect giveaway odds, so each edit requires recent TOTP. */
+export async function recordPostalEntryWithReauth(input: Parameters<typeof recordPostalEntry_unsafe>[0]) {
+  return withRecentAuth(() => recordPostalEntry_unsafe(input));
+}
+
+export async function deletePostalEntryWithReauth(entryId: string) {
+  return withRecentAuth(() => deletePostalEntry_unsafe(entryId));
+}
+
+/** Public-content uploads require recent TOTP before Storage is contacted. */
+export async function uploadGiveawayImageWithReauth(file: File) {
+  return withRecentAuth(() => uploadGiveawayImage_unsafe(file));
 }
 
 /**

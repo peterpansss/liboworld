@@ -29,7 +29,8 @@ type Props = {
   onClose: () => void;
 };
 
-const SITE_URL = 'https://liboworld.com';
+const SITE_URL = import.meta.env.VITE_BUILD_TARGET === 'staging-test' && typeof window !== 'undefined'
+  ? window.location.origin : 'https://liboworld.com';
 
 function qrSrc(target: string): string {
   // Public, no-auth QR generator. ~5kb image, no library install needed.

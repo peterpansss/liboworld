@@ -1181,7 +1181,7 @@ body {
     }
   });
 
-  // Email form — Supabase waitlist
+  // Email form — bounded Supabase waitlist function
   const { createClient } = supabase;
   const sb = createClient(
     'https://oaftqweofrifoiuwntce.supabase.co',
@@ -1199,15 +1199,15 @@ body {
     if (msg) msg.textContent = '';
 
     try {
-      const { error } = await sb
-        .from('waitlist')
-        .insert({
+      const { data, error } = await sb.functions.invoke('waitlist_signup', {
+        body: {
           email,
           source: 'onboarding',
           onboarding_answers: JSON.stringify(answers)
-        });
+        }
+      });
 
-      if (!error) {
+      if (!error && data?.ok && !data.duplicate) {
         btn.textContent = '\u2713 YOU\u2019RE ON THE LIST!';
         btn.style.background = 'var(--accent)';
         btn.style.color = '#000';
@@ -1216,7 +1216,7 @@ body {
           msg.style.color = 'var(--accent)';
           msg.textContent = 'Welcome! We\u2019ll notify you when Libo launches.';
         }
-      } else if (error.code === '23505') {
+      } else if (!error && data?.ok && data.duplicate) {
         btn.textContent = '\u2713 YOU\u2019RE ON THE LIST!';
         btn.style.background = 'var(--accent)';
         btn.style.color = '#000';

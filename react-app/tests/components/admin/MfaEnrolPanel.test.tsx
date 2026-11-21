@@ -51,6 +51,7 @@ beforeEach(() => {
   nextStatusError = null;
   nextStartError = null;
   nextConfirmError = null;
+  nextStartChallenge.qrSvg = '<svg data-testid="qr" />';
 });
 
 describe('MfaEnrolPanel', () => {
@@ -75,7 +76,7 @@ describe('MfaEnrolPanel', () => {
     nextStatus = { is_admin: true, mfa_enrolled: false, must_enrol: true };
     render(<MfaEnrolPanel />);
     await waitFor(() => {
-      expect(screen.getByText(/Required: your 30-day grace period has ended/i)).toBeInTheDocument();
+      expect(screen.getByText(/Required to access admin pages/i)).toBeInTheDocument();
     });
   });
 
@@ -94,9 +95,26 @@ describe('MfaEnrolPanel', () => {
     await waitFor(() => screen.getByText(/Scan this QR/));
     // Secret line + QR present
     expect(screen.getByText(/JBSW/)).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /Scan this QR code/ })).toHaveAttribute(
+      'src',
+      expect.stringMatching(/^data:image\/svg\+xml;charset=utf-8,/),
+    );
+    expect(document.querySelector('svg')).toBeNull();
     // Code field
     expect((document.querySelector('input[inputmode="numeric"]') as HTMLInputElement)).toBeInTheDocument();
     expect(calls.find((c) => c.fn === 'start')).toBeDefined();
+  });
+
+  it.each([
+    'data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E',
+    'data:image/svg+xml;base64,PHN2Zy8+',
+  ])('renders a Supabase SVG data URI as an image', async (qrSvg) => {
+    nextStartChallenge.qrSvg = qrSvg;
+    render(<MfaEnrolPanel />);
+    await waitFor(() => screen.getByRole('button', { name: /Enable 2FA/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Enable 2FA/ }));
+    expect(await screen.findByRole('img', { name: /Scan this QR code/ })).toHaveAttribute('src', qrSvg);
+    expect(document.querySelector('svg')).toBeNull();
   });
 
   it('keeps the verify button disabled until 6 digits are typed', async () => {
