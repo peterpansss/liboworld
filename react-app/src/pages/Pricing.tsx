@@ -14,6 +14,7 @@ import {
   LOYALTY_MAX_MONTHS,
   LOYALTY_MIN_WORKOUT_MINUTES,
 } from '../data/giveawayRounds';
+import { ITEM_TIER_VALUE_CAP_EUR, ITEM_TIER_MIN_PAID_MONTHS, POINTS_EXPIRY_DAYS } from '../data/rewardsCatalog';
 import './Pricing.css';
 
 // /membership (route /pricing redirects here) — the Membership page.
@@ -34,12 +35,17 @@ import './Pricing.css';
 //     language, no winners feed, no trial (subscribing bills immediately),
 //     the exercise claim is "820+", and points never "never expire".
 //   • The Founding pre-sale is closed and has no card here any more.
+//   • Physical reward items (Noah, 22 Nov 2026): Premium up to the Premium cap
+//     after N paid months in a row, Elite any value after M paid months on
+//     Elite. Cap and months come from data/rewardsCatalog.ts. The Free card
+//     advertises no item (none is in the catalog), and no card names a
+//     product or brand.
 
 const TIER_IDS: TierId[] = ['free', 'premium', 'elite'];
 const GET_APP = '/get-app?ct=membership&medium=web';
 const LADDER_MONTHS = [1, 2, 3, 4, 5, 6];
 
-type IconName = 'dumbbell' | 'coach' | 'cash' | 'points' | 'ticket' | 'star' | 'events' | 'check';
+type IconName = 'dumbbell' | 'coach' | 'cash' | 'points' | 'ticket' | 'star' | 'events' | 'check' | 'gift';
 
 /** Card bullets: icon + i18n key under membershipV2.tiers.<id>. */
 const HIGHLIGHTS: Record<TierId, Array<{ icon: IconName; key: string }>> = {
@@ -56,6 +62,7 @@ const HIGHLIGHTS: Record<TierId, Array<{ icon: IconName; key: string }>> = {
     { icon: 'cash', key: 'h3' },
     { icon: 'events', key: 'h4' },
     { icon: 'ticket', key: 'h5' },
+    { icon: 'gift', key: 'h6' },
   ],
   elite: [
     { icon: 'check', key: 'h0' },
@@ -64,11 +71,12 @@ const HIGHLIGHTS: Record<TierId, Array<{ icon: IconName; key: string }>> = {
     { icon: 'events', key: 'h3' },
     { icon: 'points', key: 'h4' },
     { icon: 'ticket', key: 'h5' },
+    { icon: 'gift', key: 'h6' },
   ],
 };
 
 /** Number of inclusion lines (i1..iN) per tier in the locale files. */
-const INCLUSION_COUNT: Record<TierId, number> = { free: 8, premium: 10, elite: 7 };
+const INCLUSION_COUNT: Record<TierId, number> = { free: 8, premium: 11, elite: 8 };
 
 const eur = (n: number) => `€${n.toFixed(2)}`;
 const savePct = (id: Exclude<TierId, 'free'>) =>
@@ -84,6 +92,7 @@ function Icon({ name }: { name: IconName }) {
     star: 'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7L12 3z',
     events: 'M4 6h16v14H4zM4 10h16M8 3v5M16 3v5',
     check: 'M5 12.5l4.5 4.5L19 7.5',
+    gift: 'M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1.25S10 7 12 7zM12 7c1.5-3 5-3.5 5-1.25S14 7 12 7z',
   };
   return (
     <svg className="pr-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
@@ -103,7 +112,15 @@ export default function Pricing() {
   const inclusionsRef = useRef<HTMLElement>(null);
 
   const tierName = (id: TierId) => t(`membershipV2.tiers.${id}.name`);
-  const entryVars = (id: TierId) => ({ count: GIVEAWAY_ENTRIES[id], loyalty: LOYALTY_PER_MONTH[id] });
+  // Interpolation for card + inclusion lines: giveaway entries, points shelf
+  // life and the physical-item tier (cap is null on Elite: any value).
+  const entryVars = (id: TierId) => ({
+    count: GIVEAWAY_ENTRIES[id],
+    loyalty: LOYALTY_PER_MONTH[id],
+    days: POINTS_EXPIRY_DAYS[id],
+    cap: ITEM_TIER_VALUE_CAP_EUR[id] ?? '',
+    months: ITEM_TIER_MIN_PAID_MONTHS[id],
+  });
 
   const showInclusions = (id: TierId) => {
     setInclusionTier(id);
