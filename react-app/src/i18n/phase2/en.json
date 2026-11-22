@@ -44,8 +44,8 @@
         "reps": "300",
         "days": "30",
         "freeze": "3",
-        "gating": "Premium subscription",
-        "heroSummary": "30 days × 100 reps a day = €50 cash payout. Up to 3 freeze tokens. Requires Elite in-app."
+        "gating": "Elite subscription",
+        "heroSummary": "30 days × 100 reps a day = €50 cash payout. Up to 3 freeze tokens. Requires paid Elite in-app, every day of the run."
       }
     },
     "trust1": "Guaranteed payout to all completers",
@@ -86,7 +86,7 @@
       "q6": "Why limited spots?",
       "a6": "The reward is a real cost to Libo. Capping spots makes the payout budgetable and creates a real cohort feel — everyone runs the clock together.",
       "q7": "Do I need a Libo subscription?",
-      "a7": "The €5 Starter challenge is free — no subscription. The €15 challenge needs paid Premium or Elite, the €50 challenge paid Elite. Subscribe in the app when you join your tier.",
+      "a7": "The €5 Starter challenge is free — no subscription. The €15 challenge needs paid Premium or Elite, the €50 challenge paid Elite — on the day you join and on every day you check in. Free trials and offer-code weeks don't count.",
       "q8": "What if I'm a beginner?",
       "a8": "Start with Starter (100 reps/day) — that's about 5 minutes of work, splittable across the day. The rep count is achievable; the discipline is the challenge."
     },

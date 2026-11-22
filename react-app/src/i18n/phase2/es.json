@@ -44,8 +44,8 @@
         "reps": "300",
         "days": "30",
         "freeze": "3",
-        "gating": "Suscripción Premium",
-        "heroSummary": "30 días × 100 reps al día = €50 cash. Hasta 3 tokens freeze. Requiere Elite en la app."
+        "gating": "Suscripción Elite",
+        "heroSummary": "30 días × 100 reps al día = €50 cash. Hasta 3 tokens freeze. Requiere Elite de pago en la app, cada día del reto."
       }
     },
     "trust1": "Pago garantizado a todos los que terminen",
@@ -86,7 +86,7 @@
       "q6": "¿Por qué plazas limitadas?",
       "a6": "La recompensa es un coste real para Libo. Limitar las plazas hace presupuestable el pago y crea una verdadera sensación de cohorte — todos corren el reloj juntos.",
       "q7": "¿Necesito una suscripción a Libo?",
-      "a7": "El reto Starter de €5 es gratis — sin suscripción. El reto de €15 necesita Premium o Elite de pago, el de €50 Elite de pago. Suscríbete en la app cuando te unas a tu nivel.",
+      "a7": "El reto Starter de €5 es gratis — sin suscripción. El reto de €15 necesita Premium o Elite de pago, el de €50 Elite de pago — el día que te unes y cada día que registras tu sesión. Las pruebas gratuitas y las semanas gratis de un código de oferta no cuentan.",
       "q8": "¿Y si soy principiante?",
       "a8": "Empieza con Starter (100 reps/día) — son unos 5 minutos de trabajo, divisibles a lo largo del día. El número de reps es alcanzable; la disciplina es el verdadero reto."
     },

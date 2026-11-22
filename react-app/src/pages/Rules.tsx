@@ -132,11 +132,16 @@ export default function Rules() {
             <h3>The {eliteTiers} challenge is Elite only</h3>
             <p>From 22 November 2026 the {eliteTiers} challenge is for Elite members only; the {premiumTiers} challenge is open to Premium and Elite. If you joined a {eliteTiers} run on Premium before that date, you finish it as normal.</p>
 
+            {/* Updated 2026-11-22: the paid check is per tier. The {eliteTiers} run needs
+                PAID Elite at enrolment and at every check-in, exactly as the
+                {premiumTiers} run needs paid Premium-or-Elite, so Elite -> Premium
+                mid-run ends it at the next check-in. */}
             <h3>The {paidTiers} challenges need a paid membership</h3>
-            <p>The {paidTiers} challenges need an active, <strong>paid</strong> Premium or Elite membership &mdash; on the day you join and on every day you record a session. A free period, such as free weeks from an offer code, doesn&rsquo;t count.</p>
+            <p>The {premiumTiers} challenge needs an active, <strong>paid</strong> Premium or Elite membership, and the {eliteTiers} challenge an active, <strong>paid</strong> Elite membership &mdash; on the day you join and on every day you record a session. A free period, such as a free trial or free weeks from an offer code, doesn&rsquo;t count.</p>
             <ul>
-              <li><strong>If your membership ends during a run, the run ends</strong> the next time you record a day. Days you already recorded while it was active still count. Cancelling doesn&rsquo;t end it early &mdash; your membership stays active until the end of the period you paid for, and if the app store keeps it active while it retries a payment, that still counts as active.</li>
-              <li><strong>If your membership is refunded during a run, that run earns no payout</strong>, even if you finish all 30 days.</li>
+              <li><strong>If your membership ends during a run, the run ends</strong> the next time you record a day. Days you already recorded while it was active and paid still count. Cancelling doesn&rsquo;t end it early &mdash; your membership stays active until the end of the period you paid for, and if the app store keeps it active while it retries a payment, that still counts as active.</li>
+              <li><strong>On the {eliteTiers} challenge, moving from Elite to Premium counts as your membership ending.</strong> The run ends the next time you record a day, and the days you already recorded while you had paid Elite still count. A downgrade made in the app store takes effect at the end of the period you paid for, so until then you are still on Elite.</li>
+              <li><strong>If your membership is refunded during a run, that run earns no payout</strong>, even if you finish all 30 days. For a {eliteTiers} run, that is your Elite membership.</li>
             </ul>
 
             <h3>Your 30 days start when you join</h3>
@@ -241,7 +246,7 @@ export default function Rules() {
           <section className="legal-section" id="missing">
             <div className="legal-section-num">{n()}</div>
             <h2>Missing a Day</h2>
-            <p>If a day&rsquo;s window closes without a completed, recorded session and you have no freeze token available, <strong>your run ends</strong> and no payout is due. On the {paidTiers} challenges, a run also ends if your paid membership ends &mdash; see <a href="#entry">How Entry Works</a>.</p>
+            <p>If a day&rsquo;s window closes without a completed, recorded session and you have no freeze token available, <strong>your run ends</strong> and no payout is due. On the {paidTiers} challenges, a run also ends if your paid membership ends, and on the {eliteTiers} challenge if it drops from Elite to Premium &mdash; see <a href="#entry">How Entry Works</a>.</p>
             <p>That is the whole point of the challenge, and we would rather say it plainly than bury it. Nothing else happens: you keep your account, your membership, your training history and your personal streak, which follows its own separate rules. You can enter the same challenge again after the 7-day cooldown, or switch to a different challenge straight away.</p>
           </section>
 
@@ -253,7 +258,7 @@ export default function Rules() {
             <ul>
               <li><strong>Verification first.</strong> Before payment we verify your completed days and your identity. Payouts are made through regulated payment providers (such as Stripe, Wise or Revolut), and identity verification is their requirement as much as ours.</li>
               <li><strong>If you are 16 or 17</strong>, and where local law permits, payment can be made to a parent-linked verified payment account. If no such account is provided within <strong>14 days</strong> of verification, the reward is converted to in-app credit of equivalent value.</li>
-              <li><strong>A refunded membership means no payout.</strong> If the membership behind a {paidTiers} run is refunded during that run, the run earns nothing, even when all 30 days are complete.</li>
+              <li><strong>A refunded membership means no payout.</strong> If the paid membership behind a {paidTiers} run (Elite, for a {eliteTiers} run) is refunded during that run, the run earns nothing, even when all 30 days are complete.</li>
               <li><strong>Tax is yours.</strong> You are responsible for any tax due on a payout in your own jurisdiction.</li>
             </ul>
             {/* Added 2026-10-13. §5 already said we "may ask you to produce the
