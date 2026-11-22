@@ -869,6 +869,13 @@ export function RewardsPage() {
             {configuredStockEur > MONTHLY_BUDGET_EUR ? ` (over the €${MONTHLY_BUDGET_EUR} budget)` : ''}.
             Prices are published on liboworld.com/rewards-rules; change both together.
           </div>
+          {/* Item tier rules (Noah, 22 Nov 2026) — built from the same constants the server mirrors. */}
+          <div style={{ ...statsStyle, marginTop: 4 }}>
+            Item tiers: Free up to €{ITEM_TIER_VALUE_CAP_EUR.free} · Premium up to €{ITEM_TIER_VALUE_CAP_EUR.premium},{' '}
+            {ITEM_TIER_MIN_PAID_MONTHS.premium} paid months in a row · Elite any value, {ITEM_TIER_MIN_PAID_MONTHS.elite} paid
+            months in a row on Elite. One item per {ONE_ITEM_PER_DAYS} days. Plan cards never state the months; only the
+            rewards rules do.
+          </div>
         </div>
         <Button
           variant="primary"
