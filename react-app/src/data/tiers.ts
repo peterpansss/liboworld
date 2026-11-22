@@ -12,10 +12,18 @@
  *     raises the CEILING of which challenges you can enter. Canon
  *     REWARDS-ECONOMY-RULES.md §7.4: "a challenge may have a minimum tier,
  *     never a maximum" — Premium sees every challenge a Free user sees, plus
- *     the gated ones. So Premium reaches the €50 / 100-rep Flagship challenge;
- *     it is not an Elite perk. Elite adds Elite-only challenges (creator
- *     challenges among them) on top; never publish an Elite payout here that
- *     the server does not run.
+ *     the gated ones. Free reaches €5 (30 reps/day), paid Premium €15
+ *     (50 reps/day), and since 22 Nov 2026 the €50 / 100-rep flagship is paid
+ *     Elite ONLY — never list €50 on Premium. Elite also adds Elite-only creator
+ *     challenges; never publish an Elite payout here that the server does not run.
+ *   - Points: multiplier Free 1× / Premium 2× / Elite 3×; shelf life Free 30 days,
+ *     Premium + Elite 90 (data/rewardsCatalog.ts POINTS_EXPIRY_DAYS). Gift cards
+ *     €5 / €10 for everyone, €20 for Premium + Elite.
+ *   - Physical reward items (Noah, 22 Nov 2026): Premium up to the Premium cap
+ *     after N paid months in a row, Elite any value after M paid months in a row
+ *     on Elite — ITEM_TIER_VALUE_CAP_EUR / ITEM_TIER_MIN_PAID_MONTHS in
+ *     data/rewardsCatalog.ts. No Free item exists, so the Free card shows none.
+ *     Never name a product or brand on a plan card.
  *   - Challenge numbers (payout · reps/day) are duplicated from
  *     src/data/challengeTiers.ts — that file is the source of truth for
  *     /cash-challenges and the funnels. Change them THERE first, then mirror.
@@ -29,6 +37,7 @@
  *     Never sell a tier on entries: Elite leads with the coach, Elite-only
  *     challenges and VIP events.
  */
+import { ITEM_TIER_VALUE_CAP_EUR, ITEM_TIER_MIN_PAID_MONTHS, POINTS_EXPIRY_DAYS } from './rewardsCatalog';
 
 // YEARLY_PRICE is the annual TOTAL (per-month equivalent = /12). Premium is
 // shown to users as €10.00/mo billed annually (= €119.99/yr, 50% off €19.99/mo).
@@ -49,6 +58,13 @@ export const YEARLY_DISCOUNT = { premium: 50, elite: 50 } as const;
 // subscribes is charged immediately. The free tier is the try-before-you-buy
 // story; nothing on this site may promise a trial period. If a real
 // introductory offer is ever configured in ASC, add the constant back then.
+
+// Physical-item card lines, derived from the rewardsCatalog constants.
+const PREMIUM_ITEM_CAP = ITEM_TIER_VALUE_CAP_EUR.premium ?? 0;
+const PREMIUM_ITEM_MONTHS = ITEM_TIER_MIN_PAID_MONTHS.premium;
+const ELITE_ITEM_MONTHS = ITEM_TIER_MIN_PAID_MONTHS.elite;
+const PREMIUM_ITEM_LINE = `Physical rewards up to €${PREMIUM_ITEM_CAP} after ${PREMIUM_ITEM_MONTHS} paid months in a row`;
+const ELITE_ITEM_LINE = `Physical rewards of any value after ${ELITE_ITEM_MONTHS} paid months in a row on Elite`;
 
 export type TierId = 'free' | 'premium' | 'elite';
 export type BillingCycle = 'monthly' | 'yearly';
@@ -89,7 +105,7 @@ export const TIERS: Tier[] = [
       '20 curated workouts',
       'Reps & kg tracking',
       'Basic progress charts',
-      'Rewards program (1× Libo)',
+      `Rewards program (1× Libo, points last ${POINTS_EXPIRY_DAYS.free} days)`,
       'AI coach: 1 message a day',
       // Giveaways are live (membership model, 10-13 Nov 2026) with the free
       // postal route live since 14 Nov; the pricing footnote links the rules.
@@ -119,7 +135,7 @@ export const TIERS: Tier[] = [
       'Custom workout builder',
       'Workout generator',
       'Advanced analytics',
-      '2× Libo',
+      `2× Libo, points last ${POINTS_EXPIRY_DAYS.premium} days`,
       'AI coach: 3 messages a day + voice notes',
       'Community events',
       // GRANT, not ceiling. Canon §5.2: Premium is granted 1 and can earn a
@@ -129,6 +145,7 @@ export const TIERS: Tier[] = [
       // Premium reaches 'committed' (€15 · 50 reps) in src/data/challengeTiers.ts.
       // The €50 flagship is Elite only since 22 Nov 2026 (minTier 'elite').
       'The €15 cash challenge (50 reps/day, 30 days)',
+      PREMIUM_ITEM_LINE,
     ],
     cta: 'Get Premium',
     href: '/onboarding?tier=premium',
@@ -151,8 +168,9 @@ export const TIERS: Tier[] = [
       '€50 cash challenge (100 reps/day) + Elite-only creator challenges',
       'VIP events',
       'Early access to new features',
-      '3× Libo',
+      `3× Libo, points last ${POINTS_EXPIRY_DAYS.elite} days`,
       'Every giveaway: 9 entries, +9 every month you train',
+      ELITE_ITEM_LINE,
     ],
     cta: 'Get Elite',
     href: '/onboarding?tier=elite',
@@ -227,6 +245,19 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
     title: 'Rewards & challenges',
     rows: [
       { label: 'Rewards Libo', free: '1×', premium: '2×', elite: '3×' },
+      {
+        label: 'Points last',
+        free: `${POINTS_EXPIRY_DAYS.free} days`,
+        premium: `${POINTS_EXPIRY_DAYS.premium} days`,
+        elite: `${POINTS_EXPIRY_DAYS.elite} days`,
+      },
+      { label: 'Gift cards', free: '€5 · €10', premium: '€5 · €10 · €20', elite: '€5 · €10 · €20' },
+      {
+        label: 'Physical rewards',
+        free: false,
+        premium: `up to €${PREMIUM_ITEM_CAP} · ${PREMIUM_ITEM_MONTHS} paid months in a row`,
+        elite: `any value · ${ELITE_ITEM_MONTHS} paid months in a row on Elite`,
+      },
       // Reward + reps mirror src/data/challengeTiers.ts (starter €5/30,
       // committed €15/60, flagship €50/100) — that file is the source of truth.
       // A paid tier raises the CEILING, it does not scale a single reward:

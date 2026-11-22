@@ -45,8 +45,10 @@ import './ChallengeFunnel.css';
 const PRICE = `€${EARLY_ACCESS_PRICE.toFixed(2)}`; // €39.50
 // The standing list price once founding has closed, from the tier constants so
 // a price change cannot strand this page (Phase 2: €119.99, 12 Nov 2026).
-const LIST_PRICE = `€${YEARLY_PRICE.premium.toFixed(2)}`;
-const MONTH_PRICE = `€${MONTHLY_PRICE.premium.toFixed(2)}`;
+// The €50 flagship is Elite only since 22 Nov 2026 (minTier 'elite'), so its
+// offer card quotes Elite; the €5 and €15 pages quote Premium.
+const listPrice = (plan: 'premium' | 'elite') => `€${YEARLY_PRICE[plan].toFixed(2)}`;
+const monthPrice = (plan: 'premium' | 'elite') => `€${MONTHLY_PRICE[plan].toFixed(2)}`;
 // HISTORICAL: the struck-through "was" price shown only while founding was open.
 const FOUNDING_WAS_PRICE = '€79.99';
 const OFFER_HREF = '#offer';
@@ -117,6 +119,8 @@ export default function ChallengeFunnel() {
   if (!tier) return <Navigate to="/cash-challenges" replace />;
 
   const isFree = !tier.requiresPremium;
+  const isElite = tier.minTier === 'elite';
+  const offerPlan = isElite ? 'elite' : 'premium';
   // Since the founding offer closed (14 Oct) the only way in is the app, so
   // every CTA goes to the right store for the device, tagged per challenge so
   // App Store Connect / Play Console show which funnel page sent the install.
@@ -404,28 +408,32 @@ export default function ChallengeFunnel() {
         <section className="cf-section" id="offer">
           <span className="funnel-eyebrow cf-eyebrow">
             {!foundingOpen
-              ? t('challengeFunnel.offer.eyebrowClosed', { defaultValue: 'Premium · in the app now' })
+              ? isElite
+                ? t('challengeFunnel.offer.eyebrowClosedElite', { defaultValue: 'Elite · in the app now' })
+                : t('challengeFunnel.offer.eyebrowClosed', { defaultValue: 'Premium · in the app now' })
               : isFree
                 ? t('challengeFunnel.offer.eyebrowFree', { defaultValue: 'Optional upgrade · 50% off until launch' })
                 : t('challengeFunnel.offer.eyebrow', { defaultValue: 'Premium · 50% off until launch' })}
           </span>
           <h2 className="cf-h2 font-display">
             {isFree
-              ? t('challengeFunnel.offer.titleFree', { defaultValue: 'Unlock the €15 and €50 challenges.' })
+              ? t('challengeFunnel.offer.titleFree', { defaultValue: 'Unlock the €15 challenge.' })
               : foundingOpen
                 ? t('challengeFunnel.offer.title', { defaultValue: 'Lock in the year before we launch.' })
-                : t('challengeFunnel.offer.titleClosed', { defaultValue: 'Get Premium in the app.' })}
+                : isElite
+                  ? t('challengeFunnel.offer.titleClosedElite', { defaultValue: 'Get Elite in the app.' })
+                  : t('challengeFunnel.offer.titleClosed', { defaultValue: 'Get Premium in the app.' })}
           </h2>
           {isFree && (
             <p className="cf-body">
               {foundingOpen
                 ? t('challengeFunnel.offer.ledeFree', {
                     defaultValue:
-                      'The €5 Starter is free for every member. Premium opens the higher-payout tiers — and right now the first year is half price.',
+                      'The €5 Starter is free for every member. Paid Premium opens the €15 challenge (50 reps a day) — and right now the first year is half price.',
                   })
                 : t('challengeFunnel.offer.ledeFreeClosed', {
                     defaultValue:
-                      'The €5 Starter is free for every member. Paid Premium opens the higher-payout tiers.',
+                      'The €5 Starter is free for every member. Paid Premium opens the €15 challenge (50 reps a day); the €50 challenge (100 reps a day) is on paid Elite.',
                   })}
             </p>
           )}
@@ -437,7 +445,7 @@ export default function ChallengeFunnel() {
                   literal. This used to read '€79.99' — the PRE-Phase-2 price —
                   €40 under what Apple and Google charge (fixed 15 Nov 2026, the
                   same bug JoinFunnel's WAS_PRICE had). */}
-              <span className="cf-offer__now font-display">{foundingOpen ? PRICE : MONTH_PRICE}</span>
+              <span className="cf-offer__now font-display">{foundingOpen ? PRICE : monthPrice(offerPlan)}</span>
               {foundingOpen ? (
                 <s className="cf-offer__was">{FOUNDING_WAS_PRICE}</s>
               ) : (
@@ -451,21 +459,26 @@ export default function ChallengeFunnel() {
                 ? t('challengeFunnel.offer.sub', {
                     defaultValue: 'First year of Premium · 50% off · fully refundable until launch',
                   })
-                : t('challengeFunnel.offer.subApp', {
-                    defaultValue: 'or {{year}} a year · Premium in the app',
-                    year: LIST_PRICE,
-                  })}
+                : isElite
+                  ? t('challengeFunnel.offer.subAppElite', {
+                      defaultValue: 'or {{year}} a year · Elite in the app',
+                      year: listPrice('elite'),
+                    })
+                  : t('challengeFunnel.offer.subApp', {
+                      defaultValue: 'or {{year}} a year · Premium in the app',
+                      year: listPrice('premium'),
+                    })}
             </p>
             <ul className="cf-offer__ticks">
               {/* Starter leads with the unlock (defect 18). */}
               {isFree && (
-                <li>{t('challengeFunnel.offer.tickUnlock', { defaultValue: 'Every challenge tier unlocked — €15 and €50' })}</li>
+                <li>{t('challengeFunnel.offer.tickUnlock', { defaultValue: 'The €15 cash challenge unlocked: 50 reps a day for 30 days' })}</li>
               )}
               <li>{t('challengeFunnel.offer.tick1', { defaultValue: 'Full library — 820+ exercises, 140 workouts' })}</li>
               {isFree ? (
-                <li>{t('challengeFunnel.offer.tickFreeze', { defaultValue: '2 freeze tokens per challenge' })}</li>
+                <li>{t('challengeFunnel.offer.tickFreeze', { defaultValue: '1 freeze token per challenge, +1 you can earn' })}</li>
               ) : (
-                <li>{t('challengeFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier — first come, first served' })}</li>
+                <li>{t('challengeFunnel.offer.tick2', { defaultValue: 'Unlocks this challenge — first come, first served' })}</li>
               )}
               <li>
                 {foundingOpen
@@ -563,10 +576,15 @@ export default function ChallengeFunnel() {
                       defaultValue:
                         "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
                     })
-                  : t('challengeFunnel.close.subClosed', {
-                      defaultValue:
-                        "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
-                    })}
+                  : isElite
+                    ? t('challengeFunnel.close.subClosedElite', {
+                        defaultValue:
+                          "Paid Elite unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
+                      })
+                    : t('challengeFunnel.close.subClosed', {
+                        defaultValue:
+                          "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
+                      })}
               </p>
               {stripeReady && foundingOpen && (
                 <button type="button" className="funnel-btn cf-btn cf-btn--lg cf-close__cta" onClick={handleCheckout}>
@@ -692,11 +710,19 @@ function buildFaqs(t: TFn, tier: ChallengeTier) {
     },
     {
       q: t('challengeFunnel.faq.pay.q', { defaultValue: 'Do I have to pay to enter?' }),
-      a: t('challengeFunnel.faq.pay.a', {
-        defaultValue: tier.requiresPremium
-          ? 'There is no per-challenge fee. This tier is unlocked by Premium, and entry comes with your membership.'
-          : 'No. This tier comes with the free tier — there is no per-challenge fee and no card needed.',
-      }),
+      // One key per minimum plan. (The old single `pay.a` key had picked up the
+      // tooGood question in every locale, so this answer read as a question.)
+      a: tier.minTier === 'elite'
+        ? t('challengeFunnel.faq.pay.aElite', {
+            defaultValue: 'There is no per-challenge fee. Paid Elite unlocks this challenge, and entry comes with your membership.',
+          })
+        : tier.requiresPremium
+          ? t('challengeFunnel.faq.pay.aPremium', {
+              defaultValue: 'There is no per-challenge fee. Paid Premium or Elite unlocks this challenge, and entry comes with your membership.',
+            })
+          : t('challengeFunnel.faq.pay.aFree', {
+              defaultValue: 'No. This challenge comes with the free tier — there is no per-challenge fee and no card needed.',
+            }),
     },
     {
       q: t('challengeFunnel.faq.tooGood.q', { defaultValue: '"Free money" — too good to be true?' }),
@@ -709,7 +735,7 @@ function buildFaqs(t: TFn, tier: ChallengeTier) {
       q: t('challengeFunnel.faq.miss.q', { defaultValue: 'What happens if I miss a day?' }),
       a: t('challengeFunnel.faq.miss.a', {
         defaultValue:
-          'A freeze token covers it — Premium includes 2 per challenge, and anyone can earn one by training consistently. Out of tokens, a missed day ends the run — that is what makes finishing worth money. You can join again when a spot opens.',
+          'A freeze token covers it — Premium includes 1 per challenge, and everyone, free or paying, can earn a second by training 60 of the last 90 days. Out of tokens, a missed day ends the run — that is what makes finishing worth money. You can join again when a spot opens.',
       }),
     },
     {

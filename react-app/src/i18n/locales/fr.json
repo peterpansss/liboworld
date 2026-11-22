@@ -1709,12 +1709,12 @@
       "eyebrow": "Premium · -50% jusqu'au lancement",
       "sub": "Première année de Premium · -50% · intégralement remboursable jusqu'au lancement",
       "tick1": "Bibliothèque complète — 820+ exercices, 140 entraînements",
-      "tick2": "Accès à tous les paliers de challenge — premier arrivé, premier servi",
+      "tick2": "Débloque ce challenge — premier arrivé, premier servi",
       "tick3": "Ton année commence le jour du lancement, pas aujourd'hui",
-      "titleFree": "Débloque les challenges €15 et €50.",
-      "ledeFree": "Le Starter à €5 est gratuit pour chaque membre. Le Premium payant ouvre les paliers plus élevés — et là, la première année est à moitié prix.",
-      "ledeFreeClosed": "Le Starter à €5 est gratuit pour chaque membre. Le Premium payant ouvre les paliers plus élevés.",
-      "tickUnlock": "Tous les paliers de challenge débloqués — €15 et €50",
+      "titleFree": "Débloque le challenge €15.",
+      "ledeFree": "Le Starter à €5 est gratuit pour chaque membre. Le Premium payant ouvre le challenge €15 (50 reps par jour) — et là, la première année est à moitié prix.",
+      "ledeFreeClosed": "Le Starter à €5 est gratuit pour chaque membre. Le Premium payant ouvre le challenge €15 (50 reps par jour) ; le challenge €50 (100 reps par jour) est avec Elite payant.",
+      "tickUnlock": "Le challenge €15 débloqué : 50 reps par jour pendant 30 jours",
       "tickFreeze": "1 jeton freeze par challenge, +1 à gagner",
       "ctaFree": "Passe à Premium — {{price}}/an →",
       "eyebrowClosed": "Premium · dans l’app maintenant",
@@ -1722,7 +1722,10 @@
       "perYear": "/ an",
       "perMonth": "/ mois",
       "subApp": "ou {{year}} par an · Premium dans l'app",
-      "tick3App": "Résiliable à tout moment dans l'App Store ou Google Play"
+      "tick3App": "Résiliable à tout moment dans l'App Store ou Google Play",
+      "eyebrowClosedElite": "Elite · dans l’app maintenant",
+      "titleClosedElite": "Prends Elite dans l’app.",
+      "subAppElite": "ou {{year}} par an · Elite dans l'app"
     },
     "faq": {
       "title": "Des questions ?",
@@ -1732,9 +1735,12 @@
       },
       "pay": {
         "q": "Je dois payer pour participer ?",
-        "a": "« De l'argent gratuit » — trop beau pour être vrai ?"
+        "aFree": "Non. Ce challenge est inclus dans le niveau Free — pas de frais par challenge, pas de carte.",
+        "aPremium": "Il n'y a pas de frais par challenge. Premium ou Elite payant débloque ce challenge, et l'entrée est incluse dans ton abonnement.",
+        "aElite": "Il n'y a pas de frais par challenge. Elite payant débloque ce challenge, et l'entrée est incluse dans ton abonnement."
       },
       "tooGood": {
+        "q": "« De l'argent gratuit » — trop beau pour être vrai ?",
         "a": "La plupart des gens ne finissent pas 30 jours d'affilée. C'est tout le sujet : l'argent rend les dix derniers jours tenables, et Libo le finance de toute façon."
       },
       "miss": {
@@ -1759,7 +1765,8 @@
       "upsell": "Tu veux le palier €15 ? Passe à Premium. Le palier €50 est avec Elite →",
       "upsellClosed": "Tu veux le palier €15 ? Prends Premium. Le palier €50 est avec Elite →",
       "subClosed": "Le Premium payant débloque ce palier — premier arrivé, premier servi, et les places sont limitées. Si c’est complet, tu es prévenu dès qu’une place se libère.",
-      "subFreeApp": "Le défi Starter à 5 € est gratuit pour tous les membres. Télécharge Libo, ouvre Rewards et rejoins-le : premier arrivé, premier servi."
+      "subFreeApp": "Le défi Starter à 5 € est gratuit pour tous les membres. Télécharge Libo, ouvre Rewards et rejoins-le : premier arrivé, premier servi.",
+      "subClosedElite": "L’Elite payant débloque ce palier — premier arrivé, premier servi, et les places sont limitées. Si c’est complet, tu es prévenu dès qu’une place se libère."
     },
     "footerNote": "Les conditions du challenge s'appliquent",
     "seo": {
@@ -1864,7 +1871,7 @@
       "q1": "C'est quoi Libo ?",
       "a1": "Un club d'entraînement : 820+ exercices, 140 entraînements, des plans générés, une série qui ne retombe jamais à zéro — et des cash challenges de 30 jours qui paient du vrai argent pour ta régularité.",
       "q2": "Combien coûte l'adhésion ?",
-      "a2": "Il y a un niveau Free — pas de carte nécessaire. Premium coûte €119.99 par an (environ €10.00/mois) ou €19.99 au mois. Les Founding Members bloquent la première année à €39.50.",
+      "a2": "Il y a un niveau Free — pas de carte nécessaire. Premium coûte €119.99 par an (environ €10.00/mois) ou €19.99 au mois. Elite coûte €179.99 par an (€15.00/mois) ou €29.99 au mois.",
       "q3": "C'est quoi un Founding Member ?",
       "a3": "L'offre pré-lancement : 12 mois de Premium à -50%, premier à entrer le jour du lancement, tous les paliers de challenge débloqués — et intégralement remboursable jusqu'au lancement.",
       "q4": "Libo est déjà disponible ?",
@@ -2028,7 +2035,7 @@
       },
       "challenges": {
         "q": "Comment marchent les cash challenges ?",
-        "a": "Choisis un challenge et atteins son objectif de reps quotidien pendant 30 jours. Tu enregistres chaque séance dans l'app, donc le run est vérifié — impossible de tricher. Tes 30 jours commencent dès que tu t'inscris, et finir paie en vrai cash. Le Premium payant débloque les paliers plus gros ; les places sont limitées et c'est premier arrivé, premier servi."
+        "a": "Choisis un challenge et atteins son objectif de reps quotidien pendant 30 jours. Tu enregistres chaque séance dans l'app, donc le run est vérifié — impossible de tricher. Tes 30 jours commencent dès que tu t'inscris, et finir paie en vrai cash. Le Premium payant débloque le défi à 15 € (50 reps par jour) et l'Elite payant celui à 50 € (100 reps par jour) ; les places sont limitées et c'est premier arrivé, premier servi."
       },
       "monthlyPrice": {
         "q": "Ça veut dire quoi, €10.00/mois ?",
@@ -2087,7 +2094,7 @@
         "i4": "Tout ce que tu enregistres, plus les tendances sur 7 jours",
         "i5": "Coach IA : 1 message texte par jour",
         "i6": "Le défi à 5 € : 30 reps par jour pendant 30 jours, entrée gratuite",
-        "i7": "Des points à chaque séance, à échanger contre des cartes cadeaux",
+        "i7": "Des points à chaque séance, valables {{days}} jours, pour des cartes cadeaux de 5 € et 10 €",
         "i8": "{{count}} participation par tirage, +{{loyalty}} par mois d'entraînement"
       },
       "premium": {
@@ -2106,9 +2113,11 @@
         "i5": "Coach IA : 3 messages par jour, plus les messages vocaux",
         "i6": "Le défi cash à 15 € : 50 reps par jour pendant 30 jours",
         "i7": "1 jeton de gel par défi, +1 à gagner",
-        "i8": "Points ×2 à chaque séance",
+        "i8": "Points ×2 à chaque séance, valables {{days}} jours, plus la carte cadeau de 20 €",
         "i9": "Événements de la communauté",
-        "i10": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement"
+        "i10": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement",
+        "h6": "Récompenses physiques jusqu'à {{cap}} € après {{months}} mois payés d'affilée",
+        "i11": "Récompenses physiques jusqu'à {{cap}} € après {{months}} mois payés d'affilée"
       },
       "elite": {
         "name": "Elite",
@@ -2125,8 +2134,10 @@
         "i3": "Défis réservés à Elite : le défi cash à 50 € (100 reps par jour pendant 30 jours) et des défis de créateurs",
         "i4": "Événements VIP",
         "i5": "Accès anticipé aux nouvelles fonctionnalités",
-        "i6": "Points ×3 à chaque séance",
-        "i7": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement"
+        "i6": "Points ×3 à chaque séance, valables {{days}} jours",
+        "i7": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement",
+        "h6": "Récompenses physiques de toute valeur après {{months}} mois payés d'affilée en Elite",
+        "i8": "Récompenses physiques de toute valeur après {{months}} mois payés d'affilée en Elite"
       }
     },
     "inclusions": {
@@ -2150,7 +2161,7 @@
       "t2": "Un vrai coach dans ta poche",
       "b2": "Pose tes questions au coach IA sur ton entraînement, ta technique ou ton plan. Texte avec chaque abonnement, messages vocaux avec Premium et Elite.",
       "t3": "Des récompenses à dépenser",
-      "b3": "Chaque séance te rapporte des points. Échange-les contre des cartes cadeaux dans la boutique de récompenses.",
+      "b3": "Chaque séance te rapporte des points. Échange-les contre des cartes cadeaux dans la boutique de récompenses, et contre des récompenses physiques après assez de mois payés en Premium ou Elite.",
       "t4": "Défis et événements réservés aux membres",
       "b4": "Événements de la communauté avec Premium. Défis réservés à Elite, dont des défis de créateurs, et événements VIP avec Elite."
     },
@@ -2748,9 +2759,9 @@
       "qPointsEarn": "Comment gagner des points ?",
       "aPointsEarn": "Termine une séance, atteins un palier de série, valide un jour de challenge cash, débloque un succès ou invite un ami qui s'entraîne. Premium gagne 2×, Elite 3×.",
       "qPointsExpire": "Les points expirent-ils ?",
-      "aPointsExpire": "Oui. Ils durent 30 jours en Free et 90 jours en Premium.",
+      "aPointsExpire": "Oui. Ils durent 30 jours en Free et 90 jours en Premium et Elite.",
       "qPointsSpend": "Contre quoi les échanger ?",
-      "aPointsSpend": "Des cartes cadeaux et du cash dès 5 € (4 000 points). La carte de 20 € et les grosses récompenses sont réservées aux membres Premium.",
+      "aPointsSpend": "Des cartes cadeaux et du cash dès 5 € (4 000 points). La carte de 20 € et les récompenses physiques sont réservées aux membres Premium et Elite.",
       "qPointsBuy": "Puis-je acheter des points ?",
       "aPointsBuy": "Non. Les points se gagnent uniquement en s'entraînant.",
       "qChallengeHow": "Comment marchent les challenges cash ?",
@@ -2762,7 +2773,7 @@
       "qGiveawayEnter": "Comment participer au concours ?",
       "aGiveawayEnter": "Tu n'as rien à faire. Chaque membre participe automatiquement. Une séance pendant la manche active tes participations.",
       "qGiveawayPay": "Faut-il payer pour participer ?",
-      "aGiveawayPay": "Non. Les membres Free ont 1 participation et les Premium 3, plus autant pour chaque mois d'affilée où tu t'es entraîné. Tu peux aussi participer gratuitement par courrier.",
+      "aGiveawayPay": "Non. Les membres Free ont 1 participation, les Premium 3 et les Elite 9, plus autant pour chaque mois d'affilée où tu t'es entraîné. Tu peux aussi participer gratuitement par courrier.",
       "qGiveawayWho": "Qui peut participer ?",
       "aGiveawayWho": "Les membres de 16 ans et plus. Les gagnants de 16 ou 17 ans sont payés via un parent ou tuteur. Certains pays sont exclus : voir le règlement.",
       "qGiveawayCash": "Puis-je prendre du cash à la place du lot ?",

@@ -235,7 +235,7 @@ describe('relaunch acceptance — challenge funnel CTAs', () => {
     expect((container.querySelector('#offer .cf-btn--offer')?.textContent || '').trim())
       .toBe('Get Premium — €39.50/yr →');
     // Starter's own headline sells the unlock.
-    expect(container.textContent).toContain('Unlock the €15 and €50 challenges.');
+    expect(container.textContent).toContain('Unlock the €15 challenge.');
     // DECISIONS-V3 §1: the free tier's conversion event IS joining free.
     expect(container.querySelectorAll('input[type="email"]')).toHaveLength(1);
     expect(container.querySelector('.cf-textlink')?.textContent).toMatch(/Get Premium/);

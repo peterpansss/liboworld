@@ -12,6 +12,7 @@ import {
 } from '../components/funnel/FunnelChrome';
 import { useFoundingCheckout, EARLY_ACCESS_PRICE } from '../components/funnel/FoundingCheckoutProvider';
 import { YEARLY_PRICE } from '../data/tiers';
+import { ITEM_TIER_VALUE_CAP_EUR, ITEM_TIER_MIN_PAID_MONTHS } from '../data/rewardsCatalog';
 import { isStripeConfigured } from '../lib/stripe';
 import LaunchCountdown from '../components/LaunchCountdown';
 import { isFoundingOpen } from '../config/launchMode';
@@ -132,11 +133,25 @@ export default function JoinFunnel() {
   ];
 
   // Ticks 4 and 5 are founding-only promises (badge, refundable pre-sale), so
-  // they come off the card once the pre-sale has closed.
+  // they come off the card once the pre-sale has closed. Closed, the card is
+  // plain Premium: the €15 challenge (the €50 one is Elite only since 22 Nov
+  // 2026) and the Premium physical-reward tier, read from the same keys as
+  // the /membership Premium card so the two cannot drift.
   const benefits = [
     t('joinFunnel.offer.tick1', { defaultValue: 'Everything in Free, plus the full library' }),
-    t('joinFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier — first come, first served' }),
-    t('joinFunnel.offer.tick3', { defaultValue: '2 freeze tokens per challenge' }),
+    foundingOpen
+      ? t('joinFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier — first come, first served' })
+      : t('membershipV2.tiers.premium.i6', { defaultValue: 'The €15 cash challenge: 50 reps a day for 30 days' }),
+    t('joinFunnel.offer.tick3', { defaultValue: '1 freeze token per challenge, +1 you can earn' }),
+    ...(foundingOpen
+      ? []
+      : [
+          t('membershipV2.tiers.premium.i11', {
+            defaultValue: 'Physical rewards up to €{{cap}} after {{months}} paid months in a row',
+            cap: ITEM_TIER_VALUE_CAP_EUR.premium ?? '',
+            months: ITEM_TIER_MIN_PAID_MONTHS.premium,
+          }),
+        ]),
     ...(foundingOpen
       ? [
           t('joinFunnel.offer.tick4', {
@@ -161,7 +176,7 @@ export default function JoinFunnel() {
       q: t('joinFunnel.faq.q2', { defaultValue: 'What does membership cost?' }),
       a: t('joinFunnel.faq.a2', {
         defaultValue:
-          'There is a free tier — no card needed. Premium is €119.99 a year (about €10.00/mo) or €19.99 month-to-month. Founding Members lock the first year at €39.50.',
+          'There is a free tier — no card needed. Premium is €119.99 a year (about €10.00/mo) or €19.99 month-to-month. Elite is €179.99 a year (€15.00/mo) or €29.99 month-to-month.',
       }),
     },
     // Describes the pre-sale itself, so it goes with the pre-sale.

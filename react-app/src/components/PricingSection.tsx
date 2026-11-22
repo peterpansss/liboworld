@@ -2,20 +2,29 @@
  * Pricing section for the public landing page.
  *
  * Card grid over VISIBLE_TIERS: Free / Premium (highlighted) / Elite (on sale
- * since 19 Nov 2026). Monthly/Yearly toggle at the top. Copy mirrors the mobile paywall:
- *   - Premium: €19.99/mo or €10.00/mo billed annually (€119.99/yr, 50% off), 1 freeze token, 2x points, €50 pools
- *   - Elite: €29.99/mo or €15.00/mo billed annually (€179.99/yr, 50% off), 3x points, coach 10/day
+ * since 19 Nov 2026). Monthly/Yearly toggle at the top. Not mounted by any route
+ * today (/membership is pages/Pricing.tsx); the card lines live in data/tiers.ts:
+ *   - Free: 1× points (30-day shelf life), the €5 cash challenge (30 reps/day)
+ *   - Premium: €19.99/mo or €10.00/mo billed annually (€119.99/yr, 50% off),
+ *     1 freeze token, 2× points (90 days), the €15 cash challenge (50 reps/day),
+ *     physical rewards up to the Premium cap after 6 paid months in a row
+ *   - Elite: €29.99/mo or €15.00/mo billed annually (€179.99/yr, 50% off),
+ *     3× points (90 days), coach 10/day, the €50 cash challenge (100 reps/day,
+ *     Elite only since 22 Nov 2026), physical rewards of any value after 12
+ *     paid months in a row on Elite
  * No trial on any tier: App Store Connect carries no introductory offer on
  * either subscription product and the app ships TIER_TRIAL_DAYS = 0, so a
  * subscriber is charged immediately. The free tier is the try-before-you-buy.
  *
- * Tier-by-feature policy (PARTNERSHIP-FINANCE-MODEL.md, Y1):
- *   - Cash challenges run on ALL tiers; stakes scale by tier
- *     (Free €5–15 / Premium €15–50 / Elite €50–250+).
- *   - Common product giveaways: all tiers.
- *   - Premium + Special giveaways (e.g. iPhone-class items): Premium AND Elite.
- *   - "Elite-exclusive" framing is reserved for genuinely rare campaigns
- *     (€5k+, experiences) — not the Premium-class items.
+ * Tier-by-feature policy (Noah, 22 Nov 2026):
+ *   - Cash challenges: €5 Free, €15 paid Premium, €50 paid Elite only. A
+ *     challenge has a minimum plan, never a maximum.
+ *   - Gift cards €5 / €10 for all members, €20 for Premium and Elite.
+ *   - Physical items are tiered by value and paid months
+ *     (ITEM_TIER_VALUE_CAP_EUR / ITEM_TIER_MIN_PAID_MONTHS in
+ *     data/rewardsCatalog.ts); higher plans take lower-plan items.
+ *   - Giveaway entries are a bonus (Free 1 / Premium 3 / Elite 9), never the pitch.
+ *   - Plan cards never name a specific product or brand.
  *
  * Source of truth for numbers: Brand-Management/Project-Structure/TIER-STRATEGY.md
  * and libo-app-v2/src/constants/tierFeatures.ts. These values are duplicated

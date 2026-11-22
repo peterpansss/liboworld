@@ -1770,12 +1770,12 @@
       "eyebrow": "Premium · 50% off until launch",
       "sub": "First year of Premium · 50% off · fully refundable until launch",
       "tick1": "Full library — 820+ exercises, 140 workouts",
-      "tick2": "Eligible for every challenge tier — first come, first served",
+      "tick2": "Unlocks this challenge — first come, first served",
       "tick3": "Year starts on launch day, not today",
-      "titleFree": "Unlock the €15 and €50 challenges.",
-      "ledeFree": "The €5 Starter is free for every member. Paid Premium opens the higher-payout tiers — and right now the first year is half price.",
-      "ledeFreeClosed": "The €5 Starter is free for every member. Paid Premium opens the higher-payout tiers.",
-      "tickUnlock": "Every challenge tier unlocked — €15 and €50",
+      "titleFree": "Unlock the €15 challenge.",
+      "ledeFree": "The €5 Starter is free for every member. Paid Premium opens the €15 challenge (50 reps a day) — and right now the first year is half price.",
+      "ledeFreeClosed": "The €5 Starter is free for every member. Paid Premium opens the €15 challenge (50 reps a day); the €50 challenge (100 reps a day) is on paid Elite.",
+      "tickUnlock": "The €15 cash challenge unlocked: 50 reps a day for 30 days",
       "tickFreeze": "1 freeze token per challenge, +1 you can earn",
       "ctaFree": "Get Premium — {{price}}/yr →",
       "eyebrowClosed": "Premium · in the app now",
@@ -1783,7 +1783,10 @@
       "perYear": "/ year",
       "perMonth": "/ month",
       "subApp": "or {{year}} a year · Premium in the app",
-      "tick3App": "Cancel any time in App Store or Google Play"
+      "tick3App": "Cancel any time in App Store or Google Play",
+      "eyebrowClosedElite": "Elite · in the app now",
+      "titleClosedElite": "Get Elite in the app.",
+      "subAppElite": "or {{year}} a year · Elite in the app"
     },
     "faq": {
       "title": "Any questions?",
@@ -1793,9 +1796,12 @@
       },
       "pay": {
         "q": "Do I have to pay to enter?",
-        "a": "\"Free money\" — too good to be true?"
+        "aFree": "No. This challenge comes with the free tier — there is no per-challenge fee and no card needed.",
+        "aPremium": "There is no per-challenge fee. Paid Premium or Elite unlocks this challenge, and entry comes with your membership.",
+        "aElite": "There is no per-challenge fee. Paid Elite unlocks this challenge, and entry comes with your membership."
       },
       "tooGood": {
+        "q": "\"Free money\" — too good to be true?",
         "a": "Most people do not finish 30 days straight. That is the whole point: the money is what makes the last ten days survivable, and it is funded by Libo either way."
       },
       "miss": {
@@ -1820,7 +1826,8 @@
       "upsell": "Want the €15 tier? Get Premium. The €50 tier is on Elite →",
       "upsellClosed": "Want the €15 tier? Get Premium. The €50 tier is on Elite →",
       "subClosed": "Paid Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
-      "subFreeApp": "The €5 Starter challenge is free for every member. Download Libo, open Rewards and join: first come, first served."
+      "subFreeApp": "The €5 Starter challenge is free for every member. Download Libo, open Rewards and join: first come, first served.",
+      "subClosedElite": "Paid Elite unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees."
     },
     "footerNote": "Challenge terms apply",
     "seo": {
@@ -1925,7 +1932,7 @@
       "q1": "What is Libo?",
       "a1": "A training club: 820+ exercises, 140 workouts, generated plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.",
       "q2": "What does membership cost?",
-      "a2": "There is a free tier — no card needed. Premium is €119.99 a year (about €10.00/mo) or €19.99 month-to-month. Founding Members lock the first year at €39.50.",
+      "a2": "There is a free tier — no card needed. Premium is €119.99 a year (about €10.00/mo) or €19.99 month-to-month. Elite is €179.99 a year (€15.00/mo) or €29.99 month-to-month.",
       "q3": "What is a Founding Member?",
       "a3": "The pre-launch offer: 12 months of Premium at 50% off, first through the door on launch day, every challenge tier unlocked — and fully refundable until launch.",
       "q4": "Is Libo out yet?",
@@ -2089,7 +2096,7 @@
       },
       "challenges": {
         "q": "How do the cash challenges work?",
-        "a": "Pick a challenge and hit its daily rep target for 30 days. You record each session in the app, so the run is verified — there is no way to fake it. Your 30 days start the moment you join, and finishing pays out in real cash. Paid Premium unlocks the bigger tiers; spots are limited and first come, first served."
+        "a": "Pick a challenge and hit its daily rep target for 30 days. You record each session in the app, so the run is verified — there is no way to fake it. Your 30 days start the moment you join, and finishing pays out in real cash. Paid Premium unlocks the €15 challenge (50 reps a day) and paid Elite the €50 challenge (100 reps a day); spots are limited and first come, first served."
       },
       "monthlyPrice": {
         "q": "What does €10.00/mo mean?",
@@ -2148,7 +2155,7 @@
         "i4": "Everything you log, plus 7 days of trends",
         "i5": "AI coach: 1 text message a day",
         "i6": "The €5 cash challenge: 30 reps a day for 30 days, free to enter",
-        "i7": "Points on every workout, to spend on gift cards",
+        "i7": "Points on every workout, kept {{days}} days, for €5 and €10 gift cards",
         "i8": "{{count}} giveaway entry per round, +{{loyalty}} for each month you train"
       },
       "premium": {
@@ -2167,9 +2174,11 @@
         "i5": "AI coach: 3 messages a day, plus voice notes",
         "i6": "The €15 cash challenge: 50 reps a day for 30 days",
         "i7": "1 freeze token per challenge, +1 you can earn",
-        "i8": "2× points on every workout",
+        "i8": "2× points on every workout, kept {{days}} days, plus the €20 gift card",
         "i9": "Community events",
-        "i10": "{{count}} giveaway entries per round, +{{loyalty}} for each month you train"
+        "i10": "{{count}} giveaway entries per round, +{{loyalty}} for each month you train",
+        "h6": "Physical rewards up to €{{cap}} after {{months}} paid months in a row",
+        "i11": "Physical rewards up to €{{cap}} after {{months}} paid months in a row"
       },
       "elite": {
         "name": "Elite",
@@ -2186,8 +2195,10 @@
         "i3": "Elite-only challenges: the €50 cash challenge (100 reps a day for 30 days) and creator challenges",
         "i4": "VIP events",
         "i5": "Early access to new features",
-        "i6": "3× points on every workout",
-        "i7": "{{count}} giveaway entries per round, +{{loyalty}} for each month you train"
+        "i6": "3× points on every workout, kept {{days}} days",
+        "i7": "{{count}} giveaway entries per round, +{{loyalty}} for each month you train",
+        "h6": "Physical rewards of any value after {{months}} paid months in a row on Elite",
+        "i8": "Physical rewards of any value after {{months}} paid months in a row on Elite"
       }
     },
     "inclusions": {
@@ -2211,7 +2222,7 @@
       "t2": "A real coach in your pocket",
       "b2": "Ask the AI coach about your training, your form or your plan. Text on every plan, voice notes on Premium and Elite.",
       "t3": "Rewards you can spend",
-      "b3": "Every workout earns points. Spend them on gift cards in the rewards shop.",
+      "b3": "Every workout earns points. Spend them on gift cards in the rewards shop, and on physical rewards after enough paid months on Premium or Elite.",
       "t4": "Members-only challenges & events",
       "b4": "Community events on Premium. Elite-only challenges, including creator challenges, and VIP events on Elite."
     },
@@ -2748,9 +2759,9 @@
       "qPointsEarn": "How do I earn points?",
       "aPointsEarn": "Finish a workout, hit a streak milestone, complete a cash challenge day, unlock an achievement or invite a friend who trains. Premium earns 2×, Elite 3×.",
       "qPointsExpire": "Do points expire?",
-      "aPointsExpire": "Yes. Points last 30 days on Free and 90 days on Premium.",
+      "aPointsExpire": "Yes. Points last 30 days on Free and 90 days on Premium and Elite.",
       "qPointsSpend": "What can I spend them on?",
-      "aPointsSpend": "Gift cards and cash from €5 (4,000 points). The €20 card and the big rewards are for Premium members.",
+      "aPointsSpend": "Gift cards and cash from €5 (4,000 points). The €20 card and physical rewards are for Premium and Elite members.",
       "qPointsBuy": "Can I buy points?",
       "aPointsBuy": "No. Points only come from training.",
       "qChallengeMiss": "What if I miss a day?",
@@ -2760,7 +2771,7 @@
       "qGiveawayEnter": "How do I enter the giveaway?",
       "aGiveawayEnter": "You don't have to do anything. Every member is entered automatically. One workout during the round activates your entries.",
       "qGiveawayPay": "Do I have to pay to enter?",
-      "aGiveawayPay": "No. Free members get 1 entry and Premium members get 3, plus the same again for every month in a row you've trained. You can also enter for free by post.",
+      "aGiveawayPay": "No. Free members get 1 entry, Premium members 3 and Elite members 9, plus the same again for every month in a row you've trained. You can also enter for free by post.",
       "qGiveawayWho": "Who can enter?",
       "aGiveawayWho": "Members aged 16 or over. Winners aged 16 or 17 are paid via a parent or guardian. Some countries are excluded: see the rules.",
       "qGiveawayCash": "Can I take cash instead of the prize?",
