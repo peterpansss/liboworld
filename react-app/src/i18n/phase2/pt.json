@@ -41,7 +41,7 @@
       "elite_pool": {
         "name": "Elite Pool",
         "reward": "€50",
-        "reps": "300",
+        "reps": "100",
         "days": "30",
         "freeze": "3",
         "gating": "Assinatura Elite",
