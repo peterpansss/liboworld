@@ -73,8 +73,8 @@ const PRODUCTION_SNAPSHOT: MoneyChallengeRow[] = [
     total_days: 30,
     reward_amount: '50.00',
     reward_currency: 'EUR',
-    required_tier: 'pro',
-    min_tier: 'pro',
+    required_tier: 'elite',
+    min_tier: 'elite',
     is_active: true,
   },
 ];
@@ -190,6 +190,21 @@ describe('challengeTiers drift check — fixtures', () => {
       field: 'requiresPremium <-> min_tier',
       production: 'min_tier = "pro" (i.e. requiresPremium would be true)',
     });
+  });
+
+  it('flags a Premium <-> Elite move of the gate (the €50 went Elite on 22 Nov 2026)', () => {
+    const drifts = diffChallengeTiersAgainstDb(
+      snapshotWith('reps_100_30d_elite_v11', { required_tier: 'pro', min_tier: 'pro' }),
+    );
+    expect(drifts).toEqual([
+      {
+        tier: 'flagship',
+        rowId: 'reps_100_30d_elite_v11',
+        field: 'minTier <-> min_tier',
+        published: 'elite',
+        production: 'min_tier = "pro"',
+      },
+    ]);
   });
 
   it('flags required_tier and min_tier disagreeing with the published gate independently', () => {

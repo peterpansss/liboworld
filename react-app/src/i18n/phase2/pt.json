@@ -45,7 +45,7 @@
         "days": "30",
         "freeze": "3",
         "gating": "Assinatura Premium",
-        "heroSummary": "30 dias × 300 reps = €50 cash. Até 3 tokens freeze. Requer Premium no app."
+        "heroSummary": "30 dias × 100 reps por dia = €50 cash. Até 3 tokens freeze. Requer Elite no app."
       }
     },
     "trust1": "Pagamento garantido a todos os finalistas",
@@ -86,7 +86,7 @@
       "q6": "Por que vagas limitadas?",
       "a6": "A recompensa é um custo real para a Libo. Limitar vagas torna o pagamento orçável e cria um verdadeiro sentimento de cohort — todos correm o relógio juntos.",
       "q7": "Preciso de assinatura Libo?",
-      "a7": "O desafio Starter de €5 é grátis — sem assinatura. Os desafios de €15 e €50 precisam do Premium pago. Assine no app quando entrar no seu nível.",
+      "a7": "O desafio Starter de €5 é grátis — sem assinatura. O desafio de €15 precisa do Premium ou Elite pago, o de €50 do Elite pago. Assine no app quando entrar no seu nível.",
       "q8": "E se eu for iniciante?",
       "a8": "Comece com Starter (100 reps/dia) — são uns 5 minutos de trabalho, divisíveis ao longo do dia. O número de reps é alcançável; a disciplina é o desafio real."
     },
@@ -100,6 +100,6 @@
       "googlePlaySmall": "Disponível na",
       "closeLabel": "Fechar"
     },
-    "disclaimer": "A entrada no desafio cash é aberta a todos os níveis (Free, Premium) para usuários de 16 anos ou mais, e é gratuita — não há taxa de entrada nem aposta. A recompensa em dinheiro que você ganha ao concluir varia por nível e por pool (Free €5 / Premium €15, mais um pool Premium maior de €50), assim como a meta diária (30 / 50 / 100 reps); a Libo financia o pagamento. Pagamentos em dinheiro via Stripe / Wise / SEPA exigem que os ganhadores tenham 18 anos ou mais; ganhadores de 16 a 17 anos podem usar uma conta de pagamento verificada vinculada a um responsável, caso contrário o prêmio é convertido em crédito no app (tickets extras ou um mês de Premium). Nulo onde proibido pela lei local — veja os Termos (Seção 16) para a lista de bloqueio geográfico no lançamento. Todos os pagamentos estão sujeitos a verificação de identidade."
+    "disclaimer": "A entrada no desafio cash é aberta a todos os níveis (Free, Premium, Elite) para usuários de 16 anos ou mais, e é gratuita — não há taxa de entrada nem aposta. A recompensa em dinheiro que você ganha ao concluir varia por nível e por pool (Free €5 / Premium €15, mais um pool Elite maior de €50), assim como a meta diária (30 / 50 / 100 reps); a Libo financia o pagamento. Pagamentos em dinheiro via Stripe / Wise / SEPA exigem que os ganhadores tenham 18 anos ou mais; ganhadores de 16 a 17 anos podem usar uma conta de pagamento verificada vinculada a um responsável, caso contrário o prêmio é convertido em crédito no app (tickets extras ou um mês de Premium). Nulo onde proibido pela lei local — veja os Termos (Seção 16) para a lista de bloqueio geográfico no lançamento. Todos os pagamentos estão sujeitos a verificação de identidade."
   }
 }

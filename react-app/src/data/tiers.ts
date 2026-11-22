@@ -126,11 +126,9 @@ export const TIERS: Tier[] = [
       // second (train 60 of the last 90 days). Cut 2 → 1 on 2026-08-10.
       '1 freeze token per challenge, +1 you can earn',
       'Every giveaway: 3 entries, +3 every month you train',
-      // Premium unlocks BOTH gated challenges in src/data/challengeTiers.ts:
-      // 'committed' (€15 · 50 reps) and 'flagship' (€50 · 100 reps), both
-      // requiresPremium: true. Canon §7.4 — no maximum tier, so the €50 run is
-      // reachable on Premium; it is not held back for Elite.
-      'Cash challenges up to €50 (€15 · 50 reps/day, €50 · 100 reps/day)',
+      // Premium reaches 'committed' (€15 · 50 reps) in src/data/challengeTiers.ts.
+      // The €50 flagship is Elite only since 22 Nov 2026 (minTier 'elite').
+      'The €15 cash challenge (50 reps/day, 30 days)',
     ],
     cta: 'Get Premium',
     href: '/onboarding?tier=premium',
@@ -150,7 +148,7 @@ export const TIERS: Tier[] = [
     features: [
       'Everything in Premium',
       'AI coach: 10 messages a day + voice notes',
-      'Elite-only challenges, incl. creator challenges',
+      '€50 cash challenge (100 reps/day) + Elite-only creator challenges',
       'VIP events',
       'Early access to new features',
       '3× Libo',
@@ -232,10 +230,11 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
       // Reward + reps mirror src/data/challengeTiers.ts (starter €5/30,
       // committed €15/60, flagship €50/100) — that file is the source of truth.
       // A paid tier raises the CEILING, it does not scale a single reward:
-      // canon §7.4 gives challenges a minimum tier and never a maximum, so
-      // Premium (and Elite) reach the €50 / 100-rep flagship. Hence "up to".
-      { label: 'Cash-challenge reward', free: '€5', premium: 'up to €50', elite: 'up to €50' },
-      { label: 'Reps per day', free: '30', premium: 'up to 100', elite: 'up to 100' },
+      // canon §7.4 gives challenges a minimum tier and never a maximum. Since
+      // 22 Nov 2026 the €50 / 100-rep flagship's minimum is Elite, so Premium
+      // tops out at €15 / 50 reps. Hence "up to" on Elite only.
+      { label: 'Cash-challenge reward', free: '€5', premium: '€15', elite: 'up to €50' },
+      { label: 'Reps per day', free: '30', premium: '50', elite: 'up to 100' },
       // Granted, then the universal earn path (canon §5.2) — same shape in all
       // three columns. Premium's grant is 1, not 2; 2 is its max per challenge.
       {
