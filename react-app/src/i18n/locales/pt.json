@@ -1700,7 +1700,7 @@
     "offer": {
       "freeTitle": "O Starter é grátis.",
       "freeBody": "O nível de €5 vem com o plano gratuito — entre no lançamento e comece seus 30 dias no dia em que entrar.",
-      "upsell": "Quer os níveis de €15 e €50? Assine o Premium — 50% off →",
+      "upsell": "Quer o nível de €15? Assine o Premium. O nível de €50 é com Elite →",
       "title": "Garanta o ano antes do lançamento.",
       "per": "/ ano",
       "body": "O Premium pago desbloqueia este nível — não reserva vaga. As vagas são limitadas e por ordem de chegada. Se o desafio estiver cheio, peça pra entrar e você é avisado no segundo em que uma vaga abrir.",
@@ -1756,8 +1756,8 @@
       "sub": "O Premium pago desbloqueia este nível — a entrada é por ordem de chegada e as vagas são limitadas. Se estiver cheio, você é avisado no segundo em que uma vaga abrir. Primeiro ano com 50% off até o lançamento, reembolso total.",
       "waitlist": "Ou entre na lista de espera gratuita",
       "subFree": "A Challenge Starter de € 5 é grátis para todos os membros. Deixe seu e-mail e guardamos sua vaga — por ordem de chegada.",
-      "upsell": "Quer os níveis de €15 e €50? Assine o Premium — 50% off →",
-      "upsellClosed": "Quer os níveis de €15 e €50? Garanta o Premium →",
+      "upsell": "Quer o nível de €15? Assine o Premium. O nível de €50 é com Elite →",
+      "upsellClosed": "Quer o nível de €15? Garanta o Premium. O nível de €50 é com Elite →",
       "subClosed": "O Premium pago libera este nível — por ordem de chegada e com vagas limitadas. Se estiver cheio, avisamos assim que uma vaga abrir.",
       "subFreeApp": "O desafio Starter de 5 € é grátis para todos os membros. Baixe a Libo, abra Rewards e participe: por ordem de chegada."
     },
@@ -1879,7 +1879,7 @@
       "title": "Vire Founding Member — Libo Training Club",
       "description": "Entre na Libo como Founding Member por €39.50 — 50% off no primeiro ano, reembolso total até o lançamento. Seu ano começa no dia em que o app entra no ar.",
       "titleClosed": "Assinatura — Libo Training Club",
-      "descriptionClosed": "O Premium libera a biblioteca completa, todos os níveis de desafio em dinheiro e 2x pontos. Também há um plano gratuito — sem cartão."
+      "descriptionClosed": "O Premium libera a biblioteca completa, o desafio em dinheiro de €15 e 2x pontos; o Elite adiciona o desafio de €50 e 3x pontos. Também há um plano gratuito — sem cartão."
     },
     "contextBar": "Oferta Founding · 50% off no primeiro ano · até 13 de outubro",
     "contextBarShort": "50% off no primeiro ano · até 13 out",
@@ -2398,6 +2398,7 @@
     "common": {
       "free": "Free",
       "premium": "Premium",
+      "elite": "Elite",
       "points": "pontos",
       "ctaTitle": "Treine e ganhe.",
       "ctaSub": "Grátis no iPhone e no Android."
@@ -2415,7 +2416,7 @@
       "earnMenu": "Menu Ganhe"
     },
     "premiumStrip": {
-      "title": "Premium ganha 2× pontos",
+      "title": "Premium ganha 2× pontos, Elite 3×",
       "text": "E eles duram 90 dias em vez de 30."
     },
     "next": {
@@ -2441,7 +2442,7 @@
     "earn": {
       "seo": {
         "title": "Pontos Libo: treine, ganhe, troque | Libo",
-        "description": "Cada treino rende pontos Libo. Troque por vale-presentes e dinheiro na loja de recompensas. Premium ganha 2×."
+        "description": "Cada treino rende pontos Libo. Troque por vale-presentes e dinheiro na loja de recompensas. Premium ganha 2×, Elite 3×."
       },
       "eyebrow": "Pontos Libo",
       "title1": "Treine. Ganhe.",
@@ -2522,7 +2523,7 @@
           "text": "Seu código ou dinheiro chega em até {{days}} dias."
         }
       },
-      "premiumText": "Premium ganha 2× pontos e libera o cartão de 20 €.",
+      "premiumText": "Premium ganha 2× pontos (Elite 3×) e libera o cartão de 20 €.",
       "rules": "Regras de recompensas"
     },
     "giveaway": {
@@ -2567,7 +2568,7 @@
         "fine": "A partir de 16 anos. Também dá para participar grátis pelo correio: veja as regras."
       },
       "screenAlt": "O sorteio no app",
-      "premiumText": "Premium recebe 3 participações por rodada em vez de 1.",
+      "premiumText": "Premium recebe 3 participações por rodada e Elite 9, em vez de 1.",
       "rules": "Regras oficiais do sorteio",
       "trademark": "PlayStation é uma marca da Sony Interactive Entertainment. A Libo não é afiliada às marcas exibidas.",
       "countdown": {
@@ -2688,7 +2689,7 @@
           "text": "Pular o aquecimento por padrão, unidades, avisos de voz e mais."
         }
       },
-      "premiumText": "Premium libera a biblioteca completa e ganha 2× pontos.",
+      "premiumText": "Premium libera a biblioteca completa e ganha 2× pontos, Elite 3×.",
       "ctaSub": "Download grátis. Sem cartão.",
       "formats": {
         "heading": "Treine do seu jeito",
@@ -2745,7 +2746,7 @@
       "qPointsWhat": "O que são pontos Libo?",
       "aPointsWhat": "Pontos que você ganha treinando no app. Você troca na loja de recompensas por vale-presentes ou dinheiro.",
       "qPointsEarn": "Como ganho pontos?",
-      "aPointsEarn": "Termine um treino, alcance um marco de sequência, complete um dia de desafio em dinheiro, desbloqueie uma conquista ou convide um amigo que treine. Premium ganha 2×.",
+      "aPointsEarn": "Termine um treino, alcance um marco de sequência, complete um dia de desafio em dinheiro, desbloqueie uma conquista ou convide um amigo que treine. Premium ganha 2×, Elite 3×.",
       "qPointsExpire": "Os pontos expiram?",
       "aPointsExpire": "Sim. Duram 30 dias no Free e 90 dias no Premium.",
       "qPointsSpend": "Com o que posso trocar?",
@@ -2786,7 +2787,7 @@
     "sub": "A Libo é mais do que uma app de treino. Cada treino dá pontos para cartões-presente e dinheiro, coloca você no sorteio mensal, e os desafios em dinheiro pagam de verdade.",
     "points": {
       "title": "Pontos",
-      "text": "+{{n}} pontos por cada treino concluído. Premium ganha 2×.",
+      "text": "+{{n}} pontos por cada treino concluído. Premium ganha 2×, Elite 3×.",
       "link": "Como funcionam os pontos"
     },
     "rewards": {

@@ -1700,7 +1700,7 @@
     "offer": {
       "freeTitle": "Starter ist gratis.",
       "freeBody": "Die €5-Stufe steckt in der Gratis-Version — steig zum Launch ein und starte deine 30 Tage am ersten Tag.",
-      "upsell": "Willst du die €15- und €50-Stufen? Hol dir Premium — 50% Rabatt →",
+      "upsell": "Willst du die €15-Stufe? Hol dir Premium. Die €50-Stufe gibt es mit Elite →",
       "title": "Sicher dir das Jahr vor dem Launch.",
       "per": "/ Jahr",
       "body": "Bezahltes Premium schaltet diese Stufe frei — es reserviert keinen Platz. Die Plätze sind begrenzt und first come, first served. Ist die Challenge voll, stell eine Beitrittsanfrage und du wirst in der Sekunde benachrichtigt, in der ein Platz frei wird.",
@@ -1756,8 +1756,8 @@
       "sub": "Bezahltes Premium schaltet diese Stufe frei — der Einstieg ist first come, first served, und die Plätze sind begrenzt. Ist alles voll, wirst du benachrichtigt, sobald ein Platz frei wird. Erstes Jahr 50% Rabatt bis zum Launch, voll erstattbar.",
       "waitlist": "Lieber auf die Gratis-Warteliste",
       "subFree": "Die 5-€-Starter-Challenge ist für jedes Mitglied kostenlos. Lass deine E-Mail da und wir halten dir deinen Platz frei — wer zuerst kommt, mahlt zuerst.",
-      "upsell": "Willst du die €15- und €50-Stufen? Hol dir Premium — 50% Rabatt →",
-      "upsellClosed": "Willst du die €15- und €50-Stufen? Hol dir Premium →",
+      "upsell": "Willst du die €15-Stufe? Hol dir Premium. Die €50-Stufe gibt es mit Elite →",
+      "upsellClosed": "Willst du die €15-Stufe? Hol dir Premium. Die €50-Stufe gibt es mit Elite →",
       "subClosed": "Bezahltes Premium schaltet diese Stufe frei — wer zuerst kommt, mahlt zuerst, und die Plätze sind begrenzt. Ist alles voll, wirst du sofort benachrichtigt, wenn ein Platz frei wird.",
       "subFreeApp": "Die 5-€-Starter-Challenge ist für jedes Mitglied kostenlos. Lad Libo, öffne Rewards und mach mit: Wer zuerst kommt, mahlt zuerst."
     },
@@ -1879,7 +1879,7 @@
       "title": "Werde Founding Member — Libo Training Club",
       "description": "Werde Libo Founding Member für €39.50 — 50% Rabatt aufs erste Jahr, bis zum Launch voll erstattbar. Dein Jahr startet am Tag, an dem die App live geht.",
       "titleClosed": "Mitgliedschaft — Libo Training Club",
-      "descriptionClosed": "Premium schaltet die komplette Bibliothek frei, jede Cash-Challenge-Stufe und 2x Punkte. Es gibt auch eine Gratis-Version — ohne Karte."
+      "descriptionClosed": "Premium schaltet die komplette Bibliothek frei, die €15-Cash-Challenge und 2x Punkte; Elite bringt die €50-Challenge und 3x Punkte dazu. Es gibt auch eine Gratis-Version — ohne Karte."
     },
     "contextBar": "Founding-Angebot · 50% Rabatt aufs erste Jahr · bis 13. Oktober",
     "contextBarShort": "50% Rabatt aufs erste Jahr · bis 13. Okt.",
@@ -2398,6 +2398,7 @@
     "common": {
       "free": "Free",
       "premium": "Premium",
+      "elite": "Elite",
       "points": "Punkte",
       "ctaTitle": "Trainieren und verdienen.",
       "ctaSub": "Kostenlos für iPhone und Android."
@@ -2415,7 +2416,7 @@
       "earnMenu": "Menü Verdienen"
     },
     "premiumStrip": {
-      "title": "Premium sammelt 2× Punkte",
+      "title": "Premium sammelt 2× Punkte, Elite 3×",
       "text": "Und sie halten 90 statt 30 Tage."
     },
     "next": {
@@ -2441,7 +2442,7 @@
     "earn": {
       "seo": {
         "title": "Libo Punkte: trainieren, sammeln, einlösen | Libo",
-        "description": "Jedes Workout bringt Libo Punkte. Lös sie im Rewards Shop gegen Gutscheine und Bargeld ein. Premium sammelt 2×."
+        "description": "Jedes Workout bringt Libo Punkte. Lös sie im Rewards Shop gegen Gutscheine und Bargeld ein. Premium sammelt 2×, Elite 3×."
       },
       "eyebrow": "Libo Punkte",
       "title1": "Trainieren. Sammeln.",
@@ -2522,7 +2523,7 @@
           "text": "Dein Code oder dein Geld kommt innerhalb von {{days}} Tagen."
         }
       },
-      "premiumText": "Premium sammelt 2× Punkte und schaltet die 20-€-Karte frei.",
+      "premiumText": "Premium sammelt 2× Punkte (Elite 3×) und schaltet die 20-€-Karte frei.",
       "rules": "Rewards-Regeln"
     },
     "giveaway": {
@@ -2567,7 +2568,7 @@
         "fine": "Ab 16. Kostenlose Teilnahme per Post ist auch möglich: siehe Regeln."
       },
       "screenAlt": "Das Giveaway in der App",
-      "premiumText": "Premium bekommt 3 Lose pro Runde statt 1.",
+      "premiumText": "Premium bekommt 3 Lose pro Runde und Elite 9, statt 1.",
       "rules": "Offizielle Giveaway-Regeln",
       "trademark": "PlayStation ist eine Marke von Sony Interactive Entertainment. Libo ist mit den gezeigten Marken nicht verbunden.",
       "countdown": {
@@ -2688,7 +2689,7 @@
           "text": "Aufwärmen standardmäßig überspringen, Einheiten, Sprachansagen und mehr."
         }
       },
-      "premiumText": "Premium schaltet die ganze Bibliothek frei und sammelt 2× Punkte.",
+      "premiumText": "Premium schaltet die ganze Bibliothek frei und sammelt 2× Punkte, Elite 3×.",
       "ctaSub": "Kostenlos laden. Keine Karte nötig.",
       "formats": {
         "heading": "Trainiere, wie du willst",
@@ -2745,7 +2746,7 @@
       "qPointsWhat": "Was sind Libo Punkte?",
       "aPointsWhat": "Punkte, die du mit Training in der App sammelst. Du löst sie im Rewards Shop gegen Gutscheine oder Bargeld ein.",
       "qPointsEarn": "Wie sammle ich Punkte?",
-      "aPointsEarn": "Workout abschließen, Streak-Meilenstein erreichen, Cash-Challenge-Tag schaffen, Achievement freischalten oder Freund:innen einladen, die trainieren. Premium sammelt 2×.",
+      "aPointsEarn": "Workout abschließen, Streak-Meilenstein erreichen, Cash-Challenge-Tag schaffen, Achievement freischalten oder Freund:innen einladen, die trainieren. Premium sammelt 2×, Elite 3×.",
       "qPointsExpire": "Verfallen Punkte?",
       "aPointsExpire": "Ja. Mit Free halten Punkte 30 Tage, mit Premium 90 Tage.",
       "qPointsSpend": "Wofür kann ich sie einlösen?",
@@ -2786,7 +2787,7 @@
     "sub": "Libo ist mehr als eine Trainings-App. Jedes Workout bringt Punkte für Gutscheine und Cash, bringt dich ins monatliche Gewinnspiel, und die Cash Challenges zahlen echtes Geld.",
     "points": {
       "title": "Punkte",
-      "text": "+{{n}} Punkte für jedes abgeschlossene Workout. Premium sammelt 2×.",
+      "text": "+{{n}} Punkte für jedes abgeschlossene Workout. Premium sammelt 2×, Elite 3×.",
       "link": "So funktionieren Punkte"
     },
     "rewards": {

@@ -63,7 +63,7 @@ export default function RewardsRules() {
             <div className="legal-label">Rules</div>
             <h1 className="font-display">Rewards Rules</h1>
             <p className="legal-meta">
-              Last updated: <span>15 November 2026</span> &middot; Applies to: <span>rewards redeemed with Libo Points in the app</span>
+              Last updated: <span>22 November 2026</span> &middot; Applies to: <span>rewards redeemed with Libo Points in the app</span>
             </p>
           </div>
 
@@ -71,9 +71,9 @@ export default function RewardsRules() {
             <p>
               <strong>The short version.</strong> You earn Libo Points by training in the Libo app.
               You can swap them for a reward of a fixed value: {priceList(openToAll)} for every
-              member, or {priceList(premiumOnly)} for Premium members only. Each value comes as a
+              member, or {priceList(premiumOnly)} for Premium and Elite members only. Each value comes as a
               gift card or as cash (PayPal, Revolut, Wise or bank transfer), while this
-              month&rsquo;s stock lasts. Premium members can also swap them for physical items, shipped or as cash instead. No chance is
+              month&rsquo;s stock lasts. Premium and Elite members can also swap them for physical items, shipped or as cash instead. No chance is
               involved: this is not a prize draw. Libo Points have no cash value and can&rsquo;t be
               bought, sold or transferred.
             </p>
@@ -137,14 +137,14 @@ export default function RewardsRules() {
                     <tr key={r.valueEur}>
                       <td><strong>&euro;{r.valueEur}</strong></td>
                       <td>{formatPoints(r.points)} Libo Points</td>
-                      <td>{r.minTier === 'premium' ? 'Premium members only' : 'All members'}</td>
+                      <td>{r.minTier === 'premium' ? 'Premium and Elite members only' : 'All members'}</td>
                     </tr>
                   ))}
                   {REWARDS_ITEMS.map((r) => (
                     <tr key={r.title}>
                       <td><strong>{r.title}</strong> (or &euro;{formatPoints(itemCashEur(r.valueEur))} cash)</td>
                       <td>{formatPoints(r.points)} Libo Points</td>
-                      <td>{r.minTier === 'premium' ? 'Premium members only' : 'All members'}</td>
+                      <td>{r.minTier === 'premium' ? 'Premium and Elite members only' : 'All members'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -157,7 +157,7 @@ export default function RewardsRules() {
             </ul>
             <p><strong>Items</strong> are physical rewards. You choose: we ship the item free to an address in {ITEM_SHIP_AREA} (you pick the option, such as the colour, where there is one), or you take the cash instead: <strong>80% of the item&rsquo;s listed value</strong>, paid the same way as a cash reward. Outside {ITEM_SHIP_AREA}, items are cash only. Items are limited and may not come back once claimed.</p>
             <p><strong>Each code is subject to its issuer&rsquo;s terms.</strong> The brand that issues a gift code sets how and where it can be used, and for how long. We are not responsible for the issuer&rsquo;s terms or service.</p>
-            <p>A &ldquo;Premium member&rdquo; is a member with an active, paid Premium membership on the day they redeem, or a member who has been given Premium by Libo directly (for example through a company partnership). Free trial periods and free weeks from offer codes do not count.</p>
+            <p>A &ldquo;Premium member&rdquo; is a member with an active, paid Premium membership on the day they redeem, or a member who has been given Premium by Libo directly (for example through a company partnership). An &ldquo;Elite member&rdquo; is the same with an active, paid Elite membership; every reward open to Premium members is also open to Elite members. Free trial periods and free weeks from offer codes do not count.</p>
           </section>
 
           <section className="legal-section" id="stock">
@@ -210,7 +210,7 @@ export default function RewardsRules() {
           <section className="legal-section" id="expiry">
             <div className="legal-section-num">{n()}</div>
             <h2>When Libo Points Expire</h2>
-            <p>Libo Points expire if you don&rsquo;t use them. On the <strong>Free</strong> plan, they expire <strong>{POINTS_EXPIRY_DAYS.free} days</strong> after you earn them. As a <strong>Premium</strong> member, they expire <strong>{POINTS_EXPIRY_DAYS.premium} days</strong> after you earn them. The app shows when your Libo Points expire.</p>
+            <p>Libo Points expire if you don&rsquo;t use them. On the <strong>Free</strong> plan, they expire <strong>{POINTS_EXPIRY_DAYS.free} days</strong> after you earn them. As a <strong>Premium</strong> or <strong>Elite</strong> member, they expire <strong>{POINTS_EXPIRY_DAYS.premium} days</strong> after you earn them. The app shows when your Libo Points expire.</p>
           </section>
 
           <section className="legal-section" id="fair-play">

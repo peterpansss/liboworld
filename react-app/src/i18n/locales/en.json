@@ -1761,7 +1761,7 @@
     "offer": {
       "freeTitle": "Starter is free.",
       "freeBody": "The €5 tier comes with the free tier — join at launch and start your 30 days the day you get in.",
-      "upsell": "Want the €15 and €50 tiers? Get Premium — 50% off →",
+      "upsell": "Want the €15 tier? Get Premium. The €50 tier is on Elite →",
       "title": "Lock in the year before we launch.",
       "per": "/ year",
       "body": "Paid Premium unlocks this tier — it does not reserve a place. Spots are limited and first come, first served. If the challenge is full, request to join and you are notified the second a spot frees.",
@@ -1817,8 +1817,8 @@
       "sub": "Paid Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
       "waitlist": "Join the free waitlist instead",
       "subFree": "The €5 Starter challenge is free for every member. Leave your email and we'll save your spot — first come, first served.",
-      "upsell": "Want the €15 and €50 tiers? Get Premium — 50% off →",
-      "upsellClosed": "Want the €15 and €50 tiers? Get Premium →",
+      "upsell": "Want the €15 tier? Get Premium. The €50 tier is on Elite →",
+      "upsellClosed": "Want the €15 tier? Get Premium. The €50 tier is on Elite →",
       "subClosed": "Paid Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
       "subFreeApp": "The €5 Starter challenge is free for every member. Download Libo, open Rewards and join: first come, first served."
     },
@@ -1940,7 +1940,7 @@
       "title": "Become a Founding Member — Libo Training Club",
       "description": "Join Libo as a Founding Member for €39.50 — 50% off the first year, fully refundable until launch. Your year starts the day the app goes live.",
       "titleClosed": "Membership — Libo Training Club",
-      "descriptionClosed": "Premium unlocks the full library, every cash challenge tier and 2x points. There is a free tier too — no card needed."
+      "descriptionClosed": "Premium unlocks the full library, the €15 cash challenge and 2× points; Elite adds the €50 challenge and 3× points. There is a free tier too — no card needed."
     },
     "contextBar": "Founding offer · 50% off the first year · until 13 October",
     "contextBarShort": "50% off the first year · until 13 Oct",
@@ -2398,6 +2398,7 @@
     "common": {
       "free": "Free",
       "premium": "Premium",
+      "elite": "Elite",
       "points": "points",
       "ctaTitle": "Train and earn.",
       "ctaSub": "Free on iPhone and Android."
@@ -2415,7 +2416,7 @@
       "earnMenu": "Earn menu"
     },
     "premiumStrip": {
-      "title": "Premium earns 2× points",
+      "title": "Premium earns 2× points, Elite 3×",
       "text": "And they last 90 days instead of 30."
     },
     "next": {
@@ -2441,7 +2442,7 @@
     "earn": {
       "seo": {
         "title": "Libo points: train, earn, spend | Libo",
-        "description": "Every workout earns Libo points. Spend them on gift cards and cash in the rewards shop. Premium earns 2×."
+        "description": "Every workout earns Libo points. Spend them on gift cards and cash in the rewards shop. Premium earns 2×, Elite 3×."
       },
       "eyebrow": "Libo points",
       "title1": "Train. Earn.",
@@ -2522,7 +2523,7 @@
           "text": "Your code or cash arrives within {{days}} days."
         }
       },
-      "premiumText": "Premium earns 2× points and unlocks the €20 card.",
+      "premiumText": "Premium earns 2× points (Elite 3×) and unlocks the €20 card.",
       "rules": "Rewards rules"
     },
     "giveaway": {
@@ -2567,7 +2568,7 @@
         "fine": "16+. Free entry by post is also open: see the rules."
       },
       "screenAlt": "The giveaway in the app",
-      "premiumText": "Premium gets 3 entries every round instead of 1.",
+      "premiumText": "Premium gets 3 entries every round and Elite 9, instead of 1.",
       "rules": "Official giveaway rules",
       "trademark": "PlayStation is a trademark of Sony Interactive Entertainment. Libo is not affiliated with the brands shown.",
       "countdown": {
@@ -2688,7 +2689,7 @@
           "text": "Skip warm-ups by default, units, voice cues and more."
         }
       },
-      "premiumText": "Premium unlocks the full library and earns 2× points.",
+      "premiumText": "Premium unlocks the full library and earns 2× points, Elite 3×.",
       "ctaSub": "Free to download. No card needed.",
       "formats": {
         "heading": "Train your way",
@@ -2745,7 +2746,7 @@
       "qPointsWhat": "What are Libo points?",
       "aPointsWhat": "Points you earn by training in the app. You spend them in the rewards shop on gift cards or cash.",
       "qPointsEarn": "How do I earn points?",
-      "aPointsEarn": "Finish a workout, hit a streak milestone, complete a cash challenge day, unlock an achievement or invite a friend who trains. Premium earns 2×.",
+      "aPointsEarn": "Finish a workout, hit a streak milestone, complete a cash challenge day, unlock an achievement or invite a friend who trains. Premium earns 2×, Elite 3×.",
       "qPointsExpire": "Do points expire?",
       "aPointsExpire": "Yes. Points last 30 days on Free and 90 days on Premium.",
       "qPointsSpend": "What can I spend them on?",
@@ -2786,7 +2787,7 @@
     "sub": "Libo is more than a training app. Every workout earns points for gift cards and cash, gets you into the monthly giveaway, and the cash challenges pay real money.",
     "points": {
       "title": "Points",
-      "text": "+{{n}} points for every workout you finish. Premium earns 2×.",
+      "text": "+{{n}} points for every workout you finish. Premium earns 2×, Elite 3×.",
       "link": "How points work"
     },
     "rewards": {

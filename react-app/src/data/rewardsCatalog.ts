@@ -52,7 +52,7 @@ export const REWARDS_COOLDOWN_DAYS = 30;
 /** Rewards are delivered within this many days. */
 export const REWARDS_DELIVERY_DAYS = 7;
 /** Points shelf life by plan (canon REWARDS-ECONOMY-RULES §6.3). */
-export const POINTS_EXPIRY_DAYS = { free: 30, premium: 90 } as const;
+export const POINTS_EXPIRY_DAYS = { free: 30, premium: 90, elite: 90 } as const; // Elite = Premium (Noah, 19 Nov 2026)
 
 /** "4,000" with a comma separator regardless of the reader's locale. */
 export function formatPoints(n: number): string {
