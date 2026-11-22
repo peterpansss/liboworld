@@ -2398,6 +2398,7 @@
     "common": {
       "free": "Free",
       "premium": "Premium",
+      "elite": "Elite",
       "points": "puntos",
       "ctaTitle": "Entrena y gana.",
       "ctaSub": "Gratis en iPhone y Android."
@@ -2567,7 +2568,7 @@
         "fine": "Mayores de 16. También puedes participar gratis por correo: mira las reglas."
       },
       "screenAlt": "El sorteo en la app",
-      "premiumText": "Premium recibe 3 participaciones por ronda en vez de 1.",
+      "premiumText": "Premium recibe 3 participaciones por ronda y Elite 9, en vez de 1.",
       "rules": "Reglas oficiales del sorteo",
       "trademark": "PlayStation es una marca de Sony Interactive Entertainment. Libo no está afiliada a las marcas mostradas.",
       "countdown": {

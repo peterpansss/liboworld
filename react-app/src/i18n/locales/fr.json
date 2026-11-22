@@ -2398,6 +2398,7 @@
     "common": {
       "free": "Free",
       "premium": "Premium",
+      "elite": "Elite",
       "points": "points",
       "ctaTitle": "Entraîne-toi et gagne.",
       "ctaSub": "Gratuit sur iPhone et Android."
@@ -2567,7 +2568,7 @@
         "fine": "16 ans et plus. La participation gratuite par courrier est aussi ouverte : voir le règlement."
       },
       "screenAlt": "Le concours dans l'app",
-      "premiumText": "Premium reçoit 3 participations par manche au lieu d'1.",
+      "premiumText": "Premium reçoit 3 participations par manche et Elite 9, au lieu d'1.",
       "rules": "Règlement officiel du concours",
       "trademark": "PlayStation est une marque de Sony Interactive Entertainment. Libo n'est pas affilié aux marques présentées.",
       "countdown": {

@@ -20,7 +20,7 @@ const LADDER_MONTHS = [0, 3, 6, LOYALTY_MAX_MONTHS];
 
 /**
  * /giveaway — the live giveaway round (one big giveaway a month, Noah
- * 14 Nov 2026). Entries are automatic (Free 1 / Premium 3, the same again per
+ * 14 Nov 2026). Entries are automatic (Free 1 / Premium 3 / Elite 9, the same again per
  * loyalty month), one workout in the round activates them, the draw runs at
  * the close. No winners feed (canon, 10 Nov 2026): proof lives on social and
  * the rules. Everything numeric comes from data/giveawayRounds.ts, which must
@@ -145,6 +145,7 @@ export default function Giveaway() {
                   <th scope="col">{t('earnPages.giveaway.entries.months')}</th>
                   <th scope="col">{t('earnPages.common.free')}</th>
                   <th scope="col" className="gw-ladder__premium">{t('earnPages.common.premium')}</th>
+                  <th scope="col" className="gw-ladder__premium">{t('earnPages.common.elite')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -153,6 +154,7 @@ export default function Giveaway() {
                     <th scope="row">{m === 0 ? t('earnPages.giveaway.entries.firstRound') : t('earnPages.giveaway.entries.monthsInRow', { count: m })}</th>
                     <td className="font-display">{GIVEAWAY_ENTRIES.free + LOYALTY_PER_MONTH.free * m}</td>
                     <td className="font-display gw-ladder__premium">{GIVEAWAY_ENTRIES.premium + LOYALTY_PER_MONTH.premium * m}</td>
+                    <td className="font-display gw-ladder__premium">{GIVEAWAY_ENTRIES.elite + LOYALTY_PER_MONTH.elite * m}</td>
                   </tr>
                 ))}
               </tbody>

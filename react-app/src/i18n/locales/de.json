@@ -2398,6 +2398,7 @@
     "common": {
       "free": "Free",
       "premium": "Premium",
+      "elite": "Elite",
       "points": "Punkte",
       "ctaTitle": "Trainieren und verdienen.",
       "ctaSub": "Kostenlos für iPhone und Android."
@@ -2567,7 +2568,7 @@
         "fine": "Ab 16. Kostenlose Teilnahme per Post ist auch möglich: siehe Regeln."
       },
       "screenAlt": "Das Giveaway in der App",
-      "premiumText": "Premium bekommt 3 Lose pro Runde statt 1.",
+      "premiumText": "Premium bekommt 3 Lose pro Runde und Elite 9, statt 1.",
       "rules": "Offizielle Giveaway-Regeln",
       "trademark": "PlayStation ist eine Marke von Sony Interactive Entertainment. Libo ist mit den gezeigten Marken nicht verbunden.",
       "countdown": {

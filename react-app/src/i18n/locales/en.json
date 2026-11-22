@@ -2398,6 +2398,7 @@
     "common": {
       "free": "Free",
       "premium": "Premium",
+      "elite": "Elite",
       "points": "points",
       "ctaTitle": "Train and earn.",
       "ctaSub": "Free on iPhone and Android."
@@ -2567,7 +2568,7 @@
         "fine": "16+. Free entry by post is also open: see the rules."
       },
       "screenAlt": "The giveaway in the app",
-      "premiumText": "Premium gets 3 entries every round instead of 1.",
+      "premiumText": "Premium gets 3 entries every round and Elite 9, instead of 1.",
       "rules": "Official giveaway rules",
       "trademark": "PlayStation is a trademark of Sony Interactive Entertainment. Libo is not affiliated with the brands shown.",
       "countdown": {
