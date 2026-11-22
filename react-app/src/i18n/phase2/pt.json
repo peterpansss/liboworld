@@ -41,11 +41,11 @@
       "elite_pool": {
         "name": "Elite Pool",
         "reward": "€50",
-        "reps": "300",
+        "reps": "100",
         "days": "30",
         "freeze": "3",
-        "gating": "Assinatura Premium",
-        "heroSummary": "30 dias × 100 reps por dia = €50 cash. Até 3 tokens freeze. Requer Elite no app."
+        "gating": "Assinatura Elite",
+        "heroSummary": "30 dias × 100 reps por dia = €50 cash. Até 3 tokens freeze. Requer Elite pago no app, todos os dias do desafio."
       }
     },
     "trust1": "Pagamento garantido a todos os finalistas",
@@ -86,7 +86,7 @@
       "q6": "Por que vagas limitadas?",
       "a6": "A recompensa é um custo real para a Libo. Limitar vagas torna o pagamento orçável e cria um verdadeiro sentimento de cohort — todos correm o relógio juntos.",
       "q7": "Preciso de assinatura Libo?",
-      "a7": "O desafio Starter de €5 é grátis — sem assinatura. O desafio de €15 precisa do Premium ou Elite pago, o de €50 do Elite pago. Assine no app quando entrar no seu nível.",
+      "a7": "O desafio Starter de €5 é grátis — sem assinatura. O desafio de €15 precisa do Premium ou Elite pago, o de €50 do Elite pago — no dia em que você entra e em todo dia em que registra sua sessão. Testes grátis e semanas grátis de código promocional não contam.",
       "q8": "E se eu for iniciante?",
       "a8": "Comece com Starter (100 reps/dia) — são uns 5 minutos de trabalho, divisíveis ao longo do dia. O número de reps é alcançável; a disciplina é o desafio real."
     },

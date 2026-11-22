@@ -41,11 +41,11 @@
       "elite_pool": {
         "name": "Elite Pool",
         "reward": "€50",
-        "reps": "300",
+        "reps": "100",
         "days": "30",
         "freeze": "3",
-        "gating": "Premium-Abo",
-        "heroSummary": "30 Tage × 100 Reps am Tag = €50 Cash-Auszahlung. Bis zu 3 Freeze-Tokens. Elite in-app erforderlich."
+        "gating": "Elite-Abo",
+        "heroSummary": "30 Tage × 100 Reps am Tag = €50 Cash-Auszahlung. Bis zu 3 Freeze-Tokens. Bezahltes Elite in der App erforderlich, an jedem Tag der Challenge."
       }
     },
     "trust1": "Garantierte Auszahlung an alle, die durchziehen",
@@ -86,7 +86,7 @@
       "q6": "Warum sind die Plätze begrenzt?",
       "a6": "Die Belohnung ist ein echter Kostenfaktor für Libo. Begrenzte Plätze machen die Auszahlung kalkulierbar und schaffen ein echtes Cohort-Gefühl — alle laufen die Uhr gemeinsam.",
       "q7": "Brauche ich ein Libo-Abo?",
-      "a7": "Die €5 Starter Challenge ist gratis — kein Abo nötig. Die €15-Challenge braucht bezahltes Premium oder Elite, die €50-Challenge bezahltes Elite. Abonniere in der App, wenn du deiner Stufe beitrittst.",
+      "a7": "Die €5 Starter Challenge ist gratis — kein Abo nötig. Die €15-Challenge braucht bezahltes Premium oder Elite, die €50-Challenge bezahltes Elite — am Tag deines Beitritts und an jedem Tag, an dem du eincheckst. Probezeiträume und Gratiswochen per Angebotscode zählen nicht.",
       "q8": "Was, wenn ich Anfänger bin?",
       "a8": "Fang mit Starter an (100 Reps/Tag) — das sind etwa 5 Minuten Arbeit, auf den Tag aufteilbar. Die Rep-Zahl ist machbar; die Disziplin ist die eigentliche Herausforderung."
     },
