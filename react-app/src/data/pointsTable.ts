@@ -36,5 +36,6 @@ export const STREAK_MILESTONES: { days: number; base: number }[] = [
   { days: 30, base: 500 },
 ];
 
-/** Tier multiplier (canon §6.2). Server-enforced. */
-export const POINTS_MULTIPLIER = { free: 1, premium: 2 } as const;
+/** Tier multiplier (canon §6.2). Server-enforced: Free 1×, Premium 2×, Elite 3× (Elite since 20 Nov 2026,
+ * mirrors TIER_POINTS_MULTIPLIER in libo-app-v2/src/constants/tierFeatures.ts). */
+export const POINTS_MULTIPLIER = { free: 1, premium: 2, elite: 3 } as const;

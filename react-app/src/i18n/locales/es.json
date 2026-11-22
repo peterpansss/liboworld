@@ -1700,7 +1700,7 @@
     "offer": {
       "freeTitle": "Starter es gratis.",
       "freeBody": "El nivel de €5 viene con el plan gratuito — únete al lanzar y empieza tus 30 días el día que entres.",
-      "upsell": "¿Quieres los niveles de €15 y €50? Consigue Premium — 50% de descuento →",
+      "upsell": "¿Quieres el nivel de €15? Consigue Premium. El nivel de €50 es con Elite →",
       "title": "Asegura el año antes de que lancemos.",
       "per": "/ año",
       "body": "Premium de pago desbloquea este nivel — no reserva plaza. Las plazas son limitadas y van por orden de llegada. Si el reto está lleno, solicita unirte y te avisamos en cuanto se libere una plaza.",
@@ -1756,8 +1756,8 @@
       "sub": "Premium de pago desbloquea este nivel — la entrada es por orden de llegada y las plazas son limitadas. Si está lleno, te avisamos en cuanto se libere una plaza. Primer año al 50% hasta el lanzamiento, totalmente reembolsable.",
       "waitlist": "Mejor únete a la lista de espera gratis",
       "subFree": "La Challenge Starter de 5 € es gratis para todos los miembros. Deja tu email y te guardamos tu plaza — por orden de llegada.",
-      "upsell": "¿Quieres los niveles de €15 y €50? Consigue Premium — 50% de descuento →",
-      "upsellClosed": "¿Quieres los niveles de €15 y €50? Consigue Premium →",
+      "upsell": "¿Quieres el nivel de €15? Consigue Premium. El nivel de €50 es con Elite →",
+      "upsellClosed": "¿Quieres el nivel de €15? Consigue Premium. El nivel de €50 es con Elite →",
       "subClosed": "Premium de pago desbloquea este nivel — por orden de llegada y con plazas limitadas. Si está lleno, te avisamos en cuanto se libere una plaza.",
       "subFreeApp": "El reto Starter de 5 € es gratis para todos los miembros. Descarga Libo, abre Rewards y únete: por orden de llegada."
     },
@@ -1879,7 +1879,7 @@
       "title": "Hazte Founding Member — Libo Training Club",
       "description": "Únete a Libo como Founding Member por €39.50 — 50% de descuento el primer año, totalmente reembolsable hasta el lanzamiento. Tu año empieza el día que la app salga en vivo.",
       "titleClosed": "Membresía — Libo Training Club",
-      "descriptionClosed": "Premium desbloquea la biblioteca completa, todos los niveles de reto con dinero y 2x puntos. También hay un plan gratuito — sin tarjeta."
+      "descriptionClosed": "Premium desbloquea la biblioteca completa, el reto con dinero de €15 y 2x puntos; Elite añade el reto de €50 y 3x puntos. También hay un plan gratuito — sin tarjeta."
     },
     "contextBar": "Oferta Founding · 50% de descuento el primer año · hasta el 13 de octubre",
     "contextBarShort": "50% de descuento el primer año · hasta el 13 oct",
@@ -2416,7 +2416,7 @@
       "earnMenu": "Menú Gana"
     },
     "premiumStrip": {
-      "title": "Premium gana 2× puntos",
+      "title": "Premium gana 2× puntos, Elite 3×",
       "text": "Y duran 90 días en vez de 30."
     },
     "next": {
@@ -2442,7 +2442,7 @@
     "earn": {
       "seo": {
         "title": "Puntos Libo: entrena, gana, canjea | Libo",
-        "description": "Cada entreno te da puntos Libo. Canjéalos por tarjetas regalo y dinero en la tienda de recompensas. Premium gana 2×."
+        "description": "Cada entreno te da puntos Libo. Canjéalos por tarjetas regalo y dinero en la tienda de recompensas. Premium gana 2×, Elite 3×."
       },
       "eyebrow": "Puntos Libo",
       "title1": "Entrena. Gana.",
@@ -2523,7 +2523,7 @@
           "text": "Tu código o tu dinero llega en {{days}} días como máximo."
         }
       },
-      "premiumText": "Premium gana 2× puntos y desbloquea la tarjeta de 20 €.",
+      "premiumText": "Premium gana 2× puntos (Elite 3×) y desbloquea la tarjeta de 20 €.",
       "rules": "Reglas de recompensas"
     },
     "giveaway": {
@@ -2689,7 +2689,7 @@
           "text": "Saltar el calentamiento por defecto, unidades, avisos de voz y más."
         }
       },
-      "premiumText": "Premium desbloquea la biblioteca completa y gana 2× puntos.",
+      "premiumText": "Premium desbloquea la biblioteca completa y gana 2× puntos, Elite 3×.",
       "ctaSub": "Descarga gratis. Sin tarjeta.",
       "formats": {
         "heading": "Entrena a tu manera",
@@ -2746,7 +2746,7 @@
       "qPointsWhat": "¿Qué son los puntos Libo?",
       "aPointsWhat": "Puntos que ganas entrenando en la app. Los canjeas en la tienda de recompensas por tarjetas regalo o dinero.",
       "qPointsEarn": "¿Cómo gano puntos?",
-      "aPointsEarn": "Termina un entreno, alcanza un hito de racha, completa un día de reto con dinero, desbloquea un logro o invita a un amigo que entrene. Premium gana 2×.",
+      "aPointsEarn": "Termina un entreno, alcanza un hito de racha, completa un día de reto con dinero, desbloquea un logro o invita a un amigo que entrene. Premium gana 2×, Elite 3×.",
       "qPointsExpire": "¿Caducan los puntos?",
       "aPointsExpire": "Sí. Duran 30 días con Free y 90 días con Premium.",
       "qPointsSpend": "¿En qué puedo usarlos?",
@@ -2787,7 +2787,7 @@
     "sub": "Libo es más que una app de entrenamiento. Cada entreno suma puntos para tarjetas regalo y dinero, te mete en el sorteo mensual, y los retos con dinero pagan de verdad.",
     "points": {
       "title": "Puntos",
-      "text": "+{{n}} puntos por cada entreno que terminas. Premium gana 2×.",
+      "text": "+{{n}} puntos por cada entreno que terminas. Premium gana 2×, Elite 3×.",
       "link": "Cómo funcionan los puntos"
     },
     "rewards": {

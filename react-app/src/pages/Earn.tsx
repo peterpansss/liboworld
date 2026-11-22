@@ -15,12 +15,12 @@ import './Earn.css';
 /**
  * /earn — how Libo points work, visually and with very little text
  * (Noah, 18 Nov 2026). Train → earn → spend, the points table with a
- * Free/Premium toggle, then links to what points are for.
+ * Free/Premium/Elite toggle, then links to what points are for.
  * Numbers: data/pointsTable.ts (canon §6) and data/rewardsCatalog.ts.
  */
 export default function Earn() {
   const { t } = useTranslation();
-  const [plan, setPlan] = useState<'free' | 'premium'>('free');
+  const [plan, setPlan] = useState<'free' | 'premium' | 'elite'>('free');
   const mult = POINTS_MULTIPLIER[plan];
   usePopIn();
 
@@ -65,6 +65,9 @@ export default function Earn() {
               </button>
               <button type="button" aria-pressed={plan === 'premium'} onClick={() => setPlan('premium')}>
                 {t('earnPages.common.premium')} · 2×
+              </button>
+              <button type="button" aria-pressed={plan === 'elite'} onClick={() => setPlan('elite')}>
+                {t('earnPages.common.elite')} · 3×
               </button>
             </div>
           </div>
