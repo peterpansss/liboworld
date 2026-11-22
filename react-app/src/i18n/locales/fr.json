@@ -2116,8 +2116,8 @@
         "i8": "Points ×2 à chaque séance, valables {{days}} jours, plus la carte cadeau de 20 €",
         "i9": "Événements de la communauté",
         "i10": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement",
-        "h6": "Récompenses physiques jusqu'à {{cap}} € après {{months}} mois payés d'affilée",
-        "i11": "Récompenses physiques jusqu'à {{cap}} € après {{months}} mois payés d'affilée"
+        "h6": "Récompenses physiques jusqu'à {{cap}} €",
+        "i11": "Récompenses physiques jusqu'à {{cap}} €"
       },
       "elite": {
         "name": "Elite",
@@ -2136,8 +2136,8 @@
         "i5": "Accès anticipé aux nouvelles fonctionnalités",
         "i6": "Points ×3 à chaque séance, valables {{days}} jours",
         "i7": "{{count}} participations par tirage, +{{loyalty}} par mois d'entraînement",
-        "h6": "Récompenses physiques de toute valeur après {{months}} mois payés d'affilée en Elite",
-        "i8": "Récompenses physiques de toute valeur après {{months}} mois payés d'affilée en Elite"
+        "h6": "Récompenses physiques de toute valeur",
+        "i8": "Récompenses physiques de toute valeur"
       }
     },
     "inclusions": {
@@ -2161,7 +2161,7 @@
       "t2": "Un vrai coach dans ta poche",
       "b2": "Pose tes questions au coach IA sur ton entraînement, ta technique ou ton plan. Texte avec chaque abonnement, messages vocaux avec Premium et Elite.",
       "t3": "Des récompenses à dépenser",
-      "b3": "Chaque séance te rapporte des points. Échange-les contre des cartes cadeaux dans la boutique de récompenses, et contre des récompenses physiques après assez de mois payés en Premium ou Elite.",
+      "b3": "Chaque séance te rapporte des points. Échange-les contre des cartes cadeaux dans la boutique de récompenses, et contre des récompenses physiques avec Premium ou Elite.",
       "t4": "Défis et événements réservés aux membres",
       "b4": "Événements de la communauté avec Premium. Défis réservés à Elite, dont des défis de créateurs, et événements VIP avec Elite."
     },

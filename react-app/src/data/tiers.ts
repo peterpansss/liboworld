@@ -19,10 +19,9 @@
  *   - Points: multiplier Free 1× / Premium 2× / Elite 3×; shelf life Free 30 days,
  *     Premium + Elite 90 (data/rewardsCatalog.ts POINTS_EXPIRY_DAYS). Gift cards
  *     €5 / €10 for everyone, €20 for Premium + Elite.
- *   - Physical reward items (Noah, 22 Nov 2026): Premium up to the Premium cap
- *     after N paid months in a row, Elite any value after M paid months in a row
- *     on Elite — ITEM_TIER_VALUE_CAP_EUR / ITEM_TIER_MIN_PAID_MONTHS in
- *     data/rewardsCatalog.ts. No Free item exists, so the Free card shows none.
+ *   - Physical reward items (Noah, 22 Nov 2026): Premium up to the Premium cap,
+ *     Elite any value (cap from ITEM_TIER_VALUE_CAP_EUR in data/rewardsCatalog.ts).
+ *     The paid-months condition is NOT on cards; it lives in /rewards-rules only. No Free item exists, so the Free card shows none.
  *     Never name a product or brand on a plan card.
  *   - Challenge numbers (payout · reps/day) are duplicated from
  *     src/data/challengeTiers.ts — that file is the source of truth for
@@ -37,7 +36,7 @@
  *     Never sell a tier on entries: Elite leads with the coach, Elite-only
  *     challenges and VIP events.
  */
-import { ITEM_TIER_VALUE_CAP_EUR, ITEM_TIER_MIN_PAID_MONTHS, POINTS_EXPIRY_DAYS } from './rewardsCatalog';
+import { ITEM_TIER_VALUE_CAP_EUR, POINTS_EXPIRY_DAYS } from './rewardsCatalog';
 
 // YEARLY_PRICE is the annual TOTAL (per-month equivalent = /12). Premium is
 // shown to users as €10.00/mo billed annually (= €119.99/yr, 50% off €19.99/mo).
@@ -61,10 +60,8 @@ export const YEARLY_DISCOUNT = { premium: 50, elite: 50 } as const;
 
 // Physical-item card lines, derived from the rewardsCatalog constants.
 const PREMIUM_ITEM_CAP = ITEM_TIER_VALUE_CAP_EUR.premium ?? 0;
-const PREMIUM_ITEM_MONTHS = ITEM_TIER_MIN_PAID_MONTHS.premium;
-const ELITE_ITEM_MONTHS = ITEM_TIER_MIN_PAID_MONTHS.elite;
-const PREMIUM_ITEM_LINE = `Physical rewards up to €${PREMIUM_ITEM_CAP} after ${PREMIUM_ITEM_MONTHS} paid months in a row`;
-const ELITE_ITEM_LINE = `Physical rewards of any value after ${ELITE_ITEM_MONTHS} paid months in a row on Elite`;
+const PREMIUM_ITEM_LINE = `Physical rewards up to €${PREMIUM_ITEM_CAP}`;
+const ELITE_ITEM_LINE = `Physical rewards of any value`;
 
 export type TierId = 'free' | 'premium' | 'elite';
 export type BillingCycle = 'monthly' | 'yearly';
@@ -255,8 +252,8 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
       {
         label: 'Physical rewards',
         free: false,
-        premium: `up to €${PREMIUM_ITEM_CAP} · ${PREMIUM_ITEM_MONTHS} paid months in a row`,
-        elite: `any value · ${ELITE_ITEM_MONTHS} paid months in a row on Elite`,
+        premium: `up to €${PREMIUM_ITEM_CAP}`,
+        elite: `any value`,
       },
       // Reward + reps mirror src/data/challengeTiers.ts (starter €5/30,
       // committed €15/60, flagship €50/100) — that file is the source of truth.

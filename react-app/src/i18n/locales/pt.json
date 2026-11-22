@@ -2116,8 +2116,8 @@
         "i8": "2× pontos em cada treino, válidos por {{days}} dias, mais o vale-presente de 20 €",
         "i9": "Eventos da comunidade",
         "i10": "{{count}} participações por rodada de sorteio, +{{loyalty}} por cada mês em que você treina",
-        "h6": "Prêmios físicos de até {{cap}} € depois de {{months}} meses pagos seguidos",
-        "i11": "Prêmios físicos de até {{cap}} € depois de {{months}} meses pagos seguidos"
+        "h6": "Prêmios físicos de até {{cap}} €",
+        "i11": "Prêmios físicos de até {{cap}} €"
       },
       "elite": {
         "name": "Elite",
@@ -2136,8 +2136,8 @@
         "i5": "Acesso antecipado a novos recursos",
         "i6": "3× pontos em cada treino, válidos por {{days}} dias",
         "i7": "{{count}} participações por rodada de sorteio, +{{loyalty}} por cada mês em que você treina",
-        "h6": "Prêmios físicos de qualquer valor depois de {{months}} meses pagos seguidos no Elite",
-        "i8": "Prêmios físicos de qualquer valor depois de {{months}} meses pagos seguidos no Elite"
+        "h6": "Prêmios físicos de qualquer valor",
+        "i8": "Prêmios físicos de qualquer valor"
       }
     },
     "inclusions": {
@@ -2161,7 +2161,7 @@
       "t2": "Um coach de verdade no seu bolso",
       "b2": "Pergunte ao coach de IA sobre seu treino, sua técnica ou seu plano. Texto em todos os planos, mensagens de voz no Premium e no Elite.",
       "t3": "Recompensas que você pode usar",
-      "b3": "Cada treino rende pontos. Troque por vales-presente na loja de recompensas e, depois de meses pagos suficientes no Premium ou Elite, também por prêmios físicos.",
+      "b3": "Cada treino rende pontos. Troque por vales-presente na loja de recompensas e, com Premium ou Elite, também por prêmios físicos.",
       "t4": "Desafios e eventos só para membros",
       "b4": "Eventos da comunidade no Premium. Desafios exclusivos Elite, incluindo desafios de criadores, e eventos VIP no Elite."
     },

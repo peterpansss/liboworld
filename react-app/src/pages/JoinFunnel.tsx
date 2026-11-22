@@ -12,7 +12,7 @@ import {
 } from '../components/funnel/FunnelChrome';
 import { useFoundingCheckout, EARLY_ACCESS_PRICE } from '../components/funnel/FoundingCheckoutProvider';
 import { YEARLY_PRICE } from '../data/tiers';
-import { ITEM_TIER_VALUE_CAP_EUR, ITEM_TIER_MIN_PAID_MONTHS } from '../data/rewardsCatalog';
+import { ITEM_TIER_VALUE_CAP_EUR } from '../data/rewardsCatalog';
 import { isStripeConfigured } from '../lib/stripe';
 import LaunchCountdown from '../components/LaunchCountdown';
 import { isFoundingOpen } from '../config/launchMode';
@@ -147,9 +147,8 @@ export default function JoinFunnel() {
       ? []
       : [
           t('membershipV2.tiers.premium.i11', {
-            defaultValue: 'Physical rewards up to €{{cap}} after {{months}} paid months in a row',
+            defaultValue: 'Physical rewards up to €{{cap}}',
             cap: ITEM_TIER_VALUE_CAP_EUR.premium ?? '',
-            months: ITEM_TIER_MIN_PAID_MONTHS.premium,
           }),
         ]),
     ...(foundingOpen

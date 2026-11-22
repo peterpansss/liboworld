@@ -14,7 +14,7 @@ import {
   LOYALTY_MAX_MONTHS,
   LOYALTY_MIN_WORKOUT_MINUTES,
 } from '../data/giveawayRounds';
-import { ITEM_TIER_VALUE_CAP_EUR, ITEM_TIER_MIN_PAID_MONTHS, POINTS_EXPIRY_DAYS } from '../data/rewardsCatalog';
+import { ITEM_TIER_VALUE_CAP_EUR, POINTS_EXPIRY_DAYS } from '../data/rewardsCatalog';
 import './Pricing.css';
 
 // /membership (route /pricing redirects here) — the Membership page.
@@ -35,9 +35,10 @@ import './Pricing.css';
 //     language, no winners feed, no trial (subscribing bills immediately),
 //     the exercise claim is "820+", and points never "never expire".
 //   • The Founding pre-sale is closed and has no card here any more.
-//   • Physical reward items (Noah, 22 Nov 2026): Premium up to the Premium cap
-//     after N paid months in a row, Elite any value after M paid months on
-//     Elite. Cap and months come from data/rewardsCatalog.ts. The Free card
+//   • Physical reward items (Noah, 22 Nov 2026): Premium up to the Premium cap,
+//     Elite any value. The paid-months condition is NOT on cards (Noah,
+//     22 Nov 2026): it lives in /rewards-rules only. Cap comes from
+//     data/rewardsCatalog.ts. The Free card
 //     advertises no item (none is in the catalog), and no card names a
 //     product or brand.
 
@@ -119,7 +120,6 @@ export default function Pricing() {
     loyalty: LOYALTY_PER_MONTH[id],
     days: POINTS_EXPIRY_DAYS[id],
     cap: ITEM_TIER_VALUE_CAP_EUR[id] ?? '',
-    months: ITEM_TIER_MIN_PAID_MONTHS[id],
   });
 
   const showInclusions = (id: TierId) => {
