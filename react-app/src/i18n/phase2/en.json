@@ -45,7 +45,7 @@
         "days": "30",
         "freeze": "3",
         "gating": "Premium subscription",
-        "heroSummary": "30 days × 300 reps = €50 cash payout. Up to 3 freeze tokens. Requires Premium in-app."
+        "heroSummary": "30 days × 100 reps a day = €50 cash payout. Up to 3 freeze tokens. Requires Elite in-app."
       }
     },
     "trust1": "Guaranteed payout to all completers",
@@ -86,7 +86,7 @@
       "q6": "Why limited spots?",
       "a6": "The reward is a real cost to Libo. Capping spots makes the payout budgetable and creates a real cohort feel — everyone runs the clock together.",
       "q7": "Do I need a Libo subscription?",
-      "a7": "The €5 Starter challenge is free — no subscription. The €15 and €50 challenges need paid Premium. Subscribe in the app when you join your tier.",
+      "a7": "The €5 Starter challenge is free — no subscription. The €15 challenge needs paid Premium or Elite, the €50 challenge paid Elite. Subscribe in the app when you join your tier.",
       "q8": "What if I'm a beginner?",
       "a8": "Start with Starter (100 reps/day) — that's about 5 minutes of work, splittable across the day. The rep count is achievable; the discipline is the challenge."
     },
@@ -100,6 +100,6 @@
       "googlePlaySmall": "Get it on",
       "closeLabel": "Close"
     },
-    "disclaimer": "Cash challenge entry is open to all tiers (Free, Premium) for users aged 16 and over, and is free — there is no entry fee or stake. The cash reward you earn on completion varies by tier and pool (Free €5 / Premium €15, plus a higher €50 Premium pool), as does the daily target (30 / 50 / 100 reps); Libo funds the payout. Cash payouts via Stripe / Wise / SEPA require winners to be 18 or over; winners aged 16–17 may use a parent-linked verified payment account, otherwise the prize is converted to in-app credit (extra tickets or a Premium month). Void where prohibited by local law — see Terms (Section 16) for the launch-time geo-block list. All payouts are subject to identity verification."
+    "disclaimer": "Cash challenge entry is open to all tiers (Free, Premium, Elite) for users aged 16 and over, and is free — there is no entry fee or stake. The cash reward you earn on completion varies by tier and pool (Free €5 / Premium €15, plus a higher €50 Elite pool), as does the daily target (30 / 50 / 100 reps); Libo funds the payout. Cash payouts via Stripe / Wise / SEPA require winners to be 18 or over; winners aged 16–17 may use a parent-linked verified payment account, otherwise the prize is converted to in-app credit (extra tickets or a Premium month). Void where prohibited by local law — see Terms (Section 16) for the launch-time geo-block list. All payouts are subject to identity verification."
   }
 }

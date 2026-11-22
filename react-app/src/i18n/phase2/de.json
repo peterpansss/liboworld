@@ -45,7 +45,7 @@
         "days": "30",
         "freeze": "3",
         "gating": "Premium-Abo",
-        "heroSummary": "30 Tage × 300 Reps = €50 Cash-Auszahlung. Bis zu 3 Freeze-Tokens. Premium in-app erforderlich."
+        "heroSummary": "30 Tage × 100 Reps am Tag = €50 Cash-Auszahlung. Bis zu 3 Freeze-Tokens. Elite in-app erforderlich."
       }
     },
     "trust1": "Garantierte Auszahlung an alle, die durchziehen",
@@ -86,7 +86,7 @@
       "q6": "Warum sind die Plätze begrenzt?",
       "a6": "Die Belohnung ist ein echter Kostenfaktor für Libo. Begrenzte Plätze machen die Auszahlung kalkulierbar und schaffen ein echtes Cohort-Gefühl — alle laufen die Uhr gemeinsam.",
       "q7": "Brauche ich ein Libo-Abo?",
-      "a7": "Die €5 Starter Challenge ist gratis — kein Abo nötig. Die €15- und €50-Challenges brauchen bezahltes Premium. Abonniere in der App, wenn du deiner Stufe beitrittst.",
+      "a7": "Die €5 Starter Challenge ist gratis — kein Abo nötig. Die €15-Challenge braucht bezahltes Premium oder Elite, die €50-Challenge bezahltes Elite. Abonniere in der App, wenn du deiner Stufe beitrittst.",
       "q8": "Was, wenn ich Anfänger bin?",
       "a8": "Fang mit Starter an (100 Reps/Tag) — das sind etwa 5 Minuten Arbeit, auf den Tag aufteilbar. Die Rep-Zahl ist machbar; die Disziplin ist die eigentliche Herausforderung."
     },
@@ -100,6 +100,6 @@
       "googlePlaySmall": "Jetzt bei",
       "closeLabel": "Schließen"
     },
-    "disclaimer": "Die Teilnahme an der Cash Challenge steht allen Stufen (Free, Premium) ab 16 Jahren offen und ist kostenlos — es gibt keine Teilnahmegebühr und keinen Einsatz. Die Cash-Belohnung bei Abschluss hängt von Stufe und Pool ab (Free €5 / Premium €15, dazu ein höherer €50-Premium-Pool), ebenso das Tagesziel (30 / 50 / 100 Reps); Libo finanziert die Auszahlung. Cash-Auszahlungen über Stripe / Wise / SEPA setzen voraus, dass Gewinner mindestens 18 Jahre alt sind; Gewinner zwischen 16 und 17 können ein elternverknüpftes, verifiziertes Zahlungskonto nutzen, andernfalls wird der Gewinn in In-App-Guthaben umgewandelt (zusätzliche Tickets oder ein Premium-Monat). Ungültig, wo nach lokalem Recht untersagt — die zum Launch geltende Geo-Sperrliste steht in den AGB (Abschnitt 16). Alle Auszahlungen unterliegen einer Identitätsprüfung."
+    "disclaimer": "Die Teilnahme an der Cash Challenge steht allen Stufen (Free, Premium, Elite) ab 16 Jahren offen und ist kostenlos — es gibt keine Teilnahmegebühr und keinen Einsatz. Die Cash-Belohnung bei Abschluss hängt von Stufe und Pool ab (Free €5 / Premium €15, dazu ein höherer €50-Elite-Pool), ebenso das Tagesziel (30 / 50 / 100 Reps); Libo finanziert die Auszahlung. Cash-Auszahlungen über Stripe / Wise / SEPA setzen voraus, dass Gewinner mindestens 18 Jahre alt sind; Gewinner zwischen 16 und 17 können ein elternverknüpftes, verifiziertes Zahlungskonto nutzen, andernfalls wird der Gewinn in In-App-Guthaben umgewandelt (zusätzliche Tickets oder ein Premium-Monat). Ungültig, wo nach lokalem Recht untersagt — die zum Launch geltende Geo-Sperrliste steht in den AGB (Abschnitt 16). Alle Auszahlungen unterliegen einer Identitätsprüfung."
   }
 }

@@ -35,6 +35,13 @@ export type ChallengeTier = {
    */
   requiresPremium: boolean;
   /**
+   * Lowest membership that can enrol, in the database's vocabulary
+   * (`money_challenges.min_tier`: free / pro = Premium / elite). The €50
+   * flagship is Elite only since 22 Nov 2026
+   * (libo-app-v2/supabase-migration-flagship-elite-only.sql).
+   */
+  minTier: 'free' | 'pro' | 'elite';
+  /**
    * PLACEHOLDER photography. The designs show three distinct athlete shots that
    * are not in the handoff bundle; these are the closest existing assets. Swap
    * when real tier photography lands. (05-challenge-committed-desktop.png in the
@@ -51,6 +58,7 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     days: 30,
     name: 'Starter',
     requiresPremium: false,
+    minTier: 'free',
     image: '/images/marketing/cash-challenge-starter-ai.jpg',
   },
   {
@@ -65,6 +73,7 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     days: 30,
     name: 'Committed',
     requiresPremium: true,
+    minTier: 'pro',
     // Tier photo (Noah, 2026-08-07) — new filename to sidestep the CF asset cache.
     image: '/challenge-committed.jpg',
   },
@@ -75,6 +84,7 @@ export const CHALLENGE_TIERS: readonly ChallengeTier[] = [
     days: 30,
     name: 'Flagship',
     requiresPremium: true,
+    minTier: 'elite',
     image: '/images/marketing/cash-challenge-flagship-ai.jpg',
   },
 ] as const;
@@ -305,6 +315,23 @@ export function diffChallengeTiersAgainstDb(
           production: `min_tier = "${row.min_tier}" (i.e. requiresPremium would be ${minRequiresPremium})`,
         });
       }
+    }
+
+    // Which membership the gate names. The boolean above only says "paid";
+    // this catches a Premium <-> Elite move (the €50 went Elite on 22 Nov 2026).
+    // Only when the paid/free boolean agrees, so one change is reported once.
+    if (
+      row.min_tier != null && row.min_tier !== '' &&
+      (row.min_tier !== DB_FREE_TIER) === tier.requiresPremium &&
+      row.min_tier !== tier.minTier
+    ) {
+      drifts.push({
+        tier: tier.slug,
+        rowId: row.id,
+        field: 'minTier <-> min_tier',
+        published: tier.minTier,
+        production: `min_tier = "${row.min_tier}"`,
+      });
     }
 
     if (row.is_active === false) {

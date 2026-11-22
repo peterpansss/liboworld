@@ -1180,7 +1180,7 @@
       "q2": "How do the Cash Challenges work?",
       "a2": "Join a 30-day challenge (e.g. 100 reps daily), record yourself completing the reps each day — verified in-app, no way to cheat it — and cash out real money when you finish. Spots are limited, and your 30 days start the moment you join.",
       "q3": "Is Libo free?",
-      "a3": "Libo offers a free tier with access to workouts, exercises, basic tracking, an activity streak and points, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, a freeze token for every challenge and, with a paid subscription, the €15 and €50 challenge tiers.",
+      "a3": "Libo offers a free tier with access to workouts, exercises, basic tracking, an activity streak and points, and an entry-level cash challenge. Premium unlocks the full library, advanced analytics, a freeze token for every challenge and, with a paid subscription, the €15 challenge. Elite adds the €50 challenge.",
       "q4": "What equipment do I need?",
       "a4": "None — or everything. Libo has 396 home exercises (most need no equipment) and 432 gym exercises, including 50 mobility moves. Filter by what you have available.",
       "q5": "Can I build my own workouts?",
@@ -2062,7 +2062,7 @@
         "perk1": "All 140 guided workouts",
         "perk2": "Keep as many plans as you want, any length",
         "perk3": "30- and 90-day trends, plus the muscle heatmap",
-        "perk4": "Cash challenges up to €50",
+        "perk4": "The €15 cash challenge",
         "perk5": "1 freeze token per challenge, +1 you can earn, and 2× points",
         "cta": "Get Libo on the App Store →",
         "perk6": "{{count}} entries in every giveaway, +{{loyalty}} for each month you train"
@@ -2085,7 +2085,7 @@
     "faq": {
       "free": {
         "q": "Is Libo free?",
-        "a": "Yes — the free tier gets you the core workout and exercise library, basic progress tracking, your activity streak and points, and the entry-level €5 cash challenge. Premium unlocks the full library, advanced analytics and a freeze token for every challenge — and, with a paid subscription, cash challenges up to €50."
+        "a": "Yes — the free tier gets you the core workout and exercise library, basic progress tracking, your activity streak and points, and the entry-level €5 cash challenge. Premium unlocks the full library, advanced analytics and a freeze token for every challenge — and, with a paid subscription, the €15 cash challenge. The €50 challenge is part of Elite."
       },
       "challenges": {
         "q": "How do the cash challenges work?",
@@ -2157,7 +2157,7 @@
         "cta": "Get Premium in the app",
         "h1": "All 140 guided workouts, unlimited plans",
         "h2": "AI coach: 3 messages a day + voice notes",
-        "h3": "Cash challenges up to €50: €50 for 100 reps a day, 30 days",
+        "h3": "€15 cash challenge: 50 reps a day, 30 days",
         "h4": "2× points and community events",
         "h5": "{{count}} giveaway entries per round, +{{loyalty}} each month you train",
         "i1": "Everything in Free",
@@ -2165,7 +2165,7 @@
         "i3": "Keep as many plans as you want, any length",
         "i4": "30- and 90-day trends, plus the muscle heatmap",
         "i5": "AI coach: 3 messages a day, plus voice notes",
-        "i6": "Cash challenges up to €50: €15 for 50 reps a day or €50 for 100 reps a day, 30 days each",
+        "i6": "The €15 cash challenge: 50 reps a day for 30 days",
         "i7": "1 freeze token per challenge, +1 you can earn",
         "i8": "2× points on every workout",
         "i9": "Community events",
@@ -2177,13 +2177,13 @@
         "cta": "Get Elite in the app",
         "h0": "Everything in Premium",
         "h1": "AI coach: 10 messages a day + voice notes",
-        "h2": "Elite-only challenges, incl. creator challenges",
+        "h2": "€50 cash challenge (100 reps a day) + Elite-only creator challenges",
         "h3": "VIP events and early access to new features",
         "h4": "3× points on every workout",
         "h5": "{{count}} giveaway entries per round, +{{loyalty}} each month you train",
         "i1": "Everything in Premium",
         "i2": "AI coach: 10 messages a day, plus voice notes",
-        "i3": "Elite-only challenges, including creator challenges",
+        "i3": "Elite-only challenges: the €50 cash challenge (100 reps a day for 30 days) and creator challenges",
         "i4": "VIP events",
         "i5": "Early access to new features",
         "i6": "3× points on every workout",
@@ -2767,7 +2767,7 @@
       "qCancel": "Can I cancel Premium?",
       "aCancel": "Yes, any time, in your App Store or Google Play subscription settings. Premium runs until the end of the period you paid for.",
       "qChallengeHow": "How do cash challenges work?",
-      "aChallengeHow": "Join a 30-day challenge, film your reps each day so the app can verify them, and get paid in cash when you finish. €5 is free to join; the €15 and €50 challenges are for Premium members."
+      "aChallengeHow": "Join a 30-day challenge, film your reps each day so the app can verify them, and get paid in cash when you finish. €5 is free to join; the €15 challenge is for Premium and Elite members, the €50 challenge for Elite."
     },
     "footer": {
       "trainTitle": "Train"
