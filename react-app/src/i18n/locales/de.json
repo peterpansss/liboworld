@@ -2116,8 +2116,8 @@
         "i8": "2× Punkte für jedes Workout, {{days}} Tage gültig, plus der 20-€-Gutschein",
         "i9": "Community-Events",
         "i10": "{{count}} Lose pro Gewinnspiel-Runde, +{{loyalty}} für jeden Monat, in dem du trainierst",
-        "h6": "Sachprämien bis {{cap}} € nach {{months}} bezahlten Monaten am Stück",
-        "i11": "Sachprämien bis {{cap}} € nach {{months}} bezahlten Monaten am Stück"
+        "h6": "Sachprämien bis {{cap}} €",
+        "i11": "Sachprämien bis {{cap}} €"
       },
       "elite": {
         "name": "Elite",
@@ -2136,8 +2136,8 @@
         "i5": "Früher Zugang zu neuen Features",
         "i6": "3× Punkte für jedes Workout, {{days}} Tage gültig",
         "i7": "{{count}} Lose pro Gewinnspiel-Runde, +{{loyalty}} für jeden Monat, in dem du trainierst",
-        "h6": "Sachprämien jeden Werts nach {{months}} bezahlten Monaten am Stück mit Elite",
-        "i8": "Sachprämien jeden Werts nach {{months}} bezahlten Monaten am Stück mit Elite"
+        "h6": "Sachprämien jeden Werts",
+        "i8": "Sachprämien jeden Werts"
       }
     },
     "inclusions": {
@@ -2161,7 +2161,7 @@
       "t2": "Ein echter Coach in deiner Tasche",
       "b2": "Frag den KI-Coach zu deinem Training, deiner Technik oder deinem Plan. Text in jeder Mitgliedschaft, Sprachnachrichten mit Premium und Elite.",
       "t3": "Prämien, die du einlösen kannst",
-      "b3": "Jedes Workout bringt Punkte. Löse sie im Prämien-Shop gegen Gutscheine ein und nach genug bezahlten Monaten mit Premium oder Elite auch gegen Sachprämien.",
+      "b3": "Jedes Workout bringt Punkte. Löse sie im Prämien-Shop gegen Gutscheine ein und mit Premium oder Elite auch gegen Sachprämien.",
       "t4": "Challenges & Events nur für Mitglieder",
       "b4": "Community-Events mit Premium. Challenges nur für Elite, auch Creator-Challenges, und VIP-Events mit Elite."
     },

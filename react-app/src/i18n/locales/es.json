@@ -2116,8 +2116,8 @@
         "i8": "2× puntos en cada entrenamiento, válidos {{days}} días, y la tarjeta regalo de 20 €",
         "i9": "Eventos de la comunidad",
         "i10": "{{count}} participaciones por ronda de sorteo, +{{loyalty}} por cada mes que entrenas",
-        "h6": "Premios físicos de hasta {{cap}} € tras {{months}} meses de pago seguidos",
-        "i11": "Premios físicos de hasta {{cap}} € tras {{months}} meses de pago seguidos"
+        "h6": "Premios físicos de hasta {{cap}} €",
+        "i11": "Premios físicos de hasta {{cap}} €"
       },
       "elite": {
         "name": "Elite",
@@ -2136,8 +2136,8 @@
         "i5": "Acceso anticipado a nuevas funciones",
         "i6": "3× puntos en cada entrenamiento, válidos {{days}} días",
         "i7": "{{count}} participaciones por ronda de sorteo, +{{loyalty}} por cada mes que entrenas",
-        "h6": "Premios físicos de cualquier valor tras {{months}} meses de pago seguidos en Elite",
-        "i8": "Premios físicos de cualquier valor tras {{months}} meses de pago seguidos en Elite"
+        "h6": "Premios físicos de cualquier valor",
+        "i8": "Premios físicos de cualquier valor"
       }
     },
     "inclusions": {
@@ -2161,7 +2161,7 @@
       "t2": "Un coach de verdad en tu bolsillo",
       "b2": "Pregunta al coach de IA sobre tu entrenamiento, tu técnica o tu plan. Texto en todos los planes, notas de voz en Premium y Elite.",
       "t3": "Recompensas que puedes canjear",
-      "b3": "Cada entrenamiento suma puntos. Canjéalos por tarjetas regalo en la tienda de recompensas y, tras suficientes meses de pago en Premium o Elite, también por premios físicos.",
+      "b3": "Cada entrenamiento suma puntos. Canjéalos por tarjetas regalo en la tienda de recompensas y, con Premium o Elite, también por premios físicos.",
       "t4": "Retos y eventos solo para miembros",
       "b4": "Eventos de la comunidad en Premium. Retos solo para Elite, incluidos retos de creadores, y eventos VIP en Elite."
     },

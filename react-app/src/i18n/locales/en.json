@@ -2177,8 +2177,8 @@
         "i8": "2× points on every workout, kept {{days}} days, plus the €20 gift card",
         "i9": "Community events",
         "i10": "{{count}} giveaway entries per round, +{{loyalty}} for each month you train",
-        "h6": "Physical rewards up to €{{cap}} after {{months}} paid months in a row",
-        "i11": "Physical rewards up to €{{cap}} after {{months}} paid months in a row"
+        "h6": "Physical rewards up to €{{cap}}",
+        "i11": "Physical rewards up to €{{cap}}"
       },
       "elite": {
         "name": "Elite",
@@ -2197,8 +2197,8 @@
         "i5": "Early access to new features",
         "i6": "3× points on every workout, kept {{days}} days",
         "i7": "{{count}} giveaway entries per round, +{{loyalty}} for each month you train",
-        "h6": "Physical rewards of any value after {{months}} paid months in a row on Elite",
-        "i8": "Physical rewards of any value after {{months}} paid months in a row on Elite"
+        "h6": "Physical rewards of any value",
+        "i8": "Physical rewards of any value"
       }
     },
     "inclusions": {
@@ -2222,7 +2222,7 @@
       "t2": "A real coach in your pocket",
       "b2": "Ask the AI coach about your training, your form or your plan. Text on every plan, voice notes on Premium and Elite.",
       "t3": "Rewards you can spend",
-      "b3": "Every workout earns points. Spend them on gift cards in the rewards shop, and on physical rewards after enough paid months on Premium or Elite.",
+      "b3": "Every workout earns points. Spend them on gift cards in the rewards shop, and on physical rewards with Premium or Elite.",
       "t4": "Members-only challenges & events",
       "b4": "Community events on Premium. Elite-only challenges, including creator challenges, and VIP events on Elite."
     },
