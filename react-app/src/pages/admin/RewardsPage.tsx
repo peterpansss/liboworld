@@ -18,6 +18,7 @@ import {
   type RewardMinTier,
   type RewardKind,
 } from '../../lib/adminApi';
+import { ITEM_TIER_VALUE_CAP_EUR, ITEM_TIER_MIN_PAID_MONTHS, ITEM_POINTS_BY_TIER, ONE_ITEM_PER_DAYS } from '../../data/rewardsCatalog';
 
 /**
  * /admin/rewards — the rewards shop back office (points → gift code, or cash
@@ -26,7 +27,9 @@ import {
  *  (a) Redemption queue: pending first. "Mark sent" needs the gift code or
  *      the PayPal transaction ID and emails the member; "Reject" needs a note
  *      and refunds the points (admin_resolve_redemption writes the refund).
- *  (b) Catalogue editor: price, stock, active, min tier, brands.
+ *  (b) Catalogue editor: price, stock, active, min tier, brands. Items are
+ *      tiered (Noah, 22 Nov 2026): a value cap and a paid-months minimum per
+ *      tier, checked here and again by admin_upsert_reward_catalog.
  *
  * Fulfilment is manual by design while the member base is small, like
  * /admin/payouts. Budget (Noah, 13 Nov 2026): about €100 of stock a month.
@@ -158,9 +161,32 @@ function StatusChip({ status }: { status: RedemptionStatus }) {
 }
 
 function TierChip({ tier }: { tier: RewardMinTier }) {
+  if (tier === 'elite') return <span style={{ ...chipBase, background: colors.accentDim, color: colors.accent }}>Elite</span>;
   return tier === 'premium'
     ? <span style={{ ...chipBase, background: colors.accentDim, color: colors.accent }}>Premium</span>
     : <span style={{ ...chipBase, background: colors.bg3, color: colors.muted }}>All members</span>;
+}
+
+/** "up to €250" / "no cap": an item tier's value cap, for the form. */
+function itemCapLabel(tier: RewardMinTier): string {
+  const cap = ITEM_TIER_VALUE_CAP_EUR[tier];
+  return cap == null ? 'no value cap' : `up to ${formatEur(cap)}`;
+}
+
+/** The catalogue RPC's error codes (tiered items, 22 Nov 2026) as sentences. */
+const CATALOG_ERRORS: Record<string, string> = {
+  item_value_over_tier_cap:
+    `The value is over this tier's cap for items (Free up to €${ITEM_TIER_VALUE_CAP_EUR.free}, Premium up to €${ITEM_TIER_VALUE_CAP_EUR.premium}, Elite no cap). Lower the value or raise the tier.`,
+  paid_months_below_tier_minimum:
+    `Paid months in a row is below this tier's minimum (Free ${ITEM_TIER_MIN_PAID_MONTHS.free}, Premium ${ITEM_TIER_MIN_PAID_MONTHS.premium}, Elite ${ITEM_TIER_MIN_PAID_MONTHS.elite}).`,
+};
+
+function catalogErrorMessage(e: unknown): string {
+  const raw = e instanceof Error ? e.message : typeof e === 'object' && e && 'message' in e ? String((e as { message: unknown }).message) : '';
+  for (const [code, text] of Object.entries(CATALOG_ERRORS)) {
+    if (raw.includes(code)) return text;
+  }
+  return raw || 'Save failed';
 }
 
 function formatEur(n: number): string {
@@ -341,6 +367,8 @@ type CatalogForm = {
   active: boolean;
   sort_order: string;
   image_url: string;
+  /** Items only: paid months in a row needed. Prefilled with the tier default. */
+  min_paid_months: string;
 };
 
 const EMPTY_CATALOG_FORM: CatalogForm = {
@@ -357,6 +385,7 @@ const EMPTY_CATALOG_FORM: CatalogForm = {
   active: false,
   sort_order: '0',
   image_url: '',
+  min_paid_months: String(ITEM_TIER_MIN_PAID_MONTHS.free),
 };
 
 function catalogToForm(r: RewardCatalogRow): CatalogForm {
@@ -374,6 +403,7 @@ function catalogToForm(r: RewardCatalogRow): CatalogForm {
     active: r.active,
     sort_order: String(r.sort_order),
     image_url: r.image_url ?? '',
+    min_paid_months: String(r.min_paid_months ?? ITEM_TIER_MIN_PAID_MONTHS[r.min_tier]),
   };
 }
 
@@ -392,6 +422,19 @@ function formToCatalogInput(f: CatalogForm): RewardCatalogInput | string {
   if (total !== null && (!Number.isInteger(total) || total < 0)) return 'Total stock must be empty or a whole number, 0 or more.';
   const brands = f.kind === 'cash' ? [] : f.brands.split(',').map((b) => b.trim()).filter(Boolean);
   if (f.kind === 'gift' && brands.length === 0) return 'A gift card needs at least one brand.';
+  let minPaidMonths: number | null = null;
+  if (f.kind === 'item') {
+    // Same checks as admin_upsert_reward_catalog (Noah, 22 Nov 2026); the server enforces them too.
+    const cap = ITEM_TIER_VALUE_CAP_EUR[f.min_tier];
+    if (cap != null && value > cap) {
+      return `Value ${formatEur(value)} is over the ${f.min_tier} item cap of ${formatEur(cap)}. Lower it or raise the tier.`;
+    }
+    const minMonths = ITEM_TIER_MIN_PAID_MONTHS[f.min_tier];
+    minPaidMonths = f.min_paid_months.trim() === '' ? minMonths : Number(f.min_paid_months);
+    if (!Number.isInteger(minPaidMonths) || minPaidMonths < minMonths) {
+      return `Paid months in a row must be a whole number, at least ${minMonths} for ${f.min_tier} items.`;
+    }
+  }
   return {
     id: f.id,
     slug: f.slug.trim(),
@@ -406,6 +449,7 @@ function formToCatalogInput(f: CatalogForm): RewardCatalogInput | string {
     sort_order: sort,
     image_url: f.image_url.trim() ? f.image_url.trim() : null,
     total_stock: total,
+    min_paid_months: minPaidMonths,
   };
 }
 
@@ -570,7 +614,7 @@ export function RewardsPage() {
       setCatalogForm(null);
       await refreshCatalog();
     } catch (e2) {
-      setCatalogFormErr(e2 instanceof Error ? e2.message : 'Save failed');
+      setCatalogFormErr(catalogErrorMessage(e2));
     } finally {
       setCatalogSaving(false);
     }
@@ -688,7 +732,16 @@ export function RewardsPage() {
       {
         key: 'tier',
         header: 'Who',
-        render: (r) => <TierChip tier={r.min_tier} />,
+        render: (r) => (
+          <div>
+            <TierChip tier={r.min_tier} />
+            {r.kind === 'item' && (r.min_paid_months ?? ITEM_TIER_MIN_PAID_MONTHS[r.min_tier]) > 0 && (
+              <div style={{ color: colors.dim, fontSize: 11, marginTop: 4 }}>
+                {r.min_paid_months ?? ITEM_TIER_MIN_PAID_MONTHS[r.min_tier]} paid months in a row
+              </div>
+            )}
+          </div>
+        ),
       },
       {
         key: 'kind',
@@ -1017,7 +1070,10 @@ export function RewardsPage() {
               </Field>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-              <Field label="Value (€)">
+              <Field
+                label="Value (€)"
+                hint={catalogForm.kind === 'item' ? `${catalogForm.min_tier} items: ${itemCapLabel(catalogForm.min_tier)}` : undefined}
+              >
                 <TextInput
                   type="number"
                   min={1}
@@ -1038,10 +1094,22 @@ export function RewardsPage() {
               <Field label="Who can redeem">
                 <Select
                   value={catalogForm.min_tier}
-                  onChange={(e) => setCatalogForm({ ...catalogForm, min_tier: e.target.value as RewardMinTier })}
+                  onChange={(e) => {
+                    const next = e.target.value as RewardMinTier;
+                    // Follow the tier default unless the months were set by hand.
+                    const followsDefault =
+                      catalogForm.min_paid_months.trim() === '' ||
+                      Number(catalogForm.min_paid_months) === ITEM_TIER_MIN_PAID_MONTHS[catalogForm.min_tier];
+                    setCatalogForm({
+                      ...catalogForm,
+                      min_tier: next,
+                      min_paid_months: followsDefault ? String(ITEM_TIER_MIN_PAID_MONTHS[next]) : catalogForm.min_paid_months,
+                    });
+                  }}
                 >
                   <option value="free">All members</option>
-                  <option value="premium">Premium only</option>
+                  <option value="premium">Premium and Elite</option>
+                  <option value="elite">Elite only</option>
                 </Select>
               </Field>
             </div>
@@ -1055,6 +1123,29 @@ export function RewardsPage() {
                 <option value="item">Item (ship or cash)</option>
               </Select>
             </Field>
+            {catalogForm.kind === 'item' && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 12 }}>
+                <Field
+                  label="Paid months in a row"
+                  hint={`Tier minimum ${ITEM_TIER_MIN_PAID_MONTHS[catalogForm.min_tier]}${
+                    catalogForm.min_tier === 'elite' ? ' on Elite' : catalogForm.min_tier === 'premium' ? ' on Premium or higher' : ''
+                  }. Trials, offer-code free periods and comped memberships don't count.`}
+                >
+                  <TextInput
+                    type="number"
+                    min={ITEM_TIER_MIN_PAID_MONTHS[catalogForm.min_tier]}
+                    step={1}
+                    value={catalogForm.min_paid_months}
+                    onChange={(e) => setCatalogForm({ ...catalogForm, min_paid_months: e.target.value })}
+                  />
+                </Field>
+                <div style={{ fontSize: 12, color: colors.muted, lineHeight: 1.5, paddingTop: 22 }}>
+                  {catalogForm.min_tier} items: {itemCapLabel(catalogForm.min_tier)}, usually priced at{' '}
+                  {formatPoints(ITEM_POINTS_BY_TIER[catalogForm.min_tier])} points (the most a {catalogForm.min_tier} member can hold).
+                  One item per member per {ONE_ITEM_PER_DAYS} days; ID checked by hand before it ships or the cash is paid.
+                </div>
+              </div>
+            )}
             {catalogForm.kind === 'item' && (
               <Field label="Options (colours)" hint="Comma-separated, optional. The member picks one when it ships. Value (€) is the retail price; the cash alternative is 80% of it.">
                 <TextInput

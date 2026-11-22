@@ -87,7 +87,9 @@ export default function Rewards() {
                 <li key={it.title} className="rw-item" data-popin>
                   <span className="rw-item__stage"><PropImg name="iphone-duo" className="rw-item__prop" width={400} /></span>
                   <div className="rw-item__copy">
-                    {it.minTier === 'premium' && <span className="rw-badge">{t('earnPages.common.premium')}</span>}
+                    {/* Lowest plan that can redeem it (Free, Premium or Elite since 22 Nov 2026); the paid-months
+                        condition lives on /rewards-rules, per the no-condition-note rule above. */}
+                    {it.minTier !== 'free' && <span className="rw-badge">{t(`earnPages.common.${it.minTier}`)}</span>}
                     <span className="rw-item__title">{it.title}</span>
                     <span className="rw-card__pts">
                       {formatPoints(it.points)} <span>{t('earnPages.common.points')}</span>

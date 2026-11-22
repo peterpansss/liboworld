@@ -1639,7 +1639,8 @@ const REDEMPTION_METHODS = new Set<string>(['code', 'paypal', 'revolut', 'wise',
 /** 'gift' = a branded code; 'cash' = money to PayPal / Revolut / Wise / bank (Noah, 14 Nov 2026). */
 /** 'item' = a physical prize, shipped or the cash instead (Noah, 15 Nov 2026: iPhone Duo). */
 export type RewardKind = 'gift' | 'cash' | 'item';
-export type RewardMinTier = 'free' | 'premium';
+/** 'elite' since 22 Nov 2026 (Noah): Elite-only items. */
+export type RewardMinTier = 'free' | 'premium' | 'elite';
 
 export type RewardRedemptionRow = {
   id: string;
@@ -1690,6 +1691,8 @@ export type RewardCatalogRow = {
   image_url: string | null;
   /** Lifetime cap across all months, never shown to members. Null = none. */
   total_stock: number | null;
+  /** Items: paid months in a row needed to redeem (22 Nov 2026). Null = not sent by the database / tier default. */
+  min_paid_months: number | null;
 };
 
 export type RewardCatalogInput = {
@@ -1706,6 +1709,8 @@ export type RewardCatalogInput = {
   sort_order: number;
   image_url?: string | null;
   total_stock?: number | null;
+  /** Items only. Null = the tier default (free 0 / premium 6 / elite 12), decided by the RPC. */
+  min_paid_months?: number | null;
 };
 
 type Loose = Record<string, unknown>;
@@ -1765,7 +1770,7 @@ function normaliseCatalog(r: Loose): RewardCatalogRow {
     title: String(r.title ?? ''),
     value_eur: num(r.value_eur),
     points_cost: num(r.points_cost),
-    min_tier: r.min_tier === 'premium' ? 'premium' : 'free',
+    min_tier: r.min_tier === 'elite' ? 'elite' : r.min_tier === 'premium' ? 'premium' : 'free',
     kind: r.kind === 'cash' ? 'cash' : r.kind === 'item' ? 'item' : 'gift',
     brands: Array.isArray(r.brands) ? (r.brands as unknown[]).map(String) : [],
     monthly_stock: num(r.monthly_stock),
@@ -1776,6 +1781,7 @@ function normaliseCatalog(r: Loose): RewardCatalogRow {
     sort_order: num(r.sort_order),
     image_url: str(r.image_url),
     total_stock: r.total_stock == null ? null : num(r.total_stock),
+    min_paid_months: r.min_paid_months == null ? null : num(r.min_paid_months),
   };
 }
 
@@ -1849,6 +1855,9 @@ export async function upsertRewardCatalog_unsafe(input: RewardCatalogInput): Pro
     // Only sent when set, so the call still matches a database that predates
     // supabase-migration-reward-items.sql.
     ...(input.total_stock != null ? { p_total_stock: input.total_stock } : {}),
+    // Items only (supabase migration for tiered items, 22 Nov 2026): NULL = the tier default. Gift and cash
+    // cards leave it out, so their saves still match the function's older signature (needs DEFAULT NULL).
+    ...(input.kind === 'item' ? { p_min_paid_months: input.min_paid_months ?? null } : {}),
   });
   if (error) throw error;
   // Contract: returns the id. Tolerate an {ok,id,error} envelope too.

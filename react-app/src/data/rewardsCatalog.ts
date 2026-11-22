@@ -14,7 +14,10 @@
  * page's "Last updated" date in the same commit, or the rules go stale.
  */
 
-export type RewardTier = 'free' | 'premium';
+import { POINTS_MULTIPLIER } from './pointsTable';
+
+/** Lowest plan that can redeem a reward. 'elite' is used by items only (Noah, 22 Nov 2026). */
+export type RewardTier = 'free' | 'premium' | 'elite';
 
 export type PublishedReward = {
   /** Card value in euros. */
@@ -33,10 +36,38 @@ export const REWARDS_CATALOG: PublishedReward[] = [
   { valueEur: 20, points: 15000, minTier: 'premium' },
 ];
 
-/** Physical items (Noah, 15 Nov 2026). Value = the cash alternative. Mirrors reward_catalog kind 'item'. */
-export type PublishedItem = { title: string; valueEur: number; points: number; minTier: RewardTier };
+/**
+ * Physical items (Noah, 15 Nov 2026; tiered 22 Nov 2026). Value = the item's listed value; the cash alternative
+ * is itemCashEur(value). Mirrors reward_catalog kind 'item' (min_tier + min_paid_months).
+ */
+export type PublishedItem = {
+  title: string;
+  valueEur: number;
+  points: number;
+  minTier: RewardTier;
+  /** Paid months in a row (on minTier or higher; on Elite for Elite items) needed to redeem it. */
+  minPaidMonths: number;
+};
+
+/**
+ * Item tiers (Noah, 22 Nov 2026). Each plan can redeem items up to a value cap; higher plans can redeem lower-plan
+ * items. Mirrors the admin catalog RPC check ('item_value_over_tier_cap'). null = no cap.
+ */
+export const ITEM_TIER_VALUE_CAP_EUR: Record<RewardTier, number | null> = { free: 250, premium: 750, elite: null };
+/**
+ * Paid months in a row a member needs before redeeming an item of each tier (Noah, 22 Nov 2026): Premium items need
+ * 6 on Premium or higher, Elite items 12 on Elite. Trials, offer-code free periods and memberships given by Libo do
+ * not count. The admin RPC rejects less ('paid_months_below_tier_minimum'); NULL there means this default.
+ */
+export const ITEM_TIER_MIN_PAID_MONTHS: Record<RewardTier, number> = { free: 0, premium: 6, elite: 12 };
+/** One physical item per member per this many days (Noah, 22 Nov 2026), on top of REWARDS_COOLDOWN_DAYS. */
+export const ONE_ITEM_PER_DAYS = 365;
+/** Most base points a member can earn in a day, before the plan multiplier (canon REWARDS-ECONOMY-RULES §6). */
+export const POINTS_DAILY_BASE_CAP = 500;
+
 export const REWARDS_ITEMS: PublishedItem[] = [
-  { title: 'iPhone Duo 512 GB', valueEur: 2600, points: 29000, minTier: 'premium' },
+  // Elite, 12 paid months, 135,000 points since 22 Nov 2026 (Noah); was Premium, 29,000 points.
+  { title: 'iPhone Duo 512 GB', valueEur: 2600, points: 135000, minTier: 'elite', minPaidMonths: 12 },
 ];
 /** Cash instead of an item: 20% under its value, as a rule (Noah, 15 Nov 2026; _reward_item_cash_eur). */
 export const itemCashEur = (valueEur: number): number => Math.floor(valueEur * 0.8);
@@ -53,6 +84,19 @@ export const REWARDS_COOLDOWN_DAYS = 30;
 export const REWARDS_DELIVERY_DAYS = 7;
 /** Points shelf life by plan (canon REWARDS-ECONOMY-RULES §6.3). */
 export const POINTS_EXPIRY_DAYS = { free: 30, premium: 90, elite: 90 } as const; // Elite = Premium (Noah, 19 Nov 2026)
+
+/**
+ * Item price by tier (Noah, 22 Nov 2026): the most points a member on that plan can hold, i.e. the daily base cap
+ * x plan multiplier x points shelf life. Free 500x1x30 = 15,000; Premium 500x2x90 = 90,000; Elite 500x3x90 = 135,000.
+ */
+export const ITEM_POINTS_BY_TIER: Record<RewardTier, number> = {
+  free: POINTS_DAILY_BASE_CAP * POINTS_MULTIPLIER.free * POINTS_EXPIRY_DAYS.free,
+  premium: POINTS_DAILY_BASE_CAP * POINTS_MULTIPLIER.premium * POINTS_EXPIRY_DAYS.premium,
+  elite: POINTS_DAILY_BASE_CAP * POINTS_MULTIPLIER.elite * POINTS_EXPIRY_DAYS.elite,
+};
+
+/** Plan names, for copy generated from the tiers (rules page). */
+export const TIER_LABEL: Record<RewardTier, string> = { free: 'Free', premium: 'Premium', elite: 'Elite' };
 
 /** "4,000" with a comma separator regardless of the reader's locale. */
 export function formatPoints(n: number): string {
