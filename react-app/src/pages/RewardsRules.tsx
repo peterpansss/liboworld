@@ -10,7 +10,9 @@ import {
   REWARDS_COOLDOWN_DAYS,
   REWARDS_DELIVERY_DAYS,
   POINTS_EXPIRY_DAYS,
-  formatPoints, REWARDS_ITEMS, ITEM_SHIP_AREA, itemCashEur } from '../data/rewardsCatalog';
+  formatPoints, REWARDS_ITEMS, ITEM_SHIP_AREA, itemCashEur,
+  ITEM_TIER_VALUE_CAP_EUR, ITEM_TIER_MIN_PAID_MONTHS, ONE_ITEM_PER_DAYS,
+  type RewardTier, type PublishedItem } from '../data/rewardsCatalog';
 import './Legal.css';
 
 /**
@@ -31,7 +33,33 @@ import './Legal.css';
  *  - Name each amount together with its condition (points + who can redeem).
  *  - The excluded places come from GIVEAWAY_EXCLUDED so the two rules pages
  *    can never disagree.
+ *  - Item tiers (Noah, 22 Nov 2026): value caps, paid months in a row and the
+ *    one-item-per-year limit are generated from the constants in
+ *    rewardsCatalog.ts, never typed in here.
  */
+
+/** Who can redeem a gift or cash card of this tier. */
+function cardEligibility(tier: RewardTier): string {
+  if (tier === 'elite') return 'Elite members only';
+  return tier === 'premium' ? 'Premium and Elite members only' : 'All members';
+}
+
+/** "6 paid months in a row", "1 paid month in a row". */
+function paidMonths(n: number): string {
+  return `${n} paid month${n === 1 ? '' : 's'} in a row`;
+}
+
+/** Who can redeem an item, e.g. "Elite members with 12 paid months in a row". */
+function itemEligibility(it: PublishedItem): string {
+  const who = it.minTier === 'elite' ? 'Elite members' : it.minTier === 'premium' ? 'Premium and Elite members' : 'All members';
+  return it.minPaidMonths > 0 ? `${who} with ${paidMonths(it.minPaidMonths)}` : who;
+}
+
+/** "up to €250" or "of any value". */
+function itemValueLimit(tier: RewardTier): string {
+  const cap = ITEM_TIER_VALUE_CAP_EUR[tier];
+  return cap == null ? 'of any value' : `worth up to €${formatPoints(cap)}`;
+}
 export default function RewardsRules() {
   let sectionNo = 0;
   const n = () => String(++sectionNo).padStart(2, '0');
@@ -73,7 +101,8 @@ export default function RewardsRules() {
               You can swap them for a reward of a fixed value: {priceList(openToAll)} for every
               member, or {priceList(premiumOnly)} for Premium and Elite members only. Each value comes as a
               gift card or as cash (PayPal, Revolut, Wise or bank transfer), while this
-              month&rsquo;s stock lasts. Premium and Elite members can also swap them for physical items, shipped or as cash instead. No chance is
+              month&rsquo;s stock lasts. You can also swap them for physical items, shipped or as cash instead: which items you can
+              redeem depends on your plan and how many months in a row you have paid for it. No chance is
               involved: this is not a prize draw. Libo Points have no cash value and can&rsquo;t be
               bought, sold or transferred.
             </p>
@@ -86,6 +115,7 @@ export default function RewardsRules() {
               <li><a href="#operator">Who Runs the Rewards</a></li>
               <li><a href="#points">What Libo Points Are</a></li>
               <li><a href="#catalogue">The Catalogue</a></li>
+              <li><a href="#items">Physical Items</a></li>
               <li><a href="#stock">Monthly Stock</a></li>
               <li><a href="#who">Who Can Redeem</a></li>
               <li><a href="#where">Where You Can Redeem</a></li>
@@ -137,14 +167,14 @@ export default function RewardsRules() {
                     <tr key={r.valueEur}>
                       <td><strong>&euro;{r.valueEur}</strong></td>
                       <td>{formatPoints(r.points)} Libo Points</td>
-                      <td>{r.minTier === 'premium' ? 'Premium and Elite members only' : 'All members'}</td>
+                      <td>{cardEligibility(r.minTier)}</td>
                     </tr>
                   ))}
                   {REWARDS_ITEMS.map((r) => (
                     <tr key={r.title}>
                       <td><strong>{r.title}</strong> (or &euro;{formatPoints(itemCashEur(r.valueEur))} cash)</td>
                       <td>{formatPoints(r.points)} Libo Points</td>
-                      <td>{r.minTier === 'premium' ? 'Premium and Elite members only' : 'All members'}</td>
+                      <td>{itemEligibility(r)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -155,9 +185,28 @@ export default function RewardsRules() {
               <li><strong>Gift card:</strong> a gift code of that value, from a brand you choose among the brands shown in the app for that reward.</li>
               <li><strong>Cash:</strong> a payment of that value to your own PayPal, Revolut or Wise account, or by bank transfer (SEPA) to your own bank account.</li>
             </ul>
-            <p><strong>Items</strong> are physical rewards. You choose: we ship the item free to an address in {ITEM_SHIP_AREA} (you pick the option, such as the colour, where there is one), or you take the cash instead: <strong>80% of the item&rsquo;s listed value</strong>, paid the same way as a cash reward. Outside {ITEM_SHIP_AREA}, items are cash only. Items are limited and may not come back once claimed.</p>
+            <p><strong>Items</strong> are physical rewards. Who can redeem them is set out in <a href="#items">Physical Items</a> below. You choose: we ship the item free to an address in {ITEM_SHIP_AREA} (you pick the option, such as the colour, where there is one), or you take the cash instead: <strong>80% of the item&rsquo;s listed value</strong>, paid the same way as a cash reward. Outside {ITEM_SHIP_AREA}, items are cash only. Items are limited and may not come back once claimed.</p>
             <p><strong>Each code is subject to its issuer&rsquo;s terms.</strong> The brand that issues a gift code sets how and where it can be used, and for how long. We are not responsible for the issuer&rsquo;s terms or service.</p>
-            <p>A &ldquo;Premium member&rdquo; is a member with an active, paid Premium membership on the day they redeem, or a member who has been given Premium by Libo directly (for example through a company partnership). An &ldquo;Elite member&rdquo; is the same with an active, paid Elite membership; every reward open to Premium members is also open to Elite members. Free trial periods and free weeks from offer codes do not count.</p>
+            <p>A &ldquo;Premium member&rdquo; is a member with an active, paid Premium membership on the day they redeem, or a member who has been given Premium by Libo directly (for example through a company partnership). An &ldquo;Elite member&rdquo; is the same with an active, paid Elite membership; every reward open to Premium members is also open to Elite members. Free trial periods and free weeks from offer codes do not count. Physical items also need a number of paid months in a row, which a membership given by Libo does not count towards (see <a href="#items">Physical Items</a>).</p>
+          </section>
+
+          <section className="legal-section" id="items">
+            <div className="legal-section-num">{n()}</div>
+            <h2>Physical Items</h2>
+            <p>Each item belongs to a plan. Which items you can redeem depends on your plan and on how many months in a row you have paid for it:</p>
+            <ul>
+              <li><strong>Free items</strong> are {itemValueLimit('free')}. All members can redeem them{ITEM_TIER_MIN_PAID_MONTHS.free > 0 ? ` after ${paidMonths(ITEM_TIER_MIN_PAID_MONTHS.free)}` : ''}.</li>
+              <li><strong>Premium items</strong> are {itemValueLimit('premium')}. Premium and Elite members can redeem them once they have {paidMonths(ITEM_TIER_MIN_PAID_MONTHS.premium)} on Premium or Elite.</li>
+              <li><strong>Elite items</strong> can be {itemValueLimit('elite')}. Elite members can redeem them once they have {paidMonths(ITEM_TIER_MIN_PAID_MONTHS.elite)} on Elite.</li>
+              <li><strong>A higher plan can redeem a lower plan&rsquo;s items</strong>, on that plan&rsquo;s conditions. For example, an Elite member can redeem a Premium item once they have {paidMonths(ITEM_TIER_MIN_PAID_MONTHS.premium)} on Premium or Elite.</li>
+            </ul>
+            <p>The catalogue above shows the plan and the number of paid months for each item. An item may ask for more paid months than its plan&rsquo;s minimum; it never asks for fewer.</p>
+            <p><strong>What counts as a paid month.</strong> A paid month is a month of Premium or Elite membership that you paid for, monthly or as part of a yearly membership. These do not count as paid months: free trial periods, free periods from offer codes, and memberships given by Libo (for example through a company partnership). &ldquo;In a row&rdquo; means without a break: a month that is not a paid month on the required plan ends the run, and the count starts again.</p>
+            <ul>
+              <li><strong>One item per member per {ONE_ITEM_PER_DAYS} days</strong>, counted from the day you redeem it, whether you take the item or the cash instead. This is on top of the limit of one reward per {REWARDS_COOLDOWN_DAYS} days.</li>
+              <li><strong>We check your ID first.</strong> Before we ship an item, or pay its cash instead, a person at Libo checks your official photo ID (such as a passport or national ID card) by hand. We ship only to the name on the ID, and pay the cash only to an account in that name.</li>
+              <li><strong>If we can&rsquo;t confirm your identity, we reject the request</strong> and your Libo Points are returned. The delivery time for an item starts once your ID has been checked.</li>
+            </ul>
           </section>
 
           <section className="legal-section" id="stock">
@@ -200,7 +249,7 @@ export default function RewardsRules() {
             <h2>How to Redeem &amp; Delivery</h2>
             <ul>
               <li><strong>In the app:</strong> pick a reward, choose a brand (gift card), how you want to be paid (cash), or shipping or cash (item), and confirm. The Libo Points are taken from your balance when you confirm.</li>
-              <li><strong>One reward per member per {REWARDS_COOLDOWN_DAYS} days.</strong></li>
+              <li><strong>One reward per member per {REWARDS_COOLDOWN_DAYS} days</strong>, and no more than one physical item per {ONE_ITEM_PER_DAYS} days (see <a href="#items">Physical Items</a>).</li>
               <li><strong>Delivery within {REWARDS_DELIVERY_DAYS} days by email.</strong> A person checks every request before it is sent. We email the gift code, or send the cash to the account details you gave us and email you when it&rsquo;s sent. A shipped item is sent within the same time, and we email you the tracking number.</li>
               <li><strong>If we reject a request, your Libo Points are returned.</strong> We tell you the reason. For example, we reject a request if you don&rsquo;t meet the conditions in these rules.</li>
               <li><strong>Check your payment details.</strong> If you give us a wrong email, phone number, tag, IBAN or address, we can&rsquo;t always get the payment or item back.</li>
