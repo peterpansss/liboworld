@@ -32,6 +32,6 @@ describe('train and earn ad', () => {
   it('serves 16:9 on wide screens and 9:16 on phones', () => {
     expect(adVideo('en', 'wide').src).toContain('train-and-earn-en-1080p.mp4');
     expect(adVideo('de', 'tall').src).toContain('train-and-earn-de-vertical.mp4');
-    expect(adVideo('de', 'tall').poster).toBe('/ad-media/train-and-earn-de-9x16-poster.webp?v=2');
+    expect(adVideo('de', 'tall').poster).toBe('/ad-media/train-and-earn-de-9x16-poster.webp?v=3');
   });
 });
