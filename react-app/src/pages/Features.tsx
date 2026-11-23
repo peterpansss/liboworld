@@ -37,14 +37,14 @@ const EXTRAS = ['streak', 'offline', 'languages', 'settings', 'notes', 'equipmen
  * look). Real exercise frames from the library, never AI imagery. Links use
  * the /workouts filters; 30-day programs live in the app only.
  */
-const THUMB_V = 'v=5';
+const THUMB_V = 'v=6';
 const FORMATS: { id: string; thumb: string; to?: string }[] = [
   { id: 'gym', thumb: 'cable_chest_fly_mid', to: '/workouts?cat=Gym' },
   { id: 'home', thumb: 'burpee', to: '/workouts?cat=Home' },
   { id: 'cardio', thumb: 'assault_air_bike_intervals', to: '/workouts?goal=Cardio' },
   { id: 'stretching', thumb: 'couch_stretch', to: '/workouts?cat=Stretching' },
-  { id: 'routines', thumb: 'cat_cow', to: '/workouts?goal=Morning' },
-  { id: 'programs', thumb: 'archer_push_up' },
+  { id: 'routines', thumb: 'standing_quad_stretch', to: '/workouts?goal=Morning' },
+  { id: 'programs', thumb: 'active_dead_hang' },
 ];
 
 export default function Features() {
@@ -85,11 +85,10 @@ export default function Features() {
             {FORMATS.map((f) => {
               const inner = (
                 <>
-                  <picture>
+                  <picture className="ft-format__media">
                     <source srcSet={`/images/thumbnails/exercises/${f.thumb}.webp?${THUMB_V}`} type="image/webp" />
                     <img src={`/images/thumbnails/exercises/${f.thumb}.jpg?${THUMB_V}`} alt="" loading="lazy" decoding="async" width={1440} height={1080} />
                   </picture>
-                  <span className="ft-format__shade" aria-hidden="true" />
                   <span className="ft-format__copy">
                     <strong>{t(`earnPages.features.formats.${f.id}.title`)}</strong>
                     <span>{t(`earnPages.features.formats.${f.id}.text`)}</span>
