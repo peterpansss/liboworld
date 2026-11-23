@@ -87,11 +87,14 @@
 /* ── Train your way: format tiles on real exercise frames (18 Nov 2026) ── */
 .ft-formats__sub { margin: -16px auto 32px; max-width: 560px; text-align: center; color: var(--muted); font-size: 17px; line-height: 1.5; }
 .ft-formats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-@media (min-width: 900px) { .ft-formats { grid-template-columns: repeat(3, 1fr); gap: 16px; } .ft-format { aspect-ratio: 1 / 1; } }
+.ft-formats > li { display: flex; }
+/* Photo on top at its native 4:3 (nothing cropped, nobody behind the text),
+   copy on the card below. Replaced the full-bleed overlay tiles 24 Nov 2026:
+   floor exercises sat in the bottom third, under the title. */
 .ft-format {
-  position: relative;
-  display: block;
-  aspect-ratio: 4 / 5;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   border-radius: 16px;
   overflow: hidden;
   background: var(--card);
@@ -100,9 +103,10 @@
   transition: transform 0.2s ease;
 }
 a.ft-format:hover { transform: translateY(-2px); }
-.ft-format img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.ft-format__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%); }
-.ft-format__copy { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 4px; padding: 16px; }
+.ft-format__media { display: block; aspect-ratio: 4 / 3; overflow: hidden; }
+.ft-format__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+a.ft-format:hover .ft-format__media img { transform: scale(1.03); }
+.ft-format__copy { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 16px 18px 18px; }
 .ft-format__copy strong {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800;
@@ -110,9 +114,10 @@ a.ft-format:hover { transform: translateY(-2px); }
   line-height: 1;
   text-transform: uppercase;
 }
-.ft-format__copy > span { color: rgba(255, 255, 255, 0.8); font-size: 14px; line-height: 1.4; }
+.ft-format__copy > span { color: var(--muted); font-size: 14px; line-height: 1.4; }
 .ft-format__copy em {
-  margin-top: 6px;
+  margin-top: auto;
+  padding-top: 10px;
   color: var(--accent);
   font-style: normal;
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
@@ -121,4 +126,5 @@ a.ft-format:hover { transform: translateY(-2px); }
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
-@media (max-width: 480px) { .ft-format__copy > span { display: none; } .ft-format { aspect-ratio: 3 / 4; } }
+@media (min-width: 900px) { .ft-formats { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+@media (max-width: 480px) { .ft-format__copy > span { display: none; } .ft-format__copy { padding: 12px 12px 14px; } .ft-format__copy strong { font-size: 20px; } }
