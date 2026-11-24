@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getWorkouts, getExercises, type Exercise, type Workout } from '../data/exercises';
 import { localizedWorkoutName } from '../utils/workoutLocale';
 import { buildPlayableExerciseNames, filterPlayableWorkouts } from '../lib/playableWorkouts';
-import { buildNameToSlug, workoutHeroThumbSet } from '../utils/thumbnails';
+import { buildNameToSlug, workoutThumbCandidates, type ThumbnailSet } from '../utils/thumbnails';
 import { ThumbPicture } from '../components/ThumbPicture';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
@@ -237,8 +237,39 @@ export default function ProgramLibrary() {
     setSearchParams({}, { replace: true });
   }
 
-  function renderCard(w: Workout) {
-    const heroThumb = workoutHeroThumbSet(w, nameToSlug, exercises);
+  /**
+   * The three cards a section shows. Unfiltered ("All"), take one workout per
+   * category in turn, Gym first then Home, so Strength isn't three 30-day
+   * challenges. Then give each card the first frame from its own workout that
+   * the row hasn't used yet, so no two cards share a photo (24 Nov 2026).
+   */
+  function pickRow(items: Workout[]): { w: Workout; thumb: ThumbnailSet | null }[] {
+    let row = items.slice(0, 3);
+    if (!cat) {
+      const byCat = new Map<string, Workout[]>();
+      for (const w of items) {
+        if (!byCat.has(w.cat)) byCat.set(w.cat, []);
+        byCat.get(w.cat)!.push(w);
+      }
+      const rank = (c: string) => (c === 'Gym' ? 0 : c === 'Home' ? 1 : 2);
+      const queues = [...byCat.entries()]
+        .sort((a, b) => rank(a[0]) - rank(b[0]))
+        .map(([, list]) => list);
+      row = [];
+      for (let i = 0; row.length < 3 && queues.some((q) => i < q.length); i++) {
+        for (const q of queues) if (i < q.length && row.length < 3) row.push(q[i]);
+      }
+    }
+    const used = new Set<string>();
+    return row.map((w) => {
+      const options = workoutThumbCandidates(w, nameToSlug, exercises);
+      const thumb = options.find((o) => !used.has(o.jpeg)) ?? options[0] ?? null;
+      if (thumb) used.add(thumb.jpeg);
+      return { w, thumb };
+    });
+  }
+
+  function renderCard({ w, thumb: heroThumb }: { w: Workout; thumb: ThumbnailSet | null }) {
     const level = diffClass(w.diff) as DiffLevel;
     return (
       <Link key={w.id} to={`/workouts/${w.id}`} className="el-card wk-cover">
@@ -427,7 +458,7 @@ export default function ProgramLibrary() {
                         <h2 id={`wk-group-${g}`} className="wk-group-title font-display">{goalLabel(g)}</h2>
                       </header>
                       <div className="wk-group-grid">
-                        {items.slice(0, 3).map(renderCard)}
+                        {pickRow(items).map(renderCard)}
                       </div>
                     </section>
                   );

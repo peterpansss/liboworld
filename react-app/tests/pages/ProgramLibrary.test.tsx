@@ -37,7 +37,7 @@ vi.mock('../../src/utils/icons', () => ({
 }));
 vi.mock('../../src/utils/thumbnails', () => ({
   buildNameToSlug: () => ({}),
-  workoutHeroThumbSet: () => null,
+  workoutThumbCandidates: () => [],
 }));
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({

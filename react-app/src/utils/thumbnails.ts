@@ -217,15 +217,14 @@ export function buildNameToSlug(exercises: Exercise[]): Record<string, string> {
   return map;
 }
 
-function workoutHeroExercise(
-  workout: Workout,
+/** Resolve one workout entry to the exercise whose frame we show (a parent
+ * canonical with no video of its own borrows a child variant's frame). */
+function resolveThumbExercise(
+  entry: WorkoutExercise,
   nameToSlug: Record<string, string>,
   exercises?: Exercise[]
 ): Exercise | undefined {
-  const main = workout.exercises.find((e: WorkoutExercise) => e.phase === 'main');
-  const hero = main ?? workout.exercises[0];
-  if (!hero) return undefined;
-  const slug = nameToSlug[hero.name];
+  const slug = nameToSlug[entry.name];
   if (!slug) return undefined;
   const ex = exercises?.find(e => e.id === slug);
   if (!ex) return undefined;
@@ -237,6 +236,45 @@ function workoutHeroExercise(
     if (childWithVideo) return childWithVideo;
   }
   return ex;
+}
+
+function workoutHeroExercise(
+  workout: Workout,
+  nameToSlug: Record<string, string>,
+  exercises?: Exercise[]
+): Exercise | undefined {
+  const main = workout.exercises.find((e: WorkoutExercise) => e.phase === 'main');
+  const hero = main ?? workout.exercises[0];
+  if (!hero) return undefined;
+  return resolveThumbExercise(hero, nameToSlug, exercises);
+}
+
+/**
+ * Every distinct frame a workout card could show, hero first, then the other
+ * main-phase exercises, then warm-up/cool-down. Lets a row of cards avoid
+ * showing the same photo twice while every image stays an exercise from that
+ * workout (24 Nov 2026).
+ */
+export function workoutThumbCandidates(
+  workout: Workout,
+  nameToSlug: Record<string, string>,
+  exercises?: Exercise[]
+): ThumbnailSet[] {
+  const hero = workoutHeroExercise(workout, nameToSlug, exercises);
+  const rest = [
+    ...workout.exercises.filter((e: WorkoutExercise) => e.phase === 'main'),
+    ...workout.exercises.filter((e: WorkoutExercise) => e.phase !== 'main'),
+  ].map((e) => resolveThumbExercise(e, nameToSlug, exercises));
+  const out: ThumbnailSet[] = [];
+  const seen = new Set<string>();
+  for (const ex of [hero, ...rest]) {
+    const jpg = exerciseThumb(ex);
+    if (!jpg || seen.has(jpg)) continue;
+    seen.add(jpg);
+    const set = exerciseThumbSet(ex);
+    if (set) out.push(set);
+  }
+  return out;
 }
 
 export function workoutHeroThumb(
