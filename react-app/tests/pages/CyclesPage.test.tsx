@@ -129,30 +129,38 @@ describe('CyclesPage', () => {
     expect(screen.getByText(/1 total · 1 enrollment_open · 0 running · 0 completed/)).toBeInTheDocument();
   });
 
-  it('Slots column shows seeded display (active+seed / max+seed) with a real-cap note', async () => {
+  it('"In this run" shows the people in that one run, with no cap or seed', async () => {
     listChallengeCyclesMock.mockResolvedValue([
-      cycle({ status: 'enrollment_open', max_participants: 30, display_seed: 20, active_count: 3 }),
+      cycle({ status: 'running', max_participants: 30, display_seed: 20, active_count: 1 }),
     ]);
     listMoneyChallengesMock.mockResolvedValue([]);
     render(<CyclesPage />);
     await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
-    // displayActive = 3 + 20 = 23, displayTotal = 30 + 20 = 50
-    expect(screen.getByText('23')).toBeInTheDocument();
-    expect(screen.getByText('/ 50')).toBeInTheDocument();
-    // real-cap note only when seed > 0
-    expect(screen.getByText('pays 30')).toBeInTheDocument();
+    expect(screen.getByText('In this run')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.queryByText('/ 50')).not.toBeInTheDocument();
+    expect(screen.queryByText(/^pays /)).not.toBeInTheDocument();
+    // the internal challenge id is no longer shown under the title
+    expect(screen.queryByText('ch-1')).not.toBeInTheDocument();
   });
 
-  it('Slots column with seed 0 shows plain active / max (no pays note)', async () => {
+  it('sums spots taken across every run of a challenge against its cap', async () => {
     listChallengeCyclesMock.mockResolvedValue([
-      cycle({ status: 'enrollment_open', max_participants: 50, display_seed: 0, active_count: 10 }),
+      cycle({ id: 'a', status: 'running', active_count: 1 }),
+      cycle({ id: 'b', status: 'running', active_count: 1 }),
+      cycle({ id: 'c', status: 'running', active_count: 1 }),
+      cycle({ id: 'd', status: 'completed', active_count: 0 }),
     ]);
-    listMoneyChallengesMock.mockResolvedValue([]);
+    listMoneyChallengesMock.mockResolvedValue([
+      ch({ reward_amount: 5, reps_per_day: 30, max_participants: 10 }),
+      ch({ id: 'ch-2', reward_amount: 50, reps_per_day: 100, max_participants: null }),
+      ch({ id: 'ch-off', reward_amount: 99, is_active: false }),
+    ]);
     render(<CyclesPage />);
-    await waitFor(() => expect(screen.getByText('Pushup 30')).toBeInTheDocument());
-    expect(screen.getByText('10')).toBeInTheDocument();
-    expect(screen.getByText('/ 50')).toBeInTheDocument();
-    expect(screen.queryByText(/^pays /)).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText('3 of 10 spots taken')).toBeInTheDocument());
+    expect(screen.getByText('€5 · 30 reps a day')).toBeInTheDocument();
+    expect(screen.getByText('0 taken (no cap)')).toBeInTheDocument();
+    expect(screen.queryByText(/€99/)).not.toBeInTheDocument();
   });
 
   it('list cycles error surfaces', async () => {
