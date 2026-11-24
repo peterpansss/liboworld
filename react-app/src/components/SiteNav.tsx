@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ScrollProgress } from './motion/Motion';
 import { detectPlatform, storeUrlFor } from '../utils/storeRedirect';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -25,13 +25,25 @@ const TOP_EARN_LINKS = [
   { id: 'challenges', to: '/cash-challenges' },
   { id: 'giveaway', to: '/giveaway' },
 ] as const;
-const EARN_LINKS = [
-  { id: 'howItWorks', descKey: 'earnPages.next.earn.text', to: '/earn', prop: 'libo-coin' },
-  { id: 'rewards', descKey: 'earnPages.next.rewards.text', to: '/rewards', prop: 'reward-cards-fan' },
-] as const;
+type MenuLink = { id: string; descKey: string; to: string; img: string; photo?: boolean };
+const EARN_LINKS: readonly MenuLink[] = [
+  { id: 'howItWorks', descKey: 'earnPages.next.earn.text', to: '/earn', img: '/props/libo-coin-360.webp?v=2' },
+  { id: 'rewards', descKey: 'earnPages.next.rewards.text', to: '/rewards', img: '/props/reward-cards-fan-360.webp?v=2' },
+];
+// 24 Nov 2026 (Noah): Features is a menu too, so the Blueprint and the
+// Creator Program have a home in the bar, not only in the footer.
+const FEATURE_LINKS: readonly MenuLink[] = [
+  { id: 'allFeatures', descKey: 'earnPages.navDesc.features', to: '/features', img: '/props/dumbbell-hex-lime-360.webp?v=2' },
+  { id: 'blueprint', descKey: 'earnPages.navDesc.blueprint', to: '/blueprint', img: '/downloads/blueprint/after-2024-05-v1.jpg', photo: true },
+  { id: 'creatorProgram', descKey: 'earnPages.navDesc.creator', to: '/creator-program', img: '/props/tripod-phone-360.webp?v=2' },
+];
+type MenuId = 'earn' | 'features';
+const MENUS: { id: MenuId; labelKey: string; defaultLabel: string; links: readonly MenuLink[] }[] = [
+  { id: 'earn', labelKey: 'earnPages.nav.earn', defaultLabel: 'Earn', links: EARN_LINKS },
+  { id: 'features', labelKey: 'earnPages.nav.features', defaultLabel: 'Features', links: FEATURE_LINKS },
+];
 
 const NAV_LINKS = [
-  { labelKey: 'earnPages.nav.features', defaultLabel: 'Features', to: '/features' },
   // Exercises: footer only since 18 Nov 2026 (Noah). The bar is for the
   // offer (earn, features, membership), the library is an SEO page.
   { labelKey: 'earnPages.nav.membership', defaultLabel: 'Membership', to: '/membership' },
@@ -92,24 +104,25 @@ export default function SiteNav() {
   };
 
   const closeRef = useRef<HTMLButtonElement>(null);
-  const [earnOpen, setEarnOpen] = useState(false);
-  const earnRef = useRef<HTMLLIElement>(null);
-  // Hover opens the menu on desktop; the click that usually follows the hover
+  const [openMenu, setOpenMenu] = useState<MenuId | null>(null);
+  const menuRefs = useRef<Partial<Record<MenuId, HTMLLIElement | null>>>({});
+  // Hover opens a menu on desktop; the click that usually follows the hover
   // must not then toggle it shut. Touch and keyboard toggle normally.
-  const earnHoverOpened = useRef(false);
-  const earnActive = EARN_LINKS.some((l) => location.pathname.startsWith(l.to));
+  const hoverOpened = useRef(false);
 
-  // Close the Earn menu on route change, outside click and Escape.
-  useEffect(() => { setEarnOpen(false); }, [location.pathname]);
+  // Close the open menu on route change, outside click and Escape.
+  useEffect(() => { setOpenMenu(null); }, [location.pathname]);
   useEffect(() => {
-    if (!earnOpen) return;
+    if (!openMenu) return;
+    const el = () => menuRefs.current[openMenu];
     const onDown = (e: MouseEvent) => {
-      if (earnRef.current && !earnRef.current.contains(e.target as Node)) setEarnOpen(false);
+      const node = el();
+      if (node && !node.contains(e.target as Node)) setOpenMenu(null);
     };
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setEarnOpen(false);
-        (earnRef.current?.querySelector('button') as HTMLButtonElement | null)?.focus();
+        setOpenMenu(null);
+        (el()?.querySelector('button') as HTMLButtonElement | null)?.focus();
       }
     };
     document.addEventListener('mousedown', onDown);
@@ -118,7 +131,59 @@ export default function SiteNav() {
       document.removeEventListener('mousedown', onDown);
       document.removeEventListener('keydown', onKey);
     };
-  }, [earnOpen]);
+  }, [openMenu]);
+
+  function renderMenu(menu: (typeof MENUS)[number]) {
+    const open = openMenu === menu.id;
+    const active = menu.links.some((l) => location.pathname.startsWith(l.to));
+    return (
+      <li
+        key={menu.id}
+        ref={(node) => { menuRefs.current[menu.id] = node; }}
+        className={`site-nav__dropdown${open ? ' site-nav__dropdown--open' : ''}`}
+        onMouseEnter={() => {
+          if (!open) hoverOpened.current = true;
+          setOpenMenu(menu.id);
+          menu.links.forEach((l) => prefetchRoute(l.to));
+        }}
+        onMouseLeave={() => { hoverOpened.current = false; setOpenMenu(null); }}
+      >
+        <button
+          type="button"
+          className={`site-nav__link site-nav__dropdown-trigger${active ? ' site-nav__link--active' : ''}`}
+          aria-expanded={open}
+          aria-controls={`nav-${menu.id}-menu`}
+          onClick={() => {
+            if (hoverOpened.current) { hoverOpened.current = false; setOpenMenu(menu.id); return; }
+            setOpenMenu(open ? null : menu.id);
+          }}
+        >
+          {t(menu.labelKey, { defaultValue: menu.defaultLabel })}
+          <span className="site-nav__dropdown-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul id={`nav-${menu.id}-menu`} className="site-nav__dropdown-menu site-nav__dropdown-menu--mega">
+          {menu.links.map((l) => (
+            <li key={l.to}>
+              <Link
+                to={l.to}
+                className={`site-nav__dropdown-item site-nav__dropdown-item--mega${isActive(l.to) ? ' site-nav__dropdown-item--active' : ''}`}
+                aria-current={isActive(l.to) ? 'page' : undefined}
+                tabIndex={open ? undefined : -1}
+                viewTransition
+                onFocus={() => prefetchRoute(l.to)}
+              >
+                <img className={`site-nav__dropdown-prop${l.photo ? ' site-nav__dropdown-prop--photo' : ''}`} src={l.img} alt="" aria-hidden="true" width={44} height={44} loading="lazy" decoding="async" />
+                <span className="site-nav__dropdown-item-text">
+                  <span className="site-nav__dropdown-item-title">{t(`earnPages.nav.${l.id}`)}</span>
+                  <span className="site-nav__dropdown-item-desc">{t(l.descKey)}</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </li>
+    );
+  }
 
   const isActive = (to: string) =>
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
@@ -243,50 +308,7 @@ export default function SiteNav() {
                 </Link>
               </li>
             ))}
-            <li
-              ref={earnRef}
-              className={`site-nav__dropdown${earnOpen ? ' site-nav__dropdown--open' : ''}`}
-              onMouseEnter={() => {
-                if (!earnOpen) earnHoverOpened.current = true;
-                setEarnOpen(true);
-                EARN_LINKS.forEach((l) => prefetchRoute(l.to));
-              }}
-              onMouseLeave={() => { earnHoverOpened.current = false; setEarnOpen(false); }}
-            >
-              <button
-                type="button"
-                className={`site-nav__link site-nav__dropdown-trigger${earnActive ? ' site-nav__link--active' : ''}`}
-                aria-expanded={earnOpen}
-                aria-controls="nav-earn-menu"
-                onClick={() => {
-                  if (earnHoverOpened.current) { earnHoverOpened.current = false; setEarnOpen(true); return; }
-                  setEarnOpen((o) => !o);
-                }}
-              >
-                {t('earnPages.nav.earn', { defaultValue: 'Earn' })}
-                <span className="site-nav__dropdown-caret" aria-hidden="true">▾</span>
-              </button>
-              <ul id="nav-earn-menu" className="site-nav__dropdown-menu site-nav__dropdown-menu--mega">
-                {EARN_LINKS.map((l) => (
-                  <li key={l.to}>
-                    <Link
-                      to={l.to}
-                      className={`site-nav__dropdown-item site-nav__dropdown-item--mega${isActive(l.to) ? ' site-nav__dropdown-item--active' : ''}`}
-                      aria-current={isActive(l.to) ? 'page' : undefined}
-                      tabIndex={earnOpen ? undefined : -1}
-                      viewTransition
-                      onFocus={() => prefetchRoute(l.to)}
-                    >
-                      <img className="site-nav__dropdown-prop" src={`/props/${l.prop}-360.webp?v=2`} alt="" aria-hidden="true" width={44} height={44} loading="lazy" decoding="async" />
-                      <span className="site-nav__dropdown-item-text">
-                        <span className="site-nav__dropdown-item-title">{t(`earnPages.nav.${l.id}`)}</span>
-                        <span className="site-nav__dropdown-item-desc">{t(l.descKey)}</span>
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
+            {MENUS.map(renderMenu)}
             {navLinks.map(({ labelKey, defaultLabel, to }) => (
               <li key={to}>
                 <Link
@@ -373,11 +395,15 @@ export default function SiteNav() {
               {t(`earnPages.nav.${id}`)}
             </Link>
           ))}
-          <p className="site-nav__drawer-group">{t('earnPages.nav.earn', { defaultValue: 'Earn' })}</p>
-          {EARN_LINKS.map((l) => (
-            <Link key={l.to} to={l.to} className={`site-nav__drawer-sublink${isActive(l.to) ? ' site-nav__drawer-link--active' : ''}`} aria-current={isActive(l.to) ? 'page' : undefined} viewTransition onFocus={() => prefetchRoute(l.to)} onClick={() => setDrawerOpen(false)}>
-              {t(`earnPages.nav.${l.id}`)}
-            </Link>
+          {MENUS.map((menu) => (
+            <React.Fragment key={menu.id}>
+              <p className="site-nav__drawer-group">{t(menu.labelKey, { defaultValue: menu.defaultLabel })}</p>
+              {menu.links.map((l) => (
+                <Link key={l.to} to={l.to} className={`site-nav__drawer-sublink${isActive(l.to) ? ' site-nav__drawer-link--active' : ''}`} aria-current={isActive(l.to) ? 'page' : undefined} viewTransition onFocus={() => prefetchRoute(l.to)} onClick={() => setDrawerOpen(false)}>
+                  {t(`earnPages.nav.${l.id}`)}
+                </Link>
+              ))}
+            </React.Fragment>
           ))}
           <span className="site-nav__drawer-sep" aria-hidden="true" />
           {navLinks.map(({ labelKey, defaultLabel, to }) => (

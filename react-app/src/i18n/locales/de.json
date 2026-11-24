@@ -2424,7 +2424,10 @@
       "exercises": "Übungen",
       "membership": "Mitgliedschaft",
       "faq": "FAQ",
-      "earnMenu": "Menü Verdienen"
+      "earnMenu": "Menü Verdienen",
+      "allFeatures": "Alle Features",
+      "blueprint": "Der 12-Monats-Blueprint",
+      "creatorProgram": "Creator-Programm"
     },
     "premiumStrip": {
       "title": "Premium sammelt 2× Punkte, Elite 3×",
@@ -2731,7 +2734,8 @@
           "title": "30-Tage-Programme",
           "text": "Ganzkörper, Core, dein erster Klimmzug. Tag für Tag."
         }
-      }
+      },
+      "moreHeading": "Mehr von Libo"
     },
     "faq": {
       "seo": {
@@ -2789,6 +2793,11 @@
       "rewards": "Punkte = ein {{value}}-€-Gutschein",
       "giveaway": "Lose pro Runde, Premium nach 12 Monaten",
       "features": "Übungen in der Bibliothek"
+    },
+    "navDesc": {
+      "features": "Alles in der App, Screen für Screen.",
+      "blueprint": "Noahs kostenloser Plan: 69 → 77 kg, in der App.",
+      "creator": "Mach Videos über Libo, verdien 25 % lebenslang."
     }
   },
   "homeEarn": {
