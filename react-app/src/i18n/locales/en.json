@@ -2424,7 +2424,10 @@
       "exercises": "Exercises",
       "membership": "Membership",
       "faq": "FAQ",
-      "earnMenu": "Earn menu"
+      "earnMenu": "Earn menu",
+      "allFeatures": "All features",
+      "blueprint": "The 12-Month Blueprint",
+      "creatorProgram": "Creator Program"
     },
     "premiumStrip": {
       "title": "Premium earns 2× points, Elite 3×",
@@ -2731,7 +2734,8 @@
           "title": "30-day programs",
           "text": "Total body, core, your first pull-up. Day by day."
         }
-      }
+      },
+      "moreHeading": "More from Libo"
     },
     "faq": {
       "seo": {
@@ -2789,6 +2793,11 @@
       "rewards": "points = a €{{value}} gift card",
       "giveaway": "entries a round, Premium at 12 months",
       "features": "exercises in the library"
+    },
+    "navDesc": {
+      "features": "Everything in the app, screen by screen.",
+      "blueprint": "Noah’s free plan: 69 → 77 kg, in the app.",
+      "creator": "Make Libo videos, earn 25% for life."
     }
   },
   "homeEarn": {

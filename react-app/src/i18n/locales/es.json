@@ -2424,7 +2424,10 @@
       "exercises": "Ejercicios",
       "membership": "Membresía",
       "faq": "FAQ",
-      "earnMenu": "Menú Gana"
+      "earnMenu": "Menú Gana",
+      "allFeatures": "Todas las funciones",
+      "blueprint": "El Blueprint de 12 meses",
+      "creatorProgram": "Programa de Creadores"
     },
     "premiumStrip": {
       "title": "Premium gana 2× puntos, Elite 3×",
@@ -2731,7 +2734,8 @@
           "title": "Programas de 30 días",
           "text": "Cuerpo completo, core, tu primera dominada. Día a día."
         }
-      }
+      },
+      "moreHeading": "Más de Libo"
     },
     "faq": {
       "seo": {
@@ -2789,6 +2793,11 @@
       "rewards": "puntos = una tarjeta regalo de {{value}} €",
       "giveaway": "participaciones por ronda, Premium a los 12 meses",
       "features": "ejercicios en la biblioteca"
+    },
+    "navDesc": {
+      "features": "Todo lo que hay en la app, pantalla a pantalla.",
+      "blueprint": "El plan gratis de Noah: de 69 a 77 kg, en la app.",
+      "creator": "Haz vídeos de Libo y gana un 25 % de por vida."
     }
   },
   "homeEarn": {

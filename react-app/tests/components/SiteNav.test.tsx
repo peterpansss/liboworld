@@ -120,6 +120,27 @@ describe('SiteNav', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
+  it('Features is a menu holding the Blueprint and the Creator Program (24 Nov 2026)', async () => {
+    const user = userEvent.setup();
+    renderAt('/');
+    ['/features', '/blueprint', '/creator-program'].forEach((href) => {
+      expect(document.querySelectorAll(`#nav-features-menu a[href="${href}"]`).length).toBe(1);
+    });
+    const earn = screen.getByRole('button', { name: /Earn/ });
+    const features = screen.getByRole('button', { name: /Features/ });
+    await user.click(features);
+    expect(features).toHaveAttribute('aria-expanded', 'true');
+    // Only one menu open at a time.
+    await user.click(earn);
+    expect(earn).toHaveAttribute('aria-expanded', 'true');
+    expect(features).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('marks the Features menu active on the Blueprint page', () => {
+    renderAt('/blueprint');
+    expect(screen.getByRole('button', { name: /Features/ }).className).toContain('site-nav__link--active');
+  });
+
   it('puts both official store badges in the mobile bottom bar and the drawer', () => {
     const { container } = renderAt('/');
     // Selectors, not roles: the closed drawer is aria-hidden.

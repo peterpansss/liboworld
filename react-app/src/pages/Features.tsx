@@ -4,7 +4,7 @@ import { SeoHead } from '../components/SeoHead';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import StoreBadges from '../components/StoreBadges';
-import { PhoneShot, AppCta, PremiumStrip, Band, Heading, BigNumber } from '../components/earn/EarnKit';
+import { PhoneShot, AppCta, PremiumStrip, Band, Heading, BigNumber, PropImg } from '../components/earn/EarnKit';
 import { usePopIn } from '../utils/funnelAnimations';
 import './Features.css';
 
@@ -138,6 +138,27 @@ export default function Features() {
             ))}
           </ul>
           <PremiumStrip text={t('earnPages.features.premiumText')} />
+        </Band>
+        {/* The Blueprint and the Creator Program live under Features, here and
+            in the nav menu (Noah, 24 Nov 2026). */}
+        <Band raised>
+          <Heading title={t('earnPages.features.moreHeading')} />
+          <div className="earn-next ft-more">
+            <Link to="/blueprint" className="earn-next__card" viewTransition data-popin>
+              <span className="earn-next__stage">
+                <img className="ft-more__photo" src="/downloads/blueprint/after-2024-05-v1.jpg" alt="" aria-hidden="true" width={120} height={150} loading="lazy" decoding="async" />
+              </span>
+              <span className="earn-next__title">{t('earnPages.nav.blueprint')}</span>
+              <span className="earn-next__text">{t('earnPages.navDesc.blueprint')}</span>
+              <span className="earn-next__cta">{t('earnPages.next.cta')} <span aria-hidden="true">→</span></span>
+            </Link>
+            <Link to="/creator-program" className="earn-next__card" viewTransition data-popin>
+              <span className="earn-next__stage"><PropImg name="tripod-phone" className="earn-next__prop" width={200} /></span>
+              <span className="earn-next__title">{t('earnPages.nav.creatorProgram')}</span>
+              <span className="earn-next__text">{t('earnPages.navDesc.creator')}</span>
+              <span className="earn-next__cta">{t('earnPages.next.cta')} <span aria-hidden="true">→</span></span>
+            </Link>
+          </div>
         </Band>
         <AppCta title={t('earnPages.common.ctaTitle')} sub={t('earnPages.features.ctaSub')} />
       </main>
