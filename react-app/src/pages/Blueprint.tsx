@@ -53,8 +53,9 @@ export default function Blueprint() {
 
       <main className="bp-main">
         <section className="bp-hero">
-          {/* Phones open on the photos, not a wall of text (Noah, 19 Nov). Same
-              pair as the popup and the app's Home card. */}
+          {/* Opens on the photos, not a wall of text: phones since 19 Nov, desktop
+              since 24 Nov (Noah: the pair, not the cover card). Same pair as the
+              popup and the app's Home card. card-v8 stays the share image. */}
           <div className="bp-pair">
             <figure>
               <img src="/downloads/blueprint/before-2023-v1.jpg" alt={t('blueprintApp.beforeAlt')} width={600} height={800} />
@@ -105,14 +106,6 @@ export default function Blueprint() {
             <p className="bp-meta">{d('metaApp', 'PDF in English and German, inside the Libo app')}</p>
           </div>
 
-          <button type="button" className="bp-cover" onClick={() => setAppOpen(true)} aria-label={d('ctaApp', 'Get it free in the app')}>
-            <img
-              src="/downloads/blueprint/card-v8.jpg"
-              alt={d('coverAlt', 'Noah in May 2024, seven months in, on the cover of The 12-Month Blueprint')}
-              width={900}
-              height={1273}
-            />
-          </button>
         </section>
 
         <div className="bp-desktop-teasers"><BlueprintTeasers /></div>

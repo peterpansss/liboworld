@@ -103,26 +103,6 @@
   margin: 12px 0 0;
 }
 
-.bp-cover {
-  display: block;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
-  transform: rotate(1.5deg);
-  /* A button since 19 Nov 2026 (opens the get-it-in-the-app popup). */
-  width: 100%;
-  padding: 0;
-  background: none;
-  cursor: pointer;
-}
-
-.bp-cover img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 .bp-inside,
 .bp-rules {
   margin-top: 88px;
@@ -214,33 +194,38 @@
 @media (max-width: 860px) {
   .bp-main { padding: 40px 16px 72px; }
   .bp-hero { grid-template-columns: 1fr; gap: 40px; }
-  .bp-cover { max-width: 360px; margin: 0 auto; transform: none; }
   .bp-inside ul { grid-template-columns: 1fr; }
   .bp-inside, .bp-rules { padding: 28px 20px; margin-top: 56px; }
   .bp-rules { margin-top: 16px; }
   .bp-actions a { flex: 1 1 100%; }
 }
 
-/* Phones open on Noah's before/after; desktop keeps the cover card (19 Nov).
+/* Every screen opens on Noah's before/after (phones 19 Nov, desktop 24 Nov:
+   Noah wanted the pair, not the cover card, beside the story).
    No store buttons here: the site's fixed store bar already carries them. */
-.bp-pair, .bp-mobile-teasers { display: none; }
+.bp-mobile-teasers { display: none; }
+.bp-hero { grid-template-columns: 1fr 1fr; }
+.bp-pair { grid-column: 2; grid-row: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: sticky; top: 120px; }
+.bp-hero-text { grid-column: 1; grid-row: 1; }
+.bp-pair figure { margin: 0; min-width: 0; }
+.bp-pair img { display: block; width: 100%; aspect-ratio: 3 / 4; height: auto; object-fit: cover; object-position: 50% 30%; border-radius: 16px; }
+.bp-pair figure:last-child img { box-shadow: 0 0 0 2px var(--accent); }
+.bp-pair figcaption {
+  margin-top: 10px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bp-pair .bp-pair__after { color: var(--accent); }
 @media (max-width: 860px) {
   .bp-main { padding-top: 20px; }
-  .bp-hero { gap: 24px; }
-  .bp-cover { display: none; }
-  .bp-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .bp-pair figure { margin: 0; min-width: 0; }
-  .bp-pair img { display: block; width: 100%; aspect-ratio: 3 / 4; height: auto; object-fit: cover; object-position: 50% 30%; border-radius: 16px; }
-  .bp-pair figcaption {
-    margin-top: 8px;
-    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .bp-pair .bp-pair__after { color: var(--accent); }
+  .bp-hero { grid-template-columns: 1fr; gap: 24px; }
+  .bp-pair, .bp-hero-text { grid-column: auto; grid-row: auto; }
+  .bp-pair { position: static; gap: 8px; }
+  .bp-pair figcaption { margin-top: 8px; font-size: 14px; }
   .bp-hero h1 { margin-top: 16px; }
   .bp-lead { margin-bottom: 18px; }
   .bp-mobile-teasers { display: block; margin-bottom: 40px; }
