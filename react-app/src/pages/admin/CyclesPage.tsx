@@ -258,21 +258,6 @@ function friendlyCycleError(raw: string, ctx?: { activeCount?: number }): string
   }
 }
 
-// ── seed helpers ──────────────────────────────────────────────────────────
-// `max_participants` is the REAL payable cap; `display_seed` is cosmetic
-// phantom slots. The admin works in terms of HEADLINE (what users see) and
-// SEED, where realCap = headline − seed.
-
-/** Phantom slots for a row, defaulting missing/undefined to 0. */
-function seedOf(r: ChallengeCycleRow): number {
-  return r.display_seed ?? 0;
-}
-
-/** User-facing headline total = real cap + seed. */
-function headlineTotalOf(r: ChallengeCycleRow): number {
-  return r.max_participants + seedOf(r);
-}
-
 // ── form state ────────────────────────────────────────────────────────────
 
 
@@ -615,7 +600,6 @@ export function CyclesPage() {
                   {members.length > 1 ? ` +${members.length - 1}` : ''}
                 </div>
               )}
-              <div style={{ color: colors.dim, fontSize: 11, marginTop: 2 }}>{r.challenge_id}</div>
             </div>
           );
         },
@@ -642,26 +626,18 @@ export function CyclesPage() {
         sort: (a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime(),
       },
       {
-        key: 'slots',
-        header: 'Slots',
+        // Each cycle is ONE person's run (rolling enrolment), so this is 1 while
+        // they're in it and 0 once it ended. The spot cap is per challenge and is
+        // summarised above the table, not per row.
+        key: 'inRun',
+        header: 'In this run',
         align: 'right',
-        render: (r) => {
-          const seed = seedOf(r);
-          const displayActive = r.active_count + seed;
-          const displayTotal = headlineTotalOf(r);
-          return (
-            <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-end', gap: 1 }}>
-              <span style={{ color: colors.text, fontFamily: 'Barlow Condensed, sans-serif', fontSize: 16, fontWeight: 700, letterSpacing: 0.4 }}>
-                {displayActive} <span style={{ color: colors.dim, fontSize: 12 }}>/ {displayTotal}</span>
-              </span>
-              {seed > 0 && (
-                <span style={{ color: colors.dim, fontSize: 11 }}>pays {r.max_participants}</span>
-              )}
-            </span>
-          );
-        },
-        // Sort by the user-facing active count (real + seed).
-        sort: (a, b) => (a.active_count + seedOf(a)) - (b.active_count + seedOf(b)),
+        render: (r) => (
+          <span style={{ color: colors.text, fontFamily: 'Barlow Condensed, sans-serif', fontSize: 16, fontWeight: 700, letterSpacing: 0.4 }}>
+            {r.active_count}
+          </span>
+        ),
+        sort: (a, b) => a.active_count - b.active_count,
       },
       {
         key: 'completed',
@@ -834,6 +810,18 @@ export function CyclesPage() {
   const runningCount = rows.filter((r) => r.status === 'running').length;
   const completedCount = rows.filter((r) => r.status === 'completed').length;
 
+  // Spots taken per challenge = active people across all its runs, against the
+  // challenge's cap (money_challenges.max_participants — the enforced one).
+  const spots = challenges
+    .filter((c) => c.is_active && (challengeFilter === 'all' || c.id === challengeFilter))
+    .sort((a, b) => a.reward_amount - b.reward_amount)
+    .map((c) => ({
+      id: c.id,
+      label: `€${Number(c.reward_amount).toFixed(0)} · ${c.reps_per_day} reps a day`,
+      taken: rows.filter((r) => r.challenge_id === c.id).reduce((n, r) => n + r.active_count, 0),
+      cap: c.max_participants,
+    }));
+
   return (
     <div style={{ padding: 0 }}>
       <div style={headerRowStyle}>
@@ -843,8 +831,23 @@ export function CyclesPage() {
             Individual timed runs of a challenge (sets the start date &amp; window).
           </div>
           <div style={{ ...statsStyle, color: colors.dim }}>
-            Spots are capped per challenge, not per cycle — edit the cap on the Challenges page.
+            Each row is one person&rsquo;s 30-day run. Spots are capped per challenge (below) — edit the cap on the Challenges page.
           </div>
+          {!loading && spots.length > 0 && (
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', margin: '10px 0 6px' }}>
+              {spots.map((x) => (
+                <div
+                  key={x.id}
+                  style={{ border: `1px solid ${colors.border}`, borderRadius: 12, padding: '8px 12px', background: colors.card }}
+                >
+                  <div style={{ color: colors.muted, fontSize: 12 }}>{x.label}</div>
+                  <div style={{ color: colors.text, fontFamily: 'Barlow Condensed, sans-serif', fontSize: 20, fontWeight: 700, letterSpacing: 0.4 }}>
+                    {x.cap == null ? `${x.taken} taken (no cap)` : `${x.taken} of ${x.cap} spots taken`}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           <div style={statsStyle}>
             {loading
               ? 'Loading…'
