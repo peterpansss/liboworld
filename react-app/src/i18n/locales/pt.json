@@ -2790,7 +2790,7 @@
     },
     "big": {
       "earn": "pontos por cada treino",
-      "rewards": "pontos = um vale-presente de {{value}} €",
+      "rewards": "pontos = {{value}} € em vale-presente ou dinheiro",
       "giveaway": "participações por rodada, Premium aos 12 meses",
       "features": "exercícios na biblioteca"
     },

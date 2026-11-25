@@ -2790,7 +2790,7 @@
     },
     "big": {
       "earn": "puntos por cada entreno",
-      "rewards": "puntos = una tarjeta regalo de {{value}} €",
+      "rewards": "puntos = {{value}} € en tarjeta regalo o efectivo",
       "giveaway": "participaciones por ronda, Premium a los 12 meses",
       "features": "ejercicios en la biblioteca"
     },
