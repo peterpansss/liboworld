@@ -4,8 +4,8 @@
  * (PayPal / Revolut / Wise / bank, Noah 14 Nov 2026) of a fixed value; each
  * value exists once as a gift card and once as cash. No chance is involved.
  *
- * Economy decided by Noah, 13 Nov 2026: 500 points per €1 for every member,
- * no Premium discount. €5 and €10 are open to all members, €20 is Premium
+ * Economy: 1,000 points per €1 for every member since 25 Nov 2026 (was 500 on 13 Nov,
+ * 800 on 14 Nov), no Premium discount. €5 and €10 are open to all members, €20 is Premium
  * only. Premium's advantages are earning 2x and the Premium-only card.
  *
  * The live catalogue (stock, brands, active flag) is edited at /admin/rewards
@@ -28,13 +28,19 @@ export type PublishedReward = {
   minTier: RewardTier;
 };
 
-// Repriced 14 Nov 2026 (Noah): 2,500/5,000/10,000 -> 4,000/8,000/15,000. A peak Premium month buys EUR 10; yearly
-// Premium nets ~EUR 5.88/month, so the old rate let a power user cost more than he pays. Mirrors reward_catalog.
+// Repriced 25 Nov 2026 (Noah): 4,000/8,000/15,000 -> 1,000 points per EUR 1, priced from net revenue per member
+// (model: Brand-Management/Project-Structure/rewards-economy/points_model.py). Mirrors reward_catalog.
 export const REWARDS_CATALOG: PublishedReward[] = [
-  { valueEur: 5, points: 4000, minTier: 'free' },
-  { valueEur: 10, points: 8000, minTier: 'free' },
-  { valueEur: 20, points: 15000, minTier: 'premium' },
+  { valueEur: 5, points: 5000, minTier: 'free' },
+  { valueEur: 10, points: 10000, minTier: 'free' },
+  { valueEur: 20, points: 20000, minTier: 'premium' },
 ];
+
+/**
+ * Most EUR of gift + cash cards a member may redeem per rolling 90 days, by plan (Noah, 25 Nov 2026). Each is at
+ * most what that plan's cheapest option nets us over 90 days. Mirrors _reward_card_eur_ceiling_90d.
+ */
+export const CARD_EUR_PER_90_DAYS: Record<RewardTier, number> = { free: 5, premium: 15, elite: 25 };
 
 /**
  * Physical items (Noah, 15 Nov 2026; tiered 22 Nov 2026). Value = the item's listed value; the cash alternative
