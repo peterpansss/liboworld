@@ -43,7 +43,7 @@ describe('DashboardPage', () => {
     fetchKpisMock.mockReturnValue(new Promise<typeof fakeKpis>((r) => { resolve = r; }));
     render(<DashboardPage />);
     expect(screen.getByText(/Loading/)).toBeInTheDocument();
-    expect(screen.getAllByText('—').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('-').length).toBeGreaterThan(0);
     resolve(fakeKpis);
     await waitFor(() => {
       expect(screen.getByText('1,234')).toBeInTheDocument();
@@ -77,7 +77,7 @@ describe('DashboardPage', () => {
       expect(screen.getByText('boom')).toBeInTheDocument();
     });
     // Tiles still render but as em-dashes
-    expect(screen.getAllByText('—').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('-').length).toBeGreaterThan(0);
   });
 
   it('Refresh button re-fetches KPIs', async () => {

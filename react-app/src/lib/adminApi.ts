@@ -2184,7 +2184,7 @@ export function validatePasswordPolicy(password: string): PasswordPolicyResult {
   // Catch passwords that are JUST a common pwd with a single char appended/prepended.
   const trimmed = password.toLowerCase().replace(/[^a-z0-9]/g, '');
   if (trimmed.length > 0 && COMMON_PASSWORDS.has(trimmed.replace(/[0-9]+$/, ''))) {
-    errors.push('Password is a common password with trailing digits — pick something less guessable.');
+    errors.push('Password is a common password with trailing digits. Pick something less guessable.');
   }
   return errors.length === 0 ? { ok: true } : { ok: false, errors };
 }

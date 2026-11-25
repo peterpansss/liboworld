@@ -20,7 +20,7 @@ export default function PressSent() {
         <p className="press-sub">
           {t('pressSent.sub', {
             defaultValue:
-              "Thanks — we'll get back to you within 5 working days. For urgent inquiries, email press@liboworld.com directly.",
+              "Thanks, we'll get back to you within 5 working days. For urgent inquiries, email press@liboworld.com directly.",
           })}
         </p>
         <div style={{ marginTop: 24, maxWidth: 280, margin: '24px auto 0' }}>

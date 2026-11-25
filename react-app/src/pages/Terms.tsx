@@ -91,7 +91,7 @@ export default function Terms() {
           <section className="legal-section" id="s2">
             <div className="legal-section-num">{n('s2')}</div>
             <h2>About Libo</h2>
-            <p>Libo is a digital health and fitness platform that provides users with workout programs, exercise libraries, mobility content, breathing exercises, morning and evening routines, and progress tracking tools — accessible via mobile application and web.</p>
+            <p>Libo is a digital health and fitness platform that provides users with workout programs, exercise libraries, mobility content, breathing exercises, morning and evening routines, and progress tracking tools, accessible via mobile application and web.</p>
             <p>Libo is operated by <strong>Libo World</strong>, based in Germany. For any questions, contact us at <a href="mailto:hello@liboworld.com">hello@liboworld.com</a>.</p>
           </section>
 
@@ -101,11 +101,11 @@ export default function Terms() {
             <h2>Eligibility</h2>
             <p>Libo applies layered age requirements depending on what you use the Service for. By using Libo, you represent and warrant that you meet the relevant minimum age below for each activity.</p>
             <ul>
-              <li><strong>13+ — App, account and points.</strong> The minimum age to create an account, train in the app, and earn rewards points is <strong>13</strong>. If you are under <strong>16</strong>, you may only use the Service with verified parental consent — typically provided through your platform's family controls (Apple Family Sharing or Google Family Link).</li>
-              <li><strong>16+ — {GIVEAWAYS_ENABLED ? 'Giveaways and entry' : 'Entry'} into cash challenges.</strong> {GIVEAWAYS_ENABLED ? 'Entry into any giveaway, and enrolment in any cash challenge, are' : 'Enrolment in any cash challenge is'} restricted to users aged <strong>16 and over</strong>.</li>
-              <li><strong>18+ — Direct cash payouts.</strong> Cash payouts are made by us after a manual check, by bank transfer, PayPal, Wise or Revolut, to an account in the recipient&rsquo;s name, and only to users aged <strong>18 and over</strong>. If a cash-challenge finisher{GIVEAWAYS_ENABLED ? ' or giveaway winner' : ''} is 16 or 17, we pay the reward to a verified account of their parent or guardian instead, where local law permits. <strong>We hold the payout until that account is provided</strong>{GIVEAWAYS_ENABLED ? <>; for giveaway winners, the claim period in the <Link to="/giveaway-rules">Giveaway Rules</Link> applies</> : null}.</li>
+              <li><strong>13+: App, account and points.</strong> The minimum age to create an account, train in the app, and earn rewards points is <strong>13</strong>. If you are under <strong>16</strong>, you may only use the Service with verified parental consent, typically provided through your platform's family controls (Apple Family Sharing or Google Family Link).</li>
+              <li><strong>16+: {GIVEAWAYS_ENABLED ? 'Giveaways and entry' : 'Entry'} into cash challenges.</strong> {GIVEAWAYS_ENABLED ? 'Entry into any giveaway, and enrolment in any cash challenge, are' : 'Enrolment in any cash challenge is'} restricted to users aged <strong>16 and over</strong>.</li>
+              <li><strong>18+: Direct cash payouts.</strong> Cash payouts are made by us after a manual check, by bank transfer, PayPal, Wise or Revolut, to an account in the recipient&rsquo;s name, and only to users aged <strong>18 and over</strong>. If a cash-challenge finisher{GIVEAWAYS_ENABLED ? ' or giveaway winner' : ''} is 16 or 17, we pay the reward to a verified account of their parent or guardian instead, where local law permits. <strong>We hold the payout until that account is provided</strong>{GIVEAWAYS_ENABLED ? <>; for giveaway winners, the claim period in the <Link to="/giveaway-rules">Giveaway Rules</Link> applies</> : null}.</li>
             </ul>
-            <p>Where local law requires a higher minimum age for any of the above activities, that local law applies. Libo may also restrict or block participation by jurisdiction (see Section {sec('s17')}, Governing Law) — entry is <em>void where prohibited by local law</em>.</p>
+            <p>Where local law requires a higher minimum age for any of the above activities, that local law applies. Libo may also restrict or block participation by jurisdiction (see Section {sec('s17')}, Governing Law); entry is <em>void where prohibited by local law</em>.</p>
           </section>
 
           {/* 4 */}
@@ -133,8 +133,8 @@ export default function Terms() {
             <p>Libo Premium unlocks the full feature set including the complete exercise library, all workout programs, multi-week challenges, advanced progress tracking, custom workout builder, and priority support.</p>
             <p>Premium subscriptions are available on the following billing cycles:</p>
             <ul>
-              <li><strong>Monthly</strong> — billed every 30 days</li>
-              <li><strong>Annual</strong> — billed once per year (best value)</li>
+              <li><strong>Monthly</strong>: billed every 30 days</li>
+              <li><strong>Annual</strong>: billed once per year (best value)</li>
             </ul>
             {/* No introductory offer is configured on either product in App
                 Store Connect, and every tier ships with trial days set to 0.
@@ -170,7 +170,7 @@ export default function Terms() {
             <p>You may cancel your subscription at any time through your account settings or by contacting <a href="mailto:hello@liboworld.com">hello@liboworld.com</a>. Cancellation takes effect at the end of your current billing period.</p>
 
             <h3>Refund Policy</h3>
-            <p>We offer a <strong>14-day money-back guarantee</strong> for new Premium subscribers. Contact us within 14 days of your first charge for a full refund — no questions asked.</p>
+            <p>We offer a <strong>14-day money-back guarantee</strong> for new Premium subscribers. Contact us within 14 days of your first charge for a full refund, no questions asked.</p>
             <p>If your Premium subscription is refunded while you are taking part in a &euro;15 or &euro;50 cash challenge, that run earns no payout (see <a href="#challenge-rules">Cash Challenges</a>).</p>
             <p>Refunds are not available for:</p>
             <ul>
@@ -180,14 +180,14 @@ export default function Terms() {
                   "no" to a buyer the specific section answers "yes" to. Said
                   "at any time before launch" until 3 Nov 2026 — launch was
                   18 Sep, so that carve-out had silently expired. */}
-              <li>Subscriptions older than 14 days from the first charge — <em>except</em> Founding Member purchases, which remain fully refundable on request (see <a href="#early-access">Early Access</a>)</li>
+              <li>Subscriptions older than 14 days from the first charge, <em>except</em> Founding Member purchases, which remain fully refundable on request (see <a href="#early-access">Early Access</a>)</li>
               <li>Partial billing periods following cancellation</li>
               <li>Users who have previously received a refund for Libo</li>
             </ul>
             <p>If you purchased through Apple App Store or Google Play, refunds are handled by Apple or Google under their respective policies.</p>
 
             <h3>EU Consumer Rights</h3>
-            <p>EU residents have the right to withdraw from a digital service contract within <strong>14 days</strong> of purchase without providing a reason, in accordance with EU Directive 2011/83/EU — unless you have already begun using the service and explicitly waived your right of withdrawal.</p>
+            <p>EU residents have the right to withdraw from a digital service contract within <strong>14 days</strong> of purchase without providing a reason, in accordance with EU Directive 2011/83/EU, unless you have already begun using the service and explicitly waived your right of withdrawal.</p>
 
           </section>
 
@@ -333,7 +333,7 @@ export default function Terms() {
             <p><strong>This offer has closed.</strong> The Founding Member early-access offer closed on <strong>14 October 2026</strong> and is no longer available to buy. Libo is now published on the App Store and Premium is sold at its standard price; see Sections {sec('s5')} (Subscription Plans) and {sec('s6')} (Billing &amp; Payment).</p>
 
             <h3>If You Bought the Founding Member Offer</h3>
-            <p>The terms you purchased under continue to apply to that purchase. The offer was a <strong>single one-time payment</strong> of &euro;39.50 for <strong>12 months of Premium</strong> — 50% off the standard &euro;79.99 first-year price. It is <strong>not</strong> a subscription and does <strong>not</strong> auto-renew: you were charged once and no further charges are made. When your 12 months end, Premium does not renew automatically; you may subscribe at the then-current standard price if you wish to continue.</p>
+            <p>The terms you purchased under continue to apply to that purchase. The offer was a <strong>single one-time payment</strong> of &euro;39.50 for <strong>12 months of Premium</strong>, 50% off the standard &euro;79.99 first-year price. It is <strong>not</strong> a subscription and does <strong>not</strong> auto-renew: you were charged once and no further charges are made. When your 12 months end, Premium does not renew automatically; you may subscribe at the then-current standard price if you wish to continue.</p>
 
             <h3>Refunds</h3>
             <p>Your <strong>14-day right of withdrawal under Article 16(m) of Directive 2011/83/EU</strong> applied to this purchase, and beyond that statutory period we will honour a <strong>full refund on request, for any reason</strong>. To request one, email <a href="mailto:support@liboworld.com">support@liboworld.com</a> from the address you purchased with. Founding Member access is tied to that email address.</p>

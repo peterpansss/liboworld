@@ -407,7 +407,7 @@ describe('UsersPage - time-limited tier grants', () => {
     await act(async () => {
       fireEvent.change(screen.getByLabelText('Tier'), { target: { value: 'free' } });
     });
-    expect(screen.getByText('Free — paid access removed')).toBeInTheDocument();
+    expect(screen.getByText('Free, paid access removed')).toBeInTheDocument();
     await act(async () => {
       fireEvent.click(screen.getByText('Apply tier'));
     });

@@ -154,7 +154,7 @@ describe('ExerciseDetail in German', () => {
     await waitFor(() => screen.getByTestId('seo'));
     expect(screen.getByTestId('seo')).toHaveAttribute(
       'data-title',
-      'Bankdrücken — Ausführung | Libo',
+      'Bankdrücken: Ausführung | Libo',
     );
   });
 
@@ -172,7 +172,7 @@ describe('ExerciseDetail in German', () => {
     await waitFor(() => screen.getByRole('heading', { level: 1 }));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Sled Push');
     const seo = screen.getByTestId('seo');
-    expect(seo).toHaveAttribute('data-title', 'Sled Push — Ausführung | Libo');
+    expect(seo).toHaveAttribute('data-title', 'Sled Push: Ausführung | Libo');
     // Empty setupNotes → the generated description, which still names the row.
     expect(seo.getAttribute('data-description')).toContain('Sled Push');
   });

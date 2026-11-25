@@ -305,7 +305,7 @@ describe('CyclesPage', () => {
     ) as HTMLButtonElement;
     fireEvent.click(submitBtn);
     await waitFor(() =>
-      expect(screen.getByText('Cycle is full — raise the max participants first.')).toBeInTheDocument(),
+      expect(screen.getByText('Cycle is full. Raise the max participants first.')).toBeInTheDocument(),
     );
   });
 });

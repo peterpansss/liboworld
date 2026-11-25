@@ -22,7 +22,7 @@ export const blogArticles: BlogArticle[] = [
   {
     slug: 'best-chest-exercises-for-building-muscle',
     title: 'Best Chest Exercises for Building Muscle',
-    excerpt: 'From bench press to cable flyes, here are the most effective chest exercises for building size and strength — and how to program them.',
+    excerpt: 'From bench press to cable flyes, here are the most effective chest exercises for building size and strength, and how to program them.',
     category: 'Training',
     readTime: 6,
     date: '2026-03-28',
@@ -44,10 +44,10 @@ export const blogArticles: BlogArticle[] = [
 <li>Lower the bar to your mid-chest, pause briefly, then press explosively</li>
 <li>Keep your feet flat on the floor and maintain a slight arch in your lower back</li>
 </ul>
-<p>Aim for <strong>3-4 sets of 6-10 reps</strong> as your primary chest movement. Progressive overload here — adding weight or reps over time — is the single biggest driver of chest growth.</p>
+<p>Aim for <strong>3-4 sets of 6-10 reps</strong> as your primary chest movement. Progressive overload here (adding weight or reps over time) is the single biggest driver of chest growth.</p>
 
 <h2>2. Push-Ups</h2>
-<p>Don't underestimate the push-up. It's not just a beginner exercise — it's a <strong>versatile chest builder that you can scale infinitely</strong>. Diamond push-ups, decline push-ups, archer push-ups, and plyometric variations all challenge the chest in different ways.</p>
+<p>Don't underestimate the push-up. It's not just a beginner exercise. It's a <strong>versatile chest builder that you can scale infinitely</strong>. Diamond push-ups, decline push-ups, archer push-ups, and plyometric variations all challenge the chest in different ways.</p>
 <p>Push-ups also train your core and serratus anterior, muscles that stabilize your shoulder blades. If you can do 20+ standard push-ups easily, it's time to progress:</p>
 <ul>
 <li><strong>Decline push-ups</strong> (feet elevated) shift emphasis to the upper chest</li>
@@ -57,7 +57,7 @@ export const blogArticles: BlogArticle[] = [
 
 <h2>3. Dumbbell Flyes</h2>
 <p>Flyes isolate the chest by taking the triceps largely out of the equation. This makes them <strong>ideal for chest activation and hypertrophy</strong>, especially at the end of a workout when your pressing muscles are fatigued.</p>
-<p>Use a slight bend in your elbows throughout the movement. Think about hugging a large tree — the arc should be wide and controlled. <strong>Don't go too heavy.</strong> Flyes are about stretch and contraction, not ego lifting.</p>
+<p>Use a slight bend in your elbows throughout the movement. Think about hugging a large tree: the arc should be wide and controlled. <strong>Don't go too heavy.</strong> Flyes are about stretch and contraction, not ego lifting.</p>
 <p>Try <strong>3 sets of 12-15 reps</strong> with a 2-second negative on each rep.</p>
 
 <h2>4. Dips (Chest-Focused)</h2>
@@ -96,30 +96,30 @@ export const blogArticles: BlogArticle[] = [
 <h2>The Principles of Effective Bodyweight Training</h2>
 <p>Without barbells and dumbbells, progression looks different. Here's how to keep challenging your muscles:</p>
 <ul>
-<li><strong>Increase reps</strong> — the simplest form of progression</li>
-<li><strong>Slow the tempo</strong> — 3-second negatives make everything harder</li>
-<li><strong>Reduce leverage</strong> — single-leg squats are harder than bilateral</li>
-<li><strong>Add pauses</strong> — hold the bottom of a push-up for 2 seconds</li>
-<li><strong>Progress the variation</strong> — from knee push-ups to standard to decline to one-arm</li>
+<li><strong>Increase reps</strong>: the simplest form of progression</li>
+<li><strong>Slow the tempo</strong>: 3-second negatives make everything harder</li>
+<li><strong>Reduce leverage</strong>: single-leg squats are harder than bilateral</li>
+<li><strong>Add pauses</strong>: hold the bottom of a push-up for 2 seconds</li>
+<li><strong>Progress the variation</strong>: from knee push-ups to standard to decline to one-arm</li>
 </ul>
 
 <h2>Sample Full-Body Home Workout</h2>
 <p>This session takes about 30-40 minutes and hits every major muscle group:</p>
 <p><strong>Warm-Up (5 min):</strong></p>
 <ul>
-<li>Jumping jacks — 60 seconds</li>
-<li>Arm circles — 30 seconds each direction</li>
-<li>Bodyweight squats — 15 reps slow</li>
-<li>Inchworms — 8 reps</li>
+<li>Jumping jacks: 60 seconds</li>
+<li>Arm circles: 30 seconds each direction</li>
+<li>Bodyweight squats: 15 reps slow</li>
+<li>Inchworms: 8 reps</li>
 </ul>
 <p><strong>Main Circuit (3 rounds):</strong></p>
 <ul>
-<li>Push-ups — 12-15 reps</li>
-<li>Bodyweight squats — 20 reps</li>
-<li>Inverted rows (use a sturdy table) — 10-12 reps</li>
-<li>Lunges — 12 each leg</li>
-<li>Plank — 45 seconds</li>
-<li>Glute bridges — 15 reps</li>
+<li>Push-ups: 12-15 reps</li>
+<li>Bodyweight squats: 20 reps</li>
+<li>Inverted rows (use a sturdy table): 10-12 reps</li>
+<li>Lunges: 12 each leg</li>
+<li>Plank: 45 seconds</li>
+<li>Glute bridges: 15 reps</li>
 </ul>
 <p>Rest 60 seconds between rounds. As this gets easier, <strong>add a fourth round</strong> or progress to harder variations of each exercise.</p>
 
@@ -131,7 +131,7 @@ export const blogArticles: BlogArticle[] = [
 <li><strong>Wednesday:</strong> Active recovery or mobility</li>
 <li><strong>Thursday:</strong> Upper body pull (rows, chin-ups if you have a bar, supermans)</li>
 <li><strong>Friday:</strong> Full body circuit</li>
-<li><strong>Weekend:</strong> Light activity — walk, stretch, play a sport</li>
+<li><strong>Weekend:</strong> Light activity: walk, stretch, play a sport</li>
 </ul>
 
 <h2>Common Mistakes to Avoid</h2>
@@ -153,7 +153,7 @@ export const blogArticles: BlogArticle[] = [
     content: `
 <h2>Why 30-Day Challenges Work</h2>
 <p>Thirty days is long enough to build a real habit but short enough to feel achievable. <strong>The psychology is simple: a clear end date creates urgency</strong>, and daily commitment builds momentum that's hard to break.</p>
-<p>Research shows it takes anywhere from 18 to 254 days to form a new habit, with the average around 66 days. A 30-day challenge won't make exercise automatic, but it will <strong>get you past the hardest part — starting</strong>.</p>
+<p>Research shows it takes anywhere from 18 to 254 days to form a new habit, with the average around 66 days. A 30-day challenge won't make exercise automatic, but it will <strong>get you past the hardest part: starting</strong>.</p>
 
 <h2>Choosing the Right Challenge</h2>
 <p>The best challenge is one you can actually complete. That means:</p>
@@ -167,21 +167,21 @@ export const blogArticles: BlogArticle[] = [
 <h2>Popular 30-Day Challenges</h2>
 <p>Here are some proven challenges that work:</p>
 <ul>
-<li><strong>50 Push-Ups a Day</strong> — simple, effective, builds upper body and core</li>
-<li><strong>100 Squats a Day</strong> — great for legs and glutes, can be done anywhere</li>
-<li><strong>10-Minute Morning Stretch</strong> — transforms your flexibility and energy levels</li>
-<li><strong>Daily 20-Minute Walk</strong> — the most underrated fitness habit</li>
-<li><strong>Plank Challenge</strong> — start at 30 seconds, add 5 seconds daily</li>
+<li><strong>50 Push-Ups a Day</strong>: simple, effective, builds upper body and core</li>
+<li><strong>100 Squats a Day</strong>: great for legs and glutes, can be done anywhere</li>
+<li><strong>10-Minute Morning Stretch</strong>: transforms your flexibility and energy levels</li>
+<li><strong>Daily 20-Minute Walk</strong>: the most underrated fitness habit</li>
+<li><strong>Plank Challenge</strong>: start at 30 seconds, add 5 seconds daily</li>
 </ul>
 
 <h2>Setting Yourself Up for Success</h2>
-<p><strong>Do it at the same time every day.</strong> Morning is often best because there are fewer excuses. Attach it to an existing habit — "After I brush my teeth, I do my push-ups."</p>
+<p><strong>Do it at the same time every day.</strong> Morning is often best because there are fewer excuses. Attach it to an existing habit: "After I brush my teeth, I do my push-ups."</p>
 <p><strong>Track visibly.</strong> Use a calendar on your wall, a habit tracking app, or Libo's built-in progress tracking. Seeing an unbroken streak is incredibly motivating.</p>
 <p><strong>Tell someone.</strong> Accountability works. Share your challenge with a friend, post it on social media, or join one of Libo's challenge groups.</p>
-<blockquote>The goal isn't perfection — it's consistency. If you miss a day, do it the next morning. Two missed days is the danger zone. Never miss twice.</blockquote>
+<blockquote>The goal isn't perfection. It's consistency. If you miss a day, do it the next morning. Two missed days is the danger zone. Never miss twice.</blockquote>
 
 <h2>What Happens After Day 30?</h2>
-<p>The real win isn't completing the challenge — it's what you do on day 31. If you've built a daily exercise habit, <strong>transition into a structured program</strong> that builds on your new baseline. You've proven you can show up every day. Now it's time to train with purpose.</p>
+<p>The real win isn't completing the challenge. It's what you do on day 31. If you've built a daily exercise habit, <strong>transition into a structured program</strong> that builds on your new baseline. You've proven you can show up every day. Now it's time to train with purpose.</p>
 <p>Libo's programs are designed to pick up right where a challenge leaves off, with progressive workouts that keep you improving week over week.</p>
 `,
   },
@@ -200,9 +200,9 @@ export const blogArticles: BlogArticle[] = [
 <h2>What Is Push-Pull-Legs?</h2>
 <p>Push-Pull-Legs (PPL) is a training split that divides your workouts into three categories based on movement patterns:</p>
 <ul>
-<li><strong>Push:</strong> Chest, shoulders, triceps — any exercise where you push weight away from your body</li>
-<li><strong>Pull:</strong> Back, biceps, rear delts — any exercise where you pull weight toward your body</li>
-<li><strong>Legs:</strong> Quads, hamstrings, glutes, calves — your entire lower body</li>
+<li><strong>Push:</strong> Chest, shoulders, triceps: any exercise where you push weight away from your body</li>
+<li><strong>Pull:</strong> Back, biceps, rear delts: any exercise where you pull weight toward your body</li>
+<li><strong>Legs:</strong> Quads, hamstrings, glutes, calves: your entire lower body</li>
 </ul>
 <p>This split is popular because it <strong>groups muscles that work together</strong>, minimizes overlap, and allows for high training frequency without overtraining.</p>
 
@@ -250,7 +250,7 @@ export const blogArticles: BlogArticle[] = [
 </ul>
 
 <h2>Key Principles for PPL Success</h2>
-<p><strong>Start each session with compound lifts.</strong> Bench, rows, squats — these are your bread and butter. Do them first when you're freshest, then move to isolation work.</p>
+<p><strong>Start each session with compound lifts.</strong> Bench, rows, squats. These are your bread and butter. Do them first when you're freshest, then move to isolation work.</p>
 <p><strong>Progressive overload is non-negotiable.</strong> If you're not adding weight, reps, or sets over time, you're not growing. Log everything.</p>
 <p><strong>Don't neglect the "boring" muscles.</strong> Rear delts, hamstrings, and calves are easy to skip but essential for balanced development and injury prevention.</p>
 <blockquote>PPL works because it's simple, scalable, and sustainable. Whether you're an intermediate lifter or advanced, this split can carry you for years.</blockquote>
@@ -274,53 +274,53 @@ export const blogArticles: BlogArticle[] = [
 <h2>Routine 1: The 5-Minute Wake-Up</h2>
 <p>Perfect if you're short on time. Do each stretch for 30 seconds:</p>
 <ul>
-<li><strong>Cat-Cow</strong> — on all fours, alternate between arching and rounding your spine</li>
-<li><strong>Standing Forward Fold</strong> — hinge at the hips, let your head hang heavy</li>
-<li><strong>Chest Opener</strong> — clasp hands behind your back and lift</li>
-<li><strong>Neck Rolls</strong> — slow circles, both directions</li>
-<li><strong>Standing Quad Stretch</strong> — grab one foot behind you, hold each side</li>
+<li><strong>Cat-Cow</strong>: on all fours, alternate between arching and rounding your spine</li>
+<li><strong>Standing Forward Fold</strong>: hinge at the hips, let your head hang heavy</li>
+<li><strong>Chest Opener</strong>: clasp hands behind your back and lift</li>
+<li><strong>Neck Rolls</strong>: slow circles, both directions</li>
+<li><strong>Standing Quad Stretch</strong>: grab one foot behind you, hold each side</li>
 </ul>
 
 <h2>Routine 2: The Hip Opener (10 min)</h2>
 <p>For anyone who sits at a desk all day. <strong>Tight hips are the root cause of most lower back pain.</strong></p>
 <ul>
-<li><strong>90/90 Hip Stretch</strong> — 60 seconds each side</li>
-<li><strong>Pigeon Pose</strong> — 60 seconds each side</li>
-<li><strong>Deep Squat Hold</strong> — 60 seconds, push knees out with elbows</li>
-<li><strong>Hip Flexor Lunge</strong> — 60 seconds each side</li>
-<li><strong>Butterfly Stretch</strong> — 60 seconds</li>
+<li><strong>90/90 Hip Stretch</strong>: 60 seconds each side</li>
+<li><strong>Pigeon Pose</strong>: 60 seconds each side</li>
+<li><strong>Deep Squat Hold</strong>: 60 seconds, push knees out with elbows</li>
+<li><strong>Hip Flexor Lunge</strong>: 60 seconds each side</li>
+<li><strong>Butterfly Stretch</strong>: 60 seconds</li>
 </ul>
 
 <h2>Routine 3: The Spinal Flow (8 min)</h2>
-<p>Focuses on decompressing and mobilizing your spine — great if you woke up with back stiffness.</p>
+<p>Focuses on decompressing and mobilizing your spine. Great if you woke up with back stiffness.</p>
 <ul>
-<li><strong>Child's Pose</strong> — 60 seconds</li>
-<li><strong>Cat-Cow</strong> — 60 seconds</li>
-<li><strong>Thread the Needle</strong> — 45 seconds each side</li>
-<li><strong>Supine Spinal Twist</strong> — 60 seconds each side</li>
-<li><strong>Cobra Stretch</strong> — 45 seconds</li>
+<li><strong>Child's Pose</strong>: 60 seconds</li>
+<li><strong>Cat-Cow</strong>: 60 seconds</li>
+<li><strong>Thread the Needle</strong>: 45 seconds each side</li>
+<li><strong>Supine Spinal Twist</strong>: 60 seconds each side</li>
+<li><strong>Cobra Stretch</strong>: 45 seconds</li>
 </ul>
 
 <h2>Routine 4: The Energizer (10 min)</h2>
 <p>This one gets your heart rate slightly elevated while improving mobility. It's <strong>half stretch, half movement prep</strong>.</p>
 <ul>
-<li><strong>Inchworms</strong> — 8 reps</li>
-<li><strong>World's Greatest Stretch</strong> — 5 each side</li>
-<li><strong>Leg Swings (front-to-back)</strong> — 15 each leg</li>
-<li><strong>Arm Circles</strong> — 20 each direction</li>
-<li><strong>Bodyweight Squats</strong> — 15 slow reps</li>
+<li><strong>Inchworms</strong>: 8 reps</li>
+<li><strong>World's Greatest Stretch</strong>: 5 each side</li>
+<li><strong>Leg Swings (front-to-back)</strong>: 15 each leg</li>
+<li><strong>Arm Circles</strong>: 20 each direction</li>
+<li><strong>Bodyweight Squats</strong>: 15 slow reps</li>
 </ul>
 
 <h2>Routine 5: The Full-Body Unwind (15 min)</h2>
 <p>For mornings when you have a bit more time. This covers every major muscle group.</p>
 <ul>
-<li><strong>Standing Side Bend</strong> — 30 seconds each side</li>
-<li><strong>Downward Dog</strong> — 60 seconds, pedal your feet</li>
-<li><strong>Low Lunge with Twist</strong> — 45 seconds each side</li>
-<li><strong>Seated Hamstring Stretch</strong> — 60 seconds each leg</li>
-<li><strong>Shoulder Cross-Body Stretch</strong> — 30 seconds each side</li>
-<li><strong>Figure-4 Stretch</strong> — 60 seconds each side</li>
-<li><strong>Final Child's Pose</strong> — 60 seconds, breathe deeply</li>
+<li><strong>Standing Side Bend</strong>: 30 seconds each side</li>
+<li><strong>Downward Dog</strong>: 60 seconds, pedal your feet</li>
+<li><strong>Low Lunge with Twist</strong>: 45 seconds each side</li>
+<li><strong>Seated Hamstring Stretch</strong>: 60 seconds each leg</li>
+<li><strong>Shoulder Cross-Body Stretch</strong>: 30 seconds each side</li>
+<li><strong>Figure-4 Stretch</strong>: 60 seconds each side</li>
+<li><strong>Final Child's Pose</strong>: 60 seconds, breathe deeply</li>
 </ul>
 <blockquote>Consistency beats intensity. A 5-minute routine done daily beats a 30-minute session done once a week. Start with Routine 1 and build from there.</blockquote>
 `,
@@ -328,7 +328,7 @@ export const blogArticles: BlogArticle[] = [
   {
     slug: 'beginners-guide-to-strength-training',
     title: "Beginner's Guide to Strength Training",
-    excerpt: 'New to lifting? This guide covers everything you need to know — from proper form to progressive overload — without the confusion.',
+    excerpt: 'New to lifting? This guide covers everything you need to know, from proper form to progressive overload, without the confusion.',
     category: 'Guides',
     readTime: 8,
     date: '2026-02-20',
@@ -343,9 +343,9 @@ export const blogArticles: BlogArticle[] = [
 
 <h2>The Fundamentals</h2>
 <p>Before you touch a weight, understand these core concepts:</p>
-<p><strong>Progressive Overload:</strong> This is the single most important principle. To get stronger, you must gradually increase the demands on your muscles — more weight, more reps, or more sets over time. Without progressive overload, your body has no reason to adapt.</p>
+<p><strong>Progressive Overload:</strong> This is the single most important principle. To get stronger, you must gradually increase the demands on your muscles: more weight, more reps, or more sets over time. Without progressive overload, your body has no reason to adapt.</p>
 <p><strong>Compound Movements:</strong> Exercises that work multiple joints and muscle groups simultaneously. Squats, deadlifts, bench press, rows, and overhead press. These should be the foundation of every program because they give you the most bang for your buck.</p>
-<p><strong>Form Over Weight:</strong> Ego lifting is how people get hurt. <strong>Learn the movement pattern with light weight first.</strong> Once the form is dialed in, then start adding load. This isn't optional — it's insurance against injury.</p>
+<p><strong>Form Over Weight:</strong> Ego lifting is how people get hurt. <strong>Learn the movement pattern with light weight first.</strong> Once the form is dialed in, then start adding load. This isn't optional. It's insurance against injury.</p>
 
 <h2>Your First Program</h2>
 <p>As a beginner, keep it simple. A <strong>full-body routine, 3 days per week</strong>, is the most effective starting point:</p>
@@ -383,10 +383,10 @@ export const blogArticles: BlogArticle[] = [
     content: `
 <h2>Why Custom Plans Beat Random Workouts</h2>
 <p>Following a different workout video every day might feel productive, but it's one of the least effective ways to train. <strong>Random training leads to random results.</strong> A structured plan ensures you're progressing, balancing muscle groups, and recovering properly.</p>
-<p>Building your own plan isn't complicated — you just need to understand a few key variables.</p>
+<p>Building your own plan isn't complicated. You just need to understand a few key variables.</p>
 
 <h2>Step 1: Define Your Goal</h2>
-<p>Your goal determines everything else — exercise selection, rep ranges, volume, and frequency. Be honest about what you actually want:</p>
+<p>Your goal determines everything else: exercise selection, rep ranges, volume, and frequency. Be honest about what you actually want:</p>
 <ul>
 <li><strong>Build muscle (hypertrophy):</strong> 8-12 reps, moderate weight, high volume</li>
 <li><strong>Build strength:</strong> 3-6 reps, heavy weight, lower volume</li>
@@ -395,7 +395,7 @@ export const blogArticles: BlogArticle[] = [
 </ul>
 
 <h2>Step 2: Choose Your Split</h2>
-<p>How many days per week can you realistically train? Be honest — <strong>a 3-day plan done consistently beats a 6-day plan done sporadically</strong>.</p>
+<p>How many days per week can you realistically train? Be honest: <strong>a 3-day plan done consistently beats a 6-day plan done sporadically</strong>.</p>
 <ul>
 <li><strong>2-3 days:</strong> Full body each session</li>
 <li><strong>4 days:</strong> Upper/Lower split (Upper, Lower, Upper, Lower)</li>
@@ -405,29 +405,29 @@ export const blogArticles: BlogArticle[] = [
 <h2>Step 3: Select Your Exercises</h2>
 <p>Each session should include:</p>
 <ul>
-<li><strong>1-2 compound movements</strong> — squats, bench press, deadlifts, rows, overhead press</li>
-<li><strong>2-3 accessory movements</strong> — isolation work targeting specific muscles</li>
-<li><strong>1 core exercise</strong> — planks, ab rollouts, hanging leg raises</li>
+<li><strong>1-2 compound movements</strong>: squats, bench press, deadlifts, rows, overhead press</li>
+<li><strong>2-3 accessory movements</strong>: isolation work targeting specific muscles</li>
+<li><strong>1 core exercise</strong>: planks, ab rollouts, hanging leg raises</li>
 </ul>
 <p>Total exercises per session: <strong>5-7 for most people</strong>. More than that and you're either doing junk volume or not training hard enough on each exercise.</p>
 
 <h2>Step 4: Set Your Volume</h2>
-<p>Volume is the total amount of work you do — sets x reps x weight. Research shows that <strong>10-20 sets per muscle group per week</strong> is the sweet spot for muscle growth.</p>
-<p>As a beginner, start at the low end (10-12 sets/week per muscle group). As you advance, gradually increase toward 15-20 sets. If you're not recovering well — poor sleep, persistent soreness, stalled lifts — you're doing too much.</p>
+<p>Volume is the total amount of work you do: sets x reps x weight. Research shows that <strong>10-20 sets per muscle group per week</strong> is the sweet spot for muscle growth.</p>
+<p>As a beginner, start at the low end (10-12 sets/week per muscle group). As you advance, gradually increase toward 15-20 sets. If you're not recovering well (poor sleep, persistent soreness, stalled lifts), you're doing too much.</p>
 
 <h2>Step 5: Plan Your Progression</h2>
 <p>A plan without progression is just a workout list. Build in a clear progression scheme:</p>
 <ul>
 <li><strong>Linear progression:</strong> Add weight each session (best for beginners)</li>
-<li><strong>Double progression:</strong> Increase reps within a range, then add weight when you hit the top (e.g., 3x8-12 — when you hit 3x12, add weight and start at 3x8)</li>
+<li><strong>Double progression:</strong> Increase reps within a range, then add weight when you hit the top (e.g., 3x8-12: when you hit 3x12, add weight and start at 3x8)</li>
 <li><strong>Periodization:</strong> Cycle through phases of higher and lower intensity over weeks (intermediate+)</li>
 </ul>
 
 <h2>Step 6: Don't Forget Recovery</h2>
 <p><strong>Rest periods between sets:</strong> 2-3 minutes for compound lifts, 60-90 seconds for isolation work.</p>
 <p><strong>Rest days between sessions:</strong> At least 48 hours before training the same muscle group again. Sleep 7-9 hours. Eat enough protein.</p>
-<p>Libo's custom workout builder lets you put all of this together — pick exercises from the full library, set your sequence, rest times, and sets, then save and reuse your plan.</p>
-<blockquote>The best workout plan is one that fits your life. Don't copy someone else's routine — build one that matches your schedule, equipment, and goals. Then follow it for at least 8 weeks before changing anything.</blockquote>
+<p>Libo's custom workout builder lets you put all of this together: pick exercises from the full library, set your sequence, rest times, and sets, then save and reuse your plan.</p>
+<blockquote>The best workout plan is one that fits your life. Don't copy someone else's routine. Build one that matches your schedule, equipment, and goals. Then follow it for at least 8 weeks before changing anything.</blockquote>
 `,
   },
   {
@@ -444,7 +444,7 @@ export const blogArticles: BlogArticle[] = [
     content: `
 <h2>The Recovery Problem</h2>
 <p>Most people focus entirely on training and completely neglect recovery. They wonder why their knees hurt, their shoulders are tight, and their progress stalls. <strong>Training breaks your body down. Recovery is where you actually get stronger.</strong></p>
-<p>Stretching and mobility work are the most accessible forms of recovery — they require zero equipment, take 10-15 minutes, and the benefits compound dramatically over time.</p>
+<p>Stretching and mobility work are the most accessible forms of recovery. They require zero equipment, take 10-15 minutes, and the benefits compound dramatically over time.</p>
 
 <h2>Dynamic vs. Static Stretching</h2>
 <p>These are fundamentally different tools, and using the wrong one at the wrong time can actually hurt your performance:</p>
@@ -453,10 +453,10 @@ export const blogArticles: BlogArticle[] = [
 <blockquote>Research consistently shows that static stretching before heavy lifting can temporarily reduce strength output by 5-10%. Save it for after your session.</blockquote>
 
 <h2>Foam Rolling: Your Secret Weapon</h2>
-<p>Foam rolling (self-myofascial release) breaks up adhesions in your muscle tissue and fascia. It's uncomfortable — sometimes painful — but the results are worth it.</p>
+<p>Foam rolling (self-myofascial release) breaks up adhesions in your muscle tissue and fascia. It's uncomfortable, sometimes painful, but the results are worth it.</p>
 <p><strong>How to foam roll effectively:</strong></p>
 <ul>
-<li>Roll slowly — about 1 inch per second</li>
+<li>Roll slowly, about 1 inch per second</li>
 <li>When you find a tender spot, pause and hold for 20-30 seconds</li>
 <li>Breathe through it. Tension releases when you relax</li>
 <li>Focus on major muscle groups: quads, IT band, glutes, upper back, lats</li>
@@ -491,7 +491,7 @@ export const blogArticles: BlogArticle[] = [
     heroImage: '/images/blog/simple-high-protein-meals-in-15-minutes-v4.jpg',
     content: `
 <h2>Why Protein, Why 15 Minutes</h2>
-<p>If you're training hard and not eating enough protein, you're leaving results on the table. <strong>Most lifters need 1.6 to 2.2 grams of protein per kilogram of bodyweight</strong> to build muscle — that's roughly 130 to 180g per day for an 80kg guy.</p>
+<p>If you're training hard and not eating enough protein, you're leaving results on the table. <strong>Most lifters need 1.6 to 2.2 grams of protein per kilogram of bodyweight</strong> to build muscle. That's roughly 130 to 180g per day for an 80kg guy.</p>
 <p>The problem isn't knowing this. The problem is hitting it on a Tuesday night when you're tired, broke on time, and the easy move is to order in. These five meals each deliver <strong>30g+ of protein in 15 minutes or less</strong>, use ingredients you can buy at any supermarket, and don't require you to follow a recipe.</p>
 
 <h2>1. Chicken + Rice Bowl (35g protein)</h2>
@@ -514,7 +514,7 @@ export const blogArticles: BlogArticle[] = [
 <li>2 slices of sourdough or rye bread</li>
 <li>Salt, pepper, chili flakes, a knob of butter</li>
 </ul>
-<p><strong>Do this:</strong> Whisk the eggs with a pinch of salt. Melt butter in a non-stick pan over medium-low heat. Pour in the eggs, push them around slowly with a spatula. When they're 70% set, fold the cottage cheese through and kill the heat. Toast the bread. Pile the scramble on top, chili flakes, eat. <strong>Cottage cheese melts into the eggs</strong> — you barely notice it, but it adds 12g of protein for almost no effort.</p>
+<p><strong>Do this:</strong> Whisk the eggs with a pinch of salt. Melt butter in a non-stick pan over medium-low heat. Pour in the eggs, push them around slowly with a spatula. When they're 70% set, fold the cottage cheese through and kill the heat. Toast the bread. Pile the scramble on top, chili flakes, eat. <strong>Cottage cheese melts into the eggs</strong>. You barely notice it, but it adds 12g of protein for almost no effort.</p>
 
 <h2>3. Tuna + White Bean Salad (30g protein)</h2>
 <p>No cooking. No dishes. Survives a desk lunch.</p>
@@ -531,7 +531,7 @@ export const blogArticles: BlogArticle[] = [
 <p>Two minutes flat. Works as breakfast, snack, or dessert.</p>
 <p><strong>You need:</strong></p>
 <ul>
-<li>250g Greek yogurt (0% or 2%, get the high-protein kind — 18g+ per 100g)</li>
+<li>250g Greek yogurt (0% or 2%, get the high-protein kind, 18g+ per 100g)</li>
 <li>30g protein granola (or regular granola + a scoop of whey if you have it lying around)</li>
 <li>A handful of berries or sliced banana</li>
 <li>1 tbsp peanut butter, drizzle of honey</li>
@@ -547,10 +547,10 @@ export const blogArticles: BlogArticle[] = [
 <li>1 microwave rice pouch</li>
 <li>2 tbsp soy sauce, 1 tbsp oyster sauce, garlic, ginger, sesame oil</li>
 </ul>
-<p><strong>Do this:</strong> Get a pan ripping hot with a splash of neutral oil. Sear the beef 60 seconds per side, pull it out. Throw in the broccoli with 2 tbsp of water, lid on, 3 minutes. Add minced garlic and ginger, soy, oyster sauce. Return the beef. Toss for 30 seconds. Microwave the rice while the broccoli steams. Serve. <strong>Don't overthink the seasoning</strong> — soy + oyster + garlic is 90% of the flavor of any stir-fry on earth.</p>
+<p><strong>Do this:</strong> Get a pan ripping hot with a splash of neutral oil. Sear the beef 60 seconds per side, pull it out. Throw in the broccoli with 2 tbsp of water, lid on, 3 minutes. Add minced garlic and ginger, soy, oyster sauce. Return the beef. Toss for 30 seconds. Microwave the rice while the broccoli steams. Serve. <strong>Don't overthink the seasoning</strong>. Soy + oyster + garlic is 90% of the flavor of any stir-fry on earth.</p>
 
 <h2>The Real Trick: Prep One Thing on Sunday</h2>
-<p>The single biggest unlock isn't a recipe — it's having one cooked protein already in the fridge. Pick one of these on Sunday:</p>
+<p>The single biggest unlock isn't a recipe. It's having one cooked protein already in the fridge. Pick one of these on Sunday:</p>
 <ul>
 <li><strong>Bake 1kg of chicken breast</strong> with salt, pepper, paprika at 200°C for 22 minutes. Slice. Done for the week.</li>
 <li><strong>Boil 8 eggs</strong> while you make dinner. Cool, fridge, peel-as-you-go.</li>
@@ -574,28 +574,28 @@ export const blogArticles: BlogArticle[] = [
     content: `
 <h2>The Question Everyone Asks Me</h2>
 <p>"How do you eat? How do you train? How do you stay lean year-round without losing muscle?"</p>
-<p>I get this every week. And here's the thing — most people who want to lose fat end up tanking their muscle, their energy, and their consistency in the process. They jump on a diet, lose 5kg in three weeks, look worse, feel worse, and rebound a month later. <strong>Fat loss isn't a nutrition problem. It's a mindset problem.</strong></p>
+<p>I get this every week. And here's the thing: most people who want to lose fat end up tanking their muscle, their energy, and their consistency in the process. They jump on a diet, lose 5kg in three weeks, look worse, feel worse, and rebound a month later. <strong>Fat loss isn't a nutrition problem. It's a mindset problem.</strong></p>
 <p>If you actually want to get lean and stay lean, there are two things I want you to do. Just two. Apply them this week and you'll see real change in 1–3 months.</p>
 
 <h2>1. Don’t Eat Lunch. Seriously.</h2>
 <p>This is the one nobody wants to hear. <strong>Cut your lunch. Stop eating it.</strong> Use that hour to train.</p>
-<p>If you don't have a gym near work, doesn't matter — have a couple of go-to exercises you can do anywhere. Push-ups, squats, lunges, a band, a pull-up bar at home. Just be active during the time you'd normally be sitting in front of a sandwich.</p>
-<p>If you absolutely need something, eat <strong>a piece of fruit — an apple, a banana, nothing more</strong>. Keep your breakfast. Coffee is fine. Then go home and have a proper, nutritious dinner.</p>
+<p>If you don't have a gym near work, doesn't matter. Have a couple of go-to exercises you can do anywhere. Push-ups, squats, lunges, a band, a pull-up bar at home. Just be active during the time you'd normally be sitting in front of a sandwich.</p>
+<p>If you absolutely need something, eat <strong>a piece of fruit: an apple, a banana, nothing more</strong>. Keep your breakfast. Coffee is fine. Then go home and have a proper, nutritious dinner.</p>
 <p>Why this works:</p>
 <ul>
 <li><strong>Post-lunch energy crash is real.</strong> Most people get sluggish after eating midday, then drag through the afternoon. Skipping lunch keeps you sharp.</li>
 <li><strong>Training fasted (or near-fasted) is fine.</strong> Honestly, you often perform better slightly hungry. Your body is primed to move, not digest.</li>
-<li><strong>You walk in the door starving.</strong> That dinner — the one you actually planned — hits harder, satisfies more, and you stop snacking on garbage at 9pm.</li>
+<li><strong>You walk in the door starving.</strong> That dinner, the one you actually planned, hits harder, satisfies more, and you stop snacking on garbage at 9pm.</li>
 <li><strong>It's the cleanest calorie deficit you'll ever run.</strong> One meal gone, one workout gained. The math takes care of itself.</li>
 </ul>
-<blockquote>If you're sitting there thinking "I could never skip lunch" — that's the exact reason you should try it. The voice telling you it's impossible is the same voice that's kept you stuck for two years.</blockquote>
+<blockquote>If you're sitting there thinking "I could never skip lunch", that's the exact reason you should try it. The voice telling you it's impossible is the same voice that's kept you stuck for two years.</blockquote>
 
 <h2>2. Stop Scrolling Between Sets</h2>
 <p>This is the other one. <strong>Put the phone away when you train.</strong></p>
 <p>Walk into any gym and you'll see the same thing: guys doing one set, then sitting on the bench for 4 minutes scrolling Instagram, then doing another set, then talking to a friend, then another set. <strong>That's not training. That's hanging out with weights.</strong></p>
 <p>Here's how I train when I want to get lean:</p>
 <ul>
-<li><strong>High reps. Weight doesn't matter — rep count matters.</strong> If you can't sweat through a set, the weight is irrelevant.</li>
+<li><strong>High reps. Weight doesn't matter, rep count matters.</strong> If you can't sweat through a set, the weight is irrelevant.</li>
 <li><strong>Rest is short.</strong> 30–60 seconds, max. If you're not breathing hard between sets, you're not earning anything.</li>
 <li><strong>Always have something in between.</strong> Finished a set of bench? Drop into push-ups. Done with squats? Hit a plank. The goal is to <strong>never fully stop moving</strong>.</li>
 <li><strong>No phone. No talking. No mirror time.</strong> You're there for 45 minutes, then you leave. Treat it like work.</li>
@@ -603,12 +603,12 @@ export const blogArticles: BlogArticle[] = [
 <p>Do this and two things happen at once: your session time drops by maybe a third, and you burn dramatically more fat than the guy doing the same lifts with 3-minute rests. <strong>Intensity is what cuts fat. Not the program.</strong></p>
 
 <h2>The Math Behind It</h2>
-<p>Fat loss is, at the end of the day, a <strong>calorie deficit</strong>. You can dress it up with macros, intermittent windows, keto, whatever — the underlying math is "less in than out."</p>
+<p>Fat loss is, at the end of the day, a <strong>calorie deficit</strong>. You can dress it up with macros, intermittent windows, keto, whatever. The underlying math is "less in than out."</p>
 <p>Skipping lunch is the simplest, lowest-willpower way to create that deficit without obsessing over food. You're not weighing chicken breasts. You're not tracking apps. You're just removing one meal from a day where you probably weren't that hungry at noon anyway.</p>
-<p>Pair that with high-intensity, low-rest training and you've stacked the two biggest fat-loss levers — diet and exercise — at the same time of day. <strong>You can't out-train a bad diet, but you sure can out-train a missing lunch.</strong></p>
+<p>Pair that with high-intensity, low-rest training and you've stacked the two biggest fat-loss levers (diet and exercise) at the same time of day. <strong>You can't out-train a bad diet, but you sure can out-train a missing lunch.</strong></p>
 
 <h2>What This Isn't</h2>
-<p>This isn't a starvation plan. You're still eating breakfast, you're still eating a real dinner, you might have a piece of fruit at midday. You're not skipping meals because food is bad — you're skipping a meal because it bought you a workout.</p>
+<p>This isn't a starvation plan. You're still eating breakfast, you're still eating a real dinner, you might have a piece of fruit at midday. You're not skipping meals because food is bad. You're skipping a meal because it bought you a workout.</p>
 <p>If you have a medical reason to eat regular meals, or you're dealing with anything that makes fasting risky for you, this isn't for you. <strong>Listen to your body.</strong> But if your only objection is "but I love my lunch break," that's exactly the comfort you need to break to change anything.</p>
 
 <h2>Try It for 30 Days</h2>
@@ -617,14 +617,14 @@ export const blogArticles: BlogArticle[] = [
 <li>Skip lunch, train during lunch hour. Small fruit if needed.</li>
 <li>Train without your phone. High reps. Short rest. Always moving.</li>
 </ul>
-<p>Run that for 30 days and you'll be leaner, fitter, and — this part surprises people — <strong>you'll have more time</strong>. Your training sessions are shorter. Your lunch break is freed up. Your dinner is the meal you look forward to instead of an afterthought.</p>
+<p>Run that for 30 days and you'll be leaner, fitter, and (this part surprises people) <strong>you'll have more time</strong>. Your training sessions are shorter. Your lunch break is freed up. Your dinner is the meal you look forward to instead of an afterthought.</p>
 <p>One to three months in, you won't recognise yourself. And you didn't count a single macro.</p>
 `,
   },
   {
     slug: '30-days-one-habit-real-money',
     title: '30 Days, One Habit, Real Money',
-    excerpt: "What Libo's cash challenges actually do to your body, brain, and bank account — and why the habit outlasts the app.",
+    excerpt: "What Libo's cash challenges actually do to your body, brain, and bank account, and why the habit outlasts the app.",
     category: 'Lifestyle',
     readTime: 5,
     date: '2026-05-12',
@@ -634,42 +634,42 @@ export const blogArticles: BlogArticle[] = [
     content: `
 <h2>Day 4 Is When Most People Quit</h2>
 <p>Open your phone right now and count how many fitness apps are sitting there from "this is the year I finally do it." Three? Five? <strong>Day one you crushed it. Day four you ignored the notification. By day ten the app is dead to you.</strong></p>
-<p>This isn't a willpower problem. It's a brain problem. Your nervous system is wired to chase novelty — and on day four, the novelty is gone. There's no fireworks for opening an app. There's no consequence for skipping. So your brain does what brains do: it moves on to the next shiny thing.</p>
-<p>I built Libo because I lived this loop for years. Same gym memberships, same January reset, same March drop-off. And I noticed something — the only times I actually stayed consistent were when something real was waiting for me at the end of it. Not points. Not streaks. <strong>Actual money, with my name already on it.</strong></p>
+<p>This isn't a willpower problem. It's a brain problem. Your nervous system is wired to chase novelty, and on day four, the novelty is gone. There's no fireworks for opening an app. There's no consequence for skipping. So your brain does what brains do: it moves on to the next shiny thing.</p>
+<p>I built Libo because I lived this loop for years. Same gym memberships, same January reset, same March drop-off. And I noticed something: the only times I actually stayed consistent were when something real was waiting for me at the end of it. Not points. Not streaks. <strong>Actual money, with my name already on it.</strong></p>
 
 <h2>Why I Bet on Cash Challenges</h2>
 <p>Most fitness apps reward you with badges. A digital sticker. A "well done!" pop-up. <strong>Your brain figures out within a week that none of it is real.</strong> There's no cost to ignoring it.</p>
-<p>Cash challenges flip that. Entry is free — you never put a penny in, so there's nothing to lose and no way to lose it. You just pick a tier and commit to 30 days: <strong>€5 for 30 reps a day, €15 for 60, €50 for 100.</strong> The day you enrol we set that money aside with your name on it. Finish all 30 days and it's yours, in full. Miss a day with no freeze token left and the run ends and the money goes back to us. That's the whole thing. No draw, no luck, and not a cent of it comes out of anyone else's pocket.</p>
-<p>People assume free entry means it can't bite. It bites harder than you'd think. <strong>The money is sitting there with your name on it from day one</strong> — so by day nine it doesn't feel like something you might get, it feels like something you already own. And your brain will fight far harder to keep what it thinks is already yours than to go out and earn something new. Miss a day and you're not out of pocket. You just watch €15 you'd already spent in your head walk out the door. Turns out that's worse. Once that's real, your brain stops treating the workout like an optional notification. It treats it like a shift it's getting paid for. And you turn up for shifts.</p>
-<blockquote>If "I'm not letting that €15 go" is what finally gets you to the gym five times a week, then you didn't buy anything — you got the body for free and we paid you for the trouble. That's the math nobody talks about.</blockquote>
+<p>Cash challenges flip that. Entry is free. You never put a penny in, so there's nothing to lose and no way to lose it. You just pick a tier and commit to 30 days: <strong>€5 for 30 reps a day, €15 for 60, €50 for 100.</strong> The day you enrol we set that money aside with your name on it. Finish all 30 days and it's yours, in full. Miss a day with no freeze token left and the run ends and the money goes back to us. That's the whole thing. No draw, no luck, and not a cent of it comes out of anyone else's pocket.</p>
+<p>People assume free entry means it can't bite. It bites harder than you'd think. <strong>The money is sitting there with your name on it from day one</strong>, so by day nine it doesn't feel like something you might get, it feels like something you already own. And your brain will fight far harder to keep what it thinks is already yours than to go out and earn something new. Miss a day and you're not out of pocket. You just watch €15 you'd already spent in your head walk out the door. Turns out that's worse. Once that's real, your brain stops treating the workout like an optional notification. It treats it like a shift it's getting paid for. And you turn up for shifts.</p>
+<blockquote>If "I'm not letting that €15 go" is what finally gets you to the gym five times a week, then you didn't buy anything. You got the body for free and we paid you for the trouble. That's the math nobody talks about.</blockquote>
 
 <h2>What 30 Days Actually Does To You</h2>
 <p>Here's what happens when you stack 30 days of forced consistency:</p>
 <ul>
-<li><strong>Days 1–7: friction.</strong> Every session feels like a chore. You're sore. You don't want to. You go anyway because there's money with your name on it and you're not handing it back on day six. <em>That's the entire point — the cash is doing the work your motivation can't.</em></li>
+<li><strong>Days 1–7: friction.</strong> Every session feels like a chore. You're sore. You don't want to. You go anyway because there's money with your name on it and you're not handing it back on day six. <em>That's the entire point: the cash is doing the work your motivation can't.</em></li>
 <li><strong>Days 8–14: routine kicks in.</strong> Your alarm goes off and you don't argue with it for ten minutes anymore. You pack your bag the night before. The friction is still there, but it's quieter.</li>
 <li><strong>Days 15–21: identity shift.</strong> You start saying "I train" instead of "I'm trying to get in shape." Small thing. Massive consequence. Your brain is rewriting who you are.</li>
-<li><strong>Days 22–30: the flip.</strong> Missing a day starts to feel <em>wrong</em>. Not virtuous — wrong. Like skipping a shower. Your body has learned what "active" feels like and it's quietly demanding it back.</li>
+<li><strong>Days 22–30: the flip.</strong> Missing a day starts to feel <em>wrong</em>. Not virtuous. Wrong. Like skipping a shower. Your body has learned what "active" feels like and it's quietly demanding it back.</li>
 </ul>
 <p>By day 30 you've done three things at once: <strong>improved your body, earned money (if you finished), and rewired your brain</strong> to default toward movement instead of away from it. That last one is the bit that actually matters. The cash is just what got you there.</p>
 
 <h2>Why This Outlasts Libo</h2>
 <p>Here's the part most people don't get until they live it. <strong>After 30 days of forced daily training, your body and your mind get used to it.</strong> You don't have to keep coming back to us. You don't have to keep logging in.</p>
-<p>If you stopped using Libo tomorrow — uninstalled it, never opened it again — your body would still ask you, every day, <em>"why aren't we moving?"</em> That question doesn't go away. We installed it. You can't uninstall it.</p>
-<p>That's why this is the cheapest thing you'll ever do for yourself. Not because it costs nothing — though it does — but because the habit you take home is worth ten thousand times the €15 we hand you, for the rest of your life. <strong>Consistency is a skill that transfers.</strong> Once you've proven to yourself you can show up for 30 days straight, that muscle carries into your work, your sleep, your money, your relationships. It's not a fitness habit. It's a self-respect habit.</p>
+<p>If you stopped using Libo tomorrow (uninstalled it, never opened it again), your body would still ask you, every day, <em>"why aren't we moving?"</em> That question doesn't go away. We installed it. You can't uninstall it.</p>
+<p>That's why this is the cheapest thing you'll ever do for yourself. Not because it costs nothing (though it does), but because the habit you take home is worth ten thousand times the €15 we hand you, for the rest of your life. <strong>Consistency is a skill that transfers.</strong> Once you've proven to yourself you can show up for 30 days straight, that muscle carries into your work, your sleep, your money, your relationships. It's not a fitness habit. It's a self-respect habit.</p>
 <blockquote>You're not here for the workouts. You're here for the version of yourself who can keep promises.</blockquote>
 
 <h2>The Mental Side Nobody Markets</h2>
-<p>I'm going to be honest — the physical changes after 30 days are real, but they're not what hits hardest. The mental shift is.</p>
-<p>People come out of their first 30-day cash challenge and tell me: <em>"I'm less anxious. I sleep better. I'm not doomscrolling at midnight."</em> That's not fitness. That's the side effect of finally being someone who finishes what they start. Your brain rewards you for it — dopamine, serotonin, all the chemistry that gets shorted when you spend your day stuck.</p>
-<p>For most of our users — guys between 16 and 35, trying to figure out money, career, body, all at once — that mental clarity is the real unlock. <strong>You can't build a business, save money, or have a serious relationship on a brain that hasn't moved in three days.</strong> Training is the cheapest mental health tool that exists. We just made it impossible to skip.</p>
+<p>I'm going to be honest: the physical changes after 30 days are real, but they're not what hits hardest. The mental shift is.</p>
+<p>People come out of their first 30-day cash challenge and tell me: <em>"I'm less anxious. I sleep better. I'm not doomscrolling at midnight."</em> That's not fitness. That's the side effect of finally being someone who finishes what they start. Your brain rewards you for it: dopamine, serotonin, all the chemistry that gets shorted when you spend your day stuck.</p>
+<p>For most of our users (guys between 16 and 35, trying to figure out money, career, body, all at once), that mental clarity is the real unlock. <strong>You can't build a business, save money, or have a serious relationship on a brain that hasn't moved in three days.</strong> Training is the cheapest mental health tool that exists. We just made it impossible to skip.</p>
 
 <h2>Start Small. Start This Week.</h2>
-<p>If this resonates, don't go big. Don't sign up for 100 reps a day because €50 sounds nice. <strong>Start with the €5 one — 30 reps a day.</strong> 30 days. One simple routine. Whatever you can actually do every day.</p>
+<p>If this resonates, don't go big. Don't sign up for 100 reps a day because €50 sounds nice. <strong>Start with the €5 one: 30 reps a day.</strong> 30 days. One simple routine. Whatever you can actually do every day.</p>
 <p>You'll either:</p>
 <ul>
 <li>Finish, take the €5, and walk away with a body and brain that work better than they did a month ago, or</li>
-<li>Miss a day, get nothing, and learn — without it costing you a penny — that this stuff is harder than you thought. Either way you've moved.</li>
+<li>Miss a day, get nothing, and learn (without it costing you a penny) that this stuff is harder than you thought. Either way you've moved.</li>
 </ul>
 <p>Most people choose the comfortable lie: "I'll start next month." I'd rather you spend 30 days finding out who you actually are. It costs you nothing but the effort, and the effort was always the only hard part.</p>
 <p>30 days. One habit. Real money. Pick your challenge.</p>

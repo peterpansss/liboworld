@@ -110,7 +110,7 @@ async function openPushupsEditor() {
 }
 
 function skipProcessingCheckbox(): HTMLInputElement {
-  const label = screen.getByText(/Skip processing — already cropped/);
+  const label = screen.getByText(/Skip processing \(already cropped/);
   return label.closest('label')!.querySelector('input[type="checkbox"]') as HTMLInputElement;
 }
 

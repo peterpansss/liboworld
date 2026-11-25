@@ -369,7 +369,7 @@ function uniqueSorted(vals: (string | undefined)[]): string[] {
 //
 // Kept in sync with `SIDE_SUFFIX_RE` in libo-app-v2/src/utils/bilateral.ts.
 // Don't edit one without editing the other.
-const SIDE_SUFFIX_RE = /\s*[—–-]\s*(Left|Right)(\s+(Leg|Arm|Side|Hip|Shoulder))?\s*$/i;
+const SIDE_SUFFIX_RE = /\s*[\u2014\u2013-]\s*(Left|Right)(\s+(Leg|Arm|Side|Hip|Shoulder))?\s*$/i;
 
 type BilateralSideLabel = 'Arm' | 'Leg' | 'Side' | 'Hip' | 'Shoulder' | '';
 
@@ -396,11 +396,17 @@ function sideOfClient(name: string): 'L' | 'R' | null {
   return m[1].toLowerCase() === 'left' ? 'L' : 'R';
 }
 
+// Separator between a bilateral parent name and its side ("Squat \u2014 Left").
+// This is the stored DATA format that the mobile SIDE_SUFFIX_RE parses, not UI
+// copy, so it stays an em dash (written as an escape) until the exercise names
+// are migrated at the source.
+const BILATERAL_SEP = '\u2014';
+
 function bilateralChildName(parent: string, side: 'Left' | 'Right', label: BilateralSideLabel): string {
   const trimmed = parent.trim();
   if (!trimmed) return '';
   const tail = label ? ` ${label}` : '';
-  return `${trimmed} — ${side}${tail}`;
+  return `${trimmed} ${BILATERAL_SEP} ${side}${tail}`;
 }
 
 /**
@@ -671,7 +677,7 @@ export function ExercisesPage() {
   // runs over slugs/ids too (admins regularly look up exercises by slug),
   // unlike the public-site search which doesn't expose slugs to users.
   const normSearch = (s: string) =>
-    s.toLowerCase().replace(/[—–\-'/.,()_]/g, ' ').replace(/\s+/g, ' ').trim();
+    s.toLowerCase().replace(/[\u2014\u2013\-'/.,()_]/g, ' ').replace(/\s+/g, ' ').trim();
 
   // Debounced search
   useEffect(() => {
@@ -901,7 +907,7 @@ export function ExercisesPage() {
     const canonical = findCanonicalForEditing(editing);
     if (!canonical) {
       setVoiceoverErr(
-        'No canonical row for this exercise — save it once before generating voiceover.',
+        'No canonical row for this exercise. Save it once before generating voiceover.',
       );
       return;
     }
@@ -941,7 +947,7 @@ export function ExercisesPage() {
 
       if (planned.length === 0) {
         setVoiceoverErr(
-          'No source text available — English setup_notes is empty and no translation columns are populated. Save the EN copy first; translations will fill in shortly.',
+          'No source text available. English setup_notes is empty and no translation columns are populated. Save the EN copy first; translations will fill in shortly.',
         );
         return;
       }
@@ -1025,7 +1031,7 @@ export function ExercisesPage() {
     }
     const canonical = findCanonicalForEditing(editing);
     if (!canonical) {
-      setDeleteVideoErr('No canonical row for this exercise — save it once before deleting the video.');
+      setDeleteVideoErr('No canonical row for this exercise. Save it once before deleting the video.');
       return;
     }
     if (
@@ -1076,7 +1082,7 @@ export function ExercisesPage() {
     }
     const canonical = findCanonicalForEditing(editing);
     if (!canonical) {
-      setDeleteVideoAltErr('No canonical row for this exercise — save it once before deleting the alt video.');
+      setDeleteVideoAltErr('No canonical row for this exercise. Save it once before deleting the alt video.');
       return;
     }
     if (
@@ -1126,7 +1132,7 @@ export function ExercisesPage() {
     // worker writes to video_url_alt and skips thumbnail extraction.
     const canonical = findCanonicalForEditing(editing);
     if (!canonical) {
-      setVideoAltUploadErr('No canonical row for this exercise — save it once before uploading an alt video through the worker.');
+      setVideoAltUploadErr('No canonical row for this exercise. Save it once before uploading an alt video through the worker.');
       return;
     }
     try {
@@ -1223,7 +1229,7 @@ export function ExercisesPage() {
 
       if (Object.keys(patch).length === 0) {
         setModalErr(
-          'Form matches the saved row — nothing to write. Video uploads and deletes persist automatically when the worker finishes.',
+          'Form matches the saved row. Nothing to write. Video uploads and deletes persist automatically when the worker finishes.',
         );
         return;
       }
@@ -1377,7 +1383,7 @@ export function ExercisesPage() {
     }
     if (
       !confirm(
-        `Permanently delete "${canonical.name}"? It will disappear from web + app immediately. This cannot be undone — to hide without deleting, set Visibility to Archived instead.`,
+        `Permanently delete "${canonical.name}"? It will disappear from web + app immediately. This cannot be undone. To hide without deleting, set Visibility to Archived instead.`,
       )
     ) {
       return;
@@ -1447,7 +1453,7 @@ export function ExercisesPage() {
     // pushes to R2 + extracts a thumbnail, then updates the canonical row.
     const canonical = findCanonicalForEditing(editing);
     if (!canonical) {
-      setVideoUploadErr('No canonical row for this exercise — save it once before uploading a video through the worker.');
+      setVideoUploadErr('No canonical row for this exercise. Save it once before uploading a video through the worker.');
       return;
     }
     try {
@@ -1575,7 +1581,7 @@ export function ExercisesPage() {
       return;
     }
     if (canonicalRows.some((r) => r.slug === slug)) {
-      setCreateErr(`Slug "${slug}" is already in use — pick another.`);
+      setCreateErr(`Slug "${slug}" is already in use. Pick another.`);
       return;
     }
     setCreating(true);
@@ -1614,7 +1620,7 @@ export function ExercisesPage() {
         const jobId = await uploadAndQueue(res.row.id, slug, singleVideoFile);
         if (jobId != null) {
           setSingleMediaJobId(jobId);
-          showToast(`Created ${createForm.name.trim()} — processing video…`);
+          showToast(`Created ${createForm.name.trim()}, processing video…`);
         }
         return; // leave drawer open
       }
@@ -1672,7 +1678,7 @@ export function ExercisesPage() {
     const taken = new Set(canonicalRows.map((r) => r.slug));
     for (const s of [parentSlug, leftSlug, rightSlug]) {
       if (taken.has(s)) {
-        setCreateErr(`Slug "${s}" is already in use — pick another base name.`);
+        setCreateErr(`Slug "${s}" is already in use. Pick another base name.`);
         return;
       }
     }
@@ -1778,7 +1784,7 @@ export function ExercisesPage() {
           }
         }
         if (queuedAny) {
-          showToast(`Created bilateral pair: ${parentName} — processing videos…`);
+          showToast(`Created bilateral pair: ${parentName}, processing videos…`);
           return; // leave drawer open
         }
         showToast(`Created bilateral pair: ${parentName}`);
@@ -1889,25 +1895,25 @@ export function ExercisesPage() {
       key: 'bodyFocus',
       header: 'Body Focus',
       sort: (a, b) => str(a.bodyFocus).localeCompare(str(b.bodyFocus)),
-      render: (r) => str(r.bodyFocus) || '—',
+      render: (r) => str(r.bodyFocus) || '-',
     },
     {
       key: 'equipment',
       header: 'Equipment',
       sort: (a, b) => str(a.equipment).localeCompare(str(b.equipment)),
-      render: (r) => str(r.equipment) || '—',
+      render: (r) => str(r.equipment) || '-',
     },
     {
       key: 'environment',
       header: 'Env',
       sort: (a, b) => str(a.environment).localeCompare(str(b.environment)),
-      render: (r) => str(r.environment) || '—',
+      render: (r) => str(r.environment) || '-',
     },
     {
       key: 'diff',
       header: 'Diff',
       sort: (a, b) => str(a.diff).localeCompare(str(b.diff)),
-      render: (r) => str(r.diff) || '—',
+      render: (r) => str(r.diff) || '-',
     },
     {
       key: 'video',
@@ -1917,7 +1923,7 @@ export function ExercisesPage() {
         r.videoUrl ? (
           <span style={{ color: colors.accent, fontWeight: 700 }}>✓</span>
         ) : (
-          <span style={{ color: colors.dim }}>—</span>
+          <span style={{ color: colors.dim }}>-</span>
         ),
     },
     {
@@ -1926,12 +1932,12 @@ export function ExercisesPage() {
       width: 110,
       sort: (a, b) => (a.status ?? '').localeCompare(b.status ?? ''),
       render: (r) =>
-        r.status ? <StatusChip status={r.status} /> : <span style={{ color: colors.dim }}>—</span>,
+        r.status ? <StatusChip status={r.status} /> : <span style={{ color: colors.dim }}>-</span>,
     },
     {
       key: 'override',
       header: 'Override',
-      render: (r) => (overridesById.has(r.id) ? <span style={editedChipStyle}>Edited</span> : <span style={{ color: colors.dim }}>—</span>),
+      render: (r) => (overridesById.has(r.id) ? <span style={editedChipStyle}>Edited</span> : <span style={{ color: colors.dim }}>-</span>),
     },
     {
       key: 'actions',
@@ -2106,7 +2112,7 @@ export function ExercisesPage() {
                   setCreateErr(null);
                 }}
               />
-              <span>Unilateral — create Left + Right variants</span>
+              <span>Unilateral: create Left + Right variants</span>
             </label>
             <span style={{ color: colors.muted, fontSize: 11 }}>
               For exercises trained one side at a time (e.g. Bulgarian split squat). Submits
@@ -2359,7 +2365,7 @@ export function ExercisesPage() {
                   disabled={creating}
                   onChange={(e) => setSkipProcessing(e.target.checked)}
                 />
-                Skip processing — already cropped + ready (applies to both sides)
+                Skip processing (already cropped + ready, applies to both sides)
               </label>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -2437,7 +2443,7 @@ export function ExercisesPage() {
                   disabled={creating}
                   onChange={(e) => setSkipProcessing(e.target.checked)}
                 />
-                Skip processing — already cropped + ready
+                Skip processing (already cropped + ready)
               </label>
               <VideoUpload
                 label="Exercise video (upload)"
@@ -2636,8 +2642,8 @@ function BilateralPreview({ form }: { form: CreateFormState }) {
   const parentName = form.name.trim() || '<parent name>';
   const baseSlug = (form.slug || slugifyExercise(form.name)).trim() || '<slug>';
   const label = form.bilateral_side_label;
-  const leftName = form.name.trim() ? bilateralChildName(parentName, 'Left', label) : `<parent name> — Left${label ? ` ${label}` : ''}`;
-  const rightName = form.name.trim() ? bilateralChildName(parentName, 'Right', label) : `<parent name> — Right${label ? ` ${label}` : ''}`;
+  const leftName = form.name.trim() ? bilateralChildName(parentName, 'Left', label) : `<parent name> ${BILATERAL_SEP} Left${label ? ` ${label}` : ''}`;
+  const rightName = form.name.trim() ? bilateralChildName(parentName, 'Right', label) : `<parent name> ${BILATERAL_SEP} Right${label ? ` ${label}` : ''}`;
   const rowStyle: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: '24px 1fr auto',
@@ -2869,7 +2875,7 @@ function EditForm({
           <span style={bilateralBadgeStyle}>Bilateral</span>
           {bilateralInfo.kind === 'parent' ? (
             <span>
-              Bilateral parent — children:{' '}
+              Bilateral parent, children:{' '}
               <strong>{bilateralInfo.leftName}</strong>,{' '}
               <strong>{bilateralInfo.rightName}</strong>
             </span>
@@ -2959,7 +2965,7 @@ function EditForm({
               disabled={isUploading || saving || videoUploadJobId !== null}
               onChange={(e) => onEditSkipProcessingChange(e.target.checked)}
             />
-            Skip processing — already cropped + ready (no R2 mirror, no auto-thumbnail)
+            Skip processing (already cropped + ready, no R2 mirror, no auto-thumbnail)
           </label>
 
           <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
@@ -3210,7 +3216,7 @@ function EditForm({
               <div key={f.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
                 <span style={{ color: colors.dim }}>{f.label}</span>
                 <span style={{ color: colors.text, fontFamily: 'monospace', marginLeft: 8, textAlign: 'right', wordBreak: 'break-all' }}>
-                  {f.value || '—'}
+                  {f.value || '-'}
                 </span>
               </div>
             ))}
@@ -3237,7 +3243,7 @@ function EditForm({
                 hint={
                   isCanonical
                     ? 'Blank = English name.'
-                    : 'Needs a canonical row — save another change first.'
+                    : 'Needs a canonical row. Save another change first.'
                 }
               >
                 <TextInput
@@ -3252,7 +3258,7 @@ function EditForm({
 
           <Field
             label="Setup Notes"
-            hint="EN is the source of truth — translations auto-fill on save."
+            hint="EN is the source of truth. Translations auto-fill on save."
           >
             <SetupNotesTabs
               form={form}
@@ -3294,7 +3300,7 @@ function EditForm({
             </Field>
             <Field label="Environment">
               <Select value={form.environment} onChange={(e) => update('environment', e.target.value)}>
-                <option value="">—</option>
+                <option value="">-</option>
                 <option value="Gym">Gym</option>
                 <option value="Home">Home</option>
                 <option value="Both">Both</option>
@@ -3302,7 +3308,7 @@ function EditForm({
             </Field>
             <Field label="Difficulty">
               <Select value={form.diff} onChange={(e) => update('diff', e.target.value)}>
-                <option value="">—</option>
+                <option value="">-</option>
                 <option value="beginner">beginner</option>
                 <option value="intermediate">intermediate</option>
                 <option value="advanced">advanced</option>
@@ -3341,7 +3347,7 @@ function EditForm({
             <TextInput value={form.videoUrl} onChange={(e) => update('videoUrl', e.target.value)} placeholder="https://…" />
           </Field>
 
-          <Field label="Video URL · alt" hint="Optional side-view clip — renders as the PiP swap on the public page. No thumbnail or voiceover.">
+          <Field label="Video URL · alt" hint="Optional side-view clip. Renders as the PiP swap on the public page. No thumbnail or voiceover.">
             <TextInput value={form.videoUrlAlt} onChange={(e) => update('videoUrlAlt', e.target.value)} placeholder="https://…" />
           </Field>
 
@@ -3369,7 +3375,7 @@ function EditForm({
         <div style={{ fontSize: 12, color: colors.muted }}>
           {diffCount === 0
             ? hasOverride
-              ? 'Form matches base — saving will clear the override.'
+              ? 'Form matches base. Saving will clear the override.'
               : 'No changes'
             : `${diffCount} field${diffCount === 1 ? '' : 's'} changed vs base`}
         </div>
@@ -3607,13 +3613,13 @@ function SetupNotesTabs({
         style={{ minHeight: 140 }}
         placeholder={
           isEn
-            ? 'English setup notes — source of truth for translations and voiceover.'
+            ? 'English setup notes: source of truth for translations and voiceover.'
             : `${SETUP_NOTES_LANG_LABEL[activeLang]} translation. Auto-filled on EN save; edit to override.`
         }
       />
       {!isEn && (
         <div style={hintStyle}>
-          Auto-translated from EN. Edit to override — changes here are saved
+          Auto-translated from EN. Edit to override. Changes here are saved
           alongside EN but don't re-trigger translation.
         </div>
       )}

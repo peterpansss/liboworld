@@ -259,7 +259,7 @@ export function AiCoachPage() {
       align: 'right',
       render: (r) => {
         const rate = aiCoachCacheHitRate(r);
-        if (rate == null) return <span style={{ color: colors.dim }}>—</span>;
+        if (rate == null) return <span style={{ color: colors.dim }}>-</span>;
         return (
           <span style={{ color: rate < CACHE_HIT_FLOOR ? colors.error : colors.text }}>
             {pct(rate)}
@@ -343,7 +343,7 @@ export function AiCoachPage() {
         const ceiling = usage?.tool_call_ceiling ?? 6;
         return (
           <span style={{ color: r.max_tool_calls >= ceiling ? colors.warning : colors.text }}>
-            {r.avg_tool_calls == null ? '—' : r.avg_tool_calls} / {r.max_tool_calls}
+            {r.avg_tool_calls == null ? '-' : r.avg_tool_calls} / {r.max_tool_calls}
           </span>
         );
       },
@@ -423,8 +423,8 @@ export function AiCoachPage() {
           {numberFmt.format(ever.non_admin_members)} member
           {ever.non_admin_members === 1 ? ' has' : 's have'} used the AI coach
         </strong>{' '}
-        — {numberFmt.format(ever.non_admin_messages)} message
-        {ever.non_admin_messages === 1 ? '' : 's'}, first on{' '}
+        ({numberFmt.format(ever.non_admin_messages)} message
+        {ever.non_admin_messages === 1 ? '' : 's'}), first on{' '}
         {ever.non_admin_first_day ? fmtDay(ever.non_admin_first_day) : 'an unknown day'}.{' '}
         {numberFmt.format(ever.messages)} total including admin usage.
       </Notice>
@@ -445,7 +445,7 @@ export function AiCoachPage() {
           <strong>Cache hit rate is {pct(rate)}, on {derived.windowRequests} request
           {derived.windowRequests === 1 ? '' : 's'}.</strong>{' '}
           Not enough traffic to judge yet. The cache holds for an hour, so messages further apart
-          than that each pay to rebuild it — at this volume a low rate is expected and costs
+          than that each pay to rebuild it. At this volume a low rate is expected and costs
           pennies. It only indicates a fault once the rate stays low across messages sent close
           together.
         </Notice>
@@ -456,7 +456,7 @@ export function AiCoachPage() {
         <strong>Prompt cache is not hitting ({pct(rate)} of input served from cache).</strong>{' '}
         Cache reads should be most of the input; at this rate the bill is several times what it
         should be. With a 1-hour TTL and this many requests, the usual cause is the system prompt
-        changing between them. Check the cache before changing anything else — see
+        changing between them. Check the cache before changing anything else. See
         RUNBOOK-ai-coach-costs § Turning it down.
       </Notice>
     );
@@ -534,17 +534,17 @@ export function AiCoachPage() {
       >
         <KpiCard
           label="Messages today"
-          value={usage ? numberFmt.format(usage.today.messages) : '—'}
+          value={usage ? numberFmt.format(usage.today.messages) : '-'}
           hint={usage ? `${numberFmt.format(usage.today.members)} member(s)` : undefined}
         />
         <KpiCard
           label="Spend today"
-          value={derived ? usd(derived.todayCost) : '—'}
+          value={derived ? usd(derived.todayCost) : '-'}
           hint="At Sonnet 5.5 list prices"
         />
         <KpiCard
           label={`Spend (${usage?.window_days ?? days}d)`}
-          value={derived ? usd(derived.windowCost) : '—'}
+          value={derived ? usd(derived.windowCost) : '-'}
           hint={
             derived?.perMessage != null
               ? `${usd(derived.perMessage)} per message`
@@ -553,20 +553,20 @@ export function AiCoachPage() {
         />
         <KpiCard
           label="Cache hit rate"
-          value={derived?.cacheRate != null ? pct(derived.cacheRate) : '—'}
+          value={derived?.cacheRate != null ? pct(derived.cacheRate) : '-'}
           hint={
             derived?.cacheRate == null
               ? 'No input to measure yet'
               : derived.windowRequests < CACHE_VERDICT_MIN_REQUESTS
-                ? `${derived.windowRequests} request(s) — too few to judge`
+                ? `${derived.windowRequests} request(s), too few to judge`
                 : derived.cacheRate < CACHE_HIT_FLOOR
-                  ? 'Too low — the bill is inflated'
+                  ? 'Too low, the bill is inflated'
                   : 'Cache reads should dominate'
           }
         />
         <KpiCard
           label="At daily cap"
-          value={usage ? numberFmt.format(usage.at_cap_count) : '—'}
+          value={usage ? numberFmt.format(usage.at_cap_count) : '-'}
           hint={
             usage
               ? `${numberFmt.format(usage.near_cap_count)} near (${usage.near_cap_threshold}+ of ${usage.daily_message_limit})`
@@ -575,7 +575,7 @@ export function AiCoachPage() {
         />
         <KpiCard
           label="Tool calls / request"
-          value={usage ? usage.tool_calls.avg : '—'}
+          value={usage ? usage.tool_calls.avg : '-'}
           hint={
             usage
               ? `${numberFmt.format(usage.tool_calls.at_ceiling)} of ${numberFmt.format(usage.tool_calls.requests)} at the ${usage.tool_call_ceiling} ceiling`
@@ -586,9 +586,9 @@ export function AiCoachPage() {
 
       <h2 style={sectionTitleStyle}>At or near today&rsquo;s cap</h2>
       <div style={{ color: colors.muted, fontSize: 12, marginBottom: 8 }}>
-        People to talk to, not to block. Shown by member reference only — the first 8 characters
+        People to talk to, not to block. Shown by member reference only: the first 8 characters
         of their user id, which the Users page search accepts.
-        {usage?.at_cap_truncated && ' Showing the top 50 only — the counts above are complete.'}
+        {usage?.at_cap_truncated && ' Showing the top 50 only. The counts above are complete.'}
       </div>
       <DataTable
         rows={usage?.at_cap ?? []}

@@ -472,7 +472,7 @@ export function PartnerOffersPage() {
         render: (r) =>
           r.badge
             ? <span style={{ ...chipBase, background: colors.accentDim, color: colors.accent }}>{r.badge}</span>
-            : <span style={{ color: colors.dim }}>—</span>,
+            : <span style={{ color: colors.dim }}>-</span>,
       },
       {
         key: 'countries',
@@ -689,7 +689,7 @@ export function PartnerOffersPage() {
             </Field>
             <Field
               label="Affiliate URL"
-              hint="Paste the tracking link from the affiliate network. Optional: put {SUBID} where the network accepts a sub-ID (Amazon ascsubtag, Awin clickref) — it's replaced with the offer slug."
+              hint="Paste the tracking link from the affiliate network. Optional: put {SUBID} where the network accepts a sub-ID (Amazon ascsubtag, Awin clickref). It's replaced with the offer slug."
             >
               <TextInput
                 value={form.affiliate_url}

@@ -290,7 +290,7 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
     // it is short enough to read at a glance on the first card, and names a
     // loss before a gain, which the longer line takes twenty words to reach.
     quote:
-      'This app brought me back something I completely lost — discipline.',
+      'This app brought me back something I completely lost: discipline.',
     duration: '0:24',
     durationSeconds: 24,
     title: 'Gabriel K. on training with Libo',
@@ -301,7 +301,7 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
     displayName: 'Somin K.',
     badge: 'BETA TESTER',
     quote:
-      "I'm just lazy — I just want to have a simple plan… and I feel like this is just a perfect option for me.",
+      "I'm just lazy. I just want to have a simple plan… and I feel like this is just a perfect option for me.",
     duration: '0:30',
     durationSeconds: 30,
     title: 'Somin K. on training with Libo',
@@ -383,7 +383,7 @@ export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
     displayName: 'Jerson O.',
     badge: 'BETA TESTER',
     quote:
-      "After work you're tired. You don't want to spend time looking for what to do — you want to go straight to the point.",
+      "After work you're tired. You don't want to spend time looking for what to do, you want to go straight to the point.",
     duration: '0:29',
     durationSeconds: 29,
     title: 'Jerson O. on training with Libo',

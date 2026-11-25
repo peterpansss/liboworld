@@ -124,13 +124,13 @@ export default function ExerciseLibrary() {
 
   const seoDescription = useMemo(() => {
     if (muscle !== 'All' && equip !== 'All') {
-      return `Browse ${muscle.toLowerCase()} exercises using ${equip.toLowerCase()} — full demo videos, instructions, and tips for every move.`;
+      return `Browse ${muscle.toLowerCase()} exercises using ${equip.toLowerCase()}: full demo videos, instructions, and tips for every move.`;
     }
     if (muscle !== 'All') {
       return `Browse ${muscle.toLowerCase()} exercises with full demo videos, step-by-step instructions, and form tips.`;
     }
     if (equip !== 'All') {
-      return `Browse ${equip.toLowerCase()} exercises across every muscle group — demo videos, instructions, and form tips.`;
+      return `Browse ${equip.toLowerCase()} exercises across every muscle group, with demo videos, instructions, and form tips.`;
     }
     return 'Browse 600+ exercises with demo videos, step-by-step instructions, and form tips. Filter by muscle group or equipment.';
   }, [muscle, equip]);
@@ -148,7 +148,7 @@ export default function ExerciseLibrary() {
   // parent's detail page. Kept as a separate memo so the header counter and
   // the filtered grid agree on what "exercise" means.
   const parentExercises = useMemo(
-    () => exercises.filter(e => !e.parentId && !/[—–-]\s*(Left|Right)\b/i.test(e.name)),
+    () => exercises.filter(e => !e.parentId && !/[\u2014\u2013-]\s*(Left|Right)\b/i.test(e.name)),
     [exercises],
   );
 
@@ -197,7 +197,7 @@ export default function ExerciseLibrary() {
       // like "iso la" match "Iso-Lateral", "single arm" matches "Single-Arm",
       // and "world s" matches "World's". Case-insensitive throughout.
       const norm = (s: string) =>
-        s.toLowerCase().replace(/[—–\-']/g, ' ').replace(/\s+/g, ' ').trim();
+        s.toLowerCase().replace(/[\u2014\u2013\-']/g, ' ').replace(/\s+/g, ' ').trim();
       const q = norm(urlSearch);
       // Every name the row has — English plus each translation — so a German
       // visitor typing "Kniebeuge" and an English one typing "Squat" both land

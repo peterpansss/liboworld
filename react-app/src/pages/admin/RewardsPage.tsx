@@ -198,9 +198,9 @@ function formatPoints(n: number): string {
 }
 
 function formatAbsolute(iso: string | null | undefined): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return '—';
+  if (isNaN(d.getTime())) return '-';
   return d.toLocaleString(undefined, {
     year: 'numeric',
     month: 'short',
@@ -211,9 +211,9 @@ function formatAbsolute(iso: string | null | undefined): string {
 }
 
 function formatRelative(iso: string | null | undefined): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return '—';
+  if (isNaN(d.getTime())) return '-';
   const min = Math.floor((Date.now() - d.getTime()) / 60000);
   if (min < 1) return 'just now';
   if (min < 60) return `${min} min${min === 1 ? '' : 's'} ago`;
@@ -651,7 +651,7 @@ export function RewardsPage() {
       {
         key: 'brand',
         header: 'Brand',
-        render: (r) => <span style={{ color: colors.text, fontSize: 13 }}>{r.brand ?? '—'}</span>,
+        render: (r) => <span style={{ color: colors.text, fontSize: 13 }}>{r.brand ?? '-'}</span>,
         sort: (a, b) => (a.brand ?? '').localeCompare(b.brand ?? ''),
       },
       {
@@ -670,7 +670,7 @@ export function RewardsPage() {
               <CopyButton value={r.payout_to ?? ''} />
             </span>
           ) : (
-            <span style={{ color: colors.dim }}>—</span>
+            <span style={{ color: colors.dim }}>-</span>
           ),
       },
       {
@@ -762,7 +762,7 @@ export function RewardsPage() {
               ? 'PayPal, Revolut, Wise, bank'
               : r.brands.length
                 ? r.brands.join(', ')
-                : '—'}
+                : '-'}
           </span>
         ),
       },
@@ -916,9 +916,9 @@ export function RewardsPage() {
           <>
             <div style={{ ...panelStyle, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
               <DetailItem label="Member" value={memberLabel(open)} />
-              <DetailItem label="Account email" value={open.member_email ?? '—'} />
+              <DetailItem label="Account email" value={open.member_email ?? '-'} />
               <DetailItem label="Card" value={`${cardLabel(open)} · ${formatPoints(open.points)} points`} />
-              <DetailItem label={open.method === 'ship' ? 'Option (colour)' : 'Brand'} value={open.brand ?? '—'} />
+              <DetailItem label={open.method === 'ship' ? 'Option (colour)' : 'Brand'} value={open.brand ?? '-'} />
               <DetailItem label="Method" value={methodLabel(open.method)} />
               <DetailItem
                 label={open.method === 'ship' ? 'Ship to' : open.method === 'sepa' ? 'IBAN' : 'Pay to'}
@@ -933,7 +933,7 @@ export function RewardsPage() {
                       {open.payout_to}
                       <CopyButton value={open.payout_to} />
                     </span>
-                  ) : '—'
+                  ) : '-'
                 }
               />
               {open.method === 'sepa' && (
@@ -945,7 +945,7 @@ export function RewardsPage() {
                         {open.payout_name}
                         <CopyButton value={open.payout_name} />
                       </span>
-                    ) : '—'
+                    ) : '-'
                   }
                 />
               )}
@@ -956,7 +956,7 @@ export function RewardsPage() {
                   <DetailItem label="Resolved" value={formatAbsolute(open.fulfilled_at)} />
                   <DetailItem
                     label={proofLabel(open.method)}
-                    value={<span style={{ fontFamily: 'monospace' }}>{open.code_or_txn ?? '—'}</span>}
+                    value={<span style={{ fontFamily: 'monospace' }}>{open.code_or_txn ?? '-'}</span>}
                   />
                 </>
               )}

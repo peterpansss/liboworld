@@ -206,9 +206,9 @@ function formatWindow(start: string, end: string): string {
 }
 
 function formatDateTime(iso: string | null | undefined): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return '—';
+  if (isNaN(d.getTime())) return '-';
   return d.toLocaleString(undefined, {
     year: 'numeric',
     month: 'short',
@@ -232,13 +232,13 @@ function friendlyCycleError(raw: string, ctx?: { activeCount?: number }): string
     case 'forbidden':
       return 'You do not have permission to do that.';
     case 'cycle_not_found':
-      return 'Cycle not found — it may have been removed.';
+      return 'Cycle not found. It may have been removed.';
     case 'below_active_count':
       return ctx?.activeCount != null
         ? `Can't set below ${ctx.activeCount} already enrolled.`
         : "Can't set below the number already enrolled.";
     case 'cycle_full':
-      return 'Cycle is full — raise the max participants first.';
+      return 'Cycle is full. Raise the max participants first.';
     case 'invalid_seed':
       return 'Seed must be 0 or more and less than the headline total.';
     case 'already_enrolled':
@@ -246,9 +246,9 @@ function friendlyCycleError(raw: string, ctx?: { activeCount?: number }): string
     case 'cycle_not_joinable':
       return 'This cycle is not open for new enrollments.';
     case 'cycle_completed':
-      return 'This cycle is already completed — payouts are finalized, so it can’t be cancelled or edited.';
+      return 'This cycle is already completed. Payouts are finalized, so it can’t be cancelled or edited.';
     case 'cycle_has_payouts':
-      return 'This cycle already has payouts — it can’t be cancelled.';
+      return 'This cycle already has payouts, so it can’t be cancelled.';
     case 'already_cancelled':
       return 'This cycle is already cancelled.';
     case 'window_invalid':
@@ -332,8 +332,8 @@ export function CyclesPage() {
       await setCycleStatus(row.id, newStatus);
       setSuccessMsg(
         newStatus === 'enrollment_open'
-          ? 'Enrollment reopened — users can join again.'
-          : 'Enrollment closed — the cycle is now running.',
+          ? 'Enrollment reopened. Users can join again.'
+          : 'Enrollment closed. The cycle is now running.',
       );
       await refresh();
     } catch (e) {
@@ -358,7 +358,7 @@ export function CyclesPage() {
     setSuccessMsg(null);
     try {
       const r = await withRecentAuth(() => cancelCycle(row.id));
-      setSuccessMsg(`Cycle cancelled — ${r.removed_enrollments ?? 0} participant(s) released.`);
+      setSuccessMsg(`Cycle cancelled: ${r.removed_enrollments ?? 0} participant(s) released.`);
       await refresh();
     } catch (e) {
       setErr(friendlyCycleError(errMessage(e)));
@@ -397,7 +397,7 @@ export function CyclesPage() {
       });
       setWindowRow(null);
       setSuccessMsg(
-        `Window updated${r.shifted_enrollments ? ` — ${r.shifted_enrollments} active participant(s) shifted` : ''}.`,
+        `Window updated${r.shifted_enrollments ? `, ${r.shifted_enrollments} active participant(s) shifted` : ''}.`,
       );
       await refresh();
     } catch (e) {
@@ -591,7 +591,7 @@ export function CyclesPage() {
               {members === undefined ? (
                 // Row predates the migration: unknown, not empty. Saying
                 // "no members" here would be a lie about a cycle that has one.
-                <div style={{ color: colors.dim, fontSize: 12, marginTop: 2 }}>—</div>
+                <div style={{ color: colors.dim, fontSize: 12, marginTop: 2 }}>-</div>
               ) : members.length === 0 ? (
                 <div style={{ color: colors.dim, fontSize: 12, marginTop: 2 }}>no members</div>
               ) : (
@@ -701,7 +701,7 @@ export function CyclesPage() {
               €{r.total_owed.toFixed(2)}
             </span>
           ) : (
-            <span style={{ color: colors.dim, fontSize: 12 }}>—</span>
+            <span style={{ color: colors.dim, fontSize: 12 }}>-</span>
           ),
         sort: (a, b) => a.total_owed - b.total_owed,
       },
@@ -831,7 +831,7 @@ export function CyclesPage() {
             Individual timed runs of a challenge (sets the start date &amp; window).
           </div>
           <div style={{ ...statsStyle, color: colors.dim }}>
-            Each row is one person&rsquo;s 30-day run. Spots are capped per challenge (below) — edit the cap on the Challenges page.
+            Each row is one person&rsquo;s 30-day run. Spots are capped per challenge (below). Edit the cap on the Challenges page.
           </div>
           {!loading && spots.length > 0 && (
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', margin: '10px 0 6px' }}>
@@ -924,7 +924,7 @@ export function CyclesPage() {
       <Modal
         open={!!detailsRow}
         onClose={closeDetails}
-        title={detailsRow ? `Winners — ${detailsRow.challenge_title}` : 'Winners'}
+        title={detailsRow ? `Winners: ${detailsRow.challenge_title}` : 'Winners'}
         width={760}
       >
         {detailsRow && (
@@ -1002,17 +1002,17 @@ export function CyclesPage() {
                   <tbody>
                     {winners.map((w) => (
                       <tr key={w.enrollment_id} style={{ borderBottom: `1px solid ${colors.border}`, color: colors.text }}>
-                        <td style={tdStyle}>{w.user_email ?? <span style={{ color: colors.dim }}>—</span>}</td>
+                        <td style={tdStyle}>{w.user_email ?? <span style={{ color: colors.dim }}>-</span>}</td>
                         <td style={{ ...tdStyle, textAlign: 'right' }}>{w.completed_days}</td>
                         <td style={tdStyle}>
                           {w.payout_status ? (
                             <span style={payoutStatusChipStyle(w.payout_status)}>{w.payout_status}</span>
                           ) : (
-                            <span style={{ color: colors.dim }}>—</span>
+                            <span style={{ color: colors.dim }}>-</span>
                           )}
                         </td>
                         <td style={{ ...tdStyle, textAlign: 'right' }}>
-                          {w.payout_amount != null ? `€${Number(w.payout_amount).toFixed(2)}` : <span style={{ color: colors.dim }}>—</span>}
+                          {w.payout_amount != null ? `€${Number(w.payout_amount).toFixed(2)}` : <span style={{ color: colors.dim }}>-</span>}
                         </td>
                         <td style={{ ...tdStyle, color: colors.muted, fontSize: 12 }}>
                           {formatDateTime(w.payout_paid_at)}
@@ -1037,7 +1037,7 @@ export function CyclesPage() {
       <Modal
         open={!!participantsRow}
         onClose={closeParticipants}
-        title={participantsRow ? `Participants — ${participantsRow.challenge_title}` : 'Participants'}
+        title={participantsRow ? `Participants: ${participantsRow.challenge_title}` : 'Participants'}
         width={860}
       >
         {participantsRow && (
@@ -1105,7 +1105,7 @@ export function CyclesPage() {
                   <tbody>
                     {participants.map((p) => (
                       <tr key={p.enrollment_id} style={{ borderBottom: `1px solid ${colors.border}`, color: colors.text }}>
-                        <td style={tdStyle}>{p.email ?? <span style={{ color: colors.dim }}>—</span>}</td>
+                        <td style={tdStyle}>{p.email ?? <span style={{ color: colors.dim }}>-</span>}</td>
                         <td style={tdStyle}>
                           <span style={enrollmentStatusChipStyle(p.status)}>{p.status}</span>
                         </td>
@@ -1118,11 +1118,11 @@ export function CyclesPage() {
                               <span style={{ color: colors.dim, fontSize: 11 }}> ({sessionMins[p.user_id].sessions})</span>
                             </span>
                           ) : (
-                            <span style={{ color: colors.dim }}>—</span>
+                            <span style={{ color: colors.dim }}>-</span>
                           )}
                         </td>
                         <td style={{ ...tdStyle, textAlign: 'right' }}>
-                          {p.freeze_tokens_remaining != null ? p.freeze_tokens_remaining : <span style={{ color: colors.dim }}>—</span>}
+                          {p.freeze_tokens_remaining != null ? p.freeze_tokens_remaining : <span style={{ color: colors.dim }}>-</span>}
                         </td>
                         <td style={{ ...tdStyle, color: colors.muted, fontSize: 12 }}>
                           {formatDateTime(p.joined_at)}
@@ -1150,7 +1150,7 @@ export function CyclesPage() {
       <Modal
         open={!!addRow}
         onClose={closeAddModal}
-        title={addRow ? `Add participant — ${addRow.challenge_title}` : 'Add participant'}
+        title={addRow ? `Add participant: ${addRow.challenge_title}` : 'Add participant'}
         width={560}
       >
         {addRow && (
@@ -1258,7 +1258,7 @@ export function CyclesPage() {
       <Modal
         open={!!windowRow}
         onClose={() => setWindowRow(null)}
-        title={windowRow ? `Edit window — ${windowRow.challenge_title}` : 'Edit window'}
+        title={windowRow ? `Edit window: ${windowRow.challenge_title}` : 'Edit window'}
         width={520}
       >
         {windowRow && (

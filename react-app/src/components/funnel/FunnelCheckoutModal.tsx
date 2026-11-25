@@ -371,7 +371,7 @@ export default function FunnelCheckoutModal({
     : step === 1
     ? copy.step1Label
     : copy.step2Label;
-  const dialogTitle = `Checkout — ${stepTitle}`;
+  const dialogTitle = `Checkout: ${stepTitle}`;
 
   // Overlay click handler. Closing should NOT silently discard mid-form data,
   // but the success state and a clean form may close without confirmation.

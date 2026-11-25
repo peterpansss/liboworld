@@ -61,24 +61,24 @@
     "line2": "Todos los formatos.",
     "line3": "Todos los lugares.",
     "line4": "Todos los objetivos.",
-    "description": "Libo es el club de entrenamiento diseñado para la vida real — casa, gym, oficina o donde sea. Sin excusas. Solo resultados."
+    "description": "Libo es el club de entrenamiento diseñado para la vida real: casa, gym, oficina o donde sea. Sin excusas. Solo resultados."
   },
   "features": {
     "eyebrow": "Qué Incluye",
     "headline": "Todo lo\nque necesitas.",
     "description": "820+ ejercicios · 140 entrenamientos · 4 programas de retos. Todos los formatos, desde fuerza con barra hasta respiración y rutinas matutinas.",
     "exerciseLibrary": "Biblioteca de Ejercicios",
-    "exerciseLibraryDesc": "820+ ejercicios — 432 gym, 396 casa. Cada uno con notas de equipamiento, músculos trabajados e indicaciones de forma.",
+    "exerciseLibraryDesc": "820+ ejercicios: 432 gym, 396 casa. Cada uno con notas de equipamiento, músculos trabajados e indicaciones de forma.",
     "workoutLibrary": "Biblioteca de Entrenamientos",
-    "workoutLibraryDesc": "140 sesiones prediseñadas — gym, casa, cardio, estiramientos, rutinas matutinas y programas de retos. De 5 a 60 minutos.",
+    "workoutLibraryDesc": "140 sesiones prediseñadas: gym, casa, cardio, estiramientos, rutinas matutinas y programas de retos. De 5 a 60 minutos.",
     "programs": "Programas",
     "programsDesc": "Planes estructurados de varias semanas diseñados para darte resultados reales y medibles. Sigue el plan, confía en el proceso.",
     "progressTracking": "Seguimiento de Progreso",
     "progressTrackingDesc": "Registra cada serie, repetición y peso. Libo recuerda tu historial y te muestra exactamente cuánto has mejorado.",
     "customBuilder": "Creador Personalizado",
-    "customBuilderDesc": "Arma tu propio entrenamiento desde la biblioteca completa. Define la secuencia, series, descanso — guarda y reutiliza.",
+    "customBuilderDesc": "Arma tu propio entrenamiento desde la biblioteca completa. Define la secuencia, series y descanso; guarda y reutiliza.",
     "moneyChallenges": "Retos con Dinero",
-    "moneyChallengesDesc": "Únete a retos de 30 días, cumple tus repeticiones diarias, comparte en stories — y gana dinero real. ¿100 reps al día por 30 días? Son €50 en tu bolsillo."
+    "moneyChallengesDesc": "Únete a retos de 30 días, cumple tus repeticiones diarias, comparte en stories y gana dinero real. ¿100 reps al día por 30 días? Son €50 en tu bolsillo."
   },
   "photoBreak1": {
     "eyebrow": "820+ Ejercicios",
@@ -87,7 +87,7 @@
   "rewards": {
     "eyebrow": "Retos con Dinero",
     "headline": "Tus repeticiones\npagan dinero real.",
-    "description": "30 días. Repeticiones diarias. Publica la prueba. Cobra. Sin puntos, sin tarjetas de regalo — solo dinero en tu bolsillo.",
+    "description": "30 días. Repeticiones diarias. Publica la prueba. Cobra. Sin puntos, sin tarjetas de regalo. Solo dinero en tu bolsillo.",
     "chip1": "Pagos en Efectivo",
     "chip2": "Rachas de 30 Días",
     "chip3": "Cupos Limitados",
@@ -103,7 +103,7 @@
   "categories": {
     "eyebrow": "Formatos de Entrenamiento",
     "headline": "Diseñado para\ncada momento.",
-    "description": "Cada formato, cada lugar, cada momento del día — cubierto.",
+    "description": "Cada formato, cada lugar, cada momento del día: cubierto.",
     "homeWorkouts": "Entrenamientos en Casa",
     "homeWorkoutsDesc": "Peso corporal · Sin equipamiento",
     "gymTraining": "Entrenamiento en Gym",
@@ -142,7 +142,7 @@
   "proof": {
     "eyebrow": "Primeras Opiniones",
     "headline": "La gente ama\nentrenar con Libo.",
-    "card1Quote": "\"Hice el reto de 100 reps y realmente me pagaron. Grabarte cada día te mantiene honesto — no hay forma de hacer trampa. La mejor motivación que he tenido.\"",
+    "card1Quote": "\"Hice el reto de 100 reps y realmente me pagaron. Grabarte cada día te mantiene honesto, no hay forma de hacer trampa. La mejor motivación que he tenido.\"",
     "card1Author": "Marco T.",
     "card1Meta": "Reto completado · Berlin",
     "card2Quote": "\"Las rutinas matutinas son un cambio total. 15 minutos antes del trabajo y me siento completamente diferente todo el día.\"",
@@ -180,7 +180,7 @@
     "unitHours": "HRS",
     "unitMinutes": "MIN",
     "unitSeconds": "SEG",
-    "foundingClosed": "Founding cerrado — Premium cuesta €119.99/año"
+    "foundingClosed": "Founding cerrado: Premium cuesta €119.99/año"
   },
   "community": {
     "eyebrow": "LA COMUNIDAD LIBO",
@@ -194,7 +194,7 @@
   },
   "waitlist": {
     "upsellHeading": "Sáltate la cola",
-    "upsellBody": "Los Founding Members se saltan la lista de espera y aseguran un 50% de descuento en su primer año — €39.50 en vez de €79.99. Solo hasta que lancemos.",
+    "upsellBody": "Los Founding Members se saltan la lista de espera y aseguran un 50% de descuento en su primer año: €39.50 en vez de €79.99. Solo hasta que lancemos.",
     "upsellCta": "Asegura el 50% de descuento →",
     "buttonLabel": "ÚNETE A LA LISTA DE ESPERA",
     "modalHeading": "ÚNETE A LA LISTA DE ESPERA",
@@ -214,7 +214,7 @@
   "challengeWaitlist": {
     "buttonLabel": "AVÍSAME EN EL LANZAMIENTO",
     "modalHeading": "AVISO DE LANZAMIENTO",
-    "modalSubhead": "Las plazas son limitadas. Cuando alguien termina o lo deja, su plaza se libera — avisamos a la vez a todos los que están esperando, y entra el primero que la tome. Tus 30 días empiezan en el momento en que entras — sin esperar a que empiece ningún ciclo.",
+    "modalSubhead": "Las plazas son limitadas. Cuando alguien termina o lo deja, su plaza se libera: avisamos a la vez a todos los que están esperando, y entra el primero que la tome. Tus 30 días empiezan en el momento en que entras, sin esperar a que empiece ningún ciclo.",
     "emailPlaceholder": "Tu email",
     "submitLabel": "AVÍSAME",
     "disclosure": "No te enviaremos spam. Cancela cuando quieras.",
@@ -223,7 +223,7 @@
     "duplicateMessage": "¡Ya estás en la lista!",
     "errorMessage": "Algo salió mal. Inténtalo de nuevo.",
     "cardDisclosure": "Reto de constancia de 30 días que paga en efectivo. Primero iOS.",
-    "bodyParagraph": "Las plazas son limitadas. Cuando alguien termina o lo deja, su plaza se libera — avisamos a la vez a todos los que están esperando, y entra el primero que la tome.",
+    "bodyParagraph": "Las plazas son limitadas. Cuando alguien termina o lo deja, su plaza se libera: avisamos a la vez a todos los que están esperando, y entra el primero que la tome.",
     "heroDiscoveryLink": "¿Pagos en efectivo? Mira cómo funciona →"
   },
   "blogPreview": {
@@ -514,8 +514,8 @@
       "headingSuffix": "!",
       "placeholder": "Introduce tu correo electrónico",
       "privacyNote": "Al continuar, aceptas recibir correos de Libo. Respetamos tu privacidad y nunca compartiremos tus datos.",
-      "successMessage": "Tu plan va en camino. Libo es gratis en la App Store — descárgala y empieza hoy.",
-      "duplicateMessage": "Ya estás en la lista — revisa tu correo. Libo es gratis en la App Store.",
+      "successMessage": "Tu plan va en camino. Libo es gratis en la App Store. Descárgala y empieza hoy.",
+      "duplicateMessage": "Ya estás en la lista. Revisa tu correo. Libo es gratis en la App Store.",
       "errorMessage": "Algo salió mal. Inténtalo de nuevo.",
       "connectionError": "Error de conexión. Inténtalo de nuevo."
     }
@@ -668,16 +668,16 @@
         "curl": [
           "Mantén los codos pegados a los costados durante todo el movimiento.",
           "Sube el peso con control, apretando arriba.",
-          "Baja despacio y con control — evita balancearte."
+          "Baja despacio y con control, evita balancearte."
         ],
         "stretch": [
           "Entra en el estiramiento despacio y mantén el punto de tensión leve.",
-          "Respira profundo y relájate en la posición — no la fuerces.",
+          "Respira profundo y relájate en la posición, no la fuerces.",
           "Mantén el tiempo indicado y luego suelta con suavidad."
         ],
         "hold": [
           "Activa el core y mantén una línea recta de la cabeza a los talones.",
-          "Respira de forma constante — no aguantes la respiración.",
+          "Respira de forma constante, no aguantes la respiración.",
           "Mantén el tiempo indicado conservando la forma en todo momento."
         ],
         "hinge": [
@@ -693,39 +693,39 @@
       },
       "tips": {
         "barbell": "Empieza con menos peso para perfeccionar tu técnica antes de cargar.",
-        "advanced": "Es un movimiento avanzado — asegúrate de dominar la versión básica primero.",
+        "advanced": "Es un movimiento avanzado: asegúrate de dominar la versión básica primero.",
         "unilateral": "Empieza por tu lado más débil para asegurar un desarrollo equilibrado.",
         "sided": "Haz las mismas reps en ambos lados para un desarrollo equilibrado.",
-        "stretch": "Nunca rebotes en un estiramiento — mantén firme y respira."
+        "stretch": "Nunca rebotes en un estiramiento. Mantén firme y respira."
       },
       "mistakes": {
         "squat": [
-          "Dejar que las rodillas se hundan hacia adentro — mantenlas alineadas con los dedos de los pies.",
-          "Redondear la zona lumbar abajo — pecho alto y core activado."
+          "Dejar que las rodillas se hundan hacia adentro. Mantenlas alineadas con los dedos de los pies.",
+          "Redondear la zona lumbar abajo. Pecho alto y core activado."
         ],
         "press": [
-          "Abrir los codos a 90° — mantenlos en un ángulo cómodo de 45–60°.",
-          "Rebotar el peso en el pecho — controla la bajada."
+          "Abrir los codos a 90°. Mantenlos en un ángulo cómodo de 45–60°.",
+          "Rebotar el peso en el pecho. Controla la bajada."
         ],
         "pull": [
-          "Usar impulso para mover el peso — mantén el torso firme.",
-          "Quedarse corto en la contracción — tira hasta el final."
+          "Usar impulso para mover el peso. Mantén el torso firme.",
+          "Quedarse corto en la contracción. Tira hasta el final."
         ],
         "hinge": [
-          "Redondear la zona lumbar — mantén la columna neutra.",
-          "Hiperextender arriba — termina con un apretón, no inclinándote hacia atrás."
+          "Redondear la zona lumbar. Mantén la columna neutra.",
+          "Hiperextender arriba. Termina con un apretón, no inclinándote hacia atrás."
         ],
         "curl": [
-          "Balancear el peso con la espalda — fija los codos y aísla el bíceps.",
-          "Recortar las reps — extiende abajo para todo el recorrido."
+          "Balancear el peso con la espalda. Fija los codos y aísla el bíceps.",
+          "Recortar las reps. Extiende abajo para todo el recorrido."
         ],
         "hold": [
-          "Dejar caer las caderas — mantén una línea recta de la cabeza a los talones.",
-          "Aguantar la respiración — respira de forma constante."
+          "Dejar caer las caderas. Mantén una línea recta de la cabeza a los talones.",
+          "Aguantar la respiración. Respira de forma constante."
         ],
         "stretch": [
-          "Rebotar al estirar — mantén firme, nunca rebotes.",
-          "Forzar el rango — relájate en tensión leve, no en dolor."
+          "Rebotar al estirar. Mantén firme, nunca rebotes.",
+          "Forzar el rango. Relájate en tensión leve, no en dolor."
         ]
       }
     },
@@ -780,7 +780,7 @@
       "workouts": "Entrenamientos"
     },
     "title": "Entrenamientos",
-    "subtitle": "{{count}} entrenamientos guiados. Prueba una selección — desbloquea toda la biblioteca en la app.",
+    "subtitle": "{{count}} entrenamientos guiados. Prueba una selección y desbloquea toda la biblioteca en la app.",
     "subtitleAll": "{{count}} entrenamientos guiados. Elige por objetivo, por tiempo, o simplemente explora.",
     "searchPlaceholder": "Buscar entrenamientos...",
     "searchAria": "Buscar entrenamientos",
@@ -823,7 +823,7 @@
       "subtitle": "Ajusta tu búsqueda o quita los filtros",
       "tryRemove": "Prueba a quitar un filtro →"
     },
-    "previewFallback": "Sin coincidencia exacta en la vista previa — biblioteca completa disponible en la app.",
+    "previewFallback": "Sin coincidencia exacta en la vista previa. Biblioteca completa disponible en la app.",
     "card": {
       "minutes": "{{count}} min"
     },
@@ -876,24 +876,24 @@
     }
   },
   "earlyAccess": {
-    "announceText": "Founding Members: 50% de descuento — solo hasta el 13 de octubre",
+    "announceText": "Founding Members: 50% de descuento, solo hasta el 13 de octubre",
     "announceTextShort": "Founding Members: 50% de descuento hasta el 13 oct →",
     "announceDismiss": "Cerrar",
     "eyebrow": "FOUNDING MEMBER",
     "headline": "Asegura Libo antes de que lancemos",
-    "description": "Nos encontraste pronto. Hazte Founding Member y consigue tu primer año completo de Premium — cada entrenamiento, cada función — a mitad de precio. Tus 12 meses empiezan el día que lancemos, así que no pierdes ni un solo día esperando.",
-    "bullet1": "12 meses de Premium — la app completa, sin límites",
+    "description": "Nos encontraste pronto. Hazte Founding Member y consigue tu primer año completo de Premium (cada entrenamiento, cada función) a mitad de precio. Tus 12 meses empiezan el día que lancemos, así que no pierdes ni un solo día esperando.",
+    "bullet1": "12 meses de Premium: la app completa, sin límites",
     "bullet2": "Tu año empieza el día del lanzamiento, no hoy",
-    "bullet3": "Precio de fundador asegurado — €39.50 en vez de €79.99",
-    "reassurance": "¿Cambias de opinión antes del lanzamiento? Te devolvemos todo — sin preguntas.",
+    "bullet3": "Precio de fundador asegurado: €39.50 en vez de €79.99",
+    "reassurance": "¿Cambias de opinión antes del lanzamiento? Te devolvemos todo, sin preguntas.",
     "badge": "50% DTO · PRIMER AÑO",
     "priceNote": "Pago único · 12 meses de Premium",
     "cta": "Hazte Founding Member",
     "deadline": "La oferta de fundador termina el día que lancemos",
     "tierName": "FOUNDING MEMBER",
     "tierSummary": "12 meses de Premium",
-    "alreadyPurchased": "Ya eres Founding Member — revisa tu bandeja de entrada para tu enlace de acceso.",
-    "offerEnded": "La oferta de fundador ha cerrado — la app ya está disponible.",
+    "alreadyPurchased": "Ya eres Founding Member. Revisa tu bandeja de entrada para tu enlace de acceso.",
+    "offerEnded": "La oferta de fundador ha cerrado. La app ya está disponible.",
     "genericError": "Algo salió mal. Inténtalo de nuevo.",
     "modal": {
       "step1Label": "Datos",
@@ -910,18 +910,18 @@
       "cardLabel": "Datos de la tarjeta *",
       "cardPlaceholder": "Número de tarjeta",
       "continueCta": "Continuar al pago",
-      "submitCta": "Paga €39.50 — asegura mi año",
+      "submitCta": "Paga €39.50 y asegura mi año",
       "secureCheckout": "Pago 100% seguro y garantizado",
       "orderItem": "{tier} | {summary}",
-      "orderSummaryItem": "Founding Member — 12 meses de Premium",
+      "orderSummaryItem": "Founding Member: 12 meses de Premium",
       "orderTotal": "Total del pedido",
       "backLabel": "Atrás",
       "successTitle": "Ya eres Founding Member",
-      "successBody": "Tus 12 meses de Premium están asegurados al precio de fundador, empezando el día que lancemos. Revisa tu email para un enlace de acceso — Premium ya está desbloqueado en tu cuenta.",
+      "successBody": "Tus 12 meses de Premium están asegurados al precio de fundador, empezando el día que lancemos. Revisa tu email para un enlace de acceso. Premium ya está desbloqueado en tu cuenta.",
       "duplicateTitle": "Ya estás dentro",
       "duplicateBody": "Este email ya es Founding Member. Revisa tu bandeja de entrada para tu enlace de acceso.",
       "errorMsg": "Algo salió mal. Inténtalo de nuevo.",
-      "legalNote": "Pago único. No es una suscripción — nada se renueva automáticamente.",
+      "legalNote": "Pago único. No es una suscripción: nada se renueva automáticamente.",
       "consentLabel": "Entiendo que esta es una compra única de acceso anticipado y acepto los",
       "consentLinkLabel": "Términos de Acceso Anticipado",
       "consentRequired": "Confirma que aceptas los Términos de Acceso Anticipado para continuar."
@@ -929,9 +929,9 @@
   },
   "relaunchHome": {
     "seo": {
-      "title": "Libo — Tus reps pagan en efectivo.",
+      "title": "Libo: tus reps pagan en efectivo.",
       "descriptionV2": "Libo es un club de entrenamiento construido para la constancia. La sesión del día te la damos hecha, tu racha nunca vuelve a cero y un cash challenge paga €5, €15 o €50 por 30 días seguidos.",
-      "titleV2": "Libo — Completa 30 días seguidos. Te pagamos hasta €50."
+      "titleV2": "Libo: completa 30 días seguidos. Te pagamos hasta €50."
     },
     "hero": {
       "badgeFree": "Plan gratuito",
@@ -954,7 +954,7 @@
       "h1b": "seguidos.",
       "h1c": "Te pagamos",
       "h1d": "hasta €50.",
-      "body": "Elige un reto. Haz tus repeticiones diarias durante 30 días, grabadas y verificadas en la app. Termínalo y te pagamos €5, €15 o €50 en dinero real — financiado por Libo, sin sorteo, sin suerte. Si fallas un día, un freeze token te cubre. Participar es gratis.",
+      "body": "Elige un reto. Haz tus repeticiones diarias durante 30 días, grabadas y verificadas en la app. Termínalo y te pagamos €5, €15 o €50 en dinero real, financiado por Libo, sin sorteo, sin suerte. Si fallas un día, un freeze token te cubre. Participar es gratis.",
       "altLeft": "Pestaña Recompensas de Libo: puntos, racha y los retos con dinero a los que puedes unirte",
       "altCenter": "Pantalla de inicio de Libo: plan activo, pregunta a tu coach y el entreno de hoy",
       "altRight": "Reproductor de entrenos de Libo: demo del ejercicio, series, peso y repeticiones"
@@ -972,15 +972,15 @@
       "eyebrow": "En qué es diferente Libo",
       "h2Line1": "La mayoría de apps prometen motivación.",
       "h2Accent": "Libo la paga.",
-      "body": "Únete a un reto de 30 días, cumple tus reps diarias, publica la prueba y cobra dinero real. Sin puntos, sin tarjetas regalo — solo dinero en tu bolsillo. Las plazas limitadas lo mantienen honesto.",
-      "quote": "No perdiste €15 — te compraste un cuerpo por €0.",
+      "body": "Únete a un reto de 30 días, cumple tus reps diarias, publica la prueba y cobra dinero real. Sin puntos, sin tarjetas regalo. Solo dinero en tu bolsillo. Las plazas limitadas lo mantienen honesto.",
+      "quote": "No perdiste €15. Te compraste un cuerpo por €0.",
       "quoteAuthor": "Noah F.",
       "quoteSource": "30 Days, One Habit, Real Money",
       "steps": [
         {
           "num": "01",
           "name": "Haz reps",
-          "desc": "Alcanza tu meta diaria de reps — de 30 a 100 reps según tu nivel de reto."
+          "desc": "Alcanza tu meta diaria de reps: de 30 a 100 reps según tu nivel de reto."
         },
         {
           "num": "02",
@@ -990,7 +990,7 @@
         {
           "num": "03",
           "name": "Comparte",
-          "desc": "Publica la prueba en tus stories. Tu racha es pública — de eso se trata."
+          "desc": "Publica la prueba en tus stories. Tu racha es pública, de eso se trata."
         },
         {
           "num": "04",
@@ -1001,14 +1001,14 @@
     },
     "founderStrip": {
       "quote": "He dado un paso atrás más veces de las que puedo contar. La única regla es que vuelves dos pasos por delante. Libo te paga exactamente por eso.",
-      "name": "Noah F. — Fundador",
+      "name": "Noah F., Fundador",
       "link": "Lee la historia completa →",
       "imgAlt": "Noah F., fundador de Libo"
     },
     "library": {
       "h2Line1": "Todo lo que",
       "h2Line2": "necesitas.",
-      "desc": "820+ ejercicios — 432 de gym, 396 de casa. 140 entrenamientos. Planes generados. Todos los formatos, de fuerza con barra a rutinas matutinas.",
+      "desc": "820+ ejercicios: 432 de gym, 396 de casa. 140 entrenamientos. Planes generados. Todos los formatos, de fuerza con barra a rutinas matutinas.",
       "features": [
         {
           "num": "01",
@@ -1018,12 +1018,12 @@
         {
           "num": "02",
           "name": "Exercise Library",
-          "desc": "820+ ejercicios — 313 de gimnasio, 295 en casa, 33 de movilidad. Todos con notas de equipo y consejos de técnica."
+          "desc": "820+ ejercicios: 313 de gimnasio, 295 en casa, 33 de movilidad. Todos con notas de equipo y consejos de técnica."
         },
         {
           "num": "03",
           "name": "Workout Library",
-          "desc": "140 sesiones prediseñadas — gimnasio, casa, cardio, estiramientos, rutinas de mañana. De 5 a 60 minutos."
+          "desc": "140 sesiones prediseñadas: gimnasio, casa, cardio, estiramientos, rutinas de mañana. De 5 a 60 minutos."
         },
         {
           "num": "04",
@@ -1038,30 +1038,30 @@
         {
           "num": "06",
           "name": "Custom Builder",
-          "desc": "Crea tu propio entrenamiento desde la biblioteca completa. Define secuencia, series y descanso — guarda y reutiliza."
+          "desc": "Crea tu propio entrenamiento desde la biblioteca completa. Define secuencia, series y descanso; guarda y reutiliza."
         }
       ],
       "c1Name": "Biblioteca de ejercicios",
-      "c1Desc": "820+ ejercicios — 432 de gym, 396 de casa. Cada uno con notas de equipamiento y claves de técnica.",
+      "c1Desc": "820+ ejercicios: 432 de gym, 396 de casa. Cada uno con notas de equipamiento y claves de técnica.",
       "c1DescMobile": "820+ ejercicios con notas de equipamiento y claves de técnica.",
       "c2Name": "Biblioteca de entrenamientos",
-      "c2Desc": "140 sesiones listas — gym, casa, cardio, estiramientos, rutinas matutinas. De 5 a 60 minutos.",
+      "c2Desc": "140 sesiones listas: gym, casa, cardio, estiramientos, rutinas matutinas. De 5 a 60 minutos.",
       "c2DescMobile": "140 sesiones listas, de 5 a 60 minutos.",
       "c3Name": "Generador de entrenamientos",
       "c3Desc": "Dile a Libo tu tiempo y tu equipamiento. Construye una sesión de verdad según tu objetivo y nivel.",
-      "c3DescMobile": "Dile a Libo tu tiempo y equipamiento — construye la sesión.",
+      "c3DescMobile": "Dile a Libo tu tiempo y equipamiento, y construye la sesión.",
       "c4Name": "Seguimiento de progreso",
       "c4Desc": "Cada serie, rep y peso registrado. Historial, PRs y rachas en gráficos claros.",
       "c4DescMobile": "Cada serie, rep y peso registrado. PRs y rachas.",
       "c5Name": "Creador de rutinas",
-      "c5Desc": "Crea tu propio entrenamiento con toda la biblioteca. Define orden, series y descanso — guarda y reutiliza.",
+      "c5Desc": "Crea tu propio entrenamiento con toda la biblioteca. Define orden, series y descanso; guarda y reutiliza.",
       "c5DescMobile": "Crea tu propio entrenamiento con toda la biblioteca.",
       "c6Name": "Cash challenges",
       "c6Desc": "30 días de reps diarias con dinero real como prueba de constancia. Detalles en la página del reto.",
       "c6DescMobile": "30 días de reps diarias con dinero real como prueba.",
       "h2a": "Todo lo que tienes",
       "h2b": "con Libo World.",
-      "descMobile": "820+ ejercicios — 432 de gym, 396 de casa. 140 entrenamientos. Planes generados.",
+      "descMobile": "820+ ejercicios: 432 de gym, 396 de casa. 140 entrenamientos. Planes generados.",
       "phoneAlt": "{{feature}} en la app Libo",
       "dotsLabel": "Funciones de la app"
     },
@@ -1118,14 +1118,14 @@
       "eyebrow": "Preventa · Termina en el lanzamiento",
       "h2Line1": "Asegura Libo",
       "h2Line2": "antes de que lancemos.",
-      "body": "Los Founding Members consiguen 12 meses de Premium por €39.50 en vez de €79.99 — reembolsable en cualquier momento antes del lanzamiento. Tus 12 meses empiezan el día que lancemos, así que no pierdes ni un solo día esperando.",
+      "body": "Los Founding Members consiguen 12 meses de Premium por €39.50 en vez de €79.99, reembolsable en cualquier momento antes del lanzamiento. Tus 12 meses empiezan el día que lancemos, así que no pierdes ni un solo día esperando.",
       "cta": "Hazte Founding Member →",
       "cardBadge": "Founding Member",
       "price": "€39.50",
       "priceStrike": "€119.99",
       "cardSub": "12 meses de Premium · 50% de descuento · totalmente reembolsable hasta el lanzamiento",
       "perks": [
-        "Biblioteca completa — 820+ ejercicios, 140 entrenamientos",
+        "Biblioteca completa: 820+ ejercicios, 140 entrenamientos",
         "Retos de dinero de hasta €50",
         "El año empieza el día del lanzamiento, no hoy"
       ]
@@ -1137,7 +1137,7 @@
         {
           "photo": "beta-tao.png",
           "handle": "@redtao_",
-          "quote": "not a gym person at all. came for the yoga + bodyweight flows, stayed for the streaks. finally an app that doesn't shove barbells at me — my mobility's the best it's ever been."
+          "quote": "not a gym person at all. came for the yoga + bodyweight flows, stayed for the streaks. finally an app that doesn't shove barbells at me, my mobility's the best it's ever been."
         },
         {
           "photo": "beta-sarah.png",
@@ -1160,7 +1160,7 @@
           "quote": "63 and skeptical about gym-bro apps. picked up libo in the beta and... the mobility plans are unreal. rewards thing is dumb fun. 2 months in"
         }
       ],
-      "q1": "no soy nada de gym. vine por los flows de yoga + peso corporal y me quedé por las rachas. por fin una app que no me mete barras por la cara — mi movilidad está mejor que nunca.",
+      "q1": "no soy nada de gym. vine por los flows de yoga + peso corporal y me quedé por las rachas. por fin una app que no me mete barras por la cara, mi movilidad está mejor que nunca.",
       "q2": "LLEVO 6 SEMANAS EN LA BETA DE LIBO Y ESTOY ENGANCHADO. mi técnica en sentadilla ha mejorado un montón. gané €15 en el cash challenge pero lo que me atrapó fue la racha",
       "q3": "normalmente soy malísimo con las apps pero los planes de libo tienen sentido de verdad. le dije que tengo 30 min y mancuernas y me montó algo real. sin relleno.",
       "q4": "entré a la beta de libo sin esperar mucho. el generador de entrenamientos es mejor que mi antiguo entrenador, ni de cerca",
@@ -1176,30 +1176,30 @@
     "faq": {
       "headline": "Preguntas frecuentes.",
       "q1": "¿En qué se diferencia Libo de otras apps de fitness?",
-      "a1": "Libo combina una enorme biblioteca de ejercicios, programas estructurados, seguimiento de progreso y retos de dinero real en una sola app — con una interfaz oscura premium que no te estorba. Sin anuncios, sin desorden. La mayoría de apps prometen motivación; Libo literalmente paga en efectivo por la constancia.",
+      "a1": "Libo combina una enorme biblioteca de ejercicios, programas estructurados, seguimiento de progreso y retos de dinero real en una sola app, con una interfaz oscura premium que no te estorba. Sin anuncios, sin desorden. La mayoría de apps prometen motivación; Libo literalmente paga en efectivo por la constancia.",
       "q2": "¿Cómo funcionan los Cash Challenges?",
       "a2": "Únete a un reto de 30 días (por ejemplo, 100 reps al día), grábate completando las reps cada día, compártelo en tus stories y cobra dinero real cuando termines. Las plazas son limitadas, y tus 30 días empiezan en el momento en que entras.",
       "q3": "¿Libo es gratis?",
       "a3": "Libo ofrece un plan gratuito con acceso a entrenamientos, ejercicios, seguimiento básico, una racha de actividad con puntos y un reto de dinero de nivel inicial. Premium desbloquea la biblioteca completa, analíticas avanzadas, una ficha de congelación en cada reto y, con una suscripción de pago, el reto de €15. Elite añade el reto de €50.",
       "q4": "¿Qué equipo necesito?",
-      "a4": "Ninguno — o todo. Libo tiene 396 ejercicios para casa (la mayoría sin equipo) y 432 de gimnasio, incluidos 50 de movilidad. Filtra por lo que tengas disponible.",
+      "a4": "Ninguno, o todo. Libo tiene 396 ejercicios para casa (la mayoría sin equipo) y 432 de gimnasio, incluidos 50 de movilidad. Filtra por lo que tengas disponible.",
       "q5": "¿Puedo crear mis propios entrenamientos?",
       "a5": "Sí. El Custom Builder te deja elegir de la biblioteca completa de ejercicios, definir tus series, reps y descansos, y luego guardar y reutilizar tus entrenamientos cuando quieras.",
       "q6": "¿Libo está disponible en Android?",
       "a6": "Sí. Libo está gratis en Google Play para Android y en la App Store para iPhone.",
       "q7": "¿Puedo seguir programas estructurados?",
-      "a7": "Sí. Libo incluye programas de varias semanas diseñados para objetivos concretos — ganar músculo, perder grasa, movilidad y más. Sigue el plan, registra tu progreso y ve resultados reales.",
+      "a7": "Sí. Libo incluye programas de varias semanas diseñados para objetivos concretos: ganar músculo, perder grasa, movilidad y más. Sigue el plan, registra tu progreso y ve resultados reales.",
       "q8": "¿Libo hace seguimiento de mi progreso?",
       "a8": "Cada serie, rep y peso queda registrado. Libo hace seguimiento de tu historial de entrenamiento, récords personales y rachas, y te muestra tu progreso con el tiempo mediante gráficos claros."
     },
     "finalCapture": {
       "h2Line1": "Plazas limitadas.",
       "h2Accent": "Empieza el día que entras.",
-      "body": "Las plazas son limitadas. Cuando alguien termina o lo deja, su plaza se libera — avisamos a la vez a todos los que están esperando, y entra el primero que la tome.",
+      "body": "Las plazas son limitadas. Cuando alguien termina o lo deja, su plaza se libera: avisamos a la vez a todos los que están esperando, y entra el primero que la tome.",
       "confirm": "Estás en la lista.",
       "emailPlaceholder": "Tu email",
       "button": "Avísame en el lanzamiento",
-      "note": "Tus 30 días empiezan en el momento en que entras — sin esperas."
+      "note": "Tus 30 días empiezan en el momento en que entras, sin esperas."
     },
     "blogTeaser": {
       "h2": "Guías e ideas.",
@@ -1226,7 +1226,7 @@
       "eyebrow": "CREADORES Y PARTNERS",
       "h2Line1": "Tu audiencia entrena.",
       "h2Accent": "Tú ganas el 25% de por vida.",
-      "body": "Trae gente a Libo y te pagamos un 25% de comisión sobre su suscripción — mientras sigan siendo miembros y tú también. Abierto a cualquiera que de verdad entrene — creadores, coaches, gimnasios y entrenadores personales, sin importar los seguidores.",
+      "body": "Trae gente a Libo y te pagamos un 25% de comisión sobre su suscripción mientras sigan siendo miembros y tú también. Abierto a cualquiera que de verdad entrene: creadores, coaches, gimnasios y entrenadores personales, sin importar los seguidores.",
       "cta": "Hazte partner →",
       "cards": [
         {
@@ -1243,7 +1243,7 @@
     },
     "waitlist": {
       "confirm": "Estás en la lista ✓",
-      "confirmNote": "Revisa tu bandeja — después nada hasta el lanzamiento.",
+      "confirmNote": "Revisa tu bandeja. Después, nada hasta el lanzamiento.",
       "fmFootnote": "¿Quieres entrar antes del lanzamiento? Hazte Founding Member →",
       "label": "Correo electrónico",
       "placeholder": "Tu email",
@@ -1259,15 +1259,15 @@
       "card1Name": "Decisión eliminada",
       "card1Desc": "La sesión de hoy ya está elegida por ti.",
       "card2Name": "Racha protegida",
-      "card2Desc": "Un fallo resta un día — nunca vuelves a cero.",
+      "card2Desc": "Un fallo resta un día. Nunca vuelves a cero.",
       "card3Name": "Cash challenge",
       "card3Desc": "30 días verificados. Dinero real. Sin sorteo, sin suerte.",
       "card4Name": "Apuestas reales, cuando tú quieras",
-      "card4Desc": "¿Listo para la presión? Un cash challenge paga €5, €15 o €50 por 30 días seguidos — financiado por Libo, reservado desde el momento en que entras.",
+      "card4Desc": "¿Listo para la presión? Un cash challenge paga €5, €15 o €50 por 30 días seguidos, financiado por Libo y reservado desde el momento en que entras.",
       "eyebrow": "En qué es diferente Libo",
       "h2a": "Constancia,",
       "h2b": "con pruebas.",
-      "body": "Un solo bucle: abre la app, haz la sesión, mantén la racha. El cash challenge es opcional — el dinero es el recibo, no la razón.",
+      "body": "Un solo bucle: abre la app, haz la sesión, mantén la racha. El cash challenge es opcional: el dinero es el recibo, no la razón.",
       "link": "Cómo funciona el cash challenge →",
       "card3RewardsName": "Sistema de premios",
       "card3RewardsDesc": "+{{n}} puntos por entreno. Cámbialos por tarjetas regalo y dinero."
@@ -1291,7 +1291,7 @@
     "creators": {
       "c1Value": "25%",
       "c1Label": "Comisión de por vida",
-      "c1Desc": "En cada pago de suscripción de tus miembros — no solo el primero.",
+      "c1Desc": "En cada pago de suscripción de tus miembros, no solo el primero.",
       "c2Value": "∞",
       "c2Label": "Recurrente",
       "c2Desc": "Ganas cada mes que tu miembro siga suscrito. Sin tope, sin caducidad.",
@@ -1301,7 +1301,7 @@
       "eyebrow": "Creadores y partners",
       "h2a": "Tu audiencia entrena.",
       "h2b": "Tú ganas el 25% de por vida.",
-      "body": "Recomienda Libo y te pagamos el 25% de comisión sobre su suscripción — mientras ellos sigan siendo miembros y tú también. Abierto a cualquiera que de verdad entrene — creadores, coaches, gimnasios y entrenadores personales, sin importar los seguidores.",
+      "body": "Recomienda Libo y te pagamos el 25% de comisión sobre su suscripción mientras ellos sigan siendo miembros y tú también. Abierto a cualquiera que de verdad entrene: creadores, coaches, gimnasios y entrenadores personales, sin importar los seguidores.",
       "cta": "Hazte partner →"
     },
     "guides": {
@@ -1322,7 +1322,7 @@
       "h2a": "Motivado en la semana",
       "h2b": "uno.",
       "h2c": "Fuera en la semana cuatro.",
-      "body": "No es un problema de disciplina. Cada reinicio te obliga a cien pequeñas decisiones — qué entrenar, cuándo, si hoy cuenta. Decidir agota. Libo las elimina: la sesión del día ya está elegida, una mala semana resta días a tu racha — nunca la deja a cero — y cuando quieras apuestas reales, el cash challenge te espera."
+      "body": "No es un problema de disciplina. Cada reinicio te obliga a cien pequeñas decisiones: qué entrenar, cuándo, si hoy cuenta. Decidir agota. Libo las elimina: la sesión del día ya está elegida, una mala semana resta días a tu racha (nunca la deja a cero) y cuando quieras apuestas reales, el cash challenge te espera."
     },
     "challenges": {
       "eyebrow": "Cash challenges",
@@ -1336,31 +1336,31 @@
     "final": {
       "h2a": "Tu primera Challenge",
       "h2b": "ya está abierta.",
-      "body": "Descarga Libo gratis en iPhone o Android, elige una challenge y empieza hoy. Completa 30 días seguidos y te pagamos — 5 €, 15 € o 50 € en dinero real, financiado por Libo."
+      "body": "Descarga Libo gratis en iPhone o Android, elige una challenge y empieza hoy. Completa 30 días seguidos y te pagamos 5 €, 15 € o 50 € en dinero real, financiado por Libo."
     },
     "habit": {
       "s1Name": "Aparece",
-      "s1Desc": "Una sesión, dada hecha. Sin planificar, sin decidir — solo el trabajo de hoy.",
+      "s1Desc": "Una sesión, dada hecha. Sin planificar, sin decidir. Solo el trabajo de hoy.",
       "s2Name": "Mantén la racha",
-      "s2Desc": "Día a día la racha crece — protegida por fichas de congelación, y nunca vuelve a cero.",
+      "s2Desc": "Día a día la racha crece, protegida por fichas de congelación, y nunca vuelve a cero.",
       "s3Name": "Conviértete en alguien que entrena",
       "s3Desc": "Después de 30 días ya no es un reto. Es quien eres. Ese es el producto.",
       "h2a": "De una rep a un",
       "h2b": "hábito."
     },
     "waitlistBar": {
-      "full": "Las Cash Challenges abren con la app de iOS — únete a la lista de espera",
+      "full": "Las Cash Challenges abren con la app de iOS. Únete a la lista de espera",
       "short": "Cash Challenges en iOS →"
     },
     "liveBar": {
-      "full": "Libo ya está en la App Store y Google Play — descárgala gratis",
+      "full": "Libo ya está en la App Store y Google Play. Descárgala gratis",
       "short": "En iOS y Android →"
     }
   },
   "relaunchPricing": {
     "seo": {
-      "title": "Precios | Libo — Training Club",
-      "description": "Un plan gratuito, o €10.00/mes por todo. Sin tarjeta para empezar, y el plan gratuito es gratis de verdad — no una prueba."
+      "title": "Precios | Libo Training Club",
+      "description": "Un plan gratuito, o €10.00/mes por todo. Sin tarjeta para empezar, y el plan gratuito es gratis de verdad, no una prueba."
     },
     "aria": {
       "plans": "Planes",
@@ -1372,12 +1372,12 @@
       "h1Pre": "Plan gratuito. O ",
       "h1Accent": "€10.00/mes",
       "h1Post": " por todo.",
-      "sub": "Sin tarjeta para empezar. Entrena gratis todo el tiempo que quieras — o pásate a Premium desde €10.00/mes."
+      "sub": "Sin tarjeta para empezar. Entrena gratis todo el tiempo que quieras, o pásate a Premium desde €10.00/mes."
     },
     "guarantee": [
       {
         "title": "Sin tarjeta para empezar",
-        "body": "El plan gratis es gratis para siempre — no es una prueba."
+        "body": "El plan gratis es gratis para siempre. No es una prueba."
       },
       {
         "title": "Pásate cuando quieras",
@@ -1390,7 +1390,7 @@
     ],
     "faq": {
       "headline": "Preguntas frecuentes.",
-      "subhead": "Las mismas respuestas que en la página de inicio — una sola fuente de verdad.",
+      "subhead": "Las mismas respuestas que en la página de inicio: una sola fuente de verdad.",
       "qPrice": "¿Qué significa €10.00/mes?",
       "aPrice": "Premium se factura anualmente a €119.99, lo que equivale a €10.00 al mes.",
       "qRefund": "¿La oferta de Founding Member es de verdad reembolsable?",
@@ -1399,15 +1399,15 @@
   },
   "relaunchChallenges": {
     "seo": {
-      "title": "Money Challenges — Entrena 30 días, gana dinero real | Libo",
-      "description": "30 días. Reps diarias. Publica la prueba. Cobra. Sin puntos, sin tarjetas regalo — solo dinero real. Las plazas limitadas lo mantienen honesto."
+      "title": "Money Challenges: entrena 30 días, gana dinero real | Libo",
+      "description": "30 días. Reps diarias. Publica la prueba. Cobra. Sin puntos, sin tarjetas regalo. Solo dinero real. Las plazas limitadas lo mantienen honesto."
     },
     "hero": {
       "badge1": "Reto de 30 días",
       "badge2": "Plazas limitadas",
       "h1Line1": "Entrena 30 días.",
       "h1Accent": "Gana dinero real.",
-      "sub": "30 días. Reps diarias. Publica la prueba. Cobra. Sin puntos, sin tarjetas regalo — solo dinero en tu bolsillo. Las plazas limitadas lo mantienen honesto.",
+      "sub": "30 días. Reps diarias. Publica la prueba. Cobra. Sin puntos, sin tarjetas regalo. Solo dinero en tu bolsillo. Las plazas limitadas lo mantienen honesto.",
       "cta": "Avísame del lanzamiento →",
       "imgAlt": "Pantalla de recompensas de Libo: reto de dinero, 100 reps en 30 días, recompensa en efectivo"
     },
@@ -1417,7 +1417,7 @@
         {
           "num": "01",
           "name": "Haz reps",
-          "desc": "Alcanza tu meta diaria de reps — de 30 a 100 reps según tu nivel de reto."
+          "desc": "Alcanza tu meta diaria de reps: de 30 a 100 reps según tu nivel de reto."
         },
         {
           "num": "02",
@@ -1427,7 +1427,7 @@
         {
           "num": "03",
           "name": "Comparte",
-          "desc": "Publica la prueba en tus stories. Tu racha es pública — de eso se trata."
+          "desc": "Publica la prueba en tus stories. Tu racha es pública, de eso se trata."
         },
         {
           "num": "04",
@@ -1435,12 +1435,12 @@
           "desc": "30 días completados = dinero real en tu bolsillo. Se paga al final del ciclo."
         }
       ],
-      "quote": "Grabar cada día te mantiene honesto — no hay forma de hacer trampa. La mejor motivación que he tenido.",
-      "quoteAuthor": "Gabriel — completó el reto de 100 reps en beta"
+      "quote": "Grabar cada día te mantiene honesto, no hay forma de hacer trampa. La mejor motivación que he tenido.",
+      "quoteAuthor": "Gabriel, completó el reto de 100 reps en beta"
     },
     "tiers": {
       "h2": "Elige tu nivel.",
-      "desc": "El pago escala con el compromiso. Completa los 30 días y el dinero es tuyo — falla días y el bote se queda en el club.",
+      "desc": "El pago escala con el compromiso. Completa los 30 días y el dinero es tuyo; falla días y el bote se queda en el club.",
       "dailyLabel": "Compromiso diario",
       "items": [
         {
@@ -1476,11 +1476,11 @@
       "items": [
         {
           "title": "Las plazas están de verdad limitadas",
-          "body": "Las plazas son limitadas. No es un contador de marketing — el bote de pagos es dinero real, así que el tope también lo es."
+          "body": "Las plazas son limitadas. No es un contador de marketing: el bote de pagos es dinero real, así que el tope también lo es."
         },
         {
           "title": "La prueba es de verdad obligatoria",
-          "body": "Una grabación diaria, compartida en stories. Falla un día y el reto se acaba para este ciclo — puedes unirte al siguiente."
+          "body": "Una grabación diaria, compartida en stories. Falla un día y el reto se acaba para este ciclo, pero puedes unirte al siguiente."
         },
         {
           "title": "El dinero es de verdad dinero",
@@ -1495,7 +1495,7 @@
     "reserve": {
       "h2Line1": "Plazas limitadas.",
       "h2Accent": "Empieza el día que entras.",
-      "body": "Las plazas son limitadas. Cuando alguien termina o lo deja, su plaza se libera — avisamos a la vez a todos los que están esperando, y entra el primero que la tome. Tus 30 días empiezan en el momento en que entras — sin esperar a que empiece ningún ciclo.",
+      "body": "Las plazas son limitadas. Cuando alguien termina o lo deja, su plaza se libera: avisamos a la vez a todos los que están esperando, y entra el primero que la tome. Tus 30 días empiezan en el momento en que entras, sin esperar a que empiece ningún ciclo.",
       "confirm": "Estás en la lista.",
       "emailPlaceholder": "Tu email",
       "button": "Avísame",
@@ -1504,7 +1504,7 @@
   },
   "relaunchPress": {
     "seo": {
-      "title": "Kit de prensa — Libo"
+      "title": "Kit de prensa | Libo"
     },
     "aria": {
       "factSheet": "Ficha técnica",
@@ -1514,7 +1514,7 @@
       "badge": "Kit de prensa",
       "h1Line1": "Todo lo que necesitas",
       "h1Line2": "para cubrir Libo.",
-      "subPre": "Logos, capturas, bio del fundador y los datos — listos para usar. Para entrevistas, acceso a la beta o cualquier otra cosa: ",
+      "subPre": "Logos, capturas, bio del fundador y los datos, listos para usar. Para entrevistas, acceso a la beta o cualquier otra cosa: ",
       "email": "press@liboworld.com"
     },
     "facts": [
@@ -1554,10 +1554,10 @@
     "boilerplate": {
       "title": "Sobre Libo",
       "titleTag": "· texto estándar",
-      "body": "Libo es un club de entrenamiento que paga a sus miembros dinero real por la constancia. Junto a una biblioteca de 820+ ejercicios, 140 entrenamientos y planes de entrenamiento generados, Libo organiza retos de dinero de 30 días: los miembros alcanzan una meta diaria de reps, graban la prueba y cobran €5–€50 al final del ciclo. La grabación se queda en tu dispositivo y compartirla siempre es opcional — nunca es una condición para cobrar. Libo se lanza en iOS con un plan gratuito y una suscripción Premium a €119.99/año.",
+      "body": "Libo es un club de entrenamiento que paga a sus miembros dinero real por la constancia. Junto a una biblioteca de 820+ ejercicios, 140 entrenamientos y planes de entrenamiento generados, Libo organiza retos de dinero de 30 días: los miembros alcanzan una meta diaria de reps, graban la prueba y cobran €5–€50 al final del ciclo. La grabación se queda en tu dispositivo y compartirla siempre es opcional; nunca es una condición para cobrar. Libo se lanza en iOS con un plan gratuito y una suscripción Premium a €119.99/año.",
       "founderTitle": "Noah F.",
       "founderTag": "· fundador",
-      "founderBio": "Noah viene del deporte alemán de alto rendimiento — años de fútbol en la Regionalliga, con convocatorias para el DFB Stützpunkt y la Westfalenauswahl con el Bonner SC. También es el diseñador detrás de la marca de moda Mieuxnoir y fundador de Manufactnow, una empresa de producción y consultoría de moda. Su apuesta con Libo: las apuestas reales superan a la motivación, así que el club pone dinero real sobre la constancia de sus miembros. Escribe sobre la psicología detrás de esto en el blog de Libo (\"30 Days, One Habit, Real Money\").",
+      "founderBio": "Noah viene del deporte alemán de alto rendimiento: años de fútbol en la Regionalliga, con convocatorias para el DFB Stützpunkt y la Westfalenauswahl con el Bonner SC. También es el diseñador detrás de la marca de moda Mieuxnoir y fundador de Manufactnow, una empresa de producción y consultoría de moda. Su apuesta con Libo: las apuestas reales superan a la motivación, así que el club pone dinero real sobre la constancia de sus miembros. Escribe sobre la psicología detrás de esto en el blog de Libo (\"30 Days, One Habit, Real Money\").",
       "founderLink": "Historia completa del fundador →",
       "founderImgAlt": "Noah F., fundador de Libo"
     },
@@ -1567,7 +1567,7 @@
       "downloadLabel": "Descargar SVG ↓",
       "items": [
         {
-          "label": "Lima sobre oscuro — principal",
+          "label": "Lima sobre oscuro (principal)",
           "file": "brand/libo-dark.svg"
         },
         {
@@ -1615,14 +1615,14 @@
   },
   "cashChallenges": {
     "seo": {
-      "title": "Cash Challenges — entrena 30 días, gana dinero real | Libo",
+      "title": "Cash Challenges: entrena 30 días, gana dinero real | Libo",
       "description": "Tres niveles, una regla: 30 días de reps diarias, prueba en cámara, cash real al terminar. Tus 30 días empiezan en el momento en que entras."
     },
     "eyebrow": "Cash Challenges",
     "hero": {
       "line1": "Elige tu",
       "line2": "reto.",
-      "sub": "Tres niveles, una regla: 30 días de reps diarias, prueba en cámara, cash real al terminar. Sin ciclos, sin esperas — tus 30 días empiezan en el momento en que entras."
+      "sub": "Tres niveles, una regla: 30 días de reps diarias, prueba en cámara, cash real al terminar. Sin ciclos, sin esperas: tus 30 días empiezan en el momento en que entras."
     },
     "gridLabel": "Niveles del reto",
     "rulesLink": "Leer el reglamento completo →",
@@ -1635,19 +1635,19 @@
     "cta": {
       "free": "Participa gratis →",
       "enter": "Haz clic para entrar →",
-      "checkout": "Haz clic para entrar — {{price}}/año →",
+      "checkout": "Haz clic para entrar: {{price}}/año →",
       "freeApp": "Únete gratis en la app →",
       "getApp": "Descarga la app →"
     },
     "bar": {
-      "full": "⚡ Plazas limitadas — tus 30 días empiezan en el momento en que entras ⚡",
-      "short": "⚡ Plazas limitadas — tus 30 días empiezan cuando entras ⚡"
+      "full": "⚡ Plazas limitadas: tus 30 días empiezan en el momento en que entras ⚡",
+      "short": "⚡ Plazas limitadas: tus 30 días empiezan cuando entras ⚡"
     },
     "back": "Volver a los retos",
     "hero": {
       "line1": "Entrena 30 días.",
       "line2": "Gana €{{payout}} en cash.",
-      "sub": "{{reps}} reps al día. Prueba en cámara. Dinero real al terminar — sin puntos, sin tarjetas de regalo.",
+      "sub": "{{reps}} reps al día. Prueba en cámara. Dinero real al terminar, sin puntos, sin tarjetas de regalo.",
       "tierLabel": "Reto {{name}}"
     },
     "stats": {
@@ -1659,24 +1659,24 @@
     },
     "pain": {
       "title": "Nunca te faltó un plan. Te faltó una razón para terminarlo.",
-      "body": "La primera semana siempre funciona. El problema es el día 19 — cuando nadie nota si apareces. En el reto, alguien sí lo nota: todos los demás, y tu propio dinero.",
+      "body": "La primera semana siempre funciona. El problema es el día 19, cuando nadie nota si apareces. En el reto, alguien sí lo nota: todos los demás, y tu propio dinero.",
       "line1": "No necesitas otro plan.",
       "line2": "Necesitas una razón para terminar uno."
     },
     "steps": {
       "title": "Rep → prueba → pago.",
-      "note": "Sin cuota por reto — la entrada viene con tu membresía. Tus 30 días empiezan en el momento en que entras; si un reto está lleno, solicita unirte y te avisamos en cuanto se libere una plaza. En la app, los retos viven en la pestaña Recompensas.",
+      "note": "Sin cuota por reto: la entrada viene con tu membresía. Tus 30 días empiezan en el momento en que entras; si un reto está lleno, solicita unirte y te avisamos en cuanto se libere una plaza. En la app, los retos viven en la pestaña Recompensas.",
       "s1": {
         "title": "Haz reps",
         "body": "{{reps}} reps, cada día, durante 30 días."
       },
       "s2": {
         "title": "Graba",
-        "body": "Filma la serie en la app — la cámara te mantiene honesto."
+        "body": "Filma la serie en la app. La cámara te mantiene honesto."
       },
       "s3": {
         "title": "Demuéstralo",
-        "body": "Tu grabación diaria es la prueba — verificada en la app, imposible hacer trampa."
+        "body": "Tu grabación diaria es la prueba: verificada en la app, imposible hacer trampa."
       },
       "s4": {
         "title": "Cobra",
@@ -1699,24 +1699,24 @@
     },
     "offer": {
       "freeTitle": "Starter es gratis.",
-      "freeBody": "El nivel de €5 viene con el plan gratuito — únete al lanzar y empieza tus 30 días el día que entres.",
+      "freeBody": "El nivel de €5 viene con el plan gratuito. Únete al lanzar y empieza tus 30 días el día que entres.",
       "upsell": "¿Quieres el nivel de €15? Consigue Premium. El nivel de €50 es con Elite →",
       "title": "Asegura el año antes de que lancemos.",
       "per": "/ año",
-      "body": "Premium de pago desbloquea este nivel — no reserva plaza. Las plazas son limitadas y van por orden de llegada. Si el reto está lleno, solicita unirte y te avisamos en cuanto se libere una plaza.",
+      "body": "Premium de pago desbloquea este nivel, pero no reserva plaza. Las plazas son limitadas y van por orden de llegada. Si el reto está lleno, solicita unirte y te avisamos en cuanto se libere una plaza.",
       "note": "Totalmente reembolsable hasta el lanzamiento.",
       "eyebrowFree": "Mejora opcional · 50% de descuento hasta el lanzamiento",
       "eyebrow": "Premium · 50% de descuento hasta el lanzamiento",
       "sub": "Primer año de Premium · 50% de descuento · totalmente reembolsable hasta el lanzamiento",
-      "tick1": "Biblioteca completa — 820+ ejercicios, 140 entrenamientos",
-      "tick2": "Desbloquea este reto — por orden de llegada",
+      "tick1": "Biblioteca completa: 820+ ejercicios, 140 entrenamientos",
+      "tick2": "Desbloquea este reto, por orden de llegada",
       "tick3": "Tu año empieza el día del lanzamiento, no hoy",
       "titleFree": "Desbloquea el reto de €15.",
-      "ledeFree": "El Starter de €5 es gratis para todos los miembros. Premium de pago abre el reto de €15 (50 reps al día) — y ahora mismo el primer año está a mitad de precio.",
+      "ledeFree": "El Starter de €5 es gratis para todos los miembros. Premium de pago abre el reto de €15 (50 reps al día), y ahora mismo el primer año está a mitad de precio.",
       "ledeFreeClosed": "El Starter de €5 es gratis para todos los miembros. Premium de pago abre el reto de €15 (50 reps al día); el reto de €50 (100 reps al día) es con Elite de pago.",
       "tickUnlock": "Reto de €15 desbloqueado: 50 reps al día durante 30 días",
       "tickFreeze": "1 ficha de congelación por reto, +1 que puedes ganar",
-      "ctaFree": "Consigue Premium — {{price}}/año →",
+      "ctaFree": "Consigue Premium: {{price}}/año →",
       "eyebrowClosed": "Premium · ya en la app",
       "titleClosed": "Consigue Premium en la app.",
       "perYear": "/ año",
@@ -1731,52 +1731,52 @@
       "title": "¿Dudas?",
       "scam": {
         "q": "¿Esto es una estafa? ¿Por qué me pagaría una app?",
-        "a": "Tu pago se reserva en cash en el momento en que entras — financiado por Libo, nunca depende de que otros miembros fallen. Sin sorteo, sin suerte: completa el trabajo y cobra."
+        "a": "Tu pago se reserva en cash en el momento en que entras, financiado por Libo, y nunca depende de que otros miembros fallen. Sin sorteo, sin suerte: completa el trabajo y cobra."
       },
       "pay": {
         "q": "¿Tengo que pagar para entrar?",
-        "aFree": "No. Este reto viene con el plan gratuito — sin cuota por reto y sin tarjeta.",
+        "aFree": "No. Este reto viene con el plan gratuito, sin cuota por reto y sin tarjeta.",
         "aPremium": "No hay cuota por reto. Premium o Elite de pago desbloquea este reto, y la entrada va incluida en tu membresía.",
         "aElite": "No hay cuota por reto. Elite de pago desbloquea este reto, y la entrada va incluida en tu membresía."
       },
       "tooGood": {
-        "q": "\"Dinero gratis\" — ¿demasiado bueno para ser verdad?",
+        "q": "\"Dinero gratis\": ¿demasiado bueno para ser verdad?",
         "a": "La mayoría no termina 30 días seguidos. Ese es justo el punto: el dinero es lo que hace sobrevivibles los últimos diez días, y lo financia Libo en cualquier caso."
       },
       "miss": {
         "q": "¿Qué pasa si fallo un día?",
-        "a": "Una ficha de congelación lo cubre — Premium incluye 1 por reto, y cualquiera, gratis o de pago, puede ganar una segunda entrenando 60 de los últimos 90 días. Sin fichas, un día fallado termina la racha — eso es lo que hace que terminar valga dinero. Puedes volver a entrar cuando se abra una plaza."
+        "a": "Una ficha de congelación lo cubre. Premium incluye 1 por reto, y cualquiera, gratis o de pago, puede ganar una segunda entrenando 60 de los últimos 90 días. Sin fichas, un día fallado termina la racha; eso es lo que hace que terminar valga dinero. Puedes volver a entrar cuando se abra una plaza."
       },
       "equipment": {
         "q": "¿Necesito equipamiento?",
-        "a": "No. Todos los movimientos del reto son de peso corporal — flexiones, sentadillas, mountain climbers, burpees y más. Tú eliges cuál haces cada día."
+        "a": "No. Todos los movimientos del reto son de peso corporal: flexiones, sentadillas, mountain climbers, burpees y más. Tú eliges cuál haces cada día."
       },
       "when": {
         "q": "¿Cuándo recibo el dinero?",
-        "a": "Cuando el día 30 pase la verificación. Se paga en cash real — sin puntos, sin tarjetas de regalo, sin crédito de tienda."
+        "a": "Cuando el día 30 pase la verificación. Se paga en cash real, sin puntos, sin tarjetas de regalo, sin crédito de tienda."
       }
     },
     "close": {
       "line1": "Plazas limitadas.",
       "line2": "Empieza el día que entras.",
-      "sub": "Premium de pago desbloquea este nivel — la entrada es por orden de llegada y las plazas son limitadas. Si está lleno, te avisamos en cuanto se libere una plaza. Primer año al 50% hasta el lanzamiento, totalmente reembolsable.",
+      "sub": "Premium de pago desbloquea este nivel. La entrada es por orden de llegada y las plazas son limitadas. Si está lleno, te avisamos en cuanto se libere una plaza. Primer año al 50% hasta el lanzamiento, totalmente reembolsable.",
       "waitlist": "Mejor únete a la lista de espera gratis",
-      "subFree": "La Challenge Starter de 5 € es gratis para todos los miembros. Deja tu email y te guardamos tu plaza — por orden de llegada.",
+      "subFree": "La Challenge Starter de 5 € es gratis para todos los miembros. Deja tu email y te guardamos tu plaza, por orden de llegada.",
       "upsell": "¿Quieres el nivel de €15? Consigue Premium. El nivel de €50 es con Elite →",
       "upsellClosed": "¿Quieres el nivel de €15? Consigue Premium. El nivel de €50 es con Elite →",
-      "subClosed": "Premium de pago desbloquea este nivel — por orden de llegada y con plazas limitadas. Si está lleno, te avisamos en cuanto se libere una plaza.",
+      "subClosed": "Premium de pago desbloquea este nivel, por orden de llegada y con plazas limitadas. Si está lleno, te avisamos en cuanto se libere una plaza.",
       "subFreeApp": "El reto Starter de 5 € es gratis para todos los miembros. Descarga Libo, abre Rewards y únete: por orden de llegada.",
-      "subClosedElite": "Elite de pago desbloquea este nivel — por orden de llegada y con plazas limitadas. Si está lleno, te avisamos en cuanto se libere una plaza."
+      "subClosedElite": "Elite de pago desbloquea este nivel, por orden de llegada y con plazas limitadas. Si está lleno, te avisamos en cuanto se libere una plaza."
     },
     "footerNote": "Aplican los términos del reto",
     "seo": {
       "title": "Entrena 30 días. Gana €{{payout}} en cash. | Libo",
-      "description": "{{reps}} reps al día durante 30 días. Prueba en cámara. Dinero real al terminar — sin puntos, sin tarjetas de regalo."
+      "description": "{{reps}} reps al día durante 30 días. Prueba en cámara. Dinero real al terminar, sin puntos, sin tarjetas de regalo."
     },
     "video": {
       "title": "Mira cómo funciona.",
       "playLabel": "Reproducir: el cash challenge, 2 minutos 24 segundos",
-      "caption": "El cash challenge — 2:24 · en inglés",
+      "caption": "El cash challenge · 2:24 · en inglés",
       "rulesLink": "Leer las reglas completas",
       "schemaDescription": "Cómo funciona el cash challenge de Libo: elige un reto, registra tus reps en la app durante 30 días, envía tu prueba y cobra al terminar."
     },
@@ -1849,10 +1849,10 @@
       "badge": "Solo pre-lanzamiento",
       "per": "primer año",
       "note": "Tu año empieza al lanzar, no el día que pagas.",
-      "unavailable": "El checkout de Founding Member abre en breve — vuelve en un momento.",
-      "fine": "El checkout se abre solo desde esta tarjeta — el precio siempre a la vista. ¿Solo quieres noticias del lanzamiento? La lista de espera está en la ",
+      "unavailable": "El checkout de Founding Member abre en breve. Vuelve en un momento.",
+      "fine": "El checkout se abre solo desde esta tarjeta, con el precio siempre a la vista. ¿Solo quieres noticias del lanzamiento? La lista de espera está en la ",
       "tick1": "Todo lo del plan gratuito, más la biblioteca completa",
-      "tick2": "Acceso a todos los niveles del reto — por orden de llegada",
+      "tick2": "Acceso a todos los niveles del reto, por orden de llegada",
       "tick3": "1 ficha de congelación por reto, +1 que puedes ganar",
       "tick4": "Insignia de Founding Member · primero en entrar al lanzar",
       "tick5": "El año empieza el día del lanzamiento · totalmente reembolsable hasta el lanzamiento",
@@ -1865,28 +1865,28 @@
       "eyebrowClosed": "Membresía",
       "h2aClosed": "Todo el club,",
       "h2bClosed": "una membresía.",
-      "fineClosed": "Premium se compra dentro de la app — esta tarjeta muestra el precio, no es una caja."
+      "fineClosed": "Premium se compra dentro de la app. Esta tarjeta muestra el precio, no es una caja."
     },
     "faq": {
       "q1": "¿Qué es Libo?",
-      "a1": "Un club de entrenamiento: 820+ ejercicios, 140 entrenamientos, planes generados, una racha que nunca vuelve a cero — y cash challenges de 30 días que pagan dinero real por la constancia.",
+      "a1": "Un club de entrenamiento: 820+ ejercicios, 140 entrenamientos, planes generados, una racha que nunca vuelve a cero y cash challenges de 30 días que pagan dinero real por la constancia.",
       "q2": "¿Cuánto cuesta la membresía?",
-      "a2": "Hay un plan gratuito — sin tarjeta. Premium cuesta €119.99 al año (unos €10.00/mes) o €19.99 mes a mes. Elite cuesta €179.99 al año (€15.00/mes) o €29.99 mes a mes.",
+      "a2": "Hay un plan gratuito, sin tarjeta. Premium cuesta €119.99 al año (unos €10.00/mes) o €19.99 mes a mes. Elite cuesta €179.99 al año (€15.00/mes) o €29.99 mes a mes.",
       "q3": "¿Qué es un Founding Member?",
-      "a3": "La oferta de pre-lanzamiento: 12 meses de Premium al 50%, primero en entrar el día del lanzamiento, todos los niveles del reto desbloqueados — y totalmente reembolsable hasta el lanzamiento.",
+      "a3": "La oferta de pre-lanzamiento: 12 meses de Premium al 50%, primero en entrar el día del lanzamiento, todos los niveles del reto desbloqueados y totalmente reembolsable hasta el lanzamiento.",
       "q4": "¿Libo ya está disponible?",
-      "a4": "Sí — Libo está gratis en la App Store para iPhone y en Google Play para Android.",
+      "a4": "Sí. Libo está gratis en la App Store para iPhone y en Google Play para Android.",
       "q5": "¿Cómo funcionan los cash challenges?",
-      "a5": "30 días de reps diarias, grabadas y verificadas en la app, pagadas en cash real al terminar — €5, €15 o €50 según el nivel. Sin sorteo, sin suerte.",
+      "a5": "30 días de reps diarias, grabadas y verificadas en la app, pagadas en cash real al terminar: €5, €15 o €50 según el nivel. Sin sorteo, sin suerte.",
       "titleLine1": "Antes de",
       "titleLine2": "unirte.",
       "title": "¿Dudas?"
     },
     "seo": {
-      "title": "Hazte Founding Member — Libo Training Club",
-      "description": "Únete a Libo como Founding Member por €39.50 — 50% de descuento el primer año, totalmente reembolsable hasta el lanzamiento. Tu año empieza el día que la app salga en vivo.",
-      "titleClosed": "Membresía — Libo Training Club",
-      "descriptionClosed": "Premium desbloquea la biblioteca completa, el reto con dinero de €15 y 2x puntos; Elite añade el reto de €50 y 3x puntos. También hay un plan gratuito — sin tarjeta."
+      "title": "Hazte Founding Member | Libo Training Club",
+      "description": "Únete a Libo como Founding Member por €39.50: 50% de descuento el primer año, totalmente reembolsable hasta el lanzamiento. Tu año empieza el día que la app salga en vivo.",
+      "titleClosed": "Membresía | Libo Training Club",
+      "descriptionClosed": "Premium desbloquea la biblioteca completa, el reto con dinero de €15 y 2x puntos; Elite añade el reto de €50 y 3x puntos. También hay un plan gratuito, sin tarjeta."
     },
     "contextBar": "Oferta Founding · 50% de descuento el primer año · hasta el 13 de octubre",
     "contextBarShort": "50% de descuento el primer año · hasta el 13 oct",
@@ -1903,18 +1903,18 @@
       "caption": "Dentro del club",
       "footnoteClosed": "Un año completo de Premium · ya en la app",
       "videoPlayLabel": "Reproducir: hazte Founding Member, 2 minutos 44 segundos",
-      "videoCaption": "Inside the club — 2:44 · en inglés",
+      "videoCaption": "Inside the club · 2:44 · en inglés",
       "rulesLink": "Leer los términos completos",
       "videoSchemaDescription": "Noah, el fundador de Libo, explica qué es la oferta Founding Member, qué desbloquea Premium y por qué solo existe antes del lanzamiento."
     },
     "pocket": {
       "titleLine1": "Todo tu club",
       "titleLine2": "en tu bolsillo.",
-      "body": "Planes, sesiones guiadas, rachas, cash challenges y recompensas — una app, en iOS, desde el día del lanzamiento.",
+      "body": "Planes, sesiones guiadas, rachas, cash challenges y recompensas: una app, en iOS, desde el día del lanzamiento.",
       "photoAlt": "Resumen de una sesión de Libo terminada, listo para compartir",
       "h2a": "Todo tu club,",
       "h2b": "en tu bolsillo.",
-      "lede": "Todo vive en una app — tu sesión, tu racha, tus retos, tu progreso. A un toque, cada día.",
+      "lede": "Todo vive en una app: tu sesión, tu racha, tus retos, tu progreso. A un toque, cada día.",
       "alt": "Pantalla de inicio de Libo con el plan activo y el entrenamiento de hoy",
       "pill1": "El entrenamiento de hoy",
       "pill2": "Racha y congelaciones",
@@ -1934,7 +1934,7 @@
     },
     "cta": {
       "sticky": "Hazte Founding Member →",
-      "primary": "Hazte Founding Member — {{price}} →",
+      "primary": "Hazte Founding Member: {{price}} →",
       "unpriced": "Hazte Founding Member →"
     },
     "proof": {
@@ -1950,11 +1950,11 @@
     },
     "holds": {
       "c1Title": "Decisión eliminada",
-      "c1Body": "Abre la app — la sesión de hoy ya está elegida según tu objetivo, tiempo y equipamiento. Cero estrés de planificar.",
+      "c1Body": "Abre la app: la sesión de hoy ya está elegida según tu objetivo, tiempo y equipamiento. Cero estrés de planificar.",
       "c2Title": "El progreso se acumula",
-      "c2Body": "La racha nunca vuelve a cero — un día fallado resta un día, y las fichas de congelación cubren la vida real.",
+      "c2Body": "La racha nunca vuelve a cero. Un día fallado resta un día, y las fichas de congelación cubren la vida real.",
       "c3Title": "Dinero real, reglas reales",
-      "c3Body": "Los cash challenges pagan dinero real por 30 días verificados. Sin sorteo, sin suerte — completa el trabajo y cobra.",
+      "c3Body": "Los cash challenges pagan dinero real por 30 días verificados. Sin sorteo, sin suerte: completa el trabajo y cobra.",
       "h2a": "Por qué el club",
       "h2b": "aguanta."
     },
@@ -1975,12 +1975,12 @@
         "name": "Gratis",
         "price": "€0",
         "per": "para siempre",
-        "blurb": "Todo lo que necesitas para empezar a entrenar hoy — sin tarjeta, sin reloj de prueba.",
+        "blurb": "Todo lo que necesitas para empezar a entrenar hoy, sin tarjeta, sin reloj de prueba.",
         "perk1": "La biblioteca completa de 820+ ejercicios",
         "perk2": "80 de los 140 entrenamientos guiados",
-        "perk3": "Generador de planes — un plan, hasta 4 semanas",
+        "perk3": "Generador de planes: un plan, hasta 4 semanas",
         "perk4": "Todo lo que registras, más 7 días de tendencias",
-        "perk5": "El reto de 5 € — entrada gratis",
+        "perk5": "El reto de 5 €: entrada gratis",
         "cta": "Empieza gratis",
         "perk6": "{{count}} participación en cada sorteo, +{{loyalty}} por cada mes que entrenas"
       },
@@ -2003,8 +2003,8 @@
         "name": "Premium",
         "price": "€119.99",
         "per": "/año · €10.00/mes",
-        "monthly": "o €19.99/mes mes a mes — cancela cuando quieras",
-        "blurb": "La misma app, sin límites — más profundidad, no más acceso.",
+        "monthly": "o €19.99/mes mes a mes, cancela cuando quieras",
+        "blurb": "La misma app, sin límites. Más profundidad, no más acceso.",
         "perk1": "Los 140 entrenamientos guiados",
         "perk2": "Guarda todos los planes que quieras, de cualquier duración",
         "perk3": "Tendencias de 30 y 90 días, más el mapa muscular",
@@ -2017,7 +2017,7 @@
     "guarantee": {
       "g1": {
         "title": "Sin tarjeta para empezar",
-        "body": "El plan gratuito es gratis de verdad — no una prueba."
+        "body": "El plan gratuito es gratis de verdad, no una prueba."
       },
       "g2": {
         "title": "Pásate cuando quieras",
@@ -2031,21 +2031,21 @@
     "faq": {
       "free": {
         "q": "¿Libo es gratis?",
-        "a": "Sí — el plan gratuito te da la biblioteca básica de entrenamientos y ejercicios, seguimiento básico de progreso, tu racha de actividad con puntos y el cash challenge de nivel inicial de €5. Premium desbloquea la biblioteca completa, analíticas avanzadas y una ficha de congelación en cada reto — y, con una suscripción de pago, el cash challenge de €15. El reto de €50 es parte de Elite."
+        "a": "Sí. El plan gratuito te da la biblioteca básica de entrenamientos y ejercicios, seguimiento básico de progreso, tu racha de actividad con puntos y el cash challenge de nivel inicial de €5. Premium desbloquea la biblioteca completa, analíticas avanzadas y una ficha de congelación en cada reto y, con una suscripción de pago, el cash challenge de €15. El reto de €50 es parte de Elite."
       },
       "challenges": {
         "q": "¿Cómo funcionan los cash challenges?",
-        "a": "Elige un reto y cumple su meta diaria de reps durante 30 días. Grabas cada sesión en la app, así que la racha queda verificada — no hay forma de falsearla. Tus 30 días empiezan en el momento en que entras, y terminar se paga en cash real. Premium de pago desbloquea el reto de 15 € (50 reps al día) y Elite de pago el de 50 € (100 reps al día); las plazas son limitadas y van por orden de llegada."
+        "a": "Elige un reto y cumple su meta diaria de reps durante 30 días. Grabas cada sesión en la app, así que la racha queda verificada: no hay forma de falsearla. Tus 30 días empiezan en el momento en que entras, y terminar se paga en cash real. Premium de pago desbloquea el reto de 15 € (50 reps al día) y Elite de pago el de 50 € (100 reps al día); las plazas son limitadas y van por orden de llegada."
       },
       "monthlyPrice": {
         "q": "¿Qué significa €10.00/mes?",
         "a": "Premium cuesta €19.99 al mes o €119.99 al año, que sale a €10.00 al mes. Elite cuesta €29.99 al mes o €179.99 al año (€15.00 al mes). La facturación es mensual o anual, y te suscribes y cancelas en el App Store o Google Play."
       },
-      "subhead": "Las mismas respuestas que en la página de inicio — una sola fuente de verdad."
+      "subhead": "Las mismas respuestas que en la página de inicio: una sola fuente de verdad."
     },
     "seo": {
-      "title": "Membresía | Libo — Training Club",
-      "description": "Free, Premium o Elite. Premium desde €10.00/mes y Elite desde €15.00/mes con facturación anual, o mes a mes. Sin tarjeta para empezar, y el plan gratuito es gratis de verdad — no es una prueba."
+      "title": "Membresía | Libo Training Club",
+      "description": "Free, Premium o Elite. Premium desde €10.00/mes y Elite desde €15.00/mes con facturación anual, o mes a mes. Sin tarjeta para empezar, y el plan gratuito es gratis de verdad, no es una prueba."
     },
     "billing": {
       "label": "Periodo de facturación",
@@ -2176,12 +2176,12 @@
         {
           "num": "01",
           "title": "Forged in Leistungssport",
-          "body": "Noah comes from high-performance sport: years of Regionalliga football in Germany, selected for the DFB Stützpunkt and the Westfalenauswahl with Bonner SC. Discipline held because something real was always on the line — a squad, a selection, a season. Libo rebuilds those stakes for everyone else."
+          "body": "Noah comes from high-performance sport: years of Regionalliga football in Germany, selected for the DFB Stützpunkt and the Westfalenauswahl with Bonner SC. Discipline held because something real was always on the line: a squad, a selection, a season. Libo rebuilds those stakes for everyone else."
         },
         {
           "num": "02",
           "title": "One step back, two steps ahead",
-          "body": "Off the pitch, Noah built two successful companies — the fashion label Mieuxnoir and the fashion production company Manufactnow. But life set him back a step more than once: wrong calls, hard restarts. Every time, he came back two steps ahead. That's the pattern Libo rewards — not perfection, the comeback."
+          "body": "Off the pitch, Noah built two successful companies: the fashion label Mieuxnoir and the fashion production company Manufactnow. But life set him back a step more than once: wrong calls, hard restarts. Every time, he came back two steps ahead. That's the pattern Libo rewards. Not perfection, the comeback."
         },
         {
           "num": "03",
@@ -2191,7 +2191,7 @@
         {
           "num": "04",
           "title": "A club, not an audience",
-          "body": "No coaches or influencers selling courses — whoever joins the club later, members get everything through Premium. Cohorts stay small, streaks are public, and members hold each other to it. The product is the people showing up — the app just keeps score."
+          "body": "No coaches or influencers selling courses. Whoever joins the club later, members get everything through Premium. Cohorts stay small, streaks are public, and members hold each other to it. The product is the people showing up; the app just keeps score."
         }
       ],
       "imgAlt": "Noah F., fundador de Libo, cargando a dos amigos en brazos",
@@ -2200,13 +2200,13 @@
       "h2": "Por qué construimos esto"
     },
     "seo": {
-      "title": "Fundador — Libo World · Training Club"
+      "title": "Fundador | Libo World · Training Club"
     },
     "hero": {
       "badge": "Sobre Libo",
       "h1Line1": "Construido sobre aparecer.",
       "h1Accent": "Cada. Maldito. Día.",
-      "sub": "Libo no es la app de fitness de un fundador. Es un club de entrenamiento construido sobre una creencia simple: la gente no falla por falta de entrenamientos — falla porque no hay nada en juego cuando lo deja."
+      "sub": "Libo no es la app de fitness de un fundador. Es un club de entrenamiento construido sobre una creencia simple: la gente no falla por falta de entrenamientos, falla porque no hay nada en juego cuando lo deja."
     },
     "pullQuote": {
       "line1": "“La motivación te lleva al día tres.",
@@ -2219,8 +2219,8 @@
     "vision": {
       "h2Line1": "Hacia dónde",
       "h2Line2": "va esto.",
-      "desc": "La visión de Noah es un club — un ecosistema donde aparecer se acumula: entrenamiento, retos, comunidad y recompensas alimentándose entre sí. Preferimos lanzar lo siguiente antes que anunciarlo.",
-      "cardPre": "La app es el capítulo uno. Lo que viene después se queda dentro del club — ",
+      "desc": "La visión de Noah es un club, un ecosistema donde aparecer se acumula: entrenamiento, retos, comunidad y recompensas alimentándose entre sí. Preferimos lanzar lo siguiente antes que anunciarlo.",
+      "cardPre": "La app es el capítulo uno. Lo que viene después se queda dentro del club: ",
       "cardAccent": "lo que nunca cambia es que la constancia paga."
     },
     "joinCta": {
@@ -2238,26 +2238,26 @@
         "title": "Los estándares ganan a la motivación"
       },
       "04": {
-        "body": "Sin coaches ni influencers vendiendo cursos — los miembros lo reciben todo con la membresía. El producto es la gente que aparece, día tras día — la app solo lleva la cuenta y paga los recibos."
+        "body": "Sin coaches ni influencers vendiendo cursos: los miembros lo reciben todo con la membresía. El producto es la gente que aparece, día tras día. La app solo lleva la cuenta y paga los recibos."
       },
       "01": {
-        "body": "El ADN de Libo es la competición y la superación — convertirte en tu mejor versión, entrenando y en todo lo demás. La constancia es lo que te lleva ahí, y aguanta cuando hay algo real en juego. Libo mete esas apuestas en el entrenamiento de cada día."
+        "body": "El ADN de Libo es la competición y la superación: convertirte en tu mejor versión, entrenando y en todo lo demás. La constancia es lo que te lleva ahí, y aguanta cuando hay algo real en juego. Libo mete esas apuestas en el entrenamiento de cada día."
       },
       "02": {
         "title": "Hecho para terminar",
-        "body": "Fuera del campo, Noah levantó dos empresas de éxito — la marca de moda Mieuxnoir y la productora de moda Manufactnow. Cada proyecto exigía lo mismo que el deporte: aparecer a diario, mantener el estándar, terminar lo empezado. Ese es el patrón que Libo recompensa — constancia que se acumula."
+        "body": "Fuera del campo, Noah levantó dos empresas de éxito: la marca de moda Mieuxnoir y la productora de moda Manufactnow. Cada proyecto exigía lo mismo que el deporte: aparecer a diario, mantener el estándar, terminar lo empezado. Ese es el patrón que Libo recompensa: constancia que se acumula."
       }
     },
     "seo": {
-      "title": "Sobre Libo — Libo World · Training Club"
+      "title": "Sobre Libo | Libo World · Training Club"
     },
     "vision": {
-      "desc": "La visión de Noah es un club — un ecosistema donde aparecer se acumula: entrenamiento, retos, comunidad y recompensas alimentándose entre sí. Preferimos lanzar lo siguiente antes que anunciarlo.",
-      "cardPre": "La app es el capítulo uno. Lo que viene después se queda dentro del club — ",
+      "desc": "La visión de Noah es un club, un ecosistema donde aparecer se acumula: entrenamiento, retos, comunidad y recompensas alimentándose entre sí. Preferimos lanzar lo siguiente antes que anunciarlo.",
+      "cardPre": "La app es el capítulo uno. Lo que viene después se queda dentro del club: ",
       "cardAccent": "lo que nunca cambia es que aparecer cuenta."
     },
     "joinCta": {
-      "body": "Los cash challenges abren el día del lanzamiento — tus 30 días empiezan en el momento en que entras. Los Founding Members entran primero.",
+      "body": "Los cash challenges abren el día del lanzamiento y tus 30 días empiezan en el momento en que entras. Los Founding Members entran primero.",
       "ctaPrimary": "Hazte Founding Member →",
       "ctaSecondary": "Ver membresía"
     }
@@ -2294,14 +2294,14 @@
       "run": "Día 2 del reto"
     },
     "seo": {
-      "title": "Prensa — Libo"
+      "title": "Prensa | Libo"
     },
     "hero": {
       "badge": "Kit de prensa",
       "h1Line1": "Todo lo que",
       "h1Line2": "necesitas",
       "h1Line3": "para cubrir Libo.",
-      "subPre": "Logos, capturas, bio del fundador y los datos — listos para usar. Para entrevistas, acceso a la beta o cualquier otra cosa: "
+      "subPre": "Logos, capturas, bio del fundador y los datos, listos para usar. Para entrevistas, acceso a la beta o cualquier otra cosa: "
     },
     "boilerplate": {
       "title": "Sobre Libo",
@@ -2311,7 +2311,7 @@
       "title": "Noah F.",
       "titleTag": "· fundador",
       "imgAlt": "Noah F., fundador de Libo",
-      "bio": "Noah viene del deporte alemán de alto rendimiento — años de fútbol en la Regionalliga, con convocatorias para el DFB Stützpunkt y la Westfalenauswahl con el Bonner SC. También es el diseñador detrás de la marca de moda Mieuxnoir y fundador de Manufactnow, una empresa de producción y consultoría de moda. Su apuesta con Libo: las apuestas reales superan a la motivación, así que el club pone dinero real sobre la constancia de sus miembros.",
+      "bio": "Noah viene del deporte alemán de alto rendimiento: años de fútbol en la Regionalliga, con convocatorias para el DFB Stützpunkt y la Westfalenauswahl con el Bonner SC. También es el diseñador detrás de la marca de moda Mieuxnoir y fundador de Manufactnow, una empresa de producción y consultoría de moda. Su apuesta con Libo: las apuestas reales superan a la motivación, así que el club pone dinero real sobre la constancia de sus miembros.",
       "link": "Historia completa del fundador →"
     }
   },
@@ -2320,13 +2320,13 @@
     "trustCommission": "Comisión de por vida",
     "trustFollowers": "Mínimo de seguidores",
     "trustCookie": "Ventana de cookie",
-    "seoTitle": "Programa de Creadores — gana el 25% de por vida | Libo",
+    "seoTitle": "Programa de Creadores: gana el 25% de por vida | Libo",
     "seoDescription": "Recomienda Libo a tu audiencia y gana el 25% de comisión en cada pago de suscripción que hagan, mientras sigan siendo miembros.",
-    "contextBar": "25% de comisión de por vida — en cada pago, no solo el primero",
-    "contextBarShort": "25% de comisión de por vida — en cada pago",
+    "contextBar": "25% de comisión de por vida, en cada pago, no solo el primero",
+    "contextBarShort": "25% de comisión de por vida, en cada pago",
     "headlineLine1": "Tu audiencia entrena.",
     "headlineLine2": "Tú ganas el 25% de por vida.",
-    "subhead": "Recomienda a tu audiencia la app de entrenamiento que usas de verdad. 25% de comisión en cada pago de suscripción que hagan — mientras ellos sigan siendo miembros y tú también.",
+    "subhead": "Recomienda a tu audiencia la app de entrenamiento que usas de verdad. 25% de comisión en cada pago de suscripción que hagan, mientras ellos sigan siendo miembros y tú también.",
     "calcHeading": "¿Cuánto vale?",
     "calcSub": "Convierte tu dedicación en una fuente de ingresos que recompensa tu esfuerzo y tu influencia.",
     "calcUsersLabel": "Miembros de pago que traes",
@@ -2334,14 +2334,14 @@
     "calcTooltip": "Estimado como una comisión del 25% sobre la suscripción anual de €119.99. Las ganancias reales dependen del plan y de cuánto tiempo se queden los miembros.",
     "howHeading": "Enlace → miembros → pago.",
     "step1Title": "Regístrate",
-    "step1Body": "¿Entrenas, entrenas a otros, llevas un gimnasio o publicas sobre fitness? Aplica en menos de 2 minutos — sin mínimo de seguidores.",
+    "step1Body": "¿Entrenas, entrenas a otros, llevas un gimnasio o publicas sobre fitness? Aplica en menos de 2 minutos, sin mínimo de seguidores.",
     "step2Title": "Comparte tu enlace",
-    "step2Body": "Tu enlace de referido único, donde sea — bio, captions, descripciones, newsletter.",
+    "step2Body": "Tu enlace de referido único, donde sea: bio, captions, descripciones, newsletter.",
     "step3Title": "Gana cada mes",
     "step3Body": "25% en cada nueva suscripción y cada renovación. Se paga mensualmente.",
     "faqHeading": "¿Dudas?",
     "ctaHeadline": "¿Listo para ganar desde el día uno?",
-    "ctaSub": "Aplica ahora y tu enlace estará activo antes del lanzamiento — cada Founding Member que traigas cuenta desde su primer pago.",
+    "ctaSub": "Aplica ahora y tu enlace estará activo antes del lanzamiento. Cada Founding Member que traigas cuenta desde su primer pago.",
     "trustFollowersMobile": "Mín. seguidores",
     "trustPayoutValue": "Mensual",
     "trustPayout": "Pagos",
@@ -2359,7 +2359,7 @@
     "errSubmit": "No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos directamente a affiliates@liboworld.com.",
     "seoTitle": "Aplica al Programa de Creadores de Libo",
     "seoDescription": "Aplica al Programa de Creadores de Libo y gana el 25% de comisión en cada pago de suscripción de tu audiencia.",
-    "contextBar": "25% de comisión de por vida — en cada pago, no solo el primero",
+    "contextBar": "25% de comisión de por vida, en cada pago, no solo el primero",
     "contextBarShort": "25% de comisión de por vida",
     "back": "Volver al programa",
     "headlineLine1": "Aplica al Programa de",
@@ -2378,7 +2378,7 @@
     "audienceTitle": "Audiencia",
     "mainChannel": "Sitio web / red social principal donde harás la promoción (enlace)",
     "audienceSize": "Tamaño de tu audiencia (opcional)",
-    "audienceSizePlaceholder": "Cualquier tamaño vale — déjalo en blanco si prefieres",
+    "audienceSizePlaceholder": "Cualquier tamaño vale. Déjalo en blanco si prefieres",
     "otherChannels": "Otros sitios web / redes sociales (añade todos)",
     "termsTitle": "Términos y Condiciones",
     "termsSubtitle": "Términos de Servicio del Programa de Afiliados de Libo",
@@ -2390,7 +2390,7 @@
   "consent": {
     "aria": "Opciones de cookies",
     "title": "Tú decides sobre las cookies",
-    "intro": "Nada que te rastree se activa hasta que tú lo digas. Elige con qué estás de acuerdo — puedes cambiarlo cuando quieras.",
+    "intro": "Nada que te rastree se activa hasta que tú lo digas. Elige con qué estás de acuerdo; puedes cambiarlo cuando quieras.",
     "necessaryLabel": "Necesarias",
     "necessaryAlways": "Siempre activas",
     "necessaryBody": "Hacen que la web funcione y recuerdan esta elección. Sin rastreo y sin compartir nada.",
@@ -2942,7 +2942,7 @@
       "recentTraining": {
         "section": "De dónde vienes",
         "title": "¿Has entrenado últimamente?",
-        "subtitle": "Los últimos 3 meses, con sinceridad — marca la velocidad del arranque.",
+        "subtitle": "Los últimos 3 meses, con sinceridad. Marca la velocidad del arranque.",
         "options": {
           "regular": {
             "label": "Entrenando con regularidad",

@@ -63,7 +63,7 @@ export default function JoinFunnel() {
   // — the anchors still scroll to the card, which now sells Premium at list.
   const ctaLabel = foundingOpen
     ? t('joinFunnel.cta.primary', {
-        defaultValue: 'Become a Founding Member — {{price}} →',
+        defaultValue: 'Become a Founding Member: {{price}} →',
         price: PRICE,
       })
     : t('membershipV2.plans.premium.cta', { defaultValue: 'Available at launch' });
@@ -111,7 +111,7 @@ export default function JoinFunnel() {
       title: t('joinFunnel.holds.c1Title', { defaultValue: 'Decision removed' }),
       body: t('joinFunnel.holds.c1Body', {
         defaultValue:
-          "Open the app — today's session is already picked for your goal, time, and equipment. No planning stress, ever.",
+          "Open the app. Today's session is already picked for your goal, time, and equipment. No planning stress, ever.",
       }),
     },
     {
@@ -119,7 +119,7 @@ export default function JoinFunnel() {
       title: t('joinFunnel.holds.c2Title', { defaultValue: 'Progress accumulates' }),
       body: t('joinFunnel.holds.c2Body', {
         defaultValue:
-          'The streak never resets to zero — a missed day subtracts a day, and freeze tokens cover real life.',
+          'The streak never resets to zero. A missed day subtracts a day, and freeze tokens cover real life.',
       }),
     },
     {
@@ -127,7 +127,7 @@ export default function JoinFunnel() {
       title: t('joinFunnel.holds.c3Title', { defaultValue: 'Real money, real rules' }),
       body: t('joinFunnel.holds.c3Body', {
         defaultValue:
-          'Cash challenges pay real money for 30 verified days. No draw, no luck — complete the work, get paid.',
+          'Cash challenges pay real money for 30 verified days. No draw, no luck: complete the work, get paid.',
       }),
     },
   ];
@@ -140,7 +140,7 @@ export default function JoinFunnel() {
   const benefits = [
     t('joinFunnel.offer.tick1', { defaultValue: 'Everything in Free, plus the full library' }),
     foundingOpen
-      ? t('joinFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier — first come, first served' })
+      ? t('joinFunnel.offer.tick2', { defaultValue: 'Eligible for every challenge tier, first come, first served' })
       : t('membershipV2.tiers.premium.i6', { defaultValue: 'The €15 cash challenge: 50 reps a day for 30 days' }),
     t('joinFunnel.offer.tick3', { defaultValue: '1 freeze token per challenge, +1 you can earn' }),
     ...(foundingOpen
@@ -168,14 +168,14 @@ export default function JoinFunnel() {
       q: t('joinFunnel.faq.q1', { defaultValue: 'What is Libo?' }),
       a: t('joinFunnel.faq.a1', {
         defaultValue:
-          'A training club: 820+ exercises, 140 workouts, generated plans, a streak that never resets to zero — and 30-day cash challenges that pay real money for consistency.',
+          'A training club: 820+ exercises, 140 workouts, generated plans, a streak that never resets to zero, and 30-day cash challenges that pay real money for consistency.',
       }),
     },
     {
       q: t('joinFunnel.faq.q2', { defaultValue: 'What does membership cost?' }),
       a: t('joinFunnel.faq.a2', {
         defaultValue:
-          'There is a free tier — no card needed. Premium is €119.99 a year (about €10.00/mo) or €19.99 month-to-month. Elite is €179.99 a year (€15.00/mo) or €29.99 month-to-month.',
+          'There is a free tier, no card needed. Premium is €119.99 a year (about €10.00/mo) or €19.99 month-to-month. Elite is €179.99 a year (€15.00/mo) or €29.99 month-to-month.',
       }),
     },
     // Describes the pre-sale itself, so it goes with the pre-sale.
@@ -184,7 +184,7 @@ export default function JoinFunnel() {
           q: t('joinFunnel.faq.q3', { defaultValue: 'What is a Founding Member?' }),
           a: t('joinFunnel.faq.a3', {
             defaultValue:
-              'The pre-launch offer: 12 months of Premium at 50% off, first through the door on launch day, every challenge tier unlocked — and fully refundable until launch.',
+              'The pre-launch offer: 12 months of Premium at 50% off, first through the door on launch day, every challenge tier unlocked, and fully refundable until launch.',
           }),
         }]
       : []),
@@ -192,14 +192,14 @@ export default function JoinFunnel() {
       q: t('joinFunnel.faq.q4', { defaultValue: 'Is Libo out yet?' }),
       a: t('joinFunnel.faq.a4', {
         defaultValue:
-          'Yes — Libo is on the App Store for iPhone and on Google Play for Android, free to download.',
+          'Yes. Libo is on the App Store for iPhone and on Google Play for Android, free to download.',
       }),
     },
     {
       q: t('joinFunnel.faq.q5', { defaultValue: 'How do cash challenges work?' }),
       a: t('joinFunnel.faq.a5', {
         defaultValue:
-          '30 days of daily reps, recorded and verified in-app, paid out as real cash when you finish — €5, €15 or €50 depending on the tier. No draw, no luck.',
+          '30 days of daily reps, recorded and verified in-app, paid out as real cash when you finish: €5, €15 or €50 depending on the tier. No draw, no luck.',
       }),
     },
   ];
@@ -210,19 +210,19 @@ export default function JoinFunnel() {
         title={
           foundingOpen
             ? t('joinFunnel.seo.title', {
-                defaultValue: 'Become a Founding Member — Libo Training Club',
+                defaultValue: 'Become a Founding Member | Libo Training Club',
               })
-            : t('joinFunnel.seo.titleClosed', { defaultValue: 'Membership — Libo Training Club' })
+            : t('joinFunnel.seo.titleClosed', { defaultValue: 'Membership | Libo Training Club' })
         }
         description={
           foundingOpen
             ? t('joinFunnel.seo.description', {
                 defaultValue:
-                  'Join Libo as a Founding Member for €39.50 — 50% off the first year, fully refundable until launch. Your year starts the day the app goes live.',
+                  'Join Libo as a Founding Member for €39.50: 50% off the first year, fully refundable until launch. Your year starts the day the app goes live.',
               })
             : t('joinFunnel.seo.descriptionClosed', {
                 defaultValue:
-                  'Premium unlocks the full library, every cash challenge tier and 2x points. There is a free tier too — no card needed.',
+                  'Premium unlocks the full library, every cash challenge tier and 2x points. There is a free tier too, no card needed.',
               })
         }
         canonical="https://liboworld.com/join"
@@ -296,7 +296,7 @@ export default function JoinFunnel() {
                 defaultValue: 'Play: become a Founding Member, 2 minutes 44 seconds',
               })}
               caption={t('joinFunnel.hero.videoCaption', {
-                defaultValue: 'Inside the club — 2:44',
+                defaultValue: 'Inside the club (2:44)',
               })}
             />
             {/* The film ends on "the button is below the video ... the rules are
@@ -398,7 +398,7 @@ export default function JoinFunnel() {
           <p className="jf-lede">
             {t('joinFunnel.pocket.lede', {
               defaultValue:
-                'Everything lives in one app — your session, your streak, your challenges, your progress. One tap away, every day.',
+                'Everything lives in one app: your session, your streak, your challenges, your progress. One tap away, every day.',
             })}
           </p>
           {/* Fanned trio: centre phone larger + raised, flanks tucked behind.
@@ -516,7 +516,7 @@ export default function JoinFunnel() {
               <>
                 {t('joinFunnel.offer.fine', {
                   defaultValue:
-                    'Checkout opens from this card only — price always shown first. Just want launch news? The waitlist lives on the ',
+                    'Checkout opens from this card only, price always shown first. Just want launch news? The waitlist lives on the ',
                 })}
                 <Link to="/#waitlist" className="jf-inline-link">
                   {t('joinFunnel.offer.fineLink', { defaultValue: 'homepage' })}
@@ -528,7 +528,7 @@ export default function JoinFunnel() {
                  waitlist was for launch news we have already given. */
               t('joinFunnel.offer.fineClosed', {
                 defaultValue:
-                  'Premium is bought inside the app — this card shows the price, not a checkout.',
+                  'Premium is bought inside the app. This card shows the price, not a checkout.',
               })
             )}
           </p>

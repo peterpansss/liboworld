@@ -24,7 +24,7 @@ export function SeoHead({
   alternates,
 }: Props) {
   const image = ogImage || DEFAULT_OG_IMAGE;
-  const desc = description || 'Libo — Your Fitness Training Club. 140+ guided workouts. Train anywhere, anytime.';
+  const desc = description || 'Libo: Your Fitness Training Club. 140+ guided workouts. Train anywhere, anytime.';
   const url = canonical || SITE_URL;
 
   return (

@@ -22,7 +22,7 @@ function absoluteUrl(path: string): string {
 function exerciseDescription(ex: Exercise): string {
   const notes = (ex.setupNotes || '').trim();
   if (notes) return notes.length > 240 ? notes.slice(0, 237) + '…' : notes;
-  return `${ex.name} — ${ex.bodyFocus} exercise using ${ex.equipment}. ${ex.diff} difficulty.`;
+  return `${ex.name}: ${ex.bodyFocus} exercise using ${ex.equipment}. ${ex.diff} difficulty.`;
 }
 
 export function buildHowToSchema(ex: Exercise) {

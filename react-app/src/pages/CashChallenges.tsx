@@ -32,7 +32,7 @@ export default function CashChallenges() {
     <>
       <SeoHead
         title={t('cashChallenges.seo.title', {
-          defaultValue: 'Cash Challenges — train 30 days, earn real money | Libo',
+          defaultValue: 'Cash Challenges: train 30 days, earn real money | Libo',
         })}
         description={t('cashChallenges.seo.description', {
           defaultValue:
@@ -57,7 +57,7 @@ export default function CashChallenges() {
           <p className="cc-hero__sub">
             {t('cashChallenges.hero.sub', {
               defaultValue:
-                'Three tiers, one rule: 30 days of daily reps, proof on camera, real cash when you finish. No cycles, no waiting — your 30 days start the moment you join.',
+                'Three tiers, one rule: 30 days of daily reps, proof on camera, real cash when you finish. No cycles, no waiting. Your 30 days start the moment you join.',
             })}
           </p>
         </section>

@@ -50,7 +50,7 @@ export const FOUNDING_MEMBER_VIDEO: FunnelVideo = {
   ...urls('founding-member'),
   duration: '2:44',
   durationSeconds: 164,
-  title: 'Become a Founding Member — Libo Training Club',
+  title: 'Become a Founding Member | Libo Training Club',
 };
 
 export const CASH_CHALLENGE_VIDEO: FunnelVideo = {

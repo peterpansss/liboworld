@@ -39,14 +39,14 @@ export default function Founder() {
       title: t('founderV2.pillars.01.title', { defaultValue: 'Rooted in competition' }),
       body: t('founderV2.pillars.01.body', {
         defaultValue:
-          "Libo's DNA is competition and self-improvement — becoming the best version of yourself, in training and everywhere else. Consistency is what carries you there, and it holds when something real is on the line. Libo builds those stakes into everyday training.",
+          "Libo's DNA is competition and self-improvement: becoming the best version of yourself, in training and everywhere else. Consistency is what carries you there, and it holds when something real is on the line. Libo builds those stakes into everyday training.",
       }),
     },
     '02': {
       title: t('founderV2.pillars.02.title', { defaultValue: 'Built to finish' }),
       body: t('founderV2.pillars.02.body', {
         defaultValue:
-          'Off the pitch, Noah built two successful companies — the fashion label Mieuxnoir and the fashion production company Manufactnow. Every venture demanded the same thing sport did: showing up daily, holding the standard, finishing what he started. That’s the pattern Libo rewards — consistency that compounds.',
+          'Off the pitch, Noah built two successful companies: the fashion label Mieuxnoir and the fashion production company Manufactnow. Every venture demanded the same thing sport did: showing up daily, holding the standard, finishing what he started. That’s the pattern Libo rewards: consistency that compounds.',
       }),
     },
     '03': {
@@ -59,7 +59,7 @@ export default function Founder() {
     '04': {
       body: t('founderV2.pillars.04.body', {
         defaultValue:
-          'No coaches or influencers selling courses — members get everything through membership. The product is the people showing up, day after day — the app just keeps score and pays the receipts.',
+          'No coaches or influencers selling courses. Members get everything through membership. The product is the people showing up, day after day. The app just keeps score and pays the receipts.',
       }),
     },
   };
@@ -79,7 +79,7 @@ export default function Founder() {
     <div className="founder-page">
       <SeoHead
         title={t('founderV2.seo.title', {
-          defaultValue: 'About Libo — Libo World · Training Club',
+          defaultValue: 'About Libo | Libo World · Training Club',
         })}
         description={t('relaunchFounder.hero.sub')}
         canonical="https://liboworld.com/about"
@@ -173,14 +173,14 @@ export default function Founder() {
           <p className="fp-vision-desc">
             {t('founderV2.vision.desc', {
               defaultValue:
-                'Noah’s vision is a club — an ecosystem where showing up compounds: training, challenges, community, and rewards feeding each other. We’d rather ship what’s next than announce it.',
+                'Noah’s vision is a club: an ecosystem where showing up compounds: training, challenges, community, and rewards feeding each other. We’d rather ship what’s next than announce it.',
             })}
           </p>
         </div>
         <div className="fp-vision-card">
           <p>
             {t('founderV2.vision.cardPre', {
-              defaultValue: 'The app is chapter one. What comes next stays inside the club — ',
+              defaultValue: 'The app is chapter one. What comes next stays inside the club: ',
             })}
             <span className="fp-accent">
               {t('founderV2.vision.cardAccent', {
@@ -204,7 +204,7 @@ export default function Founder() {
           </h2>
           <p className="fp-join-body">
             {t('founderV2.joinCta.body', {
-              defaultValue: 'Cash challenges open on launch day — your 30 days start the moment you join. Founding Members are first through the door.',
+              defaultValue: 'Cash challenges open on launch day. Your 30 days start the moment you join. Founding Members are first through the door.',
             })}
           </p>
           <div className="fp-join-actions">

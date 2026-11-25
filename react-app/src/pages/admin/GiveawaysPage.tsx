@@ -88,9 +88,9 @@ function fromLocalDateTimeInput(value: string): string {
 }
 
 function formatDateCell(iso: string | null | undefined): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return '—';
+  if (isNaN(d.getTime())) return '-';
   return d.toLocaleString(undefined, {
     year: 'numeric',
     month: 'short',
@@ -699,7 +699,7 @@ export function GiveawaysPage() {
 
           <Field
             label="Featured on /giveaway funnel"
-            hint="When ON, this giveaway is the headline prize on the public liboworld.com/giveaway funnel page. Only one active giveaway can be featured at a time — flipping a new one ON automatically unmarks any previously featured giveaway."
+            hint="When ON, this giveaway is the headline prize on the public liboworld.com/giveaway funnel page. Only one active giveaway can be featured at a time. Flipping a new one ON automatically unmarks any previously featured giveaway."
           >
             <label
               style={{

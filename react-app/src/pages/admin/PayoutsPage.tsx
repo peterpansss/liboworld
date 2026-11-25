@@ -129,9 +129,9 @@ function formatCycleWindow(startDate: string, endDate: string): string {
 }
 
 function formatAbsolute(iso: string | null | undefined): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return '—';
+  if (isNaN(d.getTime())) return '-';
   return d.toLocaleString(undefined, {
     year: 'numeric',
     month: 'short',
@@ -142,9 +142,9 @@ function formatAbsolute(iso: string | null | undefined): string {
 }
 
 function formatRelative(iso: string | null | undefined): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return '—';
+  if (isNaN(d.getTime())) return '-';
   const diffMs = Date.now() - d.getTime();
   const sec = Math.floor(diffMs / 1000);
   if (sec < 60) return 'just now';
@@ -161,7 +161,7 @@ function formatRelative(iso: string | null | undefined): string {
 }
 
 function truncate(value: string | null | undefined, n: number): string {
-  if (!value) return '—';
+  if (!value) return '-';
   return value.length > n ? `${value.slice(0, n)}…` : value;
 }
 
@@ -390,7 +390,7 @@ export function PayoutsPage() {
         header: 'Method',
         render: (r) => (
           <span style={{ color: colors.muted, fontSize: 12, textTransform: 'capitalize' }}>
-            {r.payment_method ?? '—'}
+            {r.payment_method ?? '-'}
           </span>
         ),
         sort: (a, b) => (a.payment_method ?? '').localeCompare(b.payment_method ?? ''),
@@ -478,8 +478,8 @@ export function PayoutsPage() {
       const r = await forfeitGiveawayWinner(editing.giveaway_winner_id, 'failed_verification');
       setPageMessage(
         r.redrawn > 0
-          ? 'Winner forfeited — a new winner was drawn and will be emailed.'
-          : 'Winner forfeited — nobody left to draw in this round (recorded).',
+          ? 'Winner forfeited. A new winner was drawn and will be emailed.'
+          : 'Winner forfeited. Nobody left to draw in this round (recorded).',
       );
       setModalOpen(false);
       setEditing(null);
@@ -781,19 +781,19 @@ function GiveawayVerificationPanel({
       }}
     >
       <div style={{ fontWeight: 700, color: colors.text, marginBottom: 10 }}>
-        ID &amp; age check {row.identity_verified_at ? `— done ${formatAbsolute(row.identity_verified_at)}` : '— required before paying'}
+        ID &amp; age check {row.identity_verified_at ? `: done ${formatAbsolute(row.identity_verified_at)}` : ': required before paying'}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
-        <DetailItem label="Winner (as on ID)" value={row.winner_legal_name ?? row.payee_name ?? '—'} />
+        <DetailItem label="Winner (as on ID)" value={row.winner_legal_name ?? row.payee_name ?? '-'} />
         <DetailItem
           label="Date of birth (profile)"
-          value={row.date_of_birth ? `${row.date_of_birth}${age !== null ? ` · ${age}` : ''}` : '—'}
+          value={row.date_of_birth ? `${row.date_of_birth}${age !== null ? ` · ${age}` : ''}` : '-'}
         />
-        <DetailItem label="Account holder (payee)" value={row.payee_name ?? '—'} />
+        <DetailItem label="Account holder (payee)" value={row.payee_name ?? '-'} />
         <DetailItem label="Payee is" value={row.payee_relationship ?? 'self'} />
         {viaGuardian && (
           <>
-            <DetailItem label="Parent / guardian email" value={row.guardian_email ?? '—'} />
+            <DetailItem label="Parent / guardian email" value={row.guardian_email ?? '-'} />
             <DetailItem label="Consent given in app" value={formatAbsolute(row.guardian_consent_at)} />
           </>
         )}
@@ -876,19 +876,19 @@ function ReadOnlyDetails({ row, onClose }: { row: ChallengePayoutRow; onClose: (
         <DetailItem label="Amount" value={formatAmount(row.amount, row.currency)} />
         <DetailItem label="Currency" value={row.currency} />
         <DetailItem label="Status" value={<StatusChip status={row.status} />} />
-        <DetailItem label="Payment method" value={row.payment_method ?? '—'} />
+        <DetailItem label="Payment method" value={row.payment_method ?? '-'} />
         <DetailItem
           label="Payment reference"
           value={
-            <span style={{ fontFamily: 'monospace' }}>{row.payment_reference ?? '—'}</span>
+            <span style={{ fontFamily: 'monospace' }}>{row.payment_reference ?? '-'}</span>
           }
         />
-        <DetailItem label="Payee email" value={row.payee_email ?? '—'} />
+        <DetailItem label="Payee email" value={row.payee_email ?? '-'} />
         <DetailItem
           label="Payee IBAN"
-          value={<span style={{ fontFamily: 'monospace' }}>{row.payee_iban ?? '—'}</span>}
+          value={<span style={{ fontFamily: 'monospace' }}>{row.payee_iban ?? '-'}</span>}
         />
-        <DetailItem label="Payee country" value={row.payee_country ?? '—'} />
+        <DetailItem label="Payee country" value={row.payee_country ?? '-'} />
         <DetailItem label="Created at" value={formatAbsolute(row.created_at)} />
         <DetailItem label="Processed at" value={formatAbsolute(row.processed_at)} />
         <DetailItem label="Paid at" value={formatAbsolute(row.paid_at)} />

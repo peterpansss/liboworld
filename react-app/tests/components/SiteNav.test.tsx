@@ -240,7 +240,7 @@ describe('SiteNav announce bar', () => {
     const bar = container.querySelector('.site-announce');
     expect(bar).not.toBeNull();
     expect(bar!.className).toContain('site-announce--waitlist');
-    expect(screen.getByText('Libo is live on the App Store and Google Play — download it free')).toBeInTheDocument();
+    expect(screen.getByText('Libo is live on the App Store and Google Play. Download it free')).toBeInTheDocument();
   });
 
   it('does not gate the waitlist variant on Stripe — it is a free ask', () => {
@@ -255,7 +255,7 @@ describe('SiteNav announce bar', () => {
     expect(bar).not.toBeNull();
     expect(bar!.className).not.toContain('site-announce--waitlist');
     expect(
-      screen.getByText('Founding Members: 50% off — until 13 October'),
+      screen.getByText('Founding Members: 50% off until 13 October'),
     ).toBeInTheDocument();
   });
 
@@ -269,7 +269,7 @@ describe('SiteNav announce bar', () => {
     expect(bar).not.toBeNull();
     expect(bar!.className).toContain('site-announce--waitlist');
     expect(
-      screen.queryByText('Founding Members: 50% off — until 13 October'),
+      screen.queryByText('Founding Members: 50% off until 13 October'),
     ).toBeNull();
   });
 
@@ -301,7 +301,7 @@ describe('SiteNav announce bar', () => {
     expect(bar).not.toBeNull();
     expect(bar!.className).toContain('site-announce--waitlist');
     expect(
-      screen.queryByText('Libo is live on the App Store and Google Play — download it free'),
+      screen.queryByText('Libo is live on the App Store and Google Play. Download it free'),
     ).not.toBeNull();
   });
 

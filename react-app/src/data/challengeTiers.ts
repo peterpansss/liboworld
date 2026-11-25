@@ -351,7 +351,7 @@ export function diffChallengeTiersAgainstDb(
       tier: '(unmapped)',
       rowId: row.id,
       field: 'CHALLENGE_TIERS coverage <-> money_challenges',
-      published: 'nothing — no tier mirrors this row, so it appears on neither /cash-challenges nor /rules',
+      published: 'nothing: no tier mirrors this row, so it appears on neither /cash-challenges nor /rules',
       production: `active challenge "${row.id}": ${toNumber(row.reps_per_day)} reps per day × ${toNumber(row.total_days)} days for ${toNumber(row.reward_amount)} ${row.reward_currency}, required_tier = "${row.required_tier}"`,
     });
   }
@@ -372,7 +372,7 @@ export function formatChallengeTierDrift(drifts: readonly ChallengeTierDrift[]):
 
   const body = drifts.map(
     (drift) =>
-      `  ${drift.tier} [${drift.rowId || 'row missing'}] — ${drift.field}\n` +
+      `  ${drift.tier} [${drift.rowId || 'row missing'}]: ${drift.field}\n` +
       `      published (src/data/challengeTiers.ts): ${drift.published}\n` +
       `      production (money_challenges):          ${drift.production}`,
   );
@@ -383,8 +383,8 @@ export function formatChallengeTierDrift(drifts: readonly ChallengeTierDrift[]):
     '',
     ...body,
     '',
-    'These figures are published on /rules — the rulebook members are pointed at before they',
-    'enrol — and are quoted in the App Store review notes and the German store description.',
+    'These figures are published on /rules (the rulebook members are pointed at before they',
+    'enrol) and are quoted in the App Store review notes and the German store description.',
     'DO NOT change either side to make this pass. Escalate to Noah and establish which side is',
     'wrong first; a member who enrolled under a published figure is owed that figure.',
   ].join('\n');

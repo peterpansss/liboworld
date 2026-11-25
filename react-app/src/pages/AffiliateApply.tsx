@@ -156,7 +156,7 @@ export default function AffiliateApply() {
       <FunnelContextBar>
         <span className="aa-bar-full">
           {t('affiliateApply.contextBar', {
-            defaultValue: '25% lifetime commission — on every payment, not just the first',
+            defaultValue: '25% lifetime commission on every payment, not just the first',
           })}
         </span>
         <span className="aa-bar-short">
@@ -288,7 +288,7 @@ export default function AffiliateApply() {
               type="text"
               value={form.audienceSize}
               onChange={(e) => update('audienceSize', e.target.value)}
-              placeholder={t('affiliateApply.audienceSizePlaceholder', { defaultValue: 'Any size is fine — leave blank if you prefer' })}
+              placeholder={t('affiliateApply.audienceSizePlaceholder', { defaultValue: 'Any size is fine. Leave blank if you prefer' })}
             />
           </label>
           <label className="aa-field">

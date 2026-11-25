@@ -151,7 +151,7 @@ export default function ChallengeFunnel() {
     isFree || !foundingOpen
       ? ctaLabel
       : t('challengeFunnel.cta.checkout', {
-          defaultValue: 'Click to Enter — {{price}}/yr →',
+          defaultValue: 'Click to Enter: {{price}}/yr →',
           price: PRICE,
         });
 
@@ -184,7 +184,7 @@ export default function ChallengeFunnel() {
           payout: tier.payout,
         })}
         description={t('challengeFunnel.seo.description', {
-          defaultValue: '{{reps}} reps a day for 30 days. Proof on camera. Real money when you finish — no points, no gift cards.',
+          defaultValue: '{{reps}} reps a day for 30 days. Proof on camera. Real money when you finish. No points, no gift cards.',
           reps: tier.reps,
         })}
         canonical={`/cash-challenges/${tier.slug}`}
@@ -200,13 +200,13 @@ export default function ChallengeFunnel() {
       <FunnelContextBar>
         <span className="cf-bar__full">
           {t('challengeFunnel.bar.full', {
-            defaultValue: '⚡ Limited spots — your 30 days start the moment you join ⚡',
+            defaultValue: '⚡ Limited spots. Your 30 days start the moment you join ⚡',
           })}
         </span>
         {/* Copy variant, not CSS truncation — matches the announcement-bar pattern. */}
         <span className="cf-bar__short">
           {t('challengeFunnel.bar.short', {
-            defaultValue: '⚡ Limited spots — your 30 days start the moment you join ⚡',
+            defaultValue: '⚡ Limited spots. Your 30 days start the moment you join ⚡',
           })}
         </span>
       </FunnelContextBar>
@@ -231,7 +231,7 @@ export default function ChallengeFunnel() {
           </h1>
           <p className="cf-hero__sub">
             {t('challengeFunnel.hero.sub', {
-              defaultValue: '{{reps}} reps a day. Proof on camera. Real money when you finish — no points, no gift cards.',
+              defaultValue: '{{reps}} reps a day. Proof on camera. Real money when you finish. No points, no gift cards.',
               reps: tier.reps,
             })}
           </p>
@@ -275,7 +275,7 @@ export default function ChallengeFunnel() {
           <p className="cf-body">
             {t('challengeFunnel.pain.body', {
               defaultValue:
-                'The first week always works. The problem is day 19 — when nobody notices whether you show up. In the challenge, somebody does: everyone else in it, and your own money.',
+                'The first week always works. The problem is day 19, when nobody notices whether you show up. In the challenge, somebody does: everyone else in it, and your own money.',
             })}
           </p>
         </section>
@@ -300,7 +300,7 @@ export default function ChallengeFunnel() {
           <p className="cf-note">
             {t('challengeFunnel.steps.note', {
               defaultValue:
-                "No per-challenge fee — entry comes with your membership. Your 30 days start the moment you join; if a challenge is full, request to join and you're notified the second a spot frees. In the app, challenges live in the Rewards tab.",
+                "No per-challenge fee. Entry comes with your membership. Your 30 days start the moment you join; if a challenge is full, request to join and you're notified the second a spot frees. In the app, challenges live in the Rewards tab.",
             })}
           </p>
           <CtaBar mobileHidden />
@@ -319,7 +319,7 @@ export default function ChallengeFunnel() {
               defaultValue: 'Play: the cash challenge, 2 minutes 24 seconds',
             })}
             caption={t('challengeFunnel.video.caption', {
-              defaultValue: 'The cash challenge — 2:24',
+              defaultValue: 'The cash challenge (2:24)',
             })}
           />
           {/* The film closes on "click the button below the video ... the rules
@@ -429,7 +429,7 @@ export default function ChallengeFunnel() {
               {foundingOpen
                 ? t('challengeFunnel.offer.ledeFree', {
                     defaultValue:
-                      'The €5 Starter is free for every member. Paid Premium opens the €15 challenge (50 reps a day) — and right now the first year is half price.',
+                      'The €5 Starter is free for every member. Paid Premium opens the €15 challenge (50 reps a day), and right now the first year is half price.',
                   })
                 : t('challengeFunnel.offer.ledeFreeClosed', {
                     defaultValue:
@@ -474,11 +474,11 @@ export default function ChallengeFunnel() {
               {isFree && (
                 <li>{t('challengeFunnel.offer.tickUnlock', { defaultValue: 'The €15 cash challenge unlocked: 50 reps a day for 30 days' })}</li>
               )}
-              <li>{t('challengeFunnel.offer.tick1', { defaultValue: 'Full library — 820+ exercises, 140 workouts' })}</li>
+              <li>{t('challengeFunnel.offer.tick1', { defaultValue: 'Full library: 820+ exercises, 140 workouts' })}</li>
               {isFree ? (
                 <li>{t('challengeFunnel.offer.tickFreeze', { defaultValue: '1 freeze token per challenge, +1 you can earn' })}</li>
               ) : (
-                <li>{t('challengeFunnel.offer.tick2', { defaultValue: 'Unlocks this challenge — first come, first served' })}</li>
+                <li>{t('challengeFunnel.offer.tick2', { defaultValue: 'Unlocks this challenge, first come, first served' })}</li>
               )}
               <li>
                 {foundingOpen
@@ -495,7 +495,7 @@ export default function ChallengeFunnel() {
           {stripeReady && foundingOpen && (
             <button type="button" className="funnel-btn cf-btn cf-btn--lg cf-btn--offer" onClick={handleCheckout}>
               {isFree
-                ? t('challengeFunnel.offer.ctaFree', { defaultValue: 'Get Premium — {{price}}/yr →', price: PRICE })
+                ? t('challengeFunnel.offer.ctaFree', { defaultValue: 'Get Premium: {{price}}/yr →', price: PRICE })
                 : ctaLabel}
             </button>
           )}
@@ -547,7 +547,7 @@ export default function ChallengeFunnel() {
                 {foundingOpen
                   ? t('challengeFunnel.close.subFree', {
                       defaultValue:
-                        "The €5 Starter challenge is free for every member. Leave your email and we'll save your spot — first come, first served.",
+                        "The €5 Starter challenge is free for every member. Leave your email and we'll save your spot. First come, first served.",
                     })
                   : t('challengeFunnel.close.subFreeApp', {
                       defaultValue:
@@ -561,7 +561,7 @@ export default function ChallengeFunnel() {
               }}>
                 {foundingOpen
                   ? t('challengeFunnel.close.upsell', {
-                      defaultValue: 'Want the €15 and €50 tiers? Get Premium — 50% off →',
+                      defaultValue: 'Want the €15 and €50 tiers? Get Premium, 50% off →',
                     })
                   : t('challengeFunnel.close.upsellClosed', {
                       defaultValue: 'Want the €15 and €50 tiers? Get Premium →',
@@ -574,16 +574,16 @@ export default function ChallengeFunnel() {
                 {foundingOpen
                   ? t('challengeFunnel.close.sub', {
                       defaultValue:
-                        "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
+                        "Premium unlocks this tier. Entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees. First year 50% off until launch, fully refundable.",
                     })
                   : isElite
                     ? t('challengeFunnel.close.subClosedElite', {
                         defaultValue:
-                          "Paid Elite unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
+                          "Paid Elite unlocks this tier. Entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
                       })
                     : t('challengeFunnel.close.subClosed', {
                         defaultValue:
-                          "Premium unlocks this tier — entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
+                          "Premium unlocks this tier. Entry is first come, first served, and spots are limited. If it's full, you're notified the second a spot frees.",
                       })}
               </p>
               {stripeReady && foundingOpen && (
@@ -680,13 +680,13 @@ function buildSteps(t: TFn, tier: ChallengeTier) {
     {
       title: t('challengeFunnel.steps.s2.title', { defaultValue: 'Record' }),
       body: t('challengeFunnel.steps.s2.body', {
-        defaultValue: 'Film the set in the app — the camera keeps it honest.',
+        defaultValue: 'Film the set in the app. The camera keeps it honest.',
       }),
     },
     {
       title: t('challengeFunnel.steps.s3.title', { defaultValue: 'Prove it' }),
       body: t('challengeFunnel.steps.s3.body', {
-        defaultValue: 'Your daily recording is the proof — verified in-app, no way to cheat it.',
+        defaultValue: 'Your daily recording is the proof: verified in-app, no way to cheat it.',
       }),
     },
     {
@@ -705,7 +705,7 @@ function buildFaqs(t: TFn, tier: ChallengeTier) {
       q: t('challengeFunnel.faq.scam.q', { defaultValue: 'Is this a scam? Why would an app pay me?' }),
       a: t('challengeFunnel.faq.scam.a', {
         defaultValue:
-          'Your payout is set aside in cash the moment you join — funded by Libo, never dependent on other members failing. No draw, no luck: complete the work, get paid.',
+          'Your payout is set aside in cash the moment you join, funded by Libo, never dependent on other members failing. No draw, no luck: complete the work, get paid.',
       }),
     },
     {
@@ -721,11 +721,11 @@ function buildFaqs(t: TFn, tier: ChallengeTier) {
               defaultValue: 'There is no per-challenge fee. Paid Premium or Elite unlocks this challenge, and entry comes with your membership.',
             })
           : t('challengeFunnel.faq.pay.aFree', {
-              defaultValue: 'No. This challenge comes with the free tier — there is no per-challenge fee and no card needed.',
+              defaultValue: 'No. This challenge comes with the free tier. There is no per-challenge fee and no card needed.',
             }),
     },
     {
-      q: t('challengeFunnel.faq.tooGood.q', { defaultValue: '"Free money" — too good to be true?' }),
+      q: t('challengeFunnel.faq.tooGood.q', { defaultValue: '"Free money"? Too good to be true?' }),
       a: t('challengeFunnel.faq.tooGood.a', {
         defaultValue:
           'Most people do not finish 30 days straight. That is the whole point: the money is what makes the last ten days survivable, and it is funded by Libo either way.',
@@ -735,21 +735,21 @@ function buildFaqs(t: TFn, tier: ChallengeTier) {
       q: t('challengeFunnel.faq.miss.q', { defaultValue: 'What happens if I miss a day?' }),
       a: t('challengeFunnel.faq.miss.a', {
         defaultValue:
-          'A freeze token covers it — Premium includes 1 per challenge, and everyone, free or paying, can earn a second by training 60 of the last 90 days. Out of tokens, a missed day ends the run — that is what makes finishing worth money. You can join again when a spot opens.',
+          'A freeze token covers it. Premium includes 1 per challenge, and everyone, free or paying, can earn a second by training 60 of the last 90 days. Out of tokens, a missed day ends the run. That is what makes finishing worth money. You can join again when a spot opens.',
       }),
     },
     {
       q: t('challengeFunnel.faq.equipment.q', { defaultValue: 'Do I need equipment?' }),
       a: t('challengeFunnel.faq.equipment.a', {
         defaultValue:
-          'No. Every challenge movement is bodyweight — pushups, squats, mountain climbers, burpees and the rest. You pick which one you are doing each day.',
+          'No. Every challenge movement is bodyweight: pushups, squats, mountain climbers, burpees and the rest. You pick which one you are doing each day.',
       }),
     },
     {
       q: t('challengeFunnel.faq.when.q', { defaultValue: 'When do I get the money?' }),
       a: t('challengeFunnel.faq.when.a', {
         defaultValue:
-          'After day 30 clears verification. It is paid as real cash — no points, no gift cards, no store credit.',
+          'After day 30 clears verification. It is paid as real cash. No points, no gift cards, no store credit.',
       }),
     },
   ];

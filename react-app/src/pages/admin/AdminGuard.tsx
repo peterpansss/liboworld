@@ -96,7 +96,7 @@ export function AdminGuard({ children }: { children: ReactNode }) {
           // Note: the real authorization control is now the database
           // (is_admin_aal2()); this guard is defense-in-depth for the UX.
           console.error(
-            '[AdminGuard] getAdminMfaStatus failed — failing CLOSED (enrolment required):',
+            '[AdminGuard] getAdminMfaStatus failed, failing CLOSED (enrolment required):',
             e instanceof Error ? e.message : e,
           );
           setMustEnrol(true);

@@ -158,7 +158,7 @@ export function ActivityPage() {
       header: 'User',
       render: (r) => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <span style={{ color: colors.text, fontWeight: 600 }}>{r.user_name ?? '—'}</span>
+          <span style={{ color: colors.text, fontWeight: 600 }}>{r.user_name ?? '-'}</span>
           <span style={{ color: colors.muted, fontSize: 12 }}>{r.user_email ?? r.user_id}</span>
         </div>
       ),
