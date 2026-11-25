@@ -2790,7 +2790,7 @@
     },
     "big": {
       "earn": "points pour chaque séance",
-      "rewards": "points = une carte cadeau de {{value}} €",
+      "rewards": "points = {{value}} € en carte cadeau ou en cash",
       "giveaway": "participations par manche, Premium à 12 mois",
       "features": "exercices dans la bibliothèque"
     },

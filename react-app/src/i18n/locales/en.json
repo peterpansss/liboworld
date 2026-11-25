@@ -2790,7 +2790,7 @@
     },
     "big": {
       "earn": "points for every workout",
-      "rewards": "points = a €{{value}} gift card",
+      "rewards": "points = €{{value}} as a gift card or cash",
       "giveaway": "entries a round, Premium at 12 months",
       "features": "exercises in the library"
     },

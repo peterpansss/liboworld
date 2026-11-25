@@ -2790,7 +2790,7 @@
     },
     "big": {
       "earn": "Punkte für jedes Workout",
-      "rewards": "Punkte = ein {{value}}-€-Gutschein",
+      "rewards": "Punkte = {{value}} € als Gutschein oder Bargeld",
       "giveaway": "Lose pro Runde, Premium nach 12 Monaten",
       "features": "Übungen in der Bibliothek"
     },
