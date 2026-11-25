@@ -25,6 +25,10 @@ import {
 import './ExerciseLibrary.css';
 import '../components/CoverCard.css';
 import { DifficultyBars, type DiffLevel } from '../components/DifficultyBars';
+import { sideOf as sideOfName } from '../utils/exerciseNameFormat';
+
+/** An L/R child row ("… — Left" or "…: Left Leg"); the library shows parents only. */
+const isSideChildName = (name: string): boolean => sideOfName(name) !== null;
 
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -148,7 +152,7 @@ export default function ExerciseLibrary() {
   // parent's detail page. Kept as a separate memo so the header counter and
   // the filtered grid agree on what "exercise" means.
   const parentExercises = useMemo(
-    () => exercises.filter(e => !e.parentId && !/[\u2014\u2013-]\s*(Left|Right)\b/i.test(e.name)),
+    () => exercises.filter(e => !e.parentId && !isSideChildName(e.name)),
     [exercises],
   );
 
@@ -197,7 +201,7 @@ export default function ExerciseLibrary() {
       // like "iso la" match "Iso-Lateral", "single arm" matches "Single-Arm",
       // and "world s" matches "World's". Case-insensitive throughout.
       const norm = (s: string) =>
-        s.toLowerCase().replace(/[\u2014\u2013\-']/g, ' ').replace(/\s+/g, ' ').trim();
+        s.toLowerCase().replace(/[\u2014\u2013\-':,]/g, ' ').replace(/\s+/g, ' ').trim();
       const q = norm(urlSearch);
       // Every name the row has — English plus each translation — so a German
       // visitor typing "Kniebeuge" and an English one typing "Squat" both land

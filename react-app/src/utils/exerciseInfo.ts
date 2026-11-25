@@ -1,3 +1,4 @@
+import { SIDE_SUFFIX_RE } from './exerciseNameFormat';
 /**
  * Exercise info utilities — muscle groups, instructions, and tips
  * derived from exercise metadata. Ported from libo-app-v2.
@@ -340,7 +341,9 @@ export function getTips(
   ) {
     tips.push(tip('unilateral'));
   }
-  if (lower.includes('\u2014 left') || lower.includes('\u2014 right')) {
+  // A side qualifier in either spelling, at the end or mid-name:
+  // old dash form, "…: Right Leg", "…: Left Arm, Standing".
+  if (SIDE_SUFFIX_RE.test(exercise.name) || /[\u2014:,]\s*(left|right)(\s|,|$)/.test(lower)) {
     tips.push(tip('sided'));
   }
   if (lower.includes('stretch')) {

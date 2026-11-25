@@ -22,6 +22,7 @@ import { Field, TextInput, Select, Button } from '../../components/admin/FormFie
 import { Modal } from '../../components/admin/Modal';
 import { StatusChip } from '../../components/admin/StatusChip';
 import { colors } from '../../theme';
+import { exerciseNameKey } from '../../utils/exerciseNameFormat';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -389,12 +390,12 @@ export function WorkoutsPage() {
     void refreshCanonical();
 
     const exByName = new Map<string, ExerciseRow>();
-    for (const ex of canonicalExercises) exByName.set(ex.name.toLowerCase(), ex);
+    for (const ex of canonicalExercises) exByName.set(exerciseNameKey(ex.name), ex);
 
     const toCreateBlocks = (steps: WorkoutStep[] | undefined): CreateBlockEntry[] => {
       const cloned: WorkoutStep[] = structuredClone(steps ?? []);
       return cloned.map((s) => {
-        const match = exByName.get((s.exercise_name ?? '').toLowerCase());
+        const match = exByName.get(exerciseNameKey(s.exercise_name ?? ''));
         return {
           exercise_id: match?.id ?? null,
           exercise_name: s.exercise_name ?? '',
@@ -1498,7 +1499,10 @@ function CreateBlockSection({
                 value={row.exercise_name}
                 onChange={(e) => {
                   const name = e.target.value;
-                  const found = exercises.find((ex) => ex.name === name) ?? null;
+                  const found =
+                    exercises.find((ex) => ex.name === name) ??
+                    exercises.find((ex) => exerciseNameKey(ex.name) === exerciseNameKey(name)) ??
+                    null;
                   updateRow(i, {
                     exercise_name: name,
                     exercise_id: found?.id ?? null,

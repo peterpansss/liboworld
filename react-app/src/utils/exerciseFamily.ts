@@ -1,3 +1,4 @@
+import { exerciseNameKey } from './exerciseNameFormat';
 // Parent ⇄ child (L/R variant) resolution for the exercise catalog.
 //
 // Why this exists: a "unilateral" canonical (e.g. Single-Arm Cable Overhead
@@ -49,11 +50,10 @@ export interface FamilyChildLike {
  */
 export function normalizeExerciseName(name: string | undefined | null): string {
   if (!name) return '';
-  return name
-    .replace(/[‐-―−]/g, '-')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
+  // Unicode hyphen/figure-dash/minus -> '-', then the shared name key, which
+  // also folds em/en dashes, ": " and ", " (the renamed "A: B, Left" and the
+  // old "A — B — Left" are one exercise).
+  return exerciseNameKey(name.replace(/[\u2010-\u2012\u2015\u2212]/g, '-'));
 }
 
 /**

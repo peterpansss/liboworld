@@ -20,17 +20,19 @@
 
 import type { Exercise, Workout, WorkoutExercise } from '../data/exercises';
 import { buildChildrenWithVideoByParent, isPlayable } from '../hooks/useExercises';
+import { exerciseNameKey } from '../utils/exerciseNameFormat';
 
 /**
  * Build a Set of names of exercises that are playable. Workout blocks are
- * matched by name (case-insensitive, trimmed) against this set.
+ * matched by `exerciseNameKey` (case-, whitespace- and spelling-insensitive:
+ * the pre-rename "A — B" and the current "A: B" are one name) against it.
  */
 export function buildPlayableExerciseNames(exercises: readonly Exercise[]): Set<string> {
   const childrenWithVideoByParent = buildChildrenWithVideoByParent(exercises);
   const names = new Set<string>();
   for (const ex of exercises) {
     if (isPlayable(ex, childrenWithVideoByParent)) {
-      names.add(ex.name.toLowerCase().trim());
+      names.add(exerciseNameKey(ex.name));
     }
   }
   return names;
@@ -40,7 +42,7 @@ function isBlockPlayable(block: WorkoutExercise, playableNames: Set<string>): bo
   // Rest steps and any block without a name fall through as playable —
   // they don't reference an exercise so there's nothing to gate on.
   if (!block.name) return true;
-  return playableNames.has(block.name.toLowerCase().trim());
+  return playableNames.has(exerciseNameKey(block.name));
 }
 
 /**
