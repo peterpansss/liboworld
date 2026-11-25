@@ -8,6 +8,7 @@ import {
   REWARDS_MIN_ACCOUNT_DAYS,
   REWARDS_MIN_WORKOUTS,
   REWARDS_COOLDOWN_DAYS,
+  CARD_EUR_PER_90_DAYS,
   REWARDS_DELIVERY_DAYS,
   POINTS_EXPIRY_DAYS,
   formatPoints, REWARDS_ITEMS, ITEM_SHIP_AREA, itemCashEur,
@@ -91,7 +92,7 @@ export default function RewardsRules() {
             <div className="legal-label">Rules</div>
             <h1 className="font-display">Rewards Rules</h1>
             <p className="legal-meta">
-              Last updated: <span>22 November 2026</span> &middot; Applies to: <span>rewards redeemed with Libo Points in the app</span>
+              Last updated: <span>25 November 2026</span> &middot; Applies to: <span>rewards redeemed with Libo Points in the app</span>
             </p>
           </div>
 
@@ -250,6 +251,7 @@ export default function RewardsRules() {
             <ul>
               <li><strong>In the app:</strong> pick a reward, choose a brand (gift card), how you want to be paid (cash), or shipping or cash (item), and confirm. The Libo Points are taken from your balance when you confirm.</li>
               <li><strong>One reward per member per {REWARDS_COOLDOWN_DAYS} days</strong>, and no more than one physical item per {ONE_ITEM_PER_DAYS} days (see <a href="#items">Physical Items</a>).</li>
+              <li><strong>Gift and cash cards are limited per plan:</strong> up to &euro;{CARD_EUR_PER_90_DAYS.free} (Free), &euro;{CARD_EUR_PER_90_DAYS.premium} (Premium) or &euro;{CARD_EUR_PER_90_DAYS.elite} (Elite) of cards per member in any 90 days, counted from the day each card is redeemed. Rejected requests don&rsquo;t count. Physical items are not part of this limit.</li>
               <li><strong>Delivery within {REWARDS_DELIVERY_DAYS} days by email.</strong> A person checks every request before it is sent. We email the gift code, or send the cash to the account details you gave us and email you when it&rsquo;s sent. A shipped item is sent within the same time, and we email you the tracking number.</li>
               <li><strong>If we reject a request, your Libo Points are returned.</strong> We tell you the reason. For example, we reject a request if you don&rsquo;t meet the conditions in these rules.</li>
               <li><strong>Check your payment details.</strong> If you give us a wrong email, phone number, tag, IBAN or address, we can&rsquo;t always get the payment or item back.</li>
