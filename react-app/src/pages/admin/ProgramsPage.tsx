@@ -316,14 +316,14 @@ export function ProgramsPage() {
         key: 'cat',
         header: 'Cat',
         width: 90,
-        render: (r) => <span style={{ color: colors.muted }}>{r.cat ?? '—'}</span>,
+        render: (r) => <span style={{ color: colors.muted }}>{r.cat ?? '-'}</span>,
         sort: (a, b) => (a.cat ?? '').localeCompare(b.cat ?? ''),
       },
       {
         key: 'subcat',
         header: 'Subcat',
         width: 130,
-        render: (r) => <span style={{ color: colors.muted }}>{r.subcat ?? '—'}</span>,
+        render: (r) => <span style={{ color: colors.muted }}>{r.subcat ?? '-'}</span>,
         sort: (a, b) => (a.subcat ?? '').localeCompare(b.subcat ?? ''),
       },
       {
@@ -340,7 +340,7 @@ export function ProgramsPage() {
         width: 80,
         align: 'right',
         render: (r) => (
-          <span style={bigNum}>{r.dur != null ? `${r.dur}m` : '—'}</span>
+          <span style={bigNum}>{r.dur != null ? `${r.dur}m` : '-'}</span>
         ),
         sort: (a, b) => (a.dur ?? 0) - (b.dur ?? 0),
       },
@@ -349,7 +349,7 @@ export function ProgramsPage() {
         header: 'Diff',
         width: 110,
         render: (r) => (
-          <span style={{ color: colors.muted, textTransform: 'capitalize' }}>{r.diff ?? '—'}</span>
+          <span style={{ color: colors.muted, textTransform: 'capitalize' }}>{r.diff ?? '-'}</span>
         ),
         sort: (a, b) => (a.diff ?? '').localeCompare(b.diff ?? ''),
       },
@@ -366,7 +366,7 @@ export function ProgramsPage() {
         width: 120,
         render: (r) => (
           <span style={{ color: colors.muted, fontSize: 12 }}>
-            {r.updated_at ? new Date(r.updated_at).toLocaleDateString() : '—'}
+            {r.updated_at ? new Date(r.updated_at).toLocaleDateString() : '-'}
           </span>
         ),
         sort: (a, b) =>
@@ -467,7 +467,7 @@ export function ProgramsPage() {
         columns={columns}
         rowKey={(r) => r.id}
         onRowClick={openEdit}
-        emptyLabel={loading ? 'Loading…' : 'No programs yet — create one.'}
+        emptyLabel={loading ? 'Loading…' : 'No programs yet. Create one.'}
       />
 
       <Modal
@@ -706,7 +706,7 @@ export function ProgramsPage() {
 
             {workouts.length === 0 && (
               <div style={{ marginTop: 10, fontSize: 12, color: colors.dim }}>
-                No workouts in the canonical table yet — pick a name freely and it will be
+                No workouts in the canonical table yet. Pick a name freely and it will be
                 stored as an unresolved reference.
               </div>
             )}

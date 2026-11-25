@@ -36,7 +36,7 @@ const STATUS_COLOR: Record<SocialTargetStatus, string> = {
 };
 
 const fmtDateTime = (iso: string | null) => {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
   if (isNaN(d.getTime())) return iso;
   return d.toLocaleString(undefined, {
@@ -99,7 +99,7 @@ function NeedsTapBanner({ count }: { count: number }) {
     >
       <strong>{count} post{count === 1 ? '' : 's'} waiting on a tap.</strong>{' '}
       These reached TikTok as drafts and are <em>not published</em> until you open the TikTok
-      app and finish them. Video drafts also need the caption pasted in — TikTok&apos;s inbox
+      app and finish them. Video drafts also need the caption pasted in. TikTok&apos;s inbox
       endpoint cannot prefill it.
     </div>
   );
@@ -161,7 +161,7 @@ function TargetEditor({
         label="Caption"
         hint={
           target.platform === 'tiktok' && target.mode === 'inbox'
-            ? 'Video drafts cannot be prefilled — you retype this in the app. Photo carousels DO prefill.'
+            ? 'Video drafts cannot be prefilled. You retype this in the app. Photo carousels DO prefill.'
             : undefined
         }
       >
@@ -265,7 +265,7 @@ function PostDetail({ post, onChanged }: { post: SocialPost; onChanged: () => vo
 
         <div style={{ flex: 1, minWidth: 260 }}>
           <div style={{ fontSize: 13, color: colors.muted, marginBottom: 6 }}>
-            {post.source_clip ?? '—'}
+            {post.source_clip ?? '-'}
           </div>
           <div style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
             {post.media_type} · music: {post.music_track ?? 'none'}
@@ -301,7 +301,7 @@ function PostDetail({ post, onChanged }: { post: SocialPost; onChanged: () => vo
           </Field>
           <div style={{ fontSize: 11, color: colors.muted, marginTop: -6, marginBottom: 10 }}>
             The scheduler ticks every 5 minutes, so a post goes out within 5 minutes of this
-            time — not exactly on it.
+            time, not exactly on it.
           </div>
 
           {err && <div style={{ fontSize: 12, color: colors.error, marginBottom: 8 }}>{err}</div>}
@@ -433,7 +433,7 @@ export function SocialPage() {
       <h1 style={{ fontSize: 22, marginBottom: 4 }}>Social</h1>
       <p style={{ color: colors.muted, fontSize: 13, marginTop: 0, marginBottom: 20 }}>
         Schedule posts across Instagram, TikTok and YouTube. Captions are imported from the
-        pipeline&apos;s <code>.captions.md</code> files — one variant per platform, never one
+        pipeline&apos;s <code>.captions.md</code> files: one variant per platform, never one
         caption pasted across all of them.
       </p>
 
@@ -458,7 +458,7 @@ export function SocialPage() {
             marginBottom: 16,
           }}
         >
-          No platform accounts connected yet — nothing can publish. See
+          No platform accounts connected yet, so nothing can publish. See
           {' '}
           <code>Brand-Management/Marketing/SocialScheduler/PHASE-0-PLATFORM-ACCESS.md</code>.
         </div>
@@ -491,7 +491,7 @@ export function SocialPage() {
         emptyLabel={
           loading
             ? 'Loading…'
-            : 'No posts yet — import captions with scripts/social/import_captions.py --apply'
+            : 'No posts yet. Import captions with scripts/social/import_captions.py --apply'
         }
       />
 

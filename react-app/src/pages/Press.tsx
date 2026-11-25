@@ -104,7 +104,7 @@ export default function Press() {
 
   const boilerplate = t('pressKit.boilerplate.body', {
     defaultValue:
-      'Libo is a training club that pays members real cash for consistency. Alongside a library of 820+ exercises, 140 workouts, and generated training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, and cash out €5–€50 at the end of the cycle. The recording stays on your device and sharing is always optional — it is never a condition of being paid. Libo launches on iOS with a free tier and a Premium subscription at €119.99/year.',
+      'Libo is a training club that pays members real cash for consistency. Alongside a library of 820+ exercises, 140 workouts, and generated training plans, Libo runs 30-day money challenges: members hit a daily rep target, record the proof, and cash out €5–€50 at the end of the cycle. The recording stays on your device and sharing is always optional. It is never a condition of being paid. Libo launches on iOS with a free tier and a Premium subscription at €119.99/year.',
   });
 
   usePopIn();
@@ -113,7 +113,7 @@ export default function Press() {
     <div className="press-page">
       <SiteNav />
       <SeoHead
-        title={t('pressKit.seo.title', { defaultValue: 'Press — Libo' })}
+        title={t('pressKit.seo.title', { defaultValue: 'Press | Libo' })}
         description={boilerplate}
         canonical="/press"
         ogImage="https://liboworld.com/brand/og-image.png"
@@ -137,7 +137,7 @@ export default function Press() {
           <p className="press-hero-sub">
             {t('pressKit.hero.subPre', {
               defaultValue:
-                'Logos, screenshots, founder bio, and the facts — ready to use. For interviews, beta access, or anything else: ',
+                'Logos, screenshots, founder bio, and the facts, ready to use. For interviews, beta access, or anything else: ',
             })}
             <a href="mailto:press@liboworld.com" className="press-link">
               press@liboworld.com

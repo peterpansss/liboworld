@@ -319,7 +319,7 @@ export function ChallengesPage() {
       console.error('[admin/challenges] save failed', e2);
       const err = e2 as { message?: string; code?: string; details?: string; hint?: string } | null;
       const parts = [err?.message, err?.code && `(${err.code})`, err?.details, err?.hint].filter(Boolean);
-      setFormErr(parts.length ? parts.join(' — ') : 'Save failed');
+      setFormErr(parts.length ? parts.join('. ') : 'Save failed');
     } finally {
       setSaving(false);
     }
@@ -327,7 +327,7 @@ export function ChallengesPage() {
 
   const handleDelete = async (row: MoneyChallenge) => {
     if (row.total_ever > 0) {
-      if (!confirm(`"${row.title}" has ${row.total_ever} historical enrollment(s). Deleting is blocked by the FK — set Inactive instead. Continue anyway?`)) return;
+      if (!confirm(`"${row.title}" has ${row.total_ever} historical enrollment(s). Deleting is blocked by the FK. Set Inactive instead. Continue anyway?`)) return;
     } else if (!confirm(`Delete "${row.title}"? This cannot be undone.`)) {
       return;
     }
@@ -404,7 +404,7 @@ export function ChallengesPage() {
               ? r.exercise_option_ids
                   .map((id) => EXERCISE_OPTION_CATALOG.find((o) => o.id === id)?.name ?? id)
                   .join(', ')
-              : '—'}
+              : '-'}
           </span>
         ),
         sort: (a, b) => (a.exercise_option_ids?.length ?? 0) - (b.exercise_option_ids?.length ?? 0),
@@ -551,7 +551,7 @@ export function ChallengesPage() {
         <div>
           <h1 style={h1Style}>Money Challenges</h1>
           <div style={statsStyle}>
-            Reusable challenge templates — schedule actual runs under Cycles.
+            Reusable challenge templates. Schedule actual runs under Cycles.
           </div>
           <div style={statsStyle}>
             {loading ? 'Loading…' : `${rows.length} total · ${activeCount} active`}
@@ -574,13 +574,13 @@ export function ChallengesPage() {
         columns={columns}
         rowKey={(r) => r.id}
         onRowClick={openEdit}
-        emptyLabel={loading ? 'Loading…' : 'No challenges yet — create one.'}
+        emptyLabel={loading ? 'Loading…' : 'No challenges yet. Create one.'}
       />
 
       <Modal
         open={!!partRow}
         onClose={() => setPartRow(null)}
-        title={partRow ? `Participants — ${partRow.title}` : 'Participants'}
+        title={partRow ? `Participants: ${partRow.title}` : 'Participants'}
         width={860}
       >
         {partRow && (
@@ -648,10 +648,10 @@ export function ChallengesPage() {
                           {p.freeze_tokens_remaining ?? 0}
                         </td>
                         <td style={{ padding: '6px 8px', color: colors.muted }}>
-                          {p.enrolled_at ? new Date(p.enrolled_at).toISOString().slice(0, 10) : '—'}
+                          {p.enrolled_at ? new Date(p.enrolled_at).toISOString().slice(0, 10) : '-'}
                         </td>
                         <td style={{ padding: '6px 8px', color: colors.muted }}>
-                          {p.effective_end_date ?? '—'}
+                          {p.effective_end_date ?? '-'}
                         </td>
                       </tr>
                     ))}
@@ -806,7 +806,7 @@ export function ChallengesPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
             <Field
               label="Required tier"
-              hint="Challenge is exclusive to this tier — free = Free members only, pro = Pro members only."
+              hint="Challenge is exclusive to this tier: free = Free members only, pro = Pro members only."
             >
               <Select
                 value={form.required_tier}
@@ -837,7 +837,7 @@ export function ChallengesPage() {
 
           <Field
             label="Hero image (optional)"
-            hint="Upload a JPG/PNG or paste a URL. Square preferred — card swaps to photographic mode when set. Blank shows the gradient fallback."
+            hint="Upload a JPG/PNG or paste a URL. Square preferred. Card swaps to photographic mode when set. Blank shows the gradient fallback."
           >
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
               {safeUrl(form.image_url) ? (

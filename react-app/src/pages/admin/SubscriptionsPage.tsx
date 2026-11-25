@@ -146,14 +146,14 @@ export function SubscriptionsPage() {
         key: 'name',
         header: 'Name',
         render: (r) => (
-          <span style={{ color: colors.text, fontWeight: 600 }}>{r.name ?? '—'}</span>
+          <span style={{ color: colors.text, fontWeight: 600 }}>{r.name ?? '-'}</span>
         ),
         sort: (a, b) => (a.name ?? '').localeCompare(b.name ?? ''),
       },
       {
         key: 'email',
         header: 'Email',
-        render: (r) => <span style={{ color: colors.muted }}>{r.email ?? '—'}</span>,
+        render: (r) => <span style={{ color: colors.muted }}>{r.email ?? '-'}</span>,
         sort: (a, b) => (a.email ?? '').localeCompare(b.email ?? ''),
       },
       {

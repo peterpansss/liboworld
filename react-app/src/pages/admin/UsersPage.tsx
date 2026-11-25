@@ -41,9 +41,9 @@ import {
 type Tier = 'free' | 'pro' | 'elite';
 
 function relativeTime(iso: string | null): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const then = new Date(iso).getTime();
-  if (Number.isNaN(then)) return '—';
+  if (Number.isNaN(then)) return '-';
   const diff = (Date.now() - then) / 1000;
   if (diff < 60) return 'just now';
   if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
@@ -53,17 +53,17 @@ function relativeTime(iso: string | null): string {
 }
 
 function formatDate(iso: string | null): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '—';
+  if (Number.isNaN(d.getTime())) return '-';
   return d.toLocaleDateString();
 }
 
 /** "22 Nov 2026" — used in grant confirmation copy, where an ambiguous 11/22 won't do. */
 function formatGrantDate(iso: string | null): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '—';
+  if (Number.isNaN(d.getTime())) return '-';
   return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
@@ -74,9 +74,9 @@ function localDateInputValue(d: Date): string {
 }
 
 function formatDateTime(iso: string | null): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '—';
+  if (Number.isNaN(d.getTime())) return '-';
   return `${d.toLocaleDateString()} ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 }
 
@@ -190,12 +190,12 @@ const PLATFORM_FILTER_OPTIONS: { value: PlatformKey | 'all'; label: string }[] =
 ];
 
 const INFERRED_HINT =
-  'Inferred: this platform was derived after the fact (from a user agent, a receipt, a back-fill) — it was NOT reported by the client at signup.';
+  'Inferred: this platform was derived after the fact (from a user agent, a receipt, a back-fill). It was NOT reported by the client at signup.';
 
 const MEASURED_HINT = 'Reported by the client at signup.';
 
 const UNKNOWN_PLATFORM_HINT =
-  'No platform recorded at signup. Not a guess — this account predates platform capture, or the client sent nothing.';
+  'No platform recorded at signup. Not a guess: this account predates platform capture, or the client sent nothing.';
 
 /**
  * Platform cell. Three visually distinct states, because conflating any two of
@@ -210,7 +210,7 @@ function PlatformCell({ user }: { user: AdminUserRow }) {
   if (key === 'unknown') {
     return (
       <span style={{ color: colors.dim }} title={UNKNOWN_PLATFORM_HINT}>
-        —
+        -
       </span>
     );
   }
@@ -254,7 +254,7 @@ function SourceCell({ user }: { user: AdminUserRow }) {
   if (!source && !campaign) {
     return (
       <span style={{ color: colors.dim }} title="No source recorded at signup.">
-        —
+        -
       </span>
     );
   }
@@ -269,9 +269,9 @@ function SourceCell({ user }: { user: AdminUserRow }) {
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
         }}
-        title={source || 'No source recorded — campaign only.'}
+        title={source || 'No source recorded, campaign only.'}
       >
-        {source || '—'}
+        {source || '-'}
       </span>
       {campaign && (
         <span
@@ -411,14 +411,14 @@ export function UsersPage() {
         key: 'name',
         header: 'Name',
         render: (r) => (
-          <span style={{ fontWeight: 600, color: colors.text }}>{r.name ?? '—'}</span>
+          <span style={{ fontWeight: 600, color: colors.text }}>{r.name ?? '-'}</span>
         ),
         sort: (a, b) => (a.name ?? '').localeCompare(b.name ?? ''),
       },
       {
         key: 'email',
         header: 'Email',
-        render: (r) => <span style={{ color: colors.muted }}>{r.email ?? '—'}</span>,
+        render: (r) => <span style={{ color: colors.muted }}>{r.email ?? '-'}</span>,
         sort: (a, b) => (a.email ?? '').localeCompare(b.email ?? ''),
       },
       {
@@ -511,12 +511,12 @@ export function UsersPage() {
       {
         key: 'name',
         header: 'Name',
-        render: (r) => <span style={{ fontWeight: 600 }}>{r.name ?? '—'}</span>,
+        render: (r) => <span style={{ fontWeight: 600 }}>{r.name ?? '-'}</span>,
       },
       {
         key: 'email',
         header: 'Email',
-        render: (r) => <span style={{ color: colors.muted }}>{r.email ?? '—'}</span>,
+        render: (r) => <span style={{ color: colors.muted }}>{r.email ?? '-'}</span>,
       },
       {
         key: 'points',
@@ -632,7 +632,7 @@ export function UsersPage() {
               stop reading footnotes. */}
           {anyInferredPlatform && (
             <div style={{ fontSize: 12, color: colors.muted, marginTop: 10 }}>
-              <span style={{ color: colors.warning, fontWeight: 700 }}>*</span> platform inferred —
+              <span style={{ color: colors.warning, fontWeight: 700 }}>*</span> platform inferred:
               derived after signup (user agent, receipt, back-fill), not reported by the client. A
               dash means nothing was recorded at all.
             </div>
@@ -829,9 +829,9 @@ function TierGrantCard({
       >
         <div style={{ fontSize: 13, color: colors.text, fontWeight: 600 }}>
           {plan.error
-            ? '—'
+            ? '-'
             : tier === 'free'
-            ? 'Free — paid access removed'
+            ? 'Free, paid access removed'
             : plan.expiresAt
             ? `${tierLabel} until ${formatGrantDate(plan.expiresAt)}`
             : `${tierLabel}, no expiry`}
@@ -840,7 +840,7 @@ function TierGrantCard({
           <div style={{ fontSize: 12, color: colors.error, marginTop: 4 }}>{plan.error}</div>
         ) : plan.extendsFrom ? (
           <div style={{ fontSize: 12, color: colors.muted, marginTop: 4 }}>
-            Extends the current grant, which ends {formatGrantDate(plan.extendsFrom)} — the
+            Extends the current grant, which ends {formatGrantDate(plan.extendsFrom)}. The
             remaining time is added to, not replaced.
           </div>
         ) : plan.shortensIndefinite ? (
@@ -868,7 +868,7 @@ function TierGrantCard({
       </div>
       {lapsed && (
         <div style={{ fontSize: 12, color: colors.warning, marginTop: 6 }}>
-          Subscription window has closed — the app is showing this user as Free and gating paid
+          Subscription window has closed. The app is showing this user as Free and gating paid
           content. Pick a tier and duration above and apply to grant it again.
         </div>
       )}
@@ -1053,7 +1053,7 @@ function UserDetailModal({
         <div>
           {/* Header info */}
           <div style={{ marginBottom: 20 }}>
-            <div style={{ color: colors.muted, fontSize: 13, marginBottom: 8 }}>{user.email ?? '—'}</div>
+            <div style={{ color: colors.muted, fontSize: 13, marginBottom: 8 }}>{user.email ?? '-'}</div>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
               <EntitlementChip user={user} />
               {user.is_admin && (
@@ -1558,13 +1558,13 @@ function SignupAttribution({ user }: { user: AdminUserRow }) {
       <AttrItem label="Platform">
         {key === 'unknown' ? (
           <span style={{ color: colors.dim }}>
-            Not recorded — predates platform capture, or the client sent nothing
+            Not recorded. Predates platform capture, or the client sent nothing
           </span>
         ) : (
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <PlatformCell user={user} />
             <span style={{ fontSize: 11, color: inferred ? colors.warning : colors.muted }}>
-              {inferred ? 'inferred — derived, not reported at signup' : 'reported at signup'}
+              {inferred ? 'inferred: derived, not reported at signup' : 'reported at signup'}
             </span>
           </span>
         )}
@@ -1633,7 +1633,7 @@ function EnrollmentRow({
         </div>
         <div style={{ fontSize: 11, color: colors.dim }}>
           {e.cycle_start_date && e.cycle_end_date
-            ? `${formatDate(e.cycle_start_date)} – ${formatDate(e.cycle_end_date)}`
+            ? `${formatDate(e.cycle_start_date)} to ${formatDate(e.cycle_end_date)}`
             : 'No cycle'}
           {e.cycle_status ? ` · cycle ${e.cycle_status}` : ''}
           {' · enrolled '}

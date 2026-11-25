@@ -211,16 +211,16 @@ const INSTRUCTIONS_FALLBACK_EN: Record<InstructionsBucket, string[]> = {
   curl: [
     'Keep your elbows pinned to your sides throughout the movement.',
     'Curl the weight up with control, squeezing at the top.',
-    'Lower slowly under control — avoid swinging.',
+    'Lower slowly under control. Avoid swinging.',
   ],
   stretch: [
     'Move into the stretch slowly and hold at the point of mild tension.',
-    'Breathe deeply and relax into the position — do not force it.',
+    'Breathe deeply and relax into the position. Do not force it.',
     'Hold for the prescribed duration, then release gently.',
   ],
   hold: [
     'Engage your core and maintain a straight line from head to heels.',
-    'Breathe steadily — do not hold your breath.',
+    'Breathe steadily. Do not hold your breath.',
     'Hold for the prescribed duration, maintaining form throughout.',
   ],
   hinge: [
@@ -237,40 +237,40 @@ const INSTRUCTIONS_FALLBACK_EN: Record<InstructionsBucket, string[]> = {
 
 const TIPS_FALLBACK_EN = {
   barbell: 'Start with lighter weight to perfect your form before loading up.',
-  advanced: 'This is an advanced movement — ensure you can perform the basic version first.',
+  advanced: 'This is an advanced movement. Make sure you can perform the basic version first.',
   unilateral: 'Start with your weaker side first to ensure balanced development.',
   sided: 'Perform equal reps on both sides for balanced development.',
-  stretch: 'Never bounce in a stretch — hold steady and breathe.',
+  stretch: 'Never bounce in a stretch. Hold steady and breathe.',
 } as const;
 
 const MISTAKES_FALLBACK_EN: Record<NonNullable<MistakesBucket>, string[]> = {
   squat: [
-    'Letting the knees collapse inward — keep them tracking over your toes.',
-    'Rounding the lower back at the bottom — keep your chest tall and core braced.',
+    'Letting the knees collapse inward. Keep them tracking over your toes.',
+    'Rounding the lower back at the bottom. Keep your chest tall and core braced.',
   ],
   press: [
-    'Flaring the elbows out at 90° — keep them at a comfortable 45–60° angle.',
-    'Bouncing the weight off your chest — control the descent.',
+    'Flaring the elbows out at 90°. Keep them at a comfortable 45–60° angle.',
+    'Bouncing the weight off your chest. Control the descent.',
   ],
   pull: [
-    'Using momentum to swing the weight — keep your torso steady.',
-    'Stopping short of full contraction — pull all the way through.',
+    'Using momentum to swing the weight. Keep your torso steady.',
+    'Stopping short of full contraction. Pull all the way through.',
   ],
   hinge: [
-    'Rounding the lower back — keep your spine neutral throughout.',
-    'Hyperextending at the top — finish with a squeeze, not a lean.',
+    'Rounding the lower back. Keep your spine neutral throughout.',
+    'Hyperextending at the top. Finish with a squeeze, not a lean.',
   ],
   curl: [
-    'Swinging the weight with your back — pin elbows and isolate the bicep.',
-    'Cutting reps short — fully extend at the bottom for full range.',
+    'Swinging the weight with your back. Pin elbows and isolate the bicep.',
+    'Cutting reps short. Fully extend at the bottom for full range.',
   ],
   hold: [
-    'Letting the hips sag — keep a straight line from head to heels.',
-    'Holding your breath — breathe steadily throughout.',
+    'Letting the hips sag. Keep a straight line from head to heels.',
+    'Holding your breath. Breathe steadily throughout.',
   ],
   stretch: [
-    'Bouncing into the stretch — hold steady, never bounce.',
-    'Forcing the range — relax into mild tension, not pain.',
+    'Bouncing into the stretch. Hold steady, never bounce.',
+    'Forcing the range. Relax into mild tension, not pain.',
   ],
 };
 
@@ -340,7 +340,7 @@ export function getTips(
   ) {
     tips.push(tip('unilateral'));
   }
-  if (lower.includes('— left') || lower.includes('— right')) {
+  if (lower.includes('\u2014 left') || lower.includes('\u2014 right')) {
     tips.push(tip('sided'));
   }
   if (lower.includes('stretch')) {

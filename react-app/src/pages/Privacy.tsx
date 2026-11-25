@@ -86,7 +86,7 @@ export default function Privacy() {
             <p>When you create a Libo account, we collect:</p>
             <ul>
               <li>Email address</li>
-              <li>Password (stored only as a secure hash — never in plain text)</li>
+              <li>Password (stored only as a secure hash, never in plain text)</li>
               <li>If you use Sign in with Apple (iOS): the name and email address Apple shares with us, which may be a private relay address</li>
               <li>A unique account ID that links your data together</li>
             </ul>
@@ -95,10 +95,10 @@ export default function Privacy() {
             <p>To personalise your training, the app asks optional questions during onboarding and in your profile. Every question can be skipped. Depending on what you answer, we collect:</p>
             <ul>
               <li>Your first name (used to greet you in the app)</li>
-              <li>Gender and age (a number of years — we do not ask for your date of birth)</li>
+              <li>Gender and age (a number of years; we do not ask for your date of birth)</li>
               <li>Fitness goal, why it matters to you, your motivation and your biggest challenge</li>
               <li>Training experience, recent training, days per week, session length and preferred time</li>
-              <li>Where you train (for example home, gym or outdoors — a training setting, not your geographic location), available equipment and focus areas</li>
+              <li>Where you train (for example home, gym or outdoors: a training setting, not your geographic location), available equipment and focus areas</li>
               <li>Your preferred units</li>
             </ul>
 
@@ -145,7 +145,7 @@ export default function Privacy() {
             <p>We collect these only if and when you claim a cash payout. Identity verification is required before any payout is released (see our <Link to="/terms">Terms of Service</Link>):</p>
             <ul>
               <li>Information needed to verify your identity and age</li>
-              <li>Payment details for the payout (for example bank account or payment-provider details, payee email and country) — or, for participants aged 16 or 17, the details of a parent-linked verified payment account</li>
+              <li>Payment details for the payout (for example bank account or payment-provider details, payee email and country) or, for participants aged 16 or 17, the details of a parent-linked verified payment account</li>
             </ul>
             {/* Giveaways are gated, not deleted (Phase 2): the prize-claim form
                 only exists in the app when GIVEAWAYS_ENABLED is on. */}
@@ -175,7 +175,7 @@ export default function Privacy() {
             <p>If you join our waitlist or a sign-up funnel on liboworld.com, we collect your email address and, where the form asks for them, your name, phone number and any fitness quiz answers you give. If you apply to our creator programme or send a press enquiry, we collect the details you enter in that form.</p>
 
             <h3>Communications Data</h3>
-            <p>If you contact us or send a bug report or feature idea from the app, we store the content of your message, your email address if you provide one, and — for in-app reports — your account ID, app version and build, device model, operating system version and language setting, so we can investigate and respond.</p>
+            <p>If you contact us or send a bug report or feature idea from the app, we store the content of your message, your email address if you provide one, and (for in-app reports) your account ID, app version and build, device model, operating system version and language setting, so we can investigate and respond.</p>
 
             {/* Added 16 Nov 2026 with the partner-offers detail page. Mirrors
                 Terms #partner-offers. partner_offer_clicks.user_id is ON DELETE
@@ -222,10 +222,10 @@ export default function Privacy() {
             <h2>Legal Basis for Processing</h2>
             <p>Under the GDPR, we process your personal data on the following legal bases:</p>
             <ul>
-              <li><strong>Performance of a contract (Art. 6(1)(b) GDPR)</strong> — Processing necessary to provide the Service you signed up for, including account management, workout delivery and tracking, subscriptions, cash challenges and payouts.</li>
-              <li><strong>Legitimate interests (Art. 6(1)(f) GDPR)</strong> — Processing necessary for our legitimate business interests such as crash reporting, improving the Service, ensuring security, and preventing fraud and cheating — where these interests are not overridden by your rights.</li>
-              <li><strong>Consent (Art. 6(1)(a) GDPR, and &sect; 25(1) TDDDG for the storage and reading of information on your device)</strong> — For optional processing such as marketing emails, website analytics cookies (Google Analytics) and marketing cookies (Meta Pixel). None of these run before you agree, and you can withdraw consent at any time.</li>
-              <li><strong>Legal obligation (Art. 6(1)(c) GDPR)</strong> — Where we are required to process data to comply with applicable law, such as tax and financial record-keeping.</li>
+              <li><strong>Performance of a contract (Art. 6(1)(b) GDPR)</strong>: Processing necessary to provide the Service you signed up for, including account management, workout delivery and tracking, subscriptions, cash challenges and payouts.</li>
+              <li><strong>Legitimate interests (Art. 6(1)(f) GDPR)</strong>: Processing necessary for our legitimate business interests such as crash reporting, improving the Service, ensuring security, and preventing fraud and cheating, where these interests are not overridden by your rights.</li>
+              <li><strong>Consent (Art. 6(1)(a) GDPR, and &sect; 25(1) TDDDG for the storage and reading of information on your device)</strong>: For optional processing such as marketing emails, website analytics cookies (Google Analytics) and marketing cookies (Meta Pixel). None of these run before you agree, and you can withdraw consent at any time.</li>
+              <li><strong>Legal obligation (Art. 6(1)(c) GDPR)</strong>: Where we are required to process data to comply with applicable law, such as tax and financial record-keeping.</li>
             </ul>
             <h3>Health Information (Art. 9 GDPR)</h3>
             <p>Health information is special category data. We process it only on the basis of your <strong>explicit consent (Art. 9(2)(a) GDPR)</strong>, which the app asks for before it collects any health information. You can decline and still use Libo without providing health information. You can withdraw your consent at any time in the app's settings; withdrawing does not affect processing that took place before you withdrew.</p>
@@ -250,11 +250,11 @@ export default function Privacy() {
                   <tr><td>Stripe</td><td>Payments on liboworld.com</td><td>Name, email, phone (optional), payment details you enter with Stripe</td><td>EU / USA</td></tr>
                   <tr><td>Cloudflare</td><td>Website delivery and streaming of workout videos</td><td>IP address and technical request data</td><td>Global network (USA-based company)</td></tr>
                   <tr><td>Netcup</td><td>Website hosting</td><td>IP address and technical request data</td><td>Germany</td></tr>
-                  <tr><td>Google Analytics 4</td><td>Website usage analytics — only with your consent</td><td>Pages visited, browser and device information, cookie identifiers, IP address</td><td>EU / USA</td></tr>
-                  <tr><td>Meta Pixel</td><td>Measuring our website marketing — only with your consent</td><td>Pages visited, sign-up events, cookie identifiers, IP address</td><td>EU / USA</td></tr>
-                  <tr><td>Anthropic</td><td>Answering your questions to the AI coach — only when you use it</td><td>Your messages to the coach and the conversation so far, plus the profile answers and workout history it needs to answer (for example your goals, experience, equipment, any injuries you told us about, and your logged sessions and sets). Libo does not store the conversation</td><td>USA</td></tr>
-                  <tr><td>OpenAI</td><td>Turning voice notes you send to the AI coach into text — only if you record one</td><td>The voice recording and its transcript. Libo does not store either: the recording is deleted as soon as it has been transcribed</td><td>USA</td></tr>
-                  <tr><td>Payout providers (e.g. Stripe, Wise, Revolut)</td><td>Identity verification and cash payouts — only if you claim a payout</td><td>Identity data, payment details, payout amount</td><td>Depends on provider</td></tr>
+                  <tr><td>Google Analytics 4</td><td>Website usage analytics (only with your consent)</td><td>Pages visited, browser and device information, cookie identifiers, IP address</td><td>EU / USA</td></tr>
+                  <tr><td>Meta Pixel</td><td>Measuring our website marketing (only with your consent)</td><td>Pages visited, sign-up events, cookie identifiers, IP address</td><td>EU / USA</td></tr>
+                  <tr><td>Anthropic</td><td>Answering your questions to the AI coach (only when you use it)</td><td>Your messages to the coach and the conversation so far, plus the profile answers and workout history it needs to answer (for example your goals, experience, equipment, any injuries you told us about, and your logged sessions and sets). Libo does not store the conversation</td><td>USA</td></tr>
+                  <tr><td>OpenAI</td><td>Turning voice notes you send to the AI coach into text (only if you record one)</td><td>The voice recording and its transcript. Libo does not store either: the recording is deleted as soon as it has been transcribed</td><td>USA</td></tr>
+                  <tr><td>Payout providers (e.g. Stripe, Wise, Revolut)</td><td>Identity verification and cash payouts (only if you claim a payout)</td><td>Identity data, payment details, payout amount</td><td>Depends on provider</td></tr>
                 </tbody>
               </table>
             </div>
@@ -272,16 +272,16 @@ export default function Privacy() {
             <h3>What we read from Health</h3>
             <p>If you allow it, we read:</p>
             <ul>
-              <li><strong>Bodyweight and height</strong> — your most recent entry of each, used to estimate the energy you burn in a workout and, with your consent, to fill in your Libo profile.</li>
-              <li><strong>Date of birth</strong> — read only to work out your age in whole years. We do not store the date itself.</li>
-              <li><strong>Biological sex</strong> — as recorded in Health.</li>
-              <li><strong>Existing workouts</strong> — the workouts already in Health for the period you were training, read for one purpose only: so that we do not add a second entry for a session your Apple Watch or another app already recorded. From those entries we read the app or device that recorded them, their start and end time and their energy total, and nothing else.</li>
+              <li><strong>Bodyweight and height</strong>: your most recent entry of each, used to estimate the energy you burn in a workout and, with your consent, to fill in your Libo profile.</li>
+              <li><strong>Date of birth</strong>: read only to work out your age in whole years. We do not store the date itself.</li>
+              <li><strong>Biological sex</strong>: as recorded in Health.</li>
+              <li><strong>Existing workouts</strong>: the workouts already in Health for the period you were training, read for one purpose only: so that we do not add a second entry for a session your Apple Watch or another app already recorded. From those entries we read the app or device that recorded them, their start and end time and their energy total, and nothing else.</li>
             </ul>
 
             <h3>What we write to Health</h3>
             <ul>
               <li>Your finished Libo workouts, with their start and end time (and therefore their duration) and the type of training.</li>
-              <li>An <strong>estimated</strong> active-energy figure for each workout, where the session is long enough for an estimate to be worth recording. This is a calculation, not a measurement: we work it out from your body weight and the type of exercise in the session, using published activity-intensity (MET) values. If no bodyweight is available — neither from Health nor from your profile — we use a typical adult bodyweight instead. Entries we write are marked in Health as estimates, with the method used. Where an Apple Watch already recorded the same session, its measurement takes precedence and we write nothing.</li>
+              <li>An <strong>estimated</strong> active-energy figure for each workout, where the session is long enough for an estimate to be worth recording. This is a calculation, not a measurement: we work it out from your body weight and the type of exercise in the session, using published activity-intensity (MET) values. If no bodyweight is available (neither from Health nor from your profile), we use a typical adult bodyweight instead. Entries we write are marked in Health as estimates, with the method used. Where an Apple Watch already recorded the same session, its measurement takes precedence and we write nothing.</li>
             </ul>
             <p>We do not write anything else to Health.</p>
 
@@ -289,7 +289,7 @@ export default function Privacy() {
             <ul>
               <li>The workouts and estimates we write go into <strong>your</strong> Health store on your device.</li>
               <li>A bodyweight read from Health while a workout is being saved is used <strong>only in memory</strong>, to calculate that workout's energy estimate. It is not saved to your Libo profile and is not sent to our servers.</li>
-              <li>Weight, height, age and biological sex are copied into your stored Libo profile — and therefore synced to our database — <strong>only</strong> when you ask for it, by connecting Health or by using "Update body stats from Health", <strong>and</strong> only if you have given the app's explicit health-data consent (see <a href="#p4">Legal Basis for Processing</a>). Without that consent nothing is stored: the app tells you the consent is missing and asks for it.</li>
+              <li>Weight, height, age and biological sex are copied into your stored Libo profile (and therefore synced to our database) <strong>only</strong> when you ask for it, by connecting Health or by using "Update body stats from Health", <strong>and</strong> only if you have given the app's explicit health-data consent (see <a href="#p4">Legal Basis for Processing</a>). Without that consent nothing is stored: the app tells you the consent is missing and asks for it.</li>
             </ul>
 
             <h3>Your control</h3>
@@ -305,9 +305,9 @@ export default function Privacy() {
             <h2>Cookies &amp; Tracking</h2>
             <p>Our website uses cookies and similar technologies (such as browser local storage). We use the following categories:</p>
             <ul>
-              <li><strong>Strictly necessary</strong> — Required for the website to function, for example keeping you signed in and remembering your cookie choice. On pages where you can pay, our payment provider Stripe also sets fraud-prevention cookies (<code>__stripe_mid</code>, <code>__stripe_sid</code>) needed to process a payment safely. Cannot be disabled.</li>
-              <li><strong>Analytics</strong> — Google Analytics 4 helps us understand how visitors use our website. It is loaded only if you turn Analytics on in the cookie banner. If you reject, the Google Analytics script is never loaded, no request is made to Google and no analytics cookies are set.</li>
-              <li><strong>Marketing</strong> — The Meta Pixel measures the effectiveness of our campaigns. It is loaded only if you turn Marketing on in the cookie banner, and never if you reject.</li>
+              <li><strong>Strictly necessary</strong>: Required for the website to function, for example keeping you signed in and remembering your cookie choice. On pages where you can pay, our payment provider Stripe also sets fraud-prevention cookies (<code>__stripe_mid</code>, <code>__stripe_sid</code>) needed to process a payment safely. Cannot be disabled.</li>
+              <li><strong>Analytics</strong>: Google Analytics 4 helps us understand how visitors use our website. It is loaded only if you turn Analytics on in the cookie banner. If you reject, the Google Analytics script is never loaded, no request is made to Google and no analytics cookies are set.</li>
+              <li><strong>Marketing</strong>: The Meta Pixel measures the effectiveness of our campaigns. It is loaded only if you turn Marketing on in the cookie banner, and never if you reject.</li>
             </ul>
             <p>Analytics and Marketing are separate choices: you can allow one and refuse the other under "Manage preferences". Nothing is switched on in advance, and closing the banner without choosing does not switch anything on.</p>
             <p>You can change your cookie choice at any time via "Cookie settings" in the website footer, or by adjusting your browser settings. When you withdraw consent, we stop the relevant tracking immediately and delete the cookies that provider had set in your browser.</p>
@@ -320,15 +320,15 @@ export default function Privacy() {
             <h2>Data Retention</h2>
             <p>We retain your personal data only for as long as necessary:</p>
             <ul>
-              <li><strong>Account, profile and health data</strong> — Retained for the duration of your account. Deleted when you delete your account in the app, or within 30 days of a deletion request by email.</li>
-              <li><strong>Workout &amp; activity data</strong> — Including workout notes, workout photos, plans, points and share links. Retained while your account is active. Deleted with your account.</li>
-              <li><strong>Profile photo</strong> — Retained until you remove it or delete your account.</li>
-              <li><strong>Challenge recordings</strong> — Never held by us; they stay on your device until you delete them. Deleting your account in the app also removes them from that device.</li>
-              <li><strong>Billing, payment and payout records</strong> — Retained for 10 years to comply with German tax law (&sect; 147 AO).</li>
-              <li><strong>Identity verification data</strong> — Retained only for as long as required by law.</li>
-              <li><strong>Support communications and bug reports</strong> — Retained for 2 years after the last interaction.</li>
-              <li><strong>Crash reports</strong> — Retained by our crash-reporting provider for a limited period, after which they are deleted automatically.</li>
-              <li><strong>Website analytics data</strong> — Retained for the retention period set in our analytics accounts.</li>
+              <li><strong>Account, profile and health data</strong>: Retained for the duration of your account. Deleted when you delete your account in the app, or within 30 days of a deletion request by email.</li>
+              <li><strong>Workout &amp; activity data</strong>: Including workout notes, workout photos, plans, points and share links. Retained while your account is active. Deleted with your account.</li>
+              <li><strong>Profile photo</strong>: Retained until you remove it or delete your account.</li>
+              <li><strong>Challenge recordings</strong>: Never held by us; they stay on your device until you delete them. Deleting your account in the app also removes them from that device.</li>
+              <li><strong>Billing, payment and payout records</strong>: Retained for 10 years to comply with German tax law (&sect; 147 AO).</li>
+              <li><strong>Identity verification data</strong>: Retained only for as long as required by law.</li>
+              <li><strong>Support communications and bug reports</strong>: Retained for 2 years after the last interaction.</li>
+              <li><strong>Crash reports</strong>: Retained by our crash-reporting provider for a limited period, after which they are deleted automatically.</li>
+              <li><strong>Website analytics data</strong>: Retained for the retention period set in our analytics accounts.</li>
             </ul>
           </section>
 
@@ -377,7 +377,7 @@ export default function Privacy() {
                   the sentence must read correctly with them absent and restore
                   the reviewed wording when GIVEAWAYS_ENABLED flips back on. */}
               <li>The app, accounts and the rewards programme are open to users aged <strong>13 and over</strong>.</li>
-              <li>Users under <strong>16</strong> may only use the Service with verified parental consent — typically provided through Apple Family Sharing or Google Family Link, which act as our first-line age and consent gate.</li>
+              <li>Users under <strong>16</strong> may only use the Service with verified parental consent, typically provided through Apple Family Sharing or Google Family Link, which act as our first-line age and consent gate.</li>
               <li>{GIVEAWAYS_ENABLED ? 'Giveaways and cash challenges' : 'Cash challenges'} are restricted to users aged <strong>16 and over</strong>; direct cash payouts are restricted to users aged <strong>18 and over</strong>.</li>
             </ul>
             <p>We do not knowingly collect personal data from children under 13, or from children aged 13–15 without verified parental consent. If we become aware that we have collected such data without the required consent, we will delete it promptly.</p>

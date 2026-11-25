@@ -127,7 +127,7 @@ describe('challengeTiers drift check — fixtures', () => {
     });
 
     const report = formatChallengeTierDrift(drifts);
-    expect(report).toContain('committed [reps_50_30d_pro_v1] — reps <-> reps_per_day');
+    expect(report).toContain('committed [reps_50_30d_pro_v1]: reps <-> reps_per_day');
     expect(report).toContain('50 reps per day');
     expect(report).toContain('60 reps per day');
     expect(report).toContain('DO NOT change either side to make this pass.');

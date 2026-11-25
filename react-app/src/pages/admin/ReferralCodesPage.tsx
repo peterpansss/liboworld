@@ -70,16 +70,16 @@ function typeChipStyle(type: ReferralCodeType): React.CSSProperties {
 }
 
 function formatDate(iso: string | null): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '—';
+  if (Number.isNaN(d.getTime())) return '-';
   return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
 function formatDateTime(iso: string | null): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '—';
+  if (Number.isNaN(d.getTime())) return '-';
   return `${d.toLocaleDateString()} ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 }
 
@@ -298,7 +298,7 @@ function UserPicker({
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 600 }}>{u.name ?? u.email ?? shortId(u.id)}</div>
               <div style={{ fontSize: 11, color: colors.muted }}>
-                {u.email ?? '—'} · <span style={{ fontFamily: 'monospace' }}>{shortId(u.id)}</span>
+                {u.email ?? '-'} · <span style={{ fontFamily: 'monospace' }}>{shortId(u.id)}</span>
               </div>
             </div>
             {u.tier && u.tier !== 'free' && (
@@ -397,7 +397,7 @@ function ConversionsPanel({ code }: { code: string }) {
                   <td style={{ padding: '6px 8px', whiteSpace: 'nowrap' }}>{formatDateTime(r.converted_at)}</td>
                   <td style={{ padding: '6px 8px', fontFamily: 'monospace' }}>{shortId(r.referee_user_id)}</td>
                   <td style={{ padding: '6px 8px', fontFamily: 'monospace' }}>
-                    {r.referrer_user_id ? shortId(r.referrer_user_id) : '—'}
+                    {r.referrer_user_id ? shortId(r.referrer_user_id) : '-'}
                   </td>
                   <td style={{ padding: '6px 8px', textAlign: 'right' }}>
                     {r.bonus_points_referee} / {r.bonus_points_referrer}
@@ -568,7 +568,7 @@ export function ReferralCodesPage() {
               {shortId(r.owner_user_id)}
             </span>
           ) : (
-            <span style={{ color: colors.dim }}>—</span>
+            <span style={{ color: colors.dim }}>-</span>
           ),
       },
       {
@@ -591,7 +591,7 @@ export function ReferralCodesPage() {
               {r.boost_multiplier}× · {r.boost_days}d
             </span>
           ) : (
-            <span style={{ color: colors.dim, fontSize: 12 }}>—</span>
+            <span style={{ color: colors.dim, fontSize: 12 }}>-</span>
           ),
       },
       {
@@ -796,7 +796,7 @@ export function ReferralCodesPage() {
           </Field>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-            <Field label="Bonus points — referee" hint="Points granted to the new user.">
+            <Field label="Bonus points (referee)" hint="Points granted to the new user.">
               <TextInput
                 type="number"
                 min={0}
@@ -804,7 +804,7 @@ export function ReferralCodesPage() {
                 onChange={(e) => setForm({ ...form, bonus_points_referee: e.target.value })}
               />
             </Field>
-            <Field label="Bonus points — referrer" hint="Points granted to the code owner.">
+            <Field label="Bonus points (referrer)" hint="Points granted to the code owner.">
               <TextInput
                 type="number"
                 min={0}

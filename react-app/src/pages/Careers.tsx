@@ -29,7 +29,7 @@ const ROLES: Role[] = [
     type: 'Contract',
     applyHref: 'mailto:careers@liboworld.com?subject=Application%20%E2%80%94%20Mobile%20Engineer',
     description:
-      "Own the Libo mobile app end-to-end — a premium, NTC-inspired fitness product with 820+ exercises and 140 guided workouts. You'll ship features that feel fast and quiet, from the workout player to offline sync, on a small team where craft is the bar.",
+      "Own the Libo mobile app end-to-end: a premium, NTC-inspired fitness product with 820+ exercises and 140 guided workouts. You'll ship features that feel fast and quiet, from the workout player to offline sync, on a small team where craft is the bar.",
     whatYouDo: [
       'Ship the workout player with synced voiceovers and rest-timer haptics',
       'Build offline-first exercise sync over expo-sqlite and MMKV',
@@ -74,7 +74,7 @@ export default function Careers() {
               {t('careers.headline', { defaultValue: 'Join our team' })}
             </h1>
             <p className="careers-hero__lead">
-              {t('careers.lead', { defaultValue: 'Libo is built by a small group of people who actually train. We hire athletes, engineers, and creators who care about craft — and who write their own emails.' })}
+              {t('careers.lead', { defaultValue: 'Libo is built by a small group of people who actually train. We hire athletes, engineers, and creators who care about craft, and who write their own emails.' })}
             </p>
           </div>
         </section>
@@ -88,7 +88,7 @@ export default function Careers() {
                   {t('careers.empty.title', { defaultValue: 'No open roles right now.' })}
                 </p>
                 <p className="careers-empty__body">
-                  {t('careers.empty.body', { defaultValue: "Send a note to hello@liboworld.com — if you're a fit we'll keep you on file." })}
+                  {t('careers.empty.body', { defaultValue: "Send a note to hello@liboworld.com. If you're a fit we'll keep you on file." })}
                 </p>
               </div>
             ) : (
@@ -191,7 +191,7 @@ export default function Careers() {
                 {t('careers.promoHeadline', { defaultValue: 'Train smarter.\nEarn while you do.' })}
               </h2>
               <p className="careers-promo__body">
-                {t('careers.promoBody', { defaultValue: 'Even if we never work together — Libo is free to use. Real workouts, real cash challenges, real progress.' })}
+                {t('careers.promoBody', { defaultValue: 'Even if we never work together, Libo is free to use. Real workouts, real cash challenges, real progress.' })}
               </p>
               <div className="careers-promo__actions">
                 <Link to="/find-your-plan" state={{ start: true }} className="careers-promo__primary">

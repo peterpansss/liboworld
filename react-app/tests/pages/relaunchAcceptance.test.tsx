@@ -209,7 +209,7 @@ describe('relaunch acceptance — challenge funnel CTAs', () => {
       .map((el) => (el.textContent || '').trim());
     expect(labels.length).toBeGreaterThan(0);
     for (const label of labels) {
-      expect(label).toMatch(/^Click to Enter( — €39\.50\/yr)? →$/);
+      expect(label).toMatch(/^Click to Enter(: €39\.50\/yr)? →$/);
     }
     // Exactly the close-section button + the sticky bar carry the price.
     expect(labels.filter((l) => l.includes('€39.50/yr')).length).toBeGreaterThan(0);
@@ -227,13 +227,13 @@ describe('relaunch acceptance — challenge funnel CTAs', () => {
 
     expect(labels.length).toBeGreaterThan(0);
     for (const label of labels) {
-      expect(label).toMatch(/^(Join free at launch →|Join free →|Get Premium — €39\.50\/yr →)$/);
+      expect(label).toMatch(/^(Join free at launch →|Join free →|Get Premium: €39\.50\/yr →)$/);
     }
     // Exactly ONE paid CTA — under the offer card, price visible, opens
     // checkout directly (FIX-TICKET-V3.1 §18).
     expect(labels.filter((l) => l.startsWith('Get Premium')).length).toBe(1);
     expect((container.querySelector('#offer .cf-btn--offer')?.textContent || '').trim())
-      .toBe('Get Premium — €39.50/yr →');
+      .toBe('Get Premium: €39.50/yr →');
     // Starter's own headline sells the unlock.
     expect(container.textContent).toContain('Unlock the €15 challenge.');
     // DECISIONS-V3 §1: the free tier's conversion event IS joining free.

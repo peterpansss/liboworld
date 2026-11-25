@@ -405,7 +405,7 @@ export default function AuthCallback() {
             <div className="auth-callback-label">Email Verified</div>
             <h1 className="auth-callback-title">You&rsquo;re verified</h1>
             <p className="auth-callback-body">
-              Your account is verified — open the <strong>Libo app</strong> on
+              Your account is verified. Open the <strong>Libo app</strong> on
               your phone to sign in and get started.
             </p>
             <Link to="/" className="auth-callback-secondary">
@@ -426,7 +426,7 @@ export default function AuthCallback() {
             <div className="auth-callback-label">Signed In</div>
             <h1 className="auth-callback-title">You&rsquo;re verified</h1>
             <p className="auth-callback-body">
-              You&rsquo;re verified — open the <strong>Libo app</strong> on your
+              You&rsquo;re verified. Open the <strong>Libo app</strong> on your
               phone to continue.
             </p>
             <Link to="/" className="auth-callback-secondary">

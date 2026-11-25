@@ -326,7 +326,7 @@ export default function PricingSection() {
                     marginBottom: 24,
                   }}
                 >
-                  {tier.id === 'free' ? '—' : 'Cancel anytime'}
+                  {tier.id === 'free' ? '' : 'Cancel anytime'}
                 </div>
 
                 <ul

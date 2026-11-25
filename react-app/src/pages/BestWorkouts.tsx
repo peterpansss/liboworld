@@ -53,7 +53,7 @@ function formatSetsReps(ex: WorkoutExercise): string {
   if (dur) return dur;
   if (reps) return reps;
   if (sets) return `${sets} sets`;
-  return '—';
+  return '-';
 }
 
 const PREVIEW_EXERCISES = 6; // exercises shown per workout card before the "+ N more" line
@@ -135,7 +135,7 @@ export default function BestWorkouts() {
   // HTML; this client-side update keeps it correct after SPA navigation.
   useEffect(() => {
     if (!entry) return;
-    document.title = `Best ${entry.label} Workouts — ${facetWorkouts.length} Free Routines | Libo`;
+    document.title = `Best ${entry.label} Workouts: ${facetWorkouts.length} Free Routines | Libo`;
     return () => { document.title = 'Libo'; };
   }, [entry, facetWorkouts.length]);
 

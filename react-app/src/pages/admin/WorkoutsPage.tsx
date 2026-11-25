@@ -310,7 +310,7 @@ export function WorkoutsPage() {
       return;
     }
     if (canonicalWorkouts.some((w) => w.slug === slug)) {
-      setCreateErr(`Slug "${slug}" is already in use — pick another.`);
+      setCreateErr(`Slug "${slug}" is already in use. Pick another.`);
       return;
     }
     if (createForm.dur.trim()) {
@@ -573,7 +573,7 @@ export function WorkoutsPage() {
       width: 110,
       render: (r) => {
         const c = findCanonical(r);
-        return c ? <StatusChip status={c.status} /> : <span style={{ color: colors.dim }}>—</span>;
+        return c ? <StatusChip status={c.status} /> : <span style={{ color: colors.dim }}>-</span>;
       },
       sort: (a, b) =>
         (findCanonical(a)?.status ?? '').localeCompare(findCanonical(b)?.status ?? ''),
@@ -582,7 +582,7 @@ export function WorkoutsPage() {
       key: 'override',
       header: 'Override',
       width: 90,
-      render: (r) => (overrideMap.has(r.id) ? <EditedChip /> : <span style={{ color: colors.dim }}>—</span>),
+      render: (r) => (overrideMap.has(r.id) ? <EditedChip /> : <span style={{ color: colors.dim }}>-</span>),
     },
     {
       key: 'actions',
@@ -1174,7 +1174,7 @@ function EditWorkoutModal({
             hint={
               canonical
                 ? 'Draft hides this workout on web + app.'
-                : 'Bundled-only — save another change first to make it editable.'
+                : 'Bundled-only. Save another change first to make it editable.'
             }
           >
             <Select
@@ -1192,7 +1192,7 @@ function EditWorkoutModal({
             hint={
               canonical
                 ? 'Free members can open Free workouts. Premium ones show a padlock in the app and open the paywall.'
-                : 'Bundled-only — save another change first to make it editable.'
+                : 'Bundled-only. Save another change first to make it editable.'
             }
           >
             <Select
@@ -1225,7 +1225,7 @@ function EditWorkoutModal({
           <div key={k} style={{ gridColumn: 'span 3' }}>
             <Field
               label={`Name · ${k.slice(-2).toUpperCase()}`}
-              hint={canonical ? 'Blank = English name.' : 'Bundled-only — save another change first to make it editable.'}
+              hint={canonical ? 'Blank = English name.' : 'Bundled-only. Save another change first to make it editable.'}
             >
               <TextInput
                 value={names[k]}

@@ -374,7 +374,7 @@ export default function ExerciseDetail() {
       ? desc.length > 158
         ? desc.slice(0, 155) + '…'
         : desc
-      : `Learn how to perform ${displayName} — a ${exercise.diff} ${exercise.bodyFocus.toLowerCase()} exercise using ${exercise.equipment.toLowerCase()}.`;
+      : `Learn how to perform ${displayName}, a ${exercise.diff} ${exercise.bodyFocus.toLowerCase()} exercise using ${exercise.equipment.toLowerCase()}.`;
     const thumb = exerciseThumb(exercise) ?? exerciseThumb(videoSource);
     return {
       // Localized name + localized "How to Perform"; in English this is byte
@@ -383,7 +383,7 @@ export default function ExerciseDetail() {
       // deliberately keeps the canonical English name — one URL serves all five
       // languages, so the structured data has to match the prerendered stub and
       // the sitemap rather than the visitor's language choice.
-      title: `${displayName} — ${t('exerciseDetail.howToPerformTitle')} | Libo`,
+      title: `${displayName}: ${t('exerciseDetail.howToPerformTitle')} | Libo`,
       description,
       canonical: exerciseCanonicalUrl(exercise),
       ogImage: thumb ? (thumb.startsWith('http') ? thumb : `https://liboworld.com${thumb}`) : undefined,

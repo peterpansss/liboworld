@@ -41,7 +41,7 @@ export default function Blueprint() {
   return (
     <div className="bp-page">
       <SeoHead
-        title={d('seo.title', 'The 12-Month Blueprint — free, by Noah F. · Libo')}
+        title={d('seo.title', 'The 12-Month Blueprint: free, by Noah F. | Libo')}
         description={d(
           'seo.desc',
           'Seven years stuck at 69 kg, then about 77 kg in twelve months. How I trained and ate, written down. Free in the Libo app, English and German.',

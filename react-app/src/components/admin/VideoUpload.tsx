@@ -214,7 +214,7 @@ export function VideoUpload({
       <div style={containerStyle}>
         <span style={labelStyle}>{label}</span>
         <div style={statusBoxStyle}>
-          {isUploading ? 'Queued — waiting for worker' : 'Processing'}
+          {isUploading ? 'Queued, waiting for worker' : 'Processing'}
           {' · '}
           {job?.progress_message ?? '…'}
           {' · '}
@@ -406,7 +406,7 @@ export function MediaJobStatus({ jobId, onDone, onError }: MediaJobStatusProps) 
   if (status === 'pending') {
     return (
       <div style={statusBoxStyle}>
-        Queued — waiting for worker · {elapsed(job.created_at)}
+        Queued, waiting for worker · {elapsed(job.created_at)}
       </div>
     );
   }
@@ -420,7 +420,7 @@ export function MediaJobStatus({ jobId, onDone, onError }: MediaJobStatusProps) 
   if (status === 'done') {
     return (
       <div style={{ ...statusBoxStyle, color: colors.text }}>
-        Done — {job.progress_message ?? 'ready'}
+        Done: {job.progress_message ?? 'ready'}
       </div>
     );
   }

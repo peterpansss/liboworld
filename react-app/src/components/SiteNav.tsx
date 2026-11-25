@@ -208,8 +208,8 @@ export default function SiteNav() {
   const announceFull = giveaway
     ? t(`giveawayBar.${roundState}.full`, giveawayVars)
     : showDownloadBar
-    ? t('relaunchHome.liveBar.full', { defaultValue: 'Libo is live on the App Store and Google Play — download it free' })
-    : t('earlyAccess.announceText', { defaultValue: 'Founding Members: 50% off — until 13 October' });
+    ? t('relaunchHome.liveBar.full', { defaultValue: 'Libo is live on the App Store and Google Play. Download it free' })
+    : t('earlyAccess.announceText', { defaultValue: 'Founding Members: 50% off until 13 October' });
   const announceShort = giveaway
     ? t(`giveawayBar.${roundState}.short`, giveawayVars)
     : showDownloadBar

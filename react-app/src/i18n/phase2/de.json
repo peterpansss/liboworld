@@ -1,19 +1,19 @@
 {
   "cashChallengeFunnel": {
     "seoTitle": "30 Tage durchziehen, bis zu €50 kassieren · Libo Cash Challenge",
-    "seoDescription": "Mach 30 Tage am Stück deine Reps in der Libo-App und verdien echtes Geld. €5 / €15 / €50 Stufen — begrenzte Plätze.",
+    "seoDescription": "Mach 30 Tage am Stück deine Reps in der Libo-App und verdien echtes Geld. €5 / €15 / €50 Stufen. Begrenzte Plätze.",
     "countdownLabel": "Nächster Zyklus startet in",
     "eyebrow": "Cash Challenge",
     "headline1": "Trainier 30 Tage.",
     "headline2": "Verdien bis zu €50 cash.",
-    "heroSub": "Echtes Geld für echte Konsistenz. Schaff deine täglichen Reps für 30 Tage und wir überweisen dir die Belohnung — garantierte Auszahlung, keine Lotterie.",
+    "heroSub": "Echtes Geld für echte Konsistenz. Schaff deine täglichen Reps für 30 Tage und wir überweisen dir die Belohnung. Garantierte Auszahlung, keine Lotterie.",
     "heroCta": "App holen",
     "tiersTitle": "Wähl deinen Einsatz",
-    "tiersSub": "Drei Stufen, drei garantierte Auszahlungen. Gleiche 30-Tage-Mechanik. Wähl die, die zu deinem Abo passt — jeder, der durchzieht, wird voll bezahlt.",
+    "tiersSub": "Drei Stufen, drei garantierte Auszahlungen. Gleiche 30-Tage-Mechanik. Wähl die, die zu deinem Abo passt. Jeder, der durchzieht, wird voll bezahlt.",
     "ctaReserve": "App holen",
-    "ctaError": "Etwas ist schiefgelaufen — versuch es nochmal",
+    "ctaError": "Etwas ist schiefgelaufen. Versuch es nochmal",
     "emailPlaceholder": "deine@email.com",
-    "scarcityLine": "Die Plätze sind begrenzt und der Einstieg läuft rollierend — deine 30 Tage starten an dem Tag, an dem du einsteigst. Wird jemand fertig oder steigt aus, wird sein Platz frei und wer zuerst zugreift, ist drin.",
+    "scarcityLine": "Die Plätze sind begrenzt und der Einstieg läuft rollierend: Deine 30 Tage starten an dem Tag, an dem du einsteigst. Wird jemand fertig oder steigt aus, wird sein Platz frei und wer zuerst zugreift, ist drin.",
     "badges": {
       "mostPopular": "Am beliebtesten",
       "biggestPayout": "Höchste Auszahlung"
@@ -27,7 +27,7 @@
         "days": "30",
         "freeze": "0",
         "gating": "Free-Stufe · kein Abo",
-        "heroSummary": "30 Tage × 30 Reps = €5 Cash-Auszahlung. Free-Stufe, offen für alle. Ein verpasster Tag und du bist raus — strikt, aber echt."
+        "heroSummary": "30 Tage × 30 Reps = €5 Cash-Auszahlung. Free-Stufe, offen für alle. Ein verpasster Tag und du bist raus. Strikt, aber echt."
       },
       "pro_pool": {
         "name": "Pro Pool",
@@ -52,15 +52,15 @@
     "trust2": "Auszahlung in 48h via Wise oder SEPA",
     "trust3": "300+ Teilnehmer bisher bezahlt",
     "howItWorksTitle": "So funktioniert die Cash Challenge",
-    "howItWorksSub": "Cohort-basiert — alle Teilnehmer laufen die 30 Tage gemeinsam. Verpasse einen Tag ohne Freeze-Token und du bist raus. Schaffst du es, wirst du bezahlt.",
+    "howItWorksSub": "Cohort-basiert: Alle Teilnehmer laufen die 30 Tage gemeinsam. Verpasse einen Tag ohne Freeze-Token und du bist raus. Schaffst du es, wirst du bezahlt.",
     "step1Title": "App laden & deine Stufe wählen",
-    "step1Body": "Wähl deine Stufe in der App. Die Plätze sind begrenzt und first come, first served — und deine 30 Tage starten an dem Tag, an dem du einsteigst.",
+    "step1Body": "Wähl deine Stufe in der App. Die Plätze sind begrenzt und first come, first served, und deine 30 Tage starten an dem Tag, an dem du einsteigst.",
     "step2Title": "Tägliche Reps in der App",
     "step2Body": "30/50/100 Reps pro Tag je nach Stufe. Kniebeugen werden per Kamera automatisch gezählt. Liegestütze und Klimmzüge per Tap-Counter. Auf mehrere Sessions aufteilbar.",
     "step3Title": "Reiß die Kette nicht ab",
-    "step3Body": "Jeden Tag, keine Lücken. Premium-Mitglieder bekommen Freeze-Tokens für verpasste Tage. Free-Stufe ist strikt — ein verpasster Tag und du fliegst raus.",
+    "step3Body": "Jeden Tag, keine Lücken. Premium-Mitglieder bekommen Freeze-Tokens für verpasste Tage. Free-Stufe ist strikt: Ein verpasster Tag und du fliegst raus.",
     "step4Title": "Werd bezahlt",
-    "step4Body": "Schaffst du alle 30 aktiven Tage, landet das Geld innerhalb von 48 Stunden nach Zyklusende auf deinem verknüpften Konto. €5, €15 oder €50 — deine Wahl.",
+    "step4Body": "Schaffst du alle 30 aktiven Tage, landet das Geld innerhalb von 48 Stunden nach Zyklusende auf deinem verknüpften Konto. €5, €15 oder €50, deine Wahl.",
     "repeatCtaTitle": "Sei beim nächsten Zyklus dabei, bevor er voll ist",
     "statsTitle": "Echte Auszahlungen, echte Konsistenz",
     "statsSub": "Live-Zahlen aus Libos Cash-Challenge-Ledger",
@@ -78,19 +78,19 @@
       "q2": "Was zählt als abgeschlossener Tag?",
       "a2": "Die tägliche Rep-Anzahl deiner Stufe für diesen Tag, geloggt in der Libo-App. Reps können auf mehrere Sessions aufgeteilt werden. Kniebeugen werden per Kamera gezählt; Liegestütze und Klimmzüge per Tap-Counter.",
       "q3": "Was passiert, wenn ich einen Tag verpasse?",
-      "a3": "Free-Stufe: ein verpasster Tag und du bist für diesen Zyklus raus. Premium: Freeze-Tokens decken verpasste Tage — jedes Token verschiebt das Enddatum um +1.",
+      "a3": "Free-Stufe: ein verpasster Tag und du bist für diesen Zyklus raus. Premium: Freeze-Tokens decken verpasste Tage. Jedes Token verschiebt das Enddatum um +1.",
       "q4": "Wann werde ich bezahlt?",
-      "a4": "Innerhalb von 48 Stunden nach Abschluss deines 30. aktiven Tages. Auszahlung erfolgt auf das hinterlegte Konto — Stripe / SEPA / PayPal je nach Region.",
+      "a4": "Innerhalb von 48 Stunden nach Abschluss deines 30. aktiven Tages. Auszahlung erfolgt auf das hinterlegte Konto (Stripe / SEPA / PayPal je nach Region).",
       "q5": "Kann ich mehrere Stufen gleichzeitig machen?",
-      "a5": "Nein — eine aktive Anmeldung gleichzeitig. Du kannst dich für die Stufe des nächsten Zyklus anmelden, sobald deine aktuelle endet.",
+      "a5": "Nein, eine aktive Anmeldung gleichzeitig. Du kannst dich für die Stufe des nächsten Zyklus anmelden, sobald deine aktuelle endet.",
       "q6": "Warum sind die Plätze begrenzt?",
-      "a6": "Die Belohnung ist ein echter Kostenfaktor für Libo. Begrenzte Plätze machen die Auszahlung kalkulierbar und schaffen ein echtes Cohort-Gefühl — alle laufen die Uhr gemeinsam.",
+      "a6": "Die Belohnung ist ein echter Kostenfaktor für Libo. Begrenzte Plätze machen die Auszahlung kalkulierbar und schaffen ein echtes Cohort-Gefühl: Alle laufen die Uhr gemeinsam.",
       "q7": "Brauche ich ein Libo-Abo?",
-      "a7": "Die €5 Starter Challenge ist gratis — kein Abo nötig. Die €15-Challenge braucht bezahltes Premium oder Elite, die €50-Challenge bezahltes Elite — am Tag deines Beitritts und an jedem Tag, an dem du eincheckst. Probezeiträume und Gratiswochen per Angebotscode zählen nicht.",
+      "a7": "Die €5 Starter Challenge ist gratis, kein Abo nötig. Die €15-Challenge braucht bezahltes Premium oder Elite, die €50-Challenge bezahltes Elite. Das gilt am Tag deines Beitritts und an jedem Tag, an dem du eincheckst. Probezeiträume und Gratiswochen per Angebotscode zählen nicht.",
       "q8": "Was, wenn ich Anfänger bin?",
-      "a8": "Fang mit Starter an (100 Reps/Tag) — das sind etwa 5 Minuten Arbeit, auf den Tag aufteilbar. Die Rep-Zahl ist machbar; die Disziplin ist die eigentliche Herausforderung."
+      "a8": "Fang mit Starter an (100 Reps/Tag). Das sind etwa 5 Minuten Arbeit, auf den Tag aufteilbar. Die Rep-Zahl ist machbar; die Disziplin ist die eigentliche Herausforderung."
     },
-    "finalCtaTitle": "Starte deine 30 Tage — begrenzte Plätze, first come, first served",
+    "finalCtaTitle": "Starte deine 30 Tage: begrenzte Plätze, first come, first served",
     "finalCta": "App holen",
     "storeOverlay": {
       "title": "Hol dir die Libo-App",
@@ -100,6 +100,6 @@
       "googlePlaySmall": "Jetzt bei",
       "closeLabel": "Schließen"
     },
-    "disclaimer": "Die Teilnahme an der Cash Challenge steht allen Stufen (Free, Premium, Elite) ab 16 Jahren offen und ist kostenlos — es gibt keine Teilnahmegebühr und keinen Einsatz. Die Cash-Belohnung bei Abschluss hängt von Stufe und Pool ab (Free €5 / Premium €15, dazu ein höherer €50-Elite-Pool), ebenso das Tagesziel (30 / 50 / 100 Reps); Libo finanziert die Auszahlung. Cash-Auszahlungen über Stripe / Wise / SEPA setzen voraus, dass Gewinner mindestens 18 Jahre alt sind; Gewinner zwischen 16 und 17 können ein elternverknüpftes, verifiziertes Zahlungskonto nutzen, andernfalls wird der Gewinn in In-App-Guthaben umgewandelt (zusätzliche Tickets oder ein Premium-Monat). Ungültig, wo nach lokalem Recht untersagt — die zum Launch geltende Geo-Sperrliste steht in den AGB (Abschnitt 16). Alle Auszahlungen unterliegen einer Identitätsprüfung."
+    "disclaimer": "Die Teilnahme an der Cash Challenge steht allen Stufen (Free, Premium, Elite) ab 16 Jahren offen und ist kostenlos; es gibt keine Teilnahmegebühr und keinen Einsatz. Die Cash-Belohnung bei Abschluss hängt von Stufe und Pool ab (Free €5 / Premium €15, dazu ein höherer €50-Elite-Pool), ebenso das Tagesziel (30 / 50 / 100 Reps); Libo finanziert die Auszahlung. Cash-Auszahlungen über Stripe / Wise / SEPA setzen voraus, dass Gewinner mindestens 18 Jahre alt sind; Gewinner zwischen 16 und 17 können ein elternverknüpftes, verifiziertes Zahlungskonto nutzen, andernfalls wird der Gewinn in In-App-Guthaben umgewandelt (zusätzliche Tickets oder ein Premium-Monat). Ungültig, wo nach lokalem Recht untersagt. Die zum Launch geltende Geo-Sperrliste steht in den AGB (Abschnitt 16). Alle Auszahlungen unterliegen einer Identitätsprüfung."
   }
 }

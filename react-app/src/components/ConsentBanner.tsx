@@ -137,7 +137,7 @@ export default function ConsentBanner() {
         <p id={descId} className="consent-modal__intro">
           {t('consent.intro', {
             defaultValue:
-              "Nothing that tracks you runs until you say so. Pick what you're ok with — you can change it whenever.",
+              "Nothing that tracks you runs until you say so. Pick what you're ok with. You can change it whenever.",
           })}
         </p>
 

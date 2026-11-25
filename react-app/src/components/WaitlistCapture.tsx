@@ -45,7 +45,7 @@ export default function WaitlistCapture({
             {t('relaunchHome.waitlist.confirm', { defaultValue: "You're on the list ✓" })}
           </p>
           <p className="rh-wl-note">
-            {t('relaunchHome.waitlist.confirmNote', { defaultValue: 'Check your inbox — then nothing until launch day.' })}
+            {t('relaunchHome.waitlist.confirmNote', { defaultValue: 'Check your inbox. Then nothing until launch day.' })}
           </p>
           <p className="rh-wl-footnote">
             <Link to="/join" viewTransition className="rh-accent-link">

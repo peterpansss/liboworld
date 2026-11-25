@@ -45,7 +45,7 @@ export function AdminLogin({ onSignedIn, deniedReason }: { onSignedIn: () => voi
           throw new Error(`Too many failed sign-ins. Try again in ${Math.ceil((gate.retry_after_seconds ?? 900) / 60)} min.`);
         }
         if (gate.error === 'rate_limited') {
-          throw new Error('Slow down — too many attempts. Wait a minute and try again.');
+          throw new Error('Slow down, too many attempts. Wait a minute and try again.');
         }
         throw new Error('Sign-in temporarily unavailable.');
       }

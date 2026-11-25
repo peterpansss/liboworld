@@ -116,7 +116,7 @@ export function DashboardPage() {
       <div style={gridStyle}>
         {TILE_DEFS.map((t) => {
           const raw = kpis ? kpis[t.key] : null;
-          const value = loading || raw == null ? '—' : numberFmt.format(raw);
+          const value = loading || raw == null ? '-' : numberFmt.format(raw);
           return <KpiCard key={t.key} label={t.label} value={value} />;
         })}
       </div>

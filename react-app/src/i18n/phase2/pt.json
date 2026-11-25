@@ -1,19 +1,19 @@
 {
   "cashChallengeFunnel": {
     "seoTitle": "Complete 30 dias e ganhe até €50 · Desafio Cash Libo",
-    "seoDescription": "Complete 30 dias consecutivos de repetições no app Libo e ganhe dinheiro real. Níveis €5 / €15 / €50 — vagas limitadas.",
+    "seoDescription": "Complete 30 dias consecutivos de repetições no app Libo e ganhe dinheiro real. Níveis €5 / €15 / €50. Vagas limitadas.",
     "countdownLabel": "O próximo ciclo começa em",
     "eyebrow": "Desafio Cash",
     "headline1": "Treine 30 dias.",
     "headline2": "Ganhe até €50 cash.",
-    "heroSub": "Dinheiro real por consistência real. Bata suas repetições diárias por 30 dias e te transferimos a recompensa — pagamento garantido, não é loteria.",
+    "heroSub": "Dinheiro real por consistência real. Bata suas repetições diárias por 30 dias e te transferimos a recompensa. Pagamento garantido, não é loteria.",
     "heroCta": "Baixar o app",
     "tiersTitle": "Escolha sua aposta",
-    "tiersSub": "Três níveis, três pagamentos garantidos. Mesma mecânica de 30 dias. Escolha o que combina com sua assinatura — todo finalista recebe o valor completo.",
+    "tiersSub": "Três níveis, três pagamentos garantidos. Mesma mecânica de 30 dias. Escolha o que combina com sua assinatura: todo finalista recebe o valor completo.",
     "ctaReserve": "Baixar o app",
-    "ctaError": "Algo deu errado — tente de novo",
+    "ctaError": "Algo deu errado. Tente de novo",
     "emailPlaceholder": "seu@email.com",
-    "scarcityLine": "As vagas são limitadas e a entrada é contínua — seus 30 dias começam no dia em que você entra. Quando alguém termina ou desiste, a vaga dessa pessoa abre e quem pegar primeiro entra.",
+    "scarcityLine": "As vagas são limitadas e a entrada é contínua: seus 30 dias começam no dia em que você entra. Quando alguém termina ou desiste, a vaga dessa pessoa abre e quem pegar primeiro entra.",
     "badges": {
       "mostPopular": "Mais popular",
       "biggestPayout": "Maior pagamento"
@@ -27,7 +27,7 @@
         "days": "30",
         "freeze": "0",
         "gating": "Nível Free · sem assinatura",
-        "heroSummary": "30 dias × 30 reps = €5 cash. Nível Free, aberto a todos. Uma falha e você está fora — rígido mas real."
+        "heroSummary": "30 dias × 30 reps = €5 cash. Nível Free, aberto a todos. Uma falha e você está fora. Rígido mas real."
       },
       "pro_pool": {
         "name": "Pro Pool",
@@ -52,15 +52,15 @@
     "trust2": "Pago em 48h via Wise ou SEPA",
     "trust3": "300+ finalistas pagos até hoje",
     "howItWorksTitle": "Como funciona o desafio cash",
-    "howItWorksSub": "Por cohort — todos os participantes correm o relógio de 30 dias juntos. Falhe um dia sem tokens freeze, está fora. Termine, recebe.",
+    "howItWorksSub": "Por cohort: todos os participantes correm o relógio de 30 dias juntos. Falhe um dia sem tokens freeze, está fora. Termine, recebe.",
     "step1Title": "Baixe & entre no seu nível",
-    "step1Body": "Escolha seu nível dentro do app. As vagas são limitadas e por ordem de chegada — e seus 30 dias começam no dia em que você entra.",
+    "step1Body": "Escolha seu nível dentro do app. As vagas são limitadas e por ordem de chegada, e seus 30 dias começam no dia em que você entra.",
     "step2Title": "Repetições diárias no app",
     "step2Body": "30/50/100 reps por dia conforme o nível. Agachamentos contados automaticamente pela câmera. Flexões e barras com contador tap. Divisíveis em várias sessões.",
     "step3Title": "Não quebre a corrente",
-    "step3Body": "Todo dia, sem falhas. Membros Premium recebem tokens freeze para dias perdidos. O nível Free é rígido — uma falha e você é eliminado.",
+    "step3Body": "Todo dia, sem falhas. Membros Premium recebem tokens freeze para dias perdidos. O nível Free é rígido: uma falha e você é eliminado.",
     "step4Title": "Receba",
-    "step4Body": "Termine os 30 dias ativos e o dinheiro cai na sua conta vinculada em 48 horas após o fim do ciclo. €5, €15 ou €50 — sua escolha.",
+    "step4Body": "Termine os 30 dias ativos e o dinheiro cai na sua conta vinculada em 48 horas após o fim do ciclo. €5, €15 ou €50, sua escolha.",
     "repeatCtaTitle": "Entre no próximo ciclo antes que ele encha",
     "statsTitle": "Pagamentos reais, consistência real",
     "statsSub": "Números ao vivo do registro de desafios cash da Libo",
@@ -78,19 +78,19 @@
       "q2": "O que conta como dia completo?",
       "a2": "Atingir o número de reps diário do seu nível para aquele dia, registrado no app Libo. As reps podem ser divididas em várias sessões. Agachamentos contados auto pela câmera; flexões e barras com contador tap.",
       "q3": "O que acontece se eu falhar um dia?",
-      "a3": "Nível Free: uma falha e você está fora desse ciclo. Premium: tokens freeze cobrem dias perdidos — cada token desloca a data final +1.",
+      "a3": "Nível Free: uma falha e você está fora desse ciclo. Premium: tokens freeze cobrem dias perdidos, e cada token desloca a data final +1.",
       "q4": "Quando recebo?",
-      "a4": "Em até 48 horas após completar seu 30º dia ativo. O pagamento vai para a conta vinculada no cadastro — Stripe / SEPA / PayPal conforme a região.",
+      "a4": "Em até 48 horas após completar seu 30º dia ativo. O pagamento vai para a conta vinculada no cadastro (Stripe / SEPA / PayPal conforme a região).",
       "q5": "Posso entrar em vários níveis ao mesmo tempo?",
-      "a5": "Não — uma inscrição ativa por vez. Você pode se inscrever no nível do próximo ciclo assim que o atual terminar.",
+      "a5": "Não. Uma inscrição ativa por vez. Você pode se inscrever no nível do próximo ciclo assim que o atual terminar.",
       "q6": "Por que vagas limitadas?",
-      "a6": "A recompensa é um custo real para a Libo. Limitar vagas torna o pagamento orçável e cria um verdadeiro sentimento de cohort — todos correm o relógio juntos.",
+      "a6": "A recompensa é um custo real para a Libo. Limitar vagas torna o pagamento orçável e cria um verdadeiro sentimento de cohort: todos correm o relógio juntos.",
       "q7": "Preciso de assinatura Libo?",
-      "a7": "O desafio Starter de €5 é grátis — sem assinatura. O desafio de €15 precisa do Premium ou Elite pago, o de €50 do Elite pago — no dia em que você entra e em todo dia em que registra sua sessão. Testes grátis e semanas grátis de código promocional não contam.",
+      "a7": "O desafio Starter de €5 é grátis, sem assinatura. O desafio de €15 precisa do Premium ou Elite pago, o de €50 do Elite pago, no dia em que você entra e em todo dia em que registra sua sessão. Testes grátis e semanas grátis de código promocional não contam.",
       "q8": "E se eu for iniciante?",
-      "a8": "Comece com Starter (100 reps/dia) — são uns 5 minutos de trabalho, divisíveis ao longo do dia. O número de reps é alcançável; a disciplina é o desafio real."
+      "a8": "Comece com Starter (100 reps/dia). São uns 5 minutos de trabalho, divisíveis ao longo do dia. O número de reps é alcançável; a disciplina é o desafio real."
     },
-    "finalCtaTitle": "Comece seus 30 dias — vagas limitadas, por ordem de chegada",
+    "finalCtaTitle": "Comece seus 30 dias: vagas limitadas, por ordem de chegada",
     "finalCta": "Baixar o app",
     "storeOverlay": {
       "title": "Baixe o app Libo",
@@ -100,6 +100,6 @@
       "googlePlaySmall": "Disponível na",
       "closeLabel": "Fechar"
     },
-    "disclaimer": "A entrada no desafio cash é aberta a todos os níveis (Free, Premium, Elite) para usuários de 16 anos ou mais, e é gratuita — não há taxa de entrada nem aposta. A recompensa em dinheiro que você ganha ao concluir varia por nível e por pool (Free €5 / Premium €15, mais um pool Elite maior de €50), assim como a meta diária (30 / 50 / 100 reps); a Libo financia o pagamento. Pagamentos em dinheiro via Stripe / Wise / SEPA exigem que os ganhadores tenham 18 anos ou mais; ganhadores de 16 a 17 anos podem usar uma conta de pagamento verificada vinculada a um responsável, caso contrário o prêmio é convertido em crédito no app (tickets extras ou um mês de Premium). Nulo onde proibido pela lei local — veja os Termos (Seção 16) para a lista de bloqueio geográfico no lançamento. Todos os pagamentos estão sujeitos a verificação de identidade."
+    "disclaimer": "A entrada no desafio cash é aberta a todos os níveis (Free, Premium, Elite) para usuários de 16 anos ou mais, e é gratuita: não há taxa de entrada nem aposta. A recompensa em dinheiro que você ganha ao concluir varia por nível e por pool (Free €5 / Premium €15, mais um pool Elite maior de €50), assim como a meta diária (30 / 50 / 100 reps); a Libo financia o pagamento. Pagamentos em dinheiro via Stripe / Wise / SEPA exigem que os ganhadores tenham 18 anos ou mais; ganhadores de 16 a 17 anos podem usar uma conta de pagamento verificada vinculada a um responsável, caso contrário o prêmio é convertido em crédito no app (tickets extras ou um mês de Premium). Nulo onde proibido pela lei local. Veja os Termos (Seção 16) para a lista de bloqueio geográfico no lançamento. Todos os pagamentos estão sujeitos a verificação de identidade."
   }
 }

@@ -84,7 +84,7 @@ function instructionsFromSetupNotes(setupNotes) {
 function exerciseDescription(ex) {
   const notes = (ex.setupNotes || '').trim();
   if (notes) return notes.length > 240 ? notes.slice(0, 237) + '…' : notes;
-  return `${ex.name} — ${ex.bodyFocus} exercise using ${ex.equipment}. ${ex.diff} difficulty.`;
+  return `${ex.name}: ${ex.bodyFocus} exercise using ${ex.equipment}. ${ex.diff} difficulty.`;
 }
 
 function buildExerciseGraph(ex, primaryMuscle) {
@@ -266,7 +266,7 @@ function prerenderFacets(template) {
       : `${entry.workoutIds.length} curated ${entry.label.toLowerCase()} workouts to follow along in the Libo app.`;
 
     const injection = buildHeadInjection({
-      title: `Best ${entry.label} Workouts — ${Math.min(entry.workoutIds.length, 5)} Free Routines | Libo`,
+      title: `Best ${entry.label} Workouts: ${Math.min(entry.workoutIds.length, 5)} Free Routines | Libo`,
       description,
       canonical: `${SITE_URL}/best-workouts/${slug}`,
       ogImage: DEFAULT_OG_IMAGE,
@@ -323,10 +323,10 @@ function main() {
       ex.setupNotes && ex.setupNotes.length > 158
         ? ex.setupNotes.replace(/\s+/g, ' ').slice(0, 155) + '…'
         : (ex.setupNotes || '').replace(/\s+/g, ' ').trim() ||
-          `Learn how to perform ${ex.name} — a ${ex.diff} ${ex.bodyFocus.toLowerCase()} exercise using ${ex.equipment.toLowerCase()}.`;
+          `Learn how to perform ${ex.name}, a ${ex.diff} ${ex.bodyFocus.toLowerCase()} exercise using ${ex.equipment.toLowerCase()}.`;
 
     const injection = buildHeadInjection({
-      title: `${ex.name} — How to Perform | Libo`,
+      title: `${ex.name}: How to Perform | Libo`,
       description,
       canonical: `${SITE_URL}/exercises/${ex.id}`,
       ogImage,
@@ -361,7 +361,7 @@ function main() {
     const sharedInjection = buildHeadInjection({
       title: 'Shared workout · Libo',
       description:
-        'A workout shared on Libo — exercises, sets & reps. Open to view it, or get the app to train it. Made with Libo.',
+        'A workout shared on Libo: exercises, sets & reps. Open to view it, or get the app to train it. Made with Libo.',
       canonical: `${SITE_URL}/w/`,
       ogImage: DEFAULT_OG_IMAGE,
       ogType: 'article',

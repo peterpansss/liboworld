@@ -122,7 +122,7 @@ export default function Landing() {
       num: '02',
       name: t('relaunchHome.different.card2Name', { defaultValue: 'Streak protected' }),
       desc: t('relaunchHome.different.card2Desc', {
-        defaultValue: 'A miss subtracts a day — never back to zero.',
+        defaultValue: 'A miss subtracts a day, never back to zero.',
       }),
     },
     {
@@ -144,7 +144,7 @@ export default function Landing() {
       num: '01',
       name: t('relaunchHome.library.c1Name', { defaultValue: 'Exercise library' }),
       desc: t('relaunchHome.library.c1Desc', {
-        defaultValue: '820+ exercises — 432 gym, 396 home. Every one with equipment notes and form cues.',
+        defaultValue: '820+ exercises: 432 gym, 396 home. Every one with equipment notes and form cues.',
       }),
       descMobile: t('relaunchHome.library.c1DescMobile', {
         defaultValue: '820+ exercises with equipment notes and form cues.',
@@ -155,7 +155,7 @@ export default function Landing() {
       num: '02',
       name: t('relaunchHome.library.c2Name', { defaultValue: 'Workout library' }),
       desc: t('relaunchHome.library.c2Desc', {
-        defaultValue: '140 pre-built sessions — gym, home, cardio, stretching, morning routines. 5 to 60 minutes.',
+        defaultValue: '140 pre-built sessions: gym, home, cardio, stretching, morning routines. 5 to 60 minutes.',
       }),
       descMobile: t('relaunchHome.library.c2DescMobile', {
         defaultValue: '140 pre-built sessions, 5 to 60 minutes.',
@@ -169,7 +169,7 @@ export default function Landing() {
         defaultValue: 'Tell Libo your time and equipment. It builds a real session around your goal and level.',
       }),
       descMobile: t('relaunchHome.library.c3DescMobile', {
-        defaultValue: 'Tell Libo your time and equipment — it builds the session.',
+        defaultValue: 'Tell Libo your time and equipment. It builds the session.',
       }),
       screen: '/app-screens/generator.webp?v=1',
     },
@@ -188,7 +188,7 @@ export default function Landing() {
       num: '05',
       name: t('relaunchHome.library.c5Name', { defaultValue: 'Custom builder' }),
       desc: t('relaunchHome.library.c5Desc', {
-        defaultValue: 'Build your own workout from the full library. Set sequence, sets, rest — save and reuse.',
+        defaultValue: 'Build your own workout from the full library. Set sequence, sets, rest, then save and reuse.',
       }),
       descMobile: t('relaunchHome.library.c5DescMobile', {
         defaultValue: 'Build your own workout from the full library.',
@@ -213,14 +213,14 @@ export default function Landing() {
     {
       name: t('relaunchHome.habit.s1Name', { defaultValue: 'Show up' }),
       desc: t('relaunchHome.habit.s1Desc', {
-        defaultValue: "One session, handed to you. No planning, no decisions — just today's work.",
+        defaultValue: "One session, handed to you. No planning, no decisions, just today's work.",
       }),
       screen: '/app-screens/home.webp?v=1',
     },
     {
       name: t('relaunchHome.habit.s2Name', { defaultValue: 'Hold the streak' }),
       desc: t('relaunchHome.habit.s2Desc', {
-        defaultValue: 'Day by day the streak grows — protected by freeze tokens, and never reset to zero.',
+        defaultValue: 'Day by day the streak grows, protected by freeze tokens, and never reset to zero.',
       }),
       screen: '/app-screens/streak.webp?v=1',
     },
@@ -308,7 +308,7 @@ export default function Landing() {
       handle: '@redtao_',
       quote: t('relaunchHome.reviews.q1', {
         defaultValue:
-          "not a gym person at all. came for the yoga + bodyweight flows, stayed for the streaks. finally an app that doesn't shove barbells at me — my mobility's the best it's ever been.",
+          "not a gym person at all. came for the yoga + bodyweight flows, stayed for the streaks. finally an app that doesn't shove barbells at me. my mobility's the best it's ever been.",
       }),
     },
     {
@@ -357,7 +357,7 @@ export default function Landing() {
     <>
       <SeoHead
         title={t('relaunchHome.seo.titleV2', {
-          defaultValue: 'Libo — Finish 30 days straight. We pay you up to €50.',
+          defaultValue: 'Libo: Finish 30 days straight. We pay you up to €50.',
         })}
         description={seoDescription}
         canonical="https://liboworld.com/"
@@ -420,7 +420,7 @@ export default function Landing() {
             <p className="rh-hero-sub">
               {t('relaunchHome.hero.body', {
                 defaultValue:
-                  'Pick a challenge. Hit your daily reps for 30 days, filmed and verified in the app. Finish and we pay you €5, €15 or €50 in real cash — funded by Libo, no draw, no luck. Miss a day and a freeze token covers you. Entry is free.',
+                  'Pick a challenge. Hit your daily reps for 30 days, filmed and verified in the app. Finish and we pay you €5, €15 or €50 in real cash, funded by Libo. No draw, no luck. Miss a day and a freeze token covers you. Entry is free.',
               })}
             </p>
           </div>
@@ -619,7 +619,7 @@ export default function Landing() {
             <p className="rh-body">
               {t('relaunchHome.different.body', {
                 defaultValue:
-                  'One loop: open the app, do the session, keep the streak. The cash challenge is opt-in — money is the receipt, not the reason.',
+                  'One loop: open the app, do the session, keep the streak. The cash challenge is opt-in: money is the receipt, not the reason.',
               })}
             </p>
             <Link to="/cash-challenges" viewTransition className="rh-accent-link rh-different-link">
@@ -870,7 +870,7 @@ export default function Landing() {
               <p className="rh-body">
                 {t('relaunchHome.creators.body', {
                   defaultValue:
-                    'Refer people to Libo and we pay you a 25% commission on their subscription — for as long as they stay members and you stay one too. Open to anyone who actually trains — creators, coaches, gyms and PTs, whatever the follower count.',
+                    'Refer people to Libo and we pay you a 25% commission on their subscription, for as long as they stay members and you stay one too. Open to anyone who actually trains: creators, coaches, gyms and PTs, whatever the follower count.',
                 })}
               </p>
               <Link to="/creator-program" viewTransition className="rh-btn rh-btn--primary">
@@ -928,7 +928,7 @@ export default function Landing() {
             <p className="rh-final-body">
               {t('relaunchHome.final.body', {
                 defaultValue:
-                  'Download Libo free on iPhone or Android, pick a challenge and start today. Finish 30 days straight and we pay you — €5, €15 or €50 in real cash, funded by Libo.',
+                  'Download Libo free on iPhone or Android, pick a challenge and start today. Finish 30 days straight and we pay you €5, €15 or €50 in real cash, funded by Libo.',
               })}
             </p>
             <StoreBadges />

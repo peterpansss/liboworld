@@ -34,7 +34,7 @@ export default function FreeTrialCta({ variant = 'dark' }: { variant?: 'dark' | 
           {t('freeTrialCta.headline', { defaultValue: 'Start free.\nNo card required.' })}
         </h2>
         <p className="trial-cta-body">
-          {t('freeTrialCta.body', { defaultValue: 'The free tier is genuinely free — not a trial. No countdown, no auto-bill. Train, track and enter real cash challenges, then upgrade only if you want the full library.' })}
+          {t('freeTrialCta.body', { defaultValue: 'The free tier is genuinely free, not a trial. No countdown, no auto-bill. Train, track and enter real cash challenges, then upgrade only if you want the full library.' })}
         </p>
         <div className="trial-cta-actions">
           <Link to="/membership" className="trial-cta-primary">

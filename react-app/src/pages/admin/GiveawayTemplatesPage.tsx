@@ -319,7 +319,7 @@ export function GiveawayTemplatesPage() {
       {
         key: 'day_of_week',
         header: 'Day',
-        render: (r) => <span style={{ color: colors.text }}>{DAY_LABELS[r.day_of_week] ?? '—'}</span>,
+        render: (r) => <span style={{ color: colors.text }}>{DAY_LABELS[r.day_of_week] ?? '-'}</span>,
         sort: (a, b) => a.day_of_week - b.day_of_week,
       },
       {
@@ -616,7 +616,7 @@ export function GiveawayTemplatesPage() {
                 onChange={(e) => setForm({ ...form, day_of_week: e.target.value })}
               >
                 {DAY_LONG.map((label, idx) => (
-                  <option key={idx} value={String(idx)}>{idx} — {label}</option>
+                  <option key={idx} value={String(idx)}>{idx}: {label}</option>
                 ))}
               </Select>
             </Field>
