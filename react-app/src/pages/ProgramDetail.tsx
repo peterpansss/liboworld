@@ -10,6 +10,7 @@ import { ThumbPicture } from '../components/ThumbPicture';
 import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import './ProgramDetail.css';
+import { exerciseNameKey } from '../utils/exerciseNameFormat';
 
 function diffClass(diff: string): string {
   const d = (diff || 'beginner').toLowerCase();
@@ -47,8 +48,10 @@ function blockDisplayName(name: string, exerciseDb: Exercise[], lang: string): s
 }
 
 function findExercise(name: string, exerciseDb: Exercise[]): Exercise | undefined {
-  const normalized = name.toLowerCase().trim();
-  return exerciseDb.find((e) => e.name.toLowerCase().trim() === normalized);
+  // Spelling-insensitive: a live block may say "A: B" while the bundled
+  // library still says "A — B" (or the reverse). See utils/exerciseNameFormat.
+  const normalized = exerciseNameKey(name);
+  return exerciseDb.find((e) => exerciseNameKey(e.name) === normalized);
 }
 
 function findExerciseId(name: string, exerciseDb: Exercise[]): string | null {

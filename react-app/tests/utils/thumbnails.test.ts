@@ -222,9 +222,10 @@ describe('exerciseThumbSet', () => {
 });
 
 describe('buildNameToSlug', () => {
-  it('maps every name to its id', () => {
-    const map = buildNameToSlug([ex({ id: 'a', name: 'Bench Press' }), ex({ id: 'b', name: 'Squat' })]);
-    expect(map).toEqual({ 'Bench Press': 'a', Squat: 'b' });
+  it('maps every name (by its spelling-insensitive key) to its id', () => {
+    const map = buildNameToSlug([ex({ id: 'a', name: 'Bench Press' }), ex({ id: 'b', name: 'Squat: Paused' })]);
+    // Keys are exerciseNameKey(name): lowercased, and "A — B" / "A: B" share one.
+    expect(map).toEqual({ 'bench press': 'a', 'squat - paused': 'b' });
   });
 
   it('returns empty object for empty list', () => {

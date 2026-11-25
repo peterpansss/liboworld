@@ -1,5 +1,6 @@
 import type { Exercise, Workout, WorkoutExercise } from '../data/exercises';
 import { findChildVideoDonor } from './exerciseFamily';
+import { exerciseNameKey } from './exerciseNameFormat';
 
 // Free-weight equipment gates (Dumbbell / Barbell / Kettlebell) were a
 // stopgap when those exercises had no real demos. We now ship them, so
@@ -205,13 +206,18 @@ export function buildNameToSlug(exercises: Exercise[]): Record<string, string> {
   // alongside the real one), prefer the row that actually has a videoUrl —
   // otherwise workout cards whose hero resolves via this map can land on the
   // empty-canonical id and end up with no thumbnail.
+  //
+  // Keyed by `exerciseNameKey`, not the raw name: workout blocks and the
+  // library can disagree on spelling ("A — B" vs "A: B") while the bundled
+  // exercises.json lags the database. Look keys up with `exerciseNameKey` too.
   const map: Record<string, string> = {};
   const haveVideo: Record<string, boolean> = {};
   for (const ex of exercises) {
     const hasVideo = !!ex.videoUrl;
-    if (!(ex.name in map) || (hasVideo && !haveVideo[ex.name])) {
-      map[ex.name] = ex.id;
-      haveVideo[ex.name] = hasVideo;
+    const key = exerciseNameKey(ex.name);
+    if (!(key in map) || (hasVideo && !haveVideo[key])) {
+      map[key] = ex.id;
+      haveVideo[key] = hasVideo;
     }
   }
   return map;
@@ -224,7 +230,7 @@ function resolveThumbExercise(
   nameToSlug: Record<string, string>,
   exercises?: Exercise[]
 ): Exercise | undefined {
-  const slug = nameToSlug[entry.name];
+  const slug = nameToSlug[exerciseNameKey(entry.name)];
   if (!slug) return undefined;
   const ex = exercises?.find(e => e.id === slug);
   if (!ex) return undefined;

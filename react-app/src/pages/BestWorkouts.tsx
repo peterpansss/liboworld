@@ -8,6 +8,7 @@ import SiteNav from '../components/SiteNav';
 import SiteFooter from '../components/SiteFooter';
 import FreeTrialCta from '../components/FreeTrialCta';
 import './BestWorkouts.css';
+import { exerciseNameKey } from '../utils/exerciseNameFormat';
 
 interface FacetEntry {
   label: string;
@@ -238,7 +239,7 @@ export default function BestWorkouts() {
 
                   <ol className="bw-ex-list">
                     {visible.map((ex, i) => {
-                      const exMeta = exerciseDb.find((d) => d.name.toLowerCase().trim() === ex.name.toLowerCase().trim());
+                      const exMeta = exerciseDb.find((d) => exerciseNameKey(d.name) === exerciseNameKey(ex.name));
                       const exSlug = exMeta?.slug ?? exMeta?.id;
                       return (
                         <li key={i}>

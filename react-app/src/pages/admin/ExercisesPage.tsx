@@ -26,6 +26,11 @@ import { errMessage } from '../../lib/errors';
 import { VideoUpload, MediaJobStatus } from '../../components/admin/VideoUpload';
 import { StatusChip } from '../../components/admin/StatusChip';
 import { supabase } from '../../lib/supabase';
+import {
+  SIDE_SUFFIX_RE,
+  bilateralChildName as formatBilateralChildName,
+  exerciseNameKey,
+} from '../../utils/exerciseNameFormat';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -365,11 +370,12 @@ function uniqueSorted(vals: (string | undefined)[]): string[] {
   return Array.from(set).sort();
 }
 
-// ── Bilateral helpers (mirrors libo-app-v2/src/utils/bilateral.ts regex) ───
+// ── Bilateral helpers ───────────────────────────────────────────────────────
 //
-// Kept in sync with `SIDE_SUFFIX_RE` in libo-app-v2/src/utils/bilateral.ts.
-// Don't edit one without editing the other.
-const SIDE_SUFFIX_RE = /\s*[\u2014\u2013-]\s*(Left|Right)(\s+(Leg|Arm|Side|Hip|Shoulder))?\s*$/i;
+// The side regex, name key and child-name rule live in utils/exerciseNameFormat
+// (mirror of libo-app-v2/src/utils/exerciseNameFormat.ts). Since 25 Nov 2026
+// a child is "Base: Left Leg" / "Base: Variant, Left Leg"; the old dash
+// spelling is still recognised everywhere.
 
 type BilateralSideLabel = 'Arm' | 'Leg' | 'Side' | 'Hip' | 'Shoulder' | '';
 
@@ -396,22 +402,16 @@ function sideOfClient(name: string): 'L' | 'R' | null {
   return m[1].toLowerCase() === 'left' ? 'L' : 'R';
 }
 
-// Separator between a bilateral parent name and its side ("Squat \u2014 Left").
-// This is the stored DATA format that the mobile SIDE_SUFFIX_RE parses, not UI
-// copy, so it stays an em dash (written as an escape) until the exercise names
-// are migrated at the source.
-const BILATERAL_SEP = '\u2014';
-
 function bilateralChildName(parent: string, side: 'Left' | 'Right', label: BilateralSideLabel): string {
-  const trimmed = parent.trim();
-  if (!trimmed) return '';
-  const tail = label ? ` ${label}` : '';
-  return `${trimmed} ${BILATERAL_SEP} ${side}${tail}`;
+  // New spelling: "Base: Left Leg", or "Base: Variant, Left Leg" when the
+  // parent already carries a qualifier. Never writes an em dash.
+  return formatBilateralChildName(parent, side, label);
 }
 
 /**
- * Build a `Set<parentName>` of names that have at least one Left and one Right
- * child in `rows` (matching the runtime regex). Used to flag rows in the table.
+ * Build a `Set` of parent-name KEYS (`exerciseNameKey`) that have at least one
+ * Left and one Right child in `rows` (matching the runtime regex). Keyed so an
+ * old-spelling child and a renamed parent still pair. Query with the key.
  */
 function computeBilateralParents(rows: { name?: string }[]): Set<string> {
   const groups = new Map<string, { L: number; R: number }>();
@@ -419,7 +419,7 @@ function computeBilateralParents(rows: { name?: string }[]): Set<string> {
     const name = r.name ?? '';
     const side = sideOfClient(name);
     if (!side) continue;
-    const parent = parentNameOfClient(name);
+    const parent = exerciseNameKey(parentNameOfClient(name));
     const g = groups.get(parent) ?? { L: 0, R: 0 };
     if (side === 'L') g.L += 1;
     else g.R += 1;
@@ -796,7 +796,7 @@ export function ExercisesPage() {
     for (const ex of merged) {
       const side = sideOfClient(ex.name ?? '');
       if (!side) continue;
-      const parent = parentNameOfClient(ex.name ?? '');
+      const parent = exerciseNameKey(parentNameOfClient(ex.name ?? ''));
       if (!bilateralParentNames.has(parent)) continue;
       const cur = map.get(parent) ?? {};
       if (side === 'L' && !cur.L) cur.L = ex;
@@ -1216,7 +1216,7 @@ export function ExercisesPage() {
       if (isChildNameClient(editingName) && !canonical.parent_id) {
         const parentName = parentNameOfClient(editingName);
         const parentRow = canonicalRows.find(
-          (r) => r.name === parentName && !r.parent_id,
+          (r) => exerciseNameKey(r.name) === exerciseNameKey(parentName) && !r.parent_id,
         );
         if (parentRow) {
           patch = {
@@ -1874,9 +1874,9 @@ export function ExercisesPage() {
       sort: (a, b) => str(a.name).localeCompare(str(b.name)),
       render: (r) => {
         const name = r.name ?? '';
-        const isParent = bilateralParentNames.has(name);
+        const isParent = bilateralParentNames.has(exerciseNameKey(name));
         const childParentName = isChildNameClient(name) ? parentNameOfClient(name) : null;
-        const isChild = childParentName !== null && bilateralParentNames.has(childParentName);
+        const isChild = childParentName !== null && bilateralParentNames.has(exerciseNameKey(childParentName));
         return (
           <div>
             <div style={{ fontWeight: 600, color: colors.text }}>
@@ -2522,13 +2522,13 @@ export function ExercisesPage() {
           (() => {
             // Determine bilateral relationship info for the info row.
             const editingName = str(editing.name);
-            const isParent = bilateralParentNames.has(editingName);
+            const isParent = bilateralParentNames.has(exerciseNameKey(editingName));
             const childParent = isChildNameClient(editingName)
               ? parentNameOfClient(editingName)
               : null;
             const isChild =
-              childParent !== null && bilateralParentNames.has(childParent);
-            const pair = isParent ? bilateralChildrenByParent.get(editingName) : null;
+              childParent !== null && bilateralParentNames.has(exerciseNameKey(childParent));
+            const pair = isParent ? bilateralChildrenByParent.get(exerciseNameKey(editingName)) : null;
             let bilateralInfo: BilateralInfo | null = null;
             if (isParent && pair) {
               bilateralInfo = {
@@ -2642,8 +2642,8 @@ function BilateralPreview({ form }: { form: CreateFormState }) {
   const parentName = form.name.trim() || '<parent name>';
   const baseSlug = (form.slug || slugifyExercise(form.name)).trim() || '<slug>';
   const label = form.bilateral_side_label;
-  const leftName = form.name.trim() ? bilateralChildName(parentName, 'Left', label) : `<parent name> ${BILATERAL_SEP} Left${label ? ` ${label}` : ''}`;
-  const rightName = form.name.trim() ? bilateralChildName(parentName, 'Right', label) : `<parent name> ${BILATERAL_SEP} Right${label ? ` ${label}` : ''}`;
+  const leftName = form.name.trim() ? bilateralChildName(parentName, 'Left', label) : `<parent name>: Left${label ? ` ${label}` : ''}`;
+  const rightName = form.name.trim() ? bilateralChildName(parentName, 'Right', label) : `<parent name>: Right${label ? ` ${label}` : ''}`;
   const rowStyle: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: '24px 1fr auto',
@@ -3233,8 +3233,8 @@ function EditForm({
               English name. The English name above stays the join key for
               workout blocks, search and bilateral parents, so renaming it is a
               different (riskier) act than translating it. Convention:
-              BASE — EQUIPMENT — SETUP — GRIP — EXECUTION — SIDE, separated by
-              " — " (see Brand-Management/Exercises/Translations/STYLE-GUIDE-*.md). */}
+              "Base: Equipment, Setup, Grip, Execution, Side" (French "Base :
+              …"); no em dashes since 25 Nov 2026 (utils/exerciseNameFormat). */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             {NAME_LANG_FIELDS.map(({ lang, key }) => (
               <Field

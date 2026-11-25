@@ -14,6 +14,7 @@ import type {
   SharedMuscleSummaryEntry,
 } from '../types/sharedWorkout';
 import './SharedRoutine.css';
+import { exerciseNameKey } from '../utils/exerciseNameFormat';
 
 function capitalize(s: string): string {
   return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
@@ -102,7 +103,7 @@ export default function SharedRoutine() {
     // typed or edited is theirs and is never translated away. Same rule as
     // `localizedLoggedWorkoutName` in libo-app-v2/src/utils/workoutLocale.ts.
     const displayName =
-      row && row.name === item.name
+      row && exerciseNameKey(row.name) === exerciseNameKey(item.name)
         ? localizedExerciseName(row, i18n.language) || item.name
         : item.name;
     return (
