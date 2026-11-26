@@ -133,6 +133,8 @@ export const TIERS: Tier[] = [
       'Workout generator',
       'Advanced analytics',
       `2× Libo, points last ${POINTS_EXPIRY_DAYS.premium} days`,
+      // Weekly boost, live in the app since 26 Nov 2026.
+      '+15% weekly boost: train your days, next week earns more',
       'AI coach: 3 messages a day + voice notes',
       'Community events',
       // GRANT, not ceiling. Canon §5.2: Premium is granted 1 and can earn a
@@ -166,6 +168,7 @@ export const TIERS: Tier[] = [
       'VIP events',
       'Early access to new features',
       `3× Libo, points last ${POINTS_EXPIRY_DAYS.elite} days`,
+      '+20% weekly boost: train your days, next week earns more',
       'Every giveaway: 9 entries, +9 every month you train',
       ELITE_ITEM_LINE,
     ],
@@ -242,6 +245,7 @@ export const COMPARISON_GROUPS: Array<{ title: string; rows: ComparisonRow[] }> 
     title: 'Rewards & challenges',
     rows: [
       { label: 'Rewards Libo', free: '1×', premium: '2×', elite: '3×' },
+      { label: 'Weekly boost (train your days)', free: false, premium: '+15%', elite: '+20%' },
       {
         label: 'Points last',
         free: `${POINTS_EXPIRY_DAYS.free} days`,
