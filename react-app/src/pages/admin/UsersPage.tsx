@@ -1321,7 +1321,8 @@ function UserDetailModal({
                           {w.workout_name}
                         </td>
                         <td style={{ padding: '6px 4px', textAlign: 'right', color: colors.muted }}>
-                          {Math.round(w.duration / 60)}m
+                          {/* workout_logs.duration is already MINUTES (the app rounds before syncing) */}
+                          {w.duration}m
                         </td>
                         <td style={{ padding: '6px 4px', textAlign: 'right', color: colors.muted }}>
                           {w.exercise_count}
