@@ -47,7 +47,6 @@ const TILE_DEFS: { key: keyof DashboardKpis; label: string }[] = [
   { key: 'workouts_today', label: 'Workouts today' },
   { key: 'workouts_7d', label: 'Workouts (7d)' },
   { key: 'active_giveaways', label: 'Active giveaways' },
-  { key: 'tickets_issued_7d', label: 'Tickets issued (7d)' },
   { key: 'points_awarded_7d', label: 'Points awarded (7d)' },
   { key: 'pro_subscribers', label: 'Pro subscribers' },
   { key: 'workouts_30d', label: 'Workouts (30d)' },
