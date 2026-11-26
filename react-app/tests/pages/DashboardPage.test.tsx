@@ -50,7 +50,7 @@ describe('DashboardPage', () => {
     });
   });
 
-  it('renders all 8 KPI tiles with formatted numbers on success', async () => {
+  it('renders all 7 KPI tiles with formatted numbers on success', async () => {
     fetchKpisMock.mockResolvedValue(fakeKpis);
     render(<DashboardPage />);
     await waitFor(() => {
@@ -61,7 +61,8 @@ describe('DashboardPage', () => {
     expect(screen.getByText('56')).toBeInTheDocument();
     expect(screen.getByText('789')).toBeInTheDocument();
     expect(screen.getByText('Active giveaways')).toBeInTheDocument();
-    expect(screen.getByText('4,321')).toBeInTheDocument();
+    // tickets_issued_7d is still in the payload but no longer shown (tile removed 26 Nov)
+    expect(screen.queryByText('4,321')).not.toBeInTheDocument();
     expect(screen.getByText('9,876')).toBeInTheDocument();
     expect(screen.getByText('Pro subscribers')).toBeInTheDocument();
     expect(screen.getByText('42')).toBeInTheDocument();

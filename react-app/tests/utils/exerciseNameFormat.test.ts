@@ -88,7 +88,7 @@ describe('format', () => {
     expect(exerciseNameKey('Lunge — Barbell — Left Leg')).toBe(exerciseNameKey('lunge: barbell, left leg'));
   });
 
-  it('the bundled library renames losslessly and without key collisions', () => {
+  it('the bundled library is in the new spelling and maps back losslessly', () => {
     const path = join(__dirname, '../../public/exercises.json');
     let rows: { name: string }[] = [];
     try {
@@ -98,11 +98,14 @@ describe('format', () => {
     }
     const keys = new Set<string>();
     for (const r of rows) {
-      const n = modernExerciseName(r.name);
+      // Production was renamed 26 Nov (phase B); the bundle mirrors it.
+      const n = r.name;
       expect(n.includes('—')).toBe(false);
-      expect(legacyExerciseName(n)).toBe(r.name);
-      expect(exerciseNameKey(n)).toBe(exerciseNameKey(r.name));
-      expect(sideOf(n)).toBe(sideOf(r.name));
+      expect(modernExerciseName(n)).toBe(n);
+      const old = legacyExerciseName(n);
+      expect(modernExerciseName(old)).toBe(n);
+      expect(exerciseNameKey(old)).toBe(exerciseNameKey(n));
+      expect(sideOf(old)).toBe(sideOf(n));
       keys.add(exerciseNameKey(n));
     }
     // ids can repeat a name (aliases) but keys must not merge two names
